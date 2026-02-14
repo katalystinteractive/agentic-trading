@@ -102,7 +102,7 @@ def build_report(portfolio, prices):
     all_orders = portfolio.get("pending_orders", {})
     has_orders = any(len(v) > 0 for v in all_orders.values())
     if has_orders:
-        lines.append("| Ticker | Type | Price | Current | Near Wick | Wick Dist | Distance | Note |")
+        lines.append("| Ticker | Type | Price | Current | Near Wick | Wick Dist | Dist to Fill | Note |")
         lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         for ticker, orders in all_orders.items():
             p = prices.get(ticker, {})

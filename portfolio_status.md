@@ -1,4 +1,4 @@
-# Portfolio Status — 2026-02-15 01:25
+# Portfolio Status — 2026-02-15 01:28
 *Note: Market closed — prices may be from last trading day.*
 
 ## Active Positions
@@ -7,7 +7,7 @@
 | NU | 6 | $16.61 | $16.82 | $16.37 | $16.88 | $1.26 | +1.3% | $18.50 | +10.0% |
 
 ## Pending Orders
-| Ticker | Type | Price | Current | Near Wick | Wick Dist | Distance | Note |
+| Ticker | Type | Price | Current | Near Wick | Wick Dist | Dist to Fill | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | NU | SELL | $18.50 | $16.82 | $16.88 | +9.6% | +10.0% | Target ~11.4% |
 | NU | BUY | $15.90 | $16.82 | $16.37 | -2.9% | -5.5% | Bullet 2 |
