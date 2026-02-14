@@ -102,17 +102,20 @@ def build_report(portfolio, prices):
     all_orders = portfolio.get("pending_orders", {})
     has_orders = any(len(v) > 0 for v in all_orders.values())
     if has_orders:
-        lines.append("| Ticker | Type | Price | Current | Day Low | Day High | Distance | Note |")
+        lines.append("| Ticker | Type | Price | Current | Near Wick | Wick Dist | Distance | Note |")
         lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         for ticker, orders in all_orders.items():
             p = prices.get(ticker, {})
             current = p.get("price")
             for order in orders:
                 dist = fmt_distance(current, order["price"])
+                # Near Wick: Day Low for BUY (wick toward fill), Day High for SELL (wick toward target)
+                near_wick = p.get("day_low") if order["type"] == "BUY" else p.get("day_high")
+                wick_dist = fmt_distance(near_wick, order["price"])
                 lines.append(
                     f"| {ticker} | {order['type']} | {fmt_dollar(order['price'])} "
                     f"| {fmt_dollar(current)} "
-                    f"| {fmt_dollar(p.get('day_low'))} | {fmt_dollar(p.get('day_high'))} "
+                    f"| {fmt_dollar(near_wick)} | {wick_dist} "
                     f"| {dist} | {order.get('note', '')} |"
                 )
     else:
