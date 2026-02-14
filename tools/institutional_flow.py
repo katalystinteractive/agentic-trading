@@ -1,0 +1,210 @@
+import yfinance as yf
+import pandas as pd
+import sys
+from datetime import datetime, timedelta
+
+def fmt_value(val):
+    """Format large numbers with M/B suffixes."""
+    if pd.isna(val) or val is None:
+        return "N/A"
+    val = float(val)
+    if abs(val) >= 1e9:
+        return f"${val/1e9:.2f}B"
+    elif abs(val) >= 1e6:
+        return f"${val/1e6:.1f}M"
+    elif abs(val) >= 1e3:
+        return f"${val/1e3:.0f}K"
+    else:
+        return f"${val:,.0f}"
+
+def fmt_shares(val):
+    """Format share counts with M/K suffixes."""
+    if pd.isna(val) or val is None:
+        return "N/A"
+    val = float(val)
+    if abs(val) >= 1e6:
+        return f"{val/1e6:.2f}M"
+    elif abs(val) >= 1e3:
+        return f"{val/1e3:.0f}K"
+    else:
+        return f"{val:,.0f}"
+
+def fmt_pct(val):
+    """Format percentage values."""
+    if pd.isna(val) or val is None:
+        return "N/A"
+    return f"{float(val)*100:.2f}%" if abs(float(val)) < 1 else f"{float(val):.2f}%"
+
+def analyze_institutional_flow(ticker_symbol):
+    try:
+        ticker = yf.Ticker(ticker_symbol)
+        info = ticker.info
+        if not info or info.get('regularMarketPrice') is None:
+            print(f"Error: Could not fetch data for {ticker_symbol}")
+            return
+    except Exception as e:
+        print(f"Error: {e}")
+        return
+
+    company_name = info.get('shortName', ticker_symbol)
+    print(f"\n## Institutional & Insider Flow: {company_name} ({ticker_symbol})")
+
+    # --- Table 1: Top Institutional Holders ---
+    print(f"\n### Top Institutional Holders")
+    try:
+        inst = ticker.institutional_holders
+        if inst is not None and not inst.empty:
+            print("| # | Holder | Shares | Value | % Out | % Change | Date Reported |")
+            print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+            for i, row in inst.head(10).iterrows():
+                holder = row.get('Holder', 'N/A')
+                shares = fmt_shares(row.get('Shares'))
+                value = fmt_value(row.get('Value'))
+                pct_held = fmt_pct(row.get('pctHeld', row.get('% Out', None)))
+                pct_change = fmt_pct(row.get('pctChange', row.get('% Change', None)))
+                date_rep = row.get('Date Reported', 'N/A')
+                if isinstance(date_rep, pd.Timestamp):
+                    date_rep = date_rep.strftime('%Y-%m-%d')
+                print(f"| {i+1} | {holder} | {shares} | {value} | {pct_held} | {pct_change} | {date_rep} |")
+        else:
+            print("*No institutional holder data available.*")
+    except Exception as e:
+        print(f"*Error fetching institutional holders: {e}*")
+
+    # --- Table 2: Top Mutual Fund Holders ---
+    print(f"\n### Top Mutual Fund Holders")
+    try:
+        mf = ticker.mutualfund_holders
+        if mf is not None and not mf.empty:
+            print("| # | Fund | Shares | Value | % Out | % Change | Date Reported |")
+            print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+            for i, row in mf.head(10).iterrows():
+                fund = row.get('Holder', 'N/A')
+                shares = fmt_shares(row.get('Shares'))
+                value = fmt_value(row.get('Value'))
+                pct_held = fmt_pct(row.get('pctHeld', row.get('% Out', None)))
+                pct_change = fmt_pct(row.get('pctChange', row.get('% Change', None)))
+                date_rep = row.get('Date Reported', 'N/A')
+                if isinstance(date_rep, pd.Timestamp):
+                    date_rep = date_rep.strftime('%Y-%m-%d')
+                print(f"| {i+1} | {fund} | {shares} | {value} | {pct_held} | {pct_change} | {date_rep} |")
+        else:
+            print("*No mutual fund holder data available.*")
+    except Exception as e:
+        print(f"*Error fetching mutual fund holders: {e}*")
+
+    # --- Table 3: Recent Insider Transactions ---
+    print(f"\n### Recent Insider Transactions")
+    try:
+        insiders = ticker.insider_transactions
+        if insiders is not None and not insiders.empty:
+            print("| Date | Insider | Title | Type | Shares | Value | Signal |")
+            print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+
+            buy_dates = []
+            buy_insiders = set()
+            net_shares = 0
+            total_buys = 0
+            total_sells = 0
+
+            cutoff_90d = datetime.now() - timedelta(days=90)
+
+            for _, row in insiders.head(20).iterrows():
+                insider_name = str(row.get('Insider', row.get('Insider Trading', 'N/A')))
+                title = str(row.get('Position', ''))
+                text = str(row.get('Text', ''))
+                shares = row.get('Shares', 0)
+                value = row.get('Value', 0)
+                start_date = row.get('Start Date', None)
+
+                # Parse transaction type from Text field
+                text_lower = text.lower()
+                if 'purchase' in text_lower or 'buy' in text_lower:
+                    txn_type = "BUY"
+                    signal = "Bullish"
+                elif 'sale' in text_lower or 'sell' in text_lower:
+                    txn_type = "SELL"
+                    signal = "—"
+                elif 'option' in text_lower and 'exercise' in text_lower:
+                    txn_type = "OPT EX"
+                    signal = "—"
+                else:
+                    txn_type = "OTHER"
+                    signal = "—"
+
+                # Track for summary
+                if isinstance(start_date, pd.Timestamp):
+                    if start_date >= pd.Timestamp(cutoff_90d):
+                        if txn_type == "BUY":
+                            net_shares += (shares if shares else 0)
+                            total_buys += 1
+                            buy_dates.append(start_date)
+                            buy_insiders.add(insider_name)
+                        elif txn_type == "SELL":
+                            net_shares -= (shares if shares else 0)
+                            total_sells += 1
+
+                date_str = start_date.strftime('%Y-%m-%d') if isinstance(start_date, pd.Timestamp) else str(start_date)
+                shares_str = fmt_shares(shares)
+                value_str = fmt_value(value)
+
+                # Truncate long names
+                if len(insider_name) > 30:
+                    insider_name = insider_name[:28] + ".."
+                if len(title) > 20:
+                    title = title[:18] + ".."
+
+                print(f"| {date_str} | {insider_name} | {title} | {txn_type} | {shares_str} | {value_str} | {signal} |")
+
+            # --- Table 4: Flow Summary ---
+            print(f"\n### Flow Summary (Last 90 Days)")
+            print("| Metric | Value |")
+            print("| :--- | :--- |")
+
+            print(f"| Net Insider Activity | {total_buys} buys, {total_sells} sells |")
+            print(f"| Net Shares | {fmt_shares(net_shares)} |")
+
+            # Cluster buy detection: 2+ unique insiders buying within 14 days
+            cluster_signal = "No"
+            if len(buy_dates) >= 2:
+                buy_dates_sorted = sorted(buy_dates)
+                for i in range(len(buy_dates_sorted) - 1):
+                    diff = (buy_dates_sorted[i+1] - buy_dates_sorted[i]).days
+                    if diff <= 14 and len(buy_insiders) >= 2:
+                        cluster_signal = "YES — Bullish"
+                        break
+
+            print(f"| Cluster Buy Signal | {cluster_signal} |")
+
+            # Largest position changes from institutional holders
+            try:
+                if inst is not None and not inst.empty:
+                    pct_col = 'pctChange' if 'pctChange' in inst.columns else '% Change'
+                    if pct_col in inst.columns:
+                        inst_sorted = inst.dropna(subset=[pct_col])
+                        if not inst_sorted.empty:
+                            largest = inst_sorted.iloc[0]
+                            holder = largest.get('Holder', 'N/A')
+                            change = largest.get(pct_col, 0)
+                            change_str = fmt_pct(change)
+                            print(f"| Largest Inst. Change | {holder}: {change_str} |")
+            except Exception:
+                pass
+
+        else:
+            print("*No insider transaction data available.*")
+
+            # Still print summary even without insider data
+            print(f"\n### Flow Summary")
+            print("| Metric | Value |")
+            print("| :--- | :--- |")
+            print("| Net Insider Activity | No data available |")
+            print("| Cluster Buy Signal | N/A |")
+    except Exception as e:
+        print(f"*Error fetching insider transactions: {e}*")
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python3 institutional_flow.py <TICKER>")
+    else:
+        analyze_institutional_flow(sys.argv[1].upper())
