@@ -9,7 +9,3 @@
     *   Resistance: $21.50.
     *   Support: $19.15 (Panic Wick), $18.40 (Gap Fill).
 *   **Status:** **WATCHING / PENDING**.
-
-## Current State
-*   **Active Position:** None.
-*   **Next Action:** Wait for $19.15. Do not chase at $19.60+.

@@ -10,8 +10,3 @@
     *   Lower Box: $31 - $35.
     *   "The Floor": $31.85 (Surgical Entry).
 *   **Status:** **WATCHING / PATIENCE MODE**.
-
-## Current State
-*   **Active Position:** None.
-*   **Next Action:** Limit set at $31.85. 
-*   **Note:** Current price (~$34.76) is too high. The "Early Month" low window has passed. We wait for the March cycle or a lucky dip.

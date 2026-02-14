@@ -9,8 +9,3 @@
     *   Resistance: $18.50 (Target).
     *   Support: $16.00 (50-day SMA), $14.80 (Deep Value).
 *   **Status:** **ACTIVE POSITION**.
-
-## Current State
-*   **Average Cost:** $16.61
-*   **Shares:** 6
-*   **Next Action:** Sell Limit @ $18.50. Buy Limit (Bullet 2) @ $15.90.
