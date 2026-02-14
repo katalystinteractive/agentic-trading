@@ -17,7 +17,8 @@ def fetch_data(ticker, days=365):
     # yfinance limitation: 1h data only available for last 730 days
     interval = "1h" if days <= 730 else "1d"
     
-    print(f"Fetching {interval} data for {ticker} over last {days} days...")
+    # Fetch silently — markdown-only output convention
+
     
     try:
         df = yf.download(ticker, start=start_date, end=end_date, interval=interval, progress=False)
@@ -95,6 +96,9 @@ def get_volume_profile(df, price_bins=50):
 
 def fmt_vol(val):
     """Format volume with M/K suffixes."""
+    if val is None or (hasattr(val, '__class__') and val != val):
+        return "N/A"
+    val = float(val)
     if val >= 1e6:
         return f"{val/1e6:.1f}M"
     elif val >= 1e3:
@@ -129,7 +133,7 @@ def print_profile(profile_df, current_price, vwap_price):
 
     # --- Table 2: Volume Profile (top nodes only) ---
     # Filter to non-zero bins and show top 15 by volume
-    active = profile_df[profile_df['total_vol'] > 0].head(30)
+    active = profile_df[profile_df['total_vol'] > 0]
     top_nodes = active.nlargest(15, 'total_vol').sort_values('bin_mid', ascending=False)
 
     print(f"\n### Volume Distribution (Top Nodes)")

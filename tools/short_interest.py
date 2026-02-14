@@ -97,9 +97,9 @@ def analyze_short_interest(tickers):
         shares_short = r['shares_short']
         prior = r['shares_short_prior']
 
-        # Score based on short % of float
+        # Score based on short % of float (convert fraction to percentage)
         if short_pct is not None:
-            pct_val = short_pct * 100 if short_pct <= 0.99 else short_pct
+            pct_val = float(short_pct) * 100 if float(short_pct) <= 0.99 else float(short_pct)
             if pct_val >= 30:
                 score += 60
                 factors.append(f"Very high short% ({pct_val:.1f}%)")
