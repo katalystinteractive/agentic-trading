@@ -30,6 +30,9 @@ We employ a **Mean Reversion** strategy, targeting stocks that consistently fluc
 *   **Do Not Chase:** If the "Low Window" has passed and price is mid-range, **WAIT** for the next cycle.
 
 ## Current Watchlist & Status
-*   **NU (Fintech):** ACTIVE. (Bought Mid-Month Low).
-*   **SOFI (Fintech/AI):** PENDING. (Waiting for dip/rebound).
-*   **AR (Energy):** PENDING. (Waiting for structural floor).
+See `portfolio.json` for live positions/orders and run `python3 tools/portfolio_status.py` for a full report.
+
+*   **NU (Fintech):** Mid-Month Bottomer. Growth Anchor.
+*   **SOFI (Fintech/AI):** Binary Bottomer. AI Wildcard.
+*   **AR (Energy):** Early-Month Bottomer. The Slow Cooker.
+*   **KMI (Energy/Infrastructure):** Early-Month Bottomer. Dividend Fortress.
