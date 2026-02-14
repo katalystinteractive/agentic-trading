@@ -55,6 +55,7 @@ When asked to analyze a specific stock, choose the appropriate depth:
 Run this before **new entry or exit decisions** (not needed for routine status checks):
 *   `python3 tools/market_pulse.py` — Indices, sectors, VIX, market regime (Risk-On/Off/Neutral).
 *   If regime is **Risk-Off** (VIX > 25, broad selling), pause new entries and tighten stops.
+*   If regime is **Neutral**, proceed with normal entries but use tighter bullet spacing (less aggressive averaging).
 *   If regime is **Risk-On**, proceed with normal bullet placement at support levels.
 
 ## 📂 Project Structure

@@ -73,8 +73,8 @@ def build_report(portfolio, prices):
     # --- Active Positions ---
     lines.append("## Active Positions")
     if portfolio["positions"]:
-        lines.append("| Ticker | Shares | Avg Cost | Current | Day Low | Day High | P/L % | Target | Dist to Target |")
-        lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+        lines.append("| Ticker | Shares | Avg Cost | Current | Day Low | Day High | P/L $ | P/L % | Target | Dist to Target |")
+        lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         for ticker, pos in portfolio["positions"].items():
             p = prices.get(ticker, {})
             current = p.get("price")
@@ -82,13 +82,15 @@ def build_report(portfolio, prices):
             shares = pos["shares"]
             target = pos.get("target_exit")
             if current is not None:
+                pl_dollar = (current - avg) * shares
                 pl_pct = ((current - avg) / avg) * 100
             else:
+                pl_dollar = None
                 pl_pct = None
             lines.append(
                 f"| {ticker} | {shares} | {fmt_dollar(avg)} | {fmt_dollar(current)} "
                 f"| {fmt_dollar(p.get('day_low'))} | {fmt_dollar(p.get('day_high'))} "
-                f"| {fmt_pct(pl_pct)} "
+                f"| {fmt_dollar(pl_dollar)} | {fmt_pct(pl_pct)} "
                 f"| {fmt_dollar(target)} | {fmt_distance(current, target)} |"
             )
     else:
@@ -100,8 +102,8 @@ def build_report(portfolio, prices):
     all_orders = portfolio.get("pending_orders", {})
     has_orders = any(len(v) > 0 for v in all_orders.values())
     if has_orders:
-        lines.append("| Ticker | Type | Price | Current | Distance | Note |")
-        lines.append("| :--- | :--- | :--- | :--- | :--- | :--- |")
+        lines.append("| Ticker | Type | Price | Current | Day Low | Day High | Distance | Note |")
+        lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         for ticker, orders in all_orders.items():
             p = prices.get(ticker, {})
             current = p.get("price")
@@ -109,7 +111,9 @@ def build_report(portfolio, prices):
                 dist = fmt_distance(current, order["price"])
                 lines.append(
                     f"| {ticker} | {order['type']} | {fmt_dollar(order['price'])} "
-                    f"| {fmt_dollar(current)} | {dist} | {order.get('note', '')} |"
+                    f"| {fmt_dollar(current)} "
+                    f"| {fmt_dollar(p.get('day_low'))} | {fmt_dollar(p.get('day_high'))} "
+                    f"| {dist} | {order.get('note', '')} |"
                 )
     else:
         lines.append("*(no pending orders)*")
