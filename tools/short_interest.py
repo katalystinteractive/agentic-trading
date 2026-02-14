@@ -99,7 +99,8 @@ def analyze_short_interest(tickers):
 
         # Score based on short % of float (convert fraction to percentage)
         if short_pct is not None:
-            pct_val = float(short_pct) * 100 if float(short_pct) <= 0.99 else float(short_pct)
+            sp = float(short_pct)
+            pct_val = sp * 100 if sp <= 0.99 else sp
             if pct_val >= 30:
                 score += 60
                 factors.append(f"Very high short% ({pct_val:.1f}%)")

@@ -17,22 +17,19 @@ def fetch_data(ticker, days=365):
     # yfinance limitation: 1h data only available for last 730 days
     interval = "1h" if days <= 730 else "1d"
     
-    # Fetch silently — markdown-only output convention
-
-    
     try:
         df = yf.download(ticker, start=start_date, end=end_date, interval=interval, progress=False)
         if df.empty:
-            print(f"Error: No data found for {ticker}")
+            print(f"*Error: No data found for {ticker}*")
             return None
-        
+
         # Flatten MultiIndex if present
         if isinstance(df.columns, pd.MultiIndex):
             df.columns = df.columns.get_level_values(0)
-            
+
         return df
     except Exception as e:
-        print(f"Error fetching data: {e}")
+        print(f"*Error fetching data: {e}*")
         return None
 
 def calculate_vwap(df):
@@ -96,7 +93,7 @@ def get_volume_profile(df, price_bins=50):
 
 def fmt_vol(val):
     """Format volume with M/K suffixes."""
-    if val is None or (hasattr(val, '__class__') and val != val):
+    if val is None or pd.isna(val):
         return "N/A"
     val = float(val)
     if val >= 1e6:
