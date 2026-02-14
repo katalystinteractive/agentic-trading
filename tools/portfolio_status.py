@@ -27,11 +27,16 @@ def fetch_prices(tickers):
                 day_pct = ((current - prev) / prev) * 100
                 last_date = data.index[-1].date()
                 stale = (today - last_date).days > 1
-                prices[ticker] = {"price": current, "day_pct": day_pct, "stale": stale}
+                day_low = data["Low"].iloc[-1]
+                day_high = data["High"].iloc[-1]
+                prices[ticker] = {"price": current, "day_pct": day_pct,
+                                  "day_low": day_low, "day_high": day_high, "stale": stale}
             else:
-                prices[ticker] = {"price": None, "day_pct": None, "stale": True}
+                prices[ticker] = {"price": None, "day_pct": None,
+                                  "day_low": None, "day_high": None, "stale": True}
         except Exception:
-            prices[ticker] = {"price": None, "day_pct": None, "stale": True}
+            prices[ticker] = {"price": None, "day_pct": None,
+                              "day_low": None, "day_high": None, "stale": True}
     return prices
 
 
@@ -68,8 +73,8 @@ def build_report(portfolio, prices):
     # --- Active Positions ---
     lines.append("## Active Positions")
     if portfolio["positions"]:
-        lines.append("| Ticker | Shares | Avg Cost | Current | P/L $ | P/L % | Target | Dist to Target |")
-        lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+        lines.append("| Ticker | Shares | Avg Cost | Current | Day Low | Day High | P/L % | Target | Dist to Target |")
+        lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         for ticker, pos in portfolio["positions"].items():
             p = prices.get(ticker, {})
             current = p.get("price")
@@ -77,14 +82,13 @@ def build_report(portfolio, prices):
             shares = pos["shares"]
             target = pos.get("target_exit")
             if current is not None:
-                pl_dollar = (current - avg) * shares
                 pl_pct = ((current - avg) / avg) * 100
             else:
-                pl_dollar = None
                 pl_pct = None
             lines.append(
                 f"| {ticker} | {shares} | {fmt_dollar(avg)} | {fmt_dollar(current)} "
-                f"| {fmt_dollar(pl_dollar)} | {fmt_pct(pl_pct)} "
+                f"| {fmt_dollar(p.get('day_low'))} | {fmt_dollar(p.get('day_high'))} "
+                f"| {fmt_pct(pl_pct)} "
                 f"| {fmt_dollar(target)} | {fmt_distance(current, target)} |"
             )
     else:
@@ -115,12 +119,14 @@ def build_report(portfolio, prices):
     lines.append("## Watchlist")
     watchlist = portfolio.get("watchlist", [])
     if watchlist:
-        lines.append("| Ticker | Price | Day % |")
-        lines.append("| :--- | :--- | :--- |")
+        lines.append("| Ticker | Price | Day Low | Day High | Day % |")
+        lines.append("| :--- | :--- | :--- | :--- | :--- |")
         for ticker in watchlist:
             p = prices.get(ticker, {})
             lines.append(
-                f"| {ticker} | {fmt_dollar(p.get('price'))} | {fmt_pct(p.get('day_pct'))} |"
+                f"| {ticker} | {fmt_dollar(p.get('price'))} "
+                f"| {fmt_dollar(p.get('day_low'))} | {fmt_dollar(p.get('day_high'))} "
+                f"| {fmt_pct(p.get('day_pct'))} |"
             )
     else:
         lines.append("*(empty watchlist)*")

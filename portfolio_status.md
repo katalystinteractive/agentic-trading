@@ -1,10 +1,10 @@
-# Portfolio Status — 2026-02-15 00:50
+# Portfolio Status — 2026-02-15 01:20
 *Note: Market closed — prices may be from last trading day.*
 
 ## Active Positions
-| Ticker | Shares | Avg Cost | Current | P/L $ | P/L % | Target | Dist to Target |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| NU | 6 | $16.61 | $16.82 | $1.26 | +1.3% | $18.50 | +10.0% |
+| Ticker | Shares | Avg Cost | Current | Day Low | Day High | P/L % | Target | Dist to Target |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| NU | 6 | $16.61 | $16.82 | $16.37 | $16.88 | +1.3% | $18.50 | +10.0% |
 
 ## Pending Orders
 | Ticker | Type | Price | Current | Distance | Note |
@@ -15,11 +15,11 @@
 | KMI | BUY | $30.10 | $32.32 | -6.9% | Bullet 1 - March cycle |
 
 ## Watchlist
-| Ticker | Price | Day % |
-| :--- | :--- | :--- |
-| SOFI | $19.61 | +1.6% |
-| AR | $34.76 | +2.8% |
-| KMI | $32.32 | +2.0% |
+| Ticker | Price | Day Low | Day High | Day % |
+| :--- | :--- | :--- | :--- | :--- |
+| SOFI | $19.61 | $19.15 | $19.87 | +1.6% |
+| AR | $34.76 | $33.50 | $35.47 | +2.8% |
+| KMI | $32.32 | $31.67 | $32.34 | +2.0% |
 
 ## Capital Summary
 | Metric | Value |

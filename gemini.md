@@ -31,9 +31,14 @@ When asked for a status update:
 3.  Report Active P/L, Pending Order distances, and Watchlist movement.
 
 ### 3. The "Deep Dive" Protocol
-When asked to analyze a specific stock in depth, chain the relevant tools:
+When asked to analyze a specific stock, choose the appropriate depth:
+
+**Quick Check** (routine monitoring, position review):
 *   `python3 tools/technical_scanner.py <TICKER>` — RSI, MACD, Bollinger, S/R levels, signal score.
 *   `python3 tools/volume_profile.py <TICKER>` — VWAP, POC, buy/sell volume distribution.
+
+**Full Deep Dive** (new entry evaluation, "should I buy this?"):
+*   All Quick Check tools, plus:
 *   `python3 tools/earnings_analyzer.py <TICKER>` — Earnings history, revenue trend, price reactions.
 *   `python3 tools/news_sentiment.py <TICKER>` — Headlines with sentiment scoring + catalyst detection.
 *   `python3 tools/relative_strength.py <TICKER>` — RS rating vs sector/SPY, rotation status.
@@ -41,9 +46,16 @@ When asked to analyze a specific stock in depth, chain the relevant tools:
 *   `python3 tools/options_flow.py <TICKER>` — Options chain, unusual activity, max pain, IV.
 *   `python3 tools/short_interest.py <TICKER> [TICKER2 ...]` — Short %, squeeze risk, days to cover.
 
+**Earnings Play** (earnings within 2 weeks):
+*   `python3 tools/earnings_analyzer.py <TICKER>` — Past reactions, beat/miss history.
+*   `python3 tools/options_flow.py <TICKER>` — IV rank, unusual activity, max pain.
+*   `python3 tools/news_sentiment.py <TICKER>` — Pre-earnings sentiment + catalyst detection.
+
 ### 4. The "Market Context" Protocol
-Before any entry/exit decision, check the macro backdrop:
+Run this before **new entry or exit decisions** (not needed for routine status checks):
 *   `python3 tools/market_pulse.py` — Indices, sectors, VIX, market regime (Risk-On/Off/Neutral).
+*   If regime is **Risk-Off** (VIX > 25, broad selling), pause new entries and tighten stops.
+*   If regime is **Risk-On**, proceed with normal bullet placement at support levels.
 
 ## 📂 Project Structure
 ```
