@@ -1,4 +1,5 @@
-# Portfolio Status — 2026-02-15 00:43
+# Portfolio Status — 2026-02-15 00:50
+*Note: Market closed — prices may be from last trading day.*
 
 ## Active Positions
 | Ticker | Shares | Avg Cost | Current | P/L $ | P/L % | Target | Dist to Target |

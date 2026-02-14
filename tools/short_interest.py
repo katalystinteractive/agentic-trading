@@ -15,11 +15,14 @@ def fmt_shares(val):
     else:
         return f"{val:,.0f}"
 
-def fmt_pct(val):
-    """Format as percentage."""
+def fmt_pct(val, is_fraction=True):
+    """Format as percentage. If is_fraction=True, value is 0.05 meaning 5%."""
     if val is None:
         return "N/A"
-    return f"{float(val)*100:.2f}%" if abs(float(val)) < 1 else f"{float(val):.2f}%"
+    v = float(val)
+    if is_fraction:
+        return f"{v * 100:.2f}%"
+    return f"{v:.2f}%"
 
 def analyze_short_interest(tickers):
     print(f"\n## Short Interest Analysis")
@@ -96,7 +99,7 @@ def analyze_short_interest(tickers):
 
         # Score based on short % of float
         if short_pct is not None:
-            pct_val = short_pct * 100 if short_pct < 1 else short_pct
+            pct_val = short_pct * 100 if short_pct <= 0.99 else short_pct
             if pct_val >= 30:
                 score += 60
                 factors.append(f"Very high short% ({pct_val:.1f}%)")

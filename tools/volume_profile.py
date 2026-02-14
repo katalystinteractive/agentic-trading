@@ -93,67 +93,65 @@ def get_volume_profile(df, price_bins=50):
         
     return pd.DataFrame(result).sort_values('bin_mid', ascending=False)
 
+def fmt_vol(val):
+    """Format volume with M/K suffixes."""
+    if val >= 1e6:
+        return f"{val/1e6:.1f}M"
+    elif val >= 1e3:
+        return f"{val/1e3:.0f}K"
+    return f"{val:,.0f}"
+
 def print_profile(profile_df, current_price, vwap_price):
-    """
-    Prints an ASCII Volume Profile.
-    """
+    """Prints a markdown Volume Profile report."""
     if profile_df.empty:
-        print("No volume profile data to display.")
+        print("*No volume profile data to display.*")
         return
 
     max_vol = profile_df['total_vol'].max()
-    if max_vol == 0: return
+    if max_vol == 0:
+        return
 
     # Find POC (Point of Control)
     poc_row = profile_df.loc[profile_df['total_vol'].idxmax()]
     poc_price = poc_row['bin_mid']
 
-    print(f"\n### Volume Profile & Order Flow Audit")
-    print(f"Current Price: ${current_price:.2f}")
-    print(f"VWAP (Period): ${vwap_price:.2f}")
-    print(f"POC (High Vol): ${poc_price:.2f} (Target/Magnet)")
-    print("-" * 80)
-    print(f"{ 'Price Level':<15} | { 'Total Vol':<10} | { 'Buy/Sell Ratio':<20} | {'Profile'}")
-    print("-" * 80)
+    print(f"\n## Volume Profile & Order Flow Audit")
 
-    # We iterate from High to Low (already sorted descending)
-    for _, row in profile_df.iterrows():
-        price_label = row['price_range']
+    # --- Table 1: Key Levels ---
+    print(f"\n### Key Levels")
+    print("| Metric | Value |")
+    print("| :--- | :--- |")
+    print(f"| Current Price | ${current_price:.2f} |")
+    print(f"| VWAP (Period) | ${vwap_price:.2f} |")
+    print(f"| POC (High Vol Node) | ${poc_price:.2f} |")
+    dist_poc = ((poc_price - current_price) / current_price) * 100
+    print(f"| Distance to POC | {dist_poc:+.1f}% |")
+
+    # --- Table 2: Volume Profile (top nodes only) ---
+    # Filter to non-zero bins and show top 15 by volume
+    active = profile_df[profile_df['total_vol'] > 0].head(30)
+    top_nodes = active.nlargest(15, 'total_vol').sort_values('bin_mid', ascending=False)
+
+    print(f"\n### Volume Distribution (Top Nodes)")
+    print("| Price Range | Volume | Buy % | Sell % | Note |")
+    print("| :--- | :--- | :--- | :--- | :--- |")
+
+    for _, row in top_nodes.iterrows():
         total = row['total_vol']
         buy = row['buy_vol']
         sell = row['sell_vol']
-        
-        # Markers
-        marker = ""
+        buy_pct = (buy / total * 100) if total > 0 else 0
+        sell_pct = (sell / total * 100) if total > 0 else 0
+
+        note = ""
         if row['bin_mid'] <= current_price * 1.01 and row['bin_mid'] >= current_price * 0.99:
-            marker = "<-- CURRENT"
+            note = "**CURRENT**"
         elif row['bin_mid'] <= poc_price * 1.01 and row['bin_mid'] >= poc_price * 0.99:
-            marker = "<-- POC (Magnet)"
-        
-        # Visual Bars
-        bar_len = int((total / max_vol) * 30)
-        
-        # Buy/Sell Ratio visual
-        if total > 0:
-            buy_pct = buy / total
-            buy_chars = int(buy_pct * 10)
-            sell_chars = 10 - buy_chars
-            ratio_bar = f"[{'G'*buy_chars}{'R'*sell_chars}]"
-        else:
-            ratio_bar = "[----------]"
+            note = "**POC**"
+        elif total >= max_vol * 0.7:
+            note = "HVN"
 
-        # Profile Bar
-        p_bar = "#" * bar_len
-        
-        # Formatting Volume
-        vol_str = f"{total/1_000_000:.1f}M"
-        
-        print(f"{price_label:<15} | {vol_str:<10} | {ratio_bar:<20} | {p_bar} {marker}")
-
-    print("-" * 80)
-    print("Legend: [GGGGGGRRRR] = ~60% Buy (Green) / 40% Sell (Red) Volume")
-    print("HVN (High Volume Node): Long bars = Strong Support/Resistance")
-    print("LVN (Low Volume Node): Short bars = Fast Price Movement Zones")
+        print(f"| {row['price_range']} | {fmt_vol(total)} | {buy_pct:.0f}% | {sell_pct:.0f}% | {note} |")
 
 def main():
     parser = argparse.ArgumentParser(description="Detailed Volume Profile Analysis")

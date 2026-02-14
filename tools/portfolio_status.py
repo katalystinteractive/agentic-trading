@@ -1,10 +1,11 @@
 import json
-import sys
 import datetime
+from pathlib import Path
 import yfinance as yf
 
-PORTFOLIO_PATH = "portfolio.json"
-OUTPUT_PATH = "portfolio_status.md"
+_ROOT = Path(__file__).resolve().parent.parent
+PORTFOLIO_PATH = _ROOT / "portfolio.json"
+OUTPUT_PATH = _ROOT / "portfolio_status.md"
 
 
 def load_portfolio():
@@ -13,21 +14,24 @@ def load_portfolio():
 
 
 def fetch_prices(tickers):
-    """Fetch current prices for a list of tickers. Returns dict {TICKER: {price, day_pct}}."""
+    """Fetch current prices for a list of tickers. Returns dict {TICKER: {price, day_pct, stale}}."""
     prices = {}
+    today = datetime.date.today()
     for ticker in tickers:
         try:
             t = yf.Ticker(ticker)
-            data = t.history(period="2d")
+            data = t.history(period="5d")
             if not data.empty:
                 current = data["Close"].iloc[-1]
                 prev = data["Close"].iloc[-2] if len(data) > 1 else current
                 day_pct = ((current - prev) / prev) * 100
-                prices[ticker] = {"price": current, "day_pct": day_pct}
+                last_date = data.index[-1].date()
+                stale = (today - last_date).days > 1
+                prices[ticker] = {"price": current, "day_pct": day_pct, "stale": stale}
             else:
-                prices[ticker] = {"price": None, "day_pct": None}
+                prices[ticker] = {"price": None, "day_pct": None, "stale": True}
         except Exception:
-            prices[ticker] = {"price": None, "day_pct": None}
+            prices[ticker] = {"price": None, "day_pct": None, "stale": True}
     return prices
 
 
@@ -55,7 +59,10 @@ def fmt_distance(current, target):
 def build_report(portfolio, prices):
     lines = []
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    any_stale = any(p.get("stale") for p in prices.values())
     lines.append(f"# Portfolio Status — {now}")
+    if any_stale:
+        lines.append("*Note: Market closed — prices may be from last trading day.*")
     lines.append("")
 
     # --- Active Positions ---
@@ -125,8 +132,6 @@ def build_report(portfolio, prices):
     deployed = sum(
         pos["shares"] * pos["avg_cost"] for pos in positions.values()
     )
-    total = cap.get("per_stock_total", 0) * (len(positions) + len(watchlist))
-    available = total - deployed
     lines.append("## Capital Summary")
     lines.append(f"| Metric | Value |")
     lines.append(f"| :--- | :--- |")

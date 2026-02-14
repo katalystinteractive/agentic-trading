@@ -88,13 +88,12 @@ def analyze_options(ticker_symbol):
 
             call_vol = calls['volume'].sum() if 'volume' in calls.columns else 0
             put_vol = puts['volume'].sum() if 'volume' in puts.columns else 0
-            total_vol = call_vol + put_vol
-            pc_ratio = put_vol / call_vol if call_vol > 0 else 0
-
             if pd.isna(call_vol):
                 call_vol = 0
             if pd.isna(put_vol):
                 put_vol = 0
+            total_vol = call_vol + put_vol
+            pc_ratio = put_vol / call_vol if call_vol > 0 else 0
 
             print(f"| {exp} | {fmt_number(call_vol)} | {fmt_number(put_vol)} | {fmt_number(total_vol)} | {pc_ratio:.2f} |")
 
