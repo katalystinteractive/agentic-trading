@@ -18,6 +18,14 @@ from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
+AGENTS_DIR = _ROOT / "agents"
+
+
+def _write_cache(ticker, filename, report):
+    agent_dir = AGENTS_DIR / ticker
+    agent_dir.mkdir(parents=True, exist_ok=True)
+    with open(agent_dir / filename, "w") as f:
+        f.write(report + "\n")
 
 
 def load_tickers_from_portfolio():
@@ -222,15 +230,14 @@ def fmt_pct(val):
 
 
 def analyze_stock(ticker):
-    """Full per-stock, per-level analysis."""
+    """Full per-stock, per-level analysis. Returns report string."""
+    lines = []
     try:
         hist = fetch_history(ticker, months=13)
     except Exception as e:
-        print(f"*Error fetching data for {ticker}: {e}*")
-        return
+        return f"*Error fetching data for {ticker}: {e}*"
     if hist.empty or len(hist) < 60:
-        print(f"*Skipping {ticker} — insufficient data (need 60+ trading days)*")
-        return
+        return f"*Skipping {ticker} — insufficient data (need 60+ trading days)*"
 
     current_price = hist["Close"].iloc[-1]
     last_date = hist.index[-1].strftime("%Y-%m-%d")
@@ -241,8 +248,7 @@ def analyze_stock(ticker):
     levels = merge_levels(hvn_floors, pa_supports, current_price)
 
     if not levels:
-        print(f"*No support levels found below current price for {ticker}*")
-        return
+        return f"*No support levels found below current price for {ticker}*"
 
     # Analyze approaches at each level
     level_results = []
@@ -271,39 +277,43 @@ def analyze_stock(ticker):
             "recommended_buy": recommended_buy,
         })
 
-    # Print report
-    print(f"## Wick Offset Analysis: {ticker} (13-Month, as of {last_date})")
-    print(f"**Current Price: {fmt_dollar(current_price)}**")
-    print()
+    # Build report
+    lines.append(f"*Generated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}*")
+    lines.append("")
+    lines.append(f"## Wick Offset Analysis: {ticker} (13-Month, as of {last_date})")
+    lines.append(f"**Current Price: {fmt_dollar(current_price)}**")
+    lines.append("")
 
     # Summary table
-    print("### Support Levels & Buy Recommendations")
-    print("| Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At |")
-    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    lines.append("### Support Levels & Buy Recommendations")
+    lines.append("| Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At |")
+    lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     for r in level_results:
         lvl = r["level"]
         buy_str = fmt_dollar(r["recommended_buy"]) if r["recommended_buy"] else "N/A (no holds)"
         offset_str = fmt_pct(r["median_offset"]) if r["median_offset"] is not None else "N/A"
-        print(
+        lines.append(
             f"| {fmt_dollar(lvl['price'])} | {lvl['source']} "
             f"| {r['total_approaches']} | {r['held']} "
             f"| {r['hold_rate']:.0f}% | {offset_str} "
             f"| {buy_str} |"
         )
-    print()
+    lines.append("")
 
     # Per-level approach detail
     for r in level_results:
         lvl = r["level"]
         if not r["events"]:
             continue
-        print(f"### Detail: {fmt_dollar(lvl['price'])} ({lvl['source']})")
-        print("| Date | Wick Low | Offset | Held |")
-        print("| :--- | :--- | :--- | :--- |")
+        lines.append(f"### Detail: {fmt_dollar(lvl['price'])} ({lvl['source']})")
+        lines.append("| Date | Wick Low | Offset | Held |")
+        lines.append("| :--- | :--- | :--- | :--- |")
         for e in r["events"]:
             held_str = "Yes" if e["held"] else "**BROKE**"
-            print(f"| {e['start']} | {fmt_dollar(e['min_low'])} | {fmt_pct(e['offset_pct'])} | {held_str} |")
-        print()
+            lines.append(f"| {e['start']} | {fmt_dollar(e['min_low'])} | {fmt_pct(e['offset_pct'])} | {held_str} |")
+        lines.append("")
+
+    return "\n".join(lines)
 
 
 def main():
@@ -317,7 +327,10 @@ def main():
             print()
             print("---")
             print()
-        analyze_stock(ticker)
+        report = analyze_stock(ticker)
+        if report:
+            print(report)
+            _write_cache(ticker, "wick_analysis.md", report)
 
 
 if __name__ == "__main__":

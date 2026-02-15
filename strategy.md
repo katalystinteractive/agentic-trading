@@ -39,6 +39,13 @@ When reporting on active positions, always present information in this sequence:
 *   **Monthly Rhythm:** Identify if the stock typically bottoms Early (Days 1-8), Mid (12-18), or Late (23-30) in the month.
 *   **Do Not Chase:** If the "Low Window" has passed and price is mid-range, **WAIT** for the next cycle.
 
+### Cached Structural Data
+Structural tools auto-save per-ticker cache files to `agents/<TICKER>/` on every run. These files refresh each time the tool is re-run:
+*   `wick_analysis.md` — Support levels & data-driven buy recommendations (from `wick_offset_analyzer.py`).
+*   `earnings.md` — Earnings history, revenue trend, price reactions (from `earnings_analyzer.py`).
+*   `institutional.md` — Top holders, insider transactions, cluster buy signals (from `institutional_flow.py`).
+*   `short_interest.md` — Short %, squeeze risk, days to cover (from `short_interest.py`).
+
 ## Current Watchlist & Status
 See `portfolio.json` for live positions/orders and run `python3 tools/portfolio_status.py` for a full report.
 

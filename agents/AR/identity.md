@@ -8,5 +8,6 @@
 *   **Key Levels:**
     *   Upper Box: $34 - $38.
     *   Lower Box: $31 - $35.
-    *   "The Floor": $31.85 (Surgical Entry).
+    *   Support: See `wick_analysis.md` (auto-updated by wick offset analyzer).
+
 *   **Status:** **WATCHING / PATIENCE MODE**.

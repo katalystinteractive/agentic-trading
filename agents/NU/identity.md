@@ -5,7 +5,8 @@
 
 ## Strategy Specifics
 *   **Cycle:** "Mid-Month Bottomer" (Typically days 13-20).
-*   **Key Levels:** 
+*   **Key Levels:**
     *   Resistance: $18.50 (Target).
-    *   Support: $16.00 (50-day SMA), $14.80 (Deep Value).
+    *   Support: See `wick_analysis.md` (auto-updated by wick offset analyzer).
+
 *   **Status:** **ACTIVE POSITION**.

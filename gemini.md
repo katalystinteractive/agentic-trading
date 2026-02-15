@@ -36,6 +36,7 @@ When asked for a status update:
     3.  **Pending Limit Orders** — open BUY/SELL orders not yet filled.
     4.  **Projected Sell Levels** — target exit and expected P/L %.
 4.  Then report Watchlist movement and any observations.
+5.  Check cached structural data in agent folders (`wick_analysis.md`, `earnings.md`, `institutional.md`, `short_interest.md`) for context without re-running tools.
 
 ### 3. The "Deep Dive" Protocol
 When asked to analyze a specific stock, choose the appropriate depth:
@@ -53,6 +54,8 @@ When asked to analyze a specific stock, choose the appropriate depth:
 *   `python3 tools/institutional_flow.py <TICKER>` — Top holders, insider transactions, cluster buys.
 *   `python3 tools/options_flow.py <TICKER>` — Options chain, unusual activity, max pain, IV.
 *   `python3 tools/short_interest.py <TICKER> [TICKER2 ...]` — Short %, squeeze risk, days to cover.
+
+> Structural tools auto-save to `agents/<TICKER>/`. Read cache files for quick reference; re-run the tool to refresh.
 
 **Earnings Play** (earnings within 2 weeks):
 *   `python3 tools/earnings_analyzer.py <TICKER>` — Past reactions, beat/miss history.
@@ -74,6 +77,10 @@ portfolio_status.md             — Generated report (overwritten by tool)
 gemini.md                       — This file: orchestrator system prompt
 agents/<TICKER>/identity.md     — Persona, strategy cycle, key levels, status label
 agents/<TICKER>/memory.md       — Narrative: trade log, observations, lessons
+agents/<TICKER>/wick_analysis.md   — Cached: per-level buy recs (auto-generated)
+agents/<TICKER>/earnings.md        — Cached: earnings history + revenue (auto-generated)
+agents/<TICKER>/institutional.md   — Cached: holders + insider flow (auto-generated)
+agents/<TICKER>/short_interest.md  — Cached: short %, squeeze risk (auto-generated)
 tools/portfolio_status.py       — Full portfolio report with live prices
 tools/get_prices.py             — Quick price check for specific tickers
 tools/verify_stock.py           — 13-month historical audit

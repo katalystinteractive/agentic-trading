@@ -7,5 +7,6 @@
 *   **Cycle:** "Early-Month Bottomer" (Days 1-10).
 *   **Key Levels:**
     *   Resistance: $32.50 (ATH).
-    *   Support: $30.10 (Mean Reversion), $29.45 (Feb Low).
+    *   Support: See `wick_analysis.md` (auto-updated by wick offset analyzer).
+    *   **Note:** Top supports have 0% hold rate; first reliable level is ~$24.84.
 *   **Status:** **WATCHING / MARCH PREP**.

@@ -1,7 +1,19 @@
 import yfinance as yf
 import pandas as pd
 import sys
+from pathlib import Path
 from datetime import datetime, timedelta
+
+_ROOT = Path(__file__).resolve().parent.parent
+AGENTS_DIR = _ROOT / "agents"
+
+
+def _write_cache(ticker, filename, report):
+    agent_dir = AGENTS_DIR / ticker
+    agent_dir.mkdir(parents=True, exist_ok=True)
+    with open(agent_dir / filename, "w") as f:
+        f.write(report + "\n")
+
 
 def fmt_value(val):
     """Format large numbers with M/B suffixes."""
@@ -60,23 +72,26 @@ def get_price_reaction(ticker_symbol, earnings_date):
         return None, None
 
 def analyze_earnings(ticker_symbol):
+    lines = []
     try:
         ticker = yf.Ticker(ticker_symbol)
         info = ticker.info
         if not info or info.get('regularMarketPrice') is None:
-            print(f"Error: Could not fetch data for {ticker_symbol}")
-            return
+            return f"*Error: Could not fetch data for {ticker_symbol}*"
     except Exception as e:
-        print(f"Error: {e}")
-        return
+        return f"*Error: {e}*"
+
+    lines.append(f"*Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}*")
+    lines.append("")
 
     company_name = info.get('shortName', ticker_symbol)
-    print(f"\n## Earnings Analysis: {company_name} ({ticker_symbol})")
+    lines.append(f"## Earnings Analysis: {company_name} ({ticker_symbol})")
 
     # --- Table 1: Next Earnings ---
-    print(f"\n### Next Earnings")
-    print("| Metric | Value |")
-    print("| :--- | :--- |")
+    lines.append("")
+    lines.append("### Next Earnings")
+    lines.append("| Metric | Value |")
+    lines.append("| :--- | :--- |")
 
     try:
         cal = ticker.calendar
@@ -90,38 +105,39 @@ def analyze_earnings(ticker_symbol):
                     next_date_dt = pd.Timestamp(next_date).to_pydatetime()
 
                 days_until = (next_date_dt.date() - datetime.now().date()).days
-                print(f"| Earnings Date | {next_date_dt.strftime('%Y-%m-%d')} |")
-                print(f"| Days Until | {days_until} |")
+                lines.append(f"| Earnings Date | {next_date_dt.strftime('%Y-%m-%d')} |")
+                lines.append(f"| Days Until | {days_until} |")
 
                 eps_est = cal.get('EPS Estimate', cal.get('Earnings Average', None))
                 rev_est = cal.get('Revenue Estimate', cal.get('Revenue Average', None))
                 if eps_est is not None:
-                    print(f"| EPS Estimate | ${eps_est} |")
+                    lines.append(f"| EPS Estimate | ${eps_est} |")
                 if rev_est is not None:
-                    print(f"| Revenue Estimate | {fmt_value(rev_est)} |")
+                    lines.append(f"| Revenue Estimate | {fmt_value(rev_est)} |")
 
                 if 0 < days_until <= 14:
-                    print(f"| **Earnings Rule** | **WARNING: <14 days — avoid new entries** |")
+                    lines.append(f"| **Earnings Rule** | **WARNING: <14 days — avoid new entries** |")
                 elif days_until <= 0:
-                    print(f"| Earnings Rule | Recently reported |")
+                    lines.append(f"| Earnings Rule | Recently reported |")
                 else:
-                    print(f"| Earnings Rule | Clear (>{days_until}d out) |")
+                    lines.append(f"| Earnings Rule | Clear (>{days_until}d out) |")
 
                 if len(earnings_dates) > 1:
                     end_date = earnings_dates[1]
                     if isinstance(end_date, pd.Timestamp):
-                        print(f"| Date Range | {next_date_dt.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')} |")
+                        lines.append(f"| Date Range | {next_date_dt.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')} |")
             else:
-                print("| Earnings Date | Not available |")
+                lines.append("| Earnings Date | Not available |")
         else:
-            print("| Earnings Date | Not available |")
+            lines.append("| Earnings Date | Not available |")
     except Exception as e:
-        print(f"| Error | {e} |")
+        lines.append(f"| Error | {e} |")
 
     # --- Table 2: Earnings History ---
-    print(f"\n### Earnings History")
-    print("| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |")
-    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    lines.append("")
+    lines.append("### Earnings History")
+    lines.append("| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |")
+    lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
     earnings_data = None
 
@@ -170,7 +186,7 @@ def analyze_earnings(ticker_symbol):
             else:
                 reaction = "N/A"
 
-            print(f"| {q_label} | {eps_est_str} | {eps_actual_str} | {surprise_str} | {day1_str} | {day5_str} | {reaction} |")
+            lines.append(f"| {q_label} | {eps_est_str} | {eps_actual_str} | {surprise_str} | {day1_str} | {day5_str} | {reaction} |")
     else:
         # Fallback: try earnings_history (no lxml needed, limited to 4 quarters)
         try:
@@ -186,16 +202,17 @@ def analyze_earnings(ticker_symbol):
                     eps_actual_str = f"${eps_actual:.2f}" if pd.notna(eps_actual) else "N/A"
                     surprise_str = f"{surprise:.1f}%" if pd.notna(surprise) else "N/A"
 
-                    print(f"| {q_label} | {eps_est_str} | {eps_actual_str} | {surprise_str} | N/A | N/A | N/A |")
+                    lines.append(f"| {q_label} | {eps_est_str} | {eps_actual_str} | {surprise_str} | N/A | N/A | N/A |")
             else:
-                print("| — | No earnings history available | — | — | — | — | — |")
+                lines.append("| — | No earnings history available | — | — | — | — | — |")
         except Exception:
-            print("| — | No earnings history available | — | — | — | — | — |")
+            lines.append("| — | No earnings history available | — | — | — | — | — |")
 
     # --- Table 3: Revenue Trend ---
-    print(f"\n### Revenue Trend")
-    print("| Quarter | Revenue | QoQ Growth% | YoY Growth% |")
-    print("| :--- | :--- | :--- | :--- |")
+    lines.append("")
+    lines.append("### Revenue Trend")
+    lines.append("| Quarter | Revenue | QoQ Growth% | YoY Growth% |")
+    lines.append("| :--- | :--- | :--- | :--- |")
 
     try:
         qf = ticker.quarterly_financials
@@ -233,16 +250,22 @@ def analyze_earnings(ticker_symbol):
                         yoy = ((item['revenue'] - rev_list[i+4]['revenue']) / abs(rev_list[i+4]['revenue'])) * 100
                         yoy_str = f"{yoy:+.1f}%"
 
-                    print(f"| {item['quarter']} | {rev_str} | {qoq_str} | {yoy_str} |")
+                    lines.append(f"| {item['quarter']} | {rev_str} | {qoq_str} | {yoy_str} |")
             else:
-                print("| — | No revenue data available | — | — |")
+                lines.append("| — | No revenue data available | — | — |")
         else:
-            print("| — | No quarterly financials available | — | — |")
+            lines.append("| — | No quarterly financials available | — | — |")
     except Exception as e:
-        print(f"| Error | {e} | — | — |")
+        lines.append(f"| Error | {e} | — | — |")
+
+    return "\n".join(lines)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python3 earnings_analyzer.py <TICKER>")
     else:
-        analyze_earnings(sys.argv[1].upper())
+        ticker = sys.argv[1].upper()
+        report = analyze_earnings(ticker)
+        if report:
+            print(report)
+            _write_cache(ticker, "earnings.md", report)

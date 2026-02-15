@@ -1,7 +1,19 @@
 import yfinance as yf
 import pandas as pd
 import sys
+from pathlib import Path
 from datetime import datetime, timedelta
+
+_ROOT = Path(__file__).resolve().parent.parent
+AGENTS_DIR = _ROOT / "agents"
+
+
+def _write_cache(ticker, filename, report):
+    agent_dir = AGENTS_DIR / ticker
+    agent_dir.mkdir(parents=True, exist_ok=True)
+    with open(agent_dir / filename, "w") as f:
+        f.write(report + "\n")
+
 
 def fmt_value(val):
     """Format large numbers with M/B suffixes."""
@@ -36,26 +48,30 @@ def fmt_pct(val):
     return f"{float(val)*100:.2f}%" if abs(float(val)) < 1 else f"{float(val):.2f}%"
 
 def analyze_institutional_flow(ticker_symbol):
+    lines = []
     try:
         ticker = yf.Ticker(ticker_symbol)
         info = ticker.info
         if not info or info.get('regularMarketPrice') is None:
-            print(f"Error: Could not fetch data for {ticker_symbol}")
-            return
+            return f"*Error: Could not fetch data for {ticker_symbol}*"
     except Exception as e:
-        print(f"Error: {e}")
-        return
+        return f"*Error: {e}*"
+
+    lines.append(f"*Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}*")
+    lines.append("")
 
     company_name = info.get('shortName', ticker_symbol)
-    print(f"\n## Institutional & Insider Flow: {company_name} ({ticker_symbol})")
+    lines.append(f"## Institutional & Insider Flow: {company_name} ({ticker_symbol})")
 
     # --- Table 1: Top Institutional Holders ---
-    print(f"\n### Top Institutional Holders")
+    lines.append("")
+    lines.append("### Top Institutional Holders")
+    inst = None
     try:
         inst = ticker.institutional_holders
         if inst is not None and not inst.empty:
-            print("| # | Holder | Shares | Value | % Out | % Change | Date Reported |")
-            print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+            lines.append("| # | Holder | Shares | Value | % Out | % Change | Date Reported |")
+            lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
             for i, row in inst.head(10).iterrows():
                 holder = row.get('Holder', 'N/A')
                 shares = fmt_shares(row.get('Shares'))
@@ -65,19 +81,20 @@ def analyze_institutional_flow(ticker_symbol):
                 date_rep = row.get('Date Reported', 'N/A')
                 if isinstance(date_rep, pd.Timestamp):
                     date_rep = date_rep.strftime('%Y-%m-%d')
-                print(f"| {i+1} | {holder} | {shares} | {value} | {pct_held} | {pct_change} | {date_rep} |")
+                lines.append(f"| {i+1} | {holder} | {shares} | {value} | {pct_held} | {pct_change} | {date_rep} |")
         else:
-            print("*No institutional holder data available.*")
+            lines.append("*No institutional holder data available.*")
     except Exception as e:
-        print(f"*Error fetching institutional holders: {e}*")
+        lines.append(f"*Error fetching institutional holders: {e}*")
 
     # --- Table 2: Top Mutual Fund Holders ---
-    print(f"\n### Top Mutual Fund Holders")
+    lines.append("")
+    lines.append("### Top Mutual Fund Holders")
     try:
         mf = ticker.mutualfund_holders
         if mf is not None and not mf.empty:
-            print("| # | Fund | Shares | Value | % Out | % Change | Date Reported |")
-            print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+            lines.append("| # | Fund | Shares | Value | % Out | % Change | Date Reported |")
+            lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
             for i, row in mf.head(10).iterrows():
                 fund = row.get('Holder', 'N/A')
                 shares = fmt_shares(row.get('Shares'))
@@ -87,19 +104,20 @@ def analyze_institutional_flow(ticker_symbol):
                 date_rep = row.get('Date Reported', 'N/A')
                 if isinstance(date_rep, pd.Timestamp):
                     date_rep = date_rep.strftime('%Y-%m-%d')
-                print(f"| {i+1} | {fund} | {shares} | {value} | {pct_held} | {pct_change} | {date_rep} |")
+                lines.append(f"| {i+1} | {fund} | {shares} | {value} | {pct_held} | {pct_change} | {date_rep} |")
         else:
-            print("*No mutual fund holder data available.*")
+            lines.append("*No mutual fund holder data available.*")
     except Exception as e:
-        print(f"*Error fetching mutual fund holders: {e}*")
+        lines.append(f"*Error fetching mutual fund holders: {e}*")
 
     # --- Table 3: Recent Insider Transactions ---
-    print(f"\n### Recent Insider Transactions")
+    lines.append("")
+    lines.append("### Recent Insider Transactions")
     try:
         insiders = ticker.insider_transactions
         if insiders is not None and not insiders.empty:
-            print("| Date | Insider | Title | Type | Shares | Value | Signal |")
-            print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+            lines.append("| Date | Insider | Title | Type | Shares | Value | Signal |")
+            lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
             buy_dates = []
             buy_insiders = set()
@@ -154,15 +172,16 @@ def analyze_institutional_flow(ticker_symbol):
                 if len(title) > 20:
                     title = title[:18] + ".."
 
-                print(f"| {date_str} | {insider_name} | {title} | {txn_type} | {shares_str} | {value_str} | {signal} |")
+                lines.append(f"| {date_str} | {insider_name} | {title} | {txn_type} | {shares_str} | {value_str} | {signal} |")
 
             # --- Table 4: Flow Summary ---
-            print(f"\n### Flow Summary (Last 90 Days)")
-            print("| Metric | Value |")
-            print("| :--- | :--- |")
+            lines.append("")
+            lines.append("### Flow Summary (Last 90 Days)")
+            lines.append("| Metric | Value |")
+            lines.append("| :--- | :--- |")
 
-            print(f"| Net Insider Activity | {total_buys} buys, {total_sells} sells |")
-            print(f"| Net Shares | {fmt_shares(net_shares)} |")
+            lines.append(f"| Net Insider Activity | {total_buys} buys, {total_sells} sells |")
+            lines.append(f"| Net Shares | {fmt_shares(net_shares)} |")
 
             # Cluster buy detection: 2+ unique insiders buying within 14 days
             cluster_signal = "No"
@@ -174,7 +193,7 @@ def analyze_institutional_flow(ticker_symbol):
                         cluster_signal = "YES — Bullish"
                         break
 
-            print(f"| Cluster Buy Signal | {cluster_signal} |")
+            lines.append(f"| Cluster Buy Signal | {cluster_signal} |")
 
             # Largest position changes from institutional holders
             try:
@@ -187,24 +206,31 @@ def analyze_institutional_flow(ticker_symbol):
                             holder = largest.get('Holder', 'N/A')
                             change = largest.get(pct_col, 0)
                             change_str = fmt_pct(change)
-                            print(f"| Largest Inst. Change | {holder}: {change_str} |")
+                            lines.append(f"| Largest Inst. Change | {holder}: {change_str} |")
             except Exception:
                 pass
 
         else:
-            print("*No insider transaction data available.*")
+            lines.append("*No insider transaction data available.*")
 
             # Still print summary even without insider data
-            print(f"\n### Flow Summary")
-            print("| Metric | Value |")
-            print("| :--- | :--- |")
-            print("| Net Insider Activity | No data available |")
-            print("| Cluster Buy Signal | N/A |")
+            lines.append("")
+            lines.append("### Flow Summary")
+            lines.append("| Metric | Value |")
+            lines.append("| :--- | :--- |")
+            lines.append("| Net Insider Activity | No data available |")
+            lines.append("| Cluster Buy Signal | N/A |")
     except Exception as e:
-        print(f"*Error fetching insider transactions: {e}*")
+        lines.append(f"*Error fetching insider transactions: {e}*")
+
+    return "\n".join(lines)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python3 institutional_flow.py <TICKER>")
     else:
-        analyze_institutional_flow(sys.argv[1].upper())
+        ticker = sys.argv[1].upper()
+        report = analyze_institutional_flow(ticker)
+        if report:
+            print(report)
+            _write_cache(ticker, "institutional.md", report)
