@@ -18,7 +18,9 @@
 - LLM institutional claims need cross-verification. Overall direction was correct (institutions buying) but specific numbers were unverifiable.
 
 ## Plan (Gemini's 3-Tranche System)
-- **T1 remaining (50% of 20%):** Deploy at $30.15 if retests, or at $26.50 if $30 breaks.
-- **T2 (50%):** Post-Feb 25 earnings. Only if management rebuts short report convincingly.
+Wick-adjusted buy prices from `wick_analysis.md` (run 2026-02-15):
+- **T1 remaining:** Deploy at **$30.42** (Buy At for $29.55 support, 33% hold rate). ~3 shares.
+- **T1 alt:** If $30 breaks on volume, redirect to **$26.27** (Buy At for $25.92 support, 20% hold rate). ~3 shares.
+- **T2 (50%):** Post-Feb 25 earnings. Only if management rebuts short report convincingly. Level TBD post-earnings — re-run wick analyzer.
 - **T3 (30%):** Trend confirmation — price holds above 20-day MA (~$35) for 2+ days.
-- **Stop rule:** If $30 breaks on high volume, cancel all buys, wait for washout at $25-$26.50.
+- **Stop rule:** If $30 breaks on high volume, cancel all buys, wait for washout at $25.92-$26.27 zone.

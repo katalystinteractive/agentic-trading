@@ -8,7 +8,7 @@
 *   **Key Levels:**
     *   Resistance: $33.77 (gap), $35.40, $38.00 (short-report recovery zone).
     *   Support: $30.00-$30.43 (institutional floor, confirmed Feb 12-13), $28.25 (late-2024 support), $24.89-$25.90 (Value Area Low / washout zone).
-    *   Support: See `wick_analysis.md` (auto-updated by wick offset analyzer) once first run is performed.
+    *   Support: See `wick_analysis.md` (auto-updated by wick offset analyzer).
 *   **Context:**
     *   Wolfpack Research short report (early Feb 2026) alleges lost Pentagon contracts, questionable revenue, insider selling.
     *   Institutional response: 9/10 top holders increasing positions (avg +75% change). Norges Bank +67%, BlackRock +34%, Morgan Stanley +30%.

@@ -33,7 +33,8 @@ When reporting on active positions, always present information in this sequence:
 1.  **Trades Executed:** List each individual fill (date, price, shares) from the agent's `memory.md` trade log.
 2.  **Current Average:** The computed average cost basis and total shares from all fills.
 3.  **Pending Limit Orders:** Any open BUY or SELL orders not yet filled (from `portfolio.json`).
-4.  **Projected Sell Levels:** Target exit price and expected P/L % based on current average.
+4.  **Wick-Adjusted Buy Levels:** Data-driven buy prices from `wick_analysis.md` (or run `wick_offset_analyzer.py` if no cache exists). Show the "Buy At" price, hold rate, and shares to buy at each level. Never report raw support levels without wick adjustment.
+5.  **Projected Sell Levels:** Target exit price and expected P/L % based on current average.
 
 ### The "Cycle" Awareness
 *   **Monthly Rhythm:** Identify if the stock typically bottoms Early (Days 1-8), Mid (12-18), or Late (23-30) in the month.

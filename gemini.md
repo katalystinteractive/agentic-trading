@@ -34,7 +34,8 @@ When asked for a status update:
     1.  **Trades Executed** — individual fills (date, price, shares) from the agent's `memory.md`.
     2.  **Current Average** — computed avg cost and total shares.
     3.  **Pending Limit Orders** — open BUY/SELL orders not yet filled.
-    4.  **Projected Sell Levels** — target exit and expected P/L %.
+    4.  **Wick-Adjusted Buy Levels** — data-driven buy prices from `wick_analysis.md` cache (or run `wick_offset_analyzer.py` if no cache). Show "Buy At" price, hold rate, and shares per level. Never report raw support levels without wick adjustment.
+    5.  **Projected Sell Levels** — target exit and expected P/L %.
 4.  Then report Watchlist movement and any observations.
 5.  Check cached structural data in agent folders (`wick_analysis.md`, `earnings.md`, `institutional.md`, `short_interest.md`) for context without re-running tools.
 
