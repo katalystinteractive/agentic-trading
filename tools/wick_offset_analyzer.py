@@ -235,9 +235,11 @@ def analyze_stock(ticker):
     try:
         hist = fetch_history(ticker, months=13)
     except Exception as e:
-        return f"*Error fetching data for {ticker}: {e}*"
+        print(f"*Error fetching data for {ticker}: {e}*")
+        return None
     if hist.empty or len(hist) < 60:
-        return f"*Skipping {ticker} — insufficient data (need 60+ trading days)*"
+        print(f"*Skipping {ticker} — insufficient data (need 60+ trading days)*")
+        return None
 
     current_price = hist["Close"].iloc[-1]
     last_date = hist.index[-1].strftime("%Y-%m-%d")
@@ -248,7 +250,8 @@ def analyze_stock(ticker):
     levels = merge_levels(hvn_floors, pa_supports, current_price)
 
     if not levels:
-        return f"*No support levels found below current price for {ticker}*"
+        print(f"*No support levels found below current price for {ticker}*")
+        return None
 
     # Analyze approaches at each level
     level_results = []

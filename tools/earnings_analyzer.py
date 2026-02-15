@@ -77,9 +77,11 @@ def analyze_earnings(ticker_symbol):
         ticker = yf.Ticker(ticker_symbol)
         info = ticker.info
         if not info or info.get('regularMarketPrice') is None:
-            return f"*Error: Could not fetch data for {ticker_symbol}*"
+            print(f"*Error: Could not fetch data for {ticker_symbol}*")
+            return None
     except Exception as e:
-        return f"*Error: {e}*"
+        print(f"*Error: {e}*")
+        return None
 
     lines.append(f"*Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}*")
     lines.append("")
