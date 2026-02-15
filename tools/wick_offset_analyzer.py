@@ -266,7 +266,6 @@ def analyze_stock(ticker):
             "events": events,
             "total_approaches": len(events),
             "held": len(held_events),
-            "broke": len(events) - len(held_events),
             "hold_rate": len(held_events) / len(events) * 100 if events else 0,
             "median_offset": median_offset,
             "recommended_buy": recommended_buy,
