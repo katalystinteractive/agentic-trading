@@ -13,7 +13,6 @@ import sys
 import json
 import datetime
 import numpy as np
-import pandas as pd
 import yfinance as yf
 from pathlib import Path
 
@@ -158,7 +157,7 @@ def find_approach_events(hist, level, proximity_pct=8.0):
                     "start": approach_start,
                     "min_low": approach_min_low,
                     "offset_pct": ((approach_min_low - level) / level) * 100,
-                    "held": approach_min_low > level,
+                    "held": approach_min_low >= level,
                 })
                 in_approach = False
             continue
@@ -192,7 +191,7 @@ def find_approach_events(hist, level, proximity_pct=8.0):
                         "start": approach_start,
                         "min_low": approach_min_low,
                         "offset_pct": ((approach_min_low - level) / level) * 100,
-                        "held": approach_min_low > level,
+                        "held": approach_min_low >= level,
                     })
                     in_approach = False
                     gap_days = 0
@@ -203,7 +202,7 @@ def find_approach_events(hist, level, proximity_pct=8.0):
             "start": approach_start,
             "min_low": approach_min_low,
             "offset_pct": ((approach_min_low - level) / level) * 100,
-            "held": approach_min_low > level,
+            "held": approach_min_low >= level,
         })
 
     return events
@@ -224,7 +223,11 @@ def fmt_pct(val):
 
 def analyze_stock(ticker):
     """Full per-stock, per-level analysis."""
-    hist = fetch_history(ticker, months=13)
+    try:
+        hist = fetch_history(ticker, months=13)
+    except Exception as e:
+        print(f"*Error fetching data for {ticker}: {e}*")
+        return
     if hist.empty or len(hist) < 60:
         print(f"*Skipping {ticker} — insufficient data (need 60+ trading days)*")
         return
@@ -253,13 +256,9 @@ def analyze_stock(ticker):
 
         if held_offsets:
             median_offset = np.median(held_offsets)
-            p25_offset = np.percentile(held_offsets, 25)
-            min_offset = min(held_offsets)
             recommended_buy = lvl["price"] * (1 + median_offset / 100)
         else:
             median_offset = None
-            p25_offset = None
-            min_offset = None
             recommended_buy = None
 
         level_results.append({
@@ -270,8 +269,6 @@ def analyze_stock(ticker):
             "broke": len(events) - len(held_events),
             "hold_rate": len(held_events) / len(events) * 100 if events else 0,
             "median_offset": median_offset,
-            "p25_offset": p25_offset,
-            "min_offset": min_offset,
             "recommended_buy": recommended_buy,
         })
 
