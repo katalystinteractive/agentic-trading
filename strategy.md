@@ -35,6 +35,10 @@ When reporting on active positions, always present information in this sequence:
 3.  **Pending Limit Orders:** Any open BUY or SELL orders not yet filled (from `portfolio.json`).
 4.  **Wick-Adjusted Buy Levels:** Data-driven buy prices from `wick_analysis.md` (or run `wick_offset_analyzer.py` if no cache exists). Show the "Buy At" price, hold rate, and shares to buy at each level. Never report raw support levels without wick adjustment.
 5.  **Projected Sell Levels:** Target exit price and expected P/L % based on current average.
+6.  **Scenario Table (if applicable):** When projecting outcomes (bull/bear/etc.), each row must pass these checks:
+    *   **Direction-Price Consistency:** Buy levels must match the scenario. Bull scenarios use higher buy prices (pullbacks within an uptrend); bear scenarios use lower buy prices (washout/capitulation). Never suggest buying at $30 in a bull scenario when the stock is already at $34+.
+    *   **Show the Math:** New Avg = (current shares × current avg + new shares × buy price) / total shares. Always compute explicitly, never estimate.
+    *   **Monotonic Sanity Check:** Lower buy prices must produce lower new averages. If they don't, the math is wrong. Review before presenting.
 
 ### The "Cycle" Awareness
 *   **Monthly Rhythm:** Identify if the stock typically bottoms Early (Days 1-8), Mid (12-18), or Late (23-30) in the month.
