@@ -1,4 +1,4 @@
-*Generated: 2026-02-15 22:30*
+*Generated: 2026-02-15 22:37*
 
 ## Institutional & Insider Flow: IonQ, Inc. (IONQ)
 
@@ -13,8 +13,8 @@
 | 6 | Shaw D.E. & Co., Inc. | 5.45M | $185.8M | 1.54% | 34.87% | 2025-09-30 |
 | 7 | NORGES BANK | 4.45M | $151.9M | 1.26% | 66.68% | 2025-12-31 |
 | 8 | UBS Group AG | 4.22M | $144.1M | 1.19% | -1.80% | 2025-12-31 |
-| 9 | Marex Group Plc | 4.08M | $139.3M | 1.15% | 4.10% | 2025-12-31 |
-| 10 | Price (T.Rowe) Associates Inc | 3.25M | $110.8M | 0.92% | 1.20% | 2025-09-30 |
+| 9 | Marex Group Plc | 4.08M | $139.3M | 1.15% | 410.06% | 2025-12-31 |
+| 10 | Price (T.Rowe) Associates Inc | 3.25M | $110.8M | 0.92% | 120.06% | 2025-09-30 |
 
 ### Top Mutual Fund Holders
 | # | Fund | Shares | Value | % Out | % Change | Date Reported |

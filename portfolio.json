@@ -18,7 +18,7 @@
     "IONQ": {
       "shares": 15,
       "avg_cost": 44.39,
-      "bullets_used": "T1-partial",
+      "bullets_used": 1,
       "entry_date": "pre-2026",
       "target_exit": null,
       "note": "Pre-strategy position, recovery mode. See agents/IONQ/memory.md for tranche plan."

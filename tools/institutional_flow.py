@@ -42,10 +42,10 @@ def fmt_shares(val):
         return f"{val:,.0f}"
 
 def fmt_pct(val):
-    """Format percentage values."""
+    """Format percentage values. Assumes val is a fraction (0.18 = 18%)."""
     if pd.isna(val) or val is None:
         return "N/A"
-    return f"{float(val)*100:.2f}%" if abs(float(val)) < 1 else f"{float(val):.2f}%"
+    return f"{float(val)*100:.2f}%"
 
 def analyze_institutional_flow(ticker_symbol):
     lines = []
@@ -274,8 +274,8 @@ def analyze_institutional_flow(ticker_symbol):
                             shares = fmt_shares(row.get('Shares'))
                             value = fmt_value(row.get('Value'))
                             lines.append(f"| {holder} | {change_str} | {shares} | {value} |")
-    except Exception:
-        pass
+    except Exception as e:
+        lines.append(f"*Error computing smart money signal: {e}*")
 
     return "\n".join(lines)
 
