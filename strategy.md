@@ -57,6 +57,7 @@ Structural tools auto-save per-ticker cache files to `agents/<TICKER>/` on every
 *   `earnings.md` — Earnings history, revenue trend, price reactions (from `earnings_analyzer.py`).
 *   `institutional.md` — Top holders, insider transactions, cluster buy signals (from `institutional_flow.py`).
 *   `short_interest.md` — Short %, squeeze risk, days to cover (from `short_interest.py`).
+*   `news.md` — Headlines, sentiment, deep-dive articles (from `news_sentiment.py`).
 
 ## Current Watchlist & Status
 See `portfolio.json` for live positions/orders and run `python3 tools/portfolio_status.py` for a full report.

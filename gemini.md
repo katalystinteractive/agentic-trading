@@ -38,7 +38,7 @@ When asked for a status update:
     5.  **Projected Sell Levels** — target exit and expected P/L %.
     6.  **Scenario Table** — when projecting outcomes, each row must: (a) use buy levels consistent with the scenario direction (bull = pullback prices within an uptrend, bear = washout/capitulation prices — never suggest buying at $30 in a bull scenario when the stock is already at $34+), (b) show explicit math: New Avg = (current shares × current avg + new shares × buy price) / total shares, (c) pass monotonic check: lower buy prices must produce lower averages.
 4.  Then report Watchlist movement and any observations.
-5.  Check cached structural data in agent folders (`wick_analysis.md`, `earnings.md`, `institutional.md`, `short_interest.md`) for context without re-running tools.
+5.  Check cached structural data in agent folders (`wick_analysis.md`, `earnings.md`, `institutional.md`, `short_interest.md`, `news.md`) for context without re-running tools.
 
 ### 3. The "Deep Dive" Protocol
 When asked to analyze a specific stock, choose the appropriate depth:
@@ -83,6 +83,7 @@ agents/<TICKER>/wick_analysis.md   — Cached: per-level buy recs (auto-generate
 agents/<TICKER>/earnings.md        — Cached: earnings history + revenue (auto-generated)
 agents/<TICKER>/institutional.md   — Cached: holders + insider flow (auto-generated)
 agents/<TICKER>/short_interest.md  — Cached: short %, squeeze risk (auto-generated)
+agents/<TICKER>/news.md            — Cached: news sentiment + deep dives (auto-generated)
 tools/portfolio_status.py       — Full portfolio report with live prices
 tools/get_prices.py             — Quick price check for specific tickers
 tools/verify_stock.py           — 13-month historical audit
