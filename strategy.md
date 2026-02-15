@@ -5,8 +5,8 @@ We employ a **Mean Reversion** strategy, targeting stocks that consistently fluc
 
 ## Capital Allocation (Per Stock)
 *   **Total Allocation:** ~$600 per stock.
-*   **Active Pool ($300):** Deployed in 3 "Bullets" (Tranches) of ~$100 each to average down surgically.
-*   **Reserve Pool ($300):** The "Safety Net." Only deployed if the stock breaks structural support (e.g., 52-week lows) to aggressively lower basis for a break-even exit.
+*   **Active Pool ($300):** Deployed in 3 "Bullets" (Tranches) of ~$100 each to average down surgically. Bullet dollar size scales with share price to buy whole shares (e.g., ~$100 for $16+ stocks, ~$30 for $1.50 stocks).
+*   **Reserve Pool ($300):** The "Safety Net." **Every stock has a reserve pool.** Only deployed if the stock breaks structural support (e.g., 52-week lows, last HVN floor) to aggressively lower basis for a break-even exit. Reserve bullets are placed at smart levels below the active pool range.
 
 ## Selection Criteria
 1.  **Price:** < $40 preferred (allows for whole-share averaging with $100 bullets).
@@ -16,9 +16,12 @@ We employ a **Mean Reversion** strategy, targeting stocks that consistently fluc
 
 ## Execution Rules
 ### Entry Protocol ("The Bullets")
-*   **Bullet 1 ($100):** Placed at "Support 1" (e.g., 50-day SMA, Channel Floor, Psychological Round Number).
-*   **Bullet 2 ($100):** Placed at "Support 2" (e.g., Previous Pivot Low, Gap Fill).
-*   **Bullet 3 ($100):** Placed at "Capitulation/Panic" levels (e.g., RSI < 30, Bollinger Band lower pierce).
+*   **Bullet 1:** Placed at "Support 1" (e.g., 50-day SMA, Channel Floor, HVN Floor).
+*   **Bullet 2:** Placed at "Support 2" (e.g., Previous Pivot Low, Gap Fill).
+*   **Bullet 3:** Placed at "Capitulation/Panic" levels (e.g., RSI < 30, Bollinger Band lower pierce).
+
+### Limit Order Placement Rule
+**Never place a limit buy at the exact support level.** Use `python3 tools/wick_offset_analyzer.py <TICKER>` to calculate the data-driven buy price for each support level. The tool analyzes 13 months of wick behavior at each specific level and outputs the exact recommended buy price based on where wicks historically stopped. Place limit orders at the tool's "Buy At" price, not the raw support level. Re-run periodically as new data accumulates.
 
 ### Exit Protocol
 *   **Profit Target:** 10-12% gain from the average cost basis.
@@ -36,3 +39,4 @@ See `portfolio.json` for live positions/orders and run `python3 tools/portfolio_
 *   **SOFI (Fintech/AI):** Binary Bottomer. AI Wildcard.
 *   **AR (Energy):** Early-Month Bottomer. The Slow Cooker.
 *   **KMI (Energy/Infrastructure):** Early-Month Bottomer. Dividend Fortress.
+*   **STIM (MedTech):** Early-Month Bottomer. The Micro-Cap Swinger.

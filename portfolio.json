@@ -7,12 +7,23 @@
       "bullets_used": 1,
       "entry_date": "2026-02-13",
       "target_exit": 18.50
+    },
+    "STIM": {
+      "shares": 42,
+      "avg_cost": 1.50,
+      "bullets_used": 2,
+      "entry_date": "2026-02-15",
+      "target_exit": 1.65
     }
   },
   "pending_orders": {
     "NU": [
       {"type": "SELL", "price": 18.50, "shares": 6, "note": "Target ~11.4%"},
       {"type": "BUY", "price": 15.90, "shares": 6, "note": "Bullet 2"}
+    ],
+    "STIM": [
+      {"type": "SELL", "price": 1.65, "shares": 42, "note": "Target ~10%"},
+      {"type": "BUY", "price": 1.38, "shares": 21, "note": "Bullet 3"}
     ],
     "AR": [
       {"type": "BUY", "price": 31.85, "shares": 3, "note": "Bullet 1 - Floor"}
@@ -26,6 +37,8 @@
     "per_stock_total": 600,
     "active_pool": 300,
     "reserve_pool": 300,
-    "bullet_size": 100
+    "bullet_size": 100,
+    "bullets_per_pool": 3,
+    "note": "Bullet size is approximate — actual $ per bullet scales with share price to buy whole shares"
   }
 }
