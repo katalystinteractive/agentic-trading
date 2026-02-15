@@ -14,6 +14,14 @@
       "bullets_used": 2,
       "entry_date": "2026-02-15",
       "target_exit": 1.65
+    },
+    "IONQ": {
+      "shares": 15,
+      "avg_cost": 44.39,
+      "bullets_used": "T1-partial",
+      "entry_date": "pre-2026",
+      "target_exit": null,
+      "note": "Pre-strategy position, recovery mode. See agents/IONQ/memory.md for tranche plan."
     }
   },
   "pending_orders": {

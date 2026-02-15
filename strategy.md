@@ -39,6 +39,13 @@ When reporting on active positions, always present information in this sequence:
 *   **Monthly Rhythm:** Identify if the stock typically bottoms Early (Days 1-8), Mid (12-18), or Late (23-30) in the month.
 *   **Do Not Chase:** If the "Low Window" has passed and price is mid-range, **WAIT** for the next cycle.
 
+### Underwater Position Recovery ("Dig Out" Protocol)
+When a position was entered before the strategy was refined and is significantly underwater:
+*   **Earnings Gate:** If a binary event (earnings call) is approaching, gate the largest capital deployment on the event outcome. Keep a starter position to benefit from pre-event bounce, but reserve the majority of dry powder for post-event clarity.
+*   **Washout Discipline:** When a major psychological support breaks (e.g., $30), do not buy $1 below. Wait for the capitulation flush (typically 10-15% further down). Fewer shares at a deeper price achieve the same average reduction for less capital.
+*   **Relief Rally Validation:** After a sharp drop, the first bounce may be a "dead cat bounce." Validate by checking: (1) volume increasing on up days, (2) price holds above prior resistance for 2+ days, (3) RSI crosses back above 30.
+*   **LLM Cross-Verification:** When an LLM cites specific institutional buying (e.g., "JPMorgan +648%"), verify through `institutional_flow.py` before acting. Directional signals are usually correct, but specific names/numbers may be hallucinated.
+
 ### Cached Structural Data
 Structural tools auto-save per-ticker cache files to `agents/<TICKER>/` on every run. These files refresh each time the tool is re-run:
 *   `wick_analysis.md` — Support levels & data-driven buy recommendations (from `wick_offset_analyzer.py`).

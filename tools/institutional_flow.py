@@ -225,6 +225,58 @@ def analyze_institutional_flow(ticker_symbol):
     except Exception as e:
         lines.append(f"*Error fetching insider transactions: {e}*")
 
+    # --- Table 5: Smart Money Signal (from institutional holders) ---
+    try:
+        if inst is not None and not inst.empty:
+            pct_col = 'pctChange' if 'pctChange' in inst.columns else '% Change'
+            if pct_col in inst.columns:
+                valid = inst.dropna(subset=[pct_col])
+                if not valid.empty:
+                    increasing = valid[valid[pct_col] > 0]
+                    decreasing = valid[valid[pct_col] < 0]
+                    total = len(valid)
+                    inc_count = len(increasing)
+                    avg_change = valid[pct_col].mean()
+
+                    # Rating
+                    ratio = inc_count / total if total > 0 else 0
+                    if ratio >= 0.8:
+                        signal = "STRONG ACCUMULATION"
+                    elif ratio >= 0.6:
+                        signal = "ACCUMULATION"
+                    elif ratio >= 0.4:
+                        signal = "MIXED"
+                    elif ratio >= 0.2:
+                        signal = "DISTRIBUTION"
+                    else:
+                        signal = "STRONG DISTRIBUTION"
+
+                    lines.append("")
+                    lines.append("### Smart Money Signal")
+                    lines.append("| Metric | Value |")
+                    lines.append("| :--- | :--- |")
+                    lines.append(f"| Signal | **{signal}** |")
+                    lines.append(f"| Holders Increasing | {inc_count}/{total} |")
+                    lines.append(f"| Holders Decreasing | {len(decreasing)}/{total} |")
+                    lines.append(f"| Avg Position Change | {avg_change * 100:+.1f}% |")
+
+                    # Top accumulators (sorted by % change, >20% only)
+                    big_movers = valid[valid[pct_col] > 0.20].sort_values(pct_col, ascending=False)
+                    if not big_movers.empty:
+                        lines.append("")
+                        lines.append("### Aggressive Accumulators (>20% increase)")
+                        lines.append("| Holder | % Change | Shares | Value |")
+                        lines.append("| :--- | :--- | :--- | :--- |")
+                        for _, row in big_movers.iterrows():
+                            holder = row.get('Holder', 'N/A')
+                            pct_val = row.get(pct_col, 0)
+                            change_str = f"{float(pct_val) * 100:+.1f}%"
+                            shares = fmt_shares(row.get('Shares'))
+                            value = fmt_value(row.get('Value'))
+                            lines.append(f"| {holder} | {change_str} | {shares} | {value} |")
+    except Exception:
+        pass
+
     return "\n".join(lines)
 
 if __name__ == "__main__":
