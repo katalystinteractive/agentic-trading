@@ -30,7 +30,12 @@ When asked to find a new stock, you must generate a report with **5 Specific Tab
 When asked for a status update:
 1.  Run `python3 tools/portfolio_status.py` — reads `portfolio.json`, fetches live prices, generates a full report.
 2.  Review each agent's `memory.md` for narrative context (observations, lessons).
-3.  Report Active P/L, Pending Order distances, and Watchlist movement.
+3.  For each active position, report in this order:
+    1.  **Trades Executed** — individual fills (date, price, shares) from the agent's `memory.md`.
+    2.  **Current Average** — computed avg cost and total shares.
+    3.  **Pending Limit Orders** — open BUY/SELL orders not yet filled.
+    4.  **Projected Sell Levels** — target exit and expected P/L %.
+4.  Then report Watchlist movement and any observations.
 
 ### 3. The "Deep Dive" Protocol
 When asked to analyze a specific stock, choose the appropriate depth:

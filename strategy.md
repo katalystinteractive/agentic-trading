@@ -28,6 +28,13 @@ We employ a **Mean Reversion** strategy, targeting stocks that consistently fluc
 *   **Time Stop:** If target is not hit within **3 weeks**, review for exit (rotate capital).
 *   **Earnings Rule:** Generally exit or reduce position before earnings reports to avoid binary risk, unless specifically playing a post-earnings drift.
 
+### Position Reporting Order
+When reporting on active positions, always present information in this sequence:
+1.  **Trades Executed:** List each individual fill (date, price, shares) from the agent's `memory.md` trade log.
+2.  **Current Average:** The computed average cost basis and total shares from all fills.
+3.  **Pending Limit Orders:** Any open BUY or SELL orders not yet filled (from `portfolio.json`).
+4.  **Projected Sell Levels:** Target exit price and expected P/L % based on current average.
+
 ### The "Cycle" Awareness
 *   **Monthly Rhythm:** Identify if the stock typically bottoms Early (Days 1-8), Mid (12-18), or Late (23-30) in the month.
 *   **Do Not Chase:** If the "Low Window" has passed and price is mid-range, **WAIT** for the next cycle.
