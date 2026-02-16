@@ -71,3 +71,4 @@ See `portfolio.json` for live positions/orders and run `python3 tools/portfolio_
 *   **UAMY (Critical Minerals):** Cycle Unknown. The Critical Mineral. Policy-driven speculative play (pre-strategy, underwater).
 *   **USAR (Rare Earth):** Cycle Unknown. The Rare Earth Pioneer. Pre-revenue, policy-driven speculative play (pre-strategy, underwater).
 *   **INTC (Semiconductor):** Cycle Unknown. The Chip Comeback. Turnaround play on 18A node (pre-strategy, near breakeven).
+*   **APLD (AI/HPC Infrastructure):** Cycle TBD. The AI Data Center. High-volatility mean reversion candidate (ATR 12.1%).
