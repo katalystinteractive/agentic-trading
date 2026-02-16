@@ -13,7 +13,7 @@
       "avg_cost": 1.50,
       "bullets_used": 2,
       "entry_date": "2026-02-15",
-      "target_exit": 1.65
+      "target_exit": 1.79
     },
     "IONQ": {
       "shares": 15,
@@ -54,7 +54,7 @@
       {"type": "BUY", "price": 14.88, "shares": 6, "note": "Bullet 2 — $14.07 Price Action, 67% hold rate, wick-adjusted"}
     ],
     "STIM": [
-      {"type": "SELL", "price": 1.65, "shares": 42, "note": "Target ~10%"},
+      {"type": "SELL", "price": 1.79, "shares": 42, "note": "Target ~19.3% — $1.79 tested resistance + 84% sell wall"},
       {"type": "BUY", "price": 1.38, "shares": 21, "note": "Bullet 3"}
     ],
     "AR": [
@@ -82,9 +82,14 @@
       {"type": "BUY", "price": 32.47, "shares": 3, "note": "Bullet 1 — $31.82 Price Action, 44% hold rate, wick-adjusted"},
       {"type": "BUY", "price": 29.24, "shares": 3, "note": "Bullet 2 — $28.56 Price Action, 43% hold rate, wick-adjusted"},
       {"type": "BUY", "price": 27.71, "shares": 3, "note": "Bullet 3 — $27.62 Price Action, 44% hold rate, wick-adjusted"}
+    ],
+    "CLF": [
+      {"type": "BUY", "price": 9.97, "shares": 10, "note": "Bullet 1 — $9.92 HVN+PA, 45% hold rate, wick-adjusted"},
+      {"type": "BUY", "price": 9.53, "shares": 10, "note": "Bullet 2 — $9.04 PA, 71% hold rate, wick-adjusted"},
+      {"type": "BUY", "price": 8.48, "shares": 11, "note": "Bullet 3 — $8.25 PA, 71% hold rate, wick-adjusted"}
     ]
   },
-  "watchlist": ["SOFI", "AR", "KMI", "APLD"],
+  "watchlist": ["SOFI", "AR", "KMI", "APLD", "VALE", "CLF", "SEDG"],
   "capital": {
     "per_stock_total": 600,
     "active_pool": 300,
