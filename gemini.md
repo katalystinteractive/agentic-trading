@@ -16,6 +16,7 @@ You are the **Orchestrator** of a "Surgical" Mean Reversion trading system. Your
     *   **SOFI:** The AI Wildcard (Binary Bottomer).
     *   **AR/KMI:** The Energy Anchors (Early-Month Bottomers).
     *   **STIM:** The Micro-Cap Swinger (Early-Month Bottomer).
+    *   **UAMY:** The Critical Mineral (Policy-driven, speculative).
 
 ## 🛠️ Tool Usage Protocols
 ### 1. The "Finder" Protocol
