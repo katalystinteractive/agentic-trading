@@ -51,14 +51,15 @@
   "pending_orders": {
     "NU": [
       {"type": "SELL", "price": 18.50, "shares": 6, "note": "Target ~11.4%"},
-      {"type": "BUY", "price": 15.90, "shares": 6, "note": "Bullet 2"}
+      {"type": "BUY", "price": 14.88, "shares": 6, "note": "Bullet 2 — $14.07 Price Action, 67% hold rate, wick-adjusted"}
     ],
     "STIM": [
       {"type": "SELL", "price": 1.65, "shares": 42, "note": "Target ~10%"},
       {"type": "BUY", "price": 1.38, "shares": 21, "note": "Bullet 3"}
     ],
     "AR": [
-      {"type": "BUY", "price": 31.85, "shares": 3, "note": "Bullet 1 - Floor"}
+      {"type": "BUY", "price": 32.68, "shares": 3, "note": "Bullet 1 — $31.36 HVN, 50% hold rate, wick-adjusted"},
+      {"type": "BUY", "price": 31.16, "shares": 3, "note": "Bullet 2 — $29.72 Price Action, 67% hold rate, wick-adjusted"}
     ],
     "KMI": [
       {"type": "BUY", "price": 30.10, "shares": 3, "note": "Bullet 1 - March cycle"}
