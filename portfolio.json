@@ -38,6 +38,14 @@
       "entry_date": "pre-2026-02-12",
       "target_exit": 23.05,
       "note": "Pre-strategy position, underwater. Active pool exhausted ($323 deployed). Reserve plan in pending_orders."
+    },
+    "INTC": {
+      "shares": 5,
+      "avg_cost": 46.55,
+      "bullets_used": "3 active (pre-strategy)",
+      "entry_date": "pre-2026-02-12",
+      "target_exit": 51.21,
+      "note": "Pre-strategy position, near breakeven. Active pool ~$233 deployed, ~$67 remaining."
     }
   },
   "pending_orders": {
@@ -62,6 +70,12 @@
     "USAR": [
       {"type": "BUY", "price": 15.48, "shares": 6, "note": "Reserve 1 — $15.08 Price Action support, wick-adjusted"},
       {"type": "BUY", "price": 12.56, "shares": 8, "note": "Reserve 2 — $12.44 HVN support, wick-adjusted"}
+    ],
+    "INTC": [
+      {"type": "SELL", "price": 51.21, "shares": 5, "note": "Target 10% from avg"},
+      {"type": "BUY", "price": 41.20, "shares": 1, "note": "Last active bullet — $40.10 HVN, wick-adjusted"},
+      {"type": "BUY", "price": 37.56, "shares": 2, "note": "Reserve 1 — $37.06 HVN, wick-adjusted"},
+      {"type": "BUY", "price": 36.38, "shares": 2, "note": "Reserve 2 — $36.04 HVN, wick-adjusted"}
     ]
   },
   "watchlist": ["SOFI", "AR", "KMI"],
