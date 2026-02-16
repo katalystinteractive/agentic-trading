@@ -16,6 +16,7 @@ You are the **Orchestrator** of a "Surgical" Mean Reversion trading system. Your
     *   **SOFI:** The AI Wildcard (Binary Bottomer).
     *   **AR/KMI:** The Energy Anchors (Early-Month Bottomers).
     *   **STIM:** The Micro-Cap Swinger (Early-Month Bottomer).
+    *   **IONQ:** The Quantum Gambit (Recovery mode, pre-strategy underwater).
     *   **UAMY:** The Critical Mineral (Policy-driven, speculative).
     *   **USAR:** The Rare Earth Pioneer (Pre-revenue, policy-driven).
     *   **INTC:** The Chip Comeback (Turnaround, 18A node).
