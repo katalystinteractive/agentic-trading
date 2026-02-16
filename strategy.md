@@ -69,3 +69,4 @@ See `portfolio.json` for live positions/orders and run `python3 tools/portfolio_
 *   **STIM (MedTech):** Early-Month Bottomer. The Micro-Cap Swinger.
 *   **IONQ (Quantum Computing):** Cycle Unknown. The Quantum Gambit. Recovery mode (pre-strategy, underwater).
 *   **UAMY (Critical Minerals):** Cycle Unknown. The Critical Mineral. Policy-driven speculative play (pre-strategy, underwater).
+*   **USAR (Rare Earth):** Cycle Unknown. The Rare Earth Pioneer. Pre-revenue, policy-driven speculative play (pre-strategy, underwater).

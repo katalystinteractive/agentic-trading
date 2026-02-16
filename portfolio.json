@@ -30,6 +30,14 @@
       "entry_date": "pre-2026-02-12",
       "target_exit": 8.76,
       "note": "Pre-strategy position, underwater. Active pool exhausted ($318 deployed). Reserve plan in pending_orders."
+    },
+    "USAR": {
+      "shares": 15,
+      "avg_cost": 21.52,
+      "bullets_used": "3 active (pre-strategy)",
+      "entry_date": "pre-2026-02-12",
+      "target_exit": 23.05,
+      "note": "Pre-strategy position, underwater. Active pool exhausted ($323 deployed). Reserve plan in pending_orders."
     }
   },
   "pending_orders": {
@@ -50,6 +58,10 @@
     "UAMY": [
       {"type": "BUY", "price": 6.62, "shares": 15, "note": "Reserve 1 — $6.52 HVN support, wick-adjusted"},
       {"type": "BUY", "price": 6.22, "shares": 16, "note": "Reserve 2 — $6.04 HVN pre-rally base, wick-adjusted"}
+    ],
+    "USAR": [
+      {"type": "BUY", "price": 15.48, "shares": 6, "note": "Reserve 1 — $15.08 Price Action support, wick-adjusted"},
+      {"type": "BUY", "price": 12.56, "shares": 8, "note": "Reserve 2 — $12.44 HVN support, wick-adjusted"}
     ]
   },
   "watchlist": ["SOFI", "AR", "KMI"],
