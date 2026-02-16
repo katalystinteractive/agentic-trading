@@ -55,7 +55,8 @@
     ],
     "STIM": [
       {"type": "SELL", "price": 1.79, "shares": 42, "note": "Target ~19.3% — $1.79 tested resistance + 84% sell wall"},
-      {"type": "BUY", "price": 1.38, "shares": 21, "note": "Bullet 3"}
+      {"type": "BUY", "price": 1.38, "shares": 21, "note": "Bullet 3"},
+      {"type": "BUY", "price": 1.25, "shares": 24, "note": "Reserve 1 — $1.25 Price Action floor, 100% hold rate (2/2 tests)"}
     ],
     "AR": [
       {"type": "BUY", "price": 32.68, "shares": 3, "note": "Bullet 1 — $31.36 HVN, 50% hold rate, wick-adjusted"},
