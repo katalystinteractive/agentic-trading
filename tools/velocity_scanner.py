@@ -73,13 +73,15 @@ def score_velocity_signal(ticker_symbol):
         "max": 30,
     })
 
-    # MACD Bullish Cross: 25 pts if MACD > signal AND histogram > 0
-    # More specifically: histogram turning positive (cross)
+    # MACD Bullish Cross: 25 pts if histogram just turned positive (fresh cross)
     macd_pts = 0
-    if hist_val > 0 and macd_val > signal_val:
+    prev_hist = float(histogram.iloc[-2]) if len(histogram) >= 2 else 0
+    if hist_val > 0 and prev_hist <= 0:
         macd_pts = 25
     total += macd_pts
-    macd_label = f"Bullish ({hist_val:+.3f})" if hist_val > 0 else f"Bearish ({hist_val:+.3f})"
+    macd_label = f"Bullish Cross ({hist_val:+.3f})" if macd_pts > 0 else (
+        f"Bullish ({hist_val:+.3f})" if hist_val > 0 else f"Bearish ({hist_val:+.3f})"
+    )
     components.append({
         "name": "MACD Cross",
         "value": macd_label,
@@ -137,6 +139,13 @@ def score_velocity_signal(ticker_symbol):
 
     # --- Trade Setup ---
     portfolio = json.loads(PORTFOLIO.read_text())
+
+    # Overlap check: reject tickers in the surgical pool
+    surgical_tickers = set(portfolio.get("positions", {}).keys()) | \
+                       set(portfolio.get("pending_orders", {}).keys()) | \
+                       set(portfolio.get("watchlist", []))
+    overlap = ticker_symbol in surgical_tickers
+
     vel_cap = portfolio.get("velocity_capital", {})
     per_trade = vel_cap.get("per_trade_size", 175)
     target_pct = vel_cap.get("target_pct", 4.5)
@@ -165,6 +174,7 @@ def score_velocity_signal(ticker_symbol):
         "stop_price": stop_price,
         "shares": shares,
         "rr_ratio": rr_ratio,
+        "overlap": overlap,
     }
 
 
@@ -200,6 +210,8 @@ def format_report(result):
 
     # Selection criteria flags
     flags = []
+    if result.get("overlap"):
+        flags.append("OVERLAP: Ticker is in the Surgical stock pool — cannot trade in both strategies")
     if result["atr_pct"] < 2.5:
         flags.append("ATR% below 2.5% minimum")
     if result["avg_volume"] < 2_000_000:

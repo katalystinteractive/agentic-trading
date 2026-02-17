@@ -1,15 +1,14 @@
 """Velocity Dashboard — scan all candidates, rank by signal, track active trades."""
 
 import json
-import sys
 from pathlib import Path
 from datetime import datetime, timedelta
 
 import yfinance as yf
 import pandas as pd
-import numpy as np
 
 from velocity_scanner import score_velocity_signal
+from technical_scanner import calc_rsi
 
 ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = ROOT / "portfolio.json"
@@ -19,17 +18,22 @@ def load_portfolio():
     return json.loads(PORTFOLIO.read_text())
 
 
-def get_current_price(ticker):
-    """Fetch current price for a single ticker."""
+def get_price_and_rsi(ticker):
+    """Fetch current price and RSI for a single ticker.
+
+    Returns (price, rsi) tuple. Either may be None on error.
+    """
     try:
-        df = yf.download(ticker, period="5d", interval="1d", progress=False)
+        df = yf.download(ticker, period="3mo", interval="1d", progress=False)
         if df.empty:
-            return None
+            return None, None
         if isinstance(df.columns, pd.MultiIndex):
             df.columns = df.columns.get_level_values(0)
-        return float(df["Close"].iloc[-1])
+        price = float(df["Close"].iloc[-1])
+        rsi_val = float(calc_rsi(df["Close"]).iloc[-1])
+        return price, rsi_val
     except Exception:
-        return None
+        return None, None
 
 
 def count_trading_days(entry_date_str):
@@ -65,10 +69,22 @@ def run_dashboard():
     print(f"\n## Velocity Dashboard — {now}")
 
     # --- Active Trades ---
+    # Fetch prices + RSI once, cache for reuse in exit alerts
+    trade_data = {}  # ticker -> {current, rsi, pnl_pct, days_in}
+    for ticker, pos in vel_positions.items():
+        current, rsi = get_price_and_rsi(ticker)
+        entry_price = pos.get("entry_price", 0)
+        if current is None:
+            current = entry_price
+            rsi = None
+        pnl_pct = ((current - entry_price) / entry_price) * 100 if entry_price > 0 else 0
+        days_in = count_trading_days(pos.get("entry_date", ""))
+        trade_data[ticker] = {"current": current, "rsi": rsi, "pnl_pct": pnl_pct, "days_in": days_in}
+
     print("\n### Active Trades")
     if vel_positions:
-        print("| Ticker | Entry | Current | P/L% | Day | Stop | Target | Status |")
-        print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+        print("| Ticker | Entry | Current | P/L% | RSI | Day | Stop | Target | Status |")
+        print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
         deployed = 0
         for ticker, pos in vel_positions.items():
@@ -76,22 +92,21 @@ def run_dashboard():
             shares = pos.get("shares", 0)
             stop_price = pos.get("stop_price", 0)
             target_price = pos.get("target_price", 0)
-            entry_date = pos.get("entry_date", "")
-            time_stop_date = pos.get("time_stop_date", "")
 
-            current = get_current_price(ticker)
-            if current is None:
-                current = entry_price
-
-            pnl_pct = ((current - entry_price) / entry_price) * 100 if entry_price > 0 else 0
-            days_in = count_trading_days(entry_date)
+            td = trade_data[ticker]
+            current = td["current"]
+            rsi = td["rsi"]
+            pnl_pct = td["pnl_pct"]
+            days_in = td["days_in"]
             deployed += shares * entry_price
 
-            # Determine status
+            # Determine status (exit rules in priority order)
             if pnl_pct >= target_pct:
                 status = "TARGET HIT"
             elif pnl_pct <= -stop_pct:
                 status = "STOP HIT"
+            elif rsi is not None and rsi > 70:
+                status = "OVERBOUGHT"
             elif isinstance(days_in, int) and days_in >= time_stop_days:
                 status = "TIME STOP"
             elif pnl_pct > 0:
@@ -99,9 +114,10 @@ def run_dashboard():
             else:
                 status = "Underwater"
 
+            rsi_str = f"{rsi:.0f}" if rsi is not None else "N/A"
             print(
                 f"| {ticker} | ${entry_price:.2f} | ${current:.2f} | "
-                f"{pnl_pct:+.1f}% | {days_in}/{time_stop_days} | "
+                f"{pnl_pct:+.1f}% | {rsi_str} | {days_in}/{time_stop_days} | "
                 f"${stop_price:.2f} | ${target_price:.2f} | {status} |"
             )
     else:
@@ -153,25 +169,24 @@ def run_dashboard():
     else:
         print("*No tickers on velocity watchlist. Add tickers to `velocity_watchlist` in portfolio.json.*")
 
-    # --- Exit Alerts ---
+    # --- Exit Alerts (uses cached trade_data — no duplicate API calls) ---
     alerts = []
     for ticker, pos in vel_positions.items():
-        entry_price = pos.get("entry_price", 0)
-        stop_price = pos.get("stop_price", 0)
-        target_price = pos.get("target_price", 0)
-        entry_date = pos.get("entry_date", "")
-
-        current = get_current_price(ticker)
-        if current is None:
+        td = trade_data.get(ticker)
+        if td is None:
             continue
 
-        pnl_pct = ((current - entry_price) / entry_price) * 100 if entry_price > 0 else 0
-        days_in = count_trading_days(entry_date)
+        current = td["current"]
+        pnl_pct = td["pnl_pct"]
+        days_in = td["days_in"]
+        rsi = td["rsi"]
 
         if pnl_pct >= target_pct:
             alerts.append(f"**{ticker}**: TARGET HIT at ${current:.2f} (+{pnl_pct:.1f}%) — SELL NOW")
         elif pnl_pct <= -stop_pct:
             alerts.append(f"**{ticker}**: STOP HIT at ${current:.2f} ({pnl_pct:.1f}%) — SELL NOW")
+        elif rsi is not None and rsi > 70:
+            alerts.append(f"**{ticker}**: OVERBOUGHT (RSI {rsi:.0f}) at ${current:.2f} ({pnl_pct:+.1f}%) — SELL NOW")
         elif isinstance(days_in, int) and days_in >= time_stop_days:
             alerts.append(f"**{ticker}**: TIME STOP (day {days_in}) at ${current:.2f} ({pnl_pct:+.1f}%) — SELL NOW")
 
