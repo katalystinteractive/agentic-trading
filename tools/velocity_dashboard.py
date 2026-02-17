@@ -59,7 +59,6 @@ def run_dashboard():
     vel_watchlist = portfolio.get("velocity_watchlist", [])
 
     total_pool = vel_cap.get("total_pool", 1000)
-    per_trade = vel_cap.get("per_trade_size", 175)
     max_concurrent = vel_cap.get("max_concurrent", 6)
     target_pct = vel_cap.get("target_pct", 4.5)
     stop_pct = vel_cap.get("stop_loss_pct", 3.0)
@@ -143,12 +142,17 @@ def run_dashboard():
         print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
         results = []
+        skipped_overlap = []
         for ticker in vel_watchlist:
             if ticker in vel_positions:
                 continue  # already in an active trade
             result = score_velocity_signal(ticker)
-            if result:
-                results.append(result)
+            if result is None:
+                continue
+            if result.get("overlap"):
+                skipped_overlap.append(ticker)
+                continue
+            results.append(result)
 
         # Sort by score descending
         results.sort(key=lambda r: r["score"], reverse=True)
@@ -166,6 +170,9 @@ def run_dashboard():
                 f"{rsi_pts}/30 | {macd_pts}/25 | {boll_pts}/25 | "
                 f"{stoch_pts}/10 | {r['atr_pct']:.1f}% | {r['verdict']} |"
             )
+        if skipped_overlap:
+            joined = ", ".join(skipped_overlap)
+            print(f"\n*Skipped (surgical overlap): {joined}*")
     else:
         print("*No tickers on velocity watchlist. Add tickers to `velocity_watchlist` in portfolio.json.*")
 

@@ -3,7 +3,6 @@
 import json
 import sys
 from pathlib import Path
-from datetime import datetime
 
 import yfinance as yf
 import pandas as pd
@@ -23,10 +22,8 @@ def score_velocity_signal(ticker_symbol):
     try:
         df = yf.download(ticker_symbol, period="3mo", interval="1d", progress=False)
         if df.empty:
-            print(f"*Error: No data for {ticker_symbol}*")
             return None
-    except Exception as e:
-        print(f"*Error fetching {ticker_symbol}: {e}*")
+    except Exception:
         return None
 
     if isinstance(df.columns, pd.MultiIndex):
@@ -41,9 +38,7 @@ def score_velocity_signal(ticker_symbol):
     rsi_series = calc_rsi(close)
     rsi_val = float(rsi_series.iloc[-1])
 
-    macd_line, signal_line, histogram = calc_macd(close)
-    macd_val = float(macd_line.iloc[-1])
-    signal_val = float(signal_line.iloc[-1])
+    _, _, histogram = calc_macd(close)
     hist_val = float(histogram.iloc[-1])
 
     bb_upper, bb_middle, bb_lower = calc_bollinger(close)
@@ -130,7 +125,16 @@ def score_velocity_signal(ticker_symbol):
     })
 
     # --- Verdict ---
-    if total >= 70:
+    # Overlap check done early so it can block the verdict
+    portfolio = json.loads(PORTFOLIO.read_text())
+    surgical_tickers = set(portfolio.get("positions", {}).keys()) | \
+                       set(portfolio.get("pending_orders", {}).keys()) | \
+                       set(portfolio.get("watchlist", []))
+    overlap = ticker_symbol in surgical_tickers
+
+    if overlap:
+        verdict = "BLOCKED — OVERLAP"
+    elif total >= 70:
         verdict = "STRONG BUY" if total >= 85 else "BUY"
     elif total >= 50:
         verdict = "WATCH"
@@ -138,14 +142,6 @@ def score_velocity_signal(ticker_symbol):
         verdict = "NO SIGNAL"
 
     # --- Trade Setup ---
-    portfolio = json.loads(PORTFOLIO.read_text())
-
-    # Overlap check: reject tickers in the surgical pool
-    surgical_tickers = set(portfolio.get("positions", {}).keys()) | \
-                       set(portfolio.get("pending_orders", {}).keys()) | \
-                       set(portfolio.get("watchlist", []))
-    overlap = ticker_symbol in surgical_tickers
-
     vel_cap = portfolio.get("velocity_capital", {})
     per_trade = vel_cap.get("per_trade_size", 175)
     target_pct = vel_cap.get("target_pct", 4.5)
