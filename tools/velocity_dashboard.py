@@ -138,9 +138,6 @@ def run_dashboard():
     # --- Candidate Signals ---
     print("\n### Candidate Signals (sorted by score)")
     if vel_watchlist:
-        print("| Ticker | Price | Score | RSI | MACD | Boll | Stoch | ATR% | Signal |")
-        print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
-
         results = []
         skipped_overlap = []
         for ticker in vel_watchlist:
@@ -157,19 +154,23 @@ def run_dashboard():
         # Sort by score descending
         results.sort(key=lambda r: r["score"], reverse=True)
 
-        for r in results:
-            # Extract individual component points for compact display
-            comp_map = {c["name"]: c for c in r["components"]}
-            rsi_pts = comp_map.get("RSI(14)", {}).get("points", 0)
-            macd_pts = comp_map.get("MACD Cross", {}).get("points", 0)
-            boll_pts = comp_map.get("Bollinger", {}).get("points", 0)
-            stoch_pts = comp_map.get("Stochastic %K", {}).get("points", 0)
+        if results:
+            print("| Ticker | Price | Score | RSI | MACD | Boll | Stoch | ATR% | Signal |")
+            print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+            for r in results:
+                comp_map = {c["name"]: c for c in r["components"]}
+                rsi_pts = comp_map.get("RSI(14)", {}).get("points", 0)
+                macd_pts = comp_map.get("MACD Cross", {}).get("points", 0)
+                boll_pts = comp_map.get("Bollinger", {}).get("points", 0)
+                stoch_pts = comp_map.get("Stochastic %K", {}).get("points", 0)
 
-            print(
-                f"| {r['ticker']} | ${r['price']:.2f} | {r['score']} | "
-                f"{rsi_pts}/30 | {macd_pts}/25 | {boll_pts}/25 | "
-                f"{stoch_pts}/10 | {r['atr_pct']:.1f}% | {r['verdict']} |"
-            )
+                print(
+                    f"| {r['ticker']} | ${r['price']:.2f} | {r['score']} | "
+                    f"{rsi_pts}/30 | {macd_pts}/25 | {boll_pts}/25 | "
+                    f"{stoch_pts}/10 | {r['atr_pct']:.1f}% | {r['verdict']} |"
+                )
+        else:
+            print("*No eligible candidates after filtering.*")
         if skipped_overlap:
             joined = ", ".join(skipped_overlap)
             print(f"\n*Skipped (surgical overlap): {joined}*")

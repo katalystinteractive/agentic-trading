@@ -41,10 +41,10 @@ def score_velocity_signal(ticker_symbol):
     _, _, histogram = calc_macd(close)
     hist_val = float(histogram.iloc[-1])
 
-    bb_upper, bb_middle, bb_lower = calc_bollinger(close)
+    _, _, bb_lower = calc_bollinger(close)
     bb_lower_val = float(bb_lower.iloc[-1])
 
-    stoch_k, stoch_d = calc_stochastic(high, low, close)
+    stoch_k, _ = calc_stochastic(high, low, close)
     stoch_k_val = float(stoch_k.iloc[-1])
 
     atr_val = float(calc_atr(high, low, close).iloc[-1])
@@ -192,17 +192,18 @@ def format_report(result):
         lines.append(f"| {c['name']} | {c['value']} | {c['threshold']} | {c['points']}/{c['max']} |")
     lines.append(f"| **Total** | | | **{result['score']}/100** |")
 
-    # Trade Setup table
-    lines.append("\n### Trade Setup")
-    lines.append("| Metric | Value |")
-    lines.append("| :--- | :--- |")
-    lines.append(f"| Entry Price | ${result['price']:.2f} |")
-    lines.append(f"| Target (+4.5%) | ${result['target_price']:.2f} |")
-    lines.append(f"| Stop (-3%) | ${result['stop_price']:.2f} |")
-    lines.append(f"| ATR% | {result['atr_pct']:.1f}% |")
-    lines.append(f"| Avg Volume | {result['avg_volume']:,.0f} |")
-    lines.append(f"| Shares (~$175) | {result['shares']} |")
-    lines.append(f"| Risk/Reward | {result['rr_ratio']}:1 |")
+    # Trade Setup table (suppressed for blocked tickers)
+    if not result.get("overlap"):
+        lines.append("\n### Trade Setup")
+        lines.append("| Metric | Value |")
+        lines.append("| :--- | :--- |")
+        lines.append(f"| Entry Price | ${result['price']:.2f} |")
+        lines.append(f"| Target (+4.5%) | ${result['target_price']:.2f} |")
+        lines.append(f"| Stop (-3%) | ${result['stop_price']:.2f} |")
+        lines.append(f"| ATR% | {result['atr_pct']:.1f}% |")
+        lines.append(f"| Avg Volume | {result['avg_volume']:,.0f} |")
+        lines.append(f"| Shares (~$175) | {result['shares']} |")
+        lines.append(f"| Risk/Reward | {result['rr_ratio']}:1 |")
 
     # Selection criteria flags
     flags = []
