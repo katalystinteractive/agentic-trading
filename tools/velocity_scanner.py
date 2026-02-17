@@ -34,7 +34,45 @@ def score_velocity_signal(ticker_symbol):
     low = df["Low"]
     current_price = float(close.iloc[-1])
 
-    # --- Indicators ---
+    # --- Early eligibility checks (fail fast) ---
+    atr_val = float(calc_atr(high, low, close).iloc[-1])
+    atr_pct = (atr_val / current_price) * 100
+    avg_volume = float(df["Volume"].tail(20).mean())
+
+    portfolio = json.loads(PORTFOLIO.read_text())
+    surgical_tickers = set(portfolio.get("positions", {}).keys()) | \
+                       set(portfolio.get("pending_orders", {}).keys()) | \
+                       set(portfolio.get("watchlist", []))
+    overlap = ticker_symbol in surgical_tickers
+
+    price_ok = 5 <= current_price <= 80
+    atr_ok = atr_pct >= 2.5
+    volume_ok = avg_volume >= 2_000_000
+    disqualified = not (price_ok and atr_ok and volume_ok)
+
+    if overlap or disqualified:
+        verdict = "BLOCKED — OVERLAP" if overlap else "BLOCKED — CRITERIA"
+        return {
+            "ticker": ticker_symbol,
+            "price": current_price,
+            "date": df.index[-1].strftime("%Y-%m-%d"),
+            "score": 0,
+            "verdict": verdict,
+            "components": [],
+            "rsi": None,
+            "macd_hist": None,
+            "stoch_k": None,
+            "atr_pct": atr_pct,
+            "avg_volume": avg_volume,
+            "target_price": None,
+            "stop_price": None,
+            "shares": None,
+            "rr_ratio": None,
+            "overlap": overlap,
+            "disqualified": disqualified,
+        }
+
+    # --- Indicators (only for eligible tickers) ---
     rsi_series = calc_rsi(close)
     rsi_val = float(rsi_series.iloc[-1])
 
@@ -46,12 +84,6 @@ def score_velocity_signal(ticker_symbol):
 
     stoch_k, _ = calc_stochastic(high, low, close)
     stoch_k_val = float(stoch_k.iloc[-1])
-
-    atr_val = float(calc_atr(high, low, close).iloc[-1])
-    atr_pct = (atr_val / current_price) * 100
-
-    # Volume check
-    avg_volume = float(df["Volume"].tail(20).mean())
 
     # --- Scoring ---
     total = 0
@@ -124,25 +156,8 @@ def score_velocity_signal(ticker_symbol):
         "max": 10,
     })
 
-    # --- Verdict ---
-    # Overlap check done early so it can block the verdict
-    portfolio = json.loads(PORTFOLIO.read_text())
-    surgical_tickers = set(portfolio.get("positions", {}).keys()) | \
-                       set(portfolio.get("pending_orders", {}).keys()) | \
-                       set(portfolio.get("watchlist", []))
-    overlap = ticker_symbol in surgical_tickers
-
-    # Selection criteria gates (strategy requirements)
-    price_ok = 5 <= current_price <= 80
-    atr_ok = atr_pct >= 2.5
-    volume_ok = avg_volume >= 2_000_000
-    disqualified = not (price_ok and atr_ok and volume_ok)
-
-    if overlap:
-        verdict = "BLOCKED — OVERLAP"
-    elif disqualified:
-        verdict = "BLOCKED — CRITERIA"
-    elif total >= 70:
+    # --- Verdict (overlap + criteria already handled by early return) ---
+    if total >= 70:
         verdict = "STRONG BUY" if total >= 85 else "BUY"
     elif total >= 50:
         verdict = "WATCH"
@@ -178,8 +193,8 @@ def score_velocity_signal(ticker_symbol):
         "stop_price": stop_price,
         "shares": shares,
         "rr_ratio": rr_ratio,
-        "overlap": overlap,
-        "disqualified": disqualified,
+        "overlap": False,
+        "disqualified": False,
     }
 
 

@@ -151,7 +151,15 @@ def run_dashboard():
                 skipped_overlap.append(ticker)
                 continue
             if result.get("disqualified"):
-                skipped_criteria.append(ticker)
+                reasons = []
+                if not (5 <= result["price"] <= 80):
+                    reasons.append("price")
+                if result["atr_pct"] < 2.5:
+                    reasons.append("ATR%")
+                if result["avg_volume"] < 2_000_000:
+                    reasons.append("volume")
+                detail = ", ".join(reasons) if reasons else "criteria"
+                skipped_criteria.append(f"{ticker} ({detail})")
                 continue
             results.append(result)
 
