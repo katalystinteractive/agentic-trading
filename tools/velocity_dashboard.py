@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 import yfinance as yf
 import pandas as pd
 
-from velocity_scanner import score_velocity_signal
+from velocity_scanner import score_velocity_signal, MIN_PRICE, MAX_PRICE, MIN_ATR_PCT, MIN_AVG_VOLUME
 from technical_scanner import calc_rsi
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -149,17 +149,17 @@ def run_dashboard():
                 continue
             if result.get("overlap"):
                 skipped_overlap.append(ticker)
-                continue
             if result.get("disqualified"):
                 reasons = []
-                if not (5 <= result["price"] <= 80):
+                if not (MIN_PRICE <= result["price"] <= MAX_PRICE):
                     reasons.append("price")
-                if result["atr_pct"] < 2.5:
+                if result["atr_pct"] < MIN_ATR_PCT:
                     reasons.append("ATR%")
-                if result["avg_volume"] < 2_000_000:
+                if result["avg_volume"] < MIN_AVG_VOLUME:
                     reasons.append("volume")
                 detail = ", ".join(reasons) if reasons else "criteria"
                 skipped_criteria.append(f"{ticker} ({detail})")
+            if result.get("overlap") or result.get("disqualified"):
                 continue
             results.append(result)
 

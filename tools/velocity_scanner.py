@@ -12,6 +12,12 @@ from technical_scanner import calc_rsi, calc_macd, calc_bollinger, calc_stochast
 ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = ROOT / "portfolio.json"
 
+# Selection criteria thresholds (strategy-defined hard gates)
+MIN_PRICE = 5
+MAX_PRICE = 80
+MIN_ATR_PCT = 2.5
+MIN_AVG_VOLUME = 2_000_000
+
 
 def score_velocity_signal(ticker_symbol):
     """Score a single ticker on the 100-point velocity scale.
@@ -45,9 +51,9 @@ def score_velocity_signal(ticker_symbol):
                        set(portfolio.get("watchlist", []))
     overlap = ticker_symbol in surgical_tickers
 
-    price_ok = 5 <= current_price <= 80
-    atr_ok = atr_pct >= 2.5
-    volume_ok = avg_volume >= 2_000_000
+    price_ok = MIN_PRICE <= current_price <= MAX_PRICE
+    atr_ok = atr_pct >= MIN_ATR_PCT
+    volume_ok = avg_volume >= MIN_AVG_VOLUME
     disqualified = not (price_ok and atr_ok and volume_ok)
 
     if overlap or disqualified:
@@ -233,12 +239,12 @@ def format_report(result):
     flags = []
     if result.get("overlap"):
         flags.append("OVERLAP: Ticker is in the Surgical stock pool — cannot trade in both strategies")
-    if result["atr_pct"] < 2.5:
-        flags.append("ATR% below 2.5% minimum")
-    if result["avg_volume"] < 2_000_000:
-        flags.append("Avg volume below 2M minimum")
-    if not (5 <= result["price"] <= 80):
-        flags.append(f"Price ${result['price']:.2f} outside $5-$80 range")
+    if result["atr_pct"] < MIN_ATR_PCT:
+        flags.append(f"ATR% below {MIN_ATR_PCT}% minimum")
+    if result["avg_volume"] < MIN_AVG_VOLUME:
+        flags.append(f"Avg volume below {MIN_AVG_VOLUME/1_000_000:.0f}M minimum")
+    if not (MIN_PRICE <= result["price"] <= MAX_PRICE):
+        flags.append(f"Price ${result['price']:.2f} outside ${MIN_PRICE}-${MAX_PRICE} range")
 
     if flags:
         lines.append("\n### Selection Flags")
