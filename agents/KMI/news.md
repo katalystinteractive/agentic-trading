@@ -1,4 +1,4 @@
-*Generated: 2026-02-15 23:46*
+*Generated: 2026-02-17 20:59*
 
 ## News & Sentiment: Kinder Morgan, Inc. (KMI)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,6 +6,13 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| Today | Zacks | Kinder Morgan (KMI) Q4 Earnings: Taking a Look at Key Metric... | Positive | +0.49 | Earnings |
+| Today | Zacks | Kinder Morgan, Inc. (KMI) is Attracting Investor Attention: ... | Positive | +0.74 | — |
+| Today | Insider Monkey | Kinder Morgan (KMI) Director Buys 3,000 Shares in Insider Tr... | Positive | +0.66 | — |
+| 2026-02-17 | MarketBeat | Vanguard Group Inc. Has $5.89 Billion Stock Position in Kind... | Positive | +0.49 | Earnings |
+| 2026-02-17 | Investing.com N | Kinder Morgan stock hits 52-week high at 32.42 USD - Investi... | Positive | +0.49 | — |
+| 2026-02-16 | MarketBeat | Caprock Group LLC Acquires Shares of 40,631 Kinder Morgan, I... | Positive | +0.66 | Earnings |
+| 2026-02-16 | MarketBeat | Aberdeen Group plc Reduces Position in Kinder Morgan, Inc. $... | Positive | +0.49 | Earnings |
 | 2026-02-15 | The Globe and M | Better Dividend Stock: Oneok vs. Kinder Morgan - The Globe a... | Positive | +0.73 | Shareholder |
 | 2026-02-15 | Simply Wall St. | Kinder Morgan (NYSE:KMI) Ticks All The Boxes When It Comes T... | Positive | +0.70 | Earnings |
 | 2026-02-15 | Motley Fool | Better Dividend Stock: Oneok vs. Kinder Morgan | Positive | +0.73 | Shareholder |
@@ -14,49 +21,86 @@
 | 2026-02-14 | MarketBeat | DDD Partners LLC Makes New $19.14 Million Investment in Kind... | Positive | +0.49 | Earnings |
 | 2026-02-14 | Stock Traders D | (KMI) Volatility Zones as Tactical Triggers - Stock Traders ... | Neutral | +0.00 | — |
 | 2026-02-13 | Zacks | Enterprise Products Stock Looks Cheap Now: A Smart Entry Poi... | Positive | +0.40 | — |
-| 2026-02-13 | simplywall.st | Stronger Q4 And Expanding US$10 Billion Backlog Could Be A G... | Positive | +0.70 | — |
 | 2026-02-13 | MarketBeat | Kinder Morgan, Inc. $KMI Shares Purchased by ING Groep NV - ... | Positive | +0.66 | Earnings |
+| 2026-02-13 | MarketBeat | Kinder Morgan, Inc. $KMI Shares Acquired by Varma Mutual Pen... | Positive | +0.66 | Earnings |
 | 2026-02-13 | MarketBeat | Metis Global Partners LLC Purchases 53,616 Shares of Kinder ... | Positive | +0.66 | Earnings |
 | 2026-02-13 | MarketBeat | Krilogy Financial LLC Purchases 33,480 Shares of Kinder Morg... | Positive | +0.66 | Earnings |
-| 2026-02-13 | MarketBeat | Kinder Morgan, Inc. $KMI Shares Acquired by Varma Mutual Pen... | Positive | +0.66 | Earnings |
 | 2026-02-13 | MarketBeat | Illinois Municipal Retirement Fund Trims Stake in Kinder Mor... | Positive | +0.49 | Earnings |
+| 2026-02-13 | simplywall.st | Stronger Q4 And Expanding US$10 Billion Backlog Could Be A G... | Positive | +0.70 | — |
 | 2026-02-13 | GuruFocus | Kinder Morgan (KMI) Extends Gains Amid Positive Analyst Sent... | Positive | +0.87 | — |
 | 2026-02-13 | Benzinga | 3 Natural Gas Stocks to Buy as AI Energy Demand Skyrockets -... | Positive | +0.48 | — |
 | 2026-02-12 | MarketBeat | Kinder Morgan (NYSE:KMI) Hits New 12-Month High - Still a Bu... | Positive | +0.49 | Earnings |
 | 2026-02-12 | MarketBeat | Cibc World Market Inc. Acquires 99,540 Shares of Kinder Morg... | Positive | +0.66 | Earnings |
+| 2026-02-12 | MarketBeat | Advisors Asset Management Inc. Purchases 39,771 Shares of Ki... | Positive | +0.78 | Earnings, Corporate |
 | 2026-02-12 | MarketBeat | Kinder Morgan, Inc. $KMI Shares Sold by Rhumbline Advisers -... | Positive | +0.66 | Earnings |
+| 2026-02-12 | Nasdaq | April 2nd Options Now Available For Kinder Morgan (KMI) - Na... | Positive | +0.49 | — |
 | 2026-02-11 | Zacks | Can Enterprise Products Maintain Its Consistent Capital Retu... | Neutral | +0.00 | — |
 | 2026-02-11 | MarketBeat | ABC Arbitrage SA Purchases Shares of 111,570 Kinder Morgan, ... | Positive | +0.66 | Earnings |
-| 2026-02-10 | Zacks | Enbridge's Q4 Earnings on Deck: Should You Stay Invested or ... | Neutral | +0.00 | Earnings |
-| 2026-02-10 | Barchart | These Low IV Stocks May Be Setting Up for an Explosive Move | Negative | -0.27 | — |
-| 2026-02-10 | simplywall.st | Kinder Morgan (KMI) Valuation After Earnings Beat Ratings Up... | Positive | +0.60 | Earnings, Analyst |
-| 2026-02-10 | MarketBeat | Providence Capital Advisors LLC Purchases New Shares in Kind... | Positive | +0.66 | Earnings |
-| 2026-02-09 | TIKR.com | Why Kinder Morgan Stock Is Up Double Digits in Early 2026 – ... | Positive | +0.71 | — |
-| 2026-02-08 | Insider Monkey | Kinder Morgan (KMI) Gets Positive Analyst Updates After Q4 R... | Positive | +0.78 | — |
-| 2026-02-07 | Yahoo Finance | Kinder Morgan (KMI) Valuation Check After Recent Share Price... | Positive | +0.66 | — |
-| 2026-02-07 | MarketBeat | Envestnet Asset Management Inc. Buys 128,517 Shares of Kinde... | Positive | +0.78 | Earnings, Corporate |
-| 2026-02-06 | 24/7 Wall St. | 3 High-Yield Dividend Stocks Perfect For Those 60+ Years | Positive | +0.57 | Shareholder |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 26 (87%) |
-| Neutral | 3 (10%) |
-| Negative | 1 (3%) |
-| Average Score | +0.550 |
+| Positive | 28 (93%) |
+| Neutral | 2 (7%) |
+| Negative | 0 (0%) |
+| Average Score | +0.578 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 183 |
+| Total Unique Headlines | 175 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 17 | Kinder Morgan (NYSE:KMI) Ticks All The B..; Cookson Peirce & Co. Inc. Sells 1,405,45.. |
-| Shareholder | 3 | Better Dividend Stock: Oneok vs. Kinder ..; Better Dividend Stock: Oneok vs. Kinder .. |
-| Analyst | 1 | Kinder Morgan (KMI) Valuation After Earn.. |
-| Corporate | 1 | Envestnet Asset Management Inc. Buys 128.. |
+| Earnings | 18 | Kinder Morgan (KMI) Q4 Earnings: Taking ..; Vanguard Group Inc. Has $5.89 Billion St.. |
+| Shareholder | 2 | Better Dividend Stock: Oneok vs. Kinder ..; Better Dividend Stock: Oneok vs. Kinder .. |
+| Corporate | 1 | Advisors Asset Management Inc. Purchases.. |
 
 ### Deep Dive Articles
+
+#### Kinder Morgan (KMI) Q4 Earnings: Taking a Look at Key Metrics Versus Estimates
+*Source: Zacks | Date: Today | Sentiment: Positive (+0.96)*
+
+> For the quarter ended December 2025, Kinder Morgan (KMI) reported revenue of $4.51 billion, up 13.1% over the same period last year. EPS came in at $0.39, compared to $0.32 in the year-ago quarter.
+
+> The reported revenue compares to the Zacks Consensus Estimate of $4.41 billion, representing a surprise of +2.11%. The company delivered an EPS surprise of +6.85%, with the consensus EPS estimate being $0.37.
+
+> While investors closely watch year-over-year changes in headline numbers -- revenue and earnings -- and how they compare to Wall Street expectations to determine their next course of action, some key metrics always provide a better insight into a company's underlying performance.
+
+> Since these metrics play a crucial role in driving the top- and bottom-line numbers, comparing them with the year-ago numbers and what analysts estimated about them helps investors better project a stock's price performance.
+
+> View all Key Company Metrics for Kinder Morgan here>>>
+
+**Catalysts:** Earnings
+
+#### Kinder Morgan, Inc. (KMI) is Attracting Investor Attention: Here is What You Should Know
+*Source: Zacks | Date: Today | Sentiment: Positive (+0.99)*
+
+> Kinder Morgan(KMI) is one of the stocks most watched by Zacks.com visitors lately. So, it might be a good idea to review some of the factors that might affect the near-term performance of the stock.
+
+> Over the past month, shares of this oil and natural gas pipeline and storage company have returned +15.6%, compared to the Zacks S&P 500 composite's -1.7% change. During this period, the Zacks Oil and Gas - Production and Pipelines industry, which Kinder Morgan falls in, has gained 12.3%. The key question now is: What could be the stock's future direction?
+
+> While media releases or rumors about a substantial change in a company's business prospects usually make its stock 'trending' and lead to an immediate price change, there are always some fundamental facts that eventually dominate the buy-and-hold decision-making.
+
+> Here at Zacks, we prioritize appraising the change in the projection of a company's future earnings over anything else. That's because we believe the present value of its future stream of earnings is what determines the fair value for its stock.
+
+> Our analysis is essentially based on how sell-side analysts covering the stock are revising their earnings estimates to take the latest business trends into account. When earnings estimates for a company go up, the fair value for its stock goes up as well. And when a stock's fair value is higher than its current market price, investors tend to buy the stock, resulting in its price moving upward. Because of this, empirical studies indicate a strong correlation between trends in earnings estimate revisions and short-term stock price movements.
+
+**Catalysts:** Earnings, Short
+
+#### Kinder Morgan (KMI) Director Buys 3,000 Shares in Insider Transaction
+*Source: Insider Monkey | Date: Today | Sentiment: Positive (+0.99)*
+
+> Kinder Morgan, Inc. (NYSE:KMI) is one of the12 Dividend Stocks With High Insider Buying.
+
+> On February 3, 2026, Kinder Morgan, Inc. (NYSE:KMI) saw significant insider activity, with its Director William A. Smith purchasing 3000 shares of the company and increasing his ownership in the company by 6%. The transaction, valued at $89,236, signals confidence from the board level over the company’s long-term operations.
+
+> In contrast, John W. Schlosser, Vice President of Kinder Morgan, Inc. (NYSE:KMI), made another significant move on February 5, 2026, selling 6,166 shares of the company, for a total transaction value of $185,523. With these sales, the shares owned by the VP stand at 195,038, massively contributing to the company’s insider ownership of 12.79%.
+
+> Earlier on January 21, 2026, Kinder Morgan, Inc. (NYSE:KMI)’s Board of Directors announced the cash dividend of $0.2925 per share for the fourth quarter of 2026 – a 2% increase over the fourth quarter dividend of 2024. The new dividend is payable on February 17, 2026, to unitholders as of February 2, 2026.
+
+> Kinder Morgan, Inc. (NYSE:KMI) is a North American energy infrastructure company, specializing in the transportation and storage of natural gas and crude oil. The company, headquartered in Texas, was founded in 1997.
+
+**Catalysts:** Shareholder
 
 #### Enterprise Products Stock Looks Cheap Now: A Smart Entry Point?
 *Source: Zacks | Date: 2026-02-13 | Sentiment: Positive (+0.97)*
@@ -87,48 +131,3 @@
 > Total dividend payments of KMI exceeded $2.6 billion in 2025. The company increased its dividend for nine consecutive years.
 
 **Catalysts:** Earnings, Regulatory, Corporate, Shareholder
-
-#### Enbridge's Q4 Earnings on Deck: Should You Stay Invested or Exit?
-*Source: Zacks | Date: 2026-02-10 | Sentiment: Positive (+0.93)*
-
-> Enbridge Inc.ENB is set to report fourth-quarter 2025 results on Feb. 13, 2026, before the opening bell.
-
-> The Zacks Consensus Estimate for fourth-quarter earnings is pegged at 60 cents per share, implying an improvement from the year-ago reported number. It has witnessed no estimate revisions in the past seven days. The Zacks Consensus Estimate for fourth-quarter revenues is currently pegged at $11.8 billion, suggesting a 1.3% improvement from the year-ago actuals.
-
-> ENB beat the consensus estimate for earnings in three of the trailing four quarters and missed once, with the average surprise being 1.76%. This is depicted in the graph below:
-
-> Our proven model doesn't predict an earnings beat for ENB this time around. The combination of a positive Earnings ESP and a Zacks Rank #1 (Strong Buy), 2 (Buy), or 3 (Hold) increases the chances of an earnings beat. That is just not the case here.
-
-> The leading midstream player has an Earnings ESP of -1.01% and a Zacks Rank #3. You can seethe complete list of today’s Zacks #1 Rank stocks here.
-
-**Catalysts:** Earnings
-
-#### Kinder Morgan (KMI) Gets Positive Analyst Updates After Q4 Results
-*Source: Insider Monkey | Date: 2026-02-08 | Sentiment: Positive (+0.99)*
-
-> Kinder Morgan, Inc. (NYSE:KMI) is one of the12 Best Oil and Gas Stocks to Buy Right Now. On January 28, Freedom Capital Markets upgraded its rating from Sell to Hold on Kinder Morgan, Inc. (NYSE:KMI) with a price target of $32.
-
-> This update comes after the company reported solid Q4 results, which beat market expectations for adjusted EPS estimates by 8.3%, as noted by Freedom Capital Markets analyst Sergey Pigarev. The research firm pointed out that Kinder Morgan, Inc. (NYSE:KMI) reduced its net debt to improve its debt profile and received upgrades to its credit ratings. Freedom Capital Markets expects the company to have a solid Q1, but it believes the stock is now trading close to its fair value, which leaves limited room for further upside.
-
-> Earlier, on January 23, Scotiabank increased its price target on Kinder Morgan, Inc. (NYSE:KMI) from $29 to $30 and kept its Sector Perform rating.
-
-> Scotiabank highlighted that Kinder Morgan, Inc.’s (NYSE:KMI) sanctioned project backlog has now grown to about $10 billion, with the company pursuing another $10 billion in potential opportunities. The company saw another quarter of sequential growth in its net backlog.
-
-> Kinder Morgan, Inc. (NYSE:KMI) is one of the largest energy infrastructure companies in North America. It owns and operates pipelines and terminals that transport natural gas, gasoline, crude oil, and other products.
-
-**Catalysts:** Earnings, Regulatory, Analyst
-
-#### Freedom Capital Upgraded Kinder Morgan to Hold
-*Source: Insider Monkey | Date: 2026-02-06 | Sentiment: Positive (+0.99)*
-
-> Kinder Morgan, Inc. (NYSE:KMI) is one of the11 Best Pipeline and MLP Stocks to Buy in 2026.
-
-> On January 28, 2026, Freedom Capital released a report upgrading Kinder Morgan, Inc. (NYSE:KMI)’s rating from Sell to Hold, with a price target of $32. The firm noted that the company’s stock was trading near fair value, with limited upside potential. However, the firm also confirms anticipating the rising seasonal gas demand to contribute to a strong Q1 2026 for Kinder Morgan, Inc. (NYSE:KMI).
-
-> Earlier, on January 26, 2026, Julien Dumoulin Smith, an analyst from Jefferies, reiterated a Hold rating on the stock, while keeping a price target of $31.
-
-> Separately, on January 21, 2026, Kinder Morgan, Inc. (NYSE:KMI) reported its Q4 2025 earnings, highlighting 10% year-over-year growth in adjusted EBITDA and a 22% growth in adjusted EPS, with natural gas expansions and the Outrigger acquisition as the primary contributors. Management noted that it is too early to quantify EBITDA displacement for the Western Gateway project, pending the open season results. Meanwhile, regarding the Double H conversion, management confirmed Phase 1 is well-contracted with a Q1/Q2 2026 launch, despite Bakken macro concerns.
-
-> Kinder Morgan, Inc. (NYSE:KMI) is a North American energy infrastructure company operating an extensive network of approximately 82,000 miles of pipelines and 139 terminals. The Texas-based company, founded in 1997, specializes in the transportation and storage of natural gas, crude oil, and CO2.
-
-**Catalysts:** Earnings, Corporate, Analyst

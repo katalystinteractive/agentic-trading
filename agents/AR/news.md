@@ -1,4 +1,4 @@
-*Generated: 2026-02-15 23:46*
+*Generated: 2026-02-17 20:59*
 
 ## News & Sentiment: Antero Resources Corporation (AR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,9 +6,12 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-02-16 | Yahoo Finance | Is Antero Resources (AR) Pricing Look Attractive After Recen... | Positive | +0.32 | — |
+| 2026-02-16 | simplywall.st | A Look At Antero Resources (AR) Valuation After Recent Share... | Positive | +0.30 | — |
 | 2026-02-13 | Morningstar Res | Analyst Report: Antero Resources Corporation | Neutral | +0.00 | — |
 | 2026-02-13 | 24/7 Wall St. | Here Are Fridays Top Wall Street Analyst Research Calls: Air... | Positive | +0.20 | — |
 | 2026-02-13 | The Globe and M | Analysts Offer Insights on Energy Companies: Antero Resource... | Positive | +0.49 | — |
+| 2026-02-13 | The Globe and M | Analysts’ Opinions Are Mixed on These Energy Stocks: Tambora... | Positive | +0.27 | — |
 | 2026-02-12 | GuruFocus.com | Antero Resources Corp (AR) Q4 2025 Earnings Call Highlights:... | Neutral | +0.00 | Earnings |
 | 2026-02-12 | MarketBeat | Antero Resources Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
 | 2026-02-12 | Zacks | Antero Resources Q4 Earnings Miss Estimates, Revenues Increa... | Positive | +0.18 | Earnings |
@@ -33,27 +36,23 @@
 | 2026-02-09 | Zacks | Does the Record Gas Draw Support a Bullish Case for Investor... | Positive | +0.40 | — |
 | 2026-02-09 | MarketBeat | Thrivent Financial for Lutherans Decreases Stake in Antero R... | Neutral | +0.00 | Earnings |
 | 2026-02-08 | Insider Monkey | Is Antero Resources (AR) One of the Best Oil and Gas Stocks ... | Positive | +0.64 | — |
-| 2026-02-08 | MarketBeat | Twin Capital Management Inc. Invests $999,000 in Antero Reso... | Neutral | +0.00 | Earnings, Corporate |
-| 2026-02-07 | MarketBeat | Truist Financial Corp Invests $2.29 Million in Antero Resour... | Neutral | +0.00 | Earnings |
-| 2026-02-06 | Zacks | Antero Resources Gears Up to Report Q4 Earnings: What's in t... | Neutral | +0.00 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 7 (23%) |
-| Neutral | 21 (70%) |
+| Positive | 10 (33%) |
+| Neutral | 18 (60%) |
 | Negative | 2 (7%) |
-| Average Score | +0.073 |
-| Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 172 |
+| Average Score | +0.103 |
+| Overall Sentiment | **Bullish** |
+| Total Unique Headlines | 169 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 23 | Antero Resources Corp (AR) Q4 2025 Earni..; Antero Resources Q4 Earnings Call Highli.. |
+| Earnings | 20 | Antero Resources Corp (AR) Q4 2025 Earni..; Antero Resources Q4 Earnings Call Highli.. |
 | Analyst | 1 | Antero Resources (NYSE:AR) Stock Rating .. |
-| Corporate | 1 | Twin Capital Management Inc. Invests $99.. |
 
 ### Deep Dive Articles
 

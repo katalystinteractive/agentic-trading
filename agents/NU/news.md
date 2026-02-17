@@ -1,4 +1,4 @@
-*Generated: 2026-02-15 23:46*
+*Generated: 2026-02-17 20:58*
 
 ## News & Sentiment: Nu Holdings Ltd. (NU)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,21 +6,20 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| Today | Insider Monkey | Here's What You Need to Know Ahead of Nu Holdings Ltd's (NU)... | Neutral | +0.00 | Earnings |
+| 2026-02-17 | Simply Wall St. | Nu Holdings Wins OCC Nod Raising Questions On Valuation And ... | Positive | +0.64 | — |
+| 2026-02-16 | Motley Fool | Prediction: These Could Be the Best-Performing Bank Stocks T... | Neutral | +0.00 | — |
+| 2026-02-16 | StockStory | 3 Market-Beating Stocks on Our Buy List | Neutral | +0.00 | Earnings |
 | 2026-02-15 | MarketBeat | Aberdeen Group plc Trims Stock Position in Nu Holdings Ltd. ... | Neutral | +0.00 | Earnings |
 | 2026-02-15 | Insider Monkey | Chubb (CB) Strengthens Emerging Market Growth With Nubank Pa... | Positive | +0.68 | Analyst |
-| 2026-02-14 | MarketBeat | Rhumbline Advisers Raises Stake in Nu Holdings Ltd. $NU - Ma... | Neutral | +0.00 | Earnings |
 | 2026-02-13 | Bez Kabli | Nu Holdings (NU) stock dips in premarket after Nubank maps $... | Neutral | +0.00 | — |
 | 2026-02-13 | Insider Monkey | Nu Holdings (NU) Receives Approval to Set up a New National ... | Positive | +0.48 | Regulatory |
 | 2026-02-12 | Zacks | Nu Holdings Ltd. (NU) Declines More Than Market: Some Inform... | Neutral | +0.00 | — |
 | 2026-02-12 | Zacks | Is Trending Stock Nu Holdings Ltd. (NU) a Buy Now? | Neutral | +0.00 | — |
 | 2026-02-12 | Simply Wall St. | Nu Holdings’ US Bank Charter Tests Global Growth And Governa... | Positive | +0.38 | — |
 | 2026-02-12 | Simply Wall St. | Is Nu Holdings (NU) Pricing Too Much Growth After A 232% Thr... | Positive | +0.38 | — |
-| 2026-02-12 | Insider Monkey | The CEO of Nu Holdings Ltd. (NU) Strengthens Control as Nuba... | Positive | +0.46 | Corporate |
-| 2026-02-12 | Simply Wall St. | The Bull Case For Nu Holdings (NU) Could Change Following Co... | Positive | +0.48 | Regulatory |
 | 2026-02-11 | Zacks | Is Nu  (NU) a Buy as Wall Street Analysts Look Optimistic? | Positive | +0.32 | — |
 | 2026-02-11 | 24/7 Wall St. | This Emerging Markets ETF Charges Just 0.07% and Ran Way Pas... | Negative | -0.27 | — |
-| 2026-02-11 | Finviz | Is Nu (NU) a Buy as Wall Street Analysts Look Optimistic? - ... | Positive | +0.32 | — |
-| 2026-02-11 | Bez Kabli | Nu Holdings stock: What to watch as Nubank heads into Feb. 2... | Neutral | +0.00 | Earnings |
 | 2026-02-09 | Zacks | NU Stock Surges 46% in 6 Months: Does the Buying Level Exist... | Neutral | +0.00 | — |
 | 2026-02-08 | Insider Monkey | Is Nu Holdings (NU) One of the Most Profitable New Stocks to... | Positive | +0.49 | Earnings |
 | 2026-02-08 | TechStock² | Nu Holdings stock jumps to $17.40 — what to watch next for N... | Positive | +0.30 | — |
@@ -36,27 +35,42 @@
 | 2026-02-01 | BeInCrypto | Why Is The Crypto Market Down Today? | Neutral | +0.00 | — |
 | 2026-01-31 | MarketBeat | 3 Emerging Market Stocks Leveraging South America's Momentum | Neutral | +0.00 | — |
 | 2026-01-31 | Motley Fool | I Predicted This Former Buffett Stock Would Outperform Every... | Neutral | +0.00 | Analyst |
+| 2026-01-30 | Motley Fool | Prediction: 2026 Will Be the Year of Nu Holdings | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 17 (57%) |
-| Neutral | 12 (40%) |
+| Positive | 15 (50%) |
+| Neutral | 14 (47%) |
 | Negative | 1 (3%) |
-| Average Score | +0.277 |
+| Average Score | +0.256 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 177 |
+| Total Unique Headlines | 176 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 4 | Aberdeen Group plc Trims Stock Position ..; Rhumbline Advisers Raises Stake in Nu Ho.. |
+| Earnings | 4 | Here's What You Need to Know Ahead of Nu..; 3 Market-Beating Stocks on Our Buy List |
 | Analyst | 2 | Chubb (CB) Strengthens Emerging Market G..; I Predicted This Former Buffett Stock Wo.. |
-| Regulatory | 2 | Nu Holdings (NU) Receives Approval to Se..; The Bull Case For Nu Holdings (NU) Could.. |
-| Corporate | 1 | The CEO of Nu Holdings Ltd. (NU) Strengt.. |
+| Regulatory | 1 | Nu Holdings (NU) Receives Approval to Se.. |
 
 ### Deep Dive Articles
+
+#### Here's What You Need to Know Ahead of Nu Holdings Ltd's (NU) FQ4 2025 Earnings
+*Source: Insider Monkey | Date: Today | Sentiment: Positive (+0.88)*
+
+> ​Nu Holdings Ltd. (NYSE:NU) is one of theBest Performing Foreign Stocks to Buy Now. Nu Holdings Ltd. (NYSE:NU) is set to release its fiscal Q4 2025 earnings on February 25. Wall Street maintains a bullish sentiment, with 79% of the 19 analysts covering the stock having a Buy rating.
+
+> ​Recently, on January 27, James Friedman from Susquehanna reiterated a Buy rating on the stock and raised the price target from $19 to $22. Earlier on January 8, Darrin Peller from Wolfe Research also reiterated a Buy rating on Nu Holdings with a $18 price target.
+
+> ​The Street expects the company to post roughly $4.55 in revenue, along with a GAAP EPS of $0.18 for fiscal Q4 2025. Analysts at Susquehanna noted they see a strong setup for 2026 as Nu Holdings Ltd. (NYSE:NU) shifts toward global expansion beyond its core markets of Brazil, Mexico, and Colombia, potentially into the US.
+
+> ​That said, the company recently on January 29, received conditional approval from the Office of the Comptroller of the Currency to set up Nubank in the US. The approval takes Nu Holdings Ltd. (NYSE:NU) a step closer towards executing its expansion strategy.
+
+> ​​Nu Holdings Ltd. (NYSE:NU) provides a digital banking platform in Brazil, Mexico, Colombia, the Cayman Islands, and the US. It offers spending, transactional, savings & investing, borrowing, and protection solutions.
+
+**Catalysts:** Earnings, Regulatory, Analyst
 
 #### Nu Holdings Ltd. (NU) Declines More Than Market: Some Information for Investors
 *Source: Zacks | Date: 2026-02-12 | Sentiment: Positive (+0.88)*
@@ -117,18 +131,3 @@
 > Financially, NU’s record revenues and expanding credit portfolio underline the quality of its growth. Rising ARPAC indicates that customers are not only joining the platform but also using it more actively across products. The credit portfolio’s expansion across cards, secured and unsecured lending, shows increasing maturity and diversification, which supports sustainable earnings growth. Importantly, this expansion has been accompanied by healthy asset quality metrics and disciplined risk management. Strong profitability, reflected in rising net income and a record return on equity, demonstrates NU’s ability to balance growth with financial discipline. Looking ahead, management’s vision of becoming an AI-first bank further strengthens the investment case, positioning Nu Holdings to enhance efficiency, personalize customer experiences, and reinforce its competitive edge in digital banking.
 
 **Catalysts:** Earnings, Regulatory, Corporate, Equity
-
-#### Is Nu Holdings (NU) One of the Most Profitable New Stocks to Buy Right Now?
-*Source: Insider Monkey | Date: 2026-02-08 | Sentiment: Positive (+0.99)*
-
-> Nu Holdings Ltd. (NYSE:NU) is one of themost profitable new stocks to buy right now. As of February 6, Wall Street maintains a consensus Buy rating on Nu Holdings and analysts’ median price target implies a 15.91% upside from current levels.
-
-> On January 27, Susquehanna upgraded its price target for Nu Holdings Ltd. (NYSE:NU) to $22 from $19 with a Positive rating. The firm projects a strong 2026 as the company enters a global expansion phase, aiming to replicate its successful growth model from Latin America in the US market. This optimism is reinforced by the company’s stable delinquency rates and robust unit economics, alongside recent regulatory progress.
-
-> Earlier on December 18, Goldman Sachs reaffirmed its Buy rating on Nu Holdings with a $21 price target, designating the digital bank as one of its best ideas for the coming year. The firm highlighted the company’s growth prospects and noted that analyst consensus forecasts have already climbed 8% following the Q3 2025 financial results.
-
-> In Q3, Nu Holdings added 4.3 million customers, bringing its total base to 127 million, which was a 16% increase compared to the previous year. This highlighted the company’s expanding influence within the Latin American financial sector, particularly in Brazil, Mexico, and Colombia.
-
-> Nu Holdings Ltd. (NYSE:NU) provides a digital banking platform in Brazil, Mexico, Colombia, the Cayman Islands, and the US. It offers spending, transactional, savings & investing, borrowing, and protection solutions.
-
-**Catalysts:** Earnings, Regulatory, Analyst

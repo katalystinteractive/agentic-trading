@@ -1,14 +1,12 @@
-*Generated: 2026-02-15 23:46*
+*Generated: 2026-02-17 20:47*
 
 ## News & Sentiment: Neuronetics, Inc. (STIM)
-*Sources: Finviz (100), Google News (39), yfinance (10) | Method: VADER | Deep Dives: 5*
+*Sources: Finviz (100), Google News (37), yfinance (10) | Method: VADER | Deep Dives: 5*
 
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-02-14 | simplywall.st | Neuronetics (STIM) Is Down 9.0% After Turning Cash-Flow Posi... | Positive | +0.48 | — |
 | 2026-02-13 | Simply Wall St. | Assessing Neuronetics (STIM) Valuation After Positive Cash F... | Positive | +0.78 | Earnings |
-| 2026-02-12 | MarketBeat | Keith Sullivan Sells 40,976 Shares of Neuronetics (NASDAQ:ST... | Positive | +0.30 | Earnings |
 | 2026-02-11 | Benzinga | Neuronetics (STIM) Stock Rises 41% After Hours: What's Going... | Neutral | +0.00 | — |
 | 2026-02-11 | ChartMill | STIM Stock Price, Forecast & Analysis - NEURONETICS INC (NAS... | Neutral | +0.00 | — |
 | 2026-02-11 | MT Newswires | Top Midday Gainers | Positive | +0.20 | — |
@@ -17,13 +15,16 @@
 | 2026-01-22 | MarketBeat | Neuronetics Sees Unusually Large Options Volume (NASDAQ:STIM... | Neutral | +0.00 | Earnings |
 | 2026-01-07 | simplywall.st | There's No Escaping Neuronetics, Inc.'s (NASDAQ:STIM) Muted ... | Negative | -0.26 | Earnings |
 | 2025-12-24 | Trefis | Would You Still Hold Neuronetics Stock If It Fell Another 30... | Neutral | +0.00 | — |
-| 2025-12-17 | Yahoo Finance | Neuronetics (NASDAQ:STIM) adds US$25m to market cap in the p... | Neutral | +0.00 | — |
+| 2025-12-17 | Simply Wall St. | Neuronetics (NASDAQ:STIM) adds US$25m to market cap in the p... | Neutral | +0.00 | — |
 | 2025-12-13 | simplywall.st | Would Neuronetics (NASDAQ:STIM) Be Better Off With Less Debt... | Positive | +0.18 | — |
 | 2025-11-21 | 富途牛牛 | Neuronetics, Inc.'s (NASDAQ:STIM) 36% Loss Last Week Hit Bot... | Negative | -0.05 | — |
 | 2025-11-20 | GlobeNewswire | Neuronetics to Participate at the Piper Sandler 37th Annual ... | Neutral | +0.00 | — |
+| 2025-11-18 | Benzinga | Top 3 Health Care Stocks Which Could Rescue Your Portfolio I... | Positive | +0.81 | — |
+| 2025-11-17 | Quiver Quantita | $STIM stock is down 18% today. Here's what we see in our dat... | Neutral | +0.00 | — |
 | 2025-11-12 | GlobeNewswire | TRICARE West Expands NeuroStar TMS Coverage to Include Adole... | Negative | -0.73 | — |
-| 2025-11-06 | simplywall.st | The Neuronetics, Inc. (NASDAQ:STIM) Third-Quarter Results Ar... | Neutral | +0.00 | — |
+| 2025-11-12 | Stock Titan | Neuronetics (NASDAQ: STIM): TRICARE West covers NeuroStar TM... | Neutral | +0.00 | — |
 | 2025-11-06 | Yahoo Finance | Here's What Analysts Are Forecasting For Neuronetics, Inc. (... | Neutral | +0.00 | — |
+| 2025-11-06 | simplywall.st | The Neuronetics, Inc. (NASDAQ:STIM) Third-Quarter Results Ar... | Neutral | +0.00 | — |
 | 2025-11-05 | simplywall.st | Neuronetics (STIM): Ongoing Losses Challenge Bullish Narrati... | Positive | +0.05 | Earnings |
 | 2025-11-04 | GuruFocus.com | Neuronetics Inc (STIM) Q3 2025 Earnings Call Highlights: Rev... | Neutral | +0.00 | Earnings, Corporate |
 | 2025-11-04 | Zacks | Neuronetics (STIM) Reports Q3 Loss, Misses Revenue Estimates | Negative | -0.49 | Earnings |
@@ -35,25 +36,23 @@
 | 2025-10-30 | GlobeNewswire | Neuronetics Announces Three-Year Exclusive Partnership with ... | Positive | +0.78 | — |
 | 2025-10-21 | GlobeNewswire | Neuronetics to Report Third Quarter 2025 Financial and Opera... | Neutral | +0.00 | — |
 | 2025-10-21 | Quiver Quantita | Neuronetics, Inc. Announces Q3 2025 Financial Results Releas... | Neutral | +0.00 | — |
-| 2025-10-16 | DirectorsTalk I | Neuronetics, Inc. (STIM) Stock Analysis: Exploring a 113.82%... | Neutral | +0.00 | Regulatory |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 9 (30%) |
-| Neutral | 16 (53%) |
+| Positive | 8 (27%) |
+| Neutral | 17 (57%) |
 | Negative | 5 (17%) |
-| Average Score | +0.045 |
+| Average Score | +0.046 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 118 |
+| Total Unique Headlines | 119 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 11 | Assessing Neuronetics (STIM) Valuation A..; Keith Sullivan Sells 40,976 Shares of Ne.. |
+| Earnings | 10 | Assessing Neuronetics (STIM) Valuation A..; Neuronetics lifts 2025 revenue 99%, book.. |
 | Corporate | 2 | Neuronetics Inc (STIM) Q3 2025 Earnings ..; Neuronetics Reports Third Quarter 2025 F.. |
-| Regulatory | 1 | Neuronetics, Inc. (STIM) Stock Analysis:.. |
 
 ### Deep Dive Articles
 
