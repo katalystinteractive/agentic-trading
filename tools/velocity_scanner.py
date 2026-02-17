@@ -74,6 +74,9 @@ def score_velocity_signal(ticker_symbol):
             "stop_price": None,
             "shares": None,
             "rr_ratio": None,
+            "target_pct": None,
+            "stop_pct": None,
+            "per_trade": None,
             "overlap": overlap,
             "disqualified": disqualified,
         }
@@ -201,6 +204,7 @@ def score_velocity_signal(ticker_symbol):
         "rr_ratio": rr_ratio,
         "target_pct": target_pct,
         "stop_pct": stop_pct,
+        "per_trade": per_trade,
         "overlap": False,
         "disqualified": False,
     }
@@ -234,7 +238,7 @@ def format_report(result):
         lines.append(f"| Stop (-{result['stop_pct']}%) | ${result['stop_price']:.2f} |")
         lines.append(f"| ATR% | {result['atr_pct']:.1f}% |")
         lines.append(f"| Avg Volume | {result['avg_volume']:,.0f} |")
-        lines.append(f"| Shares (~$175) | {result['shares']} |")
+        lines.append(f"| Shares (~${result['per_trade']}) | {result['shares']} |")
         lines.append(f"| Risk/Reward | {result['rr_ratio']}:1 |")
 
     # Selection criteria flags
