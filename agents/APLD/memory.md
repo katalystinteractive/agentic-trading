@@ -1,13 +1,7 @@
 # Agent Memory: Applied Digital (APLD)
 
 ## Trade Log
-*No fills yet. Limits pending.*
-
-## Action Required
-**Cancel Gemini's original limits** ($33.55, $32.50, $31.40) and replace with wick-adjusted levels:
-- BUY 3 @ $32.47 (Bullet 1)
-- BUY 3 @ $29.24 (Bullet 2)
-- BUY 3 @ $27.71 (Bullet 3)
+- **2026-02-17:** Bullet 1 filled at $32.47 (3 shares). First entry on intraday dip to $32.39. Bullet 2 staged at $29.24, Bullet 3 at $27.71.
 
 ## Observations
 - **2026-02-16:** Onboarded from Gemini conversation (Feb 12-13). No position — Gemini's limits at $33.55/$32.50/$31.40 never filled (market holiday Feb 12, price recovered before fills).

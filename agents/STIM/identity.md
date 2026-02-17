@@ -19,4 +19,4 @@
         | $1.25 | Price Action | **100%** | +0.40% | **$1.25** |
 
     *   **Note:** $1.25 is the floor — 100% hold rate (2/2 tests). The $1.31 HVN cluster is the first meaningful support with 43% hold rate.
-*   **Status:** **ACTIVE POSITION — 2 of 3 bullets deployed.**
+*   **Status:** **ACTIVE POSITION — 3 of 3 bullets deployed. Reserve staged at $1.25.**

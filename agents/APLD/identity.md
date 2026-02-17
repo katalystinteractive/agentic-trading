@@ -30,4 +30,4 @@
     *   B3: $27.71 (3 shares, ~$83) — $27.62 support, 44% hold rate, wick-adjusted.
     *   Total active deployment: ~$268 if all fill.
 *   **Note on Gemini's Original Levels:** Gemini placed limits at $33.55, $32.50, $31.40. Analysis shows $33.55 is in the dead zone above $34.07 (void), $32.50 was nearly wick-correct ($32.47), and $31.40 was a raw-support trap below the wick-adjusted level. Replaced all three with data-driven levels.
-*   **Status:** **WATCHING — NO POSITION, LIMITS PENDING.**
+*   **Status:** **ACTIVE POSITION — 1 of 3 bullets deployed.**

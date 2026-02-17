@@ -2,6 +2,7 @@
 
 ## Trade Log
 - **2026-02-15:** Bullet 1 filled at $1.52 (21 shares). Bullet 2 filled at $1.48 (21 shares). Averaging into the $1.35-$1.57 HVN zone. Bullet 3 set at $1.38.
+- **2026-02-17:** Bullet 3 filled at $1.38 (21 shares). All 3 active bullets deployed. New avg $1.46 (63 shares). Reserve 1 staged at $1.25 floor. Sell target $1.79 (+22.6%).
 
 ## Observations
 - Monthly swings are 25-70%, much wider than the 7-12% surgical range. Position sizing accounts for this.
