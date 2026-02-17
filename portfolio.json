@@ -115,5 +115,15 @@
   },
   "velocity_positions": {},
   "velocity_pending": {},
-  "velocity_watchlist": []
+  "velocity_watchlist": [],
+  "bounce_capital": {
+    "total_pool": 1000,
+    "per_trade_size": 100,
+    "max_concurrent": 10,
+    "stop_loss_pct": 3.0,
+    "time_stop_days": 3
+  },
+  "bounce_positions": {},
+  "bounce_pending": {},
+  "bounce_watchlist": []
 }

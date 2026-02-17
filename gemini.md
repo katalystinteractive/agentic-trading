@@ -98,6 +98,25 @@ When managing the velocity strategy:
 ### Velocity Agent Roster
 (Added as candidates are identified — APLD likely first transition from Surgical)
 
+## 🎯 Bounce Strategy Protocols
+
+### 6. The "Bounce" Protocol
+When managing the bounce strategy (support-level bounce capture):
+1.  Run `python3 tools/bounce_dashboard.py` for the full picture (active trades, capital, cached signals, exit alerts).
+2.  For individual ticker analysis: `python3 tools/bounce_analyzer.py <TICKER>` — uses hourly data (~2 years) to measure bounce magnitude at each support level. Outputs markdown + JSON cache to `agents/<TICKER>/`.
+3.  **Entry:** Only enter at levels with STRONG BOUNCE or BOUNCE verdict. Place limit buy at the wick-adjusted "Buy At" price. Immediately place limit sell at the data-driven "Sell At" price (median 3-day bounce).
+4.  **Exit:** Check active trades daily. Exit immediately when any exit rule triggers:
+    *   Bounce target hit (per-level median) → sell
+    *   RSI > 70 overbought → sell
+    *   -3% hard stop → sell
+    *   3 trading day time stop → sell at market
+5.  **Capital:** Never exceed 10 concurrent trades or $1,000 total deployed. ~$100 per trade.
+6.  **Overlap:** Must NOT overlap with Surgical (positions, pending, watchlist) OR Velocity (velocity_watchlist). Dashboard flags overlaps automatically.
+7.  Bounce positions live in `bounce_positions` in `portfolio.json` (separate from surgical `positions` and `velocity_positions`).
+
+### Bounce Agent Roster
+(Any stock with proven bounce history at support — analyze first with bounce_analyzer.py)
+
 ## 📂 Project Structure
 ```
 strategy.md                     — Global rules (entry/exit/capital/cycles)
@@ -126,6 +145,10 @@ tools/institutional_flow.py     — Institutional/insider flow
 tools/wick_offset_analyzer.py   — Per-level buy prices from 13-month wick history
 tools/velocity_scanner.py       — Velocity signal scorer (single ticker, 100-pt scale)
 tools/velocity_dashboard.py     — Velocity dashboard (scan watchlist, rank, track trades)
+tools/bounce_analyzer.py        — Bounce analysis (hourly data, per-level bounce stats + trade setups)
+tools/bounce_dashboard.py       — Bounce dashboard (active trades, cached signals, exit alerts)
+agents/<TICKER>/bounce_analysis.md   — Cached: bounce stats + trade setups (auto-generated)
+agents/<TICKER>/bounce_analysis.json — Cached: machine-readable bounce data (auto-generated)
 ```
 
 ## 🚀 Initialization Command

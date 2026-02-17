@@ -98,6 +98,48 @@ High-frequency mean reversion targeting **4.5% gains** in **1-3 trading days**. 
 
 ---
 
+## Bounce Strategy: The "Quick Flip"
+
+### Core Philosophy
+Capture **historically validated support bounces** with immediate limit sell orders at data-driven targets. When price approaches a support level that has a proven bounce history, buy at the wick-adjusted price and sell into the bounce. Targets are per-level medians from hourly data — not fixed percentages.
+
+### Capital Allocation
+*   **Total Pool:** $1,000 (shared across all bounce tickers)
+*   **Per-Trade Size:** ~$100 (matches one Surgical bullet)
+*   **Max Concurrent:** 10 trades
+*   **No Averaging:** Single entry, single exit. If stop hits, move on.
+
+### Data-Driven Bounce Targets
+*   Uses **hourly data** (`interval="1h"`, ~2 years) for intraday timestamp accuracy.
+*   Measures actual bounce magnitude (1-day, 2-day, 3-day) from each held support approach.
+*   Sell target = buy price × (1 + median 3-day bounce %) — unique per stock per level.
+
+### Signal Verdicts
+| Verdict | Criteria |
+| :--- | :--- |
+| STRONG BOUNCE | hold_rate >= 50% AND >= 60% of holds produce >= 4.5% bounce within 3 days |
+| BOUNCE | hold_rate >= 40% AND >= 40% of holds produce >= 4.5% bounce within 3 days |
+| WEAK | Below thresholds |
+| NO DATA | < 3 historical approaches |
+
+### Exit Rules (First to Trigger)
+1.  **Bounce Target Hit** — Sell at the data-driven median bounce price.
+2.  **RSI > 70** — Overbought exit (may trigger before target).
+3.  **-3% Hard Stop** — Cut loss, no averaging, no hoping.
+4.  **3 Trading Day Time Stop** — If neither target nor stop hit in 3 days, exit at market.
+
+### Selection Criteria
+*   Must NOT be in the Surgical stock pool (no overlap with positions, pending orders, or watchlist).
+*   Must NOT be in the Velocity stock pool (no overlap with velocity watchlist).
+*   Must have >= 3 historical approaches at the support level (minimum data threshold).
+*   Verdict must be STRONG BOUNCE or BOUNCE (WEAK and NO DATA levels are informational only).
+
+### Tools
+*   `python3 tools/bounce_analyzer.py <TICKER>` — Analyze support levels with hourly bounce history. Outputs markdown + JSON cache.
+*   `python3 tools/bounce_dashboard.py` — Track active bounce trades, cached signals, exit alerts, capital summary.
+
+---
+
 ## Current Watchlist & Status
 See `portfolio.json` for live positions/orders and run `python3 tools/portfolio_status.py` for a full report.
 
