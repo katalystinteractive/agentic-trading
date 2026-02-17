@@ -199,6 +199,8 @@ def score_velocity_signal(ticker_symbol):
         "stop_price": stop_price,
         "shares": shares,
         "rr_ratio": rr_ratio,
+        "target_pct": target_pct,
+        "stop_pct": stop_pct,
         "overlap": False,
         "disqualified": False,
     }
@@ -228,8 +230,8 @@ def format_report(result):
         lines.append("| Metric | Value |")
         lines.append("| :--- | :--- |")
         lines.append(f"| Entry Price | ${result['price']:.2f} |")
-        lines.append(f"| Target (+4.5%) | ${result['target_price']:.2f} |")
-        lines.append(f"| Stop (-3%) | ${result['stop_price']:.2f} |")
+        lines.append(f"| Target (+{result['target_pct']}%) | ${result['target_price']:.2f} |")
+        lines.append(f"| Stop (-{result['stop_pct']}%) | ${result['stop_price']:.2f} |")
         lines.append(f"| ATR% | {result['atr_pct']:.1f}% |")
         lines.append(f"| Avg Volume | {result['avg_volume']:,.0f} |")
         lines.append(f"| Shares (~$175) | {result['shares']} |")
