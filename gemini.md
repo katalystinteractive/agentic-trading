@@ -79,6 +79,25 @@ Run this before **new entry or exit decisions** (not needed for routine status c
 *   If regime is **Neutral**, proceed with normal entries but use tighter bullet spacing (less aggressive averaging).
 *   If regime is **Risk-On**, proceed with normal bullet placement at support levels.
 
+## 🚀 Velocity Strategy Protocols
+
+### 5. The "Velocity" Protocol
+When managing the velocity strategy:
+1.  Run `python3 tools/velocity_dashboard.py` for the full picture (active trades, capital, candidate signals).
+2.  For individual ticker deep dive: `python3 tools/velocity_scanner.py <TICKER>`
+3.  **Entry:** Only enter when score >= 70. Place limit order at current price (no wick adjustment — velocity is about speed, not precision).
+4.  **Exit:** Check active trades daily. Exit immediately when any exit rule triggers:
+    *   +4.5% target hit → sell
+    *   RSI > 70 overbought → sell
+    *   -3% hard stop → sell
+    *   3 trading day time stop → sell at market
+5.  **Capital:** Never exceed 6 concurrent trades or $1,000 total deployed.
+6.  Velocity positions live in `velocity_positions` in `portfolio.json` (separate from surgical `positions`).
+7.  Velocity and Surgical run on **separate stock pools** — no overlap. If transitioning a ticker (e.g., APLD), close the surgical position first.
+
+### Velocity Agent Roster
+(Added as candidates are identified — APLD likely first transition from Surgical)
+
 ## 📂 Project Structure
 ```
 strategy.md                     — Global rules (entry/exit/capital/cycles)
@@ -105,6 +124,8 @@ tools/short_interest.py         — Short interest + squeeze risk
 tools/relative_strength.py      — RS rating + rotation status
 tools/institutional_flow.py     — Institutional/insider flow
 tools/wick_offset_analyzer.py   — Per-level buy prices from 13-month wick history
+tools/velocity_scanner.py       — Velocity signal scorer (single ticker, 100-pt scale)
+tools/velocity_dashboard.py     — Velocity dashboard (scan watchlist, rank, track trades)
 ```
 
 ## 🚀 Initialization Command

@@ -59,6 +59,45 @@ Structural tools auto-save per-ticker cache files to `agents/<TICKER>/` on every
 *   `short_interest.md` — Short %, squeeze risk, days to cover (from `short_interest.py`).
 *   `news.md` — Headlines, sentiment, deep-dive articles (from `news_sentiment.py`).
 
+---
+
+## Velocity Strategy: The "Quick Strike"
+
+### Core Philosophy
+High-frequency mean reversion targeting **4.5% gains** in **1-3 trading days**. Uses technical confluence scoring (RSI + MACD + Bollinger + Stochastic) to identify optimal entry windows. Runs in parallel with the Surgical strategy on a separate stock pool.
+
+### Capital Allocation
+*   **Total Pool:** $1,000 (shared across all velocity tickers)
+*   **Per-Trade Size:** ~$150-200 (max 5-6 concurrent positions)
+*   **No Bullet Averaging:** Single entry, single exit. If stop hits, move on.
+
+### Signal Scoring (100-point scale)
+| Signal | Points | Condition |
+| :--- | :--- | :--- |
+| RSI(14) Oversold | 30 | RSI < 35 |
+| MACD Bullish Cross | 25 | MACD line crosses above signal line, histogram turning positive |
+| Bollinger Lower Pierce | 25 | Price touches or breaks below lower Bollinger Band (20,2) |
+| Stochastic Oversold | 10 | %K < 20 |
+| RSI 3-Day Trend | 10 | RSI rising for 3 consecutive days from oversold territory |
+| **Entry Threshold** | **70+** | |
+
+### Exit Rules (First to Trigger)
+1.  **+4.5% Target Hit** — Take profit immediately.
+2.  **RSI > 70** — Overbought exit (may trigger before 4.5% if momentum is strong).
+3.  **-3% Hard Stop** — Cut loss, no averaging, no hoping.
+4.  **3 Trading Day Time Stop** — If neither target nor stop hit in 3 days, exit at market.
+
+### Selection Criteria
+*   **Price:** $5-$80 (wider range than Surgical — velocity doesn't need $100 bullet math).
+*   **ATR%:** > 2.5% daily (needs enough daily movement to hit 4.5% in 1-3 days).
+*   **Volume:** > 2M daily average (ensures tight spreads for quick entries/exits).
+*   Must NOT be in the Surgical stock pool (no overlap).
+
+### Velocity Watchlist
+(Candidates to be identified — APLD likely first transition from Surgical)
+
+---
+
 ## Current Watchlist & Status
 See `portfolio.json` for live positions/orders and run `python3 tools/portfolio_status.py` for a full report.
 
