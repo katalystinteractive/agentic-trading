@@ -140,6 +140,7 @@ def run_dashboard():
     if vel_watchlist:
         results = []
         skipped_overlap = []
+        skipped_criteria = []
         for ticker in vel_watchlist:
             if ticker in vel_positions:
                 continue  # already in an active trade
@@ -148,6 +149,9 @@ def run_dashboard():
                 continue
             if result.get("overlap"):
                 skipped_overlap.append(ticker)
+                continue
+            if result.get("disqualified"):
+                skipped_criteria.append(ticker)
                 continue
             results.append(result)
 
@@ -174,6 +178,9 @@ def run_dashboard():
         if skipped_overlap:
             joined = ", ".join(skipped_overlap)
             print(f"\n*Skipped (surgical overlap): {joined}*")
+        if skipped_criteria:
+            joined = ", ".join(skipped_criteria)
+            print(f"\n*Skipped (selection criteria): {joined}*")
     else:
         print("*No tickers on velocity watchlist. Add tickers to `velocity_watchlist` in portfolio.json.*")
 

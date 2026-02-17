@@ -132,8 +132,16 @@ def score_velocity_signal(ticker_symbol):
                        set(portfolio.get("watchlist", []))
     overlap = ticker_symbol in surgical_tickers
 
+    # Selection criteria gates (strategy requirements)
+    price_ok = 5 <= current_price <= 80
+    atr_ok = atr_pct >= 2.5
+    volume_ok = avg_volume >= 2_000_000
+    disqualified = not (price_ok and atr_ok and volume_ok)
+
     if overlap:
         verdict = "BLOCKED — OVERLAP"
+    elif disqualified:
+        verdict = "BLOCKED — CRITERIA"
     elif total >= 70:
         verdict = "STRONG BUY" if total >= 85 else "BUY"
     elif total >= 50:
@@ -171,6 +179,7 @@ def score_velocity_signal(ticker_symbol):
         "shares": shares,
         "rr_ratio": rr_ratio,
         "overlap": overlap,
+        "disqualified": disqualified,
     }
 
 
@@ -193,7 +202,7 @@ def format_report(result):
     lines.append(f"| **Total** | | | **{result['score']}/100** |")
 
     # Trade Setup table (suppressed for blocked tickers)
-    if not result.get("overlap"):
+    if not result.get("overlap") and not result.get("disqualified"):
         lines.append("\n### Trade Setup")
         lines.append("| Metric | Value |")
         lines.append("| :--- | :--- |")
