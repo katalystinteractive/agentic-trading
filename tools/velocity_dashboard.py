@@ -42,7 +42,7 @@ def count_trading_days(entry_date_str):
         entry = datetime.strptime(entry_date_str, "%Y-%m-%d")
     except (ValueError, TypeError):
         return "?"
-    today = datetime.now()
+    today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
     days = 0
     current = entry
     while current < today:

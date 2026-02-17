@@ -111,8 +111,8 @@ def score_velocity_signal(ticker_symbol):
     # RSI 3-Day Trend: 10 pts if RSI rising for 3 consecutive days from oversold
     rsi_trend_pts = 0
     if len(rsi_series) >= 4:
-        r = rsi_series.iloc[-3:]
-        if float(r.iloc[0]) < 40 and float(r.iloc[1]) > float(r.iloc[0]) and float(r.iloc[2]) > float(r.iloc[1]):
+        r = rsi_series.iloc[-4:]
+        if float(r.iloc[0]) < 40 and float(r.iloc[1]) > float(r.iloc[0]) and float(r.iloc[2]) > float(r.iloc[1]) and float(r.iloc[3]) > float(r.iloc[2]):
             rsi_trend_pts = 10
     total += rsi_trend_pts
     trend_label = "Rising" if rsi_trend_pts > 0 else "Flat/Falling"
