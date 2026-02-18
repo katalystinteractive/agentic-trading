@@ -185,7 +185,7 @@ def run_dashboard():
             print("*No eligible candidates after filtering.*")
         if skipped_overlap:
             joined = ", ".join(skipped_overlap)
-            print(f"\n*Skipped (surgical overlap): {joined}*")
+            print(f"\n*Skipped (surgical/bounce overlap): {joined}*")
         if skipped_criteria:
             joined = ", ".join(skipped_criteria)
             print(f"\n*Skipped (selection criteria): {joined}*")

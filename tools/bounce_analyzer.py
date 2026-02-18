@@ -360,10 +360,12 @@ def analyze_stock(ticker):
     per_trade_size = bounce_cap.get("per_trade_size", 100)
     stop_loss_pct = bounce_cap.get("stop_loss_pct", 3.0)
 
-    # Detect support levels
+    # Detect support levels (cap to within 30% of current price)
     hvn_floors = find_hvn_floors(daily)
     pa_supports = find_price_action_supports(daily, current_price)
     levels = merge_levels(hvn_floors, pa_supports, current_price)
+    price_floor = current_price * 0.70
+    levels = [l for l in levels if l["price"] >= price_floor]
 
     if not levels:
         print(f"*No support levels found below current price for {ticker}*")
@@ -425,7 +427,7 @@ def analyze_stock(ticker):
 
     # Support Levels & Bounce History table
     lines.append("### Support Levels & Bounce History")
-    lines.append("| Level | Source | Approaches | Hold% | Bounce 1D | Bounce 2D | Bounce 3D | >= 4.5% | Verdict |")
+    lines.append("| Level | Source | Approaches | Hold% | Same-Day | Bounce 2D | Bounce 3D | >= 4.5% | Verdict |")
     lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
     for r in level_results:

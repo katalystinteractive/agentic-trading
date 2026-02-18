@@ -4,9 +4,11 @@ Reads cached bounce_analysis.json files (does NOT re-run hourly analysis).
 Fetches live price + RSI only for active trades.
 
 Usage:
-    python3 tools/bounce_dashboard.py
+    python3 tools/bounce_dashboard.py          # actionable levels only
+    python3 tools/bounce_dashboard.py --all    # include WEAK/NO DATA levels
 """
 import json
+import sys
 from pathlib import Path
 from datetime import datetime, timedelta
 
@@ -93,11 +95,10 @@ def check_overlap(ticker, portfolio):
     return None
 
 
-def run_dashboard():
+def run_dashboard(show_all=False):
     portfolio = load_portfolio()
     bounce_cap = portfolio.get("bounce_capital", {})
     bounce_positions = portfolio.get("bounce_positions", {})
-    bounce_watchlist = portfolio.get("bounce_watchlist", [])
 
     total_pool = bounce_cap.get("total_pool", 1000)
     max_concurrent = bounce_cap.get("max_concurrent", 10)
@@ -175,7 +176,9 @@ def run_dashboard():
     print(f"| Open Trades | {open_trades}/{max_concurrent} |")
 
     # --- Cached Bounce Signals ---
-    print("\n### Cached Bounce Signals")
+    actionable_verdicts = {"STRONG BOUNCE", "BOUNCE"}
+    label = "Cached Bounce Signals" if show_all else "Cached Bounce Signals (actionable only)"
+    print(f"\n### {label}")
     cached = load_cached_signals()
     if cached:
         # Flatten levels across all cached tickers, sorted by verdict then bounce magnitude
@@ -183,10 +186,13 @@ def run_dashboard():
         all_levels = []
         for data in cached:
             ticker = data.get("ticker", "?")
+            generated = data.get("generated", "?")
             for lvl in data.get("levels", []):
-                lvl["_ticker"] = ticker
-                lvl["_date"] = data.get("date", "?")
-                all_levels.append(lvl)
+                entry = {**lvl, "_ticker": ticker, "_generated": generated}
+                all_levels.append(entry)
+
+        if not show_all:
+            all_levels = [l for l in all_levels if l.get("verdict") in actionable_verdicts]
 
         all_levels.sort(key=lambda x: (
             verdict_order.get(x.get("verdict", "NO DATA"), 9),
@@ -194,8 +200,8 @@ def run_dashboard():
         ))
 
         if all_levels:
-            print("| Ticker | Level | Source | Hold% | Bounce 3D | >= 4.5% | Buy At | Verdict | Overlap |")
-            print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+            print("| Ticker | Level | Source | Hold% | Bounce 3D | >= 4.5% | Buy At | Verdict | Cached | Overlap |")
+            print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
             for lvl in all_levels:
                 ticker = lvl["_ticker"]
                 overlap = check_overlap(ticker, portfolio)
@@ -207,10 +213,12 @@ def run_dashboard():
                 print(
                     f"| {ticker} | ${lvl.get('price', 0):.2f} | {lvl.get('source', '?')} "
                     f"| {hr} | {b3} | {p45} | {buy} "
-                    f"| {lvl.get('verdict', '?')} | {overlap_str} |"
+                    f"| {lvl.get('verdict', '?')} | {lvl['_generated']} | {overlap_str} |"
                 )
         else:
-            print("*Cached files found but no level data.*")
+            msg = "*Cached files found but no level data.*" if show_all else \
+                  "*No actionable levels (STRONG BOUNCE / BOUNCE). Run with `--all` to see all levels.*"
+            print(msg)
     else:
         print("*No cached bounce signals. Run `python3 tools/bounce_analyzer.py <TICKER>` to generate.*")
 
@@ -244,4 +252,4 @@ def run_dashboard():
 
 
 if __name__ == "__main__":
-    run_dashboard()
+    run_dashboard(show_all="--all" in sys.argv)

@@ -49,7 +49,10 @@ def score_velocity_signal(ticker_symbol):
     surgical_tickers = set(portfolio.get("positions", {}).keys()) | \
                        set(portfolio.get("pending_orders", {}).keys()) | \
                        set(portfolio.get("watchlist", []))
-    overlap = ticker_symbol in surgical_tickers
+    bounce_tickers = set(portfolio.get("bounce_positions", {}).keys()) | \
+                     set(portfolio.get("bounce_pending", {}).keys()) | \
+                     set(portfolio.get("bounce_watchlist", []))
+    overlap = ticker_symbol in surgical_tickers or ticker_symbol in bounce_tickers
 
     price_ok = MIN_PRICE <= current_price <= MAX_PRICE
     atr_ok = atr_pct >= MIN_ATR_PCT
@@ -244,7 +247,7 @@ def format_report(result):
     # Selection criteria flags
     flags = []
     if result.get("overlap"):
-        flags.append("OVERLAP: Ticker is in the Surgical stock pool — cannot trade in both strategies")
+        flags.append("OVERLAP: Ticker is in the Surgical or Bounce stock pool — cannot trade in both strategies")
     if result["atr_pct"] < MIN_ATR_PCT:
         flags.append(f"ATR% below {MIN_ATR_PCT}% minimum")
     if result["avg_volume"] < MIN_AVG_VOLUME:

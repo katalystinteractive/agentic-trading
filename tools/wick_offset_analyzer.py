@@ -94,7 +94,7 @@ def find_price_action_supports(hist, current_price):
                 clusters.append({
                     "price": round(float(min(current_cluster)), 4),
                     "touches": len(current_cluster),
-                    "source": "Price Action",
+                    "source": "PA",
                 })
             current_cluster = [all_lows[i]]
 
@@ -102,7 +102,7 @@ def find_price_action_supports(hist, current_price):
         clusters.append({
             "price": round(float(min(current_cluster)), 4),
             "touches": len(current_cluster),
-            "source": "Price Action",
+            "source": "PA",
         })
 
     return clusters
@@ -123,8 +123,8 @@ def merge_levels(hvn_floors, pa_supports, current_price):
             for existing in all_levels:
                 if existing["price"] > 0 and abs(p["price"] - existing["price"]) / existing["price"] < 0.02:
                     # Merge: mark as both sources
-                    if "Price Action" not in existing["source"]:
-                        existing["source"] += " + Price Action"
+                    if "PA" not in existing["source"]:
+                        existing["source"] += "+PA"
                     existing["touches"] = p.get("touches", 0)
                     duplicate = True
                     break
