@@ -13,6 +13,9 @@
 - Gemini noted JPMorgan +648% and Deutsche Bank +56.4% but these could NOT be verified through yfinance data. Treat as directional only.
 - Verified via yfinance: Norges Bank +66.7%, Vanguard +18.5%, BlackRock +33.8%, Morgan Stanley +29.9%. 9/10 top holders accumulating.
 
+## Observations (continued)
+- **2026-02-18 News:** Price $33.34 (-24.9% from avg $44.39). Earnings Feb 25. Multiple headwinds converging: (1) Fraud probe collides with $1.8B SkyWater deal — exec scrutiny intensifying, (2) Morgan Stanley cut stake per 13F — adds to institutional exit narrative, (3) Short-seller report pressure continuing, (4) Down 33% in past month. Zacks consensus: Q4 EPS -$0.48 (+48% YoY improvement), revenue $40.3M (+244% YoY). New competitor Infleqtion (INFQ) went public Feb 17. T1 remaining at $30.42 is 8.7% below current. Sentiment: Neutral (30% positive, 20% negative). Earnings next week is the key binary event.
+
 ## Lessons
 - Only deployed half of Tranche 1 — disciplined restraint preserved dry powder for deeper dip or earnings play.
 - LLM institutional claims need cross-verification. Overall direction was correct (institutions buying) but specific numbers were unverifiable.

@@ -1,4 +1,4 @@
-*Generated: 2026-02-17 20:58*
+*Generated: 2026-02-18 23:40*
 
 ## News & Sentiment: Intel Corporation (INTC)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,61 +6,74 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Benzinga | Nvidia's Huang To Skip India AI Impact Summit | Neutral | +0.00 | — |
-| Today | Zacks | Amkor Trades Near 52-Week High: Buy, Sell or Hold the Stock? | Neutral | +0.00 | — |
-| Today | Zacks | Investors Heavily Search Intel Corporation (INTC): Here is W... | Neutral | +0.00 | — |
-| Today | Zacks | Can AI Memory Demand Sustain Micron's Margin Expansion Ahead... | Negative | -0.13 | — |
-| Today | Insider Monkey | Intel (INTC) Faces 'Show-Me' Reset as DA Davidson Initiates ... | Neutral | +0.00 | Analyst |
-| Today | The Wall Street | Nasdaq Futures Lead Losses as Chip Stocks Weigh | Negative | -0.40 | — |
-| Today | Zacks | The Zacks Analyst Blog  NVIDIA, Super Micro Computer,  Advan... | Positive | +0.71 | — |
-| 2026-02-17 | MarketBeat | NEOS Investment Management LLC Boosts Stock Position in Inte... | Positive | +0.32 | Earnings, Corporate |
-| 2026-02-17 | MarketBeat | Intel Corporation $INTC Shares Sold by Skandinaviska Enskild... | Positive | +0.30 | Earnings |
-| 2026-02-17 | MarketBeat | Intel (NASDAQ:INTC) Receives "Neutral" Rating from Sanford C... | Neutral | +0.00 | Earnings |
-| 2026-02-17 | MarketBeat | Intel Corporation $INTC Shares Sold by M&G PLC - MarketBeat | Positive | +0.30 | Earnings |
-| 2026-02-17 | MarketBeat | Intel Corporation $INTC Shares Sold by Fifth Third Bancorp -... | Positive | +0.30 | Earnings |
-| 2026-02-17 | MarketBeat | Merit Financial Group LLC Buys 58,081 Shares of Intel Corpor... | Positive | +0.61 | Earnings |
-| 2026-02-17 | FXLeaders | Intel Pushes Forward With Chip Production As INTC Stock Tren... | Neutral | +0.00 | — |
-| 2026-02-17 | Motley Fool | Should You Invest $500 in Nvidia (NVDA) Right Now? | Neutral | +0.00 | — |
-| 2026-02-17 | Motley Fool | Why Itron Stock Is Skyrocketing Today | Neutral | +0.00 | — |
-| 2026-02-17 | Motley Fool | Pinterest Shares Get Pummelled. Is It Time to Buy the Dip? | Positive | +0.30 | — |
-| 2026-02-17 | Motley Fool | Want Decades of Passive Income? Buy This ETF and Hold It For... | Positive | +0.27 | — |
-| 2026-02-17 | Motley Fool | "Motley Fool Money" Earnings Roundup | Negative | -0.44 | Earnings |
-| 2026-02-17 | Motley Fool | Where Will Enterprise Products Partners (EPD) Stock Be in 5 ... | Neutral | +0.00 | — |
-| 2026-02-17 | Motley Fool | How Buying Nebius Stock Today Could 10X Your Net Worth | Positive | +0.23 | — |
-| 2026-02-17 | Motley Fool | Roku Shares Climb. Is It Too Late to Buy the Stock? | Positive | +0.30 | — |
-| 2026-02-17 | Motley Fool | Why Did Compass Pathways Stock Rocket Higher Today? | Neutral | +0.00 | — |
-| 2026-02-16 | 24/7 Wall St. | Chip Stocks Split: AMAT and TSMC Gain While NVDA and Intel R... | Positive | +0.64 | Shareholder |
-| 2026-02-16 | Zacks | IBM vs. Intel: Which AI-Focused Stock is the Better Buy Toda... | Positive | +0.44 | — |
-| 2026-02-16 | Insider Monkey | Is Intel (INTC) One of the Best AI Stocks Skyrocketing? | Positive | +0.64 | — |
-| 2026-02-16 | MarketBeat | Intel Corporation $INTC Shares Sold by PNC Financial Service... | Positive | +0.30 | Earnings |
-| 2026-02-16 | MarketBeat | Pallas Capital Advisors LLC Purchases 43,022 Shares of Intel... | Positive | +0.30 | Earnings |
-| 2026-02-16 | MarketBeat | 12,276 Shares in Intel Corporation $INTC Purchased by Tobam ... | Positive | +0.30 | Earnings |
-| 2026-02-16 | MarketBeat | Intel Corporation (NASDAQ:INTC) Sees Significant Decline in ... | Positive | +0.59 | Earnings, Short |
+| Today | Business Wire | Intel Corporation to Participate in Upcoming Investor Confer... | Neutral | +0.00 | — |
+| Today | 24/7 Wall St. | Nvidias Secret Portfolio Shakeup: 2 AI Darlings Are Ditched ... | Positive | +0.38 | Regulatory |
+| Today | Investopedia | Nvidia Sold Its Stakes in These Firms. The Stocks Are Slidin... | Neutral | +0.00 | — |
+| Today | Proactive | AI doomsday fears overblown, Ives says | Negative | -0.77 | — |
+| Today | Zacks | 13F: What Druckenmiller, Dalio, Tepper, & NVIDIA are Buying | Neutral | +0.00 | — |
+| Today | 24/7 Wall St. | 5 Top 2026 Stock Picks Are Companies Backed by Massive US Go... | Positive | +0.23 | — |
+| 2026-02-18 | TipRanks | Intel Stock (NASDAQ:INTC) Slips on New Concerns Over Nvidia/... | Neutral | +0.00 | — |
+| 2026-02-18 | Eudaimonia and  | Intel (INTC) Stock Rebounds After 1.3% Drop as Valuation Deb... | Negative | -0.27 | — |
+| 2026-02-18 | Yahoo Finance | Intel (INTC) Valuation Check After Recent Share Price Volati... | Positive | +0.30 | — |
+| 2026-02-18 | MarketBeat | Intel (NASDAQ:INTC) Stock Price Down 1.3% - Here's Why - Mar... | Neutral | +0.00 | Earnings |
+| 2026-02-18 | CoinCentral | Intel (INTC) Stock Drops 7% in a Week as Analysts Keep "Redu... | Neutral | +0.00 | — |
+| 2026-02-18 | MarketBeat | Rothschild Investment LLC Buys 25,901 Shares of Intel Corpor... | Positive | +0.30 | Earnings |
+| 2026-02-18 | Blockonomi | Intel (INTC) Stock: Falls as Foundry Struggles and Weak Guid... | Negative | -0.49 | Earnings |
+| 2026-02-18 | Motley Fool | 2 Predictions for Ares Capital in 2026 | Neutral | +0.00 | — |
+| 2026-02-18 | Motley Fool | Should You Buy Broadcom Stock Before March 4? The Answer Mig... | Positive | +0.27 | — |
+| 2026-02-18 | Motley Fool | This Artificial Intelligence (AI) Stock Could Be the Steal o... | Neutral | -0.03 | — |
+| 2026-02-18 | Motley Fool | This Cathie Wood Stock Is Already Up Nearly 30% This Year --... | Neutral | +0.00 | — |
+| 2026-02-18 | Motley Fool | 2 Monster Stocks to Hold for the Next 5 Years | Neutral | +0.00 | — |
+| 2026-02-18 | Motley Fool | Stop Losing Money to RMDs: A Simple Fix Retirees Miss | Negative | -0.66 | Earnings |
+| 2026-02-18 | Motley Fool | Is Sandisk the Next Nvidia? | Neutral | +0.00 | — |
+| 2026-02-18 | Motley Fool | Could This $11 Stock Be Your Ticket to Millionaire Status? | Neutral | +0.00 | — |
+| 2026-02-17 | Reuters | Nvidia to sell Meta millions of chips in multiyear deal | Neutral | +0.00 | — |
+| 2026-02-17 | Yahoo Finance | Nvidia and Meta expand GPU team up with millions of addition... | Positive | +0.32 | — |
+| 2026-02-17 | Benzinga | Nvidia's Huang To Skip India AI Impact Summit | Neutral | +0.00 | — |
+| 2026-02-17 | Zacks | Amkor Trades Near 52-Week High: Buy, Sell or Hold the Stock? | Neutral | +0.00 | — |
+| 2026-02-17 | Zacks | Investors Heavily Search Intel Corporation (INTC): Here is W... | Neutral | +0.00 | — |
+| 2026-02-17 | Zacks | Can AI Memory Demand Sustain Micron's Margin Expansion Ahead... | Negative | -0.13 | — |
+| 2026-02-17 | Insider Monkey | Intel (INTC) Faces 'Show-Me' Reset as DA Davidson Initiates ... | Neutral | +0.00 | Analyst |
+| 2026-02-17 | The Wall Street | Nasdaq Futures Lead Losses as Chip Stocks Weigh | Negative | -0.40 | — |
+| 2026-02-17 | Zacks | The Zacks Analyst Blog  NVIDIA, Super Micro Computer,  Advan... | Positive | +0.71 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 17 (57%) |
-| Neutral | 10 (33%) |
-| Negative | 3 (10%) |
-| Average Score | +0.195 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 200 |
+| Positive | 7 (23%) |
+| Neutral | 17 (57%) |
+| Negative | 6 (20%) |
+| Average Score | -0.008 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 197 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 11 | NEOS Investment Management LLC Boosts St..; Intel Corporation $INTC Shares Sold by S.. |
+| Earnings | 4 | Intel (NASDAQ:INTC) Stock Price Down 1.3..; Rothschild Investment LLC Buys 25,901 Sh.. |
+| Regulatory | 1 | Nvidias Secret Portfolio Shakeup: 2 AI D.. |
 | Analyst | 1 | Intel (INTC) Faces 'Show-Me' Reset as DA.. |
-| Corporate | 1 | NEOS Investment Management LLC Boosts St.. |
-| Shareholder | 1 | Chip Stocks Split: AMAT and TSMC Gain Wh.. |
-| Short | 1 | Intel Corporation (NASDAQ:INTC) Sees Sig.. |
 
 ### Deep Dive Articles
 
-#### Amkor Trades Near 52-Week High: Buy, Sell or Hold the Stock?
+#### 13F: What Druckenmiller, Dalio, Tepper, & NVIDIA are Buying
 *Source: Zacks | Date: Today | Sentiment: Positive (+0.99)*
+
+> A 13F disclosure is a quarterly report that institutional investors with $100 million or more in assets under management (AUM) must file with the U.S. Securities and Exchange Commission (SEC) each quarter. 13F filings give investors a rare glimpse into what the smartest, largest, and most successful investors are investing their money in. Included in the 13F report is the name of the security, the type of security (for example, call option or equity), the number of shares or contracts held, the fair market value of the position, and the percentage of portfolio the position comprises.
+
+> These reports are required to be filed within 45 days of the end of each calendar quarter. The deadline for Q4 2025 was Tuesday, February 17th, meaning that all the big investors have filed their 13F reports. While 13Fs can represent “stale data” they can provide investors with valuable transparency and an idea of what the big institutional investors are seeing. With the AI boom in full swing and the fastest-growing industry on Wall Street, I will focus today’s commentary on five of the most interesting AI-related purchases by Wall Street juggernauts, including
+
+> Stanley Druckenmiller is known as the most consistent big money manager on Wall Street. Shortly after the release of ChatGPT, Druckenmiller purchasedNvidia (NVDA),making billions of dollars on the trade. Later, he scored wins in other AI-related firms likeTaiwan Semiconductor (TSM).According to his latest 13F, Druckenmiller is making a $64 million bet onBloom Energy (BE).
+
+> The bet makes sense. With AI data center demand accelerating exponentially, energy will need to follow suit. Bloom Energy helpds big tech companies power their data centers through its technology that converts fuelse such as natural gas and hydrogen into reliable electricity without combustion, offering high efficiency and low emissions.
+
+> Lately, Ray Dalio has voiced concern over the fiscal deficit situation in America. However, that’s not stopping him from betting on the AI revolution. In Q4, Dalio’s Bridgewater added:
+
+**Catalysts:** Earnings, Regulatory, Corporate, Equity, Short
+
+#### Amkor Trades Near 52-Week High: Buy, Sell or Hold the Stock?
+*Source: Zacks | Date: 2026-02-17 | Sentiment: Positive (+0.99)*
 
 > Amkor TechnologyAMKR shares closed at $47.48 on Friday, Feb. 13, down 16.8% from the 52-week high of $57.09 reached on Feb. 11, 2026. AMKR shares have jumped 97.4% in the past six months, outperforming the Zacks Computer & Technology sector’s return of 7.8% and the Zacks Electronics-Semiconductors industry's 19.8% growth.The stock has underperformed its peer,ASE TechnologyASX, whose shares have surged 131.7% over the same period, while tracking close toIntelINTC, up 97.8%, and outpacingTaiwan SemiconductorTSM, which has surged 51.8%.The rally has been driven by accelerating demand for advanced packaging tied to AI and high-performance computing, particularly the ramp of AMKR’s High Density Fan Out (HDFO) platform for data center and CPU programs.
 
@@ -75,7 +88,7 @@
 **Catalysts:** Earnings, Regulatory, Analyst
 
 #### Investors Heavily Search Intel Corporation (INTC): Here is What You Need to Know
-*Source: Zacks | Date: Today | Sentiment: Positive (+0.97)*
+*Source: Zacks | Date: 2026-02-17 | Sentiment: Positive (+0.97)*
 
 > Intel(INTC) has been one of the most searched-for stocks on Zacks.com lately. So, you might want to look at some of the facts that could shape the stock's performance in the near term.
 
@@ -90,7 +103,7 @@
 **Catalysts:** Earnings
 
 #### Can AI Memory Demand Sustain Micron's Margin Expansion Ahead?
-*Source: Zacks | Date: Today | Sentiment: Positive (+0.97)*
+*Source: Zacks | Date: 2026-02-17 | Sentiment: Positive (+0.97)*
 
 > Micron Technology, Inc.MU has been witnessing robust margin expansion over the past few quarters. In the last reported financial results for the first quarter of fiscal 2026, the company reported a non-GAAP gross margin of 56.8%, up from the year-ago quarter’s 39.5% and the previous quarter’s 45.7%.
 
@@ -105,7 +118,7 @@
 **Catalysts:** Earnings, Regulatory, Equity
 
 #### Intel (INTC) Faces 'Show-Me' Reset as DA Davidson Initiates Neutral Rating
-*Source: Insider Monkey | Date: Today | Sentiment: Positive (+0.94)*
+*Source: Insider Monkey | Date: 2026-02-17 | Sentiment: Positive (+0.94)*
 
 > Intel (NASDAQ:INTC) is one of theAI Stocks to Watch. Wall Street believes Intel (NASDAQ:INTC) is facing a “show-me” reset, with one research firm warning that current valuation is a reflection of overly optimistic assumptions. On February 12, DA Davidson analyst Gil Luria initiated coverage on Intel (NASDAQ: INTC) with a Neutral rating and a price target of $45.
 
@@ -118,18 +131,3 @@
 > Intel Corporation (NASDAQ:INTC) designs, manufactures, and sells advanced semiconductors, computer products, and technologies, delivering data storage, computer, networking, and communications platforms.
 
 **Catalysts:** Earnings, Analyst
-
-#### The Zacks Analyst Blog  NVIDIA, Super Micro Computer,  Advanced Micro Devices and Intel
-*Source: Zacks | Date: Today | Sentiment: Positive (+0.99)*
-
-> Chicago, IL – February 17, 2026 – Zacks.com announces the list of stocks featured in the Analyst Blog. Every day the Zacks Equity Research analysts discuss the latest news and events impacting stocks and the financial markets. Stocks recently featured in the blog include  NVIDIA Corporation NVDA, Super Micro Computer, Inc. SMCI, Advanced Micro Devices, Inc. AMD and Intel Corporation INTC.
-
-> NVIDIA CorporationandSuper Micro Computer, Inc.are both currently riding the artificial intelligence (AI) infrastructure boom. But with Supermicro facing margin pressure and NVIDIA offering far stronger profitability metrics, could NVDA now be the better investment? Let’s take a closer look –
-
-> The rise in data center capital spending has led to stiff competition between NVIDIA and its competitors, includingAdvanced Micro Devices, Inc. andIntel Corporation. However, despite the challenges, NVIDIA managed to post solid quarterly results consistently, banking on the rapid increase in AI. Quarter after quarter, NVIDIA’s performances were commendable due to the increasing demand for its chips, including the latest Blackwell architecture and cloud-based graphics processing units (GPUs).
-
-> NVIDIA’s revenues jumped 62% year over year and 22% sequentially to $57 billion in the fiscal third quarter of 2026, according to investor.nvidia.com. In fact, the company expects revenues for the fiscal fourth quarter of 2026 to come in at nearly $65 billion, with a plus or minus 2%. And why not? Thawing trade tensions between the United States and China are expected to support NVIDIA’s sales. The U.S. government has approved shipment of NVIDIA’s H200 AI chips to China, while Chinese authorities have permitted their sale to selected customers.
-
-> AI is significantly increasing demand for hardware, which is likely benefiting Supermicro. The company’s Data Center Building Block Solutions (DCBBS) has seen growing adoption among AI clients, offering a comprehensive package that includes integrated servers, networking, storage, cooling, software and related services. This momentum has translated into robust revenue growth, with its fiscal second-quarter 2026 sales climbing 123% year over year to $12.7 billion, easily exceeding analysts’ expectations of $10.4 billion, according to ir.supermicro.com.
-
-**Catalysts:** Earnings, Regulatory, Equity

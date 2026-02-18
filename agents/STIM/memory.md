@@ -9,6 +9,7 @@
 - $1.25 hard floor has 4 touches (Nov, Dec lows) — critical level. If it breaks, reserve pool deploys.
 - Early-month bottoming pattern visible across 13-month audit.
 - Strong bearish technicals (below all SMAs, MACD bearish, RSI 40.5) — we are buying into weakness by design.
+- **2026-02-18 News:** Price $1.38 (-5.5% from avg $1.46). Hit $1.33 low today. Q4 prelim results dropped Feb 10: revenue $41.8M (+86% YoY as-reported, +23% pro forma), positive operating cash flow $0.9M, full-year 2025 revenue $149.2M (+15% pro forma). Stock spiked 41% after-hours on Feb 11 to $2.06 but gave it ALL back. Market not rewarding fundamentals — still in the $1.33-$1.48 range. Reserve 1 at $1.25 is 9.4% below current. Sentiment: Neutral (27% positive).
 
 ## Lessons
 - (first cycle — pending)

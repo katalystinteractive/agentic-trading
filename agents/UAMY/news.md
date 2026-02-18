@@ -1,4 +1,4 @@
-*Generated: 2026-02-17 20:58*
+*Generated: 2026-02-18 23:40*
 
 ## News & Sentiment: United States Antimony Corporat (UAMY)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -25,28 +25,28 @@
 | 2026-01-29 | Benzinga | Rare Earth Stocks Get Rocked: Here Are The Facts | Neutral | +0.00 | — |
 | 2026-01-29 | ACCESSWIRE | Inaccurate and Misleading Reuters Article | Negative | -0.40 | — |
 | 2026-01-29 | Yahoo Finance | Is It Too Late To Consider United States Antimony (UAMY) Aft... | Positive | +0.42 | — |
-| 2026-01-29 | Trefis | United States Antimony Stock Pre-Market (-9.5%): US Govt. Ba... | Positive | +0.08 | — |
+| 2026-01-29 | Yahoo Finance | United States Antimony (UAMY) Is Up 6.5% After Bolivia Plant... | Positive | +0.68 | — |
 | 2026-01-29 | Benzinga | Rare Earth Stocks Get Rocked: Here Are The Facts - Benzinga | Neutral | +0.00 | — |
-| 2026-01-29 | Simply Wall St. | United States Antimony (UAMY) Is Up 6.5% After Bolivia Plant... | Positive | +0.68 | — |
 | 2026-01-28 | ACCESSWIRE | United States Antimony Corporation Announces New Hydromet Pr... | Positive | +0.13 | — |
-| 2026-01-28 | Stock Titan | Inside the new Bolivia-Montana antimony route for military-g... | Neutral | +0.00 | — |
 | 2026-01-26 | MarketWatch | Trump administration partners with another rare-earth compan... | Neutral | +0.00 | — |
 | 2026-01-26 | Stocktwits | UAMY Stock Eyes Another Good Week, Thanks To Trump And USAR ... | Positive | +0.70 | — |
 | 2026-01-26 | MSN | UAMY stock set for another blistering week? Retail traders a... | Neutral | +0.00 | — |
 | 2026-01-26 | TechStock² | UAMY stock jumps nearly 10% in premarket as antimony prices ... | Neutral | +0.00 | — |
+| 2026-01-26 | StocksToTrade | United States Antimony Corporation Faces Market Challenges a... | Positive | +0.15 | — |
 | 2026-01-26 | Intellectia AI | United States Antimony Corp Shares Surge 31% Amid Acquisitio... | Positive | +0.61 | Corporate |
 | 2026-01-23 | Seeking Alpha | United States Antimony: Plenty Of Growth Ahead If Management... | Positive | +0.66 | Corporate |
+| 2026-01-20 | Zacks | Relative Strength: Identifying Alpha in Market Weakness | Positive | +0.10 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 17 (57%) |
-| Neutral | 9 (30%) |
+| Positive | 18 (60%) |
+| Neutral | 8 (27%) |
 | Negative | 4 (13%) |
-| Average Score | +0.233 |
+| Average Score | +0.239 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 176 |
+| Total Unique Headlines | 175 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |

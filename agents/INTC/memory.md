@@ -24,6 +24,9 @@
 - **Sell target:** **$51.21** (10% from $46.55 avg).
 - **Stop rule:** If $37.00 breaks on high volume (below POC), long-term uptrend in question. Consider full exit.
 
+## Observations (continued)
+- **2026-02-18 News:** Price $45.46 (-2.3% from avg $46.55). Day range $44.88-$46.77. DA Davidson initiated coverage at Neutral/$45 — calls it a "show-me" reset, says current valuation bakes in overly optimistic assumptions. Nvidia's 13F revealed it BOUGHT Intel shares — notable vote of confidence from biggest competitor. INTC up 97.8% in 6 months. Rothschild added 25,901 shares. Foundry progress and 18A node remain key catalysts but profitability unproven. Sentiment: Neutral (23% positive, 20% negative). Last active bullet at $41.20 is 9.4% away.
+
 ## Lessons
 - Position entered before strategy system. Similar to IONQ, UAMY, USAR — recovery mode, but INTC is nearly breakeven.
 - Gemini's $44.23 was at $43.89 support with 0% hold rate (broke both times tested). Our wick analyzer caught this — capital would have been deployed at a level with no historical bounce.

@@ -1,4 +1,4 @@
-*Generated: 2026-02-17 20:58*
+*Generated: 2026-02-18 23:40*
 
 ## News & Sentiment: USA Rare Earth, Inc. (USAR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,6 +6,10 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| Today | Barrons.com | International Stocks Are Outperforming. Investment Pros Weig... | Neutral | +0.00 | Analyst |
+| Today | Zacks | Rising Development Expenses Pressure USAR: What's the Road A... | Negative | -0.30 | — |
+| 2026-02-18 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Down 2% - Time to Sell? ... | Positive | +0.30 | Earnings |
+| 2026-02-18 | Stocktwits | Critical Minerals Price Floor? MP, USAR, UAMY, TMC Stocks Ga... | Positive | +0.27 | — |
 | 2026-02-17 | Motley Fool | The U.S. Government Is Investing $1.6 Billion in USA Rare Ea... | Neutral | +0.00 | — |
 | 2026-02-17 | Motley Fool | USA Rare Earth Stock: Buy, Sell, or Hold? | Neutral | +0.00 | — |
 | 2026-02-16 | Zacks | USA Rare Earth Surges 35.6% in 3 Months: Should You Buy the ... | Neutral | +0.00 | — |
@@ -13,48 +17,59 @@
 | 2026-02-15 | Motley Fool | Should You Invest $1,000 in USA Rare Earth Right Now? | Neutral | +0.00 | — |
 | 2026-02-14 | Insider Monkey | Analysts See 94% Upside To USA Rare Earth, Inc. (USAR) | Neutral | +0.00 | — |
 | 2026-02-14 | NAI500 | Trump-Backed Rare Earth Stock Soared 88% in January. Should ... | Neutral | +0.00 | — |
+| 2026-02-14 | Yahoo Finance | USA Rare Earth vs. MP Materials: Which Stock Will Make You R... | Positive | +0.53 | — |
 | 2026-02-14 | Motley Fool | Could Investing $10,000 in USA Rare Earth Make You a Million... | Neutral | +0.00 | — |
-| 2026-02-14 | Motley Fool | USA Rare Earth vs. MP Materials: Which Stock Will Make You R... | Positive | +0.53 | — |
 | 2026-02-13 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Up 1.7% - Still a Buy? -... | Positive | +0.30 | Earnings |
 | 2026-02-13 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Down 12.4% - Here's What... | Positive | +0.30 | Earnings |
-| 2026-02-13 | Simply Wall St. | USA Rare Earth Lands Major U.S. Backing Yet Shares Trade At ... | Positive | +0.38 | — |
-| 2026-02-13 | Motley Fool | Here's Why MP Materials Continues to Soar in 2026 | Neutral | +0.00 | — |
 | 2026-02-12 | Benzinga | Trump's Favorite Commodity Is Coming To Derivatives Market | Positive | +0.46 | — |
 | 2026-02-12 | Yahoo Finance | USA Rare Earth Stock is Soaring in 2026, Is it Still a Buy? ... | Neutral | +0.00 | — |
 | 2026-02-11 | Zacks | Can USA Rare Earth's Stillwater Facility Accelerate Its Next... | Positive | +0.38 | — |
 | 2026-02-11 | The Motley Fool | Where Will USA Rare Earth Be in 5 Years? - The Motley Fool | Negative | -0.44 | — |
 | 2026-02-10 | Insider Monkey | USA Rare Earth (USAR) $3.5B Financing Deals Prompt Higher Pr... | Neutral | +0.00 | Analyst |
-| 2026-02-10 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Trading Down 6.7% - What's Next... | Neutral | +0.00 | Earnings |
 | 2026-02-10 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Trading Up 7.3% - Here's What H... | Neutral | +0.00 | Earnings |
+| 2026-02-10 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Trading Down 6.7% - What's Next... | Neutral | +0.00 | Earnings |
 | 2026-02-09 | MarketBeat | Insiders Buy 3 High-Risk Stocks-Here's What's Driving the Mo... | Neutral | +0.00 | — |
 | 2026-02-09 | The Motley Fool | 3 Mineral Stocks That Could Help Make You a Fortune - The Mo... | Negative | -0.05 | — |
-| 2026-02-07 | Yahoo Finance | Can USA Rare Earth Stock Beat the Market?​ - Yahoo Finance | Neutral | +0.00 | Earnings |
+| 2026-02-06 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Up 6% - Should You Buy? ... | Positive | +0.30 | Earnings |
 | 2026-02-05 | Barchart | A $3 Billion Reason to Buy This Rare Earths Stock | Neutral | +0.00 | — |
 | 2026-02-05 | GuruFocus.com | U.S. Minerals Stocks Tumble After White House Signals Market... | Neutral | +0.00 | — |
 | 2026-02-05 | The Motley Fool | Is USA Rare Earth Stock a Millionaire Maker? - The Motley Fo... | Negative | -0.44 | — |
 | 2026-02-05 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Stock Price Down 12.5% - Here's... | Neutral | +0.00 | Earnings |
-| 2026-02-05 | simplywall.st | USA Rare Earth Funding And Project Vault Role Highlight Unde... | Positive | +0.34 | — |
 | 2026-02-04 | Motley Fool | Owning the Operating System | Neutral | +0.00 | — |
-| 2026-02-04 | Barrons.com | MP Stock Tanked as Vance, Rubio Talked Critical Minerals | Negative | -0.32 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 8 (27%) |
-| Neutral | 18 (60%) |
+| Positive | 9 (30%) |
+| Neutral | 17 (57%) |
 | Negative | 4 (13%) |
-| Average Score | +0.061 |
+| Average Score | +0.067 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 186 |
+| Total Unique Headlines | 182 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 6 | USA Rare Earth (NASDAQ:USAR) Shares Up 1..; USA Rare Earth (NASDAQ:USAR) Shares Down.. |
-| Analyst | 1 | USA Rare Earth (USAR) $3.5B Financing De.. |
+| Earnings | 7 | USA Rare Earth (NASDAQ:USAR) Shares Down..; USA Rare Earth (NASDAQ:USAR) Shares Up 1.. |
+| Analyst | 2 | International Stocks Are Outperforming. ..; USA Rare Earth (USAR) $3.5B Financing De.. |
 
 ### Deep Dive Articles
+
+#### Rising Development Expenses Pressure USAR: What's the Road Ahead?
+*Source: Zacks | Date: Today | Sentiment: Positive (+0.91)*
+
+> USA Rare Earth, Inc.USAR is working to advance rare earth mining and magnet manufacturing operations in the United States, including the Round Top mining project in Texas and a magnet production facility in Oklahoma. However, the company is still in the pre-revenue phase, as its mining assets have not yet achieved commercial-scale output, leading to ongoing operating losses since inception.USAR has been facing escalating development expenditures as it moves forward through the project development stage. In the third quarter of 2025, the company’s selling, general and administrative expenses rose to $11.4 million from $0.8 million recorded in the year-ago quarter, due to higher legal and consulting costs, an expanded workforce, recruitment spending and additional overheads.USA Rare Earth’s research and development expenses also increased to $4.45 million from $1.16 million in the same period due to higher employee-related costs linked to staff expansion. As a result, the company posted a loss of 25 cents per share for the third quarter.Despite higher spending, USA Rare Earth continues to advance toward the targeted commercialization of multiple rare earth projects. These projects are expected to take at least several more quarters before achieving commercial production.It is worth noting that USAR disclosed that its Round Top rare earth and critical minerals project is now anticipated to commence commercial production in late 2028, which is two years earlier than its prior timeline. Until revenue generation begins, substantial project development outlays and operating expenses are expected to remain a short-term drag. The absence of revenues, along with increasing development costs, is likely to pressure the company’s near-term financial performance.
+
+> Among its major peers,Trilogy Metals Inc.TMQ continues to maintain financial discipline as it advances work at the Upper Kobuk Mineral Projects through its joint venture, Ambler Metals LLC. Trilogy’s salaries expense increased in fiscal 2025, recording higher cash-based compensation compared with fiscal 2024. Trilogy Metals’ disciplined capital approach is allowing it to manage expenditures at a time when development projects often require significant investment.Its another peer,NioCorp Developments Ltd.NB, is facing cost pressure. In the first quarter of fiscal 2026, its total operating expenses increased significantly on a year-over-year basis due to expenses incurred for the advancement of the Elk Creek Project. Rising costs and expenses, if not controlled, might affect NioCorp Developments’ margin performance moving ahead.
+
+> Shares of USAR have gained 72.1% in the past year compared with the industry’s growth of 47.3%.
+
+> From a valuation standpoint, USAR is trading at a forward price-to-earnings ratio of negative 65.60X against the industry’s average of 15.85X. USA Rare Earth has a Value Score of F.
+
+> The Zacks Consensus Estimate for USAR’s 2026 earnings has increased over the past 60 days.
+
+**Catalysts:** Earnings, Short
 
 #### USA Rare Earth Surges 35.6% in 3 Months: Should You Buy the Stock Now?
 *Source: Zacks | Date: 2026-02-16 | Sentiment: Positive (+1.00)*
@@ -115,18 +130,3 @@
 > The Zacks Consensus Estimate for USAR’s 2026 earnings has increased over the past 60 days.
 
 **Catalysts:** Earnings, Regulatory, Analyst
-
-#### USA Rare Earth (USAR) $3.5B Financing Deals Prompt Higher Price Target from Cantor Fitzgerald
-*Source: Insider Monkey | Date: 2026-02-10 | Sentiment: Positive (+0.92)*
-
-> USA Rare Earth Inc. (NASDAQ:USAR)is one of thebest high-upside materials stocks to buy. On January 26, the U.S. Commerce Department issued a letter of intent on Jan. 26 to provide USA Rare Earth Inc. (NASDAQ:USAR) with a $1.3 billion loan and $277 million in federal funding, in exchange for issuing 16.1 million shares of common stock and 17.6 million in warrants to the U.S. government, which will have an 8% to 16% stake in the company depending on how it executes its warrants.
-
-> Meanwhile, on January 29, USA Rare Earth Inc. (NASDAQ:USAR) completed a private investment in public equity (PIPE) financing, raising about $1.5 billion in gross proceeds. As part of the financing, the company issued about 69.8 million shares of common stock at $21.50 per share. The company plans to use the net proceeds to accelerate the development of its mine-to-magnet value chain.
-
-> Shortly after these deals, on January 30, Cantor Fitzgerald raised its price target on USA Rare Earth Inc. (NASDAQ:USAR) to $35 from $28 while maintaining an Overweight rating on the stock. The analyst noted that the company’s recent deals gave it access to about $3.5 billion in capital, allowing it to shift its focus to execution around magnet production, which could potentially generate $1.2 billion in EBITDA by 2030 if successfully done.
-
-> USA Rare Earth Inc. (NASDAQ:USAR) is a domestic supplier of rare earth magnets and heavy rare earth elements and is currently developing a vertically integrated domestic supply chain for rare earth element magnet production.
-
-> While we acknowledge the potential of USAR as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
-
-**Catalysts:** Analyst, Short

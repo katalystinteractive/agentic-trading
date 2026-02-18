@@ -10,5 +10,8 @@
 - APLD dropped from $42.27 to $29.24 in one week (Feb 2-6), demonstrating the extreme volatility that makes these deeper levels realistic entry points.
 - ATR 12.1% — the highest in the portfolio. Excellent mean reversion candidate but demands respect for position sizing.
 
+## Observations (continued)
+- **2026-02-18 News: NVIDIA SOLD ENTIRE $177M STAKE.** Filed after market close Feb 17. Stock hit $30.30 intraday (day range $30.30-$33.45), closed $31.91 (-1.7% from avg). Nvidia originally invested in 2024, held 7.7M shares. Also exited WeRide and Recursion Pharma — appears to be portfolio-wide rebalancing, not APLD-specific. Roth Capital shrugged it off, kept Buy/$58 PT, says another hyperscaler lease is "imminent" (believed to be in Louisiana, Delta Forge 1, 430 MW). Northland PT $56, Craig-Hallum PT $40. Company in advanced talks for 3 sites totaling 900 MW. Zacks compares APLD favorably vs Vertiv. Sentiment: Neutral (30% positive). B2 at $29.24 is now only 8.4% away — the Nvidia exit brought price closer to our next entry.
+
 ## Lessons
 - *Gemini can get close to correct levels intuitively, but systematic wick analysis catches the dead zones that intuition misses (e.g., $33.55 in the void above broken $34.07).*

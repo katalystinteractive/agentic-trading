@@ -1,4 +1,4 @@
-*Generated: 2026-02-17 20:47*
+*Generated: 2026-02-18 23:39*
 
 ## News & Sentiment: IonQ, Inc. (IONQ)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,36 +6,36 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Investor's Busi | Quantum Computing Stocks: Infleqtion Pops In First Day As Pu... | Neutral | +0.00 | — |
-| Today | NYSE | Heven AeroTech CEO Bentzion Levinson Talks Quantum After Ion... | Neutral | +0.00 | Corporate |
-| Today | PR Newswire | Quantum Speed Technology Targeting Multi-Trillion-Dollar Inf... | Positive | +0.65 | — |
-| Today | Fortune | D-Wave CEO shrugs off short attacks with revolutionary $550 ... | Negative | -0.44 | Corporate, Short |
+| Today | Zacks | Should You Buy, Hold, Or Sell IONQ Stock Ahead of Q4 Earning... | Neutral | +0.00 | Earnings |
+| 2026-02-18 | The Motley Fool | Where Will IonQ Be in 1 Year? - The Motley Fool | Negative | -0.44 | — |
+| 2026-02-18 | The Motley Fool | Quantum Computing Stocks IonQ, Rigetti Computing, and D-Wave... | Negative | -0.22 | Earnings |
+| 2026-02-18 | Yahoo Finance | Where Will IonQ Be in 1 Year? - Yahoo Finance | Neutral | +0.00 | — |
+| 2026-02-18 | Motley Fool | Where Will IonQ Be in 1 Year? | Neutral | +0.00 | — |
+| 2026-02-17 | Zacks | IonQ, Inc. (IONQ) Stock Declines While Market Improves: Some... | Positive | +0.42 | — |
+| 2026-02-17 | Investor's Busi | Quantum Computing Stocks: Infleqtion Pops In First Day As Pu... | Neutral | +0.00 | — |
+| 2026-02-17 | Zacks | NVIDIA vs IonQ: Can Quantum Replicate AI's $4 Trillion Giant... | Neutral | +0.00 | — |
+| 2026-02-17 | NYSE | Heven AeroTech CEO Bentzion Levinson Talks Quantum After Ion... | Neutral | +0.00 | Corporate |
+| 2026-02-17 | PR Newswire | Quantum Speed Technology Targeting Multi-Trillion-Dollar Inf... | Positive | +0.65 | — |
+| 2026-02-17 | Fortune | D-Wave CEO shrugs off short attacks with revolutionary $550 ... | Negative | -0.44 | Corporate, Short |
 | 2026-02-17 | TipRanks | Infleqtion (INFQ) Goes Public: A More Balanced Quantum Stock... | Neutral | +0.00 | — |
 | 2026-02-17 | Capital.com | IonQ stock forecast: Third-party price targets - Capital.com | Neutral | +0.00 | Analyst |
-| 2026-02-17 | AD HOC NEWS | IonQ Shares Face Pivotal Earnings Test Amid Divergent Forces... | Positive | +0.30 | Earnings |
+| 2026-02-17 | simplywall.st | IonQ Fraud Probe Collides With US$1.8b SkyWater Deal And Exe... | Negative | -0.79 | — |
 | 2026-02-17 | AD HOC NEWS | Diverging Paths: Major Investors Split on IonQ’s Quantum Fut... | Neutral | +0.00 | Shareholder |
+| 2026-02-17 | AD HOC NEWS | IonQ Shares Face Pivotal Earnings Test Amid Divergent Forces... | Positive | +0.30 | Earnings |
+| 2026-02-17 | Simply Wall St. | IonQ’s SkyWater Deal Tests Vertical Integration Promise Unde... | Positive | +0.32 | — |
 | 2026-02-17 | Motley Fool | Should You Invest $500 in Rigetti Computing Right Now? | Neutral | +0.00 | — |
 | 2026-02-16 | Zacks | Beyond NVIDIA: 4 AI & Quantum Plays Aiming Big Platform Upsi... | Positive | +0.25 | — |
 | 2026-02-16 | The Motley Fool | 1 Quantum Computing Stock to Buy Hand Over Fist in February ... | Positive | +0.08 | — |
 | 2026-02-15 | 24/7 Wall St. | IonQ Stock Falls 2.5% This Week on Short-Seller Report and L... | Positive | +0.13 | Short |
-| 2026-02-15 | Simply Wall St. | IonQ Fraud Probe Tests Acquisition Push And Institutional In... | Negative | -0.13 | Corporate |
+| 2026-02-15 | Yahoo Finance | IonQ Fraud Probe Tests Acquisition Push And Institutional In... | Negative | -0.13 | Corporate |
 | 2026-02-14 | Insider Monkey | Is IonQ, Inc. (IONQ) The Best Meme Stock To Buy Now? | Positive | +0.64 | — |
 | 2026-02-14 | 24/7 Wall St. | Rigetti Computing Shares Drop 9% This Week: Valuation Concer... | Neutral | +0.03 | — |
 | 2026-02-14 | Barchart | Why Wedbush Thinks Norway Could Be Key for This Quantum Comp... | Neutral | +0.00 | — |
 | 2026-02-14 | Stocktwits | Why Is IonQ Stock Falling? Morgan Stanley Stake Cut Adds Fue... | Negative | -0.62 | Short |
 | 2026-02-14 | Yahoo Finance | IonQ Weighs SkyWater Deal As Vertical Integration Meets Shar... | Positive | +0.30 | — |
 | 2026-02-14 | Quiver Quantita | $IONQ stock fell 3% this week. Here's what we see in our dat... | Neutral | +0.00 | — |
-| 2026-02-14 | equiti.com | IonQ earnings preview: Financial and technical analysis - eq... | Neutral | +0.00 | Earnings |
 | 2026-02-13 | StockStory | IonQ, Kyndryl, Diebold Nixdorf, Ibotta, and SAIC Stocks Trad... | Neutral | +0.00 | — |
 | 2026-02-13 | Zacks | Does Rigetti's $600M Cash Runway De-Risk Its 2026 Roadmap Ex... | Neutral | +0.00 | — |
-| 2026-02-13 | Zacks | IonQ, Inc. (IONQ) Is a Trending Stock: Facts to Know Before ... | Neutral | +0.00 | — |
-| 2026-02-13 | MarketBeat | IonQ (NYSE:IONQ) Shares Up 9.2% - Time to Buy? - MarketBeat | Positive | +0.30 | Earnings |
-| 2026-02-13 | The Motley Fool | The Quantum Computing Stock Risk Everyone (Even Wall Street ... | Negative | -0.74 | Earnings |
-| 2026-02-12 | GuruFocus.com | Quantum Stocks Tumble: D-Wave Quantum, IonQ, Rigetti Lead Se... | Neutral | +0.00 | — |
-| 2026-02-12 | Zacks | IonQ's Quantum M&A Push and $3.5B Cash: Buy, Sell or Hold in... | Neutral | +0.00 | — |
-| 2026-02-12 | Benzinga | IonQ Triggers Death Cross As Norway's $2.2 Trillion Fund Cou... | Negative | -0.60 | Short |
-| 2026-02-12 | Zacks | Is Quantum Computing Stock a Buy, Hold, or Sell Amid TFLN Ma... | Positive | +0.38 | — |
-| 2026-02-12 | The Motley Fool | 2 Reasons IonQ Is the Top Quantum Computing Stock to Buy Rig... | Negative | -0.27 | — |
 
 ### Sentiment Summary
 | Metric | Value |
@@ -44,23 +44,68 @@
 | Positive | 9 (30%) |
 | Neutral | 15 (50%) |
 | Negative | 6 (20%) |
-| Average Score | +0.008 |
+| Average Score | +0.015 |
 | Overall Sentiment | **Neutral** |
 | Total Unique Headlines | 175 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Short | 4 | D-Wave CEO shrugs off short attacks with..; IonQ Stock Falls 2.5% This Week on Short.. |
-| Earnings | 4 | IonQ Shares Face Pivotal Earnings Test A..; IonQ earnings preview: Financial and tec.. |
+| Earnings | 3 | Should You Buy, Hold, Or Sell IONQ Stock..; Quantum Computing Stocks IonQ, Rigetti C.. |
 | Corporate | 3 | Heven AeroTech CEO Bentzion Levinson Tal..; D-Wave CEO shrugs off short attacks with.. |
+| Short | 3 | D-Wave CEO shrugs off short attacks with..; IonQ Stock Falls 2.5% This Week on Short.. |
 | Analyst | 1 | IonQ stock forecast: Third-party price t.. |
 | Shareholder | 1 | Diverging Paths: Major Investors Split o.. |
 
 ### Deep Dive Articles
 
+#### Should You Buy, Hold, Or Sell IONQ Stock Ahead of Q4 Earnings?
+*Source: Zacks | Date: Today | Sentiment: Positive (+0.25)*
+
+> IonQIONQ is scheduled to release its fourth-quarter and full-year 2025 results on Feb. 25, amid rapid strategic execution and expansion efforts. However, a complex geopolitical backdrop and broad-based tech selloffs have weighed on overall growth momentum. The company’s stock declined 28.9% during the October-December quarter of 2025, despite bold moves in quantum networking, space-based communications and key acquisitions.
+
+> IonQ reported earnings beat in just one of the trailing four quarters and missed on the other three occasions, the average negative surprise being 343.53%.
+
+> How are things shaping up ahead of the fourth-quarter earnings release? Let’s take a closer look.
+
+> The Zacks Consensus Estimate for fourth-quarter EPS has remained unchanged at a loss of 48 cents per share over the past 60 days. The estimated figure indicates 48.4% improvement from the year-ago loss per share.
+
+> The consensus mark for fourth-quarter revenues is pegged at $40.3 million, indicating 244.2% year-over-year growth.
+
+**Catalysts:** Earnings, Corporate
+
+#### IonQ, Inc. (IONQ) Stock Declines While Market Improves: Some Information for Investors
+*Source: Zacks | Date: 2026-02-17 | Sentiment: Positive (+0.97)*
+
+> In the latest close session, IonQ, Inc. (IONQ) was down 2.73% at $33.18. This change lagged the S&P 500's 0.1% gain on the day. Elsewhere, the Dow saw an upswing of 0.07%, while the tech-heavy Nasdaq appreciated by 0.14%.
+
+> Shares of the company witnessed a loss of 32.85% over the previous month, trailing the performance of the Computer and Technology sector with its loss of 4.05%, and the S&P 500's loss of 1.43%.
+
+> Market participants will be closely following the financial results of IonQ, Inc. in its upcoming release. The company plans to announce its earnings on February 25, 2026. On that day, IonQ, Inc. is projected to report earnings of -$0.48 per share, which would represent year-over-year growth of 48.39%. Meanwhile, the latest consensus estimate predicts the revenue to be $40.31 million, indicating a 244.21% increase compared to the same quarter of the previous year.
+
+> For the full year, the Zacks Consensus Estimates are projecting earnings of -$5.08 per share and revenue of $108.45 million, which would represent changes of -225.64% and +151.78%, respectively, from the prior year.
+
+> It's also important for investors to be aware of any recent modifications to analyst estimates for IonQ, Inc.  These latest adjustments often mirror the shifting dynamics of short-term business patterns.  As such, positive estimate revisions reflect analyst optimism about the business and profitability.
+
+**Catalysts:** Earnings, Regulatory, Short
+
+#### NVIDIA vs IonQ: Can Quantum Replicate AI's $4 Trillion Giant in 2026?
+*Source: Zacks | Date: 2026-02-17 | Sentiment: Positive (+0.99)*
+
+> Since the November 2022 launch of ChatGPT, trained on more than 10,000NVIDIANVDA GPUs, AI infrastructure demand has accelerated at an unprecedented pace, propelling NVIDIA to the center of the compute economy. The stock has risen more than 1300% since 2022 October and now commands over $4.4 trillion in market capitalization, with multiple sources stating that NVIDIA controls more than 80% of the AI chip market. In its last reported, third quarter of fiscal 2026, NVIDIA reported $57 billion in revenue (up 62% year over year), including $51.2 billion from data center, as hyperscaler CapEx expectations for 2026 climbed to roughly $600 billion. Visibility into $0.5 trillion of Blackwell and Rubin revenues through 2026 underscores the scale of the AI buildout.
+
+> In contrast, quantum computing entered the investment limelight in 2023, with momentum accelerating through 2024-2025.IonQIONQ has gained 889% over the past three years, supported by 222% revenue growth in the third quarter of 2025 to $39.9 million, a record 99.99% two-qubit gate fidelity and a strengthened $3.5 billion cash position. As governments and enterprises explore quantum advantage use cases, investors are asking whether IonQ can replicate NVIDIA’s platform-driven dominance this time in a new computing paradigm.
+
+> Over the past three and a half years, NVIDIA has delivered a remarkable growth trajectory backed by strong strategic execution, product growth and strong capital markets performance. Since the 2022 launch of ChatGPT, demand for accelerated computing has surged stupendously. In the most recent quarter, NVDA generated revenues from data center, highlighting robust secular demand across cloud hyperscalers, enterprise AI workloads and foundational model training cycles. In the third quarter of fiscal 2026, NVIDIA generated and $31.9 billion in net income, with GAAP gross margins of 73.4%. Operating cash flow exceeded $23.8 billion and free cash flow reached approximately $22.1 billion, indicating a robust capital structure. This financial strength supports aggressive R&D investment and multi-generation platform transitions from Ampere to Blackwell and Rubin.
+
+> By contrast, IonQ is still in the early stages of commercial growth but has shown accelerating momentum that aligns with long-term expansion goals. The company’s third-quarter 2025 revenues exceeded guidance by 37%. The company has raised significant capital, resulting in a $2 billion equity offering that boosted pro-forma cash to $3.5 billion, providing a strong balance sheet to invest in R&D, acquisitions and platform scaling. Strategic moves such as the acquisition of Oxford Ionics and Vector Atomic and more recently the announced $1.8 billion SkyWater Technology deal to internalize semiconductor fabrication, strengthen IonQ’s technology stack across computing, networking and sensing.
+
+> Looking ahead, IonQ’s ability to build sustained momentum depends on continued technical execution and broader market adoption. Unlike GPUs, where demand is already well established across hyperscalers and enterprise workloads, commercial quantum computing remains nascent and concentrated in early enterprise and government contracts. IonQ’s third-quarter 2025 milestones, including 99.99% two-qubit gate fidelity and expanded algorithmic qubit performance, along with strategic acquisitions like Oxford Ionics and Vector Atomic, strengthen its long-term platform position. With a strong cash balance and no debt, IonQ can continue investing in R&D and expanding its platform. However, broader revenue scaling and profitability are likely tied to future deployments of larger-scale, fault-tolerant systems and wider industry adoption, a multi-year journey compared with NVIDIA’s current commercial footprint.
+
+**Catalysts:** Earnings, Regulatory, Corporate, Equity
+
 #### Quantum Speed Technology Targeting Multi-Trillion-Dollar Infrastructure Efficiency Opportunity
-*Source: PR Newswire | Date: Today | Sentiment: Positive (+1.00)*
+*Source: PR Newswire | Date: 2026-02-17 | Sentiment: Positive (+1.00)*
 
 > Advanced computing power positions companies to unlock cost savings across global energy, transportation, and logistics networks
 
@@ -88,48 +133,3 @@
 > Marvell’s infrastructure-focused model demonstrates much larger scale and robust demand from AI data centers, reporting $2.006 billion in revenue for the second quarter of fiscal 2026, up 58% year over year, with its data center segment alone accounting for roughly 74% of total revenue driven by custom AI silicon and high-bandwidth interconnect products tied to hyperscaler deployments. Marvell’s figures reflect firm scale and AI-driven revenue concentration, offering investors a contrast between early-stage AI software expansion and established AI infrastructure success within the broader ecosystem. In its fiscal 2027 (ending Jan 2027), this Zacks Rank #3 stock is expected to report earnings growth of 23.3% on revenue growth of 22.8%.
 
 **Catalysts:** Earnings, Regulatory, Equity
-
-#### Is IonQ, Inc. (IONQ) The Best Meme Stock To Buy Now?
-*Source: Insider Monkey | Date: 2026-02-14 | Sentiment: Positive (+0.96)*
-
-> IonQ, Inc. (NYSE:IONQ) is among the10 best meme stocks to buy now. On February 8, Cantor Fitzgerald reiterated an Overweight rating on the stock with a price target of $70.
-
-> The update largely aligns with the broader consensus on the quantum computing company. Based on 11 analysts’ recommendations, the stock is a Moderate Buy, with a one-year average share price target of $78.33, representing 150.26% upside as of the close on February 12.
-
-> The company has made a series of acquisitions in recent months to integrate critical components of the quantum value chain.
-
-> On January 28, IonQ, Inc. (NYSE:IONQ) announced that it had reached an agreement to acquire Seed Innovations, a software and technology firm that delivers technical solutions and process improvements for government and commercial clients.
-
-> Earlier on January 26, the company said it would acquire chipmaker SkyWater Technology for $35 per share in cash, implying a total value of around $1.8 billion. The agreement is set to further enhance IONQ’s position by bringing semiconductor production in-house.
-
-**Catalysts:** Corporate, Analyst
-
-#### IonQ, Kyndryl, Diebold Nixdorf, Ibotta, and SAIC Stocks Trade Up, What You Need To Know
-*Source: StockStory | Date: 2026-02-13 | Sentiment: Positive (+0.92)*
-
-> A number of stocks jumped in the afternoon session after the latest Consumer Price Index (CPI) report came in softer than anticipated, fueling investor optimism for interest rate cuts by the Federal Reserve.
-
-> The U.S. Bureau of Labor Statistics reported that prices rose 0.2% from December to January, below the 0.3% forecast. On an annual basis, inflation moderated to 2.4%, under the expected 2.5%. This cooling trend has significant implications for monetary policy, with investors now increasing bets on multiple rate reductions by the end of the year. The news prompted a rally in both stocks and Treasuries, as lower interest rates typically reduce borrowing costs for companies and can stimulate economic activity. The Russell 2000 index, which consists of smaller companies sensitive to domestic economic conditions and financial costs, saw a particularly strong positive reaction.
-
-> The stock market overreacts to news, and big price drops can present good opportunities to buy high-quality stocks.
-
-> Among others, the following stocks were impacted:
-
-> IonQ’s shares are extremely volatile and have had 90 moves greater than 5% over the last year. In that context, today’s move indicates the market considers this news meaningful but not something that would fundamentally change its perception of the business.
-
-**Catalysts:** None
-
-#### Does Rigetti's $600M Cash Runway De-Risk Its 2026 Roadmap Execution?
-*Source: Zacks | Date: 2026-02-13 | Sentiment: Positive (+0.99)*
-
-> Rigetti ComputingRGTI moves into 2026 with one of the strongest balance sheets in the pure-play quantum universe, a position that materially differentiates it from peers still dependent on frequent capital raises. Liquidity now exceeds $600 million, supported by warrant exercises completed during the second half of 2025, giving the company multi-year financial visibility. This war chest meaningfully lowers near-term dilution risk and allows Rigetti to pursue its roadmap without compromising timelines to preserve cash. Management has reiterated that current resources are sufficient to fund planned system launches, including next-generation 100+ qubit platforms with approximately 99.5% fidelity and a higher-performance 150+ qubit architecture expected as commercialization efforts extend into 2026.
-
-> That financial flexibility is particularly important given the inherently uneven nature of Rigetti’s revenue profile, which remains tied largely to government agencies, national labs and research institutions. Recent contract momentum, including expanded international engagement and on-premise system demand, reinforces long-term relevance but does little to smooth quarterly volatility. Against that backdrop, liquidity acts as a strategic buffer, allowing Rigetti to absorb delayed deployments, roadmap recalibration and customer-specific customization without resorting to external financing. In an industry where execution timelines frequently slip, balance sheet strength has become a competitive asset rather than a footnote.
-
-> Taken together, Rigetti’s 2026 setup appears financially equipped to sustain elevated R&D intensity, support manufacturing scale-up and weather revenue lumpiness, all without tapping capital markets.
-
-> D-Wave QuantumQBTS recently marked a major technical milestone by demonstrating scalable on-chip cryogenic control for gate-model quantum processors, addressing a core bottleneck in building large-scale systems. The breakthrough sharply reduces wiring complexity without compromising fidelity and, importantly, leverages the same cryogenic control technology already proven in D-Wave’s commercial annealing platforms. This validates the company’s cross-platform engineering strategy and supports its push toward an initial gate-model system, while continued uptake of Advantage-class annealing systems highlights growing commercial relevance alongside technical progress.
-
-> IonQIONQ has deepened its relationship with Korea Institute of Science and Technology Information through plans to install a next-generation 100-qubit IonQ Tempo system at South Korea’s National Quantum Computing Center of Excellence. The system will be integrated with KISTI’s KISTI-6 supercomputer, enabling the country’s first on-premises hybrid quantum–classical computing environment. For investors, the move highlights IonQ’s increasing success with government-backed institutions and its ability to embed quantum hardware within national HPC infrastructure, strengthening its role as a long-term partner as sovereign quantum investments accelerate.
-
-**Catalysts:** Earnings, Regulatory, Corporate, Equity

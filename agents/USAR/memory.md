@@ -25,6 +25,9 @@
 - **Stop rule:** If $11.00 breaks on high volume, pre-government-backing price range is in play. Consider full exit.
 - **Recovery target:** $23.05 (VWAP) for ~7% gain on current 15 shares. If Reserve 1 fills, target adjusts.
 
+## Observations (continued)
+- **2026-02-18 News:** Price $18.20 (-15.4% from avg $21.52). Day range $18.19-$19.33. Key developments: (1) $1.6B gov LOI for Round Top mine + Stillwater magnet plant, (2) Stillwater commissioning in early 2026 — one of first large-scale NdFeB magnet plants in US, (3) Completed $1.5B PIPE financing Jan 2026, cash >$400M, (4) Acquired Less Common Metals (feedstock supplier), (5) Roth PT $35, Cantor PT $35 — both see 94% upside. Still pre-revenue — expenses rising ($11.4M SGA vs $0.8M YoY). Round Top commercial production now targeted late 2028 (2 years earlier than prior). Sentiment: Neutral (30% positive). Reserve 1 at $15.48 is 14.9% away.
+
 ## Lessons
 - Position entered before strategy system. Similar to IONQ and UAMY — recovery mode.
 - Gemini's $17.50 tranche was at $17.55 HVN which only holds 15% of the time (broke 11/13). Our wick analyzer identified a "dead zone" from $16.53-$15.51 with 0% hold rates. Deploying capital there would be poor risk management.

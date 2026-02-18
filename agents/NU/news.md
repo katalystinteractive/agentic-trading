@@ -1,4 +1,4 @@
-*Generated: 2026-02-17 20:58*
+*Generated: 2026-02-18 23:39*
 
 ## News & Sentiment: Nu Holdings Ltd. (NU)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,59 +6,59 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Insider Monkey | Here's What You Need to Know Ahead of Nu Holdings Ltd's (NU)... | Neutral | +0.00 | Earnings |
+| 2026-02-18 | CMC Markets | LatAm Tech Titans: NU and MELI Earnings Preview - CMC Market... | Neutral | +0.00 | Earnings |
+| 2026-02-18 | Motley Fool | Sands Capital Opens $10 Million ServiceTitan Position | Neutral | +0.00 | — |
+| 2026-02-18 | Simply Wall St. | Chubb’s Huatai Bet and Nubank Tie-Up Could Be A Game Changer... | Neutral | +0.00 | — |
+| 2026-02-17 | Barrons.com | Druckenmiller's Firm Bets on Brazil Stocks, U.S. Financials,... | Neutral | +0.00 | — |
+| 2026-02-17 | Insider Monkey | Here's What You Need to Know Ahead of Nu Holdings Ltd's (NU)... | Neutral | +0.00 | Earnings |
 | 2026-02-17 | Simply Wall St. | Nu Holdings Wins OCC Nod Raising Questions On Valuation And ... | Positive | +0.64 | — |
 | 2026-02-16 | Motley Fool | Prediction: These Could Be the Best-Performing Bank Stocks T... | Neutral | +0.00 | — |
 | 2026-02-16 | StockStory | 3 Market-Beating Stocks on Our Buy List | Neutral | +0.00 | Earnings |
-| 2026-02-15 | MarketBeat | Aberdeen Group plc Trims Stock Position in Nu Holdings Ltd. ... | Neutral | +0.00 | Earnings |
 | 2026-02-15 | Insider Monkey | Chubb (CB) Strengthens Emerging Market Growth With Nubank Pa... | Positive | +0.68 | Analyst |
 | 2026-02-13 | Bez Kabli | Nu Holdings (NU) stock dips in premarket after Nubank maps $... | Neutral | +0.00 | — |
 | 2026-02-13 | Insider Monkey | Nu Holdings (NU) Receives Approval to Set up a New National ... | Positive | +0.48 | Regulatory |
 | 2026-02-12 | Zacks | Nu Holdings Ltd. (NU) Declines More Than Market: Some Inform... | Neutral | +0.00 | — |
 | 2026-02-12 | Zacks | Is Trending Stock Nu Holdings Ltd. (NU) a Buy Now? | Neutral | +0.00 | — |
-| 2026-02-12 | Simply Wall St. | Nu Holdings’ US Bank Charter Tests Global Growth And Governa... | Positive | +0.38 | — |
-| 2026-02-12 | Simply Wall St. | Is Nu Holdings (NU) Pricing Too Much Growth After A 232% Thr... | Positive | +0.38 | — |
 | 2026-02-11 | Zacks | Is Nu  (NU) a Buy as Wall Street Analysts Look Optimistic? | Positive | +0.32 | — |
 | 2026-02-11 | 24/7 Wall St. | This Emerging Markets ETF Charges Just 0.07% and Ran Way Pas... | Negative | -0.27 | — |
 | 2026-02-09 | Zacks | NU Stock Surges 46% in 6 Months: Does the Buying Level Exist... | Neutral | +0.00 | — |
 | 2026-02-08 | Insider Monkey | Is Nu Holdings (NU) One of the Most Profitable New Stocks to... | Positive | +0.49 | Earnings |
 | 2026-02-08 | TechStock² | Nu Holdings stock jumps to $17.40 — what to watch next for N... | Positive | +0.30 | — |
 | 2026-02-07 | TechStock² | Nu stock jumps to $17.40 as traders eye Nubank’s next cataly... | Neutral | +0.00 | — |
-| 2026-02-05 | Seeking Alpha | Nu Holdings: Still A Winner - Just Not From Here (NYSE:NU) -... | Positive | +0.59 | — |
 | 2026-02-05 | Seeking Alpha | Nu Holdings: Bullish With Several Catalysts For 2026 - Seeki... | Neutral | +0.00 | — |
 | 2026-02-04 | Insider Monkey | Susquehanna Anticipates Strong 2026 for Nu Holdings (NU) Ami... | Positive | +0.79 | — |
 | 2026-02-04 | Zacks | Your Phone is the New Wallet: Top Mobile Payment Stocks to B... | Positive | +0.20 | — |
 | 2026-02-04 | Motley Fool | Better Growth Stock: Nu Holdings vs. SoFi Technologies | Positive | +0.67 | — |
 | 2026-02-03 | Motley Fool | This Could Be 1 of the Best Bank Stock Buying Opportunities ... | Positive | +0.78 | — |
 | 2026-02-02 | StockStory | 2 Reasons We Love Nubank (NU) | Positive | +0.64 | — |
-| 2026-02-02 | Finviz | 2 Reasons We Love Nubank (NU) - Finviz | Positive | +0.64 | — |
 | 2026-02-01 | BeInCrypto | Why Is The Crypto Market Down Today? | Neutral | +0.00 | — |
 | 2026-01-31 | MarketBeat | 3 Emerging Market Stocks Leveraging South America's Momentum | Neutral | +0.00 | — |
 | 2026-01-31 | Motley Fool | I Predicted This Former Buffett Stock Would Outperform Every... | Neutral | +0.00 | Analyst |
 | 2026-01-30 | Motley Fool | Prediction: 2026 Will Be the Year of Nu Holdings | Neutral | +0.00 | — |
+| 2026-01-30 | Zacks | Nu Holdings Ltd. (NU) Falls More Steeply Than Broader Market... | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 15 (50%) |
-| Neutral | 14 (47%) |
+| Positive | 11 (37%) |
+| Neutral | 18 (60%) |
 | Negative | 1 (3%) |
-| Average Score | +0.256 |
+| Average Score | +0.190 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 176 |
+| Total Unique Headlines | 185 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 4 | Here's What You Need to Know Ahead of Nu..; 3 Market-Beating Stocks on Our Buy List |
+| Earnings | 4 | LatAm Tech Titans: NU and MELI Earnings ..; Here's What You Need to Know Ahead of Nu.. |
 | Analyst | 2 | Chubb (CB) Strengthens Emerging Market G..; I Predicted This Former Buffett Stock Wo.. |
 | Regulatory | 1 | Nu Holdings (NU) Receives Approval to Se.. |
 
 ### Deep Dive Articles
 
 #### Here's What You Need to Know Ahead of Nu Holdings Ltd's (NU) FQ4 2025 Earnings
-*Source: Insider Monkey | Date: Today | Sentiment: Positive (+0.88)*
+*Source: Insider Monkey | Date: 2026-02-17 | Sentiment: Positive (+0.88)*
 
 > ​Nu Holdings Ltd. (NYSE:NU) is one of theBest Performing Foreign Stocks to Buy Now. Nu Holdings Ltd. (NYSE:NU) is set to release its fiscal Q4 2025 earnings on February 25. Wall Street maintains a bullish sentiment, with 79% of the 19 analysts covering the stock having a Buy rating.
 

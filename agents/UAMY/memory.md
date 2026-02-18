@@ -23,6 +23,9 @@
 - **Stop rule:** If $6.00 breaks on high volume, thesis is broken. Consider full exit.
 - **Recovery target:** $8.76 (VWAP) for break-even+ on current 40 shares. If Reserve 1 fills, target drops to $8.35.
 
+## Observations (continued)
+- **2026-02-18 News:** Price $7.45 (-6.4% from avg $7.96). Day range $7.24-$7.73. Major catalyst: new JV with Americas Gold & Silver (51/49 split) to build North America's first hydromet processing plant in Idaho for copper, silver, antimony. CEO featured on Bloomberg TV (Feb 10). Project Vault ($12B public-private critical minerals fund) provides macro tailwind. Antimony classified as critical mineral, China export controls tightening supply. Sentiment: Bullish (60% positive). Reserve 1 at $6.62 is 11.1% away.
+
 ## Lessons
 - Position entered before strategy system. Similar to IONQ — recovery mode.
 - Original $7.03 limit violated strategy rule: always use wick_offset_analyzer, never place at raw support. The $7.01 level fails 75% of the time — deploying reserve capital there was poor risk management.

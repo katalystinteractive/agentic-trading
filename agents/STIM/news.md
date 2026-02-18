@@ -1,7 +1,7 @@
-*Generated: 2026-02-17 20:47*
+*Generated: 2026-02-18 23:39*
 
 ## News & Sentiment: Neuronetics, Inc. (STIM)
-*Sources: Finviz (100), Google News (37), yfinance (10) | Method: VADER | Deep Dives: 5*
+*Sources: Finviz (100), Google News (35), yfinance (10) | Method: VADER | Deep Dives: 5*
 
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
@@ -12,7 +12,6 @@
 | 2026-02-11 | MT Newswires | Top Midday Gainers | Positive | +0.20 | — |
 | 2026-02-10 | GlobeNewswire | Neuronetics Announces Selected Preliminary Unaudited Fourth ... | Neutral | +0.00 | — |
 | 2026-02-10 | Stock Titan | Neuronetics lifts 2025 revenue 99%, books positive Q4 operat... | Positive | +0.56 | Earnings |
-| 2026-01-22 | MarketBeat | Neuronetics Sees Unusually Large Options Volume (NASDAQ:STIM... | Neutral | +0.00 | Earnings |
 | 2026-01-07 | simplywall.st | There's No Escaping Neuronetics, Inc.'s (NASDAQ:STIM) Muted ... | Negative | -0.26 | Earnings |
 | 2025-12-24 | Trefis | Would You Still Hold Neuronetics Stock If It Fell Another 30... | Neutral | +0.00 | — |
 | 2025-12-17 | Simply Wall St. | Neuronetics (NASDAQ:STIM) adds US$25m to market cap in the p... | Neutral | +0.00 | — |
@@ -36,6 +35,7 @@
 | 2025-10-30 | GlobeNewswire | Neuronetics Announces Three-Year Exclusive Partnership with ... | Positive | +0.78 | — |
 | 2025-10-21 | GlobeNewswire | Neuronetics to Report Third Quarter 2025 Financial and Opera... | Neutral | +0.00 | — |
 | 2025-10-21 | Quiver Quantita | Neuronetics, Inc. Announces Q3 2025 Financial Results Releas... | Neutral | +0.00 | — |
+| 2025-10-16 | DirectorsTalk I | Neuronetics, Inc. (STIM) Stock Analysis: Exploring a 113.82%... | Neutral | +0.00 | Regulatory |
 
 ### Sentiment Summary
 | Metric | Value |
@@ -46,13 +46,14 @@
 | Negative | 5 (17%) |
 | Average Score | +0.046 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 119 |
+| Total Unique Headlines | 116 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 10 | Assessing Neuronetics (STIM) Valuation A..; Neuronetics lifts 2025 revenue 99%, book.. |
+| Earnings | 9 | Assessing Neuronetics (STIM) Valuation A..; Neuronetics lifts 2025 revenue 99%, book.. |
 | Corporate | 2 | Neuronetics Inc (STIM) Q3 2025 Earnings ..; Neuronetics Reports Third Quarter 2025 F.. |
+| Regulatory | 1 | Neuronetics, Inc. (STIM) Stock Analysis:.. |
 
 ### Deep Dive Articles
 
