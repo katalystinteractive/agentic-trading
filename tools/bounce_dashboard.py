@@ -205,7 +205,12 @@ def run_dashboard(show_all=False):
             for lvl in all_levels:
                 ticker = lvl["_ticker"]
                 overlap = check_overlap(ticker, portfolio)
-                overlap_str = overlap if overlap else "-"
+                if ticker in bounce_positions:
+                    overlap_str = "Active"
+                elif overlap:
+                    overlap_str = overlap
+                else:
+                    overlap_str = "-"
                 hr = f"{lvl.get('hold_rate', 0):.0%}"
                 b3 = f"+{lvl['bounce_3d_median']:.1f}%" if lvl.get("bounce_3d_median") is not None else "N/A"
                 p45 = f"{lvl.get('pct_above_4_5', 0):.0%}"
