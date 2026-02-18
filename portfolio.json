@@ -127,7 +127,13 @@
   "bounce_pending": {
     "SOUN": [
       {"type": "BUY", "price": 7.26, "shares": 13, "note": "STRONG BOUNCE — $6.95 PA support, 56% hold rate, wick-adjusted. Sell target $8.96, stop $7.04"}
+    ],
+    "CIFR": [
+      {"type": "BUY", "price": 15.00, "shares": 6, "note": "BOUNCE — $14.86 HVN+PA support, 40% hold rate, wick-adjusted. Sell target $16.93, stop $14.55"}
+    ],
+    "ACHR": [
+      {"type": "BUY", "price": 6.55, "shares": 15, "note": "STRONG BOUNCE — $6.20 PA support, 56% hold rate, wick-adjusted. Sell target $7.69, stop $6.35"}
     ]
   },
-  "bounce_watchlist": ["SOUN"]
+  "bounce_watchlist": ["SOUN", "CIFR", "ACHR"]
 }

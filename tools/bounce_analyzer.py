@@ -386,8 +386,10 @@ def analyze_stock(ticker):
         verdict = compute_verdict(stats)
         buy_at = _compute_buy_at(lvl["price"], events)
 
-        # Trade setup for actionable levels
+        # Trade setup for actionable levels (buy must be below current price)
         setup = None
+        if buy_at >= current_price:
+            verdict = "WEAK"  # demote — can't place limit buy above market
         if verdict in ("STRONG BOUNCE", "BOUNCE") and stats["bounce_3d_median"] is not None:
             sell_at = round(buy_at * (1 + stats["bounce_3d_median"] / 100), 2)
             stop = round(buy_at * (1 - stop_loss_pct / 100), 2)
