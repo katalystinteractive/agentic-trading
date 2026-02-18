@@ -93,7 +93,7 @@ When managing the velocity strategy:
     *   3 trading day time stop → sell at market
 5.  **Capital:** Never exceed 6 concurrent trades or $1,000 total deployed.
 6.  Velocity positions live in `velocity_positions` in `portfolio.json` (separate from surgical `positions`).
-7.  Velocity and Surgical run on **separate stock pools** — no overlap. If transitioning a ticker (e.g., APLD), close the surgical position first.
+7.  Velocity, Surgical, and Bounce run on **separate stock pools** — no overlap. If transitioning a ticker (e.g., APLD), close the other strategy's position first.
 
 ### Velocity Agent Roster
 (Added as candidates are identified — APLD likely first transition from Surgical)

@@ -91,7 +91,7 @@ High-frequency mean reversion targeting **4.5% gains** in **1-3 trading days**. 
 *   **Price:** $5-$80 (wider range than Surgical — velocity doesn't need $100 bullet math).
 *   **ATR%:** > 2.5% daily (needs enough daily movement to hit 4.5% in 1-3 days).
 *   **Volume:** > 2M daily average (ensures tight spreads for quick entries/exits).
-*   Must NOT be in the Surgical stock pool (no overlap).
+*   Must NOT be in the Surgical or Bounce stock pool (no overlap).
 
 ### Velocity Watchlist
 (Candidates to be identified — APLD likely first transition from Surgical)
