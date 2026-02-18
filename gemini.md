@@ -111,7 +111,7 @@ When managing the bounce strategy (support-level bounce capture):
     *   -3% hard stop → sell
     *   3 trading day time stop → sell at market
 5.  **Capital:** Never exceed 10 concurrent trades or $1,000 total deployed. ~$100 per trade.
-6.  **Overlap:** Must NOT overlap with Surgical (positions, pending, watchlist) OR Velocity (velocity_watchlist). Dashboard flags overlaps automatically.
+6.  **Overlap:** Must NOT overlap with Surgical (positions, pending, watchlist) OR Velocity (velocity_positions, velocity_pending, velocity_watchlist). Dashboard flags overlaps automatically.
 7.  Bounce positions live in `bounce_positions` in `portfolio.json` (separate from surgical `positions` and `velocity_positions`).
 
 ### Bounce Agent Roster

@@ -83,7 +83,9 @@ def check_overlap(ticker, portfolio):
     surgical = set(portfolio.get("positions", {}).keys()) | \
                set(portfolio.get("pending_orders", {}).keys()) | \
                set(portfolio.get("watchlist", []))
-    velocity = set(portfolio.get("velocity_watchlist", []))
+    velocity = set(portfolio.get("velocity_positions", {}).keys()) | \
+               set(portfolio.get("velocity_pending", {}).keys()) | \
+               set(portfolio.get("velocity_watchlist", []))
     if ticker in surgical:
         return "Surgical"
     if ticker in velocity:

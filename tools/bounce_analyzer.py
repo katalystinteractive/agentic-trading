@@ -467,6 +467,7 @@ def analyze_stock(ticker):
     json_data = {
         "ticker": ticker,
         "date": last_date,
+        "generated": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
         "current_price": round(current_price, 2),
         "levels": [],
     }

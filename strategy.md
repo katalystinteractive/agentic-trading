@@ -130,7 +130,7 @@ Capture **historically validated support bounces** with immediate limit sell ord
 
 ### Selection Criteria
 *   Must NOT be in the Surgical stock pool (no overlap with positions, pending orders, or watchlist).
-*   Must NOT be in the Velocity stock pool (no overlap with velocity watchlist).
+*   Must NOT be in the Velocity stock pool (no overlap with velocity positions, pending, or watchlist).
 *   Must have >= 3 historical approaches at the support level (minimum data threshold).
 *   Verdict must be STRONG BOUNCE or BOUNCE (WEAK and NO DATA levels are informational only).
 
