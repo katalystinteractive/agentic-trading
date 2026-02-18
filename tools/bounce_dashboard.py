@@ -209,12 +209,19 @@ def run_dashboard(show_all=False):
                 hr = f"{lvl.get('hold_rate', 0):.0%}"
                 b3 = f"+{lvl['bounce_3d_median']:.1f}%" if lvl.get("bounce_3d_median") is not None else "N/A"
                 p45 = f"{lvl.get('pct_above_4_5', 0):.0%}"
-                buy = f"${lvl['buy_at']:.2f}" if lvl.get("buy_at") else "N/A"
+                if lvl.get("buy_at"):
+                    buy = f"${lvl['buy_at']:.2f}"
+                    if lvl.get("verdict") not in actionable_verdicts:
+                        buy += "*"
+                else:
+                    buy = "N/A"
                 print(
                     f"| {ticker} | ${lvl.get('price', 0):.2f} | {lvl.get('source', '?')} "
                     f"| {hr} | {b3} | {p45} | {buy} "
                     f"| {lvl.get('verdict', '?')} | {lvl['_generated']} | {overlap_str} |"
                 )
+            if show_all and any(l.get("verdict") not in actionable_verdicts for l in all_levels):
+                print("\n*\\* Buy At is raw support level (not wick-adjusted) — informational only, do not use for orders.*")
         else:
             msg = "*Cached files found but no level data.*" if show_all else \
                   "*No actionable levels (STRONG BOUNCE / BOUNCE). Run with `--all` to see all levels.*"

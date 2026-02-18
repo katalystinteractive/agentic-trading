@@ -136,7 +136,7 @@ Capture **historically validated support bounces** with immediate limit sell ord
 
 ### Tools
 *   `python3 tools/bounce_analyzer.py <TICKER>` — Analyze support levels with hourly bounce history. Only levels within 30% of current price are included (distant historical support is excluded). Outputs markdown + JSON cache.
-*   `python3 tools/bounce_dashboard.py` — Track active bounce trades, cached signals, exit alerts, capital summary.
+*   `python3 tools/bounce_dashboard.py` — Track active bounce trades, cached signals (actionable only by default; `--all` to include WEAK/NO DATA), exit alerts, capital summary.
 
 ---
 

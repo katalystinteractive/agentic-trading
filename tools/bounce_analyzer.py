@@ -306,7 +306,7 @@ def _compute_buy_at(level_price, events):
     """Compute wick-adjusted buy price from held approach offsets."""
     held_offsets = [e["offset_pct"] for e in events if e["held"]]
     if not held_offsets:
-        return level_price
+        return level_price  # raw level — not wick-adjusted (no held data)
     median_offset = float(np.median(held_offsets))
     return round(level_price * (1 + median_offset / 100), 2)
 
@@ -355,7 +355,7 @@ def analyze_stock(ticker):
     per_trade_size = bounce_cap.get("per_trade_size", 100)
     stop_loss_pct = bounce_cap.get("stop_loss_pct", 3.0)
 
-    # Detect support levels (cap to within 30% of current price)
+    # Detect support levels (cap to within PROXIMITY_CAP_PCT% of current price)
     hvn_floors = find_hvn_floors(daily)
     pa_supports = find_price_action_supports(daily, current_price)
     levels = merge_levels(hvn_floors, pa_supports, current_price)
