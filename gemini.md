@@ -102,7 +102,7 @@ When managing the velocity strategy:
 
 ### 6. The "Bounce" Protocol
 When managing the bounce strategy (support-level bounce capture):
-1.  Run `python3 tools/bounce_dashboard.py` for the full picture (active trades, capital, cached signals, exit alerts).
+1.  Run `python3 tools/bounce_dashboard.py` for the full picture (active trades, capital, cached signals, exit alerts). Use `--all` flag to include non-actionable (WEAK/NO DATA) levels for deep analysis.
 2.  For individual ticker analysis: `python3 tools/bounce_analyzer.py <TICKER>` — uses hourly data (~2 years) to measure bounce magnitude at each support level. Outputs markdown + JSON cache to `agents/<TICKER>/`.
 3.  **Entry:** Only enter at levels with STRONG BOUNCE or BOUNCE verdict. Place limit buy at the wick-adjusted "Buy At" price. Immediately place limit sell at the data-driven "Sell At" price (median 3-day bounce).
 4.  **Exit:** Check active trades daily. Exit immediately when any exit rule triggers:

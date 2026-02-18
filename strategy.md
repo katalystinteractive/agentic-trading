@@ -111,7 +111,7 @@ Capture **historically validated support bounces** with immediate limit sell ord
 
 ### Data-Driven Bounce Targets
 *   Uses **hourly data** (`interval="1h"`, ~2 years) for intraday timestamp accuracy.
-*   Measures actual bounce magnitude (1-day, 2-day, 3-day) from each held support approach.
+*   Measures actual bounce magnitude (same-day remainder, 2-day, 3-day) from each held support approach.
 *   Sell target = buy price × (1 + median 3-day bounce %) — unique per stock per level.
 
 ### Signal Verdicts
@@ -135,7 +135,7 @@ Capture **historically validated support bounces** with immediate limit sell ord
 *   Verdict must be STRONG BOUNCE or BOUNCE (WEAK and NO DATA levels are informational only).
 
 ### Tools
-*   `python3 tools/bounce_analyzer.py <TICKER>` — Analyze support levels with hourly bounce history. Outputs markdown + JSON cache.
+*   `python3 tools/bounce_analyzer.py <TICKER>` — Analyze support levels with hourly bounce history. Only levels within 30% of current price are included (distant historical support is excluded). Outputs markdown + JSON cache.
 *   `python3 tools/bounce_dashboard.py` — Track active bounce trades, cached signals, exit alerts, capital summary.
 
 ---

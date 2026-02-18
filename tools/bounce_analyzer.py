@@ -20,6 +20,11 @@ _ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
 AGENTS_DIR = _ROOT / "agents"
 
+# Levels more than this % below current price are excluded (reduces noise
+# from distant historical support that is unlikely to produce actionable
+# short-term bounces).
+PROXIMITY_CAP_PCT = 30
+
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -271,12 +276,6 @@ def compute_level_stats(events_with_bounces):
     def safe_median(lst):
         return float(np.median(lst)) if lst else None
 
-    def safe_min(lst):
-        return float(np.min(lst)) if lst else None
-
-    def safe_max(lst):
-        return float(np.max(lst)) if lst else None
-
     # % of holds producing >= 4.5% within 3 days
     above_4_5 = [b for b in bounce_3d if b >= 4.5]
     pct_above_4_5 = len(above_4_5) / len(bounce_3d) if bounce_3d else 0.0
@@ -288,10 +287,6 @@ def compute_level_stats(events_with_bounces):
         "bounce_1d_median": safe_median(bounce_1d),
         "bounce_2d_median": safe_median(bounce_2d),
         "bounce_3d_median": safe_median(bounce_3d),
-        "bounce_1d_min": safe_min(bounce_1d),
-        "bounce_1d_max": safe_max(bounce_1d),
-        "bounce_3d_min": safe_min(bounce_3d),
-        "bounce_3d_max": safe_max(bounce_3d),
         "pct_above_4_5": pct_above_4_5,
     }
 
@@ -364,7 +359,7 @@ def analyze_stock(ticker):
     hvn_floors = find_hvn_floors(daily)
     pa_supports = find_price_action_supports(daily, current_price)
     levels = merge_levels(hvn_floors, pa_supports, current_price)
-    price_floor = current_price * 0.70
+    price_floor = current_price * (1 - PROXIMITY_CAP_PCT / 100)
     levels = [l for l in levels if l["price"] >= price_floor]
 
     if not levels:
