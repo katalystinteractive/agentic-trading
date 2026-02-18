@@ -124,6 +124,10 @@
     "time_stop_days": 3
   },
   "bounce_positions": {},
-  "bounce_pending": {},
-  "bounce_watchlist": []
+  "bounce_pending": {
+    "SOUN": [
+      {"type": "BUY", "price": 7.26, "shares": 13, "note": "STRONG BOUNCE — $6.95 PA support, 56% hold rate, wick-adjusted. Sell target $8.96, stop $7.04"}
+    ]
+  },
+  "bounce_watchlist": ["SOUN"]
 }
