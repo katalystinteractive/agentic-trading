@@ -307,25 +307,6 @@ def compute_verdict(stats):
     return "WEAK"
 
 
-# ---------------------------------------------------------------------------
-# Trade setup
-# ---------------------------------------------------------------------------
-
-def compute_trade_setup(level_price, stats, verdict, per_trade_size=100, stop_loss_pct=3.0):
-    """Compute buy/sell/stop/shares for actionable levels."""
-    if verdict not in ("STRONG BOUNCE", "BOUNCE"):
-        return None
-
-    # Wick-adjusted buy: use median offset from held events
-    held_offsets = []
-    # We need to compute this from the raw events, but we already have stats
-    # For simplicity, we use the level price directly (the approach events
-    # already include offset data — the buy_at is computed externally)
-    # Actually, the buy_at is the wick-adjusted price from approach events
-    # We'll compute it in the main flow and pass it in
-    return None  # placeholder — actual setup computed in analyze_stock
-
-
 def _compute_buy_at(level_price, events):
     """Compute wick-adjusted buy price from held approach offsets."""
     held_offsets = [e["offset_pct"] for e in events if e["held"]]
@@ -436,6 +417,8 @@ def analyze_stock(ticker):
 
     # Build markdown report
     lines = []
+    lines.append(f"*Generated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}*")
+    lines.append("")
     lines.append(f"## Bounce Analysis: {ticker}")
     lines.append(f"**Current Price: {fmt_dollar(current_price)}** | Data: {len(daily)} days (hourly) | Date: {last_date}")
     lines.append("")

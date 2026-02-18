@@ -137,7 +137,7 @@ def run_dashboard():
             deployed += shares * entry_price
 
             # Status (exit rules in priority order)
-            if pnl_pct >= ((target_price - entry_price) / entry_price) * 100 if entry_price > 0 else 0:
+            if current >= target_price:
                 status = "TARGET HIT"
             elif pnl_pct <= -stop_loss_pct:
                 status = "STOP HIT"
@@ -225,8 +225,6 @@ def run_dashboard():
         rsi = td["rsi"]
         entry_price = pos.get("entry_price", 0)
         target_price = pos.get("target_price", 0)
-
-        target_pnl = ((target_price - entry_price) / entry_price) * 100 if entry_price > 0 else 0
 
         if current >= target_price:
             alerts.append(f"**{ticker}**: TARGET HIT at ${current:.2f} (+{pnl_pct:.1f}%) — SELL NOW")
