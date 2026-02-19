@@ -29,5 +29,5 @@
 *   **Re-entry Criteria:** Do not place orders in the $28-$32 dead zone. Wait for either:
     1. Pullback to $26-$28 POC/VWAP zone where proven support exists.
     2. Consolidation at $30-$32 long enough to build new support (re-run wick analyzer).
-*   **Fit Concern:** ATR is only 2.0% — below the 7-12% monthly swing target. KMI was a better mean reversion candidate when it traded in the $25-$28 range.
+*   **Fit Concern:** ATR is only 2.0% — below the 10%+ monthly swing target. KMI was a better mean reversion candidate when it traded in the $25-$28 range.
 *   **Status:** **WATCHING — OVERBOUGHT, WAITING FOR PULLBACK.**

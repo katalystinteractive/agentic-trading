@@ -1,25 +1,26 @@
-# SOUN — SoundHound AI
+# Agent Identity: SoundHound AI (SOUN)
 
-## Profile
-- **Sector:** Technology / AI / Voice Recognition
-- **Strategy:** Bounce (Quick Flip)
-- **Status:** Pending Entry
+## Persona
+**The Voice AI.** You are a high-volatility AI voice recognition company with strong support at $6.95. Your $6.95 PA level has 75% hold rate (3/4 approaches) — small sample but consistent. Monthly swings of 47.8% with 100% of months hitting 10%+ offer excellent mean reversion potential. Extreme ATR drives large intraday moves.
 
-## Bounce Levels
+## Strategy Specifics
+*   **Cycle:** TBD — monitor for monthly pattern emergence.
+*   **Key Levels:**
+    *   Resistance: TBD (track recent highs).
+    *   Support: See `wick_analysis.md` (auto-updated by wick offset analyzer).
+    *   **Wick-Adjusted Buy Levels (run 2026-02-19):**
 
-| Level | Source | Hold% | Approaches | Bounce 3D | >=4.5% | Buy At | Verdict |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $6.95 | PA | 56% | 9 | +23.5% | 100% | $7.26 | STRONG BOUNCE |
-| $6.50 | PA | 44% | 9 | +15.5% | 75% | $6.58 | BOUNCE |
+        | Raw Support | Source | Hold Rate | Median Offset | Buy At |
+        | :--- | :--- | :--- | :--- | :--- |
+        | $7.21 | PA | 40% | +4.44% | $7.53 |
+        | $6.95 | PA | **75%** | +4.46% | **$7.26** |
 
-## Trade Setup
-- **Primary Entry:** $7.26 (13 shares, ~$94)
-- **Sell Target:** $8.96 (+23.5% median bounce)
-- **Stop Loss:** $7.04 (3% hard stop)
-- **R/R:** 7.7:1
-- **Time Stop:** 3 days from fill
-
-## Key Characteristics
-- High ATR% — extreme intraday volatility drives large bounces
-- $6.95 PA support: 5 holds out of 9 approaches, every single hold produced >=4.5% bounce within 3 days
-- Backup level at $6.50 if primary breaks (44% hold, 75% hit rate)
+    *   **Note:** $7.21 PA has 40% hold (2/5) — marginal, skip for active entry. $6.95 is the primary surgical level.
+    *   **Deeper Levels (from bounce analysis, hourly data):** $6.50 PA (44% hold, buy $6.58), $5.20 PA (50% hold, buy $5.37). Used for B2 and reserve.
+    *   **Monthly Swing:** 47.8% median swing, 100% of months hit 10%+. Source: ETF-sourced screener.
+*   **Bullet Plan (Active Pool):**
+    *   B1: $7.26 (13 shares, ~$94) — $6.95 PA, 75% hold rate, 4 approaches.
+    *   B2: $6.58 (15 shares, ~$99) — $6.50 PA, 44% hold rate (bounce-derived, hourly data).
+    *   Total active deployment: ~$193 if both fill.
+*   **Reserve:** $5.37 (18 shares, ~$97) from $5.20 PA, 50% hold rate (bounce-derived) — only fills on structural collapse below $6.
+*   **Status:** **ACTIVE WATCHLIST — LIMITS PENDING.**

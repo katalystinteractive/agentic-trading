@@ -53,6 +53,13 @@
       "bullets_used": 1,
       "entry_date": "2026-02-17",
       "target_exit": 38.00
+    },
+    "CIFR": {
+      "shares": 7,
+      "avg_cost": 14.82,
+      "bullets_used": 1,
+      "entry_date": "2026-02-19",
+      "target_exit": 16.30
     }
   },
   "pending_orders": {
@@ -96,8 +103,8 @@
       {"type": "BUY", "price": 8.48, "shares": 11, "note": "Bullet 3 — $8.25 PA, 71% hold rate, wick-adjusted"}
     ],
     "CIFR": [
-      {"type": "BUY", "price": 14.82, "shares": 6, "note": "Bullet 1 — $14.26 PA, 62% hold rate, wick-adjusted"},
-      {"type": "BUY", "price": 12.86, "shares": 7, "note": "Bullet 2 — $12.41 PA, 50% hold rate, wick-adjusted"},
+      {"type": "SELL", "price": 16.30, "shares": 7, "note": "Target ~10% from avg"},
+      {"type": "BUY", "price": 12.86, "shares": 8, "note": "Bullet 2 — $12.41 PA, 50% hold rate, wick-adjusted"},
       {"type": "BUY", "price": 5.38, "shares": 18, "note": "Reserve 1 — $5.27 PA, 50% hold rate, wick-adjusted"}
     ],
     "ACHR": [
@@ -111,7 +118,7 @@
       {"type": "BUY", "price": 5.37, "shares": 18, "note": "Reserve 1 — $5.20 PA, 50% hold rate, bounce-derived"}
     ]
   },
-  "watchlist": ["SOFI", "AR", "KMI", "VALE", "CLF", "SEDG", "CIFR", "ACHR", "SOUN"],
+  "watchlist": ["SOFI", "AR", "KMI", "VALE", "CLF", "SEDG", "ACHR", "SOUN"],
   "capital": {
     "per_stock_total": 600,
     "active_pool": 300,

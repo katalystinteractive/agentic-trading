@@ -73,6 +73,17 @@ def compute_monthly_swing(hist):
     return float(np.median(swings))
 
 
+def compute_swing_consistency(hist, threshold=10.0):
+    """Percentage of months where swing >= threshold%. Returns 0-100 float."""
+    monthly = hist.resample('ME').agg({'High': 'max', 'Low': 'min'})
+    monthly = monthly.dropna()
+    if len(monthly) < 3:
+        return None
+    swings = ((monthly['High'] - monthly['Low']) / monthly['Low'] * 100).values
+    above = sum(1 for s in swings if s >= threshold)
+    return round(above / len(swings) * 100, 1)
+
+
 def classify_level(hold_rate, gap_pct, active_radius, approaches=0):
     """Classify a support level into Zone (Active/Reserve) and Tier (Full/Std/Half/Skip).
 
@@ -329,8 +340,9 @@ def analyze_stock(ticker):
             "recommended_buy": recommended_buy,
         })
 
-    # Compute monthly swing and active radius
+    # Compute monthly swing, consistency, and active radius
     monthly_swing = compute_monthly_swing(hist)
+    swing_consistency = compute_swing_consistency(hist, threshold=10.0)
     active_radius = monthly_swing / 2 if monthly_swing else 15.0  # fallback 15%
 
     # Add zone/tier classification to each level result
@@ -348,7 +360,8 @@ def analyze_stock(ticker):
     lines.append(f"## Wick Offset Analysis: {ticker} (13-Month, as of {last_date})")
     lines.append(f"**Current Price: {fmt_dollar(current_price)}**")
     if monthly_swing is not None:
-        lines.append(f"**Monthly Swing: {monthly_swing:.1f}%** | Active Zone: within {active_radius:.1f}% of current price")
+        consistency_str = f" | {swing_consistency:.0f}% of months hit 10%+" if swing_consistency is not None else ""
+        lines.append(f"**Monthly Swing: {monthly_swing:.1f}%**{consistency_str} | Active Zone: within {active_radius:.1f}% of current price")
     else:
         lines.append(f"**Monthly Swing: N/A** (< 3 months data) | Active Zone: using {active_radius:.1f}% fallback radius")
     lines.append("")
@@ -359,7 +372,12 @@ def analyze_stock(ticker):
     lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     for r in level_results:
         lvl = r["level"]
-        buy_str = fmt_dollar(r["recommended_buy"]) if r["recommended_buy"] else "N/A (no holds)"
+        if r["recommended_buy"] and r["recommended_buy"] >= current_price:
+            buy_str = f"{fmt_dollar(r['recommended_buy'])} ↑above"
+        elif r["recommended_buy"]:
+            buy_str = fmt_dollar(r["recommended_buy"])
+        else:
+            buy_str = "N/A (no holds)"
         offset_str = fmt_pct(r["median_offset"]) if r["median_offset"] is not None else "N/A"
         lines.append(
             f"| {fmt_dollar(lvl['price'])} | {lvl['source']} "
@@ -390,12 +408,12 @@ def analyze_stock(ticker):
     lines.append("")
 
     # Active bullets: up to N from Active zone, tier != Skip, sorted by price desc
-    active_candidates = [r for r in level_results if r["zone"] == "Active" and r["tier"] != "Skip" and r["recommended_buy"]]
+    active_candidates = [r for r in level_results if r["zone"] == "Active" and r["tier"] != "Skip" and r["recommended_buy"] and r["recommended_buy"] < current_price]
     active_candidates.sort(key=lambda r: r["recommended_buy"], reverse=True)
     active_bullets = active_candidates[:cap["active_bullets_max"]]
 
     # Reserve bullets: up to N from Reserve zone, Full or Std only, best hold rates
-    reserve_candidates = [r for r in level_results if r["zone"] == "Reserve" and r["tier"] in ("Full", "Std") and r["recommended_buy"]]
+    reserve_candidates = [r for r in level_results if r["zone"] == "Reserve" and r["tier"] in ("Full", "Std") and r["recommended_buy"] and r["recommended_buy"] < current_price]
     reserve_candidates.sort(key=lambda r: r["hold_rate"], reverse=True)
     reserve_bullets = reserve_candidates[:cap["reserve_bullets_max"]]
 

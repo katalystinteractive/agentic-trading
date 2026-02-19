@@ -23,7 +23,7 @@
         | $25.25 | Price Action | **60%** | +0.06% | **$25.26** |
 
     *   **Dead Zone Warning:** $34.07 HVN has 0% hold rate — broke all 6 tests. Do not place orders above $32.47.
-    *   **Volume Profile:** High volatility stock with wide daily ranges. ATR 12.1% — well above the 7-12% monthly swing target.
+    *   **Volume Profile:** High volatility stock with wide daily ranges. ATR 12.1% — well above the 10%+ monthly swing target.
 *   **Bullet Plan (Active Pool):**
     *   B1: $32.47 (3 shares, ~$97) — $31.82 support, 44% hold rate, wick-adjusted.
     *   B2: $29.24 (3 shares, ~$88) — $28.56 support, 43% hold rate, wick-adjusted.

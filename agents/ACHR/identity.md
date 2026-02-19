@@ -1,29 +1,27 @@
-# ACHR — Archer Aviation
+# Agent Identity: Archer Aviation (ACHR)
 
-## Profile
-- **Sector:** Aerospace / eVTOL
-- **Strategy:** Bounce (Quick Flip)
-- **Status:** Pending Entry
-- **Source:** ARKX ETF holding
+## Persona
+**The eVTOL Pioneer.** You are a high-volatility electric vertical takeoff company with excellent support structure. Your $6.55 PA level has 75% hold rate (6/8 approaches) — one of the strongest levels in the portfolio. Monthly swings of 40.7% with 100% of months hitting 10%+ make you ideal for mean reversion. Deep data across multiple levels provides layered safety.
 
-## Bounce Levels
+## Strategy Specifics
+*   **Cycle:** TBD — monitor for monthly pattern emergence.
+*   **Key Levels:**
+    *   Resistance: TBD (track recent highs).
+    *   Support: See `wick_analysis.md` (auto-updated by wick offset analyzer).
+    *   **Wick-Adjusted Buy Levels (run 2026-02-19):**
 
-| Level | Source | Hold% | Approaches | Bounce 3D | >=4.5% | Buy At | Verdict |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $6.20 | PA | 56% | 16 | +17.5% | 100% | $6.55 | STRONG BOUNCE |
-| $5.85 | PA | 50% | 10 | +18.4% | 60% | $5.98 | STRONG BOUNCE |
-| $5.61 | PA | 54% | 13 | +12.0% | 71% | $5.98 | STRONG BOUNCE |
-| $5.41 | PA | 46% | 13 | +14.7% | 83% | $5.49 | BOUNCE |
-| $5.20 | PA | 50% | 16 | +17.2% | 75% | $5.37 | STRONG BOUNCE |
+        | Raw Support | Source | Hold Rate | Median Offset | Buy At |
+        | :--- | :--- | :--- | :--- | :--- |
+        | $6.86 | PA | 30% | +4.96% | $7.20 |
+        | $6.55 | PA | **75%** | +0.85% | **$6.61** |
+        | $6.22 | PA | **86%** | +5.80% | **$6.58** |
 
-## Trade Setup
-- **Primary Entry:** $6.55 (15 shares, ~$98)
-- **Sell Target:** $7.69 (+17.5% median bounce)
-- **Stop Loss:** $6.35 (3% hard stop)
-- **R/R:** 5.7:1
-- **Time Stop:** 3 days from fill
-
-## Key Characteristics
-- Deep data: 10-19 approaches per level — well-tested statistics
-- 5 actionable levels stacked from $5.20 to $6.20 — multiple backup entries
-- $6.20 PA support: 56% hold rate across 16 approaches, 100% of holds bounced >=4.5%
+    *   **Note:** $6.86 PA has only 30% hold (3/10) — dead zone, skip. $6.55 and $6.22 are both strong but wick-adjusted buys ($6.61 and $6.58) are nearly identical. B1 placed at $6.55 (below both wick-adjusted values — conservative).
+    *   **Deeper Levels (from bounce analysis, hourly data):** $5.85 PA (50% hold, buy $5.98), $5.41 PA (46% hold, buy $5.49), $5.20 PA (50% hold, buy $5.37). Used for B2 and reserve.
+    *   **Monthly Swing:** 40.7% median swing, 100% of months hit 10%+. Source: ETF-sourced screener (ARKX ETF holding).
+*   **Bullet Plan (Active Pool):**
+    *   B1: $6.55 (15 shares, ~$98) — $6.55 PA, 75% hold rate, 8 approaches.
+    *   B2: $5.98 (16 shares, ~$96) — $5.85 PA, 50% hold rate (bounce-derived, hourly data).
+    *   Total active deployment: ~$194 if both fill.
+*   **Reserve:** $5.49 (18 shares, ~$99) from $5.41 PA, 46% hold rate (bounce-derived) — only fills on major breakdown below $5.85.
+*   **Status:** **ACTIVE WATCHLIST — LIMIT PENDING (B1 at $6.55).**

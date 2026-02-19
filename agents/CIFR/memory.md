@@ -1,12 +1,12 @@
 # Agent Memory: Cipher Mining (CIFR)
 
 ## Trade Log
-*No fills yet. Limit buy pending at $15.00.*
+- **2026-02-19:** BUY 7 shares @ $14.82 (Bullet 1 filled). Day low $14.66, triggered on midday dip. Cost: $103.74. Target exit: $16.30 (~10%).
 
 ## Observations
-- **2026-02-19:** Selected from ETF-sourced bounce scan (BLOK ETF holding). CIFR ranked #1 by bounce magnitude among close-to-fill candidates — $14.27 PA support has +26.1% median 3D bounce with 62% hold rate. Limit placed at $15.00 ($14.86 HVN+PA level, wick-adjusted).
-- Current price $15.41, only 2.7% from buy level.
-- Three stacked STRONG BOUNCE / BOUNCE levels from $12.41 to $14.86 — all with 100% >=4.5% hit rate.
+- **2026-02-19:** Originally selected as bounce candidate from ETF-sourced screener (BLOK ETF holding). Converted to surgical strategy after monthly swing analysis revealed 67.8% median swing with 100% of months hitting 10%+.
+- Wick analysis: $14.26 PA is the first reliable level at 62% hold rate. The $14.91 HVN+PA level above it has only 33% hold — dead zone.
+- CIFR limit adjusted from $15.00 (original bounce level at $14.86 HVN+PA) to $14.82 (wick-adjusted from $14.26 PA with 62% hold).
 
 ## Lessons
-- *Selected via ETF-sourced screener (BLOK holdings) — avoids stale/delisted ticker risk from hand-picked lists.*
+- *Originally misclassified as bounce-only. Monthly swing analysis proved it's a surgical-grade swing stock with reliable support structure.*
