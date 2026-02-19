@@ -1,7 +1,7 @@
-*Generated: 2026-02-19 20:54*
+*Generated: 2026-02-19 21:06*
 
 ## Wick Offset Analysis: CIFR (13-Month, as of 2026-02-19)
-**Current Price: $15.31**
+**Current Price: $15.48**
 **Monthly Swing: 67.8%** | 100% of months hit 10%+ | Active Zone: within 33.9% of current price
 
 ### Support Levels & Buy Recommendations

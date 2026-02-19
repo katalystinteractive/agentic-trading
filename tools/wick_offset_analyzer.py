@@ -299,7 +299,11 @@ def fmt_pct(val):
 
 
 def analyze_stock(ticker):
-    """Full per-stock, per-level analysis. Returns report string."""
+    """Full per-stock, per-level analysis. Returns report string.
+
+    If monthly swing data is insufficient (< 3 complete months),
+    active_radius defaults to 15% as a fallback.
+    """
     lines = []
     try:
         hist = fetch_history(ticker, months=13)
@@ -357,6 +361,7 @@ def analyze_stock(ticker):
     # Add zone/tier classification to each level result
     for r in level_results:
         lvl_price = r["level"]["price"]
+        # gap_pct measured from level (not current_price), matching monthly_swing denominator (low-based)
         gap_pct = ((current_price - lvl_price) / lvl_price) * 100
         zone, tier = classify_level(r["hold_rate"], gap_pct, active_radius, r["total_approaches"])
         r["zone"] = zone
@@ -416,12 +421,12 @@ def analyze_stock(ticker):
         lines.append(f"*Based on {monthly_swing:.1f}% monthly swing — Active zone within {active_radius:.1f}% of current price.*")
     lines.append("")
 
-    # Active bullets: up to N from Active zone, tier != Skip, sorted by price desc
+    # Active bullets: up to N from Active zone, tier != Skip (Half allowed — lighter position at speed bumps)
     active_candidates = [r for r in level_results if r["zone"] == "Active" and r["tier"] != "Skip" and r["recommended_buy"] and r["recommended_buy"] < current_price]
     active_candidates.sort(key=lambda r: r["recommended_buy"], reverse=True)
     active_bullets = active_candidates[:cap["active_bullets_max"]]
 
-    # Reserve bullets: up to N from Reserve zone, Full or Std only, best hold rates
+    # Reserve bullets: up to N from Reserve zone, Full or Std only (deep levels need proven reliability)
     reserve_candidates = [r for r in level_results if r["zone"] == "Reserve" and r["tier"] in ("Full", "Std") and r["recommended_buy"] and r["recommended_buy"] < current_price]
     reserve_candidates.sort(key=lambda r: r["hold_rate"], reverse=True)
     reserve_bullets = reserve_candidates[:cap["reserve_bullets_max"]]

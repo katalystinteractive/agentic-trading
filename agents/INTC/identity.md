@@ -28,5 +28,5 @@
     *   **AI PC Demand:** Intel positioning for AI PC wave. Execution risk if adoption slows.
     *   **Analyst Split:** Bulls see $55-$60 on 18A success. Bears warn of pullback to $40 if AI investment slows. DA Davidson "Neutral" at $45.
     *   **Volume Profile:** POC at $37.41 (1.5B shares — where INTC "lived" for months). Current zone $45.69-$46.96 has 65% sell pressure. Institutional accumulation at $41.87-$43.14 (60% buy).
-    *   **Price vs Strategy Fit:** At $47, each $100 bullet buys only ~2 shares. Position sizing produces small share counts. Acceptable but less capital-efficient than sub-$40 stocks.
+    *   **Price vs Strategy Fit:** At $47, each $60 active bullet buys only ~1 share. Position sizing produces small share counts. Acceptable but less capital-efficient than sub-$40 stocks.
 *   **Status:** **ACTIVE POSITION — NEAR BREAKEVEN.**
