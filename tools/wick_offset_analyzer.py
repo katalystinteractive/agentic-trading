@@ -428,8 +428,10 @@ def analyze_stock(ticker):
 
     # Reserve bullets: up to N from Reserve zone, Full or Std only (deep levels need proven reliability)
     reserve_candidates = [r for r in level_results if r["zone"] == "Reserve" and r["tier"] in ("Full", "Std") and r["recommended_buy"] and r["recommended_buy"] < current_price]
-    reserve_candidates.sort(key=lambda r: r["hold_rate"], reverse=True)
+    reserve_candidates.sort(key=lambda r: -r["hold_rate"])
     reserve_bullets = reserve_candidates[:cap["reserve_bullets_max"]]
+    # Re-sort selected reserves by price descending for intuitive cascade display
+    reserve_bullets.sort(key=lambda r: -r["recommended_buy"])
 
     if active_bullets or reserve_bullets:
         lines.append("| # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |")

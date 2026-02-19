@@ -167,6 +167,6 @@ See `portfolio.json` for live positions/orders and run `python3 tools/portfolio_
 *   **USAR (Rare Earth):** Cycle Unknown. The Rare Earth Pioneer. Pre-revenue, policy-driven speculative play (pre-strategy, underwater).
 *   **INTC (Semiconductor):** Cycle Unknown. The Chip Comeback. Turnaround play on 18A node (pre-strategy, near breakeven).
 *   **APLD (AI/HPC Infrastructure):** Cycle TBD. The AI Data Center. High-volatility mean reversion candidate (ATR 12.1%).
-*   **VALE (Mining/Iron Ore):** Early-Month Bottomer. The Iron Ore Metronome. Best AR-like swing consistency (7-13% in 9/13 months). Watching for consolidation support data.
+*   **VALE (Mining/Iron Ore):** Early-Month Bottomer. The Iron Ore Metronome. Best AR-like swing consistency (9/13 months hit 10%+). Watching for consolidation support data.
 *   **CLF (Steel):** Early-Month Bottomer. The Steel Forge. Dense support near price (45-71% hold rates, 7-15 tests each). Active limits pending.
 *   **SEDG (Solar):** Early-Month Bottomer. The Solar Swinger. Dead zone at $32-$35, waiting for pullback to $29-$31 support.

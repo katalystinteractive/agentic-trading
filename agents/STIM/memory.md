@@ -5,7 +5,7 @@
 - **2026-02-17:** Bullet 3 filled at $1.38 (21 shares). All 3 active bullets deployed. New avg $1.46 (63 shares). Reserve 1 staged at $1.25 floor. Sell target $1.79 (+22.6%).
 
 ## Observations
-- Monthly swings are 25-70%, much wider than the 7-12% surgical range. Position sizing accounts for this.
+- Monthly swings are 25-70%, much wider than the 10%+ monthly swing target. Position sizing accounts for this.
 - $1.25 hard floor has 4 touches (Nov, Dec lows) — critical level. If it breaks, reserve pool deploys.
 - Early-month bottoming pattern visible across 13-month audit.
 - Strong bearish technicals (below all SMAs, MACD bearish, RSI 40.5) — we are buying into weakness by design.

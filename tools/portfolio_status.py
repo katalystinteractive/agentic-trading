@@ -102,8 +102,8 @@ def build_report(portfolio, prices):
     all_orders = portfolio.get("pending_orders", {})
     has_orders = any(len(v) > 0 for v in all_orders.values())
     if has_orders:
-        lines.append("| Ticker | Type | Price | Current | Near Wick | Wick Dist | Dist to Fill | Note |")
-        lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+        lines.append("| Ticker | Type | Zone | Price | Current | Near Wick | Wick Dist | Dist to Fill | Note |")
+        lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         for ticker, orders in all_orders.items():
             p = prices.get(ticker, {})
             current = p.get("price")
@@ -112,11 +112,21 @@ def build_report(portfolio, prices):
                 # Near Wick: Day Low for BUY (wick toward fill), Day High for SELL (wick toward target)
                 near_wick = p.get("day_low") if order["type"] == "BUY" else p.get("day_high")
                 wick_dist = fmt_distance(near_wick, order["price"])
+                # Derive zone from note: "Bullet N" = Active, "Reserve N" = Reserve, else Sell/other
+                note = order.get("note", "")
+                if note.startswith("Bullet") or note.startswith("Last active"):
+                    zone = "Active"
+                elif note.startswith("Reserve"):
+                    zone = "Reserve"
+                elif order["type"] == "SELL":
+                    zone = "Sell"
+                else:
+                    zone = "—"
                 lines.append(
-                    f"| {ticker} | {order['type']} | {fmt_dollar(order['price'])} "
+                    f"| {ticker} | {order['type']} | {zone} | {fmt_dollar(order['price'])} "
                     f"| {fmt_dollar(current)} "
                     f"| {fmt_dollar(near_wick)} | {wick_dist} "
-                    f"| {dist} | {order.get('note', '')} |"
+                    f"| {dist} | {note} |"
                 )
     else:
         lines.append("*(no pending orders)*")
