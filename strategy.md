@@ -1,24 +1,36 @@
 # Global Trading Strategy: The "Surgical" Mean Reversion
 
 ## Core Philosophy
-We employ a **Mean Reversion** strategy, targeting stocks that consistently fluctuate within a **7-12% monthly range**. We aim to "buy low" at established historical support levels and "sell high" at the top of the channel, typically within a 3-week window.
+We employ a **Mean Reversion** strategy, targeting stocks that consistently fluctuate with a **10%+ monthly swing**. We aim to "buy low" at established historical support levels and "sell high" at the top of the channel, typically within a 3-week window.
 
 ## Capital Allocation (Per Stock)
 *   **Total Allocation:** ~$600 per stock.
-*   **Active Pool ($300):** Deployed in 3 "Bullets" (Tranches) of ~$100 each to average down surgically. Bullet dollar size scales with share price to buy whole shares (e.g., ~$100 for $16+ stocks, ~$30 for $1.50 stocks).
-*   **Reserve Pool ($300):** The "Safety Net." **Every stock has a reserve pool.** Only deployed if the stock breaks structural support (e.g., 52-week lows, last HVN floor) to aggressively lower basis for a break-even exit. Reserve bullets are placed at smart levels below the active pool range.
+*   **Active Pool ($300):** Up to 5 bullets, sized by support quality.
+    Full bullet (~$60-75): 50%+ hold rate — reliable floor.
+    Standard bullet (~$60): 30-49% hold rate — contested zone.
+    Half bullet (~$30): 15-29% hold rate — speed bump, lighter position.
+    Below 15% hold: no order (true dead zone).
+*   **Reserve Pool ($300):** 3 bullets of ~$100 each. Deployed at deep support
+    (beyond normal monthly swing range) when the stock breaks structural levels.
+    **Every stock has a reserve pool.**
 
 ## Selection Criteria
 1.  **Price:** < $40 preferred (allows for whole-share averaging with $100 bullets).
-2.  **Volatility:** Must demonstrate consistent 7-12% monthly swings (High Beta is good, but must respect technicals).
+2.  **Volatility:** Must demonstrate 10%+ monthly swing (median), with 80%+ of months hitting 10%+.
 3.  **Liquidity:** High volume to ensure limit orders fill during "wicks".
 4.  **Sector Balance:** Diversify across uncorrelated sectors (e.g., Fintech, Energy, Infrastructure) to mitigate systemic risk.
 
 ## Execution Rules
-### Entry Protocol ("The Bullets")
-*   **Bullet 1:** Placed at "Support 1" (e.g., 50-day SMA, Channel Floor, HVN Floor).
-*   **Bullet 2:** Placed at "Support 2" (e.g., Previous Pivot Low, Gap Fill).
-*   **Bullet 3:** Placed at "Capitulation/Panic" levels (e.g., RSI < 30, Bollinger Band lower pierce).
+### Entry Protocol ("Zone-Based Bullets")
+*   **Active Zone** = support levels within half the stock's median monthly swing
+    from current price. These catch normal monthly pullbacks.
+*   **Reserve Zone** = support levels beyond the active zone. These deploy only
+    when the stock breaks through normal fluctuation range.
+*   Place up to 5 active bullets at wick-adjusted prices across the Active Zone.
+*   Place up to 3 reserve bullets at the deepest reliable levels in the Reserve Zone.
+*   Hold rate determines bullet SIZE, not eligibility (minimum 15% hold to place any order).
+*   Run `python3 tools/wick_offset_analyzer.py <TICKER>` — the tool classifies each
+    level as Active/Reserve and suggests a bullet plan.
 
 ### Limit Order Placement Rule
 **Never place a limit buy at the exact support level.** Use `python3 tools/wick_offset_analyzer.py <TICKER>` to calculate the data-driven buy price for each support level. The tool analyzes 13 months of wick behavior at each specific level and outputs the exact recommended buy price based on where wicks historically stopped. Place limit orders at the tool's "Buy At" price, not the raw support level. Re-run periodically as new data accumulates.

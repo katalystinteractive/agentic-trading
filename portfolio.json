@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-02-17",
+  "last_updated": "2026-02-19",
   "positions": {
     "NU": {
       "shares": 6,
@@ -94,16 +94,34 @@
       {"type": "BUY", "price": 9.97, "shares": 10, "note": "Bullet 1 — $9.92 HVN+PA, 45% hold rate, wick-adjusted"},
       {"type": "BUY", "price": 9.53, "shares": 10, "note": "Bullet 2 — $9.04 PA, 71% hold rate, wick-adjusted"},
       {"type": "BUY", "price": 8.48, "shares": 11, "note": "Bullet 3 — $8.25 PA, 71% hold rate, wick-adjusted"}
+    ],
+    "CIFR": [
+      {"type": "BUY", "price": 14.82, "shares": 6, "note": "Bullet 1 — $14.26 PA, 62% hold rate, wick-adjusted"},
+      {"type": "BUY", "price": 12.86, "shares": 7, "note": "Bullet 2 — $12.41 PA, 50% hold rate, wick-adjusted"},
+      {"type": "BUY", "price": 5.38, "shares": 18, "note": "Reserve 1 — $5.27 PA, 50% hold rate, wick-adjusted"}
+    ],
+    "ACHR": [
+      {"type": "BUY", "price": 6.55, "shares": 15, "note": "Bullet 1 — $6.55 PA, 75% hold rate"},
+      {"type": "BUY", "price": 5.98, "shares": 16, "note": "Bullet 2 — $5.85 PA, 50% hold rate, bounce-derived"},
+      {"type": "BUY", "price": 5.49, "shares": 18, "note": "Reserve 1 — $5.41 PA, 46% hold rate, bounce-derived"}
+    ],
+    "SOUN": [
+      {"type": "BUY", "price": 7.26, "shares": 13, "note": "Bullet 1 — $6.95 PA, 75% hold rate, wick-adjusted"},
+      {"type": "BUY", "price": 6.58, "shares": 15, "note": "Bullet 2 — $6.50 PA, 44% hold rate, bounce-derived"},
+      {"type": "BUY", "price": 5.37, "shares": 18, "note": "Reserve 1 — $5.20 PA, 50% hold rate, bounce-derived"}
     ]
   },
-  "watchlist": ["SOFI", "AR", "KMI", "VALE", "CLF", "SEDG"],
+  "watchlist": ["SOFI", "AR", "KMI", "VALE", "CLF", "SEDG", "CIFR", "ACHR", "SOUN"],
   "capital": {
     "per_stock_total": 600,
     "active_pool": 300,
     "reserve_pool": 300,
-    "bullet_size": 100,
-    "bullets_per_pool": 3,
-    "note": "Bullet size is approximate — actual $ per bullet scales with share price to buy whole shares"
+    "active_bullets_max": 5,
+    "reserve_bullets_max": 3,
+    "active_bullet_full": 60,
+    "active_bullet_half": 30,
+    "reserve_bullet_size": 100,
+    "note": "Active bullet sizing: Full (~$60) at 50%+ hold, Std (~$60) at 30-49%, Half (~$30) at 15-29%. Reserve: ~$100 at deep support."
   },
   "velocity_capital": {
     "total_pool": 1000,
@@ -124,16 +142,6 @@
     "time_stop_days": 3
   },
   "bounce_positions": {},
-  "bounce_pending": {
-    "SOUN": [
-      {"type": "BUY", "price": 7.26, "shares": 13, "note": "STRONG BOUNCE — $6.95 PA support, 56% hold rate, wick-adjusted. Sell target $8.96, stop $7.04"}
-    ],
-    "CIFR": [
-      {"type": "BUY", "price": 15.00, "shares": 6, "note": "BOUNCE — $14.86 HVN+PA support, 40% hold rate, wick-adjusted. Sell target $16.93, stop $14.55"}
-    ],
-    "ACHR": [
-      {"type": "BUY", "price": 6.55, "shares": 15, "note": "STRONG BOUNCE — $6.20 PA support, 56% hold rate, wick-adjusted. Sell target $7.69, stop $6.35"}
-    ]
-  },
-  "bounce_watchlist": ["SOUN", "CIFR", "ACHR"]
+  "bounce_pending": {},
+  "bounce_watchlist": []
 }
