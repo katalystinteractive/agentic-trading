@@ -1,54 +1,48 @@
-*Generated: 2026-02-16 21:38*
+*Generated: 2026-02-19 21:43*
 
-## Wick Offset Analysis: VALE (13-Month, as of 2026-02-13)
-**Current Price: $16.65**
+## Wick Offset Analysis: VALE (13-Month, as of 2026-02-19)
+**Current Price: $15.92**
+**Monthly Swing: 11.8%** | 62% of months hit 10%+ | Active Zone: within 5.9% of current price
 
 ### Support Levels & Buy Recommendations
-| Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $15.96 | Price Action | 2 | 1 | 50% | +0.00% | $15.96 |
-| $15.57 | Price Action | 1 | 0 | 0% | N/A | N/A (no holds) |
-| $14.17 | Price Action | 2 | 1 | 50% | +0.00% | $14.17 |
-| $13.65 | Price Action | 1 | 0 | 0% | N/A | N/A (no holds) |
-| $12.73 | HVN + Price Action | 4 | 1 | 25% | +1.06% | $12.86 |
-| $12.17 | HVN + Price Action | 4 | 0 | 0% | N/A | N/A (no holds) |
-| $11.69 | Price Action | 2 | 1 | 50% | +7.01% | $12.51 |
-| $11.05 | HVN + Price Action | 4 | 3 | 75% | +0.49% | $11.10 |
-| $10.77 | HVN + Price Action | 3 | 1 | 33% | +0.04% | $10.77 |
-| $10.33 | Price Action | 1 | 0 | 0% | N/A | N/A (no holds) |
-| $9.93 | HVN + Price Action | 6 | 3 | 50% | +6.60% | $10.58 |
-| $9.65 | HVN + Price Action | 7 | 1 | 14% | +0.07% | $9.65 |
-| $9.37 | HVN | 8 | 1 | 12% | +7.63% | $10.08 |
-| $9.09 | HVN + Price Action | 12 | 4 | 33% | +0.69% | $9.15 |
-| $8.81 | HVN + Price Action | 10 | 5 | 50% | +5.55% | $9.29 |
-| $8.53 | HVN + Price Action | 6 | 3 | 50% | +1.76% | $8.68 |
-| $8.25 | HVN | 8 | 6 | 75% | +6.03% | $8.74 |
-| $7.97 | HVN + Price Action | 3 | 2 | 67% | +3.93% | $8.28 |
-| $7.79 | Price Action | 2 | 1 | 50% | +0.05% | $7.80 |
+| Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| $15.51 | PA | 1 | 0 | 0% | N/A | N/A (no holds) | Active | Skip |
+| $14.17 | PA | 2 | 1 | 50% | +0.00% | $14.17 | Reserve | Half |
+| $13.65 | PA | 1 | 0 | 0% | N/A | N/A (no holds) | Reserve | Skip |
+| $12.73 | HVN+PA | 4 | 1 | 25% | +1.06% | $12.86 | Reserve | Half |
+| $12.17 | HVN+PA | 4 | 0 | 0% | N/A | N/A (no holds) | Reserve | Skip |
+| $11.69 | PA | 2 | 1 | 50% | +7.01% | $12.51 | Reserve | Half |
+| $11.05 | HVN+PA | 4 | 3 | 75% | +0.49% | $11.10 | Reserve | Full |
+| $10.77 | HVN+PA | 3 | 1 | 33% | +0.04% | $10.77 | Reserve | Std |
+| $10.33 | PA | 1 | 0 | 0% | N/A | N/A (no holds) | Reserve | Skip |
+| $9.93 | HVN+PA | 6 | 3 | 50% | +6.60% | $10.58 | Reserve | Full |
+| $9.65 | HVN+PA | 7 | 1 | 14% | +0.07% | $9.65 | Reserve | Skip |
+| $9.37 | HVN | 8 | 1 | 12% | +7.63% | $10.08 | Reserve | Skip |
+| $9.09 | HVN+PA | 12 | 4 | 33% | +0.69% | $9.15 | Reserve | Std |
+| $8.81 | HVN+PA | 10 | 5 | 50% | +5.55% | $9.29 | Reserve | Full |
+| $8.53 | HVN+PA | 6 | 3 | 50% | +1.76% | $8.68 | Reserve | Full |
+| $8.25 | HVN+PA | 8 | 6 | 75% | +6.03% | $8.74 | Reserve | Full |
+| $7.97 | HVN+PA | 3 | 2 | 67% | +3.93% | $8.28 | Reserve | Full |
+| $7.79 | PA | 2 | 1 | 50% | +0.05% | $7.80 | Reserve | Half |
 
-### Detail: $15.96 (Price Action)
+### Detail: $15.51 (PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
-| 2026-01-23 | $15.81 | -0.94% | **BROKE** |
-| 2026-01-27 | $15.96 | +0.00% | Yes |
+| 2026-01-21 | $15.15 | -2.32% | **BROKE** |
 
-### Detail: $15.57 (Price Action)
-| Date | Wick Low | Offset | Held |
-| :--- | :--- | :--- | :--- |
-| 2026-01-22 | $15.57 | -0.00% | **BROKE** |
-
-### Detail: $14.17 (Price Action)
+### Detail: $14.17 (PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2026-01-06 | $13.65 | -3.67% | **BROKE** |
 | 2026-01-14 | $14.17 | +0.00% | Yes |
 
-### Detail: $13.65 (Price Action)
+### Detail: $13.65 (PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2026-01-06 | $13.65 | -0.00% | **BROKE** |
 
-### Detail: $12.73 (HVN + Price Action)
+### Detail: $12.73 (HVN+PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2025-12-02 | $12.61 | -0.91% | **BROKE** |
@@ -56,7 +50,7 @@
 | 2025-12-17 | $12.71 | -0.12% | **BROKE** |
 | 2025-12-22 | $12.86 | +1.06% | Yes |
 
-### Detail: $12.17 (HVN + Price Action)
+### Detail: $12.17 (HVN+PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2025-11-03 | $12.10 | -0.54% | **BROKE** |
@@ -64,13 +58,13 @@
 | 2025-11-10 | $12.05 | -0.95% | **BROKE** |
 | 2025-11-25 | $12.14 | -0.21% | **BROKE** |
 
-### Detail: $11.69 (Price Action)
+### Detail: $11.69 (PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2025-10-29 | $11.69 | -0.00% | **BROKE** |
 | 2025-12-09 | $12.51 | +7.01% | Yes |
 
-### Detail: $11.05 (HVN + Price Action)
+### Detail: $11.05 (HVN+PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2025-10-06 | $11.10 | +0.49% | Yes |
@@ -78,19 +72,19 @@
 | 2025-10-15 | $11.00 | -0.41% | **BROKE** |
 | 2025-11-20 | $11.82 | +7.01% | Yes |
 
-### Detail: $10.77 (HVN + Price Action)
+### Detail: $10.77 (HVN+PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2025-09-15 | $10.70 | -0.61% | **BROKE** |
 | 2025-09-30 | $10.72 | -0.42% | **BROKE** |
 | 2025-10-13 | $10.77 | +0.04% | Yes |
 
-### Detail: $10.33 (Price Action)
+### Detail: $10.33 (PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2025-09-05 | $10.33 | -0.00% | **BROKE** |
 
-### Detail: $9.93 (HVN + Price Action)
+### Detail: $9.93 (HVN+PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2025-07-02 | $9.59 | -3.34% | **BROKE** |
@@ -100,7 +94,7 @@
 | 2025-09-26 | $10.58 | +6.60% | Yes |
 | 2025-10-10 | $10.71 | +7.90% | Yes |
 
-### Detail: $9.65 (HVN + Price Action)
+### Detail: $9.65 (HVN+PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2025-03-17 | $9.55 | -1.04% | **BROKE** |
@@ -123,7 +117,7 @@
 | 2025-08-01 | $9.34 | -0.25% | **BROKE** |
 | 2025-09-02 | $10.08 | +7.63% | Yes |
 
-### Detail: $9.09 (HVN + Price Action)
+### Detail: $9.09 (HVN+PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2025-02-18 | $9.08 | -0.02% | **BROKE** |
@@ -139,7 +133,7 @@
 | 2025-07-25 | $9.05 | -0.36% | **BROKE** |
 | 2025-08-14 | $9.67 | +6.44% | Yes |
 
-### Detail: $8.81 (HVN + Price Action)
+### Detail: $8.81 (HVN+PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2025-02-06 | $8.71 | -1.07% | **BROKE** |
@@ -153,7 +147,7 @@
 | 2025-07-15 | $9.29 | +5.55% | Yes |
 | 2025-07-28 | $9.05 | +2.80% | Yes |
 
-### Detail: $8.53 (HVN + Price Action)
+### Detail: $8.53 (HVN+PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2025-01-30 | $8.48 | -0.55% | **BROKE** |
@@ -163,7 +157,7 @@
 | 2025-05-23 | $8.68 | +1.76% | Yes |
 | 2025-07-31 | $9.05 | +6.18% | Yes |
 
-### Detail: $8.25 (HVN)
+### Detail: $8.25 (HVN+PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2025-01-17 | $8.17 | -0.90% | **BROKE** |
@@ -175,16 +169,27 @@
 | 2025-05-30 | $8.81 | +6.85% | Yes |
 | 2025-06-20 | $8.68 | +5.21% | Yes |
 
-### Detail: $7.97 (HVN + Price Action)
+### Detail: $7.97 (HVN+PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2025-01-14 | $7.99 | +0.25% | Yes |
 | 2025-03-04 | $8.57 | +7.61% | Yes |
 | 2025-04-04 | $7.79 | -2.14% | **BROKE** |
 
-### Detail: $7.79 (Price Action)
+### Detail: $7.79 (PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
-| 2025-01-10 | $7.80 | +0.05% | Yes |
+| 2025-01-13 | $7.80 | +0.05% | Yes |
 | 2025-04-07 | $7.79 | -0.00% | **BROKE** |
+
+### Suggested Bullet Plan
+*Based on 11.8% monthly swing — Active zone within 5.9% of current price.*
+
+| # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | Reserve | $11.05 | $11.10 | 75% | Full | 9 | $99.90 |
+| 2 | Reserve | $8.25 | $8.74 | 75% | Full | 11 | $96.17 |
+| 3 | Reserve | $7.97 | $8.28 | 67% | Full | 12 | $99.34 |
+
+*Bullet plan is a suggestion — adjust based on cycle timing and position.*
 

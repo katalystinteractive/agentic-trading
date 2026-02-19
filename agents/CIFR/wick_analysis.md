@@ -1,12 +1,13 @@
-*Generated: 2026-02-19 21:06*
+*Generated: 2026-02-19 22:26*
 
 ## Wick Offset Analysis: CIFR (13-Month, as of 2026-02-19)
-**Current Price: $15.48**
+**Current Price: $15.53**
 **Monthly Swing: 67.8%** | 100% of months hit 10%+ | Active Zone: within 33.9% of current price
 
 ### Support Levels & Buy Recommendations
 | Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| $15.53 | HVN | 8 | 0 | 0% | N/A | N/A (no holds) | Active | Skip |
 | $14.91 | HVN+PA | 9 | 2 | 22% | +0.51% | $14.98 | Active | Half |
 | $14.26 | PA | 8 | 5 | 62% | +3.93% | $14.82 | Active | Full |
 | $13.45 | PA | 7 | 2 | 29% | +4.80% | $14.10 | Active | Half |
@@ -36,6 +37,18 @@
 | $2.77 | PA | 2 | 1 | 50% | +2.53% | $2.84 | Reserve | Half |
 | $2.25 | PA | 3 | 0 | 0% | N/A | N/A (no holds) | Reserve | Skip |
 | $2.18 | PA | 3 | 1 | 33% | +0.00% | $2.18 | Reserve | Std |
+
+### Detail: $15.53 (HVN)
+| Date | Wick Low | Offset | Held |
+| :--- | :--- | :--- | :--- |
+| 2025-10-07 | $14.33 | -7.74% | **BROKE** |
+| 2025-10-17 | $15.04 | -3.17% | **BROKE** |
+| 2025-11-24 | $14.82 | -4.59% | **BROKE** |
+| 2025-12-19 | $15.42 | -0.73% | **BROKE** |
+| 2026-01-02 | $14.78 | -4.85% | **BROKE** |
+| 2026-01-21 | $14.93 | -3.91% | **BROKE** |
+| 2026-02-09 | $14.95 | -3.72% | **BROKE** |
+| 2026-02-19 | $14.66 | -5.62% | **BROKE** |
 
 ### Detail: $14.91 (HVN+PA)
 | Date | Wick Low | Offset | Held |
@@ -314,9 +327,9 @@
 | 2 | Active | $14.26 | $14.82 | 62% | Full | 4 | $59.28 |
 | 3 | Active | $13.45 | $14.10 | 29% | Half | 2 | $28.19 |
 | 4 | Active | $12.41 | $12.86 | 50% | Full | 4 | $51.45 |
-| 5 | Reserve | $4.55 | $4.59 | 80% | Full | 21 | $96.44 |
-| 6 | Reserve | $4.27 | $4.55 | 75% | Full | 21 | $95.55 |
-| 7 | Reserve | $5.27 | $5.38 | 50% | Full | 18 | $96.93 |
+| 5 | Reserve | $5.27 | $5.38 | 50% | Full | 18 | $96.93 |
+| 6 | Reserve | $4.55 | $4.59 | 80% | Full | 21 | $96.44 |
+| 7 | Reserve | $4.27 | $4.55 | 75% | Full | 21 | $95.55 |
 
 *Bullet plan is a suggestion — adjust based on cycle timing and position.*
 

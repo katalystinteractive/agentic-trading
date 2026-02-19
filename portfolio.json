@@ -54,12 +54,12 @@
       "entry_date": "2026-02-17",
       "target_exit": 38.00
     },
-    "CIFR": {
-      "shares": 7,
-      "avg_cost": 14.82,
+    "CLSK": {
+      "shares": 3,
+      "avg_cost": 9.61,
       "bullets_used": 1,
       "entry_date": "2026-02-19",
-      "target_exit": 16.30
+      "target_exit": 10.57
     }
   },
   "pending_orders": {
@@ -74,9 +74,6 @@
     "AR": [
       {"type": "BUY", "price": 32.68, "shares": 3, "note": "Bullet 1 — $31.36 HVN, 50% hold rate, wick-adjusted"},
       {"type": "BUY", "price": 31.16, "shares": 3, "note": "Bullet 2 — $29.72 Price Action, 67% hold rate, wick-adjusted"}
-    ],
-    "KMI": [
-      {"type": "BUY", "price": 26.26, "shares": 3, "note": "Bullet 1 — $24.84 HVN, 79% hold rate, wick-adjusted. Only fills on major pullback to POC zone."}
     ],
     "UAMY": [
       {"type": "BUY", "price": 6.62, "shares": 15, "note": "Reserve 1 — $6.52 HVN support, wick-adjusted"},
@@ -103,9 +100,11 @@
       {"type": "BUY", "price": 8.48, "shares": 11, "note": "Bullet 3 — $8.25 PA, 71% hold rate, wick-adjusted"}
     ],
     "CIFR": [
-      {"type": "SELL", "price": 16.30, "shares": 7, "note": "Target ~10% from avg"},
-      {"type": "BUY", "price": 12.86, "shares": 8, "note": "Bullet 2 — $12.41 PA, 50% hold rate, wick-adjusted"},
-      {"type": "BUY", "price": 5.38, "shares": 18, "note": "Reserve 1 — $5.27 PA, 50% hold rate, wick-adjusted"}
+      {"type": "BUY", "price": 14.98, "shares": 3, "note": "Bullet 1 — $14.91 HVN+PA, 22% hold, wick-adjusted"},
+      {"type": "BUY", "price": 14.82, "shares": 7, "note": "Bullet 2 — $14.26 PA, 62% hold, wick-adjusted"},
+      {"type": "BUY", "price": 14.10, "shares": 3, "note": "Bullet 3 — $13.45 PA, 29% hold, wick-adjusted"},
+      {"type": "BUY", "price": 12.86, "shares": 8, "note": "Bullet 4 — $12.41 PA, 50% hold, wick-adjusted"},
+      {"type": "BUY", "price": 5.38, "shares": 18, "note": "Reserve 1 — $5.27 PA, 50% hold, wick-adjusted"}
     ],
     "ACHR": [
       {"type": "BUY", "price": 6.55, "shares": 15, "note": "Bullet 1 — $6.55 PA, 75% hold rate"},
@@ -116,9 +115,23 @@
       {"type": "BUY", "price": 7.26, "shares": 13, "note": "Bullet 1 — $6.95 PA, 75% hold rate, wick-adjusted"},
       {"type": "BUY", "price": 6.58, "shares": 15, "note": "Bullet 2 — $6.50 PA, 44% hold rate, bounce-derived"},
       {"type": "BUY", "price": 5.37, "shares": 18, "note": "Reserve 1 — $5.20 PA, 50% hold rate, bounce-derived"}
-    ]
+    ],
+    "CLSK": [
+      {"type": "SELL", "price": 10.57, "shares": 3, "note": "Target ~10% from avg"},
+      {"type": "BUY", "price": 9.16, "shares": 9, "note": "Bullet 2 — $8.93 HVN+PA, 50% hold, wick-adjusted"},
+      {"type": "BUY", "price": 8.96, "shares": 9, "note": "Bullet 3 — $8.46 HVN+PA, 47% hold, wick-adjusted"},
+      {"type": "BUY", "price": 8.40, "shares": 13, "note": "Bullet 4 — $8.25 PA 58% + $8.00 HVN+PA 27% (converged), wick-adjusted"},
+      {"type": "BUY", "price": 7.70, "shares": 12, "note": "Reserve 1 — $7.53 HVN+PA, 62% hold, wick-adjusted"},
+      {"type": "BUY", "price": 7.24, "shares": 13, "note": "Reserve 2 — $6.94 PA, 67% hold, wick-adjusted"}
+    ],
+    "SMCI": [
+      {"type": "BUY", "price": 30.99, "shares": 3, "note": "Bullet 1 — $30.09 HVN+PA, 31% hold, wick-adjusted"},
+      {"type": "BUY", "price": 29.35, "shares": 3, "note": "Bullet 2 — $28.96 HVN, 45% hold, wick-adjusted"},
+      {"type": "BUY", "price": 28.84, "shares": 4, "note": "Bullet 3 — $28.34 PA 67% + $27.22 PA 91% (converged), wick-adjusted"}
+    ],
+    "RKT": []
   },
-  "watchlist": ["SOFI", "AR", "KMI", "VALE", "CLF", "SEDG", "ACHR", "SOUN"],
+  "watchlist": ["AR", "VALE", "CLF", "SEDG", "ACHR", "SOUN", "CLSK", "SMCI", "RKT"],
   "capital": {
     "per_stock_total": 600,
     "active_pool": 300,

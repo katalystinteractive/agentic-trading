@@ -158,9 +158,7 @@ Capture **historically validated support bounces** with immediate limit sell ord
 See `portfolio.json` for live positions/orders and run `python3 tools/portfolio_status.py` for a full report.
 
 *   **NU (Fintech):** Mid-Month Bottomer. Growth Anchor.
-*   **SOFI (Fintech/AI):** Binary Bottomer. AI Wildcard.
 *   **AR (Energy):** Early-Month Bottomer. The Slow Cooker.
-*   **KMI (Energy/Infrastructure):** Early-Month Bottomer. Dividend Fortress.
 *   **STIM (MedTech):** Early-Month Bottomer. The Micro-Cap Swinger.
 *   **IONQ (Quantum Computing):** Cycle Unknown. The Quantum Gambit. Recovery mode (pre-strategy, underwater).
 *   **UAMY (Critical Minerals):** Cycle Unknown. The Critical Mineral. Policy-driven speculative play (pre-strategy, underwater).
@@ -173,3 +171,6 @@ See `portfolio.json` for live positions/orders and run `python3 tools/portfolio_
 *   **CIFR (Crypto/BTC Mining):** Cycle TBD. The Bitcoin Miner. Massive monthly swings (67.8% median). B1 filled at $14.82, sell target $16.30.
 *   **ACHR (Aerospace/eVTOL):** Cycle TBD. The eVTOL Pioneer. 40.7% monthly swing, 75% hold at $6.55 PA. Limits pending.
 *   **SOUN (Technology/AI):** Cycle TBD. The Voice AI Play. 47.8% monthly swing, 75% hold at $6.95 PA. Limits pending.
+*   **CLSK (Crypto/BTC Mining):** Cycle TBD. The Bitcoin Miner. 41.9% monthly swing, 5 active levels ($8.40-$9.66), 58% hold at $8.25 PA. Limits pending.
+*   **SMCI (AI/Server Infrastructure):** Cycle TBD. The AI Server Builder. 34.9% monthly swing, 91% hold at $27.22 PA — strongest single level in portfolio. Limits pending.
+*   **RKT (Fintech/Mortgage):** Cycle TBD. The Mortgage Fintech. 30.5% monthly swing, 3 active levels converge to $17.05 buy. Limits pending.

@@ -1,7 +1,7 @@
-*Generated: 2026-02-19 20:54*
+*Generated: 2026-02-19 21:44*
 
 ## Wick Offset Analysis: SEDG (13-Month, as of 2026-02-19)
-**Current Price: $34.15**
+**Current Price: $34.03**
 **Monthly Swing: 50.7%** | 100% of months hit 10%+ | Active Zone: within 25.3% of current price
 
 ### Support Levels & Buy Recommendations
@@ -311,8 +311,8 @@
 | 2 | Active | $30.74 | $31.34 | 40% | Std | 1 | $31.34 |
 | 3 | Active | $29.73 | $31.01 | 45% | Std | 1 | $31.01 |
 | 4 | Active | $28.21 | $29.43 | 50% | Full | 2 | $58.86 |
-| 5 | Reserve | $12.48 | $13.13 | 44% | Std | 7 | $91.88 |
-| 6 | Reserve | $18.86 | $19.44 | 40% | Std | 5 | $97.20 |
+| 5 | Reserve | $18.86 | $19.44 | 40% | Std | 5 | $97.20 |
+| 6 | Reserve | $12.48 | $13.13 | 44% | Std | 7 | $91.88 |
 | 7 | Reserve | $11.95 | $12.38 | 40% | Std | 8 | $99.00 |
 
 *Note: 1 Active level(s) excluded — buy price at or above current price: $33.78*
