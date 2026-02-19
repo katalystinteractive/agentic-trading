@@ -63,23 +63,32 @@ def fetch_history(ticker, months=13):
     return hist
 
 
-def compute_monthly_swing(hist):
-    """Median monthly (high-low)/low % from daily data."""
+def _monthly_swings(hist):
+    """Compute per-month swing percentages, excluding incomplete current month."""
     monthly = hist.resample('ME').agg({'High': 'max', 'Low': 'min'})
     monthly = monthly.dropna()
+    # Drop incomplete current month — partial data skews swing downward
+    now = datetime.datetime.now()
+    if len(monthly) > 0 and monthly.index[-1].month == now.month and monthly.index[-1].year == now.year:
+        monthly = monthly.iloc[:-1]
     if len(monthly) < 3:
         return None
-    swings = ((monthly['High'] - monthly['Low']) / monthly['Low'] * 100).values
+    return ((monthly['High'] - monthly['Low']) / monthly['Low'] * 100).values
+
+
+def compute_monthly_swing(hist):
+    """Median monthly (high-low)/low % from daily data."""
+    swings = _monthly_swings(hist)
+    if swings is None:
+        return None
     return float(np.median(swings))
 
 
 def compute_swing_consistency(hist, threshold=10.0):
     """Percentage of months where swing >= threshold%. Returns 0-100 float."""
-    monthly = hist.resample('ME').agg({'High': 'max', 'Low': 'min'})
-    monthly = monthly.dropna()
-    if len(monthly) < 3:
+    swings = _monthly_swings(hist)
+    if swings is None:
         return None
-    swings = ((monthly['High'] - monthly['Low']) / monthly['Low'] * 100).values
     above = sum(1 for s in swings if s >= threshold)
     return round(above / len(swings) * 100, 1)
 
@@ -444,6 +453,11 @@ def analyze_stock(ticker):
             )
             bullet_num += 1
         lines.append("")
+        # Flag Active levels excluded by above-market guard
+        above_market = [r for r in level_results if r["zone"] == "Active" and r["tier"] != "Skip" and r["recommended_buy"] and r["recommended_buy"] >= current_price]
+        if above_market:
+            excluded_str = ", ".join(fmt_dollar(r["level"]["price"]) for r in above_market)
+            lines.append(f"*Note: {len(above_market)} Active level(s) excluded — buy price at or above current price: {excluded_str}*")
         lines.append("*Bullet plan is a suggestion — adjust based on cycle timing and position.*")
     else:
         lines.append("*No qualifying levels for bullet plan — all levels below 15% hold rate.*")

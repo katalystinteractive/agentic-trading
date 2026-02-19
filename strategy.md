@@ -15,7 +15,7 @@ We employ a **Mean Reversion** strategy, targeting stocks that consistently fluc
     **Every stock has a reserve pool.**
 
 ## Selection Criteria
-1.  **Price:** < $40 preferred (allows for whole-share averaging with $100 bullets).
+1.  **Price:** < $40 preferred (allows for whole-share averaging with $60-100 bullets).
 2.  **Volatility:** Must demonstrate 10%+ monthly swing (median), with 80%+ of months hitting 10%+.
 3.  **Liquidity:** High volume to ensure limit orders fill during "wicks".
 4.  **Sector Balance:** Diversify across uncorrelated sectors (e.g., Fintech, Energy, Infrastructure) to mitigate systemic risk.
@@ -31,6 +31,8 @@ We employ a **Mean Reversion** strategy, targeting stocks that consistently fluc
 *   Hold rate determines bullet SIZE, not eligibility (minimum 15% hold to place any order).
 *   Run `python3 tools/wick_offset_analyzer.py <TICKER>` — the tool classifies each
     level as Active/Reserve and suggests a bullet plan.
+*   **Fallback:** If monthly swing cannot be computed (< 3 months data), a 15% active
+    radius is used. Results should be validated manually in this case.
 
 ### Limit Order Placement Rule
 **Never place a limit buy at the exact support level.** Use `python3 tools/wick_offset_analyzer.py <TICKER>` to calculate the data-driven buy price for each support level. The tool analyzes 13 months of wick behavior at each specific level and outputs the exact recommended buy price based on where wicks historically stopped. Place limit orders at the tool's "Buy At" price, not the raw support level. Re-run periodically as new data accumulates.

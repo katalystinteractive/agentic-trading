@@ -1,14 +1,15 @@
-*Generated: 2026-02-19 01:34*
+*Generated: 2026-02-19 20:54*
 
-## Wick Offset Analysis: ACHR (13-Month, as of 2026-02-18)
-**Current Price: $6.97**
+## Wick Offset Analysis: ACHR (13-Month, as of 2026-02-19)
+**Current Price: $7.07**
+**Monthly Swing: 40.7%** | 100% of months hit 10%+ | Active Zone: within 20.3% of current price
 
 ### Support Levels & Buy Recommendations
-| Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $6.86 | PA | 10 | 3 | 30% | +4.96% | $7.20 |
-| $6.55 | PA | 8 | 6 | 75% | +0.85% | $6.61 |
-| $6.22 | PA | 7 | 6 | 86% | +5.80% | $6.58 |
+| Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| $6.86 | PA | 10 | 3 | 30% | +4.96% | $7.20 ↑above | Active | Std |
+| $6.55 | PA | 8 | 6 | 75% | +0.85% | $6.61 | Active | Full |
+| $6.22 | PA | 7 | 6 | 86% | +5.80% | $6.58 | Active | Full |
 
 ### Detail: $6.86 (PA)
 | Date | Wick Low | Offset | Held |
@@ -46,4 +47,15 @@
 | 2025-11-21 | $6.55 | +5.31% | Yes |
 | 2026-02-05 | $6.36 | +2.25% | Yes |
 | 2026-02-12 | $6.57 | +5.63% | Yes |
+
+### Suggested Bullet Plan
+*Based on 40.7% monthly swing — Active zone within 20.3% of current price.*
+
+| # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | Active | $6.55 | $6.61 | 75% | Full | 9 | $59.45 |
+| 2 | Active | $6.22 | $6.58 | 86% | Full | 9 | $59.23 |
+
+*Note: 1 Active level(s) excluded — buy price at or above current price: $6.86*
+*Bullet plan is a suggestion — adjust based on cycle timing and position.*
 

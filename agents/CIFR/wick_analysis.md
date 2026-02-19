@@ -1,8 +1,8 @@
-*Generated: 2026-02-19 20:42*
+*Generated: 2026-02-19 20:54*
 
 ## Wick Offset Analysis: CIFR (13-Month, as of 2026-02-19)
-**Current Price: $15.15**
-**Monthly Swing: 62.8%** | 100% of months hit 10%+ | Active Zone: within 31.4% of current price
+**Current Price: $15.31**
+**Monthly Swing: 67.8%** | 100% of months hit 10%+ | Active Zone: within 33.9% of current price
 
 ### Support Levels & Buy Recommendations
 | Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier |
@@ -306,7 +306,7 @@
 | 2025-04-09 | $2.03 | -6.88% | **BROKE** |
 
 ### Suggested Bullet Plan
-*Based on 62.8% monthly swing — Active zone within 31.4% of current price.*
+*Based on 67.8% monthly swing — Active zone within 33.9% of current price.*
 
 | # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
