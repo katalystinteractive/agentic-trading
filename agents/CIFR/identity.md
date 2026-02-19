@@ -21,8 +21,8 @@
     *   **Dead Zone Warning:** $14.91 HVN+PA has only 22% hold rate (2/9) — frequently broken. Skip for active bullets. First reliable level is $14.26 at 62%.
     *   **Monthly Swing:** 67.8% median swing, 100% of months hit 10%+. Source: ETF-sourced screener (BLOK ETF holding).
 *   **Bullet Plan (Active Pool):**
-    *   B1: $14.82 (6 shares, ~$89) — $14.26 PA, 62% hold rate, 8 approaches.
-    *   B2: $12.86 (7 shares, ~$90) — $12.41 PA, 50% hold rate, 4 approaches.
-    *   Total active deployment: ~$179 if both fill. Gap between B1 and B2 is large (13% spread).
+    *   B1: $14.82 (7 shares, ~$104) — $14.26 PA, 62% hold rate, 8 approaches. Filled pre-zone-system.
+    *   B2: $12.86 (8 shares, ~$103) — $12.41 PA, 50% hold rate, 4 approaches.
+    *   Total active deployment: ~$207 if both fill. Gap between B1 and B2 is large (13% spread).
 *   **Reserve:** $5.38 (18 shares, ~$97) from $5.27 PA, 50% hold rate, 8 approaches — only fills on structural collapse below $12.
 *   **Status:** **ACTIVE POSITION — B1 FILLED @ $14.82, SELL TARGET $16.30, B2 PENDING AT $12.86.**
