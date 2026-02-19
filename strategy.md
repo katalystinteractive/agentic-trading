@@ -170,3 +170,6 @@ See `portfolio.json` for live positions/orders and run `python3 tools/portfolio_
 *   **VALE (Mining/Iron Ore):** Early-Month Bottomer. The Iron Ore Metronome. Best AR-like swing consistency (9/13 months hit 10%+). Watching for consolidation support data.
 *   **CLF (Steel):** Early-Month Bottomer. The Steel Forge. Dense support near price (45-71% hold rates, 7-15 tests each). Active limits pending.
 *   **SEDG (Solar):** Early-Month Bottomer. The Solar Swinger. Dead zone at $32-$35, waiting for pullback to $29-$31 support.
+*   **CIFR (Crypto/BTC Mining):** Cycle TBD. The Bitcoin Miner. Massive monthly swings (67.8% median). B1 filled at $14.82, sell target $16.30.
+*   **ACHR (Aerospace/eVTOL):** Cycle TBD. The eVTOL Pioneer. 40.7% monthly swing, 75% hold at $6.55 PA. Limits pending.
+*   **SOUN (Technology/AI):** Cycle TBD. The Voice AI Play. 47.8% monthly swing, 75% hold at $6.95 PA. Limits pending.
