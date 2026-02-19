@@ -28,14 +28,31 @@ def _write_cache(ticker, filename, report):
         f.write(report + "\n")
 
 
-def load_tickers_from_portfolio():
+def _load_portfolio():
     with open(PORTFOLIO_PATH, "r") as f:
-        portfolio = json.load(f)
+        return json.load(f)
+
+
+def load_tickers_from_portfolio():
+    portfolio = _load_portfolio()
     tickers = set()
     tickers.update(portfolio.get("positions", {}).keys())
     tickers.update(portfolio.get("pending_orders", {}).keys())
     tickers.update(portfolio.get("watchlist", []))
     return sorted(tickers)
+
+
+def load_capital_config():
+    """Load bullet sizing config from portfolio.json capital section."""
+    portfolio = _load_portfolio()
+    cap = portfolio.get("capital", {})
+    return {
+        "active_bullets_max": cap.get("active_bullets_max", 5),
+        "reserve_bullets_max": cap.get("reserve_bullets_max", 3),
+        "active_bullet_full": cap.get("active_bullet_full", 60),
+        "active_bullet_half": cap.get("active_bullet_half", 30),
+        "reserve_bullet_size": cap.get("reserve_bullet_size", 100),
+    }
 
 
 def fetch_history(ticker, months=13):
@@ -56,11 +73,12 @@ def compute_monthly_swing(hist):
     return float(np.median(swings))
 
 
-def classify_level(hold_rate, gap_pct, active_radius):
+def classify_level(hold_rate, gap_pct, active_radius, approaches=0):
     """Classify a support level into Zone (Active/Reserve) and Tier (Full/Std/Half/Skip).
 
     Zone: Active if gap_pct <= active_radius, else Reserve.
-    Tier: Full (50%+), Std (30-49%), Half (15-29%), Skip (<15%).
+    Tier (hold_rate is 0-100%): Full (50%+), Std (30-49%), Half (15-29%), Skip (<15%).
+    Confidence gate: Full/Std require 3+ approaches; fewer approaches cap at Half.
     """
     zone = "Active" if gap_pct <= active_radius else "Reserve"
     if hold_rate >= 50:
@@ -71,6 +89,9 @@ def classify_level(hold_rate, gap_pct, active_radius):
         tier = "Half"
     else:
         tier = "Skip"
+    # Confidence gate: cap at Half if insufficient sample size
+    if tier in ("Full", "Std") and approaches < 3:
+        tier = "Half"
     return zone, tier
 
 
@@ -315,8 +336,8 @@ def analyze_stock(ticker):
     # Add zone/tier classification to each level result
     for r in level_results:
         lvl_price = r["level"]["price"]
-        gap_pct = ((current_price - lvl_price) / current_price) * 100
-        zone, tier = classify_level(r["hold_rate"], gap_pct, active_radius)
+        gap_pct = ((current_price - lvl_price) / lvl_price) * 100
+        zone, tier = classify_level(r["hold_rate"], gap_pct, active_radius, r["total_approaches"])
         r["zone"] = zone
         r["tier"] = tier
         r["gap_pct"] = gap_pct
@@ -328,6 +349,8 @@ def analyze_stock(ticker):
     lines.append(f"**Current Price: {fmt_dollar(current_price)}**")
     if monthly_swing is not None:
         lines.append(f"**Monthly Swing: {monthly_swing:.1f}%** | Active Zone: within {active_radius:.1f}% of current price")
+    else:
+        lines.append(f"**Monthly Swing: N/A** (< 3 months data) | Active Zone: using {active_radius:.1f}% fallback radius")
     lines.append("")
 
     # Summary table
@@ -360,20 +383,21 @@ def analyze_stock(ticker):
         lines.append("")
 
     # Suggested bullet plan
+    cap = load_capital_config()
     lines.append("### Suggested Bullet Plan")
     if monthly_swing is not None:
         lines.append(f"*Based on {monthly_swing:.1f}% monthly swing — Active zone within {active_radius:.1f}% of current price.*")
     lines.append("")
 
-    # Active bullets: up to 5 from Active zone, tier != Skip, sorted by price desc
+    # Active bullets: up to N from Active zone, tier != Skip, sorted by price desc
     active_candidates = [r for r in level_results if r["zone"] == "Active" and r["tier"] != "Skip" and r["recommended_buy"]]
     active_candidates.sort(key=lambda r: r["recommended_buy"], reverse=True)
-    active_bullets = active_candidates[:5]
+    active_bullets = active_candidates[:cap["active_bullets_max"]]
 
-    # Reserve bullets: up to 3 from Reserve zone, Full or Std only, best hold rates
+    # Reserve bullets: up to N from Reserve zone, Full or Std only, best hold rates
     reserve_candidates = [r for r in level_results if r["zone"] == "Reserve" and r["tier"] in ("Full", "Std") and r["recommended_buy"]]
     reserve_candidates.sort(key=lambda r: r["hold_rate"], reverse=True)
-    reserve_bullets = reserve_candidates[:3]
+    reserve_bullets = reserve_candidates[:cap["reserve_bullets_max"]]
 
     if active_bullets or reserve_bullets:
         lines.append("| # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |")
@@ -381,7 +405,7 @@ def analyze_stock(ticker):
         bullet_num = 1
         for r in active_bullets:
             buy_price = r["recommended_buy"]
-            size = 30 if r["tier"] == "Half" else 60
+            size = cap["active_bullet_half"] if r["tier"] == "Half" else cap["active_bullet_full"]
             shares = max(1, int(size / buy_price))
             cost = round(shares * buy_price, 2)
             lines.append(
@@ -392,7 +416,7 @@ def analyze_stock(ticker):
             bullet_num += 1
         for r in reserve_bullets:
             buy_price = r["recommended_buy"]
-            size = 100
+            size = cap["reserve_bullet_size"]
             shares = max(1, int(size / buy_price))
             cost = round(shares * buy_price, 2)
             lines.append(
@@ -404,7 +428,7 @@ def analyze_stock(ticker):
         lines.append("")
         lines.append("*Bullet plan is a suggestion — adjust based on cycle timing and position.*")
     else:
-        lines.append("*No qualifying levels for bullet plan.*")
+        lines.append("*No qualifying levels for bullet plan — all levels below 15% hold rate.*")
     lines.append("")
 
     return "\n".join(lines)
