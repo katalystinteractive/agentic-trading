@@ -1,13 +1,12 @@
-*Generated: 2026-02-19 22:25*
+*Generated: 2026-02-20 22:06*
 
-## Wick Offset Analysis: IONQ (13-Month, as of 2026-02-19)
-**Current Price: $33.00**
+## Wick Offset Analysis: IONQ (13-Month, as of 2026-02-20)
+**Current Price: $31.70**
 **Monthly Swing: 61.9%** | 100% of months hit 10%+ | Active Zone: within 31.0% of current price
 
 ### Support Levels & Buy Recommendations
 | Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $31.85 | PA | 6 | 4 | 67% | +1.65% | $32.38 | Active | Full |
 | $30.85 | PA | 5 | 2 | 40% | +2.53% | $31.63 | Active | Std |
 | $29.55 | PA | 5 | 2 | 40% | +2.94% | $30.42 | Active | Std |
 | $27.97 | PA | 5 | 2 | 40% | +3.88% | $29.06 | Active | Std |
@@ -18,16 +17,6 @@
 | $22.38 | HVN+PA | 8 | 2 | 25% | +3.08% | $23.07 | Reserve | Half |
 | $21.36 | PA | 6 | 2 | 33% | +0.33% | $21.43 | Reserve | Std |
 | $20.58 | HVN+PA | 3 | 1 | 33% | +1.26% | $20.84 | Reserve | Std |
-
-### Detail: $31.85 (PA)
-| Date | Wick Low | Offset | Held |
-| :--- | :--- | :--- | :--- |
-| 2025-01-15 | $32.41 | +1.76% | Yes |
-| 2025-02-18 | $32.34 | +1.54% | Yes |
-| 2025-05-12 | $31.93 | +0.25% | Yes |
-| 2026-02-04 | $33.63 | +5.59% | Yes |
-| 2026-02-06 | $31.34 | -1.59% | **BROKE** |
-| 2026-02-13 | $30.85 | -3.14% | **BROKE** |
 
 ### Detail: $30.85 (PA)
 | Date | Wick Low | Offset | Held |
@@ -125,11 +114,11 @@
 
 | # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | Active | $31.85 | $32.38 | 67% | Full | 1 | $32.38 |
-| 2 | Active | $30.85 | $31.63 | 40% | Std | 1 | $31.63 |
-| 3 | Active | $29.55 | $30.42 | 40% | Std | 1 | $30.42 |
-| 4 | Active | $27.97 | $29.06 | 40% | Std | 2 | $58.11 |
-| 5 | Active | $26.96 | $28.12 | 33% | Std | 2 | $56.24 |
+| 1 | Active | $30.85 | $31.63 | 40% | Std | 1 | $31.63 |
+| 2 | Active | $29.55 | $30.42 | 40% | Std | 1 | $30.42 |
+| 3 | Active | $27.97 | $29.06 | 40% | Std | 2 | $58.11 |
+| 4 | Active | $26.96 | $28.12 | 33% | Std | 2 | $56.24 |
+| 5 | Active | $26.27 | $26.62 | 75% | Full | 2 | $53.25 |
 | 6 | Reserve | $21.36 | $21.43 | 33% | Std | 4 | $85.72 |
 | 7 | Reserve | $20.58 | $20.84 | 33% | Std | 4 | $83.36 |
 

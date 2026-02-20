@@ -1,13 +1,13 @@
-*Generated: 2026-02-19 22:01*
+*Generated: 2026-02-20 22:06*
 
-## Wick Offset Analysis: CLSK (13-Month, as of 2026-02-19)
-**Current Price: $9.67**
+## Wick Offset Analysis: CLSK (13-Month, as of 2026-02-20)
+**Current Price: $9.51**
 **Monthly Swing: 41.9%** | 100% of months hit 10%+ | Active Zone: within 20.9% of current price
 
 ### Support Levels & Buy Recommendations
 | Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $9.40 | HVN+PA | 20 | 5 | 25% | +2.82% | $9.66 | Active | Half |
+| $9.40 | HVN+PA | 20 | 5 | 25% | +2.82% | $9.66 ↑above | Active | Half |
 | $8.93 | HVN+PA | 12 | 6 | 50% | +2.65% | $9.16 | Active | Full |
 | $8.46 | HVN+PA | 15 | 7 | 47% | +5.89% | $8.96 | Active | Std |
 | $8.25 | PA | 12 | 7 | 58% | +1.82% | $8.40 | Active | Full |
@@ -148,13 +148,13 @@
 
 | # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | Active | $9.40 | $9.66 | 25% | Half | 3 | $28.98 |
-| 2 | Active | $8.93 | $9.16 | 50% | Full | 6 | $54.99 |
-| 3 | Active | $8.46 | $8.96 | 47% | Std | 6 | $53.76 |
-| 4 | Active | $8.25 | $8.40 | 58% | Full | 7 | $58.80 |
-| 5 | Active | $8.00 | $8.40 | 27% | Half | 3 | $25.20 |
-| 6 | Reserve | $7.53 | $7.70 | 62% | Full | 12 | $92.34 |
-| 7 | Reserve | $6.94 | $7.24 | 67% | Full | 13 | $94.18 |
+| 1 | Active | $8.93 | $9.16 | 50% | Full | 6 | $54.99 |
+| 2 | Active | $8.46 | $8.96 | 47% | Std | 6 | $53.76 |
+| 3 | Active | $8.25 | $8.40 | 58% | Full | 7 | $58.80 |
+| 4 | Active | $8.00 | $8.40 | 27% | Half | 3 | $25.20 |
+| 5 | Reserve | $7.53 | $7.70 | 62% | Full | 12 | $92.34 |
+| 6 | Reserve | $6.94 | $7.24 | 67% | Full | 13 | $94.18 |
 
+*Note: 1 Active level(s) excluded — buy price at or above current price: $9.40*
 *Bullet plan is a suggestion — adjust based on cycle timing and position.*
 

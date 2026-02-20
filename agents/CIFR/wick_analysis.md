@@ -1,13 +1,13 @@
-*Generated: 2026-02-19 22:26*
+*Generated: 2026-02-20 22:06*
 
 ## Wick Offset Analysis: CIFR (13-Month, as of 2026-02-19)
-**Current Price: $15.53**
+**Current Price: $15.80**
 **Monthly Swing: 67.8%** | 100% of months hit 10%+ | Active Zone: within 33.9% of current price
 
 ### Support Levels & Buy Recommendations
 | Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $15.53 | HVN | 8 | 0 | 0% | N/A | N/A (no holds) | Active | Skip |
+| $15.53 | HVN+PA | 8 | 0 | 0% | N/A | N/A (no holds) | Active | Skip |
 | $14.91 | HVN+PA | 9 | 2 | 22% | +0.51% | $14.98 | Active | Half |
 | $14.26 | PA | 8 | 5 | 62% | +3.93% | $14.82 | Active | Full |
 | $13.45 | PA | 7 | 2 | 29% | +4.80% | $14.10 | Active | Half |
@@ -38,7 +38,7 @@
 | $2.25 | PA | 3 | 0 | 0% | N/A | N/A (no holds) | Reserve | Skip |
 | $2.18 | PA | 3 | 1 | 33% | +0.00% | $2.18 | Reserve | Std |
 
-### Detail: $15.53 (HVN)
+### Detail: $15.53 (HVN+PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2025-10-07 | $14.33 | -7.74% | **BROKE** |

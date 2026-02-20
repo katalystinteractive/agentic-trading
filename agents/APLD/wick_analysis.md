@@ -1,13 +1,13 @@
-*Generated: 2026-02-19 22:26*
+*Generated: 2026-02-20 22:06*
 
-## Wick Offset Analysis: APLD (13-Month, as of 2026-02-18)
-**Current Price: $31.91**
+## Wick Offset Analysis: APLD (13-Month, as of 2026-02-19)
+**Current Price: $31.53**
 **Monthly Swing: 71.5%** | 100% of months hit 10%+ | Active Zone: within 35.7% of current price
 
 ### Support Levels & Buy Recommendations
 | Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $30.30 | PA | 8 | 2 | 25% | +4.59% | $31.69 | Active | Half |
+| $30.30 | PA | 8 | 2 | 25% | +4.59% | $31.69 ↑above | Active | Half |
 | $29.52 | PA | 7 | 2 | 29% | +1.73% | $30.02 | Active | Half |
 | $28.56 | PA | 8 | 4 | 50% | +3.27% | $29.49 | Active | Full |
 | $27.62 | PA | 9 | 4 | 44% | +0.32% | $27.71 | Active | Std |
@@ -441,14 +441,15 @@
 
 | # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | Active | $30.30 | $31.69 | 25% | Half | 1 | $31.69 |
-| 2 | Active | $29.52 | $30.02 | 29% | Half | 1 | $30.02 |
-| 3 | Active | $28.56 | $29.49 | 50% | Full | 2 | $58.99 |
-| 4 | Active | $27.62 | $27.71 | 44% | Std | 2 | $55.42 |
-| 5 | Active | $26.20 | $27.70 | 29% | Half | 1 | $27.70 |
+| 1 | Active | $29.52 | $30.02 | 29% | Half | 1 | $30.02 |
+| 2 | Active | $28.56 | $29.49 | 50% | Full | 2 | $58.99 |
+| 3 | Active | $27.62 | $27.71 | 44% | Std | 2 | $55.42 |
+| 4 | Active | $26.20 | $27.70 | 29% | Half | 1 | $27.70 |
+| 5 | Active | $26.86 | $27.64 | 43% | Std | 2 | $55.28 |
 | 6 | Reserve | $19.57 | $20.72 | 50% | Full | 4 | $82.88 |
 | 7 | Reserve | $6.95 | $7.31 | 57% | Full | 13 | $95.03 |
 | 8 | Reserve | $5.75 | $5.97 | 83% | Full | 16 | $95.52 |
 
+*Note: 1 Active level(s) excluded — buy price at or above current price: $30.30*
 *Bullet plan is a suggestion — adjust based on cycle timing and position.*
 

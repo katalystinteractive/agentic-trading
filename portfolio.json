@@ -37,7 +37,7 @@
       "bullets_used": "3 active (pre-strategy)",
       "entry_date": "pre-2026-02-12",
       "target_exit": 23.05,
-      "note": "Pre-strategy position, underwater. Active pool exhausted ($323 deployed). Reserve plan in pending_orders."
+      "note": "Pre-strategy position, underwater. Active pool exhausted ($323 deployed). Reserves cancelled (Option B — hold as catalyst bet, cap exposure)."
     },
     "INTC": {
       "shares": 5,
@@ -86,10 +86,7 @@
       {"type": "BUY", "price": 6.62, "shares": 15, "note": "Reserve 1 — $6.52 HVN support, wick-adjusted"},
       {"type": "BUY", "price": 6.22, "shares": 16, "note": "Reserve 2 — $6.04 HVN pre-rally base, wick-adjusted"}
     ],
-    "USAR": [
-      {"type": "BUY", "price": 15.48, "shares": 6, "note": "Reserve 1 — $15.08 Price Action support, wick-adjusted"},
-      {"type": "BUY", "price": 12.56, "shares": 8, "note": "Reserve 2 — $12.44 HVN support, wick-adjusted"}
-    ],
+    "USAR": [],
     "INTC": [
       {"type": "SELL", "price": 51.21, "shares": 5, "note": "Target 10% from avg"},
       {"type": "BUY", "price": 41.20, "shares": 1, "note": "Last active bullet — $40.10 HVN, wick-adjusted"},
@@ -117,8 +114,9 @@
       {"type": "BUY", "price": 5.49, "shares": 18, "note": "Reserve 1 — $5.41 PA, 46% hold rate, bounce-derived"}
     ],
     "SOUN": [
-      {"type": "BUY", "price": 7.26, "shares": 13, "note": "Bullet 1 — $6.95 PA, 75% hold rate, wick-adjusted"},
-      {"type": "BUY", "price": 6.58, "shares": 15, "note": "Bullet 2 — $6.50 PA, 44% hold rate, bounce-derived"},
+      {"type": "BUY", "price": 7.63, "shares": 7, "note": "Bullet 1 — $7.55 PA, 57% hold rate, wick-adjusted"},
+      {"type": "BUY", "price": 7.53, "shares": 7, "note": "Bullet 2 — $7.21 PA, 40% hold rate, wick-adjusted"},
+      {"type": "BUY", "price": 7.26, "shares": 8, "note": "Bullet 3 — $6.95 PA, 75% hold rate, wick-adjusted"},
       {"type": "BUY", "price": 5.37, "shares": 18, "note": "Reserve 1 — $5.20 PA, 50% hold rate, bounce-derived"}
     ],
     "CLSK": [
@@ -134,9 +132,18 @@
       {"type": "BUY", "price": 29.35, "shares": 3, "note": "Bullet 2 — $28.96 HVN, 45% hold, wick-adjusted"},
       {"type": "BUY", "price": 28.84, "shares": 4, "note": "Bullet 3 — $28.34 PA 67% + $27.22 PA 91% (converged), wick-adjusted"}
     ],
-    "RKT": []
+    "RKT": [],
+    "LUNR": [
+      {"type": "BUY", "price": 17.16, "shares": 3, "note": "Bullet 1 — $16.41 PA, 30% hold rate, Std tier, wick-adjusted"},
+      {"type": "BUY", "price": 15.93, "shares": 3, "note": "Bullet 2 — $15.52 PA, 57% hold rate, Full tier, wick-adjusted"},
+      {"type": "BUY", "price": 15.49, "shares": 3, "note": "Bullet 3 — $15.08 PA, 67% hold rate, Full tier, wick-adjusted"},
+      {"type": "BUY", "price": 14.87, "shares": 4, "note": "Bullet 4 — $14.32 PA, 50% hold rate, Full tier, wick-adjusted"},
+      {"type": "BUY", "price": 10.20, "shares": 9, "note": "Reserve 1 — $9.90 HVN+PA, 44% hold rate, Std tier, wick-adjusted"},
+      {"type": "BUY", "price": 10.06, "shares": 9, "note": "Reserve 2 — $9.52 PA, 56% hold rate, Full tier, wick-adjusted"},
+      {"type": "BUY", "price": 6.64, "shares": 15, "note": "Reserve 3 — $6.53 PA, 75% hold rate, Full tier, structural floor"}
+    ]
   },
-  "watchlist": ["AR", "VALE", "CLF", "SEDG", "ACHR", "SOUN", "CLSK", "SMCI", "RKT"],
+  "watchlist": ["AR", "VALE", "CLF", "SEDG", "ACHR", "SOUN", "CLSK", "SMCI", "RKT", "LUNR"],
   "capital": {
     "per_stock_total": 600,
     "active_pool": 300,

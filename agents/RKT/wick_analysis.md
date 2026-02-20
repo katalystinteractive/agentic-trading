@@ -1,16 +1,16 @@
-*Generated: 2026-02-19 22:00*
+*Generated: 2026-02-20 21:24*
 
-## Wick Offset Analysis: RKT (13-Month, as of 2026-02-19)
-**Current Price: $18.09**
+## Wick Offset Analysis: RKT (13-Month, as of 2026-02-20)
+**Current Price: $17.82**
 **Monthly Swing: 30.5%** | 100% of months hit 10%+ | Active Zone: within 15.3% of current price
 
 ### Support Levels & Buy Recommendations
 | Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $17.72 | HVN+PA | 10 | 1 | 10% | +0.20% | $17.76 | Active | Skip |
+| $17.72 | HVN | 10 | 1 | 10% | +0.20% | $17.76 | Active | Skip |
 | $17.31 | HVN | 10 | 2 | 20% | +2.22% | $17.69 | Active | Half |
 | $16.90 | HVN+PA | 12 | 5 | 42% | +0.90% | $17.05 | Active | Std |
-| $16.48 | HVN+PA | 12 | 7 | 58% | +3.43% | $17.05 | Active | Full |
+| $16.48 | HVN+PA | 13 | 8 | 62% | +3.68% | $17.09 | Active | Full |
 | $16.07 | HVN+PA | 10 | 5 | 50% | +6.09% | $17.05 | Active | Full |
 | $15.33 | PA | 6 | 4 | 67% | +3.16% | $15.82 | Reserve | Full |
 | $14.45 | PA | 8 | 1 | 12% | +6.20% | $15.34 | Reserve | Skip |
@@ -23,7 +23,7 @@
 | $11.36 | PA | 8 | 5 | 62% | +5.90% | $12.03 | Reserve | Full |
 | $10.86 | PA | 6 | 5 | 83% | +1.99% | $11.08 | Reserve | Full |
 
-### Detail: $17.72 (HVN+PA)
+### Detail: $17.72 (HVN)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
 | 2025-08-05 | $16.65 | -6.06% | **BROKE** |
@@ -82,6 +82,7 @@
 | 2025-12-15 | $17.76 | +7.74% | Yes |
 | 2026-01-30 | $17.05 | +3.43% | Yes |
 | 2026-02-12 | $17.25 | +4.65% | Yes |
+| 2026-02-20 | $17.78 | +7.86% | Yes |
 
 ### Detail: $16.07 (HVN+PA)
 | Date | Wick Low | Offset | Held |
@@ -229,8 +230,8 @@
 | # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 1 | Active | $17.31 | $17.69 | 20% | Half | 1 | $17.69 |
-| 2 | Active | $16.90 | $17.05 | 42% | Std | 3 | $51.15 |
-| 3 | Active | $16.48 | $17.05 | 58% | Full | 3 | $51.15 |
+| 2 | Active | $16.48 | $17.09 | 62% | Full | 3 | $51.27 |
+| 3 | Active | $16.90 | $17.05 | 42% | Std | 3 | $51.15 |
 | 4 | Active | $16.07 | $17.05 | 50% | Full | 3 | $51.15 |
 | 5 | Reserve | $15.33 | $15.82 | 67% | Full | 6 | $94.89 |
 | 6 | Reserve | $11.36 | $12.03 | 62% | Full | 8 | $96.24 |

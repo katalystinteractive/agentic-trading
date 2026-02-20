@@ -1,13 +1,12 @@
-*Generated: 2026-02-19 22:25*
+*Generated: 2026-02-20 22:06*
 
-## Wick Offset Analysis: UAMY (13-Month, as of 2026-02-19)
-**Current Price: $7.61**
+## Wick Offset Analysis: UAMY (13-Month, as of 2026-02-20)
+**Current Price: $7.24**
 **Monthly Swing: 78.1%** | 100% of months hit 10%+ | Active Zone: within 39.1% of current price
 
 ### Support Levels & Buy Recommendations
 | Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $7.50 | HVN+PA | 10 | 3 | 30% | +2.77% | $7.71 ↑above | Active | Std |
 | $7.01 | HVN+PA | 8 | 1 | 12% | +2.80% | $7.21 | Active | Skip |
 | $6.85 | PA | 10 | 4 | 40% | +3.65% | $7.10 | Active | Std |
 | $6.52 | HVN+PA | 7 | 3 | 43% | +2.23% | $6.67 | Active | Std |
@@ -15,7 +14,7 @@
 | $6.04 | HVN+PA | 6 | 2 | 33% | +3.05% | $6.22 | Active | Std |
 | $5.69 | PA | 6 | 1 | 17% | +4.57% | $5.95 | Active | Half |
 | $5.55 | HVN | 7 | 1 | 14% | +7.26% | $5.95 | Active | Skip |
-| $5.35 | PA | 6 | 1 | 17% | +1.12% | $5.41 | Reserve | Half |
+| $5.35 | PA | 6 | 1 | 17% | +1.12% | $5.41 | Active | Half |
 | $5.16 | PA | 5 | 2 | 40% | +2.62% | $5.29 | Reserve | Std |
 | $4.95 | PA | 5 | 2 | 40% | +2.83% | $5.09 | Reserve | Std |
 | $4.77 | PA | 5 | 1 | 20% | +2.10% | $4.87 | Reserve | Half |
@@ -46,20 +45,6 @@
 | $1.37 | PA | 4 | 1 | 25% | +5.11% | $1.44 | Reserve | Half |
 | $1.34 | PA | 4 | 2 | 50% | +3.73% | $1.39 | Reserve | Full |
 | $1.25 | PA | 1 | 0 | 0% | N/A | N/A (no holds) | Reserve | Skip |
-
-### Detail: $7.50 (HVN+PA)
-| Date | Wick Low | Offset | Held |
-| :--- | :--- | :--- | :--- |
-| 2025-10-01 | $6.67 | -11.09% | **BROKE** |
-| 2025-10-30 | $7.71 | +2.77% | Yes |
-| 2025-11-07 | $6.54 | -12.82% | **BROKE** |
-| 2026-01-07 | $6.91 | -7.89% | **BROKE** |
-| 2026-01-09 | $7.22 | -3.76% | **BROKE** |
-| 2026-01-29 | $7.80 | +3.97% | Yes |
-| 2026-02-02 | $7.40 | -1.36% | **BROKE** |
-| 2026-02-06 | $7.63 | +1.71% | Yes |
-| 2026-02-13 | $7.11 | -5.22% | **BROKE** |
-| 2026-02-19 | $7.14 | -4.82% | **BROKE** |
 
 ### Detail: $7.01 (HVN+PA)
 | Date | Wick Low | Offset | Held |
@@ -445,6 +430,5 @@
 | 7 | Reserve | $1.64 | $1.69 | 50% | Full | 59 | $99.71 |
 | 8 | Reserve | $1.55 | $1.57 | 50% | Full | 63 | $99.22 |
 
-*Note: 1 Active level(s) excluded — buy price at or above current price: $7.50*
 *Bullet plan is a suggestion — adjust based on cycle timing and position.*
 
