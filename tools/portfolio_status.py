@@ -102,15 +102,17 @@ def build_report(portfolio, prices):
     all_orders = portfolio.get("pending_orders", {})
     has_orders = any(len(v) > 0 for v in all_orders.values())
     if has_orders:
-        lines.append("| Ticker | Type | Zone | Price | Current | Near Wick | Wick Dist | Dist to Fill | Note |")
-        lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+        lines.append("| Ticker | Type | Zone | Price | Current | Near Wick | Wick Dist | Dist to Fill | Status | Note |")
+        lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         for ticker, orders in all_orders.items():
             p = prices.get(ticker, {})
             current = p.get("price")
+            day_low = p.get("day_low")
+            day_high = p.get("day_high")
             for order in orders:
                 dist = fmt_distance(current, order["price"])
                 # Near Wick: Day Low for BUY (wick toward fill), Day High for SELL (wick toward target)
-                near_wick = p.get("day_low") if order["type"] == "BUY" else p.get("day_high")
+                near_wick = day_low if order["type"] == "BUY" else day_high
                 wick_dist = fmt_distance(near_wick, order["price"])
                 # Derive zone from note: "Bullet N" = Active, "Reserve N" = Reserve, else Sell/other
                 note = order.get("note", "")
@@ -122,11 +124,17 @@ def build_report(portfolio, prices):
                     zone = "Sell"
                 else:
                     zone = "—"
+                # Fill detection: flag orders that likely triggered today
+                status = ""
+                if order["type"] == "BUY" and day_low is not None and day_low <= order["price"]:
+                    status = "**FILLED?**"
+                elif order["type"] == "SELL" and day_high is not None and day_high >= order["price"]:
+                    status = "**FILLED?**"
                 lines.append(
                     f"| {ticker} | {order['type']} | {zone} | {fmt_dollar(order['price'])} "
                     f"| {fmt_dollar(current)} "
                     f"| {fmt_dollar(near_wick)} | {wick_dist} "
-                    f"| {dist} | {note} |"
+                    f"| {dist} | {status} | {note} |"
                 )
     else:
         lines.append("*(no pending orders)*")

@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-02-19",
+  "last_updated": "2026-02-20",
   "positions": {
     "NU": {
       "shares": 6,
@@ -48,11 +48,18 @@
       "note": "Pre-strategy position, near breakeven. Active pool ~$233 deployed, ~$67 remaining."
     },
     "APLD": {
-      "shares": 3,
-      "avg_cost": 32.47,
-      "bullets_used": 1,
+      "shares": 7,
+      "avg_cost": 31.09,
+      "bullets_used": 4,
       "entry_date": "2026-02-17",
       "target_exit": 38.00
+    },
+    "CIFR": {
+      "shares": 10,
+      "avg_cost": 14.87,
+      "bullets_used": 2,
+      "entry_date": "2026-02-20",
+      "target_exit": 16.36
     },
     "CLSK": {
       "shares": 3,
@@ -90,9 +97,8 @@
       {"type": "BUY", "price": 36.38, "shares": 2, "note": "Reserve 2 — $36.04 HVN, wick-adjusted"}
     ],
     "APLD": [
-      {"type": "SELL", "price": 38.00, "shares": 3, "note": "Target ~17% — $37.60-$38.76 HVN resistance zone"},
-      {"type": "BUY", "price": 29.24, "shares": 3, "note": "Bullet 2 — $28.56 Price Action, 43% hold rate, wick-adjusted"},
-      {"type": "BUY", "price": 27.71, "shares": 3, "note": "Bullet 3 — $27.62 Price Action, 44% hold rate, wick-adjusted"}
+      {"type": "SELL", "price": 38.00, "shares": 7, "note": "Target ~22% — $37.60-$38.76 HVN resistance zone"},
+      {"type": "BUY", "price": 27.71, "shares": 3, "note": "Bullet 5 — $27.62 Price Action, 44% hold rate, wick-adjusted"}
     ],
     "CLF": [
       {"type": "BUY", "price": 9.97, "shares": 10, "note": "Bullet 1 — $9.92 HVN+PA, 45% hold rate, wick-adjusted"},
@@ -100,8 +106,7 @@
       {"type": "BUY", "price": 8.48, "shares": 11, "note": "Bullet 3 — $8.25 PA, 71% hold rate, wick-adjusted"}
     ],
     "CIFR": [
-      {"type": "BUY", "price": 14.98, "shares": 3, "note": "Bullet 1 — $14.91 HVN+PA, 22% hold, wick-adjusted"},
-      {"type": "BUY", "price": 14.82, "shares": 7, "note": "Bullet 2 — $14.26 PA, 62% hold, wick-adjusted"},
+      {"type": "SELL", "price": 16.36, "shares": 10, "note": "Target ~10% from avg"},
       {"type": "BUY", "price": 14.10, "shares": 3, "note": "Bullet 3 — $13.45 PA, 29% hold, wick-adjusted"},
       {"type": "BUY", "price": 12.86, "shares": 8, "note": "Bullet 4 — $12.41 PA, 50% hold, wick-adjusted"},
       {"type": "BUY", "price": 5.38, "shares": 18, "note": "Reserve 1 — $5.27 PA, 50% hold, wick-adjusted"}

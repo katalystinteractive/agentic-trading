@@ -25,9 +25,11 @@
     *   **Dead Zone Warning:** $34.07 HVN has 0% hold rate — broke all 6 tests. Do not place orders above $32.47.
     *   **Volume Profile:** High volatility stock with wide daily ranges. ATR 12.1% — well above the 10%+ monthly swing target.
 *   **Bullet Plan (Active Pool):**
-    *   B1: $32.47 (3 shares, ~$97) — $31.82 support, 44% hold rate, wick-adjusted.
-    *   B2: $29.24 (3 shares, ~$88) — $28.56 support, 43% hold rate, wick-adjusted.
-    *   B3: $27.71 (3 shares, ~$83) — $27.62 support, 44% hold rate, wick-adjusted.
-    *   Total active deployment: ~$268 if all fill.
+    *   B1: $32.47 (3 shares, ~$97) — $31.82 support, 44% hold rate, wick-adjusted. **FILLED.**
+    *   B2: $31.21 (1 share, ~$31) — intraday fill on NVDA selloff. **FILLED.**
+    *   B3: $30.02 (1 share, ~$30) — $30.42 support zone. **FILLED.**
+    *   B4: $29.49 (2 shares, ~$59) — $29.52 support, 17% hold rate. **FILLED.**
+    *   B5: $27.71 (3 shares, ~$83) — $27.62 support, 44% hold rate, wick-adjusted. **PENDING.**
+    *   Total active deployment: ~$300 (4 filled + 1 pending).
 *   **Note on Gemini's Original Levels:** Gemini placed limits at $33.55, $32.50, $31.40. Analysis shows $33.55 is in the dead zone above $34.07 (void), $32.50 was nearly wick-correct ($32.47), and $31.40 was a raw-support trap below the wick-adjusted level. Replaced all three with data-driven levels.
-*   **Status:** **ACTIVE POSITION — 1 of 3 active bullets deployed.**
+*   **Status:** **ACTIVE POSITION — 7 shares @ $31.09 avg (4 of 5 active bullets filled). Sell target $38.00. B5 $27.71 pending.**

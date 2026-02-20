@@ -3,6 +3,8 @@
 ## Trade Log
 - **2026-02-19:** BUY 7 shares @ $14.82 (Bullet 1 filled). Day low $14.66, triggered on midday dip. Cost: $103.74.
 - **2026-02-19:** SELL 7 shares @ $15.70 (daily bounce exit). Revenue: $109.90. **Profit: +$6.16 (+5.9%).** Took the intraday bounce instead of waiting for $16.30 target. Position closed, no shares held.
+- **2026-02-20:** BUY 3 shares @ $14.98 (B1 re-entry filled). Cost: $44.94.
+- **2026-02-20:** BUY 7 shares @ $14.82 (B2 re-entry filled). Cost: $103.74. Day low $14.54. **Now holding 10 shares, avg $14.87. Target exit: $16.36 (~10%).**
 
 ## Observations
 - **2026-02-19:** Originally selected as bounce candidate from ETF-sourced screener (BLOK ETF holding). Converted to surgical strategy after monthly swing analysis revealed 67.8% median swing with 100% of months hitting 10%+.

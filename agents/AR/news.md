@@ -1,4 +1,4 @@
-*Generated: 2026-02-17 20:59*
+*Generated: 2026-02-20 20:43*
 
 ## News & Sentiment: Antero Resources Corporation (AR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,12 +6,15 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-02-20 | MarketBeat | Pekin Hardy Strauss Inc. Has $5.83 Million Stock Holdings in... | Positive | +0.40 | Earnings |
+| 2026-02-20 | MarketBeat | CenterBook Partners LP Invests $2.26 Million in Antero Resou... | Neutral | +0.00 | Earnings |
+| 2026-02-18 | Insider Monkey | Jefferies Resumes Coverage of Antero Resources (AR) with Buy... | Neutral | +0.00 | — |
+| 2026-02-18 | simplywall.st | Is Antero Resources (AR) Pricing Reflect Its DCF And P/E Val... | Neutral | +0.00 | — |
+| 2026-02-17 | MarketBeat | Antero Resources Corporation $AR Shares Bought by Colrain Ca... | Positive | +0.30 | Earnings |
 | 2026-02-16 | Yahoo Finance | Is Antero Resources (AR) Pricing Look Attractive After Recen... | Positive | +0.32 | — |
 | 2026-02-16 | simplywall.st | A Look At Antero Resources (AR) Valuation After Recent Share... | Positive | +0.30 | — |
 | 2026-02-13 | Morningstar Res | Analyst Report: Antero Resources Corporation | Neutral | +0.00 | — |
 | 2026-02-13 | 24/7 Wall St. | Here Are Fridays Top Wall Street Analyst Research Calls: Air... | Positive | +0.20 | — |
-| 2026-02-13 | The Globe and M | Analysts Offer Insights on Energy Companies: Antero Resource... | Positive | +0.49 | — |
-| 2026-02-13 | The Globe and M | Analysts’ Opinions Are Mixed on These Energy Stocks: Tambora... | Positive | +0.27 | — |
 | 2026-02-12 | GuruFocus.com | Antero Resources Corp (AR) Q4 2025 Earnings Call Highlights:... | Neutral | +0.00 | Earnings |
 | 2026-02-12 | MarketBeat | Antero Resources Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
 | 2026-02-12 | Zacks | Antero Resources Q4 Earnings Miss Estimates, Revenues Increa... | Positive | +0.18 | Earnings |
@@ -19,7 +22,6 @@
 | 2026-02-12 | Moby | Antero Midstream Corporation Q4 2025 Earnings Call Summary | Neutral | +0.00 | Earnings |
 | 2026-02-12 | Seeking Alpha | Antero Resources: Ending The Fiscal Year With A Bang (NYSE:A... | Neutral | +0.00 | — |
 | 2026-02-12 | MarketBeat | Antero Resources Sees Unusually High Options Volume (NYSE:AR... | Neutral | +0.00 | Earnings |
-| 2026-02-12 | The Globe and M | Antero Resources (AR) Q4 2025 Earnings Transcript - The Glob... | Neutral | +0.00 | Earnings |
 | 2026-02-12 | Motley Fool | Antero Resources (AR) Q4 2025 Earnings Transcript | Neutral | +0.00 | Earnings |
 | 2026-02-12 | MT Newswires | Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursd... | Neutral | +0.00 | — |
 | 2026-02-11 | Zacks | Antero Resources (AR) Q4 Earnings: Taking a Look at Key Metr... | Neutral | +0.00 | Earnings |
@@ -34,27 +36,40 @@
 | 2026-02-10 | MarketBeat | S&CO Inc. Boosts Stock Position in Antero Resources Corporat... | Positive | +0.32 | Earnings |
 | 2026-02-10 | Benzinga | Examining the Future: Antero Resources's Earnings Outlook - ... | Neutral | +0.00 | Earnings |
 | 2026-02-09 | Zacks | Does the Record Gas Draw Support a Bullish Case for Investor... | Positive | +0.40 | — |
-| 2026-02-09 | MarketBeat | Thrivent Financial for Lutherans Decreases Stake in Antero R... | Neutral | +0.00 | Earnings |
-| 2026-02-08 | Insider Monkey | Is Antero Resources (AR) One of the Best Oil and Gas Stocks ... | Positive | +0.64 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 10 (33%) |
-| Neutral | 18 (60%) |
+| Positive | 9 (30%) |
+| Neutral | 19 (63%) |
 | Negative | 2 (7%) |
-| Average Score | +0.103 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 169 |
+| Average Score | +0.079 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 168 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 20 | Antero Resources Corp (AR) Q4 2025 Earni..; Antero Resources Q4 Earnings Call Highli.. |
+| Earnings | 21 | Pekin Hardy Strauss Inc. Has $5.83 Milli..; CenterBook Partners LP Invests $2.26 Mil.. |
 | Analyst | 1 | Antero Resources (NYSE:AR) Stock Rating .. |
 
 ### Deep Dive Articles
+
+#### Jefferies Resumes Coverage of Antero Resources (AR) with Buy Rating and $50 PT
+*Source: Insider Monkey | Date: 2026-02-18 | Sentiment: Positive (+0.98)*
+
+> Antero Resources Corporation (NYSE:AR) is one of the best stocks under $50 to invest in. On February 13, Jefferies resumed coverage of Antero Resources with a Buy rating and increased its price target to $50 from $46. The firm noted that the company’s Q4 2025 results highlighted its strong positioning to benefit from tightening natural gas fundamentals driven by demand from LNG and data centers.
+
+> Earlier on January 23, Morgan Stanley lowered its price target on Antero Resources Corporation (NYSE:AR) to $46 from $48 with an Overweight rating. In a Q4 preview for E&Ps, oil majors, and Canadian producers, the firm updated its 2026-27 oil price deck to reflect strip prices as of January 7. The firm informed investors that while Q4 operational updates are expected to be fairly clean, cash flow may be lighter due to price realizations.
+
+> On January 21, Barclays lowered its price target on Antero Resources to $41 from $46 with an Equal Weight rating. As part of a Q4 preview for the E&P sector, the firm adjusted several ratings and targets, noting that the upstream sector’s cash return model remains resilient despite macroeconomic volatility. While Barclays sees attractive opportunities in the US onshore, it advised investors to tread carefully due to near-term commodity uncertainty.
+
+> Antero Resources Corporation (NYSE:AR) is an independent oil and natural gas company that develops, produces, explores, and acquires natural gas, NGLs, and oil properties in the US. It has three segments: Exploration & Production, Marketing, and Equity Method Investment in Antero Midstream.
+
+> While we acknowledge the potential of AR as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+
+**Catalysts:** Regulatory, Analyst, Short
 
 #### Antero Resources Q4 Earnings Miss Estimates, Revenues Increase Y/Y
 *Source: Zacks | Date: 2026-02-12 | Sentiment: Positive (+0.74)*
@@ -113,20 +128,5 @@
 > Brendan Krueger, CFO of Antero Resources added, "The closing of the HG Energy acquisition immediately improves our competitive positioning by significantly reducing our cost structure and increases our local dry gas exposure. These higher margins are hedged and are expected to drive a substantial increase in Adjusted Free Cash Flow and reduce leverage to under 1.0x during the year. We intend to remain focused on debt reduction and continuing to opportunistically repurchase shares."
 
 > For a discussion of the non-GAAP financial measures including Adjusted Net Income, Adjusted EBITDAX, Adjusted Free Cash Flow and Net Debt, please see "Non-GAAP Financial Measures."
-
-**Catalysts:** Earnings, Corporate, Shareholder
-
-#### Antero Midstream Announces Fourth Quarter 2025 Results and 2026 Guidance
-*Source: PR Newswire | Date: 2026-02-11 | Sentiment: Positive (+0.99)*
-
-> DENVER,Feb. 11, 2026/PRNewswire/ -- AnteroMidstream Corporation(NYSE: AM) ("Antero Midstream" or the "Company") today announced its fourth quarter 2025 financial and operating results and 2026 guidance.  The relevant consolidated financial statements are included in Antero Midstream's Annual Report on Form 10-K for the year ended December 31, 2025.
-
-> Michael Kennedy, CEO said, "Antero Midstream reported another year of gathering and compression, Adjusted EBITDA, and Adjusted Free Cash Flow growth in 2025. This consistent strategy of organic growth, supplemented by attractive bolt-on acquisitions, positions us well for continued capital efficient growth in 2026 and beyond."
-
-> Mr. Kennedy continued, "The capital budget in 2026 is focused on high rate of return infrastructure projects in the core of the Marcellus Shale. These include the buildout of our rich gas gathering system, integration of recently acquired assets, and new expansion projects to support additional dry gas growth on Antero Midstream dedicated acreage. These projects will provide incremental outlet market opportunities and further unlock development optionality across Antero Midstream's diverse portfolio of rich and dry gas assets."
-
-> Justin Agnew, CFO of Antero Midstream, said, "Antero Midstream's cash flow growth, driven by operational and capital efficiencies, allowed us to reduce net debt and leverage to 2.7x at year-end 2025. Looking ahead to 2026, we expect to maintain a strong balance sheet with leverage near 3-times and a balanced approach of debt reduction and opportunistic share repurchases. This return of capital approach, enhanced by the recently announced transactions, positions us well to deliver additional shareholder value."
-
-> For a discussion of the non-GAAP financial measures, including Adjusted EBITDA, Adjusted Net Income, Leverage, and Adjusted Free Cash Flowafter dividendsplease see "Non-GAAP Financial Measures."
 
 **Catalysts:** Earnings, Corporate, Shareholder
