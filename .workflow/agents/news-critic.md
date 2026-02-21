@@ -64,16 +64,20 @@ For each risk flag in the report:
    - Ticker is Tier 1
    - Overall sentiment is Bullish in raw data
    - Ticker has a pending SELL order in portfolio.json
+   - Current price is below the sell target price (current_price < sell_price — if above, the sell should have filled, not "approaching")
    - Current price is at least 85% of the sell target price (compute: current_price / sell_price >= 0.85)
+   - If the flag states a percentage (e.g., "89.5% of target"), verify the arithmetic: stated_pct should equal `current_price / sell_price * 100` within +-0.5% tolerance
 4. **Type D (Dilution/Equity):** Verify the raw Detected Catalysts table for that ticker contains an "Equity" category.
 5. **Type E (Earnings):** Verify the raw Detected Catalysts table contains an "Earnings" category AND the ticker is Tier 1 or Tier 2.
 
-Also check for **missing flags** — scan all tickers for conditions that should have triggered a flag but didn't:
+Also check for **missing flags** — scan all tickers for conditions that should have triggered a flag but didn't. Exclude tickers with N/A sentiment (no news data or listed in Failures section) from this scan — they have no sentiment to evaluate:
 - Any Tier 1 ticker with Bearish sentiment not flagged as Type A?
 - Any ticker with Bearish sentiment + pending BUYs not flagged as Type B?
-- Any Tier 1 Bullish ticker with pending SELL at >=85% not flagged as Type C?
+- Any Tier 1 Bullish ticker with pending SELL at >=85% (and below target) not flagged as Type C?
 - Any "Equity" catalyst not flagged as Type D?
 - Any Tier 1/2 "Earnings" catalyst not flagged as Type E?
+
+Also verify **Flag Detail coverage** — the count of Flag Detail entries must equal the count of Risk Flags table rows. Every flag must have a corresponding 1-2 sentence explanation.
 
 ### Step 4: Theme Validity Verification
 
