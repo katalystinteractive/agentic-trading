@@ -4,9 +4,10 @@ description: >
   news_sentiment.py for every ticker in portfolio.json, extracts condensed
   sentiment summaries and catalyst tables, and writes news-sweep-raw.md.
   Phase 2 produces the cross-ticker analysis report with sentiment heatmap,
-  theme detection, risk flags, and actionable recommendations.
+  theme detection, risk flags, and actionable recommendations. Phase 3
+  verifies the report against raw data for accuracy and completeness.
 
-version: "1.0.0"
+version: "1.1.0"
 
 phases:
   - id: sweep
@@ -29,7 +30,20 @@ phases:
       - news-sweep-report.md
     timeout_minutes: 8
 
+  - id: review
+    name: Report Review
+    description: Verify report accuracy against raw data — sentiment scores, conflicts, themes, recommendations
+    agent: news-critic
+    depends_on:
+      - analyze
+    requires:
+      - news-sweep-raw.md
+      - news-sweep-report.md
+    artifacts:
+      - news-sweep-review.md
+    timeout_minutes: 6
+
 settings:
   max_fix_iterations: 0
   require_approval: false
-  timeout_minutes: 23
+  timeout_minutes: 29
