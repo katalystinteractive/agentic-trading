@@ -1,0 +1,35 @@
+name: news-sweep-workflow
+description: >
+  Portfolio-wide news sweep and cross-ticker sentiment analysis. Phase 1 runs
+  news_sentiment.py for every ticker in portfolio.json, extracts condensed
+  sentiment summaries and catalyst tables, and writes news-sweep-raw.md.
+  Phase 2 produces the cross-ticker analysis report with sentiment heatmap,
+  theme detection, risk flags, and actionable recommendations.
+
+version: "1.0.0"
+
+phases:
+  - id: sweep
+    name: News Sweep
+    description: Run news_sentiment.py for all portfolio tickers, compile condensed raw data
+    agent: news-sweeper
+    artifacts:
+      - news-sweep-raw.md
+    timeout_minutes: 15
+
+  - id: analyze
+    name: Cross-Ticker Analysis
+    description: Produce sentiment heatmap, theme detection, risk flags, and recommendations
+    agent: news-analyst
+    depends_on:
+      - sweep
+    requires:
+      - news-sweep-raw.md
+    artifacts:
+      - news-sweep-report.md
+    timeout_minutes: 8
+
+settings:
+  max_fix_iterations: 0
+  require_approval: false
+  timeout_minutes: 23
