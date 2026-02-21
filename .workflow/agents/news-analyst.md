@@ -29,19 +29,20 @@ You produce the cross-ticker news analysis report from the raw sweep data. Your 
 
 - `news-sweep-raw.md` — condensed sentiment data for all portfolio tickers (from Phase 1)
 - `portfolio.json` — single source of truth for positions, pending orders, capital
+- `strategy.md` — the master strategy rulebook (earnings exit rule, zone definitions, bullet sizing)
 
 ## Process
 
 ### Step 1: Read All Inputs
 
-Read `news-sweep-raw.md` and `portfolio.json` completely before beginning the report.
+Read `news-sweep-raw.md`, `portfolio.json`, and `strategy.md` completely before beginning the report.
 
 ### Step 2: Build Sentiment Heatmap
 
 Build a table sorted by tier (Tier 1 first), then by average score ascending (most bearish first within each tier):
 
-| Ticker | Tier | Overall Sentiment | Avg Score | Pos% | Neg% | Top Catalyst |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Ticker | Tier | Current Price | Overall Sentiment | Avg Score | Pos% | Neg% | Top Catalyst |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 
 Include ALL tickers, including Tier 3. Report distribution summary: N Bullish / N Neutral / N Bearish.
 
@@ -71,11 +72,11 @@ Identify 5 types of conflicts:
 
 - **Type B — Bearish + Pending BUYs:** Any ticker with Bearish sentiment and pending BUY orders. Note both interpretations: mean-reversion opportunity (bearish sentiment = price weakness = potential entry) vs fundamental deterioration (bearish news = avoid).
 
-- **Type C — Bullish + Pending SELL Near Target:** Tier 1 ticker with Bullish sentiment and a pending SELL order. Positive signal — momentum may carry through target.
+- **Type C — Bullish + Pending SELL Near Target:** Tier 1 ticker with Bullish sentiment and a pending SELL order, where current price is within 15% of the sell target price (use Current Price from the Portfolio Context table). Positive signal — momentum may carry through target.
 
 - **Type D — Dilution/Equity Catalyst:** Any ticker with an "Equity" catalyst detected (offering, dilution, secondary). Structural risk regardless of overall sentiment.
 
-- **Type E — Earnings Catalyst:** Any Tier 1 ticker with an "Earnings" catalyst detected. Cross-reference the strategy earnings exit rule.
+- **Type E — Earnings Catalyst:** Any Tier 1 or Tier 2 ticker with an "Earnings" catalyst detected. For Tier 1, cross-reference the strategy earnings exit rule. For Tier 2, flag that pending BUY orders may need review if earnings fall before expected fill.
 
 ### Step 5: Generate Recommendations
 

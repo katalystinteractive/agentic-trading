@@ -32,7 +32,17 @@ You run `news_sentiment.py` for every ticker in the portfolio and compile conden
 
 ## Process
 
-### Step 1: Build Ticker List
+### Step 1: Capture Current Prices
+
+Run portfolio status to get live prices for all tickers:
+
+```bash
+python3 tools/portfolio_status.py
+```
+
+Capture the output. Extract each ticker's current price and day change % from the portfolio status tables (positions table and watchlist table).
+
+### Step 2: Build Ticker List
 
 Read `portfolio.json` and compute the union of all tickers across `positions`, `pending_orders`, and `watchlist`. Classify each ticker into exactly one tier (highest wins):
 
@@ -45,7 +55,7 @@ For each ticker, record portfolio context:
 - Tier 2: count of pending BUY orders, total BUY $ exposure
 - Tier 3: "watch only"
 
-### Step 2: Run news_sentiment.py Per Ticker
+### Step 3: Run news_sentiment.py Per Ticker
 
 Run the tool sequentially, **Tier 1 first**, then Tier 2, then Tier 3. This ensures if timeout hits, highest-priority tickers are already done.
 
@@ -57,7 +67,7 @@ The tool auto-saves `tickers/<TICKER>/news.md` and prints the full report to std
 
 On failure: record the error message, continue to the next ticker.
 
-### Step 3: Condense Per Ticker
+### Step 4: Condense Per Ticker
 
 From each ticker's stdout output, extract ONLY:
 
@@ -65,11 +75,13 @@ From each ticker's stdout output, extract ONLY:
 2. **Detected Catalysts table** (Category, Count, Headlines)
 3. **Top 3 headlines** from the Headlines table (first 3 rows only)
 
+**No news handling:** If the tool output contains `"No recent news available from any source"`, record the ticker with "No news data available" instead of attempting to extract tables. Still include the ticker in the output under its tier section.
+
 **Skip:** the full 30-row headlines table, deep dive article content. Those stay in the cached `tickers/<TICKER>/news.md`.
 
 This keeps the raw file to ~30 lines per ticker instead of ~130.
 
-### Step 4: Write Output
+### Step 5: Write Output
 
 Write `news-sweep-raw.md` organized by tier:
 
@@ -87,9 +99,9 @@ Write `news-sweep-raw.md` organized by tier:
 | Failures | [N] |
 
 ## Portfolio Context
-| Ticker | Tier | Shares | Avg Cost | Target | Pending Buys | Pending Sells |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-[one row per ticker, sorted by tier then alphabetical]
+| Ticker | Tier | Current Price | Day Chg% | Shares | Avg Cost | Target | Pending Buys | Pending Sells |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+[one row per ticker, sorted by tier then alphabetical. Use "—" for columns that don't apply to a tier (e.g., Shares/Avg Cost/Target for Tier 2 and Tier 3)]
 
 ## Tier 1 — Active Positions
 
