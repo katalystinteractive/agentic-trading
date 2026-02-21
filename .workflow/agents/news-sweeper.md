@@ -77,6 +77,8 @@ From each ticker's stdout output, extract ONLY:
 
 **No news handling:** If the tool output contains `"No recent news available from any source"`, record the ticker with "No news data available" instead of attempting to extract tables. Still include the ticker in the output under its tier section.
 
+**Tool failure handling:** If the tool failed (non-zero exit or error output), record the ticker with "Tool error — see Failures section" under the ticker's tier entry. Do not attempt to extract tables from error output.
+
 **Skip:** the full 30-row headlines table, deep dive article content. Those stay in the cached `tickers/<TICKER>/news.md`.
 
 This keeps the raw file to ~30 lines per ticker instead of ~130.
