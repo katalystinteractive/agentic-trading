@@ -44,11 +44,13 @@ Build a table sorted by tier (Tier 1 first), then by average score ascending (mo
 | Ticker | Tier | Current Price | Overall Sentiment | Avg Score | Pos% | Neg% | Top Catalyst |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 
-Include ALL tickers, including Tier 3. For tickers with "No news data available" from the sweep, show "N/A" in sentiment columns (Overall Sentiment, Avg Score, Pos%, Neg%, Top Catalyst) and exclude them from the distribution count. Report distribution summary: N Bullish / N Neutral / N Bearish / N No Data.
+Include ALL tickers, including Tier 3. For tickers with "No news data available" or listed in the Failures section of the sweep, show "N/A" in sentiment columns (Overall Sentiment, Avg Score, Pos%, Neg%, Top Catalyst) and exclude them from the distribution count. Report distribution summary: N Bullish / N Neutral / N Bearish / N No Data.
 
 ### Step 3: Detect Cross-Ticker Themes
 
 Use two mechanisms:
+
+Skip tickers with no news data or listed in the Failures section — they have no catalysts or headlines to analyze.
 
 **Catalyst aggregation:** Group tickers by shared catalyst categories from the Detected Catalysts tables. A theme requires a minimum of 2 tickers sharing the same catalyst category.
 
@@ -65,6 +67,8 @@ For each theme, report:
 - Urgency (more Tier 1 tickers = higher urgency)
 
 ### Step 4: Flag Sentiment-Position Conflicts
+
+Skip tickers with no news data or listed in the Failures section — they have no sentiment to evaluate.
 
 Identify 5 types of conflicts:
 
@@ -105,7 +109,7 @@ Write `news-sweep-report.md` with this structure:
 
 ## Sentiment Heatmap
 [table from Step 2]
-**Distribution:** N Bullish / N Neutral / N Bearish
+**Distribution:** N Bullish / N Neutral / N Bearish / N No Data
 
 ## Cross-Ticker Themes
 ### [Theme Name]
