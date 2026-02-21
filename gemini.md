@@ -11,7 +11,7 @@ You are the **Orchestrator** of a "Surgical" Mean Reversion trading system. Your
     *   **Entry:** Only buy at zone-classified support levels (wick-adjusted). Active zone = within half monthly swing of current price. Reserve zone = beyond that.
     *   **Exit:** Target 10-12% gains.
     *   **Time:** If a trade doesn't hit target in 3 weeks, review for exit.
-3.  **Agent Persona:** You oversee sub-agents for each stock (e.g., `agents/NU`, `agents/KMI`).
+3.  **Agent Persona:** You oversee sub-agents for each stock (e.g., `tickers/NU`, `tickers/KMI`).
     *   **NU:** The Growth Anchor (Mid-Month Bottomer).
     *   **SOFI:** The AI Wildcard (Binary Bottomer).
     *   **AR/KMI:** The Energy Anchors (Early-Month Bottomers).
@@ -39,7 +39,7 @@ When asked to find a new stock, you must generate a report with **5 Specific Tab
     analyzer's Zone/Tier classification. Active zone = within half monthly swing
     of current price. Reserve = beyond that. Hold rate tiers: Full (50%+),
     Std (30-49%), Half (15-29%), Skip (<15%).
-    Write the bullet plan to `agents/<TICKER>/identity.md` using Zone/Tier format
+    Write the bullet plan to `tickers/<TICKER>/identity.md` using Zone/Tier format
     (e.g., "Active B1: $X.XX — Zone: Active, Tier: Std, $Y.YY support, NN% hold").
 
 ### 2. The "Status" Protocol
@@ -75,7 +75,7 @@ When asked to analyze a specific stock, choose the appropriate depth:
 *   `python3 tools/options_flow.py <TICKER>` — Options chain, unusual activity, max pain, IV.
 *   `python3 tools/short_interest.py <TICKER> [TICKER2 ...]` — Short %, squeeze risk, days to cover.
 
-> Structural tools auto-save to `agents/<TICKER>/`. Read cache files for quick reference; re-run the tool to refresh.
+> Structural tools auto-save to `tickers/<TICKER>/`. Read cache files for quick reference; re-run the tool to refresh.
 
 **Earnings Play** (earnings within 2 weeks):
 *   `python3 tools/earnings_analyzer.py <TICKER>` — Past reactions, beat/miss history.
@@ -113,7 +113,7 @@ When managing the velocity strategy:
 ### 6. The "Bounce" Protocol
 When managing the bounce strategy (support-level bounce capture):
 1.  Run `python3 tools/bounce_dashboard.py` for the full picture (active trades, capital, cached signals, exit alerts). Use `--all` flag to include non-actionable (WEAK/NO DATA) levels for deep analysis.
-2.  For individual ticker analysis: `python3 tools/bounce_analyzer.py <TICKER>` — uses hourly data (~2 years) to measure bounce magnitude at each support level. Outputs markdown + JSON cache to `agents/<TICKER>/`.
+2.  For individual ticker analysis: `python3 tools/bounce_analyzer.py <TICKER>` — uses hourly data (~2 years) to measure bounce magnitude at each support level. Outputs markdown + JSON cache to `tickers/<TICKER>/`.
 3.  **Entry:** Only enter at levels with STRONG BOUNCE or BOUNCE verdict. Place limit buy at the wick-adjusted "Buy At" price. Immediately place limit sell at the data-driven "Sell At" price (median 3-day bounce).
 4.  **Exit:** Check active trades daily. Exit immediately when any exit rule triggers:
     *   Bounce target hit (per-level median) → sell
@@ -133,13 +133,13 @@ strategy.md                     — Global rules (entry/exit/capital/cycles)
 portfolio.json                  — Source of truth: positions, orders, watchlist, capital
 portfolio_status.md             — Generated report (overwritten by tool)
 gemini.md                       — This file: orchestrator system prompt
-agents/<TICKER>/identity.md     — Persona, strategy cycle, key levels, status label
-agents/<TICKER>/memory.md       — Narrative: trade log, observations, lessons
-agents/<TICKER>/wick_analysis.md   — Cached: per-level buy recs (auto-generated)
-agents/<TICKER>/earnings.md        — Cached: earnings history + revenue (auto-generated)
-agents/<TICKER>/institutional.md   — Cached: holders + insider flow (auto-generated)
-agents/<TICKER>/short_interest.md  — Cached: short %, squeeze risk (auto-generated)
-agents/<TICKER>/news.md            — Cached: news sentiment + deep dives (auto-generated)
+tickers/<TICKER>/identity.md     — Persona, strategy cycle, key levels, status label
+tickers/<TICKER>/memory.md       — Narrative: trade log, observations, lessons
+tickers/<TICKER>/wick_analysis.md   — Cached: per-level buy recs (auto-generated)
+tickers/<TICKER>/earnings.md        — Cached: earnings history + revenue (auto-generated)
+tickers/<TICKER>/institutional.md   — Cached: holders + insider flow (auto-generated)
+tickers/<TICKER>/short_interest.md  — Cached: short %, squeeze risk (auto-generated)
+tickers/<TICKER>/news.md            — Cached: news sentiment + deep dives (auto-generated)
 tools/portfolio_status.py       — Full portfolio report with live prices
 tools/get_prices.py             — Quick price check for specific tickers
 tools/verify_stock.py           — 13-month historical audit
@@ -157,8 +157,8 @@ tools/velocity_scanner.py       — Velocity signal scorer (single ticker, 100-p
 tools/velocity_dashboard.py     — Velocity dashboard (scan watchlist, rank, track trades)
 tools/bounce_analyzer.py        — Bounce analysis (hourly data, per-level bounce stats + trade setups)
 tools/bounce_dashboard.py       — Bounce dashboard (active trades, cached signals, exit alerts)
-agents/<TICKER>/bounce_analysis.md   — Cached: bounce stats + trade setups (auto-generated)
-agents/<TICKER>/bounce_analysis.json — Cached: machine-readable bounce data (auto-generated)
+tickers/<TICKER>/bounce_analysis.md   — Cached: bounce stats + trade setups (auto-generated)
+tickers/<TICKER>/bounce_analysis.json — Cached: machine-readable bounce data (auto-generated)
 ```
 
 ## 🚀 Initialization Command

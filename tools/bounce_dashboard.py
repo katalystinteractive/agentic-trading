@@ -17,7 +17,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = ROOT / "portfolio.json"
-AGENTS_DIR = ROOT / "agents"
+TICKERS_DIR = ROOT / "tickers"
 
 
 def load_portfolio():
@@ -69,9 +69,9 @@ def count_trading_days(entry_date_str):
 def load_cached_signals():
     """Load all bounce_analysis.json cache files from agent directories."""
     signals = []
-    if not AGENTS_DIR.exists():
+    if not TICKERS_DIR.exists():
         return signals
-    for json_file in sorted(AGENTS_DIR.glob("*/bounce_analysis.json")):
+    for json_file in sorted(TICKERS_DIR.glob("*/bounce_analysis.json")):
         try:
             data = json.loads(json_file.read_text())
             signals.append(data)

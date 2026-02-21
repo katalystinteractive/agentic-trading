@@ -66,7 +66,7 @@ When a position was entered before the strategy was refined and is significantly
 *   **LLM Cross-Verification:** When an LLM cites specific institutional buying (e.g., "JPMorgan +648%"), verify through `institutional_flow.py` before acting. Directional signals are usually correct, but specific names/numbers may be hallucinated.
 
 ### Cached Structural Data
-Structural tools auto-save per-ticker cache files to `agents/<TICKER>/` on every run. These files refresh each time the tool is re-run:
+Structural tools auto-save per-ticker cache files to `tickers/<TICKER>/` on every run. These files refresh each time the tool is re-run:
 *   `wick_analysis.md` — Support levels & data-driven buy recommendations (from `wick_offset_analyzer.py`).
 *   `earnings.md` — Earnings history, revenue trend, price reactions (from `earnings_analyzer.py`).
 *   `institutional.md` — Top holders, insider transactions, cluster buy signals (from `institutional_flow.py`).

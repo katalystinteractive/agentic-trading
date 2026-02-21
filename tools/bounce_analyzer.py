@@ -18,7 +18,7 @@ from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
-AGENTS_DIR = _ROOT / "agents"
+TICKERS_DIR = _ROOT / "tickers"
 
 # Levels more than this % below current price are excluded (reduces noise
 # from distant historical support that is unlikely to produce actionable
@@ -44,9 +44,9 @@ def fmt_pct(val):
 
 
 def _write_cache(ticker, filename, content):
-    agent_dir = AGENTS_DIR / ticker
-    agent_dir.mkdir(parents=True, exist_ok=True)
-    with open(agent_dir / filename, "w") as f:
+    ticker_dir = TICKERS_DIR / ticker
+    ticker_dir.mkdir(parents=True, exist_ok=True)
+    with open(ticker_dir / filename, "w") as f:
         f.write(content + "\n")
 
 
@@ -520,9 +520,9 @@ def main():
             print(report)
             _write_cache(ticker, "bounce_analysis.md", report)
         if json_data:
-            agent_dir = AGENTS_DIR / ticker
-            agent_dir.mkdir(parents=True, exist_ok=True)
-            with open(agent_dir / "bounce_analysis.json", "w") as f:
+            ticker_dir = TICKERS_DIR / ticker
+            ticker_dir.mkdir(parents=True, exist_ok=True)
+            with open(ticker_dir / "bounce_analysis.json", "w") as f:
                 json.dump(json_data, f, indent=2)
 
 

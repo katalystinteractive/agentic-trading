@@ -266,14 +266,14 @@ def format_report(result):
 
 
 def cache_signal(result):
-    """Write signal report to agents/<TICKER>/velocity_signal.md"""
+    """Write signal report to tickers/<TICKER>/velocity_signal.md"""
     if result is None:
         return
     ticker = result["ticker"]
-    agent_dir = ROOT / "agents" / ticker
-    agent_dir.mkdir(parents=True, exist_ok=True)
+    ticker_dir = ROOT / "tickers" / ticker
+    ticker_dir.mkdir(parents=True, exist_ok=True)
     report = format_report(result)
-    (agent_dir / "velocity_signal.md").write_text(report.lstrip("\n") + "\n")
+    (ticker_dir / "velocity_signal.md").write_text(report.lstrip("\n") + "\n")
 
 
 if __name__ == "__main__":

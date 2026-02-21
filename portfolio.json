@@ -21,7 +21,7 @@
       "bullets_used": 1,
       "entry_date": "pre-2026",
       "target_exit": null,
-      "note": "Pre-strategy position, recovery mode. See agents/IONQ/memory.md for tranche plan."
+      "note": "Pre-strategy position, recovery mode. See tickers/IONQ/memory.md for tranche plan."
     },
     "UAMY": {
       "shares": 40,

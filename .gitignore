@@ -1,5 +1,5 @@
 __pycache__/
 .claude/
-agents/*/velocity_signal.md
-agents/*/bounce_analysis.md
-agents/*/bounce_analysis.json
+tickers/*/velocity_signal.md
+tickers/*/bounce_analysis.md
+tickers/*/bounce_analysis.json

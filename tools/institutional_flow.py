@@ -5,13 +5,13 @@ from pathlib import Path
 from datetime import datetime, timedelta
 
 _ROOT = Path(__file__).resolve().parent.parent
-AGENTS_DIR = _ROOT / "agents"
+TICKERS_DIR = _ROOT / "tickers"
 
 
 def _write_cache(ticker, filename, report):
-    agent_dir = AGENTS_DIR / ticker
-    agent_dir.mkdir(parents=True, exist_ok=True)
-    with open(agent_dir / filename, "w") as f:
+    ticker_dir = TICKERS_DIR / ticker
+    ticker_dir.mkdir(parents=True, exist_ok=True)
+    with open(ticker_dir / filename, "w") as f:
         f.write(report + "\n")
 
 

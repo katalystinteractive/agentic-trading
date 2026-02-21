@@ -53,7 +53,7 @@ TICKERS = [
     "FCX", "NEM", "GOLD", "AA", "X", "NUE", "STLD", "MP",
     "TMC",
     # Finance / Fintech
-    "PYPL", "ALLY", "LC", "OPEN", "AFRM",
+    "PYPL", "ALLY", "LC",
     # Retail / Consumer
     "CHWY", "DKS", "CROX", "ETSY", "W", "GME", "AMC", "BB",
     # China ADR

@@ -19,7 +19,7 @@ except ImportError:
     VADER_AVAILABLE = False
 
 _ROOT = Path(__file__).resolve().parent.parent
-AGENTS_DIR = _ROOT / "agents"
+TICKERS_DIR = _ROOT / "tickers"
 
 _HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -48,9 +48,9 @@ NEGATIVE_WORDS = ['drop', 'fall', 'plunge', 'crash', 'miss', 'weak', 'downgrade'
 
 
 def _write_cache(ticker, filename, report):
-    agent_dir = AGENTS_DIR / ticker
-    agent_dir.mkdir(parents=True, exist_ok=True)
-    with open(agent_dir / filename, "w") as f:
+    ticker_dir = TICKERS_DIR / ticker
+    ticker_dir.mkdir(parents=True, exist_ok=True)
+    with open(ticker_dir / filename, "w") as f:
         f.write(report + "\n")
 
 
