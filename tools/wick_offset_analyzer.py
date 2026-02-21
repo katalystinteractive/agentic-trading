@@ -361,8 +361,9 @@ def analyze_stock(ticker):
     # Add zone/tier classification to each level result
     for r in level_results:
         lvl_price = r["level"]["price"]
-        # gap_pct measured from level (not current_price), matching monthly_swing denominator (low-based)
-        gap_pct = ((current_price - lvl_price) / lvl_price) * 100
+        # gap_pct measured from current_price — matches header text ("within X% of current price")
+        # and strategy.md ("within half the stock's median monthly swing from current price")
+        gap_pct = ((current_price - lvl_price) / current_price) * 100
         zone, tier = classify_level(r["hold_rate"], gap_pct, active_radius, r["total_approaches"])
         r["zone"] = zone
         r["tier"] = tier
