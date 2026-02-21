@@ -62,7 +62,9 @@ From the 13-month wick history and technical scanner data:
 
 ### Step 4: Build Wick-Adjusted Buy Levels Table
 
-**If the wick offset analyzer failed** (check "Tool Failures" section in deep-dive-raw.md): skip this step and Step 5 (Bullet Plan). Proceed to Step 6 (Craft Persona) and Step 7 (Write Identity File). In the identity file, set the Wick-Adjusted Buy Levels table to empty, set Bullet Plan to "Pending — wick offset analysis required. Re-run deep-dive after resolving tool failure.", and set Status to "**BLOCKED — no wick data.**"
+**If the wick offset analyzer failed** (check "Tool Failures" section in deep-dive-raw.md):
+- **If EXISTING ticker:** skip Steps 4-7 and 9. Proceed directly to Step 8. The existing identity.md has working wick data and bullet plan — do not overwrite it. Report the wick failure in the HANDOFF only.
+- **If NEW ticker:** skip Steps 4-5. Proceed to Step 6 (Craft Persona) and Step 7 (Write Identity File). In the identity file, set the Wick-Adjusted Buy Levels table to empty, set Bullet Plan to "Pending — wick offset analysis required. Re-run deep-dive after resolving tool failure.", and set Status to "**BLOCKED — no wick data.**"
 
 From the wick offset analysis output, build the buy levels table:
 
@@ -143,11 +145,10 @@ Write `tickers/<TICKER>/identity.md` matching the exact format. Structure:
 ### Step 8: Handle Ticker Based on Status
 
 **If EXISTING ticker**, do the following:
-- **If BLOCKED:** do NOT overwrite `identity.md` — the existing identity has working wick data and bullet plan. Preserve it. Note the wick tool failure in the HANDOFF so the user knows to re-run later.
-- **If not BLOCKED:** update `identity.md` with fresh data from this analysis.
+- **If BLOCKED:** identity.md is preserved (Step 4 skipped writing). Note the wick tool failure in the HANDOFF so the user knows to re-run. Proceed to HANDOFF (skip Step 9 — no modifications to existing identity).
+- **If not BLOCKED:** update `identity.md` with fresh data from this analysis. Proceed to Step 9.
 - **Do NOT modify** `memory.md` — trade logs and observations are preserved as-is
 - **Do NOT modify** `portfolio.json` — existing positions and orders stay
-- Skip to Step 9.
 
 **If NEW ticker**, do the following:
 - **Create** `tickers/<TICKER>/identity.md` (full identity as above)
