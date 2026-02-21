@@ -25,7 +25,7 @@ phases:
     requires:
       - deep-dive-raw.md
     artifacts:
-      - identity.md
+      - identity.md          # written to tickers/<TICKER>/identity.md
     timeout_minutes: 15
 
   - id: review
@@ -36,6 +36,7 @@ phases:
       - compile
     requires:
       - deep-dive-raw.md
+      - identity.md
     artifacts:
       - deep-dive-review.md
     timeout_minutes: 8

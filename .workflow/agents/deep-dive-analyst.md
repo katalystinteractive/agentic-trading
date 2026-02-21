@@ -30,7 +30,7 @@ You synthesize all raw data from the collector into a complete `identity.md` wit
 - `deep-dive-raw.md` — all raw tool output from the collector
 - `strategy.md` — the master strategy rulebook (capital rules, zone/tier definitions, bullet sizing)
 - `portfolio.json` — current portfolio state (positions, pending orders, watchlist, capital config)
-- Exemplar identity files for format reference:
+- Exemplar identity files for format reference (read at least one that is NOT the target ticker):
   - `tickers/CIFR/identity.md`
   - `tickers/CLSK/identity.md`
   - `tickers/LUNR/identity.md`
@@ -71,7 +71,7 @@ From the wick offset analysis output, build the buy levels table:
 5. Include Zone (Active/Reserve) and Tier (Full/Std/Half) columns
 
 Tier thresholds from strategy.md:
-- Full: 50%+ hold rate (3+ approaches)
+- Full: 50%+ hold rate
 - Std: 30-49% hold rate
 - Half: 15-29% hold rate
 - Skip: < 15% hold rate (exclude from table)
@@ -138,16 +138,15 @@ Write `tickers/<TICKER>/identity.md` matching the exact format. Structure:
 *   **Status:** **[STATUS LABEL]**
 ```
 
-### Step 8: Handle Existing Tickers
+### Step 8: Handle Ticker Based on Status
 
-For EXISTING tickers:
+**If EXISTING ticker**, do the following:
 - **Update** `identity.md` with fresh data from this analysis
 - **Do NOT modify** `memory.md` — trade logs and observations are preserved as-is
 - **Do NOT modify** `portfolio.json` — existing positions and orders stay
+- Skip to Step 10.
 
-### Step 9: Handle New Tickers
-
-For NEW tickers:
+**If NEW ticker**, do the following:
 - **Create** `tickers/<TICKER>/identity.md` (full identity as above)
 - **Create** `tickers/<TICKER>/memory.md` with this template:
 
@@ -164,8 +163,8 @@ For NEW tickers:
 
 - **Update** `portfolio.json`:
   - Add TICKER to the `watchlist` array
-  - Add a new entry in the appropriate section with pending_orders matching the bullet plan
-  - Do NOT add any position (shares: 0, avg_cost: 0)
+  - Add a new key `"<TICKER>"` in the `pending_orders` object with an array of order objects matching the bullet plan. Each order: `{"type": "BUY", "price": <buy_at>, "shares": <N>, "note": "Bullet N — $X.XX [source], [hold%] hold rate, [Tier] tier, wick-adjusted"}`
+  - Do NOT create an entry in the `positions` object — new tickers start with no position
 
 ### Step 10: Note Supplementary Findings
 

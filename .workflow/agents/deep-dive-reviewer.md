@@ -55,11 +55,12 @@ For each level in the wick-adjusted buy levels table:
 
 1. Cross-reference hold rate against raw wick data in `deep-dive-raw.md`
 2. Verify tier assignment matches strategy.md thresholds:
-   - Full: 50%+ hold rate with 3+ approaches
+   - Full: 50%+ hold rate
    - Std: 30-49% hold rate
    - Half: 15-29% hold rate
    - Skip: < 15% hold rate (should NOT appear in table)
-3. Flag any misclassified tiers
+3. Flag levels with < 3 approaches as low-confidence (note in review, but do NOT reclassify tier)
+4. Flag any misclassified tiers
 
 ### Step 4: Zone Assignment Verification
 
