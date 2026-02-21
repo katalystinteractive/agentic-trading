@@ -70,7 +70,7 @@ For each fill alert in the report:
 2. **Pending Orders:** Every pending order in portfolio.json for positions with shares > 0 must appear in the Per-Position Detail section (correct price, shares, order_type). Pending orders for watchlist tickers (shares = 0) should appear in the Watchlist section or notes.
 3. **Strategy labels:** All positions in portfolio.json `positions` map are Mean Reversion. Positions with "recovery mode" in their `note` field should be labeled "Mean Reversion (Recovery)" in the report. Velocity/Bounce positions appear in separate portfolio.json sections, not in the main `positions` map.
 4. **Current prices:** Must match the portfolio_status.py output in status-raw.md.
-5. **Watchlist coverage:** Every ticker in portfolio.json watchlist must appear in the Watchlist table.
+5. **Watchlist coverage:** Every ticker in portfolio.json `watchlist` array that has shares = 0 must appear in the Watchlist table. Tickers with shares > 0 are active positions and appear in the Heat Map / Per-Position Detail instead.
 6. **No extra tickers:** No position or watchlist ticker in the report that doesn't exist in portfolio.json.
 
 ### Step 5: Sorting & Ordering Verification
@@ -85,10 +85,11 @@ For each fill alert in the report:
 For each Context Flag in Per-Position Detail:
 
 1. **Earnings dates:** If claimed from status-raw.md cached data, verify the date and day-count math.
-2. **Short squeeze scores:** Must match the short_interest data in status-raw.md.
+2. **Short squeeze scores:** Must match the short_interest data in status-raw.md: (a) numeric score (e.g., 65/100) matches, (b) risk label (LOW/MODERATE/HIGH) aligns with the score, (c) % float short and days-to-cover values match.
 3. **Near-fill distances:** For BUY orders: distance = (current_price − order_price) / current_price × 100. For SELL orders: distance = (order_price − current_price) / current_price × 100. Both should be positive values. Verify within +-0.2%.
-4. **Sell target proximity:** Distance to sell target must be arithmetically correct.
+4. **Sell target proximity:** distance_to_target = (target_exit − current_price) / current_price × 100. Must be arithmetically correct within +-0.2%.
 5. **Time stops:** "3+ weeks" claim — verify position entry date is indeed 21+ days ago. For ISO dates (e.g., "2026-02-13"), compute exact day count. For non-ISO dates (e.g., "pre-2026", "pre-2026-02-12"), treat as inherently >21 days (pre-strategy positions are old by definition).
+6. **Missing flags:** If status-raw.md contains structural data (earnings, short interest) for a ticker but the analyst omitted the corresponding Context Flag, note as Minor gap.
 
 ### Step 7: Capital Summary Verification
 
