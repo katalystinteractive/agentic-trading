@@ -126,8 +126,6 @@ Use markdown tables with `| :--- |` alignment.
 
 All output files use markdown tables with `| :--- |` alignment. No ASCII art, no plain text tables.
 
-- `candidate-final.md` — final ranked top 3 with recommendations
-
 ## Output
 
 - `candidate-final.md` — final ranked top 3 with stress-test results and recommendations

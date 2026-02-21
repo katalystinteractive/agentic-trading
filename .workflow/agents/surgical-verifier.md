@@ -100,8 +100,6 @@ Use markdown tables with `| :--- |` alignment.
 
 All output files use markdown tables with `| :--- |` alignment. No ASCII art, no plain text tables.
 
-- `candidate-verification.md` — verified scores with adjustments and verdicts
-
 ## Output
 
 - `candidate-verification.md` — verified scores with adjustments and PASS/FLAG/FAIL verdicts

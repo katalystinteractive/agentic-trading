@@ -14,7 +14,6 @@ Usage:
 import argparse
 import json
 import re
-import sys
 from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parent.parent
@@ -41,12 +40,16 @@ def _read_file(path):
 
 
 def _all_tickers():
-    """Return sorted list of ticker symbols that have identity.md."""
+    """Return sorted list of ticker symbols that have identity.md.
+
+    Filters out non-ticker directories (templates, test dirs) by requiring
+    the name to be all-uppercase letters (valid ticker symbols).
+    """
     if not TICKERS_DIR.exists():
         return []
     return sorted(
         d.name for d in TICKERS_DIR.iterdir()
-        if d.is_dir() and (d / "identity.md").exists()
+        if d.is_dir() and (d / "identity.md").exists() and d.name.isalpha() and d.name.isupper()
     )
 
 
@@ -154,13 +157,13 @@ def _fmt_levels(ticker, rows):
     lines = [
         f"## {ticker} — Wick-Adjusted Buy Levels",
         "",
-        "| Support | Source | Hold% | Buy At | Zone | Tier |",
-        "| :--- | :--- | :--- | :--- | :--- | :--- |",
+        "| Support | Source | Hold% | Offset | Buy At | Zone | Tier |",
+        "| :--- | :--- | :--- | :--- | :--- | :--- | :--- |",
     ]
     for r in rows:
         lines.append(
             f"| {r['support']} | {r['source']} | {r['hold_rate']} "
-            f"| {r['buy_at']} | {r['zone']} | {r['tier']} |"
+            f"| {r['offset']} | {r['buy_at']} | {r['zone']} | {r['tier']} |"
         )
     return "\n".join(lines)
 
