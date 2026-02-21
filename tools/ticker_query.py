@@ -81,7 +81,7 @@ def _parse_identity_summary(content):
 
 
 def _parse_wick_table(content):
-    """Extract wick-adjusted buy levels table from identity.md."""
+    """Extract wick-adjusted buy levels table from markdown content."""
     lines = content.splitlines()
     rows = []
     in_table = False
