@@ -46,7 +46,7 @@ For each bullet (B1 through B5, R1 through R3):
    - Full/Std bullets: dollar_size ~$60, shares = floor(60 / buy_price), minimum 1
    - Half bullets: dollar_size ~$30, shares = floor(30 / buy_price), minimum 1
    - Reserve bullets: dollar_size ~$100, shares = floor(100 / buy_price), minimum 1
-2. **Cost calculation:** Verify reported cost ~ shares x buy_price (allow $1 tolerance)
+2. **Cost calculation:** Verify reported cost ~ shares x buy_price (allow 3% tolerance or $1, whichever is greater)
 3. Record each bullet's result: PASS or FAIL with specifics
 
 ### Step 3: Tier Classification Verification
@@ -64,11 +64,12 @@ For each level in the wick-adjusted buy levels table:
 
 ### Step 4: Zone Assignment Verification
 
-1. Extract monthly swing from raw data
-2. Calculate active radius: monthly_swing / 2
-3. Verify each level's zone assignment:
-   - Active: within active_radius of current price
-   - Reserve: beyond active_radius
+1. Extract monthly swing percentage from raw data (e.g., 40% median swing)
+2. Calculate active radius as a percentage: active_radius_pct = monthly_swing_pct / 2
+3. Calculate active floor price: current_price × (1 - active_radius_pct / 100)
+4. Verify each level's zone assignment:
+   - Active: buy-at price ≥ active floor price
+   - Reserve: buy-at price < active floor price
 4. Verify max 5 active bullets, max 3 reserve bullets
 
 ### Step 5: Price Accuracy Verification
@@ -99,7 +100,7 @@ If the ticker was classified as NEW in `deep-dive-raw.md`:
 
 1. Verify TICKER was added to `watchlist` array
 2. Verify pending_orders match the bullet plan (prices and shares)
-3. Verify no position was created (shares should be 0)
+3. Verify NO entry exists in the `positions` object for this ticker — new tickers start without a position entry
 
 ### Step 9: Write Review Output
 

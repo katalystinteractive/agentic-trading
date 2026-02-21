@@ -62,6 +62,8 @@ From the 13-month wick history and technical scanner data:
 
 ### Step 4: Build Wick-Adjusted Buy Levels Table
 
+**If the wick offset analyzer failed** (check "Tool Failures" section in deep-dive-raw.md): write identity.md with persona and supplementary notes only. Set Bullet Plan to "Pending — wick offset analysis required. Re-run deep-dive after resolving tool failure." Set Status to "**BLOCKED — no wick data.**" Skip Steps 5-6 and proceed to Step 8.
+
 From the wick offset analysis output, build the buy levels table:
 
 1. List all support levels with their raw price, source, hold rate, median offset, and buy-at price
@@ -144,7 +146,7 @@ Write `tickers/<TICKER>/identity.md` matching the exact format. Structure:
 - **Update** `identity.md` with fresh data from this analysis
 - **Do NOT modify** `memory.md` — trade logs and observations are preserved as-is
 - **Do NOT modify** `portfolio.json` — existing positions and orders stay
-- Skip to Step 10.
+- Skip to Step 9.
 
 **If NEW ticker**, do the following:
 - **Create** `tickers/<TICKER>/identity.md` (full identity as above)
@@ -166,7 +168,7 @@ Write `tickers/<TICKER>/identity.md` matching the exact format. Structure:
   - Add a new key `"<TICKER>"` in the `pending_orders` object with an array of order objects matching the bullet plan. Each order: `{"type": "BUY", "price": <buy_at>, "shares": <N>, "note": "Bullet N — $X.XX [source], [hold%] hold rate, [Tier] tier, wick-adjusted"}`
   - Do NOT create an entry in the `positions` object — new tickers start with no position
 
-### Step 10: Note Supplementary Findings
+### Step 9: Note Supplementary Findings
 
 Add relevant notes to the identity file for:
 - **Earnings gate:** If next earnings is within 3 weeks, note it prominently
