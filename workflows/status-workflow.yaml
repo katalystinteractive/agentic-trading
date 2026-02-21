@@ -4,7 +4,7 @@ description: >
   fill detection, and per-ticker structural data. Phase 2 compiles the final
   actionable report in Position Reporting Order.
 
-version: "1.0.0"
+version: "1.1.0"
 
 phases:
   - id: gather
@@ -27,7 +27,20 @@ phases:
       - status-report.md
     timeout_minutes: 8
 
+  - id: review
+    name: Status Review
+    description: Verify status-report.md against raw data and portfolio.json
+    agent: status-critic
+    depends_on:
+      - report
+    requires:
+      - status-raw.md
+      - status-report.md
+    artifacts:
+      - status-review.md
+    timeout_minutes: 6
+
 settings:
   max_fix_iterations: 0
   require_approval: false
-  timeout_minutes: 18
+  timeout_minutes: 24
