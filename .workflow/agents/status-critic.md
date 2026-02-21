@@ -45,7 +45,7 @@ For each row in the Portfolio Heat Map AND each Per-Position Detail section:
 
 1. **Total Deployed:** shares × avg_cost (from portfolio.json). Allow $0.02 tolerance.
 2. **Current Value:** shares × current_price (from status-raw.md portfolio_status output).
-3. **P/L $:** current_value − total_deployed.
+3. **P/L $:** current_value − total_deployed. Allow $0.04 tolerance (rounding from both inputs).
 4. **P/L %:** (P/L $ / total_deployed) × 100. Allow +-0.2% tolerance.
 5. **Heat Map total:** Sum of all P/L $ values must equal the TOTAL row. Allow $0.02 × N tolerance (where N = number of positions) to account for cumulative rounding.
 6. **Fill scenario math:** Any "If B[N] fills" projections must compute new_avg = (shares × avg + new_shares × buy) / total. Verify explicitly.
@@ -84,7 +84,7 @@ For each fill alert in the report:
 
 For each Context Flag in Per-Position Detail:
 
-1. **Earnings dates:** If claimed from status-raw.md cached data, verify the date and day-count math.
+1. **Earnings dates:** If claimed from status-raw.md cached data, verify the date matches and day-count is correct: day_count = earnings_date − report_date (calendar days).
 2. **Short squeeze scores:** Must match the short_interest data in status-raw.md: (a) numeric score (e.g., 65/100) matches, (b) risk label (LOW/MODERATE/HIGH) aligns with the score, (c) % float short and days-to-cover values match.
 3. **Near-fill distances:** For BUY orders: distance = (current_price − order_price) / current_price × 100. For SELL orders: distance = (order_price − current_price) / current_price × 100. Both should be positive values. Verify within +-0.2%.
 4. **Sell target proximity:** distance_to_target = (target_exit − current_price) / current_price × 100. Must be arithmetically correct within +-0.2%.
@@ -97,7 +97,7 @@ For each Context Flag in Per-Position Detail:
 2. **Strategy breakdown:** Deployed amounts per strategy (Mean Reversion, Velocity, Bounce) must match the sum of positions in the corresponding portfolio.json sections. All positions in the main `positions` map are Mean Reversion; velocity/bounce positions live in their own sections.
 3. **Budget usage %:** If reported, verify: deployed / budget × 100. Allow +-0.2% tolerance.
 4. **Velocity & Bounce section:** If active trades exist in portfolio.json velocity/bounce sections, verify they appear. If none exist, verify the report states "No active velocity/bounce trades."
-5. **Cross-check sanity:** Verify total_deployed + total_P/L (from Heat Map TOTAL row) = total_current_value. This catches cascading arithmetic errors across Steps 2 and 7.
+5. **Cross-check sanity:** Verify total_deployed + total_P/L (from Heat Map TOTAL row) = total_current_value. Allow $0.02 × N tolerance. This catches cascading arithmetic errors across Steps 2 and 7.
 
 ### Step 8: Write Review Output
 
