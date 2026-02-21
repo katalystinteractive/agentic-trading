@@ -48,7 +48,7 @@ For each row in the Portfolio Heat Map AND each Per-Position Detail section:
 3. **P/L $:** current_value − total_deployed. Allow $0.04 tolerance (rounding from both inputs).
 4. **P/L %:** (P/L $ / total_deployed) × 100. Allow +-0.2% tolerance.
 5. **Heat Map total:** Sum of all P/L $ values must equal the TOTAL row. Allow $0.02 × N tolerance (where N = number of positions) to account for cumulative rounding.
-6. **Fill scenario math:** Any "If B[N] fills" projections must compute new_avg = (shares × avg + new_shares × buy) / total. Verify explicitly.
+6. **Fill scenario math:** Any "If B[N] fills" projections must compute new_avg = (shares × avg + new_shares × buy) / total. Verify within $0.01 tolerance.
 
 Record each discrepancy with: ticker, field, expected value, report value.
 
@@ -67,7 +67,7 @@ For each fill alert in the report:
 ### Step 4: Data Consistency Verification
 
 1. **Shares & Avg Cost:** Must match portfolio.json exactly for each position.
-2. **Pending Orders:** Every pending order in portfolio.json for positions with shares > 0 must appear in the Per-Position Detail section (correct price, shares, order_type). Pending orders for watchlist tickers (shares = 0) should appear in the Watchlist section or notes.
+2. **Pending Orders:** Every pending order in portfolio.json for positions with shares > 0 must appear in the Per-Position Detail section (correct price, shares, order_type). For watchlist tickers (shares = 0) with pending orders, verify at minimum the first buy (B1) price and distance are shown in the Watchlist table.
 3. **Strategy labels:** All positions in portfolio.json `positions` map are Mean Reversion. Positions whose `note` field contains "recovery", "underwater", or "pre-strategy" should be labeled "Mean Reversion (Recovery)" in the report. Velocity/Bounce positions appear in separate portfolio.json sections, not in the main `positions` map.
 4. **Current prices:** Must match the portfolio_status.py output in status-raw.md.
 5. **Watchlist coverage:** Every ticker in portfolio.json `watchlist` array that has shares = 0 must appear in the Watchlist table. Tickers with shares > 0 are active positions and appear in the Heat Map / Per-Position Detail instead.
@@ -84,8 +84,8 @@ For each fill alert in the report:
 
 For each Context Flag in Per-Position Detail:
 
-1. **Earnings dates:** If claimed from status-raw.md cached data, verify the date matches and day-count is correct: day_count = earnings_date − report_date (calendar days).
-2. **Short squeeze scores:** Must match the short_interest data in status-raw.md: (a) numeric score (e.g., 65/100) matches, (b) risk label (LOW/MODERATE/HIGH) aligns with the score, (c) % float short and days-to-cover values match.
+1. **Earnings dates:** If claimed from status-raw.md cached data, verify the date matches and day-count is correct: day_count = earnings_date − report_date (calendar days). Verify flagged earnings are within 14 days. Also scan raw earnings data for each position — if earnings are < 14 days away and the analyst omitted the EARNINGS GATE flag, flag as Critical (not Minor).
+2. **Short squeeze scores:** Must match the short_interest data in status-raw.md: (a) numeric score (e.g., 65/100) matches, (b) risk label aligns with score ranges (0-29 LOW, 30-59 MODERATE, 60-100 HIGH), (c) % float short and days-to-cover values match.
 3. **Near-fill distances:** For BUY orders: distance = (current_price − order_price) / current_price × 100. For SELL orders: distance = (order_price − current_price) / current_price × 100. Both should be positive values. Verify within +-0.2%.
 4. **Sell target proximity:** distance_to_target = (target_exit − current_price) / current_price × 100. Must be arithmetically correct within +-0.2%.
 5. **Time stops:** "3+ weeks" claim — verify position entry date is indeed 21+ days ago. For ISO dates (e.g., "2026-02-13"), compute exact day count. For non-ISO dates (e.g., "pre-2026", "pre-2026-02-12"), treat as inherently >21 days (pre-strategy positions are old by definition).
@@ -97,7 +97,7 @@ For each Context Flag in Per-Position Detail:
 2. **Strategy breakdown:** Deployed amounts per strategy (Mean Reversion, Velocity, Bounce) must match the sum of positions in the corresponding portfolio.json sections. All positions in the main `positions` map are Mean Reversion; velocity/bounce positions live in their own sections.
 3. **Budget usage %:** If reported, verify: deployed / budget × 100. Allow +-0.2% tolerance.
 4. **Velocity & Bounce section:** If active trades exist in portfolio.json velocity/bounce sections, verify they appear. If none exist, verify the report states "No active velocity/bounce trades."
-5. **Cross-check sanity:** Verify total_deployed + total_P/L (from Heat Map TOTAL row) = total_current_value. Allow $0.02 × N tolerance. This catches cascading arithmetic errors across Steps 2 and 7.
+5. **Cross-check sanity:** Compute total_current_value = sum of (shares × current_price) for all positions. Verify total_deployed + total_P/L (from Heat Map TOTAL row) = total_current_value. Allow $0.02 × N tolerance. This catches cascading arithmetic errors across Steps 2 and 7.
 
 ### Step 8: Write Review Output
 
