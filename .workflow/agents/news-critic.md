@@ -43,6 +43,15 @@ Read `news-sweep-raw.md`, `news-sweep-report.md`, `portfolio.json`, and `strateg
 
 For each ticker in the heatmap table:
 
+**N/A tickers first:** Identify tickers in the raw data with "No news data available" or listed in the Failures section. For each:
+- Verify the heatmap shows "N/A" in ALL sentiment columns (Overall Sentiment, Avg Score, Pos%, Neg%, Top Catalyst).
+- Verify Current Price and Tier still match the Portfolio Context table (these are portfolio data, not sentiment data).
+- Flag any ticker shown as N/A in the heatmap that has valid sentiment data in the raw file (false N/A).
+- Flag any ticker with no news data / failure in the raw file that shows a non-N/A sentiment value (missing N/A).
+- Skip checks 1-3 and 5 below for confirmed N/A tickers.
+
+**For all non-N/A tickers:**
+
 1. **Overall Sentiment:** Cross-reference against the Sentiment Summary table in raw data. Must match exactly (Bullish/Neutral/Bearish).
 2. **Avg Score:** Must match the "Average Score" value from the raw Sentiment Summary. Allow +-0.005 tolerance for rounding.
 3. **Pos% / Neg%:** Must match the Positive and Negative percentages from the raw Sentiment Summary.
@@ -92,7 +101,7 @@ For each cross-ticker theme in the report:
 
 ### Step 5: Recommendation Completeness Verification
 
-1. **Coverage:** Every risk flag (Types A-E) in the report must have a corresponding recommendation. Check that no flag was raised without a recommendation.
+1. **Coverage:** Every flagged ticker must be represented in at least one recommendation. The analyst may group multiple flags for the same ticker into one recommendation (e.g., CIFR Type C + Type E → one combined Earnings Gate item) — this is acceptable. Check that no flagged ticker is entirely absent from the recommendations list.
 2. **Priority ordering:** Verify recommendations follow the urgency ranking: Immediate Review > Earnings Gates > Dilution Risk > Pending Order Review > Positive Momentum > Theme Awareness.
 3. **No fabricated data:** Verify each recommendation references only data present in the raw sweep — no hallucinated earnings dates, prices, or percentages.
 4. **Actionability:** Each recommendation must have a concrete "Next step" that is informational only (review, check, monitor) — not a specific trade suggestion.
@@ -147,10 +156,18 @@ Write `news-sweep-review.md` with:
 ```
 
 **Verdict rules:**
-- **PASS** — all 5 checks pass with zero errors
-- **ISSUES** — one or more checks failed. List all failures with severity (Critical/Minor).
-  - Critical: wrong sentiment scores, missing risk flags, fabricated data
-  - Minor: rounding differences, non-material ordering issues, stylistic gaps
+
+Severity definitions:
+- **Critical:** wrong sentiment scores, missing risk flags, fabricated data, false N/A or missing N/A
+- **Minor:** rounding differences within tolerance, non-material ordering issues, stylistic gaps
+
+Check-level result:
+- A check **FAILs** if it has one or more Critical issues.
+- A check **PASSes** if it has zero Critical issues (Minor notes are allowed and should be listed but do not trigger FAIL).
+
+Overall verdict:
+- **PASS** — all 5 checks pass (may include Minor notes)
+- **ISSUES** — one or more checks FAILed due to Critical issues. List all Critical and Minor findings with severity labels.
 
 ## Output Format
 
