@@ -38,9 +38,9 @@ You verify the analyst's identity.md and bullet plan against the raw data. Your 
 
 Read `deep-dive-raw.md`, the ticker's `identity.md`, `strategy.md`, and `portfolio.json` completely before beginning verification. Extract the TICKER from `deep-dive-raw.md` header.
 
-### Step 1b: Check for BLOCKED Identity
+### Step 1b: Check for BLOCKED or Preserved Identity
 
-If the identity.md Status contains "BLOCKED" (wick tool failure fallback):
+**Case A — NEW + BLOCKED:** If identity.md Status contains "BLOCKED" (wick tool failure on new ticker):
 1. Verify the Status label says "**BLOCKED — no wick data.**"
 2. Verify the Bullet Plan says "Pending — wick offset analysis required."
 3. Verify a persona exists following the "**The [Descriptor].**" pattern
@@ -48,6 +48,13 @@ If the identity.md Status contains "BLOCKED" (wick tool failure fallback):
 5. Skip Steps 2-6 (bullet math, tiers, zones, prices, budget are not applicable)
 6. Proceed to Step 7 (Format Compliance), Step 8 (Portfolio.json if NEW), Step 9 (Write Output)
 7. Use verdict **PASS** if BLOCKED format is correct, **ISSUES** if format is wrong
+
+**Case B — EXISTING + Preserved:** If the wick offset analyzer failed (check "Tool Failures" in deep-dive-raw.md) AND identity.md Status does NOT contain "BLOCKED" (identity was preserved unchanged):
+1. Verify identity.md exists and has valid format (headings, persona, wick table with data)
+2. Skip Steps 2-6 — raw wick data is unavailable for cross-reference, and the identity was not modified
+3. Proceed to Step 7 (Format Compliance), Step 9 (Write Output)
+4. Note in the review: "Identity preserved from previous analysis — wick tool failed, no fresh data to verify against."
+5. Use verdict **PASS** if format is correct, **ISSUES** if format is broken
 
 ### Step 2: Bullet Math Verification
 
