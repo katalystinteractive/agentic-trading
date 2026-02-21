@@ -47,7 +47,7 @@ For each row in the Portfolio Heat Map AND each Per-Position Detail section:
 2. **Current Value:** shares × current_price (from status-raw.md portfolio_status output).
 3. **P/L $:** current_value − total_deployed.
 4. **P/L %:** (P/L $ / total_deployed) × 100. Allow +-0.2% tolerance.
-5. **Heat Map total:** Sum of all P/L $ values must equal the TOTAL row.
+5. **Heat Map total:** Sum of all P/L $ values must equal the TOTAL row. Allow $0.02 × N tolerance (where N = number of positions) to account for cumulative rounding.
 6. **Fill scenario math:** Any "If B[N] fills" projections must compute new_avg = (shares × avg + new_shares × buy) / total. Verify explicitly.
 
 Record each discrepancy with: ticker, field, expected value, report value.
@@ -59,14 +59,15 @@ For each fill alert in the report:
 1. Verify the order exists in portfolio.json pending_orders (correct ticker, price, shares, order_type).
 2. Cross-reference day_low from status-raw.md portfolio_status output.
 3. BUY fill: day_low <= order_price means potential fill. day_low > order_price means NOT filled.
-4. SELL fill: day_high >= order_price means potential fill. day_high < order_price means NOT filled.
+4. SELL fill: day_high >= order_price means potential fill. If day_high is not available in status-raw.md, note as "Unable to verify — day_high missing" (Minor, not Critical).
 5. Verify the alert doesn't claim a fill when the day's price didn't reach the order.
-6. Verify no potential fills were missed — scan ALL pending orders against day low/high.
+6. Cross-check against `**FILLED?**` markers in status-raw.md — every marker must have a corresponding fill alert in the report, and no fill alert should exist without a corresponding marker.
+7. Verify no potential fills were missed — scan all pending orders for positions with shares > 0 against day low/high. For watchlist pending orders (shares = 0), check separately and note any potential new-position fills as informational (Minor).
 
 ### Step 4: Data Consistency Verification
 
 1. **Shares & Avg Cost:** Must match portfolio.json exactly for each position.
-2. **Pending Orders:** Every pending order in portfolio.json for active positions must appear in the report (correct price, shares, order_type).
+2. **Pending Orders:** Every pending order in portfolio.json for positions with shares > 0 must appear in the Per-Position Detail section (correct price, shares, order_type). Pending orders for watchlist tickers (shares = 0) should appear in the Watchlist section or notes.
 3. **Strategy labels:** Must match portfolio.json notes/labels where available.
 4. **Current prices:** Must match the portfolio_status.py output in status-raw.md.
 5. **Watchlist coverage:** Every ticker in portfolio.json watchlist must appear in the Watchlist table.
@@ -85,11 +86,18 @@ For each Context Flag in Per-Position Detail:
 
 1. **Earnings dates:** If claimed from status-raw.md cached data, verify the date and day-count math.
 2. **Short squeeze scores:** Must match the short_interest data in status-raw.md.
-3. **Near-fill distances:** distance = (current_price − order_price) / current_price × 100. Verify within +-0.2%.
+3. **Near-fill distances:** For BUY orders: distance = (current_price − order_price) / current_price × 100. For SELL orders: distance = (order_price − current_price) / current_price × 100. Both should be positive values. Verify within +-0.2%.
 4. **Sell target proximity:** Distance to sell target must be arithmetically correct.
 5. **Time stops:** "3+ weeks" claim — verify position entry date (if available) is indeed 21+ days ago.
 
-### Step 7: Write Review Output
+### Step 7: Capital Summary Verification
+
+1. **Deployed totals:** Sum of (shares × avg_cost) for all positions in portfolio.json must match the reported total deployed. Allow $0.02 × N tolerance.
+2. **Strategy breakdown:** Deployed amounts per strategy (Mean Reversion, Velocity, Bounce) must match the sum of positions tagged to each strategy.
+3. **Budget usage %:** If reported, verify: deployed / budget × 100. Allow +-0.2% tolerance.
+4. **Velocity & Bounce section:** If active trades exist in portfolio.json velocity/bounce sections, verify they appear. If none exist, verify the report states "No active velocity/bounce trades."
+
+### Step 8: Write Review Output
 
 Write `status-review.md` with:
 
@@ -107,6 +115,7 @@ Write `status-review.md` with:
 | Data Consistency | PASS/FAIL | [N mismatches] |
 | Sorting & Ordering | PASS/FAIL | [N issues] |
 | Context Flags | PASS/FAIL | [N errors] |
+| Capital Summary | PASS/FAIL | [N errors] |
 
 ## Math Errors
 [Table of discrepancies, or "No math errors found."]
@@ -125,6 +134,9 @@ Write `status-review.md` with:
 ## Context Flag Errors
 [List of errors, or "No context flag errors found."]
 
+## Capital Summary Errors
+[List of errors, or "No capital summary errors found."]
+
 ## Notes
 [Observations about report quality, areas of strength, or suggestions for improvement]
 ```
@@ -132,7 +144,7 @@ Write `status-review.md` with:
 **Verdict rules:**
 
 Severity definitions:
-- **Critical:** wrong P/L math, missed/false fill alerts, missing positions, fabricated data
+- **Critical:** wrong P/L math, wrong capital summary math, missed/false fill alerts, missing positions, fabricated data
 - **Minor:** rounding differences within tolerance, non-material ordering issues, stylistic gaps
 
 Check-level result:
@@ -140,7 +152,7 @@ Check-level result:
 - A check **PASSes** if it has zero Critical issues (Minor notes are allowed and should be listed but do not trigger FAIL).
 
 Overall verdict:
-- **PASS** — all 5 checks pass (may include Minor notes)
+- **PASS** — all 6 checks pass (may include Minor notes)
 - **ISSUES** — one or more checks FAILed due to Critical issues. List all Critical and Minor findings with severity labels.
 
 ## Output Format
@@ -160,7 +172,7 @@ All output files use markdown tables with `| :--- |` alignment. No ASCII art, no
 
 **Artifact:** status-review.md
 **Verdict:** PASS / ISSUES
-**Checks passed:** [N]/5 ([N] with minor notes)
+**Checks passed:** [N]/6 ([N] with minor notes)
 **Issues found:** [N] ([N] critical, [N] minor)
 
 Status review complete.

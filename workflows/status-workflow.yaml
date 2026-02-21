@@ -2,7 +2,8 @@ name: status-workflow
 description: >
   Daily portfolio status report. Phase 1 runs tools to collect live prices,
   fill detection, and per-ticker structural data. Phase 2 compiles the final
-  actionable report in Position Reporting Order.
+  actionable report in Position Reporting Order. Phase 3 independently verifies
+  math, fill detection, data consistency, ordering, and context flags.
 
 version: "1.1.0"
 
