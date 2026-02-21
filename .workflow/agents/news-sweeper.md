@@ -146,6 +146,7 @@ All output files use markdown tables with `| :--- |` alignment. No ASCII art, no
 
 **Artifact:** news-sweep-raw.md
 **Tickers swept:** [N] ([T1] active, [T2] pending, [T3] watch)
+**No news data:** [N] or none
 **Failures:** [N] or none
 
 Ready for cross-ticker analysis.

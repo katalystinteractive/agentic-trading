@@ -76,7 +76,7 @@ Identify 5 types of conflicts:
 
 - **Type B — Bearish + Pending BUYs:** Any ticker with Bearish sentiment and pending BUY orders. Note both interpretations: mean-reversion opportunity (bearish sentiment = price weakness = potential entry) vs fundamental deterioration (bearish news = avoid).
 
-- **Type C — Bullish + Pending SELL Near Target:** Tier 1 ticker with Bullish sentiment and a pending SELL order, where current price is within 15% of the sell target price (use Current Price from the Portfolio Context table). Positive signal — momentum may carry through target.
+- **Type C — Bullish + Pending SELL Near Target:** Tier 1 ticker with Bullish sentiment and a pending SELL order, where current price is at least 85% of the sell target price — i.e., approaching from below (use Current Price from the Portfolio Context table). Positive signal — momentum may carry through target.
 
 - **Type D — Dilution/Equity Catalyst:** Any ticker with an "Equity" catalyst detected (offering, dilution, secondary). Structural risk regardless of overall sentiment.
 
@@ -112,11 +112,13 @@ Write `news-sweep-report.md` with this structure:
 **Distribution:** N Bullish / N Neutral / N Bearish / N No Data
 
 ## Cross-Ticker Themes
+[If no themes detected: "No cross-ticker themes detected."]
 ### [Theme Name]
 **Tickers:** [list] | **Direction:** [Bullish/Bearish/Mixed] | **Urgency:** [Low/Medium/High]
 [1-2 sentence summary]
 
 ## Risk Flags
+[If no flags: "No sentiment-position conflicts detected."]
 | # | Type | Ticker | Finding |
 | :--- | :--- | :--- | :--- |
 [one row per flag, sorted by type priority A→E]
@@ -125,6 +127,7 @@ Write `news-sweep-report.md` with this structure:
 [1-2 sentences per flag explaining the conflict and why it matters]
 
 ## Actionable Recommendations
+[If no recommendations: "No actionable items at this time."]
 1. **[Category]** — [Ticker]: [finding]. *Next step: [action].*
 2. ...
 
