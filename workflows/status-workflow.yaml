@@ -1,0 +1,33 @@
+name: status-workflow
+description: >
+  Daily portfolio status report. Phase 1 runs tools to collect live prices,
+  fill detection, and per-ticker structural data. Phase 2 compiles the final
+  actionable report in Position Reporting Order.
+
+version: "1.0.0"
+
+phases:
+  - id: gather
+    name: Data Gathering
+    description: Run portfolio_status.py and ticker_query.py to collect all raw data
+    agent: status-gatherer
+    artifacts:
+      - status-raw.md
+    timeout_minutes: 10
+
+  - id: report
+    name: Status Report
+    description: Compile final actionable status report from raw data
+    agent: status-analyst
+    depends_on:
+      - gather
+    requires:
+      - status-raw.md
+    artifacts:
+      - status-report.md
+    timeout_minutes: 8
+
+settings:
+  max_fix_iterations: 0
+  require_approval: false
+  timeout_minutes: 18
