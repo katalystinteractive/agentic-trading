@@ -105,7 +105,7 @@ Write a persona following the exact pattern from exemplar files:
 **"The [Descriptor]."** followed by 2-3 sentences covering:
 - What the company does / sector
 - Key volatility characteristic (monthly swing %, consistency %)
-- Support structure headline (best levels, notable gaps)
+- Support structure headline (best levels, notable gaps) — **for BLOCKED identities:** replace with "Support levels identified but wick-adjusted buy prices pending."
 - Strategic angle (what makes this stock a good mean-reversion target)
 
 ### Step 7: Write Identity File
@@ -165,7 +165,8 @@ Write `tickers/<TICKER>/identity.md` matching the exact format. Structure:
 
 - **Update** `portfolio.json`:
   - Add TICKER to the `watchlist` array
-  - Add a new key `"<TICKER>"` in the `pending_orders` object with an array of order objects matching the bullet plan. Each order: `{"type": "BUY", "price": <buy_at>, "shares": <N>, "note": "Bullet N — $X.XX [source], [hold%] hold rate, [Tier] tier, wick-adjusted"}`
+  - **If BLOCKED:** add `"<TICKER>": []` to `pending_orders` (empty array — no orders until wick data available)
+  - **If not BLOCKED:** add a new key `"<TICKER>"` in the `pending_orders` object with an array of order objects matching the bullet plan. Each order: `{"type": "BUY", "price": <buy_at>, "shares": <N>, "note": "Bullet N — $X.XX [source], [hold%] hold rate, [Tier] tier, wick-adjusted"}`
   - Do NOT create an entry in the `positions` object — new tickers start with no position
 
 ### Step 9: Note Supplementary Findings
@@ -196,8 +197,9 @@ All output files use markdown tables with `| :--- |` alignment. No ASCII art, no
 **Artifact:** tickers/<TICKER>/identity.md
 **Ticker:** <TICKER>
 **Status:** NEW / EXISTING
-**Active bullets:** [N] (B1-B[N], total ~$[X])
-**Reserve bullets:** [N] (R1-R[N], total ~$[X])
+**Blocked:** yes / no
+**Active bullets:** [N] (B1-B[N], total ~$[X]) — or "0 (BLOCKED)" if wick tool failed
+**Reserve bullets:** [N] (R1-R[N], total ~$[X]) — or "0 (BLOCKED)" if wick tool failed
 **Persona:** "The [Descriptor]."
 **Portfolio.json updated:** yes / no (existing tickers: no)
 

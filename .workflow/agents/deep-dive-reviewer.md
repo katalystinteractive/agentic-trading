@@ -173,7 +173,7 @@ All output files use markdown tables with `| :--- |` alignment. No ASCII art, no
 **Artifact:** deep-dive-review.md
 **Ticker:** <TICKER>
 **Verdict:** PASS / ISSUES
-**Checks passed:** [N]/7
+**Checks passed:** [N]/[T] (where T = 7 for normal, 3 for BLOCKED path)
 **Issues found:** [N] or none
 
 Deep dive review complete.
