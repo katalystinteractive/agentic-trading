@@ -52,7 +52,7 @@ Read `portfolio.json` and compute the union of all tickers across `positions`, `
 
 For each ticker, record portfolio context:
 - Tier 1: shares, avg_cost, target_exit, count of pending BUY orders, count of pending SELL orders
-- Tier 2: count of pending BUY orders, total BUY $ exposure
+- Tier 2: count of pending BUY orders
 - Tier 3: "watch only"
 
 ### Step 3: Run news_sentiment.py Per Ticker
@@ -114,11 +114,13 @@ Write `news-sweep-raw.md` organized by tier:
 [top 3 headlines as mini-table: Date | Source | Headline | Sentiment | Score]
 
 ## Tier 2 — Pending Entry
+[If no Tier 2 tickers: "No tickers in this tier."]
 
 ### <TICKER>
 [same structure]
 
 ## Tier 3 — Watch Only
+[If no Tier 3 tickers: "No tickers in this tier."]
 
 ### <TICKER>
 [same structure]

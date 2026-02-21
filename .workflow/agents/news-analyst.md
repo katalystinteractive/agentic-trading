@@ -44,7 +44,7 @@ Build a table sorted by tier (Tier 1 first), then by average score ascending (mo
 | Ticker | Tier | Current Price | Overall Sentiment | Avg Score | Pos% | Neg% | Top Catalyst |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 
-Include ALL tickers, including Tier 3. Report distribution summary: N Bullish / N Neutral / N Bearish.
+Include ALL tickers, including Tier 3. For tickers with "No news data available" from the sweep, show "N/A" in sentiment columns (Overall Sentiment, Avg Score, Pos%, Neg%, Top Catalyst) and exclude them from the distribution count. Report distribution summary: N Bullish / N Neutral / N Bearish / N No Data.
 
 ### Step 3: Detect Cross-Ticker Themes
 
@@ -83,7 +83,7 @@ Identify 5 types of conflicts:
 Produce a ranked list ordered by urgency:
 
 1. **Immediate Review** — Type A conflicts (bearish + active position)
-2. **Earnings Gates** — Type E conflicts (earnings catalyst on active position)
+2. **Earnings Gates** — Type E conflicts (earnings catalyst on active position or pending entry)
 3. **Dilution Risk** — Type D conflicts (equity catalyst on any ticker)
 4. **Pending Order Review** — Type B conflicts with fundamental concerns
 5. **Positive Momentum** — Type C signals (bullish + near sell target)
