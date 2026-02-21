@@ -40,7 +40,7 @@ Run portfolio status to get live prices for all tickers:
 python3 tools/portfolio_status.py
 ```
 
-Capture the output. Extract each ticker's current price and day change % from the portfolio status tables (positions table and watchlist table).
+Capture the output. Extract each ticker's current price and day change % from the portfolio status tables (positions table and watchlist table). If portfolio_status.py fails, use "N/A" for all price columns and note the failure in Sweep Summary — news collection is the primary purpose and should continue regardless.
 
 ### Step 2: Build Ticker List
 
