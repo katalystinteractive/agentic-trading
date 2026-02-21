@@ -68,7 +68,7 @@ For each fill alert in the report:
 
 1. **Shares & Avg Cost:** Must match portfolio.json exactly for each position.
 2. **Pending Orders:** Every pending order in portfolio.json for positions with shares > 0 must appear in the Per-Position Detail section (correct price, shares, order_type). Pending orders for watchlist tickers (shares = 0) should appear in the Watchlist section or notes.
-3. **Strategy labels:** All positions in portfolio.json `positions` map are Mean Reversion. Positions with "recovery mode" in their `note` field should be labeled "Mean Reversion (Recovery)" in the report. Velocity/Bounce positions appear in separate portfolio.json sections, not in the main `positions` map.
+3. **Strategy labels:** All positions in portfolio.json `positions` map are Mean Reversion. Positions whose `note` field contains "recovery", "underwater", or "pre-strategy" should be labeled "Mean Reversion (Recovery)" in the report. Velocity/Bounce positions appear in separate portfolio.json sections, not in the main `positions` map.
 4. **Current prices:** Must match the portfolio_status.py output in status-raw.md.
 5. **Watchlist coverage:** Every ticker in portfolio.json `watchlist` array that has shares = 0 must appear in the Watchlist table. Tickers with shares > 0 are active positions and appear in the Heat Map / Per-Position Detail instead.
 6. **No extra tickers:** No position or watchlist ticker in the report that doesn't exist in portfolio.json.
@@ -97,6 +97,7 @@ For each Context Flag in Per-Position Detail:
 2. **Strategy breakdown:** Deployed amounts per strategy (Mean Reversion, Velocity, Bounce) must match the sum of positions in the corresponding portfolio.json sections. All positions in the main `positions` map are Mean Reversion; velocity/bounce positions live in their own sections.
 3. **Budget usage %:** If reported, verify: deployed / budget × 100. Allow +-0.2% tolerance.
 4. **Velocity & Bounce section:** If active trades exist in portfolio.json velocity/bounce sections, verify they appear. If none exist, verify the report states "No active velocity/bounce trades."
+5. **Cross-check sanity:** Verify total_deployed + total_P/L (from Heat Map TOTAL row) = total_current_value. This catches cascading arithmetic errors across Steps 2 and 7.
 
 ### Step 8: Write Review Output
 
@@ -145,7 +146,7 @@ Write `status-review.md` with:
 **Verdict rules:**
 
 Severity definitions:
-- **Critical:** wrong P/L math, wrong capital summary math, missed/false fill alerts, missing positions, fabricated data
+- **Critical:** wrong P/L math, wrong capital summary math, missed/false fill alerts, missing positions, missing pending orders for active positions, fabricated data
 - **Minor:** rounding differences within tolerance, non-material ordering issues, stylistic gaps
 
 Check-level result:
@@ -186,4 +187,5 @@ Status review complete.
 - Do NOT modify portfolio.json or any ticker files
 - Do NOT apply subjective quality judgments — only verify factual accuracy
 - Do NOT dismiss rounding as acceptable unless within stated tolerances
+- Do NOT modify status-raw.md — it is the ground truth document
 - Do NOT verify data against external sources — only against status-raw.md and portfolio.json
