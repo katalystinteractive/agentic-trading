@@ -1,0 +1,49 @@
+name: surgical-candidate-workflow
+description: >
+  Screen, verify, and select surgical mean-reversion candidates.
+  Phase 1 runs screener script and grades 20 candidates.
+  Phase 2 verifies grades against raw data.
+  Phase 3 stress-tests for reliability and portfolio fit, producing final top 3.
+
+version: "1.0.0"
+
+phases:
+  - id: screen
+    name: Candidate Screening
+    description: Run surgical_screener.py, grade top 20 on 100-point scale, select top 10
+    agent: surgical-screener
+    artifacts:
+      - screening_data.md
+      - candidate-evaluation.md
+    timeout_minutes: 20
+
+  - id: verify
+    name: Candidate Verification
+    description: Cross-reference grades against raw wick data, check for errors and missed flags
+    agent: surgical-verifier
+    depends_on:
+      - screen
+    requires:
+      - screening_data.md
+      - candidate-evaluation.md
+    artifacts:
+      - candidate-verification.md
+    timeout_minutes: 15
+
+  - id: critic
+    name: Final Selection
+    description: Stress-test for reliability, portfolio fit, entry timing. Produce ranked top 3.
+    agent: surgical-critic
+    depends_on:
+      - verify
+    requires:
+      - candidate-evaluation.md
+      - candidate-verification.md
+    artifacts:
+      - candidate-final.md
+    timeout_minutes: 10
+
+settings:
+  max_fix_iterations: 1
+  require_approval: false
+  timeout_minutes: 45
