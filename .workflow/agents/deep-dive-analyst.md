@@ -62,7 +62,7 @@ From the 13-month wick history and technical scanner data:
 
 ### Step 4: Build Wick-Adjusted Buy Levels Table
 
-**If the wick offset analyzer failed** (check "Tool Failures" section in deep-dive-raw.md): write identity.md with persona and supplementary notes only. Set Bullet Plan to "Pending — wick offset analysis required. Re-run deep-dive after resolving tool failure." Set Status to "**BLOCKED — no wick data.**" Skip Steps 5-6 and proceed to Step 8.
+**If the wick offset analyzer failed** (check "Tool Failures" section in deep-dive-raw.md): skip this step and Step 5 (Bullet Plan). Proceed to Step 6 (Craft Persona) and Step 7 (Write Identity File). In the identity file, set the Wick-Adjusted Buy Levels table to empty, set Bullet Plan to "Pending — wick offset analysis required. Re-run deep-dive after resolving tool failure.", and set Status to "**BLOCKED — no wick data.**"
 
 From the wick offset analysis output, build the buy levels table:
 

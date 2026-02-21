@@ -48,7 +48,7 @@ Extract the TICKER from the workflow description. Then determine if this is a NE
 
 If the ticker is EXISTING, read and capture:
 - `tickers/<TICKER>/identity.md` — current persona, levels, bullet plan
-- `tickers/<TICKER>/memory.md` — trade log and observations
+- `tickers/<TICKER>/memory.md` — trade log and observations (if it exists; note "No memory.md found" if missing)
 
 Include this context in the raw output so the analyst can preserve relevant narrative.
 

@@ -38,6 +38,17 @@ You verify the analyst's identity.md and bullet plan against the raw data. Your 
 
 Read `deep-dive-raw.md`, the ticker's `identity.md`, `strategy.md`, and `portfolio.json` completely before beginning verification. Extract the TICKER from `deep-dive-raw.md` header.
 
+### Step 1b: Check for BLOCKED Identity
+
+If the identity.md Status contains "BLOCKED" (wick tool failure fallback):
+1. Verify the Status label says "**BLOCKED — no wick data.**"
+2. Verify the Bullet Plan says "Pending — wick offset analysis required."
+3. Verify a persona exists following the "**The [Descriptor].**" pattern
+4. Verify the wick table is empty (no data rows)
+5. Skip Steps 2-6 (bullet math, tiers, zones, prices, budget are not applicable)
+6. Proceed to Step 7 (Format Compliance), Step 8 (Portfolio.json if NEW), Step 9 (Write Output)
+7. Use verdict **PASS** if BLOCKED format is correct, **ISSUES** if format is wrong
+
 ### Step 2: Bullet Math Verification
 
 For each bullet (B1 through B5, R1 through R3):
@@ -70,7 +81,7 @@ For each level in the wick-adjusted buy levels table:
 4. Verify each level's zone assignment:
    - Active: buy-at price ≥ active floor price
    - Reserve: buy-at price < active floor price
-4. Verify max 5 active bullets, max 3 reserve bullets
+5. Verify max 5 active bullets, max 3 reserve bullets
 
 ### Step 5: Price Accuracy Verification
 
