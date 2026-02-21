@@ -1,0 +1,46 @@
+name: deep-dive-workflow
+description: >
+  Full deep dive analysis on a single ticker. Phase 1 runs all data collection
+  tools. Phase 2 compiles identity.md with persona, wick-adjusted buy levels,
+  and bullet plan. Phase 3 verifies bullet math, tier/zone accuracy, and budget
+  compliance. Handles both new ticker onboarding and existing position refresh.
+
+version: "1.0.0"
+
+phases:
+  - id: collect
+    name: Data Collection
+    description: Run all 8 analysis tools for the target ticker
+    agent: deep-dive-collector
+    artifacts:
+      - deep-dive-raw.md
+    timeout_minutes: 15
+
+  - id: compile
+    name: Identity Compilation
+    description: Synthesize raw data into identity.md with persona, wick table, bullet plan
+    agent: deep-dive-analyst
+    depends_on:
+      - collect
+    requires:
+      - deep-dive-raw.md
+    artifacts:
+      - identity.md
+    timeout_minutes: 15
+
+  - id: review
+    name: Bullet Plan Review
+    description: Verify bullet math, tier/zone classifications, budget compliance
+    agent: deep-dive-reviewer
+    depends_on:
+      - compile
+    requires:
+      - deep-dive-raw.md
+    artifacts:
+      - deep-dive-review.md
+    timeout_minutes: 8
+
+settings:
+  max_fix_iterations: 1
+  require_approval: false
+  timeout_minutes: 38
