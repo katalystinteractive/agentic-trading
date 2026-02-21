@@ -186,7 +186,7 @@ All output files use markdown tables with `| :--- |` alignment. No ASCII art, no
 
 **Artifact:** news-sweep-review.md
 **Verdict:** PASS / ISSUES
-**Checks passed:** [N]/5
+**Checks passed:** [N]/5 ([N] with minor notes)
 **Discrepancies found:** [N] ([N] critical, [N] minor)
 
 News sweep review complete.
