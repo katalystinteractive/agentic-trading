@@ -96,6 +96,7 @@ Write `news-sweep-raw.md` organized by tier:
 | Tier 1 (Active) | [N] |
 | Tier 2 (Pending) | [N] |
 | Tier 3 (Watch) | [N] |
+| No News Data | [N] |
 | Failures | [N] |
 
 ## Portfolio Context

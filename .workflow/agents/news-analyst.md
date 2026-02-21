@@ -29,7 +29,7 @@ You produce the cross-ticker news analysis report from the raw sweep data. Your 
 
 - `news-sweep-raw.md` — condensed sentiment data for all portfolio tickers (from Phase 1)
 - `portfolio.json` — single source of truth for positions, pending orders, capital
-- `strategy.md` — the master strategy rulebook (earnings exit rule, zone definitions, bullet sizing)
+- `strategy.md` — the master strategy rulebook (specifically the Earnings Rule in Exit Protocol)
 
 ## Process
 
@@ -39,7 +39,7 @@ Read `news-sweep-raw.md`, `portfolio.json`, and `strategy.md` completely before 
 
 ### Step 2: Build Sentiment Heatmap
 
-Build a table sorted by tier (Tier 1 first), then by average score ascending (most bearish first within each tier):
+Build a table sorted by tier (Tier 1 first), then by average score ascending (most bearish first within each tier). Sort N/A tickers (no news data or failures) to the bottom of their tier section.
 
 | Ticker | Tier | Current Price | Overall Sentiment | Avg Score | Pos% | Neg% | Top Catalyst |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
