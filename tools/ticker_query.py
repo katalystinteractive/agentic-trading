@@ -208,18 +208,16 @@ def query_ticker(ticker, section=None):
             parts.append(f"*No identity.md found for {ticker}.*")
 
     if section in (None, "levels"):
+        rows = []
         content = _read_file(ticker_dir / "identity.md")
         if content:
             rows = _parse_wick_table(content)
-            parts.append(_fmt_levels(ticker, rows))
-        else:
-            # Try wick_analysis.md as fallback
+        # Fallback to wick_analysis.md if identity.md missing or has no table
+        if not rows:
             content = _read_file(ticker_dir / "wick_analysis.md")
             if content:
                 rows = _parse_wick_table(content)
-                parts.append(_fmt_levels(ticker, rows))
-            else:
-                parts.append(f"*No wick data found for {ticker}.*")
+        parts.append(_fmt_levels(ticker, rows))
 
     if section in (None, "memory"):
         content = _read_file(ticker_dir / "memory.md")
