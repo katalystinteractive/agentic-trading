@@ -110,8 +110,9 @@ For each level in the wick-adjusted buy levels table:
 If the ticker was classified as NEW in `deep-dive-raw.md`:
 
 1. Verify TICKER was added to `watchlist` array
-2. Verify pending_orders match the bullet plan (prices and shares)
-3. Verify NO entry exists in the `positions` object for this ticker — new tickers start without a position entry
+2. **If BLOCKED:** verify pending_orders for this ticker is an empty array `[]`
+3. **If not BLOCKED:** verify pending_orders match the bullet plan (prices and shares)
+4. Verify NO entry exists in the `positions` object for this ticker — new tickers start without a position entry
 
 ### Step 9: Write Review Output
 

@@ -143,7 +143,8 @@ Write `tickers/<TICKER>/identity.md` matching the exact format. Structure:
 ### Step 8: Handle Ticker Based on Status
 
 **If EXISTING ticker**, do the following:
-- **Update** `identity.md` with fresh data from this analysis
+- **If BLOCKED:** do NOT overwrite `identity.md` — the existing identity has working wick data and bullet plan. Preserve it. Note the wick tool failure in the HANDOFF so the user knows to re-run later.
+- **If not BLOCKED:** update `identity.md` with fresh data from this analysis.
 - **Do NOT modify** `memory.md` — trade logs and observations are preserved as-is
 - **Do NOT modify** `portfolio.json` — existing positions and orders stay
 - Skip to Step 9.
