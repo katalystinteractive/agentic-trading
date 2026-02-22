@@ -4,7 +4,7 @@ internal_code: MKT-ANLST
 description: >
   Classifies market regime (Risk-On / Neutral / Risk-Off) from raw data.
   Applies the Market Context Entry Gate from strategy.md to all pending BUY
-  orders. Produces market-context-report.md with gate decisions per ticker.
+  orders. Produces market-context-report.md with gate decisions per order.
 capabilities:
   file_read: true
   file_write: true

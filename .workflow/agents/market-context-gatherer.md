@@ -30,7 +30,8 @@ You run `market_pulse.py` and gather all raw data needed for the market context 
 
 - `portfolio.json` — single source of truth for positions, pending orders, watchlist, capital
 - `strategy.md` — the master strategy rulebook (for reference only)
-- Access to `tools/market_pulse.py`
+- Access to `tools/market_pulse.py` — fetches market indices, VIX, sector performance
+- Access to `tools/portfolio_status.py` — fetches live prices for all portfolio tickers
 
 ## Process
 
@@ -59,12 +60,15 @@ for the analyst to compute the 15% deep-support threshold in Risk-Off mode.
 
 ### Step 3: Extract Pending BUY Orders
 
-Read `portfolio.json`. For each pending BUY order (one row per order, not per ticker):
+Read `portfolio.json`. First, for each unique ticker with pending BUY orders, read
+`tickers/<TICKER>/identity.md` once to determine the sector (cache the result).
+
+Then, for each pending BUY order (one row per order, not per ticker):
 - Record the order price and shares
 - Look up the ticker's current price from Step 2
 - Compute `% Below Current`: `(current_price - order_price) / current_price * 100`
+- Assign the cached sector for that ticker
 - Note whether the ticker has an active position (shares > 0) or is watchlist-only (shares = 0)
-- Read `tickers/<TICKER>/identity.md` if it exists to determine the ticker's sector
 
 ### Step 4: Extract Active Positions
 

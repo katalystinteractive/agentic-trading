@@ -144,8 +144,8 @@ Write `market-context-review.md`:
 
 [table or "No entry gate errors found."]
 
-| Ticker | Assigned Status | Expected Status | Reason | Severity |
-| :--- | :--- | :--- | :--- | :--- |
+| Ticker | Order Price | Assigned Status | Expected Status | Reason | Severity |
+| :--- | :--- | :--- | :--- | :--- | :--- |
 
 ## Data Mismatches
 
