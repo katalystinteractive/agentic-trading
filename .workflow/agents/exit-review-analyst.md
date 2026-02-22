@@ -55,7 +55,8 @@ For each active position (shares > 0), evaluate ALL 4 exit criteria:
 - Compute current P/L %: `((current_price - avg_cost) / avg_cost) * 100`
 - Compute distance to target_exit: `((target_exit - current_price) / current_price) * 100`
 - Status assignment:
-  - **AT TARGET**: P/L % >= 10%
+  - **EXCEEDED**: P/L % >= 12%
+  - **AT TARGET**: 10% <= P/L % < 12%
   - **APPROACHING**: P/L % 7-10%
   - **BELOW**: P/L % < 7%
 - For positions with null target_exit (recovery): show "N/A — no target set"
@@ -147,7 +148,7 @@ Write `exit-review-report.md` with this structure:
 | Criterion | Status | Detail |
 | :--- | :--- | :--- |
 | Time Stop | EXCEEDED/APPROACHING/WITHIN | [N] days held (entered [date]) |
-| Profit Target | AT TARGET/APPROACHING/BELOW | P/L [X]%, target [Y]% ([Z]% away) |
+| Profit Target | EXCEEDED/AT TARGET/APPROACHING/BELOW | P/L [X]%, target [Y]% ([Z]% away) |
 | Earnings Gate | GATED/APPROACHING/CLEAR | [N] days to earnings / unknown |
 | Momentum | Bullish/Neutral/Bearish | RSI [X], MACD [signal], [trend] |
 
