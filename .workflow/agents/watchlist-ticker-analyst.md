@@ -42,6 +42,12 @@ For each pending BUY order, evaluate TWO gates:
 
 **Combined** = worst of both. Priority: ACTIVE < CAUTION < REVIEW < PAUSE
 
+### Step 1b: Fill Alert Detection
+
+For each pending BUY order, check the Day Range section:
+- If Day Low <= Order Price + 2%, flag as **near-fill** or **filled** (if Day Low <= Order Price)
+- Include fill alerts in the card's Buy Levels table Note column
+
 ### Step 2: Write Card
 
 Write `morning-work/{ticker}-card.md`:
@@ -56,6 +62,8 @@ For watchlist tickers WITH pending orders:
 **Buy Levels:**
 | Order Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+
+**Fill Alerts:** [any BUY orders near day low, or "None"]
 
 **News & Catalysts:** [summary from input file]
 ```

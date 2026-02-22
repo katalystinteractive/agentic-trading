@@ -137,7 +137,7 @@ Write `morning-work/{ticker}-card.md`:
 
 ```
 ### {TICKER} — {VERDICT} — P/L {X}%
-**State:** {shares} @ ${avg}, target ${exit} ({dist}% away), held {N} days
+**State:** {shares} @ ${avg}, target ${exit} ({dist}% away), held {N} days [Recovery with no target: "target N/A"]
 **Objective:** [specific to position situation]
 **Decision:** {VERDICT} + 1-sentence rationale + rule number
 
