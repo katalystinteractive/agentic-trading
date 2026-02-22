@@ -33,6 +33,12 @@ We employ a **Mean Reversion** strategy, targeting stocks that consistently fluc
     level as Active/Reserve and suggests a bullet plan.
 *   **Fallback:** If monthly swing cannot be computed (< 3 months data), a 15% active
     radius is used. Results should be validated manually in this case.
+*   **Earnings Entry Gate:** Before placing limit buy orders, check the earnings calendar
+    via `python3 tools/earnings_analyzer.py <TICKER>`. Do not place NEW buy orders if
+    earnings is <7 days away. Between 7-14 days, enter only with an explicit
+    exit-before-earnings plan documented in the ticker's identity.md. When earnings
+    enters the 7-day window for a ticker with existing pending buy orders, **PAUSE**
+    (do not cancel) those orders — they remain staged to catch a post-earnings drop.
 
 ### Limit Order Placement Rule
 **Never place a limit buy at the exact support level.** Use `python3 tools/wick_offset_analyzer.py <TICKER>` to calculate the data-driven buy price for each support level. The tool analyzes 13 months of wick behavior at each specific level and outputs the exact recommended buy price based on where wicks historically stopped. Place limit orders at the tool's "Buy At" price, not the raw support level. Re-run periodically as new data accumulates.
@@ -40,7 +46,70 @@ We employ a **Mean Reversion** strategy, targeting stocks that consistently fluc
 ### Exit Protocol
 *   **Profit Target:** 10-12% gain from the average cost basis.
 *   **Time Stop:** If target is not hit within **3 weeks**, review for exit (rotate capital).
-*   **Earnings Rule:** Generally exit or reduce position before earnings reports to avoid binary risk, unless specifically playing a post-earnings drift.
+*   **Earnings Rule:** Binary events (earnings calls) require position-specific
+    assessment, not a blanket exit. Use the Earnings Decision Framework below.
+
+### Earnings Decision Framework
+
+**Timing thresholds (days to earnings):**
+*   **GATED (<7 days):** Active decision required — evaluate per position type below.
+*   **APPROACHING (7-14 days):** Flag for review. No new entries without explicit
+    exit-before-earnings plan. Pause pending buy orders for non-recovery positions.
+*   **CLEAR (>14 days or unknown):** No earnings constraint.
+
+**Position-type decisions when GATED (<7 days):**
+
+1.  **Profitable swing trades (P/L > 0%, non-recovery):**
+    **EXIT or REDUCE** — lock in gains. The asymmetry is negative: a post-earnings
+    drop can erase the gain entirely (NU Q1 2025: -18.9% in one day), while the
+    incremental upside from holding through is marginal. Close the position or
+    reduce to a starter stake. Cancel or pause remaining buy orders.
+
+2.  **Underwater swing trades (P/L < 0%, non-recovery, still building bullets):**
+    **HOLD existing position, PAUSE pending buy orders.** The position is early-stage
+    — exiting abandons a setup you believe in and locks in a loss for no strategic
+    reason. Pending bullets at deeper support levels are designed to catch drops; a
+    post-earnings pullback is exactly the scenario they serve. If earnings spikes the
+    stock, you have exposure. Resume pending orders after the event. Exception: if
+    conviction in the stock has deteriorated (broken thesis, not just price), EXIT.
+
+3.  **Recovery positions (pre-strategy, underwater):**
+    Earnings may BE the recovery catalyst. Do not automatically reduce.
+    *   **With specific earnings thesis** (management responding to short report,
+        expected guidance beat, institutional accumulation into event, unchanged
+        price targets): **HOLD** — the binary event is the recovery path. Selling
+        deep underwater before the catalyst locks in losses and removes upside
+        exposure to the very event that could close the gap.
+    *   **Deep underwater (P/L < -20%) with no specific thesis:** **HOLD with
+        awareness** — marginal downside is limited when already this deep, while
+        recovery upside from a positive surprise is meaningful.
+    *   **Near breakeven recovery (P/L > -10%) with no thesis:** **REDUCE** —
+        protect the near-recovery by taking partial profits or cutting to starter.
+
+4.  **Fully-loaded positions (all active bullets used, non-recovery):**
+    Maximum exposure to the binary event. If profitable: **REDUCE** (take partial
+    gains off the table). If underwater with thesis: **HOLD**. If underwater with
+    no thesis: **HOLD** — bullets are exhausted and exiting now locks in the
+    maximum loss with no averaging path remaining.
+
+**Pending order management when GATED:**
+*   **PAUSE** (do not cancel) pending buy orders. Post-earnings drops are caught
+    by deeper support bullets — that's their purpose. Post-earnings spikes cause
+    no harm from unfilled orders. Resume orders after the event.
+*   Exception: Recovery positions with a specific earnings thesis — buy orders may
+    remain active if the thesis supports continued accumulation at those levels.
+*   **Never place NEW buy orders** when earnings is <7 days away.
+
+**Post-earnings protocol:**
+*   Resume paused pending orders.
+*   Re-run `earnings_analyzer.py` to update cached data with the new quarter.
+*   Evaluate the earnings outcome against the pre-event thesis.
+*   If the stock gapped down to a pending bullet level: let the bullet do its job.
+*   If the stock spiked: evaluate whether target exit is now within reach.
+
+**Periodic audit:** Weekly cross-check all pending limit orders against the earnings
+calendar. Flag any ticker where earnings is <14 days away and pending buy orders
+are still active. This prevents accidental fills into binary events.
 
 ### Position Reporting Order
 When reporting on active positions, always present information in this sequence:
@@ -60,7 +129,14 @@ When reporting on active positions, always present information in this sequence:
 
 ### Underwater Position Recovery ("Dig Out" Protocol)
 When a position was entered before the strategy was refined and is significantly underwater:
-*   **Earnings Gate:** If a binary event (earnings call) is approaching, gate the largest capital deployment on the event outcome. Keep a starter position to benefit from pre-event bounce, but reserve the majority of dry powder for post-event clarity.
+*   **Earnings Gate:** If a binary event (earnings call) is approaching, **gate new
+    capital deployment** — pause pending buy orders and reserve dry powder for
+    post-event clarity. **Hold the existing position** through the event: recovery
+    positions are underwater precisely because they need a catalyst, and earnings
+    may be that catalyst (especially when management must address specific concerns
+    like short reports, guidance questions, or revenue dependency). Sell only if the
+    recovery thesis has broken (not merely because earnings is near). See Earnings
+    Decision Framework above for the full position-type matrix.
 *   **Washout Discipline:** When a major psychological support breaks (e.g., $30), do not buy $1 below. Wait for the capitulation flush (typically 10-15% further down). Fewer shares at a deeper price achieve the same average reduction for less capital.
 *   **Relief Rally Validation:** After a sharp drop, the first bounce may be a "dead cat bounce." Validate by checking: (1) volume increasing on up days, (2) price holds above prior resistance for 2+ days, (3) RSI crosses back above 30.
 *   **LLM Cross-Verification:** When an LLM cites specific institutional buying (e.g., "JPMorgan +648%"), verify through `institutional_flow.py` before acting. Directional signals are usually correct, but specific names/numbers may be hallucinated.

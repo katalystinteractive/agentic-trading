@@ -66,7 +66,7 @@ For each active position (shares > 0), evaluate ALL 4 exit criteria:
   - **GATED**: earnings < 7 days away
   - **APPROACHING**: earnings 7-14 days away
   - **CLEAR**: earnings > 14 days away, or unknown/unavailable
-- If GATED: reference strategy.md Earnings Rule — exit/reduce before earnings
+- If GATED: reference strategy.md Earnings Decision Framework — apply position-type-specific assessment (not blanket reduce)
 
 #### 4. Recovery Assessment (conditional)
 - Only for positions whose `note` field in portfolio.json contains "recovery", "underwater", or "pre-strategy"
@@ -81,25 +81,39 @@ For each active position (shares > 0), evaluate ALL 4 exit criteria:
 Assign each position one of 4 verdicts:
 
 - **EXIT** — Time stop exceeded + weak/bearish momentum + no upcoming catalyst. Capital should rotate.
-- **REDUCE** — Partial exit warranted — earnings gate, time stop exceeded without strong bullish justification, or mixed signals
-- **HOLD** — Strong bullish catalyst justifies holding (squeeze setup, bullish technicals, approaching target)
+- **REDUCE** — Partial exit warranted — profitable position entering earnings, time stop exceeded without strong bullish justification, or mixed signals
+- **HOLD** — Strong bullish catalyst justifies holding (squeeze setup, bullish technicals, approaching target, recovery thesis through earnings)
 - **MONITOR** — Within time window but approaching stop, or position needs attention for other reasons
 
 **Verdict logic rules (apply in order — first match wins):**
 
-1. Earnings GATED (< 7 days) for any non-recovery position = **REDUCE** (earnings gate overrides all other factors — lock in gains or cut losses before binary event)
-2. Recovery + earnings GATED (< 7 days) = **REDUCE** (earnings gate applies to recovery too)
-3. Profit target AT TARGET (P/L >= 10%) = **HOLD** (in profit target range — let it reach 10-12% or review for exit near top of range)
-4. Profit target APPROACHING (7% <= P/L < 10%) = **HOLD** (approaching target — do not exit)
-5. Recovery + active squeeze catalyst (high squeeze score) or bullish relief rally signals (RSI recovering above 30, volume on up days) = **HOLD** with Dig Out rationale
-6. Recovery + bearish across all signals (no catalyst, deteriorating momentum, no relief rally setup) = **MONITOR** with Dig Out exit consideration
-7. Recovery + all other signal combinations = **HOLD** (default: recovery positions get time to recover; time stop is informational only)
-8. Time stop EXCEEDED + bearish RSI (< 40) + earnings CLEAR (> 14 days or unknown) = **EXIT**
-9. Time stop EXCEEDED + bullish technicals (RSI > 50, MACD bullish crossover or above signal) = **HOLD** with explicit bullish justification
-10. Time stop EXCEEDED + earnings APPROACHING (7-14 days) = **REDUCE**
-11. Time stop EXCEEDED + any other signal combination = **REDUCE** (time exceeded without clear bullish case — default to partial exit)
-12. Time stop APPROACHING (15-21 days) = **MONITOR** (with warning if bearish momentum)
-13. Time stop WITHIN (< 15 days) = **MONITOR** (standard tracking)
+**Earnings GATED rules (strategy.md Earnings Decision Framework):**
+
+1. Non-recovery + GATED (< 7 days) + P/L > 0% (profitable) = **REDUCE** (lock in gains — a post-earnings drop can erase the gain entirely; pause remaining pending buy orders)
+2. Non-recovery + GATED (< 7 days) + P/L <= 0% (underwater, still building) = **HOLD** + recommend pausing pending buy orders (position is early-stage — don't abandon a setup you believe in; deeper bullets catch post-earnings drops; exception: EXIT if conviction in the stock has broken)
+3. Recovery + GATED (< 7 days) + specific earnings thesis = **HOLD** (earnings IS the recovery catalyst — do not sell deep underwater before the event that could close the gap. A "specific thesis" means: management responding to short report/allegations, institutional accumulation into event, unchanged/raised price targets, expected guidance beat. Document the thesis in the Reasoning field.)
+4. Recovery + GATED (< 7 days) + no specific thesis + P/L > -10% (near breakeven) = **REDUCE** (protect the near-recovery with partial exit)
+5. Recovery + GATED (< 7 days) + no specific thesis + P/L <= -10% = **HOLD with awareness** (sufficiently underwater that marginal downside is limited; recovery upside from a positive surprise is meaningful)
+
+**Profit target rules:**
+
+6. Profit target AT TARGET (P/L >= 10%) = **HOLD** (in profit target range — let it reach 10-12% or review for exit near top of range)
+7. Profit target APPROACHING (7% <= P/L < 10%) = **HOLD** (approaching target — do not exit)
+
+**Recovery rules (non-GATED):**
+
+8. Recovery + active squeeze catalyst (high squeeze score) or bullish relief rally signals (RSI recovering above 30, volume on up days) = **HOLD** with Dig Out rationale
+9. Recovery + bearish across all signals (no catalyst, deteriorating momentum, no relief rally setup) = **MONITOR** with Dig Out exit consideration
+10. Recovery + all other signal combinations = **HOLD** (default: recovery positions get time to recover; time stop is informational only)
+
+**Time stop rules (non-recovery, non-GATED):**
+
+11. Time stop EXCEEDED + bearish RSI (< 40) + earnings CLEAR (> 14 days or unknown) = **EXIT**
+12. Time stop EXCEEDED + bullish technicals (RSI > 50, MACD bullish crossover or above signal) = **HOLD** with explicit bullish justification
+13. Time stop EXCEEDED + earnings APPROACHING (7-14 days) = **REDUCE**
+14. Time stop EXCEEDED + any other signal combination = **REDUCE** (time exceeded without clear bullish case — default to partial exit)
+15. Time stop APPROACHING (15-21 days) = **MONITOR** (with warning if bearish momentum)
+16. Time stop WITHIN (< 15 days) = **MONITOR** (standard tracking)
 
 ### Step 4: Compile Report
 
@@ -157,9 +171,11 @@ Write `exit-review-report.md` with this structure:
 ### Step 5: Cross-check Verdicts
 
 Before writing the final output, verify:
-- No position with P/L >= 7% gets EXIT verdict (rules 3-4 protect AT TARGET and APPROACHING positions — unless earnings GATED, which correctly triggers REDUCE via rules 1-2)
-- No recovery position gets EXIT verdict (rules 2, 5-7 handle recovery — worst case is MONITOR with exit consideration)
+- No position with P/L >= 7% gets EXIT verdict (rules 6-7 protect AT TARGET and APPROACHING positions)
+- No recovery position gets EXIT verdict (rules 3, 5, 8-10 handle recovery — worst case is MONITOR with exit consideration)
+- Earnings GATED verdicts match position type: profitable non-recovery → REDUCE (rule 1), underwater non-recovery → HOLD (rule 2), recovery with thesis → HOLD (rule 3), near-breakeven recovery no thesis → REDUCE (rule 4), deep underwater recovery no thesis → HOLD (rule 5)
 - Every HOLD verdict for a time-stop-exceeded position has explicit bullish justification in the Reasoning field
+- Every HOLD verdict for a GATED position has explicit position-type reasoning (why HOLD not REDUCE)
 - EXIT verdicts have concrete "rotate to" suggestions referencing watchlist tickers
 - Every position has all 4 criteria evaluated in the Exit Criteria Summary table
 
@@ -194,6 +210,7 @@ Exit analysis complete.
 - Do NOT modify portfolio.json or any ticker files
 - Do NOT fabricate data — if earnings date is unknown in exit-review-raw.md, report as "Unknown"
 - Do NOT estimate averages — compute P/L explicitly: `((current_price - avg_cost) / avg_cost) * 100`
-- Do NOT give EXIT verdict to positions with P/L >= 7% (AT TARGET or APPROACHING — rules 3-4), except earnings GATED triggers REDUCE via rule 1
-- Do NOT give EXIT verdict to recovery positions (rules 2, 5-7 — worst case is MONITOR)
+- Do NOT give EXIT verdict to positions with P/L >= 7% (AT TARGET or APPROACHING — rules 6-7)
+- Do NOT give EXIT verdict to recovery positions (rules 3, 5, 8-10 — worst case is MONITOR)
+- Do NOT give blanket REDUCE to all GATED positions — apply the Earnings Decision Framework by position type (rules 1-5). Underwater non-recovery positions HOLD through earnings; recovery positions with thesis HOLD through earnings.
 - Do NOT skip any of the 4 exit criteria for any position
