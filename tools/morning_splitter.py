@@ -121,13 +121,6 @@ def find_section_start(lines, header):
     return None
 
 
-def find_next_h2(lines, start_idx):
-    """Find the next ## header after start_idx."""
-    for i in range(start_idx + 1, len(lines)):
-        if lines[i].strip().startswith("## ") and not lines[i].strip().startswith("## #"):
-            return i
-    return len(lines)
-
 
 # ---------------------------------------------------------------------------
 # Table parsing

@@ -166,6 +166,8 @@ Write `morning-work/{ticker}-card.md`:
 [Current position + what if lower bullets fill. Monotonic check: lower buy → lower avg]
 [Recovery with null target: show breakeven only or "No target set (recovery position)"]
 
+**Fill Alerts:** [any BUY/SELL orders near day low/high from Day Range, or "None"]
+
 **News & Catalysts:** [1-3 bullet points from news in input]
 
 **Sector Context:** [sector ETF from Global Context]
