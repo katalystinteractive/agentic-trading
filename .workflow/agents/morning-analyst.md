@@ -184,7 +184,7 @@ Before compiling the report, verify:
 - No recovery position gets EXIT verdict (rules 3, 5, 8-10 handle recovery — worst case is MONITOR with exit consideration)
 - Recovery positions with P/L > 0% are reclassified as non-recovery (pre-check)
 - Earnings GATED verdicts match position type AND P/L sign: profitable (P/L > 0%) non-recovery → REDUCE (rule 1), **underwater (P/L <= 0%) non-recovery → HOLD (rule 2, NOT REDUCE)**, recovery with thesis → HOLD (rule 3), near-breakeven recovery no thesis → REDUCE (rule 4), deep underwater recovery no thesis → HOLD (rule 5). Double-check: any GATED position with P/L <= 0% and non-recovery must be HOLD, never REDUCE.
-- Every HOLD verdict for a time-stop-exceeded position has explicit bullish justification
+- Every HOLD verdict for a time-stop-exceeded position has explicit bullish justification (exception: HOLD from profit target rules 6-7 needs no bullish justification — the profit zone is sufficient)
 - Every HOLD verdict for a GATED position has explicit position-type reasoning
 - EXIT verdicts have concrete "rotate to" suggestions referencing watchlist tickers
 - Every position has all 4 criteria evaluated
