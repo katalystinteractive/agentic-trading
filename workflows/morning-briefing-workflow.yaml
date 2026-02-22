@@ -1,48 +1,67 @@
 name: morning-briefing-workflow
 description: >
-  Unified morning briefing combining status, exit review, market context, and
-  news into a single per-ticker action card document. Phase 1 gathers all raw
-  data (market, portfolio, earnings, technicals, news). Phase 2 classifies
-  regime, applies entry gates, evaluates exit verdicts, and synthesizes
-  per-ticker cards. Phase 3 verifies all math, logic, and coverage.
+  Unified morning briefing with parallel per-ticker analysis. Phase 1 gathers
+  data via morning_gatherer.py + morning_compiler.py (~2 min). Phase 2 runs
+  morning_splitter.py then fans out to parallel Sonnet mini-agents (one per
+  ticker, ~8 KB each). Phase 3 assembles per-ticker cards into the unified
+  morning-briefing.md with cross-ticker synthesis. Phase 4 verifies all math,
+  logic, and coverage.
 
-version: "1.0.0"
+version: "3.0.0"
 
 phases:
   - id: gather
-    name: Morning Data Gathering
-    description: Run all tools once and read all cached data for active + watchlist tickers
+    name: Morning Data Gathering & Compilation
+    description: Run morning_gatherer.py (all tools + derived fields) then morning_compiler.py (merge with cached ticker files + condense)
     agent: morning-gatherer
     artifacts:
+      - morning-tools-raw.md
       - morning-briefing-raw.md
-    timeout_minutes: 25
+      - morning-briefing-condensed.md
+    timeout_minutes: 5
 
   - id: analyze
-    name: Morning Analysis & Synthesis
-    description: Classify regime, apply entry gates, evaluate exit verdicts, produce per-ticker cards
-    agent: morning-analyst
+    name: Parallel Per-Ticker Analysis
+    description: Split condensed data into per-ticker files, then run parallel mini-agents for verdict/gate analysis
+    agent: active-ticker-analyst
+    fan_out:
+      command: "python3 tools/morning_splitter.py"
+      manifest: morning-work/manifest.json
+      items_key: tickers
+      id_field: ticker
+      agent_field: agent
+      concurrency: 6
+      item_timeout_minutes: 3
+      prompt_template: "Analyze {ticker}. Read {input_file}. Write card to morning-work/{ticker}-card.md."
+      allow_partial: true
     depends_on:
       - gather
-    requires:
-      - morning-briefing-raw.md
+    timeout_minutes: 10
+
+  - id: compile
+    name: Assemble Morning Briefing
+    description: Read all per-ticker cards and manifest, synthesize cross-ticker intelligence, assemble unified morning-briefing.md
+    agent: morning-assembler
+    depends_on:
+      - analyze
     artifacts:
       - morning-briefing.md
-    timeout_minutes: 15
+    timeout_minutes: 5
 
   - id: review
     name: Morning Verification
     description: Verify all math, verdict logic, gate logic, data consistency, and coverage
     agent: morning-critic
     depends_on:
-      - analyze
+      - compile
     requires:
-      - morning-briefing-raw.md
+      - morning-briefing-condensed.md
       - morning-briefing.md
     artifacts:
       - morning-briefing-review.md
-    timeout_minutes: 12
+    timeout_minutes: 15
 
 settings:
   max_fix_iterations: 0
   require_approval: false
-  timeout_minutes: 52
+  timeout_minutes: 35
