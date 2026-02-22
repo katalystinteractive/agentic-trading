@@ -1,0 +1,48 @@
+name: exit-review-workflow
+description: >
+  Periodic exit review for all active positions. Phase 1 collects live prices,
+  earnings dates, technical signals, and short interest. Phase 2 evaluates each
+  position against the 4 exit criteria (time stop, profit target, earnings gate,
+  momentum) and produces EXIT/REDUCE/HOLD/MONITOR verdicts. Phase 3 verifies
+  math, categorization, and coverage.
+
+version: "1.0.0"
+
+phases:
+  - id: gather
+    name: Exit Data Gathering
+    description: Run portfolio_status, earnings_analyzer, technical_scanner, and short_interest for all active positions
+    agent: exit-review-gatherer
+    artifacts:
+      - exit-review-raw.md
+    timeout_minutes: 15
+
+  - id: analyze
+    name: Exit Analysis
+    description: Evaluate each position against exit criteria and assign verdicts
+    agent: exit-review-analyst
+    depends_on:
+      - gather
+    requires:
+      - exit-review-raw.md
+    artifacts:
+      - exit-review-report.md
+    timeout_minutes: 12
+
+  - id: review
+    name: Exit Review Verification
+    description: Verify analyst's math, verdict logic, and coverage
+    agent: exit-review-critic
+    depends_on:
+      - analyze
+    requires:
+      - exit-review-raw.md
+      - exit-review-report.md
+    artifacts:
+      - exit-review-review.md
+    timeout_minutes: 10
+
+settings:
+  max_fix_iterations: 0
+  require_approval: false
+  timeout_minutes: 37
