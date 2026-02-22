@@ -32,7 +32,7 @@ For each pending BUY order, evaluate TWO gates:
 
 **Gate 1: Market Context Gate** (from regime in Global Context):
 - Risk-On: ACTIVE
-- Neutral: ACTIVE (CAUTION if VIX 20-25 and trending up)
+- Neutral: ACTIVE (CAUTION if VIX 20-25 and VIX 5D% is positive / trending up)
 - Risk-Off: PAUSE (watchlist tickers always PAUSE in Risk-Off)
 
 **Gate 2: Earnings Gate** (from Days to Earnings in Pending Orders):

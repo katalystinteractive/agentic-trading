@@ -86,10 +86,23 @@ Apply rules IN ORDER — first match wins:
 **Time stop rules (non-recovery, non-GATED):**
 11. EXCEEDED + bearish RSI (<40) + CLEAR = **EXIT**
 12. EXCEEDED + bullish technicals + CLEAR = **HOLD** with bullish justification
-13. EXCEEDED + APPROACHING earnings = **REDUCE**
+13. EXCEEDED + APPROACHING earnings = **REDUCE** (recommend pausing pending buy orders per strategy.md APPROACHING threshold — no new entries without explicit exit-before-earnings plan)
 14. EXCEEDED + other = **REDUCE**
-15. APPROACHING = **MONITOR** (with warning if bearish/earnings approaching)
-16. WITHIN = **MONITOR** (if earnings approaching, note in Decision)
+15. APPROACHING = **MONITOR** (with warning if bearish momentum. If earnings APPROACHING: note "Earnings approaching — flag for review; pause pending buy orders per strategy.md.")
+16. WITHIN = **MONITOR** (standard tracking. If earnings APPROACHING: note "Earnings approaching — flag for review; no new entries without explicit exit-before-earnings plan.")
+
+### Cross-Check Before Continuing
+
+Before proceeding, verify:
+- GATED + P/L > 0% (profitable) non-recovery → REDUCE (rule 1). NOT HOLD.
+- GATED + P/L <= 0% (underwater) non-recovery → HOLD (rule 2). NOT REDUCE.
+- Recovery + P/L > 0% → treat as non-recovery (pre-check).
+- No recovery position gets EXIT.
+- HOLD for time-stop-EXCEEDED (non-recovery) requires explicit bullish justification UNLESS P/L >= 7% (rules 6-7 provide sufficient justification via profit zone).
+- HOLD for GATED positions requires explicit position-type reasoning.
+- REDUCE means shares are actually sold. If action = "hold shares + pause orders", verdict = HOLD.
+
+If any check fails, fix the verdict before continuing.
 
 ### Step 3: Entry Gate Evaluation for Pending BUY Orders
 
@@ -97,7 +110,7 @@ For each pending BUY order, evaluate TWO gates:
 
 **Gate 1: Market Context Gate** (from regime in Global Context):
 - Risk-On: ACTIVE
-- Neutral: ACTIVE (CAUTION if VIX 20-25 and trending up)
+- Neutral: ACTIVE (CAUTION if VIX 20-25 and VIX 5D% is positive / trending up)
 - Risk-Off: Watchlist=PAUSE; Active>15% below=ACTIVE; Active<=15% below=REVIEW
 
 **Gate 2: Earnings Gate** (from Days to Earnings):

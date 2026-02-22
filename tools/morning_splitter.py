@@ -551,6 +551,7 @@ def main():
             "vix": regime_info["vix"],
             "reasoning": regime_info["reasoning"],
             "indices_above_sma": regime_info["indices_above_sma"],
+            "sector_breadth": regime_info["sector_breadth"],
         },
         "tickers": [],
         "capital": {
