@@ -44,7 +44,7 @@ For each position, compute `days_held` from the `entry_date` field:
 
 Determine time stop status for each position:
 - **EXCEEDED**: days_held > 21
-- **APPROACHING**: days_held 15-21
+- **APPROACHING**: days_held 15-21 (note: day 21 is APPROACHING, not EXCEEDED — the boundary is strictly > 21)
 - **WITHIN**: days_held < 15
 
 Compute `target_exit` distance: if `target_exit` is set in portfolio.json, note the target price. If null, note "No target (recovery)".

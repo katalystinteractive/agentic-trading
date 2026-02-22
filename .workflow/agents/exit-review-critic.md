@@ -70,13 +70,15 @@ Record each discrepancy with: ticker, field, expected value, report value.
 
 Verify each verdict follows the logic rules from the analyst's process:
 
-1. **EXIT requires ALL of:** time stop EXCEEDED + bearish momentum (RSI < 40) + no catalyst. Flag if any condition is NOT met.
-2. **HOLD for time-stop-exceeded positions** requires explicit bullish justification in the Reasoning field. Flag if missing or generic.
-3. **Recovery positions** must NOT get EXIT purely on time stop. Verify that any EXIT verdict for a recovery position cites additional bearish factors beyond time alone.
-4. **Positions with P/L >= 10%** must NOT get EXIT verdict (they are at target — should be HOLD).
-5. **REDUCE for earnings gate** requires earnings < 14 days. Verify the earnings date and day count.
+1. **EXIT requires ALL of:** time stop EXCEEDED + bearish momentum (RSI < 40) + earnings CLEAR (> 14 days or unknown). Flag if any condition is NOT met.
+2. **Positions with P/L >= 10%** must NOT get EXIT or REDUCE verdict (they are at target — should be HOLD).
+3. **Positions with P/L 7-10%** (APPROACHING target) must NOT get EXIT verdict — should be HOLD.
+4. **HOLD for time-stop-exceeded positions** requires explicit bullish justification in the Reasoning field. Flag if missing or generic.
+5. **Recovery positions** must NOT get EXIT verdict. Recovery verdicts are limited to REDUCE (earnings gate only), HOLD, or MONITOR. Flag EXIT for any recovery position.
 6. **Earnings GATED (< 7 days) non-recovery** must be REDUCE or EXIT. Flag if HOLD or MONITOR.
-7. **Profit target APPROACHING (7-10%)** should be HOLD. Flag if EXIT.
+7. **Earnings GATED (< 7 days) recovery** must be REDUCE. Flag if HOLD or MONITOR.
+8. **Earnings APPROACHING (7-14 days)** triggers REDUCE only when time stop is also EXCEEDED. Do NOT flag MONITOR/HOLD as wrong if time stop is not EXCEEDED.
+9. **Earnings CLEAR (> 14 days or unknown)** — no earnings-based verdict constraint.
 
 Record each verdict error with: ticker, assigned verdict, expected verdict, reason.
 

@@ -47,7 +47,7 @@ For each active position (shares > 0), evaluate ALL 4 exit criteria:
 - days_held from the Position Summary table in exit-review-raw.md
 - Status assignment:
   - **EXCEEDED**: days_held > 21
-  - **APPROACHING**: days_held 15-21
+  - **APPROACHING**: days_held 15-21 (note: day 21 is APPROACHING, not EXCEEDED — the boundary is strictly > 21)
   - **WITHIN**: days_held < 15
 - For non-ISO dates flagged as ">21 days (pre-strategy)": always EXCEEDED
 
@@ -88,15 +88,18 @@ Assign each position one of 4 verdicts:
 **Verdict logic rules (apply in order — first match wins):**
 
 1. Profit target AT TARGET (P/L >= 10%) = **HOLD** (let the target hit, regardless of time stop)
-2. Earnings GATED (< 7 days) for any non-recovery position = **REDUCE** (earnings gate takes priority)
-3. Recovery/underwater positions: time stop is informational only — verdict based on Dig Out Protocol progress, NOT time stop alone
-4. Time stop EXCEEDED + bearish RSI (< 40) + no earnings catalyst = **EXIT**
-5. Time stop EXCEEDED + bullish technicals (RSI > 50, MACD bullish crossover or above signal) = **HOLD** with explicit bullish justification
-6. Time stop EXCEEDED + earnings APPROACHING (7-14 days) = **REDUCE**
-7. Time stop EXCEEDED + mixed signals (RSI 40-50, neutral MACD) = **REDUCE**
-8. Time stop APPROACHING (15-21 days) + bearish momentum = **MONITOR** with warning
-9. Time stop WITHIN (< 15 days) = **MONITOR** (standard tracking)
-10. Profit target APPROACHING (7-10%) = **HOLD** (approaching target)
+2. Profit target APPROACHING (7% <= P/L < 10%) = **HOLD** (approaching target — do not exit)
+3. Earnings GATED (< 7 days) for any non-recovery position = **REDUCE** (earnings gate takes priority)
+4. Recovery + earnings GATED (< 7 days) = **REDUCE** (earnings gate applies to recovery too)
+5. Recovery + active squeeze catalyst (high squeeze score) or bullish relief rally signals (RSI recovering above 30, volume on up days) = **HOLD** with Dig Out rationale
+6. Recovery + bearish across all signals (no catalyst, deteriorating momentum, no relief rally setup) = **MONITOR** with Dig Out exit consideration
+7. Recovery + all other signal combinations = **HOLD** (default: recovery positions get time to recover; time stop is informational only)
+8. Time stop EXCEEDED + bearish RSI (< 40) + earnings CLEAR (> 14 days or unknown) = **EXIT**
+9. Time stop EXCEEDED + bullish technicals (RSI > 50, MACD bullish crossover or above signal) = **HOLD** with explicit bullish justification
+10. Time stop EXCEEDED + earnings APPROACHING (7-14 days) = **REDUCE**
+11. Time stop EXCEEDED + mixed signals (RSI 40-50, neutral MACD) = **REDUCE**
+12. Time stop APPROACHING (15-21 days) + bearish momentum = **MONITOR** with warning
+13. Time stop WITHIN (< 15 days) = **MONITOR** (standard tracking)
 
 ### Step 4: Compile Report
 
@@ -138,6 +141,7 @@ Write `exit-review-report.md` with this structure:
 
 [If any EXIT/REDUCE verdicts exist:]
 - Total capital freed if recommendations executed: $[amount]
+  (Formula: capital freed = shares_sold x current_price — use market value, not cost basis)
 - Watchlist candidates with pending orders that could absorb freed capital
 - Specific redeployment suggestions
 
@@ -153,8 +157,8 @@ Write `exit-review-report.md` with this structure:
 ### Step 5: Cross-check Verdicts
 
 Before writing the final output, verify:
-- No position with P/L >= 10% gets EXIT verdict (it's at target — should be HOLD)
-- No recovery position gets EXIT purely on time stop (must have additional bearish factors documented)
+- No position with P/L >= 7% gets EXIT verdict (rules 1-2 protect AT TARGET and APPROACHING positions)
+- No recovery position gets EXIT verdict (rules 4-7 handle recovery — worst case is MONITOR with exit consideration)
 - Every HOLD verdict for a time-stop-exceeded position has explicit bullish justification in the Reasoning field
 - EXIT verdicts have concrete "rotate to" suggestions referencing watchlist tickers
 - Every position has all 4 criteria evaluated in the Exit Criteria Summary table
@@ -190,6 +194,6 @@ Exit analysis complete.
 - Do NOT modify portfolio.json or any ticker files
 - Do NOT fabricate data — if earnings date is unknown in exit-review-raw.md, report as "Unknown"
 - Do NOT estimate averages — compute P/L explicitly: `((current_price - avg_cost) / avg_cost) * 100`
-- Do NOT give EXIT verdict to positions at or approaching profit target
-- Do NOT give EXIT verdict to recovery positions based solely on time stop
+- Do NOT give EXIT verdict to positions with P/L >= 7% (AT TARGET or APPROACHING — rules 1-2)
+- Do NOT give EXIT verdict to recovery positions (rules 4-7 — worst case is MONITOR)
 - Do NOT skip any of the 4 exit criteria for any position
