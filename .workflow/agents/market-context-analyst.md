@@ -109,7 +109,7 @@ Write `market-context-report.md`:
 
 | Portfolio Sector | Tickers | Market Day% | Alignment |
 | :--- | :--- | :--- | :--- |
-[Aligned = portfolio sector matches market strength; Misaligned = portfolio in lagging sector]
+[Include only sectors that have tickers with pending BUY orders. Aligned = portfolio sector matches market strength; Misaligned = portfolio in lagging sector]
 
 ## Recommendations
 
