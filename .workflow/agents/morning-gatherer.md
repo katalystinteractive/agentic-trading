@@ -94,7 +94,7 @@ AND read these files (if they exist):
 - `tickers/<TICKER>/identity.md` — sector, strategy cycle, key levels, wick-adjusted buy table
 - `tickers/<TICKER>/wick_analysis.md` — support levels, hold rates, bullet plan
 
-### Step 5: Compute Derived Fields from portfolio.json
+### Step 5: Compute Derived Fields
 
 For each active position:
 

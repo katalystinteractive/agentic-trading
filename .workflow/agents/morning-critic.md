@@ -147,7 +147,7 @@ For each pending BUY order in the briefing, verify BOTH gates and the combined s
 - CLEAR (> 14 days or unknown): ACTIVE
 
 **Combined gate:**
-- Verify combined = worst of (market, earnings). Both must be ACTIVE for combined ACTIVE.
+- Verify combined = worst of (market, earnings) using priority scale: ACTIVE < CAUTION < REVIEW < PAUSE. Take the gate with higher severity. Both must be ACTIVE for combined ACTIVE.
 
 **Cross-check:** recompute `% Below Current` = `(current_price - order_price) / current_price * 100` using prices from raw data. Allow +-0.5% tolerance.
 
@@ -185,7 +185,7 @@ Record each mismatch with: ticker/field, source value, briefing value, severity.
 8. **Immediate Actions table** is non-empty if any EXIT/REDUCE verdicts exist or any earnings GATED positions require action.
 9. **Capital Summary** section is present.
 10. **Executive Summary** mentions regime, portfolio P/L, and urgent actions.
-11. **Sell-side advisory** shown only when P/L > 7% or (P/L > 5% AND momentum shifting). Flag if shown for positions below these thresholds.
+11. **Sell-side advisory** shown only when P/L > 7% or (P/L > 5% AND momentum shifting). Flag if shown for positions below these thresholds. **Exception:** recovery positions showing a recovery thesis advisory (not profit-taking) are valid regardless of P/L threshold — the advisory discusses recovery catalyst path, not profit zone assessment.
 12. **Market Regime table** has Entry Gate Summary with per-status counts. Verify counts match actual rows in the briefing.
 13. **Scouting section** lists watchlist tickers with zero pending orders (if any exist).
 

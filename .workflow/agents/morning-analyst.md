@@ -78,13 +78,17 @@ Use `Days to Earnings` from the Pending Orders Detail table in morning-briefing-
 - **APPROACHING (7-14 days):** REVIEW — no new entries without explicit exit-before-earnings plan
 - **CLEAR (> 14 days or unknown):** No constraint — ACTIVE
 
-**Combined gate status** = worst of (Market Context Gate, Earnings Gate):
+**Combined gate status** = worst of (Market Context Gate, Earnings Gate).
+Priority scale (lowest to highest severity): ACTIVE < CAUTION < REVIEW < PAUSE.
+Take the gate with higher severity:
 - Both ACTIVE → Combined = **ACTIVE**
-- Either is CAUTION → Combined = **CAUTION**
-- Either is REVIEW → Combined = **REVIEW**
-- Either is PAUSE → Combined = **PAUSE**
+- Higher is CAUTION → Combined = **CAUTION**
+- Higher is REVIEW → Combined = **REVIEW**
+- Higher is PAUSE → Combined = **PAUSE**
 
 Entry gate applies to BUY orders only. SELL orders show "N/A" for all gate columns.
+
+**SELL order inclusion:** Also extract all pending SELL orders from portfolio.json. Include them in each ticker's Pending Orders table with "N/A" for Market Gate, Earnings Gate, and Combined columns. SELL orders are not gated but must appear for completeness and fill alert context.
 
 ### Step 4: Exit Review — All Active Positions
 
@@ -118,7 +122,10 @@ For each active position (shares > 0), evaluate ALL 4 exit criteria:
 
 #### 4. Momentum Assessment
 - RSI, MACD, trend signals from technical_scanner output in morning-briefing-raw.md
-- Classify as **Bullish**, **Neutral**, or **Bearish**
+- Classify using these thresholds:
+  - **Bullish**: RSI > 50 AND MACD above signal line (or bullish crossover)
+  - **Bearish**: RSI < 40 OR MACD bearish crossover with declining histogram
+  - **Neutral**: everything else (RSI 40-50, or mixed RSI/MACD signals)
 
 #### 5. Recovery Assessment (conditional)
 - Only for positions whose `note` field in portfolio.json contains "recovery", "underwater", or "pre-strategy"
