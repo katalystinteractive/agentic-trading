@@ -95,7 +95,7 @@ Write `market-context-raw.md` with the following structure:
 
 | Ticker | Sector | Order Price | Shares | Current Price | % Below Current | Active Position | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-[one row per pending BUY order. % Below Current = (current - order) / current * 100. Active Position = "Yes (N shares)" or "No (watchlist)".]
+[one row per pending BUY order, sorted by ticker (alphabetically), then by % Below Current (descending — deepest first). % Below Current = (current - order) / current * 100. Active Position = "Yes (N shares)" or "No (watchlist)".]
 
 ## Active Positions Summary
 

@@ -93,7 +93,7 @@ Record each mismatch with: ticker/field, source value, report value.
 
 1. **Every pending BUY order** in portfolio.json is evaluated in the Entry Gate Decisions table (one row per order).
 2. **Sector Alignment table** covers all portfolio sectors.
-3. **Executive Summary** states the regime and the number of pending orders affected.
+3. **Executive Summary** states the regime and includes per-status breakdown (ACTIVE, CAUTION, REVIEW, PAUSE counts). Verify these counts match the row counts in the Entry Gate Decisions table.
 4. **Recommendations section** is present and specific (not vague or missing).
 5. **If Risk-Off:** Position Management section addresses stops on active positions.
 6. **Market Regime table** has all required fields (Regime, VIX, Indices Above 50-SMA, Sector Breadth, Reasoning).
@@ -169,7 +169,7 @@ Write `market-context-review.md`:
 
 ## Severity Definitions
 
-- **Critical:** wrong regime classification, wrong gate status (ACTIVE when should be PAUSE or vice versa), missing ticker entirely, phantom ticker, recommendation to CANCEL instead of PAUSE, wrong VIX value affecting regime
+- **Critical:** wrong regime classification, wrong gate status (ACTIVE when should be PAUSE or vice versa), % Below Current math error affecting gate logic, missing ticker entirely, phantom ticker, recommendation to CANCEL instead of PAUSE, wrong VIX value affecting regime, Executive Summary per-status count mismatch
 - **Minor:** rounding differences, sector alignment stylistic gaps, missing non-essential detail in reasoning, earnings gate interaction not explicitly mentioned
 
 ## Verdict Rules

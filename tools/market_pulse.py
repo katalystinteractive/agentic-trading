@@ -183,7 +183,7 @@ def market_pulse():
             regime = "Risk-Off"
             reasoning = f"{indices_above_sma}/{indices_total} indices above 50-SMA, VIX {vix_val:.1f} (elevated)"
         else:
-            regime = "Neutral/Transitional"
+            regime = "Neutral"
             reasoning = f"{indices_above_sma}/{indices_total} indices above 50-SMA, VIX {vix_val:.1f}"
 
         print(f"| Regime | **{regime}** |")
