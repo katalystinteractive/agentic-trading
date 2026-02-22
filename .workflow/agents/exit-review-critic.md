@@ -78,7 +78,7 @@ Verify each verdict follows the Earnings Decision Framework (strategy.md) and an
 **Earnings GATED rules (verify position-type match):**
 
 1. **Non-recovery + GATED + P/L > 0% (profitable)** must be REDUCE. Flag HOLD or MONITOR as incorrect — profitable positions must lock in gains before binary events.
-2. **Non-recovery + GATED + P/L <= 0% (underwater)** must be HOLD (with recommendation to pause pending buy orders). Flag REDUCE or EXIT as incorrect. Two valid reasoning paths depending on bullet status:
+2. **Non-recovery + GATED + P/L <= 0% (underwater)** must be HOLD (with recommendation to pause pending buy orders). Flag REDUCE or EXIT as **Critical** — this is the most common misapplication (confusing rule 1 profitable REDUCE with rule 2 underwater HOLD). Verify P/L sign carefully before accepting the verdict. Two valid reasoning paths depending on bullet status:
    - **Still building** (unfilled bullets remain per portfolio.json): reasoning should cite deeper pending bullets catching post-earnings drops.
    - **Fully loaded** (all active bullets used): reasoning should cite bullets exhausted — exiting locks in maximum loss with no averaging path remaining.
    Verify the analyst documents which sub-case applies. Flag if reasoning cites "deeper bullets" when all bullets are used (per `Bullets Used` column in exit-review-raw.md Position Summary table). Exception: EXIT is valid only if the analyst documents broken conviction (not just price decline).

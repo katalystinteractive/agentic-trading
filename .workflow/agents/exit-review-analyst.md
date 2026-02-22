@@ -92,8 +92,8 @@ Assign each position one of 4 verdicts:
 
 **Earnings GATED rules (strategy.md Earnings Decision Framework):**
 
-1. Non-recovery + GATED (< 7 days) + P/L > 0% (profitable) = **REDUCE** (lock in gains — a post-earnings drop can erase the gain entirely; pause remaining pending buy orders)
-2. Non-recovery + GATED (< 7 days) + P/L <= 0% (underwater) = **HOLD** + recommend pausing pending buy orders. Two sub-cases based on bullet status (check `Bullets Used` column in exit-review-raw.md Position Summary table):
+1. Non-recovery + GATED (< 7 days) + **P/L > 0% (profitable)** = **REDUCE** (lock in gains — a post-earnings drop can erase the gain entirely; pause remaining pending buy orders). CRITICAL: verify P/L is actually positive before applying this rule. If P/L <= 0%, use rule 2 instead.
+2. Non-recovery + GATED (< 7 days) + **P/L <= 0% (underwater)** = **HOLD** + recommend pausing pending buy orders. Two sub-cases based on bullet status (check `Bullets Used` column in exit-review-raw.md Position Summary table):
    - **Still building** (unfilled bullets remain): position is early-stage — don't abandon a setup you believe in; deeper pending bullets catch post-earnings drops. Resume pending orders after event.
    - **Fully loaded** (all active bullets used): bullets exhausted — exiting now locks in maximum loss with no averaging path remaining. Hold through the event. Pause any remaining reserve pending orders; resume after event.
    Document which sub-case applies in the Reasoning field. Exception for both: EXIT if conviction in the stock has broken (not just price decline).
@@ -182,7 +182,7 @@ Before writing the final output, verify:
 - Positions with P/L >= 12% get REDUCE (rule 6a — at or past top of target range)
 - No recovery position gets EXIT verdict (rules 3, 5, 8-10 handle recovery — worst case is MONITOR with exit consideration)
 - Recovery positions with P/L > 0% are reclassified as non-recovery (pre-check)
-- Earnings GATED verdicts match position type: profitable non-recovery → REDUCE (rule 1), underwater non-recovery → HOLD (rule 2), recovery with thesis → HOLD (rule 3), near-breakeven recovery no thesis → REDUCE (rule 4), deep underwater recovery no thesis → HOLD (rule 5)
+- Earnings GATED verdicts match position type AND P/L sign: profitable (P/L > 0%) non-recovery → REDUCE (rule 1), **underwater (P/L <= 0%) non-recovery → HOLD (rule 2, NOT REDUCE)**, recovery with thesis → HOLD (rule 3), near-breakeven recovery no thesis → REDUCE (rule 4), deep underwater recovery no thesis → HOLD (rule 5). Double-check: any GATED position with P/L <= 0% and non-recovery must be HOLD, never REDUCE.
 - Every HOLD verdict for a time-stop-exceeded position has explicit bullish justification in the Reasoning field
 - Every HOLD verdict for a GATED position has explicit position-type reasoning (why HOLD not REDUCE)
 - EXIT verdicts have concrete "rotate to" suggestions referencing watchlist tickers

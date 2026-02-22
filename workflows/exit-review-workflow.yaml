@@ -27,7 +27,7 @@ phases:
       - exit-review-raw.md
     artifacts:
       - exit-review-report.md
-    timeout_minutes: 12
+    timeout_minutes: 15
 
   - id: review
     name: Exit Review Verification
@@ -40,9 +40,9 @@ phases:
       - exit-review-report.md
     artifacts:
       - exit-review-review.md
-    timeout_minutes: 10
+    timeout_minutes: 12
 
 settings:
   max_fix_iterations: 0
   require_approval: false
-  timeout_minutes: 37
+  timeout_minutes: 45
