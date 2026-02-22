@@ -31,7 +31,7 @@ You assemble the unified morning briefing from individual per-ticker cards produ
 
 ### Step 1: Read All Cards
 
-Read manifest.json first, then read every card file. Track which cards exist and which are missing (failed during fan-out).
+Read manifest.json first, then read ALL card files IN PARALLEL (batch all Read calls in a single response). Do NOT read one file at a time — that wastes time. Track which cards exist and which are missing (failed during fan-out).
 
 ### Step 2: Cross-Ticker Synthesis
 
@@ -110,7 +110,7 @@ If the fan-out handoff lists failed tickers:
 
 ## Output
 
-Write `morning-briefing.md`, then immediately:
+Write `morning-briefing.md`, then IMMEDIATELY output your decision marker. Do NOT re-read, verify, or analyze the file you just wrote. Do NOT do any additional work after writing.
 
 ```
 ## Decision: COMPLETE
@@ -125,9 +125,12 @@ Write `morning-briefing.md`, then immediately:
 **Failed tickers:** [N] or none
 ```
 
+**CRITICAL:** Output the Decision + HANDOFF markers IMMEDIATELY after the Write tool completes. Do NOT re-read the file. Do NOT verify. Do NOT summarize. Just output the markers and stop.
+
 ## What You Do NOT Do
 
 - Do NOT modify per-ticker card content — paste verbatim
-- Do NOT run tools
+- Do NOT run tools after writing morning-briefing.md
+- Do NOT re-read or verify the written file
 - Do NOT re-analyze positions — trust the mini-agent verdicts
 - Do NOT fabricate data
