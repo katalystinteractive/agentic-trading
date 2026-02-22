@@ -257,7 +257,7 @@ Write `morning-briefing.md` with this structure:
 **Projected Sell Levels:**
 | Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-[from identity.md target_exit + scenario math. Shows current position exit and what happens if lower bullets fill first. Monotonic check: lower buys → lower avg.]
+[from identity.md target_exit + scenario math. Shows current position exit and what happens if lower bullets fill first. Monotonic check: lower buys → lower avg. Recovery positions with null target_exit: show breakeven exit scenario only (Scenario: "Breakeven", Exit Price = avg_cost, P/L = 0%) — or omit section with "No target set (recovery position)."]
 
 **News & Catalysts:** [1-3 bullet points from fresh news_sentiment.py run. Key headlines, sentiment score, upcoming catalysts. Flag stale if >2 days old.]
 

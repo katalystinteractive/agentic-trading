@@ -102,7 +102,7 @@ Verify each verdict follows the 16-rule logic. The key principle: verdict labels
 11. **Recovery positions** must NOT get EXIT verdict. For non-GATED recovery: valid verdicts are HOLD or MONITOR only.
 12. **Earnings APPROACHING (7-14 days)** triggers REDUCE only when time stop is also EXCEEDED.
 13. **Earnings CLEAR** — no earnings-based verdict constraint.
-14. **Time stop EXCEEDED non-recovery** must be EXIT, REDUCE, or HOLD (with justification). Flag MONITOR as incorrect.
+14. **Time stop EXCEEDED non-recovery** must be EXIT, REDUCE, or HOLD (with justification). Flag MONITOR as incorrect. Exception: HOLD from profit target rules 6-7 (P/L >= 7%) needs no additional bullish justification — the profit zone is sufficient. See item 10.
 15. **Time stop APPROACHING or WITHIN + earnings NOT GATED + non-recovery + P/L < 7%** should be MONITOR. Flag EXIT or REDUCE as incorrect.
 
 **Momentum label verification:** Before evaluating verdict rules, verify the Bullish/Neutral/Bearish label in each position's Exit Criterion table matches the defined thresholds:
@@ -175,6 +175,7 @@ Verify the following match their source exactly:
 10. **Note field** — recovery/underwater/pre-strategy labels match portfolio.json note field.
 11. **VIX value and 5D%** — must match between raw data and briefing.
 12. **Index prices and 50-SMA status** — must match between raw data and briefing.
+13. **Trades Executed per position** — verify individual fills (dates, prices, shares) match the Memory Context section in morning-briefing-raw.md for that ticker. Verify the sum of fill shares equals current total shares. Flag fabricated or missing fills as Critical; minor date formatting differences or fill price rounding as Minor.
 
 Record each mismatch with: ticker/field, source value, briefing value, severity.
 
@@ -193,7 +194,7 @@ Record each mismatch with: ticker/field, source value, briefing value, severity.
 9. **Capital Summary** section is present.
 10. **Executive Summary** mentions regime, portfolio P/L, and urgent actions.
 11. **Sell-side advisory** shown only when P/L > 7% or (P/L > 5% AND momentum shifting). Flag if shown for positions below these thresholds. **Exception:** recovery positions showing a recovery thesis advisory (not profit-taking) are valid regardless of P/L threshold — the advisory discusses recovery catalyst path, not profit zone assessment.
-12. **Market Regime table** has Entry Gate Summary with per-status counts. Verify counts match actual rows in the briefing.
+12. **Market Regime table** has Entry Gate Summary with per-status counts present. (Detailed count verification against actual BUY order gate statuses in Check 9.6.)
 13. **Scouting section** lists watchlist tickers with zero pending orders (if any exist).
 
 Record each gap with: description, severity.
