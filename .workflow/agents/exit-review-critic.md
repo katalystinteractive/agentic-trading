@@ -65,7 +65,7 @@ For each position, verify:
 4. **P/L %** = (P/L $ / Total Deployed) x 100. Allow +-0.2% tolerance.
 5. **Distance to target** = (target_exit - current_price) / current_price x 100. Allow +-0.2% tolerance.
 6. **Null target_exit** (recovery positions): verify report shows "N/A" or "No target", not a fabricated value.
-7. **Profit target status label** — verify the label matches P/L %: AT TARGET (>= 10%), APPROACHING (7% <= P/L < 10%), BELOW (< 7%). A mislabeled status could mislead the reader even if the verdict is correct.
+7. **Profit target status label** — verify the label matches P/L %: EXCEEDED (P/L >= 12%), AT TARGET (10% <= P/L < 12%), APPROACHING (7% <= P/L < 10%), BELOW (< 7%). A mislabeled status could mislead the reader even if the verdict is correct.
 
 Record each discrepancy with: ticker, field, expected value, report value.
 
@@ -89,15 +89,15 @@ Verify each verdict follows the Earnings Decision Framework (strategy.md) and an
 
 **Profit target rules:**
 
-7. **Positions with 10% <= P/L <= 12% + earnings NOT GATED** must NOT get EXIT or REDUCE verdict (they are at target — should be HOLD).
-7a. **Positions with P/L > 12% + earnings NOT GATED** must be REDUCE (past top of target range — take profits). Flag HOLD or MONITOR as incorrect.
+7. **Positions with 10% <= P/L < 12% + earnings NOT GATED** must NOT get EXIT or REDUCE verdict (they are at target — should be HOLD).
+7a. **Positions with P/L >= 12% + earnings NOT GATED** must be REDUCE (at or past top of target range — take profits). Flag HOLD or MONITOR as incorrect.
 8. **Positions with P/L 7-10% + earnings NOT GATED** (APPROACHING target) must NOT get EXIT or REDUCE verdict — should be HOLD.
 
 **General rules:**
 
 9. **EXIT requires ALL of:** time stop EXCEEDED + bearish momentum (RSI < 40) + earnings CLEAR (> 14 days or unknown). Flag if any condition is NOT met.
-10. **HOLD for time-stop-exceeded positions** requires explicit bullish justification AND earnings CLEAR in the Reasoning field. Flag if missing or generic. Flag HOLD if earnings is APPROACHING (7-14 days) — should be REDUCE per analyst rule 13.
-11. **Recovery positions** must NOT get EXIT verdict regardless of earnings status. For non-GATED recovery: valid verdicts are HOLD or MONITOR only — flag EXIT or REDUCE. For GATED recovery: apply rules 3-5 above.
+10. **HOLD for time-stop-exceeded non-recovery positions** requires explicit bullish justification AND earnings CLEAR in the Reasoning field. Flag if missing or generic. Flag HOLD if earnings is APPROACHING (7-14 days) for non-recovery positions — should be REDUCE per analyst rule 13. (Recovery positions with time stop EXCEEDED are handled by rules 8-10 where HOLD is valid regardless of earnings status.)
+11. **Recovery positions** must NOT get EXIT verdict regardless of earnings status. For non-GATED recovery: valid verdicts are HOLD or MONITOR only — flag EXIT or REDUCE. (Recovery positions are evaluated by analyst rules 8-10 before time-stop rules 11-14 can fire — the "first match wins" ordering ensures recovery never reaches the time-stop REDUCE path.) For GATED recovery: apply rules 3-5 above.
 12. **Earnings APPROACHING (7-14 days)** triggers REDUCE only when time stop is also EXCEEDED. Do NOT flag MONITOR/HOLD as wrong if time stop is not EXCEEDED.
 13. **Earnings CLEAR (> 14 days or unknown)** — no earnings-based verdict constraint.
 14. **Time stop EXCEEDED non-recovery** must be EXIT, REDUCE, or HOLD (with explicit justification per rule 10). Flag MONITOR as incorrect — EXCEEDED positions require action per analyst rules 11-14.

@@ -102,8 +102,8 @@ Assign each position one of 4 verdicts:
 
 **Profit target rules:**
 
-6. Profit target AT TARGET (10% <= P/L <= 12%) = **HOLD** (in profit target range — let it reach top of 10-12% band)
-6a. Profit target EXCEEDED (P/L > 12%) = **REDUCE** (past top of target range — take profits)
+6. Profit target AT TARGET (10% <= P/L < 12%) = **HOLD** (in profit target range — approaching top of 10-12% band)
+6a. Profit target EXCEEDED (P/L >= 12%) = **REDUCE** (at or past top of target range — take profits)
 7. Profit target APPROACHING (7% <= P/L < 10%) = **HOLD** (approaching target — do not exit)
 
 **Recovery rules (non-GATED):**
@@ -118,8 +118,8 @@ Assign each position one of 4 verdicts:
 12. Time stop EXCEEDED + bullish technicals (RSI > 50, MACD bullish crossover or above signal) + earnings CLEAR (> 14 days or unknown) = **HOLD** with explicit bullish justification
 13. Time stop EXCEEDED + earnings APPROACHING (7-14 days) = **REDUCE** (recommend pausing pending buy orders per strategy.md APPROACHING threshold — no new entries without explicit exit-before-earnings plan)
 14. Time stop EXCEEDED + any other signal combination = **REDUCE** (time exceeded without clear bullish case — default to partial exit)
-15. Time stop APPROACHING (15-21 days) = **MONITOR** (with warning if bearish momentum)
-16. Time stop WITHIN (< 15 days) = **MONITOR** (standard tracking)
+15. Time stop APPROACHING (15-21 days) = **MONITOR** (with warning if bearish momentum. If earnings is APPROACHING (7-14 days), note in Reasoning: "Earnings approaching — flag for review; pause pending buy orders per strategy.md.")
+16. Time stop WITHIN (< 15 days) = **MONITOR** (standard tracking. If earnings is APPROACHING (7-14 days), note in Reasoning: "Earnings approaching — flag for review; no new entries without explicit exit-before-earnings plan.")
 
 ### Step 4: Compile Report
 
@@ -177,8 +177,8 @@ Write `exit-review-report.md` with this structure:
 ### Step 5: Cross-check Verdicts
 
 Before writing the final output, verify:
-- No position with 7% <= P/L <= 12% gets EXIT verdict (rules 6-7 protect AT TARGET and APPROACHING positions)
-- Positions with P/L > 12% get REDUCE (rule 6a — past top of target range)
+- No position with 7% <= P/L < 12% gets EXIT verdict (rules 6-7 protect AT TARGET and APPROACHING positions). Note: GATED positions with P/L > 0% correctly get REDUCE via rule 1, which overrides rules 6-7 — this is intended, not an error.
+- Positions with P/L >= 12% get REDUCE (rule 6a — at or past top of target range)
 - No recovery position gets EXIT verdict (rules 3, 5, 8-10 handle recovery — worst case is MONITOR with exit consideration)
 - Recovery positions with P/L > 0% are reclassified as non-recovery (pre-check)
 - Earnings GATED verdicts match position type: profitable non-recovery → REDUCE (rule 1), underwater non-recovery → HOLD (rule 2), recovery with thesis → HOLD (rule 3), near-breakeven recovery no thesis → REDUCE (rule 4), deep underwater recovery no thesis → HOLD (rule 5)

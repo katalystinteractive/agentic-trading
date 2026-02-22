@@ -49,7 +49,10 @@ Determine time stop status for each position:
 
 Compute `target_exit` distance: if `target_exit` is set in portfolio.json, note the target price. If null, note "No target (recovery)".
 
-Compute `bullets_used` ratio: read `bullets_used` from portfolio.json and `active_bullets_max` from the capital settings. Format as "N/M" (e.g., "2/5"). If `bullets_used` is a string (e.g., "3 active (pre-strategy)"), extract the leading integer and append the pre-strategy flag: "3/5 (pre-strategy)". Additionally, cross-reference the position's `note` field: if `note` contains "exhausted" or "active pool exhausted", append ", pool exhausted" (e.g., "3/5 (pre-strategy, pool exhausted)"). This tells the analyst whether the position is "still building" or "fully loaded" for the Earnings Decision Framework — note that pre-strategy positions may have N < M but still be exhausted due to different bullet sizing.
+Compute `bullets_used` ratio: read `bullets_used` from portfolio.json and `active_bullets_max` from the capital settings. Format as "N/M" (e.g., "2/5"). If `bullets_used` is a string (e.g., "3 active (pre-strategy)"), extract the leading integer and append the pre-strategy flag: "3/5 (pre-strategy)". Additionally, cross-reference the position's `note` field for capital context:
+- If `note` contains "exhausted" or "active pool exhausted", append ", pool exhausted" (e.g., "3/5 (pre-strategy, pool exhausted)").
+- If `note` mentions a specific remaining amount (e.g., "~$67 remaining"), include it: "3/5 (pre-strategy, ~$67 remaining)".
+This tells the analyst whether the position is "still building" or "fully loaded" for the Earnings Decision Framework — note that pre-strategy positions may have N < M but still be effectively exhausted due to different bullet sizing.
 
 ### Step 2: Run Portfolio Status
 
@@ -81,7 +84,7 @@ If a tool errors for a specific ticker, note the error and continue to the next 
 
 For each active position, read (if the file exists):
 - `tickers/<TICKER>/identity.md` — strategy cycle, monthly rhythm, key levels, status
-- `tickers/<TICKER>/news.md` (first 15 lines only) — recent sentiment snapshot
+- `tickers/<TICKER>/news.md` — recent sentiment snapshot. For recovery/pre-strategy positions (check `note` field in portfolio.json), read the first 30 lines to ensure thesis-relevant context is captured. For non-recovery positions, first 15 lines is sufficient.
 
 If a file does not exist, note "No cached [identity/news]".
 
