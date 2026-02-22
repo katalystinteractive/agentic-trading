@@ -235,10 +235,10 @@ Write `morning-briefing.md` with this structure:
 
 **Trades Executed:** [individual fills from memory.md — date, price, shares, fill type]
 
-**Sell-Side Advisory:** [profit zone assessment — shown only when P/L > 7% OR (P/L > 5% AND momentum shifting: RSI declining from >55 to <45, or MACD bearish crossover). Recovery positions: advisory discusses recovery thesis instead of profit-taking. Omitted for positions below these thresholds.]
+**Sell-Side Advisory:** [For non-recovery positions: shown only when P/L > 7% OR (P/L > 5% AND momentum shifting: RSI declining from >55 to <45, or MACD bearish crossover). Omitted for non-recovery positions below these thresholds. For recovery positions: ALWAYS shown regardless of P/L — discusses recovery thesis, catalyst path, and institutional signals instead of profit-taking.]
 
 **Pending Orders:**
-| Type | Price | Shares | % From Current | Market Gate | Earnings Gate | Combined | Note |
+| Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 [BUY orders: show both gates + combined status. SELL orders: show N/A for all gate columns. Entry gate applies to all pending BUY orders — including those for active positions, not just watchlist.]
 
@@ -297,8 +297,8 @@ If none: "No active velocity/bounce positions."]
 - Every ticker appears in exactly ONE place. **Placement rule:** if a ticker has shares > 0, it goes in Active Positions (never Watchlist) even if it also appears on the watchlist array. Its pending BUY orders are shown within the active position card with entry gate status.
 - Deep cards (~30-40 lines per active ticker) give the complete picture
 - "Objective" answers "what do we want to achieve with this ticker" — specific to the position's situation
-- Sell-side advisory is informational — shown when P/L > 7% OR (P/L > 5% AND momentum shifting). Omitted for positions below these thresholds to avoid noise.
-- Recovery positions: advisory discusses recovery thesis instead of profit-taking
+- Sell-side advisory is informational — for non-recovery positions, shown when P/L > 7% OR (P/L > 5% AND momentum shifting). Omitted for non-recovery positions below these thresholds to avoid noise.
+- Recovery positions: advisory ALWAYS shown (regardless of P/L) — discusses recovery thesis, catalyst path, and institutional signals instead of profit-taking
 - All Projected Sell Levels must pass the monotonic check: lower buy prices → lower averages. Show the math: New Avg = (current shares x current avg + new shares x buy price) / total shares.
 
 ## Output Format

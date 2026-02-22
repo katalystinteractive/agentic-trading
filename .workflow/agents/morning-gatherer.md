@@ -129,9 +129,11 @@ Before writing the output file, verify completeness:
 
 1. **Count pending BUY orders in portfolio.json:** iterate every ticker in `pending_orders`, count orders with `type: "BUY"`. Record the total (M orders across N tickers).
 2. **Count pending BUY order rows** in the Pending Orders Detail table you are about to write. This count must equal the total from step 1.
-3. **Verify active position coverage:** every ticker with shares > 0 in portfolio.json has a Per-Ticker section.
-4. **Verify watchlist coverage:** every ticker with shares = 0 AND pending BUY orders has a Watchlist Ticker section.
-5. If any count mismatch is found, find the missing ticker(s) and add the missing data before writing.
+3. **Count pending SELL orders in portfolio.json:** iterate every ticker in `pending_orders`, count orders with `type: "SELL"`. Record the total (S orders across T tickers).
+4. **Count pending SELL order rows** in the Pending Orders Detail table. This count must equal the total from step 3.
+5. **Verify active position coverage:** every ticker with shares > 0 in portfolio.json has a Per-Ticker section.
+6. **Verify watchlist coverage:** every ticker with shares = 0 AND pending BUY orders has a Watchlist Ticker section.
+7. If any count mismatch is found, find the missing ticker(s)/order(s) and add the missing data before writing.
 
 ### Step 8: Write Output
 

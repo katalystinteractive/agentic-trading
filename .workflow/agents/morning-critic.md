@@ -105,6 +105,12 @@ Verify each verdict follows the 16-rule logic. The key principle: verdict labels
 14. **Time stop EXCEEDED non-recovery** must be EXIT, REDUCE, or HOLD (with justification). Flag MONITOR as incorrect.
 15. **Time stop APPROACHING or WITHIN + earnings NOT GATED + non-recovery + P/L < 7%** should be MONITOR. Flag EXIT or REDUCE as incorrect.
 
+**Momentum label verification:** Before evaluating verdict rules, verify the Bullish/Neutral/Bearish label in each position's Exit Criterion table matches the defined thresholds:
+- **Bullish** requires RSI > 50 AND MACD above signal line (or bullish crossover)
+- **Bearish** requires RSI < 40 OR MACD bearish crossover with declining histogram
+- **Neutral** is everything else (RSI 40-50, or mixed RSI/MACD signals)
+Flag a mislabeled momentum classification as Critical if it would affect verdict logic (e.g., RSI 38 labeled "Neutral" instead of "Bearish" could mask a rule 11 EXIT trigger). Flag as Minor if the label is wrong but the verdict is correct regardless.
+
 Record each verdict error with: ticker, assigned verdict, expected verdict, rule violated, severity.
 
 ### Check 4: Earnings Gate Logic
