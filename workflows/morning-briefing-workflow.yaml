@@ -1,0 +1,48 @@
+name: morning-briefing-workflow
+description: >
+  Unified morning briefing combining status, exit review, market context, and
+  news into a single per-ticker action card document. Phase 1 gathers all raw
+  data (market, portfolio, earnings, technicals, news). Phase 2 classifies
+  regime, applies entry gates, evaluates exit verdicts, and synthesizes
+  per-ticker cards. Phase 3 verifies all math, logic, and coverage.
+
+version: "1.0.0"
+
+phases:
+  - id: gather
+    name: Morning Data Gathering
+    description: Run all tools once and read all cached data for active + watchlist tickers
+    agent: morning-gatherer
+    artifacts:
+      - morning-briefing-raw.md
+    timeout_minutes: 25
+
+  - id: analyze
+    name: Morning Analysis & Synthesis
+    description: Classify regime, apply entry gates, evaluate exit verdicts, produce per-ticker cards
+    agent: morning-analyst
+    depends_on:
+      - gather
+    requires:
+      - morning-briefing-raw.md
+    artifacts:
+      - morning-briefing.md
+    timeout_minutes: 15
+
+  - id: review
+    name: Morning Verification
+    description: Verify all math, verdict logic, gate logic, data consistency, and coverage
+    agent: morning-critic
+    depends_on:
+      - analyze
+    requires:
+      - morning-briefing-raw.md
+      - morning-briefing.md
+    artifacts:
+      - morning-briefing-review.md
+    timeout_minutes: 12
+
+settings:
+  max_fix_iterations: 0
+  require_approval: false
+  timeout_minutes: 52
