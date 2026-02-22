@@ -113,7 +113,7 @@ Assign each position one of 4 verdicts:
 
 11. Time stop EXCEEDED + bearish RSI (< 40) + earnings CLEAR (> 14 days or unknown) = **EXIT**
 12. Time stop EXCEEDED + bullish technicals (RSI > 50, MACD bullish crossover or above signal) = **HOLD** with explicit bullish justification
-13. Time stop EXCEEDED + earnings APPROACHING (7-14 days) = **REDUCE**
+13. Time stop EXCEEDED + earnings APPROACHING (7-14 days) = **REDUCE** (recommend pausing pending buy orders per strategy.md APPROACHING threshold — no new entries without explicit exit-before-earnings plan)
 14. Time stop EXCEEDED + any other signal combination = **REDUCE** (time exceeded without clear bullish case — default to partial exit)
 15. Time stop APPROACHING (15-21 days) = **MONITOR** (with warning if bearish momentum)
 16. Time stop WITHIN (< 15 days) = **MONITOR** (standard tracking)
