@@ -92,9 +92,9 @@ Write `exit-review-raw.md` with the following structure:
 
 ## Position Summary
 
-| Ticker | Shares | Avg Cost | Current Price | P/L % | Entry Date | Days Held | Time Stop Status | Target Exit | Note |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-[one row per active position — Current Price and P/L % from portfolio_status.py output in Step 2]
+| Ticker | Shares | Avg Cost | Current Price | P/L % | Entry Date | Days Held | Time Stop Status | Bullets Used | Target Exit | Note |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+[one row per active position — Current Price and P/L % from portfolio_status.py output in Step 2. Bullets Used from portfolio.json `bullets_used` field (e.g., "2/5" meaning 2 of 5 active bullets used). This helps the analyst determine "still building" vs "fully loaded" for the Earnings Decision Framework.]
 
 ## Portfolio Status
 

@@ -90,7 +90,10 @@ Assign each position one of 4 verdicts:
 **Earnings GATED rules (strategy.md Earnings Decision Framework):**
 
 1. Non-recovery + GATED (< 7 days) + P/L > 0% (profitable) = **REDUCE** (lock in gains — a post-earnings drop can erase the gain entirely; pause remaining pending buy orders)
-2. Non-recovery + GATED (< 7 days) + P/L <= 0% (underwater, still building) = **HOLD** + recommend pausing pending buy orders (position is early-stage — don't abandon a setup you believe in; deeper bullets catch post-earnings drops; exception: EXIT if conviction in the stock has broken)
+2. Non-recovery + GATED (< 7 days) + P/L <= 0% (underwater) = **HOLD** + recommend pausing pending buy orders. Two sub-cases based on bullet status (check `bullets_used` in portfolio.json vs `active_bullets_max` in capital settings):
+   - **Still building** (unfilled bullets remain): position is early-stage — don't abandon a setup you believe in; deeper pending bullets catch post-earnings drops. Resume pending orders after event.
+   - **Fully loaded** (all active bullets used): bullets exhausted — exiting now locks in maximum loss with no averaging path remaining. Hold through the event.
+   Document which sub-case applies in the Reasoning field. Exception for both: EXIT if conviction in the stock has broken (not just price decline).
 3. Recovery + GATED (< 7 days) + specific earnings thesis = **HOLD** (earnings IS the recovery catalyst — do not sell deep underwater before the event that could close the gap. A "specific thesis" means: management responding to short report/allegations, institutional accumulation into event, unchanged/raised price targets, expected guidance beat. Document the thesis in the Reasoning field.)
 4. Recovery + GATED (< 7 days) + no specific thesis + P/L > -10% (near breakeven) = **REDUCE** (protect the near-recovery with partial exit)
 5. Recovery + GATED (< 7 days) + no specific thesis + P/L <= -10% = **HOLD with awareness** (sufficiently underwater that marginal downside is limited; recovery upside from a positive surprise is meaningful)

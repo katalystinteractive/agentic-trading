@@ -80,9 +80,10 @@ We employ a **Mean Reversion** strategy, targeting stocks that consistently fluc
         price targets): **HOLD** — the binary event is the recovery path. Selling
         deep underwater before the catalyst locks in losses and removes upside
         exposure to the very event that could close the gap.
-    *   **Deep underwater (P/L < -20%) with no specific thesis:** **HOLD with
-        awareness** — marginal downside is limited when already this deep, while
-        recovery upside from a positive surprise is meaningful.
+    *   **Moderately or deeply underwater (P/L <= -10%) with no specific thesis:**
+        **HOLD with awareness** — marginal downside is limited when already this
+        far underwater, while recovery upside from a positive surprise is meaningful.
+        (This covers both the -10% to -20% range and the deeper-than-20% range.)
     *   **Near breakeven recovery (P/L > -10%) with no thesis:** **REDUCE** —
         protect the near-recovery by taking partial profits or cutting to starter.
 

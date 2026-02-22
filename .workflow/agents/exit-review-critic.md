@@ -76,7 +76,10 @@ Verify each verdict follows the Earnings Decision Framework (strategy.md) and an
 **Earnings GATED rules (verify position-type match):**
 
 1. **Non-recovery + GATED + P/L > 0% (profitable)** must be REDUCE. Flag HOLD or MONITOR as incorrect — profitable positions must lock in gains before binary events.
-2. **Non-recovery + GATED + P/L <= 0% (underwater, still building)** must be HOLD (with recommendation to pause pending buy orders). Flag REDUCE or EXIT as incorrect — the position is early-stage and deeper bullets are staged to catch post-earnings drops. Exception: EXIT is valid only if the analyst documents broken conviction (not just price decline).
+2. **Non-recovery + GATED + P/L <= 0% (underwater)** must be HOLD (with recommendation to pause pending buy orders). Flag REDUCE or EXIT as incorrect. Two valid reasoning paths depending on bullet status:
+   - **Still building** (unfilled bullets remain per portfolio.json): reasoning should cite deeper pending bullets catching post-earnings drops.
+   - **Fully loaded** (all active bullets used): reasoning should cite bullets exhausted — exiting locks in maximum loss with no averaging path remaining.
+   Verify the analyst documents which sub-case applies. Flag if reasoning cites "deeper bullets" when all bullets are used (per `bullets_used` in portfolio.json). Exception: EXIT is valid only if the analyst documents broken conviction (not just price decline).
 3. **Recovery + GATED + specific earnings thesis** must be HOLD. Flag REDUCE or EXIT as incorrect. A "specific thesis" requires evidence documented in Reasoning: management responding to short report/allegations, institutional accumulation into event, unchanged/raised price targets, or expected guidance beat. If the analyst claims a thesis, verify it against identity context and news in exit-review-raw.md. If the thesis claim is unsubstantiated, flag as Critical.
 4. **Recovery + GATED + no thesis + P/L > -10%** must be REDUCE. Flag HOLD as incorrect — near-breakeven recovery should protect gains.
 5. **Recovery + GATED + no thesis + P/L <= -10%** must be HOLD with awareness. Flag REDUCE or EXIT as incorrect — sufficiently underwater that marginal downside is limited. (Note: if the analyst identifies a thesis from the raw data, rule 3 applies instead.)
