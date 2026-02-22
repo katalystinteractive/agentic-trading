@@ -82,6 +82,8 @@ Verify each verdict follows the logic rules from the analyst's process:
 7. **Recovery positions** must NOT get EXIT verdict. Recovery verdicts are limited to REDUCE (earnings gate only), HOLD, or MONITOR. Flag EXIT for any recovery position.
 8. **Earnings APPROACHING (7-14 days)** triggers REDUCE only when time stop is also EXCEEDED. Do NOT flag MONITOR/HOLD as wrong if time stop is not EXCEEDED.
 9. **Earnings CLEAR (> 14 days or unknown)** — no earnings-based verdict constraint.
+10. **Time stop EXCEEDED non-recovery** must be EXIT, REDUCE, or HOLD (with explicit justification per rule 6). Flag MONITOR as incorrect — EXCEEDED positions require action per analyst rules 8-11.
+11. **Time stop APPROACHING or WITHIN + earnings NOT GATED + non-recovery + P/L < 7%** should be MONITOR. Flag EXIT or REDUCE as incorrect for these positions.
 
 Record each verdict error with: ticker, assigned verdict, expected verdict, reason.
 
