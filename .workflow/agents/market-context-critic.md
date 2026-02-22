@@ -55,21 +55,21 @@ Record each discrepancy with: metric, raw value, report value, expected regime.
 
 ### Check 2: Entry Gate Logic
 
-For each pending BUY order in portfolio.json, verify the gate status matches the regime:
+For each pending BUY order in the Entry Gate Decisions table, verify the gate status matches the regime. The table should have one row per order (not per ticker).
 
 **Risk-On regime:**
-- All pending BUY orders must be **ACTIVE** (no constraint). Flag any PAUSE, REVIEW, or CAUTION as incorrect.
+- All orders must be **ACTIVE** (no constraint). Flag any PAUSE, REVIEW, or CAUTION as incorrect.
 
 **Neutral regime:**
-- All pending BUY orders must be **ACTIVE** (with advisory). Flag any PAUSE as incorrect.
+- All orders must be **ACTIVE** (with advisory). Flag any PAUSE as incorrect.
 - **CAUTION** is valid only if VIX is 20-25 AND VIX 5D% is positive (trending up). Flag CAUTION if VIX < 20 or VIX 5D% is negative.
 
-**Risk-Off regime:**
-- Watchlist tickers (shares = 0 in portfolio.json): must be **PAUSE**. Flag ACTIVE as incorrect.
-- Active positions (shares > 0) with pending BUYs at deep support (>15% below current price): must be **ACTIVE**. Verify the 15% threshold: for each pending BUY, compute `(current_price - buy_price) / current_price * 100`. If >15%, the order is at deep support.
-- Active positions with pending BUYs near current price (<15% below): must be **REVIEW**. Flag ACTIVE as incorrect.
-
-Verify the 15% threshold is applied correctly using current price from the raw data.
+**Risk-Off regime (per-order verification):**
+- Watchlist tickers (shares = 0 in portfolio.json): all orders must be **PAUSE**. Flag ACTIVE as incorrect.
+- Active positions (shares > 0) — verify each order individually using `% Below Current` from the Pending BUY Orders Detail table in market-context-raw.md:
+  - Order >15% below current price: must be **ACTIVE** (deep support capitulation catcher). Flag PAUSE or REVIEW as incorrect.
+  - Order <=15% below current price: must be **REVIEW**. Flag ACTIVE as incorrect.
+- Cross-check: recompute `% Below Current` = `(current_price - order_price) / current_price * 100` using Current Price and Order Price from the raw data. Flag if the report's gate status is inconsistent with the computed percentage.
 
 Record each error with: ticker, assigned gate status, expected gate status, reason.
 
@@ -77,19 +77,21 @@ Record each error with: ticker, assigned gate status, expected gate status, reas
 
 Verify the following match their source exactly:
 
-1. **Pending BUY order counts** — per ticker must match portfolio.json.
-2. **Active position data** (shares, avg_cost) — must match portfolio.json.
-3. **Ticker sector assignments** — must match the raw data sector mapping. Flag if a sector changed between raw and report.
-4. **VIX value** — must match between raw data and report.
-5. **Index prices and 50-SMA status** — must match between raw data and report.
-6. **No phantom tickers** — no tickers in report that don't have pending BUY orders in portfolio.json.
-7. **No missing tickers** — all tickers with pending BUY orders in portfolio.json are in the report.
+1. **Pending BUY order counts** — total orders per ticker must match portfolio.json.
+2. **Order prices and shares** — each order in the report must match portfolio.json.
+3. **Current prices** — must match the Pending BUY Orders Detail table in market-context-raw.md.
+4. **Active position data** (shares, avg_cost) — must match portfolio.json.
+5. **Ticker sector assignments** — must match the raw data sector mapping. Flag if a sector changed between raw and report.
+6. **VIX value and 5D%** — must match between raw data and report.
+7. **Index prices and 50-SMA status** — must match between raw data and report.
+8. **No phantom orders** — no orders in report that don't exist in portfolio.json.
+9. **No missing orders** — all pending BUY orders in portfolio.json are in the report.
 
 Record each mismatch with: ticker/field, source value, report value.
 
 ### Check 4: Coverage & Completeness
 
-1. **Every ticker** with pending BUY orders in portfolio.json is evaluated in the Entry Gate Decisions table.
+1. **Every pending BUY order** in portfolio.json is evaluated in the Entry Gate Decisions table (one row per order).
 2. **Sector Alignment table** covers all portfolio sectors.
 3. **Executive Summary** states the regime and the number of pending orders affected.
 4. **Recommendations section** is present and specific (not vague or missing).

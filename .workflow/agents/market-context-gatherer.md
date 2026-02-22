@@ -42,28 +42,41 @@ python3 tools/market_pulse.py
 
 Capture the full output. This provides:
 - Major Indices (SPY, QQQ, IWM — price, trend vs 50-SMA)
-- Volatility & Rates (VIX, 10Y Yield)
+- Volatility & Rates (VIX with 5D% trend, 10Y Yield)
 - Sector Performance (11 sectors ranked)
 - Market Regime classification
 
-### Step 2: Extract Pending BUY Orders
+### Step 2: Fetch Current Prices
 
-Read `portfolio.json`. For each ticker with pending BUY orders:
-- Count pending BUY orders and total shares across those orders
-- Compute total dollar exposure: sum of (price x shares) for all pending BUYs
+Run `portfolio_status.py` to get live prices for all tickers:
+
+```bash
+python3 tools/portfolio_status.py
+```
+
+Extract the current price for each ticker from the output. These prices are needed
+for the analyst to compute the 15% deep-support threshold in Risk-Off mode.
+
+### Step 3: Extract Pending BUY Orders
+
+Read `portfolio.json`. For each pending BUY order (one row per order, not per ticker):
+- Record the order price and shares
+- Look up the ticker's current price from Step 2
+- Compute `% Below Current`: `(current_price - order_price) / current_price * 100`
 - Note whether the ticker has an active position (shares > 0) or is watchlist-only (shares = 0)
 - Read `tickers/<TICKER>/identity.md` if it exists to determine the ticker's sector
 
-### Step 3: Extract Active Positions
+### Step 4: Extract Active Positions
 
 For tickers with shares > 0, extract:
 - Shares held
 - Average cost
+- Current price (from Step 2)
 - Total deployed (shares x avg_cost)
 - Count of pending BUY and SELL orders
 - Sector (from identity.md if available)
 
-### Step 4: Write Output
+### Step 5: Write Output
 
 Write `market-context-raw.md` with the following structure:
 
@@ -73,16 +86,16 @@ Write `market-context-raw.md` with the following structure:
 ## Market Pulse Output
 [full market_pulse.py output — all 4 tables verbatim]
 
-## Pending BUY Orders Summary
+## Pending BUY Orders Detail
 
-| Ticker | Sector | Active Position | Pending BUYs | Total $ Exposure | Notes |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-[one row per ticker with pending BUY orders. Active Position = "Yes (N shares)" or "No (watchlist)". Total $ Exposure = sum of (price x shares) for all pending BUYs.]
+| Ticker | Sector | Order Price | Shares | Current Price | % Below Current | Active Position | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+[one row per pending BUY order. % Below Current = (current - order) / current * 100. Active Position = "Yes (N shares)" or "No (watchlist)".]
 
 ## Active Positions Summary
 
-| Ticker | Sector | Shares | Avg Cost | Deployed | Pending BUYs | Pending SELLs |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Ticker | Sector | Shares | Avg Cost | Current Price | Deployed | Pending BUYs | Pending SELLs |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 [one row per active position]
 
 ## Sector Mapping
@@ -108,7 +121,7 @@ All output files use markdown tables with `| :--- |` alignment. No ASCII art, no
 ## HANDOFF
 
 **Artifact:** market-context-raw.md
-**Pending BUY tickers:** [N] tickers with [M] total pending BUY orders
+**Pending BUY orders:** [M] orders across [N] tickers
 **Active positions:** [N] tickers
 **Tool errors:** [N] or none
 

@@ -120,6 +120,7 @@ def market_pulse():
 
         if name == 'VIX':
             vix_val = val
+            five_d_chg = safe_pct_change(closes, 5)
             if val < 15:
                 interp = "Low — Complacency"
             elif val < 20:
@@ -128,7 +129,8 @@ def market_pulse():
                 interp = "Elevated — Caution"
             else:
                 interp = "High — Fear"
-            print(f"| {name} | {val:.2f} | {interp} |")
+            five_d_str = f" ({five_d_chg:+.2f}% 5D)" if five_d_chg is not None else ""
+            print(f"| {name} | {val:.2f}{five_d_str} | {interp} |")
         elif name == '10Y Yield':
             day_chg = safe_pct_change(closes, 1)
             chg_str = f" ({day_chg:+.2f}% day)" if day_chg is not None else ""

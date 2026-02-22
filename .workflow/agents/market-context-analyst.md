@@ -50,7 +50,12 @@ Verify the `market_pulse.py` regime by checking its inputs:
 
 ### Step 3: Apply Entry Gate to Pending Orders
 
-For each ticker with pending BUY orders, assign a gate status based on the regime:
+Evaluate each pending BUY order individually. The gate status is assigned per
+order (not per ticker) because a single ticker can have orders at very different
+depths — some at deep support and others near current price.
+
+Use the `% Below Current` column from `market-context-raw.md` Pending BUY Orders
+Detail table for all depth calculations.
 
 **Risk-On regime:**
 - All pending BUY orders: **ACTIVE** (no constraint)
@@ -59,12 +64,13 @@ For each ticker with pending BUY orders, assign a gate status based on the regim
 **Neutral regime:**
 - All pending BUY orders: **ACTIVE** with advisory note
 - Note: "Neutral regime — monitor VIX trend; consider tighter spacing if VIX rising"
-- If VIX is 20-25 and trending up (5D% positive): escalate advisory to **CAUTION**
+- If VIX is 20-25 and VIX 5D% is positive (trending up): escalate advisory to **CAUTION**
 
-**Risk-Off regime:**
+**Risk-Off regime (per-order evaluation):**
 - Watchlist tickers (no active position, shares = 0): **PAUSE** all pending BUY orders
-- Active positions with pending BUYs at deep support (>15% below current price): **ACTIVE** (capitulation catchers)
-- Active positions with pending BUYs near current price (<15% below): **REVIEW** (may want to pause)
+- Active positions — evaluate each order by its `% Below Current`:
+  - Order >15% below current price: **ACTIVE** (capitulation catcher at deep support)
+  - Order <=15% below current price: **REVIEW** (near current price, may want to pause)
 - Note sector-specific risk: if the ticker's sector is among the lagging sectors, flag elevated risk
 
 ### Step 4: Compile Report
@@ -95,9 +101,9 @@ Write `market-context-report.md`:
 
 ## Entry Gate Decisions
 
-| Ticker | Sector | Position | Pending BUYs | $ Exposure | Gate Status | Reasoning |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-[sorted: PAUSE first, then REVIEW, then CAUTION, then ACTIVE]
+| Ticker | Order Price | Shares | % Below Current | Gate Status | Reasoning |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+[one row per pending BUY order, sorted: PAUSE first, then REVIEW, then CAUTION, then ACTIVE]
 
 ## Sector Alignment
 
@@ -122,11 +128,11 @@ Write `market-context-report.md`:
 ### Step 5: Cross-check Decisions
 
 Before writing the final output, verify:
-- Every ticker with pending BUY orders in portfolio.json is evaluated
+- Every pending BUY order in portfolio.json is evaluated (one row per order)
 - Gate status matches the regime rules in strategy.md:
   - Risk-On: all ACTIVE
-  - Neutral: all ACTIVE (with advisory; CAUTION only if VIX 20-25 and trending up)
-  - Risk-Off: watchlist-only = PAUSE; active deep support = ACTIVE; active near-price = REVIEW
+  - Neutral: all ACTIVE (with advisory; CAUTION only if VIX 20-25 and 5D% positive)
+  - Risk-Off: watchlist-only = PAUSE; active position orders >15% below = ACTIVE; <=15% below = REVIEW
 - No recommendation to CANCEL (vs PAUSE) pending orders — strategy says PAUSE
 - VIX value in report matches raw data
 - Index vs 50-SMA counts match raw data
@@ -151,7 +157,7 @@ All output files use markdown tables with `| :--- |` alignment. No ASCII art, no
 **Artifact:** market-context-report.md
 **Regime:** [Risk-On / Neutral / Risk-Off]
 **VIX:** [value]
-**Pending BUY tickers evaluated:** [N]
+**Pending BUY orders evaluated:** [N]
 **Gate decisions:** [N] ACTIVE, [N] CAUTION, [N] REVIEW, [N] PAUSE
 
 Market context analysis complete.
