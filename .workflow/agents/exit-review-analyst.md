@@ -87,18 +87,18 @@ Assign each position one of 4 verdicts:
 
 **Verdict logic rules (apply in order — first match wins):**
 
-1. Profit target AT TARGET (P/L >= 10%) = **HOLD** (let the target hit, regardless of time stop)
-2. Profit target APPROACHING (7% <= P/L < 10%) = **HOLD** (approaching target — do not exit)
-3. Earnings GATED (< 7 days) for any non-recovery position = **REDUCE** (earnings gate takes priority)
-4. Recovery + earnings GATED (< 7 days) = **REDUCE** (earnings gate applies to recovery too)
+1. Earnings GATED (< 7 days) for any non-recovery position = **REDUCE** (earnings gate overrides all other factors — lock in gains or cut losses before binary event)
+2. Recovery + earnings GATED (< 7 days) = **REDUCE** (earnings gate applies to recovery too)
+3. Profit target AT TARGET (P/L >= 10%) = **HOLD** (let the target hit, regardless of time stop)
+4. Profit target APPROACHING (7% <= P/L < 10%) = **HOLD** (approaching target — do not exit)
 5. Recovery + active squeeze catalyst (high squeeze score) or bullish relief rally signals (RSI recovering above 30, volume on up days) = **HOLD** with Dig Out rationale
 6. Recovery + bearish across all signals (no catalyst, deteriorating momentum, no relief rally setup) = **MONITOR** with Dig Out exit consideration
 7. Recovery + all other signal combinations = **HOLD** (default: recovery positions get time to recover; time stop is informational only)
 8. Time stop EXCEEDED + bearish RSI (< 40) + earnings CLEAR (> 14 days or unknown) = **EXIT**
 9. Time stop EXCEEDED + bullish technicals (RSI > 50, MACD bullish crossover or above signal) = **HOLD** with explicit bullish justification
 10. Time stop EXCEEDED + earnings APPROACHING (7-14 days) = **REDUCE**
-11. Time stop EXCEEDED + mixed signals (RSI 40-50, neutral MACD) = **REDUCE**
-12. Time stop APPROACHING (15-21 days) + bearish momentum = **MONITOR** with warning
+11. Time stop EXCEEDED + any other signal combination = **REDUCE** (time exceeded without clear bullish case — default to partial exit)
+12. Time stop APPROACHING (15-21 days) = **MONITOR** (with warning if bearish momentum)
 13. Time stop WITHIN (< 15 days) = **MONITOR** (standard tracking)
 
 ### Step 4: Compile Report
@@ -157,8 +157,8 @@ Write `exit-review-report.md` with this structure:
 ### Step 5: Cross-check Verdicts
 
 Before writing the final output, verify:
-- No position with P/L >= 7% gets EXIT verdict (rules 1-2 protect AT TARGET and APPROACHING positions)
-- No recovery position gets EXIT verdict (rules 4-7 handle recovery — worst case is MONITOR with exit consideration)
+- No position with P/L >= 7% gets EXIT verdict (rules 3-4 protect AT TARGET and APPROACHING positions — unless earnings GATED, which correctly triggers REDUCE via rules 1-2)
+- No recovery position gets EXIT verdict (rules 2, 5-7 handle recovery — worst case is MONITOR with exit consideration)
 - Every HOLD verdict for a time-stop-exceeded position has explicit bullish justification in the Reasoning field
 - EXIT verdicts have concrete "rotate to" suggestions referencing watchlist tickers
 - Every position has all 4 criteria evaluated in the Exit Criteria Summary table
@@ -194,6 +194,6 @@ Exit analysis complete.
 - Do NOT modify portfolio.json or any ticker files
 - Do NOT fabricate data — if earnings date is unknown in exit-review-raw.md, report as "Unknown"
 - Do NOT estimate averages — compute P/L explicitly: `((current_price - avg_cost) / avg_cost) * 100`
-- Do NOT give EXIT verdict to positions with P/L >= 7% (AT TARGET or APPROACHING — rules 1-2)
-- Do NOT give EXIT verdict to recovery positions (rules 4-7 — worst case is MONITOR)
+- Do NOT give EXIT verdict to positions with P/L >= 7% (AT TARGET or APPROACHING — rules 3-4), except earnings GATED triggers REDUCE via rule 1
+- Do NOT give EXIT verdict to recovery positions (rules 2, 5-7 — worst case is MONITOR)
 - Do NOT skip any of the 4 exit criteria for any position

@@ -70,13 +70,13 @@ Record each discrepancy with: ticker, field, expected value, report value.
 
 Verify each verdict follows the logic rules from the analyst's process:
 
-1. **EXIT requires ALL of:** time stop EXCEEDED + bearish momentum (RSI < 40) + earnings CLEAR (> 14 days or unknown). Flag if any condition is NOT met.
-2. **Positions with P/L >= 10%** must NOT get EXIT or REDUCE verdict (they are at target — should be HOLD).
-3. **Positions with P/L 7-10%** (APPROACHING target) must NOT get EXIT verdict — should be HOLD.
-4. **HOLD for time-stop-exceeded positions** requires explicit bullish justification in the Reasoning field. Flag if missing or generic.
-5. **Recovery positions** must NOT get EXIT verdict. Recovery verdicts are limited to REDUCE (earnings gate only), HOLD, or MONITOR. Flag EXIT for any recovery position.
-6. **Earnings GATED (< 7 days) non-recovery** must be REDUCE or EXIT. Flag if HOLD or MONITOR.
-7. **Earnings GATED (< 7 days) recovery** must be REDUCE. Flag if HOLD or MONITOR.
+1. **Earnings GATED (< 7 days) non-recovery** must be REDUCE. Flag if HOLD, MONITOR, or EXIT. (Earnings gate overrides profit target — even positions with P/L >= 10% get REDUCE when earnings GATED.)
+2. **Earnings GATED (< 7 days) recovery** must be REDUCE. Flag if HOLD, MONITOR, or EXIT.
+3. **EXIT requires ALL of:** time stop EXCEEDED + bearish momentum (RSI < 40) + earnings CLEAR (> 14 days or unknown). Flag if any condition is NOT met.
+4. **Positions with P/L >= 10% + earnings NOT GATED** must NOT get EXIT or REDUCE verdict (they are at target — should be HOLD).
+5. **Positions with P/L 7-10% + earnings NOT GATED** (APPROACHING target) must NOT get EXIT verdict — should be HOLD.
+6. **HOLD for time-stop-exceeded positions** requires explicit bullish justification in the Reasoning field. Flag if missing or generic.
+7. **Recovery positions** must NOT get EXIT verdict. Recovery verdicts are limited to REDUCE (earnings gate only), HOLD, or MONITOR. Flag EXIT for any recovery position.
 8. **Earnings APPROACHING (7-14 days)** triggers REDUCE only when time stop is also EXCEEDED. Do NOT flag MONITOR/HOLD as wrong if time stop is not EXCEEDED.
 9. **Earnings CLEAR (> 14 days or unknown)** — no earnings-based verdict constraint.
 
@@ -103,7 +103,7 @@ Verify the following match their source exactly:
 1. **Shares & avg_cost** — must match portfolio.json.
 2. **Entry dates** — must match portfolio.json.
 3. **target_exit values** — must match portfolio.json (including null for recovery).
-4. **Current prices** — must match portfolio_status.py output in exit-review-raw.md.
+4. **Current prices** — must match portfolio_status.py output in exit-review-raw.md. Also verify Current Price in the Position Summary table matches the Portfolio Status section.
 5. **RSI values** — must match technical_scanner output in exit-review-raw.md.
 6. **MACD signals** — must match technical_scanner output in exit-review-raw.md.
 7. **Short interest / squeeze scores** — must match short_interest output in exit-review-raw.md.

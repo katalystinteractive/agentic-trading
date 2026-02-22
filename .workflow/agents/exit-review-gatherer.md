@@ -92,9 +92,9 @@ Write `exit-review-raw.md` with the following structure:
 
 ## Position Summary
 
-| Ticker | Shares | Avg Cost | Entry Date | Days Held | Time Stop Status | Target Exit | Note |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-[one row per active position]
+| Ticker | Shares | Avg Cost | Current Price | P/L % | Entry Date | Days Held | Time Stop Status | Target Exit | Note |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+[one row per active position — Current Price and P/L % from portfolio_status.py output in Step 2]
 
 ## Portfolio Status
 
