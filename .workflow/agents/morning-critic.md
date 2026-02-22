@@ -183,6 +183,7 @@ Record each mismatch with: ticker/field, source value, briefing value, severity.
 1. **Every active position** (shares > 0) in portfolio.json is reviewed in the briefing under Active Positions.
 2. **Every position** has all 4 exit criteria evaluated in its Exit Criterion table.
 3. **Every pending BUY order** in portfolio.json has entry gate evaluation (Market Gate + Earnings Gate + Combined).
+3a. **Every pending SELL order** in portfolio.json appears in the briefing's Pending Orders tables with N/A gate columns.
 4. **Every watchlist ticker with pending BUY orders** appears under Watchlist (not Active Positions, unless shares > 0).
 5. **Placement rule:** no ticker with shares > 0 appears under Watchlist. No ticker with shares = 0 appears under Active Positions.
 6. **Recovery positions** have Dig Out Protocol assessment mentioned in reasoning.

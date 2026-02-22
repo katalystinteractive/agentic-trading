@@ -192,7 +192,14 @@ Before compiling the report, verify:
 
 If any cross-check fails, fix the verdict before writing output.
 
-### Step 7: Compile Morning Briefing
+### Step 7: Fill Alert Detection
+
+Compare day ranges from the Portfolio Status Output in morning-briefing-raw.md against pending orders:
+- **BUY fill alerts:** For each pending BUY order, check if the day's low approached or breached the order price. If day low <= order price + 2%, flag as a potential fill or near-fill.
+- **SELL fill alerts:** For each pending SELL order, check if the day's high approached or breached the order price. If day high >= order price - 2%, flag as a potential fill or near-fill.
+- Note fill probability: "Filled" (price crossed order level), "Near-fill" (within 2%), or omit if not close.
+
+### Step 8: Compile Morning Briefing
 
 Write `morning-briefing.md` with this structure:
 
@@ -233,7 +240,7 @@ Write `morning-briefing.md` with this structure:
 | Earnings Gate | CLEAR/APPROACHING/GATED | [N] days to event |
 | Momentum | Bullish/Neutral/Bearish | RSI [X], MACD [signal] |
 
-**Trades Executed:** [individual fills from memory.md — date, price, shares, fill type]
+**Trades Executed:** [individual fills from Memory Context section in morning-briefing-raw.md — date, price, shares, fill type]
 
 **Sell-Side Advisory:** [For non-recovery positions: shown only when P/L > 7% OR (P/L > 5% AND momentum shifting: RSI declining from >55 to <45, or MACD bearish crossover). Omitted for non-recovery positions below these thresholds. For recovery positions: ALWAYS shown regardless of P/L — discusses recovery thesis, catalyst path, and institutional signals instead of profit-taking.]
 

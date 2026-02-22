@@ -220,6 +220,8 @@ Write `morning-briefing-raw.md` with the following structure:
 ## Cross-Check Summary
 - Total pending BUY orders in portfolio.json: [M] across [N] tickers
 - Total pending BUY order rows written: [M]
+- Total pending SELL orders in portfolio.json: [S] across [T] tickers
+- Total pending SELL order rows written: [S]
 - Active positions covered: [N]
 - Watchlist tickers with orders covered: [N]
 - Scouting tickers (no orders): [N]
@@ -247,7 +249,7 @@ All output files use markdown tables with `| :--- |` alignment. No ASCII art, no
 **Scouting tickers (no orders):** [N]
 **Tools run:** market_pulse, portfolio_status, earnings_analyzer x[N], technical_scanner x[N], short_interest x[N], news_sentiment x[N]
 **Tool errors:** [N] or none
-**Cross-check:** [M] pending BUY orders verified
+**Cross-check:** [M] pending BUY + [S] pending SELL orders verified
 
 Ready for morning analysis.
 ```
