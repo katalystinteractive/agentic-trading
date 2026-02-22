@@ -151,6 +151,7 @@ def parse_market_regime(lines):
         "regime": "Unknown",
         "reasoning": "",
         "vix": "N/A",
+        "vix_5d_pct": "N/A",
         "indices_above_sma": 0,
         "sector_breadth": 0,
     }
@@ -184,6 +185,10 @@ def parse_market_regime(lines):
                     vix_match = re.match(r'([\d.]+)', cells[1])
                     if vix_match:
                         result["vix"] = float(vix_match.group(1))
+                    # Extract 5D% — e.g., "(-8.31% 5D)" or "(+2.50% 5D)"
+                    pct_match = re.search(r'\(([+-]?[\d.]+)%\s*5D\)', cells[1])
+                    if pct_match:
+                        result["vix_5d_pct"] = pct_match.group(1) + "%"
             break
 
     # Count indices above 50-SMA from Major Indices table
@@ -323,6 +328,58 @@ def parse_portfolio_summary(lines):
     return summary
 
 
+def parse_day_ranges(lines):
+    """Parse day low/high from Active Positions and Watchlist tables.
+
+    Active Positions table columns:
+    | Ticker | Shares | Avg Cost | Current | Day Low | Day High | P/L $ | P/L % | Target | Dist |
+    Watchlist table columns:
+    | Ticker | Price | Day Low | Day High | Day % |
+
+    Returns dict of {ticker: {"day_low": str, "day_high": str}}.
+    """
+    ranges = {}
+
+    # Parse Active Positions
+    start = find_section_start(lines, "## Active Positions")
+    if start is not None:
+        for i in range(start + 1, len(lines)):
+            line = lines[i].strip()
+            if line.startswith("## ") or line == "---":
+                break
+            cells = parse_table_row(line)
+            if len(cells) < 6:
+                continue
+            ticker = cells[0].strip()
+            if not re.match(r'^[A-Z]{1,6}$', ticker):
+                continue
+            ranges[ticker] = {
+                "day_low": cells[4].strip(),
+                "day_high": cells[5].strip(),
+            }
+
+    # Parse Watchlist table
+    start = find_section_start(lines, "## Watchlist")
+    if start is not None:
+        for i in range(start + 1, len(lines)):
+            line = lines[i].strip()
+            if line.startswith("## ") or line == "---":
+                break
+            cells = parse_table_row(line)
+            if len(cells) < 4:
+                continue
+            ticker = cells[0].strip()
+            if not re.match(r'^[A-Z]{1,6}$', ticker):
+                continue
+            if ticker not in ranges:
+                ranges[ticker] = {
+                    "day_low": cells[2].strip(),
+                    "day_high": cells[3].strip(),
+                }
+
+    return ranges
+
+
 def parse_capital_summary(lines):
     """Parse the last ## Capital Summary table for deployed, velocity, bounce values."""
     capital = {
@@ -370,7 +427,7 @@ def parse_date(lines):
 
 def build_ticker_file(ticker, ticker_type, date, regime_info, portfolio_summary,
                       capital, position_data, pending_orders_list,
-                      tool_output_text):
+                      tool_output_text, day_range=None):
     """Build the content for a single TICKER.md file."""
     parts = []
 
@@ -385,7 +442,9 @@ def build_ticker_file(ticker, ticker_type, date, regime_info, portfolio_summary,
     parts.append(f"| Regime | {regime_info['regime']} |")
     parts.append(f"| Regime Detail | {regime_info['reasoning']} |")
     vix_val = regime_info['vix']
+    vix_5d = regime_info.get('vix_5d_pct', 'N/A')
     parts.append(f"| VIX | {vix_val} |")
+    parts.append(f"| VIX 5D% | {vix_5d} |")
     parts.append(f"| Indices Above 50-SMA | {regime_info['indices_above_sma']}/3 |")
     parts.append(f"| Sector Breadth | {regime_info['sector_breadth']}/11 positive |")
     parts.append("")
@@ -434,6 +493,17 @@ def build_ticker_file(ticker, ticker_type, date, regime_info, portfolio_summary,
             parts.append("No active position (scouting)")
         else:
             parts.append("No position data available")
+    parts.append("")
+
+    # Day Range (for fill alert detection)
+    parts.append("## Day Range")
+    if day_range:
+        parts.append("| Metric | Value |")
+        parts.append("| :--- | :--- |")
+        parts.append(f"| Day Low | {day_range['day_low']} |")
+        parts.append(f"| Day High | {day_range['day_high']} |")
+    else:
+        parts.append("Day range not available")
     parts.append("")
 
     # Pending Orders
@@ -493,6 +563,7 @@ def main():
     regime_info = parse_market_regime(lines)
     portfolio_summary = parse_portfolio_summary(lines)
     position_summary = parse_position_summary(lines)
+    day_ranges = parse_day_ranges(lines)
     pending_orders = parse_pending_orders(lines)
     capital = parse_capital_summary(lines)
 
@@ -572,7 +643,8 @@ def main():
 
         file_content = build_ticker_file(
             ticker, "active", date, regime_info, portfolio_summary,
-            capital, pos_data, orders, tool_text
+            capital, pos_data, orders, tool_text,
+            day_range=day_ranges.get(ticker)
         )
 
         out_path = OUTPUT_DIR / f"{ticker}.md"
@@ -598,7 +670,8 @@ def main():
 
         file_content = build_ticker_file(
             ticker, "watchlist", date, regime_info, portfolio_summary,
-            capital, pos_data, orders, tool_text
+            capital, pos_data, orders, tool_text,
+            day_range=day_ranges.get(ticker)
         )
 
         out_path = OUTPUT_DIR / f"{ticker}.md"
@@ -625,7 +698,8 @@ def main():
 
         file_content = build_ticker_file(
             ticker, "scouting", date, regime_info, portfolio_summary,
-            capital, pos_data, orders, tool_text
+            capital, pos_data, orders, tool_text,
+            day_range=day_ranges.get(ticker)
         )
 
         out_path = OUTPUT_DIR / f"{ticker}.md"
