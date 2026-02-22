@@ -85,7 +85,7 @@ For each fill alert in the report:
 For each Context Flag in Per-Position Detail:
 
 1. **Earnings dates:** If claimed from status-raw.md cached data, verify the date matches and day-count is correct: day_count = earnings_date − report_date (calendar days). Verify flagged earnings are within 14 days. Also scan raw earnings data for each position — if earnings are < 14 days away and the analyst omitted the EARNINGS GATE flag, flag as Critical (not Minor).
-2. **Short squeeze scores:** Must match the short_interest data in status-raw.md: (a) numeric score (e.g., 65/100) matches, (b) risk label aligns with score ranges (0-29 LOW, 30-59 MODERATE, 60-100 HIGH), (c) % float short and days-to-cover values match.
+2. **Short squeeze scores:** Must match the short_interest data in status-raw.md: (a) numeric score (e.g., 65/100) matches, (b) risk label aligns with score ranges (0-29 LOW, 30-59 MODERATE, 60-79 HIGH, 80-100 EXTREME), (c) % float short and days-to-cover values match.
 3. **Near-fill distances:** For BUY orders: distance = (current_price − order_price) / current_price × 100. For SELL orders: distance = (order_price − current_price) / current_price × 100. Both should be positive values. Verify within +-0.2%.
 4. **Sell target proximity:** distance_to_target = (target_exit − current_price) / current_price × 100. Must be arithmetically correct within +-0.2%.
 5. **Time stops:** "3+ weeks" claim — verify position entry date is indeed 21+ days ago. For ISO dates (e.g., "2026-02-13"), compute exact day count. For non-ISO dates (e.g., "pre-2026", "pre-2026-02-12"), treat as inherently >21 days (pre-strategy positions are old by definition).

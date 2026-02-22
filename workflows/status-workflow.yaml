@@ -26,7 +26,7 @@ phases:
       - status-raw.md
     artifacts:
       - status-report.md
-    timeout_minutes: 8
+    timeout_minutes: 12
 
   - id: review
     name: Status Review
@@ -39,9 +39,9 @@ phases:
       - status-report.md
     artifacts:
       - status-review.md
-    timeout_minutes: 6
+    timeout_minutes: 10
 
 settings:
   max_fix_iterations: 0
   require_approval: false
-  timeout_minutes: 24
+  timeout_minutes: 32
