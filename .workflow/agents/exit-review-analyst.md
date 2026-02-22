@@ -79,12 +79,12 @@ For each active position (shares > 0), evaluate ALL 4 exit criteria:
 
 ### Step 3: Generate Exit Verdict
 
-Assign each position one of 4 verdicts:
+Assign each position one of 4 verdicts. **Verdict labels reflect share disposition — what happens to the shares you own:**
 
-- **EXIT** — Time stop exceeded + weak/bearish momentum + no upcoming catalyst. Capital should rotate.
-- **REDUCE** — Partial exit warranted — profitable position entering earnings, time stop exceeded without strong bullish justification, or mixed signals
-- **HOLD** — Strong bullish catalyst justifies holding (squeeze setup, bullish technicals, approaching target, recovery thesis through earnings)
-- **MONITOR** — Within time window but approaching stop, or position needs attention for other reasons
+- **EXIT** — Sell entire position. Time stop exceeded + weak/bearish momentum + earnings CLEAR. Capital should rotate.
+- **REDUCE** — Sell some or all shares. Only when shares are actually being sold (profitable position entering earnings, exceeded time stop without bullish case). **If no shares are sold, the verdict is NOT REDUCE.**
+- **HOLD** — Keep all shares. Includes: bullish catalyst setups, approaching profit target, underwater GATED positions (don't lock in losses), recovery positions with thesis. Pausing pending orders while holding all shares = HOLD, not REDUCE.
+- **MONITOR** — Keep all shares, standard tracking. Within time window, no urgent action needed.
 
 **Pre-check:** If a position has `note` containing "recovery" or "pre-strategy" BUT current P/L > 0%, treat it as **non-recovery** for verdict purposes — the recovery is complete.
 
@@ -93,7 +93,7 @@ Assign each position one of 4 verdicts:
 **Earnings GATED rules (strategy.md Earnings Decision Framework):**
 
 1. Non-recovery + GATED (< 7 days) + **P/L > 0% (profitable)** = **REDUCE** (lock in gains — a post-earnings drop can erase the gain entirely; pause remaining pending buy orders). CRITICAL: verify P/L is actually positive before applying this rule. If P/L <= 0%, use rule 2 instead.
-2. Non-recovery + GATED (< 7 days) + **P/L <= 0% (underwater)** = **HOLD** + recommend pausing pending buy orders. Two sub-cases based on bullet status (check `Bullets Used` column in exit-review-raw.md Position Summary table):
+2. Non-recovery + GATED (< 7 days) + **P/L <= 0% (underwater)** = **HOLD** (verdict label is HOLD because no shares are sold — pausing orders is not selling). Recommend pausing pending buy orders. Two sub-cases based on bullet status (check `Bullets Used` column in exit-review-raw.md Position Summary table):
    - **Still building** (unfilled bullets remain): position is early-stage — don't abandon a setup you believe in; deeper pending bullets catch post-earnings drops. Resume pending orders after event.
    - **Fully loaded** (all active bullets used): bullets exhausted — exiting now locks in maximum loss with no averaging path remaining. Hold through the event. Pause any remaining reserve pending orders; resume after event.
    Document which sub-case applies in the Reasoning field. Exception for both: EXIT if conviction in the stock has broken (not just price decline).
@@ -222,4 +222,5 @@ Exit analysis complete.
 - Do NOT give EXIT verdict to positions with P/L >= 7% (AT TARGET or APPROACHING — rules 6-7)
 - Do NOT give EXIT verdict to recovery positions (rules 3, 5, 8-10 — worst case is MONITOR)
 - Do NOT give blanket REDUCE to all GATED positions — apply the Earnings Decision Framework by position type (rules 1-5). Underwater non-recovery positions HOLD through earnings; recovery positions with thesis HOLD through earnings.
+- Do NOT label a verdict REDUCE when no shares are being sold. If the recommended action is "hold shares + pause orders," the verdict label MUST be HOLD. REDUCE means shares leave the portfolio.
 - Do NOT skip any of the 4 exit criteria for any position

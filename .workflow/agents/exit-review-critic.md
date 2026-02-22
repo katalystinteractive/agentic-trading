@@ -141,6 +141,7 @@ Record each mismatch with: ticker, field, source value, report value.
 2. **Every position** has all 4 exit criteria evaluated (Time Stop, Profit Target, Earnings Gate, Momentum) in its Exit Criteria Summary table.
 3. **Recovery positions** have Dig Out Protocol assessment mentioned in reasoning.
 4. **EXIT/REDUCE positions** have specific recommended actions (not vague or missing).
+4a. **Verdict-action consistency:** For every REDUCE verdict, verify the recommended action actually sells shares (not just pauses orders). If the action says "hold shares" or "no shares sold" but the verdict says REDUCE, flag as **Critical** — the verdict label must be HOLD. This is the most common analyst error.
 5. **Capital Rotation Summary** is present if any EXIT/REDUCE verdicts exist.
 6. **Prioritized Recommendations** list includes all EXIT/REDUCE positions.
 7. **Executive Summary** mentions total positions reviewed and count past time stop.
