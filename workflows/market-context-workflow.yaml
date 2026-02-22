@@ -1,0 +1,47 @@
+name: market-context-workflow
+description: >
+  Market context entry gate assessment. Phase 1 runs market_pulse.py and
+  extracts pending order exposure. Phase 2 classifies regime and applies
+  entry gate logic to all pending BUY orders. Phase 3 verifies regime
+  math, gate logic, and coverage.
+
+version: "1.0.0"
+
+phases:
+  - id: gather
+    name: Market Context Gathering
+    description: Run market_pulse.py and extract pending order exposure from portfolio
+    agent: market-context-gatherer
+    artifacts:
+      - market-context-raw.md
+    timeout_minutes: 5
+
+  - id: analyze
+    name: Market Context Analysis
+    description: Classify regime and apply entry gate to all pending BUY orders
+    agent: market-context-analyst
+    depends_on:
+      - gather
+    requires:
+      - market-context-raw.md
+    artifacts:
+      - market-context-report.md
+    timeout_minutes: 8
+
+  - id: review
+    name: Market Context Verification
+    description: Verify regime classification, gate logic, and coverage
+    agent: market-context-critic
+    depends_on:
+      - analyze
+    requires:
+      - market-context-raw.md
+      - market-context-report.md
+    artifacts:
+      - market-context-review.md
+    timeout_minutes: 6
+
+settings:
+  max_fix_iterations: 0
+  require_approval: false
+  timeout_minutes: 20

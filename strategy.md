@@ -40,6 +40,31 @@ We employ a **Mean Reversion** strategy, targeting stocks that consistently fluc
     enters the 7-day window for a ticker with existing pending buy orders, **PAUSE**
     (do not cancel) those orders — they remain staged to catch a post-earnings drop.
 
+### Market Context Entry Gate
+Before placing or reviewing pending buy orders, assess the market regime via
+`python3 tools/market_pulse.py`. The regime classification drives a portfolio-level
+overlay on all entry decisions:
+
+*   **Risk-On** (majority of indices above 50-SMA + VIX < 20): Proceed with
+    normal bullet placement at wick-adjusted support levels. No entry constraint.
+*   **Neutral** (mixed signals — neither Risk-On nor Risk-Off): Proceed with
+    normal entries. Note tighter bullet spacing may be warranted if VIX is
+    trending upward or sector rotation is unfavorable.
+*   **Risk-Off** (minority of indices above 50-SMA + VIX > 25): **PAUSE all
+    pending buy orders for watchlist tickers** (no active position). For tickers
+    with active positions, pending buy orders at deep support remain valid
+    (they catch capitulation dips), but no new orders should be placed.
+    Review active position stops for tightening.
+
+**Interaction with Earnings Entry Gate:** Both gates apply independently. A
+pending order must pass BOTH the earnings gate (ticker-level) AND the market
+context gate (portfolio-level) to remain active. If either gate says PAUSE,
+the order is paused.
+
+**Sector context:** When leading/lagging sectors diverge from portfolio
+exposure, note the mismatch. Pending orders in lagging sectors during
+Risk-Off carry elevated risk.
+
 ### Limit Order Placement Rule
 **Never place a limit buy at the exact support level.** Use `python3 tools/wick_offset_analyzer.py <TICKER>` to calculate the data-driven buy price for each support level. The tool analyzes 13 months of wick behavior at each specific level and outputs the exact recommended buy price based on where wicks historically stopped. Place limit orders at the tool's "Buy At" price, not the raw support level. Re-run periodically as new data accumulates.
 
