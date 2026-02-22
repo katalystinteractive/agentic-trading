@@ -81,7 +81,18 @@ For tickers with shares > 0, extract:
 - Count of pending BUY and SELL orders
 - Sector (from identity.md if available)
 
-### Step 5: Write Output
+### Step 5: Cross-check Before Writing
+
+Before writing the output file, verify completeness:
+
+1. **Count pending BUY orders in portfolio.json:** iterate every ticker in `pending_orders`, count orders with `type: "BUY"`. Record the total (M orders across N tickers).
+2. **Count rows in the Pending BUY Orders Detail table** you are about to write. This count must equal the total from step 1.
+3. **Cross-check Active Positions Summary:** for each active position row, verify the `Pending BUYs` column matches the number of BUY orders for that ticker in portfolio.json. Confirm every ticker with `Pending BUYs > 0` also has rows in the Detail table.
+4. If any count mismatch is found, find the missing ticker(s) and add the missing rows before writing.
+
+This step catches silent omissions — a ticker with both SELL and BUY orders (like one where the SELL appears first in the list) can be accidentally skipped if only the first order is checked.
+
+### Step 6: Write Output
 
 Write `market-context-raw.md` with the following structure:
 

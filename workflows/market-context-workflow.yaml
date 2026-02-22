@@ -15,7 +15,7 @@ phases:
     agent: market-context-gatherer
     artifacts:
       - market-context-raw.md
-    timeout_minutes: 5
+    timeout_minutes: 8
 
   - id: analyze
     name: Market Context Analysis
@@ -45,4 +45,4 @@ phases:
 settings:
   max_fix_iterations: 0
   require_approval: false
-  timeout_minutes: 20
+  timeout_minutes: 22
