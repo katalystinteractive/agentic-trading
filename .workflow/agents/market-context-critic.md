@@ -71,7 +71,7 @@ For each pending BUY order in the Entry Gate Decisions table, verify the gate st
   - Order <=15% below current price: must be **REVIEW**. Flag ACTIVE as incorrect.
 - Cross-check: recompute `% Below Current` = `(current_price - order_price) / current_price * 100` using Current Price and Order Price from the raw data. Flag if the report's gate status is inconsistent with the computed percentage.
 
-Record each error with: ticker, assigned gate status, expected gate status, reason.
+Record each error with: ticker, order price, assigned gate status, expected gate status, reason, severity.
 
 ### Check 3: Data Consistency
 

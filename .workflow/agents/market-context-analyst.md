@@ -81,7 +81,7 @@ Write `market-context-report.md`:
 # Market Context Report — [date]
 
 ## Executive Summary
-[2-3 sentences: regime classification, key VIX reading, entry gate recommendation, how many pending orders affected]
+[2-3 sentences: regime classification, key VIX reading, entry gate recommendation, total pending orders evaluated with breakdown by gate status (X ACTIVE, Y CAUTION, Z REVIEW, W PAUSE)]
 
 ## Market Regime
 
@@ -136,6 +136,7 @@ Before writing the final output, verify:
 - No recommendation to CANCEL (vs PAUSE) pending orders — strategy says PAUSE
 - VIX value in report matches raw data
 - Index vs 50-SMA counts match raw data
+- Total orders evaluated matches total pending BUY orders in portfolio.json (no missing, no duplicates)
 
 If any cross-check fails, fix before writing output.
 

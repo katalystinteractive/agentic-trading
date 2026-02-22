@@ -52,9 +52,10 @@ overlay on all entry decisions:
     trending upward or sector rotation is unfavorable.
 *   **Risk-Off** (minority of indices above 50-SMA + VIX > 25): **PAUSE all
     pending buy orders for watchlist tickers** (no active position). For tickers
-    with active positions, pending buy orders at deep support remain valid
-    (they catch capitulation dips), but no new orders should be placed.
-    Review active position stops for tightening.
+    with active positions, pending buy orders at deep support (>15% below
+    current price) remain valid as capitulation catchers, but orders within
+    15% of current price should be reviewed for pausing. No new orders
+    should be placed. Review active position stops for tightening.
 
 **Interaction with Earnings Entry Gate:** Both gates apply independently. A
 pending order must pass BOTH the earnings gate (ticker-level) AND the market

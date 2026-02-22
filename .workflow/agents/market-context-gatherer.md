@@ -2,9 +2,10 @@
 name: market-context-gatherer
 internal_code: MKT-GATH
 description: >
-  Runs market_pulse.py to capture index trends, VIX, and sector performance.
-  Extracts pending BUY order exposure and active positions from portfolio.json.
-  Maps tickers to sectors via identity files. Writes market-context-raw.md.
+  Runs market_pulse.py and portfolio_status.py to capture market data and
+  live ticker prices. Extracts per-order pending BUY detail (price, shares,
+  % below current) and active positions from portfolio.json. Maps tickers
+  to sectors via identity files. Writes market-context-raw.md.
 capabilities:
   file_read: true
   file_write: true
