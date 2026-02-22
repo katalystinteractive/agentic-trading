@@ -49,7 +49,7 @@ Determine time stop status for each position:
 
 Compute `target_exit` distance: if `target_exit` is set in portfolio.json, note the target price. If null, note "No target (recovery)".
 
-Compute `bullets_used` ratio: read `bullets_used` from portfolio.json and `active_bullets_max` from the capital settings. Format as "N/M" (e.g., "2/5"). If `bullets_used` is a string (e.g., "3 active (pre-strategy)"), extract the leading integer and append the pre-strategy flag: "3/5 (pre-strategy)". This tells the analyst whether the position is "still building" or "fully loaded" for the Earnings Decision Framework.
+Compute `bullets_used` ratio: read `bullets_used` from portfolio.json and `active_bullets_max` from the capital settings. Format as "N/M" (e.g., "2/5"). If `bullets_used` is a string (e.g., "3 active (pre-strategy)"), extract the leading integer and append the pre-strategy flag: "3/5 (pre-strategy)". Additionally, cross-reference the position's `note` field: if `note` contains "exhausted" or "active pool exhausted", append ", pool exhausted" (e.g., "3/5 (pre-strategy, pool exhausted)"). This tells the analyst whether the position is "still building" or "fully loaded" for the Earnings Decision Framework — note that pre-strategy positions may have N < M but still be exhausted due to different bullet sizing.
 
 ### Step 2: Run Portfolio Status
 

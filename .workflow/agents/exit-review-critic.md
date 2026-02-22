@@ -73,13 +73,15 @@ Record each discrepancy with: ticker, field, expected value, report value.
 
 Verify each verdict follows the Earnings Decision Framework (strategy.md) and analyst verdict logic rules. The key change from a blanket "GATED = REDUCE" is that GATED verdicts depend on position type, P/L, and earnings thesis.
 
+**Pre-check:** If a position has `note` containing "recovery" or "pre-strategy" BUT current P/L > 0%, verify the analyst treated it as **non-recovery** (the recovery is complete). Flag if recovery rules (3-5, 8-10) were applied to a position with P/L > 0%.
+
 **Earnings GATED rules (verify position-type match):**
 
 1. **Non-recovery + GATED + P/L > 0% (profitable)** must be REDUCE. Flag HOLD or MONITOR as incorrect — profitable positions must lock in gains before binary events.
 2. **Non-recovery + GATED + P/L <= 0% (underwater)** must be HOLD (with recommendation to pause pending buy orders). Flag REDUCE or EXIT as incorrect. Two valid reasoning paths depending on bullet status:
    - **Still building** (unfilled bullets remain per portfolio.json): reasoning should cite deeper pending bullets catching post-earnings drops.
    - **Fully loaded** (all active bullets used): reasoning should cite bullets exhausted — exiting locks in maximum loss with no averaging path remaining.
-   Verify the analyst documents which sub-case applies. Flag if reasoning cites "deeper bullets" when all bullets are used (per `bullets_used` in portfolio.json). Exception: EXIT is valid only if the analyst documents broken conviction (not just price decline).
+   Verify the analyst documents which sub-case applies. Flag if reasoning cites "deeper bullets" when all bullets are used (per `Bullets Used` column in exit-review-raw.md Position Summary table). Exception: EXIT is valid only if the analyst documents broken conviction (not just price decline).
 3. **Recovery + GATED + specific earnings thesis** must be HOLD. Flag REDUCE or EXIT as incorrect. A "specific thesis" requires evidence documented in Reasoning: management responding to short report/allegations, institutional accumulation into event, unchanged/raised price targets, or expected guidance beat. If the analyst claims a thesis, verify it against identity context and news in exit-review-raw.md. If the thesis claim is unsubstantiated, flag as Critical.
 4. **Recovery + GATED + no thesis + P/L > -10%** must be REDUCE. Flag HOLD as incorrect — near-breakeven recovery should protect gains.
 5. **Recovery + GATED + no thesis + P/L <= -10%** must be HOLD with awareness. Flag REDUCE or EXIT as incorrect — sufficiently underwater that marginal downside is limited. (Note: if the analyst identifies a thesis from the raw data, rule 3 applies instead.)
@@ -87,13 +89,14 @@ Verify each verdict follows the Earnings Decision Framework (strategy.md) and an
 
 **Profit target rules:**
 
-7. **Positions with P/L >= 10% + earnings NOT GATED** must NOT get EXIT or REDUCE verdict (they are at target — should be HOLD).
+7. **Positions with 10% <= P/L <= 12% + earnings NOT GATED** must NOT get EXIT or REDUCE verdict (they are at target — should be HOLD).
+7a. **Positions with P/L > 12% + earnings NOT GATED** must be REDUCE (past top of target range — take profits). Flag HOLD or MONITOR as incorrect.
 8. **Positions with P/L 7-10% + earnings NOT GATED** (APPROACHING target) must NOT get EXIT or REDUCE verdict — should be HOLD.
 
 **General rules:**
 
 9. **EXIT requires ALL of:** time stop EXCEEDED + bearish momentum (RSI < 40) + earnings CLEAR (> 14 days or unknown). Flag if any condition is NOT met.
-10. **HOLD for time-stop-exceeded positions** requires explicit bullish justification in the Reasoning field. Flag if missing or generic.
+10. **HOLD for time-stop-exceeded positions** requires explicit bullish justification AND earnings CLEAR in the Reasoning field. Flag if missing or generic. Flag HOLD if earnings is APPROACHING (7-14 days) — should be REDUCE per analyst rule 13.
 11. **Recovery positions** must NOT get EXIT verdict regardless of earnings status. For non-GATED recovery: valid verdicts are HOLD or MONITOR only — flag EXIT or REDUCE. For GATED recovery: apply rules 3-5 above.
 12. **Earnings APPROACHING (7-14 days)** triggers REDUCE only when time stop is also EXCEEDED. Do NOT flag MONITOR/HOLD as wrong if time stop is not EXCEEDED.
 13. **Earnings CLEAR (> 14 days or unknown)** — no earnings-based verdict constraint.
