@@ -92,7 +92,7 @@ Record each mismatch with: ticker/field, source value, report value.
 ### Check 4: Coverage & Completeness
 
 1. **Every pending BUY order** in portfolio.json is evaluated in the Entry Gate Decisions table (one row per order).
-2. **Sector Alignment table** covers all portfolio sectors.
+2. **Sector Alignment table** covers all portfolio sectors that have pending BUY orders.
 3. **Executive Summary** states the regime and includes per-status breakdown (ACTIVE, CAUTION, REVIEW, PAUSE counts). Verify these counts match the row counts in the Entry Gate Decisions table.
 4. **Recommendations section** is present and specific (not vague or missing).
 5. **If Risk-Off:** Position Management section addresses stops on active positions.

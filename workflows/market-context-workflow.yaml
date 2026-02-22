@@ -1,9 +1,10 @@
 name: market-context-workflow
 description: >
   Market context entry gate assessment. Phase 1 runs market_pulse.py and
-  extracts pending order exposure. Phase 2 classifies regime and applies
-  entry gate logic to all pending BUY orders. Phase 3 verifies regime
-  math, gate logic, and coverage.
+  portfolio_status.py to capture market indices and live ticker prices,
+  then extracts per-order pending BUY exposure. Phase 2 classifies regime
+  and applies entry gate logic to all pending BUY orders. Phase 3 verifies
+  regime math, gate logic, and coverage.
 
 version: "1.0.0"
 
