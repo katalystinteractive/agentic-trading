@@ -11,7 +11,7 @@ version: "1.0.0"
 phases:
   - id: gather
     name: Market Context Gathering
-    description: Run market_pulse.py and extract pending order exposure from portfolio
+    description: Run market_pulse.py and portfolio_status.py, extract per-order pending BUY exposure
     agent: market-context-gatherer
     artifacts:
       - market-context-raw.md
