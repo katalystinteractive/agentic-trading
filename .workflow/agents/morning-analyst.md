@@ -273,7 +273,7 @@ Write `morning-briefing.md` with this structure:
 ### [TICKER] — Watching
 **State:** [N] pending BUY orders, nearest $[price] ([dist]% below)
 **Objective:** [what triggers activation — specific price/level that starts building the position, e.g., "First fill at $7.63 activates the SOUN mean-reversion setup"]
-**Entry Gate:** [per-order status summary: N ACTIVE, N PAUSED, etc.]
+**Entry Gate:** [per-order status summary: N ACTIVE, N PAUSE, etc.]
 
 **Buy Levels:**
 | Order Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
