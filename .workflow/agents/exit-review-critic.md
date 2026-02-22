@@ -41,6 +41,8 @@ Read `exit-review-raw.md`, `exit-review-report.md`, `portfolio.json`, and `strat
 
 ### Check 1: Day Count Math
 
+**Reference date:** Use the date from the `exit-review-raw.md` header (`# Exit Review Raw Data — [date]`) as "today" for all day count computations in this check and in Check 4.
+
 For each position in the report, verify the days_held computation:
 
 1. **ISO dates** (e.g., "2026-02-13"): days_held = (today - entry_date).days in calendar days. Allow +-1 day tolerance (timezone edge cases).
@@ -63,6 +65,7 @@ For each position, verify:
 4. **P/L %** = (P/L $ / Total Deployed) x 100. Allow +-0.2% tolerance.
 5. **Distance to target** = (target_exit - current_price) / current_price x 100. Allow +-0.2% tolerance.
 6. **Null target_exit** (recovery positions): verify report shows "N/A" or "No target", not a fabricated value.
+7. **Profit target status label** — verify the label matches P/L %: AT TARGET (>= 10%), APPROACHING (7% <= P/L < 10%), BELOW (< 7%). A mislabeled status could mislead the reader even if the verdict is correct.
 
 Record each discrepancy with: ticker, field, expected value, report value.
 

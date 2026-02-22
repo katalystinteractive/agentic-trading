@@ -81,7 +81,7 @@ For each active position (shares > 0), evaluate ALL 4 exit criteria:
 Assign each position one of 4 verdicts:
 
 - **EXIT** — Time stop exceeded + weak/bearish momentum + no upcoming catalyst. Capital should rotate.
-- **REDUCE** — Mixed signals warrant partial exit (e.g., earnings gate approaching, time stop hit but momentum improving)
+- **REDUCE** — Partial exit warranted — earnings gate, time stop exceeded without strong bullish justification, or mixed signals
 - **HOLD** — Strong bullish catalyst justifies holding (squeeze setup, bullish technicals, approaching target)
 - **MONITOR** — Within time window but approaching stop, or position needs attention for other reasons
 
@@ -89,7 +89,7 @@ Assign each position one of 4 verdicts:
 
 1. Earnings GATED (< 7 days) for any non-recovery position = **REDUCE** (earnings gate overrides all other factors — lock in gains or cut losses before binary event)
 2. Recovery + earnings GATED (< 7 days) = **REDUCE** (earnings gate applies to recovery too)
-3. Profit target AT TARGET (P/L >= 10%) = **HOLD** (let the target hit, regardless of time stop)
+3. Profit target AT TARGET (P/L >= 10%) = **HOLD** (in profit target range — let it reach 10-12% or review for exit near top of range)
 4. Profit target APPROACHING (7% <= P/L < 10%) = **HOLD** (approaching target — do not exit)
 5. Recovery + active squeeze catalyst (high squeeze score) or bullish relief rally signals (RSI recovering above 30, volume on up days) = **HOLD** with Dig Out rationale
 6. Recovery + bearish across all signals (no catalyst, deteriorating momentum, no relief rally setup) = **MONITOR** with Dig Out exit consideration
