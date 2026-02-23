@@ -218,7 +218,7 @@ def _parse_order_table(card_text, buy_only=False, as_gate_dict=False):
     Args:
         buy_only: If True, skip SELL rows.
         as_gate_dict: If True, return {price_str: gate_str} dict.
-                      If False, return list of {"ticker", "price", "gate"} dicts.
+                      If False, return list of {"price", "gate"} dicts.
 
     Ticker is not set in either mode; caller adds it post-hoc.
     """
@@ -410,13 +410,13 @@ def _find_earnings_date(card_text):
     Looks for patterns like "Earnings Feb 25", "earnings 2026-02-25",
     "Earnings Gate ... (Feb 25, 2026)".
     """
-    # ISO date in text
-    m = re.search(r'[Ee]arnings\s+(\d{4}-\d{2}-\d{2})', card_text)
+    # ISO date in text (word boundary prevents matching "pre-earnings")
+    m = re.search(r'\b[Ee]arnings\s+(\d{4}-\d{2}-\d{2})', card_text)
     if m:
         return _format_date(m.group(1))
 
     # "Earnings MON DD" pattern (e.g., "Earnings Feb 25")
-    m = re.search(r'[Ee]arnings\s+((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2})', card_text)
+    m = re.search(r'\b[Ee]arnings\s+((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2})', card_text)
     if m:
         return m.group(1)
 
