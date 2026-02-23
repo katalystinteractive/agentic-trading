@@ -133,6 +133,13 @@ def parse_briefing_cards(briefing_text):
             section_name = stripped[3:].strip()
             if section_name in SECTION_HEADERS:
                 current_section = None
+                continue
+            # Non-standard ## card header (e.g., ## TICKER — VERDICT — P/L X%)
+            if current_section:
+                if re.match(r'[A-Z]{1,6}\b.*\u2014', section_name):
+                    card_starts.append((i, current_section))
+                elif re.match(r'Action Card:\s*[A-Z]{1,6}', section_name):
+                    card_starts.append((i, current_section))
             continue
 
         # Standard ### card headers — must start with a ticker (1-6 uppercase)
@@ -142,8 +149,8 @@ def parse_briefing_cards(briefing_text):
                 card_starts.append((i, current_section))
             continue
 
-        # Non-standard # or ## headers that look like ticker cards
-        m = re.match(r'^#{1,2}\s+(.+)$', line)
+        # Non-standard # headers that look like ticker cards
+        m = re.match(r'^#\s+(.+)$', line)
         if m and current_section:
             content = m.group(1).strip()
             if any(content.startswith(h) for h in SECTION_HEADERS):
@@ -220,12 +227,15 @@ def _dedup_cards(cards):
         ticker = card["ticker"]
         if ticker in seen:
             existing = seen[ticker]
+            existing_has_verdict = "verdict" in existing
+            new_has_verdict = "verdict" in card
             # Prefer card with verdict (standard format) over one without
-            if "verdict" not in existing and "verdict" in card:
+            if new_has_verdict and not existing_has_verdict:
                 seen[ticker] = card
-            # Prefer longer card text (more content)
-            elif len(card.get("text", "")) > len(existing.get("text", "")):
-                seen[ticker] = card
+            # Same verdict status — prefer longer card text
+            elif new_has_verdict == existing_has_verdict:
+                if len(card.get("text", "")) > len(existing.get("text", "")):
+                    seen[ticker] = card
         else:
             seen[ticker] = card
     return list(seen.values())

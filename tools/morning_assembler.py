@@ -90,7 +90,7 @@ def parse_card_header(first_line):
         }
 
     # Watchlist shorthand: TICKER — Watching/Scouting [...]
-    m = re.match(r'(\w+) — (?:Watching|Scouting)(.*)?$', content)
+    m = re.match(r'(\w+) — (?:Watching|Scouting)', content)
     if m:
         return {
             "ticker": m.group(1),
