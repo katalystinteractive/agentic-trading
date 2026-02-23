@@ -521,6 +521,9 @@ def compute_pool_usage(position: dict | None, pending: list[dict],
             "note": "Pre-strategy recovery mode — standard validation bypassed",
         }
 
+    # Deployed capital (shares * avg) counts toward the active pool budget because
+    # initial entries always come from active bullets.  Reserve pool only funds
+    # deeper pending BUY orders, so reserve_remaining excludes deployed.
     deployed = position["shares"] * position["avg_cost"]
     return {
         "deployed": deployed,
@@ -1096,15 +1099,13 @@ def run_scan(portfolio: dict) -> str:
         lines.append("")
 
     # Pending order mismatches
-    lines.append("## Pending Order Mismatches")
     if mismatch_rows:
+        lines.append("## Pending Order Mismatches")
         lines.append("| Ticker | Order | Current | Wick Says | Action |")
         lines.append("| :--- | :--- | :--- | :--- | :--- |")
         for r in mismatch_rows:
             lines.append(f"| {r['ticker']} | {r['label']} | {r['current']} | {r['wick_says']} | Review |")
-    else:
-        lines.append("No mismatches.")
-    lines.append("")
+        lines.append("")
 
     # Bounce-derived
     if bounce_rows:
