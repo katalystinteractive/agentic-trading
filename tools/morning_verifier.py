@@ -99,25 +99,75 @@ def parse_briefing_cards(briefing_text):
 
     Returns (active_cards, watchlist_cards) where each card is:
     {**parse_card_header(line), "text": str, "header": str}
+
+    Tolerant of non-standard heading levels (# or ##) and non-standard
+    card header formats. Falls back to section context for card type.
     """
+    SECTION_HEADERS = {
+        "Executive Summary", "Immediate Actions", "Market Regime",
+        "Active Positions", "Watchlist", "Cross-Ticker Intelligence",
+        "Fill Alerts", "Capital Summary", "Velocity & Bounce Positions",
+        "Scouting", "Failed Tickers", "Morning Briefing",
+        "Velocity", "Quality Notes",
+    }
+
     active_cards = []
     watchlist_cards = []
-
-    # Split on ### headers
     lines = briefing_text.split("\n")
-    card_starts = []
-    for i, line in enumerate(lines):
-        if line.startswith("### ") and not line.startswith("### Sector"):
-            card_starts.append(i)
 
-    for idx, start in enumerate(card_starts):
-        end = card_starts[idx + 1] if idx + 1 < len(card_starts) else len(lines)
-        # Find the actual end (stop at --- or ## headers)
+    # Track briefing section for fallback card type inference
+    current_section = None  # "active" or "watchlist"
+    card_starts = []  # (line_index, section_hint)
+
+    for i, line in enumerate(lines):
+        stripped = line.strip()
+
+        # Track section transitions
+        if stripped == "## Active Positions":
+            current_section = "active"
+            continue
+        if stripped == "## Watchlist":
+            current_section = "watchlist"
+            continue
+        if stripped.startswith("## "):
+            section_name = stripped[3:].strip()
+            if section_name in SECTION_HEADERS:
+                current_section = None
+            continue
+
+        # Standard ### card headers — must start with a ticker (1-6 uppercase)
+        if line.startswith("### "):
+            m = re.match(r'^### ([A-Z]{1,6})\b', line)
+            if m:
+                card_starts.append((i, current_section))
+            continue
+
+        # Non-standard # or ## headers that look like ticker cards
+        m = re.match(r'^#{1,2}\s+(.+)$', line)
+        if m and current_section:
+            content = m.group(1).strip()
+            if any(content.startswith(h) for h in SECTION_HEADERS):
+                continue
+            # Must start with ticker + em-dash, or be "Action Card: TICKER"
+            if re.match(r'[A-Z]{1,6}\b.*\u2014', content):
+                card_starts.append((i, current_section))
+            elif re.match(r'Action Card:\s*[A-Z]{1,6}', content):
+                card_starts.append((i, current_section))
+
+    for idx, (start, section_hint) in enumerate(card_starts):
+        next_start = card_starts[idx + 1][0] if idx + 1 < len(card_starts) else len(lines)
+        # Find the actual end: stop at --- or known section headers only.
+        # Do NOT break at arbitrary ## lines (non-standard cards may use them).
         card_lines = []
-        for j in range(start, end):
+        for j in range(start, next_start):
             line = lines[j]
-            if j > start and (line.startswith("## ") or line.strip() == "---"):
-                break
+            if j > start:
+                if line.strip() == "---":
+                    break
+                if line.startswith("## "):
+                    sec = line[3:].strip()
+                    if sec in SECTION_HEADERS:
+                        break
             card_lines.append(line)
 
         if not card_lines:
@@ -133,12 +183,52 @@ def parse_briefing_cards(briefing_text):
             "header": first_line,
         }
 
-        if header_data.get("card_type") == "active":
+        card_type = header_data.get("card_type")
+
+        # Fall back to section context for unknown card types
+        if card_type == "unknown" and section_hint:
+            card_type = section_hint
+            card_entry["card_type"] = card_type
+            # For active cards without verdict, try to extract from Decision line
+            if card_type == "active" and "verdict" not in card_entry:
+                m = re.search(r'\*\*Decision:\*\*\s*(\w+)', card_text)
+                if m:
+                    card_entry["verdict"] = m.group(1)
+            # For active cards without P/L, try to extract from text
+            if card_type == "active" and "pl" not in card_entry:
+                m = re.search(r'P/L\s+([+-]?\d+\.?\d*%)', card_text[:500])
+                if m:
+                    card_entry["pl"] = m.group(1)
+
+        if card_type == "active":
             active_cards.append(card_entry)
-        elif header_data.get("card_type") == "watchlist":
+        elif card_type == "watchlist":
             watchlist_cards.append(card_entry)
 
+    # Deduplicate: if same ticker appears multiple times (e.g., non-standard
+    # preamble + standard header), keep the one with richer parsed data.
+    active_cards = _dedup_cards(active_cards)
+    watchlist_cards = _dedup_cards(watchlist_cards)
+
     return active_cards, watchlist_cards
+
+
+def _dedup_cards(cards):
+    """Deduplicate cards by ticker, preferring standard-format over unknown."""
+    seen = {}
+    for card in cards:
+        ticker = card["ticker"]
+        if ticker in seen:
+            existing = seen[ticker]
+            # Prefer card with verdict (standard format) over one without
+            if "verdict" not in existing and "verdict" in card:
+                seen[ticker] = card
+            # Prefer longer card text (more content)
+            elif len(card.get("text", "")) > len(existing.get("text", "")):
+                seen[ticker] = card
+        else:
+            seen[ticker] = card
+    return list(seen.values())
 
 
 def parse_exit_criteria_table(card_text):

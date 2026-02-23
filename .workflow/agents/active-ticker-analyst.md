@@ -133,13 +133,23 @@ SELL orders show N/A for all gates.
 
 ### Step 6: Write Card
 
+**CRITICAL HEADER FORMAT — the card MUST start with this exact pattern:**
+```
+### {TICKER} — {VERDICT} — P/L {sign}{X}%
+```
+Rules:
+- Heading level MUST be `###` (three hashes). Never `#` or `##`.
+- VERDICT MUST be exactly one word: `HOLD`, `MONITOR`, `EXIT`, or `REDUCE`. Never multi-word (e.g., write `HOLD`, not `HOLD WITH AWARENESS`). Put sub-case details in the Decision line instead.
+- P/L MUST include sign: `+` for positive, `-` for negative.
+- Do NOT use alternative formats like `# Action Card: TICKER` or `# TICKER — Action Card`.
+
 Write `morning-work/{ticker}-card.md`:
 
 ```
-### {TICKER} — {VERDICT} — P/L {X}%
+### {TICKER} — {VERDICT} — P/L {sign}{X}%
 **State:** {shares} @ ${avg}, target ${exit} ({dist}% away), held {N} days [Recovery with no target: "target N/A"]
 **Objective:** [specific to position situation]
-**Decision:** {VERDICT} + 1-sentence rationale + rule number
+**Decision:** {VERDICT} + 1-sentence rationale + rule number [sub-case details like "with awareness" go HERE, not in header]
 
 | Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |

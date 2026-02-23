@@ -56,21 +56,29 @@ def parse_card_header(first_line):
 
     Active:    ### TICKER — VERDICT — P/L +X%
     Watchlist: ### TICKER — WATCHLIST — GATE_STATUS [⚠️ ...]
+
+    Tolerant of 1-3 heading levels and multi-word verdicts.
     """
     first_line = first_line.strip()
 
-    # Active card pattern
-    m = re.match(r'^### (\w+) — (\w+) — P/L (.+)$', first_line)
+    # Normalize: strip 1-3 leading # and whitespace
+    m = re.match(r'^#{1,3}\s+(.+)$', first_line)
+    if not m:
+        return {"ticker": "UNKNOWN", "card_type": "unknown"}
+    content = m.group(1)
+
+    # Active card pattern — non-greedy .+? allows multi-word verdicts
+    m = re.match(r'(\w+) — (.+?) — P/L (.+)$', content)
     if m:
         return {
             "ticker": m.group(1),
-            "verdict": m.group(2),
+            "verdict": m.group(2).strip(),
             "pl": m.group(3),
             "card_type": "active",
         }
 
-    # Watchlist card pattern
-    m = re.match(r'^### (\w+) — WATCHLIST — (.+?)(\s*⚠️.*)?$', first_line)
+    # Watchlist card pattern: TICKER — WATCHLIST — GATE_STATUS [⚠️ ...]
+    m = re.match(r'(\w+) — WATCHLIST — (.+?)(\s*⚠️.*)?$', content)
     if m:
         gate_text = m.group(2).strip()
         gate_bare = gate_text.split()[0].strip()
@@ -81,8 +89,23 @@ def parse_card_header(first_line):
             "card_type": "watchlist",
         }
 
-    # Fallback — try to extract at least the ticker
-    m = re.match(r'^### (\w+)', first_line)
+    # Watchlist shorthand: TICKER — Watching/Scouting [...]
+    m = re.match(r'(\w+) — (?:Watching|Scouting)(.*)?$', content)
+    if m:
+        return {
+            "ticker": m.group(1),
+            "gate": "ACTIVE",
+            "gate_bare": "ACTIVE",
+            "card_type": "watchlist",
+        }
+
+    # Fallback: "Action Card: TICKER ..." format
+    m = re.match(r'Action Card:\s*(\w+)', content)
+    if m:
+        return {"ticker": m.group(1), "card_type": "unknown"}
+
+    # Generic fallback — extract ticker from start
+    m = re.match(r'(\w+)', content)
     ticker = m.group(1) if m else "UNKNOWN"
     return {
         "ticker": ticker,

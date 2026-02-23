@@ -50,18 +50,33 @@ For each pending BUY order, check the Day Range section:
 
 ### Step 2: Write Card
 
+**CRITICAL HEADER FORMAT — the card MUST start with this exact pattern:**
+```
+### {TICKER} — WATCHLIST — {GATE_STATUS}
+```
+Rules:
+- Heading level MUST be `###` (three hashes). Never `#` or `##`.
+- Second segment MUST be literally `WATCHLIST`.
+- GATE_STATUS = the Overall combined gate (e.g., `ACTIVE`, `PAUSE`, `REVIEW`, `CAUTION`). Append `FILL ALERT` if any fill alerts exist.
+- Do NOT use alternative formats like `### TICKER — Watching` or `# TICKER`.
+
 Write `morning-work/{ticker}-card.md`:
 
 For watchlist tickers WITH pending orders:
 ```
-### {TICKER} — Watching
+### {TICKER} — WATCHLIST — {GATE_STATUS}
 **State:** {N} pending BUY orders, nearest ${price} ({dist}% below)
 **Objective:** [what triggers activation]
-**Entry Gate:** {N} ACTIVE, {N} PAUSE, etc.
 
-**Buy Levels:**
-| Order Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Entry Gate | Status | Detail |
+| :--- | :--- | :--- |
+| Market Gate | {status} | {detail} |
+| Earnings Gate | {status} | {detail} |
+| Overall | {status} | {detail} |
+
+**Pending Orders:**
+| Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 
 **Fill Alerts:** [any BUY orders near day low, or "None"]
 
@@ -70,7 +85,7 @@ For watchlist tickers WITH pending orders:
 
 For scouting tickers (no pending orders):
 ```
-### {TICKER} — Scouting
+### {TICKER} — WATCHLIST — SCOUTING
 **State:** On watchlist, no pending orders
 **News & Catalysts:** [summary if available]
 ```
