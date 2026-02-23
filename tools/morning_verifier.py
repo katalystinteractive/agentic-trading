@@ -35,7 +35,6 @@ from morning_assembler import (
 from morning_gatherer import (
     TIME_STOP_EXCEEDED_DAYS,
     TIME_STOP_APPROACHING_DAYS,
-    compute_days_held,
 )
 
 # ---------------------------------------------------------------------------
@@ -85,7 +84,7 @@ def _safe_float(val, default=0.0):
         except ValueError:
             pass
         # Regex fallback: extract first signed decimal number
-        m = re.search(r'[+-]?[\d.]+', cleaned)
+        m = re.search(r'[+-]?\d+\.?\d*', cleaned)
         if m:
             return float(m.group())
         return default
@@ -698,11 +697,7 @@ def check_day_count(portfolio, ref_date, active_cards):
                 })
             continue
 
-        # ISO date — reuse gatherer's shared computation
-        exp_days, _, _ = compute_days_held(entry_date_str)
-        if exp_days is None:
-            continue
-        # Adjust for ref_date vs today if they differ
+        # ISO date — compute days against ref_date
         try:
             parts = entry_date_str.split("-")
             entry = date(int(parts[0]), int(parts[1]), int(parts[2]))
