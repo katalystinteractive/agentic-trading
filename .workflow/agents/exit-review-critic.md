@@ -46,12 +46,12 @@ Read `exit-review-raw.md`, `exit-review-report.md`, `portfolio.json`, and `strat
 For each position in the report, verify the days_held computation:
 
 1. **ISO dates** (e.g., "2026-02-13"): days_held = (today - entry_date).days in calendar days. Allow +-1 day tolerance (timezone edge cases).
-2. **Non-ISO dates** (e.g., "pre-2026", "pre-2026-02-12"): must be flagged as ">21 days (pre-strategy)" or equivalent. Verify NOT given a specific day count.
+2. **Non-ISO dates** (e.g., "pre-2026", "pre-2026-02-12"): must be flagged as ">60 days (pre-strategy)" or equivalent. Verify NOT given a specific day count.
 3. **Time stop status** must match days_held:
-   - EXCEEDED: days_held > 21
-   - APPROACHING: days_held 15-21
-   - WITHIN: days_held < 15
-4. If days_held is 21, it is APPROACHING (the boundary is > 21 for EXCEEDED).
+   - EXCEEDED: days_held > 60
+   - APPROACHING: days_held 45-60
+   - WITHIN: days_held < 45
+4. If days_held is 60, it is APPROACHING (the boundary is > 60 for EXCEEDED).
 
 Record each discrepancy with: ticker, expected days_held, report days_held, expected status, report status.
 

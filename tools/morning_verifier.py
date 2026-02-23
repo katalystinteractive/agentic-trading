@@ -62,15 +62,28 @@ GATE_PRIORITY_REV = {v: k for k, v in GATE_PRIORITY.items()}
 # ---------------------------------------------------------------------------
 
 def _safe_float(val, default=0.0):
-    """Safely convert a value to float."""
+    """Safely convert a value to float.
+
+    Handles: "$1.23", "1,234", "+5.1%", "-3.2%", "1.6% below", "0.8% above current",
+    "-0.2% (above current)". Extracts the first numeric value via regex.
+    """
     if isinstance(val, (int, float)):
         return float(val)
     try:
-        cleaned = str(val).replace("$", "").replace(",", "").replace("%", "").strip()
-        # Handle leading + sign
-        if cleaned.startswith("+"):
-            cleaned = cleaned[1:]
-        return float(cleaned)
+        cleaned = str(val).replace("$", "").replace(",", "").strip()
+        # Try direct conversion first (fast path for clean numbers)
+        stripped = cleaned.replace("%", "").strip()
+        if stripped.startswith("+"):
+            stripped = stripped[1:]
+        try:
+            return float(stripped)
+        except ValueError:
+            pass
+        # Regex fallback: extract first signed decimal number
+        m = re.search(r'[+-]?[\d.]+', cleaned)
+        if m:
+            return float(m.group())
+        return default
     except (ValueError, AttributeError):
         return default
 
@@ -700,9 +713,9 @@ def check_day_count(portfolio, ref_date, active_cards):
                 })
 
         # Check time stop status
-        if exp_days > 21:
+        if exp_days > 60:
             expected_ts = "EXCEEDED"
-        elif exp_days >= 15:
+        elif exp_days >= 45:
             expected_ts = "APPROACHING"
         else:
             expected_ts = "WITHIN"
@@ -731,7 +744,8 @@ def check_verdicts(portfolio, active_cards, ref_date):
     for card in active_cards:
         ticker = card["ticker"]
         pos = positions.get(ticker, {})
-        verdict = card.get("verdict", "")
+        verdict_raw = card.get("verdict", "")
+        verdict = verdict_raw.split()[0] if verdict_raw else ""
 
         if not pos:
             continue
@@ -777,8 +791,8 @@ def check_verdicts(portfolio, active_cards, ref_date):
         is_gated = "GATED" in eg_status
         is_approaching = "APPROACHING" in eg_status
         is_clear = "CLEAR" in eg_status
-        time_exceeded = days_held > 21 or "EXCEEDED" in ts_status
-        time_approaching = 15 <= days_held <= 21 or "APPROACHING" in ts_status
+        time_exceeded = days_held > 60 or "EXCEEDED" in ts_status
+        time_approaching = 45 <= days_held <= 60 or "APPROACHING" in ts_status
 
         # Determine if bearish momentum
         momentum_data = extract_momentum_data(mom_detail)
@@ -949,8 +963,10 @@ def check_earnings_gate(condensed, active_cards, watchlist_cards):
     # Watchlist cards
     for card in watchlist_cards:
         ticker = card["ticker"]
+        # Analyst may use Exit Criterion table or Entry Gate table for watchlist
+        exit_criteria = parse_exit_criteria_table(card["text"])
         entry_gates = parse_entry_gate_table(card["text"])
-        eg = entry_gates.get("earnings_gate", {})
+        eg = exit_criteria.get("earnings_gate") or entry_gates.get("earnings_gate") or {}
         eg_status = eg.get("status", "")
 
         card_days, _ = parse_earnings_days(card["text"])
@@ -1134,11 +1150,26 @@ def check_entry_gates(portfolio, condensed, active_cards, watchlist_cards):
                 card_pct_str = order.get("pct_below", "")
                 if card_pct_str and card_pct_str != "N/A":
                     card_pct = _safe_float(card_pct_str)
-                    if abs(card_pct - exp_pct_below) > PCT_BELOW_TOL:
+                    # Compare absolute values (card may show unsigned "5.1% below")
+                    if abs(abs(card_pct) - abs(exp_pct_below)) > PCT_BELOW_TOL:
                         findings.append({
                             "severity": "Minor",
                             "ticker": ticker,
                             "message": f"BUY ${order_price:.2f} % Below Current: expected {exp_pct_below:.1f}%, briefing shows {card_pct_str}",
+                        })
+                    # Sign-direction check: card says "above"/"below" but math says opposite
+                    pct_str_lower = str(card_pct_str).lower()
+                    if "above" in pct_str_lower and exp_pct_below < 0:
+                        findings.append({
+                            "severity": "Minor",
+                            "ticker": ticker,
+                            "message": f"BUY ${order_price:.2f} % Below Current: card says 'above' but order is {abs(exp_pct_below):.1f}% below current",
+                        })
+                    elif "below" in pct_str_lower and exp_pct_below > 0:
+                        findings.append({
+                            "severity": "Minor",
+                            "ticker": ticker,
+                            "message": f"BUY ${order_price:.2f} % Below Current: card says 'below' but order is {exp_pct_below:.1f}% above current",
                         })
 
     return findings

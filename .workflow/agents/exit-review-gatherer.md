@@ -40,12 +40,12 @@ Read `portfolio.json` and extract all active positions (shares > 0).
 
 For each position, compute `days_held` from the `entry_date` field:
 - **ISO dates** (e.g., "2026-02-13"): `today - entry_date` in calendar days
-- **Non-ISO dates** (e.g., "pre-2026", "pre-2026-02-12"): flag as `>21 days (pre-strategy)`
+- **Non-ISO dates** (e.g., "pre-2026", "pre-2026-02-12"): flag as `>60 days (pre-strategy)`
 
 Determine time stop status for each position:
-- **EXCEEDED**: days_held > 21
-- **APPROACHING**: days_held 15-21 (note: day 21 is APPROACHING, not EXCEEDED — the boundary is strictly > 21)
-- **WITHIN**: days_held < 15
+- **EXCEEDED**: days_held > 60
+- **APPROACHING**: days_held 45-60 (note: day 60 is APPROACHING, not EXCEEDED — the boundary is strictly > 60)
+- **WITHIN**: days_held < 45
 
 Compute `target_exit` distance: if `target_exit` is set in portfolio.json, note the target price. If null, note "No target (recovery)".
 

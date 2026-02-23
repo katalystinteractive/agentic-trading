@@ -1,7 +1,7 @@
 # Global Trading Strategy: The "Surgical" Mean Reversion
 
 ## Core Philosophy
-We employ a **Mean Reversion** strategy, targeting stocks that consistently fluctuate with a **10%+ monthly swing**. We aim to "buy low" at established historical support levels and "sell high" at the top of the channel, typically within a 3-week window.
+We employ a **Mean Reversion** strategy, targeting stocks that consistently fluctuate with a **10%+ monthly swing**. We aim to "buy low" at established historical support levels and "sell high" at the top of the channel, typically within a 4-8 week window.
 
 ## Capital Allocation (Per Stock)
 *   **Total Allocation:** ~$600 per stock.
@@ -71,7 +71,7 @@ Risk-Off carry elevated risk.
 
 ### Exit Protocol
 *   **Profit Target:** 10-12% gain from the average cost basis.
-*   **Time Stop:** If target is not hit within **3 weeks**, review for exit (rotate capital).
+*   **Time Stop:** If target is not hit within **8 weeks (~60 days)**, review for exit (rotate capital).
 *   **Earnings Rule:** Binary events (earnings calls) require position-specific
     assessment, not a blanket exit. Use the Earnings Decision Framework below.
 

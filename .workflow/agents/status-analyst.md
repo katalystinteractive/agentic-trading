@@ -83,7 +83,7 @@ Generate a ranked list of items requiring attention, ordered by urgency:
 1. **Fill confirmations** — orders that may have filled, need broker verification
 2. **Earnings gates** — positions with earnings within 14 days
 3. **Near-fill orders** — pending orders within 3% of current price
-4. **Time stops** — positions held 3+ weeks without progress toward target
+4. **Time stops** — positions held 8+ weeks without progress toward target
 5. **Stale data** — tickers where cached data is older than 7 days
 
 ### Step 8: Write Output

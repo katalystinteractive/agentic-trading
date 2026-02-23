@@ -46,10 +46,10 @@ For each active position (shares > 0), evaluate ALL 4 exit criteria:
 #### 1. Time Stop Assessment
 - days_held from the Position Summary table in exit-review-raw.md
 - Status assignment:
-  - **EXCEEDED**: days_held > 21
-  - **APPROACHING**: days_held 15-21 (note: day 21 is APPROACHING, not EXCEEDED — the boundary is strictly > 21)
-  - **WITHIN**: days_held < 15
-- For non-ISO dates flagged as ">21 days (pre-strategy)": always EXCEEDED
+  - **EXCEEDED**: days_held > 60
+  - **APPROACHING**: days_held 45-60 (note: day 60 is APPROACHING, not EXCEEDED — the boundary is strictly > 60)
+  - **WITHIN**: days_held < 45
+- For non-ISO dates flagged as ">60 days (pre-strategy)": always EXCEEDED
 
 #### 2. Profit Target Assessment
 - Compute current P/L %: `((current_price - avg_cost) / avg_cost) * 100`
@@ -119,8 +119,8 @@ Assign each position one of 4 verdicts. **Verdict labels reflect share dispositi
 12. Time stop EXCEEDED + bullish technicals (RSI > 50, MACD bullish crossover or above signal) + earnings CLEAR (> 14 days or unknown) = **HOLD** with explicit bullish justification
 13. Time stop EXCEEDED + earnings APPROACHING (7-14 days) = **REDUCE** (recommend pausing pending buy orders per strategy.md APPROACHING threshold — no new entries without explicit exit-before-earnings plan)
 14. Time stop EXCEEDED + any other signal combination = **REDUCE** (time exceeded without clear bullish case — default to partial exit)
-15. Time stop APPROACHING (15-21 days) = **MONITOR** (with warning if bearish momentum. If earnings is APPROACHING (7-14 days), note in Reasoning: "Earnings approaching — flag for review; pause pending buy orders per strategy.md.")
-16. Time stop WITHIN (< 15 days) = **MONITOR** (standard tracking. If earnings is APPROACHING (7-14 days), note in Reasoning: "Earnings approaching — flag for review; no new entries without explicit exit-before-earnings plan.")
+15. Time stop APPROACHING (45-60 days) = **MONITOR** (with warning if bearish momentum. If earnings is APPROACHING (7-14 days), note in Reasoning: "Earnings approaching — flag for review; pause pending buy orders per strategy.md.")
+16. Time stop WITHIN (< 45 days) = **MONITOR** (standard tracking. If earnings is APPROACHING (7-14 days), note in Reasoning: "Earnings approaching — flag for review; no new entries without explicit exit-before-earnings plan.")
 
 ### Step 4: Compile Report
 

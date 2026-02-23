@@ -132,7 +132,7 @@ def compute_days_held(entry_date_str):
     """Compute days held from entry_date. Returns (days_int, display_str, is_pre_strategy)."""
     today = date.today()
     if entry_date_str.startswith("pre-"):
-        return None, ">21 days (pre-strategy)", True
+        return None, ">60 days (pre-strategy)", True
     try:
         entry = datetime.strptime(entry_date_str, "%Y-%m-%d").date()
         days = (today - entry).days
@@ -147,9 +147,9 @@ def compute_time_stop(days_held, is_pre_strategy):
         return "EXCEEDED (pre-strategy)"
     if days_held is None:
         return "Unknown"
-    if days_held > 21:
+    if days_held > 60:
         return "EXCEEDED"
-    if days_held >= 15:
+    if days_held >= 45:
         return "APPROACHING"
     return "WITHIN"
 

@@ -36,10 +36,10 @@ Read the file specified in your task prompt (e.g., `morning-work/NU.md`). It con
 Evaluate ALL 4 exit criteria:
 
 **1. Time Stop Assessment**
-- EXCEEDED: days_held > 21
-- APPROACHING: days_held 15-21 (day 21 is APPROACHING, not EXCEEDED — boundary is strictly > 21)
-- WITHIN: days_held < 15
-- Non-ISO dates flagged as ">21 days (pre-strategy)": always EXCEEDED
+- EXCEEDED: days_held > 60
+- APPROACHING: days_held 45-60 (day 60 is APPROACHING, not EXCEEDED — boundary is strictly > 60)
+- WITHIN: days_held < 45
+- Non-ISO dates flagged as ">60 days (pre-strategy)": always EXCEEDED
 
 **2. Profit Target Assessment**
 - P/L % = ((current_price - avg_cost) / avg_cost) * 100
