@@ -1,4 +1,4 @@
-*Generated: 2026-02-20 20:43*
+*Generated: 2026-02-23 01:07*
 
 ## News & Sentiment: Antero Resources Corporation (AR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,15 +6,20 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-02-22 | MarketBeat | Envestnet Asset Management Inc. Buys 136,166 Shares of Anter... | Positive | +0.57 | Earnings, Corporate |
 | 2026-02-20 | MarketBeat | Pekin Hardy Strauss Inc. Has $5.83 Million Stock Holdings in... | Positive | +0.40 | Earnings |
+| 2026-02-20 | MarketBeat | Jupiter Asset Management Ltd. Buys Shares of 1,571,424 Anter... | Positive | +0.57 | Earnings, Corporate |
 | 2026-02-20 | MarketBeat | CenterBook Partners LP Invests $2.26 Million in Antero Resou... | Neutral | +0.00 | Earnings |
+| 2026-02-19 | simplywall.st | Stronger Earnings and 2026 Output Plan Could Be A Game Chang... | Positive | +0.38 | Earnings |
 | 2026-02-18 | Insider Monkey | Jefferies Resumes Coverage of Antero Resources (AR) with Buy... | Neutral | +0.00 | — |
 | 2026-02-18 | simplywall.st | Is Antero Resources (AR) Pricing Reflect Its DCF And P/E Val... | Neutral | +0.00 | — |
 | 2026-02-17 | MarketBeat | Antero Resources Corporation $AR Shares Bought by Colrain Ca... | Positive | +0.30 | Earnings |
 | 2026-02-16 | Yahoo Finance | Is Antero Resources (AR) Pricing Look Attractive After Recen... | Positive | +0.32 | — |
 | 2026-02-16 | simplywall.st | A Look At Antero Resources (AR) Valuation After Recent Share... | Positive | +0.30 | — |
+| 2026-02-14 | The Globe and M | Analysts Offer Insights on Energy Companies: Antero Resource... | Positive | +0.27 | — |
 | 2026-02-13 | Morningstar Res | Analyst Report: Antero Resources Corporation | Neutral | +0.00 | — |
 | 2026-02-13 | 24/7 Wall St. | Here Are Fridays Top Wall Street Analyst Research Calls: Air... | Positive | +0.20 | — |
+| 2026-02-13 | The Globe and M | Analysts’ Opinions Are Mixed on These Energy Stocks: Tambora... | Positive | +0.27 | — |
 | 2026-02-12 | GuruFocus.com | Antero Resources Corp (AR) Q4 2025 Earnings Call Highlights:... | Neutral | +0.00 | Earnings |
 | 2026-02-12 | MarketBeat | Antero Resources Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
 | 2026-02-12 | Zacks | Antero Resources Q4 Earnings Miss Estimates, Revenues Increa... | Positive | +0.18 | Earnings |
@@ -22,6 +27,7 @@
 | 2026-02-12 | Moby | Antero Midstream Corporation Q4 2025 Earnings Call Summary | Neutral | +0.00 | Earnings |
 | 2026-02-12 | Seeking Alpha | Antero Resources: Ending The Fiscal Year With A Bang (NYSE:A... | Neutral | +0.00 | — |
 | 2026-02-12 | MarketBeat | Antero Resources Sees Unusually High Options Volume (NYSE:AR... | Neutral | +0.00 | Earnings |
+| 2026-02-12 | The Globe and M | Antero Resources (AR) Q4 2025 Earnings Transcript - The Glob... | Neutral | +0.00 | Earnings |
 | 2026-02-12 | Motley Fool | Antero Resources (AR) Q4 2025 Earnings Transcript | Neutral | +0.00 | Earnings |
 | 2026-02-12 | MT Newswires | Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursd... | Neutral | +0.00 | — |
 | 2026-02-11 | Zacks | Antero Resources (AR) Q4 Earnings: Taking a Look at Key Metr... | Neutral | +0.00 | Earnings |
@@ -30,29 +36,23 @@
 | 2026-02-11 | PR Newswire | Antero Resources Announces Fourth Quarter 2025 Results and 2... | Neutral | +0.00 | Earnings |
 | 2026-02-11 | PR Newswire | Antero Midstream Announces Fourth Quarter 2025 Results and 2... | Neutral | +0.00 | Earnings |
 | 2026-02-11 | Yahoo Finance | Antero Resources (AR) Q4 Earnings Miss Estimates - Yahoo Fin... | Negative | -0.15 | Earnings |
-| 2026-02-11 | MarketBeat | Antero Resources (NYSE:AR) Posts Earnings Results, Beats Exp... | Neutral | +0.00 | Earnings |
-| 2026-02-10 | Zacks | Are These 4 Energy Stocks Set to Beat Q4 Earnings Estimates? | Positive | +0.27 | Earnings |
-| 2026-02-10 | MarketBeat | Antero Resources (NYSE:AR) Stock Rating Upgraded by TD Cowen... | Neutral | +0.00 | Earnings, Analyst |
-| 2026-02-10 | MarketBeat | S&CO Inc. Boosts Stock Position in Antero Resources Corporat... | Positive | +0.32 | Earnings |
-| 2026-02-10 | Benzinga | Examining the Future: Antero Resources's Earnings Outlook - ... | Neutral | +0.00 | Earnings |
-| 2026-02-09 | Zacks | Does the Record Gas Draw Support a Bullish Case for Investor... | Positive | +0.40 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 9 (30%) |
-| Neutral | 19 (63%) |
+| Positive | 11 (37%) |
+| Neutral | 17 (57%) |
 | Negative | 2 (7%) |
-| Average Score | +0.079 |
-| Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 168 |
+| Average Score | +0.115 |
+| Overall Sentiment | **Bullish** |
+| Total Unique Headlines | 169 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 21 | Pekin Hardy Strauss Inc. Has $5.83 Milli..; CenterBook Partners LP Invests $2.26 Mil.. |
-| Analyst | 1 | Antero Resources (NYSE:AR) Stock Rating .. |
+| Earnings | 20 | Envestnet Asset Management Inc. Buys 136..; Pekin Hardy Strauss Inc. Has $5.83 Milli.. |
+| Corporate | 2 | Envestnet Asset Management Inc. Buys 136..; Jupiter Asset Management Ltd. Buys Share.. |
 
 ### Deep Dive Articles
 

@@ -1,4 +1,4 @@
-*Generated: 2026-02-20 20:44*
+*Generated: 2026-02-23 01:06*
 
 ## News & Sentiment: CleanSpark, Inc. (CLSK)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,7 +6,9 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Zacks | Circle Stock Before Q4 Earnings Release: Should Investors St... | Neutral | +0.00 | Earnings |
+| 2026-02-21 | MarketBeat | Cleanspark, Inc. $CLSK Holdings Lifted by Stevens Capital Ma... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-02-21 | The Globe and M | Analysts Offer Insights on Financial Companies: Western Unio... | Neutral | +0.00 | — |
+| 2026-02-20 | Zacks | Circle Stock Before Q4 Earnings Release: Should Investors St... | Neutral | +0.00 | Earnings |
 | 2026-02-19 | PR Newswire | Tradr Debuts Leveraged ETFs on Centrus Energy, CleanSpark an... | Positive | +0.27 | — |
 | 2026-02-19 | simplywall.st | Will CleanSpark's (CLSK) Steep Swing to Quarterly Loss Resha... | Negative | -0.32 | Earnings |
 | 2026-02-18 | Insider Monkey | CleanSpark (CLSK): Keefe Bruyette Maintains Positive Outlook... | Positive | +0.30 | — |
@@ -15,52 +17,50 @@
 | 2026-02-17 | Blockspace | Cipher Mining, IREN lead Mike Alfreds Alpine Fox portfolio | Neutral | +0.00 | — |
 | 2026-02-17 | MarketBeat | Cleanspark (NASDAQ:CLSK) Trading Down 7.7% - Should You Sell... | Neutral | +0.00 | Earnings |
 | 2026-02-15 | Yahoo Finance | Is CleanSpark (CLSK) Pricing Reflect Recent Share Weakness A... | Negative | -0.15 | Regulatory |
-| 2026-02-15 | Yahoo Finance | Did CleanSpark’s (CLSK) Swing to Quarterly Loss and Bitcoin ... | Negative | -0.32 | Earnings |
+| 2026-02-15 | MarketBeat | Public Sector Pension Investment Board Increases Stock Posit... | Neutral | +0.00 | Earnings, Regulatory |
 | 2026-02-14 | simplywall.st | Is CleanSpark (CLSK) Pricing Reflecting Recent Share Pullbac... | Positive | +0.30 | — |
+| 2026-02-14 | Yahoo Finance | Did CleanSpark’s (CLSK) Swing to Quarterly Loss and Bitcoin ... | Negative | -0.32 | Earnings |
 | 2026-02-13 | Benzinga | Top 10 Most Shorted Stocks: CleanSpark, Hims & Hers And More | Positive | +0.20 | Short |
 | 2026-02-13 | Benzinga | CleanSpark (CLSK) Stock Is Surging Friday: What's Driving Th... | Neutral | +0.00 | — |
 | 2026-02-13 | Insider Monkey | Clear Street Trims Price Target on CleanSpark (CLSK) to $22,... | Positive | +0.38 | Analyst |
 | 2026-02-13 | simplywall.st | Some Confidence Is Lacking In CleanSpark, Inc. (NASDAQ:CLSK)... | Positive | +0.67 | — |
 | 2026-02-13 | MarketBeat | Cleanspark (NASDAQ:CLSK) Trading 8.9% Higher - Should You Bu... | Neutral | +0.00 | Earnings |
-| 2026-02-13 | MarketBeat | Cleanspark, Inc. $CLSK Holdings Lowered by Shariaportfolio I... | Negative | -0.13 | Earnings |
 | 2026-02-12 | TipRanks | Tradr 2X Long CLSK Daily ETF call volume above normal and di... | Neutral | +0.00 | — |
 | 2026-02-12 | Zacks | Cleanspark, Inc. (CLSK) Is a Trending Stock: Facts to Know B... | Neutral | +0.00 | — |
 | 2026-02-12 | Nasdaq | April 2nd Options Now Available For CleanSpark (CLSK) - Nasd... | Neutral | +0.00 | — |
-| 2026-02-11 | MarketBeat | B. Riley Securities Has Lowered Expectations for Cleanspark ... | Positive | +0.18 | Earnings, Regulatory |
 | 2026-02-11 | simplywall.st | CleanSpark (CLSK) Is Down 11.7% After Swinging From Profit T... | Positive | +0.15 | Earnings |
+| 2026-02-11 | MarketBeat | B. Riley Securities Has Lowered Expectations for Cleanspark ... | Positive | +0.18 | Earnings, Regulatory |
 | 2026-02-10 | Seeking Alpha | CleanSpark Gets Attention For The Wrong Reasons, It's The Tr... | Negative | -0.46 | — |
 | 2026-02-09 | MarketBeat | Cleanspark (NASDAQ:CLSK) Shares Gap Down on Analyst Downgrad... | Positive | +0.30 | Earnings, Analyst |
-| 2026-02-09 | MarketBeat | Cleanspark (NASDAQ:CLSK) Price Target Lowered to $14.00 at K... | Negative | -0.13 | Earnings, Analyst |
 | 2026-02-08 | TechStock² | CleanSpark stock leaps 22% to $10.08 — what CLSK traders wat... | Neutral | +0.00 | — |
 | 2026-02-07 | TipRanks | Crypto Currents: Strategy, Galaxy Digital report Q4 earnings... | Neutral | +0.00 | Earnings |
 | 2026-02-07 | Trefis | Cleanspark Stock (+22%): Post-Earnings Bounce Ignites Retail... | Neutral | +0.00 | Earnings |
 | 2026-02-07 | MarketBeat | Cleanspark, Inc. (NASDAQ:CLSK) Given Consensus Rating of "Mo... | Neutral | +0.00 | Earnings |
-| 2026-02-07 | MarketBeat | BI Asset Management Fondsmaeglerselskab A S Boosts Stake in ... | Positive | +0.59 | Earnings, Corporate |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 10 (33%) |
-| Neutral | 14 (47%) |
-| Negative | 6 (20%) |
-| Average Score | +0.061 |
+| Positive | 9 (30%) |
+| Neutral | 17 (57%) |
+| Negative | 4 (13%) |
+| Average Score | +0.050 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 169 |
+| Total Unique Headlines | 171 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 14 | Circle Stock Before Q4 Earnings Release:..; Will CleanSpark's (CLSK) Steep Swing to .. |
-| Analyst | 4 | Macquarie Maintains an Outperform Rating..; Clear Street Trims Price Target on Clean.. |
+| Earnings | 13 | Cleanspark, Inc. $CLSK Holdings Lifted b..; Circle Stock Before Q4 Earnings Release:.. |
+| Analyst | 3 | Macquarie Maintains an Outperform Rating..; Clear Street Trims Price Target on Clean.. |
+| Regulatory | 3 | Is CleanSpark (CLSK) Pricing Reflect Rec..; Public Sector Pension Investment Board I.. |
 | Short | 2 | CleanSpark Leads Crypto Short Bets; Top 10 Most Shorted Stocks: CleanSpark, .. |
-| Regulatory | 2 | Is CleanSpark (CLSK) Pricing Reflect Rec..; B. Riley Securities Has Lowered Expectat.. |
-| Corporate | 1 | BI Asset Management Fondsmaeglerselskab .. |
+| Corporate | 1 | Cleanspark, Inc. $CLSK Holdings Lifted b.. |
 
 ### Deep Dive Articles
 
 #### Circle Stock Before Q4 Earnings Release: Should Investors Stay Away?
-*Source: Zacks | Date: Today | Sentiment: Positive (+1.00)*
+*Source: Zacks | Date: 2026-02-20 | Sentiment: Positive (+1.00)*
 
 > Circle Internet GroupCRCL is scheduled to report its fourth-quarter 2025 results on Feb. 25, 2026.The Zacks Consensus Estimate for fourth-quarter revenues is currently pegged at $748.62 million, reflecting expectations for solid top-line performance. The consensus mark for earnings is currently pegged at 15 cents per share, which has remained unchanged over the past 30 days but declined by 1 cent over the past 60 days.
 

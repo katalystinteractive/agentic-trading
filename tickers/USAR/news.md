@@ -1,4 +1,4 @@
-*Generated: 2026-02-20 20:44*
+*Generated: 2026-02-23 01:06*
 
 ## News & Sentiment: USA Rare Earth, Inc. (USAR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,6 +6,8 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-02-21 | StocksToTrade | USA Rare Earth Inc. (USAR) Stock Price - Live Quotes & Chart... | Neutral | +0.00 | — |
+| 2026-02-21 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Down 6.3% - What's Next?... | Positive | +0.30 | Earnings |
 | 2026-02-19 | Schaeffer's Res | The Week Ahead: February Closes with Inflation Data, Dow Ear... | Neutral | +0.00 | Earnings |
 | 2026-02-19 | Insider Monkey | USA Rare Earth (USAR) Tumbles 4.3%, Here's Why | Neutral | +0.00 | — |
 | 2026-02-19 | Yahoo Finance | USA Rare Earth (USAR) Tumbles 4.3%, Here’s Why - Yahoo Finan... | Neutral | +0.00 | — |
@@ -19,39 +21,37 @@
 | 2026-02-18 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Down 2% - Time to Sell? ... | Positive | +0.30 | Earnings |
 | 2026-02-18 | Stocktwits | Critical Minerals Price Floor? MP, USAR, UAMY, TMC Stocks Ga... | Positive | +0.27 | — |
 | 2026-02-17 | Nasdaq | The U.S. Government Is Investing $1.6 Billion in USA Rare Ea... | Neutral | +0.00 | — |
-| 2026-02-17 | The Globe and M | USA Rare Earth Stock: Buy, Sell, or Hold? - The Globe and Ma... | Neutral | +0.00 | — |
+| 2026-02-17 | The Motley Fool | USA Rare Earth Stock: Buy, Sell, or Hold? - The Motley Fool | Negative | -0.44 | — |
 | 2026-02-17 | Motley Fool | USA Rare Earth Stock: Buy, Sell, or Hold? | Neutral | +0.00 | — |
 | 2026-02-16 | Zacks | USA Rare Earth Surges 35.6% in 3 Months: Should You Buy the ... | Neutral | +0.00 | — |
 | 2026-02-15 | Simply Wall St. | USA Rare Earth Gains Major US Backing With Deep Valuation Up... | Positive | +0.42 | — |
 | 2026-02-15 | Motley Fool | Should You Invest $1,000 in USA Rare Earth Right Now? | Neutral | +0.00 | — |
 | 2026-02-14 | Insider Monkey | Analysts See 94% Upside To USA Rare Earth, Inc. (USAR) | Neutral | +0.00 | — |
-| 2026-02-14 | NAI500 | Trump-Backed Rare Earth Stock Soared 88% in January. Should ... | Neutral | +0.00 | — |
 | 2026-02-13 | The Motley Fool | Should You Buy USA Rare Earth While It's Below $25? - The Mo... | Negative | -0.44 | — |
 | 2026-02-13 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Up 1.7% - Still a Buy? -... | Positive | +0.30 | Earnings |
-| 2026-02-13 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Down 12.4% - Here's What... | Positive | +0.30 | Earnings |
 | 2026-02-12 | Benzinga | Trump's Favorite Commodity Is Coming To Derivatives Market | Positive | +0.46 | — |
-| 2026-02-12 | Yahoo Finance | USA Rare Earth Stock is Soaring in 2026, Is it Still a Buy? ... | Neutral | +0.00 | — |
+| 2026-02-12 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Down 12.4% - Here's What... | Positive | +0.30 | Earnings |
 | 2026-02-11 | Zacks | Can USA Rare Earth's Stillwater Facility Accelerate Its Next... | Positive | +0.38 | — |
 | 2026-02-10 | Insider Monkey | USA Rare Earth (USAR) $3.5B Financing Deals Prompt Higher Pr... | Neutral | +0.00 | Analyst |
-| 2026-02-10 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Trading Down 6.7% - What's Next... | Neutral | +0.00 | Earnings |
 | 2026-02-09 | MarketBeat | Insiders Buy 3 High-Risk Stocks-Here's What's Driving the Mo... | Neutral | +0.00 | — |
 | 2026-02-09 | The Motley Fool | 3 Mineral Stocks That Could Help Make You a Fortune - The Mo... | Negative | -0.05 | — |
+| 2026-02-09 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Trading Up 7.3% - Here's What H... | Neutral | +0.00 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 9 (30%) |
-| Neutral | 17 (57%) |
-| Negative | 4 (13%) |
-| Average Score | +0.059 |
+| Positive | 10 (33%) |
+| Neutral | 15 (50%) |
+| Negative | 5 (17%) |
+| Average Score | +0.055 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 177 |
+| Total Unique Headlines | 178 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 7 | The Week Ahead: February Closes with Inf..; USA Rare Earth (NASDAQ:USAR) Trading 1% .. |
+| Earnings | 8 | USA Rare Earth (NASDAQ:USAR) Shares Down..; The Week Ahead: February Closes with Inf.. |
 | Analyst | 2 | International Stocks Are Outperforming. ..; USA Rare Earth (USAR) $3.5B Financing De.. |
 | Corporate | 1 | USA Rare Earth Funding And Acquisition R.. |
 

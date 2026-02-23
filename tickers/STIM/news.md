@@ -1,7 +1,7 @@
-*Generated: 2026-02-20 20:43*
+*Generated: 2026-02-23 01:06*
 
 ## News & Sentiment: Neuronetics, Inc. (STIM)
-*Sources: Finviz (100), Google News (40), yfinance (10) | Method: VADER | Deep Dives: 5*
+*Sources: Finviz (100), Google News (41), yfinance (10) | Method: VADER | Deep Dives: 5*
 
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
@@ -9,7 +9,6 @@
 | 2026-02-19 | Defense World | Neuronetics, Inc. (NASDAQ:STIM) Short Interest Update - Defe... | Positive | +0.54 | Short |
 | 2026-02-13 | Simply Wall St. | Assessing Neuronetics (STIM) Valuation After Positive Cash F... | Positive | +0.78 | Earnings |
 | 2026-02-11 | Benzinga | Neuronetics (STIM) Stock Rises 41% After Hours: What's Going... | Neutral | +0.00 | — |
-| 2026-02-11 | ChartMill | STIM Stock Price, Forecast & Analysis - NEURONETICS INC (NAS... | Neutral | +0.00 | — |
 | 2026-02-11 | MT Newswires | Top Midday Gainers | Positive | +0.20 | — |
 | 2026-02-10 | GlobeNewswire | Neuronetics Announces Selected Preliminary Unaudited Fourth ... | Neutral | +0.00 | — |
 | 2026-02-10 | Stock Titan | Neuronetics lifts 2025 revenue 99%, books positive Q4 operat... | Positive | +0.56 | Earnings |
@@ -23,18 +22,19 @@
 | 2025-11-17 | Quiver Quantita | $STIM stock is down 18% today. Here's what we see in our dat... | Neutral | +0.00 | — |
 | 2025-11-12 | GlobeNewswire | TRICARE West Expands NeuroStar TMS Coverage to Include Adole... | Negative | -0.73 | — |
 | 2025-11-12 | Stock Titan | Neuronetics (NASDAQ: STIM): TRICARE West covers NeuroStar TM... | Neutral | +0.00 | — |
-| 2025-11-06 | simplywall.st | The Neuronetics, Inc. (NASDAQ:STIM) Third-Quarter Results Ar... | Neutral | +0.00 | — |
 | 2025-11-06 | Yahoo Finance | Here's What Analysts Are Forecasting For Neuronetics, Inc. (... | Neutral | +0.00 | — |
+| 2025-11-06 | simplywall.st | The Neuronetics, Inc. (NASDAQ:STIM) Third-Quarter Results Ar... | Neutral | +0.00 | — |
 | 2025-11-05 | simplywall.st | Neuronetics (STIM): Ongoing Losses Challenge Bullish Narrati... | Positive | +0.05 | Earnings |
 | 2025-11-04 | GuruFocus.com | Neuronetics Inc (STIM) Q3 2025 Earnings Call Highlights: Rev... | Neutral | +0.00 | Earnings, Corporate |
 | 2025-11-04 | Zacks | Neuronetics (STIM) Reports Q3 Loss, Misses Revenue Estimates | Negative | -0.49 | Earnings |
 | 2025-11-04 | Associated Pres | Neuronetics: Q3 Earnings Snapshot | Neutral | +0.00 | Earnings |
 | 2025-11-04 | GlobeNewswire | Neuronetics Reports Third Quarter 2025 Financial and Operati... | Neutral | +0.00 | Corporate |
-| 2025-11-04 | Yahoo Finance | Neuronetics (STIM): Losses Worsen Despite Revenue Growth Out... | Negative | -0.80 | Earnings |
 | 2025-11-04 | Investing.com | Neuronetics reports 11% revenue growth in Q3, CEO to retire ... | Positive | +0.38 | Earnings, Corporate |
+| 2025-11-04 | Yahoo Finance | Neuronetics (STIM): Losses Worsen Despite Revenue Growth Out... | Negative | -0.80 | Earnings |
 | 2025-11-03 | GuruFocus.com | Neuronetics Inc (STIM) Q3 2025: Everything You Need To Know ... | Neutral | +0.00 | Earnings |
 | 2025-10-31 | GlobeNewswire | Neuronetics Reports Inducement Grant Under Nasdaq Listing Ru... | Positive | +0.36 | — |
 | 2025-10-30 | GlobeNewswire | Neuronetics Announces Three-Year Exclusive Partnership with ... | Positive | +0.78 | — |
+| 2025-10-30 | Stock Titan | Neuronetics (NASDAQ: STIM) sole TMS provider to Elite DNA’s ... | Neutral | +0.00 | — |
 | 2025-10-23 | DirectorsTalk I | Neuronetics, Inc. (STIM): Potential 121.84% Upside Sparks In... | Positive | +0.84 | Earnings |
 
 ### Sentiment Summary
@@ -46,7 +46,7 @@
 | Negative | 5 (17%) |
 | Average Score | +0.105 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 119 |
+| Total Unique Headlines | 120 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |

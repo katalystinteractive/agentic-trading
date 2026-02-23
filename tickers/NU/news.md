@@ -1,4 +1,4 @@
-*Generated: 2026-02-20 20:42*
+*Generated: 2026-02-23 01:05*
 
 ## News & Sentiment: Nu Holdings Ltd. (NU)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,11 +6,13 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Zacks | Rapid Customer Growth Powers Nu Holdings' Market Dominance | Positive | +0.53 | — |
-| Today | Insider Monkey | Nu Holdings Ltd (NU) Expands Offices and Global Brand Reach | Positive | +0.13 | — |
-| Today | Zacks | MercadoLibre Set to Report Q4 Earnings: Hold or Fold the Sto... | Neutral | +0.00 | Earnings |
+| 2026-02-22 | The Motley Fool | Where Will Nu Holdings Be in 10 Years? - The Motley Fool | Negative | -0.44 | — |
+| 2026-02-22 | Intellectia AI | Nu Holdings' Global Expansion Strategy - Intellectia AI | Neutral | +0.00 | — |
+| 2026-02-22 | Motley Fool | Where Will Nu Holdings Be in 10 Years? | Neutral | +0.00 | — |
+| 2026-02-20 | Zacks | Rapid Customer Growth Powers Nu Holdings' Market Dominance | Positive | +0.53 | — |
+| 2026-02-20 | Insider Monkey | Nu Holdings Ltd (NU) Expands Offices and Global Brand Reach | Positive | +0.13 | — |
+| 2026-02-20 | Zacks | MercadoLibre Set to Report Q4 Earnings: Hold or Fold the Sto... | Neutral | +0.00 | Earnings |
 | 2026-02-20 | Seeking Alpha | Nu Holdings Q4 Preview: Nu Is Coming For The U.S. Peers (NYS... | Neutral | +0.00 | — |
-| 2026-02-19 | The Motley Fool | The Two Best Stocks to Invest $1,000 in Right Now - The Motl... | Positive | +0.32 | — |
 | 2026-02-19 | Bez Kabli | Nu Holdings stock: NU hovers near $17 ahead of Nubank earnin... | Neutral | +0.00 | Earnings |
 | 2026-02-19 | Motley Fool | Here Are My Top 2 Financial Stocks to Buy Now | Positive | +0.20 | — |
 | 2026-02-19 | Motley Fool | The Best Financials Stocks to Buy With $500 Right Now | Positive | +0.64 | — |
@@ -19,7 +21,6 @@
 | 2026-02-18 | Simply Wall St. | Chubb’s Huatai Bet and Nubank Tie-Up Could Be A Game Changer... | Neutral | +0.00 | — |
 | 2026-02-17 | Barrons.com | Druckenmiller's Firm Bets on Brazil Stocks, U.S. Financials,... | Neutral | +0.00 | — |
 | 2026-02-17 | Insider Monkey | Here's What You Need to Know Ahead of Nu Holdings Ltd's (NU)... | Neutral | +0.00 | Earnings |
-| 2026-02-17 | Simply Wall St. | Nu Holdings Wins OCC Nod Raising Questions On Valuation And ... | Positive | +0.64 | — |
 | 2026-02-12 | Zacks | Nu Holdings Ltd. (NU) Declines More Than Market: Some Inform... | Neutral | +0.00 | — |
 | 2026-02-12 | Zacks | Is Trending Stock Nu Holdings Ltd. (NU) a Buy Now? | Neutral | +0.00 | — |
 | 2026-02-11 | Zacks | Is Nu  (NU) a Buy as Wall Street Analysts Look Optimistic? | Positive | +0.32 | — |
@@ -35,18 +36,17 @@
 | 2026-02-04 | Seeking Alpha | Nu Holdings: Why I Remain Constructive Heading Into 2026 (NY... | Neutral | +0.00 | — |
 | 2026-02-03 | Motley Fool | This Could Be 1 of the Best Bank Stock Buying Opportunities ... | Positive | +0.78 | — |
 | 2026-02-02 | StockStory | 2 Reasons We Love Nubank (NU) | Positive | +0.64 | — |
-| 2026-02-01 | BeInCrypto | Why Is The Crypto Market Down Today? | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 14 (47%) |
-| Neutral | 15 (50%) |
-| Negative | 1 (3%) |
-| Average Score | +0.222 |
+| Positive | 12 (40%) |
+| Neutral | 16 (53%) |
+| Negative | 2 (7%) |
+| Average Score | +0.175 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 175 |
+| Total Unique Headlines | 173 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
@@ -56,7 +56,7 @@
 ### Deep Dive Articles
 
 #### Rapid Customer Growth Powers Nu Holdings' Market Dominance
-*Source: Zacks | Date: Today | Sentiment: Positive (+1.00)*
+*Source: Zacks | Date: 2026-02-20 | Sentiment: Positive (+1.00)*
 
 > In the evolving landscape of financial technology, only a handful of institutions have challenged traditional banking models as effectively asNu Holdings Ltd.NU. Its competitive edge does not rest solely on digital interfaces or aesthetically refined payment products, but rather on a consistently expanding and deeply engaged customer base that continues to power its momentum.
 
@@ -71,7 +71,7 @@
 **Catalysts:** Earnings, Regulatory
 
 #### Nu Holdings Ltd (NU) Expands Offices and Global Brand Reach
-*Source: Insider Monkey | Date: Today | Sentiment: Positive (+0.99)*
+*Source: Insider Monkey | Date: 2026-02-20 | Sentiment: Positive (+0.99)*
 
 > Nu Holdings Ltd (NYSE:NU) isone of the best emerging markets stocks to buy right now. On January 26, Nubank announced it will invest about R$ 2.5 billion (~USD 475 million) over the next five years to expand and improve its offices in Brazil.
 
@@ -86,7 +86,7 @@
 **Catalysts:** Earnings, Short
 
 #### MercadoLibre Set to Report Q4 Earnings: Hold or Fold the Stock?
-*Source: Zacks | Date: Today | Sentiment: Positive (+0.95)*
+*Source: Zacks | Date: 2026-02-20 | Sentiment: Positive (+0.95)*
 
 > MercadoLibreMELI is slated to report fourth-quarter 2025 results on Feb. 24.The Zacks Consensus Estimate for fourth-quarter revenues is pegged at $8.52 billion, suggesting year-over-year growth of 40.55%. The consensus mark for earnings is pegged at $11.77 per share. The estimate indicates a year-over-year decline of 6.66%.
 

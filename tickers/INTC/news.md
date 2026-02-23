@@ -1,4 +1,4 @@
-*Generated: 2026-02-20 20:43*
+*Generated: 2026-02-23 01:06*
 
 ## News & Sentiment: Intel Corporation (INTC)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,59 +6,59 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | 24/7 Wall St. | The XSD Semiconductor ETF Pops 12%, But Has an Intel Problem | Negative | -0.55 | — |
-| Today | Zacks | NVIDIA Q4 Earnings Loom: Should You Buy the Stock Ahead of R... | Negative | -0.23 | Earnings |
+| Today | Benzinga | They Plan To Sell Their Car And Buy 0.15 BTC As A Bet For Th... | Positive | +0.23 | — |
+| 2026-02-22 | MarketBeat | Lansforsakringar Fondforvaltning AB publ Buys 44,606 Shares ... | Positive | +0.30 | Earnings |
+| 2026-02-22 | MarketBeat | Intel Corporation $INTC Shares Bought by Empirical Financial... | Positive | +0.66 | Earnings, Corporate |
+| 2026-02-22 | MarketBeat | 265,000 Shares in Intel Corporation $INTC Purchased by Premi... | Positive | +0.30 | Earnings |
+| 2026-02-22 | Bez Kabli | Intel stock price slips again as Nvidia earnings week looms ... | Negative | -0.15 | Earnings |
+| 2026-02-22 | Motley Fool | Where Will AST SpaceMobile Stock Be in 5 Years? | Neutral | +0.00 | — |
+| 2026-02-22 | Motley Fool | Is It Time to Buy Palo Alto Networks Stock on the Dip? | Neutral | +0.00 | — |
+| 2026-02-22 | Motley Fool | Feb. 25 Will Be a Huge Day for Nvidia. 3 Important Things to... | Positive | +0.48 | Earnings |
+| 2026-02-22 | Motley Fool | This Elite 5.5%-Yielding Dividend Stock Continues to Fill Up... | Positive | +0.38 | Shareholder |
+| 2026-02-22 | Motley Fool | Merck: This Cancer‑Drug Powerhouse Could Be a Core Dividend ... | Neutral | +0.00 | Shareholder |
+| 2026-02-22 | Motley Fool | The Best Stocks to Invest $50,000 in Right Now | Positive | +0.64 | — |
+| 2026-02-22 | Motley Fool | Prediction: 3 Stocks That'll Be Worth More Than Walmart 5 Ye... | Positive | +0.23 | — |
+| 2026-02-22 | Motley Fool | Where Will Rocket Lab Stock Be in 10 Years? | Neutral | +0.00 | — |
+| 2026-02-22 | Motley Fool | Is CrowdStrike Stock a Buy After Falling 17% Year to Date? | Negative | -0.15 | — |
+| 2026-02-21 | Seeking Alpha | Intel Nicely On Target, More Required (NASDAQ:INTC) - Seekin... | Positive | +0.44 | — |
+| 2026-02-21 | MarketBeat | Intel (NASDAQ:INTC) Shares Down 1.1% - Time to Sell? - Marke... | Positive | +0.30 | Earnings |
+| 2026-02-21 | CoinCentral | Intel (INTC) Stock; Dips Modestly as Traders Brace for Nvidi... | Neutral | +0.00 | — |
+| 2026-02-21 | MarketBeat | Intel Corporation $INTC Shares Sold by Greenwoods Asset Mana... | Positive | +0.57 | Earnings, Corporate |
+| 2026-02-20 | 24/7 Wall St. | The XSD Semiconductor ETF Pops 12%, But Has an Intel Problem | Negative | -0.55 | — |
+| 2026-02-20 | Zacks | NVIDIA Q4 Earnings Loom: Should You Buy the Stock Ahead of R... | Negative | -0.23 | Earnings |
+| 2026-02-20 | TipRanks | Intel in India for the “Long Haul,” Intel Stock (NASDAQ:INTC... | Neutral | +0.00 | — |
 | 2026-02-20 | Quiver Quantita | Intel shares fall 3.4% amid continued pullback as investors ... | Positive | +0.30 | — |
-| 2026-02-20 | Capital.com | Intel stock forecast: Q4 2025 earnings & price targets - Cap... | Neutral | +0.00 | Earnings, Analyst |
+| 2026-02-20 | Finviz | INTC - Intel Corp Stock Price and Quote - Finviz | Neutral | +0.00 | — |
+| 2026-02-20 | TechStock² | Intel stock slides for fourth straight day — what could move... | Positive | +0.23 | — |
 | 2026-02-20 | MarketBeat | Y.D. More Investments Ltd Purchases 46,025 Shares of Intel C... | Positive | +0.30 | Earnings |
-| 2026-02-20 | MarketBeat | Kovack Advisors Inc. Cuts Holdings in Intel Corporation $INT... | Negative | -0.30 | Earnings |
+| 2026-02-20 | Seeking Alpha | Intel: The CPU Comeback Is An Execution Reality Check (NASDA... | Neutral | +0.00 | — |
 | 2026-02-20 | MarketBeat | Persistent Asset Partners Ltd Has $1.07 Million Stock Positi... | Positive | +0.36 | Earnings |
 | 2026-02-20 | MarketBeat | Frisch Financial Group Inc. Has $848,000 Stock Holdings in I... | Neutral | +0.00 | Earnings |
-| 2026-02-20 | MarketBeat | Intel Corporation $INTC Stock Position Lifted by ICICI Prude... | Positive | +0.36 | Earnings, Corporate |
-| 2026-02-20 | Motley Fool | Lucid Group Is Trading Near Its Lows. Is It Finally Time to ... | Negative | -0.20 | — |
-| 2026-02-20 | Motley Fool | Down 22%, 3 Reasons to Buy the Dip on Amazon Stock | Positive | +0.18 | — |
-| 2026-02-20 | Motley Fool | Why Forum Energy Technologies Stock Is Soaring Today | Positive | +0.27 | — |
-| 2026-02-20 | Motley Fool | Is CRISPR Therapeutics Stock Going to $0, or Will the Hype P... | Negative | -0.10 | — |
-| 2026-02-20 | Motley Fool | Why EPAM Systems Sank This Week | Neutral | +0.00 | — |
-| 2026-02-20 | Motley Fool | 1 Brilliant Vanguard Index Fund to Buy Before It Soars 25%, ... | Positive | +0.59 | — |
-| 2026-02-20 | Motley Fool | Why Copart Stock Dropped Today | Neutral | +0.00 | — |
-| 2026-02-20 | Motley Fool | My Top Artificial Intelligence (AI) Stock to Buy in 2026 | Positive | +0.60 | — |
+| 2026-02-20 | MarketBeat | Kovack Advisors Inc. Cuts Holdings in Intel Corporation $INT... | Negative | -0.30 | Earnings |
 | 2026-02-19 | StockStory | 1 Semiconductor Stock to Target This Week and 2 We Turn Down | Neutral | +0.00 | — |
-| 2026-02-19 | Barchart | Stocks Decline Amid AI Fears and Geopolitical Risks | Negative | -0.60 | — |
-| 2026-02-19 | Yahoo Finance V | Today in tech: OpenAI's new funding, Nvidia comes for AMD & ... | Neutral | +0.00 | — |
-| 2026-02-19 | Yahoo Finance | Nvidia is moving in on Intel and AMDs home turf | Neutral | +0.00 | — |
-| 2026-02-19 | Reuters | Some US investors pivot to infrastructure amid broader AI se... | Neutral | +0.00 | — |
-| 2026-02-19 | MarketBeat | NVIDIA's 13F Bombshell: A New AI Power Trio Emerges | Neutral | +0.00 | — |
-| 2026-02-19 | Zacks | ETFs to Gain as Japan Pledges to Invest $36B in U.S. Project... | Positive | +0.53 | — |
-| 2026-02-19 | 24/7 Wall St. | Finally! A Value ETF Tripled the S&P 500s Return And Investo... | Positive | +0.40 | — |
-| 2026-02-19 | GuruFocus.com | Intel Shares Slide -- Rising Threat as Nvidia Chips Take Cen... | Negative | -0.30 | — |
-| 2026-02-19 | Zacks | Zacks Investment Ideas feature highlights Nvidia, Taiwan,  B... | Positive | +0.42 | — |
-| 2026-02-19 | TipRanks | Intel Stock (NASDAQ:INTC) Slips on New Concerns Over Nvidia/... | Neutral | +0.00 | — |
-| 2026-02-19 | TipRanks | The Arc Series Is Not Out of Action Yet: Intel Stock (NASDAQ... | Neutral | +0.00 | — |
-| 2026-02-19 | Bez Kabli | Intel stock drops again — what INTC investors are watching a... | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 11 (37%) |
-| Neutral | 12 (40%) |
-| Negative | 7 (23%) |
-| Average Score | +0.068 |
-| Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 199 |
+| Positive | 15 (50%) |
+| Neutral | 10 (33%) |
+| Negative | 5 (17%) |
+| Average Score | +0.144 |
+| Overall Sentiment | **Bullish** |
+| Total Unique Headlines | 201 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 7 | NVIDIA Q4 Earnings Loom: Should You Buy ..; Intel stock forecast: Q4 2025 earnings &.. |
-| Analyst | 1 | Intel stock forecast: Q4 2025 earnings &.. |
-| Corporate | 1 | Intel Corporation $INTC Stock Position L.. |
+| Earnings | 12 | Lansforsakringar Fondforvaltning AB publ..; Intel Corporation $INTC Shares Bought by.. |
+| Corporate | 2 | Intel Corporation $INTC Shares Bought by..; Intel Corporation $INTC Shares Sold by G.. |
+| Shareholder | 2 | This Elite 5.5%-Yielding Dividend Stock ..; Merck: This Cancer‑Drug Powerhouse Could.. |
 
 ### Deep Dive Articles
 
 #### NVIDIA Q4 Earnings Loom: Should You Buy the Stock Ahead of Results?
-*Source: Zacks | Date: Today | Sentiment: Positive (+0.72)*
+*Source: Zacks | Date: 2026-02-20 | Sentiment: Positive (+0.72)*
 
 > NVIDIA CorporationNVDA is scheduled to report fourth-quarter fiscal 2026 results on Feb. 25, after market close.
 

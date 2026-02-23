@@ -1,4 +1,4 @@
-*Generated: 2026-02-15 22:04*
+*Generated: 2026-02-23 01:06*
 
 ## Short Interest: Neuronetics, Inc. (STIM)
 
@@ -8,9 +8,9 @@
 | Shares Short | 8.59M |
 | Short Ratio (DTC) | 6.48 |
 | Short % Float | 21.63% |
-| Float Shares | 38.65M |
+| Float Shares | 38.44M |
 | Shares Outstanding | 68.49M |
-| Avg Volume | 2.11M |
+| Avg Volume | 1.89M |
 | Change from Prior Month | +13.8% (increasing) |
 
 ### Squeeze Risk

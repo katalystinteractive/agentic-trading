@@ -1,4 +1,4 @@
-*Generated: 2026-02-15 22:43*
+*Generated: 2026-02-23 01:06*
 
 ## Short Interest: IonQ, Inc. (IONQ)
 
@@ -10,7 +10,7 @@
 | Short % Float | 22.31% |
 | Float Shares | 347.75M |
 | Shares Outstanding | 359.36M |
-| Avg Volume | 20.28M |
+| Avg Volume | 19.46M |
 | Change from Prior Month | +1.4% (increasing) |
 
 ### Squeeze Risk

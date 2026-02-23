@@ -1,4 +1,4 @@
-*Generated: 2026-02-17 21:01*
+*Generated: 2026-02-23 01:05*
 
 ## Earnings Analysis: Nu Holdings Ltd. (NU)
 
@@ -6,7 +6,7 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-02-25 |
-| Days Until | 8 |
+| Days Until | 2 |
 | EPS Estimate | $0.19983 |
 | Revenue Estimate | $4.55B |
 | **Earnings Rule** | **WARNING: <14 days — avoid new entries** |
@@ -17,7 +17,7 @@
 | Q4 2025 | $0.17 | $0.17 | 0.6% | +1.5% | -1.7% | Bullish |
 | Q3 2025 | $0.14 | $0.14 | 2.2% | +9.1% | +13.8% | Strong Bull |
 | Q2 2025 | $0.13 | $0.12 | -1.1% | +2.7% | -2.8% | Bullish |
-| Q1 2025 | $0.12 | $0.13 | 7.1% | -18.9% | -15.7% | Strong Bear |
+| Q1 2025 | $0.11 | $0.11 | -0.2% | -18.9% | -15.7% | Strong Bear |
 | Q4 2024 | $0.11 | $0.12 | 11.8% | -2.9% | -14.8% | Bearish |
 | Q3 2024 | $0.10 | $0.12 | 21.6% | +5.3% | +13.7% | Strong Bull |
 | Q2 2024 | $0.08 | $0.09 | 10.6% | +4.7% | +4.1% | Strong Bull |

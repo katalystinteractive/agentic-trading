@@ -1,4 +1,4 @@
-*Generated: 2026-02-20 20:45*
+*Generated: 2026-02-21 18:27*
 
 ## News & Sentiment: Rocket Companies, Inc. (RKT)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,7 +6,10 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Zacks | The Zacks Analyst Blog  Rocket, PennyMac , Wells Fargo , Ban... | Positive | +0.25 | — |
+| 2026-02-21 | MarketBeat | 253,781 Shares in Rocket Companies, Inc. $RKT Bought by Brid... | Positive | +0.30 | Earnings |
+| 2026-02-21 | MarketBeat | Rocket Companies, Inc. (NYSE:RKT) Given Consensus Recommenda... | Neutral | +0.00 | Earnings |
+| 2026-02-20 | Zacks | The Zacks Analyst Blog  Rocket, PennyMac , Wells Fargo , Ban... | Positive | +0.25 | — |
+| 2026-02-20 | TechStock² | Mortgage rates today: 30-year hits 6.01% low, but Rocket and... | Negative | -0.14 | — |
 | 2026-02-20 | Motley Fool | ValueAct Holdings Trims Insight Enterprises by $99 Million a... | Neutral | +0.00 | — |
 | 2026-02-20 | StockStory | 2 of Wall Street’s Favorite Stocks with Solid Fundamentals a... | Positive | +0.42 | — |
 | 2026-02-19 | Zacks | Fed's Mortgage Pivot: What it Means for Banks & Non-Bank Len... | Neutral | +0.00 | — |
@@ -14,6 +17,7 @@
 | 2026-02-19 | Business Wire | Redfin Reports Home Prices Start Year Up Just 1% as Buyers M... | Positive | +0.38 | Earnings |
 | 2026-02-19 | Business Wire | Redfin Reports Pending U.S. Home Sales Fall 6% As Would-Be B... | Neutral | +0.00 | — |
 | 2026-02-19 | MarketBeat | Fifth Third Bancorp Buys 125,185 Shares of Rocket Companies,... | Positive | +0.30 | Earnings |
+| 2026-02-19 | MarketBeat | Rocket Companies (RKT) Expected to Announce Quarterly Earnin... | Neutral | +0.00 | Earnings |
 | 2026-02-18 | The Wall Street | The Federal Reserve Wants to Change How You Shop for a Mortg... | Neutral | +0.00 | — |
 | 2026-02-18 | Business Wire | Redfin Reports Coastal Florida Dominated Januarys Priciest H... | Neutral | +0.00 | — |
 | 2026-02-18 | Yahoo Finance | Assessing Rocket Companies (RKT) Valuation After A Steep Sho... | Positive | +0.30 | Short |
@@ -28,37 +32,32 @@
 | 2026-02-12 | Business Wire | Redfin Report: 64% of Single Americans Struggle to Afford Ho... | Negative | -0.32 | — |
 | 2026-02-12 | Business Wire | Redfin Reports Pending Home Sales Decline in All But 5 Major... | Neutral | +0.00 | — |
 | 2026-02-12 | MarketBeat | Rocket Companies, Inc. $RKT Shares Sold by Principal Financi... | Positive | +0.30 | Earnings |
-| 2026-02-12 | StocksToTrade | Rocket Mortgage Hit with Lawsuit; Rocket Companies Shares Dr... | Negative | -0.20 | Regulatory |
 | 2026-02-11 | Benzinga | Rocket Companies Slides As Zillow Earnings Hit Housing Stock... | Neutral | +0.00 | Earnings |
 | 2026-02-11 | Zacks | Fannie Mae (FNMA) Lags Q4 Earnings and Revenue Estimates | Negative | -0.36 | Earnings |
 | 2026-02-11 | Business Wire | Redfin Reports Homebuyers Need to Earn $35,000 More Than Ren... | Neutral | +0.00 | — |
 | 2026-02-11 | Business Wire | Affordability Is Improving: Buyers Must Earn $111,000 to Aff... | Positive | +0.42 | — |
-| 2026-02-11 | Stock Titan | Americans need $111K for a typical home, but affordability i... | Positive | +0.57 | — |
-| 2026-02-09 | Benzinga | Super Bowl Commercials 2026: Complete List Of Ads, The Compa... | Positive | +0.82 | — |
-| 2026-02-06 | Business Wire | Redfin Reports Going to the Big Game Could Cost Seattle and ... | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 13 (43%) |
-| Neutral | 12 (40%) |
+| Positive | 12 (40%) |
+| Neutral | 13 (43%) |
 | Negative | 5 (17%) |
-| Average Score | +0.116 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 183 |
+| Average Score | +0.082 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 182 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 8 | Rocket Companies (RKT) Earnings Expected..; Redfin Reports Home Prices Start Year Up.. |
+| Earnings | 11 | 253,781 Shares in Rocket Companies, Inc...; Rocket Companies, Inc. (NYSE:RKT) Given .. |
 | Short | 1 | Assessing Rocket Companies (RKT) Valuati.. |
-| Regulatory | 1 | Rocket Mortgage Hit with Lawsuit; Rocket.. |
 
 ### Deep Dive Articles
 
 #### The Zacks Analyst Blog  Rocket, PennyMac , Wells Fargo , Bank of America  and JPMorgan
-*Source: Zacks | Date: Today | Sentiment: Positive (+0.94)*
+*Source: Zacks | Date: 2026-02-20 | Sentiment: Positive (+0.94)*
 
 > Chicago, IL – February 20, 2026 – Zacks.com announces the list of stocks featured in the Analyst Blog. Every day the Zacks Equity Research analysts discuss the latest news and events impacting stocks and the financial markets. Stocks recently featured in the blog include  Rocket Companies Inc. RKT, PennyMac Financial Services PFSI, Wells Fargo WFC, Bank of America BAC and JPMorgan JPM.
 

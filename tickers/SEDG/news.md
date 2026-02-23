@@ -1,4 +1,4 @@
-*Generated: 2026-02-20 20:45*
+*Generated: 2026-02-21 18:27*
 
 ## News & Sentiment: SolarEdge Technologies, Inc. (SEDG)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,17 +6,20 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Benzinga | SolarEdge Stock Is Surging: What's Going On Today? | Neutral | +0.00 | — |
-| Today | StockStory | SolarEdge (SEDG) Shares Skyrocket, What You Need To Know | Positive | +0.30 | — |
-| Today | Benzinga | Supreme Court Rules Against Trump's Tariffs: These 10 Stocks... | Positive | +0.56 | — |
+| 2026-02-21 | MarketBeat | SolarEdge Technologies (NASDAQ:SEDG) Given New $33.00 Price ... | Neutral | +0.00 | Earnings, Analyst |
+| 2026-02-21 | GuruFocus | SolarEdge (SEDG) Stock Jumps 10% Amid Strong Gains - GuruFoc... | Positive | +0.69 | — |
+| 2026-02-21 | The Globe and M | Analysts’ Opinions Are Mixed on These Technology Stocks: Wor... | Neutral | +0.00 | — |
+| 2026-02-20 | Benzinga | SolarEdge Stock Is Surging: What's Going On Today? | Neutral | +0.00 | — |
+| 2026-02-20 | StockStory | SolarEdge (SEDG) Shares Skyrocket, What You Need To Know | Positive | +0.30 | — |
+| 2026-02-20 | Benzinga | Supreme Court Rules Against Trump's Tariffs: These 10 Stocks... | Positive | +0.56 | — |
 | 2026-02-20 | Benzinga | SolarEdge Stock Is Surging: What's Going On Today? - Benzing... | Neutral | +0.00 | — |
-| 2026-02-20 | GuruFocus | SolarEdge (SEDG) Stock Jumps 10% Amid Strong Gains - GuruFoc... | Positive | +0.69 | — |
+| 2026-02-20 | MarketBeat | SolarEdge Technologies (NASDAQ:SEDG) Given New $36.00 Price ... | Positive | +0.25 | Earnings, Analyst |
 | 2026-02-20 | MarketBeat | SolarEdge Technologies (NASDAQ:SEDG) Stock Price Up 11.9% Af... | Neutral | +0.00 | Earnings, Analyst |
 | 2026-02-20 | The Globe and M | Analysts Offer Insights on Technology Companies: CrowdStrike... | Neutral | +0.00 | — |
-| 2026-02-20 | MarketBeat | SolarEdge Technologies (NASDAQ:SEDG) Price Target Raised to ... | Neutral | +0.00 | Earnings, Analyst |
 | 2026-02-19 | Insider Monkey | SolarEdge (SEDG) Dips 5.5% as Strong Earnings Priced In | Positive | +0.51 | Earnings |
 | 2026-02-19 | Moby | SolarEdge Technologies, Inc. Q4 2025 Earnings Call Summary | Neutral | +0.00 | Earnings |
 | 2026-02-19 | StockStory | SEDG Q4 CY2025 Deep Dive: Market Share Gains, Nexis Rollout,... | Positive | +0.56 | — |
+| 2026-02-19 | MarketBeat | SolarEdge Technologies (NASDAQ:SEDG) Price Target Cut to $32... | Negative | -0.27 | Earnings, Analyst |
 | 2026-02-19 | MT Newswires | SolarEdge Sees Recovery, New Products Drive Optimism, Morgan... | Positive | +0.54 | — |
 | 2026-02-19 | Simply Wall St. | A Look At SolarEdge Technologies (SEDG) Valuation After Its ... | Neutral | +0.00 | Earnings |
 | 2026-02-18 | Morningstar Res | Analyst Report: SolarEdge Technologies, Inc. | Neutral | +0.00 | — |
@@ -29,36 +32,32 @@
 | 2026-02-18 | Business Wire | SolarEdge Announces Fourth Quarter and Full Year 2025 Financ... | Neutral | +0.00 | — |
 | 2026-02-18 | Stock Titan | SolarEdge slashes annual loss to $405M, turns $77M free cash... | Positive | +0.05 | — |
 | 2026-02-18 | Quiver Quantita | SOLAREDGE TECHNOLOGIES ($SEDG) Releases Q4 2025 Earnings - Q... | Neutral | +0.00 | Earnings |
-| 2026-02-18 | MarketBeat | SolarEdge Technologies (NASDAQ:SEDG) Shares Gap Up on Strong... | Positive | +0.67 | Earnings |
 | 2026-02-18 | MarketBeat | Stock Traders Purchase High Volume of SolarEdge Technologies... | Neutral | +0.00 | Earnings |
+| 2026-02-18 | MarketBeat | SolarEdge Technologies (NASDAQ:SEDG) Shares Gap Up on Strong... | Positive | +0.67 | Earnings |
 | 2026-02-17 | Benzinga | Palo Alto, Opendoor, Carvana And More Stocks With Earnings T... | Neutral | +0.00 | Earnings |
 | 2026-02-17 | simplywall.st | How Investors May Respond To SolarEdge Technologies (SEDG) P... | Neutral | +0.00 | — |
-| 2026-02-17 | MarketBeat | SolarEdge Technologies, Inc. $SEDG Shares Purchased by Publi... | Positive | +0.30 | Earnings, Regulatory |
-| 2026-02-16 | StockStory | SolarEdge (SEDG) Reports Q4: Everything You Need To Know Ahe... | Neutral | +0.00 | Earnings |
-| 2026-02-13 | Zacks | SolarEdge Technologies to Post Q4 Earnings: Here's What to E... | Neutral | +0.00 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
 | Positive | 11 (37%) |
-| Neutral | 18 (60%) |
-| Negative | 1 (3%) |
-| Average Score | +0.156 |
+| Neutral | 17 (57%) |
+| Negative | 2 (7%) |
+| Average Score | +0.145 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 154 |
+| Total Unique Headlines | 155 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 18 | SolarEdge Technologies (NASDAQ:SEDG) Sto..; SolarEdge Technologies (NASDAQ:SEDG) Pri.. |
-| Analyst | 2 | SolarEdge Technologies (NASDAQ:SEDG) Sto..; SolarEdge Technologies (NASDAQ:SEDG) Pri.. |
-| Regulatory | 1 | SolarEdge Technologies, Inc. $SEDG Share.. |
+| Earnings | 17 | SolarEdge Technologies (NASDAQ:SEDG) Giv..; SolarEdge Technologies (NASDAQ:SEDG) Giv.. |
+| Analyst | 4 | SolarEdge Technologies (NASDAQ:SEDG) Giv..; SolarEdge Technologies (NASDAQ:SEDG) Giv.. |
 
 ### Deep Dive Articles
 
 #### SolarEdge Stock Is Surging: What's Going On Today?
-*Source: Benzinga | Date: Today | Sentiment: Positive (+0.98)*
+*Source: Benzinga | Date: 2026-02-20 | Sentiment: Positive (+0.98)*
 
 > SolarEdge TechnologiesInc(NASDAQ:SEDG) shares are trading higher on Friday. The Nasdaq is up 0.71% while theS&P 500 has gained 0.38%.
 
@@ -73,7 +72,7 @@
 **Catalysts:** Regulatory, Short
 
 #### SolarEdge (SEDG) Shares Skyrocket, What You Need To Know
-*Source: StockStory | Date: Today | Sentiment: Positive (+0.98)*
+*Source: StockStory | Date: 2026-02-20 | Sentiment: Positive (+0.98)*
 
 > Shares of solar power systems company SolarEdge (NASDAQ:SEDG) 
  jumped 10% in the morning session after the company reported strong fourth-quarter results that showed higher revenue and improved margins.
@@ -89,7 +88,7 @@
 **Catalysts:** Earnings, Analyst
 
 #### Supreme Court Rules Against Trump's Tariffs: These 10 Stocks Are Soaring
-*Source: Benzinga | Date: Today | Sentiment: Positive (+0.80)*
+*Source: Benzinga | Date: 2026-02-20 | Sentiment: Positive (+0.80)*
 
 > A historic Supreme Court ruling invalidating PresidentDonald Trump's sweeping global tariffs triggered a sharp rally across U.S. equities Friday, as investors cheered the removal of duties that had reshaped trade flows and marketsfor nearly a year.
 

@@ -1,4 +1,4 @@
-*Generated: 2026-02-20 20:44*
+*Generated: 2026-02-23 01:06*
 
 ## News & Sentiment: United States Antimony Corporat (UAMY)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -7,11 +7,10 @@
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | 2026-02-14 | Simply Wall St. | United States Antimony (UAMY) Valuation After New Hydrometal... | Positive | +0.13 | — |
-| 2026-02-14 | Simply Wall St. | Is United States Antimony (UAMY) Price Justified After 301% ... | Positive | +0.67 | — |
+| 2026-02-13 | Yahoo Finance | Is United States Antimony (UAMY) Price Justified After 301% ... | Positive | +0.67 | — |
 | 2026-02-10 | ACCESSWIRE | United States Antimony Corporation CEO to be Featured on Blo... | Positive | +0.42 | Corporate |
 | 2026-02-10 | Benzinga | What's Going On With United States Antimony Shares Tuesday? | Positive | +0.61 | — |
 | 2026-02-10 | ACCESSWIRE | United States Antimony Corporation Announces Significant New... | Positive | +0.56 | — |
-| 2026-02-10 | Stock Titan | US Antimony, Americas to build North America's first hydrome... | Neutral | +0.00 | — |
 | 2026-02-09 | PR Newswire | The $30 Billion Shift: Critical Minerals Enter a New Era | Negative | -0.32 | — |
 | 2026-02-03 | Benzinga | Project Vault 'Puts America's Best Foot Forward'-Rare Earth ... | Positive | +0.64 | — |
 | 2026-02-03 | Benzinga | Critical Metals, USA Rare Earth, MP Materials Climb In Tuesd... | Negative | -0.32 | — |
@@ -27,8 +26,8 @@
 | 2026-01-29 | ACCESSWIRE | Inaccurate and Misleading Reuters Article | Negative | -0.40 | — |
 | 2026-01-29 | Yahoo Finance | Is It Too Late To Consider United States Antimony (UAMY) Aft... | Positive | +0.42 | — |
 | 2026-01-29 | Trefis | United States Antimony Stock Pre-Market (-9.5%): US Govt. Ba... | Positive | +0.08 | — |
+| 2026-01-29 | Yahoo Finance | United States Antimony (UAMY) Is Up 6.5% After Bolivia Plant... | Positive | +0.68 | — |
 | 2026-01-29 | Benzinga | Rare Earth Stocks Get Rocked: Here Are The Facts - Benzinga | Neutral | +0.00 | — |
-| 2026-01-29 | Simply Wall St. | United States Antimony (UAMY) Is Up 6.5% After Bolivia Plant... | Positive | +0.68 | — |
 | 2026-01-28 | ACCESSWIRE | United States Antimony Corporation Announces New Hydromet Pr... | Positive | +0.13 | — |
 | 2026-01-28 | Stock Titan | Inside the new Bolivia-Montana antimony route for military-g... | Neutral | +0.00 | — |
 | 2026-01-26 | MarketWatch | Trump administration partners with another rare-earth compan... | Neutral | +0.00 | — |
@@ -36,22 +35,23 @@
 | 2026-01-26 | TechStock² | UAMY stock jumps nearly 10% in premarket as antimony prices ... | Neutral | +0.00 | — |
 | 2026-01-26 | StocksToTrade | United States Antimony Corporation Faces Market Challenges a... | Positive | +0.15 | — |
 | 2026-01-26 | Intellectia AI | United States Antimony Corp Shares Surge 31% Amid Acquisitio... | Positive | +0.61 | Corporate |
+| 2026-01-23 | Seeking Alpha | United States Antimony: Plenty Of Growth Ahead If Management... | Positive | +0.66 | Corporate |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 18 (60%) |
-| Neutral | 8 (27%) |
+| Positive | 19 (63%) |
+| Neutral | 7 (23%) |
 | Negative | 4 (13%) |
-| Average Score | +0.230 |
+| Average Score | +0.252 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 177 |
+| Total Unique Headlines | 175 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Corporate | 2 | United States Antimony Corporation CEO t..; United States Antimony Corp Shares Surge.. |
+| Corporate | 3 | United States Antimony Corporation CEO t..; United States Antimony Corp Shares Surge.. |
 
 ### Deep Dive Articles
 

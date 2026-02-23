@@ -1,4 +1,4 @@
-*Generated: 2026-02-20 20:45*
+*Generated: 2026-02-23 01:07*
 
 ## News & Sentiment: SoundHound AI, Inc. (SOUN)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,12 +6,13 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Zacks | Do Expanding Gross Margins Signal a Turning Point for SOUN S... | Negative | -0.48 | — |
+| 2026-02-20 | Zacks | Do Expanding Gross Margins Signal a Turning Point for SOUN S... | Negative | -0.48 | — |
+| 2026-02-20 | Nasdaq | Prediction: These 2 Artificial Intelligence (AI) Stocks Will... | Positive | +0.48 | — |
 | 2026-02-20 | Meyka | SOUN SoundHound NASDAQ $7.83 19 Feb 2026 close: partnerships... | Neutral | +0.00 | Earnings |
 | 2026-02-20 | StockStory | 3 Russell 2000 Stocks with Open Questions | Neutral | +0.00 | — |
 | 2026-02-19 | Zacks | SoundHound vs. C3.ai: Which AI Stock Is the Better Buy Now? | Positive | +0.44 | — |
-| 2026-02-19 | TipRanks | SoundHound AI Earnings Are Near: 3 Numbers that Could Move S... | Neutral | +0.00 | Earnings |
 | 2026-02-19 | The Motley Fool | 2 AI Stocks to Buy Before They Soar 37% and 108%, According ... | Negative | -0.44 | — |
+| 2026-02-19 | TipRanks | SoundHound AI Earnings Are Near: 3 Numbers that Could Move S... | Neutral | +0.00 | Earnings |
 | 2026-02-18 | The Motley Fool | 3 Long-Shot AI Stocks That Could Make You a Millionaire - Th... | Negative | -0.44 | — |
 | 2026-02-17 | Zacks | SoundHound AI, Inc. (SOUN) Stock Declines While Market Impro... | Positive | +0.42 | — |
 | 2026-02-17 | The Motley Fool | 1 AI Stock That Could Turn $100 Per Month Into $27,675 - The... | Negative | -0.44 | — |
@@ -19,45 +20,44 @@
 | 2026-02-16 | StockStory | 1 Small-Cap Stock to Own for Decades and 2 We Ignore | Negative | -0.36 | — |
 | 2026-02-16 | Simply Wall St. | SoundHound AI Voice Commerce Launch Tests Growth Story And S... | Positive | +0.10 | Short |
 | 2026-02-15 | 24/7 Wall St. | SoundHounds Week in Review: Earnings Uncertainty & Valuation... | Negative | -0.34 | Earnings |
-| 2026-02-15 | Nasdaq | Should You Buy SoundHound AI Stock While It's Under $8? - Na... | Neutral | +0.00 | — |
 | 2026-02-15 | TipRanks | AI Analyst Flags Caution on SoundHound AI Stock (SOUN) Ahead... | Neutral | +0.00 | Earnings |
-| 2026-02-15 | Yahoo Finance | Is SoundHound AI Stock Your Ticket to Becoming a Millionaire... | Neutral | +0.00 | — |
-| 2026-02-15 | Meyka | SOUN Stock Today: February 16 — Heavy Shorts Set Up Pre‑Earn... | Neutral | +0.00 | Earnings, Short |
+| 2026-02-15 | Nasdaq | Is SoundHound AI Stock Your Ticket to Becoming a Millionaire... | Neutral | +0.00 | — |
+| 2026-02-15 | The Motley Fool | Should You Buy SoundHound AI Stock While It's Under $8? - Th... | Negative | -0.44 | — |
 | 2026-02-14 | Insider Monkey | Analysts See 123% Upside To SoundHound AI, Inc. (SOUN) | Neutral | +0.00 | — |
 | 2026-02-13 | Barchart | Should You Bet on a Short Squeeze in SoundHound AI Stock Now... | Neutral | +0.00 | Short |
 | 2026-02-12 | Zacks | SoundHound's $140B Total Addressable Market: How Much Is Rea... | Neutral | +0.00 | — |
 | 2026-02-12 | Zacks | IPG Photonics (IPGP) Q4 Earnings and Revenues Top Estimates | Positive | +0.20 | Earnings |
-| 2026-02-12 | DirectorsTalk I | SoundHound AI, Inc. (SOUN) Stock Analysis: Anticipating a 10... | Positive | +0.51 | — |
 | 2026-02-11 | Zacks | SoundHound Stock Down 29% in a Month: Buy the Dip or Avoid P... | Negative | -0.30 | — |
 | 2026-02-11 | Zacks | Investors Heavily Search SoundHound AI, Inc. (SOUN): Here is... | Neutral | +0.00 | — |
 | 2026-02-11 | Zacks | Vertiv Holdings Co. (VRT) Beats Q4 Earnings and Revenue Esti... | Neutral | +0.00 | Earnings |
-| 2026-02-11 | The Motley Fool | Is SoundHound AI Stock a Buy Now? - The Motley Fool | Negative | -0.44 | — |
-| 2026-02-11 | TipRanks | SoundHound AI (SOUN) Stock Falls 23% YTD — Time to Buy the D... | Neutral | +0.00 | — |
 | 2026-02-11 | The Motley Fool | Down 65% From Its All-Time High, Is SoundHound AI a Buy Now?... | Negative | -0.44 | — |
+| 2026-02-11 | TipRanks | SoundHound AI (SOUN) Stock Falls 23% YTD — Time to Buy the D... | Neutral | +0.00 | — |
 | 2026-02-10 | GlobeNewswire | SoundHound AI To Report 2025 Fourth Quarter and Full Year Fi... | Neutral | +0.00 | — |
-| 2026-02-10 | Seeking Alpha | SoundHound AI: The Software Selloff Hasn't Made This A Barga... | Positive | +0.20 | — |
+| 2026-02-09 | Zacks | SoundHound AI, Inc. (SOUN) Laps the Stock Market: Here's Why | Neutral | +0.00 | — |
+| 2026-02-09 | Zacks | Is It Worth Investing in SoundHound AI (SOUN) Based on Wall ... | Positive | +0.23 | — |
+| 2026-02-09 | Yahoo Finance | SoundHound AI (SOUN) Valuation Check After Mixed Short And L... | Positive | +0.30 | Short |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 7 (23%) |
-| Neutral | 14 (47%) |
+| Positive | 8 (27%) |
+| Neutral | 13 (43%) |
 | Negative | 9 (30%) |
-| Average Score | -0.052 |
+| Average Score | -0.042 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 171 |
+| Total Unique Headlines | 170 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 7 | SOUN SoundHound NASDAQ $7.83 19 Feb 2026..; SoundHound AI Earnings Are Near: 3 Numbe.. |
-| Short | 3 | SoundHound AI Voice Commerce Launch Test..; SOUN Stock Today: February 16 — Heavy Sh.. |
+| Earnings | 6 | SOUN SoundHound NASDAQ $7.83 19 Feb 2026..; SoundHound AI Earnings Are Near: 3 Numbe.. |
+| Short | 3 | SoundHound AI Voice Commerce Launch Test..; Should You Bet on a Short Squeeze in Sou.. |
 
 ### Deep Dive Articles
 
 #### Do Expanding Gross Margins Signal a Turning Point for SOUN Stock?
-*Source: Zacks | Date: Today | Sentiment: Positive (+0.93)*
+*Source: Zacks | Date: 2026-02-20 | Sentiment: Positive (+0.93)*
 
 > For investors trackingSoundHound AI, Inc.SOUN, expanding gross margins have become a key data point in assessing whether the stock is entering a more durable phase of its growth story. In third-quarter 2025, the company reported sequential improvement in both GAAP and non-GAAP gross margins, reflecting more than just top-line momentum, it highlighted improving economics beneath the surface.
 

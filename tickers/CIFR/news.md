@@ -1,4 +1,4 @@
-*Generated: 2026-02-20 20:44*
+*Generated: 2026-02-23 01:06*
 
 ## News & Sentiment: Cipher Mining Inc. (CIFR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,59 +6,58 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Zacks | Cipher Mining Stock Before Q4 Earnings: What's in the Offing... | Neutral | +0.00 | Earnings |
+| 2026-02-21 | The Globe and M | 2 Stocks Under $30 to Buy in 2026 - The Globe and Mail | Neutral | +0.00 | — |
+| 2026-02-21 | Intellectia AI | Analysis of Growth Potential in Low-Priced Stocks - Intellec... | Positive | +0.38 | — |
+| 2026-02-21 | Motley Fool | 2 Stocks Under $30 to Buy in 2026 | Neutral | +0.00 | — |
+| 2026-02-20 | Zacks | Cipher Mining Stock Before Q4 Earnings: What's in the Offing... | Neutral | +0.00 | Earnings |
 | 2026-02-20 | MarketBeat | BIT Capital GmbH Trims Stake in Cipher Mining Inc. $CIFR - M... | Neutral | +0.00 | Earnings |
-| 2026-02-20 | GuruFocus | Insider Sell: Patrick Kelly Sells Shares of Cipher Mining In... | Positive | +0.30 | — |
 | 2026-02-19 | Insider Monkey | Strong Analyst Support and Funding Boost Cipher Mining Inc. ... | Positive | +0.83 | — |
 | 2026-02-19 | Simply Wall St. | Is Cipher Mining (CIFR) Quietly Transforming From Bitcoin Mi... | Neutral | +0.00 | — |
 | 2026-02-18 | Insider Monkey | Morgan Stanley Positive on Cipher Mining (CIFR) Data Center ... | Positive | +0.56 | — |
 | 2026-02-18 | Investor's Busi | Riot Surges On Activist Data Center Proposal, ARK Resumes Co... | Negative | -0.56 | — |
 | 2026-02-18 | Blockspace | Starboard Value projects $52 share price for Riot Platforms ... | Neutral | -0.00 | — |
 | 2026-02-18 | Investor's Busi | Riot Rises On Activist Data Center Proposal, ARK Resumes Coi... | Negative | -0.56 | — |
-| 2026-02-18 | MarketBeat | Maridea Wealth Management LLC Trims Stake in Cipher Mining I... | Positive | +0.49 | Earnings, Corporate |
 | 2026-02-18 | simplywall.st | Cipher Mining Expands Into AI Infrastructure As Market Disco... | Positive | +0.10 | — |
 | 2026-02-17 | Insider Monkey | Is Cipher Mining Inc. (CIFR) among the Best Bitcoin and Bloc... | Positive | +0.64 | — |
 | 2026-02-17 | Zacks | Cipher Mining Inc. (CIFR) Stock Sinks As Market Gains: Here'... | Positive | +0.34 | — |
 | 2026-02-17 | GuruFocus.com | CleanSpark Leads Crypto Short Bets | Neutral | +0.00 | Short |
 | 2026-02-17 | Blockspace | Cipher Mining, IREN lead Mike Alfreds Alpine Fox portfolio | Neutral | +0.00 | — |
 | 2026-02-17 | simplywall.st | Will Adding Real Estate Veteran to Board Shape Cipher Mining... | Neutral | +0.00 | — |
-| 2026-02-17 | MarketBeat | Cipher Mining (CIFR) to Release Earnings on Tuesday - Market... | Neutral | +0.00 | Earnings |
 | 2026-02-17 | MarketBeat | Cipher Mining (NASDAQ:CIFR) Trading Down 7.9% - What's Next?... | Neutral | +0.00 | Earnings |
-| 2026-02-17 | Benzinga | This Is What Whales Are Betting On Cipher Mining - Benzinga | Neutral | +0.00 | — |
 | 2026-02-15 | 24/7 Wall St. | Why IREN Has A Big Advantage Over Cipher Mining - 24/7 Wall ... | Positive | +0.25 | — |
 | 2026-02-14 | Barchart | Dear Cipher Mining Stock Fans, Mark Your Calendars for Febru... | Positive | +0.38 | — |
 | 2026-02-14 | Barchart | The Saturday Spread: Maximizing First-Order Analytics to Hel... | Positive | +0.40 | — |
 | 2026-02-14 | Yahoo Finance | Cipher Mining (CIFR) Valuation Check After Strong Long Term ... | Positive | +0.67 | — |
-| 2026-02-14 | simplywall.st | Cipher Mining’s AI Pivot And $3b Deal Reframe Long Term Upsi... | Neutral | +0.00 | — |
 | 2026-02-13 | Zacks | Cipher Mining (CIFR) Is Considered a Good Investment by Brok... | Positive | +0.69 | — |
 | 2026-02-13 | 24/7 Wall St. | Microsofts $9.7 Billion Contract Hasnt Saved This Struggling... | Negative | -0.68 | — |
 | 2026-02-12 | GuruFocus.com | Cipher Mining Shares Surge 200% as Top Holder Buys Bitcoin D... | Positive | +0.46 | — |
 | 2026-02-11 | GlobeNewswire | Cipher Welcomes Thomas Duda to the Company's Board of Direct... | Positive | +0.40 | — |
 | 2026-02-11 | Zacks | ETFs to Play as Morgan Stanley Bets 150%+ Upside for 2 Bitco... | Positive | +0.34 | — |
 | 2026-02-11 | TIKR.com | Cipher Mining Stock Gains 14% as AI Data Center Optionality ... | Positive | +0.34 | — |
+| 2026-02-11 | Stock Titan | Real estate investor Thomas Duda joins Cipher board to back ... | Neutral | +0.00 | — |
+| 2026-02-10 | Zacks | Cipher Mining Inc. (CIFR) Increases Despite Market Slip: Her... | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 16 (53%) |
-| Neutral | 11 (37%) |
+| Positive | 15 (50%) |
+| Neutral | 12 (40%) |
 | Negative | 3 (10%) |
-| Average Score | +0.180 |
+| Average Score | +0.166 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 171 |
+| Total Unique Headlines | 175 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 5 | Cipher Mining Stock Before Q4 Earnings: ..; BIT Capital GmbH Trims Stake in Cipher M.. |
-| Corporate | 1 | Maridea Wealth Management LLC Trims Stak.. |
+| Earnings | 3 | Cipher Mining Stock Before Q4 Earnings: ..; BIT Capital GmbH Trims Stake in Cipher M.. |
 | Short | 1 | CleanSpark Leads Crypto Short Bets |
 
 ### Deep Dive Articles
 
 #### Cipher Mining Stock Before Q4 Earnings: What's in the Offing?
-*Source: Zacks | Date: Today | Sentiment: Positive (+0.99)*
+*Source: Zacks | Date: 2026-02-20 | Sentiment: Positive (+0.99)*
 
 > Cipher MiningCIFR is scheduled to report fourth-quarter 2025 earnings on Feb. 24.The Zacks Consensus Estimate for revenues is currently pegged at $77.86 million, suggesting growth of 84.41% from the year-ago quarter’s levels.The consensus mark for loss is pegged at 12 cents per share, unchanged over the past 30 days. This represents a sharp year-over-year deterioration from earnings of 6 cents.Cipher Mining earnings beat the Zacks Consensus Estimate in each of the trailing four quarters, the average surprise being 61.88%.Let’s see how things have shaped up for CIFR before the announcement.
 

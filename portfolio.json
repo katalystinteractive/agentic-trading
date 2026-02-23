@@ -141,9 +141,16 @@
       {"type": "BUY", "price": 10.20, "shares": 9, "note": "Reserve 1 — $9.90 HVN+PA, 44% hold rate, Std tier, wick-adjusted"},
       {"type": "BUY", "price": 10.06, "shares": 9, "note": "Reserve 2 — $9.52 PA, 56% hold rate, Full tier, wick-adjusted"},
       {"type": "BUY", "price": 6.64, "shares": 15, "note": "Reserve 3 — $6.53 PA, 75% hold rate, Full tier, structural floor"}
+    ],
+    "NNE": [
+      {"type": "BUY", "price": 24.03, "shares": 2, "note": "Bullet 1 — $23.58 PA, 45% hold rate, Std tier, wick-adjusted"},
+      {"type": "BUY", "price": 23.61, "shares": 2, "note": "Bullet 2 — $22.89 PA, 45% hold rate, Std tier, wick-adjusted"},
+      {"type": "BUY", "price": 23.20, "shares": 2, "note": "Bullet 3 — $22.02 PA, 67% hold rate, Full tier, wick-adjusted"},
+      {"type": "BUY", "price": 20.50, "shares": 2, "note": "Bullet 4 — $20.12 PA, 75% hold rate, Full tier, wick-adjusted"},
+      {"type": "BUY", "price": 19.28, "shares": 5, "note": "Reserve 1 — $18.81 PA, 67% hold rate, Full tier, wick-adjusted"}
     ]
   },
-  "watchlist": ["AR", "VALE", "CLF", "SEDG", "ACHR", "SOUN", "CLSK", "SMCI", "RKT", "LUNR"],
+  "watchlist": ["AR", "VALE", "CLF", "SEDG", "ACHR", "SOUN", "CLSK", "SMCI", "RKT", "LUNR", "NNE"],
   "capital": {
     "per_stock_total": 600,
     "active_pool": 300,

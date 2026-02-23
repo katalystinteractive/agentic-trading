@@ -1,4 +1,4 @@
-*Generated: 2026-02-20 20:44*
+*Generated: 2026-02-23 01:06*
 
 ## News & Sentiment: Applied Digital Corporation (APLD)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,8 +6,16 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-02-22 | MarketBeat | Rhumbline Advisers Boosts Stake in Applied Digital Corporati... | Positive | +0.32 | Earnings |
+| 2026-02-21 | Barchart | As Nvidia Ditches Applied Digital Stock, Should You? | Neutral | +0.00 | — |
+| 2026-02-21 | MarketBeat | Applied Digital (NASDAQ:APLD) Trading Down 7.9% - What's Nex... | Neutral | +0.00 | Earnings |
+| 2026-02-21 | MarketBeat | State of New Jersey Common Pension Fund D Buys New Position ... | Neutral | +0.00 | Earnings |
+| 2026-02-21 | The Motley Fool | 2 Monster Stocks to Hold for the Next 5 Years - The Motley F... | Negative | -0.44 | — |
+| 2026-02-21 | Motley Fool | 2 Monster Stocks to Hold for the Next 5 Years | Neutral | +0.00 | — |
+| 2026-02-21 | Motley Fool | Better Data Center Stock: Applied Digital vs. Riot Platforms | Negative | -0.18 | — |
+| 2026-02-20 | Benzinga | Neocloud Contagion: CoreWeave Financing Woes Drag Down Nebiu... | Negative | -0.78 | — |
 | 2026-02-20 | Quiver Quantita | Applied Digital (APLD) slides as investors digest Nvidia’s d... | Neutral | +0.00 | — |
-| 2026-02-20 | Barchart.com | US economy grows at 1.4% rate in the fourth quarter, slower ... | Neutral | +0.00 | — |
+| 2026-02-20 | MarketBeat | Applied Digital (OTCMKTS:APLD) Trading Down 8% - Here's What... | Neutral | +0.00 | Earnings |
 | 2026-02-20 | Motley Fool | AI Spending Is Poised to Hit $700 Billion in 2026. 2 Top Sto... | Positive | +0.48 | — |
 | 2026-02-19 | MarketBeat | NVIDIA's 13F Bombshell: A New AI Power Trio Emerges | Neutral | +0.00 | — |
 | 2026-02-19 | Insider Monkey | Applied Digital (APLD) Loses 4.9% as Nvidia Disposes of Shar... | Neutral | -0.03 | — |
@@ -25,37 +33,44 @@
 | 2026-02-18 | Zacks | APLD vs. VRT: Which Data Center Infrastructure Stock is a Be... | Positive | +0.44 | — |
 | 2026-02-18 | The Wall Street | Applied Digital, WeRide Stocks Drop After Nvidia Sells Holdi... | Negative | -0.27 | — |
 | 2026-02-18 | Barrons.com | Applied Digital, Recursion Pharmaceuticals Stocks Drop. Blam... | Negative | -0.54 | — |
-| 2026-02-18 | Barron's | Applied Digital, WeRide Stocks Drops. Blame Nvidia. - Barron... | Negative | -0.34 | — |
-| 2026-02-18 | Forbes | NVIDIA Bailed — Should You Buy The Dip In APLD Stock? - Forb... | Neutral | +0.00 | — |
-| 2026-02-18 | TipRanks | Roth Capital says ‘buying shares’ of Applied Digital - TipRa... | Neutral | +0.00 | — |
-| 2026-02-18 | Benzinga | What's Going On With Applied Digital Stock? - Benzinga | Neutral | +0.00 | — |
-| 2026-02-18 | Investing.com | Applied Digital stock falls after NVIDIA drops stake - Inves... | Neutral | +0.00 | — |
-| 2026-02-18 | TipRanks | Why Did Nvidia Sell Applied Digital (APLD) and Buy Intel? Ne... | Neutral | +0.00 | — |
 | 2026-02-18 | Trefis | Applied Digital Stock: Is the Sell-Off a Buying Opportunity?... | Positive | +0.42 | — |
-| 2026-02-18 | MarketBeat | Applied Digital (NASDAQ:APLD) Stock Price Down 4.9% - What's... | Neutral | +0.00 | Earnings |
-| 2026-02-18 | simplywall.st | Nvidia Exit Prompts Fresh Look At Applied Digital Volatility... | Positive | +0.32 | — |
-| 2026-02-18 | TradingView | Nvidia cutting stake isn't a sign to sell Applied Digital st... | Negative | -0.13 | — |
-| 2026-02-18 | MarketBeat | Applied Digital (NASDAQ:APLD) Trading Down 4.9% - What's Nex... | Neutral | +0.00 | Earnings |
+| 2026-02-18 | Forbes | NVIDIA Bailed — Should You Buy The Dip In APLD Stock? - Forb... | Neutral | +0.00 | — |
+| 2026-02-18 | Barron's | Applied Digital, WeRide Stocks Drops. Blame Nvidia. - Barron... | Negative | -0.34 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
 | Positive | 6 (20%) |
-| Neutral | 18 (60%) |
-| Negative | 6 (20%) |
-| Average Score | +0.010 |
+| Neutral | 16 (53%) |
+| Negative | 8 (27%) |
+| Average Score | -0.032 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 179 |
+| Total Unique Headlines | 178 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 3 | Applied Digital (NASDAQ:APLD) Trading Do..; Applied Digital (NASDAQ:APLD) Stock Pric.. |
+| Earnings | 5 | Rhumbline Advisers Boosts Stake in Appli..; Applied Digital (NASDAQ:APLD) Trading Do.. |
 | Short | 1 | 3 Volatile Stocks That Fall Short |
 | Regulatory | 1 | Nvidias Secret Portfolio Shakeup: 2 AI D.. |
 
 ### Deep Dive Articles
+
+#### Neocloud Contagion: CoreWeave Financing Woes Drag Down Nebius, Applied Digital
+*Source: Benzinga | Date: 2026-02-20 | Sentiment: Negative (-0.13)*
+
+> The specialized neocloud sector faced a stress test on Friday as shares ofNebius Group N.V.(NASDAQ:NBIS) andApplied Digital Corp.(NASDAQ:APLD)tumbled in sympathywithCoreWeave, Inc.(NASDAQ:CRWV).
+
+> The sell-off was ignited by a Business Insiderreportsuggesting a major financing friction point for CoreWeave's ambitious infrastructure expansion.
+
+> CoreWeave shares fell as much as 12% intraday following news that its key financing partner,Blue Owl Capital(NYSE:OWL), allegedly failed to secure sufficient funding for a massive $4 billion data center project in Pennsylvania.
+
+> The facility was intended to be a flagship site for CoreWeave's GPU-as-a-service model. The anxiety was compounded by Blue Owl’s recent decision to halt quarterly redemptions for one of its retail-focused funds, which investors interpreted as a “canary in the coal mine” for liquidity within the AI infrastructure space.
+
+> The contagion quickly spread to Nebius and Applied Digital, as both companies operate within the same capital-intensive ecosystem.
+
+**Catalysts:** Earnings, Regulatory
 
 #### NVIDIA's 13F Bombshell: A New AI Power Trio Emerges
 *Source: MarketBeat | Date: 2026-02-19 | Sentiment: Positive (+0.99)*
@@ -116,18 +131,3 @@
 > Over the past 12 months, Applied Digital’s stock has surged by 240%, demonstrating significant long-term growth. Currently, the stock is trading 7.2% below its 20-day SMA of $35.79 and 3.7% above its 50-day SMA of $32.04. This positioning indicates recent underperformance.
 
 **Catalysts:** Earnings, Regulatory
-
-#### APLD vs. VRT: Which Data Center Infrastructure Stock is a Better Buy?
-*Source: Zacks | Date: 2026-02-18 | Sentiment: Positive (+0.99)*
-
-> Applied DigitalAPLD andVertiv HoldingsVRT operate in distinct yet converging segments of the data center infrastructure market. Vertiv provides critical power systems, thermal management and prefabricated infrastructure solutions for hyperscale and AI-driven facilities. Applied Digital, while primarily a developer and operator of AI-optimized campuses, has expanded deeper into the power and advanced cooling stack through modular electrical design and liquid-cooled infrastructure tailored for high-density computing. Both companies now participate in the hyperscale and AI-factory buildout cycle.Per Mordor Intelligence, the global Data Center Infrastructure Management market is projected to grow from $4.29 billion in 2026 to $9.99 billion by 2031, witnessing a CAGR of 18.43%. Rising AI-driven thermal loads, increasing rack power densities and accelerating hyperscale deployments are key growth drivers. With both companies positioned to benefit from this expansion, the question is which presents the stronger investment case now. Let’s delve deeper to find out.
-
-> Applied Digital is well-positioned to benefit from the accelerating buildout of AI-focused data center capacity, where power density and thermal efficiency are becoming as critical as compute availability. The company operates through two primary segments: a Data Center Hosting business serving cryptocurrency mining customers and an HPC Hosting segment developing purpose-built AI campuses for investment-grade hyperscalers. Its strategy centers on energy-efficient design, scalable power architecture and cooling systems engineered for high-density GPU environments.The HPC segment deploys proprietary waterless, liquid-cooling architecture engineered to support the extreme power densities of modern AI clusters. Applied Digital has contracted 600 megawatts across Polaris Forge 1 and Polaris Forge 2, representing approximately $16 billion in prospective lease revenues under long-term agreements. The on-time energization of the first 100-megawatt building at Polaris Forge 1 supports confidence in construction execution and project management capabilities. Investments in advanced liquid cooling through Corintis and an active power generation initiative with Babcock & Wilcox, anchored by a limited notice to proceed for a $1.5 billion project targeting 1 GW of capacity across four natural gas-fired plants by 2028, further deepen its exposure to the broader power and thermal infrastructure stack.However, the model remains capital-intensive and execution dependent. Multi-year development timelines may delay full revenue realization, while returns hinge on securing additional long-term leases and managing financing, supply chain and operational risks effectively.The Zacks Consensus Estimate for APLD's fiscal 2026 loss is pegged at 36 cents per share. This indicates a year-over-year improvement of 55%.
-
-> Applied Digital Corporation price-consensus-chart - Applied Digital Corporation Quote
-
-> Vertiv designs and delivers the power, thermal management and IT infrastructure solutions that keep modern data centers operational at scale, serving customers across 130 countries. As AI workloads push rack densities to unprecedented levels, Vertiv's ability to provide end-to-end systems spanning power distribution, liquid cooling, uninterruptible power supplies and prefabricated modular solutions makes it an indispensable partner to hyperscalers and colocation providers navigating this transition.Technology leadership is a notable differentiator as Vertiv co-develops an 800-volt DC power architecture with NVIDIA, timed to align with the 2027 rollout of NVIDIA's Rubin Ultra platforms. This keeps Vertiv one GPU generation ahead of evolving silicon architectures, ensuring its infrastructure solutions remain relevant as rack power requirements scale toward and beyond the megawatt threshold. The PurgeRite acquisition further strengthens fluid management capabilities across primary and secondary cooling loops, reinforcing Vertiv’s end-to-end liquid cooling offering for high-density AI environments.Vertiv's growing services business enhances the portfolio. The company supports customers from initial deployment through ongoing operations, creating a recurring revenue stream that deepens customer relationships and creates switching costs that pure-play infrastructure developers like Applied Digital have yet to build. With a backlog of $15 billion and a book-to-bill ratio of approximately 2.9x, revenue visibility remains strong.The Zacks Consensus Estimate pegs VRT's 2026 EPS at $5.85, indicating 39.29% year-over-year growth.
-
-> Vertiv Holdings Co. price-consensus-chart - Vertiv Holdings Co. Quote
-
-**Catalysts:** Earnings, Regulatory, Corporate, Equity

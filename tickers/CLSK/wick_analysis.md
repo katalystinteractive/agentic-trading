@@ -1,14 +1,14 @@
-*Generated: 2026-02-20 22:06*
+*Generated: 2026-02-21 17:45*
 
 ## Wick Offset Analysis: CLSK (13-Month, as of 2026-02-20)
-**Current Price: $9.51**
+**Current Price: $9.65**
 **Monthly Swing: 41.9%** | 100% of months hit 10%+ | Active Zone: within 20.9% of current price
 
 ### Support Levels & Buy Recommendations
 | Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $9.40 | HVN+PA | 20 | 5 | 25% | +2.82% | $9.66 ↑above | Active | Half |
-| $8.93 | HVN+PA | 12 | 6 | 50% | +2.65% | $9.16 | Active | Full |
+| $9.40 | HVN+PA | 19 | 5 | 26% | +2.82% | $9.66 ↑above | Active | Half |
+| $8.93 | HVN+PA | 11 | 5 | 45% | +2.03% | $9.11 | Active | Std |
 | $8.46 | HVN+PA | 15 | 7 | 47% | +5.89% | $8.96 | Active | Std |
 | $8.25 | PA | 12 | 7 | 58% | +1.82% | $8.40 | Active | Full |
 | $8.00 | HVN+PA | 11 | 3 | 27% | +5.06% | $8.40 | Active | Half |
@@ -20,7 +20,6 @@
 ### Detail: $9.40 (HVN+PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
-| 2025-01-13 | $9.36 | -0.37% | **BROKE** |
 | 2025-01-27 | $9.57 | +1.86% | Yes |
 | 2025-02-12 | $9.66 | +2.82% | Yes |
 | 2025-05-12 | $9.30 | -1.01% | **BROKE** |
@@ -44,7 +43,6 @@
 ### Detail: $8.93 (HVN+PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
-| 2025-01-13 | $9.36 | +4.83% | Yes |
 | 2025-02-03 | $9.57 | +7.18% | Yes |
 | 2025-02-21 | $9.22 | +3.26% | Yes |
 | 2025-04-25 | $8.92 | -0.10% | **BROKE** |
@@ -148,7 +146,7 @@
 
 | # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | Active | $8.93 | $9.16 | 50% | Full | 6 | $54.99 |
+| 1 | Active | $8.93 | $9.11 | 45% | Std | 6 | $54.66 |
 | 2 | Active | $8.46 | $8.96 | 47% | Std | 6 | $53.76 |
 | 3 | Active | $8.25 | $8.40 | 58% | Full | 7 | $58.80 |
 | 4 | Active | $8.00 | $8.40 | 27% | Half | 3 | $25.20 |

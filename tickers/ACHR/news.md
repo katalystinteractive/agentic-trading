@@ -1,4 +1,4 @@
-*Generated: 2026-02-20 20:43*
+*Generated: 2026-02-23 01:07*
 
 ## News & Sentiment: Archer Aviation Inc. (ACHR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,18 +6,23 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | PR Newswire | AI Takes Flight: Five Companies Advancing Defense and Aerosp... | Positive | +0.56 | — |
-| 2026-02-20 | TipRanks | Archer Aviation Earnings Ahead: Options Traders Brace for a ... | Neutral | +0.00 | Earnings |
+| 2026-02-22 | TipRanks | Archer Aviation Earnings Ahead: Options Traders Brace for a ... | Neutral | +0.00 | Earnings |
+| 2026-02-22 | TipRanks | ‘Too Many Drawbacks’: Top Investor Says Archer Aviation (ACH... | Positive | +0.15 | — |
+| 2026-02-21 | Insider Monkey | Archer Aviation Inc. (ACHR) to Develop the Next Wave of Avia... | Neutral | +0.00 | — |
+| 2026-02-21 | MarketBeat | Archer Aviation (NYSE:ACHR) Stock Price Down 4.2% - Time to ... | Neutral | +0.00 | Earnings |
+| 2026-02-20 | PR Newswire | AI Takes Flight: Five Companies Advancing Defense and Aerosp... | Positive | +0.56 | — |
 | 2026-02-19 | Zacks | Wall Street Bulls Look Optimistic About Archer Aviation (ACH... | Positive | +0.32 | — |
 | 2026-02-19 | Business Wire | Archer Selects Bristol As Home For Its UK Engineering Hub | Neutral | +0.00 | — |
 | 2026-02-19 | Nasdaq | Should You Buy Archer Aviation Before FAA Progress Updates? ... | Positive | +0.42 | — |
 | 2026-02-19 | simplywall.st | Archer Aviation Bristol Hub News Meets Shifting Valuation An... | Neutral | +0.00 | — |
-| 2026-02-19 | MarketBeat | Archer Aviation (NYSE:ACHR) Stock Price Up 3.8% - Should You... | Neutral | +0.00 | Earnings |
+| 2026-02-19 | TipRanks | Archer Aviation (ACHR) Turns to UK Defense Work to Broaden I... | Positive | +0.48 | — |
 | 2026-02-19 | Stock Titan | Bristol lands Archer defense hub, hiring engineers for Briti... | Positive | +0.13 | — |
+| 2026-02-19 | MarketBeat | Archer Aviation (NYSE:ACHR) Stock Price Up 3.8% - Should You... | Neutral | +0.00 | Earnings |
 | 2026-02-18 | The Motley Fool | Where Will Archer Aviation Be in 3 Years? - The Motley Fool | Negative | -0.44 | — |
-| 2026-02-18 | TipRanks | With Archer Aviation Q4 Earnings on Deck, Let’s Look at Who ... | Neutral | +0.00 | Earnings |
-| 2026-02-18 | TipRanks | ‘Involves a Fair Amount of Guesswork’, Says Top Investor on ... | Positive | +0.48 | — |
 | 2026-02-18 | MarketBeat | Archer Aviation (NYSE:ACHR) Stock Price Up 1% - Time to Buy?... | Neutral | +0.00 | Earnings |
+| 2026-02-18 | TipRanks | With Archer Aviation Q4 Earnings on Deck, Let’s Look at Who ... | Neutral | +0.00 | Earnings |
+| 2026-02-18 | MarketBeat | Archer Aviation (NYSE:ACHR) Trading 2.4% Higher - Time to Bu... | Neutral | +0.00 | Earnings |
+| 2026-02-18 | TipRanks | ‘Involves a Fair Amount of Guesswork’, Says Top Investor on ... | Positive | +0.48 | — |
 | 2026-02-18 | Nasdaq | Where Will Archer Aviation Be in 3 Years? - Nasdaq | Neutral | +0.00 | — |
 | 2026-02-18 | Motley Fool | Where Will Archer Aviation Be in 3 Years? | Neutral | +0.00 | — |
 | 2026-02-16 | TipRanks | ‘Don’t Go Bargain Hunting’: Top Investor Throws Cold Water o... | Positive | +0.38 | — |
@@ -31,33 +36,43 @@
 | 2026-02-12 | Simply Wall St. | Archer’s LA 2028 Air Taxi Role And What It Means For ACHR In... | Neutral | +0.00 | — |
 | 2026-02-11 | Barrons.com | Beta Stock Soars 16%. The Amazon Move Doesnt Make Sense. | Positive | +0.18 | — |
 | 2026-02-10 | Zacks | Archer Aviation Inc. (ACHR) Dips More Than Broader Market: W... | Neutral | +0.00 | — |
-| 2026-02-10 | Barrons.com | Beta Stock Soars 25%. Thank Amazon. | Positive | +0.49 | — |
-| 2026-02-09 | Zacks | ACHR Underperforms Industry in the Past 6 Months: Time to Bu... | Neutral | +0.00 | — |
-| 2026-02-09 | The Motley Fool | Will Buying Archer Aviation Stock Below $10 Make Investors R... | Negative | -0.44 | — |
-| 2026-02-06 | Insider Monkey | Archer Aviation (ACHR) Eyes International Expansion with Ser... | Neutral | +0.00 | — |
-| 2026-02-06 | MarketBeat | Archer Aviation (NYSE:ACHR) Stock Price Up 12.8% - What's Ne... | Neutral | +0.00 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 13 (43%) |
+| Positive | 14 (47%) |
 | Neutral | 15 (50%) |
-| Negative | 2 (7%) |
-| Average Score | +0.121 |
+| Negative | 1 (3%) |
+| Average Score | +0.141 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 174 |
+| Total Unique Headlines | 177 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 5 | Archer Aviation Earnings Ahead: Options ..; Archer Aviation (NYSE:ACHR) Stock Price .. |
+| Earnings | 6 | Archer Aviation Earnings Ahead: Options ..; Archer Aviation (NYSE:ACHR) Stock Price .. |
 | Short | 1 | Archer Aviation (ACHR) Issues Executive .. |
 
 ### Deep Dive Articles
 
+#### Archer Aviation Inc. (ACHR) to Develop the Next Wave of Aviation AI Technology With NVIDIA IGX Thor
+*Source: Insider Monkey | Date: 2026-02-21 | Sentiment: Positive (+0.96)*
+
+> Archer Aviation Inc. (NYSE:ACHR) is among theMost Volatile Stocks.
+
+> On January 8, 2026, Archer Aviation Inc. (NYSE:ACHR) stated at CES 2026 that it will use NVIDIA IGX Thor to develop and deploy next-generation aviation artificial intelligence. The firm aims to incorporate the technology into future aircraft iterations, providing high-reliability, real-time onboard computing for safety-critical applications. The companies have been collaborating since early 2025. The firm will launch the integration at Hawthorne Airport in Los Angeles, where it hopes to act as an operational hub for its planned LA air taxi network as well as a test bed for AI-powered aviation technologies. The corporation will concentrate on pilot safety and predictive awareness, autonomy-ready flight systems, and airspace integration.
+
+> On January 21, 2026, Archer Aviation Inc. (NYSE:ACHR) formed a deal with the Government of the Republic of Serbia, which selected the firm as its preferred eVTOL partner and acquired the option to purchase up to 25 Midnight aircraft.
+
+> Archer Aviation Inc. (NYSE:ACHR) is involved in the production of electric vertical take-off and landing aircraft. Brett Adcock and Adam Goldstein launched the company on October 16, 2018, and it is headquartered in San Jose, CA.
+
+> While we acknowledge the potential of ACHR as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+
+**Catalysts:** Short
+
 #### AI Takes Flight: Five Companies Advancing Defense and Aerospace Intelligence
-*Source: PR Newswire | Date: Today | Sentiment: Positive (+0.95)*
+*Source: PR Newswire | Date: 2026-02-20 | Sentiment: Positive (+0.95)*
 
 > Issued on behalf of Starfighters Space, Inc.
 
@@ -115,18 +130,3 @@
 > Any recent changes to analyst estimates for Archer Aviation Inc. should also be noted by investors.  These recent revisions tend to reflect the evolving nature of short-term business trends.  With this in mind, we can consider positive estimate revisions a sign of optimism about the business outlook.
 
 **Catalysts:** Earnings, Regulatory, Short
-
-#### ACHR Underperforms Industry in the Past 6 Months: Time to Buy or Hold?
-*Source: Zacks | Date: 2026-02-09 | Sentiment: Positive (+1.00)*
-
-> Archer Aviation Inc.ACHR shares have lost 23.5% in the past six months, underperforming the Zacks Aerospace-Defense industry’s growth of 10.4% as well as the broader Zacks Aerospace sector’s gain of 10.5%. It has also lagged the S&P 500’s gain of 10.5% in the same time frame.
-
-> However, a stellar performance can be seen in the share price return of other industry players likeLockheed MartinLMT andL3Harris TechnologiesLHX, which have witnessed a surge of 46.3% and 29.3%, respectively, in the past six months.With ACHR shares declining over the past six months, investors may have mixed views. Some may remain cautious, while others may see the decline as an opportunity. Before deciding whether to buy, hold or sell, it is important to review whether the company’s fundamentals support long-term growth or if near-term challenges are likely to persist. Evaluating ACHR’s growth prospects and risks can help in making a well-informed investment decision.
-
-> Archer Aviation continues to strengthen its position in the eVTOL market through technology-driven initiatives and international expansion efforts.In January 2026, Archer Aviation announced plans to develop and deploy next-generation Artificial Intelligence technologies for aviation using NVIDIA’s IGX Thor platform. The company intends to use Physical AI to improve aircraft safety, airspace integration and autonomy-ready systems. Archer Aviation plans to demonstrate this NVIDIA-enabled technology at its recently acquired Hawthorne Airport facility in central Los Angeles, which is expected to serve as the operating base for its planned Los Angeles air taxi network as well as a testing site for AI-based aviation solutions.In the same month, Archer Aviation entered into a strategic partnership with the Government of the Republic of Serbia, which is seeking to support the adoption of electric air taxis across Europe. Under this agreement, Serbia named ACHR as its preferred eVTOL partner and holds an option to purchase an initial fleet of Midnight aircraft. The arrangement allows for the purchase of up to 25 aircraft, subject to regulatory and legal approvals, marking a key step in Archer Aviation’s expansion into the European urban air mobility market.
-
-> While Archer Aviation shows near-term potential, its long-term outlook remains uncertain. The eVTOL industry is still in its early stages, and the company’s success will depend on its ability to design, certify and scale production as the market evolves. The pace of industry development and the level of demand for eVTOL aircraft will play a key role in shaping results. In addition, concerns around safety, noise levels and affordability could affect public acceptance and may constrain broader adoption.
-
-> The Zacks Consensus Estimate for ACHR’s 2026 loss indicates a year-over-year improvement of 12.6%.
-
-**Catalysts:** Regulatory

@@ -1,4 +1,4 @@
-*Generated: 2026-02-20 20:45*
+*Generated: 2026-02-23 01:07*
 
 ## News & Sentiment: Cleveland-Cliffs Inc. (CLF)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,15 +6,14 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-02-20 | MSN | Is Cleveland-Cliffs Stock a Steal Buy After Falling Off the ... | Negative | -0.59 | — |
 | 2026-02-19 | Zacks | Cleveland-Cliffs Inc. (CLF) is Attracting Investor Attention... | Positive | +0.48 | — |
 | 2026-02-19 | TipRanks | Top Cleveland-Cliffs Executive Makes a Major Move With Compa... | Positive | +0.20 | — |
 | 2026-02-19 | Benzinga | Is Cleveland-Cliffs Inc Gaining or Losing Market Support? - ... | Positive | +0.44 | — |
 | 2026-02-18 | Zacks | Can Commercial Metals' TAG Program Drive Margin Expansion? | Neutral | +0.00 | — |
 | 2026-02-17 | Bloomberg | US Open to Metals Tariff Enforcement Adjustments, Greer Says | Neutral | +0.00 | — |
-| 2026-02-17 | Stock Titan | CLF SEC Filings - Cleveland-Cliffs Inc 10-K, 10-Q, 8-K Forms... | Neutral | +0.00 | Regulatory |
 | 2026-02-17 | Seeking Alpha | Cleveland-Cliffs: A Bet On 2026 Recovery I Am Not Willing To... | Neutral | +0.00 | — |
-| 2026-02-15 | Simply Wall St. | Cleveland-Cliffs Insider Sale And Contract Exit Frame 2025 R... | Neutral | +0.00 | — |
+| 2026-02-17 | Stock Titan | CLF SEC Filings - Cleveland-Cliffs Inc 10-K, 10-Q, 8-K Forms... | Neutral | +0.00 | Regulatory |
+| 2026-02-15 | Yahoo Finance | Cleveland-Cliffs Insider Sale And Contract Exit Frame 2025 R... | Neutral | +0.00 | — |
 | 2026-02-14 | Simply Wall St. | Is Cleveland Cliffs (CLF) Now An Opportunity After Recent Sh... | Positive | +0.61 | — |
 | 2026-02-13 | Investor's Busi | Trump Could Reduce Steel And Aluminum Tariffs And These Stoc... | Neutral | +0.00 | — |
 | 2026-02-13 | Barchart | Stocks Settle Slightly Higher as Bond Yields Fall | Neutral | +0.00 | — |
@@ -25,17 +24,18 @@
 | 2026-02-13 | Barchart | Stocks Edge Lower as AI Fears Linger | Negative | -0.61 | — |
 | 2026-02-13 | Barchart | Cooler January CPI Signals an Inflation Thaw | Neutral | +0.00 | — |
 | 2026-02-13 | Bloomberg.com | Cleveland-Cliffs CEO’s $37 Million Stock Sale Was Done Throu... | Positive | +0.51 | Corporate |
+| 2026-02-13 | The Motley Fool | Is Cleveland-Cliffs Stock a Steal Buy After Falling Off the ... | Negative | -0.77 | — |
 | 2026-02-13 | Investing.com | Camara Edilson buys Cleveland-Cliffs (CLF) shares worth $199... | Positive | +0.48 | — |
 | 2026-02-13 | Simply Wall St. | A Look At Cleveland Cliffs (CLF) Valuation After 2025 Loss A... | Negative | -0.30 | — |
 | 2026-02-12 | Benzinga | Cisco Triggers Tech Selloff, VIX Spikes 16%: What's Moving M... | Neutral | +0.00 | — |
-| 2026-02-12 | TipRanks | Top Executive’s Massive Cleveland-Cliffs Stock Move Shakes U... | Positive | +0.20 | — |
 | 2026-02-12 | simplywall.st | Cleveland-Cliffs (CLF) Is Down 14.1% After Deep 2025 Losses ... | Negative | -0.40 | Shareholder |
 | 2026-02-12 | Investing.com | BofA Securities lowers Cleveland-Cliffs stock price target o... | Neutral | +0.03 | Earnings, Regulatory, Analyst |
-| 2026-02-12 | The Motley Fool | This $96 Million Steel Bet Signals Conviction in Cleveland-C... | Negative | -0.64 | — |
-| 2026-02-12 | Nasdaq | April 2nd Options Now Available For Cleveland-Cliffs (CLF) -... | Neutral | +0.00 | — |
 | 2026-02-11 | Zacks | CMC Jumps 69% in a Year: What's the Right Strategy for Inves... | Neutral | +0.00 | — |
+| 2026-02-11 | TipRanks | Top Executive’s Massive Cleveland-Cliffs Stock Move Shakes U... | Positive | +0.20 | — |
 | 2026-02-10 | Insider Monkey | Jim Cramer Says Cleveland-Cliffs "Needs More Economic Activi... | Positive | +0.44 | — |
 | 2026-02-10 | TipRanks | Cleveland-Cliffs says 2025 problems either resolved or clear... | Positive | +0.54 | — |
+| 2026-02-10 | MarketBeat | Cleveland-Cliffs Sinks After Earnings-Is the Selloff Overdon... | Neutral | +0.00 | Earnings |
+| 2026-02-10 | Zacks | Cleveland-Cliffs' Q4 Earnings Beat, Revenues Miss Estimates | Negative | -0.15 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
@@ -44,17 +44,17 @@
 | Positive | 11 (37%) |
 | Neutral | 13 (43%) |
 | Negative | 6 (20%) |
-| Average Score | +0.064 |
+| Average Score | +0.074 |
 | Overall Sentiment | **Neutral** |
 | Total Unique Headlines | 174 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
+| Earnings | 3 | BofA Securities lowers Cleveland-Cliffs ..; Cleveland-Cliffs Sinks After Earnings-Is.. |
 | Regulatory | 2 | CLF SEC Filings - Cleveland-Cliffs Inc 1..; BofA Securities lowers Cleveland-Cliffs .. |
 | Corporate | 1 | Cleveland-Cliffs CEO’s $37 Million Stock.. |
 | Shareholder | 1 | Cleveland-Cliffs (CLF) Is Down 14.1% Aft.. |
-| Earnings | 1 | BofA Securities lowers Cleveland-Cliffs .. |
 | Analyst | 1 | BofA Securities lowers Cleveland-Cliffs .. |
 
 ### Deep Dive Articles
