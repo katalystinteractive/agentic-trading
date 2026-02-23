@@ -820,7 +820,7 @@ def check_verdicts(portfolio, active_cards, ref_date):
 # Check 4: Earnings Gate Logic
 # ---------------------------------------------------------------------------
 
-def check_earnings_gate(condensed, active_cards, watchlist_cards, ref_date):
+def check_earnings_gate(condensed, active_cards, watchlist_cards):
     """Verify earnings gate status for active and watchlist positions."""
     findings = []
 
@@ -964,7 +964,7 @@ def check_regime(condensed, briefing):
 # Check 6: Entry Gate Logic
 # ---------------------------------------------------------------------------
 
-def check_entry_gates(portfolio, condensed, active_cards, watchlist_cards, ref_date):
+def check_entry_gates(portfolio, condensed, active_cards, watchlist_cards):
     """Verify entry gate logic for pending BUY orders."""
     findings = []
 
@@ -1589,9 +1589,9 @@ def main():
         ("P/L Math", check_pl_math(portfolio, condensed_positions, active_cards)),
         ("Day Count Math", check_day_count(portfolio, ref_date, active_cards)),
         ("Verdict Assignment", check_verdicts(portfolio, active_cards, ref_date)),
-        ("Earnings Gate Logic", check_earnings_gate(condensed, active_cards, watchlist_cards, ref_date)),
+        ("Earnings Gate Logic", check_earnings_gate(condensed, active_cards, watchlist_cards)),
         ("Regime Classification", check_regime(condensed, briefing)),
-        ("Entry Gate Logic", check_entry_gates(portfolio, condensed, active_cards, watchlist_cards, ref_date)),
+        ("Entry Gate Logic", check_entry_gates(portfolio, condensed, active_cards, watchlist_cards)),
         ("Data Consistency", check_data_consistency(portfolio, condensed, condensed_positions, active_cards, watchlist_cards, briefing)),
         ("Coverage & Completeness", check_coverage(portfolio, briefing, active_cards, watchlist_cards)),
         ("Cross-Domain Consistency", check_cross_domain(active_cards, watchlist_cards, briefing, condensed)),
