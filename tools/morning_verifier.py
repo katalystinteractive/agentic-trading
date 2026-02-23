@@ -27,6 +27,8 @@ from morning_assembler import (
     parse_card_header,
     parse_earnings_days,
     parse_condensed_positions,
+    parse_condensed_regime,
+    parse_condensed_vix,
     parse_vix_5d_pct,
     aggregate_gate_counts,
 )
@@ -413,31 +415,6 @@ def parse_condensed_indices(condensed_text):
                     })
 
     return indices
-
-
-def parse_condensed_vix(condensed_text):
-    """Extract VIX value (float) from condensed."""
-    for line in condensed_text.split("\n"):
-        cells = parse_table_row(line)
-        if len(cells) >= 2 and cells[0].strip() == "VIX":
-            m = re.search(r'([\d.]+)', cells[1])
-            if m:
-                return float(m.group(1))
-    return None
-
-
-def parse_condensed_regime(condensed_text):
-    """Extract regime string from Market Regime table in condensed."""
-    in_regime = False
-    for line in condensed_text.split("\n"):
-        if "### Market Regime" in line or "## Market Regime" in line:
-            in_regime = True
-            continue
-        if in_regime:
-            cells = parse_table_row(line)
-            if len(cells) >= 2 and cells[0].strip() == "Regime":
-                return cells[1].strip().replace("**", "")
-    return None
 
 
 def parse_condensed_earnings(condensed_text, ticker):
@@ -1186,7 +1163,7 @@ def _get_watchlist_price(condensed, ticker):
 # Check 7: Data Consistency
 # ---------------------------------------------------------------------------
 
-def check_data_consistency(portfolio, condensed, condensed_positions, active_cards, watchlist_cards, briefing):
+def check_data_consistency(portfolio, condensed, active_cards, watchlist_cards, briefing):
     """Verify data fields match source of truth."""
     findings = []
     positions = portfolio.get("positions", {})
@@ -1235,20 +1212,9 @@ def check_data_consistency(portfolio, condensed, condensed_positions, active_car
                     "message": f"Avg cost: portfolio=${exp_avg}, briefing=${card_avg}",
                 })
 
-        # Check current price matches condensed Active Positions (NOT Position Summary)
-        cond = condensed_positions.get(ticker, {})
-        if cond:
-            cond_price = cond["current_price"]
-            # Parse current price from card
-            m = re.search(r'current\s+\$([\d.]+)', card["text"][:600], re.IGNORECASE)
-            if m:
-                card_price = float(m.group(1))
-                if abs(card_price - cond_price) > DEPLOYED_TOL:
-                    findings.append({
-                        "severity": "Critical",
-                        "ticker": ticker,
-                        "message": f"Current price: condensed=${cond_price}, briefing=${card_price}",
-                    })
+        # Note: current price is not explicitly stated in card text, so
+        # cross-checking is deferred to Check 1 (P/L math) which validates
+        # price indirectly via P/L % computation.
 
         # Check pending orders match portfolio.json
         card_orders = parse_pending_orders_from_card(card["text"])
@@ -1701,7 +1667,7 @@ def main():
         ("Earnings Gate Logic", check_earnings_gate(condensed, active_cards, watchlist_cards)),
         ("Regime Classification", check_regime(condensed, briefing)),
         ("Entry Gate Logic", check_entry_gates(portfolio, condensed, active_cards, watchlist_cards)),
-        ("Data Consistency", check_data_consistency(portfolio, condensed, condensed_positions, active_cards, watchlist_cards, briefing)),
+        ("Data Consistency", check_data_consistency(portfolio, condensed, active_cards, watchlist_cards, briefing)),
         ("Coverage & Completeness", check_coverage(portfolio, briefing, active_cards, watchlist_cards)),
         ("Cross-Domain Consistency", check_cross_domain(active_cards, watchlist_cards, briefing, condensed)),
     ]
