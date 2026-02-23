@@ -73,6 +73,14 @@ def _safe_float(val, default=0.0):
         return default
 
 
+def _safe_int_shares(pos):
+    """Safely get shares as int from a portfolio position entry."""
+    shares = pos.get("shares", 0)
+    if isinstance(shares, str):
+        return int(shares) if shares.isdigit() else 0
+    return shares
+
+
 def _is_recovery(portfolio_entry):
     """Check if a position is recovery/pre-strategy from portfolio.json note."""
     note = portfolio_entry.get("note", "")
@@ -643,10 +651,8 @@ def check_verdicts(portfolio, active_cards, ref_date):
             continue
 
         # Determine position characteristics
-        shares = pos.get("shares", 0)
         avg_cost = pos.get("avg_cost", 0)
         entry_date_str = pos.get("entry_date", "")
-        target_exit = pos.get("target_exit")
         is_recov = _is_recovery(pos)
 
         exit_criteria = parse_exit_criteria_table(card["text"])
@@ -795,9 +801,6 @@ def check_verdicts(portfolio, active_cards, ref_date):
                 label_match = (
                     expected_label == card_label
                     or expected_label in card_label
-                    or card_label in expected_label
-                    or (expected_label == "Neutral" and "Neutral" in card_label)
-                    or (expected_label == "Bearish" and "Bearish" in card_label)
                 )
                 if not label_match:
                     sev = "Minor"
@@ -1234,9 +1237,7 @@ def check_coverage(portfolio, briefing, active_cards, watchlist_cards):
 
     # Every active position must appear
     for ticker, pos in positions.items():
-        shares = pos.get("shares", 0)
-        if isinstance(shares, str):
-            shares = int(shares) if shares.isdigit() else 0
+        shares = _safe_int_shares(pos)
         if shares > 0 and ticker not in active_tickers:
             findings.append({
                 "severity": "Critical",
@@ -1248,9 +1249,7 @@ def check_coverage(portfolio, briefing, active_cards, watchlist_cards):
     for card in active_cards:
         ticker = card["ticker"]
         pos = positions.get(ticker, {})
-        shares = pos.get("shares", 0)
-        if isinstance(shares, str):
-            shares = int(shares) if shares.isdigit() else 0
+        shares = _safe_int_shares(pos)
         if shares == 0:
             findings.append({
                 "severity": "Critical",
@@ -1261,9 +1260,7 @@ def check_coverage(portfolio, briefing, active_cards, watchlist_cards):
     for card in watchlist_cards:
         ticker = card["ticker"]
         pos = positions.get(ticker, {})
-        shares = pos.get("shares", 0)
-        if isinstance(shares, str):
-            shares = int(shares) if shares.isdigit() else 0
+        shares = _safe_int_shares(pos)
         if shares > 0:
             findings.append({
                 "severity": "Critical",
