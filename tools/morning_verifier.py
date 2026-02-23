@@ -50,6 +50,10 @@ DEPLOYED_TOL = 0.02    # +/- absolute for deployed/current value
 DAY_TOL = 1            # +/- days
 PCT_BELOW_TOL = 0.5    # +/- percentage points for % Below Current
 
+# Gate priority (lower = less restrictive)
+GATE_PRIORITY = {"ACTIVE": 0, "CAUTION": 1, "REVIEW": 2, "PAUSE": 3, "GATED": 4}
+GATE_PRIORITY_REV = {v: k for k, v in GATE_PRIORITY.items()}
+
 
 # ---------------------------------------------------------------------------
 # Utility helpers
@@ -271,6 +275,12 @@ def parse_condensed_indices(condensed_text):
             in_section = True
             continue
         if in_section:
+            # Check section exit BEFORE parse_table_row (which skips non-table lines)
+            stripped = line.strip()
+            if stripped.startswith("###") and "Major" not in stripped:
+                break
+            if stripped == "---":
+                break
             cells = parse_table_row(line)
             if not cells:
                 continue
@@ -284,10 +294,6 @@ def parse_condensed_indices(condensed_text):
                         "index": index_name,
                         "above_50sma": "Above" in trend,
                     })
-            if line.strip().startswith("###") and "Major" not in line:
-                break
-            if line.strip() == "---":
-                break
 
     return indices
 
@@ -745,17 +751,8 @@ def check_verdicts(portfolio, active_cards, ref_date):
                 elif is_approaching:
                     expected_verdict = "REDUCE"
                     rule = "13 (EXCEEDED + APPROACHING earnings)"
-                elif is_clear:
-                    # Could be HOLD (with bullish justification) or REDUCE
-                    # Don't flag HOLD or REDUCE — both valid with justification
-                    if verdict == "MONITOR":
-                        findings.append({
-                            "severity": "Critical",
-                            "ticker": ticker,
-                            "message": "MONITOR invalid for time-stop-EXCEEDED non-recovery (rule 14)",
-                        })
-                    continue
                 else:
+                    # EXCEEDED + non-bearish-RSI: HOLD (bullish justification) or REDUCE both valid
                     if verdict == "MONITOR":
                         findings.append({
                             "severity": "Critical",
@@ -789,9 +786,8 @@ def check_verdicts(portfolio, active_cards, ref_date):
                 "message": f"Verdict: expected {expected_verdict} (rule {rule}), briefing shows {verdict}",
             })
 
-        # Momentum label verification
+        # Momentum label verification (reuse momentum_data from line 686)
         if mom_detail:
-            momentum_data = extract_momentum_data(mom_detail)
             expected_label = compute_expected_momentum_label(momentum_data)
             if expected_label != "SKIPPED":
                 card_label = mom_status.strip()
@@ -994,7 +990,7 @@ def check_entry_gates(portfolio, condensed, active_cards, watchlist_cards, ref_d
             else:
                 # Watchlist — get from watchlist table
                 current_price = _get_watchlist_price(condensed, ticker)
-                if current_price == 0:
+                if current_price is None:
                     continue
 
             # Compute expected market gate
@@ -1031,9 +1027,8 @@ def check_entry_gates(portfolio, condensed, active_cards, watchlist_cards, ref_d
                 exp_earnings = "ACTIVE"
 
             # Combined = worst of both
-            gate_priority = {"ACTIVE": 0, "CAUTION": 1, "REVIEW": 2, "PAUSE": 3, "GATED": 4}
-            exp_combined_val = max(gate_priority.get(exp_market, 0), gate_priority.get(exp_earnings, 0))
-            exp_combined = {v: k for k, v in gate_priority.items()}.get(exp_combined_val, "ACTIVE")
+            exp_combined_val = max(GATE_PRIORITY.get(exp_market, 0), GATE_PRIORITY.get(exp_earnings, 0))
+            exp_combined = GATE_PRIORITY_REV.get(exp_combined_val, "ACTIVE")
 
             # Compare
             if combined and exp_combined != combined:
@@ -1072,7 +1067,7 @@ def _get_watchlist_price(condensed, ticker):
                 return _safe_float(cells[1])
             if line.strip().startswith("## ") and "Watchlist" not in line:
                 break
-    return 0
+    return None
 
 
 # ---------------------------------------------------------------------------
