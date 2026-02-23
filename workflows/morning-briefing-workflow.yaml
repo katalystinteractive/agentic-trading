@@ -50,7 +50,7 @@ phases:
 
   - id: review
     name: Morning Verification
-    description: Verify all math, verdict logic, gate logic, data consistency, and coverage
+    description: Run morning_verifier.py to verify math, logic, and coverage
     agent: morning-critic
     depends_on:
       - compile
@@ -59,7 +59,7 @@ phases:
       - morning-briefing.md
     artifacts:
       - morning-briefing-review.md
-    timeout_minutes: 15
+    timeout_minutes: 5
 
 settings:
   max_fix_iterations: 0
