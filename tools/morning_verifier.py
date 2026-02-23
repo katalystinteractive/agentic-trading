@@ -15,7 +15,7 @@ Usage: python3 tools/morning_verifier.py
 import json
 import re
 import sys
-from datetime import date, datetime
+from datetime import date
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -24,12 +24,7 @@ from pathlib import Path
 
 from morning_assembler import (
     parse_table_row,
-    _parse_dollar,
     parse_card_header,
-    parse_fill_alerts,
-    parse_pending_order_gates,
-    parse_all_order_gates,
-    parse_sector,
     parse_earnings_days,
     parse_condensed_positions,
     parse_vix_5d_pct,
@@ -51,7 +46,6 @@ OUTPUT = PROJECT_ROOT / "morning-briefing-review.md"
 # ---------------------------------------------------------------------------
 
 PL_PCT_TOL = 0.2       # +/- percentage points for P/L %
-PL_DOLLAR_TOL = 0.04   # +/- absolute for P/L $
 DEPLOYED_TOL = 0.02    # +/- absolute for deployed/current value
 DAY_TOL = 1            # +/- days
 PCT_BELOW_TOL = 0.5    # +/- percentage points for % Below Current
@@ -60,13 +54,6 @@ PCT_BELOW_TOL = 0.5    # +/- percentage points for % Below Current
 # ---------------------------------------------------------------------------
 # Utility helpers
 # ---------------------------------------------------------------------------
-
-def parse_bullets_used(val):
-    """Parse portfolio.json bullets_used which can be int or string."""
-    if isinstance(val, int):
-        return val
-    return int(str(val).split()[0])
-
 
 def _safe_float(val, default=0.0):
     """Safely convert a value to float."""
@@ -337,6 +324,7 @@ def parse_condensed_earnings(condensed_text, ticker):
     """
     # Look in per-ticker sections for earnings data
     in_ticker = False
+    earnings_date_str = None
     for line in condensed_text.split("\n"):
         if line.strip() == f"### {ticker}":
             in_ticker = True
@@ -349,13 +337,12 @@ def parse_condensed_earnings(condensed_text, ticker):
                 key = cells[0].strip()
                 val = cells[1].strip()
                 if key == "Earnings Date":
-                    date_str = val
+                    earnings_date_str = val
                 if key == "Days Until":
                     try:
                         days = int(val)
-                        # Search back for date
-                        return date_str if 'date_str' in dir() else None, days
-                    except (ValueError, UnboundLocalError):
+                        return earnings_date_str, days
+                    except ValueError:
                         pass
 
     # Try Pending Orders Detail table
@@ -658,16 +645,9 @@ def check_verdicts(portfolio, active_cards, ref_date):
 
         exit_criteria = parse_exit_criteria_table(card["text"])
 
-        # Get P/L from condensed (more reliable than parsing card)
-        current_price = 0
-        # Parse from State line
-        m = re.search(r'current\s+\$?([\d.]+)', card["text"][:400])
-        if not m:
-            m = re.search(r'Current\s+\$?([\d.]+)', card["text"][:600])
-        # Fall back to computing
+        # Use card's stated P/L
         pl_pct = 0.0
         if avg_cost > 0:
-            # Use card's stated P/L
             card_pl_str = card.get("pl", "")
             pl_pct = _safe_float(card_pl_str)
 
@@ -850,7 +830,6 @@ def check_earnings_gate(condensed, active_cards, watchlist_cards, ref_date):
         exit_criteria = parse_exit_criteria_table(card["text"])
         eg = exit_criteria.get("earnings_gate", {})
         eg_status = eg.get("status", "")
-        eg_detail = eg.get("detail", "")
 
         # Parse claimed days from card
         card_days, _ = parse_earnings_days(card["text"])
@@ -1229,22 +1208,7 @@ def check_data_consistency(portfolio, condensed, condensed_positions, active_car
                     "message": f"Missing BUY ${po_price:.2f} ({po_shares} shares) from watchlist card",
                 })
 
-    # VIX consistency
-    cond_vix = parse_condensed_vix(condensed)
-    if cond_vix:
-        for line in briefing.split("\n"):
-            cells = parse_table_row(line)
-            if len(cells) >= 2 and cells[0].strip() == "VIX":
-                m = re.search(r'([\d.]+)', cells[1])
-                if m:
-                    b_vix = float(m.group(1))
-                    if abs(b_vix - cond_vix) > 0.1:
-                        findings.append({
-                            "severity": "Minor",
-                            "ticker": "VIX",
-                            "message": f"VIX: condensed={cond_vix}, briefing={b_vix}",
-                        })
-                break
+    # VIX consistency is checked in check_regime() — not duplicated here
 
     # Check for phantom tickers (in briefing but not in portfolio)
     all_portfolio_tickers = set(positions.keys()) | set(portfolio.get("watchlist", []))
@@ -1319,8 +1283,9 @@ def check_coverage(portfolio, briefing, active_cards, watchlist_cards):
         if buy_orders and ticker not in watchlist_tickers:
             # Check if it's a scouting ticker (mentioned in scouting section)
             if ticker not in active_tickers:
-                # Could be in scouting section
-                if f"{ticker}" not in briefing:
+                # Could be in scouting section — use word boundary to avoid
+                # false matches (e.g., "AR" matching inside "NEAR")
+                if not re.search(rf'\b{re.escape(ticker)}\b', briefing):
                     findings.append({
                         "severity": "Critical",
                         "ticker": ticker,
@@ -1463,18 +1428,6 @@ def build_report(ref_date, checks):
         "## Verification Summary\n",
         "| Check | Result | Details |",
         "| :--- | :--- | :--- |",
-    ]
-
-    check_names = [
-        "P/L Math",
-        "Day Count Math",
-        "Verdict Assignment",
-        "Earnings Gate Logic",
-        "Regime Classification",
-        "Entry Gate Logic",
-        "Data Consistency",
-        "Coverage & Completeness",
-        "Cross-Domain Consistency",
     ]
 
     total_critical = 0
