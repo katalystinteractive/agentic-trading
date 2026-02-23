@@ -544,8 +544,8 @@ def aggregate_gate_counts(cards):
     Returns dict: {"ACTIVE": N, "CAUTION": N, "REVIEW": N, "PAUSE": N}
     and per_ticker: {"ACTIVE": [tickers], ...}
     """
-    counts = {"ACTIVE": 0, "CAUTION": 0, "REVIEW": 0, "PAUSE": 0}
-    per_ticker = {"ACTIVE": [], "CAUTION": [], "REVIEW": [], "PAUSE": []}
+    counts = {"ACTIVE": 0, "CAUTION": 0, "REVIEW": 0, "PAUSE": 0, "GATED": 0}
+    per_ticker = {"ACTIVE": [], "CAUTION": [], "REVIEW": [], "PAUSE": [], "GATED": []}
 
     for card in cards:
         ticker = card["ticker"]
@@ -857,13 +857,14 @@ def build_immediate_actions(active_cards, fill_alerts, earnings_by_ticker,
             if paused:
                 pause_note = f" Pending orders PAUSED."
 
+            day_word = "day" if days == 1 else "days"
             actions.append({
                 "ticker": ticker,
                 "action": "Hold through earnings",
                 "urgency": "MEDIUM",
                 "urgency_order": 4,
                 "detail": (
-                    f"GATED — earnings {date_str or 'N/A'} ({days} days)."
+                    f"GATED — earnings {date_str or 'N/A'} ({days} {day_word})."
                     f"{pause_note} No action."
                 ),
             })
@@ -911,7 +912,7 @@ def build_market_regime(manifest, gate_counts, gate_per_ticker, vix_5d_pct):
 
     # Entry Gate Summary with per-ticker breakdown
     gate_parts = []
-    for label in ["ACTIVE", "CAUTION", "REVIEW", "PAUSE"]:
+    for label in ["ACTIVE", "CAUTION", "REVIEW", "PAUSE", "GATED"]:
         count = gate_counts.get(label, 0)
         if count > 0:
             tickers = gate_per_ticker.get(label, [])
@@ -1019,7 +1020,7 @@ def build_cross_ticker_intelligence(active_cards, watchlist_cards, portfolio,
 # Assembly: Fill Alerts Table
 # ---------------------------------------------------------------------------
 
-def build_fill_alerts_table(all_fill_alerts, earnings_by_ticker):
+def build_fill_alerts_table(all_fill_alerts):
     """Build the aggregate Fill Alerts table."""
     lines = [
         "## Fill Alerts\n",
@@ -1029,12 +1030,19 @@ def build_fill_alerts_table(all_fill_alerts, earnings_by_ticker):
         lines.append("No fill alerts.\n")
         return "\n".join(lines)
 
+    # Sort by urgency: TOUCHED/HIT first, then NEAR/NEAR FILL, then alphabetical
+    _ALERT_STATUS_ORDER = {"TOUCHED": 0, "HIT": 0, "NEAR": 1, "NEAR FILL": 1}
+    sorted_alerts = sorted(
+        all_fill_alerts,
+        key=lambda a: (_ALERT_STATUS_ORDER.get(a["status"], 9), a["ticker"])
+    )
+
     lines.extend([
         "| Ticker | Order | Price | Status | Gate | Action |",
         "| :--- | :--- | :--- | :--- | :--- | :--- |",
     ])
 
-    for alert in all_fill_alerts:
+    for alert in sorted_alerts:
         gate = alert.get("gate", "N/A")
         gate_norm = _normalize_gate(gate)
 
@@ -1044,7 +1052,7 @@ def build_fill_alerts_table(all_fill_alerts, earnings_by_ticker):
                 days = alert.get("earnings_days")
                 date_str = alert.get("earnings_date", "N/A")
                 action = (
-                    f"Cancel/hold — PAUSED (earnings {days}d). Do NOT fill."
+                    f"Cancel/hold — PAUSED (earnings {date_str}, {days}d). Do NOT fill."
                 )
             elif gate_norm == "REVIEW":
                 action = "Review — approaching earnings window."
@@ -1094,8 +1102,8 @@ def build_capital_summary(manifest, portfolio, sector_data):
     """Build the Capital Summary section."""
     capital = manifest.get("capital", {})
     deployed = capital.get("deployed", 0)
-    velocity = capital.get("velocity_pool", 1000)
-    bounce = capital.get("bounce_pool", 1000)
+    velocity = capital.get("velocity_pool", 0)
+    bounce = capital.get("bounce_pool", 0)
     total = deployed + velocity + bounce
 
     lines = [
@@ -1271,7 +1279,7 @@ def main():
 
     # Fill Alerts
     sections.append(
-        build_fill_alerts_table(all_fill_alerts, earnings_by_ticker)
+        build_fill_alerts_table(all_fill_alerts)
     )
     sections.append("---\n")
 
