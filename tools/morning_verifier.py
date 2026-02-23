@@ -69,7 +69,8 @@ def _safe_float(val, default=0.0):
     """Safely convert a value to float.
 
     Handles: "$1.23", "1,234", "+5.1%", "-3.2%", "1.6% below", "0.8% above current",
-    "-0.2% (above current)". Extracts the first numeric value via regex.
+    "-0.2% (above current)". Tries direct float() first; falls back to regex
+    extraction of the first numeric value.
     """
     if isinstance(val, (int, float)):
         return float(val)
