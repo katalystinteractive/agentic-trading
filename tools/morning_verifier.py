@@ -357,11 +357,20 @@ def compute_expected_momentum_label(momentum_data):
     if rsi > 50 and macd_vs == "above":
         return "Bullish"
 
-    # Bearish: RSI < 40 OR (MACD below signal AND histogram negative)
+    # Bearish: RSI < 40 OR (MACD below signal AND histogram negative AND RSI <= 50)
+    # When RSI > 50 conflicts with MACD bearish, signals are ambiguous → SKIP.
+    # When histogram is not parseable (analyst wrote Stochastic instead), → SKIP.
     if rsi < 40:
         return "Bearish"
-    if macd_vs == "below" and histogram is not None and histogram < 0:
-        return "Bearish"
+    if macd_vs == "below":
+        if histogram is None:
+            return "SKIPPED"
+        if histogram < 0:
+            if rsi <= 50:
+                return "Bearish"
+            else:
+                # RSI > 50 vs MACD bearish — conflicting signals
+                return "SKIPPED"
 
     return "Neutral"
 
@@ -1231,7 +1240,7 @@ def check_data_consistency(portfolio, condensed, condensed_positions, active_car
         if cond:
             cond_price = cond["current_price"]
             # Parse current price from card
-            m = re.search(r'current\s+\$?([\d.]+)', card["text"][:600], re.IGNORECASE)
+            m = re.search(r'current\s+\$([\d.]+)', card["text"][:600], re.IGNORECASE)
             if m:
                 card_price = float(m.group(1))
                 if abs(card_price - cond_price) > DEPLOYED_TOL:

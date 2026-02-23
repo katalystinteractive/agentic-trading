@@ -526,6 +526,46 @@ def parse_vix_5d_pct(condensed_content):
     return "N/A"
 
 
+def _parse_condensed_regime_vix(condensed_content):
+    """Extract regime and VIX from condensed file (source of truth).
+
+    Returns (regime_str | None, vix_float | None).
+    """
+    lines = condensed_content.split("\n")
+    regime = None
+    vix = None
+
+    # Parse regime from Market Regime table
+    in_regime = False
+    for line in lines:
+        if "### Market Regime" in line or "## Market Regime" in line:
+            in_regime = True
+            continue
+        if in_regime:
+            cells = parse_table_row(line)
+            if len(cells) >= 2 and cells[0].strip() == "Regime":
+                regime = cells[1].strip().replace("**", "")
+                break
+            if line.strip().startswith("###") or line.strip().startswith("---"):
+                break
+
+    # Parse VIX from Volatility & Rates table
+    in_vol = False
+    for line in lines:
+        if line.strip() == "### Volatility & Rates":
+            in_vol = True
+            continue
+        if in_vol:
+            cells = parse_table_row(line)
+            if len(cells) >= 2 and cells[0].strip() == "VIX":
+                m = re.search(r'([\d.]+)', cells[1])
+                if m:
+                    vix = float(m.group(1))
+                break
+
+    return regime, vix
+
+
 # ---------------------------------------------------------------------------
 # Aggregate fill alerts
 # ---------------------------------------------------------------------------
@@ -1187,11 +1227,19 @@ def main():
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     portfolio = json.loads(PORTFOLIO.read_text(encoding="utf-8"))
 
-    # Parse condensed file for current prices, P/L $, and VIX 5D%
+    # Parse condensed file for current prices, P/L $, VIX 5D%, and regime.
+    # Condensed file is the source of truth — override manifest regime/VIX
+    # which may be stale if the condensed file was regenerated after the splitter.
     if CONDENSED.exists():
         condensed_content = CONDENSED.read_text(encoding="utf-8")
         condensed_positions = parse_condensed_positions(condensed_content)
         vix_5d_pct = parse_vix_5d_pct(condensed_content)
+        _cond_regime, _cond_vix = _parse_condensed_regime_vix(condensed_content)
+        if _cond_regime:
+            manifest["regime"] = _cond_regime
+            manifest.setdefault("regime_detail", {})["regime"] = _cond_regime
+        if _cond_vix is not None:
+            manifest.setdefault("regime_detail", {})["vix"] = _cond_vix
     else:
         condensed_positions = {}
         vix_5d_pct = "N/A"
