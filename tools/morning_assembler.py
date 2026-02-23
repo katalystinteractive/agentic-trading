@@ -606,6 +606,11 @@ def compute_sector_data(active_cards, portfolio):
         if isinstance(shares, str):
             shares = int(shares) if shares.isdigit() else 0
         avg_cost = pos.get("avg_cost", 0)
+        if isinstance(avg_cost, str):
+            try:
+                avg_cost = float(avg_cost)
+            except ValueError:
+                avg_cost = 0.0
         deployed = shares * avg_cost
 
         if sector_name not in sectors:
@@ -623,6 +628,7 @@ def compute_sector_data(active_cards, portfolio):
 
 _VERDICT_PRIORITY = {"EXIT": 0, "REDUCE": 1, "HOLD": 2, "MONITOR": 3}
 _GATE_PRIORITY = {"PAUSE": 0, "REVIEW": 1, "ACTIVE": 2}
+_ALERT_STATUS_ORDER = {"TOUCHED": 0, "HIT": 0, "NEAR": 1, "NEAR FILL": 1}
 
 
 def verdict_sort_key(card):
@@ -660,7 +666,10 @@ def build_executive_summary(manifest, active_cards,
     # Compute total unrealized P/L and list top losers
     total_pl = 0.0
     ticker_pls = []
+    active_tickers = {c["ticker"] for c in active_cards}
     for ticker, pos_data in condensed_positions.items():
+        if ticker not in active_tickers:
+            continue
         pl = pos_data["pl_dollars"]
         total_pl += pl
         ticker_pls.append((ticker, pl))
@@ -794,9 +803,8 @@ def build_immediate_actions(active_cards, fill_alerts, earnings_by_ticker,
                 action_text = "Monitor — PAUSED"
         elif "GATED" in gate_upper:
             if alert["type"] == "SELL":
-                days = alert.get("earnings_days")
                 date = alert.get("earnings_date", "N/A")
-                action_text = f"Monitor SELL trigger"
+                action_text = f"Monitor SELL trigger — GATED until earnings {date}"
             else:
                 action_text = "HOLD — GATED"
         elif "REVIEW" in gate_upper:
@@ -942,7 +950,7 @@ def build_market_regime(manifest, gate_counts, gate_per_ticker, vix_5d_pct):
 # Assembly: Cross-Ticker Intelligence
 # ---------------------------------------------------------------------------
 
-def build_cross_ticker_intelligence(active_cards, watchlist_cards, portfolio,
+def build_cross_ticker_intelligence(active_cards, watchlist_cards,
                                     sector_data, earnings_by_ticker):
     """Build the Cross-Ticker Intelligence section."""
     lines = ["## Cross-Ticker Intelligence\n"]
@@ -1031,7 +1039,6 @@ def build_fill_alerts_table(all_fill_alerts):
         return "\n".join(lines)
 
     # Sort by urgency: TOUCHED/HIT first, then NEAR/NEAR FILL, then alphabetical
-    _ALERT_STATUS_ORDER = {"TOUCHED": 0, "HIT": 0, "NEAR": 1, "NEAR FILL": 1}
     sorted_alerts = sorted(
         all_fill_alerts,
         key=lambda a: (_ALERT_STATUS_ORDER.get(a["status"], 9), a["ticker"])
@@ -1255,7 +1262,7 @@ def main():
     # Cross-ticker intelligence
     sections.append(
         build_cross_ticker_intelligence(
-            active_cards, watchlist_cards, portfolio,
+            active_cards, watchlist_cards,
             sector_data, earnings_by_ticker
         )
     )
