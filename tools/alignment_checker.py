@@ -426,10 +426,14 @@ def validate_pending_orders(pending: list[dict],
                     })
                     entry["status"] = f"ZONE MISMATCH ({order_zone} vs {wick_zone})"
 
-            # Pause annotation
+            # Pause annotation — append to existing status, don't overwrite
             if pause_info:
                 days_str = f"{pause_info['days_away']} days" if pause_info['days_away'] is not None else "?"
-                entry["status"] = f"PAUSED until {pause_info['until']} ({days_str})"
+                pause_str = f"PAUSED until {pause_info['until']} ({days_str})"
+                if entry["status"] != "OK":
+                    entry["status"] += f" + {pause_str}"
+                else:
+                    entry["status"] = pause_str
 
             result["matched"].append(entry)
         else:
@@ -734,7 +738,8 @@ def run_ticker(ticker: str, broker_shares: int, broker_avg: float,
         lines.append("| Target | Avg | Target % | Note |")
         lines.append("| :--- | :--- | :--- | :--- |")
         # Use broker avg for pct calc
-        broker_pct = (sell["current_target"] - broker_avg) / broker_avg * 100
+        broker_pct = ((sell["current_target"] - broker_avg) / broker_avg * 100
+                      if broker_avg > 0 else None)
         lines.append(f"| {fmt_dollar(sell['current_target'])} | {fmt_dollar(broker_avg)} | "
                      f"{fmt_pct(broker_pct)} | {sell['sell_note']} |")
     lines.append("")
