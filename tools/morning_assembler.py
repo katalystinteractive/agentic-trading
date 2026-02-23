@@ -197,7 +197,32 @@ def parse_pending_order_gates(card_text, ticker):
 
     Returns list of {"ticker", "price", "gate"} dicts for Entry Gate Summary.
     """
-    results = []
+    rows = _parse_order_table(card_text, buy_only=True, as_gate_dict=False)
+    for row in rows:
+        row["ticker"] = ticker
+    return rows
+
+
+def parse_all_order_gates(card_text):
+    """Extract Combined gate for ALL orders (BUY + SELL) from Pending Orders table.
+
+    Returns dict: {price_str: gate_str} where price_str is f"{price:.2f}".
+    Uses string keys to avoid float comparison fragility.
+    """
+    return _parse_order_table(card_text, buy_only=False, as_gate_dict=True)
+
+
+def _parse_order_table(card_text, buy_only=False, as_gate_dict=False):
+    """Shared parser for Pending Orders table.
+
+    Args:
+        buy_only: If True, skip SELL rows.
+        as_gate_dict: If True, return {price_str: gate_str} dict.
+                      If False, return list of {"ticker", "price", "gate"} dicts.
+
+    Ticker is not set in as_gate_dict mode (caller adds it).
+    """
+    results = {} if as_gate_dict else []
     in_table = False
     header_found = False
 
@@ -212,7 +237,6 @@ def parse_pending_order_gates(card_text, ticker):
                 if header_found and not stripped.startswith("|"):
                     break
                 continue
-            # Skip header row
             if cells[0] in ("Type", ":---"):
                 header_found = True
                 continue
@@ -222,8 +246,7 @@ def parse_pending_order_gates(card_text, ticker):
                 continue
 
             order_type = cells[0].strip()
-            # Skip SELL orders
-            if order_type == "SELL":
+            if buy_only and order_type == "SELL":
                 continue
 
             price_str = cells[1].strip().replace("$", "").replace(",", "")
@@ -233,53 +256,17 @@ def parse_pending_order_gates(card_text, ticker):
                 continue
 
             combined = cells[6].strip().replace("**", "")
-            results.append({
-                "ticker": ticker,
-                "price": price,
-                "gate": combined,
-            })
+            price_key = f"{price:.2f}"
+
+            if as_gate_dict:
+                results[price_key] = combined
+            else:
+                results.append({
+                    "price": price,
+                    "gate": combined,
+                })
 
     return results
-
-
-def parse_all_order_gates(card_text):
-    """Extract Combined gate for ALL orders (BUY + SELL) from Pending Orders table.
-
-    Returns dict: {price_float: gate_str}.
-    """
-    gates = {}
-    in_table = False
-    header_found = False
-
-    for line in card_text.split("\n"):
-        stripped = line.strip()
-        if stripped.startswith("**Pending Orders:**"):
-            in_table = True
-            continue
-        if in_table:
-            cells = parse_table_row(stripped)
-            if not cells:
-                if header_found and not stripped.startswith("|"):
-                    break
-                continue
-            if cells[0] in ("Type", ":---"):
-                header_found = True
-                continue
-            if _is_dash_row(cells):
-                continue
-            if len(cells) < 7:
-                continue
-
-            price_str = cells[1].strip().replace("$", "").replace(",", "")
-            try:
-                price = float(price_str)
-            except ValueError:
-                continue
-
-            combined = cells[6].strip().replace("**", "")
-            gates[price] = combined
-
-    return gates
 
 
 # ---------------------------------------------------------------------------
@@ -456,14 +443,13 @@ def _format_date(iso_date):
 # Condensed file parsing
 # ---------------------------------------------------------------------------
 
-def parse_condensed_positions(condensed_path):
-    """Parse ## Active Positions table from morning-briefing-condensed.md.
+def parse_condensed_positions(condensed_content):
+    """Parse ## Active Positions table from condensed file content.
 
     Returns dict keyed by ticker: {"current_price": float, "pl_dollars": float, "pl_pct": str}.
     """
     positions = {}
-    content = condensed_path.read_text(encoding="utf-8")
-    lines = content.split("\n")
+    lines = condensed_content.split("\n")
 
     start = None
     for i, line in enumerate(lines):
@@ -493,13 +479,12 @@ def parse_condensed_positions(condensed_path):
     return positions
 
 
-def parse_vix_5d_pct(condensed_path):
-    """Extract VIX 5D% from morning-briefing-condensed.md.
+def parse_vix_5d_pct(condensed_content):
+    """Extract VIX 5D% from condensed file content.
 
     Returns string like "-8.31%" or "N/A".
     """
-    content = condensed_path.read_text(encoding="utf-8")
-    lines = content.split("\n")
+    lines = condensed_content.split("\n")
 
     in_vol = False
     for line in lines:
@@ -539,8 +524,10 @@ def aggregate_fill_alerts(cards, earnings_by_ticker, order_gates_by_ticker):
             alert["earnings_date"] = date_str
 
             # Enrich with gate data for this specific order price
+            # Use string key to avoid float comparison fragility
             gates = order_gates_by_ticker.get(ticker, {})
-            alert["gate"] = gates.get(alert["price"], "N/A")
+            price_key = f"{alert['price']:.2f}"
+            alert["gate"] = gates.get(price_key, "N/A")
 
         all_alerts.extend(alerts)
 
@@ -596,8 +583,8 @@ def _normalize_gate(gate_str):
 # Sector data computation
 # ---------------------------------------------------------------------------
 
-def compute_sector_data(active_cards, watchlist_cards, portfolio):
-    """Compute sector deployment data.
+def compute_sector_data(active_cards, portfolio):
+    """Compute sector deployment data from active positions.
 
     Returns dict with:
       sectors: {sector_name: {"etf", "tickers": [], "deployed": float}}
@@ -625,13 +612,6 @@ def compute_sector_data(active_cards, watchlist_cards, portfolio):
             sectors[sector_name] = {"etf": etf, "tickers": [], "deployed": 0.0}
         sectors[sector_name]["tickers"].append(ticker)
         sectors[sector_name]["deployed"] += deployed
-
-    # Also parse watchlist cards for sector info (used in cross-ticker)
-    for card in watchlist_cards:
-        sector_info = parse_sector(card["text"])
-        if not sector_info:
-            continue
-        # Watchlist tickers have no deployed capital
 
     total = sum(s["deployed"] for s in sectors.values())
     return {"sectors": sectors, "total_deployed": total}
@@ -661,8 +641,9 @@ def gate_sort_key(card):
 # Assembly: Executive Summary
 # ---------------------------------------------------------------------------
 
-def build_executive_summary(manifest, active_cards, portfolio,
-                            sector_data, fill_alerts, condensed_positions):
+def build_executive_summary(manifest, active_cards,
+                            sector_data, fill_alerts, condensed_positions,
+                            earnings_by_ticker):
     """Build the Executive Summary section."""
     regime = manifest.get("regime", "Unknown")
     vix = manifest.get("regime_detail", {}).get("vix", "N/A")
@@ -696,15 +677,9 @@ def build_executive_summary(manifest, active_cards, portfolio,
     # Earnings cluster (tickers within 7 days)
     earnings_cluster = []
     for card in active_cards:
-        days, date_str = parse_earnings_days(card["text"])
+        days, date_str = earnings_by_ticker.get(card["ticker"], (None, None))
         if days is not None and days <= 7:
             earnings_cluster.append((card["ticker"], days, date_str))
-
-    # Verdict summary text
-    verdict_parts = []
-    for v in ["EXIT", "REDUCE", "HOLD", "MONITOR"]:
-        if verdict_counts.get(v, 0) > 0:
-            verdict_parts.append(f"{verdict_counts[v]} {v}")
 
     # Positive-only P/L count
     positive_count = sum(1 for _, p in ticker_pls if p > 0)
@@ -712,9 +687,10 @@ def build_executive_summary(manifest, active_cards, portfolio,
     # Build summary paragraph
     lines = ["## Executive Summary\n"]
 
+    regime_tone = "broad macro tailwind" if regime == "Risk-On" else "macro headwinds"
     summary = (
         f"Regime is **{regime}** (VIX {vix}, {indices}/3 indices above 50-SMA, "
-        f"{breadth}/11 sectors positive) with broad macro tailwind. "
+        f"{breadth}/11 sectors positive) with {regime_tone}. "
         f"Portfolio has {len(active_cards)} active positions "
         f"(${deployed:,.2f} deployed)"
     )
@@ -779,7 +755,8 @@ def build_executive_summary(manifest, active_cards, portfolio,
 # Assembly: Immediate Actions
 # ---------------------------------------------------------------------------
 
-def build_immediate_actions(active_cards, fill_alerts, earnings_by_ticker):
+def build_immediate_actions(active_cards, fill_alerts, earnings_by_ticker,
+                            order_gates_by_ticker):
     """Build the Immediate Actions table."""
     lines = [
         "## Immediate Actions\n",
@@ -803,8 +780,8 @@ def build_immediate_actions(active_cards, fill_alerts, earnings_by_ticker):
 
     # 2. Fill alerts
     alert_tickers_used = set()
+    status_order = {"TOUCHED": 1, "HIT": 1, "NEAR": 2, "NEAR FILL": 2}
     for alert in fill_alerts:
-        status_order = {"TOUCHED": 1, "HIT": 1, "NEAR": 2, "NEAR FILL": 2}
         urgency = "HIGH" if alert["status"] in ("TOUCHED", "HIT") else "MEDIUM"
 
         # Determine action based on gate
@@ -875,7 +852,7 @@ def build_immediate_actions(active_cards, fill_alerts, earnings_by_ticker):
         if days is not None and days <= 7:
             # Check if there are pending orders that are PAUSED
             pause_note = ""
-            order_gates = parse_all_order_gates(card["text"])
+            order_gates = order_gates_by_ticker.get(ticker, {})
             paused = [p for p, g in order_gates.items() if "PAUSE" in g.upper()]
             if paused:
                 pause_note = f" Pending orders PAUSED."
@@ -1007,11 +984,10 @@ def build_cross_ticker_intelligence(active_cards, watchlist_cards, portfolio,
         active_watchlist = [c for c in watchlist_cards
                            if c.get("gate_bare") == "ACTIVE"]
         lines.append("**Capital Rotation:**")
-        tickers = [c["ticker"] for c in exit_reduce]
-        lines.append(
-            f"- {', '.join(tickers)}: {exit_reduce[0].get('verdict', '')} verdict — "
-            f"capital freed on exit"
-        )
+        for c in exit_reduce:
+            lines.append(
+                f"- {c['ticker']}: {c.get('verdict', '')} verdict — capital freed on exit"
+            )
         if active_watchlist:
             wl_tickers = [c["ticker"] for c in active_watchlist]
             lines.append(
@@ -1173,8 +1149,13 @@ def main():
     portfolio = json.loads(PORTFOLIO.read_text(encoding="utf-8"))
 
     # Parse condensed file for current prices, P/L $, and VIX 5D%
-    condensed_positions = parse_condensed_positions(CONDENSED) if CONDENSED.exists() else {}
-    vix_5d_pct = parse_vix_5d_pct(CONDENSED) if CONDENSED.exists() else "N/A"
+    if CONDENSED.exists():
+        condensed_content = CONDENSED.read_text(encoding="utf-8")
+        condensed_positions = parse_condensed_positions(condensed_content)
+        vix_5d_pct = parse_vix_5d_pct(condensed_content)
+    else:
+        condensed_positions = {}
+        vix_5d_pct = "N/A"
 
     # Read all card files
     active_cards = []
@@ -1234,7 +1215,7 @@ def main():
         active_cards + watchlist_cards, earnings_by_ticker, order_gates_by_ticker
     )
     gate_counts, gate_per_ticker = aggregate_gate_counts(active_cards + watchlist_cards)
-    sector_data = compute_sector_data(active_cards, watchlist_cards, portfolio)
+    sector_data = compute_sector_data(active_cards, portfolio)
 
     print(f"\nFill alerts: {len(all_fill_alerts)}")
     print(f"Gate counts: {gate_counts}")
@@ -1245,11 +1226,13 @@ def main():
     sections = [
         f"# Morning Briefing — {date}\n",
         build_executive_summary(
-            manifest, active_cards, portfolio,
-            sector_data, all_fill_alerts, condensed_positions
+            manifest, active_cards,
+            sector_data, all_fill_alerts, condensed_positions,
+            earnings_by_ticker
         ),
         "---\n",
-        build_immediate_actions(active_cards, all_fill_alerts, earnings_by_ticker),
+        build_immediate_actions(active_cards, all_fill_alerts, earnings_by_ticker,
+                               order_gates_by_ticker),
         "---\n",
         build_market_regime(manifest, gate_counts, gate_per_ticker, vix_5d_pct),
         "---\n",
