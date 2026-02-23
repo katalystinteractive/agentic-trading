@@ -992,7 +992,7 @@ def check_regime(condensed, briefing):
 
     indices = parse_condensed_indices(condensed)
     vix = parse_condensed_vix(condensed)
-    condensed_regime = parse_condensed_regime(condensed)
+    condensed_regime, _ = parse_condensed_regime(condensed)
     briefing_regime = parse_briefing_regime(briefing)
 
     above_count = sum(1 for i in indices if i["above_50sma"])
@@ -1055,7 +1055,8 @@ def check_entry_gates(portfolio, condensed, active_cards, watchlist_cards):
     findings = []
 
     # Determine current regime and VIX
-    regime = parse_condensed_regime(condensed) or "Neutral"
+    regime, _ = parse_condensed_regime(condensed)
+    regime = regime or "Neutral"
     vix = parse_condensed_vix(condensed)
     vix_5d = parse_vix_5d_pct(condensed)
     condensed_positions = parse_condensed_positions(condensed)

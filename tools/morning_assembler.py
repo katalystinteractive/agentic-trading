@@ -527,10 +527,12 @@ def parse_vix_5d_pct(condensed_content):
 
 
 def parse_condensed_regime(condensed_content):
-    """Extract regime string from Market Regime table in condensed.
+    """Extract regime and reasoning from Market Regime table in condensed.
 
-    Returns regime string (e.g., "Neutral", "Risk-On") or None.
+    Returns (regime_str | None, reasoning_str | None).
     """
+    regime = None
+    reasoning = None
     in_regime = False
     for line in condensed_content.split("\n"):
         if "### Market Regime" in line or "## Market Regime" in line:
@@ -538,11 +540,15 @@ def parse_condensed_regime(condensed_content):
             continue
         if in_regime:
             cells = parse_table_row(line)
-            if len(cells) >= 2 and cells[0].strip() == "Regime":
-                return cells[1].strip().replace("**", "")
+            if len(cells) >= 2:
+                key = cells[0].strip()
+                if key == "Regime":
+                    regime = cells[1].strip().replace("**", "")
+                elif key == "Reasoning":
+                    reasoning = cells[1].strip()
             if line.strip().startswith("###") or line.strip().startswith("---"):
                 break
-    return None
+    return regime, reasoning
 
 
 def parse_condensed_vix(condensed_content):
@@ -1232,10 +1238,12 @@ def main():
         condensed_content = CONDENSED.read_text(encoding="utf-8")
         condensed_positions = parse_condensed_positions(condensed_content)
         vix_5d_pct = parse_vix_5d_pct(condensed_content)
-        _cond_regime = parse_condensed_regime(condensed_content)
+        _cond_regime, _cond_reasoning = parse_condensed_regime(condensed_content)
         _cond_vix = parse_condensed_vix(condensed_content)
         if _cond_regime:
             manifest["regime"] = _cond_regime
+        if _cond_reasoning:
+            manifest.setdefault("regime_detail", {})["reasoning"] = _cond_reasoning
         if _cond_vix is not None:
             manifest.setdefault("regime_detail", {})["vix"] = _cond_vix
     else:
