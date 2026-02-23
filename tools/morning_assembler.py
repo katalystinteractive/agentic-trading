@@ -220,7 +220,7 @@ def _parse_order_table(card_text, buy_only=False, as_gate_dict=False):
         as_gate_dict: If True, return {price_str: gate_str} dict.
                       If False, return list of {"ticker", "price", "gate"} dicts.
 
-    Ticker is not set in as_gate_dict mode (caller adds it).
+    Ticker is not set in either mode; caller adds it post-hoc.
     """
     results = {} if as_gate_dict else []
     in_table = False
@@ -393,7 +393,7 @@ def parse_earnings_days(card_text):
         date_str = _find_earnings_date(card_text)
         return days, date_str
 
-    # CLEAR with ISO: "Earnings Gate | CLEAR | N days to YYYY-MM-DD"
+    # Safety net: "Earnings Gate | CLEAR | N days to YYYY-MM-DD" (no parens, no event/earnings keyword)
     m = re.search(
         r'Earnings Gate\s*\|\s*CLEAR\s*\|\s*(\d+)\s+days?\s+to\s+(\d{4}-\d{2}-\d{2})',
         card_text
@@ -541,8 +541,9 @@ def aggregate_fill_alerts(cards, earnings_by_ticker, order_gates_by_ticker):
 def aggregate_gate_counts(cards):
     """Count BUY order gate statuses across all cards.
 
-    Returns dict: {"ACTIVE": N, "CAUTION": N, "REVIEW": N, "PAUSE": N}
-    and per_ticker: {"ACTIVE": [tickers], ...}
+    Returns (counts, per_ticker) where:
+      counts: {"ACTIVE": N, "CAUTION": N, "REVIEW": N, "PAUSE": N, "GATED": N}
+      per_ticker: {"ACTIVE": [tickers], "CAUTION": [...], ...}
     """
     counts = {"ACTIVE": 0, "CAUTION": 0, "REVIEW": 0, "PAUSE": 0, "GATED": 0}
     per_ticker = {"ACTIVE": [], "CAUTION": [], "REVIEW": [], "PAUSE": [], "GATED": []}
@@ -725,7 +726,7 @@ def build_executive_summary(manifest, active_cards,
             cluster_parts.append(f"{t} in {d} {day_word} ({ds})")
         summary += (
             f" **Earnings cluster is the key near-term risk**: "
-            f"{', '.join(cluster_parts)} — all appropriately GATED."
+            f"{', '.join(cluster_parts)}."
         )
 
     # Most urgent action from fill alerts
@@ -1105,7 +1106,7 @@ def build_scouting(scouting_tickers):
 # Assembly: Capital Summary
 # ---------------------------------------------------------------------------
 
-def build_capital_summary(manifest, portfolio, sector_data):
+def build_capital_summary(manifest, sector_data):
     """Build the Capital Summary section."""
     capital = manifest.get("capital", {})
     deployed = capital.get("deployed", 0)
@@ -1292,7 +1293,7 @@ def main():
 
     # Capital Summary
     sections.append(
-        build_capital_summary(manifest, portfolio, sector_data)
+        build_capital_summary(manifest, sector_data)
     )
 
     # Handle failed tickers — insert error cards
