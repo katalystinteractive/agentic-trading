@@ -36,7 +36,7 @@ phases:
       allow_partial: true
     depends_on:
       - gather
-    timeout_minutes: 15
+    timeout_minutes: 25
 
   - id: compile
     name: Assemble Morning Briefing
