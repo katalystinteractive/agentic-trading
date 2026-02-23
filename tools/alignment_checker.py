@@ -93,9 +93,12 @@ def detect_pause(note: str) -> dict | None:
         return {"paused": True, "until": "unknown", "days_away": None}
     date_str = m.group(1)
     try:
-        # Parse "Feb 26" style dates — assume current year
-        dt = datetime.strptime(f"{date_str} {date.today().year}", "%b %d %Y").date()
-        days = (dt - date.today()).days
+        # Parse "Feb 26" style dates — try current year, bump to next if in past
+        today = date.today()
+        dt = datetime.strptime(f"{date_str} {today.year}", "%b %d %Y").date()
+        if dt < today:
+            dt = datetime.strptime(f"{date_str} {today.year + 1}", "%b %d %Y").date()
+        days = (dt - today).days
         return {"paused": True, "until": date_str, "days_away": days}
     except ValueError:
         return {"paused": True, "until": date_str, "days_away": None}
@@ -472,28 +475,37 @@ def validate_pending_orders(pending: list[dict],
     return result
 
 
+def _sum_pending_by_zone(buy_orders: list[dict]) -> tuple[float, float, float]:
+    """Sum pending BUY order costs by zone. Returns (active, reserve, unclassified)."""
+    active = reserve = unclassified = 0.0
+    for o in buy_orders:
+        cost = o["price"] * o["shares"]
+        zone = parse_zone_from_note(o.get("note", ""))
+        if zone == "Active":
+            active += cost
+        elif zone == "Reserve":
+            reserve += cost
+        else:
+            unclassified += cost
+    return active, reserve, unclassified
+
+
 def compute_pool_usage(position: dict | None, pending: list[dict],
                        capital: dict) -> dict:
     """Compute pool budget usage with separate active/reserve tracking."""
     buy_orders = [o for o in pending if o.get("type") == "BUY"]
     active_budget = capital.get("active_pool", 300)
     reserve_budget = capital.get("reserve_pool", 300)
+    pending_active, pending_reserve, pending_unclassified = _sum_pending_by_zone(buy_orders)
 
     # Watchlist-only
     if position is None:
-        pending_active = sum(
-            o["price"] * o["shares"] for o in buy_orders
-            if parse_zone_from_note(o.get("note", "")) == "Active"
-        )
-        pending_reserve = sum(
-            o["price"] * o["shares"] for o in buy_orders
-            if parse_zone_from_note(o.get("note", "")) == "Reserve"
-        )
         return {
             "watchlist_only": True,
             "deployed": 0,
             "pending_active": pending_active,
             "pending_reserve": pending_reserve,
+            "pending_unclassified": pending_unclassified,
             "active_budget": active_budget,
             "reserve_budget": reserve_budget,
             "active_remaining": active_budget - pending_active,
@@ -510,18 +522,11 @@ def compute_pool_usage(position: dict | None, pending: list[dict],
         }
 
     deployed = position["shares"] * position["avg_cost"]
-    pending_active = sum(
-        o["price"] * o["shares"] for o in buy_orders
-        if parse_zone_from_note(o.get("note", "")) == "Active"
-    )
-    pending_reserve = sum(
-        o["price"] * o["shares"] for o in buy_orders
-        if parse_zone_from_note(o.get("note", "")) == "Reserve"
-    )
     return {
         "deployed": deployed,
         "pending_active": pending_active,
         "pending_reserve": pending_reserve,
+        "pending_unclassified": pending_unclassified,
         "active_budget": active_budget,
         "reserve_budget": reserve_budget,
         "active_remaining": active_budget - (deployed + pending_active),
@@ -727,6 +732,8 @@ def run_ticker(ticker: str, broker_shares: int, broker_avg: float,
         lines.append(f"| Reserve | — | {fmt_dollar(pool['pending_reserve'])} | "
                      f"{fmt_dollar(pool['reserve_budget'])} | {fmt_dollar(pool['reserve_remaining'])} | "
                      f"{'**OVER**' if pool['reserve_overrun'] else 'OK'} |")
+        if pool.get("pending_unclassified", 0) > 0.005:
+            lines.append(f"\n*Warning: {fmt_dollar(pool['pending_unclassified'])} in pending orders not classified as Active or Reserve.*")
     lines.append("")
 
     # --- Sell Target ---
@@ -979,6 +986,7 @@ def run_scan(portfolio: dict) -> str:
                 "reserve_budget": pool["reserve_budget"],
                 "reserve_status": "**OVER**" if pool["reserve_overrun"] else "OK",
                 "watchlist_only": pool.get("watchlist_only", False),
+                "pending_unclassified": pool.get("pending_unclassified", 0),
             })
 
         # Sell target
@@ -1051,6 +1059,12 @@ def run_scan(portfolio: dict) -> str:
                 f"{fmt_dollar(r['active_budget'])} | {r['active_status']} | "
                 f"{fmt_dollar(r['pending_reserve'])} | {fmt_dollar(r['reserve_budget'])} | {r['reserve_status']} |"
             )
+        unclassified = [r for r in pool_rows if r["pending_unclassified"] > 0.005]
+        if unclassified:
+            lines.append("")
+            lines.append("**Unclassified pending orders** (zone not detected from note):")
+            for r in unclassified:
+                lines.append(f"- {r['ticker']}: {fmt_dollar(r['pending_unclassified'])} not assigned to Active or Reserve")
         lines.append("")
 
     # Sell target summary
