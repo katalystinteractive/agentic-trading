@@ -56,9 +56,9 @@ python3 tools/alignment_checker.py TICKER SHARES AVG  # per-ticker with broker d
 
 Process tickers in this order:
 
-1. **Pre-strategy positions first** (IONQ, UAMY, USAR, INTC) — validate shares only, skip pool math
+1. **Pre-strategy positions first** (as identified by scan's "Pre-Strategy Positions" section) — validate shares only, skip pool math
 2. **Active positions** (worst P/L first) — full validation
-3. **Watchlist with pending orders** (AR, CLF, ACHR, NNE, etc.) — validate orders and pool
+3. **Watchlist with pending orders** (as identified by scan) — validate orders and pool
 
 For each ticker:
 

@@ -154,7 +154,11 @@ def parse_markdown_table(text: str, header_pattern: str) -> list[dict]:
         if not stripped.startswith("|"):
             break
         cells = [c.strip() for c in stripped.split("|")]
-        cells = [c for c in cells if c != ""]  # drop empties from leading/trailing |
+        # Drop only leading/trailing empties from pipe splitting, not interior empties
+        if cells and cells[0] == "":
+            cells = cells[1:]
+        if cells and cells[-1] == "":
+            cells = cells[:-1]
         if len(cells) < len(headers):
             # Pad short rows
             cells.extend([""] * (len(headers) - len(cells)))
@@ -360,7 +364,6 @@ def validate_pending_orders(pending: list[dict],
     for order in buy_orders:
         note = order.get("note", "")
         price = order["price"]
-        shares = order["shares"]
 
         # Bounce-derived — skip wick validation
         if is_bounce_derived(note):
@@ -687,8 +690,9 @@ def run_ticker(ticker: str, broker_shares: int, broker_avg: float,
                 lines.append("**Missing orders for active wick levels:**")
                 for miss in validation["missing_from_orders"]:
                     rows_desc = ", ".join(
-                        f"${_support_price(r):.2f} {r.get('Source', '?')}"
+                        f"${sp:.2f} {r.get('Source', '?')}"
                         for r in miss["rows"]
+                        if (sp := _support_price(r)) is not None
                     )
                     lines.append(f"- Buy At ${miss['buy_at']:.2f} ({rows_desc})")
             if validation["zone_mismatches"]:
@@ -933,8 +937,9 @@ def run_scan(portfolio: dict) -> str:
                 # Missing from orders
                 for miss in validation["missing_from_orders"]:
                     rows_desc = ", ".join(
-                        f"${_support_price(r):.2f} {r.get('Source', '?')}"
+                        f"${sp:.2f} {r.get('Source', '?')}"
                         for r in miss["rows"]
+                        if (sp := _support_price(r)) is not None
                     )
                     missing_rows.append({
                         "ticker": ticker,
@@ -952,9 +957,12 @@ def run_scan(portfolio: dict) -> str:
                 "days_ago": str(da) if da is not None else "—",
             })
 
-        # Pool usage
-        pool = compute_pool_usage(position, pending, capital)
-        if not pool.get("pre_strategy"):
+        # Pool usage — skip tickers with no capital at risk
+        if position or pending:
+            pool = compute_pool_usage(position, pending, capital)
+        else:
+            pool = None
+        if pool and not pool.get("pre_strategy"):
             deployed = pool.get("deployed", 0)
             pool_rows.append({
                 "ticker": ticker,
