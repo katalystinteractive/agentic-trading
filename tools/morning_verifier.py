@@ -32,6 +32,11 @@ from morning_assembler import (
     parse_vix_5d_pct,
     aggregate_gate_counts,
 )
+from morning_gatherer import (
+    TIME_STOP_EXCEEDED_DAYS,
+    TIME_STOP_APPROACHING_DAYS,
+    compute_days_held,
+)
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -693,7 +698,11 @@ def check_day_count(portfolio, ref_date, active_cards):
                 })
             continue
 
-        # ISO date
+        # ISO date — reuse gatherer's shared computation
+        exp_days, _, _ = compute_days_held(entry_date_str)
+        if exp_days is None:
+            continue
+        # Adjust for ref_date vs today if they differ
         try:
             parts = entry_date_str.split("-")
             entry = date(int(parts[0]), int(parts[1]), int(parts[2]))
@@ -713,9 +722,9 @@ def check_day_count(portfolio, ref_date, active_cards):
                 })
 
         # Check time stop status
-        if exp_days > 60:
+        if exp_days > TIME_STOP_EXCEEDED_DAYS:
             expected_ts = "EXCEEDED"
-        elif exp_days >= 45:
+        elif exp_days >= TIME_STOP_APPROACHING_DAYS:
             expected_ts = "APPROACHING"
         else:
             expected_ts = "WITHIN"
@@ -791,8 +800,8 @@ def check_verdicts(portfolio, active_cards, ref_date):
         is_gated = "GATED" in eg_status
         is_approaching = "APPROACHING" in eg_status
         is_clear = "CLEAR" in eg_status
-        time_exceeded = days_held > 60 or "EXCEEDED" in ts_status
-        time_approaching = 45 <= days_held <= 60 or "APPROACHING" in ts_status
+        time_exceeded = days_held > TIME_STOP_EXCEEDED_DAYS or "EXCEEDED" in ts_status
+        time_approaching = TIME_STOP_APPROACHING_DAYS <= days_held <= TIME_STOP_EXCEEDED_DAYS or "APPROACHING" in ts_status
 
         # Determine if bearish momentum
         momentum_data = extract_momentum_data(mom_detail)
@@ -1145,31 +1154,31 @@ def check_entry_gates(portfolio, condensed, active_cards, watchlist_cards):
                 })
 
             # Cross-check % Below Current
+            # exp_pct_offset: negative = order below current, positive = order above
             if current_price > 0:
-                exp_pct_below = -((current_price - order_price) / current_price) * 100
+                exp_pct_offset = ((order_price - current_price) / current_price) * 100
                 card_pct_str = order.get("pct_below", "")
                 if card_pct_str and card_pct_str != "N/A":
                     card_pct = _safe_float(card_pct_str)
                     # Compare absolute values (card may show unsigned "5.1% below")
-                    if abs(abs(card_pct) - abs(exp_pct_below)) > PCT_BELOW_TOL:
+                    if abs(abs(card_pct) - abs(exp_pct_offset)) > PCT_BELOW_TOL:
                         findings.append({
                             "severity": "Minor",
                             "ticker": ticker,
-                            "message": f"BUY ${order_price:.2f} % Below Current: expected {exp_pct_below:.1f}%, briefing shows {card_pct_str}",
+                            "message": f"BUY ${order_price:.2f} % Below Current: expected {exp_pct_offset:.1f}%, briefing shows {card_pct_str}",
                         })
-                    # Sign-direction check: card says "above"/"below" but math says opposite
-                    pct_str_lower = str(card_pct_str).lower()
-                    if "above" in pct_str_lower and exp_pct_below < 0:
+                    # Sign-direction check (only when magnitude is OK to avoid double-reporting)
+                    elif "above" in str(card_pct_str).lower() and exp_pct_offset < 0:
                         findings.append({
                             "severity": "Minor",
                             "ticker": ticker,
-                            "message": f"BUY ${order_price:.2f} % Below Current: card says 'above' but order is {abs(exp_pct_below):.1f}% below current",
+                            "message": f"BUY ${order_price:.2f} % Below Current: card says 'above' but order is {abs(exp_pct_offset):.1f}% below current",
                         })
-                    elif "below" in pct_str_lower and exp_pct_below > 0:
+                    elif "below" in str(card_pct_str).lower() and exp_pct_offset > 0:
                         findings.append({
                             "severity": "Minor",
                             "ticker": ticker,
-                            "message": f"BUY ${order_price:.2f} % Below Current: card says 'below' but order is {exp_pct_below:.1f}% above current",
+                            "message": f"BUY ${order_price:.2f} % Below Current: card says 'below' but order is {exp_pct_offset:.1f}% above current",
                         })
 
     return findings

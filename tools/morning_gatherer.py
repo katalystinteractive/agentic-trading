@@ -26,6 +26,10 @@ OUTPUT = PROJECT_ROOT / "morning-tools-raw.md"
 # Active bullets max from capital settings (default, overridden from portfolio.json)
 DEFAULT_BULLETS_MAX = 5
 
+# Time stop thresholds (calendar days) — must match strategy.md "8 weeks (~60 days)"
+TIME_STOP_EXCEEDED_DAYS = 60   # > this = EXCEEDED
+TIME_STOP_APPROACHING_DAYS = 45  # >= this = APPROACHING
+
 
 def run_tool(tool_name, args=None, timeout=60):
     """Run a Python tool and capture stdout. Returns (stdout, error_msg)."""
@@ -132,7 +136,7 @@ def compute_days_held(entry_date_str):
     """Compute days held from entry_date. Returns (days_int, display_str, is_pre_strategy)."""
     today = date.today()
     if entry_date_str.startswith("pre-"):
-        return None, ">60 days (pre-strategy)", True
+        return None, f">{TIME_STOP_EXCEEDED_DAYS} days (pre-strategy)", True
     try:
         entry = datetime.strptime(entry_date_str, "%Y-%m-%d").date()
         days = (today - entry).days
@@ -147,9 +151,9 @@ def compute_time_stop(days_held, is_pre_strategy):
         return "EXCEEDED (pre-strategy)"
     if days_held is None:
         return "Unknown"
-    if days_held > 60:
+    if days_held > TIME_STOP_EXCEEDED_DAYS:
         return "EXCEEDED"
-    if days_held >= 45:
+    if days_held >= TIME_STOP_APPROACHING_DAYS:
         return "APPROACHING"
     return "WITHIN"
 
