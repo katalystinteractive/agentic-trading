@@ -134,14 +134,18 @@ def check_evaluation_scores(eval_json, shortlist_json):
                 "eval_score": ev["score"],
             })
 
-    # Check for omissions
+    # Check for omissions (both directions)
     missing_from_eval = [
         t for t in shortlist_lookup if t not in eval_lookup
+    ]
+    extra_in_eval = [
+        t for t in eval_lookup if t not in shortlist_lookup
     ]
 
     return {
         "mismatches": mismatches,
         "missing_from_eval": missing_from_eval,
+        "extra_in_eval": extra_in_eval,
     }
 
 
@@ -323,7 +327,7 @@ def validate_recency_counts(shortlist_json, screening_data):
     """Recount deteriorating levels from raw events, compare vs flag count.
 
     Uses the FLAG threshold from surgical_filter.py verify_candidate():
-        overall_hold - recent_hold_pct > 20
+        overall_hold - recent_hold_pct > RECENCY_DROP_THRESHOLD
 
     Only iterates levels in the bullet plan (active + reserve), NOT all levels.
 
@@ -519,10 +523,12 @@ def build_report(checks, shortlist_json):
     arith_result = checks["score_arithmetic"]
     rec_result = checks["recommendation"]
 
-    score_status = "FAIL" if score_result["mismatches"] or score_result["missing_from_eval"] else "PASS"
+    score_status = "FAIL" if score_result["mismatches"] or score_result["missing_from_eval"] or score_result["extra_in_eval"] else "PASS"
     score_detail = f"{len(score_result['mismatches'])} mismatches"
     if score_result["missing_from_eval"]:
         score_detail += f", {len(score_result['missing_from_eval'])} missing from eval"
+    if score_result["extra_in_eval"]:
+        score_detail += f", {len(score_result['extra_in_eval'])} extra in eval (not in shortlist)"
 
     total_missed = sum(len(v["missed"]) for v in flag_result.values())
     flag_status = "FAIL" if total_missed > 0 else "PASS"
@@ -535,7 +541,7 @@ def build_report(checks, shortlist_json):
     dup_detail = f"{len(dup_result)} anomalies" if dup_result else "No duplicates"
 
     recency_status = "FAIL" if recency_result else "PASS"
-    recency_detail = f"{len(recency_result)} undercounts" if recency_result else "All counts verified"
+    recency_detail = f"{len(recency_result)} mismatches" if recency_result else "All counts verified"
 
     arith_status = "FAIL" if arith_result else "PASS"
     arith_detail = f"{len(arith_result)} mismatches" if arith_result else "All sums verified"
@@ -619,6 +625,13 @@ def build_report(checks, shortlist_json):
 
         lines.append("")
 
+    # Extra tickers in eval that aren't in shortlist
+    if score_result["extra_in_eval"]:
+        lines.append("### Extra Tickers in Evaluation (not in shortlist)")
+        for ticker in score_result["extra_in_eval"]:
+            lines.append(f"- **{ticker}**: evaluated but not in shortlist — possible LLM hallucination or typo")
+        lines.append("")
+
     # --- Data Quality Issues ---
     has_issues = sector_result or recency_result or dup_result
     if has_issues:
@@ -630,7 +643,7 @@ def build_report(checks, shortlist_json):
                              f"{issue['impact']}")
             lines.append("")
         if recency_result:
-            lines.append("### Recency Undercounts")
+            lines.append("### Recency Count Mismatches")
             for r in recency_result:
                 lines.append(f"- {r['ticker']}: flag says {r['flag_count']} deteriorating levels, "
                              f"actual is {r['actual_count']}")
@@ -713,7 +726,7 @@ def main():
     ]:
         result = checks[key]
         if key == "score_match":
-            n = len(result["mismatches"]) + len(result["missing_from_eval"])
+            n = len(result["mismatches"]) + len(result["missing_from_eval"]) + len(result["extra_in_eval"])
         elif key == "flag_coverage":
             n = sum(len(v["missed"]) for v in result.values())
         elif isinstance(result, list):
