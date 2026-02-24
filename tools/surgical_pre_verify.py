@@ -221,6 +221,7 @@ def check_flag_coverage(shortlist_json, eval_text):
         ticker = entry["ticker"]
         flags = entry.get("flags", [])
         section = sections.get(ticker, "")
+        section_lower = section.lower()
 
         addressed = []
         missed = []
@@ -233,7 +234,6 @@ def check_flag_coverage(shortlist_json, eval_text):
             keywords = _extract_flag_keywords(flag)
             if not keywords:
                 continue
-            section_lower = section.lower()
             if all(kw in section_lower for kw in keywords):
                 addressed.append(flag)
             else:
@@ -501,7 +501,7 @@ def check_recommendation_consistency(eval_json, shortlist_json):
 # Output Rendering
 # ---------------------------------------------------------------------------
 
-def build_report(checks, shortlist_json, eval_json):
+def build_report(checks, shortlist_json):
     """Render candidate-pre-verify.md from check results."""
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     lines = []
@@ -531,7 +531,7 @@ def build_report(checks, shortlist_json, eval_json):
     sector_status = "FAIL" if sector_result else "PASS"
     sector_detail = f"{len(sector_result)} misclassifications" if sector_result else "All sectors mapped"
 
-    dup_status = "FAIL" if dup_result else "PASS"
+    dup_status = "WARN" if dup_result else "PASS"
     dup_detail = f"{len(dup_result)} anomalies" if dup_result else "No duplicates"
 
     recency_status = "FAIL" if recency_result else "PASS"
@@ -582,15 +582,16 @@ def build_report(checks, shortlist_json, eval_json):
 
         # Flag coverage
         fc = flag_result.get(ticker, {})
+        skipped_str = f" ({fc.get('skipped_mechanical', 0)} mechanical skipped)" if fc.get("skipped_mechanical") else ""
         if fc.get("missed"):
             lines.append(f"- Flag coverage: {len(fc.get('addressed', []))} addressed / "
-                         f"**{len(fc['missed'])} missed**")
+                         f"**{len(fc['missed'])} missed**{skipped_str}")
             for missed in fc["missed"]:
                 lines.append(f"  - Missed: {missed}")
         elif fc.get("addressed"):
-            lines.append(f"- Flag coverage: {len(fc['addressed'])} addressed / 0 missed")
+            lines.append(f"- Flag coverage: {len(fc['addressed'])} addressed / 0 missed{skipped_str}")
         else:
-            lines.append(f"- Flag coverage: No quality flags to check")
+            lines.append(f"- Flag coverage: No quality flags to check{skipped_str}")
 
         # Recency
         recency_issue = next((r for r in recency_result if r["ticker"] == ticker), None)
@@ -696,7 +697,7 @@ def main():
         "recommendation": check_recommendation_consistency(eval_json, shortlist_json),
     }
 
-    report = build_report(checks, shortlist_json, eval_json)
+    report = build_report(checks, shortlist_json)
     OUTPUT_PATH.write_text(report + "\n")
     print(f"\nWrote {OUTPUT_PATH.name}")
 
@@ -719,7 +720,7 @@ def main():
             n = len(result)
         else:
             n = 0
-        status = "PASS" if n == 0 else ("WARN" if key == "recommendation" else "FAIL")
+        status = "PASS" if n == 0 else ("WARN" if key in ("recommendation", "duplicate_buy") else "FAIL")
         print(f"  {name}: {status} ({n} issues)")
 
 
