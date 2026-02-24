@@ -18,6 +18,7 @@ from wick_offset_analyzer import classify_level
 ROOT = Path(__file__).resolve().parent.parent
 INPUT_PATH = ROOT / "screening_data.json"
 OUTPUT_PATH = ROOT / "candidate_shortlist.md"
+JSON_OUTPUT_PATH = ROOT / "candidate_shortlist.json"
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -758,6 +759,33 @@ def main():
     portfolio_ctx = data.get("portfolio_context", {})
     report = build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses)
     OUTPUT_PATH.write_text(report + "\n")
+
+    # Write structured JSON for programmatic access (pre-verifier)
+    json_output = {
+        "generated": datetime.datetime.now().isoformat(timespec="seconds"),
+        "shortlist": [
+            {
+                "ticker": r["ticker"],
+                "total_score": r["total_score"],
+                "scores": r["scores"],
+                "wick_failed": r["wick_failed"],
+                "flags": r["flags"],
+                "verification": r["verification"],
+                "stress_metrics": r["stress_metrics"],
+                "passer": r["passer"],
+            }
+            for r in shortlist
+        ],
+        "all_scored": [
+            {"ticker": r["ticker"], "total_score": r["total_score"], "wick_failed": r["wick_failed"]}
+            for r in all_scored
+        ],
+    }
+    try:
+        JSON_OUTPUT_PATH.write_text(json.dumps(json_output, indent=2, default=float) + "\n")
+        print(f"Wrote {JSON_OUTPUT_PATH.name}")
+    except (OSError, IOError) as e:
+        print(f"*Warning: failed to write {JSON_OUTPUT_PATH.name}: {e} — markdown output still valid*")
 
     print(f"\nWrote {OUTPUT_PATH.name}")
     print(f"  Top {len(shortlist)}: {', '.join(r['ticker'] + '(' + str(r['total_score']) + ')' for r in shortlist)}")

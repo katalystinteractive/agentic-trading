@@ -30,6 +30,7 @@ You are the final gate. You stress-test verified candidates for reliability, tim
 - `candidate-verification.md` — verified scores and verdicts from the verifier
 - `candidate-evaluation.md` — evaluator's qualitative assessments
 - `candidate_shortlist.md` — pre-scored shortlist with mechanical verification, stress metrics, and recency analysis
+- `candidate-pre-verify.md` — mechanical pre-verification findings (score mismatches, sector issues, recency undercounts)
 - `portfolio.json` — current portfolio state (positions, capital, sectors)
 - `strategy.md` — the master strategy rulebook
 
@@ -37,7 +38,7 @@ You are the final gate. You stress-test verified candidates for reliability, tim
 
 ### Step 1: Read All Inputs
 
-Read all five files. Only consider candidates with PASS or FLAG verdicts from the verifier. Exclude any FAIL candidates immediately.
+Read all six files. Start with `candidate-pre-verify.md` to understand any mechanical issues discovered by the pre-verifier. Only consider candidates with PASS or FLAG verdicts from the verifier. Exclude any FAIL candidates immediately.
 
 ### Step 2: Stress-Test Each Candidate
 

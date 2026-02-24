@@ -84,6 +84,12 @@ SECTOR_MAP = {
     "GRAB": "Tech", "SE": "Tech", "CPNG": "Retail",
     "DUOL": "Tech", "MNDY": "Tech", "GLBE": "Tech", "CAVA": "Retail",
     "CART": "Retail", "DLO": "Fintech",
+    # Portfolio tickers not in screening universe
+    "IONQ": "Quantum", "ACHR": "eVTOL", "APLD": "Crypto",
+    "CIFR": "Crypto", "CLF": "Steel", "INTC": "Semi",
+    "NU": "Fintech", "STIM": "Biotech",
+    "UAMY": "Materials", "USAR": "Materials", "AR": "Energy",
+    "VALE": "Mining", "RKT": "Fintech", "SEDG": "Solar",
     # REITs
     "AGNC": "REIT", "NLY": "REIT", "MPW": "REIT",
     # Telecom / Media
