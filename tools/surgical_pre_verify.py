@@ -350,7 +350,7 @@ def validate_recency_counts(shortlist_json, screening_data):
         # Parse flag count from shortlist flags
         flag_count = 0
         for f in entry.get("flags", []):
-            m = re.match(r'Recency deterioration:\s*(\d+)\s*level', f)
+            m = re.match(r'Recency deterioration:\s*(\d+)\s+level', f, re.IGNORECASE)
             if m:
                 flag_count = int(m.group(1))
                 break
@@ -528,7 +528,8 @@ def build_report(checks, shortlist_json):
     arith_result = checks["score_arithmetic"]
     rec_result = checks["recommendation"]
 
-    score_status = "FAIL" if score_result["mismatches"] or score_result["missing_from_eval"] or score_result["extra_in_eval"] else "PASS"
+    has_hard_fail = score_result["mismatches"] or score_result["missing_from_eval"]
+    score_status = "FAIL" if has_hard_fail else ("WARN" if score_result["extra_in_eval"] else "PASS")
     score_detail = f"{len(score_result['mismatches'])} mismatches"
     if score_result["missing_from_eval"]:
         score_detail += f", {len(score_result['missing_from_eval'])} missing from eval"
@@ -741,7 +742,14 @@ def main():
             n = len(result)
         else:
             n = 0
-        status = "PASS" if n == 0 else ("WARN" if key in ("recommendation", "duplicate_buy") else "FAIL")
+        if n == 0:
+            status = "PASS"
+        elif key in ("recommendation", "duplicate_buy"):
+            status = "WARN"
+        elif key == "score_match" and not result["mismatches"] and not result["missing_from_eval"]:
+            status = "WARN"  # Only extra_in_eval — data quality, not score integrity
+        else:
+            status = "FAIL"
         print(f"  {name}: {status} ({n} issues)")
 
 
