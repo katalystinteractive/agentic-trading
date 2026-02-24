@@ -57,6 +57,7 @@ SECTOR_CONCENTRATION_LIMIT = 3
 # Verification thresholds
 SAMPLE_SIZE_MIN = 3
 RECENCY_WINDOW_DAYS = 90
+RECENCY_DROP_THRESHOLD = 20  # overall_hold - recent_hold > this → flag (imported by surgical_pre_verify.py)
 GAP_FLAG_PCT = 20.0  # informational flag threshold (more sensitive than scoring penalty)
 
 # Output
@@ -306,7 +307,7 @@ def verify_candidate(ticker, wick_data, capital_config):
             "trend": trend,
         })
 
-        if recent_hold_pct is not None and overall_hold - recent_hold_pct > 20:
+        if recent_hold_pct is not None and overall_hold - recent_hold_pct > RECENCY_DROP_THRESHOLD:
             recency_flags.append(
                 f"${b['support_price']}: recent hold {recent_hold_pct:.0f}% vs overall {overall_hold:.0f}%"
             )
@@ -485,6 +486,8 @@ def filter_and_score(data):
         stress = compute_stress_metrics(ticker, wick, passer, portfolio_ctx, capital_config)
 
         # Build flags
+        # NOTE: Flag string formats are parsed by surgical_pre_verify.py _is_mechanical_flag().
+        # If you change the wording/format below, update the regex patterns there too.
         flags = list(verification["issues"])
         if verification["sample_size_flags"]:
             flags.append(f"Sample size weak: {len(verification['sample_size_flags'])} "

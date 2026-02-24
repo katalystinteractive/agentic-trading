@@ -16,6 +16,7 @@ from pathlib import Path
 # Same-directory imports
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from surgical_screener import SECTOR_MAP
+from surgical_filter import RECENCY_WINDOW_DAYS, RECENCY_DROP_THRESHOLD
 
 ROOT = Path(__file__).resolve().parent.parent
 SCREENING_DATA_PATH = ROOT / "screening_data.json"
@@ -24,8 +25,7 @@ EVAL_JSON_PATH = ROOT / "candidate-evaluation.json"
 EVAL_MD_PATH = ROOT / "candidate-evaluation.md"
 OUTPUT_PATH = ROOT / "candidate-pre-verify.md"
 
-# Recency flag threshold — matches surgical_filter.py verify_candidate()
-RECENCY_FLAG_THRESHOLD = 20
+VALID_RECOMMENDATIONS = {"Onboard", "Watch", "Monitor"}
 
 
 # ---------------------------------------------------------------------------
@@ -40,12 +40,20 @@ def validate_inputs():
     if not SCREENING_DATA_PATH.exists():
         print(f"*Error: {SCREENING_DATA_PATH.name} not found — run surgical_screener.py first*")
         sys.exit(1)
-    screening_data = json.loads(SCREENING_DATA_PATH.read_text())
+    try:
+        screening_data = json.loads(SCREENING_DATA_PATH.read_text())
+    except json.JSONDecodeError as e:
+        print(f"*Error: {SCREENING_DATA_PATH.name} is malformed JSON: {e}*")
+        sys.exit(1)
 
     if not JSON_INPUT_PATH.exists():
         print(f"*Error: {JSON_INPUT_PATH.name} not found — run surgical_filter.py first*")
         sys.exit(1)
-    shortlist_json = json.loads(JSON_INPUT_PATH.read_text())
+    try:
+        shortlist_json = json.loads(JSON_INPUT_PATH.read_text())
+    except json.JSONDecodeError as e:
+        print(f"*Error: {JSON_INPUT_PATH.name} is malformed JSON: {e}*")
+        sys.exit(1)
     if len(shortlist_json.get("shortlist", [])) == 0:
         print(f"*Error: {JSON_INPUT_PATH.name} has empty shortlist — nothing to verify*")
         sys.exit(1)
@@ -53,7 +61,11 @@ def validate_inputs():
     if not EVAL_JSON_PATH.exists():
         print(f"*Error: {EVAL_JSON_PATH.name} not found — evaluator must write JSON output*")
         sys.exit(1)
-    eval_json = json.loads(EVAL_JSON_PATH.read_text())
+    try:
+        eval_json = json.loads(EVAL_JSON_PATH.read_text())
+    except json.JSONDecodeError as e:
+        print(f"*Error: {EVAL_JSON_PATH.name} is malformed JSON: {e}*")
+        sys.exit(1)
     if len(eval_json.get("candidates", [])) == 0:
         print(f"*Error: {EVAL_JSON_PATH.name} has empty candidates list*")
         sys.exit(1)
@@ -69,6 +81,10 @@ def validate_inputs():
         if not isinstance(cand.get("key_flags"), list):
             print(f"*Error: {EVAL_JSON_PATH.name} candidate #{i+1} key_flags must be a list*")
             sys.exit(1)
+        rec = cand.get("recommendation", "")
+        if rec not in VALID_RECOMMENDATIONS:
+            print(f"*Warning: {EVAL_JSON_PATH.name} candidate #{i+1} ({cand.get('ticker', '?')}) "
+                  f"has unexpected recommendation \"{rec}\" — expected one of {sorted(VALID_RECOMMENDATIONS)}*")
 
     if not EVAL_MD_PATH.exists():
         print(f"*Error: {EVAL_MD_PATH.name} not found — evaluator phase must complete first*")
@@ -97,7 +113,7 @@ def validate_inputs():
 def check_evaluation_scores(eval_json, shortlist_json):
     """Compare evaluator's scores/recommendations against shortlist JSON.
 
-    Returns: {"mismatches": [...], "missing_from_eval": [...], "eval_lookup": {}}
+    Returns: {"mismatches": [...], "missing_from_eval": [...]}
     """
     shortlist_lookup = {
         entry["ticker"]: entry for entry in shortlist_json["shortlist"]
@@ -126,7 +142,6 @@ def check_evaluation_scores(eval_json, shortlist_json):
     return {
         "mismatches": mismatches,
         "missing_from_eval": missing_from_eval,
-        "eval_lookup": eval_lookup,
     }
 
 
@@ -135,7 +150,13 @@ def check_evaluation_scores(eval_json, shortlist_json):
 # ---------------------------------------------------------------------------
 
 def _split_eval_sections(eval_text):
-    """Split evaluation markdown into per-ticker sections."""
+    """Split evaluation markdown into per-ticker sections.
+
+    Header format depends on evaluator LLM output. Pattern matches:
+      ## Candidate #1: RGTI   /  ## 1: RGTI  /  ## Candidate 1 — RGTI
+    If zero sections parsed, prints a warning — likely the LLM used an
+    unexpected header format and all flags will report as "missed".
+    """
     pattern = re.compile(r'##\s+(?:Candidate\s+)?#?\d+[:\s—–-]+([A-Z]+)', re.IGNORECASE)
     sections = {}
     matches = list(pattern.finditer(eval_text))
@@ -144,6 +165,9 @@ def _split_eval_sections(eval_text):
         start = m.start()
         end = matches[i + 1].start() if i + 1 < len(matches) else len(eval_text)
         sections[ticker] = eval_text[start:end]
+    if not sections and eval_text.strip():
+        print("*Warning: could not parse any per-ticker sections from candidate-evaluation.md "
+              "— flag coverage check may report false misses*")
     return sections
 
 
@@ -330,13 +354,13 @@ def validate_recency_counts(shortlist_json, screening_data):
         for b in bp.get("active", []) + bp.get("reserve", []):
             bp_support_prices.add(round(b["support_price"], 2))
 
-        # Compute 90-day cutoff from wick data's last_date
+        # Compute cutoff from wick data's last_date using shared constant
         last_date_str = wick.get("last_date", "")
         try:
             last_date = datetime.datetime.strptime(last_date_str, "%Y-%m-%d")
         except (ValueError, TypeError):
             last_date = datetime.datetime.now()
-        cutoff = last_date - datetime.timedelta(days=90)
+        cutoff = last_date - datetime.timedelta(days=RECENCY_WINDOW_DAYS)
 
         # Count deteriorating levels among bullet plan levels
         actual_count = 0
@@ -365,7 +389,7 @@ def validate_recency_counts(shortlist_json, screening_data):
             recent_held = sum(1 for e in recent_events if e["held"])
             recent_hold_pct = round(recent_held / len(recent_events) * 100, 1)
 
-            if overall_hold - recent_hold_pct > RECENCY_FLAG_THRESHOLD:
+            if overall_hold - recent_hold_pct > RECENCY_DROP_THRESHOLD:
                 actual_count += 1
                 details.append({
                     "support_price": lvl["support_price"],
@@ -542,7 +566,6 @@ def build_report(checks, shortlist_json, eval_json):
 
     # --- Per-Ticker Findings ---
     lines.append("## Per-Ticker Findings")
-    eval_lookup = checks["score_match"].get("eval_lookup", {})
     for entry in shortlist_json["shortlist"]:
         ticker = entry["ticker"]
         lines.append(f"### {ticker}")
