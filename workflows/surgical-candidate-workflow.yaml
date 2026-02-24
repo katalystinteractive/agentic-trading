@@ -1,44 +1,48 @@
 name: surgical-candidate-workflow
 description: >
-  Screen, verify, and select surgical mean-reversion candidates.
-  Phase 1 runs screener script and grades 20 candidates.
-  Phase 2 verifies grades against raw data.
-  Phase 3 stress-tests for reliability and portfolio fit, producing final top 3.
+  Screen, filter, evaluate, and select surgical mean-reversion candidates.
+  Phase 1 runs data collection (screening_data.json) and mechanical scoring
+  (candidate_shortlist.md). Evaluator adds qualitative assessment.
+  Phase 2 verifies reasoning. Phase 3 stress-tests and produces final top 3.
 
-version: "1.0.0"
+version: "2.0.0"
 
 phases:
   - id: screen
-    name: Candidate Screening
-    description: Run surgical_screener.py, grade top 20 on 100-point scale, select top 10
-    agent: surgical-screener
+    name: Candidate Screening & Evaluation
+    description: >
+      Run surgical_screener.py (data collection) and surgical_filter.py
+      (mechanical scoring), then qualitatively evaluate pre-scored top 7
+    agent: surgical-evaluator
     artifacts:
-      - screening_data.md
+      - screening_data.json
+      - candidate_shortlist.md
       - candidate-evaluation.md
     timeout_minutes: 20
 
   - id: verify
-    name: Candidate Verification
-    description: Cross-reference grades against raw wick data, check for errors and missed flags
+    name: Qualitative Verification
+    description: Verify evaluator reasoning against pre-scored shortlist data, adjust scores +/-10
     agent: surgical-verifier
     depends_on:
       - screen
     requires:
-      - screening_data.md
+      - candidate_shortlist.md
       - candidate-evaluation.md
     artifacts:
       - candidate-verification.md
-    timeout_minutes: 15
+    timeout_minutes: 10
 
   - id: critic
     name: Final Selection
-    description: Stress-test for reliability, portfolio fit, entry timing. Produce ranked top 3.
+    description: Stress-test using pre-computed metrics, comparative ranking, produce top 3
     agent: surgical-critic
     depends_on:
       - verify
     requires:
       - candidate-evaluation.md
       - candidate-verification.md
+      - candidate_shortlist.md
     artifacts:
       - candidate-final.md
     timeout_minutes: 10

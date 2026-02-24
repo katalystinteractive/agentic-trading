@@ -3,7 +3,7 @@
 Collects ALL data upfront so workflow agents can evaluate without network calls.
 Stage 1: Batch swing screen ~150 tickers through surgical gates.
 Stage 2: Deep wick analysis on top 20 passers.
-Stage 3: Build screening_data.md with all results + portfolio context.
+Stage 3: Build screening_data.json with all results + portfolio context.
 
 Usage:
     python3 tools/surgical_screener.py
@@ -19,14 +19,11 @@ from pathlib import Path
 # Same-directory imports (our convention)
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from bounce_screener import TICKERS, get_excluded_tickers
-from wick_offset_analyzer import (
-    fetch_history, compute_monthly_swing, compute_swing_consistency,
-    analyze_stock,
-)
+from wick_offset_analyzer import analyze_stock_data, load_capital_config
 
 ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = ROOT / "portfolio.json"
-OUTPUT_PATH = ROOT / "screening_data.md"
+OUTPUT_PATH = ROOT / "screening_data.json"
 
 # --- Surgical gates ---
 MIN_SWING_PCT = 10.0
@@ -200,7 +197,7 @@ def batch_swing_screen():
 
 
 def deep_wick_analysis(passers, top_n=20):
-    """Run full wick offset analysis on top N candidates."""
+    """Run full wick offset analysis on top N candidates. Returns structured dicts."""
     candidates = passers[:top_n]
     print(f"\n[Stage 2] Deep wick analysis on top {len(candidates)} candidates...")
 
@@ -209,12 +206,12 @@ def deep_wick_analysis(passers, top_n=20):
         ticker = p["ticker"]
         print(f"  [{i}/{len(candidates)}] {ticker}...", end=" ", flush=True)
         try:
-            report = analyze_stock(ticker)
-            if report:
-                results[ticker] = report
+            data, error = analyze_stock_data(ticker)
+            if data:
+                results[ticker] = data
                 print("OK")
             else:
-                print("no data")
+                print(f"no data ({error})" if error else "no data")
         except Exception as e:
             print(f"ERROR: {e}")
 
@@ -248,80 +245,35 @@ def get_portfolio_context():
     }
 
 
-def build_screening_report(screen_results, wick_results, portfolio_ctx):
-    """Build and write screening_data.md with all collected data."""
-    lines = []
-    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-
-    lines.append(f"# Surgical Candidate Screening Data")
-    lines.append(f"*Generated: {now}*")
-    lines.append("")
-
-    # Section 1: Screening Summary
-    lines.append("## 1. Gate Passers — All Candidates")
-    lines.append(f"*{len(screen_results)} tickers passed all surgical gates "
-                 f"(10%+ swing, 80%+ consistency, $3-$60, 500K+ vol)*")
-    lines.append("")
-    lines.append("| # | Ticker | Swing% | Consistency% | Price | Avg Vol | Sector |")
-    lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
-    for i, r in enumerate(screen_results, 1):
-        vol_str = f"{r['avg_vol']/1e6:.1f}M"
-        lines.append(f"| {i} | {r['ticker']} | {r['median_swing']}% "
-                     f"| {r['consistency']}% | ${r['price']:.2f} | {vol_str} | {r['sector']} |")
-    lines.append("")
-
-    # Section 2: Deep Wick Analysis
-    top_n = min(20, len(screen_results))
-    lines.append(f"## 2. Deep Wick Analysis — Top {top_n} Candidates")
-    lines.append("")
-    for ticker in [r["ticker"] for r in screen_results[:top_n]]:
-        if ticker in wick_results:
-            lines.append(f"### {ticker}")
-            lines.append(wick_results[ticker])
-            lines.append("")
-            lines.append("---")
-            lines.append("")
-        else:
-            lines.append(f"### {ticker}")
-            lines.append(f"*Wick analysis failed or returned no data for {ticker}.*")
-            lines.append("")
-
-    # Section 3: Portfolio Context
-    lines.append("## 3. Portfolio Context")
-    lines.append("")
-    lines.append("### Current Positions")
-    if portfolio_ctx["position_tickers"]:
-        lines.append(f"**Active:** {', '.join(portfolio_ctx['position_tickers'])}")
-    else:
-        lines.append("*No active positions.*")
-    lines.append("")
-
-    lines.append("### Watchlist")
-    if portfolio_ctx["watchlist"]:
-        lines.append(f"**Watching:** {', '.join(portfolio_ctx['watchlist'])}")
-    else:
-        lines.append("*Empty watchlist.*")
-    lines.append("")
-
-    lines.append("### Sectors Already Held")
-    if portfolio_ctx["sectors"]:
-        lines.append("| Sector | Tickers |")
-        lines.append("| :--- | :--- |")
-        for sector, tickers in sorted(portfolio_ctx["sectors"].items()):
-            lines.append(f"| {sector} | {', '.join(sorted(tickers))} |")
-    else:
-        lines.append("*No sector data.*")
-    lines.append("")
-
-    report = "\n".join(lines)
-    OUTPUT_PATH.write_text(report + "\n")
+def build_screening_json(screen_results, wick_results, portfolio_ctx):
+    """Build and write screening_data.json."""
+    output = {
+        "generated": datetime.datetime.now().isoformat(timespec="seconds"),
+        "gates": {
+            "min_swing_pct": MIN_SWING_PCT,
+            "min_consistency_pct": MIN_CONSISTENCY_PCT,
+            "min_price": MIN_PRICE,
+            "max_price": MAX_PRICE,
+            "min_avg_vol": MIN_AVG_VOL,
+        },
+        "total_passers": len(screen_results),
+        "passers": screen_results,
+        "wick_analyses": wick_results,
+        "portfolio_context": portfolio_ctx,
+        "capital_config": load_capital_config(),
+    }
+    # default=float as safety net for any stray numpy types in batch_swing_screen() output
+    OUTPUT_PATH.write_text(json.dumps(output, indent=2, default=float) + "\n")
     print(f"\n[Stage 3] Wrote {OUTPUT_PATH.name} ({len(screen_results)} passers, "
           f"{len(wick_results)} wick analyses)")
-    return report
+    # Clean up stale markdown file
+    stale_md = ROOT / "screening_data.md"
+    stale_md.unlink(missing_ok=True)
+    return output
 
 
 def run_screener():
-    """Full pipeline: screen -> wick analysis -> write report."""
+    """Full pipeline: screen -> wick analysis -> write JSON."""
     print("=" * 60)
     print("  Surgical Candidate Screener")
     print("=" * 60)
@@ -333,9 +285,9 @@ def run_screener():
 
     wick_results = deep_wick_analysis(screen_results, top_n=20)
     portfolio_ctx = get_portfolio_context()
-    build_screening_report(screen_results, wick_results, portfolio_ctx)
+    build_screening_json(screen_results, wick_results, portfolio_ctx)
 
-    print("\nDone. Agents can now evaluate screening_data.md.")
+    print("\nDone. Run surgical_filter.py next.")
 
 
 if __name__ == "__main__":

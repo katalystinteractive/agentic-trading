@@ -47,6 +47,8 @@ def load_capital_config():
     portfolio = _load_portfolio()
     cap = portfolio.get("capital", {})
     return {
+        "active_pool": cap.get("active_pool", 300),
+        "reserve_pool": cap.get("reserve_pool", 300),
         "active_bullets_max": cap.get("active_bullets_max", 5),
         "reserve_bullets_max": cap.get("reserve_bullets_max", 3),
         "active_bullet_full": cap.get("active_bullet_full", 60),
@@ -298,21 +300,71 @@ def fmt_pct(val):
     return f"{sign}{val:.2f}%"
 
 
-def analyze_stock(ticker):
-    """Full per-stock, per-level analysis. Returns report string.
+def _compute_bullet_plan(level_results, current_price):
+    """Build structured bullet plan from level results.
 
-    If monthly swing data is insufficient (< 3 complete months),
-    active_radius defaults to 15% as a fallback.
+    INPUT: level_results in INTERNAL format (r["level"]["price"], r["recommended_buy"]).
+    OUTPUT: dict with FLATTENED keys (bullet["support_price"], bullet["buy_at"]).
+    Called ONCE inside analyze_stock_data() before JSON serialization.
+    Result is cached in JSON as data["bullet_plan"].
+    surgical_filter.py reads the cached plan — never calls this function.
+    Always returns {"active": [...], "reserve": [...], ...} — empty lists, never None.
     """
-    lines = []
+    cap = load_capital_config()
+    active_candidates = [r for r in level_results
+                         if r["zone"] == "Active" and r["tier"] != "Skip"
+                         and r["recommended_buy"] and r["recommended_buy"] < current_price]
+    active_candidates.sort(key=lambda r: r["recommended_buy"], reverse=True)
+    active_bullets = active_candidates[:cap["active_bullets_max"]]
+
+    reserve_candidates = [r for r in level_results
+                          if r["zone"] == "Reserve" and r["tier"] in ("Full", "Std")
+                          and r["recommended_buy"] and r["recommended_buy"] < current_price]
+    reserve_candidates.sort(key=lambda r: -r["hold_rate"])
+    reserve_bullets = reserve_candidates[:cap["reserve_bullets_max"]]
+    reserve_bullets.sort(key=lambda r: -r["recommended_buy"])
+
+    def _bullet_entry(r, zone_label):
+        buy = r["recommended_buy"]
+        size = cap["active_bullet_half"] if r["tier"] == "Half" else (
+            cap["active_bullet_full"] if zone_label == "Active" else cap["reserve_bullet_size"])
+        shares = max(1, int(size / buy))
+        return {
+            "zone": zone_label,
+            "support_price": round(float(r["level"]["price"]), 2),
+            "buy_at": round(float(buy), 2),
+            "hold_rate": round(float(r["hold_rate"]), 1),
+            "tier": r["tier"],
+            "approaches": int(r["total_approaches"]),
+            "shares": int(shares),
+            "cost": round(shares * buy, 2),
+        }
+
+    active = [_bullet_entry(r, "Active") for r in active_bullets]
+    reserve = [_bullet_entry(r, "Reserve") for r in reserve_bullets]
+
+    return {
+        "active": active,
+        "reserve": reserve,
+        "active_total_cost": round(sum(b["cost"] for b in active), 2),
+        "reserve_total_cost": round(sum(b["cost"] for b in reserve), 2),
+        "active_bullet_count": len(active),
+        "reserve_bullet_count": len(reserve),
+    }
+
+
+def analyze_stock_data(ticker):
+    """Full per-stock, per-level analysis. Returns (data_dict, error_str) tuple.
+
+    Returns (dict, None) on success, (None, "reason") on failure.
+    NEVER prints — pure data function for batch callers.
+    """
     try:
         hist = fetch_history(ticker, months=13)
     except Exception as e:
-        print(f"*Error fetching data for {ticker}: {e}*")
-        return None
+        return None, f"*Error fetching data for {ticker}: {e}*"
     if hist.empty or len(hist) < 60:
-        print(f"*Skipping {ticker} — insufficient data (need 60+ trading days)*")
-        return None
+        return None, f"*Skipping {ticker} — insufficient data (need 60+ trading days)*"
 
     current_price = hist["Close"].iloc[-1]
     last_date = hist.index[-1].strftime("%Y-%m-%d")
@@ -323,8 +375,7 @@ def analyze_stock(ticker):
     levels = merge_levels(hvn_floors, pa_supports, current_price)
 
     if not levels:
-        print(f"*No support levels found below current price for {ticker}*")
-        return None
+        return None, f"*No support levels found below current price for {ticker}*"
 
     # Analyze approaches at each level
     level_results = []
@@ -337,7 +388,7 @@ def analyze_stock(ticker):
         held_offsets = [e["offset_pct"] for e in held_events]
 
         if held_offsets:
-            median_offset = np.median(held_offsets)
+            median_offset = float(np.median(held_offsets))
             recommended_buy = lvl["price"] * (1 + median_offset / 100)
         else:
             median_offset = None
@@ -361,110 +412,133 @@ def analyze_stock(ticker):
     # Add zone/tier classification to each level result
     for r in level_results:
         lvl_price = r["level"]["price"]
-        # gap_pct measured from current_price — matches header text ("within X% of current price")
-        # and strategy.md ("within half the stock's median monthly swing from current price")
         gap_pct = ((current_price - lvl_price) / current_price) * 100
         zone, tier = classify_level(r["hold_rate"], gap_pct, active_radius, r["total_approaches"])
         r["zone"] = zone
         r["tier"] = tier
         r["gap_pct"] = gap_pct
 
-    # Build report
+    # Build structured output — all values must be Python-native types
+    data = {
+        "current_price": float(current_price),
+        "last_date": last_date,
+        "monthly_swing": round(float(monthly_swing), 1) if monthly_swing is not None else None,
+        "swing_consistency": round(float(swing_consistency), 1) if swing_consistency is not None else None,
+        "active_radius": round(float(active_radius), 1),
+        "levels": [
+            {
+                "support_price": round(float(r["level"]["price"]), 4),
+                "source": r["level"]["source"],
+                "total_approaches": int(r["total_approaches"]),
+                "held": int(r["held"]),
+                "hold_rate": round(float(r["hold_rate"]), 1),
+                "median_offset": round(float(r["median_offset"]), 2) if r["median_offset"] is not None else None,
+                "recommended_buy": round(float(r["recommended_buy"]), 2) if r["recommended_buy"] is not None else None,
+                "zone": r["zone"],
+                "tier": r["tier"],
+                "gap_pct": round(float(r["gap_pct"]), 1),
+                "events": [
+                    {
+                        "date": e["start"],
+                        "min_low": round(float(e["min_low"]), 2),
+                        "offset_pct": round(float(e["offset_pct"]), 2),
+                        "held": bool(e["held"]),
+                    }
+                    for e in r["events"]
+                ],
+            }
+            for r in level_results
+        ],
+        "bullet_plan": _compute_bullet_plan(level_results, current_price),
+    }
+
+    return data, None
+
+
+def _format_stock_report(ticker, data):
+    """Format structured data dict into the existing markdown report.
+
+    Uses data["bullet_plan"] directly — does NOT recompute bullet selection.
+    """
+    lines = []
+
+    # Header
     lines.append(f"*Generated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}*")
     lines.append("")
-    lines.append(f"## Wick Offset Analysis: {ticker} (13-Month, as of {last_date})")
-    lines.append(f"**Current Price: {fmt_dollar(current_price)}**")
-    if monthly_swing is not None:
-        consistency_str = f" | {swing_consistency:.0f}% of months hit 10%+" if swing_consistency is not None else ""
-        lines.append(f"**Monthly Swing: {monthly_swing:.1f}%**{consistency_str} | Active Zone: within {active_radius:.1f}% of current price")
+    lines.append(f"## Wick Offset Analysis: {ticker} (13-Month, as of {data['last_date']})")
+    lines.append(f"**Current Price: {fmt_dollar(data['current_price'])}**")
+    if data["monthly_swing"] is not None:
+        consistency_str = f" | {data['swing_consistency']:.0f}% of months hit 10%+" if data["swing_consistency"] is not None else ""
+        lines.append(f"**Monthly Swing: {data['monthly_swing']:.1f}%**{consistency_str} | Active Zone: within {data['active_radius']:.1f}% of current price")
     else:
-        lines.append(f"**Monthly Swing: N/A** (< 3 months data) | Active Zone: using {active_radius:.1f}% fallback radius")
+        lines.append(f"**Monthly Swing: N/A** (< 3 months data) | Active Zone: using {data['active_radius']:.1f}% fallback radius")
     lines.append("")
 
     # Summary table
     lines.append("### Support Levels & Buy Recommendations")
     lines.append("| Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier |")
     lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
-    for r in level_results:
-        lvl = r["level"]
-        if r["recommended_buy"] and r["recommended_buy"] >= current_price:
-            buy_str = f"{fmt_dollar(r['recommended_buy'])} ↑above"
-        elif r["recommended_buy"]:
-            buy_str = fmt_dollar(r["recommended_buy"])
+    for lvl in data["levels"]:
+        if lvl["recommended_buy"] is not None and lvl["recommended_buy"] >= data["current_price"]:
+            buy_str = f"{fmt_dollar(lvl['recommended_buy'])} ↑above"
+        elif lvl["recommended_buy"] is not None:
+            buy_str = fmt_dollar(lvl["recommended_buy"])
         else:
             buy_str = "N/A (no holds)"
-        offset_str = fmt_pct(r["median_offset"]) if r["median_offset"] is not None else "N/A"
+        offset_str = fmt_pct(lvl["median_offset"]) if lvl["median_offset"] is not None else "N/A"
         lines.append(
-            f"| {fmt_dollar(lvl['price'])} | {lvl['source']} "
-            f"| {r['total_approaches']} | {r['held']} "
-            f"| {r['hold_rate']:.0f}% | {offset_str} "
-            f"| {buy_str} | {r['zone']} | {r['tier']} |"
+            f"| {fmt_dollar(lvl['support_price'])} | {lvl['source']} "
+            f"| {lvl['total_approaches']} | {lvl['held']} "
+            f"| {lvl['hold_rate']:.0f}% | {offset_str} "
+            f"| {buy_str} | {lvl['zone']} | {lvl['tier']} |"
         )
     lines.append("")
 
     # Per-level approach detail
-    for r in level_results:
-        lvl = r["level"]
-        if not r["events"]:
+    for lvl in data["levels"]:
+        if not lvl["events"]:
             continue
-        lines.append(f"### Detail: {fmt_dollar(lvl['price'])} ({lvl['source']})")
+        lines.append(f"### Detail: {fmt_dollar(lvl['support_price'])} ({lvl['source']})")
         lines.append("| Date | Wick Low | Offset | Held |")
         lines.append("| :--- | :--- | :--- | :--- |")
-        for e in r["events"]:
+        for e in lvl["events"]:
             held_str = "Yes" if e["held"] else "**BROKE**"
-            lines.append(f"| {e['start']} | {fmt_dollar(e['min_low'])} | {fmt_pct(e['offset_pct'])} | {held_str} |")
+            lines.append(f"| {e['date']} | {fmt_dollar(e['min_low'])} | {fmt_pct(e['offset_pct'])} | {held_str} |")
         lines.append("")
 
-    # Suggested bullet plan
-    cap = load_capital_config()
+    # Bullet plan from pre-computed data
+    bp = data["bullet_plan"]
     lines.append("### Suggested Bullet Plan")
-    if monthly_swing is not None:
-        lines.append(f"*Based on {monthly_swing:.1f}% monthly swing — Active zone within {active_radius:.1f}% of current price.*")
+    if data["monthly_swing"] is not None:
+        lines.append(f"*Based on {data['monthly_swing']:.1f}% monthly swing — Active zone within {data['active_radius']:.1f}% of current price.*")
     lines.append("")
 
-    # Active bullets: up to N from Active zone, tier != Skip (Half allowed — lighter position at speed bumps)
-    active_candidates = [r for r in level_results if r["zone"] == "Active" and r["tier"] != "Skip" and r["recommended_buy"] and r["recommended_buy"] < current_price]
-    active_candidates.sort(key=lambda r: r["recommended_buy"], reverse=True)
-    active_bullets = active_candidates[:cap["active_bullets_max"]]
-
-    # Reserve bullets: up to N from Reserve zone, Full or Std only (deep levels need proven reliability)
-    reserve_candidates = [r for r in level_results if r["zone"] == "Reserve" and r["tier"] in ("Full", "Std") and r["recommended_buy"] and r["recommended_buy"] < current_price]
-    reserve_candidates.sort(key=lambda r: -r["hold_rate"])
-    reserve_bullets = reserve_candidates[:cap["reserve_bullets_max"]]
-    # Re-sort selected reserves by price descending for intuitive cascade display
-    reserve_bullets.sort(key=lambda r: -r["recommended_buy"])
-
-    if active_bullets or reserve_bullets:
+    if bp["active"] or bp["reserve"]:
         lines.append("| # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |")
         lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         bullet_num = 1
-        for r in active_bullets:
-            buy_price = r["recommended_buy"]
-            size = cap["active_bullet_half"] if r["tier"] == "Half" else cap["active_bullet_full"]
-            shares = max(1, int(size / buy_price))
-            cost = round(shares * buy_price, 2)
+        for b in bp["active"]:
             lines.append(
-                f"| {bullet_num} | Active | {fmt_dollar(r['level']['price'])} "
-                f"| {fmt_dollar(buy_price)} | {r['hold_rate']:.0f}% | {r['tier']} "
-                f"| {shares} | ${cost:.2f} |"
+                f"| {bullet_num} | Active | {fmt_dollar(b['support_price'])} "
+                f"| {fmt_dollar(b['buy_at'])} | {b['hold_rate']:.0f}% | {b['tier']} "
+                f"| {b['shares']} | ${b['cost']:.2f} |"
             )
             bullet_num += 1
-        for r in reserve_bullets:
-            buy_price = r["recommended_buy"]
-            size = cap["reserve_bullet_size"]
-            shares = max(1, int(size / buy_price))
-            cost = round(shares * buy_price, 2)
+        for b in bp["reserve"]:
             lines.append(
-                f"| {bullet_num} | Reserve | {fmt_dollar(r['level']['price'])} "
-                f"| {fmt_dollar(buy_price)} | {r['hold_rate']:.0f}% | {r['tier']} "
-                f"| {shares} | ${cost:.2f} |"
+                f"| {bullet_num} | Reserve | {fmt_dollar(b['support_price'])} "
+                f"| {fmt_dollar(b['buy_at'])} | {b['hold_rate']:.0f}% | {b['tier']} "
+                f"| {b['shares']} | ${b['cost']:.2f} |"
             )
             bullet_num += 1
         lines.append("")
         # Flag Active levels excluded by above-market guard
-        above_market = [r for r in level_results if r["zone"] == "Active" and r["tier"] != "Skip" and r["recommended_buy"] and r["recommended_buy"] >= current_price]
+        above_market = [lvl for lvl in data["levels"]
+                        if lvl["zone"] == "Active" and lvl["tier"] != "Skip"
+                        and lvl["recommended_buy"] is not None
+                        and lvl["recommended_buy"] >= data["current_price"]]
         if above_market:
-            excluded_str = ", ".join(fmt_dollar(r["level"]["price"]) for r in above_market)
+            excluded_str = ", ".join(fmt_dollar(lvl["support_price"]) for lvl in above_market)
             lines.append(f"*Note: {len(above_market)} Active level(s) excluded — buy price at or above current price: {excluded_str}*")
         lines.append("*Bullet plan is a suggestion — adjust based on cycle timing and position.*")
     else:
@@ -472,6 +546,19 @@ def analyze_stock(ticker):
     lines.append("")
 
     return "\n".join(lines)
+
+
+def analyze_stock(ticker):
+    """Full per-stock, per-level analysis. Returns markdown report string.
+
+    Preserves ALL CLI error messages from the original implementation
+    by printing the error string returned by analyze_stock_data().
+    """
+    data, error = analyze_stock_data(ticker)
+    if data is None:
+        print(error)
+        return None
+    return _format_stock_report(ticker, data)
 
 
 def main():
