@@ -300,7 +300,7 @@ def fmt_pct(val):
     return f"{sign}{val:.2f}%"
 
 
-def _compute_bullet_plan(level_results, current_price):
+def _compute_bullet_plan(level_results, current_price, cap=None):
     """Build structured bullet plan from level results.
 
     INPUT: level_results in INTERNAL format (r["level"]["price"], r["recommended_buy"]).
@@ -310,7 +310,8 @@ def _compute_bullet_plan(level_results, current_price):
     surgical_filter.py reads the cached plan — never calls this function.
     Always returns {"active": [...], "reserve": [...], ...} — empty lists, never None.
     """
-    cap = load_capital_config()
+    if cap is None:
+        cap = load_capital_config()
     active_candidates = [r for r in level_results
                          if r["zone"] == "Active" and r["tier"] != "Skip"
                          and r["recommended_buy"] and r["recommended_buy"] < current_price]
@@ -449,7 +450,7 @@ def analyze_stock_data(ticker):
             }
             for r in level_results
         ],
-        "bullet_plan": _compute_bullet_plan(level_results, current_price),
+        "bullet_plan": _compute_bullet_plan(level_results, current_price, load_capital_config()),
     }
 
     return data, None

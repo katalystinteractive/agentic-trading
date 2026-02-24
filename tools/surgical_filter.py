@@ -12,6 +12,9 @@ import sys
 import datetime
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from wick_offset_analyzer import classify_level
+
 ROOT = Path(__file__).resolve().parent.parent
 INPUT_PATH = ROOT / "screening_data.json"
 OUTPUT_PATH = ROOT / "candidate_shortlist.md"
@@ -53,6 +56,7 @@ SECTOR_CONCENTRATION_LIMIT = 3
 # Verification thresholds
 SAMPLE_SIZE_MIN = 3
 RECENCY_WINDOW_DAYS = 90
+GAP_FLAG_PCT = 20.0  # informational flag threshold (more sensitive than scoring penalty)
 
 # Output
 SHORTLIST_SIZE = 7
@@ -206,23 +210,16 @@ def verify_candidate(ticker, wick_data, capital_config):
     for lvl in wick_data["levels"]:
         level_lookup[round(lvl["support_price"], 4)] = lvl
 
-    # 1. Tier classification check
+    # 1. Tier classification check — uses canonical classify_level() from wick_offset_analyzer
     tier_check = True
     for b in all_bullets:
-        # Find matching level
         lvl = level_lookup.get(round(b["support_price"], 4))
         if not lvl:
             continue
-        hr = lvl["hold_rate"]
-        expected_tier = (
-            "Full" if hr >= 50 else
-            "Std" if hr >= 30 else
-            "Half" if hr >= 15 else
-            "Skip"
-        )
-        # Apply confidence gate
-        if expected_tier in ("Full", "Std") and lvl["total_approaches"] < 3:
-            expected_tier = "Half"
+        _, expected_tier = classify_level(
+            lvl["hold_rate"], lvl["gap_pct"],
+            wick_data.get("active_radius", 15.0),
+            lvl["total_approaches"])
         if b["tier"] != expected_tier:
             tier_check = False
             issues.append(f"{ticker} ${b['support_price']}: tier {b['tier']} vs expected {expected_tier}")
@@ -327,7 +324,7 @@ def verify_candidate(ticker, wick_data, capital_config):
 # Stress Metrics
 # ---------------------------------------------------------------------------
 
-def compute_stress_metrics(ticker, wick_data, passer, portfolio_ctx):
+def compute_stress_metrics(ticker, wick_data, passer, portfolio_ctx, capital_config):
     """Returns dict with pre-computed critic metrics."""
     bp = wick_data["bullet_plan"]
     active = bp["active"]
@@ -355,12 +352,11 @@ def compute_stress_metrics(ticker, wick_data, passer, portfolio_ctx):
     sector_count_after = len(existing_in_sector) + 1
     sector_exceeds_limit = sector_count_after > SECTOR_CONCENTRATION_LIMIT
 
-    # Budget
+    # Budget — use actual pool sizes from capital_config
     active_total = bp["active_total_cost"]
     reserve_total = bp["reserve_total_cost"]
     all_in_cost = active_total + reserve_total
-    cap_total = 600  # active_pool + reserve_pool default
-    # Try to get actual from capital_config if available
+    cap_total = capital_config.get("active_pool", 300) + capital_config.get("reserve_pool", 300)
     budget_feasible = all_in_cost <= cap_total * 1.05
 
     # Reserve quality
@@ -380,6 +376,7 @@ def compute_stress_metrics(ticker, wick_data, passer, portfolio_ctx):
         "active_total_cost": active_total,
         "reserve_total_cost": reserve_total,
         "all_in_cost": all_in_cost,
+        "cap_total": cap_total,
         "budget_feasible": budget_feasible,
         "reserve_count_40pct": reserve_count_40pct,
         "active_reserve_gap_pct": active_reserve_gap_pct,
@@ -483,7 +480,7 @@ def filter_and_score(data):
         total = sum(scores.values())
 
         verification = verify_candidate(ticker, wick, capital_config)
-        stress = compute_stress_metrics(ticker, wick, passer, portfolio_ctx)
+        stress = compute_stress_metrics(ticker, wick, passer, portfolio_ctx, capital_config)
 
         # Build flags
         flags = list(verification["issues"])
@@ -496,8 +493,9 @@ def filter_and_score(data):
             flags.append(f"Sector concentration: {stress['sector_count_after']}x "
                          f"{passer.get('sector', 'Unknown')}")
         if not stress["budget_feasible"]:
-            flags.append(f"Budget exceeds $600: ${stress['all_in_cost']:.0f}")
-        if stress.get("active_reserve_gap_pct") and stress["active_reserve_gap_pct"] > 20:
+            cap_total = capital_config.get("active_pool", 300) + capital_config.get("reserve_pool", 300)
+            flags.append(f"Budget exceeds ${cap_total}: ${stress['all_in_cost']:.0f}")
+        if stress.get("active_reserve_gap_pct") and stress["active_reserve_gap_pct"] > GAP_FLAG_PCT:
             flags.append(f"Active-reserve gap: {stress['active_reserve_gap_pct']:.0f}%")
 
         results.append({
@@ -523,194 +521,6 @@ def _fmt_dollar(val):
     if val is None:
         return "N/A"
     return f"${val:.2f}"
-
-
-def build_shortlist_md(shortlist, all_scored, portfolio_ctx):
-    """Render candidate_shortlist.md from filter_and_score() output."""
-    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-    lines = []
-
-    lines.append("# Surgical Candidate Shortlist")
-    lines.append(f"*Generated: {now} | Scored by surgical_filter.py*")
-    lines.append("")
-
-    # Scoring Summary — Top 7
-    lines.append(f"## Scoring Summary — Top {len(shortlist)}")
-    lines.append("| # | Ticker | Sector | Price | Swing% | Bullets (0-25) | B1 Prox (0-15) "
-                 "| Coverage (0-20) | Reserve (0-15) | Swing (0-10) | Sector (0-15) | Total | Flags |")
-    lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- "
-                 "| :--- | :--- | :--- | :--- | :--- |")
-    for i, r in enumerate(shortlist, 1):
-        p = r["passer"]
-        s = r["scores"]
-        flag_str = "; ".join(r["flags"]) if r["flags"] else "None"
-        if r["wick_failed"]:
-            lines.append(
-                f"| {i} | {r['ticker']} | {p.get('sector', '?')} | ${p['price']:.2f} "
-                f"| {p['median_swing']}% | — | — | — | — | — "
-                f"| {s.get('sector_diversity', '—')} | {r['total_score']} | {flag_str} |"
-            )
-        else:
-            lines.append(
-                f"| {i} | {r['ticker']} | {p.get('sector', '?')} | ${p['price']:.2f} "
-                f"| {p['median_swing']}% | {s['bullets_tier']} | {s['b1_proximity']} "
-                f"| {s['zone_coverage']} | {s['reserve_depth']} | {s['swing']} "
-                f"| {s['sector_diversity']} | {r['total_score']} | {flag_str} |"
-            )
-    lines.append("")
-
-    # All 20 Scores
-    lines.append("## All 20 Scores")
-    lines.append("| # | Ticker | Total | Wick OK |")
-    lines.append("| :--- | :--- | :--- | :--- |")
-    for i, r in enumerate(all_scored, 1):
-        wick_ok = "No" if r["wick_failed"] else "Yes"
-        lines.append(f"| {i} | {r['ticker']} | {r['total_score']} | {wick_ok} |")
-    lines.append("")
-    lines.append("---")
-    lines.append("")
-
-    # Per-candidate detail for shortlist
-    for r in shortlist:
-        if r["wick_failed"]:
-            lines.append(f"## Candidate Detail: {r['ticker']}")
-            lines.append("*Wick analysis failed — limited data available.*")
-            lines.append("")
-            continue
-
-        ticker = r["ticker"]
-        p = r["passer"]
-        s = r["scores"]
-        v = r["verification"]
-        sm = r["stress_metrics"]
-        wick = None  # We don't have raw wick_data here — use passer + scores
-
-        lines.append(f"## Candidate Detail: {ticker}")
-        lines.append("")
-
-        # Quick Facts
-        lines.append("### Quick Facts")
-        lines.append("| Field | Value |")
-        lines.append("| :--- | :--- |")
-        lines.append(f"| Sector | {p.get('sector', 'Unknown')} |")
-        lines.append(f"| Price | ${p['price']:.2f} |")
-        lines.append(f"| Median Swing | {p['median_swing']}% |")
-        lines.append(f"| Consistency | {p['consistency']}% |")
-        lines.append("")
-
-        # Score Breakdown
-        lines.append("### Score Breakdown")
-        lines.append("| Criterion | Score | Max | Detail |")
-        lines.append("| :--- | :--- | :--- | :--- |")
-        lines.append(f"| Bullets & Tier Quality | {s['bullets_tier']} | 25 | Sum of tier points for active bullets |")
-        lines.append(f"| B1 Proximity | {s['b1_proximity']} | 15 | Distance from current price to first fill |")
-        lines.append(f"| Zone Coverage | {s['zone_coverage']} | 20 | Spread of active bullets across price range |")
-        lines.append(f"| Reserve Depth | {s['reserve_depth']} | 15 | Viable reserve levels with 30%+ hold |")
-        lines.append(f"| Swing Magnitude | {s['swing']} | 10 | Monthly swing opportunity |")
-        lines.append(f"| Sector Diversity | {s['sector_diversity']} | 15 | New sector vs portfolio overlap |")
-        lines.append(f"| **Total** | **{r['total_score']}** | **100** | |")
-        lines.append("")
-
-        # Bullet Plan (render from stress metrics + scores context)
-        # We need the raw wick data for bullet plan — re-read from input
-        lines.append("### Bullet Plan")
-        lines.append("*(See screening_data.json for full bullet details)*")
-        lines.append("")
-        if sm:
-            lines.append(f"- Active bullets: cost ${sm['active_total_cost']:.2f}")
-            lines.append(f"- Reserve bullets: cost ${sm['reserve_total_cost']:.2f}")
-            lines.append(f"- All-in cost: ${sm['all_in_cost']:.2f}")
-            lines.append("")
-
-        # Recency Analysis
-        if v and v["recency_detail"]:
-            lines.append("### Recency Analysis")
-            lines.append("| Level | Overall Hold% | Last 90d Hold% | Recent Events | Trend |")
-            lines.append("| :--- | :--- | :--- | :--- | :--- |")
-            for rd in v["recency_detail"]:
-                recent_str = f"{rd['recent_hold_pct']:.0f}%" if rd["recent_hold_pct"] is not None else "—"
-                lines.append(
-                    f"| {_fmt_dollar(rd['support_price'])} | {rd['overall_hold_pct']:.0f}% "
-                    f"| {recent_str} | {rd['recent_events']} | {rd['trend']} |"
-                )
-            lines.append("")
-
-        # Verification
-        if v:
-            lines.append("### Verification")
-            lines.append(f"- Tier check: {'PASS' if v['tier_check'] else 'FAIL'}")
-            lines.append(f"- Bullet math: {'PASS' if v['bullet_math_check'] else 'FAIL'}")
-            lines.append(f"- Pool deployment: {'PASS' if v['pool_check'] else 'FAIL'}")
-            if v["sample_size_flags"]:
-                for f in v["sample_size_flags"]:
-                    lines.append(f"  - Sample size: {f}")
-            lines.append("")
-
-        # Stress Metrics
-        if sm:
-            lines.append("### Stress Metrics")
-            lines.append("| Metric | Value | Assessment |")
-            lines.append("| :--- | :--- | :--- |")
-            lines.append(f"| Min active approaches | {sm['min_active_approaches']} "
-                         f"| {'Strong' if sm['all_active_above_3'] else 'Weak — some <3'} |")
-            if sm["b1_distance_pct"] is not None:
-                b1_assess = "Ideal" if sm["b1_distance_pct"] <= 5 else (
-                    "OK" if sm["b1_distance_pct"] <= 10 else "Far")
-                lines.append(f"| B1 distance | {sm['b1_distance_pct']:.1f}% | {b1_assess} |")
-            lines.append(f"| Sector after onboard | {sm['sector_count_after']}x "
-                         f"| {'Over limit' if sm['sector_exceeds_limit'] else 'OK'} |")
-            lines.append(f"| Budget feasible | ${sm['all_in_cost']:.0f} / $600 "
-                         f"| {'Yes' if sm['budget_feasible'] else 'No — exceeds'} |")
-            lines.append(f"| Reserve 40%+ hold | {sm['reserve_count_40pct']} levels "
-                         f"| {'Good' if sm['reserve_count_40pct'] >= 1 else 'Weak'} |")
-            if sm["active_reserve_gap_pct"] is not None:
-                gap_assess = "OK" if sm["active_reserve_gap_pct"] <= 20 else (
-                    "Caution" if sm["active_reserve_gap_pct"] <= 30 else "Dead zone")
-                lines.append(f"| Active-reserve gap | {sm['active_reserve_gap_pct']:.0f}% | {gap_assess} |")
-            lines.append("")
-
-        # Flags
-        if r["flags"]:
-            lines.append("### Flags")
-            for f in r["flags"]:
-                lines.append(f"- {f}")
-            lines.append("")
-
-        # Qualitative Questions
-        questions = generate_qualitative_questions(
-            ticker, p, r["flags"], sm, portfolio_ctx)
-        if questions:
-            lines.append("### For Evaluator: Qualitative Questions")
-            for qi, q in enumerate(questions, 1):
-                lines.append(f"{qi}. {q}")
-            lines.append("")
-
-        lines.append("---")
-        lines.append("")
-
-    # Portfolio Context
-    lines.append("## Portfolio Context")
-    lines.append("")
-    lines.append("### Current Sectors")
-    sectors = portfolio_ctx.get("sectors", {})
-    if sectors:
-        lines.append("| Sector | Tickers | Count |")
-        lines.append("| :--- | :--- | :--- |")
-        for sector, tickers in sorted(sectors.items()):
-            lines.append(f"| {sector} | {', '.join(sorted(tickers))} | {len(tickers)} |")
-    else:
-        lines.append("*No sector data.*")
-    lines.append("")
-
-    lines.append("### Concentration Thresholds")
-    at_limit = [s for s, t in sectors.items() if len(t) >= SECTOR_CONCENTRATION_LIMIT]
-    if at_limit:
-        lines.append(f"- At/over limit ({SECTOR_CONCENTRATION_LIMIT}+): {', '.join(at_limit)}")
-    else:
-        lines.append("- No sectors at concentration limit")
-    lines.append("")
-
-    return "\n".join(lines)
 
 
 def build_shortlist_md_with_bullets(shortlist, all_scored, portfolio_ctx, wick_analyses):
@@ -869,7 +679,7 @@ def build_shortlist_md_with_bullets(shortlist, all_scored, portfolio_ctx, wick_a
                 lines.append(f"| B1 distance | {sm['b1_distance_pct']:.1f}% | {b1_assess} |")
             lines.append(f"| Sector after onboard | {sm['sector_count_after']}x "
                          f"| {'Over limit' if sm['sector_exceeds_limit'] else 'OK'} |")
-            lines.append(f"| Budget feasible | ${sm['all_in_cost']:.0f} / $600 "
+            lines.append(f"| Budget feasible | ${sm['all_in_cost']:.0f} / ${sm.get('cap_total', 600)} "
                          f"| {'Yes' if sm['budget_feasible'] else 'No — exceeds'} |")
             lines.append(f"| Reserve 40%+ hold | {sm['reserve_count_40pct']} levels "
                          f"| {'Good' if sm['reserve_count_40pct'] >= 1 else 'Weak'} |")
