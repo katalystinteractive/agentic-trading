@@ -113,7 +113,7 @@ def validate_inputs():
 def check_evaluation_scores(eval_json, shortlist_json):
     """Compare evaluator's scores/recommendations against shortlist JSON.
 
-    Returns: {"mismatches": [...], "missing_from_eval": [...]}
+    Returns: {"mismatches": [...], "missing_from_eval": [...], "extra_in_eval": [...]}
     """
     shortlist_lookup = {
         entry["ticker"]: entry for entry in shortlist_json["shortlist"]
@@ -216,7 +216,7 @@ def _is_mechanical_flag(flag):
 def check_flag_coverage(shortlist_json, eval_text):
     """Check if evaluator addressed each quality flag from the shortlist.
 
-    Returns: dict of {ticker: {"addressed": [...], "missed": [...], "skipped_mechanical": int}}
+    Returns: dict of {ticker: {"addressed": [...], "missed": [...], "skipped_mechanical": int, "skipped_unparseable": int}}
     """
     sections = _split_eval_sections(eval_text)
     results = {}
@@ -230,6 +230,7 @@ def check_flag_coverage(shortlist_json, eval_text):
         addressed = []
         missed = []
         skipped = 0
+        skipped_unparseable = 0
 
         for flag in flags:
             if _is_mechanical_flag(flag):
@@ -237,6 +238,7 @@ def check_flag_coverage(shortlist_json, eval_text):
                 continue
             keywords = _extract_flag_keywords(flag)
             if not keywords:
+                skipped_unparseable += 1
                 continue
             if all(kw in section_lower for kw in keywords):
                 addressed.append(flag)
@@ -247,6 +249,7 @@ def check_flag_coverage(shortlist_json, eval_text):
             "addressed": addressed,
             "missed": missed,
             "skipped_mechanical": skipped,
+            "skipped_unparseable": skipped_unparseable,
         }
 
     return results
@@ -462,9 +465,11 @@ def check_recommendation_consistency(eval_json, shortlist_json):
 
     for cand in eval_json["candidates"]:
         ticker = cand["ticker"]
+        if ticker not in shortlist_lookup:
+            continue  # Phantom ticker — already caught by check 1 (extra_in_eval)
         score = cand["score"]
         rec = cand.get("recommendation", "")
-        sl = shortlist_lookup.get(ticker, {})
+        sl = shortlist_lookup[ticker]
         flags = sl.get("flags", [])
 
         # Quality flags only (exclude mechanical verification issues)
@@ -588,7 +593,12 @@ def build_report(checks, shortlist_json):
 
         # Flag coverage
         fc = flag_result.get(ticker, {})
-        skipped_str = f" ({fc.get('skipped_mechanical', 0)} mechanical skipped)" if fc.get("skipped_mechanical") else ""
+        skip_parts = []
+        if fc.get("skipped_mechanical"):
+            skip_parts.append(f"{fc['skipped_mechanical']} mechanical")
+        if fc.get("skipped_unparseable"):
+            skip_parts.append(f"{fc['skipped_unparseable']} unparseable")
+        skipped_str = f" ({', '.join(skip_parts)} skipped)" if skip_parts else ""
         if fc.get("missed"):
             lines.append(f"- Flag coverage: {len(fc.get('addressed', []))} addressed / "
                          f"**{len(fc['missed'])} missed**{skipped_str}")
@@ -625,15 +635,8 @@ def build_report(checks, shortlist_json):
 
         lines.append("")
 
-    # Extra tickers in eval that aren't in shortlist
-    if score_result["extra_in_eval"]:
-        lines.append("### Extra Tickers in Evaluation (not in shortlist)")
-        for ticker in score_result["extra_in_eval"]:
-            lines.append(f"- **{ticker}**: evaluated but not in shortlist — possible LLM hallucination or typo")
-        lines.append("")
-
     # --- Data Quality Issues ---
-    has_issues = sector_result or recency_result or dup_result
+    has_issues = sector_result or recency_result or dup_result or score_result["extra_in_eval"]
     if has_issues:
         lines.append("## Data Quality Issues")
         if sector_result:
@@ -656,6 +659,11 @@ def build_report(checks, shortlist_json):
             for d in dup_result:
                 lines.append(f"- {d['ticker']}: ${d['buy_at']:.2f} shared by supports "
                              f"{', '.join(f'${s:.2f}' for s in d['levels'])}")
+            lines.append("")
+        if score_result["extra_in_eval"]:
+            lines.append("### Extra Tickers in Evaluation")
+            for ticker in score_result["extra_in_eval"]:
+                lines.append(f"- **{ticker}**: evaluated but not in shortlist — possible LLM hallucination or typo")
             lines.append("")
 
     # --- Qualitative Focus Areas ---
