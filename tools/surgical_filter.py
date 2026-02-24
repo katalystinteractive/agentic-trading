@@ -205,15 +205,16 @@ def verify_candidate(ticker, wick_data, capital_config):
     bp = wick_data["bullet_plan"]
     all_bullets = bp["active"] + bp["reserve"]
 
-    # Build a lookup from support_price to level data for event-level checks
+    # Build a lookup from support_price to level data for event-level checks.
+    # Use 2-decimal rounding to match bullet_plan precision (2 dec) vs levels (4 dec).
     level_lookup = {}
     for lvl in wick_data["levels"]:
-        level_lookup[round(lvl["support_price"], 4)] = lvl
+        level_lookup[round(lvl["support_price"], 2)] = lvl
 
     # 1. Tier classification check — uses canonical classify_level() from wick_offset_analyzer
     tier_check = True
     for b in all_bullets:
-        lvl = level_lookup.get(round(b["support_price"], 4))
+        lvl = level_lookup.get(round(b["support_price"], 2))
         if not lvl:
             continue
         _, expected_tier = classify_level(
@@ -266,7 +267,7 @@ def verify_candidate(ticker, wick_data, capital_config):
     cutoff = last_date - datetime.timedelta(days=RECENCY_WINDOW_DAYS)
 
     for b in all_bullets:
-        lvl = level_lookup.get(round(b["support_price"], 4))
+        lvl = level_lookup.get(round(b["support_price"], 2))
         if not lvl or not lvl.get("events"):
             continue
 
