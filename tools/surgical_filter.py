@@ -412,7 +412,7 @@ def generate_qualitative_questions(ticker, passer, flags, stress_metrics, portfo
         )
 
     gap = stress_metrics.get("active_reserve_gap_pct")
-    if gap and gap > 20:
+    if gap and gap > GAP_FLAG_PCT:
         questions.append(
             f"The {gap:.0f}% gap between active bottom and reserve top creates "
             f"a dead zone. Can reserves realistically rescue the position?"
@@ -493,8 +493,7 @@ def filter_and_score(data):
             flags.append(f"Sector concentration: {stress['sector_count_after']}x "
                          f"{passer.get('sector', 'Unknown')}")
         if not stress["budget_feasible"]:
-            cap_total = capital_config.get("active_pool", 300) + capital_config.get("reserve_pool", 300)
-            flags.append(f"Budget exceeds ${cap_total}: ${stress['all_in_cost']:.0f}")
+            flags.append(f"Budget exceeds ${stress['cap_total']}: ${stress['all_in_cost']:.0f}")
         if stress.get("active_reserve_gap_pct") and stress["active_reserve_gap_pct"] > GAP_FLAG_PCT:
             flags.append(f"Active-reserve gap: {stress['active_reserve_gap_pct']:.0f}%")
 
@@ -523,7 +522,7 @@ def _fmt_dollar(val):
     return f"${val:.2f}"
 
 
-def build_shortlist_md_with_bullets(shortlist, all_scored, portfolio_ctx, wick_analyses):
+def build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses):
     """Render candidate_shortlist.md with full bullet plan tables from wick data."""
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     lines = []
@@ -684,8 +683,8 @@ def build_shortlist_md_with_bullets(shortlist, all_scored, portfolio_ctx, wick_a
             lines.append(f"| Reserve 40%+ hold | {sm['reserve_count_40pct']} levels "
                          f"| {'Good' if sm['reserve_count_40pct'] >= 1 else 'Weak'} |")
             if sm["active_reserve_gap_pct"] is not None:
-                gap_assess = "OK" if sm["active_reserve_gap_pct"] <= 20 else (
-                    "Caution" if sm["active_reserve_gap_pct"] <= 30 else "Dead zone")
+                gap_assess = "OK" if sm["active_reserve_gap_pct"] <= GAP_FLAG_PCT else (
+                    "Caution" if sm["active_reserve_gap_pct"] <= RESERVE_GAP_PENALTY else "Dead zone")
                 lines.append(f"| Active-reserve gap | {sm['active_reserve_gap_pct']:.0f}% | {gap_assess} |")
             lines.append("")
 
@@ -756,7 +755,7 @@ def main():
     # Use the version with full bullet tables
     wick_analyses = data.get("wick_analyses", {})
     portfolio_ctx = data.get("portfolio_context", {})
-    report = build_shortlist_md_with_bullets(shortlist, all_scored, portfolio_ctx, wick_analyses)
+    report = build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses)
     OUTPUT_PATH.write_text(report + "\n")
 
     print(f"\nWrote {OUTPUT_PATH.name}")
