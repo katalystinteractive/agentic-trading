@@ -268,7 +268,7 @@ def main():
 
     print(f"Deep Dive Collector — {ticker}")
     print(f"Status: {status}")
-    print(f"Tools completed: {completed}/8")
+    print(f"Tools completed: {completed}/{len(TOOL_SECTIONS)}")
     if failed_tools:
         print(f"Tool failures: [{', '.join(failed_tools)}]")
     elapsed = time.monotonic() - t0
