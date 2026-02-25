@@ -488,6 +488,8 @@ def build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, r
         "reserve_count": len(reserve_bullets),
         "active_filled_count": active_filled,
         "reserve_filled_count": reserve_filled,
+        "active_bullets_raw": active_bullets,
+        "reserve_bullets_raw": reserve_bullets,
     }
 
 
@@ -581,8 +583,8 @@ def compute_projected_averages(position, bullet_plan, active_filled):
             rows.append("| No current position | 0 | — | — |")
 
     # Get unfilled active bullets
-    active_bullets = bullet_plan.get("_active_bullets_raw", [])
-    reserve_bullets = bullet_plan.get("_reserve_bullets_raw", [])
+    active_bullets = bullet_plan.get("active_bullets_raw", [])
+    reserve_bullets = bullet_plan.get("reserve_bullets_raw", [])
 
     for idx, b in enumerate(active_bullets):
         bullet_num = idx + 1
@@ -779,7 +781,7 @@ def main():
 
     # 2b. Ticker validation
     if args.ticker and args.ticker != ticker:
-        print(f"Error: Expected ticker {args.ticker} but deep-dive-raw.md contains {ticker}")
+        print(f"*Error: Expected ticker {args.ticker} but deep-dive-raw.md contains {ticker}*")
         sys.exit(1)
 
     print(f"Deep Dive Pre-Analyst — {ticker}")
@@ -821,12 +823,6 @@ def main():
 
     bullet_plan_rows = wick_data.get("bullet_plan_table", [])
     bullet_plan = build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, reserve_filled, status=header["status"])
-
-    # Attach raw bullet data for projected averages computation
-    active_bullets_raw = [b for b in bullet_plan_rows if b["zone"] == "Active"]
-    reserve_bullets_raw = [b for b in bullet_plan_rows if b["zone"] == "Reserve"]
-    bullet_plan["_active_bullets_raw"] = active_bullets_raw
-    bullet_plan["_reserve_bullets_raw"] = reserve_bullets_raw
 
     # 9. Detect warnings
     capital = portfolio_data["capital"]

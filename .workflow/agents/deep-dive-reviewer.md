@@ -97,7 +97,7 @@ For each level in the wick-adjusted buy levels table:
 1. Verify each buy-at price matches the wick offset analyzer output in `deep-dive-raw.md`
 2. Confirm NO bullet is placed at an exact raw support level (must use wick-adjusted price)
 3. Confirm all buy prices are below current price (exclude any marked "above")
-4. Check for convergences — if two raw levels produce the same buy-at, verify they were merged
+4. Check for convergences — if two raw levels produce buy-at prices within 0.5%, verify both are retained in the wick table and a convergence warning is noted
 
 ### Step 6: Budget Compliance Verification
 
