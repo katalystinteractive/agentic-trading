@@ -115,7 +115,9 @@ def get_portfolio_context(ticker, portfolio):
         orders = pending_orders[ticker]
         lines.append(f"**Pending orders:** {len(orders)}")
         for o in orders:
-            lines.append(f"  - {o.get('type', '?')} {o.get('shares', '?')} @ ${o.get('price', 0):.2f} — {o.get('note', '')}")
+            note = o.get("note", "")
+            note_suffix = f" — {note}" if note else ""
+            lines.append(f"  - {o.get('type', '?')} {o.get('shares', '?')} @ ${o.get('price', 0):.2f}{note_suffix}")
 
     watchlist = portfolio.get("watchlist", [])
     if not lines:
@@ -130,7 +132,7 @@ def get_portfolio_context(ticker, portfolio):
 
 
 def run_all_tools(ticker):
-    """Run all 8 tools in parallel. Returns dict of {tool_name: (stdout, error_msg)}."""
+    """Run all tools in parallel. Returns dict of {tool_name: (stdout, error_msg)}."""
     results = {}
     tools = [(name, [ticker]) for name, _ in TOOL_SECTIONS]
 

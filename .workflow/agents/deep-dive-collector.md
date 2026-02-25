@@ -74,7 +74,7 @@ All output files use markdown tables with `| :--- |` alignment. No ASCII art, no
 **Artifact:** deep-dive-raw.md
 **Ticker:** <TICKER>
 **Status:** NEW / EXISTING
-**Tools completed:** [N]/8
+**Tools completed:** [N]/[total]
 **Tool failures:** [list or "none"]
 
 Ready for identity compilation.
