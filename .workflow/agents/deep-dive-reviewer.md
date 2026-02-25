@@ -88,9 +88,9 @@ For each level in the wick-adjusted buy levels table:
 1. Extract monthly swing percentage from raw data (e.g., 40% median swing)
 2. Calculate active radius as a percentage: active_radius_pct = monthly_swing_pct / 2
 3. Calculate active floor price: current_price × (1 - active_radius_pct / 100)
-4. Verify each level's zone assignment:
-   - Active: buy-at price ≥ active floor price
-   - Reserve: buy-at price < active floor price
+4. Verify each level's zone assignment (use **raw support price**, not buy-at):
+   - Active: raw support price ≥ active floor price
+   - Reserve: raw support price < active floor price
 5. Verify max 5 active bullets, max 3 reserve bullets
 
 ### Step 5: Price Accuracy and Transcription Verification
