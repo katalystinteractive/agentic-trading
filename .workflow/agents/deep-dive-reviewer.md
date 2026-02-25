@@ -58,6 +58,8 @@ Read `deep-dive-raw.md`, the ticker's `identity.md`, `strategy.md`, and `portfol
 
 ### Step 2: Bullet Math Verification
 
+**Skip FILLED bullets:** Any bullet line containing "FILLED" uses actual fill prices (from memory.md), not wick-computed buy-at prices. Do NOT verify shares/cost math for FILLED bullets — only verify bullets marked PENDING or unmarked (new tickers).
+
 For each bullet (B1 through B5, R1 through R3):
 
 1. **Shares calculation:** Verify shares = floor(dollar_size / buy_price)

@@ -9,7 +9,7 @@ capabilities:
   file_read: true
   file_write: true
   file_search: true
-  shell_commands: []
+  shell_commands: ["python3:tools/deep_dive_pre_analyst.py"]
   web_access: false
 model: opus
 color: blue
@@ -28,6 +28,7 @@ You synthesize all raw data from the collector into a complete `identity.md` wit
 ## Input
 
 - `deep-dive-raw.md` — all raw tool output from the collector
+- `deep-dive-pre-analyst.md` — pre-computed mechanical sections (wick table, bullet plan, projected averages)
 - `strategy.md` — the master strategy rulebook (capital rules, zone/tier definitions, bullet sizing)
 - `portfolio.json` — current portfolio state (positions, pending orders, watchlist, capital config)
 - Exemplar identity files for format reference (read at least one that is NOT the target ticker):
@@ -37,9 +38,13 @@ You synthesize all raw data from the collector into a complete `identity.md` wit
 
 ## Process
 
+### Step 0: Run Pre-Analyst
+
+Run `python3 tools/deep_dive_pre_analyst.py --ticker <TICKER>` (extract TICKER from the `deep-dive-raw.md` header). This computes all mechanical sections: wick-adjusted buy levels table, bullet plan with fill annotations, projected averages, and level warnings. Output goes to `deep-dive-pre-analyst.md`.
+
 ### Step 1: Read All Inputs
 
-Read `deep-dive-raw.md`, `strategy.md`, and `portfolio.json` completely. Read at least one exemplar identity file to match the exact format.
+Read `deep-dive-raw.md`, `deep-dive-pre-analyst.md`, `strategy.md`, and `portfolio.json` completely. Read at least one exemplar identity file to match the exact format.
 
 ### Step 2: Extract Key Data Points
 
@@ -60,45 +65,31 @@ From the 13-month wick history and technical scanner data:
 - Identify if the stock typically bottoms Early (Days 1-8), Mid (Days 12-18), or Late (Days 23-30) in the month
 - If insufficient data or no clear pattern: set to "TBD — monitor for monthly pattern emergence"
 
-### Step 4: Build Wick-Adjusted Buy Levels Table
+### Step 4: Copy Wick-Adjusted Buy Levels
 
-**If the wick offset analyzer failed** (check "Tool Failures" section in deep-dive-raw.md):
+Read `deep-dive-pre-analyst.md`. If its Wick Data Status is BLOCKED, follow the BLOCKED path:
 - **If EXISTING ticker:** skip Steps 4-7 and 9. Proceed directly to Step 8. The existing identity.md has working wick data and bullet plan — do not overwrite it. Report the wick failure in the HANDOFF only.
 - **If NEW ticker:** skip Steps 4-5. Proceed to Step 6 (Craft Persona) and Step 7 (Write Identity File). In the identity file, set the Wick-Adjusted Buy Levels table to empty, set Bullet Plan to "Pending — wick offset analysis required. Re-run deep-dive after resolving tool failure.", and set Status to "**BLOCKED — no wick data.**"
 
-From the wick offset analysis output, build the buy levels table:
+If OK, transcribe the following values from `deep-dive-pre-analyst.md` into identity.md's indented list format (the pre-analyst uses flat `##` headings; identity.md uses indented `*   **Key Levels:**` structure with 8-space-indented tables — see exemplar identity files for exact format):
+- "Wick-Adjusted Buy Levels" table (7 columns) → under `*   **Key Levels:**` list item
+- "Level Warnings" (dead zones, convergences, gaps, unfunded levels) → as `*   **Warning:**` notes
+- "Monthly Swing" summary line → as `*   **Monthly Swing:**` list item
 
-1. List all support levels with their raw price, source, hold rate, median offset, and buy-at price
-2. **Exclude Skip tiers** (hold rate < 15%) — do not include in the table
-3. **Flag dead zones** — levels where buy-at price is above current price (note with "above" marker)
-4. **Merge convergences** — if two levels produce the same buy-at price (within $0.05), combine into one entry noting both sources
-5. Include Zone (Active/Reserve) and Tier (Full/Std/Half) columns
+**Convergence handling:** If Level Warnings include convergence entries, review the converging levels and note both sources in the identity file (e.g., append `(converged with $X.XX HVN)` to the bullet description). Do NOT remove either level from the wick table — both are legitimate support sources.
 
-Tier thresholds from strategy.md:
-- Full: 50%+ hold rate
-- Std: 30-49% hold rate
-- Half: 15-29% hold rate
-- Skip: < 15% hold rate (exclude from table)
+Do NOT recompute or modify values — they are pre-verified arithmetic. Only reformat into identity structure.
 
-### Step 5: Build Bullet Plan
+### Step 5: Copy Bullet Plan and Averages
 
-**Active Pool ($300 max, 5 bullets max):**
-- Assign bullets to active-zone levels in price order (highest to lowest)
-- Size each bullet by tier:
-  - Full/Std: ~$60 per bullet
-  - Half: ~$30 per bullet
-- Shares = floor(dollar_size / buy_price), minimum 1
-- Cost = shares x buy_price
-- Compute explicitly for each bullet: `B1: $X.XX (N shares, ~$YY) — $Z.ZZ [source], [hold%] hold rate, [Tier] tier.`
-- Track running total — stop if next bullet would exceed $300
+From `deep-dive-pre-analyst.md`, transcribe into identity.md's indented list format:
+- "Bullet Plan (Active Pool)" section → under `*   **Bullet Plan (Active Pool — $300):**`
+- "Reserve Plan" section → under `*   **Reserve Plan ($300):**`
+- "Projected Averages" table → under `*   **Projected Averages (if bullets fill):**`
 
-**Reserve Pool ($300 max, 3 bullets max):**
-- Assign bullets to reserve-zone levels with 15%+ hold rate
-- Size each at ~$100
-- Shares = floor(100 / buy_price), minimum 1
-- Cost = shares x buy_price
-- Compute explicitly for each reserve bullet
-- Track running total — stop if next bullet would exceed $300
+For FILLED bullets, the pre-analyst outputs only a count summary (no prices). You MUST read the "Current Memory" section in `deep-dive-raw.md` to find actual fill prices from the trade log, then write FILLED bullet entries with real prices and dates (e.g., `B1: $17.57 (3 shares, $52.71) — **FILLED 2026-02-25.**`).
+
+Do NOT change unfilled bullet prices, shares, costs, or projected averages — those are pre-computed.
 
 ### Step 6: Craft Persona
 
@@ -210,9 +201,9 @@ Ready for bullet plan review.
 
 ## What You Do NOT Do
 
-- Do NOT run any tools — work purely from files
+- Do NOT run tools other than `deep_dive_pre_analyst.py` (Step 0) — work purely from files for all other steps
 - Do NOT report raw support levels without wick adjustment
-- Do NOT estimate math — compute shares, costs, and averages explicitly
+- Do NOT recompute wick table, bullet plan, or projected averages — transcribe from `deep-dive-pre-analyst.md`
 - Do NOT exceed budget limits: $300 active pool, $300 reserve pool
 - Do NOT modify memory.md for existing tickers
 - Do NOT include Skip-tier levels (< 15% hold rate) in the bullet plan
