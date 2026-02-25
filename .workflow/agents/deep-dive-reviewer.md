@@ -93,12 +93,13 @@ For each level in the wick-adjusted buy levels table:
    - Reserve: buy-at price < active floor price
 5. Verify max 5 active bullets, max 3 reserve bullets
 
-### Step 5: Price Accuracy Verification
+### Step 5: Price Accuracy and Transcription Verification
 
 1. Verify each buy-at price matches the wick offset analyzer output in `deep-dive-raw.md`
 2. Confirm NO bullet is placed at an exact raw support level (must use wick-adjusted price)
 3. Confirm all buy prices are below current price (exclude any marked "above")
 4. Check for convergences — if two raw levels produce buy-at prices within 0.5%, verify both are retained in the wick table and a convergence warning is noted
+5. **Pre-analyst transcription check:** Compare identity.md's wick-adjusted buy levels table, bullet plan entries (prices, shares, costs), and level warnings against `deep-dive-pre-analyst.md`. The analyst was instructed to transcribe without modification — flag any discrepancies
 
 ### Step 6: Budget Compliance Verification
 
@@ -106,6 +107,14 @@ For each level in the wick-adjusted buy levels table:
 2. Sum all reserve bullet costs — must be ≤ $300
 3. Count active bullets — must be ≤ 5
 4. Count reserve bullets — must be ≤ 3
+
+### Step 6b: Projected Averages Verification
+
+Compare identity.md's Projected Averages table against `deep-dive-pre-analyst.md`:
+1. Verify each row's Total Shares, Avg Cost, and 10% Target match the pre-analyst output exactly
+2. Spot-check the arithmetic: new_avg = (running_shares × running_avg + new_shares × buy_at) / total_shares
+3. Verify 10% Target = Avg Cost × 1.10
+4. Flag any transcription errors or missing rows
 
 ### Step 7: Format Compliance Check
 
@@ -142,6 +151,7 @@ Write `deep-dive-review.md` with:
 | Zone Assignments | PASS/FAIL | [specifics] |
 | Price Accuracy | PASS/FAIL | [specifics] |
 | Budget Compliance | PASS/FAIL | [specifics] |
+| Projected Averages | PASS/FAIL | [specifics] |
 | Format Compliance | PASS/FAIL | [specifics] |
 | Portfolio.json | PASS/FAIL/N/A | [specifics] |
 
@@ -163,7 +173,7 @@ Write `deep-dive-review.md` with:
 ```
 
 **Verdict rules:**
-- **PASS** — all 7 checks pass (or N/A for portfolio.json on existing tickers)
+- **PASS** — all 8 checks pass (or N/A for portfolio.json on existing tickers)
 - **ISSUES** — one or more checks failed. List all failures.
 
 ## Output Format
@@ -184,7 +194,7 @@ All output files use markdown tables with `| :--- |` alignment. No ASCII art, no
 **Artifact:** deep-dive-review.md
 **Ticker:** <TICKER>
 **Verdict:** PASS / ISSUES
-**Checks passed:** [N]/[T] (where T = 7 for normal, 3 for BLOCKED path)
+**Checks passed:** [N]/[T] (where T = 8 for normal, 3 for BLOCKED path)
 **Issues found:** [N] or none
 
 Deep dive review complete.
