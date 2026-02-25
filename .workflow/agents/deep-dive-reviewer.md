@@ -52,7 +52,7 @@ Read `deep-dive-raw.md`, `deep-dive-pre-analyst.md`, the ticker's `identity.md`,
 
 **Case B — EXISTING + Preserved:** If the wick offset analyzer failed (check "Tool Failures" in deep-dive-raw.md) AND identity.md Status does NOT contain "BLOCKED" (identity was preserved unchanged):
 1. Verify identity.md exists and has valid format (headings, persona, wick table with data)
-2. Skip Steps 2-6 — raw wick data is unavailable for cross-reference, and the identity was not modified
+2. Skip Steps 2 through 6b — raw wick data is unavailable for cross-reference, and the identity was not modified
 3. Proceed to Step 7 (Format Compliance), Step 9 (Write Output)
 4. Note in the review: "Identity preserved from previous analysis — wick tool failed, no fresh data to verify against."
 5. Use verdict **PASS** if format is correct, **ISSUES** if format is broken
