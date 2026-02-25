@@ -382,6 +382,60 @@ def build_bullet_summary(ticker, screening_data):
 
 
 # ---------------------------------------------------------------------------
+# Sector Helpers
+# ---------------------------------------------------------------------------
+
+def _resolve_sector(passer, ticker):
+    """Resolve sector from passer data with SECTOR_MAP fallback."""
+    return passer.get("sector", SECTOR_MAP.get(ticker, "Unknown"))
+
+
+# ---------------------------------------------------------------------------
+# Sector Context
+# ---------------------------------------------------------------------------
+
+def compute_sector_context(ranked, shortlist_lookup, portfolio):
+    """For each candidate, identify sector and existing portfolio holdings in same sector.
+
+    Returns dict keyed by ticker: {sector, is_new, count_after, existing_holdings}.
+    """
+    # Map all held tickers to sectors (positions + watchlist + pending orders)
+    # Must match surgical_screener.get_portfolio_context() which uses all three
+    portfolio_sectors = {}
+    all_held = set(
+        list(portfolio.get("positions", {}).keys())
+        + portfolio.get("watchlist", [])
+        + list(portfolio.get("pending_orders", {}).keys())
+    )
+    for pticker in all_held:
+        portfolio_sectors[pticker] = SECTOR_MAP.get(pticker, "Unknown")
+
+    result = {}
+    for entry in ranked:
+        ticker = entry["ticker"]
+        sl = shortlist_lookup.get(ticker, {})
+        sm = sl.get("stress_metrics", {})
+        passer = sl.get("passer", {})
+        sector = _resolve_sector(passer, ticker)
+
+        # Find existing portfolio stocks in same sector
+        # Skip "Unknown" — unrelated tickers sharing Unknown would be misleading
+        existing = sorted(pt for pt, ps in portfolio_sectors.items()
+                          if ps == sector and sector != "Unknown")
+        count_after = sm.get("sector_count_after", len(existing) + 1)
+        is_new = count_after == 1 and len(existing) == 0
+
+        result[ticker] = {
+            "sector": sector,
+            "is_new": is_new,
+            "count_after": count_after,
+            "existing_holdings": existing,
+        }
+
+    return result
+
+
+# ---------------------------------------------------------------------------
 # Portfolio Impact
 # ---------------------------------------------------------------------------
 
@@ -409,7 +463,7 @@ def build_portfolio_impact(ranked, shortlist_lookup, screening_data, portfolio, 
 
         # Sector info
         passer = sl.get("passer", {})
-        sector = passer.get("sector", SECTOR_MAP.get(ticker, "Unknown"))
+        sector = _resolve_sector(passer, ticker)
 
         # Capital from screening_data bullet plan
         wick = screening_data.get("wick_analyses", {}).get(ticker, {})
@@ -449,7 +503,7 @@ def build_portfolio_impact(ranked, shortlist_lookup, screening_data, portfolio, 
 # Report Builder
 # ---------------------------------------------------------------------------
 
-def build_report(eliminated, ranked, bullet_summaries, portfolio_impact):
+def build_report(eliminated, ranked, bullet_summaries, portfolio_impact, sector_contexts):
     """Generate candidate-pre-critic.md with all mechanical findings."""
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     lines = []
@@ -499,14 +553,29 @@ def build_report(eliminated, ranked, bullet_summaries, portfolio_impact):
     for entry in ranked:
         ticker = entry["ticker"]
         bs = bullet_summaries.get(ticker)
+
+        lines.append(f"### {ticker} (Rank #{entry['rank']})")
+        lines.append("")
+
+        # Sector context — authoritative for new vs existing determination
+        sc = sector_contexts.get(ticker, {})
+        sector = sc.get("sector", "Unknown")
+        existing = sc.get("existing_holdings", [])
+        count_after = sc.get("count_after", 0)
+        if existing:
+            lines.append(f"**Sector:** {sector} — existing "
+                         f"({', '.join(existing)} in portfolio; "
+                         f"{count_after}x after onboard)")
+        else:
+            lines.append(f"**Sector:** {sector} — new "
+                         f"(no existing portfolio holdings)")
+        lines.append("")
+
         if not bs or not bs["bullets"]:
-            lines.append(f"### {ticker} (Rank #{entry['rank']})")
             lines.append("*No bullet plan data available.*")
             lines.append("")
             continue
 
-        lines.append(f"### {ticker} (Rank #{entry['rank']})")
-        lines.append("")
         lines.append("| Zone | Support | Buy At | Hold Rate | Tier | Shares | Cost |")
         lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
@@ -625,11 +694,14 @@ def main():
     for entry in ranked:
         bullet_summaries[entry["ticker"]] = build_bullet_summary(entry["ticker"], screening)
 
+    # Sector context for all candidates
+    sector_contexts = compute_sector_context(ranked, shortlist_lookup, portfolio)
+
     # Portfolio impact for top 3
     portfolio_impact = build_portfolio_impact(ranked, shortlist_lookup, screening, portfolio, top_n=3)
 
     # Build and write report
-    report = build_report(eliminated, ranked, bullet_summaries, portfolio_impact)
+    report = build_report(eliminated, ranked, bullet_summaries, portfolio_impact, sector_contexts)
     OUTPUT_PATH.write_text(report)
     print(f"\nWrote {OUTPUT_PATH.name}")
 

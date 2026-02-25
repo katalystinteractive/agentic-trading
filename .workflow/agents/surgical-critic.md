@@ -125,7 +125,7 @@ Write `candidate-final.md` with:
    - Full thesis, risk callouts, recommendation
    - Bullet summary (copy the table from `candidate-pre-critic.md` — do NOT rebuild)
 
-4. **Portfolio Impact** — copy the impact table from `candidate-pre-critic.md`
+4. **Portfolio Impact** — if your top 3 matches the pre-critic's top 3, copy the impact table directly. If you re-ranked (different candidates in top 3), rebuild the table using dollar amounts from the per-candidate bullet summaries and the **Sector** context line above each candidate's bullets. The sector context line is authoritative — it states whether each sector is "new" or "existing" with the specific portfolio holdings listed. Do NOT invent sector status; use the sector context data provided for each candidate.
 
 Use markdown tables with `| :--- |` alignment.
 
