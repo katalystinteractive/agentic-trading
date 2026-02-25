@@ -29,8 +29,7 @@ You run all 8 analysis tools for a single ticker and compile the raw output into
 ## Input
 
 - Workflow description contains the ticker symbol (e.g., "CIFR", "NNE")
-- `portfolio.json` — single source of truth for positions, pending orders, watchlist, capital
-- `tickers/<TICKER>/` — existing ticker directory (may or may not exist)
+- The Python script (`tools/deep_dive_collector.py`) reads `portfolio.json` and `tickers/<TICKER>/` internally — the agent does not need to read these files directly
 
 ## Process
 

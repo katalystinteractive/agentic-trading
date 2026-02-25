@@ -16,6 +16,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date
 from pathlib import Path
+import time
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
@@ -182,7 +183,10 @@ def build_output(ticker, status, existing_context, portfolio_context, tool_resul
     for tool_name, section_title in TOOL_SECTIONS:
         parts.append(f"### {section_title}")
         output, error = tool_results.get(tool_name, ("", None))
-        if output:
+        if output and error:
+            parts.append(f"*Note: tool exited with error (see Tool Failures section)*\n")
+            parts.append(output)
+        elif output:
             parts.append(output)
         elif error:
             parts.append(error)
@@ -228,6 +232,7 @@ def main():
         sys.exit(1)
 
     ticker = sys.argv[1].upper()
+    t0 = time.monotonic()
 
     # Load portfolio
     with open(PORTFOLIO) as f:
@@ -260,7 +265,9 @@ def main():
     print(f"Tools completed: {completed}/8")
     if failed_tools:
         print(f"Tool failures: [{', '.join(failed_tools)}]")
+    elapsed = time.monotonic() - t0
     print(f"Output: deep-dive-raw.md ({size_kb:.1f} KB)")
+    print(f"Elapsed: {elapsed:.1f}s")
 
 
 if __name__ == "__main__":
