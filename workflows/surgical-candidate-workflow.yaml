@@ -4,9 +4,10 @@ description: >
   Phase 1 runs data collection (screening_data.json) and mechanical scoring
   (candidate_shortlist.md + JSON). Evaluator adds qualitative assessment.
   Phase 2 runs mechanical pre-verification (Python), then qualitative verification.
-  Phase 3 stress-tests and produces final top 3.
+  Phase 3 runs mechanical pre-critic (Python) for confidence modifiers and
+  ranking, then LLM critic applies adversarial qualitative judgment for top 3.
 
-version: "3.0.0"
+version: "3.1.0"
 
 phases:
   - id: screen
@@ -28,6 +29,7 @@ phases:
     description: >
       Run mechanical pre-verification (Python), then verify evaluator
       qualitative reasoning. Adjust scores +/-10 for qualitative factors.
+      Outputs candidate-verification.md and candidate-verification.json.
     agent: surgical-verifier
     depends_on:
       - screen
@@ -40,20 +42,25 @@ phases:
     artifacts:
       - candidate-pre-verify.md
       - candidate-verification.md
+      - candidate-verification.json
     timeout_minutes: 8
 
   - id: critic
     name: Final Selection
-    description: Stress-test using pre-computed metrics, comparative ranking, produce top 3
+    description: Run mechanical pre-critic (Python), then adversarial qualitative selection, produce top 3
     agent: surgical-critic
     depends_on:
       - verify
     requires:
       - candidate-evaluation.md
       - candidate-verification.md
+      - candidate-verification.json
       - candidate_shortlist.md
+      - candidate_shortlist.json
       - candidate-pre-verify.md
+      - screening_data.json
     artifacts:
+      - candidate-pre-critic.md
       - candidate-final.md
     timeout_minutes: 10
 
