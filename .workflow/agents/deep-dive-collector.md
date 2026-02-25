@@ -7,8 +7,8 @@ description: >
   current identity/memory context). Pure data collection — no interpretation.
 capabilities:
   file_read: true
-  file_write: true
-  file_search: true
+  file_write: false
+  file_search: false
   shell_commands:
     - "python3:*"
   web_access: false

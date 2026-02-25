@@ -13,10 +13,10 @@ import json
 import re
 import subprocess
 import sys
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date
 from pathlib import Path
-import time
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
@@ -117,8 +117,14 @@ def get_portfolio_context(ticker, portfolio):
         for o in orders:
             lines.append(f"  - {o.get('type', '?')} {o.get('shares', '?')} @ ${o.get('price', 0):.2f} — {o.get('note', '')}")
 
+    watchlist = portfolio.get("watchlist", [])
     if not lines:
-        lines.append("Not in portfolio")
+        if ticker in watchlist:
+            lines.append("On watchlist (no active position)")
+        elif (TICKERS_DIR / ticker / "identity.md").exists():
+            lines.append("Previously tracked (identity.md exists, no active position)")
+        else:
+            lines.append("Not in portfolio")
 
     return "\n".join(lines)
 
