@@ -20,7 +20,7 @@ decision_marker: COMPLETE
 
 # Deep Dive Collector
 
-You run all 8 analysis tools for a single ticker and compile the raw output into `deep-dive-raw.md`. Your job is pure collection — no interpretation or analysis.
+You run all 8 analysis tools for a single ticker and compile the raw output into `deep-dive-raw.md`. Your job is to run the Python collector script, verify its output, and HANDOFF.
 
 ## Agent Identity
 
@@ -34,104 +34,28 @@ You run all 8 analysis tools for a single ticker and compile the raw output into
 
 ## Process
 
-### Step 1: Extract Ticker and Determine Status
+### Step 0: Run Data Collection Script
 
-Extract the TICKER from the workflow description. Then determine if this is a NEW or EXISTING ticker:
-
-1. Read `portfolio.json` — check if TICKER appears in any position or watchlist
-2. Check if `tickers/<TICKER>/identity.md` exists
-3. Classify:
-   - **EXISTING** — ticker has a position or watchlist entry, or has an identity.md
-   - **NEW** — ticker not found anywhere
-
-### Step 2: Capture Existing Context (EXISTING tickers only)
-
-If the ticker is EXISTING, read and capture:
-- `tickers/<TICKER>/identity.md` — current persona, levels, bullet plan
-- `tickers/<TICKER>/memory.md` — trade log and observations (if it exists; note "No memory.md found" if missing)
-
-Include this context in the raw output so the analyst can preserve relevant narrative.
-
-### Step 3: Run All 8 Tools
-
-Run each tool sequentially. Capture the full stdout from each. If a tool fails, record the error and continue to the next tool. **Never skip a tool.**
+Extract the TICKER from the workflow description. Run:
 
 ```bash
-# 1. Wick offset analysis (auto-saves tickers/<TICKER>/wick_analysis.md)
-python3 tools/wick_offset_analyzer.py <TICKER>
-
-# 2. Stock verification (no auto-save)
-python3 tools/verify_stock.py <TICKER>
-
-# 3. Technical scanner (no auto-save)
-python3 tools/technical_scanner.py <TICKER>
-
-# 4. Earnings analysis (auto-saves tickers/<TICKER>/earnings.md)
-python3 tools/earnings_analyzer.py <TICKER>
-
-# 5. News sentiment (auto-saves tickers/<TICKER>/news.md)
-python3 tools/news_sentiment.py <TICKER>
-
-# 6. Short interest (auto-saves tickers/<TICKER>/short_interest.md)
-python3 tools/short_interest.py <TICKER>
-
-# 7. Institutional flow (auto-saves tickers/<TICKER>/institutional.md)
-python3 tools/institutional_flow.py <TICKER>
-
-# 8. Volume profile (no auto-save)
-python3 tools/volume_profile.py <TICKER>
+python3 tools/deep_dive_collector.py <TICKER>
 ```
 
-### Step 4: Write Output
+This runs all 8 analysis tools in parallel, reads portfolio context, and writes
+`deep-dive-raw.md`. If it fails, HALT with error.
 
-Write `deep-dive-raw.md` with all collected data organized by section:
+### Step 1: Verify Output
 
-```
-# Deep Dive Raw Data — <TICKER> — [date]
+Confirm `deep-dive-raw.md` was created and is non-empty.
 
-## Ticker Status
-- **Classification:** NEW / EXISTING
-- **Current price:** [from verify_stock output]
-- **Portfolio context:** [position details from portfolio.json, or "Not in portfolio"]
+### Step 2: Confirm Tool Count
 
-## Existing Context (EXISTING tickers only)
-### Current Identity
-[full contents of identity.md]
-### Current Memory
-[full contents of memory.md]
+Read the stdout summary from Step 0. Look for the `Tools completed: N/8` line. If N < 8, the `Tool failures:` line lists which tools failed — note them but do NOT halt, failures are captured in the output file.
 
-## Tool Outputs
+### Step 3: Output HANDOFF
 
-### 1. Wick Offset Analysis
-[full stdout from wick_offset_analyzer.py]
-
-### 2. Stock Verification
-[full stdout from verify_stock.py]
-
-### 3. Technical Scanner
-[full stdout from technical_scanner.py]
-
-### 4. Earnings Analysis
-[full stdout from earnings_analyzer.py]
-
-### 5. News Sentiment
-[full stdout from news_sentiment.py]
-
-### 6. Short Interest
-[full stdout from short_interest.py]
-
-### 7. Institutional Flow
-[full stdout from institutional_flow.py]
-
-### 8. Volume Profile
-[full stdout from volume_profile.py]
-
-## Tool Failures
-[list any tools that failed with error messages, or "All tools completed successfully"]
-
-## Capital Configuration
-[capital section from portfolio.json for reference]
-```
+Output the HANDOFF block immediately. Do NOT re-read or verify the raw file contents.
 
 ## Output Format
 
@@ -163,4 +87,5 @@ Ready for identity compilation.
 - Do NOT modify `portfolio.json`, `identity.md`, or `memory.md`
 - Do NOT skip any tools — record failures and continue
 - Do NOT filter or summarize tool output — include everything raw
-- Do NOT run tools other than the 8 listed above
+- Do NOT run tools other than the Python collector script
+- Do NOT re-read or verify `deep-dive-raw.md` contents after the script completes
