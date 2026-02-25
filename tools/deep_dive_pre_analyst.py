@@ -394,10 +394,11 @@ def build_identity_table(support_rows, current_price):
 # Bullet Plan Builder
 # ---------------------------------------------------------------------------
 
-def build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, reserve_filled):
+def build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, reserve_filled, status="EXISTING"):
     """Build B1-B5 / R1-R3 formatted entries from wick tool's suggested bullet plan.
 
     support_rows is the raw 9-column table (before filtering).
+    status is "NEW" or "EXISTING" from the deep-dive-raw.md header.
     """
     # Separate active and reserve bullets
     active_bullets = [b for b in bullet_plan_rows if b["zone"] == "Active"]
@@ -447,8 +448,7 @@ def build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, r
         if source == "Unknown":
             print(f"WARNING: No source match for level {level_key}", file=sys.stderr)
 
-        tag = "**PENDING.** (new)" if not has_position and position is None else "**PENDING.**"
-        # For EXISTING with no position (watchlist-only), also mark as PENDING
+        tag = "**PENDING.** (new)" if status == "NEW" else "**PENDING.**"
         active_lines.append(
             f"B{bullet_num}: ${b['buy_at']:.2f} ({b['shares']} shares, ~${b['cost']:.2f}) — "
             f"${b['level']:.2f} {source}, {b['hold_pct']}% hold rate, {b['tier']} tier. {tag}"
@@ -473,7 +473,7 @@ def build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, r
         if source == "Unknown":
             print(f"WARNING: No source match for level {level_key}", file=sys.stderr)
 
-        tag = "**PENDING.** (new)" if not has_position and position is None else "**PENDING.**"
+        tag = "**PENDING.** (new)" if status == "NEW" else "**PENDING.**"
         reserve_lines.append(
             f"R{bullet_num}: ${b['buy_at']:.2f} ({b['shares']} shares, ~${b['cost']:.2f}) — "
             f"${b['level']:.2f} {source}, {b['hold_pct']}% hold rate, {b['tier']} tier. {tag}"
@@ -499,6 +499,9 @@ def build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, r
 def detect_warnings(support_rows, bullet_plan_rows, current_price, capital):
     """Detect and format warnings."""
     warnings = []
+    if current_price is None:
+        warnings.append("Warning: current_price unavailable — dead zone and gap checks skipped.")
+        return warnings
     active_bullets_max = capital.get("active_bullets_max", 5)
 
     # 1. Dead zones: buy_at >= current_price
@@ -533,8 +536,8 @@ def detect_warnings(support_rows, bullet_plan_rows, current_price, capital):
                 )
 
     # 3. Gap warning between last active and first reserve bullet
-    if active_bullets and [b for b in bullet_plan_rows if b["zone"] == "Reserve"]:
-        reserve_bullets = [b for b in bullet_plan_rows if b["zone"] == "Reserve"]
+    reserve_bullets = [b for b in bullet_plan_rows if b["zone"] == "Reserve"]
+    if active_bullets and reserve_bullets:
         last_active_buy = active_bullets[-1]["buy_at"]
         first_reserve_buy = reserve_bullets[0]["buy_at"]
         if last_active_buy > 0:
@@ -611,6 +614,30 @@ def compute_projected_averages(position, bullet_plan, active_filled):
 # Output Builder
 # ---------------------------------------------------------------------------
 
+def _format_position_context(header, portfolio_data):
+    """Format the Position Context section lines (shared by OK and BLOCKED output)."""
+    lines = []
+    position = portfolio_data["position"]
+    lines.append("## Position Context")
+    lines.append(f"- Status: {header['status']}")
+    if position and position.get("shares", 0) > 0:
+        lines.append(f"- Current position: {position['shares']} shares @ ${position['avg_cost']:.2f} avg")
+        active_f, reserve_f = parse_bullets_used(position.get("bullets_used"))
+        bullets_str = f"{active_f} active"
+        if reserve_f > 0:
+            bullets_str += f" + R{reserve_f} reserve"
+        lines.append(f"- Bullets used: {bullets_str}")
+    else:
+        lines.append("- Current position: No position")
+        lines.append("- Bullets used: None")
+    orders = portfolio_data["pending_orders"]
+    if orders:
+        lines.append(f"- Pending orders: {len(orders)}")
+    else:
+        lines.append("- Pending orders: None")
+    return lines
+
+
 def build_output(header, wick_data, portfolio_data, identity_table, identity_warnings,
                  bullet_plan, all_warnings, projected_rows):
     """Assemble deep-dive-pre-analyst.md."""
@@ -618,7 +645,6 @@ def build_output(header, wick_data, portfolio_data, identity_table, identity_war
     ticker = header["ticker"]
     date_str = header["date"]
     current_price = header["current_price"]
-    position = portfolio_data["position"]
 
     lines.append(f"# Deep Dive Pre-Analyst — {ticker} — {date_str}")
     lines.append("")
@@ -710,23 +736,7 @@ def build_output(header, wick_data, portfolio_data, identity_table, identity_war
     lines.append("")
 
     # Position Context
-    lines.append("## Position Context")
-    lines.append(f"- Status: {header['status']}")
-    if position and position.get("shares", 0) > 0:
-        lines.append(f"- Current position: {position['shares']} shares @ ${position['avg_cost']:.2f} avg")
-        active_f, reserve_f = parse_bullets_used(position.get("bullets_used"))
-        bullets_str = f"{active_f} active"
-        if reserve_f > 0:
-            bullets_str += f" + R{reserve_f} reserve"
-        lines.append(f"- Bullets used: {bullets_str}")
-    else:
-        lines.append("- Current position: No position")
-        lines.append("- Bullets used: None")
-    orders = portfolio_data["pending_orders"]
-    if orders:
-        lines.append(f"- Pending orders: {len(orders)}")
-    else:
-        lines.append("- Pending orders: None")
+    lines.extend(_format_position_context(header, portfolio_data))
     lines.append("")
 
     return "\n".join(lines)
@@ -737,30 +747,13 @@ def build_blocked_output(header, portfolio_data, failure_text):
     lines = []
     ticker = header["ticker"]
     date_str = header["date"]
-    position = portfolio_data["position"]
 
     lines.append(f"# Deep Dive Pre-Analyst — {ticker} — {date_str}")
     lines.append("")
     lines.append("## Wick Data Status")
     lines.append(f"BLOCKED — wick_offset_analyzer.py failed. {failure_text}")
     lines.append("")
-    lines.append("## Position Context")
-    lines.append(f"- Status: {header['status']}")
-    if position and position.get("shares", 0) > 0:
-        lines.append(f"- Current position: {position['shares']} shares @ ${position['avg_cost']:.2f} avg")
-        active_f, reserve_f = parse_bullets_used(position.get("bullets_used"))
-        bullets_str = f"{active_f} active"
-        if reserve_f > 0:
-            bullets_str += f" + R{reserve_f} reserve"
-        lines.append(f"- Bullets used: {bullets_str}")
-    else:
-        lines.append("- Current position: No position")
-        lines.append("- Bullets used: None")
-    orders = portfolio_data["pending_orders"]
-    if orders:
-        lines.append(f"- Pending orders: {len(orders)}")
-    else:
-        lines.append("- Pending orders: None")
+    lines.extend(_format_position_context(header, portfolio_data))
     lines.append("")
 
     return "\n".join(lines)
@@ -784,8 +777,6 @@ def main():
     # 2. Parse header
     header = parse_header(raw_text)
     ticker = header["ticker"]
-    date_str = header["date"]
-    status = header["status"]
     current_price = header["current_price"]
 
     # 2b. Ticker validation
@@ -831,7 +822,7 @@ def main():
         active_filled, reserve_filled = parse_bullets_used(position.get("bullets_used"))
 
     bullet_plan_rows = wick_data.get("bullet_plan_table", [])
-    bullet_plan = build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, reserve_filled)
+    bullet_plan = build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, reserve_filled, status=header["status"])
 
     # Attach raw bullet data for projected averages computation
     active_bullets_raw = [b for b in bullet_plan_rows if b["zone"] == "Active"]

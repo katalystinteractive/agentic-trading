@@ -48,9 +48,8 @@ Read `deep-dive-raw.md`, `deep-dive-pre-analyst.md`, `strategy.md`, and `portfol
 
 ### Step 2: Extract Key Data Points
 
-From the raw tool outputs, extract:
+From the raw tool outputs, extract (wick data is pre-computed in `deep-dive-pre-analyst.md` — Steps 4-5 handle it):
 
-- **Wick Offset Analysis:** Support levels, hold rates, median offsets, buy-at prices, zone/tier classifications
 - **Stock Verification:** Current price, sector, market cap, exchange
 - **Technical Scanner:** RSI, trend, moving averages, momentum signals
 - **Earnings:** Next earnings date, revenue trend, price reactions to earnings
