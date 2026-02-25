@@ -46,7 +46,7 @@ Read `deep-dive-raw.md`, `deep-dive-pre-analyst.md`, the ticker's `identity.md`,
 2. Verify the Bullet Plan says "Pending — wick offset analysis required."
 3. Verify a persona exists following the "**The [Descriptor].**" pattern
 4. Verify the wick table is empty (no data rows)
-5. Skip Steps 2-6 (bullet math, tiers, zones, prices, budget are not applicable)
+5. Skip Steps 2 through 6b (bullet math, tiers, zones, prices, budget, projected averages are not applicable)
 6. Proceed to Step 7 (Format Compliance), Step 8 (Portfolio.json if NEW), Step 9 (Write Output)
 7. Use verdict **PASS** if BLOCKED format is correct, **ISSUES** if format is wrong
 
@@ -149,7 +149,7 @@ Write `deep-dive-review.md` with:
 | Bullet Math | PASS/FAIL | [specifics] |
 | Tier Classifications | PASS/FAIL | [specifics] |
 | Zone Assignments | PASS/FAIL | [specifics] |
-| Price Accuracy | PASS/FAIL | [specifics] |
+| Price Accuracy & Transcription | PASS/FAIL | [specifics] |
 | Budget Compliance | PASS/FAIL | [specifics] |
 | Projected Averages | PASS/FAIL | [specifics] |
 | Format Compliance | PASS/FAIL | [specifics] |

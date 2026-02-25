@@ -128,6 +128,11 @@ Write `tickers/<TICKER>/identity.md` matching the exact format. Structure:
     *   Total active deployment: ~$[N] if all fill.
 *   **Reserve Plan ($300):**
     *   R1: ...
+*   **Projected Averages (if bullets fill):**
+
+        | Scenario | Total Shares | Avg Cost | 10% Target |
+        | :--- | :--- | :--- | :--- |
+
 *   **[Supplementary notes: sector correlation, earnings gate, etc.]**
 *   **Status:** **[STATUS LABEL]**
 ```
