@@ -122,7 +122,7 @@ Write `tickers/<TICKER>/identity.md` matching the exact format. Structure:
 
     *   **[Dead Zone/Convergence warnings if applicable]**
     *   **Monthly Swing:** [X]% median swing, [Y]% of months hit 10%+.
-*   **Bullet Plan (Active Pool):**
+*   **Bullet Plan (Active Pool — $300):**
     *   B1: ...
     *   B2: ...
     *   Total active deployment: ~$[N] if all fill.

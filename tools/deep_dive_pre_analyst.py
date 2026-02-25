@@ -20,7 +20,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 RAW_PATH = ROOT / "deep-dive-raw.md"
 PORTFOLIO_PATH = ROOT / "portfolio.json"
-TICKERS_DIR = ROOT / "tickers"
 OUTPUT_PATH = ROOT / "deep-dive-pre-analyst.md"
 
 
@@ -340,7 +339,7 @@ def parse_bullets_used(bullets_used_val):
 # Identity Table Builder
 # ---------------------------------------------------------------------------
 
-def build_identity_table(support_rows, current_price):
+def build_identity_table(support_rows):
     """Transform 9-column support table → 7-column identity table.
 
     Returns (table_lines, warnings_list).
@@ -596,9 +595,9 @@ def compute_projected_averages(position, bullet_plan, active_filled):
         rows.append(f"| + B{bullet_num} fills | {running_shares} | ${new_avg:.2f} | ${target_10:.2f} |")
 
     # Also compute for reserve bullets
+    reserve_filled_count = bullet_plan.get("reserve_filled_count", 0)
     for idx, b in enumerate(reserve_bullets):
         bullet_num = idx + 1
-        reserve_filled_count = bullet_plan.get("reserve_filled_count", 0)
         if bullet_num <= reserve_filled_count:
             continue
         running_shares += b["shares"]
@@ -701,8 +700,7 @@ def build_output(header, wick_data, portfolio_data, identity_table, identity_war
         pending_start = active_filled + 1
         pending_end = active_count
         if pending_start <= pending_end:
-            lines.append(f"Pending: ~${bullet_plan['active_pending']:.2f} (B{pending_start}-B{pending_end}). "
-                         f"Total pending: ~${bullet_plan['active_pending']:.2f} if all unfilled fill.")
+            lines.append(f"Pending: ~${bullet_plan['active_pending']:.2f} (B{pending_start}-B{pending_end}) if all unfilled fill.")
         elif active_filled > 0:
             lines.append(f"All {active_filled} active bullets filled. No pending.")
     else:
@@ -814,7 +812,7 @@ def main():
 
     # 7. Build identity table
     support_rows = wick_data["support_table"]
-    identity_table, identity_warnings = build_identity_table(support_rows, current_price)
+    identity_table, identity_warnings = build_identity_table(support_rows)
 
     # 8. Build bullet plan
     active_filled, reserve_filled = (0, 0)
