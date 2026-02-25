@@ -79,6 +79,8 @@ If OK, transcribe the following values from `deep-dive-pre-analyst.md` into iden
 
 Do NOT recompute or modify values — they are pre-verified arithmetic. Only reformat into identity structure.
 
+**Zone immutability:** Zone labels in the wick table reflect the tool's active-radius classification, NOT the bullet plan pool. An Active-zone level that overflows the 5-bullet cap remains "Active" in the table — do NOT relabel it "Reserve." These overflow levels appear in Level Warnings as "Unfunded Active Level."
+
 ### Step 5: Copy Bullet Plan and Averages
 
 From `deep-dive-pre-analyst.md`, transcribe into identity.md's indented list format:
@@ -208,6 +210,8 @@ Ready for bullet plan review.
 - Do NOT run tools other than `deep_dive_pre_analyst.py` (Step 0) — work purely from files for all other steps
 - Do NOT report raw support levels without wick adjustment
 - Do NOT recompute wick table, bullet plan, or projected averages — transcribe from `deep-dive-pre-analyst.md`
+- Do NOT change Zone labels in the wick table — they reflect active-radius math, not bullet pool assignment. An unfunded Active-zone level stays "Active"
+- Do NOT substitute or reorder levels in the bullet plan — use exactly the levels the pre-analyst computed from the wick tool's suggested plan
 - Do NOT exceed budget limits: $300 active pool, $300 reserve pool
 - Do NOT modify memory.md for existing tickers
 - Do NOT include Skip-tier levels (< 15% hold rate) in the bullet plan

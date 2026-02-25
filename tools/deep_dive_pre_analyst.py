@@ -540,7 +540,8 @@ def detect_warnings(support_rows, bullet_plan_rows, current_price, capital):
                 warnings.append(
                     f"Unfunded Active Level: ${row['support']:.2f} {row['source']} → "
                     f"buy-at ${row['buy_at']:.2f}, {row['hold_rate']}% hold, {row['tier']} tier. "
-                    f"Not funded — {active_bullets_max}-bullet active cap reached."
+                    f"Not funded — {active_bullets_max}-bullet active cap reached. "
+                    f"Zone stays 'Active' in the wick table — do NOT relabel or move to Reserve bullet plan."
                 )
 
     # 3. Gap warning between last active and first reserve bullet
