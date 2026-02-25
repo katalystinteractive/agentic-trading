@@ -28,6 +28,7 @@ You verify the analyst's identity.md and bullet plan against the raw data. Your 
 ## Input
 
 - `deep-dive-raw.md` — raw tool output from the collector (ground truth)
+- `deep-dive-pre-analyst.md` — pre-computed mechanical sections (wick table, bullet plan, projected averages) — verify analyst transcribed these values accurately into identity.md
 - `tickers/<TICKER>/identity.md` — the identity file produced by the analyst
 - `strategy.md` — the master strategy rulebook (tier thresholds, zone definitions, capital rules)
 - `portfolio.json` — current portfolio state (for new tickers: verify watchlist/orders were added)
@@ -36,7 +37,7 @@ You verify the analyst's identity.md and bullet plan against the raw data. Your 
 
 ### Step 1: Read All Inputs
 
-Read `deep-dive-raw.md`, the ticker's `identity.md`, `strategy.md`, and `portfolio.json` completely before beginning verification. Extract the TICKER from `deep-dive-raw.md` header.
+Read `deep-dive-raw.md`, `deep-dive-pre-analyst.md`, the ticker's `identity.md`, `strategy.md`, and `portfolio.json` completely before beginning verification. Extract the TICKER from `deep-dive-raw.md` header.
 
 ### Step 1b: Check for BLOCKED or Preserved Identity
 

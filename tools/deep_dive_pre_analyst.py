@@ -362,6 +362,9 @@ def build_identity_table(support_rows):
     table_lines.append("| Raw Support | Source | Hold Rate | Median Offset | Buy At | Zone | Tier |")
     table_lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
+    if not filtered:
+        table_lines.append("| — | No eligible levels (all below 15% hold rate or N/A) | — | — | — | — | — |")
+
     for row in filtered:
         buy_at_str = f"${row['buy_at']:.2f}"
         if row["above"]:
@@ -417,10 +420,14 @@ def build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, r
               f"({len(reserve_bullets)}). Capped to {len(reserve_bullets)}.", file=sys.stderr)
 
     # Build source lookup from support table: dollar-formatted level → source
+    # Concatenate sources if multiple rows share the same price
     source_lookup = {}
     for sr in support_rows:
         key = f"${sr['support']:.2f}"
-        source_lookup[key] = sr["source"]
+        if key in source_lookup:
+            source_lookup[key] += f" / {sr['source']}"
+        else:
+            source_lookup[key] = sr["source"]
 
     has_position = position is not None and position.get("shares", 0) > 0
 
@@ -579,8 +586,7 @@ def compute_projected_averages(position, bullet_plan, active_filled):
     else:
         running_shares = 0
         running_cost = 0.0
-        if position is not None:
-            rows.append("| No current position | 0 | — | — |")
+        rows.append("| No current position | 0 | — | — |")
 
     # Get unfilled active bullets
     active_bullets = bullet_plan.get("active_bullets_raw", [])
@@ -770,7 +776,7 @@ def main():
 
     # 1. Read raw file
     if not RAW_PATH.exists():
-        print(f"*Error: {RAW_PATH.name} not found — run deep-dive collector first*")
+        print(f"*Error: {RAW_PATH.name} not found — run deep-dive collector first*", file=sys.stderr)
         sys.exit(1)
     raw_text = RAW_PATH.read_text(encoding="utf-8")
 
@@ -781,7 +787,7 @@ def main():
 
     # 2b. Ticker validation
     if args.ticker and args.ticker != ticker:
-        print(f"*Error: Expected ticker {args.ticker} but deep-dive-raw.md contains {ticker}*")
+        print(f"*Error: Expected ticker {args.ticker} but deep-dive-raw.md contains {ticker}*", file=sys.stderr)
         sys.exit(1)
 
     print(f"Deep Dive Pre-Analyst — {ticker}")
