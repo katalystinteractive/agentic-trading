@@ -50,7 +50,7 @@ Confirm `deep-dive-raw.md` was created and is non-empty.
 
 ### Step 2: Confirm Tool Count
 
-Read the stdout summary from Step 0. Look for the `Tools completed: N/8` line. If N < 8, the `Tool failures:` line lists which tools failed — note them but do NOT halt, failures are captured in the output file.
+Read the stdout summary from Step 0. Look for the `Tools completed: N/T` line (where T is the total tool count). If N < T, the `Tool failures:` line lists which tools failed — note them but do NOT halt, failures are captured in the output file.
 
 ### Step 3: Output HANDOFF
 

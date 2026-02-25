@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Dive Collector — Runs all 8 analysis tools for a single ticker.
+Deep Dive Collector — Runs all analysis tools for a single ticker.
 
 Replaces the LLM-based collector agent that ran tools sequentially with no
 qualitative judgment. This script runs all tools as subprocesses in parallel,
