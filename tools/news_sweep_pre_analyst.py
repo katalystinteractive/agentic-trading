@@ -140,7 +140,10 @@ def _parse_portfolio_context(lines):
             continue
 
         ticker = cols[0].strip()
-        tier = int(cols[1].strip())
+        try:
+            tier = int(cols[1].strip())
+        except ValueError:
+            continue  # Skip malformed row
         current_price = parse_price(cols[2])
         day_chg = cols[3].strip()
         if day_chg in ("N/A", "—", "\u2014"):

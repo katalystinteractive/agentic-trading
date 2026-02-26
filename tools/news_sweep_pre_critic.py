@@ -10,6 +10,7 @@ Usage: python3 tools/news_sweep_pre_critic.py
 import json
 import re
 import sys
+from collections import Counter
 from datetime import datetime
 from pathlib import Path
 
@@ -481,39 +482,37 @@ def check_conflict_classification(raw_data, report, pending_orders):
 
     report_flags = report["risk_flags"]
 
-    # Build lookup by (type, ticker) for comparison
-    expected_set = set()
-    for f in expected_flags:
-        expected_set.add((f["type"], f["ticker"]))
-
-    report_set = set()
-    for f in report_flags:
-        report_set.add((f["type"], f["ticker"]))
+    # Count-based comparison to handle duplicate (type, ticker) pairs
+    # (e.g., multiple Type C flags for the same ticker with different SELL orders)
+    expected_counts = Counter((f["type"], f["ticker"]) for f in expected_flags)
+    report_counts = Counter((f["type"], f["ticker"]) for f in report_flags)
 
     # Note: Type E flags may be filtered by LLM for imminence.
     # Only flag missing non-E types as Critical. Missing E types are noted as Minor.
-    missing = expected_set - report_set
-    for ftype, ticker in sorted(missing):
-        if ftype == "E":
-            notes.append({
-                "ticker": ticker,
-                "detail": f"Missing Type {ftype} flag — may have been filtered by LLM imminence check",
-                "severity": "Minor",
-            })
-        else:
+    for (ftype, ticker), count in sorted(expected_counts.items()):
+        missing_count = count - report_counts.get((ftype, ticker), 0)
+        for _ in range(missing_count):
+            if ftype == "E":
+                notes.append({
+                    "ticker": ticker,
+                    "detail": f"Missing Type {ftype} flag — may have been filtered by LLM imminence check",
+                    "severity": "Minor",
+                })
+            else:
+                issues.append({
+                    "ticker": ticker,
+                    "detail": f"Missing Type {ftype} flag — condition met in raw data but not flagged",
+                    "severity": "Critical",
+                })
+
+    for (ftype, ticker), count in sorted(report_counts.items()):
+        extra_count = count - expected_counts.get((ftype, ticker), 0)
+        for _ in range(extra_count):
             issues.append({
                 "ticker": ticker,
-                "detail": f"Missing Type {ftype} flag — condition met in raw data but not flagged",
+                "detail": f"Extra Type {ftype} flag — condition NOT met in raw data",
                 "severity": "Critical",
             })
-
-    extra = report_set - expected_set
-    for ftype, ticker in sorted(extra):
-        issues.append({
-            "ticker": ticker,
-            "detail": f"Extra Type {ftype} flag — condition NOT met in raw data",
-            "severity": "Critical",
-        })
 
     # Verify Type C percentage arithmetic
     for rf in report_flags:
