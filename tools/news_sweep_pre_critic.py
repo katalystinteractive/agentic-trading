@@ -16,7 +16,7 @@ from pathlib import Path
 
 # Same-directory imports
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from news_sweep_pre_analyst import parse_raw_data, get_pending_orders, detect_risk_flags
+from news_sweep_pre_analyst import parse_raw_data, get_pending_orders, detect_risk_flags, get_top_catalyst
 from news_sweep_collector import split_table_row
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -329,13 +329,7 @@ def check_sentiment_accuracy(raw_data, report):
         if data["no_news"] or data["failure"] or data["sentiment"] is None:
             raw_sentiment[ticker] = None
         else:
-            # Top catalyst (with secondary when primary is Earnings)
-            top_cat = "\u2014"
-            if data["catalysts"]:
-                sorted_cats = sorted(data["catalysts"], key=lambda c: (-c["count"], c["category"]))
-                top_cat = sorted_cats[0]["category"]
-                if top_cat == "Earnings" and len(sorted_cats) > 1:
-                    top_cat = f"Earnings / {sorted_cats[1]['category']}"
+            top_cat = get_top_catalyst(data["catalysts"])
             raw_sentiment[ticker] = {
                 "overall": data["sentiment"]["overall_sentiment"],
                 "avg_score": data["sentiment"]["avg_score"],

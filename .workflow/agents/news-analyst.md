@@ -109,7 +109,7 @@ Write `news-sweep-report.md` using the pre-analyst heatmap as structural foundat
 | Disclaimer | Informational only. Not trading advice. Review raw data before acting. |
 ```
 
-**Heatmap enhancement rules:** You MAY enhance the Top Catalyst column with descriptive context from the headline data (e.g. "Earnings" → "Q4 Earnings Feb 25 / fraud probe"). Do NOT change any other data columns (Overall Sentiment, Avg Score, Pos%, Neg%). Copy the sort order and distribution line verbatim from the pre-analyst.
+**Heatmap enhancement rules:** You MAY enhance the Top Catalyst column with descriptive context from the headline data (e.g. "Earnings / Short" → "Q4 Earnings Feb 25 / Short Squeeze Watch"). Do NOT change any other data columns (Overall Sentiment, Avg Score, Pos%, Neg%). Copy the sort order and distribution line verbatim from the pre-analyst.
 
 ## Output Format
 
