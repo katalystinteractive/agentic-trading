@@ -187,6 +187,11 @@ def _fmt_val(val, prefix="$", suffix=""):
     return str(val)
 
 
+def _fmt_or_na(val):
+    """Format a numeric value as $X.XX, else return 'N/A'."""
+    return f"${val:.2f}" if isinstance(val, (int, float)) else "N/A"
+
+
 def build_velocity_bounce(portfolio):
     """Extract velocity/bounce data from portfolio.json."""
     parts = []
@@ -438,9 +443,6 @@ def build_capital_note(portfolio, ps_output):
         parts.append(cap_table)
     else:
         # Fallback — format with $X.XX if numeric, else N/A
-        def _fmt_or_na(val):
-            return f"${val:.2f}" if isinstance(val, (int, float)) else "N/A"
-
         cap = portfolio.get("capital", {})
         positions = portfolio.get("positions", {})
         deployed = sum(
