@@ -1006,6 +1006,8 @@ def compute_time_stops(portfolio, report_date):
     """
     stops = []
     for ticker, pos in portfolio.get("positions", {}).items():
+        if not pos.get("shares", 0):
+            continue  # Skip exited positions
         entry_str = pos.get("entry_date", "")
         if not entry_str:
             continue

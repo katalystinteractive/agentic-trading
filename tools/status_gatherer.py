@@ -426,7 +426,10 @@ def build_capital_note(portfolio, ps_output):
     if cap_table:
         parts.append(cap_table)
     else:
-        # Fallback
+        # Fallback — format with $X.XX if numeric, else N/A
+        def _fmt_or_na(val):
+            return f"${val:.2f}" if isinstance(val, (int, float)) else "N/A"
+
         cap = portfolio.get("capital", {})
         positions = portfolio.get("positions", {})
         deployed = sum(
@@ -437,10 +440,10 @@ def build_capital_note(portfolio, ps_output):
         parts.append("| Metric | Value |")
         parts.append("| :--- | :--- |")
         parts.append(f"| Deployed | ${deployed:,.2f} |")
-        parts.append(f"| Per-Stock Budget | ${cap.get('per_stock_total', 'N/A'):.2f} |")
-        parts.append(f"| Active Bullet (Full/Std) | ${cap.get('active_bullet_full', 'N/A'):.2f} |")
-        parts.append(f"| Active Bullet (Half) | ${cap.get('active_bullet_half', 'N/A'):.2f} |")
-        parts.append(f"| Reserve Bullet | ${cap.get('reserve_bullet_size', 'N/A'):.2f} |")
+        parts.append(f"| Per-Stock Budget | {_fmt_or_na(cap.get('per_stock_total'))} |")
+        parts.append(f"| Active Bullet (Full/Std) | {_fmt_or_na(cap.get('active_bullet_full'))} |")
+        parts.append(f"| Active Bullet (Half) | {_fmt_or_na(cap.get('active_bullet_half'))} |")
+        parts.append(f"| Reserve Bullet | {_fmt_or_na(cap.get('reserve_bullet_size'))} |")
 
     parts.append("")
     parts.append(
