@@ -321,7 +321,7 @@ def build_portfolio_context(tickers_by_tier, portfolio, prices):
             if tier_num == 1:
                 pos = positions.get(ticker, {})
                 shares = pos.get("shares", 0)
-                shares_str = str(shares) if isinstance(shares, int) and shares > 0 else "\u2014"
+                shares_str = str(int(shares)) if isinstance(shares, (int, float)) and shares > 0 else "\u2014"
 
                 avg_cost = pos.get("avg_cost")
                 avg_str = f"${avg_cost:.2f}" if avg_cost is not None else "\u2014"
