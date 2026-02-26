@@ -53,7 +53,8 @@ def extract_report_date(raw_text):
     m = re.search(r"# Status Raw Data — (\d{4}-\d{2}-\d{2})", raw_text)
     if m:
         return date.fromisoformat(m.group(1))
-    # Fallback to today
+    # Fallback to today — warn since this affects day-count arithmetic
+    print("Warning: Could not parse date from status-raw.md header, falling back to today()", file=sys.stderr)
     return date.today()
 
 
@@ -187,7 +188,7 @@ def _parse_active_positions(lines):
         try:
             rows.append({
                 "ticker": cols[0],
-                "shares": int(cols[1]),
+                "shares": int(float(cols[1])),
                 "avg_cost": float(cols[2].replace("$", "").replace(",", "")),
                 "current": float(cols[3].replace("$", "").replace(",", "")),
                 "day_low": float(cols[4].replace("$", "").replace(",", "")) if cols[4] != "N/A" else None,
@@ -1112,7 +1113,9 @@ def compute_capital_summary(portfolio, heat_map_positions):
     )
 
     total_budget = surgical_budget + vel_cap.get("total_pool", 0) + bnc_cap.get("total_pool", 0)
-    total_util = (total_deployed / total_budget * 100) if total_budget else 0
+    # Utilization excludes recovery (fixed legacy positions with no budget concept)
+    active_deployed = surgical_deployed + vel_deployed + bnc_deployed
+    total_util = (active_deployed / total_budget * 100) if total_budget else 0
 
     return {
         "surgical": {

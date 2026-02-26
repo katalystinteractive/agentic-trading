@@ -139,7 +139,7 @@ def _parse_report_heat_map(lines):
             pct_str = cols[5].replace("%", "").replace("+", "")
             rows.append({
                 "ticker": cols[0],
-                "shares": int(cols[1]),
+                "shares": int(float(cols[1])),
                 "avg_cost": float(cols[2].replace("$", "").replace(",", "")),
                 "current": float(cols[3].replace("$", "").replace(",", "")),
                 "pl_dollar": float(pl_str),
@@ -655,12 +655,10 @@ def check_ordering(report):
     return {"status": status, "issues": issues, "notes": notes}
 
 
-def check_context_flags(raw_data, report, portfolio):
+def check_context_flags(raw_data, report, portfolio, report_date):
     """Check 5: Context flag arithmetic verification."""
     issues = []
     notes = []
-
-    report_date = extract_report_date(RAW_PATH.read_text(encoding="utf-8"))
 
     # Earnings day counts
     for ticker, detail in raw_data["ticker_details"].items():
@@ -968,7 +966,7 @@ def main():
         "fill_detection": check_fill_detection(raw_data, report, portfolio),
         "data_consistency": check_data_consistency(raw_data, report, portfolio),
         "ordering": check_ordering(report),
-        "context_flags": check_context_flags(raw_data, report, portfolio),
+        "context_flags": check_context_flags(raw_data, report, portfolio, report_date),
         "capital_summary": check_capital_summary(raw_data, report, portfolio),
     }
 
