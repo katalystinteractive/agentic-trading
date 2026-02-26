@@ -23,6 +23,16 @@ TOOLS_DIR = PROJECT_ROOT / "tools"
 OUTPUT = PROJECT_ROOT / "news-sweep-raw.md"
 
 
+def _split_table_row(line):
+    """Split a markdown table row into columns, stripping padding and empty edge cells."""
+    cols = [p.strip() for p in line.split("|")]
+    if cols and cols[0] == "":
+        cols = cols[1:]
+    if cols and cols[-1] == "":
+        cols = cols[:-1]
+    return cols
+
+
 def run_tool(tool_name, args=None, timeout=90):
     """Run a Python tool and capture stdout. Returns (stdout, error_or_None)."""
     cmd = ["python3", str(TOOLS_DIR / tool_name)]
@@ -46,7 +56,7 @@ def run_tool(tool_name, args=None, timeout=90):
 def load_portfolio():
     """Read portfolio.json. Exit with error if missing/malformed."""
     try:
-        with open(PORTFOLIO) as f:
+        with open(PORTFOLIO, encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
         print(f"*Error: {PORTFOLIO} not found*")
@@ -124,17 +134,13 @@ def parse_portfolio_status(stdout):
             section = None
             continue
 
-        # Skip non-data rows
+        # Skip non-data rows and lines outside a known section
+        if section is None:
+            continue
         if not stripped.startswith("|") or stripped.startswith("| Ticker") or stripped.startswith("| :"):
             continue
 
-        cols = [p.strip() for p in stripped.split("|")]
-        # Remove empty first/last elements from split on leading/trailing |
-        if cols and cols[0] == "":
-            cols = cols[1:]
-        if cols and cols[-1] == "":
-            cols = cols[:-1]
-
+        cols = _split_table_row(stripped)
         if not cols:
             continue
 
@@ -183,7 +189,12 @@ def parse_portfolio_status(stdout):
 
 def parse_sentiment_summary(stdout):
     """Find ### Sentiment Summary, extract rows between header and next ### or end.
-    Returns list of (metric, value) tuples or None."""
+    Returns list of (metric, value) tuples or None.
+
+    TODO: If news_sentiment.py changes its section headers, these parsers break
+    silently (return None). Consider adding a warning when a non-error, non-no-news
+    ticker yields no parsed sections.
+    """
     lines = stdout.split("\n")
     in_section = False
     rows = []
@@ -200,12 +211,7 @@ def parse_sentiment_summary(stdout):
         if not stripped.startswith("|") or stripped.startswith("| Metric") or stripped.startswith("| :"):
             continue
 
-        cols = [p.strip() for p in stripped.split("|")]
-        if cols and cols[0] == "":
-            cols = cols[1:]
-        if cols and cols[-1] == "":
-            cols = cols[:-1]
-
+        cols = _split_table_row(stripped)
         if len(cols) >= 2:
             rows.append((cols[0], cols[1]))
 
@@ -231,12 +237,7 @@ def parse_detected_catalysts(stdout):
         if not stripped.startswith("|") or stripped.startswith("| Category") or stripped.startswith("| :"):
             continue
 
-        cols = [p.strip() for p in stripped.split("|")]
-        if cols and cols[0] == "":
-            cols = cols[1:]
-        if cols and cols[-1] == "":
-            cols = cols[:-1]
-
+        cols = _split_table_row(stripped)
         if len(cols) >= 3:
             rows.append((cols[0], cols[1], cols[2]))
 
@@ -263,18 +264,12 @@ def parse_top_headlines(stdout, n=3):
         if not stripped.startswith("|") or stripped.startswith("| Date") or stripped.startswith("| :"):
             continue
 
-        cols = [p.strip() for p in stripped.split("|")]
-        if cols and cols[0] == "":
-            cols = cols[1:]
-        if cols and cols[-1] == "":
-            cols = cols[:-1]
-
+        cols = _split_table_row(stripped)
         if len(cols) >= 5:
             # Take first 5 columns only (drop 6th Catalysts column)
             rows.append((cols[0], cols[1], cols[2], cols[3], cols[4]))
-
-        if len(rows) >= n:
-            break
+            if len(rows) >= n:
+                break
 
     return rows if rows else None
 
@@ -483,7 +478,7 @@ def build_output(tickers_by_tier, portfolio, prices, tool_results, failures):
     else:
         parts.append("No failures.")
 
-    return "\n".join(parts)
+    return "\n".join(parts) + "\n"
 
 
 def main():

@@ -6,8 +6,8 @@ description: >
   verifies output, and hands off to the analyst.
 capabilities:
   file_read: true
-  file_write: true
-  file_search: true
+  file_write: false
+  file_search: false
   shell_commands:
     - "python3:*"
   web_access: false
