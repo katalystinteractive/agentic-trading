@@ -82,7 +82,7 @@ def classify_tickers(portfolio):
         # Tier 1: active position with shares > 0
         pos = positions.get(ticker, {})
         shares = pos.get("shares", 0)
-        if isinstance(shares, int) and shares > 0:
+        if isinstance(shares, (int, float)) and shares > 0:
             tier1.add(ticker)
             continue
 
@@ -108,14 +108,14 @@ def parse_portfolio_status(stdout):
     Parses 3 tables:
     - Active Positions (10 cols): ticker from col 0, price from col 3
     - Watchlist (5 cols): ticker from col 0, price from col 1, day_pct from col 4
-    - Pending Orders (10 cols): ticker from col 0, price from col 4 (deduplicated)
+    - Pending Orders (10 cols): ticker from col 0, current market price from col 4 (deduplicated)
 
     Merge: price priority Active > Watchlist > Pending. day_pct from Watchlist only.
     Returns {ticker: {"price": float|None, "day_pct": str|None}}.
     """
     active_prices = {}
     watchlist_data = {}    # ticker -> (price, day_pct)
-    pending_prices = {}    # ticker -> price (first occurrence only)
+    pending_market_prices = {}    # ticker -> current market price from col 4 (first occurrence only)
 
     section = None
     for line in stdout.split("\n"):
@@ -165,13 +165,13 @@ def parse_portfolio_status(stdout):
         elif section == "pending" and len(cols) >= 5:
             price_str = cols[4].replace("$", "").replace(",", "")
             try:
-                if ticker not in pending_prices:
-                    pending_prices[ticker] = float(price_str)
+                if ticker not in pending_market_prices:
+                    pending_market_prices[ticker] = float(price_str)
             except ValueError:
                 pass
 
     # Merge: price priority Active > Watchlist > Pending; day_pct from Watchlist only
-    all_tickers = set(active_prices.keys()) | set(watchlist_data.keys()) | set(pending_prices.keys())
+    all_tickers = set(active_prices.keys()) | set(watchlist_data.keys()) | set(pending_market_prices.keys())
     result = {}
     for ticker in all_tickers:
         price = None
@@ -179,8 +179,8 @@ def parse_portfolio_status(stdout):
             price = active_prices[ticker]
         elif ticker in watchlist_data:
             price = watchlist_data[ticker][0]
-        elif ticker in pending_prices:
-            price = pending_prices[ticker]
+        elif ticker in pending_market_prices:
+            price = pending_market_prices[ticker]
 
         day_pct = watchlist_data[ticker][1] if ticker in watchlist_data else None
         result[ticker] = {"price": price, "day_pct": day_pct}
