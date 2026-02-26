@@ -424,6 +424,7 @@ def check_pl_math(raw_data, report, portfolio):
     notes = []
 
     pj_positions = portfolio.get("positions", {})
+    raw_price_map = {p["ticker"]: p["current"] for p in raw_data["active_positions"]}
 
     for row in report["heat_map"]:
         ticker = row["ticker"]
@@ -435,11 +436,7 @@ def check_pl_math(raw_data, report, portfolio):
         expected_deployed = pj_shares * pj_avg
 
         # From raw data — get current price
-        current = None
-        for raw_pos in raw_data["active_positions"]:
-            if raw_pos["ticker"] == ticker:
-                current = raw_pos["current"]
-                break
+        current = raw_price_map.get(ticker)
 
         if current is None:
             issues.append(f"{ticker}: current price not found in raw data (Critical)")
@@ -474,7 +471,7 @@ def check_pl_math(raw_data, report, portfolio):
     if report["total_pl"] is not None:
         expected_total = sum(
             pj_positions.get(row["ticker"], {}).get("shares", 0) *
-            (next((r["current"] for r in raw_data["active_positions"] if r["ticker"] == row["ticker"]), 0)
+            (raw_price_map.get(row["ticker"], 0)
              - pj_positions.get(row["ticker"], {}).get("avg_cost", 0))
             for row in report["heat_map"]
         )
@@ -486,7 +483,7 @@ def check_pl_math(raw_data, report, portfolio):
     if report.get("total_deployed") is not None and report.get("total_pl") is not None:
         total_current = sum(
             pj_positions.get(row["ticker"], {}).get("shares", 0) *
-            next((r["current"] for r in raw_data["active_positions"] if r["ticker"] == row["ticker"]), 0)
+            raw_price_map.get(row["ticker"], 0)
             for row in report["heat_map"]
         )
         reported_check = report["total_deployed"] + report["total_pl"]
@@ -529,8 +526,9 @@ def check_fill_detection(raw_data, report, portfolio):
     # No false fills (report fill without raw marker)
     for ra in report_fills:
         header = ra.get("header", "")
-        # Extract ticker and price from header
-        m = re.search(r"(\w+)\s+\w+\s+@\s+\$?([\d.]+)", header)
+        # Strip "Potential Fill: " prefix before extracting ticker/price
+        clean_header = re.sub(r"^Potential\s+Fill:\s*", "", header)
+        m = re.search(r"(\w+)\s+\w+\s+@\s+\$?([\d.]+)", clean_header)
         if m:
             ticker = m.group(1)
             price = float(m.group(2))
