@@ -462,11 +462,13 @@ def build_heatmap(raw_data):
 
         sent = data["sentiment"]
 
-        # Top catalyst: highest count category
+        # Top catalyst: highest count category (show secondary when primary is Earnings)
         top_catalyst = "\u2014"
         if data["catalysts"]:
             sorted_cats = sorted(data["catalysts"], key=lambda c: (-c["count"], c["category"]))
             top_catalyst = sorted_cats[0]["category"]
+            if top_catalyst == "Earnings" and len(sorted_cats) > 1:
+                top_catalyst = f"Earnings / {sorted_cats[1]['category']}"
 
         overall = sent["overall_sentiment"]
         if overall == "Bullish":
@@ -684,7 +686,8 @@ def detect_themes(raw_data):
                     if any(_keyword_matches_text(kw, cat.get("headlines", "")) for kw in keywords):
                         ticker_matches.append(cat["headlines"])
                 if ticker_matches:
-                    matched_headlines[ticker] = ticker_matches
+                    # Deduplicate per ticker (preserves order)
+                    matched_headlines[ticker] = list(dict.fromkeys(ticker_matches))
 
         if len(matched_tickers) < 2:
             continue
@@ -769,6 +772,10 @@ def _dedup_themes(themes):
                     current["basis"] = t2["basis"]
                 for tk, hls in t2.get("matched_headlines", {}).items():
                     current.setdefault("matched_headlines", {}).setdefault(tk, []).extend(hls)
+                # Deduplicate headlines per ticker after merge
+                for tk in current.get("matched_headlines", {}):
+                    current["matched_headlines"][tk] = list(
+                        dict.fromkeys(current["matched_headlines"][tk]))
                 used.add(j)
 
         merged.append(current)

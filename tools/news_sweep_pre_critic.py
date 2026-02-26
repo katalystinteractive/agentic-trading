@@ -329,11 +329,13 @@ def check_sentiment_accuracy(raw_data, report):
         if data["no_news"] or data["failure"] or data["sentiment"] is None:
             raw_sentiment[ticker] = None
         else:
-            # Top catalyst
+            # Top catalyst (with secondary when primary is Earnings)
             top_cat = "\u2014"
             if data["catalysts"]:
                 sorted_cats = sorted(data["catalysts"], key=lambda c: (-c["count"], c["category"]))
                 top_cat = sorted_cats[0]["category"]
+                if top_cat == "Earnings" and len(sorted_cats) > 1:
+                    top_cat = f"Earnings / {sorted_cats[1]['category']}"
             raw_sentiment[ticker] = {
                 "overall": data["sentiment"]["overall_sentiment"],
                 "avg_score": data["sentiment"]["avg_score"],
@@ -413,9 +415,12 @@ def check_sentiment_accuracy(raw_data, report):
                 "severity": "Critical",
             })
 
-        # Top Catalyst: lenient — raw category name must appear as case-insensitive substring
+        # Top Catalyst: lenient — any raw category name (primary or secondary after "/")
+        # must appear as case-insensitive substring in the analyst's text
         if raw["top_catalyst"] != "\u2014":
-            if raw["top_catalyst"].lower() not in row["top_catalyst"].lower():
+            raw_cats = [c.strip().lower() for c in raw["top_catalyst"].split("/")]
+            report_cat_lower = row["top_catalyst"].lower()
+            if not any(rc in report_cat_lower for rc in raw_cats):
                 notes.append({
                     "ticker": ticker, "field": "Top Catalyst",
                     "raw": raw["top_catalyst"], "report": row["top_catalyst"],

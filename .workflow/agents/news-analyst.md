@@ -51,6 +51,8 @@ Write 2-3 sentences covering: overall portfolio sentiment posture, key risk, key
 
 For each pre-detected theme in the Cross-Ticker Themes section, write a 1-2 sentence narrative summary explaining what the theme means for the portfolio. Use the relevant headlines provided under each theme.
 
+**Broad themes (8+ tickers):** When a theme lists 8 or more tickers, critically evaluate each ticker's headline evidence. Distinguish Core tickers (headline directly supports the theme narrative) from Peripheral tickers (tagged in the catalyst category but evidence is generic, adverse, or based on SEC filings rather than an active catalyst). Name the Core tickers explicitly in the narrative. Do not claim the theme applies equally to all listed tickers when headline support varies.
+
 ### Step 4: Write Flag Detail Narratives
 
 For each pre-detected risk flag, write 1-2 sentences explaining the conflict and why it matters. Reference specific headline context from the Earnings Flag Detail section where applicable.
