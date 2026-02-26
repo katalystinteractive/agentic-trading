@@ -81,7 +81,8 @@ def classify_tickers(portfolio):
     for ticker in universe:
         # Tier 1: active position with shares > 0
         pos = positions.get(ticker, {})
-        if isinstance(pos.get("shares", 0), int) and pos.get("shares", 0) > 0:
+        shares = pos.get("shares", 0)
+        if isinstance(shares, int) and shares > 0:
             tier1.add(ticker)
             continue
 
