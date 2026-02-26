@@ -10,6 +10,7 @@ Usage: python3 tools/news_sweep_pre_critic.py
 import json
 import re
 import sys
+from datetime import datetime
 from pathlib import Path
 
 # Same-directory imports
@@ -726,7 +727,6 @@ def check_report_consistency(raw_data, report):
 
 def build_report(checks):
     """Assemble news-sweep-pre-critic.md from check results."""
-    from datetime import datetime
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
     lines = []
 

@@ -95,6 +95,33 @@ def _parse_portfolio_context(lines):
 
     Tier is read from col 1 as the single authoritative source.
     """
+    def parse_price(s):
+        s = s.strip().replace("$", "").replace(",", "")
+        if s in ("—", "\u2014", "N/A", ""):
+            return None
+        try:
+            return float(s)
+        except ValueError:
+            return None
+
+    def parse_int_or_none(s):
+        s = s.strip()
+        if s in ("—", "\u2014", "N/A", ""):
+            return None
+        try:
+            return int(s)
+        except ValueError:
+            return None
+
+    def parse_float_or_none(s):
+        s = s.strip()
+        if s in ("—", "\u2014", "N/A", ""):
+            return None
+        try:
+            return float(s)
+        except ValueError:
+            return None
+
     result = []
     in_section = False
     for line in lines:
@@ -102,7 +129,7 @@ def _parse_portfolio_context(lines):
         if stripped == "## Portfolio Context":
             in_section = True
             continue
-        if in_section and stripped.startswith("## ") or (in_section and stripped == "---"):
+        if in_section and (stripped.startswith("## ") or stripped == "---"):
             break
         if not in_section:
             continue
@@ -112,31 +139,13 @@ def _parse_portfolio_context(lines):
         if len(cols) < 9:
             continue
 
-        def parse_price(s):
-            s = s.strip().replace("$", "").replace(",", "")
-            if s in ("—", "\u2014", "N/A", ""):
-                return None
-            try:
-                return float(s)
-            except ValueError:
-                return None
-
-        def parse_int_or_none(s):
-            s = s.strip()
-            if s in ("—", "\u2014", "N/A", ""):
-                return None
-            try:
-                return int(s)
-            except ValueError:
-                return None
-
         ticker = cols[0].strip()
         tier = int(cols[1].strip())
         current_price = parse_price(cols[2])
         day_chg = cols[3].strip()
         if day_chg in ("N/A", "—", "\u2014"):
             day_chg = None
-        shares = parse_int_or_none(cols[4])
+        shares = parse_float_or_none(cols[4])
         avg_cost = parse_price(cols[5])
         target = parse_price(cols[6])
         pending_buys = parse_int_or_none(cols[7])
@@ -704,13 +713,13 @@ def _compute_direction(raw_data, tickers):
             overall = data["sentiment"]["overall_sentiment"]
             if overall in counts:
                 counts[overall] += 1
-    if counts["Bullish"] > counts["Bearish"] and counts["Bullish"] > counts["Neutral"]:
+    if counts["Bullish"] > counts["Bearish"]:
         return "Bullish"
-    if counts["Bearish"] > counts["Bullish"] and counts["Bearish"] > counts["Neutral"]:
+    if counts["Bearish"] > counts["Bullish"]:
         return "Bearish"
     if counts["Bullish"] == counts["Bearish"] and counts["Bullish"] > 0:
         return "Mixed"
-    return "Mixed" if counts["Bullish"] > 0 and counts["Bearish"] > 0 else "Neutral"
+    return "Neutral"
 
 
 def _compute_urgency(raw_data, tickers):
@@ -849,7 +858,7 @@ def build_recommendation_skeleton(flags, themes):
 # Report Builder
 # ---------------------------------------------------------------------------
 
-def build_report(raw_data, heatmap_rows, distribution, flags, themes, recs, portfolio):
+def build_report(raw_data, heatmap_rows, distribution, flags, themes, recs):
     """Assemble news-sweep-pre-analyst.md — self-contained output for the LLM analyst."""
     today_str = raw_data["date"] or date.today().isoformat()
     lines = []
@@ -865,7 +874,10 @@ def build_report(raw_data, heatmap_rows, distribution, flags, themes, recs, port
     for pc in raw_data["portfolio_context"]:
         price_str = f"${pc['current_price']:.2f}" if pc['current_price'] is not None else "N/A"
         day_str = pc['day_chg'] if pc['day_chg'] else "N/A"
-        shares_str = str(pc['shares']) if pc['shares'] is not None else "\u2014"
+        if pc['shares'] is not None:
+            shares_str = str(int(pc['shares'])) if pc['shares'] == int(pc['shares']) else f"{pc['shares']:.2f}"
+        else:
+            shares_str = "\u2014"
         avg_str = f"${pc['avg_cost']:.2f}" if pc['avg_cost'] is not None else "\u2014"
         target_str = f"${pc['target']:.2f}" if pc['target'] is not None else "\u2014"
         buys_str = str(pc['pending_buys']) if pc['pending_buys'] is not None else "\u2014"
@@ -1018,7 +1030,7 @@ def main():
     recs = build_recommendation_skeleton(flags, themes)
     print(f"Recommendations: {len(recs)}")
 
-    report = build_report(raw_data, heatmap_rows, distribution, flags, themes, recs, portfolio)
+    report = build_report(raw_data, heatmap_rows, distribution, flags, themes, recs)
     OUTPUT_PATH.write_text(report, encoding="utf-8")
 
     size_kb = OUTPUT_PATH.stat().st_size / 1024
