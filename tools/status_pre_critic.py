@@ -545,7 +545,7 @@ def check_fill_detection(raw_data, report, portfolio):
         fields = ra.get("fields", {})
         # Check if new avg is mentioned
         for key, val in fields.items():
-            if "avg" in key.lower() or "new" in key.lower():
+            if "avg" in key.lower():
                 # Try to extract and verify
                 m = re.search(r"\$?([\d.]+)", val)
                 if m:
