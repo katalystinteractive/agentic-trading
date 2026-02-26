@@ -7,7 +7,7 @@ description: >
   theme detection, risk flags, and actionable recommendations. Phase 3
   verifies the report against raw data for accuracy and completeness.
 
-version: "1.1.0"
+version: "2.0.0"
 
 phases:
   - id: sweep
@@ -20,19 +20,20 @@ phases:
 
   - id: analyze
     name: Cross-Ticker Analysis
-    description: Produce sentiment heatmap, theme detection, risk flags, and recommendations
+    description: Step 0 runs pre-processor (heatmap, flags, themes), then LLM adds qualitative analysis
     agent: news-analyst
     depends_on:
       - sweep
     requires:
       - news-sweep-raw.md
     artifacts:
+      - news-sweep-pre-analyst.md
       - news-sweep-report.md
     timeout_minutes: 8
 
   - id: review
     name: Report Review
-    description: Verify report accuracy against raw data — sentiment scores, conflicts, themes, recommendations
+    description: Step 0 runs pre-processor (5 verification checks), then LLM adds qualitative review
     agent: news-critic
     depends_on:
       - analyze
@@ -40,6 +41,7 @@ phases:
       - news-sweep-raw.md
       - news-sweep-report.md
     artifacts:
+      - news-sweep-pre-critic.md
       - news-sweep-review.md
     timeout_minutes: 6
 

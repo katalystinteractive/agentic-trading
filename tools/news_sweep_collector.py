@@ -23,7 +23,7 @@ TOOLS_DIR = PROJECT_ROOT / "tools"
 OUTPUT = PROJECT_ROOT / "news-sweep-raw.md"
 
 
-def _split_table_row(line):
+def split_table_row(line):
     """Split a markdown table row into columns, stripping padding and empty edge cells."""
     cols = [p.strip() for p in line.split("|")]
     if cols and cols[0] == "":
@@ -141,7 +141,7 @@ def parse_portfolio_status(stdout):
         if not stripped.startswith("|") or stripped.startswith("| Ticker") or stripped.startswith("| :"):
             continue
 
-        cols = _split_table_row(stripped)
+        cols = split_table_row(stripped)
         if not cols:
             continue
 
@@ -212,7 +212,7 @@ def parse_sentiment_summary(stdout):
         if not stripped.startswith("|") or stripped.startswith("| Metric") or stripped.startswith("| :"):
             continue
 
-        cols = _split_table_row(stripped)
+        cols = split_table_row(stripped)
         if len(cols) >= 2:
             rows.append((cols[0], cols[1]))
 
@@ -238,7 +238,7 @@ def parse_detected_catalysts(stdout):
         if not stripped.startswith("|") or stripped.startswith("| Category") or stripped.startswith("| :"):
             continue
 
-        cols = _split_table_row(stripped)
+        cols = split_table_row(stripped)
         if len(cols) >= 3:
             rows.append((cols[0], cols[1], cols[2]))
 
@@ -265,7 +265,7 @@ def parse_top_headlines(stdout, n=3):
         if not stripped.startswith("|") or stripped.startswith("| Date") or stripped.startswith("| :"):
             continue
 
-        cols = _split_table_row(stripped)
+        cols = split_table_row(stripped)
         if len(cols) >= 5:
             # Take first 5 columns only (drop 6th Catalysts column)
             rows.append((cols[0], cols[1], cols[2], cols[3], cols[4]))
