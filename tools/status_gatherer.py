@@ -180,6 +180,13 @@ def read_structural_context(ticker, limit=STRUCTURAL_LINE_LIMIT):
 # Velocity & Bounce
 # ---------------------------------------------------------------------------
 
+def _fmt_val(val, prefix="$", suffix=""):
+    """Format a value with prefix/suffix if numeric, else return as string."""
+    if isinstance(val, (int, float)):
+        return f"{prefix}{val}{suffix}"
+    return str(val)
+
+
 def build_velocity_bounce(portfolio):
     """Extract velocity/bounce data from portfolio.json."""
     parts = []
@@ -228,8 +235,9 @@ def build_velocity_bounce(portfolio):
         target = vel_cap.get("target_pct", "N/A")
         time_stop = vel_cap.get("time_stop_days", "N/A")
         parts.append(
-            f"\n**Velocity Capital Pool:** ${total} total | ${per_trade}/trade | "
-            f"max {max_conc} concurrent | {stop}% stop | {target}% target | {time_stop}-day time stop"
+            f"\n**Velocity Capital Pool:** {_fmt_val(total)} total | {_fmt_val(per_trade)}/trade | "
+            f"max {max_conc} concurrent | {_fmt_val(stop, prefix='', suffix='%')} stop | "
+            f"{_fmt_val(target, prefix='', suffix='%')} target | {time_stop}-day time stop"
         )
 
     bnc_cap = portfolio.get("bounce_capital", {})
@@ -240,8 +248,9 @@ def build_velocity_bounce(portfolio):
         stop = bnc_cap.get("stop_loss_pct", "N/A")
         time_stop = bnc_cap.get("time_stop_days", "N/A")
         parts.append(
-            f"**Bounce Capital Pool:** ${total} total | ${per_trade}/trade | "
-            f"max {max_conc} concurrent | {stop}% stop | {time_stop}-day time stop"
+            f"**Bounce Capital Pool:** {_fmt_val(total)} total | {_fmt_val(per_trade)}/trade | "
+            f"max {max_conc} concurrent | {_fmt_val(stop, prefix='', suffix='%')} stop | "
+            f"{time_stop}-day time stop"
         )
 
     return "\n".join(parts)
@@ -322,15 +331,17 @@ def assemble_raw(today_str, portfolio_status_output, ticker_details, watchlist_s
     parts.append("## Portfolio Status")
     parts.append("")
     if portfolio_status_output:
-        # Strip the title line from portfolio_status.py output (it has its own # header)
+        # Strip the "# Portfolio Status — ..." title line (already under ## Portfolio Status)
         ps_lines = portfolio_status_output.split("\n")
-        # Skip lines until we find the first ## section
-        skip = True
+        started = False
         for line in ps_lines:
-            if line.startswith("## ") or line.startswith("*Note:"):
-                skip = False
-            if not skip:
-                parts.append(line)
+            if not started:
+                if line.startswith("# Portfolio Status"):
+                    started = True
+                    continue  # skip the title line itself
+                elif line.strip() == "":
+                    continue  # skip leading blank lines
+            parts.append(line)
     else:
         parts.append("*Error: portfolio_status.py failed to produce output.*")
     parts.append("")
