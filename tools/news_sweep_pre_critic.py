@@ -85,8 +85,6 @@ def _parse_report_heatmap(lines):
             continue
         if not stripped.startswith("|"):
             continue
-        if stripped.startswith("**Distribution"):
-            continue
 
         cols = split_table_row(stripped)
         if len(cols) < 8:
@@ -523,14 +521,18 @@ def check_conflict_classification(raw_data, report, pending_orders):
         if not pct_match:
             continue
         stated_pct = float(pct_match.group(1))
-        # Find the expected flag to get actual percentage
-        expected_c = [f for f in expected_flags if f["type"] == "C" and f["ticker"] == rf["ticker"]]
-        if expected_c and "pct_of_target" in expected_c[0]:
-            actual_pct = expected_c[0]["pct_of_target"]
-            if abs(stated_pct - actual_pct) > 0.5:
+        # Find the closest matching expected C flag for this ticker
+        expected_c = [f for f in expected_flags
+                      if f["type"] == "C" and f["ticker"] == rf["ticker"]
+                      and "pct_of_target" in f]
+        if expected_c:
+            # Match against the expected flag with the closest percentage
+            closest = min(expected_c, key=lambda f: abs(f["pct_of_target"] - stated_pct))
+            if abs(stated_pct - closest["pct_of_target"]) > 0.5:
                 issues.append({
                     "ticker": rf["ticker"],
-                    "detail": f"Type C percentage: stated {stated_pct:.1f}% vs actual {actual_pct:.1f}%",
+                    "detail": (f"Type C percentage: stated {stated_pct:.1f}% "
+                               f"vs actual {closest['pct_of_target']:.1f}%"),
                     "severity": "Critical",
                 })
 
