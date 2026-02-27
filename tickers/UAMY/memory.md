@@ -5,6 +5,7 @@
 | Date | Action | Shares | Price | Running Total | Avg Cost | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | Pre-2026-02-12 | BUY | 40 | $7.96 | 40 | $7.96 | Initial position (pre-strategy) |
+| 2026-02-25 | SELL | 40 | $8.44 | 0 | — | Full exit. Revenue: $337.60. **Profit: +$19.20 (+6.0%).** Position closed. |
 
 ## Observations
 - Feb 12: Pulled back ~8-12% on "sell the news" after Idaho JV details (49% stake disappointed), federal price floor reversal, and profit-taking from 500%+ run.

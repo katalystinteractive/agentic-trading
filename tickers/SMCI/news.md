@@ -1,4 +1,4 @@
-*Generated: 2026-02-23 01:07*
+*Generated: 2026-02-26 22:17*
 
 ## News & Sentiment: Super Micro Computer, Inc. (SMCI)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,124 +6,126 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Benzinga | Consumer Tech News (Feb 16-20): Big Techs To Boost AI in Ind... | Positive | +0.40 | — |
-| Today | Insider Monkey | Needham Lowers Super Micro (SMCI) Price Target to $40, Keeps... | Positive | +0.53 | Earnings, Analyst |
-| 2026-02-21 | Benzinga | Super Micro Computer, Blue Owl, Hims & Hers And More: 5 Stoc... | Positive | +0.70 | — |
-| 2026-02-21 | Nasdaq | Super Micro Computer Stock Could Double, But Only if Managem... | Positive | +0.35 | Corporate |
-| 2026-02-21 | Seeking Alpha | Super Micro Computer: The Less Discussed FQ2 Accounting Item... | Positive | +0.60 | Analyst |
-| 2026-02-20 | Zacks | Super Micro Computer, Inc. (SMCI) Is a Trending Stock: Facts... | Positive | +0.60 | — |
-| 2026-02-20 | Fortune | Troubled Nvidia ally Supermicro pledged to hire a new CFO im... | Negative | -0.46 | — |
-| 2026-02-20 | TipRanks | Why Super Micro Computer Stock (SMCI) Jumped 8% - TipRanks | Positive | +0.60 | — |
-| 2026-02-20 | TIKR.com | SMCI Stock Rallies 8% on $12.6B AI Revenue Explosion: Here’s... | Neutral | +0.00 | Earnings |
-| 2026-02-20 | GuruFocus | Super Micro (SMCI) Shows Mixed Options Sentiment Amid Tradin... | Positive | +0.60 | — |
-| 2026-02-20 | CoinCentral | Super Micro Computer (SMCI) Stock Surges 8% on $40B Revenue ... | Positive | +0.60 | Earnings, Analyst |
-| 2026-02-20 | Blockonomi | Super Micro Computer (SMCI) Stock Surges as Insiders Buy and... | Positive | +0.60 | Analyst |
-| 2026-02-20 | Yahoo Finance U | Trending tickers: Walmart, Super Micro, Opendoor, Klarna and... | Positive | +0.60 | — |
-| 2026-02-19 | Benzinga | Opendoor, Super Micro Computer, Newmont Corp., Klarna And Un... | Positive | +0.77 | — |
-| 2026-02-19 | Barchart | Super Micro Computer Stock Is Pushing Above Its 50-Day Movin... | Positive | +0.60 | — |
-| 2026-02-19 | GuruFocus.com | Super Micro Shares Jump 5% -- Bullish Options Bets Ignite a ... | Positive | +0.73 | — |
-| 2026-02-19 | Benzinga | What Is Going On With AMD Stock On Thursday? | Neutral | +0.00 | — |
-| 2026-02-19 | Benzinga | Supermicro Eyes 'Make In India' Move For AI Servers | Neutral | +0.00 | — |
-| 2026-02-19 | Seeking Alpha | Super Micro Computer: Margins May Expand This Year (Rating U... | Positive | +0.74 | Analyst |
-| 2026-02-19 | simplywall.st | Super Micro Insider Buying Highlights Valuation Debate And M... | Positive | +0.38 | — |
-| 2026-02-19 | Nasdaq | Stock Market Today, Feb. 19: Super Micro Computer Surges Aft... | Positive | +0.60 | Earnings |
-| 2026-02-19 | MarketWatch | Super Micro Computer Inc. stock outperforms competitors on s... | Positive | +0.80 | Analyst |
-| 2026-02-19 | Intellectia AI | Super Micro Computer Shares Rise 8.25% on Analyst Upgrades -... | Positive | +0.73 | Analyst |
-| 2026-02-19 | Intellectia AI | Super Micro Computer Faces AI Infrastructure Demand - Intell... | Positive | +0.53 | — |
-| 2026-02-19 | FXEmpire | TSLA, PLTR and SMCI Forecasts – Tech Stocks Mixed Early on T... | Negative | -0.30 | — |
-| 2026-02-18 | Zacks | DELL vs. SMCI: Which AI-Server Stock Offers Better Growth Op... | Positive | +0.81 | — |
-| 2026-02-18 | Benzinga | Nvidia Partner Super Micro's Momentum Drops As Investors Shr... | Positive | +0.73 | Earnings |
-| 2026-02-18 | Simply Wall St. | Insider Buying At Super Micro Computer Versus Margin Pressur... | Positive | +0.40 | — |
-| 2026-02-17 | Zacks | Vertiv Gains From Strong Orders: Is the Growth Thesis Streng... | Positive | +0.89 | — |
-| 2026-02-17 | Zacks | SMCI Declines 6% in a Month: Time to Hold or Fold the Stock? | Neutral | +0.00 | — |
+| Today | Insider Monkey | Jim Cramer Says "Super Micro Is in My No-Fly Zone" | Positive | +0.60 | — |
+| Today | PR Newswire | Supermicro Introduces Industry's Highest Density AMD EPYC 40... | Neutral | +0.00 | — |
+| Today | GuruFocus.com | Super Micro Stock Pops After Unveiling Nvidia-Backed AI Syst... | Positive | +0.60 | — |
+| Today | Zacks | If You Invested $1000 in Super Micro Computer a Decade Ago, ... | Positive | +0.70 | — |
+| 2026-02-26 | Seeking Alpha | Super Micro: Margin Compression Has Caused The Market To Mis... | Positive | +0.60 | — |
+| 2026-02-26 | Finviz | Jim Cramer Says "Super Micro Is in My No-Fly Zone" - Finviz | Positive | +0.60 | — |
+| 2026-02-26 | TipRanks | Super Micro Computer Stock (SMCI) Is a Bargain-Basement Buy ... | Positive | +0.60 | — |
+| 2026-02-26 | CoinCentral | Super Micro Computer (SMCI) Stock: New Blade Server Platform... | Positive | +0.60 | — |
+| 2026-02-26 | Trefis | SMCI Stock (+7.9%) : New NVIDIA AI Platform Launch Lifts Sen... | Neutral | +0.00 | — |
+| 2026-02-26 | Trefis | S&P 500 Movers - Winners: AXON, COIN, SMCI - Losers: GDDY, F... | Negative | -0.08 | — |
+| 2026-02-26 | TipRanks | Mixed options sentiment in Super Micro with shares down 5.62... | Positive | +0.73 | — |
+| 2026-02-26 | FXLeaders | SMCI Stock Jumps on Revenue Strength but Faces $35 Level as ... | Negative | -0.21 | Earnings |
+| 2026-02-26 | MT Newswires | Equity Markets Mostly Fall Intraday as Nvidia Drags Tech Low... | Negative | -0.44 | — |
+| 2026-02-26 | Simply Wall St. | Super Micro Links Grid Aware AI Servers With Turnkey CNode X... | Positive | +0.60 | — |
+| 2026-02-25 | StockStory | Why Super Micro (SMCI) Stock Is Trading Up Today | Positive | +0.60 | — |
+| 2026-02-25 | PR Newswire | Supermicro and VAST Data Launch a New Enterprise AI Data Pla... | Positive | +0.32 | — |
+| 2026-02-25 | Zacks | The Zacks Analyst Blog Highlights Dell, Hewlett-Packard, Cis... | Positive | +0.60 | — |
+| 2026-02-25 | PR Newswire | CPower, Bentaus and Supermicro Successfully Flex AI Compute ... | Positive | +0.40 | — |
+| 2026-02-25 | Zacks | SMCI Doubles Down on DCBBS: Is it the Next Growth Engine? | Positive | +0.38 | — |
+| 2026-02-25 | GuruFocus.com | IonQ Earnings Preview: What To Expcet From Upcoming Report | Neutral | +0.00 | Earnings |
+| 2026-02-25 | Yahoo Finance | Why Super Micro (SMCI) Stock Is Trading Up Today - Yahoo Fin... | Positive | +0.60 | — |
+| 2026-02-25 | simplywall.st | Is Super Micro Computer (SMCI) Pricing Reflect Its AI Server... | Positive | +0.83 | — |
+| 2026-02-25 | Benzinga | Why Super Micro Computer Stock Is Trading Higher Today? - Be... | Positive | +0.60 | — |
+| 2026-02-25 | MarketBeat | Super Micro Computer (NASDAQ:SMCI) Shares Up 7.8% - Still a ... | Positive | +0.73 | Earnings |
+| 2026-02-25 | GuruFocus | Super Micro (SMCI) Sees Mixed Options Sentiment Amid Stock R... | Positive | +0.60 | — |
+| 2026-02-25 | TradingView | The AI Land Grab: Why SMCI's Drop Is Your Gain - TradingView | Positive | +0.32 | — |
+| 2026-02-25 | MarketBeat | The AI Land Grab: Why SMCI's Drop Is Your Gain - MarketBeat | Positive | +0.32 | Earnings |
+| 2026-02-25 | Benzinga | What Does the Market Think About Super Micro Computer Inc? -... | Positive | +0.60 | — |
+| 2026-02-24 | Zacks | DELL Gears Up to Report Q4 Earnings: Buy, Sell, or Hold the ... | Neutral | +0.00 | Earnings |
+| 2026-02-24 | Zacks | The Zacks Analyst Blog Highlights NVIDIA, Taiwan Semiconduct... | Positive | +0.60 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 24 (80%) |
+| Positive | 23 (77%) |
 | Neutral | 4 (13%) |
-| Negative | 2 (7%) |
-| Average Score | +0.470 |
+| Negative | 3 (10%) |
+| Average Score | +0.413 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 177 |
+| Total Unique Headlines | 178 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Analyst | 7 | Needham Lowers Super Micro (SMCI) Price ..; Super Micro Computer: The Less Discussed.. |
-| Earnings | 5 | Needham Lowers Super Micro (SMCI) Price ..; SMCI Stock Rallies 8% on $12.6B AI Reven.. |
-| Corporate | 1 | Super Micro Computer Stock Could Double,.. |
+| Earnings | 5 | SMCI Stock Jumps on Revenue Strength but..; IonQ Earnings Preview: What To Expcet Fr.. |
 
 ### Deep Dive Articles
 
-#### Consumer Tech News (Feb 16-20): Big Techs To Boost AI in India, EV Policy Shifts & More
-*Source: Benzinga | Date: Today | Sentiment: Positive (+0.13)*
-
-> New York GovernorKathy Hochul(D) has reportedly pulled a proposal to allow robotaxis to operate in other areas within the stateoutside of New York City.
-
-> The U.S. State Department is reportedly developing an online portal to provide access to content banned byEuropean and other governments.
-
-> PresidentDonald Trump‘s Department of Energy (DOE) has rescinded a rule that incentivized automakers to produce more EVs tocomply with Fuel Economy norms.
-
-> Defense SecretaryPete Hegsethis reportedly contemplating ending the Department of War's associationwith AI firmAnthropic.
-
-> Amazon.com Inc.(NASDAQ:AMZN) has reportedly discontinued its recently introduced warehouse robot, Blue Jay, and reassigned itsstaff to other robotics projects.
-
-**Catalysts:** Regulatory
-
-#### Needham Lowers Super Micro (SMCI) Price Target to $40, Keeps Buy
+#### Jim Cramer Says "Super Micro Is in My No-Fly Zone"
 *Source: Insider Monkey | Date: Today | Sentiment: Positive (+0.98)*
 
-> We recently published an article titled12 Best Data Storage Stocks to Buy Right Now.
+> Super Micro Computer, Inc. (NASDAQ:SMCI) is one of thestocks that was on Jim Cramer’s radar recently. A caller inquired if it was time to “dip a speculative toe in the water,” and here’s what Cramer had to say in response:
 
-> On February 4, Needham lowered its price target on Super Micro Computer, Inc. (NASDAQ:SMCI) to $40 from $51 while maintaining a Buy rating. The firm attributed the company’s second-quarter earnings outperformance to a large-scale data center deployment by a major customer and highlighted increasing adoption of its Data Center Building Block Solutions platform, although the revised target reflects sector-wide valuation compression in AI hardware.
+> No, I’ll tell you the truth. I mean, I would rather have you, if you’re going to do that, buy Dell. Although Dell is about to report on the 26, but Super Micro is in my no-fly zone. I’m sorry.
 
-> For the second quarter, Super Micro Computer, Inc. (NASDAQ:SMCI) reported record revenue of approximately $12.7 billion, representing 123% year-over-year growth and 153% sequential growth, exceeding prior guidance of $10 billion to $11 billion and including approximately $1.5 billion of delayed first-quarter shipments. GAAP EPS was $0.60 versus guidance of $0.37 to $0.45, while non-GAAP diluted EPS reached $0.69 compared to guidance of $0.46 to $0.54. Non-GAAP operating expenses declined to 1.9% of revenue, reflecting substantial operating leverage compared to 4.1% in the prior quarter.
+> Super Micro Computer, Inc. (NASDAQ:SMCI) designs and sells modular server and storage systems, including AI, cloud, and edge computing solutions. A caller asked about the stock during the January 16 episode and Cramer replied:
 
-> Management guided third-quarter fiscal 2026 revenue of at least $12.3 billion and increased full-year fiscal 2026 revenue guidance to at least $40 billion, with anticipated gross margin improvement of approximately 30 basis points sequentially. Ongoing expansion of manufacturing capacity across Silicon Valley, Taiwan, Malaysia, the Netherlands, and the Middle East, combined with automation and modularization initiatives, supports scalable production and margin enhancement, reinforcing the company’s positioning within the AI infrastructure buildout.
+> Sell. I don’t need that. And it just, you know… you gotta move on. You want to own that area, you own NVIDIA. Period. End of story.
 
-> Super Micro Computer, Inc. (NASDAQ:SMCI), founded in 1993 and headquartered in San Jose, California, designs and manufactures high-performance server and storage systems for data centers, cloud computing, artificial intelligence, 5G, and edge computing markets.
+> While we acknowledge the potential of SMCI as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you're looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
 
-**Catalysts:** Earnings, Regulatory, Corporate, Analyst
+**Catalysts:** Short
 
-#### Super Micro Computer, Blue Owl, Hims & Hers And More: 5 Stocks Investors Couldn't Stop Buzzing About This Week
-*Source: Benzinga | Date: 2026-02-21 | Sentiment: Positive (+0.59)*
+#### Supermicro Introduces Industry's Highest Density AMD EPYC 4005 Series MicroBlade for Cloud, Edge, and SaaS Workloads
+*Source: PR Newswire | Date: Today | Sentiment: Positive (+0.99)*
 
-> Retail investors talked up five hot stocks this week (Feb. 16 to Feb. 20) on X and Reddit's r/WallStreetBets, driven by retail hype, earnings, AI buzz, and corporate news flow.
+> SAN JOSE, Calif.,Feb. 26, 2026/PRNewswire/ --Supermicro, Inc.(NASDAQ: SMCI), a Total IT Solution Provider for AI, Cloud, Storage, and 5G/Edge, is announcing the launch of the industry's first and highest-density blade server platform powered by the latest AMD EPYC™ 4005 series processors. Designed with a flexible, density-optimized blade architecture, Supermicro's new MicroBlade platform is designed for longevity and versatility. By including the latest AMD EPYC 4005 series processors, along with previous versions, the system provides seamless scalability and long-term investment protection, allowing organizations to expand and upgrade as compute requirements evolve.
 
-> Super Micro Computer Inc.(NASDAQ:SMCI),Hims & Hers Health Inc.(NYSE:HIMS),Blue Owl Capital Inc.(NYSE:OWL),Microsoft Corp.(NASDAQ:MSFT), andWalmart Inc.(NASDAQ:WMT), spanning software, semiconductors, e-commerce, retail, private credit, AI, and cloud, reflected diverse investor interests.
+> "Our flexible blade architecture enables customers to mix different node types with different CPUs within a single enclosure and can incorporate up to 320 server nodes in a standard 48U rack," said Charles Liang, president and CEO of Supermicro. "Supermicro continues to lead the industry in delivering advanced, energy-efficient platforms to market that maximize scalability, lower total cost of ownership, and protecting data center investments for the long term."
 
-> Retail focus blended meme-driven narrative with earnings outlook and corporate news flow, as the S&P 500, Dow Jones, and Nasdaq witnessed negative market action during the week.
+> For more information, please visit:https://www.supermicro.com/en/Aplus/MicroBlade/module/MBA-315R-1DE12.php
 
-**Catalysts:** Earnings
+> The new 6U system supports up to 40 nodes in a single enclosure, delivering unparalleled compute density, energy efficiency, and cost effectiveness for scale-out and multi-tenant environments. The platform is optimized for a wide range of efficient and high-density workloads, including:
 
-#### Super Micro Computer, Inc. (SMCI) Is a Trending Stock: Facts to Know Before Betting on It
-*Source: Zacks | Date: 2026-02-20 | Sentiment: Positive (+0.99)*
+> Each node supports a single AMD EPYC 4005 series processor with two DDR5 ECC UDIMM slots operating at up to 5600 MT/s, along with two PCIe Gen5 E1.S SSDs and one M.2 SSD per node. Integrated networking features dual-port 25GbE via Broadcom BCM57414, with advanced security and manageability including TPM 2.0, signed firmware, hardware root of trust, IPMI 2.0, KVM over IP, and Redfish API support. The new MicroBlade system uniquely enables flexible mix-and-match configurations across single-wide and double-wide nodes further showcasing the versatility of the all-in-one Supermicro blade system. Connectivity further elevates its capabilities, with two integrated 25G Ethernet switches with 100G uplinks in the back of the enclosure, ensuring reliable, high-speed networking while lowering the TCO through cable reduction.
 
-> Super Micro Computer(SMCI) is one of the stocks most watched by Zacks.com visitors lately. So, it might be a good idea to review some of the factors that might affect the near-term performance of the stock.
+**Catalysts:** Regulatory, Corporate, Analyst
 
-> Shares of this server technology company have returned -0.9% over the past month versus the Zacks S&P 500 composite's -0.8% change. The Zacks Computer- Storage Devices industry, to which Super Micro belongs, has gained 25.4% over this period. Now the key question is: Where could the stock be headed in the near term?
+#### If You Invested $1000 in Super Micro Computer a Decade Ago, This is How Much It'd Be Worth Now
+*Source: Zacks | Date: Today | Sentiment: Positive (+0.99)*
 
-> While media releases or rumors about a substantial change in a company's business prospects usually make its stock 'trending' and lead to an immediate price change, there are always some fundamental facts that eventually dominate the buy-and-hold decision-making.
+> For most investors, how much a stock's price changes over time is important. This factor can impact your investment portfolio as well as help you compare investment results across sectors and industries.
 
-> Here at Zacks, we prioritize appraising the change in the projection of a company's future earnings over anything else. That's because we believe the present value of its future stream of earnings is what determines the fair value for its stock.
+> The fear of missing out, or FOMO, also plays a factor in investing, especially with particular tech giants, as well as popular consumer-facing stocks.
 
-> Our analysis is essentially based on how sell-side analysts covering the stock are revising their earnings estimates to take the latest business trends into account. When earnings estimates for a company go up, the fair value for its stock goes up as well. And when a stock's fair value is higher than its current market price, investors tend to buy the stock, resulting in its price moving upward. Because of this, empirical studies indicate a strong correlation between trends in earnings estimate revisions and short-term stock price movements.
+> What if you'd invested in Super Micro Computer (SMCI) ten years ago? It may not have been easy to hold on to SMCI for all that time, but if you did, how much would your investment be worth today?
 
-**Catalysts:** Earnings, Short
+> With that in mind, let's take a look at Super Micro Computer's  main business drivers.
 
-#### Opendoor, Super Micro Computer, Newmont Corp., Klarna And United Airlines: Why These 5 Stocks Are On Investors' Radars Today
-*Source: Benzinga | Date: 2026-02-19 | Sentiment: Negative (-0.95)*
+> Super Micro Computer, headquartered in San Jose, CA, is a global leader in high-performance, energy-efficient IT solutions. Founded in 1993 and reincorporated in Delaware in 2007, Super Micro Computer designs, develops, and manufactures server and storage systems optimized for data centers, cloud computing, artificial intelligence (AI) and edge computing workloads. The company’s solutions are based on its innovative Server Building Block Solutions architecture.
 
-> Major U.S. indices closed lower, with theDow Jones Industrial Averageshedding 0.5% to 49,395.16, theS&P 500finishing at 6,861.99, and theNasdaqslipping 0.3% to 22,682.72.
+**Catalysts:** Earnings, Regulatory
 
-> These are the top stocks that gained the attention of retail traders and investors through the day:
+#### Why Super Micro (SMCI) Stock Is Trading Up Today
+*Source: StockStory | Date: 2026-02-25 | Sentiment: Positive (+0.97)*
 
-> Opendoor Technologies saw a slight increase of 0.43%, closing at $4.65. The stock reached an intraday high of $4.84 and a low of $4.48, with a 52-week range of $0.51 to $10.87. In the after-hours trading, the stock shot up over 16% to $5.40.
+> Shares of server solutions provider Super Micro (NASDAQ:SMCI) jumped 8% in the afternoon session after the company made two significant announcements: a successful test of its AI infrastructure as a high-speed 'Virtual Power Plant' and the launch of a new enterprise AI data platform.
 
-> Opendoor Technologies reported fourth-quarter results on Thursday, delivering anarrower-than-expected loss. The company posted an EPS of negative 7 cents, beating the consensus estimate of a 10-cent loss by 30%.
+> In a joint test with CPower Energy and Bentaus, the company proved its AI systems could help stabilize electric grids during surges in power demand. This demonstration showcased a new use for its hardware. Separately, Super Micro, alongside VAST Data, launched the CNode-X Solution, an integrated AI data platform that featured NVIDIA technology. This new product was designed to help businesses deploy their AI systems more rapidly by combining Supermicro’s servers with advanced AI software.
 
-> However, revenue declined by $348 million year-over-year, signaling continued top-line pressure in the housing market. In the prior quarter, Opendoor reported an EPS of negative 8.2 cents versus an estimate of negative 8 cents, alongside revenue of $915 million, which topped expectations.
+> Is now the time to buy Super Micro?Access our full analysis report here, it’s free.
 
-**Catalysts:** Earnings
+> Super Micro’s shares are extremely volatile and have had 57 moves greater than 5% over the last year. In that context, today’s move indicates the market considers this news meaningful but not something that would fundamentally change its perception of the business.
+
+> The previous big move we wrote about was 2 days ago when the stock dropped 3.8% on the news that the Trump administration's announcement of new global tariffs, reignited trade policy uncertainty. The move came swiftly after the Supreme Court ruled the previous week that the president could not use the International Emergency Economic Powers Act (IEEPA) for such duties, a decision that had initially sent markets higher. However, the administration invoked a different authority, the Trade Act of 1974, to impose a 15% global tariff for up to 150 days. The rapid reimposition of trade barriers creates significant uncertainty for companies across multiple sectors that depend on international supply chains and global trade. Investors are now weighing the potential impact of these new duties on corporate earnings and broader economic activity.
+
+**Catalysts:** Earnings, Regulatory
+
+#### Supermicro and VAST Data Launch a New Enterprise AI Data Platform Solution with NVIDIA to Accelerate AI Factory Deployment
+*Source: PR Newswire | Date: 2026-02-25 | Sentiment: Positive (+0.99)*
+
+> SAN JOSE, Calif. and SALT LAKE CITY,Feb. 25, 2026/PRNewswire/ --VAST Forward--Supermicro, Inc. (NASDAQ: SMCI), a Total IT Solution Provider for AI, Cloud, Storage, and 5G/Edge, is launching, with VAST Data, the CNode-X Solution, a highly integrated, rapidly deployable AI Data Platform. The VAST AI Operating System, including the VAST InsightEngine and VAST DataBase, together with NVIDIA open models, microservices and libraries, along with Supermicro GPU and storage servers, form a fully integrated AI infrastructure stack, enabling enterprises to rapidly deploy a complete AI solution.
+
+> "Building on our successful collaboration with VAST Data, this solution brings together Supermicro's high-performance AI systems, VAST's software, and NVIDIA's technology into a truly integrated enterprise AI platform," said Charles Liang, president and CEO of Supermicro. "Together, we enable organizations to accelerate AI factory deployment, whether scaling large AI initiatives or deploying enterprise applications like generative AI and video analytics."
+
+> For more information about the new Supermicro and VAST solution, please visit:https://www.supermicro.com/en/solutions/vast
+
+> "CNode-X brings together Supermicro's integrated infrastructure expertise with the VAST AI Operating System and NVIDIA-accelerated compute to deliver a turnkey foundation for enterprise AI factories," said John Mao, Vice President, Global Technology Alliances at VAST Data. "Together, we're making it dramatically easier for organizations to deploy an end-to-end AI data platform – keeping GPUs fed with data, helping teams move faster from deployment to firsttoken, and scaling AI workloads with confidence."
+
+> Supermicro's existing EBox solution with VAST, which was launched in 2024 and widely adopted by large storage customers based on its space, power, and cost efficiency, combines two different server nodes into a single server. The second-generation EBox solution has been updated to the latest AMD EPYC™ 9005 CPUs.
+
+**Catalysts:** Regulatory, Corporate

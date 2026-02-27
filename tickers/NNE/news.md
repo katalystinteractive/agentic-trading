@@ -1,4 +1,4 @@
-*Generated: 2026-02-23 01:07*
+*Generated: 2026-02-26 22:17*
 
 ## News & Sentiment: Nano Nuclear Energy Inc. (NNE)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,57 +6,71 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-02-26 | simplywall.st | NANO Nuclear Energy (NNE) Valuation After New Gulf KRONOS MM... | Positive | +0.27 | — |
+| 2026-02-25 | The Motley Fool | Nano Nuclear Energy Stock Is Down 60%. Is It Finally Time to... | Negative | -0.20 | — |
+| 2026-02-24 | GlobeNewswire | NANO Nuclear Energy Signs Memorandum of Understanding with E... | Positive | +0.27 | — |
+| 2026-02-24 | Stock Titan | UAE group, NANO Nuclear eye micro reactors for data centers ... | Neutral | +0.00 | — |
+| 2026-02-24 | Investing.com | Texas Capital Securities reiterates Buy on Nano Nuclear stoc... | Positive | +0.30 | Regulatory |
+| 2026-02-24 | simplywall.st | Does Insider Sale And Nuclear Policy Hire Change The Bull Ca... | Positive | +0.27 | — |
+| 2026-02-24 | FinancialConten | The Portable Power Revolution: A Deep Dive into Nano Nuclear... | Positive | +0.27 | — |
+| 2026-02-24 | marketscreener. | Nano Nuclear Energy - Signed memorandum of understanding wit... | Positive | +0.27 | — |
+| 2026-02-24 | Motley Fool | NuScale Power Has Tumbled From All-Time Highs in 2025. Here'... | Neutral | +0.00 | — |
+| 2026-02-23 | Yahoo Finance | Did Narrower-Than-Expected Losses and KRONOS Progress Just S... | Neutral | +0.03 | — |
+| 2026-02-23 | MarketBeat | Nuclear Stocks To Watch Now - February 21st - MarketBeat | Neutral | +0.00 | Earnings |
 | 2026-02-21 | Motley Fool | Could This $14 Stock Be Your Ticket to Millionaire Status? | Neutral | +0.00 | — |
 | 2026-02-20 | Investing.com | NANO Nuclear Energy CEO on microreactors and the looming pow... | Negative | -0.54 | Corporate |
 | 2026-02-20 | GlobeNewswire | NANO Nuclear Expands its Nuclear Policy Leadership Expertise... | Positive | +0.10 | — |
 | 2026-02-20 | Zacks | OKLO's Licensing Approach Aims to Accelerate Reactor Rollout | Neutral | +0.00 | — |
-| 2026-02-20 | Stock Titan | 30-year U.S. nuclear security veteran joins microreactor sta... | Positive | +0.34 | Regulatory |
 | 2026-02-20 | MarketBeat | Nano Nuclear Energy Inc. (NASDAQ:NNE) Given Average Rating o... | Positive | +0.27 | Earnings |
+| 2026-02-20 | The Motley Fool | Nano Nuclear Energy's President and Chairman Sold $30 Millio... | Positive | +0.05 | — |
 | 2026-02-20 | MarketBeat | What is Northland Securities' Forecast for NNE Q2 Earnings? ... | Positive | +0.30 | Earnings, Regulatory |
-| 2026-02-20 | Motley Fool | Nano Nuclear Energy's President and Chairman Sold $30 Millio... | Positive | +0.48 | — |
+| 2026-02-20 | MarketBeat | HC Wainwright Has Optimistic Outlook of NNE Q2 Earnings - Ma... | Positive | +0.32 | Earnings |
 | 2026-02-19 | PR Newswire | Uranium Demand Continues to Rise as AI Power Demand Rewrites... | Negative | -0.25 | — |
-| 2026-02-19 | Meyka | Benchmark Maintains Buy for NNE Nano Nuclear Energy Inc Feb ... | Positive | +0.27 | — |
 | 2026-02-18 | Moby | Nano Nuclear Energy Inc Q1 2026 Earnings Call Summary | Positive | +0.27 | Earnings |
 | 2026-02-18 | GuruFocus.com | Nano Nuclear Energy Inc (NNE) Q1 2026 Earnings Call Highligh... | Positive | +0.27 | Earnings |
-| 2026-02-18 | Nasdaq | NANO Nuclear Energy Inc. Q1 Loss Climbs - Nasdaq | Negative | -0.05 | — |
 | 2026-02-18 | simplywall.st | Nano Nuclear’s KRONOS Progress And AI Deal Versus Weak Share... | Positive | +0.27 | — |
-| 2026-02-18 | The Globe and M | Nano Nuclear NNE Q1 2026 Earnings Call Transcript - The Glob... | Neutral | +0.00 | Earnings |
-| 2026-02-18 | Investing.com A | Benchmark reaffirms Nano Nuclear stock rating on reactor pro... | Positive | +0.42 | — |
+| 2026-02-18 | Investing.com | Benchmark reaffirms Nano Nuclear stock rating on reactor pro... | Positive | +0.42 | — |
+| 2026-02-18 | Nasdaq | NANO Nuclear Energy Inc. Q1 Loss Climbs - Nasdaq | Negative | -0.05 | — |
 | 2026-02-17 | MarketBeat | Nano Nuclear Energy Q1 Earnings Call Highlights | Positive | +0.27 | Earnings |
 | 2026-02-17 | Benzinga | Nano Nuclear Stock Climbs After Narrower Q1 Loss: Details | Negative | -0.32 | — |
 | 2026-02-17 | GlobeNewswire | NANO Nuclear Reports Q1 FY 2026 Financial Results and Provid... | Neutral | +0.00 | — |
 | 2026-02-17 | Benzinga | Palo Alto, Opendoor, Carvana And More Stocks With Earnings T... | Neutral | +0.00 | Earnings |
-| 2026-02-17 | simplywall.st | Assessing NANO Nuclear Energy (NNE) Valuation After Recent S... | Positive | +0.51 | — |
 | 2026-02-17 | Stock Titan | NANO Nuclear amasses $577.5M to push microreactors for AI da... | Neutral | +0.00 | — |
-| 2026-02-17 | MarketBeat | Nano Nuclear Energy (NASDAQ:NNE) Announces Quarterly Earning... | Positive | +0.27 | Earnings |
-| 2026-02-16 | Benzinga | Earnings Preview: Nano Nuclear Energy - Benzinga | Positive | +0.27 | Earnings |
-| 2026-02-15 | Motley Fool | Should You Invest $500 in NuScale Power Right Now? | Neutral | +0.00 | — |
-| 2026-02-13 | MarketBeat | NANO Nuclear Energy: Short-Squeeze or Rapid Meltdown Ahead | Positive | +0.27 | Short |
-| 2026-02-12 | Zacks | NANO Nuclear to Post Q1 Earnings: Time to Buy, Hold or Sell ... | Neutral | +0.00 | Earnings |
-| 2026-02-10 | GlobeNewswire | NANO Nuclear to Hold First Quarter Business Update on Februa... | Neutral | +0.00 | — |
-| 2026-02-10 | MarketBeat | IMC Chicago LLC Sells 98,766 Shares of Nano Nuclear Energy I... | Positive | +0.51 | Earnings |
-| 2026-02-10 | MarketBeat | Nano Nuclear Energy (NASDAQ:NNE) Trading Down 5.4% - Here's ... | Positive | +0.27 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 17 (57%) |
+| Positive | 16 (53%) |
 | Neutral | 9 (30%) |
-| Negative | 4 (13%) |
-| Average Score | +0.141 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 177 |
+| Negative | 5 (17%) |
+| Average Score | +0.096 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 181 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 12 | Nano Nuclear Energy Inc. (NASDAQ:NNE) Gi..; What is Northland Securities' Forecast f.. |
-| Regulatory | 2 | 30-year U.S. nuclear security veteran jo..; What is Northland Securities' Forecast f.. |
+| Earnings | 8 | Nuclear Stocks To Watch Now - February 2..; Nano Nuclear Energy Inc. (NASDAQ:NNE) Gi.. |
+| Regulatory | 2 | Texas Capital Securities reiterates Buy ..; What is Northland Securities' Forecast f.. |
 | Corporate | 1 | NANO Nuclear Energy CEO on microreactors.. |
-| Short | 1 | NANO Nuclear Energy: Short-Squeeze or Ra.. |
 
 ### Deep Dive Articles
+
+#### NANO Nuclear Energy Signs Memorandum of Understanding with EHC Investment L.L.C to Advance Micro Modular Reactor Deployment in the UAE
+*Source: GlobeNewswire | Date: 2026-02-24 | Sentiment: Positive (+1.00)*
+
+> New York, N.Y., Feb.  24, 2026  (GLOBE NEWSWIRE) -- NANO Nuclear Energy Inc. (NASDAQ: NNE) (“NANO Nuclear” or “the Company”), a leading advanced nuclear micro modular reactor (MMR) and technology company focused on developing clean energy solutions, today announced that it has signed a Memorandum of Understanding (MOU) with EHC Investment L.L.C. (EHC), a diversified United Arab Emirates (UAE) investment holding company based in Abu Dhabi, to explore a joint venture aimed at deploying micro modular reactors, notably NANO Nuclear’sKRONOS MMR™Energy System, and necessary supply chains in the UAE.
+
+> Figure 1 - NANO Nuclear Energy Inc. Signs a Memorandum of Understanding (MOU) with EHC Investment L.L.C (EHC) to Support the Advancement of the KRONOS MMR™Energy System in the UAE and Select Markets within the Gulf region. Ali Al Gebely, Managing Director of EHC Investment and Jay Yu, Founder and Chairman of NANO Nuclear Energy.
+
+> It is anticipated that the parties will seek to enter into a formal joint venture following the successful securing of a first commercial project or order. NANO Nuclear and EHC will also explore the future potential for deploying KRONOS MMR™reactors in select markets across the wider Gulf region.
+
+> EHC is a holding company built on over 35 years of proven success with its leadership and 12 subsidiaries. Committed to long-term stability and growth, EHC is shaping a resilient portfolio to create lasting impact for shareholders and drive a brighter, more innovative future. An EHC subsidiary, EHC Energy, is a leading force in the UAE’s energy sector, delivering comprehensive solutions in gas contracting, distribution, trading, operations, and maintenance. With a legacy of over three decades, EHC Energy has played a pivotal role in advancing the UAE’s energy infrastructure, contributing significantly to the nation’s economic growth and urban development.
+
+> Figure 2 - NANO Nuclear Energy Inc. Signs a Memorandum of Understanding (MOU) with EHC Investment L.L.C (EHC) to Support the Advancement of the KRONOS MMR™Energy System in the UAE and Select Markets within the Gulf region. Ali Al Gebely, Managing Director of EHC Investment and James Walker, CEO of NANO Nuclear Energy.
+
+**Catalysts:** Regulatory, Corporate
 
 #### NANO Nuclear Expands its Nuclear Policy Leadership Expertise with the Appointment of U.S. Government Veteran Sarah Lennon as its International Nuclear Policy Advisor
 *Source: GlobeNewswire | Date: 2026-02-20 | Sentiment: Positive (+1.00)*
@@ -117,18 +131,3 @@
 > NNE Stock Price:According to data fromBenzinga Pro, Nano Nuclear stock rose 1.03% to $25.49 in Tuesday's extended trading.
 
 **Catalysts:** Earnings
-
-#### NANO Nuclear Reports Q1 FY 2026 Financial Results and Provides Business Update
-*Source: GlobeNewswire | Date: 2026-02-17 | Sentiment: Positive (+0.96)*
-
-> Management to hold webcast today at 5:00 pm Eastern
-
-> New York, N.Y., Feb.  17, 2026  (GLOBE NEWSWIRE) -- NANO Nuclear Energy Inc. (NASDAQ: NNE) (“NANO Nuclear” or “the Company”), a leading advanced nuclear micro modular reactor and technology company focused on developing clean energy solutions, today reported its first quarter fiscal year 2026 financial results and provided a business update.
-
-> Figure 1 - NANO Nuclear Reports Q1 FY 2026 Financial Results and Provides Business Update
-
-> During its first fiscal quarter ended December 31, 2025, and subsequently, NANO Nuclear continued to make tangible progress as it strives to be the leading advanced nuclear microreactor developer in North America. Key achievements included:
-
-> “NANO Nuclear continues to differentiate itself as a microreactor developer advancing our KRONOS MMR system, a high-TRL, high-temperature gas-cooled reactor design backed by decades of operating history and meaningful prior capital investment, which we believe can significantly de-risk future construction, licensing and commercial deployment. We pair this foundation with a focus on vertical integration across critical aspects of the nuclear fuel supply chain, which differentiates us from our competition and positions us to expedite reactor deployment, benefit from growth in the industry, and enhance the long-term economics of our reactors,”said Jay Yu, Founder and Chairman of NANO Nuclear.
-
-**Catalysts:** Corporate

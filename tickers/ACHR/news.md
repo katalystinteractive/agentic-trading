@@ -1,4 +1,4 @@
-*Generated: 2026-02-23 01:07*
+*Generated: 2026-02-26 22:17*
 
 ## News & Sentiment: Archer Aviation Inc. (ACHR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,55 +6,70 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| Today | Zacks | Archer Aviation or Vertical Aerospace: Which Has More Upside... | Neutral | +0.00 | — |
+| Today | TipRanks | ACHR or JOBY: Legendary Investor Dmitry Balyasny Loads Up on... | Positive | +0.20 | — |
+| 2026-02-26 | The Motley Fool | Should You Buy Archer Aviation Below $7? The Bull Case (and ... | Negative | -0.61 | — |
+| 2026-02-26 | TipRanks | Archer Aviation Earnings on Deck: Could Q4 Results Spark a B... | Positive | +0.23 | Earnings |
+| 2026-02-26 | MarketBeat | Vanguard Group Inc. Grows Stake in Archer Aviation Inc. $ACH... | Neutral | +0.00 | Earnings |
+| 2026-02-25 | TipRanks | “The Market Has Mispriced This Stock,” Says Four-Star Invest... | Neutral | +0.00 | — |
+| 2026-02-25 | Meyka | Pre-Market Archer (ACHR) NYSE $7.19 Feb 25 2026: Earnings te... | Neutral | +0.00 | Earnings |
+| 2026-02-25 | MarketBeat | Archer Aviation (NYSE:ACHR) Stock Price Down 1.2% - Here's W... | Neutral | +0.00 | Earnings |
+| 2026-02-24 | MarketBeat | Archer Aviation: The Billion-Dollar Battleground - MarketBea... | Negative | -0.40 | Earnings |
+| 2026-02-24 | Seeking Alpha | Archer Aviation: The Hawthorne Airport Deal And The LA28 Oly... | Neutral | +0.00 | — |
+| 2026-02-24 | MarketBeat | Archer’s Lawsuit Tests Vertical Aerospace’s Cash Runway, Not... | Negative | -0.23 | Earnings, Regulatory |
+| 2026-02-24 | TipRanks | Archer Aviation (ACHR) Is Quietly Becoming a Defense Contrac... | Positive | +0.13 | — |
+| 2026-02-24 | simplywall.st | How Archer’s New UK AI Flight Hub and NVIDIA Partnership At ... | Neutral | +0.00 | — |
+| 2026-02-24 | MarketBeat | Archer Aviation (NYSE:ACHR) Stock Price Up 3.4% - Should You... | Neutral | +0.00 | Earnings |
+| 2026-02-24 | MarketBeat | Vestmark Advisory Solutions Inc. Has $3.58 Million Stock Hol... | Positive | +0.18 | Earnings |
+| 2026-02-24 | Seeking Alpha | Archer Aviation files patent infringement complaint against ... | Negative | -0.65 | — |
+| 2026-02-24 | Simply Wall St. | A Look At Archer Aviation (ACHR) Valuation After AI And Glob... | Neutral | +0.00 | — |
+| 2026-02-24 | Simply Wall St. | How AI-Powered Air Taxis And Global Partnerships At Archer A... | Neutral | +0.00 | — |
+| 2026-02-23 | GuruFocus.com | Archer Aviation Stock Falls, Analyst Makes Bold 90% Upside C... | Positive | +0.38 | — |
+| 2026-02-23 | Barrons.com | Vertical Aerospace Stock Slumps After Cut to Sell. What to B... | Negative | -0.27 | — |
+| 2026-02-23 | GuruFocus.com | Should You 'Buy' or 'Sell' Archer Stock Ahead of Q4 Earnings | Neutral | +0.00 | Earnings |
+| 2026-02-23 | Barrons.com | Buy Archer Aviation, Sell This Stock. An Air Taxi Play That ... | Positive | +0.34 | — |
+| 2026-02-23 | TipRanks | Archer Aviation (ACHR) Stock Drops 4%, but Raymond James See... | Neutral | +0.00 | — |
+| 2026-02-23 | simplywall.st | Assessing Archer Aviation (ACHR) Valuation After Recent Shar... | Positive | +0.48 | — |
+| 2026-02-23 | MarketBeat | Archer Aviation (ACHR) to Release Quarterly Earnings on Mond... | Neutral | +0.00 | Earnings |
+| 2026-02-23 | TradingView | Key facts: Archer Aviation stock drops 4%; launches U.K. hub... | Neutral | +0.00 | — |
+| 2026-02-23 | Yahoo Finance | Assessing Archer Aviation (ACHR) After Recent Share Price Pu... | Positive | +0.30 | — |
+| 2026-02-23 | Barron's | Buy Archer Aviation Stock, Sell Vertical Aerospace for an Ai... | Positive | +0.34 | — |
+| 2026-02-23 | Investing.com | Archer Aviation’s 48% drop validated InvestingPro’s bearish ... | Negative | -0.05 | — |
 | 2026-02-22 | TipRanks | Archer Aviation Earnings Ahead: Options Traders Brace for a ... | Neutral | +0.00 | Earnings |
-| 2026-02-22 | TipRanks | ‘Too Many Drawbacks’: Top Investor Says Archer Aviation (ACH... | Positive | +0.15 | — |
-| 2026-02-21 | Insider Monkey | Archer Aviation Inc. (ACHR) to Develop the Next Wave of Avia... | Neutral | +0.00 | — |
-| 2026-02-21 | MarketBeat | Archer Aviation (NYSE:ACHR) Stock Price Down 4.2% - Time to ... | Neutral | +0.00 | Earnings |
-| 2026-02-20 | PR Newswire | AI Takes Flight: Five Companies Advancing Defense and Aerosp... | Positive | +0.56 | — |
-| 2026-02-19 | Zacks | Wall Street Bulls Look Optimistic About Archer Aviation (ACH... | Positive | +0.32 | — |
-| 2026-02-19 | Business Wire | Archer Selects Bristol As Home For Its UK Engineering Hub | Neutral | +0.00 | — |
-| 2026-02-19 | Nasdaq | Should You Buy Archer Aviation Before FAA Progress Updates? ... | Positive | +0.42 | — |
-| 2026-02-19 | simplywall.st | Archer Aviation Bristol Hub News Meets Shifting Valuation An... | Neutral | +0.00 | — |
-| 2026-02-19 | TipRanks | Archer Aviation (ACHR) Turns to UK Defense Work to Broaden I... | Positive | +0.48 | — |
-| 2026-02-19 | Stock Titan | Bristol lands Archer defense hub, hiring engineers for Briti... | Positive | +0.13 | — |
-| 2026-02-19 | MarketBeat | Archer Aviation (NYSE:ACHR) Stock Price Up 3.8% - Should You... | Neutral | +0.00 | Earnings |
-| 2026-02-18 | The Motley Fool | Where Will Archer Aviation Be in 3 Years? - The Motley Fool | Negative | -0.44 | — |
-| 2026-02-18 | MarketBeat | Archer Aviation (NYSE:ACHR) Stock Price Up 1% - Time to Buy?... | Neutral | +0.00 | Earnings |
-| 2026-02-18 | TipRanks | With Archer Aviation Q4 Earnings on Deck, Let’s Look at Who ... | Neutral | +0.00 | Earnings |
-| 2026-02-18 | MarketBeat | Archer Aviation (NYSE:ACHR) Trading 2.4% Higher - Time to Bu... | Neutral | +0.00 | Earnings |
-| 2026-02-18 | TipRanks | ‘Involves a Fair Amount of Guesswork’, Says Top Investor on ... | Positive | +0.48 | — |
-| 2026-02-18 | Nasdaq | Where Will Archer Aviation Be in 3 Years? - Nasdaq | Neutral | +0.00 | — |
-| 2026-02-18 | Motley Fool | Where Will Archer Aviation Be in 3 Years? | Neutral | +0.00 | — |
-| 2026-02-16 | TipRanks | ‘Don’t Go Bargain Hunting’: Top Investor Throws Cold Water o... | Positive | +0.38 | — |
-| 2026-02-14 | Motley Fool | Is Nvidia Set to Help Joby Aviation Become the Tesla of the ... | Positive | +0.40 | — |
-| 2026-02-12 | Business Wire | Archer To Report Fourth Quarter and Full Year 2025 Operating... | Neutral | +0.00 | — |
-| 2026-02-12 | Barchart | Amazon Is Betting Big on BETA Technologies Stock. Should You... | Positive | +0.18 | — |
-| 2026-02-12 | PR Newswire | Record Defense AI Spending Opens a Procurement Window | Positive | +0.13 | — |
-| 2026-02-12 | TipRanks | Archer Aviation (ACHR) Issues Executive Stock Awards While S... | Positive | +0.48 | Short |
-| 2026-02-12 | Stock Titan | Archer Aviation sets March 2 call on 2025 results, investor ... | Neutral | +0.00 | — |
-| 2026-02-12 | Motley Fool | Bold Prediction: Joby Aviation Is About to Soar. Here's Why. | Positive | +0.38 | — |
-| 2026-02-12 | Simply Wall St. | Archer’s LA 2028 Air Taxi Role And What It Means For ACHR In... | Neutral | +0.00 | — |
-| 2026-02-11 | Barrons.com | Beta Stock Soars 16%. The Amazon Move Doesnt Make Sense. | Positive | +0.18 | — |
-| 2026-02-10 | Zacks | Archer Aviation Inc. (ACHR) Dips More Than Broader Market: W... | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 14 (47%) |
+| Positive | 9 (30%) |
 | Neutral | 15 (50%) |
-| Negative | 1 (3%) |
-| Average Score | +0.141 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 177 |
+| Negative | 6 (20%) |
+| Average Score | +0.012 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 171 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 6 | Archer Aviation Earnings Ahead: Options ..; Archer Aviation (NYSE:ACHR) Stock Price .. |
-| Short | 1 | Archer Aviation (ACHR) Issues Executive .. |
+| Earnings | 11 | Archer Aviation Earnings on Deck: Could ..; Vanguard Group Inc. Grows Stake in Arche.. |
+| Regulatory | 1 | Archer’s Lawsuit Tests Vertical Aerospac.. |
 
 ### Deep Dive Articles
+
+#### Archer Aviation or Vertical Aerospace: Which Has More Upside?
+*Source: Zacks | Date: Today | Sentiment: Positive (+1.00)*
+
+> Rising demand for cleaner and more efficient travel is supporting growth in the electric vertical takeoff and landing (eVTOL) industry, which is expected to play an important role in future urban transportation. Two key companies in this space areArcher Aviation Inc.ACHR andVertical Aerospace Ltd.EVTL, both aiming to improve city travel by reducing congestion and travel time.US-based Archer Aviation is moving ahead with the Federal Aviation Administration certification process for its Midnight aircraft and plans to begin commercial air taxi operations after receiving regulatory approvals. The company is focused on piloted electric aircraft and is building partnerships to support production and future service deployment.UK-based Vertical Aerospace is developing its VX4 aircraft and continues to make progress on certification with aviation authorities in multiple regions. The company is targeting urban and regional air mobility markets and is working with strategic partners to expand its international footprint.As the global eVTOL market develops, both Archer Aviation and Vertical Aerospace remain in focus for investors. While both companies share similar long-term goals, differences in certification progress and execution are likely to influence their future growth potential.
+
+> Archer Aviation continues to strengthen its position in the eVTOL market through technology-focused initiatives and international expansion.In January 2026, Archer Aviation announced plans to develop and deploy next-generation Artificial Intelligence solutions for aviation using NVIDIA’s IGX Thor platform. The company aims to use Physical AI to enhance aircraft safety, improve airspace integration and support future autonomy-ready systems. Archer Aviation plans to showcase this NVIDIA-enabled technology at its recently acquired Hawthorne Airport facility in central Los Angeles. The site is expected to serve as the operating base for its planned Los Angeles air taxi network and as a testing center for AI-based aviation solutions.During the same month, Archer Aviation entered into a strategic partnership with the Government of the Republic of Serbia to support the introduction of electric air taxis in Europe. Under the agreement, Serbia selected Archer Aviation as its preferred eVTOL partner and holds an option to purchase an initial fleet of Midnight aircraft. The agreement allows for the acquisition of up to 25 aircraft, subject to regulatory and legal approvals, representing an important step in Archer Aviation’s expansion into the European urban air mobility market.
+
+> In February 2026, Vertical Aerospace showcased its next-generation electric aircraft, Valo, at the Bass Museum in Collins Park, Miami. The public display highlighted the company’s vision for quieter and more efficient urban and intercity travel. Valo is designed to fly up to 100 miles at speeds of up to 150 mph and features a premium four-passenger cabin with panoramic windows and space for luggage and pets. Vertical Aerospace is also developing a hybrid electric variant with a targeted range of up to 1,000 miles, reflecting its broader ambition in advanced air mobility.Also in February, Vertical Aerospace signed a strategic three-party Memorandum of Understanding in Riyadh with Abdel Hadi Abdullah Al Qahtani and Sons Group of Companies and the Saudi National Industrial Development Centre, which operates under the Ministry of Industry and Mineral Resources. The agreement establishes a framework to explore the development of a long-term Advanced Air Mobility ecosystem in Saudi Arabia, aligned with the country’s Vision 2030 program. This partnership supports Vertical Aerospace’s efforts to expand its international presence and participate in emerging air mobility markets in the Middle East.
+
+> Although ACHR and EVTL are making steady progress with their eVTOL programs and offer near-term potential, their long-term outlook remains uncertain. The eVTOL industry is still at an early stage and its ability to successfully design, certify and scale production will depend on how the market develops and how demand evolves over time.Key factors such as safety standards, noise performance and overall affordability are likely to influence public acceptance. Any challenges in these areas could slow broader adoption and affect the overall growth of the urban air mobility market.
+
+> The Zacks Consensus Estimate for ACHR’s fourth-quarter 2025 loss is pegged at 17 cents per share, indicating a year-over-year improvement. The company’s 2026 EPS estimates have moved south over the past 60 days.
+
+**Catalysts:** Earnings, Regulatory, Corporate
 
 #### Archer Aviation Inc. (ACHR) to Develop the Next Wave of Aviation AI Technology With NVIDIA IGX Thor
 *Source: Insider Monkey | Date: 2026-02-21 | Sentiment: Positive (+0.96)*
@@ -115,18 +130,3 @@
 > Rather than depending on cameras, radar, or LiDAR, SaverOne's system detects electromagnetic signals emitted by mobile devices that pedestrians carry. This RF-based approach eliminates the line-of-sight requirement that limits every optical and laser-based sensor on the market today. For autonomous vehicle developers still grappling with edge-case failures, the distinction is critical: the system identifies threats that remain completely invisible to traditional perception stacks.
 
 **Catalysts:** Regulatory, Corporate, Equity
-
-#### Archer Aviation Inc. (ACHR) Dips More Than Broader Market: What You Should Know
-*Source: Zacks | Date: 2026-02-10 | Sentiment: Positive (+0.87)*
-
-> Archer Aviation Inc. (ACHR) ended the recent trading session at $7.17, demonstrating a -2.71% change from the preceding day's closing price. The stock trailed the S&P 500, which registered a daily loss of 0.33%. Meanwhile, the Dow experienced a rise of 0.1%, and the technology-dominated Nasdaq saw a decrease of 0.59%.
-
-> The company's stock has dropped by 16.82% in the past month, falling short of the Aerospace sector's gain of 0.33% and the S&P 500's loss of 0%.
-
-> The investment community will be paying close attention to the earnings performance of Archer Aviation Inc. in its upcoming release. The company is forecasted to report an EPS of -$0.17, showcasing a 63.83% upward movement from the corresponding quarter of the prior year.
-
-> In terms of the entire fiscal year, the Zacks Consensus Estimates predict earnings of -$0.74 per share and a revenue of $0 million, indicating changes of +34.51% and 0%, respectively, from the former year.
-
-> Any recent changes to analyst estimates for Archer Aviation Inc. should also be noted by investors.  These recent revisions tend to reflect the evolving nature of short-term business trends.  With this in mind, we can consider positive estimate revisions a sign of optimism about the business outlook.
-
-**Catalysts:** Earnings, Regulatory, Short

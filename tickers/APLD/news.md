@@ -1,4 +1,4 @@
-*Generated: 2026-02-23 01:06*
+*Generated: 2026-02-26 22:17*
 
 ## News & Sentiment: Applied Digital Corporation (APLD)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,56 +6,71 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-02-22 | MarketBeat | Rhumbline Advisers Boosts Stake in Applied Digital Corporati... | Positive | +0.32 | Earnings |
+| Today | Schaeffer's Res | 16 Stocks That Are Short Squeeze Candidates | Neutral | +0.00 | Short |
+| 2026-02-26 | TipRanks | Mixed options sentiment in Applied Digital Corp with shares ... | Positive | +0.30 | — |
+| 2026-02-26 | Finviz | 3 Russell 2000 Stocks with Open Questions - Finviz | Neutral | +0.00 | — |
+| 2026-02-26 | Schaeffer's Inv | 16 Stocks That Are Short Squeeze Candidates - Schaeffer's In... | Neutral | +0.00 | Short |
+| 2026-02-26 | StockStory | 3 Russell 2000 Stocks with Open Questions | Neutral | +0.00 | — |
+| 2026-02-25 | simplywall.st | Assessing Applied Digital’s Valuation After Nvidia Exits Its... | Neutral | +0.00 | — |
+| 2026-02-25 | MarketBeat | Applied Digital (NASDAQ:APLD) Shares Down 5.2% - What's Next... | Positive | +0.30 | Earnings |
+| 2026-02-24 | The Motley Fool | Nvidia Just Sold Its Stake in Applied Digital and Arm Holdin... | Positive | +0.05 | Corporate |
+| 2026-02-24 | TipRanks | VRT vs. APLD vs. GEV: Which ‘Strong Buy’ Data Center Infrast... | Positive | +0.64 | — |
+| 2026-02-24 | simplywall.st | Why Applied Digital (APLD) Is Down 15.0% After Nvidia Fully ... | Neutral | +0.00 | — |
+| 2026-02-24 | MarketBeat | Applied Digital (NASDAQ:APLD) Stock Price Up 2.2% - What's N... | Neutral | +0.00 | Earnings |
+| 2026-02-24 | MarketBeat | Applied Digital (NASDAQ:APLD) Trading Up 3.3% - Here's What ... | Neutral | +0.00 | Earnings |
+| 2026-02-24 | Simply Wall St. | Could Nvidia’s Exit From Applied Digital (APLD) Reframe Its ... | Neutral | +0.00 | — |
+| 2026-02-23 | Bez Kabli | Applied Digital (APLD) stock price slips premarket as AI dat... | Neutral | +0.00 | — |
+| 2026-02-22 | MarketBeat | Applied Digital Corporation (NASDAQ:APLD) Given Average Reco... | Neutral | +0.00 | Earnings |
 | 2026-02-21 | Barchart | As Nvidia Ditches Applied Digital Stock, Should You? | Neutral | +0.00 | — |
+| 2026-02-21 | The Motley Fool | Better Data Center Stock: Applied Digital vs. Riot Platforms... | Negative | -0.56 | — |
+| 2026-02-21 | Trefis | APLD Stock Falls -24% In 8-day Spree On Nvidia’s Full Stake ... | Neutral | +0.00 | — |
 | 2026-02-21 | MarketBeat | Applied Digital (NASDAQ:APLD) Trading Down 7.9% - What's Nex... | Neutral | +0.00 | Earnings |
-| 2026-02-21 | MarketBeat | State of New Jersey Common Pension Fund D Buys New Position ... | Neutral | +0.00 | Earnings |
 | 2026-02-21 | The Motley Fool | 2 Monster Stocks to Hold for the Next 5 Years - The Motley F... | Negative | -0.44 | — |
 | 2026-02-21 | Motley Fool | 2 Monster Stocks to Hold for the Next 5 Years | Neutral | +0.00 | — |
-| 2026-02-21 | Motley Fool | Better Data Center Stock: Applied Digital vs. Riot Platforms | Negative | -0.18 | — |
 | 2026-02-20 | Benzinga | Neocloud Contagion: CoreWeave Financing Woes Drag Down Nebiu... | Negative | -0.78 | — |
 | 2026-02-20 | Quiver Quantita | Applied Digital (APLD) slides as investors digest Nvidia’s d... | Neutral | +0.00 | — |
+| 2026-02-20 | The Motley Fool | AI Spending Is Poised to Hit $700 Billion in 2026. 2 Top Sto... | Positive | +0.05 | — |
 | 2026-02-20 | MarketBeat | Applied Digital (OTCMKTS:APLD) Trading Down 8% - Here's What... | Neutral | +0.00 | Earnings |
-| 2026-02-20 | Motley Fool | AI Spending Is Poised to Hit $700 Billion in 2026. 2 Top Sto... | Positive | +0.48 | — |
 | 2026-02-19 | MarketBeat | NVIDIA's 13F Bombshell: A New AI Power Trio Emerges | Neutral | +0.00 | — |
 | 2026-02-19 | Insider Monkey | Applied Digital (APLD) Loses 4.9% as Nvidia Disposes of Shar... | Neutral | -0.03 | — |
 | 2026-02-19 | MarketBeat | Applied Digital (NASDAQ:APLD) Trading Down 1.2% - Here's Why... | Neutral | +0.00 | Earnings |
-| 2026-02-19 | Trefis | APLD Stock Falls -17% With A 6-day Losing Spree On Nvidia Ex... | Negative | -0.38 | — |
-| 2026-02-19 | Stock Traders D | (APLD) Movement as an Input in Quant Signal Sets - Stock Tra... | Neutral | +0.00 | — |
 | 2026-02-19 | StockStory | 3 Volatile Stocks That Fall Short | Neutral | +0.00 | Short |
 | 2026-02-18 | GuruFocus.com | Nvidia Exits Arm Stake | Neutral | +0.00 | — |
-| 2026-02-18 | Barrons.com | Applied Digital, WeRide Stocks Drop. Blame Nvidia. | Negative | -0.54 | — |
-| 2026-02-18 | Barchart | Stocks Settle Higher on Signs of US Economic Strength | Positive | +0.49 | — |
-| 2026-02-18 | 24/7 Wall St. | Nvidias Secret Portfolio Shakeup: 2 AI Darlings Are Ditched ... | Positive | +0.38 | Regulatory |
-| 2026-02-18 | Benzinga | Recursion Pharmaceuticals Stock Drops: What's Behind It? | Neutral | +0.00 | — |
-| 2026-02-18 | Investopedia | Nvidia Sold Its Stakes in These Firms. The Stocks Are Slidin... | Neutral | +0.00 | — |
-| 2026-02-18 | Benzinga | What's Going On With Applied Digital Stock? | Neutral | +0.00 | — |
-| 2026-02-18 | Zacks | APLD vs. VRT: Which Data Center Infrastructure Stock is a Be... | Positive | +0.44 | — |
-| 2026-02-18 | The Wall Street | Applied Digital, WeRide Stocks Drop After Nvidia Sells Holdi... | Negative | -0.27 | — |
-| 2026-02-18 | Barrons.com | Applied Digital, Recursion Pharmaceuticals Stocks Drop. Blam... | Negative | -0.54 | — |
-| 2026-02-18 | Trefis | Applied Digital Stock: Is the Sell-Off a Buying Opportunity?... | Positive | +0.42 | — |
-| 2026-02-18 | Forbes | NVIDIA Bailed — Should You Buy The Dip In APLD Stock? - Forb... | Neutral | +0.00 | — |
-| 2026-02-18 | Barron's | Applied Digital, WeRide Stocks Drops. Blame Nvidia. - Barron... | Negative | -0.34 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 6 (20%) |
-| Neutral | 16 (53%) |
-| Negative | 8 (27%) |
-| Average Score | -0.032 |
+| Positive | 5 (17%) |
+| Neutral | 22 (73%) |
+| Negative | 3 (10%) |
+| Average Score | -0.016 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 178 |
+| Total Unique Headlines | 180 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 5 | Rhumbline Advisers Boosts Stake in Appli..; Applied Digital (NASDAQ:APLD) Trading Do.. |
-| Short | 1 | 3 Volatile Stocks That Fall Short |
-| Regulatory | 1 | Nvidias Secret Portfolio Shakeup: 2 AI D.. |
+| Earnings | 7 | Applied Digital (NASDAQ:APLD) Shares Dow..; Applied Digital (NASDAQ:APLD) Stock Pric.. |
+| Short | 3 | 16 Stocks That Are Short Squeeze Candida..; 16 Stocks That Are Short Squeeze Candida.. |
+| Corporate | 1 | Nvidia Just Sold Its Stake in Applied Di.. |
 
 ### Deep Dive Articles
+
+#### 16 Stocks That Are Short Squeeze Candidates
+*Source: Schaeffer's Research | Date: Today | Sentiment: Negative (-0.12)*
+
+> The last thing investors are thinking about right now -- as Wall Street wrestles with AI disruption -- is a short squeeze. But maybe that's what contrarians should be doing now, monitoring stocks to buy the dip on that could send bearish bettors packing.
+
+> This screen finds stocks where the shorts might be at a big loss and therefore likely to begin covering. Obviously, there are quite a few assumptions so these would be very rough estimates.
+
+> To estimate the return for the shorts, Rocky went back over the past year of short interest reports to find when the shorts were added. Then he used the average price over the prior two weeks and estimated the shorts were added at that average price. Below are stocks where significant shorts have been added and they could be at a big loss.
+
+> Bear in mind, this data is from the most recent reporting period (2/15).
+
+> Highlights on the list includeStarlink competitorAST SpaceMobile (ASTS), Southern Copper (SCCO), andcryptocurrency data centerApplied Digital (APLD).
+
+**Catalysts:** Short
 
 #### Neocloud Contagion: CoreWeave Financing Woes Drag Down Nebius, Applied Digital
 *Source: Benzinga | Date: 2026-02-20 | Sentiment: Negative (-0.13)*
@@ -116,18 +131,3 @@
 > The RSI is currently at 33.28, which is considered neutral but close to oversold territory, suggesting there could be potential for a bounce if buying interest picks up, but it also indicates that sellers have been in control. MACD is below its signal line, indicating bearish pressure on Recursion. The downward trend may continue unless we see a shift in momentum.
 
 **Catalysts:** None
-
-#### What's Going On With Applied Digital Stock?
-*Source: Benzinga | Date: 2026-02-18 | Sentiment: Positive (+0.97)*
-
-> Shares ofApplied Digital Corporation(NASDAQ:APLD) are trading lower on Wednesday after SEC filings revealed that Nvidia sold its entire stake in thedata center company.
-
-> Nvidia’s decision to divest its $177 million stake in Applied Digital significantly impacted the stock, as Nvidia is a major player in the technology sector and its holdings are seen as a vote of confidence. Nvidia originally invested in Applied Digital in 2024, helping spark momentum that saw Applied Digital stock gain around 240% over the past year.
-
-> Applied Digital designs, develops and operates digital infrastructure solutions and cloud services to industries like High-Performance Computing (HPC) and Artificial Intelligence (AI). The company operates in the following business segments: Data Center Hosting Business and HPC Hosting Business. The majority of its revenue is generated from the Data Center Hosting Business, which operates data centers to provide energized space to crypto mining customers.
-
-> Nvidia previously held 7,716,050 shares in the company. The filing, which was released after the market closed Tuesday, also revealed that Nvidia dropped stakes in WeRide and Arm Holdings.
-
-> Over the past 12 months, Applied Digital’s stock has surged by 240%, demonstrating significant long-term growth. Currently, the stock is trading 7.2% below its 20-day SMA of $35.79 and 3.7% above its 50-day SMA of $32.04. This positioning indicates recent underperformance.
-
-**Catalysts:** Earnings, Regulatory

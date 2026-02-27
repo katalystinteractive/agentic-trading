@@ -1,4 +1,4 @@
-*Generated: 2026-02-23 01:06*
+*Generated: 2026-02-26 22:17*
 
 ## News & Sentiment: CleanSpark, Inc. (CLSK)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,11 +6,15 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-02-26 | simplywall.st | CleanSpark (CLSK) Valuation Check After Wider Loss And AI Da... | Negative | -0.32 | — |
+| 2026-02-25 | Zacks | Cleanspark, Inc. (CLSK) is Attracting Investor Attention: He... | Positive | +0.48 | — |
+| 2026-02-25 | International B | CleanSpark (CLSK) Stock Surges 5.4% to $10.35 on AI Pivot Mo... | Positive | +0.24 | — |
+| 2026-02-24 | Benzinga | Tradr Targets Volatility With 2X Single-Stock ETFs On CleanS... | Neutral | +0.00 | — |
+| 2026-02-24 | MarketBeat | Cleanspark (NASDAQ:CLSK) Stock Price Up 7.6% - Should You Bu... | Neutral | +0.00 | Earnings |
+| 2026-02-23 | MarketBeat | 200,000 Shares in Cleanspark, Inc. $CLSK Bought by X Square ... | Positive | +0.30 | Earnings |
 | 2026-02-21 | MarketBeat | Cleanspark, Inc. $CLSK Holdings Lifted by Stevens Capital Ma... | Neutral | +0.00 | Earnings, Corporate |
-| 2026-02-21 | The Globe and M | Analysts Offer Insights on Financial Companies: Western Unio... | Neutral | +0.00 | — |
 | 2026-02-20 | Zacks | Circle Stock Before Q4 Earnings Release: Should Investors St... | Neutral | +0.00 | Earnings |
 | 2026-02-19 | PR Newswire | Tradr Debuts Leveraged ETFs on Centrus Energy, CleanSpark an... | Positive | +0.27 | — |
-| 2026-02-19 | simplywall.st | Will CleanSpark's (CLSK) Steep Swing to Quarterly Loss Resha... | Negative | -0.32 | Earnings |
 | 2026-02-18 | Insider Monkey | CleanSpark (CLSK): Keefe Bruyette Maintains Positive Outlook... | Positive | +0.30 | — |
 | 2026-02-17 | Insider Monkey | Macquarie Maintains an Outperform Rating on CleanSpark, Inc.... | Neutral | +0.00 | Analyst |
 | 2026-02-17 | GuruFocus.com | CleanSpark Leads Crypto Short Bets | Neutral | +0.00 | Short |
@@ -18,46 +22,72 @@
 | 2026-02-17 | MarketBeat | Cleanspark (NASDAQ:CLSK) Trading Down 7.7% - Should You Sell... | Neutral | +0.00 | Earnings |
 | 2026-02-15 | Yahoo Finance | Is CleanSpark (CLSK) Pricing Reflect Recent Share Weakness A... | Negative | -0.15 | Regulatory |
 | 2026-02-15 | MarketBeat | Public Sector Pension Investment Board Increases Stock Posit... | Neutral | +0.00 | Earnings, Regulatory |
+| 2026-02-15 | simplywall.st | CleanSpark (CLSK) Valuation Check After Steep Quarterly Loss... | Negative | -0.32 | Earnings |
+| 2026-02-15 | Simply Wall St. | Did CleanSpark’s (CLSK) Swing to Quarterly Loss and Bitcoin ... | Negative | -0.32 | Earnings |
 | 2026-02-14 | simplywall.st | Is CleanSpark (CLSK) Pricing Reflecting Recent Share Pullbac... | Positive | +0.30 | — |
-| 2026-02-14 | Yahoo Finance | Did CleanSpark’s (CLSK) Swing to Quarterly Loss and Bitcoin ... | Negative | -0.32 | Earnings |
 | 2026-02-13 | Benzinga | Top 10 Most Shorted Stocks: CleanSpark, Hims & Hers And More | Positive | +0.20 | Short |
 | 2026-02-13 | Benzinga | CleanSpark (CLSK) Stock Is Surging Friday: What's Driving Th... | Neutral | +0.00 | — |
 | 2026-02-13 | Insider Monkey | Clear Street Trims Price Target on CleanSpark (CLSK) to $22,... | Positive | +0.38 | Analyst |
 | 2026-02-13 | simplywall.st | Some Confidence Is Lacking In CleanSpark, Inc. (NASDAQ:CLSK)... | Positive | +0.67 | — |
 | 2026-02-13 | MarketBeat | Cleanspark (NASDAQ:CLSK) Trading 8.9% Higher - Should You Bu... | Neutral | +0.00 | Earnings |
+| 2026-02-13 | MarketBeat | Cleanspark, Inc. $CLSK Holdings Lowered by Shariaportfolio I... | Negative | -0.13 | Earnings |
 | 2026-02-12 | TipRanks | Tradr 2X Long CLSK Daily ETF call volume above normal and di... | Neutral | +0.00 | — |
 | 2026-02-12 | Zacks | Cleanspark, Inc. (CLSK) Is a Trending Stock: Facts to Know B... | Neutral | +0.00 | — |
 | 2026-02-12 | Nasdaq | April 2nd Options Now Available For CleanSpark (CLSK) - Nasd... | Neutral | +0.00 | — |
-| 2026-02-11 | simplywall.st | CleanSpark (CLSK) Is Down 11.7% After Swinging From Profit T... | Positive | +0.15 | Earnings |
 | 2026-02-11 | MarketBeat | B. Riley Securities Has Lowered Expectations for Cleanspark ... | Positive | +0.18 | Earnings, Regulatory |
 | 2026-02-10 | Seeking Alpha | CleanSpark Gets Attention For The Wrong Reasons, It's The Tr... | Negative | -0.46 | — |
-| 2026-02-09 | MarketBeat | Cleanspark (NASDAQ:CLSK) Shares Gap Down on Analyst Downgrad... | Positive | +0.30 | Earnings, Analyst |
-| 2026-02-08 | TechStock² | CleanSpark stock leaps 22% to $10.08 — what CLSK traders wat... | Neutral | +0.00 | — |
-| 2026-02-07 | TipRanks | Crypto Currents: Strategy, Galaxy Digital report Q4 earnings... | Neutral | +0.00 | Earnings |
-| 2026-02-07 | Trefis | Cleanspark Stock (+22%): Post-Earnings Bounce Ignites Retail... | Neutral | +0.00 | Earnings |
-| 2026-02-07 | MarketBeat | Cleanspark, Inc. (NASDAQ:CLSK) Given Consensus Rating of "Mo... | Neutral | +0.00 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 9 (30%) |
-| Neutral | 17 (57%) |
-| Negative | 4 (13%) |
-| Average Score | +0.050 |
+| Positive | 10 (33%) |
+| Neutral | 14 (47%) |
+| Negative | 6 (20%) |
+| Average Score | +0.054 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 171 |
+| Total Unique Headlines | 170 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 13 | Cleanspark, Inc. $CLSK Holdings Lifted b..; Circle Stock Before Q4 Earnings Release:.. |
-| Analyst | 3 | Macquarie Maintains an Outperform Rating..; Clear Street Trims Price Target on Clean.. |
+| Earnings | 11 | Cleanspark (NASDAQ:CLSK) Stock Price Up ..; 200,000 Shares in Cleanspark, Inc. $CLSK.. |
 | Regulatory | 3 | Is CleanSpark (CLSK) Pricing Reflect Rec..; Public Sector Pension Investment Board I.. |
+| Analyst | 2 | Macquarie Maintains an Outperform Rating..; Clear Street Trims Price Target on Clean.. |
 | Short | 2 | CleanSpark Leads Crypto Short Bets; Top 10 Most Shorted Stocks: CleanSpark, .. |
 | Corporate | 1 | Cleanspark, Inc. $CLSK Holdings Lifted b.. |
 
 ### Deep Dive Articles
+
+#### Cleanspark, Inc. (CLSK) is Attracting Investor Attention: Here is What You Should Know
+*Source: Zacks | Date: 2026-02-25 | Sentiment: Positive (+0.97)*
+
+> CleanSpark(CLSK) has been one of the most searched-for stocks on Zacks.com lately. So, you might want to look at some of the facts that could shape the stock's performance in the near term.
+
+> Over the past month, shares of this company have returned -22%, compared to the Zacks S&P 500 composite's -0.3% change. During this period, the Zacks Financial - Miscellaneous Services industry, which CleanSpark falls in, has lost 12.9%. The key question now is: What could be the stock's future direction?
+
+> While media releases or rumors about a substantial change in a company's business prospects usually make its stock 'trending' and lead to an immediate price change, there are always some fundamental facts that eventually dominate the buy-and-hold decision-making.
+
+> Here at Zacks, we prioritize appraising the change in the projection of a company's future earnings over anything else. That's because we believe the present value of its future stream of earnings is what determines the fair value for its stock.
+
+> Our analysis is essentially based on how sell-side analysts covering the stock are revising their earnings estimates to take the latest business trends into account. When earnings estimates for a company go up, the fair value for its stock goes up as well. And when a stock's fair value is higher than its current market price, investors tend to buy the stock, resulting in its price moving upward. Because of this, empirical studies indicate a strong correlation between trends in earnings estimate revisions and short-term stock price movements.
+
+**Catalysts:** Earnings, Short
+
+#### Tradr Targets Volatility With 2X Single-Stock ETFs On CleanSpark, Centrus, Coherent
+*Source: Benzinga | Date: 2026-02-24 | Sentiment: Positive (+0.91)*
+
+> Tradr ETFslaunched three first-to-marketleveraged single-stock ETFslast week, expanding its suite of tactical trading tools for sophisticated investors.
+
+> • Cleanspark stock is charging ahead with explosive momentum.What’s driving CLSK stock higher?
+
+> The products are structured to deliver either 200% or -200% of the daily performance of a specific underlying stock, offering amplified exposure for short-term strategies.
+
+> Tradr said the funds are designed for professional traders and experienced investors who actively manage their portfolios. As with other daily reset leveraged ETFs, performance over periods longer than one day can diverge from the simple multiple of the underlying stock's return due to compounding effects — especially in volatile markets.
+
+> The underlying companies operate in high-interest, high-volatility segments of the market. CleanSpark is a Bitcoin miner, Centrus Energy is focused on nuclear fuel and uranium enrichment and Coherent supplies photonics and semiconductor-related technologies — sectors that have drawn heightened investor attention amid energy security concerns and AI-driven hardware demand.
+
+**Catalysts:** Regulatory, Equity, Short
 
 #### Circle Stock Before Q4 Earnings Release: Should Investors Stay Away?
 *Source: Zacks | Date: 2026-02-20 | Sentiment: Positive (+1.00)*
@@ -103,33 +133,3 @@
 > While we acknowledge the potential of CLSK as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
 
 **Catalysts:** Earnings, Analyst, Short
-
-#### Macquarie Maintains an Outperform Rating on CleanSpark, Inc. (CLSK)
-*Source: Insider Monkey | Date: 2026-02-17 | Sentiment: Positive (+0.87)*
-
-> CleanSpark, Inc. (NASDAQ:CLSK)is among the11 Best Bitcoin and Blockchain Stocks to Invest in.
-
-> CleanSpark, Inc. (NASDAQ:CLSK) is among theBest Bitcoin Stocks.
-
-> On February 6, Macquarie maintained an Outperform rating on CleanSpark, Inc. (NASDAQ:CLSK) and reduced its price objective from $27 to $18.
-
-> Separately, Keefe Bruyette maintained its Outperform rating on the stock and trimmed its price target from $18 to $14 on February 9, 2026. The firm pointed out concerns around ERCOT's proposed batch study, which might affect the Texas pipeline. However, the corporation remained optimistic about the Sealy location.
-
-> CleanSpark, Inc. (NASDAQ:CLSK)'s revenues in the first quarter of fiscal 2026 were $181.2 million, an 11.6% increase from $162.3 million in the same period last year. The firm reported a net loss of $378.7 million, or $1.35 per basic share, with a net income of $246.8 million, or $0.85 per basic share, in the previous year. Adjusted EBITDA was negative $295.4 million, compared to a positive $321.6 million in the prior year.
-
-**Catalysts:** Earnings, Analyst
-
-#### Top 10 Most Shorted Stocks: CleanSpark, Hims & Hers And More
-*Source: Benzinga | Date: 2026-02-13 | Sentiment: Positive (+0.38)*
-
-> Traders targeting heavily shorted stocks are looking to play one of two sides: betting on a company's downfall or huntingfor a short squeeze.
-
-> Here is a breakdown of why these stocks attract so much attention and a look at the current market landscape.
-
-> The primary reason a stock becomes heavily shorted is that a large number of experienced traders and institutional investors believe the company is fundamentally overvalued and that its price will fall.
-
-> The short sellers are betting that the company faces significant risks—such as poor earnings, a failing business model or industry headwinds—that will eventually drive the stock price down.
-
-> On the flip side, retail traders often view high short interest as a coiled spring. If the stock price starts to rise, it can trigger a short squeeze, accelerating the upward move.
-
-**Catalysts:** Earnings, Short

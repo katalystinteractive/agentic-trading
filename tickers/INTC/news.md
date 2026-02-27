@@ -1,4 +1,4 @@
-*Generated: 2026-02-23 01:06*
+*Generated: 2026-02-26 22:17*
 
 ## News & Sentiment: Intel Corporation (INTC)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,129 +6,128 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Benzinga | They Plan To Sell Their Car And Buy 0.15 BTC As A Bet For Th... | Positive | +0.23 | — |
-| 2026-02-22 | MarketBeat | Lansforsakringar Fondforvaltning AB publ Buys 44,606 Shares ... | Positive | +0.30 | Earnings |
-| 2026-02-22 | MarketBeat | Intel Corporation $INTC Shares Bought by Empirical Financial... | Positive | +0.66 | Earnings, Corporate |
-| 2026-02-22 | MarketBeat | 265,000 Shares in Intel Corporation $INTC Purchased by Premi... | Positive | +0.30 | Earnings |
-| 2026-02-22 | Bez Kabli | Intel stock price slips again as Nvidia earnings week looms ... | Negative | -0.15 | Earnings |
-| 2026-02-22 | Motley Fool | Where Will AST SpaceMobile Stock Be in 5 Years? | Neutral | +0.00 | — |
-| 2026-02-22 | Motley Fool | Is It Time to Buy Palo Alto Networks Stock on the Dip? | Neutral | +0.00 | — |
-| 2026-02-22 | Motley Fool | Feb. 25 Will Be a Huge Day for Nvidia. 3 Important Things to... | Positive | +0.48 | Earnings |
-| 2026-02-22 | Motley Fool | This Elite 5.5%-Yielding Dividend Stock Continues to Fill Up... | Positive | +0.38 | Shareholder |
-| 2026-02-22 | Motley Fool | Merck: This Cancer‑Drug Powerhouse Could Be a Core Dividend ... | Neutral | +0.00 | Shareholder |
-| 2026-02-22 | Motley Fool | The Best Stocks to Invest $50,000 in Right Now | Positive | +0.64 | — |
-| 2026-02-22 | Motley Fool | Prediction: 3 Stocks That'll Be Worth More Than Walmart 5 Ye... | Positive | +0.23 | — |
-| 2026-02-22 | Motley Fool | Where Will Rocket Lab Stock Be in 10 Years? | Neutral | +0.00 | — |
-| 2026-02-22 | Motley Fool | Is CrowdStrike Stock a Buy After Falling 17% Year to Date? | Negative | -0.15 | — |
-| 2026-02-21 | Seeking Alpha | Intel Nicely On Target, More Required (NASDAQ:INTC) - Seekin... | Positive | +0.44 | — |
-| 2026-02-21 | MarketBeat | Intel (NASDAQ:INTC) Shares Down 1.1% - Time to Sell? - Marke... | Positive | +0.30 | Earnings |
-| 2026-02-21 | CoinCentral | Intel (INTC) Stock; Dips Modestly as Traders Brace for Nvidi... | Neutral | +0.00 | — |
-| 2026-02-21 | MarketBeat | Intel Corporation $INTC Shares Sold by Greenwoods Asset Mana... | Positive | +0.57 | Earnings, Corporate |
-| 2026-02-20 | 24/7 Wall St. | The XSD Semiconductor ETF Pops 12%, But Has an Intel Problem | Negative | -0.55 | — |
-| 2026-02-20 | Zacks | NVIDIA Q4 Earnings Loom: Should You Buy the Stock Ahead of R... | Negative | -0.23 | Earnings |
-| 2026-02-20 | TipRanks | Intel in India for the “Long Haul,” Intel Stock (NASDAQ:INTC... | Neutral | +0.00 | — |
-| 2026-02-20 | Quiver Quantita | Intel shares fall 3.4% amid continued pullback as investors ... | Positive | +0.30 | — |
-| 2026-02-20 | Finviz | INTC - Intel Corp Stock Price and Quote - Finviz | Neutral | +0.00 | — |
-| 2026-02-20 | TechStock² | Intel stock slides for fourth straight day — what could move... | Positive | +0.23 | — |
-| 2026-02-20 | MarketBeat | Y.D. More Investments Ltd Purchases 46,025 Shares of Intel C... | Positive | +0.30 | Earnings |
-| 2026-02-20 | Seeking Alpha | Intel: The CPU Comeback Is An Execution Reality Check (NASDA... | Neutral | +0.00 | — |
-| 2026-02-20 | MarketBeat | Persistent Asset Partners Ltd Has $1.07 Million Stock Positi... | Positive | +0.36 | Earnings |
-| 2026-02-20 | MarketBeat | Frisch Financial Group Inc. Has $848,000 Stock Holdings in I... | Neutral | +0.00 | Earnings |
-| 2026-02-20 | MarketBeat | Kovack Advisors Inc. Cuts Holdings in Intel Corporation $INT... | Negative | -0.30 | Earnings |
-| 2026-02-19 | StockStory | 1 Semiconductor Stock to Target This Week and 2 We Turn Down | Neutral | +0.00 | — |
+| Today | Yahoo Finance | Nvidia stock falls as Q4 beat, guidance fail to satisfy Wall... | Negative | -0.13 | Earnings |
+| Today | Zacks | Intel Expands AI Inference Capabilities: Will it Drive Growt... | Positive | +0.46 | — |
+| Today | GuruFocus.com | Intel Gains 25% in 2026 as Options Market Signals Opportunit... | Positive | +0.64 | — |
+| Today | Benzinga | ASML's Latest EUV Breakthrough Puts Would-Be Rivals Further ... | Neutral | +0.00 | — |
+| 2026-02-26 | TipRanks | Intel Stock (INTC) Volatility Creates Tactical Options Disco... | Positive | +0.27 | — |
+| 2026-02-26 | TechStock² | Intel stock slides as chip rally cools — what’s driving INTC... | Neutral | +0.00 | — |
+| 2026-02-26 | TipRanks | Intel Stock (NASDAQ:INTC) Plunges After Key Figure Loss - Ti... | Negative | -0.32 | — |
+| 2026-02-26 | MarketBeat | Intel Corporation $INTC Shares Bought by Westpac Banking Cor... | Positive | +0.30 | Earnings |
+| 2026-02-26 | MarketBeat | WIM INVESTMENT MANAGEMENT Ltd Buys New Stake in Intel Corpor... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-02-26 | MarketBeat | Intel Corporation $INTC Shares Bought by K.J. Harrison & Par... | Positive | +0.30 | Earnings |
+| 2026-02-26 | MarketBeat | Intel Corporation $INTC Stake Raised by TD Asset Management ... | Positive | +0.36 | Earnings, Corporate |
+| 2026-02-26 | MarketBeat | Primecap Management Co. CA Has $2.66 Billion Stock Holdings ... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-02-26 | MarketBeat | Dakota Wealth Management Cuts Stake in Intel Corporation $IN... | Positive | +0.25 | Earnings, Corporate |
+| 2026-02-26 | Bez Kabli | Intel stock today: INTC slips in premarket as SambaNova AI p... | Neutral | +0.00 | Earnings |
+| 2026-02-26 | Motley Fool | TSMC Expects AI Chip Revenue to Grow at a 60% CAGR Through 2... | Neutral | +0.00 | Earnings |
+| 2026-02-26 | Motley Fool | Uber and Joby Aviation Just Confirmed That Air Taxis Will La... | Neutral | +0.00 | — |
+| 2026-02-26 | Motley Fool | Down 35% This Year, Is Reddit Stock a Buy? | Neutral | +0.00 | — |
+| 2026-02-26 | Motley Fool | 2 Top Healthcare Stocks to Buy in February | Positive | +0.20 | — |
+| 2026-02-26 | Motley Fool | Why The Dow Is Beating The NASDAQ And S&P 500 Today | Negative | -0.46 | Earnings |
+| 2026-02-26 | Motley Fool | Nvidia Just Delivered Spectacular News to Shareholders. Here... | Neutral | +0.00 | — |
+| 2026-02-26 | Motley Fool | Why Shake Shack Stock Popped Today | Negative | -0.18 | — |
+| 2026-02-26 | Motley Fool | Woof...Dogecoin Drops Another 7% Today, Giving Up Gains From... | Positive | +0.59 | — |
+| 2026-02-26 | Motley Fool | Every "Magnificent Seven" Stock Is Underperforming the S&P 5... | Positive | +0.40 | — |
+| 2026-02-25 | Reuters | Analysis-Nvidia's CEO prepares investors for a renewed battl... | Negative | -0.38 | Corporate |
+| 2026-02-25 | Benzinga | AMD Strikes $100 Billion Blow To Nvidia, Massive Meta Deal C... | Negative | -0.36 | — |
+| 2026-02-25 | TheStreet | Bank of America drops a surprising Nvidia warning before ear... | Negative | -0.08 | Earnings |
+| 2026-02-25 | TheStreet | 'Black Swan' author warns investors to brace for bankruptcie... | Negative | -0.10 | — |
+| 2026-02-25 | Barchart.com | As Intel Partners with SambaNova, Should You Buy, Sell, or H... | Neutral | +0.00 | — |
+| 2026-02-25 | 24/7 Wall St. | Intel Is Up 90% in 12 Months. Can It Actually Sustain This C... | Neutral | +0.00 | — |
+| 2026-02-25 | MarketBeat | Waddell & Associates LLC Increases Stock Position in Intel C... | Neutral | +0.00 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 15 (50%) |
-| Neutral | 10 (33%) |
-| Negative | 5 (17%) |
-| Average Score | +0.144 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 201 |
+| Positive | 10 (33%) |
+| Neutral | 12 (40%) |
+| Negative | 8 (27%) |
+| Average Score | +0.059 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 204 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 12 | Lansforsakringar Fondforvaltning AB publ..; Intel Corporation $INTC Shares Bought by.. |
-| Corporate | 2 | Intel Corporation $INTC Shares Bought by..; Intel Corporation $INTC Shares Sold by G.. |
-| Shareholder | 2 | This Elite 5.5%-Yielding Dividend Stock ..; Merck: This Cancer‑Drug Powerhouse Could.. |
+| Earnings | 12 | Nvidia stock falls as Q4 beat, guidance ..; Intel Corporation $INTC Shares Bought by.. |
+| Corporate | 5 | WIM INVESTMENT MANAGEMENT Ltd Buys New S..; Intel Corporation $INTC Stake Raised by .. |
 
 ### Deep Dive Articles
 
-#### NVIDIA Q4 Earnings Loom: Should You Buy the Stock Ahead of Results?
-*Source: Zacks | Date: 2026-02-20 | Sentiment: Positive (+0.72)*
+#### Intel Expands AI Inference Capabilities: Will it Drive Growth?
+*Source: Zacks | Date: Today | Sentiment: Positive (+0.99)*
 
-> NVIDIA CorporationNVDA is scheduled to report fourth-quarter fiscal 2026 results on Feb. 25, after market close.
+> Intel CorporationINTC recently announced a multiyear strategic collaboration with SambaNova, a leading AI inference platform and hardware provider. The partnership is set to focus on delivering high-performance, cost-efficient AI inference solutions built around Intel Xeon-based infrastructure.The AI ecosystem is evolving rapidly. The focus is shifting from training big AI models with a large amount of data to AI inference workloads, that is, actually using the AI models in real time for various tasks.AI workloads have become more complex. They are powered by heterogeneous infrastructure, which includes multiple computes working together, such as CPUs, GPUs, AI accelerators, networking architecture and software. A major revenue-generating opportunity lies at the inference level, that is, every AI query, such as search queries, recommendations in various AI tools.Per a report from Grand View Research, the global AI inference market, which is estimated at $97.24 billion in 2024, is projected to witness a compound annual growth rate of 17.5% from 2025 to 2030. Intel is expanding its portfolio offering to capitalize on this emerging market trend.Earlier, Intel successfully achieved MLPerf v5.1 benchmark requirements. MLPerf Inference v5.1 is the newest release of an industry-standard AI benchmarking suite. Intel has introduced its Crescent Island GPU optimized for AI inference workloads. Along with these factors, the recent collaboration with SambaNova aims to combine Intel Xeon processors, Intel GPUs, Intel networking and storage, and SambaNova systems. This will likely boost Intel’s commercial prospects in the AI inference domain.
 
-> The company expects revenues of $65 billion (+/-2%) for the quarter. The Zacks Consensus Estimate is pegged at $65.56 billion, which indicates a whopping 66.7% increase from the year-ago reported figure.
+> Intel faces competition fromNVIDIA CorporationNVDA andAdvanced Micro DevicesAMD in the AI inference domain. NVIDIA offers a comprehensive portfolio for AI inference infrastructure. The NVIDIA Blackwell, H200, L40S and NVIDIA RTX offer remarkable speed and efficiency in AI inference across cloud, workstations and data centers.AMD Instinct MI350 Series GPU, featuring powerful and power-efficient cores, has set a new benchmark in generative AI and high-performance computing in data centers. With NVIDIA’s dominance and AMD’s strong momentum, Intel faces a steep uphill battle in the AI inference domain.
 
-> The Zacks Consensus Estimate for quarterly earnings has been revised a penny upward over the past 60 days to $1.52. This suggests year-over-year growth of 70.8% from the year-ago quarter’s earnings of 89 cents per share.
+> Shares of Intel have surged 103% over the past year compared with the industry’s growth of 56.4%.
 
-> Earnings of the graphics chip maker surpassed the Zacks Consensus Estimate in three of the trailing four quarters and missed in one, delivering an average surprise of 2.8%.
+> Going by the price/book ratio, the company's shares currently trade at 1.85 book value, lower than 28.71 of the industry average.
 
-> NVIDIA Corporation price-eps-surprise - NVIDIA Corporation Quote
+> Earnings estimates for INTC for 2025 and 2026 have declined over the past 60 days.
 
-**Catalysts:** Earnings
+**Catalysts:** Earnings, Equity
 
-#### 1 Semiconductor Stock to Target This Week and 2 We Turn Down
-*Source: StockStory | Date: 2026-02-19 | Sentiment: Positive (+0.94)*
+#### AMD Strikes $100 Billion Blow To Nvidia, Massive Meta Deal Could Crown New AI King: Analyst
+*Source: Benzinga | Date: 2026-02-25 | Sentiment: Positive (+0.94)*
 
-> Semiconductors are the core infrastructure powering the Information Age. The way we live and work is also changing with AI, which is creating secular demand for more powerful chips. 
-As a result, the industry has seen solid stock price performance over the last six months as its gain of 62% has outpaced the S&P 500’s 7.6% return.
+> Advanced Micro Devices, Inc.’s(NASDAQ:AMD) new 6GW graphics processing unit (GPU) deal withMeta Platforms Inc(NASDAQ:META) is drawing mixed reactions on Wall Street, withJPMorganandGoldmanSachsstaying cautious whileBofA Securitiesleans bullish on the long-term earnings upside.
 
-> Nevertheless, a cautious approach is imperative because Moore’s Law (a principle stating that computer productivity doubles every two years) will eventually make even the most impactful technologies today obsolete. With that said, here is one semiconductor stock poised to generate sustainable market-beating returns and two we’re steering clear of.
+> Sur said the Meta deal, along with AMD’s earlier OpenAI agreement, increases confidence that AMD could secure additional multi-gigawatt deals with other hyperscalers and AI labs.
 
-> Inventor of the x86 processor that powered decades of technological innovation in PCs, data centers, and numerous other markets, Intel (NASDAQ:INTC) is a leading manufacturer of computer processors and graphics chips.
+> The analyst estimates that Meta’s planned 6GW deployment could generate $23 billion to $25 billion in annual revenue from 2027 to 2030, or roughly $90 billion to $100 billion over four years.
 
-> Intel’s stock price of $44.57 implies a valuation ratio of 100.4x forward P/E.Read our free research report to see why you should think twice about including INTC in your portfolio.
+> He said the Meta and OpenAI agreements alone could push AMD’s data center GPU revenue well above current 2027 expectations, even before factoring in contributions from other customers such asOracle Corp(NYSE:ORCL), which plans MI450 deployments in the third quarter of 2026.
 
-> Spun out of Motorola in 1999 and built through a series of acquisitions, onsemi (NASDAQ:ON) is a global provider of analog chips specializing in autos, industrial applications, and power management in cloud data centers.
-
-**Catalysts:** Earnings, Regulatory, Corporate
-
-#### NVIDIA's 13F Bombshell: A New AI Power Trio Emerges
-*Source: MarketBeat | Date: 2026-02-19 | Sentiment: Positive (+0.99)*
-
-> The world’s most valuable company just made some headline-grabbing news.Semiconductor giantNVIDIA (NASDAQ: NVDA)has released its latest 13F SEC filing, detailing the investments the company made and sold during Q4 2025. As the firm leading the artificial intelligence (AI) infrastructure boom, investors watch NVIDIA's trades closely.
-
-> The filing not only indicates which stocks NVIDIA may see value in, but also highlights its strategic moves within the AI and semiconductor ecosystem. While NVIDIA announced many of these trades in advance of its 13F release, investors were not aware of all of them until now. The clearest takeaway from the 13F is where NVIDIA added exposure, where it exited, and what it chose not to change.
-
-> Three new names showed up on NVIDIA’s latest 13F filing:Intel (NASDAQ: INTC),Synopsys (NASDAQ: SNPS)andNokia (NYSE: NOK). The company announced these investments in several press releases during 2025, but they are still worth examining.
-
-> Intel is now NVIDIA’s largest holding. At the end of Q4, it held over214 million Intel shares, valued at approximately $7.9 billion. This represents around 61% of the firm’s overall public equity portfolio. NVIDIA revealed this investment inSeptember of 2025, initiating a $5 billion purchase at $23.28 per share. Since then, Intel stock is up nearly 50%, benefiting from a 23% spike immediately after NVIDIA’s press release.
-
-> Synopsys is one of the world’s two giants in the electronic design automation industry. This software is essential to designing highly advanced chips. Synopsys also owns key intellectual property that serves as “building blocks” in semiconductor design. NVIDIA owns over 4.8 million Synopsys shares valued at over $2.2 billion at the end of Q4. Synopsys is up over 5% since NVIDIA announced its $2 billion purchase inDecember of 2025at $414.79 per share.
-
-**Catalysts:** Regulatory
-
-#### ETFs to Gain as Japan Pledges to Invest $36B in U.S. Projects
-*Source: Zacks | Date: 2026-02-19 | Sentiment: Positive (+0.99)*
-
-> In a significant diplomatic and economic move, Japan recently announced a pledge to invest $36 billion in three massive U.S. energy and manufacturing projects. This "first tranche" is part of a broader $550 billion commitment from Tokyo aimed at rebuilding the American industrial base while securing critical supply chains for Japan.
-
-> The $36 billion investment package centers on a giant 9.2-gigawatt (GW) capacity gas-fired power plant in Ohio, a deepwater crude export terminal off Texas and a synthetic industrial diamond facility in Georgia, thereby targeting three strategic industries: natural gas power generation, energy export infrastructure and critical mineral manufacturing.
-
-> For the U.S. companies directly operating the aforementioned projects as well as those supplying critical inputs to these facilities, the influx of capital from Japan promises new growth opportunities, expanded operations and potential revenue streams. For investors, this creates an opportune moment to gain exposure to the benefits of this investment framework through exchange-traded funds (ETFs) with significant exposure to the beneficiary companies.
-
-> As we delve into the specific industries and corporations poised to gain from this landmark investment plan, in the next section, a clearer picture should emerge of which funds are best positioned to ride this wave of economic activity.
-
-> Since Japan’s initial $36 billion tranche is concentrated in three flagship U.S. projects, here’s a breakdown of the industries and companies associated with these projects and thus are likely to see a direct or indirect benefit:
+> While the Meta deal includes some customization of the MI450 platform, Sur expects custom AI application-specific integrated circuit (ASIC) programs to remain separate from GPU programs and continues to project that ASIC total addressable market growth will outpace GPU growth in the coming years.
 
 **Catalysts:** Earnings, Regulatory
 
-#### Zacks Investment Ideas feature highlights Nvidia, Taiwan,  Bloom Energy, Alphabet, Microsoft, Amazon, Intel, Nebius and Micron
-*Source: Zacks | Date: 2026-02-19 | Sentiment: Positive (+0.99)*
+#### Morgan Stanley Lifts Intel (INTC) to $41, Flags Near-Term Foundry Constraints
+*Source: Insider Monkey | Date: 2026-02-24 | Sentiment: Positive (+0.98)*
 
-> Chicago, IL – February 19, 2026 – Today, Zacks Investment Ideas feature highlights Nvidia NVDA, Taiwan Semiconductor TSM, Bloom Energy BE, Alphabet GOOGL, Microsoft MSFT, Amazon AMZN, Intel INTC, Nebius NBIS and Micron MU.
+> We recently published an article titled13 Best Internet of Things (IoT) Stocks to Buy Now.
 
-> A 13F disclosure is a quarterly report that institutional investors with $100 million or more in assets under management (AUM) must file with the U.S. Securities and Exchange Commission (SEC) each quarter. 13F filings give investors a rare glimpse into what the smartest, largest, and most successful investors are investing their money in. Included in the 13F report is the name of the security, the type of security (for example, call option or equity), the number of shares or contracts held, the fair market value of the position, and the percentage of portfolio the position comprises.
+> On January 26, Morgan Stanley raised its price target on Intel Corporation (NASDAQ:INTC) to $41 from $38 while maintaining an Equal Weight rating. Although fourth-quarter results exceeded expectations, the firm characterized first-quarter guidance as constrained by meaningful supply limitations, which could weigh on customer confidence in Intel’s foundry execution and near-term operational consistency.
 
-> These reports are required to be filed within 45 days of the end of each calendar quarter. The deadline for Q4 2025 was Tuesday, February 17th, meaning that all the big investors have filed their 13F reports. While 13Fs can represent “stale data” they can provide investors with valuable transparency and an idea of what the big institutional investors are seeing. With the AI boom in full swing and the fastest-growing industry on Wall Street, I will focus today’s commentary on five of the most interesting AI-related purchases by Wall Street juggernauts, including
+> On January 22, Intel Corporation (NASDAQ:INTC) reported fourth-quarter 2025 revenue of $13.7 billion, at the high end of guidance and marking the fifth consecutive quarter of revenue above its outlook range. Non-GAAP gross margin reached 37.9%, approximately 140 basis points above guidance, while non-GAAP EPS of $0.15 exceeded the $0.08 guidance midpoint. Operating cash flow totaled $4.3 billion, with gross capital expenditures of $4.0 billion and positive adjusted free cash flow of $2.2 billion during the quarter. Consistent execution above guidance, improving cash flow generation, and disciplined capital spending provide evidence of operational stabilization as the company pivots toward data-centric markets.
 
-> Stanley Druckenmiller is known as the most consistent big money manager on Wall Street. Shortly after the release of ChatGPT, Druckenmiller purchasedNvidia, making billions of dollars on the trade. Later, he scored wins in other AI-related firms likeTaiwan Semiconductor. According to his latest 13F, Druckenmiller is making a $64 million bet onBloom Energy.
+> Intel Corporation (NASDAQ:INTC), founded in 1968 and headquartered in Santa Clara, California, is a leading semiconductor manufacturer developing processors and optimized chips for PCs, data centers, IoT devices, and edge computing, as it transitions toward supporting data-driven industries and foundry services.
 
-> The bet makes sense. With AI data center demand accelerating exponentially, energy will need to follow suit. Bloom Energy helpds big tech companies power their data centers through its technology that converts fuelse such as natural gas and hydrogen into reliable electricity without combustion, offering high efficiency and low emissions.
+> While we acknowledge the potential of INTC as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
 
-**Catalysts:** Earnings, Regulatory, Corporate, Equity, Short
+**Catalysts:** Earnings, Regulatory, Analyst, Short
+
+#### Why Is Intel (INTC) Stock Soaring Today
+*Source: StockStory | Date: 2026-02-24 | Sentiment: Positive (+1.00)*
+
+> Shares of computer processor maker Intel (NASDAQ:INTC) 
+ jumped 5.4% in the afternoon session after the semiconductor sector received a major boost as Advanced Micro Devices (AMD) secured a deal to sell up to US$60 billion in artificial intelligence chips to Meta Platforms over five years.
+
+> This landmark agreement, which also allows Meta to purchase as much as 10% of the chip firm, is one of the latest blockbuster deals in the artificial intelligence space, signaling massive investment by tech giants. The news prompted a significant rally in AMD's shares, which jumped more than 10% in premarket trading. The deal not only highlights the immense demand for specialized AI hardware but also contributed to a broader rebound in technology stocks, helping to ease recent investor fears about the disruptive impacts of AI.
+
+> Is now the time to buy Intel?Access our full analysis report here, it’s free.
+
+> Intel’s shares are extremely volatile and have had 41 moves greater than 5% over the last year. In that context, today’s move indicates the market considers this news meaningful but not something that would fundamentally change its perception of the business.
+
+> The previous big move we wrote about was 18 days ago when the stock gained 4.6% on the news that reports revealed that the company planned to raise server CPU prices amid shortages, coupled with a massive spending forecast from cloud giant Amazon. According to a Reuters report, Intel and a key rival intended to increase server CPU prices by as much as 10% in the Chinese market due to unexpected supply constraints. The positive sentiment was amplified after Amazon announced a $200 billion spending plan for 2026, which boosted the entire AI-related semiconductor sector. This news was particularly relevant for Intel, which had previously reached an agreement to produce custom Xeon 6 server chips for Amazon. Adding to the bullish news, an analyst at Seaport Research Partners upgraded Intel's stock from Neutral to Buy, citing confidence in the company's future performance and potential market share recovery driven by new products.
+
+**Catalysts:** Regulatory, Analyst, Short
+
+#### Intel CEO Bets On SambaNova Partnership To Challenge Nvidia's AI Dominance
+*Source: Benzinga | Date: 2026-02-24 | Sentiment: Positive (+0.80)*
+
+> Intel Corp(NASDAQ:INTC) CEO Lip-Bu Tan is deepening ties withAI chip startupSambaNovaas it works to strengthen its position againstNvidia Corp(NASDAQ:NVDA) in the fast-growing artificial intelligence market.
+
+> SambaNova builds chips designed to run generative AI models.
+
+> Tan, who chairs SambaNova and first invested in the company eight years ago, is now overseeing Intel's participation in a $350 million funding round for the startup, CNBCreportedon Tuesday.
+
+> According to the report, Intel initially invested in SambaNova in 2019.
+
+> As part of a new multiyear collaboration announced Tuesday, SambaNova agreed to adopt Intel server processors and graphics cards.
+
+**Catalysts:** Corporate

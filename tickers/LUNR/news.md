@@ -1,4 +1,4 @@
-*Generated: 2026-02-23 01:07*
+*Generated: 2026-02-26 22:17*
 
 ## News & Sentiment: Intuitive Machines, Inc. (LUNR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,129 +6,129 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-02-19 | PR Newswire | Pentagon Pours $68M Into Hypersonic Tech: Here Are Five Firm... | Neutral | +0.00 | — |
-| 2026-02-19 | Stock Traders D | How Intuitive Machines Inc. (LUNR) Affects Rotational Strate... | Neutral | +0.00 | — |
-| 2026-02-19 | Motley Fool | Intuitive Machine's CEO Sold Shares Worth $1.4 Million. Is t... | Positive | +0.48 | Corporate |
-| 2026-02-18 | Benzinga | Intuitive Machines Stock Is Leaping: What's Going On? | Neutral | +0.00 | — |
-| 2026-02-18 | Benzinga | 7 Defense Stocks Rally As US-Iran Conflict Risk Spikes | Negative | -0.44 | — |
-| 2026-02-18 | The Motley Fool | Why Intuitive Machines Stock Is Soaring Today - The Motley F... | Negative | -0.44 | — |
-| 2026-02-18 | MarketBeat | Intuitive Machines (NASDAQ:LUNR) Trading Up 8.4% - What's Ne... | Neutral | +0.00 | Earnings |
-| 2026-02-17 | 24/7 Wall St. | AST SpaceMobile, Intuitive Machines, and Rocket Lab Tumble W... | Positive | +0.34 | — |
-| 2026-02-17 | Investing.com S | B.Riley raises Intuitive Machines stock price target on luna... | Negative | -0.13 | Analyst |
-| 2026-02-17 | AskTraders.com | Intuitive Machines Stock (LUNR) Dips Despite Price Target Ra... | Neutral | +0.00 | Analyst |
-| 2026-02-13 | Investing.com | McGrath Peter, Intuitive Machines SVP, sells $445k in LUNR s... | Neutral | +0.00 | — |
-| 2026-02-13 | MarketBeat | Intuitive Machines (NASDAQ:LUNR) CEO Sells $1,389,716.03 in ... | Neutral | +0.00 | Earnings, Corporate |
-| 2026-02-13 | MarketBeat | Insider Selling: Intuitive Machines (NASDAQ:LUNR) Insider Se... | Positive | +0.30 | Earnings |
-| 2026-02-13 | Investing.com | Crain, Intuitive Machines SVP, sells $404k in LUNR stock - I... | Neutral | +0.00 | — |
-| 2026-02-12 | Benzinga | Redwire, Firefly, Planet Labs Drop As AST SpaceMobile Offeri... | Negative | -0.46 | Equity |
-| 2026-02-12 | CNBC | The 'Moon economy' is about to boom. Deutsche Bank thinks th... | Positive | +0.46 | — |
-| 2026-02-11 | MarketBeat | Intuitive Machines (NASDAQ:LUNR) Stock Price Down 10.3% - He... | Neutral | +0.00 | Earnings |
-| 2026-02-11 | Simply Wall St. | Intuitive Machines (LUNR) Is Up 12.1% After $800M Lanteris D... | Neutral | +0.00 | — |
-| 2026-02-10 | Insider Monkey | Intuitive Machines (LUNR) Jumps 11%, Investors Upbeat on Spa... | Neutral | +0.00 | Earnings |
-| 2026-02-09 | 24/7 Wall St. | Space Stock Surge: Can Intuitive Machines Smash the $25 Barr... | Negative | -0.13 | — |
-| 2026-02-09 | TechStock² | Intuitive Machines stock jumps 13% in heavy trade as LUNR st... | Neutral | +0.00 | — |
-| 2026-02-09 | Motley Fool | Is Intuitive Machines Stock a Buy After the University of Pe... | Positive | +0.30 | — |
-| 2026-02-07 | TechStock² | Intuitive Machines stock just jumped 18% — what LUNR traders... | Neutral | +0.00 | — |
-| 2026-02-06 | MarketBeat | Intuitive Machines (NASDAQ:LUNR) Stock Price Up 16.8% - Time... | Neutral | +0.00 | Earnings |
-| 2026-02-05 | Benzinga | SpaceX IPO Chatter Has Space Stocks Stuck on the Pad | Negative | -0.25 | Corporate |
-| 2026-02-03 | Motley Fool | 2 Top Space Stocks to Buy Right Now | Positive | +0.20 | — |
-| 2026-02-03 | Reuters | US space stocks rise after Musk's SpaceX merges with xAI at ... | Neutral | +0.00 | — |
-| 2026-02-03 | The Motley Fool | 2 Top Space Stocks to Buy Right Now - The Motley Fool | Negative | -0.27 | — |
-| 2026-02-02 | Stocktwits | LUNR Stock In Spotlight Ahead Of Artemis II Launch - Can It ... | Negative | -0.38 | — |
-| 2026-02-02 | MarketBeat | Intuitive Machines (NASDAQ:LUNR) Trading Down 6% - Here's Wh... | Neutral | +0.00 | Earnings |
+| Today | Benzinga | Intuitive Machines (LUNR) Stock Surges After Sharp Sell-Off:... | Neutral | +0.00 | — |
+| Today | Insider Monkey | Intuitive Machines (LUNR) Slashes 15.9% on $175-Million Shar... | Positive | +0.10 | — |
+| 2026-02-26 | TIKR.com | Intuitive Machines Stock Plunges 16% After $175 Million Offe... | Negative | -0.27 | Equity |
+| 2026-02-26 | The Globe and M | Why Intuitive Machines Stock Bounced Right Back Today - The ... | Neutral | +0.00 | — |
+| 2026-02-26 | MarketBeat | Intuitive Machines (NASDAQ:LUNR) Trading 10.4% Higher - Time... | Neutral | +0.00 | Earnings |
+| 2026-02-26 | StocksToTrade | Intuitive Machines Secures Major Investments, Expanding Luna... | Positive | +0.32 | Regulatory |
+| 2026-02-26 | Investing.com U | Intuitive Machines stock surges 7% following sharp selloff W... | Neutral | +0.00 | — |
+| 2026-02-26 | MT Newswires | Social Buzz: Wallstreetbets Stocks Mixed Pre-Bell Thursday; ... | Neutral | +0.00 | — |
+| 2026-02-25 | Benzinga | Intuitive Machines (LUNR) Stock Slides After $175 Million Di... | Positive | +0.30 | Equity |
+| 2026-02-25 | GlobeNewswire | Intuitive Machines Advancing Satellite Communications and In... | Neutral | +0.00 | — |
+| 2026-02-25 | The Motley Fool | Why Intuitive Machines Stock Crashed Today - The Motley Fool | Negative | -0.44 | — |
+| 2026-02-25 | Stock Titan | $175M backs plan for solar system internet from Earth orbit ... | Negative | -0.05 | — |
+| 2026-02-25 | Seeking Alpha | Intuitive Machines stock plunges after $175M equity raise (L... | Neutral | +0.00 | — |
+| 2026-02-25 | Nasdaq | Intuitive Machines Stock Falls 15% After Announcement Of $17... | Neutral | +0.00 | — |
+| 2026-02-25 | Tokenist | Intuitive Machines (LUNR) Stock Falls 16% After $175M Equity... | Neutral | +0.00 | — |
+| 2026-02-25 | Investing.com | Intuitive Machines secures $175M equity investment By Invest... | Positive | +0.32 | Regulatory |
+| 2026-02-25 | Stock Titan | Intuitive Machines to discuss Lanteris deal on March 19 earn... | Neutral | +0.00 | Earnings |
+| 2026-02-25 | MarketBeat | Intuitive Machines (NASDAQ:LUNR) Trading Down 16.4% - What's... | Neutral | +0.00 | Earnings |
+| 2026-02-25 | TradingView | Intuitive Machines Raises $175 Million in Private Stock Sale... | Positive | +0.30 | — |
+| 2026-02-25 | Stocktwits | LUNR Stock Falls 16% As $175M Dilution Deal Weighs On Shares... | Positive | +0.30 | Equity |
+| 2026-02-25 | MEXC | Intuitive Machines (LUNR) Stock Falls 15% After $175M Equity... | Neutral | +0.00 | — |
+| 2026-02-25 | StocksToTrade | Intuitive Machines Inc. CFO Stock Sale Stirs Market Fluctuat... | Neutral | +0.00 | — |
+| 2026-02-25 | Invezz | Why is Intuitive Machines stock slipping and should you buy ... | Neutral | +0.00 | — |
+| 2026-02-25 | StocksToTrade | Intuitive Machines’ Stock Scrutiny: CFO’s Share Sale Sparks ... | Positive | +0.30 | — |
+| 2026-02-25 | timothysykes.co | Intuitive Machines’ Stock Movement Following CFO’s Share Sal... | Positive | +0.30 | — |
+| 2026-02-25 | Intellectia AI | Intuitive Machines Plans $175 Million Funding for Expansion ... | Neutral | +0.00 | — |
+| 2026-02-25 | timothysykes.co | Intuitive Machines CFO’s Stock Sale Draws Attention Amid Mar... | Neutral | +0.00 | — |
+| 2026-02-25 | Motley Fool | Why Intuitive Machines Stock Crashed Today | Neutral | +0.00 | — |
+| 2026-02-24 | GlobeNewswire | Intuitive Machines Announces Date for Fourth Quarter, Full-Y... | Neutral | +0.00 | Corporate |
+| 2026-02-24 | Benzinga | Golden Dome Winners: Stocks on the Pentagon's SHIELD Vendor ... | Positive | +0.48 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 6 (20%) |
-| Neutral | 16 (53%) |
-| Negative | 8 (27%) |
-| Average Score | -0.014 |
+| Positive | 9 (30%) |
+| Neutral | 18 (60%) |
+| Negative | 3 (10%) |
+| Average Score | +0.064 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 173 |
+| Total Unique Headlines | 176 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 7 | Intuitive Machines (NASDAQ:LUNR) Trading..; Intuitive Machines (NASDAQ:LUNR) CEO Sel.. |
-| Corporate | 3 | Intuitive Machine's CEO Sold Shares Wort..; Intuitive Machines (NASDAQ:LUNR) CEO Sel.. |
-| Analyst | 2 | B.Riley raises Intuitive Machines stock ..; Intuitive Machines Stock (LUNR) Dips Des.. |
-| Equity | 1 | Redwire, Firefly, Planet Labs Drop As AS.. |
+| Equity | 3 | Intuitive Machines Stock Plunges 16% Aft..; Intuitive Machines (LUNR) Stock Slides A.. |
+| Earnings | 3 | Intuitive Machines (NASDAQ:LUNR) Trading..; Intuitive Machines to discuss Lanteris d.. |
+| Regulatory | 2 | Intuitive Machines Secures Major Investm..; Intuitive Machines secures $175M equity .. |
+| Corporate | 1 | Intuitive Machines Announces Date for Fo.. |
 
 ### Deep Dive Articles
 
-#### Pentagon Pours $68M Into Hypersonic Tech: Here Are Five Firms Building the Hardware
-*Source: PR Newswire | Date: 2026-02-19 | Sentiment: Positive (+0.98)*
+#### Intuitive Machines (LUNR) Stock Surges After Sharp Sell-Off: What's Going On?
+*Source: Benzinga | Date: Today | Sentiment: Positive (+0.73)*
 
-> VANCOUVER, BC,Feb. 19, 2026/PRNewswire/ --USANewsGroup.comNews Commentary– ThePentagon'sJoint Hypersonics Transition Office has awarded $68 million across six vendors to accelerate next-generation technologies capable of traveling faster than Mach 5[1]. TheU.S. Armyhas begun fielding Dark Eagle, the nation's first operational ground-launched hypersonic weapon, with delivery expected to complete in early 2026[2]. Companies positioned at the intersection of commercial aerospace and defense testing includeStarfighters Space(NYSE-A: FJET),Rocket Lab(NASDAQ: RKLB),Intuitive Machines(NASDAQ: LUNR),Kratos Defense & Security Solutions(NASDAQ: KTOS), andJoby Aviation(NYSE: JOBY).
+> Intuitive Machines Inc(NASDAQ:LUNR) shares are trading higher Thursday, recovering some of the sharp losses seen in the previous session after the company unveiled sizable equity financing.
 
-> Even private capital is flowing into the sector, with hypersonic testing companies securing major institutional investment to expand production capacity and flight cadence[3]. As traditional government test ranges struggle to keep pace with development timelines, commercial operators with flight-proven supersonic and hypersonic platforms are drawing serious attention from defense agencies and prime contractors alike.
+> The move comes despite no fresh company-specific headlines, suggesting investors are reassessing Wednesday's sell-off and the implications of the deal for the space infrastructure firm.
 
-> Starfighters Space(NYSE American: FJET)recently completedwind tunnel testing for STARLAUNCH 1, the company's air-launched sub-orbital vehicle designed for short-duration microgravity missions. Testing evaluated separation behavior at Mach 0.85 and Mach 1.3 across ten successful runs, with results showing strong agreement between computational fluid dynamics predictions and experimental data.
+> On Wednesday, LUNR sank after Intuitive Machinesannounceda $175 million strategic equity investment led by institutional investors, structured as an issuance of new Class A common stock.
 
-> The company has now initiated procurement of instrumented drop test articles to evaluate separation dynamics under actual flight conditions.
+> The capital raise is intended to accelerate development of the company's Near Space Network Services and Lanteris satellite platforms, part of a broader effort to build a communications network connecting Earth orbit with the moon and, eventually, Mars.
 
-> "Demonstrating clean, predictable separation across these flight regimes is a foundational requirement for an air-launched system," said Rick Svetkoff, CEO ofStarfighters Space. "The close alignment between our simulations and the wind tunnel results gives us confidence in the underlying design and allows us to proceed methodically to the next phase of testing."
-
-**Catalysts:** Earnings, Regulatory, Corporate, Analyst, Short
-
-#### Intuitive Machines Stock Is Leaping: What's Going On?
-*Source: Benzinga | Date: 2026-02-18 | Sentiment: Negative (-0.89)*
-
-> Intuitive Machines Inc(NASDAQ:LUNR) shares are surging higher on Wednesday. Concerns about a potential U.S.–Iran conflict and the ongoing Russia‑Ukraine are contributing to therising geopolitical tensions.
-
-> Two days of peace talks between Ukraine and Russia wrapped up in Geneva on Wednesday without any progress, according to Reuters.
-
-> PresidentVolodymyr Zelenskiyaccused Moscow of dragging its feet on U.S.-mediated negotiations aimed at ending the four‑year conflict, calling the discussions "difficult." Ukraine continues to face pressure from U.S. PresidentDonald Trumpto accept a deal that could involve disappointing concessions, while Russian forces intensify attacks on its power grid and make slow gains on the battlefield.
-
-> At the same time, tensions between the U.S. and Iran are rising. Iran's semi‑official Fars news agency reported that Iran and Russia plan to hold joint naval drills in the Sea of Oman and the northern Indian Ocean on Thursday.
-
-> As nuclear talks kicked off on Tuesday, Iranian state media said the country temporarily closed parts of the Strait of Hormuz, a crucial global oil chokepoint, citing security measures while its Revolutionary Guards carried out military exercises in the area.
-
-**Catalysts:** Regulatory
-
-#### 7 Defense Stocks Rally As US-Iran Conflict Risk Spikes
-*Source: Benzinga | Date: 2026-02-18 | Sentiment: Positive (+0.50)*
-
-> U.S. defense stocks surged Wednesday after reports signaled theDonald Trumpadministration is edging closer to potential militaryaction against Iran, while prediction markets sharply repriced the odds of a strike within weeks.
-
-> TheSPDR S&P Aerospace & Defense ETF(NYSE:XAR) gained 2%, while theGlobal X Defense Tech ETF(NYSE:SHLD) rose 2.7%, outpacing the broader market.
-
-> The move followed an Axios report stating the U.S. could be on the brink of a major Middle East conflict.
-
-> According to sources familiar with the matter, a potential U.S. military strike on Iran could begin "very soon" and develop into a sustained, weeks-long campaign, possibly in coordination with Israel.
-
-> Axiosreportedthe administration expanded its military footprint in the region. The buildup includes two aircraft carriers, multiple warships, hundreds of fighter jets and advanced air defense systems.
-
-**Catalysts:** None
-
-#### Redwire, Firefly, Planet Labs Drop As AST SpaceMobile Offering Adds Drag: Benzinga's Space Stock Watch
-*Source: Benzinga | Date: 2026-02-12 | Sentiment: Neutral (+0.00)*
-
-> Space stocks fell on heavy trading Thursday as investors digestedseveral industry headwinds.
-
-> United Launch Alliance's Vulcan rocket experienced a solid rocket booster issue on Thursday, which heightened hardware concerns across the industry.
-
-> Additionally, the pure-play space sectorremains highly sensitivetoElon Musk's commentary, a reportedSpaceXIPO and the accelerating integration of AI with orbital data.
-
-> Adding to the pressure, a major space satellite player announced a massive convertible note offering that pulled the entire sector lower on Thursday.
-
-> Here's a look at the recent developments and space stocks' price action.
+> While the financing supports Intuitive Machines' long-term growth ambitions and could help it secure more recurring government and commercial contracts, the offering introduces near-term dilution risk for existing shareholders and heightens the pressure on management to execute on complex lunar and deep-space projects.
 
 **Catalysts:** Regulatory, Corporate, Equity
 
-#### Intuitive Machines (LUNR) Jumps 11%, Investors Upbeat on Space Stocks
-*Source: Insider Monkey | Date: 2026-02-10 | Sentiment: Positive (+0.98)*
+#### Intuitive Machines (LUNR) Slashes 15.9% on $175-Million Share Sale Plan
+*Source: Insider Monkey | Date: Today | Sentiment: Positive (+0.85)*
 
-> We recently published10 Big Names With Effortless Double-Digit Gains. Intuitive Machines Inc. (NASDAQ:LUNR) was one of the best performers on Monday.
+> We recently published10 Stocks Left Behind in a Roaring Market. Intuitive Machines Inc. (NASDAQ:LUNR) was one of the worst performers on Wednesday.
 
-> Intuitive Machines rallied for a second day on Monday, jumping 11.02 percent to close at $19.45 apiece despite the lack of fresh developments to boost buying appetite.
+> Intuitive Machines declined by 15.93 percent on Wednesday to finish at $15.89 apiece as investors disposed of positions amid the dilution potential of its plans to raise $175 million from a share sale.
 
-> However, Intuitive Machines Inc. (NASDAQ:LUNR) mirrored a recent rally in fellow space stocks over the past few weeks after billionaire Elon Musk posted confidence for the industry, saying that it could be the most “cost-effective” way to produce AI compute.
+> In a statement on the same day, Intuitive Machines Inc. (NASDAQ:LUNR) said that the strategic equity investment would be led by global institutional investors, proceeds of which will be used to support revenue expansion and investment in technologies to advance communications and data processing networks, including extending flight-proven satellite platforms into those growth markets. The transaction is expected to close on Friday, February 27.
 
-> As a company that could support initiatives through the delivery of equipment into space, Musk’s comments spelled good news for Intuitive Machines Inc. (NASDAQ:LUNR).
+> Additionally, Intuitive Machines Inc. (NASDAQ:LUNR) intends to invest in expanding its Near Space Network Services (NSNS) and establish a solar system internet independent of Earth.
 
-> In other recent developments, investment firm KeyBanc raised its price target for the space player to $26 from $20 previously, while maintaining a “buy” recommendation amid its optimism for the overall space and defense sectors.
+> “Through investments in the Lanteris platforms, specifically the 1300 series, the Company believes it can grow market share in Geostationary Orbit, expand capability around the Moon, extend capability to Mars, and support emerging high-power on-orbit data processing and edge computing,” it said.
 
-**Catalysts:** Regulatory, Analyst
+**Catalysts:** Earnings, Equity
+
+#### Intuitive Machines (LUNR) Stock Slides After $175 Million Dilutive Share Offering
+*Source: Benzinga | Date: 2026-02-25 | Sentiment: Positive (+0.56)*
+
+> Intuitive Machines Inc(NASDAQ:LUNR) shares are trading sharply lower Wednesday morning after the space infrastructure company announced a $175 million strategic equity investment led by global institutional investors.
+
+> The deal, structured as an issuance of new Class A common shares, will fund expansion of the company's satellite communications and in-space data processing capabilities. Here’s what investorsneed to know.
+
+> Management plans to deploy the capital into its Near Space Network Services and Lanteris satellite platforms, aiming to build a "solar system internet" spanning Earth orbit, the Moon and eventually Mars.
+
+> The companybelievesthe investment will position it to win higher-margin, recurring contracts across government and commercial markets, includingNASAcommunications programs and future space-based data centers.
+
+> Despite the ambitious roadmap, near-term risks exist. Issuing $175 million of equity likely means meaningful shareholder dilution, especially if the deal is priced at a discount to recent trading levels.
+
+**Catalysts:** Corporate, Equity
+
+#### Intuitive Machines Advancing Satellite Communications and In-Space Data Processing Capabilities with $175 Million Strategic Investment
+*Source: GlobeNewswire | Date: 2026-02-25 | Sentiment: Positive (+0.97)*
+
+> HOUSTON, Feb.  25, 2026  (GLOBE NEWSWIRE) -- Intuitive Machines, Inc. (Nasdaq: LUNR) (“Intuitive Machines” or the “Company”), a leading space infrastructure and services company, today announced a $175 million strategic equity investment led by global institutional investors.
+
+> Followingits acquisition of Lanteris Space Systems(“Lanteris”) in January, the Company intends to use this capital to support revenue expansion and investment in technologies to advance communications and data processing networks, including extending flight-proven satellite platforms into those growth markets.
+
+> Intuitive Machines intends to invest in expandingits Near Space Network Services(“NSNS”) and establish a solar system internet independent of Earth. Through investments in the Lanteris platforms, specifically the1300 series, the Company believes it can grow market share in Geostationary Orbit (“GEO”), expand capability around the Moon, extend capability to Mars, and support emerging high-power on-orbit data processing and edge computing.
+
+> The Company believes this investment will enhance its ability to win and execute higher margin, recurring revenue programs such as Golden Dome initiatives, Tracking and Data Relay Satellite System (“TDRSS”), the Mars Telecommunications Orbiter, as well as the evolving space-based orbital data center market.
+
+> In parallel, the Company is actively engaging strategic partners across the terrestrial technology sector to align space-based data centers with emerging enterprise demand.
+
+**Catalysts:** Earnings, Regulatory, Corporate
+
+#### Intuitive Machines Announces Date for Fourth Quarter, Full-Year 2025 Financial Results, and Post-Lanteris Space Systems Acquisition Conference Call
+*Source: GlobeNewswire | Date: 2026-02-24 | Sentiment: Positive (+0.91)*
+
+> HOUSTON, Feb.  24, 2026  (GLOBE NEWSWIRE) -- Intuitive Machines, Inc. (Nasdaq: LUNR) (“Intuitive Machines”) (“Company”) announced today that it will release its financial results for the fourth quarter and full-year of 2025 on Thursday, March 19, 2026, before the market opens. Following the news release, the Company will host a conference call the same day at 8:30 am ET to discuss the results as well as growth opportunities following the Lanteris Space Systems acquisition.
+
+> To participate in the call, please dial (800) 715-9871 (USA & Canada) or (646) 307-1963 (International) and reference Conference ID 2767132.
+
+> A webcast replay will be available on the investors portion of the Intuitive Machines website athttps://investors.intuitivemachines.com/.
+
+> Please visit the Investor Relations website athttps://investors.intuitivemachines.com/on Thursday, March 19, 2026, to view the earnings release before the conference call.
+
+> Intuitive Machines is a leading space infrastructure company that builds spacecraft, connects networks, and operates infrastructure-as-a-service serving commercial, civil and national security customers.
+
+**Catalysts:** Earnings, Regulatory, Corporate

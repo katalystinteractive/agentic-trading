@@ -1,23 +1,27 @@
-*Generated: 2026-02-23 01:07*
+*Generated: 2026-02-27 09:47*
 
 ## Earnings Analysis: Intuitive Machines, Inc. (LUNR)
 
 ### Next Earnings
 | Metric | Value |
 | :--- | :--- |
-| Earnings Date | 2026-03-23 |
-| Days Until | 28 |
+| Earnings Date | 2026-03-19 |
+| Days Until | 20 |
 | EPS Estimate | $-0.0512 |
 | Revenue Estimate | $53.4M |
-| Earnings Rule | Clear (>28d out) |
+| Earnings Rule | Clear (>20d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q4 2024 | $-0.08 | $0.03 | 1.4% | N/A | N/A | N/A |
-| Q1 2025 | $-0.05 | $-0.20 | -3.0% | N/A | N/A | N/A |
-| Q2 2025 | $-0.04 | $-0.11 | -1.6% | N/A | N/A | N/A |
-| Q3 2025 | $-0.05 | $-0.08 | -0.4% | N/A | N/A | N/A |
+| Q4 2025 | $-0.05 | $-0.08 | -41.3% | +10.0% | -7.0% | Strong Bull |
+| Q3 2025 | $-0.04 | $-0.11 | -162.8% | -2.4% | -10.5% | Bearish |
+| Q2 2025 | $-0.05 | $-0.20 | -295.6% | +1.7% | +2.4% | Bullish |
+| Q1 2025 | $-0.09 | $-2.08 | -2251.3% | -4.5% | -18.8% | Strong Bear |
+| Q4 2024 | $-0.01 | $0.25 | 2562.0% | -6.0% | +21.7% | Strong Bear |
+| Q3 2024 | $-0.18 | $0.29 | 261.1% | -2.2% | +54.5% | Bearish |
+| Q2 2024 | $0.07 | $-2.70 | -4253.9% | -8.6% | -10.2% | Strong Bear |
+| Q1 2024 | $-0.67 | $0.30 | 144.4% | +15.9% | +3.3% | Strong Bull |
 
 ### Revenue Trend
 | Quarter | Revenue | QoQ Growth% | YoY Growth% |

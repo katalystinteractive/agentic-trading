@@ -1,7 +1,8 @@
 # Agent Memory: SoundHound AI (SOUN)
 
 ## Trade Log
-*No fills yet. B1 limit at $7.26, B2 at $6.58, Reserve at $5.37 pending.*
+- **2026-02-23:** BUY 7 shares @ $7.71 (B1 filled). Cost: $53.97.
+- **2026-02-24:** SELL 7 shares @ $8.235 (full exit). Revenue: $57.65. Avg cost $7.71. **Profit: +$3.68 (+6.8%).** Position closed.
 
 ## Observations
 - **2026-02-19:** Originally selected as first bounce strategy candidate from screener scan of 160 tickers. Converted to surgical strategy after monthly swing analysis revealed 47.8% median swing with 100% of months hitting 10%+.

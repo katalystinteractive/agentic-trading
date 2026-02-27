@@ -1,21 +1,21 @@
-*Generated: 2026-02-23 01:06*
+*Generated: 2026-02-27 09:47*
 
 ## Short Interest: Intel Corporation (INTC)
 
 ### Key Metrics
 | Metric | Value |
 | :--- | :--- |
-| Shares Short | 111.65M |
-| Short Ratio (DTC) | 0.80 |
-| Short % Float | 2.24% |
+| Shares Short | 117.81M |
+| Short Ratio (DTC) | 0.85 |
+| Short % Float | 2.36% |
 | Float Shares | 4.99B |
 | Shares Outstanding | 5.00B |
-| Avg Volume | 103.78M |
-| Change from Prior Month | -3.7% (decreasing) |
+| Avg Volume | 103.97M |
+| Change from Prior Month | -12.1% (decreasing) |
 
 ### Squeeze Risk
 | Metric | Value |
 | :--- | :--- |
 | Risk Rating | LOW |
 | Score | 0/100 |
-| Key Factors | Minimal short% (2.2%); Low DTC (0.8) |
+| Key Factors | Minimal short% (2.4%); Low DTC (0.8); Shorts covering rapidly |

@@ -1,21 +1,59 @@
-*Generated: 2026-02-21 17:45*
+*Generated: 2026-02-24 22:02*
 
-## Wick Offset Analysis: CLSK (13-Month, as of 2026-02-20)
-**Current Price: $9.65**
+## Wick Offset Analysis: CLSK (13-Month, as of 2026-02-24)
+**Current Price: $10.37**
 **Monthly Swing: 41.9%** | 100% of months hit 10%+ | Active Zone: within 20.9% of current price
 
 ### Support Levels & Buy Recommendations
 | Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $9.40 | HVN+PA | 19 | 5 | 26% | +2.82% | $9.66 ↑above | Active | Half |
-| $8.93 | HVN+PA | 11 | 5 | 45% | +2.03% | $9.11 | Active | Std |
+| $10.33 | HVN | 15 | 4 | 27% | +3.26% | $10.66 ↑above | Active | Half |
+| $9.86 | HVN+PA | 13 | 3 | 23% | +1.91% | $10.05 | Active | Half |
+| $9.40 | HVN+PA | 19 | 5 | 26% | +2.82% | $9.66 | Active | Half |
+| $8.93 | HVN+PA | 11 | 5 | 46% | +2.03% | $9.11 | Active | Std |
 | $8.46 | HVN+PA | 15 | 7 | 47% | +5.89% | $8.96 | Active | Std |
 | $8.25 | PA | 12 | 7 | 58% | +1.82% | $8.40 | Active | Full |
-| $8.00 | HVN+PA | 11 | 3 | 27% | +5.06% | $8.40 | Active | Half |
+| $8.00 | HVN+PA | 11 | 3 | 27% | +5.06% | $8.40 | Reserve | Half |
 | $7.53 | HVN+PA | 8 | 5 | 62% | +2.20% | $7.70 | Reserve | Full |
 | $7.22 | PA | 5 | 1 | 20% | +0.69% | $7.27 | Reserve | Half |
 | $6.94 | PA | 6 | 4 | 67% | +4.39% | $7.24 | Reserve | Full |
 | $6.45 | PA | 1 | 1 | 100% | +0.00% | $6.45 | Reserve | Half |
+
+### Detail: $10.33 (HVN)
+| Date | Wick Low | Offset | Held |
+| :--- | :--- | :--- | :--- |
+| 2025-01-21 | $10.65 | +3.12% | Yes |
+| 2025-01-30 | $9.57 | -7.34% | **BROKE** |
+| 2025-02-06 | $10.23 | -0.95% | **BROKE** |
+| 2025-02-12 | $9.97 | -3.47% | **BROKE** |
+| 2025-06-25 | $10.15 | -1.71% | **BROKE** |
+| 2025-08-01 | $10.23 | -0.95% | **BROKE** |
+| 2025-09-12 | $10.06 | -2.58% | **BROKE** |
+| 2025-09-16 | $10.16 | -1.58% | **BROKE** |
+| 2025-11-14 | $10.28 | -0.47% | **BROKE** |
+| 2025-11-24 | $10.09 | -2.31% | **BROKE** |
+| 2025-12-18 | $11.15 | +7.96% | Yes |
+| 2025-12-26 | $10.40 | +0.70% | Yes |
+| 2026-01-02 | $10.18 | -1.43% | **BROKE** |
+| 2026-02-02 | $10.68 | +3.41% | Yes |
+| 2026-02-24 | $9.64 | -6.63% | **BROKE** |
+
+### Detail: $9.86 (HVN+PA)
+| Date | Wick Low | Offset | Held |
+| :--- | :--- | :--- | :--- |
+| 2025-01-22 | $9.57 | -2.96% | **BROKE** |
+| 2025-05-13 | $9.54 | -3.26% | **BROKE** |
+| 2025-05-21 | $9.52 | -3.46% | **BROKE** |
+| 2025-06-09 | $9.70 | -1.62% | **BROKE** |
+| 2025-06-24 | $8.99 | -8.84% | **BROKE** |
+| 2025-08-01 | $9.35 | -5.19% | **BROKE** |
+| 2025-09-10 | $9.78 | -0.86% | **BROKE** |
+| 2025-11-17 | $10.05 | +1.91% | Yes |
+| 2025-11-24 | $10.09 | +2.32% | Yes |
+| 2025-12-29 | $9.98 | +1.20% | Yes |
+| 2026-02-04 | $9.81 | -0.52% | **BROKE** |
+| 2026-02-06 | $8.68 | -11.98% | **BROKE** |
+| 2026-02-24 | $9.64 | -2.21% | **BROKE** |
 
 ### Detail: $9.40 (HVN+PA)
 | Date | Wick Low | Offset | Held |
@@ -120,7 +158,7 @@
 ### Detail: $7.22 (PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
-| 2025-02-25 | $7.22 | -0.00% | **BROKE** |
+| 2025-02-25 | $7.22 | +-0.00% | **BROKE** |
 | 2025-03-11 | $7.27 | +0.69% | Yes |
 | 2025-04-01 | $6.45 | -10.64% | **BROKE** |
 | 2025-04-09 | $6.56 | -9.14% | **BROKE** |
@@ -146,13 +184,14 @@
 
 | # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | Active | $8.93 | $9.11 | 45% | Std | 6 | $54.66 |
-| 2 | Active | $8.46 | $8.96 | 47% | Std | 6 | $53.76 |
-| 3 | Active | $8.25 | $8.40 | 58% | Full | 7 | $58.80 |
-| 4 | Active | $8.00 | $8.40 | 27% | Half | 3 | $25.20 |
-| 5 | Reserve | $7.53 | $7.70 | 62% | Full | 12 | $92.34 |
-| 6 | Reserve | $6.94 | $7.24 | 67% | Full | 13 | $94.18 |
+| 1 | Active | $9.86 | $10.05 | 23% | Half | 2 | $20.10 |
+| 2 | Active | $9.40 | $9.66 | 26% | Half | 3 | $28.98 |
+| 3 | Active | $8.93 | $9.11 | 46% | Std | 6 | $54.66 |
+| 4 | Active | $8.46 | $8.96 | 47% | Std | 6 | $53.76 |
+| 5 | Active | $8.25 | $8.40 | 58% | Full | 7 | $58.80 |
+| 6 | Reserve | $7.53 | $7.70 | 62% | Full | 12 | $92.34 |
+| 7 | Reserve | $6.94 | $7.24 | 67% | Full | 13 | $94.18 |
 
-*Note: 1 Active level(s) excluded — buy price at or above current price: $9.40*
+*Note: 1 Active level(s) excluded — buy price at or above current price: $10.33*
 *Bullet plan is a suggestion — adjust based on cycle timing and position.*
 

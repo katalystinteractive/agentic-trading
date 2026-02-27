@@ -1,4 +1,4 @@
-*Generated: 2026-02-23 01:06*
+*Generated: 2026-02-26 22:17*
 
 ## News & Sentiment: Cipher Mining Inc. (CIFR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,127 +6,130 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-02-21 | The Globe and M | 2 Stocks Under $30 to Buy in 2026 - The Globe and Mail | Neutral | +0.00 | — |
-| 2026-02-21 | Intellectia AI | Analysis of Growth Potential in Low-Priced Stocks - Intellec... | Positive | +0.38 | — |
-| 2026-02-21 | Motley Fool | 2 Stocks Under $30 to Buy in 2026 | Neutral | +0.00 | — |
-| 2026-02-20 | Zacks | Cipher Mining Stock Before Q4 Earnings: What's in the Offing... | Neutral | +0.00 | Earnings |
-| 2026-02-20 | MarketBeat | BIT Capital GmbH Trims Stake in Cipher Mining Inc. $CIFR - M... | Neutral | +0.00 | Earnings |
-| 2026-02-19 | Insider Monkey | Strong Analyst Support and Funding Boost Cipher Mining Inc. ... | Positive | +0.83 | — |
-| 2026-02-19 | Simply Wall St. | Is Cipher Mining (CIFR) Quietly Transforming From Bitcoin Mi... | Neutral | +0.00 | — |
-| 2026-02-18 | Insider Monkey | Morgan Stanley Positive on Cipher Mining (CIFR) Data Center ... | Positive | +0.56 | — |
-| 2026-02-18 | Investor's Busi | Riot Surges On Activist Data Center Proposal, ARK Resumes Co... | Negative | -0.56 | — |
-| 2026-02-18 | Blockspace | Starboard Value projects $52 share price for Riot Platforms ... | Neutral | -0.00 | — |
-| 2026-02-18 | Investor's Busi | Riot Rises On Activist Data Center Proposal, ARK Resumes Coi... | Negative | -0.56 | — |
-| 2026-02-18 | simplywall.st | Cipher Mining Expands Into AI Infrastructure As Market Disco... | Positive | +0.10 | — |
-| 2026-02-17 | Insider Monkey | Is Cipher Mining Inc. (CIFR) among the Best Bitcoin and Bloc... | Positive | +0.64 | — |
-| 2026-02-17 | Zacks | Cipher Mining Inc. (CIFR) Stock Sinks As Market Gains: Here'... | Positive | +0.34 | — |
-| 2026-02-17 | GuruFocus.com | CleanSpark Leads Crypto Short Bets | Neutral | +0.00 | Short |
-| 2026-02-17 | Blockspace | Cipher Mining, IREN lead Mike Alfreds Alpine Fox portfolio | Neutral | +0.00 | — |
-| 2026-02-17 | simplywall.st | Will Adding Real Estate Veteran to Board Shape Cipher Mining... | Neutral | +0.00 | — |
-| 2026-02-17 | MarketBeat | Cipher Mining (NASDAQ:CIFR) Trading Down 7.9% - What's Next?... | Neutral | +0.00 | Earnings |
-| 2026-02-15 | 24/7 Wall St. | Why IREN Has A Big Advantage Over Cipher Mining - 24/7 Wall ... | Positive | +0.25 | — |
-| 2026-02-14 | Barchart | Dear Cipher Mining Stock Fans, Mark Your Calendars for Febru... | Positive | +0.38 | — |
-| 2026-02-14 | Barchart | The Saturday Spread: Maximizing First-Order Analytics to Hel... | Positive | +0.40 | — |
-| 2026-02-14 | Yahoo Finance | Cipher Mining (CIFR) Valuation Check After Strong Long Term ... | Positive | +0.67 | — |
-| 2026-02-13 | Zacks | Cipher Mining (CIFR) Is Considered a Good Investment by Brok... | Positive | +0.69 | — |
-| 2026-02-13 | 24/7 Wall St. | Microsofts $9.7 Billion Contract Hasnt Saved This Struggling... | Negative | -0.68 | — |
-| 2026-02-12 | GuruFocus.com | Cipher Mining Shares Surge 200% as Top Holder Buys Bitcoin D... | Positive | +0.46 | — |
-| 2026-02-11 | GlobeNewswire | Cipher Welcomes Thomas Duda to the Company's Board of Direct... | Positive | +0.40 | — |
-| 2026-02-11 | Zacks | ETFs to Play as Morgan Stanley Bets 150%+ Upside for 2 Bitco... | Positive | +0.34 | — |
-| 2026-02-11 | TIKR.com | Cipher Mining Stock Gains 14% as AI Data Center Optionality ... | Positive | +0.34 | — |
-| 2026-02-11 | Stock Titan | Real estate investor Thomas Duda joins Cipher board to back ... | Neutral | +0.00 | — |
-| 2026-02-10 | Zacks | Cipher Mining Inc. (CIFR) Increases Despite Market Slip: Her... | Neutral | +0.00 | — |
+| Today | TipRanks | Canaan price target lowered to $2 from $2.50 at B. Riley | Negative | -0.13 | Analyst |
+| Today | Bloomberg | Bitcoin Miner Tied to Trump Family Pummeled by Crypto Crash | Negative | -0.40 | — |
+| 2026-02-26 | TIKR.com | CIFR Stock Is Up 12% After Momentum Builds: Can Shares Reach... | Positive | +0.32 | — |
+| 2026-02-26 | Seeking Alpha | Cipher Digital: Pivot Proven, Re-Rating Next (NASDAQ:CIFR) -... | Neutral | +0.00 | — |
+| 2026-02-26 | The Globe and M | Analysts Offer Insights on Financial Companies: Cipher Minin... | Neutral | +0.00 | — |
+| 2026-02-26 | MarketBeat | Optiver Holding B.V. Grows Stock Position in Cipher Mining I... | Neutral | +0.00 | Earnings |
+| 2026-02-26 | MarketBeat | Cipher Mining (NASDAQ:CIFR) Downgraded to Strong Sell Rating... | Positive | +0.51 | Earnings, Analyst |
+| 2026-02-25 | Zacks | Cipher Digital Q4 Loss Wider Than Expected, Revenues Down Se... | Negative | -0.32 | Earnings |
+| 2026-02-25 | Insider Monkey | Cipher Mining (CIFR) Pivot Toward Hyperscale Infrastructure ... | Negative | -0.32 | — |
+| 2026-02-25 | Insider Monkey | Cipher Mining (CIFR) Jumps 12.5% on Strong Revenues, Busines... | Positive | +0.51 | Earnings |
+| 2026-02-25 | TechStock² | Cipher Mining (CIFR) stock rises premarket as it rebrands to... | Neutral | +0.00 | — |
+| 2026-02-25 | Seeking Alpha | Cipher Mining: Ignore Earnings, Focus On The AI Future (NASD... | Negative | -0.36 | Earnings |
+| 2026-02-25 | MarketBeat | HC Wainwright Has Lowered Expectations for Cipher Mining (NA... | Negative | -0.13 | Earnings |
+| 2026-02-25 | MarketBeat | Cipher Mining (NASDAQ:CIFR) Price Target Lowered to $22.00 a... | Negative | -0.13 | Earnings, Analyst |
+| 2026-02-25 | International B | Cipher Mining (CIFR) Stock Surges 12% Post-Earnings on HPC P... | Neutral | +0.00 | Earnings |
+| 2026-02-25 | Investing.com U | Needham cuts Cipher Mining stock price target on mining pivo... | Negative | -0.30 | Analyst |
+| 2026-02-25 | Investing.com U | Citizens reiterates Cipher Mining stock rating on HPC transi... | Neutral | +0.00 | — |
+| 2026-02-25 | Insider Monkey | Canaan (CAN) Expands North American Presence Through Strateg... | Positive | +0.10 | Corporate |
+| 2026-02-24 | Blockspace | Bitcoin mining stock prices soar alongside broader tech rall... | Neutral | +0.00 | — |
+| 2026-02-24 | Investor's Busi | Cipher Rebrand Centers On HPC, Misses Views In Busy Crypto E... | Negative | -0.23 | Earnings |
+| 2026-02-24 | TheStreet | Crypto stock surges after surprising new acquisition | Positive | +0.27 | Corporate |
+| 2026-02-24 | GuruFocus.com | Cipher Mining Inc (CIFR) Q4 2025 Earnings Call Highlights: N... | Positive | +0.32 | Earnings, Regulatory |
+| 2026-02-24 | Bloomberg | Investors Are Dumping Software Stocks and Earnings Wont Stop... | Negative | -0.11 | Earnings |
+| 2026-02-24 | Benzinga | Highly Shorted Stock Cipher Digital Soars Tuesday - Here's W... | Neutral | +0.00 | Short |
+| 2026-02-24 | Moby | Cipher Mining Inc. Q4 2025 Earnings Call Summary | Neutral | +0.00 | Earnings |
+| 2026-02-24 | MarketBeat | Cipher Mining Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
+| 2026-02-24 | Blockspace | Cipher rebrands to Cipher Digital, plans to sell Bitcoin tre... | Positive | +0.20 | — |
+| 2026-02-24 | Zacks | Cipher Mining Inc. (CIFR) Reports Q4 Loss, Misses Revenue Es... | Negative | -0.49 | Earnings |
+| 2026-02-24 | GlobeNewswire | Cipher Digital Provides Fourth Quarter and Full Year 2025 Bu... | Neutral | +0.00 | — |
+| 2026-02-24 | MarketWatch | Workday, part of the under fire software sector, presents ea... | Negative | -0.34 | Earnings, Regulatory |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 15 (50%) |
-| Neutral | 12 (40%) |
-| Negative | 3 (10%) |
-| Average Score | +0.166 |
-| Overall Sentiment | **Bullish** |
+| Positive | 7 (23%) |
+| Neutral | 11 (37%) |
+| Negative | 12 (40%) |
+| Average Score | -0.034 |
+| Overall Sentiment | **Neutral** |
 | Total Unique Headlines | 175 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 3 | Cipher Mining Stock Before Q4 Earnings: ..; BIT Capital GmbH Trims Stake in Cipher M.. |
-| Short | 1 | CleanSpark Leads Crypto Short Bets |
+| Earnings | 15 | Optiver Holding B.V. Grows Stock Positio..; Cipher Mining (NASDAQ:CIFR) Downgraded t.. |
+| Analyst | 4 | Canaan price target lowered to $2 from $..; Cipher Mining (NASDAQ:CIFR) Downgraded t.. |
+| Corporate | 2 | Canaan (CAN) Expands North American Pres..; Crypto stock surges after surprising new.. |
+| Regulatory | 2 | Cipher Mining Inc (CIFR) Q4 2025 Earning..; Workday, part of the under fire software.. |
+| Short | 1 | Highly Shorted Stock Cipher Digital Soar.. |
 
 ### Deep Dive Articles
 
-#### Cipher Mining Stock Before Q4 Earnings: What's in the Offing?
-*Source: Zacks | Date: 2026-02-20 | Sentiment: Positive (+0.99)*
+#### Cipher Digital Q4 Loss Wider Than Expected, Revenues Down Sequentially
+*Source: Zacks | Date: 2026-02-25 | Sentiment: Negative (-0.66)*
 
-> Cipher MiningCIFR is scheduled to report fourth-quarter 2025 earnings on Feb. 24.The Zacks Consensus Estimate for revenues is currently pegged at $77.86 million, suggesting growth of 84.41% from the year-ago quarter’s levels.The consensus mark for loss is pegged at 12 cents per share, unchanged over the past 30 days. This represents a sharp year-over-year deterioration from earnings of 6 cents.Cipher Mining earnings beat the Zacks Consensus Estimate in each of the trailing four quarters, the average surprise being 61.88%.Let’s see how things have shaped up for CIFR before the announcement.
+> Cipher DigitalCIFR reported a fourth-quarter 2025 loss of $1.92 per share, significantly wider than the 12-cent loss projected by the Zacks Consensus Estimate.Cipher Digital reported a GAAP loss of $1.85 per share, which represents a sharp year-over-year deterioration from earnings of 5 cents. On an adjusted basis, the company posted a loss of 14 cents per share, deteriorating sequentially from earnings of 10 cents.CIFR reported revenues of $59.7 million for the fourth quarter of 2025, marking a significant decrease of 16.7% from $71.7 million reported in the previous quarter. The sequential decline was primarily caused by reduced mining capacity following the decommissioning of Black Pearl and the divestiture of joint venture sites as part of the mining exit strategy. The figure missed the Zacks Consensus Estimate by 23.31%.Cipher Digital officially rebranded from Cipher Mining to Cipher Digital, reflecting a full pivot from bitcoin mining to high-performance computing (HPC) data center development.
 
-> Cipher Mining’s all-in electricity cost per bitcoin climbed sharply to $34,189 in the prior quarter, marking a 25% sequential increase. The surge was driven by a higher network hashrate and the energization of Black Pearl Phase I, a front-of-the-meter site with comparatively higher power costs. Elevated network difficulty further pushed up production expenses. With competitive intensity persisting and full-quarter exposure to Black Pearl’s higher-cost structure, power expenses likely remained elevated. These sustained cost headwinds are expected to have negatively impacted mining margins in the to-be-reported quarter.Cipher Mining’s leverage profile is expected to have increased significantly in the fourth quarter of 2025. Following the issuance of $1.3 billion in convertible senior notes due in 2031, long-term borrowings expanded to $1.02 billion compared with negligible levels at the end of 2024. Although the proceeds enhanced liquidity to support HPC expansion, the company’s capital structure now reflects materially higher financial obligations. The rapid rise in indebtedness, alongside ongoing construction-related funding needs, is expected to have elevated financial risk and intensified balance sheet pressure in the quarter under review.The company is rapidly pivoting from a pure-play bitcoin miner to an HPC data center developer, supported by a 10-year AI hosting agreement with Fluidstack and Google and a 15-year lease with Amazon Web Services, while expanding its development pipeline to 3.2 GW. While these agreements strengthen its presence in AI infrastructure, they also add layers of execution and development risk. The magnitude of this transformation, alongside capital-intensive buildouts, is expected to have heightened operational pressure during the fourth quarter of 2025.Cipher Mining’s bitcoin mining segment is expected to have remained a powerful cash-flow engine in the quarter under spotlight. The company exited the third quarter with 23.6 EH/s of self-mining capacity following the full ramp-up of Black Pearl, driving a 35% sequential increase in production and a 65% surge in revenues to $72 million. Fleet efficiency improved to 16.8 J/TH, supported by a solid treasury position of 1,500 BTC. With mining infrastructure fully funded and operating at scale, cash generation from bitcoin mining is expected to have improved further.
+> Cipher Mining Inc. price-consensus-eps-surprise-chart - Cipher Mining Inc. Quote
 
-> Our proven model does not conclusively predict an earnings beat for Cipher Mining this time around. Per the Zacks model, the combination of a positive Earnings ESP and a Zacks Rank #1 (Strong Buy), 2 (Buy) or 3 (Hold) increases the odds of an earnings beat. But that is not the case here.Cipher Mining currently has an Earnings ESP of 0.00% and a Zacks Rank #4 (Sell). You can uncover the best stocks to buy or sell before they’re reported with our Earnings ESP Filter.
+> In the fourth quarter of 2025, total costs and operating expenses rose sharply to $360.3 million, up from $109.3 million in the prior quarter.The company reported a net loss of $734.2 million in the fourth quarter, compared with a modest loss of $3.3 million in the previous quarter. A major driver of the quarterly loss was the $410.3 million change in fair value of warrant liability, a non-cash accounting adjustment.On an adjusted basis, Cipher Digital reported a loss of $54.5 million, marking a substantial quarter-over-quarter deterioration from $40.7 million in adjusted earnings.Cipher Digital reported an operating loss of $300.6 million in the fourth quarter, widening sharply from a $37.6 million loss in the prior quarter.Adjusted EBITDA reported a loss of $38.9 million in the fourth quarter, marking a sharp sequential deterioration of $40.8 million.
 
-> Here are some companies worth considering, as our model shows that they have the right combination of elements to beat on earnings in their upcoming releases:DAVE Inc.DAVE currently has an Earnings ESP of +9.07% and a Zacks Rank #1. You can seethe complete list of today’s Zacks #1 Rank stocks here.DAVE shares have surged 76.9% in the trailing 12 months. DAVE is set to report fourth-quarter 2025 results on March 2.Western UnionWU currently has an Earnings ESP of +1.51% and a Zacks Rank #3.Western Union shares have declined 11.5% in the trailing 12 months. WU is slated to report fourth-quarter 2025 results on Feb. 20.Barrett Business ServicesBBSI currently has an Earnings ESP of +4.28% and a Zacks Rank #3.BBSI shares have fallen 18.9% in the trailing 12 months. BBSI is scheduled to report fourth-quarter 2025 results on Feb. 25.
+> In the fourth quarter of 2025, the company completed the sale of its 49% ownership interests in the Alborz, Bear and Chief joint venture sites, marking a decisive step in exiting non-core mining assets.In parallel, Black Pearl was fully decommissioned from bitcoin mining operations in February 2026. The company has secured 600 MW of total contracted HPC capacity to date across two long-term leases, including a 15-year, 300 MW agreement with AWS and a 10-year, 300 MW lease with Fluidstack and Google.As part of the wind-down, the company recorded losses related to miners held for sale, asset impairments and disposal of mining equipment during the fourth quarter of 2025. Cipher Digital is strategically monetizing its bitcoin holdings, with approximately 1,166 BTC being managed down as part of its transition plan.In the fourth quarter of 2025, total operating hashrate declined to roughly 11.6 EH/s from 23.6 EH/s in the third quarter of 2025, reflecting the decommissioning of Black Pearl and divested joint venture sites.
 
-> Want the latest recommendations from Zacks Investment Research? Today, you can download 7 Best Stocks for the Next 30 Days.Click to get this free report
+> As of Dec. 31, 2025, Cipher Digital had cash and cash equivalents of $628.3 million compared with $1.2 billion as of Sept. 30, 2025.As of Dec. 31, 2025, total assets expanded to $4.29 billion, up from $2.84 billion as of Sept. 30, 2025.The company reported $2.04 billion in restricted cash, including $1.76 billion classified as current and $275.1 million as noncurrent, largely tied to project-level financing.
 
-**Catalysts:** Earnings
+**Catalysts:** Earnings, Regulatory
 
-#### Strong Analyst Support and Funding Boost Cipher Mining Inc. (CIFR)'s Outlook
-*Source: Insider Monkey | Date: 2026-02-19 | Sentiment: Positive (+0.97)*
+#### Cipher Mining (CIFR) Pivot Toward Hyperscale Infrastructure Follows $734M Q4 Net Loss
+*Source: Insider Monkey | Date: 2026-02-25 | Sentiment: Positive (+0.98)*
 
-> Cipher Mining Inc. (NASDAQ:CIFR) isone of the best stocks to buy and hold for the next 6 months. On February 9, Morgan Stanley initiated coverage of Cipher Mining Inc. (NASDAQ:CIFR) with an Overweight rating and a $38 price target.
+> Cipher Mining Inc. (NASDAQ:CIFR) is one of thebest high volume stocks to invest in now. On February 24, Cipher Mining reported Q4 2025 revenue of $60 million, which was a decline attributed to a challenging Bitcoin mining environment and lower asset prices. The company posted a GAAP net loss of $734 million, primarily driven by non-cash items, including a $450 million mark-to-market loss on convertible notes and $141 million in impairments at its Black Pearl and Odessa facilities.
 
-> According to the investment bank, Cipher Mining is one of the Bitcoin mining companies well-positioned to benefit from a pivot to data centers. The investment bank expects Bitcoin companies with established data centers to naturally attract infrastructure investors who value long-term, stable cash flows. Consequently, Morgan Stanley compares Cipher Mining’s business model to data center REITs that trade at 20X EV/FY1 EBITDA.
+> Despite these losses, the company maintains a strong liquidity position with $754 million in cash and Bitcoin as of year-end 2025. The quarter marked a strategic pivot toward digital infrastructure and hyperscale computing, supported by a successful $2 billion bond offering that was oversubscribed 6.5 times. This funding secures the remaining capital expenditures for the Black Pearl project and supports a 3.4-gigawatt development pipeline.
 
-> Meanwhile, on February 4, the company’s wholly owned subsidiary, Black Perl Compute LLC, completed a $2 billion 6.125% senior secured note due 2031. The unit is to use net proceeds from the offering to finance the construction costs of the Black Pearl Facility, a high-performance computing data center in Texas. It will also use $232.5 million to reimburse Cipher Mining for its prior equity contribution.
+> Cipher Mining Inc. (NASDAQ:CIFR) has already secured $9.3 billion in contracted revenue from data center leases, with expectations for significant annualized net operating income to begin in late 2026 as it transitions away from its legacy mining operations. Management expressed confidence in the Texas market, noting that West Texas is well-positioned to become a global hub for data centers.
 
-> Cipher Mining Inc. (NASDAQ:CIFR) constructs and operates industrial-scale data centers in the U.S. for Bitcoin mining, while rapidly pivoting to become a major developer of high-performance computing (HPC) infrastructure for Artificial Intelligence (AI). The company, which is pivoting to hybrid operations, generates revenue from mining and long-term hosting deals.
-
-> While we acknowledge the potential of CIFR as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you're looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
-
-**Catalysts:** Earnings, Regulatory, Equity, Analyst, Short
-
-#### Morgan Stanley Positive on Cipher Mining (CIFR) Data Center Potential
-*Source: Insider Monkey | Date: 2026-02-18 | Sentiment: Positive (+0.99)*
-
-> Cipher Mining Inc. (NASDAQ:CIFR)is one of the13 hot stocks to buy with the highest upside potential. On February 9, Morgan Stanley started covering Cipher Mining Inc. (NASDAQ:CIFR) with an Overweight rating and a price target of $38, suggesting that Bitcoin companies with established data centers such as Cipher Mining will likely draw interest from infrastructure investors who value long-term, stable cash flows, especially if they manage to secure long-term leases to creditworthy counterparties for their established data centers.
-
-> In its report on the stock, Morgan Stanley compared Cipher Mining Inc. (NASDAQ:CIFR)’s business model to data center REITs like Equinix and Digital Realty, but cautioned that Bitcoin companies’ data centers likely won’t reach the same multiples as other pure-play data center companies due to more limited growth potential. The analyst also suggested that contracted data centers developed by Bitcoin companies should ultimately be owned by REIT-like investors who appropriately value long-term, low-risk contracted cash flows.
-
-> Cipher Mining, Inc. operates as a Bitcoin mining ecosystem in the U.S. and develops a cryptocurrency business.
+> Cipher Mining Inc. (NASDAQ:CIFR), together with its subsidiaries, develops and operates industrial-scale data centers in the US.
 
 > While we acknowledge the potential of CIFR as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
 
-> READ NEXT:11 Best Stocks Under $3 to Buy Right Nowand10 Best High-Upside Materials Stocks to Buy
+**Catalysts:** Earnings, Regulatory, Corporate, Equity, Short
 
-**Catalysts:** Regulatory, Analyst, Short
+#### Cipher Mining (CIFR) Jumps 12.5% on Strong Revenues, Business Transition
+*Source: Insider Monkey | Date: 2026-02-25 | Sentiment: Positive (+0.98)*
 
-#### Is Cipher Mining Inc. (CIFR) among the Best Bitcoin and Blockchain Stocks to Invest in?
-*Source: Insider Monkey | Date: 2026-02-17 | Sentiment: Positive (+0.88)*
+> We recently published10 Stocks Winning the Market. Cipher Mining Inc. (NASDAQ:CIFR) was one of the best performers on Tuesday.
 
-> Cipher Mining Inc. (NASDAQ:CIFR)is among the11 Best Bitcoin and Blockchain Stocks to Invest in.
+> Cipher Mining saw its share prices jump by 12.48 percent on Tuesday to finish at $17.12 apiece as investors cheered the company’s strong bitcoin mining performance, while digesting its rebranding initiative to reflect its business transition.
 
-> Cipher Mining Inc. (NASDAQ:CIFR) is among theBest Bitcoin Stocks.
+> In an updated report, Cipher Mining Inc. (NASDAQ:CIFR) said that it would change its name to Cipher Digital to reflect its strategic transition toward high-performance computing.
 
-> Cipher Mining Inc. (NASDAQ:CIFR) named Drew Armstrong as Head of Strategic Initiatives and Lee Bratcher as Head of Policy and Government Affairs on January 6, 2026. Bratcher provides industry experience in the Texas and federal energy regulatory sectors, having previously served as President and Founder of the Texas Blockchain Council. Armstrong joined the company after working as the Chairman, COO, and President of Cathedra Bitcoin.
+> “Cipher is focused on sourcing and securing power, developing advanced data centers purpose-built for HPC workloads, and leasing capacity to the world’s leading technology companies. While bitcoin mining played a foundational role in building Cipher’s power origination expertise and large-scale development capabilities, the Company’s identity has evolved to focus on enabling next-generation compute at industrial scale,” Cipher Mining Inc. (NASDAQ:CIFR) said.
 
-> Separately, Morgan Stanley analyst Stephen Byrd commenced coverage of Cipher Mining Inc. (NASDAQ:CIFR) with an Overweight rating and a price target of $38 on February 9, 2026.  The corporation sees significant potential and cites rising valuations for bitcoin-to-datacenter conversions. It also stated that hyperscalers' recent capital expenditure reports reinforce the notion that computing demand will surpass supply.
+> In line with the initiative, the company divested its 49 percent stake in three 40 MW joint venture sites, Alborz, Bear, and Chief, as well as select bitcoin mining machines previously deployed at Black Pearl.
 
-> The firm generated $72 million in revenue and $41 million in non-GAAP adjusted profitability in the previous quarter. It has secured a 15-year partnership with Amazon Web Services to build a campus data center for AI workloads. Furthermore, it launched a joint venture to develop a 1-gigawatt facility in West Texas, acquiring majority ownership.
+**Catalysts:** Regulatory
 
-**Catalysts:** Earnings, Regulatory, Analyst
+#### Highly Shorted Stock Cipher Digital Soars Tuesday - Here's Why
+*Source: Benzinga | Date: 2026-02-24 | Sentiment: Positive (+0.92)*
 
-#### Cipher Mining Inc. (CIFR) Stock Sinks As Market Gains: Here's Why
-*Source: Zacks | Date: 2026-02-17 | Sentiment: Positive (+0.96)*
+> Cipher Digital Inc.(NASDAQ:CIFR) on Tuesday reportedfourth-quarter and full-year 2025 resultsand unveiled a rebrand from Cipher Mining, signaling a strategic pivot toward high-performance computing and next-generation data center development.
 
-> Cipher Mining Inc. (CIFR) closed at $15.64 in the latest trading session, marking a -4.75% move from the prior day. This change lagged the S&P 500's 0.1% gain on the day. Elsewhere, the Dow gained 0.07%, while the tech-heavy Nasdaq added 0.14%.
+> The stock surged more than 10% following the release, with elevated short interest likely amplifying the move.
 
-> Shares of the company have depreciated by 12.66% over the course of the past month, underperforming the Business Services sector's loss of 7.85%, and the S&P 500's loss of 1.43%.
+> In the fourth quarter, adjusted EPS was a loss of 14 cents, compared to the analystestimate of a 10-cent loss. Revenue was $59.711 million, below the consensus estimate of $86.847 million.
 
-> Analysts and investors alike will be keeping a close eye on the performance of Cipher Mining Inc. in its upcoming earnings disclosure. The company's earnings report is set to go public on February 24, 2026. In that report, analysts expect Cipher Mining Inc. to post earnings of -$0.12 per share. This would mark a year-over-year decline of 300%. Meanwhile, our latest consensus estimate is calling for revenue of $77.86 million, up 84.41% from the prior-year quarter.
+> “Building on a transformative 2025, the fourth quarter reflected continued momentum as we advanced our evolution into a leading HPC data center development company,” CEOTyler Pagesaid.
 
-> For the entire fiscal year, the Zacks Consensus Estimates are projecting earnings of -$0.36 per share and a revenue of $241.88 million, representing changes of -157.14% and +59.9%, respectively, from the prior year.
+> “During the quarter, we upsized our initial lease with Fluidstack and Google and signed our first HPC lease with Amazon. In addition, we successfully executed multiple high yield bond offerings to finance two of our existing HPC projects at Barber Lake and Black Pearl. In recognition of this successful shift in our business model and strategic priorities going forward, we are proud to now officially operate as Cipher Digital.”
 
-> Investors should also pay attention to any latest changes in analyst estimates for Cipher Mining Inc.  These revisions help to show the ever-changing nature of near-term business trends.  Therefore, positive revisions in estimates convey analysts' confidence in the business performance and profit potential.
+**Catalysts:** Earnings, Corporate, Equity, Short
 
-**Catalysts:** Earnings, Regulatory
+#### Cipher Mining Inc. (CIFR) Reports Q4 Loss, Misses Revenue Estimates
+*Source: Zacks | Date: 2026-02-24 | Sentiment: Negative (-0.15)*
+
+> Cipher Mining Inc. (CIFR) came out with a quarterly loss of $1.92 per share versus the Zacks Consensus Estimate of a loss of $0.12. This compares to earnings of $0.06 per share a year ago. These figures are adjusted for non-recurring items.
+
+> This quarterly report represents an earnings surprise of -1,500.00%. A quarter ago, it was expected that this company would post a loss of $0.08 per share when it actually produced a loss of $0.01, delivering a surprise of +87.5%.
+
+> Over the last four quarters, the company has surpassed consensus EPS estimates just once.
+
+> Cipher Mining, which belongs to the Zacks Technology Services industry, posted revenues of $59.71 million for the quarter ended December 2025, missing the Zacks Consensus Estimate by 23.31%. This compares to year-ago revenues of $42.22 million. The company has not been able to beat consensus revenue estimates over the last four quarters.
+
+> The sustainability of the stock's immediate price movement based on the recently-released numbers and future earnings expectations will mostly depend on management's commentary on the earnings call.
+
+**Catalysts:** Earnings, Corporate

@@ -1,21 +1,21 @@
-*Generated: 2026-02-23 01:06*
+*Generated: 2026-02-27 09:47*
 
 ## Short Interest: IonQ, Inc. (IONQ)
 
 ### Key Metrics
 | Metric | Value |
 | :--- | :--- |
-| Shares Short | 79.28M |
-| Short Ratio (DTC) | 4.01 |
-| Short % Float | 22.31% |
+| Shares Short | 82.81M |
+| Short Ratio (DTC) | 3.67 |
+| Short % Float | 23.31% |
 | Float Shares | 347.75M |
 | Shares Outstanding | 359.36M |
-| Avg Volume | 19.46M |
-| Change from Prior Month | +1.4% (increasing) |
+| Avg Volume | 19.22M |
+| Change from Prior Month | +12.4% (increasing) |
 
 ### Squeeze Risk
 | Metric | Value |
 | :--- | :--- |
-| Risk Rating | HIGH |
-| Score | 65/100 |
-| Key Factors | High short% (22.3%); Moderate DTC (4.0); Shorts slowly increasing |
+| Risk Rating | EXTREME |
+| Score | 75/100 |
+| Key Factors | High short% (23.3%); Moderate DTC (3.7); Shorts increasing rapidly |

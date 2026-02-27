@@ -1,132 +1,133 @@
-*Generated: 2026-02-23 01:06*
+*Generated: 2026-02-26 22:17*
 
 ## News & Sentiment: IonQ, Inc. (IONQ)
-*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
+*Sources: Finviz (100), Google News (92), yfinance (10) | Method: VADER | Deep Dives: 5*
 
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-02-22 | The Motley Fool | Could Investing $10,000 in IonQ Make You a Millionaire? - Th... | Negative | -0.44 | — |
-| 2026-02-22 | TipRanks | QBTS and IONQ Earnings on Deck: Which Quantum Stock Is the B... | Positive | +0.44 | Earnings |
-| 2026-02-22 | The Motley Fool | 2 Quantum Computing Stocks That Could Make a Millionaire - T... | Negative | -0.44 | — |
-| 2026-02-22 | Intellectia AI | Investment Outlook for IonQ and Rigetti in Quantum Computing... | Neutral | +0.00 | — |
-| 2026-02-22 | AD HOC NEWS | Insider Selling and Market Pressure Precede IonQ's Earnings ... | Negative | -0.30 | Earnings |
-| 2026-02-21 | Motley Fool | The Stock Market Just Did This for the First Time in Nearly ... | Positive | +0.38 | — |
-| 2026-02-20 | Barchart | Dear IonQ Stock Fans, Mark Your Calendars for February 25 | Positive | +0.38 | — |
-| 2026-02-20 | Zacks | Brokers Suggest Investing in IonQ (IONQ): Read This Before P... | Neutral | +0.00 | — |
-| 2026-02-20 | The Motley Fool | IonQ vs. D-Wave: Which Quantum Stock Has the Clearer Path to... | Negative | -0.08 | — |
-| 2026-02-20 | The Globe and M | Where Will IonQ Stock Be in 5 Years? - The Globe and Mail | Neutral | +0.00 | — |
-| 2026-02-20 | The Motley Fool | Here's the Quantum Computing Stock Wall Street Loves the Mos... | Positive | +0.20 | — |
-| 2026-02-20 | Quiver Quantita | IonQ Stock (IONQ) Opinions on Upcoming Earnings and Partners... | Neutral | +0.00 | Earnings |
-| 2026-02-20 | StockStory | 1 Russell 2000 Stock to Target This Week and 2 That Underwhe... | Neutral | +0.00 | — |
-| 2026-02-19 | Zacks | Should You Buy D-Wave Stock Ahead of Q4 Earnings Release? | Neutral | +0.00 | Earnings |
-| 2026-02-19 | Schaeffer's Res | The Week Ahead: February Closes with Inflation Data, Dow Ear... | Neutral | +0.00 | Earnings |
-| 2026-02-19 | Benzinga | Microsoft's 2029 Quantum Data Center Roadmap | Neutral | +0.00 | — |
-| 2026-02-19 | The Motley Fool | 2 Top Quantum Computing Stocks to Buy in 2026 - The Motley F... | Negative | -0.27 | — |
-| 2026-02-19 | The Motley Fool | Is IonQ Stock Your Ticket to Becoming a Millionaire? - The M... | Negative | -0.44 | — |
-| 2026-02-19 | The Motley Fool | Where Will IonQ Stock Be in 5 Years? - The Motley Fool | Negative | -0.44 | — |
-| 2026-02-19 | Yahoo Finance | A Look At IonQ (IONQ) Valuation After Losses, Short Seller S... | Neutral | +0.03 | Short |
-| 2026-02-19 | TipRanks | Microsoft Signals Commercial Quantum Breakthrough: Stock Imp... | Neutral | +0.00 | — |
-| 2026-02-19 | Motley Fool | 2 Top Quantum Computing Stocks to Buy in 2026 | Positive | +0.20 | — |
-| 2026-02-18 | Zacks | Should You Buy, Hold, Or Sell IONQ Stock Ahead of Q4 Earning... | Neutral | +0.00 | Earnings |
-| 2026-02-18 | The Motley Fool | Quantum Computing Stocks IonQ, Rigetti Computing, and D-Wave... | Negative | -0.22 | Earnings |
-| 2026-02-18 | The Motley Fool | Where Will IonQ Be in 1 Year? - The Motley Fool | Negative | -0.44 | — |
-| 2026-02-18 | The Motley Fool | 3 Long-Shot AI Stocks That Could Make You a Millionaire - Th... | Negative | -0.44 | — |
-| 2026-02-18 | simplywall.st | IonQ Fraud Probe And Insider Sales Test Quantum Growth Story... | Negative | -0.30 | — |
-| 2026-02-17 | Zacks | IonQ, Inc. (IONQ) Stock Declines While Market Improves: Some... | Positive | +0.42 | — |
-| 2026-02-17 | Investor's Busi | Quantum Computing Stocks: Infleqtion Pops In First Day As Pu... | Neutral | +0.00 | — |
-| 2026-02-17 | Zacks | NVIDIA vs IonQ: Can Quantum Replicate AI's $4 Trillion Giant... | Neutral | +0.00 | — |
+| Today | Benzinga | IonQ Earnings Recast Quantum As A Semiconductor ETF Story | Neutral | +0.00 | Earnings |
+| Today | Benzinga | IonQ Crushes Q4 Estimates- Rigetti, Quantum Computing On Dec... | Negative | -0.44 | — |
+| Today | Benzinga | Nvidia Slumps Over 4%, Wall Street's Fear Gauge Rallies: Wha... | Negative | -0.49 | — |
+| Today | Zacks | Rigetti vs. IonQ: Which Quantum Computing Stock Has More Ups... | Neutral | +0.00 | — |
+| Today | Barrons.com | These Stocks Are Todays Movers: Nvidia, Sandisk, IonQ, D-Wav... | Neutral | +0.00 | — |
+| Today | StockStory | Why Are IonQ (IONQ) Shares Soaring Today | Positive | +0.30 | — |
+| Today | Barrons.com | IonQ Stock Jumps 19% on Earnings. Quantum Pure Play Is At an... | Positive | +0.34 | Earnings, Corporate |
+| Today | GuruFocus.com | Quantum Computing Stocks Jumps: QBTS, Rigetti, IonQ Rally Af... | Positive | +0.56 | — |
+| Today | Zacks | IonQ Stock Up on Q4 Earnings & Revenue Beat, Gross Margin Do... | Negative | -0.48 | Earnings |
+| Today | Schaeffer's Res | IonQ Stock Powers Up Quantum Computing After Revenue Beat | Neutral | +0.00 | Earnings |
+| Today | Investor's Busi | IonQ Earnings Beat, Guidance Above Views. Quantum Firm Targe... | Neutral | +0.00 | Earnings |
+| Today | 24/7 Wall St. | IonQ Is Growing Like a Weed but Bleeding Cash | Positive | +0.27 | — |
+| Today | Yahoo Finance V | AMD to buy $150M of Nutanix stock, IonQ and Celsius shares s... | Positive | +0.30 | — |
+| Today | Benzinga | IonQ Stock Gains, Europe's Quantum Leap Sparks Rally | Positive | +0.34 | — |
+| Today | Barrons.com | IonQ Stock Rises Sharply on Earnings. Quantum Pure Play Is A... | Positive | +0.34 | Earnings, Corporate |
+| Today | Investor's Busi | Quantum Computing Stocks: D-Wave Q4 Loss Narrows, Revenue Mi... | Negative | -0.49 | Earnings |
+| Today | Barrons.com | D-Wave Quantum Stock Rises on Earnings. Why a Revenue Miss D... | Negative | -0.17 | Earnings |
+| Today | Business Wire | IonQ Delivers One of the Largest Operational Quantum Key Dis... | Neutral | +0.00 | — |
+| Today | GuruFocus.com | IonQ Stock Pops After Posting Triple-Digit Growth and Strong... | Positive | +0.71 | — |
+| Today | MarketWatch | Salesforce shares fall after earnings, and other early marke... | Positive | +0.30 | Earnings |
+| Today | GuruFocus.com | IonQ Inc (IONQ) Q4 2025 Earnings Call Highlights: Record Rev... | Positive | +0.38 | Earnings |
+| 2026-02-26 | Barron's | IonQ Stock Jumps 19% After Earnings Beat. 2026 Revenue Outlo... | Positive | +0.51 | Earnings |
+| 2026-02-26 | Fast Company | Quantum computing stocks soar: IonQ, D-Wave, Rigetti, and QU... | Neutral | +0.00 | — |
+| 2026-02-26 | The Motley Fool | Why Shares of IonQ Are Soaring This Week - The Motley Fool | Negative | -0.18 | — |
+| 2026-02-26 | Nasdaq | IonQ Stock Gains 21% After Deployment Of Operational Quantum... | Positive | +0.34 | — |
+| 2026-02-26 | TradingView | IonQ stock vs D-Wave: which quantum name posted better Q4? -... | Positive | +0.44 | — |
+| 2026-02-26 | Investing.com | Morgan Stanley raises IonQ stock price target to $37 on grow... | Positive | +0.38 | Analyst |
+| 2026-02-26 | Quiver Quantita | IonQ Stock (IONQ) Opinions on Earnings Beat and Guidance - Q... | Neutral | +0.00 | Earnings |
+| 2026-02-26 | The Globe and M | Forget the Quantum Hype Cycle: IonQ's Earnings Just Proved t... | Negative | -0.23 | Earnings |
+| 2026-02-26 | GuruFocus | DA Davidson Lowers IonQ (IONQ) Price Target to $35 - IONQ St... | Negative | -0.13 | Analyst |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 6 (20%) |
-| Neutral | 13 (43%) |
-| Negative | 11 (37%) |
-| Average Score | -0.058 |
+| Positive | 14 (47%) |
+| Neutral | 8 (27%) |
+| Negative | 8 (27%) |
+| Average Score | +0.096 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 174 |
+| Total Unique Headlines | 170 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 7 | QBTS and IONQ Earnings on Deck: Which Qu..; Insider Selling and Market Pressure Prec.. |
-| Short | 1 | A Look At IonQ (IONQ) Valuation After Lo.. |
+| Earnings | 13 | IonQ Earnings Recast Quantum As A Semico..; IonQ Stock Jumps 19% on Earnings. Quantu.. |
+| Corporate | 2 | IonQ Stock Jumps 19% on Earnings. Quantu..; IonQ Stock Rises Sharply on Earnings. Qu.. |
+| Analyst | 2 | Morgan Stanley raises IonQ stock price t..; DA Davidson Lowers IonQ (IONQ) Price Tar.. |
 
 ### Deep Dive Articles
 
-#### Brokers Suggest Investing in IonQ (IONQ): Read This Before Placing a Bet
-*Source: Zacks | Date: 2026-02-20 | Sentiment: Positive (+0.97)*
+#### IonQ Earnings Recast Quantum As A Semiconductor ETF Story
+*Source: Benzinga | Date: Today | Sentiment: Positive (+0.98)*
 
-> Investors often turn to recommendations made by Wall Street analysts before making a Buy, Sell, or Hold decision about a stock. While media reports about rating changes by these brokerage-firm employed (or sell-side) analysts often affect a stock's price, do they really matter?
+> IonQ Inc(NYSE:IONQ) shares skyrocketed more than 20% after the firm announced arevenue beat for the fourth quarter and guided higherthan expectations, but the more interesting takeaway for ETF investors may be elsewhere, outside of niche quantum ETFs.
 
-> Before we discuss the reliability of brokerage recommendations and how to use them to your advantage, let's see what these Wall Street heavyweights think aboutIonQ, Inc.(IONQ).
+> IonQ's revenue growth of 429% year-over-year, coupled with the firm's semiconductor-based roadmap, indicates that the quantum computing industry is getting closer to the traditional semiconductor industry and may makesemiconductor ETFsan indirect beneficiary of the trend's maturity.
 
-> IonQ currently has an average brokerage recommendation (ABR) of 1.69, on a scale of 1 to 5 (Strong Buy to Strong Sell), calculated based on the actual recommendations (Buy, Hold, Sell, etc.) made by 13 brokerage firms. An ABR of 1.69 approximates between Strong Buy and Buy.
+> IonQ's semiconductor roadmap indicates that the quantum computing industry is now converging with the fabrication, materials science, and advanced packaging industries that are already driving the AI-fueled semiconductor boom.
 
-> Of the 13 recommendations that derive the current ABR, eight are Strong Buy and one is Buy. Strong Buy and Buy respectively account for 61.5% and 7.7% of all recommendations.
+> This brings broad semiconductor ETFs like theVanEck Semiconductor ETF(NASDAQ:SMH) and theiShares Semiconductor ETF(NASDAQ:SOXX) into the conversation.
 
-> Check price target & stock forecast for IonQ here>>>
-
-**Catalysts:** Analyst
-
-#### Should You Buy D-Wave Stock Ahead of Q4 Earnings Release?
-*Source: Zacks | Date: 2026-02-19 | Sentiment: Positive (+0.72)*
-
-> D-Wave Quantum Inc.QBTS is scheduled to release its fourth-quarter and full-year 2025 results on Feb. 26, 2026. Investor sentiment appears mixed, backed by recent commercial wins, expanding enterprise engagements and the broader rollout of its Advantage2 annealing quantum computer platform.
-
-> However, a broader technology-sector sell-off in December, impacted by interest-rate uncertainty and heightened geopolitical tensions during the quarter, tempered enthusiasm across the quantum computing space. As a result, QBTS shares rose a modest 2% during the October–December period.
-
-> D-Wave reported earnings beat in one of the trailing four quarters and missed on three occasions, the average negative surprise being 388.37%.
-
-> The Zacks Consensus Estimate for fourth-quarter bottom line has remained unchanged at a loss of 5 cents per share over the past 90 days. The estimated figure indicates 86.5% improvement from the year-ago loss per share.
-
-> The consensus mark for fourth-quarter revenues is pegged at $4.14 million, indicating 79.1% year-over-year growth.
-
-**Catalysts:** Earnings, Regulatory
-
-#### The Week Ahead: February Closes with Inflation Data, Dow Earnings
-*Source: Schaeffer's Research | Date: 2026-02-19 | Sentiment: Positive (+0.68)*
-
-> The last week of February features plenty of key earnings reports, as well as some delayed economic data and speeches from several Federal Reserve officials. Wall Street will also be eyeing key inflation data in the form of the the producer price index (PPI) for January.
-
-> On the earnings front, Domino's Pizza (DPZ),C3.ai(AI),CoreWeave(CRWV), Dell Technologies (DELL),Hims & Hers Health(HIMS),Home Depot(HD),IonQ(IONQ),Lucid Group(LCID),Lowe's(LOW),HP(HPQ)Mosaic(MOS),MP Materials(MP),Nvidia(NVDA),Revolve Group(RVLV),Salesforce(CRM),Snowflake(SNOW),Paramount Skydance(PSKY), TJX (TJX), andUSA Rare Earth(USAR) will all announce quarterly results next week,
-
-> Below is the schedule of key market events for the week ahead. All economic dates are tentative and subject to change.
-
-> Factory orders are due out onMonday, Feb. 23, following remarks from Fed Governor Christopher Waller.
-
-> The S&P Case-Shiller home price index and wholesale inventories are on tap onTuesday, Feb. 24, as well as consumer confidence data. Plus, Chicago Fed President Austan Goolsbee, Fed President Raphael Bostic, and Fed Governor Lisa Cook are set to speak.
+> These ETFs provide diversified exposure to chip designers, foundries, and equipment manufacturers that could ultimately be part of the quantum computing hardware scaling process. IonQ, as a firm, is not a holding in these ETFs, but the structural implications of the demand trend are important. If the quantum computing industry becomes more dependent on semiconductor manufacturing breakthroughs, the value creation process may end up favoring the traditional chip supply chain over pure-play quantum computing developers.
 
 **Catalysts:** Earnings
 
-#### Microsoft's 2029 Quantum Data Center Roadmap
-*Source: Benzinga | Date: 2026-02-19 | Sentiment: Positive (+0.93)*
+#### IonQ Crushes Q4 Estimates- Rigetti, Quantum Computing On Deck
+*Source: Benzinga | Date: Today | Sentiment: Positive (+0.87)*
 
-> Microsoft Corp.(NASDAQ:MSFT) has condensed its commercial quantum timeline and now expects to integrate quantum computing technology directly into data centerinfrastructure by 2029.
+> IonQ Inc.(NYSE:IONQ) fourth-quarter results have moved the quantum computing sector from a space of theoretical promise into a period ofmeasurable commercial growth.
 
-> Zulfi Alam,Microsoft's corporate vice president of Quantum,toldCNBC that he has confidence in this timeline during recent industry discussions.
+> The company reported amassive revenue beat,bringing in $61.9 million for the fourth quarter.
 
-> "I would not be able to say this with this much clarity last year, but this year, I can state to claim that by 2029 you will have machines that will have commercial [value], meaning that they will be doing calculations that classical machines cannot do," said Alam.
+> This figure represents a 429% increase compared to the previous year and significantly outpaced Wall Street's expectations. For the full year, IonQ hit $130 million in revenue, making it the first pure-play quantum firm to cross the $100 million annual threshold.
 
-> According to Alam, the hybrid quantum-classical computing systems will mark the shift from experimental research to the practical deployment of resilient quantum systems.
+> Investors responded with enthusiasm, sending shares up nearly 20% in a single session.
 
-> "By the end of the decade, we are confident that we will have machines in data centers that have commercial value," Alam told CNBC.
+> IonQ's performance lifted the entire sector because it provides proof that customers are willing to pay for quantum services and suggests that businesses are beginning to integrate quantum logic into actual workflows.
 
-**Catalysts:** None
+**Catalysts:** Earnings, Regulatory
 
-#### Should You Buy, Hold, Or Sell IONQ Stock Ahead of Q4 Earnings?
-*Source: Zacks | Date: 2026-02-18 | Sentiment: Positive (+0.25)*
+#### Nvidia Slumps Over 4%, Wall Street's Fear Gauge Rallies: What's Moving Markets Thursday?
+*Source: Benzinga | Date: Today | Sentiment: Neutral (+0.03)*
 
-> IonQIONQ is scheduled to release its fourth-quarter and full-year 2025 results on Feb. 25, amid rapid strategic execution and expansion efforts. However, a complex geopolitical backdrop and broad-based tech selloffs have weighed on overall growth momentum. The company’s stock declined 28.9% during the October-December quarter of 2025, despite bold moves in quantum networking, space-based communications and key acquisitions.
+> Tech stocks tumbled Thursday as investors sold the news following blockbuster results fromNvidia Corp.(NASDAQ:NVDA), dragging the broader semiconductor space lower despite upbeat guidance fromthe world's largest company.
 
-> IonQ reported earnings beat in just one of the trailing four quarters and missed on the other three occasions, the average negative surprise being 343.53%.
+> Santa Clara, California-based Nvidia slumped 4.5% during midday trading in New York — on track for its worst day since October 2025. Adding to the cautious tone, “Big Short” investorMichael Burrywarned that Nvidia's purchase commitments resemble those seen at the peak of the dot-com bubble byCisco Systems Inc.(NASDAQ:CSCO).
 
-> How are things shaping up ahead of the fourth-quarter earnings release? Let’s take a closer look.
+> The pullback spread across chipmakers.Broadcom Inc.(NASDAQ:AVGO) dropped 6% whileAdvanced Micro Devices Inc.(NASDAQ:AMD) lost 4%.
 
-> The Zacks Consensus Estimate for fourth-quarter EPS has remained unchanged at a loss of 48 cents per share over the past 60 days. The estimated figure indicates 48.4% improvement from the year-ago loss per share.
+> Each of the Magnificent 7 names traded lower, wiping out roughly $400 billion in market capitalization.
 
-> The consensus mark for fourth-quarter revenues is pegged at $40.3 million, indicating 244.2% year-over-year growth.
+> The CBOE Volatility (VIX) index — also known as the market’s fear gauge — rallied over 10%, on pace for its best session in two weeks.
+
+**Catalysts:** Earnings, Short
+
+#### Rigetti vs. IonQ: Which Quantum Computing Stock Has More Upside?
+*Source: Zacks | Date: Today | Sentiment: Positive (+0.99)*
+
+> Quantum computing is no longer a sci-fi concept; it’s fast becoming one of the most closely watched frontiers in tech investing. Per a report by Grand View Research, the global quantum computing market was valued at $1.42 billion in 2024 and is projected to reach $4.24 billion by 2030, expanding at a robust 20.5% CAGR from 2025 to 2030. While the market is still early-stage, the growth trajectory signals rising enterprise adoption, increasing government funding and intensifying competition among pure-play innovators. For investors willing to stomach volatility, quantum computing represents a high-risk, high-reward theme that could reshape industries ranging from cybersecurity to drug discovery, making it a space worth keeping firmly on the radar.
+
+> Within this rapidly developing quantum landscape,Rigetti ComputingRGTI andIonQIONQ showcase two distinct yet equally ambitious paths toward commercialization. Rigetti is advancing a superconducting, gate-based architecture built on in-house chip fabrication and modular system scaling, aiming to steadily improve qubit performance and system fidelity on the road to fault-tolerant quantum computing. IonQ, by contrast, is betting on trapped-ion technology, which is widely regarded for its high-fidelity qubits and longer coherence times, and is positioning itself as a hardware-agnostic, cloud-accessible quantum provider through major partnerships.
+
+> Shares of Rigetti have gained 14.6%, while IONQ stock has lost 18.9% in the last six-month period.
+
+> Rigetti’s roadmap and partnerships highlight its intent to be a serious contender in scalable, superconducting quantum computing. The company has laid out a multi-phase plan to progress from smaller systems toward 100+-qubit machines with high-fidelity gate performance and ultimately to much larger, fault-tolerant systems over the next few years. This strategy is reinforced by key partnerships, including its collaboration with India’s Centre for Development of Advanced Computing (C-DAC) to advance hybrid quantum-classical systems for national research use cases. Additionally, Rigetti’s strategic alliance with Quanta Computer, which includes a commitment of over $100 million from each party over five years and an equity investment from Quanta, strengthens its manufacturing scale-up plans and commercialization push.
+
+> On the commercial execution side, Rigetti is beginning to move beyond pure R&D and into real orders that signal market traction. In September 2025, the company disclosed purchase orders totaling approximately $5.7 million for two of its 9-qubit Novera systems, with deliveries expected in the first half of 2026, wins that span an Asian technology manufacturer and a U.S. applied physics startup. More recently, Rigetti secured an $8.4 million purchase order to deliver a 108-qubit quantum computer to C-DAC’s Bengaluru centre, marking a meaningful step into higher-qubit delivery and a national research institution as a client. These orders show growing customer interest in on-premises systems and research-level deployment, and reflect a diversified base that includes both commercial R&D teams and government laboratories.
+
+**Catalysts:** Regulatory
+
+#### Why Are IonQ (IONQ) Shares Soaring Today
+*Source: StockStory | Date: Today | Sentiment: Positive (+0.99)*
+
+> Shares of quantum computing company IonQ (NYSE:IONQ) jumped 19% in the morning session after the company reported strong fourth-quarter financial results that significantly beat Wall Street's expectations and provided an optimistic revenue forecast for 2026. The company's revenue for the quarter soared by 429% year-over-year to $61.9 million, easily topping analysts' projections. IonQ also posted a smaller-than-expected adjusted loss per share of $0.20, which was better than the consensus estimate for a loss of $0.23. Looking ahead, management issued a strong outlook, projecting full-year 2026 revenue of $235 million at the midpoint, which was 22% above analysts' estimates.
+
+> Is now the time to buy IonQ?Access our full analysis report here, it’s free.
+
+> IonQ’s shares are extremely volatile and have had 90 moves greater than 5% over the last year. But moves this big are rare even for IonQ and indicate this news significantly impacted the market’s perception of the business.
+
+> The previous big move we wrote about was 13 days ago when the stock gained 9.1% on the news that the latest Consumer Price Index (CPI) report came in softer than anticipated, fueling investor optimism for interest rate cuts by the Federal Reserve. The U.S. Bureau of Labor Statistics reported that prices rose 0.2% from December to January, below the 0.3% forecast. On an annual basis, inflation moderated to 2.4%, under the expected 2.5%. This cooling trend has significant implications for monetary policy, with investors now increasing bets on multiple rate reductions by the end of the year. The news prompted a rally in both stocks and Treasuries, as lower interest rates typically reduce borrowing costs for companies and can stimulate economic activity. The Russell 2000 index, which consists of smaller companies sensitive to domestic economic conditions and financial costs, saw a particularly strong positive reaction.
+
+> IonQ is down 13.7% since the beginning of the year, and at $40.35 per share, it is trading 50.9% below its 52-week high of $82.09 from October 2025. Investors who bought $1,000 worth of IonQ’s shares 5 years ago would now be looking at an investment worth $2,788.
 
 **Catalysts:** Earnings, Corporate

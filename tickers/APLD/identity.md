@@ -8,21 +8,30 @@
 *   **Key Levels:**
     *   Resistance: $42.27 (recent high, Feb 2), $38.00 (prior swing).
     *   Support: See `wick_analysis.md` (auto-updated by wick offset analyzer).
-    *   **Wick-Adjusted Buy Levels (run 2026-02-16):**
+    *   **Wick-Adjusted Buy Levels (run 2026-02-24):**
 
-        | Raw Support | Source | Hold Rate | Median Offset | Buy At |
-        | :--- | :--- | :--- | :--- | :--- |
-        | $34.07 | HVN + Price Action | 0% | N/A | N/A (dead) |
-        | $31.82 | Price Action | 44% | +2.04% | $32.47 |
-        | $30.42 | Price Action | 38% | +6.25% | $32.32 |
-        | $29.52 | Price Action | 17% | +0.80% | $29.75 |
-        | $28.56 | Price Action | 43% | +2.38% | $29.24 |
-        | $27.62 | Price Action | 44% | +0.32% | $27.71 |
-        | $26.86 | Price Action | 43% | +2.90% | $27.64 |
-        | $26.20 | Price Action | 29% | +5.72% | $27.70 |
-        | $25.25 | Price Action | **60%** | +0.06% | **$25.26** |
+        | Raw Support | Source | Hold Rate | Median Offset | Buy At | Zone | Tier |
+        | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+        | $29.52 | PA | 25% | +1.73% | $30.02 ↑above | Active | Half |
+        | $28.36 | PA | 50% | +2.83% | $29.17 | Active | Full |
+        | $27.62 | PA | 50% | +0.58% | $27.78 | Active | Full |
+        | $26.86 | PA | 50% | +3.16% | $27.71 | Active | Full |
+        | $26.20 | PA | 38% | +6.03% | $27.78 | Active | Std |
+        | $25.25 | PA | 60% | +0.06% | $25.26 | Active | Full |
+        | $22.70 | PA | 29% | +2.22% | $23.21 | Active | Half |
+        | $21.88 | PA | 33% | +3.63% | $22.68 | Active | Std |
+        | $20.55 | PA | 33% | +6.72% | $21.93 | Active | Std |
+        | $19.57 | PA | 50% | +5.90% | $20.72 | Active | Full |
+        | $18.65 | PA | 50% | +1.90% | $19.00 | Reserve | Half |
+        | $13.98 | PA | 33% | +0.54% | $14.06 | Reserve | Std |
+        | $11.39 | HVN | 40% | +1.60% | $11.57 | Reserve | Std |
+        | $10.80 | PA | 50% | +3.19% | $11.14 | Reserve | Full |
+        | $8.30 | HVN | 75% | +1.81% | $8.45 | Reserve | Full |
+        | $6.95 | PA | 50% | +3.88% | $7.22 | Reserve | Full |
+        | $5.75 | PA | 83% | +3.83% | $5.97 | Reserve | Full |
 
-    *   **Dead Zone Warning:** $34.07 HVN has 0% hold rate — broke all 6 tests. Do not place orders above $32.47.
+    *   **Skip:** $23.60 PA excluded (0% hold rate — 0/7 held). $14.49 HVN+PA, $13.45 HVN+PA, $14.98 PA also 0% hold — dead levels.
+    *   **Converged:** $27.62 PA and $26.20 PA both → Buy At $27.78.
     *   **Volume Profile:** High volatility stock with wide daily ranges. ATR 12.1% — well above the 10%+ monthly swing target.
 *   **Bullet Plan (Active Pool):**
     *   B1: $32.47 (3 shares, ~$97) — $31.82 support, 44% hold rate, wick-adjusted. **FILLED.**

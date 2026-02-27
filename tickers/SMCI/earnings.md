@@ -1,4 +1,4 @@
-*Generated: 2026-02-23 01:07*
+*Generated: 2026-02-27 09:47*
 
 ## Earnings Analysis: Super Micro Computer, Inc. (SMCI)
 
@@ -6,16 +6,16 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-06 |
-| Days Until | 72 |
+| Days Until | 68 |
 | EPS Estimate | $0.62264 |
 | Revenue Estimate | $12.45B |
-| Earnings Rule | Clear (>72d out) |
+| Earnings Rule | Clear (>68d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | Q1 2026 | $0.49 | $0.69 | 41.4% | +13.8% | +12.3% | Strong Bull |
-| Q4 2025 | $0.27 | $0.26 | -5.0% | -11.3% | -18.1% | Strong Bear |
+| Q4 2025 | $0.39 | $0.35 | -10.1% | -11.3% | -18.1% | Strong Bear |
 | Q3 2025 | $0.44 | $0.41 | -6.6% | -18.3% | -18.9% | Strong Bear |
 | Q2 2025 | $0.30 | $0.31 | 3.8% | -1.4% | +18.1% | Bearish |
 | Q1 2025 | $0.59 | $0.60 | 1.9% | +12.2% | -14.1% | Strong Bull |

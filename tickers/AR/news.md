@@ -1,4 +1,4 @@
-*Generated: 2026-02-23 01:07*
+*Generated: 2026-02-26 22:17*
 
 ## News & Sentiment: Antero Resources Corporation (AR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,10 +6,13 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-02-26 | Motley Fool | Palo Duro Investment Partners Opens New $23 Million Darling ... | Positive | +0.59 | — |
+| 2026-02-24 | Offshore Techno | NOG finalises $464.5m acquisition of Utica Shale assets | Positive | +0.18 | Corporate |
+| 2026-02-23 | MarketBeat | Goodman Financial Corp Invests $14.79 Million in Antero Reso... | Neutral | +0.00 | Earnings |
 | 2026-02-22 | MarketBeat | Envestnet Asset Management Inc. Buys 136,166 Shares of Anter... | Positive | +0.57 | Earnings, Corporate |
+| 2026-02-20 | MarketBeat | CenterBook Partners LP Invests $2.26 Million in Antero Resou... | Neutral | +0.00 | Earnings |
 | 2026-02-20 | MarketBeat | Pekin Hardy Strauss Inc. Has $5.83 Million Stock Holdings in... | Positive | +0.40 | Earnings |
 | 2026-02-20 | MarketBeat | Jupiter Asset Management Ltd. Buys Shares of 1,571,424 Anter... | Positive | +0.57 | Earnings, Corporate |
-| 2026-02-20 | MarketBeat | CenterBook Partners LP Invests $2.26 Million in Antero Resou... | Neutral | +0.00 | Earnings |
 | 2026-02-19 | simplywall.st | Stronger Earnings and 2026 Output Plan Could Be A Game Chang... | Positive | +0.38 | Earnings |
 | 2026-02-18 | Insider Monkey | Jefferies Resumes Coverage of Antero Resources (AR) with Buy... | Neutral | +0.00 | — |
 | 2026-02-18 | simplywall.st | Is Antero Resources (AR) Pricing Reflect Its DCF And P/E Val... | Neutral | +0.00 | — |
@@ -27,32 +30,29 @@
 | 2026-02-12 | Moby | Antero Midstream Corporation Q4 2025 Earnings Call Summary | Neutral | +0.00 | Earnings |
 | 2026-02-12 | Seeking Alpha | Antero Resources: Ending The Fiscal Year With A Bang (NYSE:A... | Neutral | +0.00 | — |
 | 2026-02-12 | MarketBeat | Antero Resources Sees Unusually High Options Volume (NYSE:AR... | Neutral | +0.00 | Earnings |
+| 2026-02-12 | Seeking Alpha | Antero Midstream: Growth From An Acquisition In Fiscal Year ... | Positive | +0.38 | Corporate |
 | 2026-02-12 | The Globe and M | Antero Resources (AR) Q4 2025 Earnings Transcript - The Glob... | Neutral | +0.00 | Earnings |
 | 2026-02-12 | Motley Fool | Antero Resources (AR) Q4 2025 Earnings Transcript | Neutral | +0.00 | Earnings |
-| 2026-02-12 | MT Newswires | Exchange-Traded Funds, Equity Futures Higher Pre-Bell Thursd... | Neutral | +0.00 | — |
 | 2026-02-11 | Zacks | Antero Resources (AR) Q4 Earnings: Taking a Look at Key Metr... | Neutral | +0.00 | Earnings |
 | 2026-02-11 | Zacks | Antero Resources (AR) Q4 Earnings Miss Estimates | Negative | -0.15 | Earnings |
 | 2026-02-11 | Associated Pres | Antero Resources: Q4 Earnings Snapshot | Neutral | +0.00 | Earnings |
-| 2026-02-11 | PR Newswire | Antero Resources Announces Fourth Quarter 2025 Results and 2... | Neutral | +0.00 | Earnings |
-| 2026-02-11 | PR Newswire | Antero Midstream Announces Fourth Quarter 2025 Results and 2... | Neutral | +0.00 | Earnings |
-| 2026-02-11 | Yahoo Finance | Antero Resources (AR) Q4 Earnings Miss Estimates - Yahoo Fin... | Negative | -0.15 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 11 (37%) |
-| Neutral | 17 (57%) |
-| Negative | 2 (7%) |
-| Average Score | +0.115 |
+| Positive | 14 (47%) |
+| Neutral | 15 (50%) |
+| Negative | 1 (3%) |
+| Average Score | +0.159 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 169 |
+| Total Unique Headlines | 173 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 20 | Envestnet Asset Management Inc. Buys 136..; Pekin Hardy Strauss Inc. Has $5.83 Milli.. |
-| Corporate | 2 | Envestnet Asset Management Inc. Buys 136..; Jupiter Asset Management Ltd. Buys Share.. |
+| Earnings | 18 | Goodman Financial Corp Invests $14.79 Mi..; Envestnet Asset Management Inc. Buys 136.. |
+| Corporate | 4 | NOG finalises $464.5m acquisition of Uti..; Envestnet Asset Management Inc. Buys 136.. |
 
 ### Deep Dive Articles
 

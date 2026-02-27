@@ -1,38 +1,25 @@
-*Generated: 2026-02-20 21:24*
+*Generated: 2026-02-24 19:54*
 
-## Wick Offset Analysis: SOUN (13-Month, as of 2026-02-20)
-**Current Price: $7.87**
+## Wick Offset Analysis: SOUN (13-Month, as of 2026-02-23)
+**Current Price: $7.83**
 **Monthly Swing: 47.8%** | 100% of months hit 10%+ | Active Zone: within 23.9% of current price
 
 ### Support Levels & Buy Recommendations
 | Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $7.76 | PA | 7 | 2 | 29% | +2.84% | $7.98 ↑above | Active | Half |
-| $7.55 | PA | 7 | 4 | 57% | +1.06% | $7.63 | Active | Full |
+| $7.48 | PA | 6 | 3 | 50% | +1.14% | $7.57 | Active | Full |
 | $7.21 | PA | 5 | 2 | 40% | +4.44% | $7.53 | Active | Std |
 | $6.95 | PA | 4 | 3 | 75% | +4.46% | $7.26 | Active | Full |
 
-### Detail: $7.76 (PA)
+### Detail: $7.48 (PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
-| 2025-03-10 | $8.20 | +5.67% | Yes |
-| 2025-03-31 | $7.76 | +0.00% | Yes |
-| 2025-04-09 | $6.95 | -10.44% | **BROKE** |
-| 2025-04-22 | $7.70 | -0.84% | **BROKE** |
-| 2026-01-30 | $7.57 | -2.51% | **BROKE** |
-| 2026-02-06 | $7.55 | -2.65% | **BROKE** |
-| 2026-02-19 | $7.32 | -5.67% | **BROKE** |
-
-### Detail: $7.55 (PA)
-| Date | Wick Low | Offset | Held |
-| :--- | :--- | :--- | :--- |
-| 2025-03-31 | $7.76 | +2.78% | Yes |
-| 2025-04-07 | $6.52 | -13.64% | **BROKE** |
-| 2025-04-09 | $6.95 | -7.95% | **BROKE** |
-| 2025-04-22 | $7.70 | +1.92% | Yes |
-| 2026-02-03 | $7.57 | +0.20% | Yes |
-| 2026-02-06 | $7.55 | +0.05% | Yes |
-| 2026-02-19 | $7.32 | -3.05% | **BROKE** |
+| 2025-03-31 | $7.76 | +3.74% | Yes |
+| 2025-04-07 | $6.52 | -12.83% | **BROKE** |
+| 2025-04-09 | $6.95 | -7.09% | **BROKE** |
+| 2026-02-03 | $7.57 | +1.14% | Yes |
+| 2026-02-06 | $7.55 | +0.99% | Yes |
+| 2026-02-18 | $7.20 | -3.68% | **BROKE** |
 
 ### Detail: $7.21 (PA)
 | Date | Wick Low | Offset | Held |
@@ -56,10 +43,9 @@
 
 | # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | Active | $7.55 | $7.63 | 57% | Full | 7 | $53.41 |
+| 1 | Active | $7.48 | $7.57 | 50% | Full | 7 | $52.96 |
 | 2 | Active | $7.21 | $7.53 | 40% | Std | 7 | $52.68 |
 | 3 | Active | $6.95 | $7.26 | 75% | Full | 8 | $58.08 |
 
-*Note: 1 Active level(s) excluded — buy price at or above current price: $7.76*
 *Bullet plan is a suggestion — adjust based on cycle timing and position.*
 

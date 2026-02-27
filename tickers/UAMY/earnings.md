@@ -1,4 +1,4 @@
-*Generated: 2026-02-23 01:06*
+*Generated: 2026-02-25 20:30*
 
 ## Earnings Analysis: United States Antimony Corporat (UAMY)
 
@@ -6,10 +6,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-03-19 |
-| Days Until | 24 |
+| Days Until | 22 |
 | EPS Estimate | $0.0 |
 | Revenue Estimate | $12.8M |
-| Earnings Rule | Clear (>24d out) |
+| Earnings Rule | Clear (>22d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |

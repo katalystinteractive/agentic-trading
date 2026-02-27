@@ -1,21 +1,21 @@
-*Generated: 2026-02-23 01:06*
+*Generated: 2026-02-27 09:47*
 
 ## Short Interest: USA Rare Earth, Inc. (USAR)
 
 ### Key Metrics
 | Metric | Value |
 | :--- | :--- |
-| Shares Short | 40.50M |
-| Short Ratio (DTC) | 1.67 |
-| Short % Float | 23.06% |
+| Shares Short | 38.38M |
+| Short Ratio (DTC) | 1.28 |
+| Short % Float | 21.85% |
 | Float Shares | 121.55M |
 | Shares Outstanding | 217.94M |
-| Avg Volume | 17.93M |
-| Change from Prior Month | +139.6% (increasing) |
+| Avg Volume | 18.29M |
+| Change from Prior Month | +105.8% (increasing) |
 
 ### Squeeze Risk
 | Metric | Value |
 | :--- | :--- |
 | Risk Rating | HIGH |
 | Score | 65/100 |
-| Key Factors | High short% (23.1%); Low DTC (1.7); Shorts increasing rapidly |
+| Key Factors | High short% (21.9%); Low DTC (1.3); Shorts increasing rapidly |

@@ -1,4 +1,4 @@
-*Generated: 2026-02-23 01:06*
+*Generated: 2026-02-26 22:18*
 
 ## News & Sentiment: United States Antimony Corporat (UAMY)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,18 +6,21 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-02-24 | ACCESSWIRE | United States Antimony Corporation to Present at 2026 BMO Gl... | Positive | +0.13 | — |
 | 2026-02-14 | Simply Wall St. | United States Antimony (UAMY) Valuation After New Hydrometal... | Positive | +0.13 | — |
 | 2026-02-13 | Yahoo Finance | Is United States Antimony (UAMY) Price Justified After 301% ... | Positive | +0.67 | — |
 | 2026-02-10 | ACCESSWIRE | United States Antimony Corporation CEO to be Featured on Blo... | Positive | +0.42 | Corporate |
 | 2026-02-10 | Benzinga | What's Going On With United States Antimony Shares Tuesday? | Positive | +0.61 | — |
 | 2026-02-10 | ACCESSWIRE | United States Antimony Corporation Announces Significant New... | Positive | +0.56 | — |
+| 2026-02-10 | Stock Titan | US Antimony, Americas to build North America's first hydrome... | Neutral | +0.00 | — |
 | 2026-02-09 | PR Newswire | The $30 Billion Shift: Critical Minerals Enter a New Era | Negative | -0.32 | — |
+| 2026-02-06 | The Globe and M | Analysts Offer Insights on Materials Companies: United State... | Positive | +0.42 | — |
 | 2026-02-03 | Benzinga | Project Vault 'Puts America's Best Foot Forward'-Rare Earth ... | Positive | +0.64 | — |
 | 2026-02-03 | Benzinga | Critical Metals, USA Rare Earth, MP Materials Climb In Tuesd... | Negative | -0.32 | — |
 | 2026-02-02 | Barchart | Stocks Gain on US Manufacturing Strength | Positive | +0.77 | — |
 | 2026-02-02 | Barchart | Stock Indexes Climb as Chip Makers and AI Infrastructure Sto... | Neutral | +0.00 | — |
 | 2026-02-02 | MoneyShow | Market Minute 2-2-26- Markets Eye Rare Earth Plan, Metals Re... | Neutral | +0.00 | — |
-| 2026-01-30 | The Globe and M | United States Antimony advances Bolivian hydrometallurgical ... | Positive | +0.42 | — |
+| 2026-02-02 | MarketBeat | United States Antimony (NYSEAMERICAN:UAMY) Shares Gap Up - S... | Positive | +0.61 | Earnings |
 | 2026-01-30 | TipRanks | ‘No Impact to Our Current Operations’: United States Antimon... | Positive | +0.42 | — |
 | 2026-01-30 | Simply Wall St. | A Look At United States Antimony (UAMY) Valuation After US P... | Positive | +0.42 | — |
 | 2026-01-29 | Benzinga | Critical Minerals Dip As Trump Halts Price Guarantees | Negative | -0.32 | — |
@@ -33,27 +36,40 @@
 | 2026-01-26 | MarketWatch | Trump administration partners with another rare-earth compan... | Neutral | +0.00 | — |
 | 2026-01-26 | Stocktwits | UAMY Stock Eyes Another Good Week, Thanks To Trump And USAR ... | Positive | +0.70 | — |
 | 2026-01-26 | TechStock² | UAMY stock jumps nearly 10% in premarket as antimony prices ... | Neutral | +0.00 | — |
-| 2026-01-26 | StocksToTrade | United States Antimony Corporation Faces Market Challenges a... | Positive | +0.15 | — |
-| 2026-01-26 | Intellectia AI | United States Antimony Corp Shares Surge 31% Amid Acquisitio... | Positive | +0.61 | Corporate |
-| 2026-01-23 | Seeking Alpha | United States Antimony: Plenty Of Growth Ahead If Management... | Positive | +0.66 | Corporate |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 19 (63%) |
-| Neutral | 7 (23%) |
+| Positive | 18 (60%) |
+| Neutral | 8 (27%) |
 | Negative | 4 (13%) |
-| Average Score | +0.252 |
+| Average Score | +0.229 |
 | Overall Sentiment | **Bullish** |
 | Total Unique Headlines | 175 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Corporate | 3 | United States Antimony Corporation CEO t..; United States Antimony Corp Shares Surge.. |
+| Corporate | 1 | United States Antimony Corporation CEO t.. |
+| Earnings | 1 | United States Antimony (NYSEAMERICAN:UAM.. |
 
 ### Deep Dive Articles
+
+#### United States Antimony Corporation to Present at 2026 BMO Global Metals, Mining & Critical Minerals Conference Located at Hollywood, Florida
+*Source: ACCESSWIRE | Date: 2026-02-24 | Sentiment: Positive (+0.98)*
+
+> ~ Antimony, Cobalt, Tungsten, and Zeolite ~
+
+> DALLAS, TX /ACCESS Newswire/ February 24, 2026 /United States Antimony Corporation ("USAC," "US Antimony," or the "Company"), (NYSE American:UAMY)(NYSE Texas:UAMY), a leading producer and processor of antimony, zeolite, and other critical minerals, and the only fully integrated antimony company in the world outside of China and Russia, announces that Gary C. Evans, Chairman and CEO, is scheduled to present at the 2026 BMO Global Metals, Mining & Critical Minerals Conference on Wednesday, February 25, 2026. The presentation will begin at 8:30 a.m. ET and can also be accessed live:
+
+> United States Antimony Corporation and its subsidiaries in the U.S., Mexico, and Canada ("USAC," "U.S. Antimony," the "Company," "Our," "Us," or "We") sell antimony, zeolite, and precious metals primarily in the U.S. and Canada. The Company processes third party ore primarily into antimony oxide, antimony metal, antimony trisulfide, and precious metals at its facilities located in Montana and Mexico. Antimony oxide is used to form a flame-retardant system for plastics, rubber, fiberglass, textile goods, paints, coatings, and paper, as a color fastener in paint, and as a phosphorescent agent in fluorescent light bulbs. Antimony metal is used in bearings, storage batteries, and ordnance. Antimony trisulfide is used as a primer in ammunition. The Company also recovers precious metals, primarily gold and silver, at its Montana facility from third party ore. At its Bear River Zeolite ("BRZ") facility located in Idaho, the Company mines and processes zeolite, a group of industrial minerals used in water filtration, sewage treatment, nuclear waste and other environmental cleanup, odor control, gas separation, animal nutrition, soil amendment and fertilizer, and other miscellaneous applications. During 2024 and 2025, the Company began acquiring mining claims and leases located in Montana, Alaska and Ontario, Canada in an effort to expand its operations as well as its product offerings.
+
+> Learn more about United States Antimony Corporation atwww.usantimony.com.
+
+> This press release contains forward-looking statements within the meaning of the Private Securities Litigation Reform Act of 1995, including, without limitation, statements regarding the Company's future operations, production levels, financial performance, business strategy, market conditions, demand for antimony, zeolite, other critical minerals, and precious metals, expected costs, and other statements that are not historical facts. These statements are based on current expectations, estimates, forecasts, and projections about the industries in which the Company operates, as well as management's beliefs and assumptions. Words such as "anticipates," "expects," "intends," "plans," "believes," "seeks," "estimates," "may," "will," "should," "could," and variations of these words or similar expressions are intended to identify such forward-looking statements.
+
+**Catalysts:** Regulatory, Corporate, Equity
 
 #### United States Antimony Corporation CEO to be Featured on Bloomberg Television's Businessweek Daily Today
 *Source: ACCESSWIRE | Date: 2026-02-10 | Sentiment: Positive (+0.97)*
@@ -114,18 +130,3 @@
 > For anyone unfamiliar with the significance: antimony is a critical mineral used in military ammunition, flame retardants, and battery technology. China controls roughly 60% of global supply and has been tightening export controls, which means Western governments are actively hunting for new sources. New Zealandformally designated antimony as critical, which positions RUA GOLD at the center of this supply chain scramble.
 
 **Catalysts:** Regulatory, Corporate
-
-#### Project Vault 'Puts America's Best Foot Forward'-Rare Earth Stocks Dig It
-*Source: Benzinga | Date: 2026-02-03 | Sentiment: Negative (-0.57)*
-
-> Rare earth and critical mineral stocks rallied as the Trump administration continued to promote its most aggressive step yet to decouple American industry from Chinesemineral supply chains.
-
-> The sector reacted on Tuesday to the formal launch ofProject Vault, a massive $12 billion public-private partnership aimed at insulating the U.S. economy from global resource volatility.
-
-> On Monday, the U.S. Export-Import Bank (EXIM)announcedthe funding of a direct loan of up to $10 billion to Project Vault to provide long term financing of the critical minerals and rare earths reserve.
-
-> 🔒PROJECT VAULT: America's economy depends on critical minerals—the building blocks revitalizing American industry and strengthening our supply chains.That's why EXIM has launched Project Vault: the U.S. Strategic Critical Minerals Reserve. 🇺🇸
-
-> More than a dozen major companies, includingGeneral Motors,Stellantis, Boeing, Corning, GE VernovaandGoogle, will provide an additional nearly $2 billion to fund Project Vault.
-
-**Catalysts:** Regulatory

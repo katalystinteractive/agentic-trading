@@ -2,6 +2,7 @@
 
 ## Trade Log
 - **2026-02-19:** BUY 3 shares @ $9.61 (Bullet 1 filled). Cost: $28.83. Target exit: $10.57 (~10%).
+- **2026-02-24:** SELL 3 shares @ $10.45 (full exit). Revenue: $31.35. Avg cost $9.71. **Profit: +$2.22 (+7.6%).** Position closed.
 
 ## Observations
 - **2026-02-19:** Onboarded as surgical candidate. Monthly swing 41.9% (100% consistency) with dense support structure — 5 active levels spanning $8.40-$9.66, plus 2 strong reserves at $7.70 and $7.24.

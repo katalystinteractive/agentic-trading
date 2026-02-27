@@ -1,4 +1,4 @@
-*Generated: 2026-02-23 01:06*
+*Generated: 2026-02-27 09:47*
 
 ## Earnings Analysis: Intel Corporation (INTC)
 
@@ -6,10 +6,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-04-24 |
-| Days Until | 60 |
+| Days Until | 56 |
 | EPS Estimate | $0.002 |
 | Revenue Estimate | $12.31B |
-| Earnings Rule | Clear (>60d out) |
+| Earnings Rule | Clear (>56d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |

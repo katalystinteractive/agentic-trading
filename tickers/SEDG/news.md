@@ -1,4 +1,4 @@
-*Generated: 2026-02-21 18:27*
+*Generated: 2026-02-26 22:18*
 
 ## News & Sentiment: SolarEdge Technologies, Inc. (SEDG)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,55 +6,100 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-02-21 | MarketBeat | SolarEdge Technologies (NASDAQ:SEDG) Given New $33.00 Price ... | Neutral | +0.00 | Earnings, Analyst |
+| 2026-02-25 | PR Newswire | Halper Sadeh LLC Encourages SolarEdge Technologies, Inc. Sha... | Positive | +0.44 | — |
+| 2026-02-25 | Zacks | SolarEdge Technologies (SEDG) is a Top-Ranked Momentum Stock... | Neutral | +0.00 | — |
+| 2026-02-25 | Zacks | First Solar's Q4 Earnings Lag Estimates, Revenues Surpass | Negative | -0.34 | Earnings |
+| 2026-02-25 | TechStock² | SolarEdge stock extends rally after fresh 10‑K filing — what... | Positive | +0.42 | — |
+| 2026-02-25 | Bitget | SolarEdge Technologies (SEDG) is a Leading Momentum Stock: I... | Positive | +0.23 | — |
+| 2026-02-25 | simplywall.st | Assessing SolarEdge Technologies (SEDG) Valuation After Earn... | Neutral | +0.00 | Earnings |
+| 2026-02-24 | simplywall.st | SolarEdge Technologies (SEDG) Is Up 10.8% After Narrower Los... | Negative | -0.40 | Earnings |
+| 2026-02-24 | The Globe and M | Analysts Offer Insights on Technology Companies: SolarEdge T... | Positive | +0.42 | — |
+| 2026-02-23 | Investor's Busi | This Basing Israeli Solar Stock Is Set to Go On The AI Offen... | Negative | -0.46 | — |
+| 2026-02-23 | Bez Kabli | SolarEdge stock price slips premarket after Mizuho trims tar... | Neutral | +0.00 | — |
+| 2026-02-23 | StockStory | 1 Stock Under $50 Worth Your Attention and 2 We Turn Down | Positive | +0.23 | — |
+| 2026-02-23 | Simply Wall St. | How The SolarEdge (SEDG) Story Is Shifting As Analysts Reass... | Positive | +0.30 | — |
+| 2026-02-21 | TIKR.com | SolarEdge Stock Jumped 8% After Q4 Beat. Here’s What 14.5% E... | Positive | +0.38 | Earnings |
 | 2026-02-21 | GuruFocus | SolarEdge (SEDG) Stock Jumps 10% Amid Strong Gains - GuruFoc... | Positive | +0.69 | — |
+| 2026-02-21 | MarketBeat | SolarEdge Technologies (NASDAQ:SEDG) Given New $33.00 Price ... | Neutral | +0.00 | Earnings, Analyst |
 | 2026-02-21 | The Globe and M | Analysts’ Opinions Are Mixed on These Technology Stocks: Wor... | Neutral | +0.00 | — |
 | 2026-02-20 | Benzinga | SolarEdge Stock Is Surging: What's Going On Today? | Neutral | +0.00 | — |
 | 2026-02-20 | StockStory | SolarEdge (SEDG) Shares Skyrocket, What You Need To Know | Positive | +0.30 | — |
 | 2026-02-20 | Benzinga | Supreme Court Rules Against Trump's Tariffs: These 10 Stocks... | Positive | +0.56 | — |
 | 2026-02-20 | Benzinga | SolarEdge Stock Is Surging: What's Going On Today? - Benzing... | Neutral | +0.00 | — |
-| 2026-02-20 | MarketBeat | SolarEdge Technologies (NASDAQ:SEDG) Given New $36.00 Price ... | Positive | +0.25 | Earnings, Analyst |
 | 2026-02-20 | MarketBeat | SolarEdge Technologies (NASDAQ:SEDG) Stock Price Up 11.9% Af... | Neutral | +0.00 | Earnings, Analyst |
-| 2026-02-20 | The Globe and M | Analysts Offer Insights on Technology Companies: CrowdStrike... | Neutral | +0.00 | — |
+| 2026-02-20 | MarketBeat | SolarEdge Technologies (NASDAQ:SEDG) Given New $36.00 Price ... | Positive | +0.25 | Earnings, Analyst |
 | 2026-02-19 | Insider Monkey | SolarEdge (SEDG) Dips 5.5% as Strong Earnings Priced In | Positive | +0.51 | Earnings |
 | 2026-02-19 | Moby | SolarEdge Technologies, Inc. Q4 2025 Earnings Call Summary | Neutral | +0.00 | Earnings |
 | 2026-02-19 | StockStory | SEDG Q4 CY2025 Deep Dive: Market Share Gains, Nexis Rollout,... | Positive | +0.56 | — |
+| 2026-02-19 | Seeking Alpha | SolarEdge Technologies: Solid Quarter And Outlook Amid Diffi... | Negative | -0.23 | — |
 | 2026-02-19 | MarketBeat | SolarEdge Technologies (NASDAQ:SEDG) Price Target Cut to $32... | Negative | -0.27 | Earnings, Analyst |
 | 2026-02-19 | MT Newswires | SolarEdge Sees Recovery, New Products Drive Optimism, Morgan... | Positive | +0.54 | — |
 | 2026-02-19 | Simply Wall St. | A Look At SolarEdge Technologies (SEDG) Valuation After Its ... | Neutral | +0.00 | Earnings |
 | 2026-02-18 | Morningstar Res | Analyst Report: SolarEdge Technologies, Inc. | Neutral | +0.00 | — |
-| 2026-02-18 | GuruFocus.com | SolarEdge Technologies Inc (SEDG) Q4 2025 Earnings Call High... | Positive | +0.61 | Earnings |
-| 2026-02-18 | Zacks | SolarEdge Technologies Q4 Earnings Top Estimates, Revenues R... | Positive | +0.20 | Earnings |
-| 2026-02-18 | MarketBeat | SolarEdge Technologies Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
-| 2026-02-18 | Zacks | SolarEdge Technologies (SEDG) Reports Q4 Loss, Beats Revenue... | Negative | -0.32 | Earnings |
-| 2026-02-18 | StockStory | SolarEdge's (NASDAQ:SEDG) Q4 CY2025 Sales Beat Estimates | Neutral | +0.00 | Earnings |
-| 2026-02-18 | Associated Pres | SolarEdge: Q4 Earnings Snapshot | Neutral | +0.00 | Earnings |
-| 2026-02-18 | Business Wire | SolarEdge Announces Fourth Quarter and Full Year 2025 Financ... | Neutral | +0.00 | — |
-| 2026-02-18 | Stock Titan | SolarEdge slashes annual loss to $405M, turns $77M free cash... | Positive | +0.05 | — |
-| 2026-02-18 | Quiver Quantita | SOLAREDGE TECHNOLOGIES ($SEDG) Releases Q4 2025 Earnings - Q... | Neutral | +0.00 | Earnings |
-| 2026-02-18 | MarketBeat | Stock Traders Purchase High Volume of SolarEdge Technologies... | Neutral | +0.00 | Earnings |
-| 2026-02-18 | MarketBeat | SolarEdge Technologies (NASDAQ:SEDG) Shares Gap Up on Strong... | Positive | +0.67 | Earnings |
-| 2026-02-17 | Benzinga | Palo Alto, Opendoor, Carvana And More Stocks With Earnings T... | Neutral | +0.00 | Earnings |
-| 2026-02-17 | simplywall.st | How Investors May Respond To SolarEdge Technologies (SEDG) P... | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 11 (37%) |
-| Neutral | 17 (57%) |
-| Negative | 2 (7%) |
-| Average Score | +0.145 |
+| Positive | 14 (47%) |
+| Neutral | 11 (37%) |
+| Negative | 5 (17%) |
+| Average Score | +0.137 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 155 |
+| Total Unique Headlines | 159 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 17 | SolarEdge Technologies (NASDAQ:SEDG) Giv..; SolarEdge Technologies (NASDAQ:SEDG) Giv.. |
-| Analyst | 4 | SolarEdge Technologies (NASDAQ:SEDG) Giv..; SolarEdge Technologies (NASDAQ:SEDG) Giv.. |
+| Earnings | 11 | First Solar's Q4 Earnings Lag Estimates,..; Assessing SolarEdge Technologies (SEDG) .. |
+| Analyst | 4 | SolarEdge Technologies (NASDAQ:SEDG) Giv..; SolarEdge Technologies (NASDAQ:SEDG) Sto.. |
 
 ### Deep Dive Articles
+
+#### Halper Sadeh LLC Encourages SolarEdge Technologies, Inc. Shareholders to Contact the Firm to Discuss Their Rights
+*Source: PR Newswire | Date: 2026-02-25 | Sentiment: Positive (+0.95)*
+
+> Shareholders should contact the firm immediately as there may be limited time to enforce your rights.
+
+> NEW YORK,Feb. 25, 2026/PRNewswire/ -- Halper Sadeh LLC, an investor rights law firm, is investigating whether certain officers and directors of SolarEdge Technologies, Inc. (NASDAQ: SEDG) breached their fiduciary duties to shareholders.
+
+> If you currently own SolarEdge stock and are a long-term shareholder,you may be able to seek corporate governance reforms, the return of funds back to the company, a court-approved financial incentive award, or other relief and benefits.Please click here to learn more about your legal rights and optionsor contact Daniel Sadeh or Zachary Halper at (212) 763-0060 or[email protected]or[email protected].Our firm would handle the action on a contingent fee basis, whereby you would not be responsible for out-of-pocket payment of our legal fees or expenses.
+
+> Shareholder involvement can help improve a company's policies, practices, and oversight mechanisms to create a more transparent, accountable, and effectively managed organization, which can enhance shareholder value.
+
+> Halper Sadeh LLC represents investors all over the world who have fallen victim to securitiesfraudand corporate misconduct. Our attorneys have been instrumental in implementing corporate reforms and recovering millions of dollars on behalf of defrauded investors.
+
+**Catalysts:** Regulatory
+
+#### SolarEdge Technologies (SEDG) is a Top-Ranked Momentum Stock: Should You Buy?
+*Source: Zacks | Date: 2026-02-25 | Sentiment: Positive (+0.99)*
+
+> For new and old investors, taking full advantage of the stock market and investing with confidence are common goals. Zacks Premium provides lots of different ways to do both.
+
+> Featuring daily updates of the Zacks Rank and Zacks Industry Rank, full access to the Zacks #1 Rank List, Equity Research reports, and Premium stock screens, the research service can help you become a smarter, more self-assured investor.
+
+> It also includes access to the Zacks Style Scores.
+
+> Developed alongside the Zacks Rank, the Zacks Style Scores are a group of complementary indicators that help investors pick stocks with the best chances of beating the market over the next 30 days.
+
+> Each stock is assigned a rating of A, B, C, D, or F based on their value, growth, and momentum characteristics. Just like in school, an A is better than a B, a B is better than a C, and so on -- that means the better the score, the better chance the stock will outperform.
+
+**Catalysts:** Earnings, Analyst
+
+#### First Solar's Q4 Earnings Lag Estimates, Revenues Surpass
+*Source: Zacks | Date: 2026-02-25 | Sentiment: Positive (+0.77)*
+
+> First Solar, Inc.FSLR reported fourth-quarter 2025 earnings of $4.84 per share, which missed the Zacks Consensus Estimate of $5.22 by 7.2%. The bottom line increased 32.6% from the prior-year quarter’s figure of $3.65.The company reported 2025 earnings of $14.21 per share, which were higher than the year-ago figure of $12.02.
+
+> First Solar’s fourth-quarter net sales were $1.68 billion, which beat the Zacks Consensus Estimate by 7%. The top line rose 11.1% from the year-ago quarter’s $1.51 billion.The year-over-year top-line improvement was driven by an increase in the volume of module sales.The company reported net sales of $5.22 billion in 2025, which were higher than $4.21 billion in 2024.
+
+> First Solar, Inc. price-consensus-eps-surprise-chart - First Solar, Inc. Quote
+
+> In the fourth quarter, the company’s gross profit was $665.3 million, which rose 17.2% from $567.7 million in the year-ago quarter.Total operating expenses jumped 5.9% year over year to $117.4 million.FSLR reported an operating income of $547.9 million compared with $456.8 million in the year-ago quarter.
+
+> First Solar had $2.8 billion in cash and cash equivalents as of Dec. 31, 2025, up from $1.62 billion as of Dec. 31, 2024.The long-term debt totaled $282.6 million as of the same date compared with $373.4 million as of Dec. 31, 2024.The net cash flow from operating activities amounted to $2.06 billion during 2025 compared with $1.22 billion at the end of 2024.
+
+**Catalysts:** Earnings
 
 #### SolarEdge Stock Is Surging: What's Going On Today?
 *Source: Benzinga | Date: 2026-02-20 | Sentiment: Positive (+0.98)*
@@ -86,48 +131,3 @@
 > The previous big move we wrote about was 14 days ago when the stock gained 7.6% on the news that the broader market rebounded from a tech-driven sell-off, with investors taking the opportunity to buy stocks at lower prices.
 
 **Catalysts:** Earnings, Analyst
-
-#### Supreme Court Rules Against Trump's Tariffs: These 10 Stocks Are Soaring
-*Source: Benzinga | Date: 2026-02-20 | Sentiment: Positive (+0.80)*
-
-> A historic Supreme Court ruling invalidating PresidentDonald Trump's sweeping global tariffs triggered a sharp rally across U.S. equities Friday, as investors cheered the removal of duties that had reshaped trade flows and marketsfor nearly a year.
-
-> The decision, issued Friday, held that the International Emergency Economic Powers Act does not authorize the president to impose tariffs.
-
-> Chief Justice John Robertswrote that Article I of the Constitution grants Congress alone the power to levy duties and taxes.
-
-> In a consolidated 6-3 ruling, the Court found that IEEPA's authority to "regulate … importation" does not include the power to impose tariffs.”
-
-> The majority said the president must point to "clear congressional authorization" to justify such sweeping economic action.
-
-**Catalysts:** None
-
-#### SolarEdge (SEDG) Dips 5.5% as Strong Earnings Priced In
-*Source: Insider Monkey | Date: 2026-02-19 | Sentiment: Negative (-0.51)*
-
-> We recently published10 Losing Stocks in an Otherwise Optimistic Market. SolarEdge Technologies Inc. (NASDAQ:SEDG) was one of the worst performers on Wednesday.
-
-> SolarEdge snapped a two-day winning streak on Wednesday, shedding 5.47 percent to finish at $35.10 apiece as investors appeared to have already priced in a strong earnings performance last year prior to the official release.
-
-> Earlier this month, several solar companies announced a stellar earnings performance for the fourth quarter and full-year 2025 period, spilling over to SolarEdge Technologies Inc. (NASDAQ:SEDG) prior to its official results.
-
-> For its part, SolarEdge Technologies Inc. (NASDAQ:SEDG) narrowed its net loss by 77 percent to $405 million from $1.8 billion in 2024, as revenues jumped by 31 percent to $1.18 billion from $901 million.
-
-> In the fourth quarter alone, net loss shrank by 54 percent to $132 million from $287 million in the same quarter a year earlier, while revenues climbed by 70 percent to $335 million from $196 million year-on-year.
-
-**Catalysts:** Earnings
-
-#### SEDG Q4 CY2025 Deep Dive: Market Share Gains, Nexis Rollout, and Data Center Ambitions
-*Source: StockStory | Date: 2026-02-19 | Sentiment: Positive (+1.00)*
-
-> Solar power systems company SolarEdge (NASDAQ:SEDG) reported Q4 CY2025 resultstopping the market’s revenue expectations, with sales up 70.9% year on year to $335.4 million. Guidance for next quarter’s revenue was optimistic at $305 million at the midpoint, 3% above analysts’ estimates. Its non-GAAP loss of $0.14 per share was 39% above analysts’ consensus estimates.
-
-> Is now the time to buy SEDG?Find out in our full research report (it’s free for active Edge members).
-
-> SolarEdge’s fourth quarter was marked by strong revenue growth but met with a negative market reaction, reflecting continued investor concerns over profitability. Management credited the substantial year-over-year revenue increase to expanded U.S. and European market share, the ramp-up of domestic manufacturing, and the early success of new products like the Nexis platform. CEO Yehoshua Nir emphasized operational improvements and “a renewed commitment to delivering a best-in-class customer experience,” while also noting ongoing efforts to streamline the product portfolio. The company’s focus on higher-margin U.S.-made products and the consolidation of business lines contributed to margin recovery, yet persistent losses and the challenging tariff environment weighed on overall sentiment.
-
-> Looking forward, SolarEdge’s optimistic guidance is underpinned by expectations for continued market share gains, further rollouts of the Nexis platform, and a disciplined approach to cost management. Management identified the scaling of U.S. production, expanding battery storage solutions, and entry into AI data center power as key growth opportunities. CFO Asaf Alperovitz highlighted that, while the company anticipates margin expansion and positive free cash flow in the near term, investments in product development and manufacturing will remain elevated. Nir stated, “2026 is about execution at scale. We are working towards profitable growth. Our aim is to gain market share globally.”
-
-> Management pointed to several operational and strategic actions as drivers behind the quarter’s strong revenue growth and margin stabilization, while also highlighting steps taken to position the company for future expansion.
-
-**Catalysts:** Earnings, Corporate
