@@ -99,18 +99,18 @@ def merge_convergent_levels(levels, tolerance=CONVERGENCE_TOLERANCE):
         if i in skip_indices:
             continue
         best = levels[i]
-        merged_with = []
+        participants = [levels[i]]  # track all original levels in this merge group
         for j in range(i + 1, len(levels)):
             if j in skip_indices:
                 continue
             min_buy = min(best["recommended_buy"], levels[j]["recommended_buy"])
             if min_buy > 0 and abs(best["recommended_buy"] - levels[j]["recommended_buy"]) / min_buy <= tolerance:
                 skip_indices.add(j)
-                merged_with.append(levels[j])
+                participants.append(levels[j])
                 if levels[j]["hold_rate"] > best["hold_rate"]:
                     best = levels[j]
-        if merged_with:
-            sources = [f"${l['support_price']:.2f} {l['source']}" for l in [best] + merged_with]
+        if len(participants) > 1:
+            sources = [f"${l['support_price']:.2f} {l['source']}" for l in participants]
             merge_notes.append(f"Merged: {' + '.join(sources)} -> buy at ${best['recommended_buy']:.2f}")
         merged.append(best)
     return merged, merge_notes
@@ -210,7 +210,6 @@ def run_recommend(ticker, type_filter, data, portfolio):
         shares = pos.get("shares", 0)
         avg_cost = pos.get("avg_cost", 0)
         bullets_used_raw = pos.get("bullets_used", 0)
-        target_exit = pos.get("target_exit")
         pos_note = pos.get("note", "")
 
         if shares > 0:
@@ -219,12 +218,11 @@ def run_recommend(ticker, type_filter, data, portfolio):
         else:
             case = "B"  # Zero shares, re-entry mode
             status_label = "Re-entry mode — position closed, pending BUYs active"
-    elif ticker in pending_all and pending_all[ticker]:
-        case = "C"  # No position, but has pending orders
+    elif ticker in pending_all and any(o["type"] == "BUY" for o in pending_all.get(ticker, [])):
+        case = "C"  # No position, but has pending BUY orders
         shares = 0
         avg_cost = 0
         bullets_used_raw = 0
-        target_exit = None
         pos_note = ""
         status_label = "Watchlist — no position, pending BUYs placed"
         pos = {}
@@ -233,7 +231,6 @@ def run_recommend(ticker, type_filter, data, portfolio):
         shares = 0
         avg_cost = 0
         bullets_used_raw = 0
-        target_exit = None
         pos_note = ""
         status_label = "New ticker — no position, no orders"
         pos = {}
@@ -250,8 +247,7 @@ def run_recommend(ticker, type_filter, data, portfolio):
     # --- Step 2: Filter levels ---
     valid_levels = filter_valid_levels(data["levels"], current_price)
     if not valid_levels:
-        _print_no_levels(ticker, current_price, status_label, shares, avg_cost,
-                         parsed, pending_buys, cap, is_pre_strategy, pos_note)
+        _print_no_levels(ticker, current_price)
         return
 
     # --- Step 3: Convergence merge ---
@@ -262,7 +258,6 @@ def run_recommend(ticker, type_filter, data, portfolio):
     covered_levels = []
     covered_set = set()  # indices into valid_levels
     orphaned_orders = []
-    paused_covered = []
 
     for order in pending_buys:
         matched_level, dist = match_order_to_level(order["price"], valid_levels)
@@ -291,8 +286,6 @@ def run_recommend(ticker, type_filter, data, portfolio):
                     "paused": paused_flag,
                     "duplicate": True,
                 })
-            if paused_flag:
-                paused_covered.append((matched_level, order))
         else:
             orphaned_orders.append(order)
 
@@ -339,13 +332,6 @@ def run_recommend(ticker, type_filter, data, portfolio):
             f"{cap['reserve_bullets_max']} reserve). Review for excess orders."
         )
 
-    # --- Type filter ---
-    if type_filter == "active" and active_slots_remaining == 0:
-        # No active slots, but user asked for active only
-        pass  # Will output "no active slots" message
-    elif type_filter == "reserve" and reserve_slots_remaining == 0:
-        pass
-
     # --- Step 6: Find recommendation ---
     recommendation = None
     next_available = []
@@ -358,10 +344,10 @@ def run_recommend(ticker, type_filter, data, portfolio):
         else:
             pool = "active"
             for lvl in uncovered_levels:
-                rec_shares, rec_cost, rec_size = compute_sizing(lvl, pool, cap)
+                rec_shares, rec_cost, _ = compute_sizing(lvl, pool, cap)
                 if rec_cost <= active_budget_remaining:
                     recommendation = {"level": lvl, "shares": rec_shares, "cost": rec_cost,
-                                      "size": rec_size, "pool": pool,
+                                      "pool": pool,
                                       "label": f"Active {effective_active_used + 1}"}
                     break
     elif type_filter == "reserve":
@@ -371,10 +357,10 @@ def run_recommend(ticker, type_filter, data, portfolio):
         else:
             pool = "reserve"
             for lvl in uncovered_levels:
-                rec_shares, rec_cost, rec_size = compute_sizing(lvl, pool, cap)
+                rec_shares, rec_cost, _ = compute_sizing(lvl, pool, cap)
                 if rec_cost <= reserve_budget_remaining:
                     recommendation = {"level": lvl, "shares": rec_shares, "cost": rec_cost,
-                                      "size": rec_size, "pool": pool,
+                                      "pool": pool,
                                       "label": f"Reserve {effective_reserve_used + 1}"}
                     break
     else:
@@ -382,19 +368,19 @@ def run_recommend(ticker, type_filter, data, portfolio):
         if active_slots_remaining > 0:
             pool = "active"
             for lvl in uncovered_levels:
-                rec_shares, rec_cost, rec_size = compute_sizing(lvl, pool, cap)
+                rec_shares, rec_cost, _ = compute_sizing(lvl, pool, cap)
                 if rec_cost <= active_budget_remaining:
                     recommendation = {"level": lvl, "shares": rec_shares, "cost": rec_cost,
-                                      "size": rec_size, "pool": pool,
+                                      "pool": pool,
                                       "label": f"Active {effective_active_used + 1}"}
                     break
         if recommendation is None and reserve_slots_remaining > 0:
             pool = "reserve"
             for lvl in uncovered_levels:
-                rec_shares, rec_cost, rec_size = compute_sizing(lvl, pool, cap)
+                rec_shares, rec_cost, _ = compute_sizing(lvl, pool, cap)
                 if rec_cost <= reserve_budget_remaining:
                     recommendation = {"level": lvl, "shares": rec_shares, "cost": rec_cost,
-                                      "size": rec_size, "pool": pool,
+                                      "pool": pool,
                                       "label": f"Reserve {effective_reserve_used + 1}"}
                     break
 
@@ -433,13 +419,10 @@ def run_recommend(ticker, type_filter, data, portfolio):
                 "capped": capped, "was_tier": was_tier,
             })
 
-    # Check if fully deployed
-    fully_deployed = (active_slots_remaining == 0 and reserve_slots_remaining == 0
-                      and len(uncovered_levels) == 0)
-    if not fully_deployed and recommendation is None and not uncovered_levels:
-        fully_deployed = True
-    if active_slots_remaining == 0 and reserve_slots_remaining == 0 and recommendation is None:
-        fully_deployed = True
+    # Check if fully deployed: no recommendation possible AND either no slots or no uncovered levels
+    fully_deployed = (recommendation is None
+                      and (not uncovered_levels
+                           or (active_slots_remaining == 0 and reserve_slots_remaining == 0)))
 
     # --- Step 7: SELL target staleness check ---
     sell_check = None
@@ -494,8 +477,7 @@ def _fmt_dollar(val):
     return f"${val:.2f}"
 
 
-def _print_no_levels(ticker, current_price, status_label, shares, avg_cost,
-                     parsed, pending_buys, cap, is_pre_strategy, pos_note):
+def _print_no_levels(ticker, current_price):
     """Print output when no eligible levels found."""
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     print(f"## Bullet Recommendation: {ticker}")
@@ -553,12 +535,12 @@ def _print_recommend(*, ticker, current_price, status_label, case, shares, avg_c
         print(f"| Shares | 0 (sold) |")
         print(f"| Prior Avg | {_fmt_dollar(avg_cost)} |")
         if pending_buys:
-            print(f"| Pending BUYs | {len(pending_buys)} orders covering {len(covered_levels)} levels |")
+            print(f"| Pending BUYs | {len(pending_buys)} orders covering {len(covered_set)} levels |")
         print(f"| Slots Remaining | Active: {active_slots_remaining} | Reserve: {reserve_slots_remaining} |")
     elif case == "C":
         print(f"| Shares | 0 |")
         if pending_buys:
-            print(f"| Pending BUYs | {len(pending_buys)} orders covering {len(covered_levels)} levels |")
+            print(f"| Pending BUYs | {len(pending_buys)} orders covering {len(covered_set)} levels |")
         print(f"| Slots Remaining | Active: {active_slots_remaining} | Reserve: {reserve_slots_remaining} |")
     else:  # case D
         print(f"| Shares | 0 |")
@@ -702,7 +684,7 @@ def run_audit(ticker, data, portfolio):
             hr_str = f"{matched['hold_rate']:.0f}%"
             tier_str = matched["tier"]
             capped, was_tier = is_capped(matched)
-            capped_str = f"Yes (was {was_tier}, <{matched['total_approaches']} approaches)" if capped else "No"
+            capped_str = f"Yes (was {was_tier}, <3 approaches)" if capped else "No"
             # Check if level now has 0% hold rate
             if matched["hold_rate"] == 0:
                 status = "DEAD"
