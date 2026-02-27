@@ -304,7 +304,7 @@ def build_position_summary_table(active_tickers, portfolio, prices):
         target = pos.get("target_exit")
         if target and current:
             dist = (target - current) / current * 100
-            target_str = f"{format_price(target)} (+{dist:.1f}% to target)"
+            target_str = f"{format_price(target)} ({dist:+.1f}% to target)"
         elif target:
             target_str = format_price(target)
         else:

@@ -817,7 +817,7 @@ def build_per_position_detail(positions):
         if p["pl_pct"] is not None:
             pt_detail = f"P/L {fmt_pct(p['pl_pct'])}"
             if p["target_distance"] is not None:
-                pt_detail += f", target {target_str} ({fmt_pct(p['target_distance'])} away)"
+                pt_detail += f", target {target_str} ({fmt_pct(p['target_distance'])} from target)"
             else:
                 pt_detail += f", {target_str}"
         else:
