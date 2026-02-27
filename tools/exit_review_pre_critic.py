@@ -33,10 +33,6 @@ from exit_review_pre_analyst import (
     compute_momentum_label,
     compute_verdict,
     parse_bullets_status,
-    compute_target_distance,
-    TIME_STOP_EXCEEDED_DAYS,
-    PROFIT_TARGET_APPROACHING_PCT,
-    PROFIT_TARGET_EXCEEDED_PCT,
 )
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -415,7 +411,7 @@ def check_verdict_assignment(raw_summary, per_ticker_data, portfolio, report_dat
     return {"status": status, "issues": issues, "notes": notes}
 
 
-def check_earnings_gate(raw_summary, per_ticker_data, report_date, report_positions):
+def check_earnings_gate(raw_summary, per_ticker_data, report_positions):
     """Check 4: Earnings gate logic verification."""
     issues = []
     notes = []
@@ -694,7 +690,7 @@ def main():
         "verdict": check_verdict_assignment(
             raw_summary, per_ticker_data, portfolio, report_date, report_positions),
         "earnings_gate": check_earnings_gate(
-            raw_summary, per_ticker_data, report_date, report_positions),
+            raw_summary, per_ticker_data, report_positions),
         "data_consistency": check_data_consistency(
             raw_summary, portfolio, report_positions, report_matrix),
         "coverage": check_coverage(
