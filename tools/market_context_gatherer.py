@@ -184,18 +184,15 @@ def parse_all_prices(ps_output):
         ticker = cols[0].strip()
         price_str = None
 
-        try:
-            if current_section == "active" and len(cols) >= 10:
-                # Col 3 = Current (header: Current)
-                price_str = cols[3]
-            elif current_section == "pending" and len(cols) >= 10:
-                # Col 4 = Current (header: Current)
-                price_str = cols[4]
-            elif current_section == "watchlist" and len(cols) >= 5:
-                # Col 1 = Price (header: Price)
-                price_str = cols[1]
-        except IndexError:
-            continue
+        if current_section == "active" and len(cols) >= 10:
+            # Col 3 = Current (header: Current)
+            price_str = cols[3]
+        elif current_section == "pending" and len(cols) >= 10:
+            # Col 4 = Current (header: Current)
+            price_str = cols[4]
+        elif current_section == "watchlist" and len(cols) >= 5:
+            # Col 1 = Price (header: Price)
+            price_str = cols[1]
 
         if price_str:
             cleaned = price_str.replace("$", "").replace(",", "").strip()

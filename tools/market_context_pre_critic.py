@@ -27,7 +27,7 @@ from news_sweep_collector import split_table_row
 from market_context_gatherer import SECTOR_MAP
 from market_context_pre_analyst import (
     parse_indices, parse_vix, parse_sectors, parse_tool_regime,
-    parse_pending_buy_orders, parse_active_positions,
+    parse_pending_buy_orders,
     classify_regime, apply_entry_gate, compute_gate_summary,
     VIX_RISK_ON_THRESHOLD, VIX_RISK_OFF_THRESHOLD,
     VIX_CAUTION_LOW, VIX_CAUTION_HIGH, DEEP_SUPPORT_PCT,
@@ -306,20 +306,21 @@ def parse_report_executive_summary(report_text):
 # Check 1: Regime Classification
 # ---------------------------------------------------------------------------
 
-def check_regime_classification(raw_text, report_regime):
+def check_regime_classification(raw_text, report_regime, *, raw_parsed=None):
     """Verify regime classification against raw data.
 
     Returns {status, issues, notes}.
+    raw_parsed: optional pre-parsed (indices, vix, regime_data) to avoid re-parsing.
     """
     issues = []
     notes = []
 
-    # Re-parse raw data
-    indices = parse_indices(raw_text)
-    vix = parse_vix(raw_text)
-
-    # Recompute regime
-    computed = classify_regime(indices, vix)
+    if raw_parsed:
+        indices, vix, computed = raw_parsed
+    else:
+        indices = parse_indices(raw_text)
+        vix = parse_vix(raw_text)
+        computed = classify_regime(indices, vix)
 
     # Compare regime
     report_label = report_regime.get("regime", "Unknown")
@@ -379,19 +380,23 @@ def check_regime_classification(raw_text, report_regime):
 # Check 2: Entry Gate Logic
 # ---------------------------------------------------------------------------
 
-def check_entry_gate_logic(raw_text, report_orders, portfolio):
+def check_entry_gate_logic(raw_text, report_orders, portfolio, *, raw_parsed=None):
     """Re-apply entry gate and compare per-order.
 
     Returns {status, issues, notes}.
+    raw_parsed: optional pre-parsed (indices, vix, regime_data) to avoid re-parsing.
     """
     issues = []
     notes = []
 
-    # Re-parse raw data and classify regime
-    indices = parse_indices(raw_text)
-    vix = parse_vix(raw_text)
+    if raw_parsed:
+        indices, vix, regime_data = raw_parsed
+    else:
+        indices = parse_indices(raw_text)
+        vix = parse_vix(raw_text)
+        regime_data = classify_regime(indices, vix)
+
     raw_orders = parse_pending_buy_orders(raw_text)
-    regime_data = classify_regime(indices, vix)
     regime = regime_data["regime"]
 
     # Re-apply gate logic
@@ -540,14 +545,11 @@ def check_coverage(raw_text, report_text, report_orders, report_regime, portfoli
     # Count expected BUY orders from portfolio.json
     pending = portfolio.get("pending_orders", {})
     expected_count = 0
-    expected_tickers = set()
     for ticker, ticker_orders in pending.items():
         if not ticker_orders:
             continue
         buy_count = sum(1 for o in ticker_orders if o.get("type") == "BUY")
-        if buy_count > 0:
-            expected_count += buy_count
-            expected_tickers.add(ticker)
+        expected_count += buy_count
 
     # Check total orders in report
     report_count = len(report_orders)
@@ -619,18 +621,22 @@ def check_coverage(raw_text, report_text, report_orders, report_regime, portfoli
 # Check 5: Strategy Compliance
 # ---------------------------------------------------------------------------
 
-def check_strategy_compliance(raw_text, report_text, report_orders, portfolio):
+def check_strategy_compliance(raw_text, report_text, report_orders, portfolio, *,
+                              raw_parsed=None):
     """Verify gate decisions comply with strategy rules.
 
     Returns {status, issues, notes}.
+    raw_parsed: optional pre-parsed (indices, vix, regime_data) to avoid re-parsing.
     """
     issues = []
     notes = []
 
-    # Recompute regime
-    indices = parse_indices(raw_text)
-    vix = parse_vix(raw_text)
-    regime_data = classify_regime(indices, vix)
+    if raw_parsed:
+        indices, vix, regime_data = raw_parsed
+    else:
+        indices = parse_indices(raw_text)
+        vix = parse_vix(raw_text)
+        regime_data = classify_regime(indices, vix)
     regime = regime_data["regime"]
 
     positions = portfolio.get("positions", {})
@@ -851,17 +857,25 @@ def main():
     print(f"  Report regime: {report_regime.get('regime', 'Unknown')}")
     print(f"  Report orders: {len(report_orders)}")
 
+    # Pre-parse raw data once for checks 1, 2, and 5
+    raw_indices = parse_indices(raw_text)
+    raw_vix = parse_vix(raw_text)
+    raw_regime = classify_regime(raw_indices, raw_vix)
+    raw_parsed = (raw_indices, raw_vix, raw_regime)
+
     # Run checks
     print("\n[3/3] Running 5 verification checks...")
 
     checks = [
         {
             "name": "Regime Classification",
-            "result": check_regime_classification(raw_text, report_regime),
+            "result": check_regime_classification(raw_text, report_regime,
+                                                   raw_parsed=raw_parsed),
         },
         {
             "name": "Entry Gate Logic",
-            "result": check_entry_gate_logic(raw_text, report_orders, portfolio),
+            "result": check_entry_gate_logic(raw_text, report_orders, portfolio,
+                                              raw_parsed=raw_parsed),
         },
         {
             "name": "Data Consistency",
@@ -875,7 +889,8 @@ def main():
         {
             "name": "Strategy Compliance",
             "result": check_strategy_compliance(raw_text, report_text,
-                                                 report_orders, portfolio),
+                                                 report_orders, portfolio,
+                                                 raw_parsed=raw_parsed),
         },
     ]
 
