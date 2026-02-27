@@ -672,9 +672,6 @@ def run_audit(ticker, data, portfolio):
             tier_str = matched["tier"]
             capped, was_tier = is_capped(matched)
             capped_str = f"Yes (was {was_tier}, <3 approaches)" if capped else "No"
-            # Check if level now has 0% hold rate
-            if matched["hold_rate"] == 0:
-                status = "DEAD"
         else:
             status = "ORPHANED"
             drift_str = "N/A"
