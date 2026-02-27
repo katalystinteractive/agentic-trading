@@ -13,8 +13,12 @@ import subprocess
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
-from datetime import date, datetime
+from datetime import date
 from pathlib import Path
+
+# Same-directory imports
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from news_sweep_collector import split_table_row
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = PROJECT_ROOT / "portfolio.json"
@@ -87,16 +91,6 @@ def run_tool(tool_name, args=None, timeout=120):
         return "", f"*Error: {tool_name} timed out after {timeout}s*"
     except Exception as e:
         return "", f"*Error running {tool_name}: {e}*"
-
-
-def split_table_row(line):
-    """Split a markdown table row into columns, stripping padding and empty edge cells."""
-    cols = [p.strip() for p in line.split("|")]
-    if cols and cols[0] == "":
-        cols = cols[1:]
-    if cols and cols[-1] == "":
-        cols = cols[:-1]
-    return cols
 
 
 def load_portfolio():

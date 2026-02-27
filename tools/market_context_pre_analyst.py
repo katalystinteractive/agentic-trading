@@ -195,19 +195,7 @@ def parse_sectors(raw_text):
 
     Returns list of {name, etf, day_pct, five_d_pct, twenty_d_pct}.
     """
-    # Find the section — header is "### Sector Performance (Ranked by Daily)"
-    lines = raw_text.split("\n")
-    in_section = False
-    section_lines = []
-    for line in lines:
-        stripped = line.strip()
-        if stripped.startswith("###") and "Sector Performance" in stripped:
-            in_section = True
-            continue
-        if in_section and stripped.startswith("###"):
-            break
-        if in_section:
-            section_lines.append(line)
+    section_lines = _find_section(raw_text, "Sector Performance")
 
     sectors = []
     for line in section_lines:

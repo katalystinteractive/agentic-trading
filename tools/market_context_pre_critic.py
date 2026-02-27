@@ -65,7 +65,7 @@ def validate_inputs():
 
 def extract_report_date(text):
     """Parse date from report header."""
-    m = re.search(r"# Market Context (?:Report|Raw Data|Pre-Analyst|Verification) — (\d{4}-\d{2}-\d{2})", text)
+    m = re.search(r"# Market Context (?:Report|Raw Data|Pre-Analyst|Pre-Critic) — (\d{4}-\d{2}-\d{2})", text)
     if m:
         return date.fromisoformat(m.group(1))
     return date.today()
@@ -136,6 +136,14 @@ def parse_report_regime(report_text):
     return result
 
 
+def _get_col(header_map, cols, name, default=""):
+    """Extract a column value by header name from a parsed table row."""
+    idx = header_map.get(name)
+    if idx is not None and idx < len(cols):
+        return cols[idx].strip()
+    return default
+
+
 def parse_report_gate_decisions(report_text):
     """Parse Entry Gate Decisions table from report.
 
@@ -174,19 +182,12 @@ def parse_report_gate_decisions(report_text):
         if not header_map:
             continue
 
-        # Extract using header map
-        def get_col(name, default=""):
-            idx = header_map.get(name)
-            if idx is not None and idx < len(cols):
-                return cols[idx].strip()
-            return default
-
-        ticker = get_col("Ticker")
+        ticker = _get_col(header_map, cols, "Ticker")
         if not ticker:
             continue
 
         # Parse price
-        price_str = get_col("Order Price").replace("$", "").replace(",", "")
+        price_str = _get_col(header_map, cols, "Order Price").replace("$", "").replace(",", "")
         try:
             order_price = float(price_str)
         except ValueError:
@@ -194,26 +195,26 @@ def parse_report_gate_decisions(report_text):
 
         # Parse shares
         try:
-            shares = int(get_col("Shares", "0"))
+            shares = int(_get_col(header_map, cols, "Shares", "0"))
         except ValueError:
             shares = 0
 
         # Parse current price (may not exist in v1 format)
-        current_str = get_col("Current Price", "").replace("$", "").replace(",", "")
+        current_str = _get_col(header_map, cols, "Current Price", "").replace("$", "").replace(",", "")
         try:
             current_price = float(current_str) if current_str else None
         except ValueError:
             current_price = None
 
         # Parse % Below Current
-        pct_str = get_col("% Below Current", "").replace("%", "")
+        pct_str = _get_col(header_map, cols, "% Below Current", "").replace("%", "")
         try:
             pct_below = float(pct_str) if pct_str else None
         except ValueError:
             pct_below = None
 
         # Gate Status — strip bold markers
-        gate = get_col("Gate Status").replace("**", "").strip()
+        gate = _get_col(header_map, cols, "Gate Status").replace("**", "").strip()
 
         orders.append({
             "ticker": ticker,
@@ -222,8 +223,8 @@ def parse_report_gate_decisions(report_text):
             "current_price": current_price,
             "pct_below": pct_below,
             "gate_status": gate,
-            "reasoning": get_col("Reasoning"),
-            "notes": get_col("Notes"),
+            "reasoning": _get_col(header_map, cols, "Reasoning"),
+            "notes": _get_col(header_map, cols, "Notes"),
         })
 
     return orders
@@ -233,6 +234,7 @@ def parse_report_index_detail(report_text):
     """Parse Index Detail table from report. Returns list of dicts."""
     lines = report_text.split("\n")
     in_section = False
+    header_map = {}
     indices = []
 
     for line in lines:
@@ -245,16 +247,23 @@ def parse_report_index_detail(report_text):
         if not in_section or not stripped.startswith("|"):
             continue
         cols = split_table_row(stripped)
-        if not cols or "Index" in cols[0]:
+        if not cols:
             continue
         if any(c.startswith(":---") or c.startswith("---") for c in cols):
             continue
-        if len(cols) < 5:
+
+        # Detect header row
+        if cols[0].strip() == "Index" and not header_map:
+            for i, c in enumerate(cols):
+                header_map[c.strip()] = i
+            continue
+
+        if not header_map:
             continue
 
         indices.append({
-            "name": cols[0].strip(),
-            "vs_50sma": cols[-1].strip(),
+            "name": _get_col(header_map, cols, "Index"),
+            "vs_50sma": _get_col(header_map, cols, "vs 50-SMA"),
         })
 
     return indices
@@ -428,50 +437,7 @@ def check_entry_gate_logic(raw_text, report_orders, portfolio):
                 )
 
     notes.append(f"{matched}/{len(expected_orders)} orders gate status matches")
-
-    # Strategy compliance checks for the regime
-    if regime == "Risk-On":
-        non_active = [o for o in report_orders if o["gate_status"].upper() != "ACTIVE"]
-        if non_active:
-            for o in non_active:
-                issues.append(
-                    f"Risk-On violation: {o['ticker']} ${o.get('order_price', 'N/A')} "
-                    f"is '{o['gate_status']}' but Risk-On requires all ACTIVE (Critical)"
-                )
-        else:
-            notes.append("Risk-On: all orders correctly ACTIVE")
-
-    elif regime == "Neutral":
-        for o in report_orders:
-            gate = o["gate_status"].upper()
-            if gate == "PAUSE":
-                issues.append(
-                    f"Neutral violation: {o['ticker']} is PAUSE but Neutral "
-                    f"doesn't allow PAUSE (Critical)"
-                )
-            if gate == "CAUTION":
-                vix_val = vix.get("value")
-                vix_5d = vix.get("five_d_pct")
-                if vix_val is None or not (VIX_CAUTION_LOW <= vix_val <= VIX_CAUTION_HIGH):
-                    issues.append(
-                        f"Neutral CAUTION invalid: VIX {vix_val} not in "
-                        f"{VIX_CAUTION_LOW}-{VIX_CAUTION_HIGH} range (Critical)"
-                    )
-                elif vix_5d is None or vix_5d <= 0:
-                    issues.append(
-                        f"Neutral CAUTION invalid: VIX 5D% {vix_5d} not positive "
-                        f"(must be rising for CAUTION) (Critical)"
-                    )
-
-    elif regime == "Risk-Off":
-        for o in report_orders:
-            gate = o["gate_status"].upper()
-            if gate == "CAUTION":
-                issues.append(
-                    f"Risk-Off violation: {o['ticker']} ${o.get('order_price', 'N/A')} "
-                    f"is CAUTION — CAUTION is NOT valid in Risk-Off "
-                    f"(only PAUSE/ACTIVE/REVIEW allowed) (Critical)"
-                )
+    notes.append(f"Regime: {regime} (strategy compliance verified in Check 5)")
 
     status = "FAIL" if any("(Critical)" in i for i in issues) else "PASS"
     return {"status": status, "issues": issues, "notes": notes}
@@ -507,10 +473,6 @@ def check_data_consistency(raw_text, report_orders, portfolio):
     for o in raw_orders:
         key = (o["ticker"], o["order_price"])
         raw_lookup[key] = o
-
-    # Parse VIX from raw and report
-    raw_vix = parse_vix(raw_text)
-    raw_indices = parse_indices(raw_text)
 
     # Check each report order
     phantom_count = 0
