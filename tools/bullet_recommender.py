@@ -135,9 +135,7 @@ def match_order_to_level(order_price, levels):
         if dist < best_dist:
             best_dist = dist
             best_level = lvl
-    if best_dist <= MATCH_TOLERANCE:
-        return best_level, best_dist
-    # Fallback: nearest-level match (for orders placed before wick data shifted)
+    # MATCH (<=0.5%) or DRIFT (0.5-5%) — caller uses classify_drift() to distinguish
     if best_dist <= DRIFT_TOLERANCE:
         return best_level, best_dist
     return None, None
@@ -333,56 +331,35 @@ def run_recommend(ticker, type_filter, data, portfolio):
         )
 
     # --- Step 6: Find recommendation ---
+    def _find_recommendation(pool, budget, slot_label):
+        """Search uncovered levels for the first that fits within budget."""
+        for lvl in uncovered_levels:
+            shares, cost, _ = compute_sizing(lvl, pool, cap)
+            if cost <= budget:
+                return {"level": lvl, "shares": shares, "cost": cost,
+                        "pool": pool, "label": slot_label}
+        return None
+
     recommendation = None
     next_available = []
 
-    # Apply type filter
-    if type_filter == "active":
-        if active_slots_remaining == 0:
-            recommendation = None
-            reasoning.append("No active slots remaining.")
-        else:
-            pool = "active"
-            for lvl in uncovered_levels:
-                rec_shares, rec_cost, _ = compute_sizing(lvl, pool, cap)
-                if rec_cost <= active_budget_remaining:
-                    recommendation = {"level": lvl, "shares": rec_shares, "cost": rec_cost,
-                                      "pool": pool,
-                                      "label": f"Active {effective_active_used + 1}"}
-                    break
+    # Build ordered list of (pool, budget, label) attempts based on type filter
+    attempts = []
+    if type_filter in ("active", "any") and active_slots_remaining > 0:
+        attempts.append(("active", active_budget_remaining,
+                         f"Active {effective_active_used + 1}"))
+    elif type_filter == "active":
+        reasoning.append("No active slots remaining.")
+    if type_filter in ("reserve", "any") and reserve_slots_remaining > 0:
+        attempts.append(("reserve", reserve_budget_remaining,
+                         f"Reserve {effective_reserve_used + 1}"))
     elif type_filter == "reserve":
-        if reserve_slots_remaining == 0:
-            recommendation = None
-            reasoning.append("No reserve slots remaining.")
-        else:
-            pool = "reserve"
-            for lvl in uncovered_levels:
-                rec_shares, rec_cost, _ = compute_sizing(lvl, pool, cap)
-                if rec_cost <= reserve_budget_remaining:
-                    recommendation = {"level": lvl, "shares": rec_shares, "cost": rec_cost,
-                                      "pool": pool,
-                                      "label": f"Reserve {effective_reserve_used + 1}"}
-                    break
-    else:
-        # type_filter == "any" — fill active first, then reserve
-        if active_slots_remaining > 0:
-            pool = "active"
-            for lvl in uncovered_levels:
-                rec_shares, rec_cost, _ = compute_sizing(lvl, pool, cap)
-                if rec_cost <= active_budget_remaining:
-                    recommendation = {"level": lvl, "shares": rec_shares, "cost": rec_cost,
-                                      "pool": pool,
-                                      "label": f"Active {effective_active_used + 1}"}
-                    break
-        if recommendation is None and reserve_slots_remaining > 0:
-            pool = "reserve"
-            for lvl in uncovered_levels:
-                rec_shares, rec_cost, _ = compute_sizing(lvl, pool, cap)
-                if rec_cost <= reserve_budget_remaining:
-                    recommendation = {"level": lvl, "shares": rec_shares, "cost": rec_cost,
-                                      "pool": pool,
-                                      "label": f"Reserve {effective_reserve_used + 1}"}
-                    break
+        reasoning.append("No reserve slots remaining.")
+
+    for pool, budget, label in attempts:
+        recommendation = _find_recommendation(pool, budget, label)
+        if recommendation is not None:
+            break
 
     # Gather next available after recommendation
     if recommendation is not None:
@@ -412,7 +389,7 @@ def run_recommend(ticker, type_filter, data, portfolio):
                 remaining_reserve -= 1
             else:
                 break
-            s, c, sz = compute_sizing(lvl, p, cap)
+            s, c, _ = compute_sizing(lvl, p, cap)
             capped, was_tier = is_capped(lvl)
             next_available.append({
                 "level": lvl, "shares": s, "cost": c, "pool": p, "label": label,
@@ -438,33 +415,24 @@ def run_recommend(ticker, type_filter, data, portfolio):
         }
 
     # --- Output ---
-    _print_recommend(
-        ticker=ticker,
-        current_price=current_price,
-        status_label=status_label,
-        case=case,
-        shares=shares,
-        avg_cost=avg_cost,
-        parsed=parsed,
-        effective_active_used=effective_active_used,
-        effective_reserve_used=effective_reserve_used,
-        active_slots_remaining=active_slots_remaining,
-        reserve_slots_remaining=reserve_slots_remaining,
-        active_budget_remaining=active_budget_remaining,
-        reserve_budget_remaining=reserve_budget_remaining,
-        is_pre_strategy=is_pre_strategy,
-        pos_note=pos_note,
-        pending_buys=pending_buys,
-        covered_levels=covered_levels,
-        orphaned_orders=orphaned_orders,
-        sell_check=sell_check,
-        recommendation=recommendation,
-        next_available=next_available,
-        fully_deployed=fully_deployed,
-        warnings=warnings,
-        reasoning=reasoning,
-        cap=cap,
-    )
+    ctx = {
+        "ticker": ticker, "current_price": current_price,
+        "status_label": status_label, "case": case,
+        "shares": shares, "avg_cost": avg_cost, "parsed": parsed,
+        "effective_active_used": effective_active_used,
+        "effective_reserve_used": effective_reserve_used,
+        "active_slots_remaining": active_slots_remaining,
+        "reserve_slots_remaining": reserve_slots_remaining,
+        "active_budget_remaining": active_budget_remaining,
+        "reserve_budget_remaining": reserve_budget_remaining,
+        "is_pre_strategy": is_pre_strategy, "pos_note": pos_note,
+        "pending_buys": pending_buys, "covered_levels": covered_levels,
+        "orphaned_orders": orphaned_orders, "sell_check": sell_check,
+        "recommendation": recommendation, "next_available": next_available,
+        "fully_deployed": fully_deployed, "warnings": warnings,
+        "reasoning": reasoning, "cap": cap,
+    }
+    _print_recommend(ctx)
 
 
 # ---------------------------------------------------------------------------
@@ -486,14 +454,34 @@ def _print_no_levels(ticker, current_price):
     print(f"No eligible support levels below current price ({_fmt_dollar(current_price)}) for {ticker}.")
 
 
-def _print_recommend(*, ticker, current_price, status_label, case, shares, avg_cost,
-                     parsed, effective_active_used, effective_reserve_used,
-                     active_slots_remaining, reserve_slots_remaining,
-                     active_budget_remaining, reserve_budget_remaining,
-                     is_pre_strategy, pos_note, pending_buys, covered_levels,
-                     orphaned_orders, sell_check, recommendation, next_available,
-                     fully_deployed, warnings, reasoning, cap):
-    """Print full recommendation output."""
+def _print_recommend(ctx):
+    """Print full recommendation output. ctx is a dict with all display data."""
+    ticker = ctx["ticker"]
+    current_price = ctx["current_price"]
+    status_label = ctx["status_label"]
+    case = ctx["case"]
+    shares = ctx["shares"]
+    avg_cost = ctx["avg_cost"]
+    parsed = ctx["parsed"]
+    effective_active_used = ctx["effective_active_used"]
+    active_slots_remaining = ctx["active_slots_remaining"]
+    reserve_slots_remaining = ctx["reserve_slots_remaining"]
+    active_budget_remaining = ctx["active_budget_remaining"]
+    reserve_budget_remaining = ctx["reserve_budget_remaining"]
+    is_pre_strategy = ctx["is_pre_strategy"]
+    pos_note = ctx["pos_note"]
+    pending_buys = ctx["pending_buys"]
+    covered_levels = ctx["covered_levels"]
+    orphaned_orders = ctx["orphaned_orders"]
+    sell_check = ctx["sell_check"]
+    recommendation = ctx["recommendation"]
+    next_available = ctx["next_available"]
+    fully_deployed = ctx["fully_deployed"]
+    warnings = ctx["warnings"]
+    reasoning = ctx["reasoning"]
+    cap = ctx["cap"]
+    effective_reserve_used = ctx["effective_reserve_used"]
+
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     print(f"## Bullet Recommendation: {ticker}")
     print(f"*Generated: {now}*")
@@ -535,12 +523,12 @@ def _print_recommend(*, ticker, current_price, status_label, case, shares, avg_c
         print(f"| Shares | 0 (sold) |")
         print(f"| Prior Avg | {_fmt_dollar(avg_cost)} |")
         if pending_buys:
-            print(f"| Pending BUYs | {len(pending_buys)} orders covering {len(covered_set)} levels |")
+            print(f"| Pending BUYs | {len(pending_buys)} orders covering {sum(1 for cl in covered_levels if not cl.get('duplicate'))} levels |")
         print(f"| Slots Remaining | Active: {active_slots_remaining} | Reserve: {reserve_slots_remaining} |")
     elif case == "C":
         print(f"| Shares | 0 |")
         if pending_buys:
-            print(f"| Pending BUYs | {len(pending_buys)} orders covering {len(covered_set)} levels |")
+            print(f"| Pending BUYs | {len(pending_buys)} orders covering {sum(1 for cl in covered_levels if not cl.get('duplicate'))} levels |")
         print(f"| Slots Remaining | Active: {active_slots_remaining} | Reserve: {reserve_slots_remaining} |")
     else:  # case D
         print(f"| Shares | 0 |")
