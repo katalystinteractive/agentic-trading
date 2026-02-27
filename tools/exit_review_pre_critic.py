@@ -152,7 +152,7 @@ def _parse_position_detail(verdict, lines):
                     "status": cols[1],
                     "detail": cols[2],
                 }
-        elif in_criteria and not stripped.startswith("|"):
+        elif in_criteria and stripped and not stripped.startswith("|"):
             in_criteria = False
 
     # Check for Reasoning
@@ -230,7 +230,7 @@ def parse_report_executive_summary(report_text):
 # Check Functions
 # ---------------------------------------------------------------------------
 
-def check_day_count_math(raw_summary, portfolio, report_date, report_positions):
+def check_day_count_math(raw_summary, report_date, report_positions):
     """Check 1: Day count math verification."""
     issues = []
     notes = []
@@ -276,7 +276,7 @@ def check_day_count_math(raw_summary, portfolio, report_date, report_positions):
     return {"status": status, "issues": issues, "notes": notes}
 
 
-def check_pl_math(raw_summary, portfolio, report_positions):
+def check_pl_math(raw_summary, report_positions):
     """Check 2: P/L math verification."""
     issues = []
     notes = []
@@ -688,9 +688,9 @@ def main():
     # Run 6 checks
     checks = {
         "day_count": check_day_count_math(
-            raw_summary, portfolio, report_date, report_positions),
+            raw_summary, report_date, report_positions),
         "pl_math": check_pl_math(
-            raw_summary, portfolio, report_positions),
+            raw_summary, report_positions),
         "verdict": check_verdict_assignment(
             raw_summary, per_ticker_data, portfolio, report_date, report_positions),
         "earnings_gate": check_earnings_gate(
