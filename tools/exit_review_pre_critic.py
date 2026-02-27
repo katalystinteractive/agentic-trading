@@ -235,12 +235,10 @@ def check_day_count_math(raw_summary, portfolio, report_date, report_positions):
     issues = []
     notes = []
 
-    pj_positions = portfolio.get("positions", {})
-
     for row in raw_summary:
         ticker = row["ticker"]
-        pj = pj_positions.get(ticker, {})
-        entry_date = pj.get("entry_date", row["entry_date"])
+        # Use raw.md entry_date (same source the analyst used), not portfolio.json
+        entry_date = row["entry_date"]
 
         # Recompute
         days, display, is_pre = compute_days_held(entry_date, report_date)
@@ -283,14 +281,12 @@ def check_pl_math(raw_summary, portfolio, report_positions):
     issues = []
     notes = []
 
-    pj_positions = portfolio.get("positions", {})
-
     for row in raw_summary:
         ticker = row["ticker"]
-        pj = pj_positions.get(ticker, {})
 
-        shares = pj.get("shares", row["shares"])
-        avg_cost = pj.get("avg_cost", row["avg_cost"])
+        # Use raw.md values (same source the analyst used), not portfolio.json
+        shares = row["shares"]
+        avg_cost = row["avg_cost"]
         current = row["current"]
 
         if current is None:

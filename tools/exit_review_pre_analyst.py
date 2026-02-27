@@ -542,7 +542,7 @@ def compute_verdict(pos_data):
                 return "REDUCE", "4", "Recovery + GATED + near breakeven — protect near-recovery", flags
             else:
                 # Rule 5: recovery + GATED + no thesis + P/L <= -10%
-                flags.append("Rule 3 CANDIDATE — LLM: evaluate thesis from identity/news context")
+                # No Rule 3 flag — verdict is already HOLD, no override possible
                 return "HOLD", "5", "Recovery + GATED + deep underwater — marginal downside limited", flags
 
     # --- Profit target rules ---
@@ -838,7 +838,7 @@ def build_per_position_detail(positions):
         # Momentum
         tech = p["technical"]
         rsi_str = f"RSI {tech['rsi']:.0f}" if tech["rsi"] is not None else "RSI Unknown"
-        macd_str = f"MACD {tech['macd_value']}" if tech["macd_value"] is not None else "MACD Unknown"
+        macd_str = f"MACD {tech['macd_value']:.3f}" if tech["macd_value"] is not None else "MACD Unknown"
         if tech["macd_signal"]:
             macd_str += f" ({tech['macd_signal']})"
         score_str = f"overall {tech['overall_score']:+d} {p['momentum_label']}"
