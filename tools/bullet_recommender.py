@@ -142,14 +142,15 @@ def match_order_to_level(order_price, levels):
 
 
 def classify_drift(dist):
-    """Classify drift distance into status label."""
+    """Classify drift distance into status label.
+
+    Only receives dist <= DRIFT_TOLERANCE or None (match_order_to_level contract).
+    """
     if dist is None:
         return "ORPHANED"
     if dist <= MATCH_TOLERANCE:
         return "MATCH"
-    if dist <= DRIFT_TOLERANCE:
-        return "DRIFT"
-    return "STALE"
+    return "DRIFT"
 
 
 # ---------------------------------------------------------------------------
@@ -223,7 +224,6 @@ def run_recommend(ticker, type_filter, data, portfolio):
         bullets_used_raw = 0
         pos_note = ""
         status_label = "Watchlist — no position, pending BUYs placed"
-        pos = {}
     else:
         case = "D"  # Fully new ticker
         shares = 0
@@ -231,7 +231,6 @@ def run_recommend(ticker, type_filter, data, portfolio):
         bullets_used_raw = 0
         pos_note = ""
         status_label = "New ticker — no position, no orders"
-        pos = {}
 
     parsed = parse_bullets_used(bullets_used_raw, pos_note)
     is_pre_strategy = parsed["pre_strategy"]
