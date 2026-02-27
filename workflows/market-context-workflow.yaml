@@ -1,37 +1,39 @@
 name: market-context-workflow
 description: >
-  Market context entry gate assessment. Phase 1 runs market_pulse.py and
-  portfolio_status.py to capture market indices and live ticker prices,
-  then extracts per-order pending BUY exposure. Phase 2 classifies regime
-  and applies entry gate logic to all pending BUY orders. Phase 3 verifies
-  regime math, gate logic, and coverage.
+  Market context entry gate assessment v2.0.0. Phase 1 runs
+  market_context_gatherer.py (parallel tool orchestration, pending BUY
+  extraction, sector mapping). Phase 2 runs market_context_pre_analyst.py
+  (regime classification, entry gate logic) then LLM adds qualitative
+  narratives. Phase 3 runs market_context_pre_critic.py (5 verification
+  checks) then LLM adds qualitative assessment.
 
-version: "1.0.0"
+version: "2.0.0"
 
 phases:
   - id: gather
     name: Market Context Gathering
-    description: Run market_pulse.py and portfolio_status.py, extract per-order pending BUY exposure
+    description: Run market_context_gatherer.py — parallel tool execution, pending BUY extraction
     agent: market-context-gatherer
     artifacts:
       - market-context-raw.md
-    timeout_minutes: 8
+    timeout_minutes: 4
 
   - id: analyze
     name: Market Context Analysis
-    description: Classify regime and apply entry gate to all pending BUY orders
+    description: Run market_context_pre_analyst.py + LLM qualitative narratives
     agent: market-context-analyst
     depends_on:
       - gather
     requires:
       - market-context-raw.md
     artifacts:
+      - market-context-pre-analyst.md
       - market-context-report.md
-    timeout_minutes: 8
+    timeout_minutes: 6
 
   - id: review
     name: Market Context Verification
-    description: Verify regime classification, gate logic, and coverage
+    description: Run market_context_pre_critic.py + LLM qualitative assessment
     agent: market-context-critic
     depends_on:
       - analyze
@@ -39,10 +41,11 @@ phases:
       - market-context-raw.md
       - market-context-report.md
     artifacts:
+      - market-context-pre-critic.md
       - market-context-review.md
-    timeout_minutes: 6
+    timeout_minutes: 5
 
 settings:
   max_fix_iterations: 0
   require_approval: false
-  timeout_minutes: 22
+  timeout_minutes: 15
