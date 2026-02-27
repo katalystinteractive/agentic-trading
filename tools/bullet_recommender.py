@@ -288,13 +288,35 @@ def run_recommend(ticker, type_filter, data, portfolio):
 
     uncovered_levels = [vl for i, vl in enumerate(valid_levels) if i not in covered_set]
 
+    # --- Step 4b: Mark filled levels (display only) ---
+    # Filled bullets are executed orders no longer pending. We don't track
+    # individual fill prices, so use avg_cost as a proxy: candidate levels are
+    # plausible fills only if their average buy price is within 20% of avg_cost.
+    # This prevents marking deep levels as "Filled" when actual fills were at
+    # prices above current (filtered out of valid_levels).
+    total_fills = parsed["active"] + parsed["reserve"]
+    fills_in_map = 0
+    if total_fills > 0 and case == "A" and avg_cost > 0:
+        candidates = uncovered_levels[:total_fills]
+        if candidates:
+            avg_candidate_buy = sum(l["recommended_buy"] for l in candidates) / len(candidates)
+            if avg_candidate_buy >= avg_cost * 0.8:
+                fills_in_map = len(candidates)
+    filled_levels = uncovered_levels[:fills_in_map]
+    uncovered_levels = uncovered_levels[fills_in_map:]
+
     # --- Step 5: Compute deployment state ---
-    # Derive effective slot usage from UNIQUE covered levels (V4-F2)
-    # Don't double-count duplicates (two orders at same level = 1 slot)
+    # Slot counting: parsed values are authoritative for fills (from portfolio.json).
+    # Case A: fills + pending are additive (disjoint — filled orders are removed).
+    # Cases B/C/D: fills are stale or zero; only pending orders matter.
     covered_active = sum(1 for cl in covered_levels if cl["level"]["zone"] == "Active" and not cl.get("duplicate"))
     covered_reserve = sum(1 for cl in covered_levels if cl["level"]["zone"] == "Reserve" and not cl.get("duplicate"))
-    effective_active_used = max(parsed["active"], covered_active)
-    effective_reserve_used = max(parsed["reserve"], covered_reserve)
+    if case == "A":
+        effective_active_used = parsed["active"] + covered_active
+        effective_reserve_used = parsed["reserve"] + covered_reserve
+    else:
+        effective_active_used = covered_active
+        effective_reserve_used = covered_reserve
 
     # Budget computation
     if is_pre_strategy:
@@ -340,7 +362,6 @@ def run_recommend(ticker, type_filter, data, portfolio):
         return None
 
     recommendation = None
-    next_available = []
 
     # Build ordered list of (pool, budget, label) attempts based on type filter
     attempts = []
@@ -359,41 +380,6 @@ def run_recommend(ticker, type_filter, data, portfolio):
         recommendation = _find_recommendation(pool, budget, label)
         if recommendation is not None:
             break
-
-    # Gather next available after recommendation
-    if recommendation is not None:
-        rec_level = recommendation["level"]
-        remaining_after = [lvl for lvl in uncovered_levels if lvl is not rec_level]
-        # Figure out what pool/label subsequent levels get
-        if recommendation["pool"] == "active":
-            remaining_active = active_slots_remaining - 1
-            remaining_reserve = reserve_slots_remaining
-        else:
-            remaining_active = 0  # active already exhausted
-            remaining_reserve = reserve_slots_remaining - 1
-
-        slot_idx_active = effective_active_used + (1 if recommendation["pool"] == "active" else 0)
-        slot_idx_reserve = effective_reserve_used + (1 if recommendation["pool"] == "reserve" else 0)
-
-        for lvl in remaining_after[:2]:
-            if remaining_active > 0:
-                p = "active"
-                slot_idx_active += 1
-                label = f"A{slot_idx_active}"
-                remaining_active -= 1
-            elif remaining_reserve > 0:
-                p = "reserve"
-                slot_idx_reserve += 1
-                label = f"R{slot_idx_reserve}"
-                remaining_reserve -= 1
-            else:
-                break
-            s, c, _ = compute_sizing(lvl, p, cap)
-            capped, was_tier = is_capped(lvl)
-            next_available.append({
-                "level": lvl, "shares": s, "cost": c, "pool": p, "label": label,
-                "capped": capped, "was_tier": was_tier,
-            })
 
     # Check if fully deployed: no recommendation possible AND either no slots or no uncovered levels
     fully_deployed = (recommendation is None
@@ -427,7 +413,9 @@ def run_recommend(ticker, type_filter, data, portfolio):
         "is_pre_strategy": is_pre_strategy, "pos_note": pos_note,
         "pending_buys": pending_buys, "covered_levels": covered_levels,
         "orphaned_orders": orphaned_orders, "sell_check": sell_check,
-        "recommendation": recommendation, "next_available": next_available,
+        "recommendation": recommendation, "valid_levels": valid_levels,
+        "filled_levels": filled_levels,
+        "covered_active": covered_active, "covered_reserve": covered_reserve,
         "fully_deployed": fully_deployed, "warnings": warnings,
         "reasoning": reasoning, "cap": cap,
     }
@@ -474,7 +462,10 @@ def _print_recommend(ctx):
     orphaned_orders = ctx["orphaned_orders"]
     sell_check = ctx["sell_check"]
     recommendation = ctx["recommendation"]
-    next_available = ctx["next_available"]
+    valid_levels = ctx["valid_levels"]
+    filled_levels = ctx["filled_levels"]
+    covered_active = ctx["covered_active"]
+    covered_reserve = ctx["covered_reserve"]
     fully_deployed = ctx["fully_deployed"]
     warnings = ctx["warnings"]
     reasoning = ctx["reasoning"]
@@ -511,7 +502,7 @@ def _print_recommend(ctx):
                 print(f"| Reserve Budget | {_fmt_dollar(reserve_budget_remaining)} |")
         else:
             print(f"| Bullets Used | {parsed['active']} active, {parsed['reserve']} reserve |")
-            print(f"| Effective Deployed | {effective_active_used} active ({parsed['active']} filled + {effective_active_used - parsed['active']} pending), {effective_reserve_used} reserve |")
+            print(f"| Effective Deployed | {effective_active_used} active ({parsed['active']} filled + {covered_active} pending), {effective_reserve_used} reserve ({parsed['reserve']} filled + {covered_reserve} pending) |")
             print(f"| Slots Remaining | Active: {active_slots_remaining} | Reserve: {reserve_slots_remaining} |")
             print(f"| Budget Remaining | Active: {_fmt_dollar(active_budget_remaining)} | Reserve: {_fmt_dollar(reserve_budget_remaining)} |")
         # Lowest pending/fill
@@ -542,25 +533,117 @@ def _print_recommend(ctx):
 
     print()
 
-    # Covered levels table
-    if covered_levels:
-        print("### Covered Levels")
-        print("| # | Level | Order Price | Drift | Status |")
-        print("| :--- | :--- | :--- | :--- | :--- |")
-        for i, cl in enumerate(covered_levels, 1):
-            lvl = cl["level"]
-            order = cl["order"]
-            drift_pct = f"{cl['dist'] * 100:.1f}%" if cl["dist"] is not None else "N/A"
-            status = classify_drift(cl["dist"])
-            if cl.get("duplicate"):
-                status += ", DUP"
-            if cl["paused"]:
-                # Extract paused reason from note
-                note = order.get("note", "")
-                paused_match = re.search(r'PAUSED\s*(.*?)$', note, re.IGNORECASE)
-                paused_reason = paused_match.group(1).strip(" —-") if paused_match else ""
-                status += f" (PAUSED{' — ' + paused_reason if paused_reason else ''})"
-            print(f"| B{i} | {_fmt_dollar(lvl['support_price'])} {lvl['source']} | {_fmt_dollar(order['price'])} | {drift_pct} | {status} |")
+    # --- Level Map (unified table) ---
+    print("### Level Map")
+    print("| # | Support | Buy At | Held/Approaches | Tier | Shares | ~Cost | Status |")
+    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+
+    # Build covered lookup: level id -> list of cover entries
+    covered_lookup = {}
+    for cl in covered_levels:
+        lid = id(cl["level"])
+        covered_lookup.setdefault(lid, []).append(cl)
+
+    rec_level_id = id(recommendation["level"]) if recommendation else None
+    filled_lookup = set(id(fl) for fl in filled_levels)
+    a_max = cap["active_bullets_max"]
+    r_max = cap["reserve_bullets_max"]
+    has_capped = False
+
+    # Label offset: fills not visible in the map still consumed slots
+    if case == "A":
+        fills_active_in_map = sum(1 for fl in filled_levels if fl["zone"] == "Active")
+        fills_reserve_in_map = sum(1 for fl in filled_levels if fl["zone"] == "Reserve")
+        a_idx = parsed["active"] - fills_active_in_map
+        r_idx = parsed["reserve"] - fills_reserve_in_map
+    else:
+        a_idx = 0
+        r_idx = 0
+
+    for lvl in valid_levels:
+        lid = id(lvl)
+        capped_flag, was_tier = is_capped(lvl)
+        tier_display = lvl["tier"]
+        if capped_flag:
+            tier_display += "*"
+            has_capped = True
+        support_str = f"{_fmt_dollar(lvl['support_price'])} {lvl['source']}"
+        buy_str = _fmt_dollar(lvl["recommended_buy"])
+        held = lvl.get("held", 0)
+        approaches = lvl.get("total_approaches", 0)
+        hold_str = f"{held}/{approaches} ({lvl['hold_rate']:.0f}%)"
+
+        # Assign bullet label — every level gets one (A1-A5, R1-R3, then —)
+        if a_idx < a_max:
+            a_idx += 1
+            level_label = f"A{a_idx}"
+            ref_pool = "active"
+        elif r_idx < r_max:
+            r_idx += 1
+            level_label = f"R{r_idx}"
+            ref_pool = "reserve"
+        else:
+            level_label = "—"
+            ref_pool = "reserve"
+
+        # Compute sizing
+        ref_shares, ref_cost, _ = compute_sizing(lvl, ref_pool, cap)
+
+        if lid in covered_lookup:
+            for cl in covered_lookup[lid]:
+                order = cl["order"]
+                # DUP rows don't consume a label
+                row_label = "—" if cl.get("duplicate") else level_label
+                # Status based on placed flag + issue flags
+                parts = []
+                drift_status = classify_drift(cl["dist"])
+                if drift_status != "MATCH":
+                    parts.append(drift_status)
+                if cl.get("duplicate"):
+                    parts.append("DUP")
+                if cl["paused"]:
+                    parts.append("PAUSED")
+                flags = f" ({', '.join(parts)})" if parts else ""
+                if order.get("placed"):
+                    status_str = f"Limit order placed{flags}"
+                else:
+                    status_str = f"Place limit order{flags}"
+                # Shares/cost from order
+                ord_shares = order.get("shares")
+                if ord_shares:
+                    ord_cost = round(ord_shares * order["price"], 2)
+                    shares_str = str(ord_shares)
+                    cost_str = f"~{_fmt_dollar(ord_cost)}"
+                else:
+                    shares_str = str(ref_shares)
+                    cost_str = f"~{_fmt_dollar(ref_cost)}"
+                print(f"| {row_label} | {support_str} | {_fmt_dollar(order['price'])} | {hold_str} | {tier_display} "
+                      f"| {shares_str} | {cost_str} | {status_str} |")
+        elif lid in filled_lookup:
+            print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
+                  f"| {ref_shares} | ~{_fmt_dollar(ref_cost)} | Order filled |")
+        elif lid == rec_level_id:
+            print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
+                  f"| {recommendation['shares']} | ~{_fmt_dollar(recommendation['cost'])} | **Place limit order** |")
+        else:
+            status_str = "" if level_label != "—" else ""
+            print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
+                  f"| {ref_shares} | ~{_fmt_dollar(ref_cost)} | {status_str} |")
+
+    if has_capped:
+        print()
+        print("*\\* = tier capped from Full/Std due to <3 approaches*")
+    print()
+
+    # Fully deployed / no recommendation note
+    if fully_deployed:
+        print("*Fully deployed. No additional BUY orders recommended.*")
+        print()
+    elif recommendation is None:
+        if active_slots_remaining == 0 and reserve_slots_remaining == 0:
+            print("*All slots occupied. No room for additional orders.*")
+        else:
+            print("*No affordable levels within remaining budget.*")
         print()
 
     # Orphaned orders
@@ -572,62 +655,17 @@ def _print_recommend(ctx):
             print(f"| {_fmt_dollar(o['price'])} | {o.get('note', '')} |")
         print()
 
-    # Recommendation
-    if fully_deployed:
-        print("### Fully Deployed")
-        print("No additional BUY orders recommended. All slots filled or covered.")
-        print()
-    elif recommendation is not None:
-        lvl = recommendation["level"]
-        capped, was_tier = is_capped(lvl)
-        capped_str = f"Yes (was {was_tier}, <3 approaches)" if capped else "No"
-        dist_pct = (current_price - lvl["recommended_buy"]) / current_price * 100
-        print(f"### Recommendation: {recommendation['label']}")
-        print("| Field | Value |")
-        print("| :--- | :--- |")
-        print(f"| Raw Support | {_fmt_dollar(lvl['support_price'])} {lvl['source']} |")
-        print(f"| Buy At | {_fmt_dollar(lvl['recommended_buy'])} |")
-        print(f"| Hold Rate | {lvl['hold_rate']:.0f}% ({lvl['tier']} tier) |")
-        print(f"| Approaches | {lvl['total_approaches']} |")
-        print(f"| Capped? | {capped_str} |")
-        print(f"| Shares | {recommendation['shares']} |")
-        print(f"| Est. Cost | ~{_fmt_dollar(recommendation['cost'])} |")
-        print(f"| Distance | {dist_pct:.1f}% below current ({_fmt_dollar(current_price)}) |")
-        print()
-
-        # Reasoning
-        print("### Reasoning")
-        print(f"- First uncovered support below current price with hold rate >= 15%")
-        if recommendation["pool"] == "reserve" and lvl["zone"] == "Active":
-            print(f"- Active slots exhausted — drawing from reserve budget at Active-zone price")
-        budget_label = "active" if recommendation["pool"] == "active" else "reserve"
-        budget_remaining = active_budget_remaining if recommendation["pool"] == "active" else reserve_budget_remaining
-        print(f"- Budget: ~{_fmt_dollar(recommendation['cost'])} of {_fmt_dollar(budget_remaining)} {budget_label} remaining")
+    # Notes
+    if recommendation or reasoning:
+        print("### Notes")
+        if recommendation:
+            pool_label = "active" if recommendation["pool"] == "active" else "reserve"
+            budget = active_budget_remaining if recommendation["pool"] == "active" else reserve_budget_remaining
+            print(f"- Recommended cost: ~{_fmt_dollar(recommendation['cost'])} of {_fmt_dollar(budget)} {pool_label} budget")
+            if recommendation["pool"] == "reserve" and recommendation["level"]["zone"] == "Active":
+                print(f"- Active slots exhausted — reserve budget used at Active-zone price")
         for note in reasoning:
             print(f"- {note}")
-        print()
-
-        # Next available
-        if next_available:
-            print("### Next Available")
-            print("| # | Level | Buy At | Hold% | Tier | Capped? | Shares | ~Cost |")
-            print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
-            for na in next_available:
-                nl = na["level"]
-                c_flag = f"Yes (was {na['was_tier']}, <3 approaches)" if na["capped"] else "No"
-                print(f"| {na['label']} | {_fmt_dollar(nl['support_price'])} {nl['source']} | "
-                      f"{_fmt_dollar(nl['recommended_buy'])} | {nl['hold_rate']:.0f}% | "
-                      f"{nl['tier']} | {c_flag} | {na['shares']} | ~{_fmt_dollar(na['cost'])} |")
-            print()
-    else:
-        print("### No Recommendation")
-        if active_slots_remaining == 0 and reserve_slots_remaining == 0:
-            print("All slots occupied. No room for additional orders.")
-        elif not reasoning:
-            print("No uncovered levels available within budget.")
-        else:
-            for note in reasoning:
-                print(f"- {note}")
         print()
 
 

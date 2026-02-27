@@ -1,10 +1,10 @@
 {
-  "last_updated": "2026-02-25",
+  "last_updated": "2026-02-27",
   "positions": {
     "NU": {
-      "shares": 18,
-      "avg_cost": 16.48,
-      "bullets_used": 3,
+      "shares": 24,
+      "avg_cost": 16.08,
+      "bullets_used": 4,
       "entry_date": "2026-02-13",
       "target_exit": 18.50
     },
@@ -47,31 +47,42 @@
       "note": "Pre-strategy position, near breakeven. Active pool ~$233 deployed, ~$67 remaining."
     },
     "APLD": {
-      "shares": 8,
-      "avg_cost": 31.39,
-      "bullets_used": 4,
+      "shares": 11,
+      "avg_cost": 30.39,
+      "bullets_used": 5,
       "entry_date": "2026-02-17",
       "target_exit": 38.00
     },
     "SMCI": {
-      "shares": 3,
+      "shares": 0,
       "avg_cost": 31.30,
       "bullets_used": 1,
       "entry_date": "2026-02-23",
-      "target_exit": 34.43
+      "target_exit": null,
+      "note": "Position closed 2026-02-27 — sold 3 @ $33.40 (+6.7% from $31.30 avg)"
+    },
+    "TMC": {
+      "shares": 9,
+      "avg_cost": 6.32,
+      "bullets_used": 1,
+      "entry_date": "2026-02-27",
+      "target_exit": null
     }
   },
   "pending_orders": {
     "NU": [
-      {"type": "SELL", "price": 18.50, "shares": 18, "note": "Target ~12.2% from $16.48 avg"},
-      {"type": "BUY", "price": 14.88, "shares": 6, "note": "Reserve 1 — $14.07 PA, 67% hold rate, wick-adjusted — PAUSED until post-earnings Feb 26"}
+      {"type": "SELL", "price": 18.50, "shares": 24, "note": "Target ~15.0% from $16.08 avg"},
+      {"type": "BUY", "price": 14.70, "shares": 4, "note": "Bullet 5 — $14.07 PA, 75% hold rate (3/4), Full tier, wick-adjusted", "placed": true}
     ],
     "STIM": [
       {"type": "SELL", "price": 1.79, "shares": 143, "note": "Target ~32.6% from $1.35 avg — $1.79 tested resistance + 84% sell wall"}
     ],
     "AR": [
-      {"type": "BUY", "price": 32.68, "shares": 3, "note": "Bullet 1 — $31.36 HVN, 50% hold rate, wick-adjusted"},
-      {"type": "BUY", "price": 31.16, "shares": 3, "note": "Bullet 2 — $29.72 Price Action, 67% hold rate, wick-adjusted"}
+      {"type": "BUY", "price": 36.69, "shares": 1, "note": "Bullet 1 — $36.00 HVN, 31% hold rate (4/13), Std tier, wick-adjusted", "placed": true},
+      {"type": "BUY", "price": 36.48, "shares": 1, "note": "Bullet 2 — $35.54 HVN+PA, 29% hold rate (4/14), Half tier, wick-adjusted", "placed": true},
+      {"type": "BUY", "price": 35.00, "shares": 1, "note": "Bullet 3 — $34.61 HVN+PA, 30% hold rate (6/20), Std tier, wick-adjusted (merged w/ $34.15 HVN)", "placed": true},
+      {"type": "BUY", "price": 32.68, "shares": 3, "note": "Bullet 4 — $31.36 HVN+PA, 50% hold rate (5/10), Full tier, wick-adjusted", "placed": true},
+      {"type": "BUY", "price": 31.16, "shares": 3, "note": "Bullet 5 — $29.72 PA, 67% hold rate (4/6), Full tier, wick-adjusted"}
     ],
     "USAR": [],
     "INTC": [
@@ -81,8 +92,7 @@
       {"type": "BUY", "price": 36.38, "shares": 2, "note": "Reserve 2 — $36.04 HVN, wick-adjusted"}
     ],
     "APLD": [
-      {"type": "SELL", "price": 38.00, "shares": 8, "note": "Target ~21% — $37.60-$38.76 HVN resistance zone"},
-      {"type": "BUY", "price": 27.71, "shares": 3, "note": "Bullet 5 — $27.62 Price Action, 44% hold rate, wick-adjusted"}
+      {"type": "SELL", "price": 38.00, "shares": 11, "note": "Target ~25% — $37.60-$38.76 HVN resistance zone"}
     ],
     "CLF": [
       {"type": "BUY", "price": 9.97, "shares": 10, "note": "Bullet 1 — $9.92 HVN+PA, 45% hold rate, wick-adjusted"},
@@ -116,7 +126,6 @@
       {"type": "BUY", "price": 7.24, "shares": 13, "note": "Reserve 2 — $6.94 PA, 67% hold, wick-adjusted"}
     ],
     "SMCI": [
-      {"type": "SELL", "price": 34.43, "shares": 3, "note": "Target ~10% from $31.30 avg"},
       {"type": "BUY", "price": 29.35, "shares": 3, "note": "Bullet 2 — $28.96 HVN, 45% hold, wick-adjusted"},
       {"type": "BUY", "price": 28.84, "shares": 4, "note": "Bullet 3 — $28.34 PA 67% + $27.22 PA 91% (converged), wick-adjusted"}
     ],
@@ -148,9 +157,8 @@
       {"type": "BUY", "price": 4.36, "shares": 22, "note": "Reserve 3 — $4.22/$4.36 PA converged, 50%/20% hold rate, Full tier, wick-adjusted"}
     ],
     "TMC": [
-      {"type": "BUY", "price": 6.26, "shares": 9, "note": "Bullet 1 — $6.06 HVN+PA, 50% hold rate, Full tier, wick-adjusted"},
-      {"type": "BUY", "price": 5.90, "shares": 10, "note": "Bullet 2 — $5.79 HVN+PA, 60% hold rate, Full tier, wick-adjusted"},
-      {"type": "BUY", "price": 5.63, "shares": 10, "note": "Bullet 3 — $5.53 HVN+PA, 42% hold rate, Std tier, wick-adjusted"},
+      {"type": "BUY", "price": 5.90, "shares": 10, "note": "Bullet 2 — $5.79 HVN+PA, 60% hold rate, Full tier, wick-adjusted", "placed": true},
+      {"type": "BUY", "price": 5.63, "shares": 10, "note": "Bullet 3 — $5.53 HVN+PA, 42% hold rate, Std tier, wick-adjusted", "placed": true},
       {"type": "BUY", "price": 5.43, "shares": 11, "note": "Bullet 4 — $5.26 HVN+PA, 40% hold rate, Std tier, wick-adjusted"},
       {"type": "BUY", "price": 5.20, "shares": 11, "note": "Bullet 5 — $4.99 HVN+PA, 33% hold rate, Std tier, wick-adjusted"},
       {"type": "BUY", "price": 4.93, "shares": 20, "note": "Reserve 1 — $4.74 PA, 33% hold rate, Std tier, wick-adjusted"},
@@ -168,7 +176,7 @@
       {"type": "BUY", "price": 2.43, "shares": 41, "note": "Reserve 3 — $2.41 PA, 100% hold rate, Full tier, wick-adjusted — PAUSED until post-earnings Mar 2"}
     ]
   },
-  "watchlist": ["AR", "VALE", "CLF", "SEDG", "ACHR", "RKT", "NNE", "UAMY", "TMC", "BBAI"],
+  "watchlist": ["AR", "VALE", "CLF", "SEDG", "ACHR", "RKT", "NNE", "UAMY", "BBAI"],
   "capital": {
     "per_stock_total": 600,
     "active_pool": 300,
