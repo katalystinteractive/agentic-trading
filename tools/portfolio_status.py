@@ -26,11 +26,12 @@ def fetch_prices(tickers):
                 prev = data["Close"].iloc[-2] if len(data) > 1 else current
                 day_pct = ((current - prev) / prev) * 100
                 last_date = data.index[-1].date()
-                stale = (today - last_date).days > 1
+                stale = last_date != today
                 day_low = data["Low"].iloc[-1]
                 day_high = data["High"].iloc[-1]
                 prices[ticker] = {"price": current, "day_pct": day_pct,
-                                  "day_low": day_low, "day_high": day_high, "stale": stale}
+                                  "day_low": day_low, "day_high": day_high,
+                                  "stale": stale, "last_trade_date": last_date.strftime("%Y-%m-%d")}
             else:
                 prices[ticker] = {"price": None, "day_pct": None,
                                   "day_low": None, "day_high": None, "stale": True}
@@ -65,9 +66,12 @@ def build_report(portfolio, prices):
     lines = []
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     any_stale = any(p.get("stale") for p in prices.values())
+    # Determine last trading date from price data
+    trade_dates = [p["last_trade_date"] for p in prices.values() if p.get("last_trade_date")]
+    last_trade_date = max(trade_dates) if trade_dates else "unknown"
     lines.append(f"# Portfolio Status — {now}")
     if any_stale:
-        lines.append("*Note: Market closed — prices may be from last trading day.*")
+        lines.append(f"*Note: Market closed — all price data as of {last_trade_date}. Fill detection suppressed.*")
     lines.append("")
 
     # --- Active Positions ---
@@ -124,12 +128,14 @@ def build_report(portfolio, prices):
                     zone = "Sell"
                 else:
                     zone = "—"
-                # Fill detection: flag orders that likely triggered today
+                # Fill detection: only flag on trading days (not weekends/holidays)
+                ticker_stale = p.get("stale", True)
                 status = ""
-                if order["type"] == "BUY" and day_low is not None and day_low <= order["price"]:
-                    status = "**FILLED?**"
-                elif order["type"] == "SELL" and day_high is not None and day_high >= order["price"]:
-                    status = "**FILLED?**"
+                if not ticker_stale:
+                    if order["type"] == "BUY" and day_low is not None and day_low <= order["price"]:
+                        status = "**FILLED?**"
+                    elif order["type"] == "SELL" and day_high is not None and day_high >= order["price"]:
+                        status = "**FILLED?**"
                 lines.append(
                     f"| {ticker} | {order['type']} | {zone} | {fmt_dollar(order['price'])} "
                     f"| {fmt_dollar(current)} "

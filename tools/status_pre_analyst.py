@@ -94,10 +94,14 @@ def parse_raw_data(raw_text):
 
     result["active_positions"] = _parse_active_positions(ps_subsections.get("Active Positions", []))
     result["watchlist_prices"] = _parse_watchlist_prices(ps_subsections.get("Watchlist Prices", []))
+    # Detect market closed from Portfolio Status header (suppresses fill detection on stale data)
+    market_closed = any("Fill detection suppressed" in line for line in ps_section)
+    result["market_closed"] = market_closed
     result["pending_orders"] = _parse_pending_orders(
         ps_subsections.get("Pending Orders", []),
         result["active_positions"],
-        result["watchlist_prices"]
+        result["watchlist_prices"],
+        market_closed=market_closed,
     )
     result["capital_raw"] = _parse_capital_raw(ps_subsections.get("Capital Summary", []))
 
@@ -203,10 +207,12 @@ def _parse_active_positions(lines):
     return rows
 
 
-def _parse_pending_orders(lines, active_positions=None, watchlist_prices=None):
+def _parse_pending_orders(lines, active_positions=None, watchlist_prices=None,
+                          market_closed=False):
     """Parse Pending Orders table. Handles both 10-column (with Status) and 9-column formats.
 
     Returns list of dicts with normalized 'filled' boolean.
+    When market_closed=True, suppresses day_low/day_high fill detection in 9-column mode.
     """
     rows = []
     # Detect column count from header row
@@ -260,15 +266,17 @@ def _parse_pending_orders(lines, active_positions=None, watchlist_prices=None):
                 filled = "FILLED" in status_str.upper()
             else:
                 # 9-column format: detect fills from day_low/day_high
+                # Suppress when market_closed to avoid false positives on stale data
                 note = cols[8] if len(cols) > 8 else ""
                 filled = False
-                dd = day_data.get(ticker, {})
-                if order_type == "BUY" and dd.get("day_low") is not None:
-                    if dd["day_low"] <= price:
-                        filled = True
-                elif order_type == "SELL" and dd.get("day_high") is not None:
-                    if dd["day_high"] >= price:
-                        filled = True
+                if not market_closed:
+                    dd = day_data.get(ticker, {})
+                    if order_type == "BUY" and dd.get("day_low") is not None:
+                        if dd["day_low"] <= price:
+                            filled = True
+                    elif order_type == "SELL" and dd.get("day_high") is not None:
+                        if dd["day_high"] >= price:
+                            filled = True
 
             rows.append({
                 "ticker": ticker,

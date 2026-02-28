@@ -40,7 +40,6 @@ def sma(series, period):
 
 def market_pulse():
     print(f"\n## Market Pulse")
-    print(f"*{datetime.now().strftime('%Y-%m-%d %H:%M')}*")
 
     # Download all tickers at once for efficiency
     all_tickers = list(INDICES.values()) + list(VOLATILITY_RATES.values()) + list(SECTORS.values())
@@ -49,6 +48,13 @@ def market_pulse():
     except Exception as e:
         print(f"Error downloading market data: {e}")
         return
+
+    # Determine data freshness from downloaded data
+    if not data.empty:
+        last_trade_date = data.index[-1].strftime("%Y-%m-%d")
+    else:
+        last_trade_date = "unknown"
+    print(f"*{datetime.now().strftime('%Y-%m-%d %H:%M')} | Data as of: {last_trade_date}*")
 
     def get_close(ticker_data):
         """Extract close prices from downloaded data."""

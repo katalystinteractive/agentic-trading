@@ -465,7 +465,7 @@ def analyze_stock(ticker):
 
     # Build markdown report
     lines = []
-    lines.append(f"*Generated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}*")
+    lines.append(f"*Generated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')} | Data as of: {last_date}*")
     lines.append("")
     lines.append(f"## Bounce Analysis: {ticker}")
     lines.append(f"**Current Price: {fmt_dollar(current_price)}** | Data: {len(daily)} days (hourly) | Date: {last_date}")

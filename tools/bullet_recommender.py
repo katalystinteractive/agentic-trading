@@ -417,7 +417,7 @@ def run_recommend(ticker, type_filter, data, portfolio):
         "filled_levels": filled_levels,
         "covered_active": covered_active, "covered_reserve": covered_reserve,
         "fully_deployed": fully_deployed, "warnings": warnings,
-        "reasoning": reasoning, "cap": cap,
+        "reasoning": reasoning, "cap": cap, "data": data,
     }
     _print_recommend(ctx)
 
@@ -432,11 +432,12 @@ def _fmt_dollar(val):
     return f"${val:.2f}"
 
 
-def _print_no_levels(ticker, current_price):
+def _print_no_levels(ticker, current_price, data=None):
     """Print output when no eligible levels found."""
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    last_date = data.get("last_date", "unknown") if data else "unknown"
     print(f"## Bullet Recommendation: {ticker}")
-    print(f"*Generated: {now}*")
+    print(f"*Generated: {now} | Data as of: {last_date}*")
     print()
     print(f"No eligible support levels below current price ({_fmt_dollar(current_price)}) for {ticker}.")
 
@@ -472,9 +473,11 @@ def _print_recommend(ctx):
     cap = ctx["cap"]
     effective_reserve_used = ctx["effective_reserve_used"]
 
+    data = ctx["data"]
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    last_date = data.get("last_date", "unknown")
     print(f"## Bullet Recommendation: {ticker}")
-    print(f"*Generated: {now}*")
+    print(f"*Generated: {now} | Data as of: {last_date}*")
     print()
 
     # Warnings
@@ -695,8 +698,9 @@ def run_audit(ticker, data, portfolio):
     current_price = data["current_price"]
 
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    last_date = data.get("last_date", "unknown")
     print(f"## Order Audit: {ticker}")
-    print(f"*Generated: {now}*")
+    print(f"*Generated: {now} | Data as of: {last_date}*")
     print(f"*Current Price: {_fmt_dollar(current_price)}*")
     print()
 

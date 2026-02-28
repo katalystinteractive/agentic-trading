@@ -552,7 +552,7 @@ def _format_stock_report(ticker, data):
     lines = []
 
     # Header
-    lines.append(f"*Generated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}*")
+    lines.append(f"*Generated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')} | Data as of: {data['last_date']}*")
     lines.append("")
     lines.append(f"## Wick Offset Analysis: {ticker} (13-Month, as of {data['last_date']})")
     lines.append(f"**Current Price: {fmt_dollar(data['current_price'])}**")
