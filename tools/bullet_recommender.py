@@ -636,9 +636,8 @@ def _print_recommend(ctx):
             print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
                   f"| {trend_str} | {recommendation['shares']} | ~{_fmt_dollar(recommendation['cost'])} | **Place limit order**{dormant_tag} |")
         else:
-            status_str = "Place limit order" if level_label != "—" else "No slot"
             print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
-                  f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | {status_str}{dormant_tag} |")
+                  f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | {dormant_tag.strip()} |")
 
     if has_capped or has_override:
         markers = []
