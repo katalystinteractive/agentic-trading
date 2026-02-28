@@ -417,8 +417,9 @@ def analyze_stock_data(ticker):
         for e in events:
             days_old = (reference_date - datetime.datetime.strptime(e["start"], "%Y-%m-%d")).days
             weights.append(math.exp(-days_old * LN2 / HALF_LIFE))
+        total_weight = sum(weights)
         weighted_held = sum(w * (1 if e["held"] else 0) for w, e in zip(weights, events))
-        decayed_hold_rate = (weighted_held / sum(weights) * 100) if sum(weights) > 0 else 0
+        decayed_hold_rate = (weighted_held / total_weight * 100) if total_weight > 0 else 0
 
         level_results.append({
             "level": lvl,
@@ -635,7 +636,7 @@ def _format_stock_report(ticker, data):
         lines.append("")
         # Flag Active levels excluded by above-market guard
         above_market = [lvl for lvl in data["levels"]
-                        if lvl["zone"] == "Active" and lvl["tier"] != "Skip"
+                        if lvl["zone"] == "Active" and lvl.get("effective_tier", lvl["tier"]) != "Skip"
                         and lvl["recommended_buy"] is not None
                         and lvl["recommended_buy"] >= data["current_price"]]
         if above_market:
