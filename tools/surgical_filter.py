@@ -223,9 +223,12 @@ def verify_candidate(ticker, wick_data, capital_config):
             lvl["hold_rate"], lvl["gap_pct"],
             wick_data.get("active_radius", 15.0),
             lvl["total_approaches"])
-        if b["tier"] != expected_tier:
+        # Compare against raw_tier (original classify_level result), not "tier"
+        # which is now effective_tier and may differ due to recency demotion
+        compare_tier = b.get("raw_tier", b["tier"])
+        if compare_tier != expected_tier:
             tier_check = False
-            issues.append(f"{ticker} ${b['support_price']}: tier {b['tier']} vs expected {expected_tier}")
+            issues.append(f"{ticker} ${b['support_price']}: tier {compare_tier} vs expected {expected_tier}")
 
     # 2. Bullet math check — shares x price within 30% of budget
     bullet_math_check = True

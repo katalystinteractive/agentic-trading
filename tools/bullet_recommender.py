@@ -76,10 +76,10 @@ def filter_valid_levels(levels, current_price):
             continue
         if lvl["recommended_buy"] >= current_price:
             continue
-        if lvl["tier"] == "Skip":
+        if lvl.get("effective_tier", lvl["tier"]) == "Skip":
             continue
         # Reserve-zone Half-tier: not worth a reserve slot at $30 sizing
-        if lvl["zone"] == "Reserve" and lvl["tier"] == "Half":
+        if lvl["zone"] == "Reserve" and lvl.get("effective_tier", lvl["tier"]) == "Half":
             continue
         valid.append(lvl)
     # Sort by recommended_buy descending (closest to current price first)
@@ -164,7 +164,7 @@ def compute_sizing(level, pool, cap):
     this bullet draws from, NOT the level's geographic zone label.
     Half tier always uses active_bullet_half ($30) regardless of pool.
     """
-    if level["tier"] == "Half":
+    if level.get("effective_tier", level["tier"]) == "Half":
         size = cap["active_bullet_half"]   # $30 for Half, regardless of pool
     elif pool == "active":
         size = cap["active_bullet_full"]   # $60 for Full/Std in active pool
@@ -535,8 +535,8 @@ def _print_recommend(ctx):
 
     # --- Level Map (unified table) ---
     print("### Level Map")
-    print("| # | Support | Buy At | Held/Approaches | Tier | Shares | ~Cost | Status |")
-    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    print("| # | Support | Buy At | Held/Approaches | Tier | Trend | Shares | ~Cost | Status |")
+    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
     # Build covered lookup: level id -> list of cover entries
     covered_lookup = {}
@@ -549,6 +549,7 @@ def _print_recommend(ctx):
     a_max = cap["active_bullets_max"]
     r_max = cap["reserve_bullets_max"]
     has_capped = False
+    has_override = False
 
     # Label offset: fills not visible in the map still consumed slots
     if case == "A":
@@ -563,10 +564,19 @@ def _print_recommend(ctx):
     for lvl in valid_levels:
         lid = id(lvl)
         capped_flag, was_tier = is_capped(lvl)
-        tier_display = lvl["tier"]
+        tier_display = lvl.get("effective_tier", lvl["tier"])
+        if lvl.get("tier_override", False):
+            tier_display += "+"
+            has_override = True
         if capped_flag:
             tier_display += "*"
             has_capped = True
+        # Trend column value
+        trend_raw = lvl.get("trend", "—")
+        trend_map = {"Improving": "^", "Deteriorating": "v", "Stable": "-", "—": "?"}
+        trend_str = trend_map.get(trend_raw, "?")
+        # Dormant tag for status
+        dormant_tag = " [D]" if lvl.get("dormant", False) else ""
         support_str = f"{_fmt_dollar(lvl['support_price'])} {lvl['source']}"
         buy_str = _fmt_dollar(lvl["recommended_buy"])
         held = lvl.get("held", 0)
@@ -618,21 +628,26 @@ def _print_recommend(ctx):
                     shares_str = str(ref_shares)
                     cost_str = f"~{_fmt_dollar(ref_cost)}"
                 print(f"| {row_label} | {support_str} | {_fmt_dollar(order['price'])} | {hold_str} | {tier_display} "
-                      f"| {shares_str} | {cost_str} | {status_str} |")
+                      f"| {trend_str} | {shares_str} | {cost_str} | {status_str}{dormant_tag} |")
         elif lid in filled_lookup:
             print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
-                  f"| {ref_shares} | ~{_fmt_dollar(ref_cost)} | Order filled |")
+                  f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | Order filled{dormant_tag} |")
         elif lid == rec_level_id:
             print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
-                  f"| {recommendation['shares']} | ~{_fmt_dollar(recommendation['cost'])} | **Place limit order** |")
+                  f"| {trend_str} | {recommendation['shares']} | ~{_fmt_dollar(recommendation['cost'])} | **Place limit order**{dormant_tag} |")
         else:
-            status_str = "" if level_label != "—" else ""
+            status_str = "Place limit order" if level_label != "—" else "No slot"
             print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
-                  f"| {ref_shares} | ~{_fmt_dollar(ref_cost)} | {status_str} |")
+                  f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | {status_str}{dormant_tag} |")
 
-    if has_capped:
+    if has_capped or has_override:
+        markers = []
+        if has_override:
+            markers.append("+ = tier downgraded by recency")
+        if has_capped:
+            markers.append("* = capped to Std by approach count")
         print()
-        print("*\\* = tier capped from Full/Std due to <3 approaches*")
+        print(f"*{'; '.join(markers)}*")
     print()
 
     # Fully deployed / no recommendation note

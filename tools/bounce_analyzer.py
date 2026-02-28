@@ -232,6 +232,16 @@ def find_hourly_min_timestamp(hourly_df, min_date_str, min_low):
     return idx
 
 
+def compute_rolling_atr(daily_df, period=14):
+    """Compute rolling ATR (Average True Range) from daily OHLC data."""
+    high, low = daily_df["High"], daily_df["Low"]
+    prev_close = daily_df["Close"].shift(1)
+    tr = pd.DataFrame({
+        "hl": high - low, "hpc": (high - prev_close).abs(), "lpc": (low - prev_close).abs()
+    }).max(axis=1)
+    return tr.rolling(window=period, min_periods=period).mean()
+
+
 def measure_bounce(hourly_df, min_low_timestamp, min_low, n_days=(1, 2, 3)):
     """Measure bounce magnitude in 1/2/3 trading days after the hourly low."""
     after_low = hourly_df[hourly_df.index > min_low_timestamp]
@@ -280,6 +290,20 @@ def compute_level_stats(events_with_bounces):
     above_4_5 = [b for b in bounce_3d if b >= 4.5]
     pct_above_4_5 = len(above_4_5) / len(bounce_3d) if bounce_3d else 0.0
 
+    # Normalized bounce stats — ATR-relative bounce quality
+    # Only include events where atr_pct is not None (skip NaN ATR bars)
+    norm_ratios_3d = []
+    for e in held:
+        if (e.get("atr_pct") is not None
+                and e.get("bounce") and e["bounce"].get(3)
+                and e["bounce"][3].get("bounce_pct") is not None
+                and e["atr_pct"] > 0):
+            norm_ratios_3d.append(e["bounce"][3]["bounce_pct"] / e["atr_pct"])
+
+    norm_bounce_3d_median = safe_median(norm_ratios_3d)
+    above_1_5x = [r for r in norm_ratios_3d if r >= 1.5]
+    pct_above_1_5x_atr = len(above_1_5x) / len(norm_ratios_3d) if norm_ratios_3d else None
+
     return {
         "total_approaches": total,
         "holds": len(held),
@@ -288,6 +312,8 @@ def compute_level_stats(events_with_bounces):
         "bounce_2d_median": safe_median(bounce_2d),
         "bounce_3d_median": safe_median(bounce_3d),
         "pct_above_4_5": pct_above_4_5,
+        "norm_bounce_3d_median": norm_bounce_3d_median,
+        "pct_above_1_5x_atr": pct_above_1_5x_atr,
     }
 
 
@@ -295,10 +321,19 @@ def compute_verdict(stats):
     """Determine verdict from stats."""
     if stats is None or stats["total_approaches"] < 3:
         return "NO DATA"
-    if stats["hold_rate"] >= 0.50 and stats["pct_above_4_5"] >= 0.60:
-        return "STRONG BOUNCE"
-    if stats["hold_rate"] >= 0.40 and stats["pct_above_4_5"] >= 0.40:
-        return "BOUNCE"
+    # Prefer normalized metrics when available, fallback to raw pct_above_4_5
+    norm_pct = stats.get("pct_above_1_5x_atr")
+    if norm_pct is not None:
+        if stats["hold_rate"] >= 0.50 and norm_pct >= 0.60:
+            return "STRONG BOUNCE"
+        if stats["hold_rate"] >= 0.40 and norm_pct >= 0.40:
+            return "BOUNCE"
+    else:
+        # Fallback to raw threshold (original logic)
+        if stats["hold_rate"] >= 0.50 and stats["pct_above_4_5"] >= 0.60:
+            return "STRONG BOUNCE"
+        if stats["hold_rate"] >= 0.40 and stats["pct_above_4_5"] >= 0.40:
+            return "BOUNCE"
     return "WEAK"
 
 
@@ -339,6 +374,9 @@ def analyze_stock(ticker):
         "Volume": "sum",
     }).dropna()
 
+    # Compute ATR series ONCE for normalized bounce stats
+    atr_series = compute_rolling_atr(daily)
+
     if len(daily) < 60:
         print(f"*Skipping {ticker} — insufficient daily data after resample ({len(daily)} days)*")
         return None, None
@@ -373,9 +411,20 @@ def analyze_stock(ticker):
         if not events:
             continue
 
-        # Enrich held events with hourly bounce measurement
+        # Enrich events with ATR and hourly bounce measurement
         for event in events:
             event["bounce"] = {}
+            # Attach ATR at event date for normalized bounce stats
+            try:
+                atr_at_event = atr_series.loc[event["min_date"]]
+            except KeyError:
+                atr_at_event = float("nan")
+            # ATR with period=14 produces NaN for first 13 bars — guard against it
+            if pd.isna(atr_at_event) or event["min_low"] == 0:
+                event["atr_pct"] = None
+            else:
+                event["atr_pct"] = (atr_at_event / event["min_low"]) * 100
+
             if not event["held"]:
                 continue
             ts = find_hourly_min_timestamp(hourly, event["min_date"], event["min_low"])
@@ -424,8 +473,8 @@ def analyze_stock(ticker):
 
     # Support Levels & Bounce History table
     lines.append("### Support Levels & Bounce History")
-    lines.append("| Level | Source | Approaches | Hold% | Same-Day | Bounce 2D | Bounce 3D | >= 4.5% | Verdict |")
-    lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    lines.append("| Level | Source | Approaches | Hold% | Same-Day | Bounce 2D | Bounce 3D | Norm 3D | >= 4.5% | >= 1.5x ATR | Verdict |")
+    lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
     for r in level_results:
         lvl = r["level"]
@@ -436,11 +485,13 @@ def analyze_stock(ticker):
         b2 = fmt_pct(s["bounce_2d_median"]) if s["bounce_2d_median"] is not None else "N/A"
         b3 = fmt_pct(s["bounce_3d_median"]) if s["bounce_3d_median"] is not None else "N/A"
         pct45 = f"{s['pct_above_4_5']:.0%}" if s["pct_above_4_5"] is not None else "N/A"
+        norm3d = fmt_pct(s["norm_bounce_3d_median"]) if s.get("norm_bounce_3d_median") is not None else "N/A"
+        pct_atr = f"{s['pct_above_1_5x_atr']:.0%}" if s.get("pct_above_1_5x_atr") is not None else "N/A"
         lines.append(
             f"| {fmt_dollar(lvl['price'])} | {lvl['source']} "
             f"| {s['total_approaches']} | {s['hold_rate']:.0%} "
             f"| {b1} | {b2} | {b3} "
-            f"| {pct45} | {r['verdict']} |"
+            f"| {norm3d} | {pct45} | {pct_atr} | {r['verdict']} |"
         )
     lines.append("")
 
@@ -484,6 +535,8 @@ def analyze_stock(ticker):
             "bounce_2d_median": round(s["bounce_2d_median"], 2) if s["bounce_2d_median"] is not None else None,
             "bounce_3d_median": round(s["bounce_3d_median"], 2) if s["bounce_3d_median"] is not None else None,
             "pct_above_4_5": round(s["pct_above_4_5"], 2),
+            "norm_bounce_3d_median": round(s["norm_bounce_3d_median"], 2) if s.get("norm_bounce_3d_median") is not None else None,
+            "pct_above_1_5x_atr": round(s["pct_above_1_5x_atr"], 2) if s.get("pct_above_1_5x_atr") is not None else None,
             "verdict": r["verdict"],
             "buy_at": r["buy_at"],
         }

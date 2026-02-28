@@ -12,6 +12,7 @@ Usage:
 import sys
 import json
 import datetime
+import math
 import numpy as np
 import yfinance as yf
 from pathlib import Path
@@ -122,19 +123,27 @@ def find_hvn_floors(hist, n_bins=40):
     lows = hist["Low"].values
     highs = hist["High"].values
     volumes = hist["Volume"].values
+    dates = hist.index
 
     price_min, price_max = lows.min(), highs.max()
     bin_edges = np.linspace(price_min * 0.95, price_max * 1.05, n_bins + 1)
 
+    # 180-day half-life decay for volume (institutional zones are stickier)
+    reference = dates[-1].to_pydatetime().replace(tzinfo=None)
+
     vol_by_bin = np.zeros(n_bins)
     for i in range(len(hist)):
+        days_old = (reference - dates[i].to_pydatetime().replace(tzinfo=None)).days
+        decay = math.exp(-days_old * math.log(2) / 180)
+        weighted_vol = volumes[i] * decay
+
         day_low, day_high = lows[i], highs[i]
         day_range = day_high - day_low if day_high > day_low else 0.01
         for b in range(n_bins):
             bin_lo, bin_hi = bin_edges[b], bin_edges[b + 1]
             if day_low <= bin_hi and day_high >= bin_lo:
                 overlap = min(day_high, bin_hi) - max(day_low, bin_lo)
-                vol_by_bin[b] += volumes[i] * (overlap / day_range)
+                vol_by_bin[b] += weighted_vol * (overlap / day_range)
 
     threshold = np.percentile(vol_by_bin, 70)
     floors = []
@@ -313,13 +322,13 @@ def _compute_bullet_plan(level_results, current_price, cap=None):
     if cap is None:
         cap = load_capital_config()
     active_candidates = [r for r in level_results
-                         if r["zone"] == "Active" and r["tier"] != "Skip"
+                         if r["zone"] == "Active" and r["effective_tier"] != "Skip"
                          and r["recommended_buy"] and r["recommended_buy"] < current_price]
     active_candidates.sort(key=lambda r: r["recommended_buy"], reverse=True)
     active_bullets = active_candidates[:cap["active_bullets_max"]]
 
     reserve_candidates = [r for r in level_results
-                          if r["zone"] == "Reserve" and r["tier"] in ("Full", "Std")
+                          if r["zone"] == "Reserve" and r["effective_tier"] in ("Full", "Std")
                           and r["recommended_buy"] and r["recommended_buy"] < current_price]
     reserve_candidates.sort(key=lambda r: -r["hold_rate"])
     reserve_bullets = reserve_candidates[:cap["reserve_bullets_max"]]
@@ -327,7 +336,8 @@ def _compute_bullet_plan(level_results, current_price, cap=None):
 
     def _bullet_entry(r, zone_label):
         buy = r["recommended_buy"]
-        size = cap["active_bullet_half"] if r["tier"] == "Half" else (
+        eff = r["effective_tier"]
+        size = cap["active_bullet_half"] if eff == "Half" else (
             cap["active_bullet_full"] if zone_label == "Active" else cap["reserve_bullet_size"])
         shares = max(1, int(size / buy))
         return {
@@ -335,7 +345,8 @@ def _compute_bullet_plan(level_results, current_price, cap=None):
             "support_price": round(float(r["level"]["price"]), 2),
             "buy_at": round(float(buy), 2),
             "hold_rate": round(float(r["hold_rate"]), 1),
-            "tier": r["tier"],
+            "tier": r["effective_tier"],
+            "raw_tier": r["tier"],
             "approaches": int(r["total_approaches"]),
             "shares": int(shares),
             "cost": round(shares * buy, 2),
@@ -378,6 +389,12 @@ def analyze_stock_data(ticker):
     if not levels:
         return None, f"*No support levels found below current price for {ticker}*"
 
+    # Recency constants — compute ONCE before loops
+    reference_date = hist.index[-1].to_pydatetime().replace(tzinfo=None)
+    cutoff_90d = (reference_date - datetime.timedelta(days=90)).strftime("%Y-%m-%d")
+    LN2 = math.log(2)
+    HALF_LIFE = 90
+
     # Analyze approaches at each level
     level_results = []
     for lvl in levels:
@@ -395,6 +412,14 @@ def analyze_stock_data(ticker):
             median_offset = None
             recommended_buy = None
 
+        # Time-decayed hold rate (90-day half-life)
+        weights = []
+        for e in events:
+            days_old = (reference_date - datetime.datetime.strptime(e["start"], "%Y-%m-%d")).days
+            weights.append(math.exp(-days_old * LN2 / HALF_LIFE))
+        weighted_held = sum(w * (1 if e["held"] else 0) for w, e in zip(weights, events))
+        decayed_hold_rate = (weighted_held / sum(weights) * 100) if sum(weights) > 0 else 0
+
         level_results.append({
             "level": lvl,
             "events": events,
@@ -403,14 +428,23 @@ def analyze_stock_data(ticker):
             "hold_rate": len(held_events) / len(events) * 100 if events else 0,
             "median_offset": median_offset,
             "recommended_buy": recommended_buy,
+            "decayed_hold_rate": decayed_hold_rate,
         })
 
     # Compute monthly swing, consistency, and active radius
     monthly_swing = compute_monthly_swing(hist)
     swing_consistency = compute_swing_consistency(hist, threshold=10.0)
-    active_radius = monthly_swing / 2 if monthly_swing else 15.0  # fallback 15%
+    # Recency-weighted active radius: use last 4 months' swing, floor at 1/3 of 13-month median
+    swings = _monthly_swings(hist)
+    if swings is not None and len(swings) >= 4:
+        recent_swing = float(np.median(swings[-4:]))
+        active_radius = max(recent_swing / 2, monthly_swing / 3)
+    else:
+        recent_swing = None
+        active_radius = monthly_swing / 2 if monthly_swing else 15.0
 
-    # Add zone/tier classification to each level result
+    # Add zone/tier classification and recency metrics to each level result
+    tier_order = {"Skip": 0, "Half": 1, "Std": 2, "Full": 3}
     for r in level_results:
         lvl_price = r["level"]["price"]
         gap_pct = ((current_price - lvl_price) / current_price) * 100
@@ -419,6 +453,46 @@ def analyze_stock_data(ticker):
         r["tier"] = tier
         r["gap_pct"] = gap_pct
 
+        # Decayed tier + effective tier (conservative: lower of raw and decayed)
+        _, decayed_tier = classify_level(r["decayed_hold_rate"], gap_pct, active_radius, r["total_approaches"])
+        effective_tier = tier if tier_order[tier] <= tier_order[decayed_tier] else decayed_tier
+        r["decayed_tier"] = decayed_tier
+        r["effective_tier"] = effective_tier
+        r["tier_override"] = (effective_tier != tier)
+
+        # Level freshness & approach velocity
+        last_tested = max(e["start"] for e in r["events"])
+        recent_approaches = sum(1 for e in r["events"] if e["start"] >= cutoff_90d)
+        approach_velocity = recent_approaches / len(r["events"])
+        dormant = last_tested < cutoff_90d
+
+        # Hold rate trend
+        recent_events_list = [e for e in r["events"] if e["start"] >= cutoff_90d]
+        if recent_events_list:
+            recent_held_count = sum(1 for e in recent_events_list if e["held"])
+            recent_hold_pct = recent_held_count / len(recent_events_list) * 100
+        else:
+            recent_held_count = 0
+            recent_hold_pct = None
+
+        hold_rate = r["hold_rate"]
+        if recent_hold_pct is None:
+            trend = "—"
+        elif recent_hold_pct > hold_rate + 5:
+            trend = "Improving"
+        elif recent_hold_pct < hold_rate - 5:
+            trend = "Deteriorating"
+        else:
+            trend = "Stable"
+
+        r["last_tested"] = last_tested
+        r["recent_approaches"] = recent_approaches
+        r["approach_velocity"] = approach_velocity
+        r["dormant"] = dormant
+        r["recent_hold_pct"] = recent_hold_pct
+        r["recent_held"] = recent_held_count
+        r["trend"] = trend
+
     # Build structured output — all values must be Python-native types
     data = {
         "current_price": float(current_price),
@@ -426,6 +500,8 @@ def analyze_stock_data(ticker):
         "monthly_swing": round(float(monthly_swing), 1) if monthly_swing is not None else None,
         "swing_consistency": round(float(swing_consistency), 1) if swing_consistency is not None else None,
         "active_radius": round(float(active_radius), 1),
+        "recent_swing": round(float(recent_swing), 1) if recent_swing is not None else None,
+        "recent_active_radius": round(float(active_radius), 1),
         "levels": [
             {
                 "support_price": round(float(r["level"]["price"]), 4),
@@ -438,6 +514,17 @@ def analyze_stock_data(ticker):
                 "zone": r["zone"],
                 "tier": r["tier"],
                 "gap_pct": round(float(r["gap_pct"]), 1),
+                "decayed_hold_rate": round(float(r["decayed_hold_rate"]), 1),
+                "decayed_tier": r.get("decayed_tier"),
+                "effective_tier": r.get("effective_tier", r["tier"]),
+                "tier_override": r.get("tier_override", False),
+                "last_tested": r.get("last_tested"),
+                "recent_approaches": r.get("recent_approaches", 0),
+                "approach_velocity": round(float(r.get("approach_velocity", 0)), 2),
+                "dormant": r.get("dormant", False),
+                "recent_hold_pct": round(float(r["recent_hold_pct"]), 1) if r.get("recent_hold_pct") is not None else None,
+                "recent_held": r.get("recent_held", 0),
+                "trend": r.get("trend", "—"),
                 "events": [
                     {
                         "date": e["start"],
@@ -477,8 +564,8 @@ def _format_stock_report(ticker, data):
 
     # Summary table
     lines.append("### Support Levels & Buy Recommendations")
-    lines.append("| Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier |")
-    lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    lines.append("| Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier | Decayed | Trend | Fresh |")
+    lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     for lvl in data["levels"]:
         if lvl["recommended_buy"] is not None and lvl["recommended_buy"] >= data["current_price"]:
             buy_str = f"{fmt_dollar(lvl['recommended_buy'])} ↑above"
@@ -487,11 +574,24 @@ def _format_stock_report(ticker, data):
         else:
             buy_str = "N/A (no holds)"
         offset_str = fmt_pct(lvl["median_offset"]) if lvl["median_offset"] is not None else "N/A"
+        # New columns
+        decayed_hr = lvl.get("decayed_hold_rate")
+        eff_tier = lvl.get("effective_tier", lvl["tier"])
+        override = lvl.get("tier_override", False)
+        decayed_str = f"{decayed_hr:.0f}% ({eff_tier})" if decayed_hr is not None and override else (
+            f"{decayed_hr:.0f}%" if decayed_hr is not None else "N/A")
+        trend_raw = lvl.get("trend", "—")
+        trend_map = {"Improving": "^", "Deteriorating": "v", "Stable": "-", "—": "?"}
+        trend_str = trend_map.get(trend_raw, "?")
+        last_tested = lvl.get("last_tested", "N/A")
+        dormant = lvl.get("dormant", False)
+        fresh_str = f"{last_tested} [D]" if dormant else last_tested
         lines.append(
             f"| {fmt_dollar(lvl['support_price'])} | {lvl['source']} "
             f"| {lvl['total_approaches']} | {lvl['held']} "
             f"| {lvl['hold_rate']:.0f}% | {offset_str} "
-            f"| {buy_str} | {lvl['zone']} | {lvl['tier']} |"
+            f"| {buy_str} | {lvl['zone']} | {eff_tier} "
+            f"| {decayed_str} | {trend_str} | {fresh_str} |"
         )
     lines.append("")
 
