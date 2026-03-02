@@ -733,6 +733,8 @@ def run_audit(ticker, data, portfolio):
             buy_at_str = _fmt_dollar(matched["recommended_buy"])
             hr_str = f"{matched['hold_rate']:.0f}%"
             tier_str = matched.get("effective_tier", matched["tier"])
+            if matched.get("tier_override", False):
+                tier_str += "^" if matched.get("tier_promoted", False) else "v"
             capped, was_tier = is_capped(matched)
             capped_str = f"Yes (was {was_tier}, <3 approaches)" if capped else "No"
         else:

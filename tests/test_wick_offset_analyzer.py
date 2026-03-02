@@ -4,7 +4,7 @@ from pathlib import Path
 
 # Allow importing from tools/
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
-from wick_offset_analyzer import classify_level, compute_effective_tier
+from wick_offset_analyzer import classify_level, compute_effective_tier, _compute_bullet_plan
 
 
 class TestClassifyLevel:
@@ -195,3 +195,85 @@ class TestEffectiveTier:
         eff, promoted = compute_effective_tier(raw_tier, decayed_tier)
         assert eff == "Half"
         assert promoted is False
+
+
+class TestBulletPlanPromotion:
+    """Integration tests: promoted levels flow through _compute_bullet_plan()."""
+
+    @staticmethod
+    def _make_level_result(price, hold_rate, zone, raw_tier, effective_tier, tier_promoted,
+                           recommended_buy=None):
+        """Build a minimal level_result dict matching analyze_stock_data() output."""
+        if recommended_buy is None:
+            recommended_buy = price * 0.99
+        return {
+            "level": {"price": price, "source": "HVN"},
+            "events": [{"start": "2026-01-01", "min_low": price, "offset_pct": -1.0, "held": True}],
+            "total_approaches": 4,
+            "held": 2,
+            "hold_rate": hold_rate,
+            "median_offset": -1.0,
+            "recommended_buy": recommended_buy,
+            "decayed_hold_rate": 50.0,
+            "zone": zone,
+            "tier": raw_tier,
+            "effective_tier": effective_tier,
+            "tier_override": raw_tier != effective_tier,
+            "tier_promoted": tier_promoted,
+            "gap_pct": 5.0,
+        }
+
+    def test_skip_promoted_to_half_enters_active_bullet_plan(self):
+        """A raw Skip level promoted to Half should appear in active bullets."""
+        cap = {
+            "active_pool": 300, "reserve_pool": 300,
+            "active_bullets_max": 5, "reserve_bullets_max": 3,
+            "active_bullet_full": 60, "active_bullet_half": 30,
+            "reserve_bullet_size": 100,
+        }
+        # Raw Skip (12% hold rate) but decayed to Half via promotion
+        level = self._make_level_result(
+            price=10.0, hold_rate=12.0, zone="Active",
+            raw_tier="Skip", effective_tier="Half", tier_promoted=True,
+            recommended_buy=9.90,
+        )
+        bp = _compute_bullet_plan([level], current_price=11.0, cap=cap)
+        assert len(bp["active"]) == 1
+        assert bp["active"][0]["tier"] == "Half"
+        assert bp["active"][0]["raw_tier"] == "Skip"
+        assert bp["active"][0]["tier_promoted"] is True
+
+    def test_unpromoted_skip_excluded_from_bullet_plan(self):
+        """A raw Skip level that stays Skip should NOT appear in bullets."""
+        cap = {
+            "active_pool": 300, "reserve_pool": 300,
+            "active_bullets_max": 5, "reserve_bullets_max": 3,
+            "active_bullet_full": 60, "active_bullet_half": 30,
+            "reserve_bullet_size": 100,
+        }
+        level = self._make_level_result(
+            price=10.0, hold_rate=12.0, zone="Active",
+            raw_tier="Skip", effective_tier="Skip", tier_promoted=False,
+            recommended_buy=9.90,
+        )
+        bp = _compute_bullet_plan([level], current_price=11.0, cap=cap)
+        assert len(bp["active"]) == 0
+
+    def test_half_promoted_to_std_gets_full_sizing_in_reserve(self):
+        """A Half→Std promoted level in reserve zone should qualify (Std is in Full/Std filter)."""
+        cap = {
+            "active_pool": 300, "reserve_pool": 300,
+            "active_bullets_max": 5, "reserve_bullets_max": 3,
+            "active_bullet_full": 60, "active_bullet_half": 30,
+            "reserve_bullet_size": 100,
+        }
+        level = self._make_level_result(
+            price=10.0, hold_rate=25.0, zone="Reserve",
+            raw_tier="Half", effective_tier="Std", tier_promoted=True,
+            recommended_buy=9.90,
+        )
+        bp = _compute_bullet_plan([level], current_price=11.0, cap=cap)
+        assert len(bp["reserve"]) == 1
+        assert bp["reserve"][0]["tier"] == "Std"
+        # Std in reserve gets reserve_bullet_size ($100), not Half ($30)
+        assert bp["reserve"][0]["shares"] == 10  # $100 / $9.90 = 10

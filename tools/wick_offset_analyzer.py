@@ -364,6 +364,7 @@ def _compute_bullet_plan(level_results, current_price, cap=None):
             "hold_rate": round(float(r["hold_rate"]), 1),
             "tier": r["effective_tier"],
             "raw_tier": r["tier"],
+            "tier_promoted": r.get("tier_promoted", False),
             "approaches": int(r["total_approaches"]),
             "shares": int(shares),
             "cost": round(shares * buy, 2),
@@ -462,7 +463,6 @@ def analyze_stock_data(ticker):
         active_radius = monthly_swing / 2 if monthly_swing else 15.0
 
     # Add zone/tier classification and recency metrics to each level result
-    tier_order = {"Skip": 0, "Half": 1, "Std": 2, "Full": 3}
     for r in level_results:
         lvl_price = r["level"]["price"]
         gap_pct = ((current_price - lvl_price) / current_price) * 100
