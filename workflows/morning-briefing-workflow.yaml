@@ -32,6 +32,8 @@ phases:
       agent_field: agent
       concurrency: 8
       item_timeout_minutes: 4
+      max_item_retries: 3
+      output_file_template: "morning-work/{ticker}-card.md"
       prompt_template: "Analyze {ticker}. Read {input_file}. Write card to morning-work/{ticker}-card.md."
       allow_partial: true
     depends_on:
