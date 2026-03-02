@@ -552,7 +552,8 @@ def _print_recommend(ctx):
     a_max = cap["active_bullets_max"]
     r_max = cap["reserve_bullets_max"]
     has_capped = False
-    has_override = False
+    has_promotion = False
+    has_demotion = False
 
     # Label offset: fills not visible in the map still consumed slots
     if case == "A":
@@ -569,8 +570,12 @@ def _print_recommend(ctx):
         capped_flag, was_tier = is_capped(lvl)
         tier_display = lvl.get("effective_tier", lvl["tier"])
         if lvl.get("tier_override", False):
-            tier_display += "+"
-            has_override = True
+            if lvl.get("tier_promoted", False):
+                tier_display += "^"
+                has_promotion = True
+            else:
+                tier_display += "v"
+                has_demotion = True
         if capped_flag:
             tier_display += "*"
             has_capped = True
@@ -642,12 +647,14 @@ def _print_recommend(ctx):
             print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
                   f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | {dormant_tag.strip()} |")
 
-    if has_capped or has_override:
+    if has_capped or has_promotion or has_demotion:
         markers = []
-        if has_override:
-            markers.append("+ = tier downgraded by recency")
+        if has_promotion:
+            markers.append("^ = tier promoted by recent holds")
+        if has_demotion:
+            markers.append("v = tier demoted by recent breaks")
         if has_capped:
-            markers.append("* = capped to Std by approach count")
+            markers.append("* = capped to Half by approach count (<3)")
         print()
         print(f"*{'; '.join(markers)}*")
     print()

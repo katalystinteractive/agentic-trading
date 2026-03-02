@@ -4,7 +4,7 @@ from pathlib import Path
 
 # Allow importing from tools/
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
-from wick_offset_analyzer import classify_level
+from wick_offset_analyzer import classify_level, compute_effective_tier
 
 
 class TestClassifyLevel:
@@ -105,3 +105,93 @@ class TestClassifyLevel:
     def test_confidence_gate_skip_not_affected(self):
         _, tier = classify_level(hold_rate=5, gap_pct=5.0, active_radius=20.0, approaches=1)
         assert tier == "Skip"
+
+
+class TestEffectiveTier:
+    """Tests for compute_effective_tier() — promotion floor and demotion logic."""
+
+    # --- Same tier (no change) ---
+
+    def test_same_tier_full(self):
+        eff, promoted = compute_effective_tier("Full", "Full")
+        assert eff == "Full"
+        assert promoted is False
+
+    def test_same_tier_skip(self):
+        eff, promoted = compute_effective_tier("Skip", "Skip")
+        assert eff == "Skip"
+        assert promoted is False
+
+    # --- Demotion (unrestricted) ---
+
+    def test_demotion_one_step(self):
+        eff, promoted = compute_effective_tier("Full", "Std")
+        assert eff == "Std"
+        assert promoted is False
+
+    def test_demotion_two_steps(self):
+        eff, promoted = compute_effective_tier("Full", "Half")
+        assert eff == "Half"
+        assert promoted is False
+
+    def test_demotion_three_steps(self):
+        eff, promoted = compute_effective_tier("Full", "Skip")
+        assert eff == "Skip"
+        assert promoted is False
+
+    def test_demotion_std_to_skip(self):
+        eff, promoted = compute_effective_tier("Std", "Skip")
+        assert eff == "Skip"
+        assert promoted is False
+
+    # --- Promotion (one step allowed) ---
+
+    def test_promotion_one_step_skip_to_half(self):
+        eff, promoted = compute_effective_tier("Skip", "Half")
+        assert eff == "Half"
+        assert promoted is True
+
+    def test_promotion_one_step_half_to_std(self):
+        eff, promoted = compute_effective_tier("Half", "Std")
+        assert eff == "Std"
+        assert promoted is True
+
+    def test_promotion_one_step_std_to_full(self):
+        eff, promoted = compute_effective_tier("Std", "Full")
+        assert eff == "Full"
+        assert promoted is True
+
+    # --- Promotion floor (max +1 above raw) ---
+
+    def test_floor_skip_to_full_capped_at_half(self):
+        eff, promoted = compute_effective_tier("Skip", "Full")
+        assert eff == "Half"
+        assert promoted is True
+
+    def test_floor_skip_to_std_capped_at_half(self):
+        eff, promoted = compute_effective_tier("Skip", "Std")
+        assert eff == "Half"
+        assert promoted is True
+
+    def test_floor_half_to_full_capped_at_std(self):
+        eff, promoted = compute_effective_tier("Half", "Full")
+        assert eff == "Std"
+        assert promoted is True
+
+    # --- Confidence gate interaction ---
+
+    def test_confidence_gate_blocks_promotion(self):
+        """Raw Full + 2 approaches → gated to Half; decayed Full + 2 approaches → also Half.
+        compute_effective_tier(Half, Half) = Half, no promotion."""
+        # Simulate: raw hold rate qualifies for Full, but only 2 approaches
+        _, raw_tier = classify_level(hold_rate=60, gap_pct=5.0, active_radius=20.0, approaches=2)
+        assert raw_tier == "Half"  # gated from Full
+
+        # Decayed hold rate also qualifies for Full, same 2 approaches
+        _, decayed_tier = classify_level(hold_rate=65, gap_pct=5.0, active_radius=20.0, approaches=2)
+        assert decayed_tier == "Half"  # gated from Full
+
+        # Both gated to Half → no promotion possible
+        eff, promoted = compute_effective_tier(raw_tier, decayed_tier)
+        assert eff == "Half"
+        assert promoted is False

@@ -118,6 +118,23 @@ def classify_level(hold_rate, gap_pct, active_radius, approaches=0):
     return zone, tier
 
 
+def compute_effective_tier(raw_tier, decayed_tier):
+    """Compute effective tier from raw and decayed tiers.
+
+    Effective tier follows decayed tier (recent behavior determines sizing).
+    Promotion floor: never promote more than one tier above raw.
+    Demotions are unrestricted.
+    """
+    tier_order = {"Skip": 0, "Half": 1, "Std": 2, "Full": 3}
+    tier_names = {v: k for k, v in tier_order.items()}
+    if tier_order[decayed_tier] > tier_order[raw_tier] + 1:
+        effective = tier_names[tier_order[raw_tier] + 1]
+    else:
+        effective = decayed_tier
+    promoted = tier_order[effective] > tier_order[raw_tier]
+    return effective, promoted
+
+
 def find_hvn_floors(hist, n_bins=40):
     """Build volume profile, return HVN floor prices with their volume."""
     lows = hist["Low"].values
@@ -454,12 +471,14 @@ def analyze_stock_data(ticker):
         r["tier"] = tier
         r["gap_pct"] = gap_pct
 
-        # Decayed tier + effective tier (conservative: lower of raw and decayed)
+        # Decayed tier is the effective tier — recent behavior determines sizing
+        # Promotion floor: never promote more than one tier above raw
         _, decayed_tier = classify_level(r["decayed_hold_rate"], gap_pct, active_radius, r["total_approaches"])
-        effective_tier = tier if tier_order[tier] <= tier_order[decayed_tier] else decayed_tier
+        effective_tier, promoted = compute_effective_tier(tier, decayed_tier)
         r["decayed_tier"] = decayed_tier
         r["effective_tier"] = effective_tier
         r["tier_override"] = (effective_tier != tier)
+        r["tier_promoted"] = promoted
 
         # Level freshness & approach velocity
         last_tested = max(e["start"] for e in r["events"])
@@ -519,6 +538,7 @@ def analyze_stock_data(ticker):
                 "decayed_tier": r.get("decayed_tier"),
                 "effective_tier": r.get("effective_tier", r["tier"]),
                 "tier_override": r.get("tier_override", False),
+                "tier_promoted": r.get("tier_promoted", False),
                 "last_tested": r.get("last_tested"),
                 "recent_approaches": r.get("recent_approaches", 0),
                 "approach_velocity": round(float(r.get("approach_velocity", 0)), 2),
@@ -579,8 +599,14 @@ def _format_stock_report(ticker, data):
         decayed_hr = lvl.get("decayed_hold_rate")
         eff_tier = lvl.get("effective_tier", lvl["tier"])
         override = lvl.get("tier_override", False)
-        decayed_str = f"{decayed_hr:.0f}% ({eff_tier})" if decayed_hr is not None and override else (
-            f"{decayed_hr:.0f}%" if decayed_hr is not None else "N/A")
+        promoted = lvl.get("tier_promoted", False)
+        if decayed_hr is not None and override:
+            arrow = "^" if promoted else "v"
+            decayed_str = f"{decayed_hr:.0f}% ({eff_tier}{arrow})"
+        elif decayed_hr is not None:
+            decayed_str = f"{decayed_hr:.0f}%"
+        else:
+            decayed_str = "N/A"
         trend_raw = lvl.get("trend", "—")
         trend_map = {"Improving": "^", "Deteriorating": "v", "Stable": "-", "—": "?"}
         trend_str = trend_map.get(trend_raw, "?")

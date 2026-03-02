@@ -90,7 +90,7 @@ def _compute_gap_pct(active_bullets, reserve_bullets):
 def score_bullets_tier(wick_data):
     """Criterion 1: Active Bullet Count & Tier Quality (0-25)."""
     active = wick_data["bullet_plan"]["active"]
-    raw = sum(TIER_POINTS.get(b["tier"], 0) for b in active)
+    raw = sum(TIER_POINTS.get(b.get("raw_tier", b["tier"]), 0) for b in active)
     return min(MAX_BULLETS_TIER, raw)
 
 
