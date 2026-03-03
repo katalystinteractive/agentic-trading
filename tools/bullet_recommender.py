@@ -231,9 +231,10 @@ def build_zone_labels(valid_levels, active_radius):
 # Recommend mode
 # ---------------------------------------------------------------------------
 
-def run_recommend(ticker, type_filter, data, portfolio):
+def run_recommend(ticker, type_filter, data, portfolio, cap=None):
     """Recommend the next order(s) to place."""
-    cap = load_capital_config()
+    if cap is None:
+        cap = load_capital_config()
     positions = portfolio.get("positions", {})
     pending_all = portfolio.get("pending_orders", {})
     pending_orders = pending_all.get(ticker, [])
@@ -283,7 +284,7 @@ def run_recommend(ticker, type_filter, data, portfolio):
     # --- Step 2: Filter levels ---
     valid_levels = filter_valid_levels(data["levels"], current_price)
     if not valid_levels:
-        _print_no_levels(ticker, current_price)
+        _print_no_levels(ticker, current_price, data)
         return
 
     # --- Step 3: Convergence merge ---
@@ -784,11 +785,8 @@ def run_audit(ticker, data, portfolio):
     print("| Order | Price | Matched Level | Current Buy At | Drift | Hold Rate | Tier | Capped? | Status |")
     print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
-    # Pre-compute zone labels for matched levels
-    zone_counters = {"A": 0, "B": 0, "R": 0}
-    orphan_idx = 0
-
-    verdicts = []
+    # Pre-compute row data, then sort by matched price descending for correct zone labels
+    rows = []
     for order in pending_buys:
         matched, dist = match_order_to_level(order["price"], all_levels)
         paused_flag = is_paused(order)
@@ -804,14 +802,8 @@ def run_audit(ticker, data, portfolio):
                 tier_str += "^" if matched.get("tier_promoted", False) else "v"
             capped, was_tier = is_capped(matched)
             capped_str = f"Yes (was {was_tier}, <3 approaches)" if capped else "No"
-            # Geographic zone label
             gap = matched.get("gap_pct", 0)
-            zone_letter = assign_zone_label(gap, active_radius)
-            if zone_counters[zone_letter] < ZONE_MAX[zone_letter]:
-                zone_counters[zone_letter] += 1
-                label = f"{zone_letter}{zone_counters[zone_letter]}"
-            else:
-                label = "—"
+            sort_key = gap  # lower gap = closer to price = sorted first
         else:
             status = "ORPHANED"
             drift_str = "N/A"
@@ -820,14 +812,38 @@ def run_audit(ticker, data, portfolio):
             hr_str = "—"
             tier_str = "—"
             capped_str = "—"
-            orphan_idx += 1
-            label = f"?{orphan_idx}"
+            gap = float('inf')
+            sort_key = float('inf')  # orphans sort last
 
         if paused_flag:
             status += ", PAUSED"
 
-        verdicts.append(status)
-        print(f"| {label} | {_fmt_dollar(order['price'])} | {level_str} | {buy_at_str} | {drift_str} | {hr_str} | {tier_str} | {capped_str} | {status} |")
+        rows.append({
+            "order": order, "status": status, "drift_str": drift_str,
+            "level_str": level_str, "buy_at_str": buy_at_str, "hr_str": hr_str,
+            "tier_str": tier_str, "capped_str": capped_str, "gap": gap,
+            "sort_key": sort_key, "is_orphan": gap == float('inf'),
+        })
+
+    # Sort by gap ascending (nearest to price first) for geographic label assignment
+    rows.sort(key=lambda r: r["sort_key"])
+
+    zone_counters = {"A": 0, "B": 0, "R": 0}
+    orphan_idx = 0
+    verdicts = []
+    for row in rows:
+        if row["is_orphan"]:
+            orphan_idx += 1
+            label = f"?{orphan_idx}"
+        else:
+            zone_letter = assign_zone_label(row["gap"], active_radius)
+            if zone_counters[zone_letter] < ZONE_MAX[zone_letter]:
+                zone_counters[zone_letter] += 1
+                label = f"{zone_letter}{zone_counters[zone_letter]}"
+            else:
+                label = "—"
+        verdicts.append(row["status"])
+        print(f"| {label} | {_fmt_dollar(row['order']['price'])} | {row['level_str']} | {row['buy_at_str']} | {row['drift_str']} | {row['hr_str']} | {row['tier_str']} | {row['capped_str']} | {row['status']} |")
 
     print()
 
@@ -858,8 +874,9 @@ def main():
                         dest="type_filter", help="Filter recommendations (default: any)")
     args = parser.parse_args()
 
-    # Load portfolio once
+    # Load portfolio and capital config once
     portfolio = _load_portfolio()
+    cap = load_capital_config()
 
     any_success = False
     for i, ticker in enumerate(args.tickers):
@@ -874,7 +891,7 @@ def main():
 
         any_success = True
         if args.mode == "recommend":
-            run_recommend(ticker, args.type_filter, data, portfolio)
+            run_recommend(ticker, args.type_filter, data, portfolio, cap)
         elif args.mode == "audit":
             run_audit(ticker, data, portfolio)
 
