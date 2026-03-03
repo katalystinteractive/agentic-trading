@@ -333,7 +333,6 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
     if ticker in positions:
         fill_prices_list = positions[ticker].get("fill_prices", [])
 
-    total_fills = parsed["active"] + parsed["reserve"]
     filled_set = set()
     if fill_prices_list and case == "A":
         for fp in fill_prices_list:

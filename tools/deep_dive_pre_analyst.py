@@ -747,15 +747,16 @@ def build_output(header, wick_data, portfolio_data, identity_table, identity_war
     # Bullet Plan
     active_filled = bullet_plan["active_filled_count"]
     active_count = bullet_plan["active_count"]
+    active_filled_indices = bullet_plan.get("active_filled_indices", set())
     lines.append("## Bullet Plan (Active Pool — $300)")
     if bullet_plan["active_lines"]:
         for al in bullet_plan["active_lines"]:
             lines.append(al)
-        # Pending summary
-        pending_start = active_filled + 1
-        pending_end = active_count
-        if pending_start <= pending_end:
-            lines.append(f"Pending: ~${bullet_plan['active_pending']:.2f} (B{pending_start}-B{pending_end}) if all unfilled fill.")
+        # Pending summary — use actual unfilled indices for non-contiguous fills
+        unfilled_active = sorted(set(range(1, active_count + 1)) - active_filled_indices)
+        if unfilled_active:
+            range_str = "B" + ",".join(str(n) for n in unfilled_active)
+            lines.append(f"Pending: ~${bullet_plan['active_pending']:.2f} ({range_str}) if all unfilled fill.")
         elif active_filled > 0:
             lines.append(f"All {active_filled} active bullets filled. No pending.")
     else:
@@ -766,12 +767,12 @@ def build_output(header, wick_data, portfolio_data, identity_table, identity_war
     lines.append("## Reserve Plan ($300)")
     reserve_filled = bullet_plan["reserve_filled_count"]
     reserve_count = bullet_plan["reserve_count"]
+    reserve_filled_indices = bullet_plan.get("reserve_filled_indices", set())
     if bullet_plan["reserve_lines"]:
         for rl in bullet_plan["reserve_lines"]:
             lines.append(rl)
-        pending_start_r = reserve_filled + 1
-        pending_end_r = reserve_count
-        if pending_start_r <= pending_end_r:
+        unfilled_reserve = sorted(set(range(1, reserve_count + 1)) - reserve_filled_indices)
+        if unfilled_reserve:
             lines.append(f"Total pending reserve: ~${bullet_plan['reserve_pending']:.2f} if all unfilled fill.")
         elif reserve_filled > 0:
             lines.append(f"All {reserve_filled} reserve bullets filled. No pending.")
