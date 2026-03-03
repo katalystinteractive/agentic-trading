@@ -55,7 +55,7 @@ def parse_bullets_used(raw, position_note=""):
         is_pre = "pre-strategy" in raw.lower()
         m = re.match(r'(\d+)', raw)
         active = int(m.group(1)) if m else 0
-        reserve = len(re.findall(r'R\d+\s+filled', raw))
+        reserve = len(re.findall(r'R\d+', raw))
         return {"active": active, "reserve": reserve, "pre_strategy": is_pre}
     return {"active": 0, "reserve": 0, "pre_strategy": False}
 
