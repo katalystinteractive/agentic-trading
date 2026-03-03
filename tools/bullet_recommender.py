@@ -431,11 +431,9 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
     if pending_sells and shares > 0:
         sell_price = pending_sells[0]["price"]
         pct_from_avg = (sell_price - avg_cost) / avg_cost * 100
-        standard_target = avg_cost * 1.10
         sell_check = {
             "sell_price": sell_price,
             "pct_from_avg": pct_from_avg,
-            "standard_target": standard_target,
             "stale": abs(pct_from_avg) < 5,
         }
 
@@ -561,11 +559,13 @@ def _print_recommend(ctx):
         if pending_buys:
             print(f"| Pending BUYs | {len(pending_buys)} orders covering {sum(1 for cl in covered_levels if not cl.get('duplicate'))} levels |")
         print(f"| Slots Remaining | Active: {active_slots_remaining} | Reserve: {reserve_slots_remaining} |")
+        print(f"| Budget Remaining | Active: {_fmt_dollar(active_budget_remaining)} | Reserve: {_fmt_dollar(reserve_budget_remaining)} |")
     elif case == "C":
         print(f"| Shares | 0 |")
         if pending_buys:
             print(f"| Pending BUYs | {len(pending_buys)} orders covering {sum(1 for cl in covered_levels if not cl.get('duplicate'))} levels |")
         print(f"| Slots Remaining | Active: {active_slots_remaining} | Reserve: {reserve_slots_remaining} |")
+        print(f"| Budget Remaining | Active: {_fmt_dollar(active_budget_remaining)} | Reserve: {_fmt_dollar(reserve_budget_remaining)} |")
     else:  # case D
         print(f"| Shares | 0 |")
         print(f"| Slots Remaining | Active: {active_slots_remaining} | Reserve: {reserve_slots_remaining} |")
