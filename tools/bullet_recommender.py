@@ -5,6 +5,7 @@ which wick levels are covered, and recommends the next order(s) to place.
 
 Usage:
     python3 tools/bullet_recommender.py APLD                    # recommend next order
+    python3 tools/bullet_recommender.py SMCI ARM APLD           # multi-ticker
     python3 tools/bullet_recommender.py AR --mode audit          # audit existing orders
     python3 tools/bullet_recommender.py SMCI --type reserve      # only reserve recommendations
 """
@@ -186,6 +187,44 @@ def is_capped(level):
         elif hr >= 30:
             return True, "Std"
     return False, None
+
+
+# ---------------------------------------------------------------------------
+# Zone label helpers
+# ---------------------------------------------------------------------------
+
+def assign_zone_label(gap_pct, active_radius):
+    """Classify a level into display zone based on distance from price.
+
+    Returns zone letter: 'A' (Active), 'B' (Buffer), 'R' (Reserve).
+    """
+    if gap_pct <= active_radius:
+        return "A"
+    elif gap_pct <= 2 * active_radius:
+        return "B"
+    else:
+        return "R"
+
+
+ZONE_MAX = {"A": 5, "B": 5, "R": 3}
+
+
+def build_zone_labels(valid_levels, active_radius):
+    """Assign geographic A/B/R labels to levels (sorted descending by buy price).
+
+    Returns list of labels parallel to valid_levels.
+    """
+    counters = {"A": 0, "B": 0, "R": 0}
+    labels = []
+    for lvl in valid_levels:
+        gap = lvl.get("gap_pct", 0)
+        zone_letter = assign_zone_label(gap, active_radius)
+        if counters[zone_letter] < ZONE_MAX[zone_letter]:
+            counters[zone_letter] += 1
+            labels.append(f"{zone_letter}{counters[zone_letter]}")
+        else:
+            labels.append("—")
+    return labels
 
 
 # ---------------------------------------------------------------------------
@@ -411,7 +450,8 @@ def run_recommend(ticker, type_filter, data, portfolio):
         "active_budget_remaining": active_budget_remaining,
         "reserve_budget_remaining": reserve_budget_remaining,
         "is_pre_strategy": is_pre_strategy, "pos_note": pos_note,
-        "pending_buys": pending_buys, "covered_levels": covered_levels,
+        "pending_buys": pending_buys, "pending_sells": pending_sells,
+        "covered_levels": covered_levels,
         "orphaned_orders": orphaned_orders, "sell_check": sell_check,
         "recommendation": recommendation, "valid_levels": valid_levels,
         "filled_levels": filled_levels,
@@ -459,6 +499,7 @@ def _print_recommend(ctx):
     is_pre_strategy = ctx["is_pre_strategy"]
     pos_note = ctx["pos_note"]
     pending_buys = ctx["pending_buys"]
+    pending_sells = ctx["pending_sells"]
     covered_levels = ctx["covered_levels"]
     orphaned_orders = ctx["orphaned_orders"]
     sell_check = ctx["sell_check"]
@@ -474,6 +515,7 @@ def _print_recommend(ctx):
     effective_reserve_used = ctx["effective_reserve_used"]
 
     data = ctx["data"]
+    active_radius = data.get("active_radius", 15.0)
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     last_date = data.get("last_date", "unknown")
     print(f"## Bullet Recommendation: {ticker}")
@@ -538,8 +580,16 @@ def _print_recommend(ctx):
 
     # --- Level Map (unified table) ---
     print("### Level Map")
-    print("| # | Support | Buy At | Held/Approaches | Tier | Trend | Shares | ~Cost | Status |")
+    print("| # | Support | Buy At | Held | Tier | Trend | Shares | ~Cost | Status |")
     print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+
+    # SELL target rows first
+    for sell_order in pending_sells:
+        sell_shares = sell_order.get("shares", "—")
+        sell_cost = round(sell_shares * sell_order["price"], 2) if isinstance(sell_shares, (int, float)) else "—"
+        sell_placed = "Limit Order" if sell_order.get("placed", True) else "Pending"
+        print(f"| SELL | — | {_fmt_dollar(sell_order['price'])} | — | — | — "
+              f"| {sell_shares} | ~{_fmt_dollar(sell_cost)} | {sell_placed} |")
 
     # Build covered lookup: level id -> list of cover entries
     covered_lookup = {}
@@ -549,23 +599,14 @@ def _print_recommend(ctx):
 
     rec_level_id = id(recommendation["level"]) if recommendation else None
     filled_lookup = set(id(fl) for fl in filled_levels)
-    a_max = cap["active_bullets_max"]
-    r_max = cap["reserve_bullets_max"]
     has_capped = False
     has_promotion = False
     has_demotion = False
 
-    # Label offset: fills not visible in the map still consumed slots
-    if case == "A":
-        fills_active_in_map = sum(1 for fl in filled_levels if fl["zone"] == "Active")
-        fills_reserve_in_map = sum(1 for fl in filled_levels if fl["zone"] == "Reserve")
-        a_idx = parsed["active"] - fills_active_in_map
-        r_idx = parsed["reserve"] - fills_reserve_in_map
-    else:
-        a_idx = 0
-        r_idx = 0
+    # Assign geographic A/B/R labels
+    zone_labels = build_zone_labels(valid_levels, active_radius)
 
-    for lvl in valid_levels:
+    for lvl_idx, lvl in enumerate(valid_levels):
         lid = id(lvl)
         capped_flag, was_tier = is_capped(lvl)
         tier_display = lvl.get("effective_tier", lvl["tier"])
@@ -591,18 +632,11 @@ def _print_recommend(ctx):
         approaches = lvl.get("total_approaches", 0)
         hold_str = f"{held}/{approaches} ({lvl['hold_rate']:.0f}%)"
 
-        # Assign bullet label — every level gets one (A1-A5, R1-R3, then —)
-        if a_idx < a_max:
-            a_idx += 1
-            level_label = f"A{a_idx}"
-            ref_pool = "active"
-        elif r_idx < r_max:
-            r_idx += 1
-            level_label = f"R{r_idx}"
-            ref_pool = "reserve"
-        else:
-            level_label = "—"
-            ref_pool = "reserve"
+        # Geographic zone label
+        level_label = zone_labels[lvl_idx]
+
+        # Budget pool follows data model zone, NOT display label
+        ref_pool = "active" if lvl["zone"] == "Active" else "reserve"
 
         # Compute sizing
         ref_shares, ref_cost, _ = compute_sizing(lvl, ref_pool, cap)
@@ -612,7 +646,7 @@ def _print_recommend(ctx):
                 order = cl["order"]
                 # DUP rows don't consume a label
                 row_label = "—" if cl.get("duplicate") else level_label
-                # Status based on placed flag + issue flags
+                # Status: Limit Order (placed) or Pending (not placed) + flags
                 parts = []
                 drift_status = classify_drift(cl["dist"])
                 if drift_status != "MATCH":
@@ -623,9 +657,9 @@ def _print_recommend(ctx):
                     parts.append("PAUSED")
                 flags = f" ({', '.join(parts)})" if parts else ""
                 if order.get("placed"):
-                    status_str = f"Limit order placed{flags}"
+                    status_str = f"Limit Order{flags}"
                 else:
-                    status_str = f"Place limit order{flags}"
+                    status_str = f"Pending{flags}"
                 # Shares/cost from order
                 ord_shares = order.get("shares")
                 if ord_shares:
@@ -639,13 +673,22 @@ def _print_recommend(ctx):
                       f"| {trend_str} | {shares_str} | {cost_str} | {status_str}{dormant_tag} |")
         elif lid in filled_lookup:
             print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
-                  f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | Order filled{dormant_tag} |")
+                  f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | Filled{dormant_tag} |")
         elif lid == rec_level_id:
             print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
-                  f"| {trend_str} | {recommendation['shares']} | ~{_fmt_dollar(recommendation['cost'])} | **Place limit order**{dormant_tag} |")
+                  f"| {trend_str} | {recommendation['shares']} | ~{_fmt_dollar(recommendation['cost'])} | **>> Next**{dormant_tag} |")
         else:
+            # Uncovered level — Available or —
+            pool = "active" if lvl["zone"] == "Active" else "reserve"
+            if pool == "active":
+                has_capacity = active_slots_remaining > 0 and active_budget_remaining > ref_cost
+            else:
+                has_capacity = reserve_slots_remaining > 0 and reserve_budget_remaining > ref_cost
+            status_str = "Available" if has_capacity else "—"
+            if dormant_tag:
+                status_str = f"{status_str}{dormant_tag}" if status_str != "—" else f"—{dormant_tag}"
             print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
-                  f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | {dormant_tag.strip()} |")
+                  f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | {status_str} |")
 
     if has_capped or has_promotion or has_demotion:
         markers = []
@@ -692,6 +735,25 @@ def _print_recommend(ctx):
             print(f"- {note}")
         print()
 
+    # Legend (always printed)
+    _print_legend(active_radius, cap)
+
+
+def _print_legend(active_radius, cap):
+    """Print legend with zone definitions and tier sizing."""
+    print("### Legend")
+    print(f"- **A** = Active zone (within {active_radius:.0f}% of price)")
+    print(f"- **B** = Buffer zone ({active_radius:.0f}–{2*active_radius:.0f}% from price)")
+    print(f"- **R** = Reserve zone (beyond {2*active_radius:.0f}% from price)")
+    print(f"- **Held** = Times support held / total approaches in 13 months (hold rate %)")
+    print(f"- **Full** (>=50% hold) = full sizing (${cap['active_bullet_full']} active / ${cap['reserve_bullet_size']} reserve)")
+    print(f"- **Std** (30-49% hold) = same sizing as Full, lower confidence signal")
+    print(f"- **Half** (15-29% hold) = half sizing (${cap['active_bullet_half']} active)")
+    print(f"- **Tier ^/v** = tier promoted/demoted by recency | **Trend ^/v** = hold-rate trajectory")
+    print(f"- **[D]** = dormant (not tested in 90+ days)")
+    print(f"- **>> Next** = recommended next order to place")
+    print()
+
 
 # ---------------------------------------------------------------------------
 # Audit mode
@@ -703,6 +765,7 @@ def run_audit(ticker, data, portfolio):
     pending_orders = pending_all.get(ticker, [])
     pending_buys = [o for o in pending_orders if o["type"] == "BUY"]
     current_price = data["current_price"]
+    active_radius = data.get("active_radius", 15.0)
 
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     last_date = data.get("last_date", "unknown")
@@ -721,8 +784,12 @@ def run_audit(ticker, data, portfolio):
     print("| Order | Price | Matched Level | Current Buy At | Drift | Hold Rate | Tier | Capped? | Status |")
     print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
+    # Pre-compute zone labels for matched levels
+    zone_counters = {"A": 0, "B": 0, "R": 0}
+    orphan_idx = 0
+
     verdicts = []
-    for i, order in enumerate(pending_buys, 1):
+    for order in pending_buys:
         matched, dist = match_order_to_level(order["price"], all_levels)
         paused_flag = is_paused(order)
 
@@ -737,6 +804,14 @@ def run_audit(ticker, data, portfolio):
                 tier_str += "^" if matched.get("tier_promoted", False) else "v"
             capped, was_tier = is_capped(matched)
             capped_str = f"Yes (was {was_tier}, <3 approaches)" if capped else "No"
+            # Geographic zone label
+            gap = matched.get("gap_pct", 0)
+            zone_letter = assign_zone_label(gap, active_radius)
+            if zone_counters[zone_letter] < ZONE_MAX[zone_letter]:
+                zone_counters[zone_letter] += 1
+                label = f"{zone_letter}{zone_counters[zone_letter]}"
+            else:
+                label = "—"
         else:
             status = "ORPHANED"
             drift_str = "N/A"
@@ -745,12 +820,13 @@ def run_audit(ticker, data, portfolio):
             hr_str = "—"
             tier_str = "—"
             capped_str = "—"
+            orphan_idx += 1
+            label = f"?{orphan_idx}"
 
         if paused_flag:
             status += ", PAUSED"
 
         verdicts.append(status)
-        label = f"B{i}"
         print(f"| {label} | {_fmt_dollar(order['price'])} | {level_str} | {buy_at_str} | {drift_str} | {hr_str} | {tier_str} | {capped_str} | {status} |")
 
     print()
@@ -774,27 +850,36 @@ def run_audit(ticker, data, portfolio):
 
 def main():
     parser = argparse.ArgumentParser(description="Bullet recommender — next order based on portfolio + wick analysis")
-    parser.add_argument("ticker", type=str, help="Stock ticker symbol")
+    parser.add_argument("tickers", nargs="+", type=str.upper,
+                        help="One or more stock ticker symbols")
     parser.add_argument("--mode", choices=["recommend", "audit"], default="recommend",
                         help="recommend (default) or audit existing orders")
     parser.add_argument("--type", choices=["active", "reserve", "any"], default="any",
                         dest="type_filter", help="Filter recommendations (default: any)")
     args = parser.parse_args()
-    ticker = args.ticker.upper()
 
-    # Load portfolio
+    # Load portfolio once
     portfolio = _load_portfolio()
 
-    # Run wick analysis
-    data, err = analyze_stock_data(ticker)
-    if data is None:
-        print(f"*Error: wick analysis failed for {ticker}: {err}*")
-        sys.exit(1)
+    any_success = False
+    for i, ticker in enumerate(args.tickers):
+        if i > 0:
+            print("\n---\n")
 
-    if args.mode == "recommend":
-        run_recommend(ticker, args.type_filter, data, portfolio)
-    elif args.mode == "audit":
-        run_audit(ticker, data, portfolio)
+        # Run wick analysis
+        data, err = analyze_stock_data(ticker)
+        if data is None:
+            print(f"*Error: wick analysis failed for {ticker}: {err}*")
+            continue
+
+        any_success = True
+        if args.mode == "recommend":
+            run_recommend(ticker, args.type_filter, data, portfolio)
+        elif args.mode == "audit":
+            run_audit(ticker, data, portfolio)
+
+    if not any_success:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
