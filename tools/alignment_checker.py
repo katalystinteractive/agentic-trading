@@ -1003,7 +1003,7 @@ def run_scan(portfolio: dict) -> str:
             parsed_bullets = _br_parse_bullets_used(bu, position.get("note", ""))
             if fp is not None and len(fp) > 0:
                 expected_fills = parsed_bullets["active"] + parsed_bullets["reserve"]
-                if len(fp) < expected_fills:
+                if len(fp) != expected_fills:
                     fill_gap_rows.append({"ticker": ticker, "bullets_used": str(bu),
                                           "expected": expected_fills, "actual": len(fp)})
 
@@ -1155,8 +1155,9 @@ def run_scan(portfolio: dict) -> str:
         lines.append("| Ticker | bullets_used | Expected Fills | Actual fill_prices | Gap |")
         lines.append("| :--- | :--- | :--- | :--- | :--- |")
         for r in fill_gap_rows:
-            gap = r["expected"] - r["actual"]
-            lines.append(f"| {r['ticker']} | {r['bullets_used']} | {r['expected']} | {r['actual']} | {gap} missing |")
+            diff = r["expected"] - r["actual"]
+            gap_str = f"{diff} missing" if diff > 0 else f"{-diff} extra"
+            lines.append(f"| {r['ticker']} | {r['bullets_used']} | {r['expected']} | {r['actual']} | {gap_str} |")
         lines.append("")
 
     return "\n".join(lines)

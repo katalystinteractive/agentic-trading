@@ -425,18 +425,20 @@ def build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, r
     active_bullets = [b for b in bullet_plan_rows if b["zone"] == "Active"]
     reserve_bullets = [b for b in bullet_plan_rows if b["zone"] == "Reserve"]
 
-    # Guard: cap filled counts to plan size
+    # Guard: cap filled counts to plan size (only relevant for legacy sequential fallback)
     original_active = active_filled
     original_reserve = reserve_filled
     active_filled = min(active_filled, len(active_bullets))
     reserve_filled = min(reserve_filled, len(reserve_bullets))
 
-    if active_filled < original_active:
-        print(f"WARNING: bullets_used active ({original_active}) exceeds fresh bullet plan count "
-              f"({len(active_bullets)}). Capped to {len(active_bullets)}.", file=sys.stderr)
-    if reserve_filled < original_reserve:
-        print(f"WARNING: bullets_used reserve ({original_reserve}) exceeds fresh bullet plan count "
-              f"({len(reserve_bullets)}). Capped to {len(reserve_bullets)}.", file=sys.stderr)
+    if not fill_prices:
+        # Only warn for sequential fallback — fill_prices matching ignores these counts
+        if active_filled < original_active:
+            print(f"WARNING: bullets_used active ({original_active}) exceeds fresh bullet plan count "
+                  f"({len(active_bullets)}). Capped to {len(active_bullets)}.", file=sys.stderr)
+        if reserve_filled < original_reserve:
+            print(f"WARNING: bullets_used reserve ({original_reserve}) exceeds fresh bullet plan count "
+                  f"({len(reserve_bullets)}). Capped to {len(reserve_bullets)}.", file=sys.stderr)
 
     has_position = position is not None and position.get("shares", 0) > 0
 
