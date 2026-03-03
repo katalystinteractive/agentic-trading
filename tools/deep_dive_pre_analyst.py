@@ -298,6 +298,7 @@ def load_portfolio(ticker):
         "pending_orders": orders,
         "capital": capital,
         "on_watchlist": on_watchlist,
+        "fill_prices": position.get("fill_prices", []) if position else [],
     }
 
 
@@ -396,11 +397,29 @@ def build_identity_table(support_rows):
 # Bullet Plan Builder
 # ---------------------------------------------------------------------------
 
-def build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, reserve_filled, status="EXISTING"):
+FILL_MATCH_TOLERANCE = 0.05  # 5%, same as bullet_recommender DRIFT_TOLERANCE
+
+
+def _match_fill_to_bullet(fill_price, bullets):
+    """Match fill price to nearest bullet by buy_at within 5%. Returns 1-based index or None."""
+    best_idx, best_dist = None, float('inf')
+    for i, b in enumerate(bullets):
+        ba = b.get("buy_at", 0)
+        if ba <= 0:
+            continue
+        dist = abs(fill_price - ba) / ba
+        if dist < best_dist:
+            best_dist, best_idx = dist, i + 1
+    return best_idx if best_dist <= FILL_MATCH_TOLERANCE else None
+
+
+def build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, reserve_filled,
+                      fill_prices=None, status="EXISTING"):
     """Build B1-B5 / R1-R3 formatted entries from wick tool's suggested bullet plan.
 
     support_rows is the raw 9-column table (before filtering).
     status is "NEW" or "EXISTING" from the deep-dive-raw.md header.
+    fill_prices is a list of actual fill prices from portfolio.json (or None for legacy).
     """
     # Separate active and reserve bullets
     active_bullets = [b for b in bullet_plan_rows if b["zone"] == "Active"]
@@ -419,6 +438,27 @@ def build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, r
         print(f"WARNING: bullets_used reserve ({original_reserve}) exceeds fresh bullet plan count "
               f"({len(reserve_bullets)}). Capped to {len(reserve_bullets)}.", file=sys.stderr)
 
+    has_position = position is not None and position.get("shares", 0) > 0
+
+    # Build filled index sets: per-bullet matching via fill_prices, or sequential fallback
+    if fill_prices and has_position:
+        active_filled_indices = set()
+        reserve_filled_indices = set()
+        remaining_fps = list(fill_prices)
+        for fp in list(remaining_fps):
+            idx = _match_fill_to_bullet(fp, active_bullets)
+            if idx is not None and idx not in active_filled_indices:
+                active_filled_indices.add(idx)
+                remaining_fps.remove(fp)
+        for fp in remaining_fps:
+            idx = _match_fill_to_bullet(fp, reserve_bullets)
+            if idx is not None and idx not in reserve_filled_indices:
+                reserve_filled_indices.add(idx)
+    else:
+        # Legacy fallback: sequential fill assumption
+        active_filled_indices = set(range(1, active_filled + 1))
+        reserve_filled_indices = set(range(1, reserve_filled + 1))
+
     # Build source lookup from support table: dollar-formatted level → source
     # Concatenate sources if multiple rows share the same price
     source_lookup = {}
@@ -429,24 +469,26 @@ def build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, r
         else:
             source_lookup[key] = sr["source"]
 
-    has_position = position is not None and position.get("shares", 0) > 0
-
     active_lines = []
     reserve_lines = []
     active_pending_cost = 0.0
     reserve_pending_cost = 0.0
 
     # Active bullets
-    if has_position and active_filled > 0:
-        range_str = f"B1-B{active_filled}" if active_filled > 1 else "B1"
+    if has_position and active_filled_indices:
+        filled_nums = sorted(active_filled_indices)
+        if len(filled_nums) == 1:
+            range_str = f"B{filled_nums[0]}"
+        else:
+            range_str = "B" + ",".join(str(n) for n in filled_nums)
         active_lines.append(
-            f"{range_str}: FILLED ({active_filled} active bullet{'s' if active_filled > 1 else ''} "
+            f"{range_str}: FILLED ({len(filled_nums)} active bullet{'s' if len(filled_nums) > 1 else ''} "
             f"used — see memory.md for fill details)."
         )
 
     for idx, b in enumerate(active_bullets):
         bullet_num = idx + 1
-        if has_position and bullet_num <= active_filled:
+        if has_position and bullet_num in active_filled_indices:
             continue  # Already covered by FILLED summary
 
         level_key = f"${b['level']:.2f}"
@@ -462,16 +504,20 @@ def build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, r
         active_pending_cost += b["cost"]
 
     # Reserve bullets
-    if has_position and reserve_filled > 0:
-        range_str = f"R1-R{reserve_filled}" if reserve_filled > 1 else "R1"
+    if has_position and reserve_filled_indices:
+        filled_nums = sorted(reserve_filled_indices)
+        if len(filled_nums) == 1:
+            range_str = f"R{filled_nums[0]}"
+        else:
+            range_str = "R" + ",".join(str(n) for n in filled_nums)
         reserve_lines.append(
-            f"{range_str}: FILLED ({reserve_filled} reserve bullet{'s' if reserve_filled > 1 else ''} "
+            f"{range_str}: FILLED ({len(filled_nums)} reserve bullet{'s' if len(filled_nums) > 1 else ''} "
             f"used — see memory.md for fill details)."
         )
 
     for idx, b in enumerate(reserve_bullets):
         bullet_num = idx + 1
-        if has_position and bullet_num <= reserve_filled:
+        if has_position and bullet_num in reserve_filled_indices:
             continue
 
         level_key = f"${b['level']:.2f}"
@@ -493,10 +539,12 @@ def build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, r
         "reserve_pending": reserve_pending_cost,
         "active_count": len(active_bullets),
         "reserve_count": len(reserve_bullets),
-        "active_filled_count": active_filled,
-        "reserve_filled_count": reserve_filled,
+        "active_filled_count": len(active_filled_indices),
+        "reserve_filled_count": len(reserve_filled_indices),
         "active_bullets_raw": active_bullets,
         "reserve_bullets_raw": reserve_bullets,
+        "active_filled_indices": active_filled_indices,
+        "reserve_filled_indices": reserve_filled_indices,
     }
 
 
@@ -574,7 +622,7 @@ def detect_warnings(support_rows, bullet_plan_rows, current_price, capital):
 # Projected Averages
 # ---------------------------------------------------------------------------
 
-def compute_projected_averages(position, bullet_plan, active_filled):
+def compute_projected_averages(position, bullet_plan, active_filled_indices, reserve_filled_indices):
     """Compute projected averages for each unfilled bullet filling sequentially."""
     rows = []
 
@@ -595,20 +643,18 @@ def compute_projected_averages(position, bullet_plan, active_filled):
 
     for idx, b in enumerate(active_bullets):
         bullet_num = idx + 1
-        if bullet_num <= active_filled:
-            continue
+        if bullet_num in active_filled_indices:
+            continue  # skip THIS specific filled bullet
         running_shares += b["shares"]
         running_cost += b["shares"] * b["buy_at"]
         new_avg = running_cost / running_shares if running_shares > 0 else 0
         target_10 = new_avg * 1.10
         rows.append(f"| + B{bullet_num} fills | {running_shares} | ${new_avg:.2f} | ${target_10:.2f} |")
 
-    # Also compute for reserve bullets
-    reserve_filled_count = bullet_plan.get("reserve_filled_count", 0)
     for idx, b in enumerate(reserve_bullets):
         bullet_num = idx + 1
-        if bullet_num <= reserve_filled_count:
-            continue
+        if bullet_num in reserve_filled_indices:
+            continue  # skip THIS specific filled bullet
         running_shares += b["shares"]
         running_cost += b["shares"] * b["buy_at"]
         new_avg = running_cost / running_shares if running_shares > 0 else 0
@@ -829,14 +875,20 @@ def main():
         active_filled, reserve_filled = parse_bullets_used(position.get("bullets_used"))
 
     bullet_plan_rows = wick_data.get("bullet_plan_table", [])
-    bullet_plan = build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, reserve_filled, status=header["status"])
+    fill_prices = portfolio_data.get("fill_prices", [])
+    bullet_plan = build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, reserve_filled,
+                                    fill_prices=fill_prices, status=header["status"])
 
     # 9. Detect warnings
     capital = portfolio_data["capital"]
     all_warnings = detect_warnings(support_rows, bullet_plan_rows, current_price, capital)
 
     # 10. Compute projected averages
-    projected_rows = compute_projected_averages(position, bullet_plan, active_filled)
+    projected_rows = compute_projected_averages(
+        position, bullet_plan,
+        bullet_plan.get("active_filled_indices", set()),
+        bullet_plan.get("reserve_filled_indices", set()),
+    )
 
     # 11. Build and write output
     output = build_output(header, wick_data, portfolio_data, identity_table, identity_warnings,

@@ -127,6 +127,15 @@ When managing the bounce strategy (support-level bounce capture):
 ### Bounce Agent Roster
 (Any stock with proven bounce history at support — analyze first with bounce_analyzer.py)
 
+### 7. The "Fill Recording" Protocol
+When a limit order fills:
+1. Record the fill in the ticker's `memory.md` trade log (date, price, shares).
+2. Update `portfolio.json`:
+   - Update `shares`, `avg_cost`, `bullets_used`
+   - Remove the filled order from `pending_orders`
+   - **Append the fill price to the `fill_prices` array** (one entry per fill event, regardless of share count). Use actual broker execution price.
+3. On full position close (shares → 0): set `fill_prices` to `[]`.
+
 ## 📂 Project Structure
 ```
 strategy.md                     — Global rules (entry/exit/capital/cycles)

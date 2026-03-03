@@ -17,6 +17,9 @@ PORTFOLIO_PATH = PROJECT_ROOT / "portfolio.json"
 TICKERS_DIR = PROJECT_ROOT / "tickers"
 OUTPUT_PATH = PROJECT_ROOT / "alignment-report.md"
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from bullet_recommender import parse_bullets_used as _br_parse_bullets_used
+
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -826,6 +829,7 @@ def run_scan(portfolio: dict) -> str:
     bounce_rows = []
     converged_rows = []
     missing_rows = []
+    fill_gap_rows = []
 
     for ticker in all_tickers:
         position = positions.get(ticker)
@@ -992,6 +996,17 @@ def run_scan(portfolio: dict) -> str:
                 "pending_unclassified": pool.get("pending_unclassified", 0),
             })
 
+        # Fill prices gap check
+        if position and position.get("shares", 0) > 0:
+            fp = position.get("fill_prices")
+            bu = position.get("bullets_used", 0)
+            parsed_bullets = _br_parse_bullets_used(bu, position.get("note", ""))
+            if fp is not None and len(fp) > 0:
+                expected_fills = parsed_bullets["active"] + parsed_bullets["reserve"]
+                if len(fp) < expected_fills:
+                    fill_gap_rows.append({"ticker": ticker, "bullets_used": str(bu),
+                                          "expected": expected_fills, "actual": len(fp)})
+
         # Sell target
         sell = check_sell_target(position, pending)
         if sell.get("current_target"):
@@ -1132,6 +1147,16 @@ def run_scan(portfolio: dict) -> str:
         lines.append("| :--- | :--- | :--- |")
         for r in missing_rows:
             lines.append(f"| {r['ticker']} | {r['buy_at']} | {r['desc']} |")
+        lines.append("")
+
+    # Fill prices gaps
+    if fill_gap_rows:
+        lines.append("## Fill Prices Gaps")
+        lines.append("| Ticker | bullets_used | Expected Fills | Actual fill_prices | Gap |")
+        lines.append("| :--- | :--- | :--- | :--- | :--- |")
+        for r in fill_gap_rows:
+            gap = r["expected"] - r["actual"]
+            lines.append(f"| {r['ticker']} | {r['bullets_used']} | {r['expected']} | {r['actual']} | {gap} missing |")
         lines.append("")
 
     return "\n".join(lines)

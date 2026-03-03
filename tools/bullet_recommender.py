@@ -328,22 +328,24 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
 
     uncovered_levels = [vl for i, vl in enumerate(valid_levels) if i not in covered_set]
 
-    # --- Step 4b: Mark filled levels (display only) ---
-    # Filled bullets are executed orders no longer pending. We don't track
-    # individual fill prices, so use avg_cost as a proxy: candidate levels are
-    # plausible fills only if their average buy price is within 20% of avg_cost.
-    # This prevents marking deep levels as "Filled" when actual fills were at
-    # prices above current (filtered out of valid_levels).
+    # --- Step 4b: Mark filled levels using fill_prices from portfolio.json ---
+    fill_prices_list = []
+    if ticker in positions:
+        fill_prices_list = positions[ticker].get("fill_prices", [])
+
     total_fills = parsed["active"] + parsed["reserve"]
-    fills_in_map = 0
-    if total_fills > 0 and case == "A" and avg_cost > 0:
-        candidates = uncovered_levels[:total_fills]
-        if candidates:
-            avg_candidate_buy = sum(l["recommended_buy"] for l in candidates) / len(candidates)
-            if avg_candidate_buy >= avg_cost * 0.8:
-                fills_in_map = len(candidates)
-    filled_levels = uncovered_levels[:fills_in_map]
-    uncovered_levels = uncovered_levels[fills_in_map:]
+    filled_set = set()
+    if fill_prices_list and case == "A":
+        for fp in fill_prices_list:
+            matched_level, dist = match_order_to_level(fp, uncovered_levels)
+            if matched_level is not None:
+                for i, ul in enumerate(uncovered_levels):
+                    if ul is matched_level and i not in filled_set:
+                        filled_set.add(i)
+                        break
+    filled_levels = [ul for i, ul in enumerate(uncovered_levels) if i in filled_set]
+    uncovered_levels = [ul for i, ul in enumerate(uncovered_levels) if i not in filled_set]
+    fills_above_price = len(fill_prices_list) - len(filled_set) if fill_prices_list and case == "A" else 0
 
     # --- Step 5: Compute deployment state ---
     # Slot counting: parsed values are authoritative for fills (from portfolio.json).
@@ -453,7 +455,7 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
         "covered_levels": covered_levels,
         "orphaned_orders": orphaned_orders, "sell_check": sell_check,
         "recommendation": recommendation, "valid_levels": valid_levels,
-        "filled_levels": filled_levels,
+        "filled_levels": filled_levels, "fills_above_price": fills_above_price,
         "covered_active": covered_active, "covered_reserve": covered_reserve,
         "fully_deployed": fully_deployed, "warnings": warnings,
         "reasoning": reasoning, "cap": cap, "data": data,
@@ -507,6 +509,7 @@ def _print_recommend(ctx):
     recommendation = ctx["recommendation"]
     valid_levels = ctx["valid_levels"]
     filled_levels = ctx["filled_levels"]
+    fills_above_price = ctx.get("fills_above_price", 0)
     covered_active = ctx["covered_active"]
     covered_reserve = ctx["covered_reserve"]
     fully_deployed = ctx["fully_deployed"]
@@ -703,6 +706,10 @@ def _print_recommend(ctx):
             markers.append("* = capped to Half by approach count (<3)")
         print()
         print(f"*{'; '.join(markers)}*")
+
+    if fills_above_price > 0:
+        print()
+        print(f"*Note: {fills_above_price} fill(s) above current price — not shown in Level Map.*")
     print()
 
     # Fully deployed / no recommendation note

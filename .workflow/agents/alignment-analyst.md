@@ -71,13 +71,13 @@ For each ticker:
    - **Zone mismatches**: Order says Active but wick says Reserve (or vice versa). Usually means wick_analysis was re-run and zones shifted. Recommend updating the order note or re-evaluating the bullet plan.
    - **Pool overrun**: Deployed + pending exceeds $300 budget. Identify which orders to cancel or resize.
    - **Missing orders**: Active wick levels have no corresponding pending order. Surface to user — they decide whether to place the order.
-4. **Present recommended updates**: Show the JSON snippet for portfolio.json edits
+4. **Present recommended updates**: Show the JSON snippet for portfolio.json edits, including updated fill_prices array
 5. **Get user confirmation** before applying any changes
 
 ### Phase 3: Apply Updates
 
 After user confirms:
-1. Update portfolio.json with confirmed changes (shares, avg_cost, filled orders removed from pending)
+1. Update portfolio.json with confirmed changes (shares, avg_cost, bullets_used, fill_prices, filled orders removed from pending)
 2. Update identity.md if wick data was stale and user approved the refresh
 3. Re-run scan mode to verify clean state
 
@@ -87,7 +87,7 @@ After user confirms:
 - Broker shares > portfolio shares = likely BUY fill
 - Broker shares < portfolio shares = likely SELL fill
 - Compute new average: `(old_shares * old_avg + new_shares * fill_price) / total_shares`
-- After confirming: remove the filled pending order, update shares/avg_cost/bullets_used
+- After confirming: remove the filled pending order, update shares/avg_cost/bullets_used, **and append the fill price to the `fill_prices` array** (one float per fill event).
 
 ### Pre-Strategy Positions
 - These entered before the strategy system started
@@ -109,6 +109,11 @@ After user confirms:
 - Multiple wick support levels share the same Buy At price
 - One order covers both levels — sized to the dominant (higher hold rate) tier
 - Report for awareness, no action needed unless sizing changes
+
+### Position Close (Full Sell)
+- When all shares are sold (shares = 0): set `fill_prices` to `[]` in portfolio.json
+- Do NOT delete the position entry — keep it for history with shares=0
+- This reset ensures the next entry cycle starts with a clean fill_prices array
 
 ## What NOT to Do
 
