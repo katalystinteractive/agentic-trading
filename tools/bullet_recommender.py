@@ -468,6 +468,8 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
 def _fmt_dollar(val):
     if val is None:
         return "N/A"
+    if not isinstance(val, (int, float)):
+        return str(val)
     return f"${val:.2f}"
 
 
@@ -590,7 +592,7 @@ def _print_recommend(ctx):
         sell_cost = round(sell_shares * sell_order["price"], 2) if isinstance(sell_shares, (int, float)) else "—"
         sell_placed = "Limit Order" if sell_order.get("placed", True) else "Pending"
         print(f"| SELL | — | {_fmt_dollar(sell_order['price'])} | — | — | — "
-              f"| {sell_shares} | ~{_fmt_dollar(sell_cost)} | {sell_placed} |")
+              f"| {sell_shares} | {_fmt_dollar(sell_cost)} | {sell_placed} |")
 
     # Build covered lookup: level id -> list of cover entries
     covered_lookup = {}
@@ -682,9 +684,9 @@ def _print_recommend(ctx):
             # Uncovered level — Available or —
             pool = "active" if lvl["zone"] == "Active" else "reserve"
             if pool == "active":
-                has_capacity = active_slots_remaining > 0 and active_budget_remaining > ref_cost
+                has_capacity = active_slots_remaining > 0 and active_budget_remaining >= ref_cost
             else:
-                has_capacity = reserve_slots_remaining > 0 and reserve_budget_remaining > ref_cost
+                has_capacity = reserve_slots_remaining > 0 and reserve_budget_remaining >= ref_cost
             status_str = "Available" if has_capacity else "—"
             if dormant_tag:
                 status_str = f"{status_str}{dormant_tag}" if status_str != "—" else f"—{dormant_tag}"
