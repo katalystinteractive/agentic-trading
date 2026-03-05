@@ -348,12 +348,12 @@ def cmd_sell(data, args):
         # Partial sell
         new_shares = old_shares - shares
 
-        # Remove matching SELL pending orders only
-        sell_idx, sell_order = None, None
+        # Remove matching SELL pending orders only (fill_prices tracks buy fills — not updated on partial sell)
+        sell_idx = None
         for i, order in enumerate(orders):
             if order["type"] == "SELL":
                 if order["price"] == 0 or abs(order["price"] - price) / order["price"] <= MATCH_TOLERANCE:
-                    sell_idx, sell_order = i, order
+                    sell_idx = i
                     break
         if sell_idx is not None:
             orders.pop(sell_idx)
