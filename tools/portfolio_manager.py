@@ -234,18 +234,23 @@ def cmd_fill(data, args):
     fill_prices = pos.setdefault("fill_prices", [])
     fill_prices.append(price)
 
-    # Find and remove matching pending order
+    # Find and remove matching BUY pending order (skip SELLs)
     orders = pending.get(ticker, [])
-    idx, matched_order = _match_order(orders, price)
+    buy_orders = [(i, o) for i, o in enumerate(orders) if o["type"] == "BUY"]
+    buy_only = [o for _, o in buy_orders]
+    match_idx, matched_order = _match_order(buy_only, price)
     zone = "active"  # default
 
-    if idx is not None:
+    if match_idx is not None:
+        # Map back to original index in orders list
+        idx = buy_orders[match_idx][0]
         note = matched_order.get("note", "")
         if "reserve" in note.lower():
             zone = "reserve"
         orders.pop(idx)
         pending[ticker] = orders
     else:
+        idx = None
         print(f"*Warning: no matching pending order found for {ticker} @ {_fmt_dollar(price)}.*")
 
     # Increment bullets_used
@@ -371,8 +376,10 @@ def cmd_order(data, args):
     pending = data.setdefault("pending_orders", {})
     orders = pending.setdefault(ticker, [])
 
-    # Check for duplicate (skip filled orders)
+    # Check for duplicate within same type (skip filled orders)
     for order in orders:
+        if order["type"] != args.type:
+            continue
         if _is_filled_order(order):
             continue
         if order["price"] == 0:
