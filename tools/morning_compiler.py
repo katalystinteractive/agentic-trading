@@ -309,8 +309,8 @@ def parse_active_positions(lines):
             continue
         # Phase 2: find Active Positions sub-header within Portfolio Status
         # Entry guard: set flag when we encounter the "Active Positions" header.
-        # The break on line 317 won't execute until in_active_positions is True,
-        # so this condition must check the guard before other branches.
+        # The subsequent break (next sub-section exit) is guarded by
+        # in_active_positions, so it won't fire until this flag is set.
         if not in_active_positions and "Active Positions" in stripped and stripped.startswith("#"):
             in_active_positions = True
             continue
@@ -497,6 +497,8 @@ def main():
     position_snapshots = parse_active_positions(lines)
     if position_snapshots:
         print(f"Position snapshots parsed: {len(position_snapshots)} ({', '.join(position_snapshots)})")
+    else:
+        print("*Warning: No position snapshots extracted — analyst will use Position Summary fallback. Verify P/L values.*")
 
     # Find key section boundaries
     active_section_start = find_section_boundaries(lines, "## Per-Ticker Active Tool Outputs")
