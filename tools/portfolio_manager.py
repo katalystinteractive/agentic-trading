@@ -537,14 +537,14 @@ def cmd_unpause(data, args):
     for order in orders:
         old_note = order.get("note", "")
         note = old_note
-        # Pattern 1: "PAUSED until post-earnings Mon 3"
+        # Pattern 1: "PAUSED until post-earnings Mon 3" (most specific)
         note = re.sub(r'PAUSED\s+until\s+post-earnings\s+\w+\s+\d+', '', note, flags=re.IGNORECASE)
         note = re.sub(r'\s+', ' ', note).strip()
-        # Pattern 2: standalone "PAUSED"
-        note = re.sub(r'\bPAUSED\b', '', note, flags=re.IGNORECASE)
-        note = re.sub(r'\s+', ' ', note).strip()
-        # Pattern 3: "paused - reason" or "paused: reason"
+        # Pattern 2: "paused - reason" or "paused: reason" (before standalone to avoid orphaned ": reason")
         note = re.sub(r'\bpaused\s*[-:]\s*[^,]*', '', note, flags=re.IGNORECASE)
+        note = re.sub(r'\s+', ' ', note).strip()
+        # Pattern 3: standalone "PAUSED" (least specific, catches remaining)
+        note = re.sub(r'\bPAUSED\b', '', note, flags=re.IGNORECASE)
         note = re.sub(r'\s+', ' ', note).strip()
 
         if note != old_note:
