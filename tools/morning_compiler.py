@@ -308,8 +308,9 @@ def parse_active_positions(lines):
         if not in_portfolio_status:
             continue
         # Phase 2: find Active Positions sub-header within Portfolio Status
-        # Check phase-2 entry BEFORE phase-1 exit guard,
-        # otherwise "## Active Positions" triggers the exit before we enter phase 2
+        # Entry guard: set flag when we encounter the "Active Positions" header.
+        # The break on line 317 won't execute until in_active_positions is True,
+        # so this condition must check the guard before other branches.
         if not in_active_positions and "Active Positions" in stripped and stripped.startswith("#"):
             in_active_positions = True
             continue
