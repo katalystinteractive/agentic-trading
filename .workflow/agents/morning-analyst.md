@@ -342,6 +342,7 @@ Morning briefing complete.
 - Do NOT re-read morning-briefing.md after writing it — output the HANDOFF immediately
 - Do NOT modify portfolio.json or any ticker files
 - Do NOT fabricate data — if earnings date is unknown in morning-briefing-condensed.md, report as "Unknown" and classify as CLEAR
+- Do NOT derive P/L or avg_cost from trade history in Memory Context — use the **Position Snapshot** line embedded per-ticker, which is mechanically computed from portfolio.json and live prices at gather time
 - Do NOT estimate averages — compute P/L explicitly: `((current_price - avg_cost) / avg_cost) * 100`
 - Do NOT give EXIT verdict to positions with P/L >= 7% (AT TARGET or APPROACHING — rules 6-7). Exception: GATED + profitable → REDUCE via rule 1.
 - Do NOT give EXIT verdict to recovery positions (rules 3, 5, 8-10 — worst case is MONITOR)

@@ -176,12 +176,20 @@ def run_portfolio_status():
 
 
 def get_current_prices(portfolio_status_output):
-    """Parse current prices from portfolio_status.py output."""
+    """Parse current prices from portfolio_status.py output.
+    Only parses the Active Positions table — stops at the next section header
+    to avoid overwriting with Watchlist Day High values."""
     prices = {}
+    in_active = False
     for line in portfolio_status_output.split("\n"):
-        line = line.strip()
-        if line.startswith("|") and not line.startswith("| Ticker") and not line.startswith("| :"):
-            parts = [p.strip() for p in line.split("|")]
+        stripped = line.strip()
+        if "Active Positions" in stripped and stripped.startswith("#"):
+            in_active = True
+            continue
+        if in_active and stripped.startswith("#"):
+            break
+        if in_active and stripped.startswith("|") and not stripped.startswith("| Ticker") and not stripped.startswith("| :"):
+            parts = [p.strip() for p in stripped.split("|")]
             if len(parts) >= 5:
                 ticker = parts[1].strip()
                 price_str = parts[4].strip().replace("$", "").replace(",", "")

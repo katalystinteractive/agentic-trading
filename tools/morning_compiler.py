@@ -291,6 +291,61 @@ def build_condensed_cached_section(ticker, file_list, label_map):
     return "\n".join(parts), files_read, missing
 
 
+def parse_active_positions(lines):
+    """Extract per-ticker data from Active Positions table in Portfolio Status Output.
+    Returns dict[ticker] = {"shares", "avg_cost", "current", "pl_dollar", "pl_pct"}."""
+    snapshots = {}
+    in_portfolio_status = False
+    in_active_positions = False
+    header_validated = False
+    for line in lines:
+        stripped = line.strip()
+        # Phase 1: enter Portfolio Status Output section
+        if stripped == "## Portfolio Status Output":
+            in_portfolio_status = True
+            continue
+        if not in_portfolio_status:
+            continue
+        # Phase 2: find Active Positions sub-header within Portfolio Status
+        # Check phase-2 entry BEFORE phase-1 exit guard,
+        # otherwise "## Active Positions" triggers the exit before we enter phase 2
+        if not in_active_positions and "Active Positions" in stripped and stripped.startswith("#"):
+            in_active_positions = True
+            continue
+        if in_active_positions and stripped.startswith("#"):
+            break  # Hit next sub-section (Pending Orders, etc.)
+        if not in_active_positions:
+            continue
+        # Header validation
+        if stripped.startswith("| Ticker"):
+            if "Avg Cost" in stripped and "Current" in stripped and "P/L" in stripped:
+                header_validated = True
+            else:
+                print("*Warning: Active Positions header format unexpected, skipping snapshot extraction*")
+                return {}
+            continue
+        if stripped.startswith("| :"):
+            continue
+        # Data rows
+        if header_validated and stripped.startswith("|"):
+            parts = [p.strip() for p in stripped.split("|")]
+            if len(parts) >= 9:
+                shares = parts[2].strip()
+                if shares == "0":
+                    continue  # Skip zero-share positions
+                ticker = parts[1].strip()
+                snapshots[ticker] = {
+                    "shares": shares,
+                    "avg_cost": parts[3].strip(),
+                    "current": parts[4].strip(),
+                    "pl_dollar": parts[7].strip(),
+                    "pl_pct": parts[8].strip(),
+                }
+    if not header_validated:
+        print("*Warning: Active Positions table not found in Portfolio Status Output*")
+    return snapshots
+
+
 def condense_tool_output(text):
     """Strip verbose sections from tool output for analyst-friendly condensed file.
 
@@ -435,6 +490,11 @@ def main():
     # Read the tools raw file
     raw_content = TOOLS_RAW.read_text(encoding="utf-8")
     lines = raw_content.split("\n")
+
+    # Parse Active Positions table for per-ticker snapshots
+    position_snapshots = parse_active_positions(lines)
+    if position_snapshots:
+        print(f"Position snapshots parsed: {len(position_snapshots)} ({', '.join(position_snapshots)})")
 
     # Find key section boundaries
     active_section_start = find_section_boundaries(lines, "## Per-Ticker Active Tool Outputs")
@@ -598,6 +658,13 @@ def main():
     for ticker, sec_start, sec_end in active_sections:
         tool_text = "\n".join(lines[sec_start:sec_end]).rstrip()
         condensed_parts.append(condense_tool_output(tool_text))
+        # Inject mechanically-computed position snapshot before cached files
+        snapshot = position_snapshots.get(ticker)
+        if snapshot:
+            condensed_parts.append(
+                f"\n**Position Snapshot:** {snapshot['shares']} shares @ {snapshot['avg_cost']}, "
+                f"current {snapshot['current']}, P/L {snapshot['pl_pct']} ({snapshot['pl_dollar']})"
+            )
         # Compact cached extracts instead of full files
         cached_text, _, _ = build_condensed_cached_section(
             ticker, ACTIVE_FILES, ACTIVE_LABELS)
