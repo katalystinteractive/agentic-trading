@@ -293,7 +293,8 @@ def build_condensed_cached_section(ticker, file_list, label_map):
 
 def parse_active_positions(lines):
     """Extract per-ticker data from Active Positions table in Portfolio Status Output.
-    Returns dict[ticker] = {"shares", "avg_cost", "current", "pl_dollar", "pl_pct"}."""
+    Returns dict[ticker] → {"shares": str, "avg_cost": str, "current": str,
+    "pl_dollar": str, "pl_pct": str}."""
     snapshots = {}
     in_portfolio_status = False
     in_active_positions = False
