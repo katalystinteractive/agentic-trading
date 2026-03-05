@@ -133,7 +133,8 @@ def _print_table(rows):
 
 
 # ---------------------------------------------------------------------------
-# Legacy migration — runs once on first invocation
+# Legacy migration — idempotent, runs every invocation but is a no-op
+# after stale orders are cleaned
 # ---------------------------------------------------------------------------
 
 def _migrate_legacy(data):
@@ -184,6 +185,10 @@ def cmd_fill(data, args):
     ticker = args.ticker.upper()
     price = args.price
     shares = args.shares
+
+    if shares <= 0:
+        print(f"*Error: shares must be positive (got {shares}).*")
+        sys.exit(1)
     positions = data.setdefault("positions", {})
     pending = data.setdefault("pending_orders", {})
     watchlist = data.setdefault("watchlist", [])
@@ -268,6 +273,11 @@ def cmd_sell(data, args):
     ticker = args.ticker.upper()
     price = args.price
     shares = args.shares
+
+    if shares <= 0:
+        print(f"*Error: shares must be positive (got {shares}).*")
+        sys.exit(1)
+
     positions = data.get("positions", {})
     pending = data.setdefault("pending_orders", {})
 
@@ -289,8 +299,8 @@ def cmd_sell(data, args):
         # Full close
         pct_change = round((price - old_avg) / old_avg * 100, 1) if old_avg > 0 else 0
         sign = "+" if pct_change >= 0 else ""
-        close_note = (f"Position closed {TODAY} — sold {shares} @ ${price:.4g} "
-                      f"({sign}{pct_change}% from ${old_avg:.4g} avg).")
+        close_note = (f"Position closed {TODAY} — sold {shares} @ ${price:.2f} "
+                      f"({sign}{pct_change}% from ${old_avg:.2f} avg).")
 
         old_note = pos.get("note", "")
         if old_note:
