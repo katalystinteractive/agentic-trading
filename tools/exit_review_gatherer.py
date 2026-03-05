@@ -176,9 +176,14 @@ def run_portfolio_status():
 
 
 def get_current_prices(portfolio_status_output):
-    """Parse current prices from portfolio_status.py output.
+    """Parse current prices from portfolio_status.py raw stdout.
     Only parses the Active Positions table — stops at the next section header
-    to avoid overwriting with Watchlist Day High values."""
+    to avoid overwriting with Watchlist Day High values.
+
+    Note: single-phase section detection (just '# Active Positions') because
+    this parses raw portfolio_status.py stdout, NOT the wrapped markdown in
+    morning-tools-raw.md. See morning_compiler.parse_active_positions() for
+    the two-phase version that navigates the '## Portfolio Status Output' wrapper."""
     prices = {}
     in_active = False
     for line in portfolio_status_output.split("\n"):
