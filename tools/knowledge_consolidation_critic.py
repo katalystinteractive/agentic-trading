@@ -25,8 +25,8 @@ REPORT_PATH = PROJECT_ROOT / "knowledge-consolidation-report.md"
 UPDATES_PATH = PROJECT_ROOT / "knowledge-consolidation-updates.json"
 OUTPUT_PATH = PROJECT_ROOT / "knowledge-consolidation-pre-critic.md"
 
-# Regex for evidence citations: $, %, YYYY-MM-DD, or standalone numbers
-_CITATION_RE = re.compile(r'\$\d|%|\d{4}-\d{2}-\d{2}|\b\d+\.\d+\b')
+# Regex for evidence citations: $N, N%, YYYY-MM-DD, or standalone decimals
+_CITATION_RE = re.compile(r'\$\d|\d+%|\d{4}-\d{2}-\d{2}|\b\d+\.\d+\b')
 
 
 def check_coverage(raw_text: str, report_text: str) -> dict:
@@ -58,14 +58,14 @@ def check_coverage(raw_text: str, report_text: str) -> dict:
     for ticker, entry_id, score in contradiction_tickers:
         found = False
         for section in report_sections:
-            if re.match(rf'###\s+\[?{re.escape(ticker)}\]?\b', section):
+            if re.match(rf'###\s+\[?{re.escape(ticker)}\]?[\s:]', section):
                 if re.search(r'TEMPORARY|STRUCTURAL', section):
                     found = True
                     break
         if not found:
-            # Fallback: check ticker + classification anywhere in report (same section)
+            # Fallback: check ticker + classification in same section (word boundary)
             for section in report_sections:
-                if ticker in section and re.search(r'TEMPORARY|STRUCTURAL', section):
+                if re.search(rf'\b{re.escape(ticker)}\b', section) and re.search(r'TEMPORARY|STRUCTURAL', section):
                     found = True
                     break
         if not found:
@@ -89,7 +89,7 @@ def check_evidence_citations(report_text: str) -> dict:
     issues = []
 
     # Find all classification sections
-    sections = re.split(r'###\s+\[?\w+\]?\s+Belief:', report_text)
+    sections = re.split(r'###\s+\[?[\w.]+\]?\s+Belief:', report_text)
     if len(sections) <= 1:
         # Try alternate heading format
         sections = re.split(r'\*\*Classification:\*\*', report_text)
@@ -206,9 +206,9 @@ def check_stats_transcription(raw_text: str, report_text: str) -> dict:
     # Extract win rates from raw — split by ticker section to avoid cross-boundary matching
     raw_win_rates = {}
     # Split on ### TICKER headers, then look for Win Rate within each section
-    raw_sections = re.split(r'(?=^### \w+ \()', raw_text, flags=re.MULTILINE)
+    raw_sections = re.split(r'(?=^### [\w.]+ \()', raw_text, flags=re.MULTILINE)
     for section in raw_sections:
-        ticker_match = re.match(r'### (\w+) \(', section)
+        ticker_match = re.match(r'### ([\w.]+) \(', section)
         if not ticker_match:
             continue
         ticker = ticker_match.group(1)
@@ -217,7 +217,7 @@ def check_stats_transcription(raw_text: str, report_text: str) -> dict:
             raw_win_rates[ticker] = int(wr_match.group(1))
 
     # Extract win rates from report — also split per-section
-    report_sections = re.split(r'(?=^### \w+)', report_text, flags=re.MULTILINE)
+    report_sections = re.split(r'(?=^### [\w.]+)', report_text, flags=re.MULTILINE)
     report_win_rates = {}
     for section in report_sections:
         for ticker in raw_win_rates:
