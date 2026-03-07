@@ -1,0 +1,49 @@
+name: knowledge-consolidation-workflow
+description: >
+  Periodic knowledge consolidation. Phase 1 extracts stats and belief evidence
+  tables. Phase 2 LLM classifies contradictions (TEMPORARY vs STRUCTURAL).
+  Phase 3 verifies classification quality.
+
+version: "1.0.0"
+
+phases:
+  - id: gather
+    name: Knowledge Extraction
+    agent: knowledge-gatherer
+    description: "Run knowledge_consolidator.py — bulk entry retrieval, stats, belief evidence tables"
+    artifacts:
+      - knowledge-consolidation-raw.md
+    timeout_minutes: 3
+
+  - id: analyze
+    name: Belief Revision & Synthesis
+    agent: knowledge-analyst
+    description: "Classify belief contradictions (TEMPORARY vs STRUCTURAL), synthesize lessons"
+    depends_on:
+      - gather
+    requires:
+      - knowledge-consolidation-raw.md
+    artifacts:
+      - knowledge-consolidation-report.md
+      - knowledge-consolidation-updates.json
+    timeout_minutes: 10
+
+  - id: review
+    name: Consolidation Verification
+    agent: knowledge-critic
+    description: "Run knowledge_consolidation_critic.py — 6 verification checks, validate classification quality"
+    depends_on:
+      - analyze
+    requires:
+      - knowledge-consolidation-raw.md
+      - knowledge-consolidation-report.md
+      - knowledge-consolidation-updates.json
+    artifacts:
+      - knowledge-consolidation-pre-critic.md
+      - knowledge-consolidation-review.md
+    timeout_minutes: 5
+
+settings:
+  max_fix_iterations: 0
+  require_approval: false
+  timeout_minutes: 18

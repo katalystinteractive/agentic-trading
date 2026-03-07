@@ -17,6 +17,8 @@ Usage:
 """
 import sys
 import re
+import json
+import math
 import hashlib
 import argparse
 import datetime
@@ -200,6 +202,33 @@ _CACHE_INITIALIZED = False
 _TRANSIENT_ERROR_COUNT = 0
 _UNCOUNTABLE_CATEGORIES = {"news", "macro"}
 
+DECAY_HALF_LIFE_DAYS = 60
+
+
+def _compute_decay(date_str: str) -> float:
+    """Exponential decay: 1.0 today, 0.5 at 60 days, 0.25 at 120 days.
+    Unknown dates get 0.5."""
+    if not date_str or date_str == "unknown":
+        return 0.5
+    try:
+        d = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
+        days_ago = (datetime.date.today() - d).days
+        if days_ago < 0:
+            days_ago = 0
+        return math.pow(0.5, days_ago / DECAY_HALF_LIFE_DAYS)
+    except (ValueError, TypeError):
+        return 0.5
+
+
+def _parse_outcome_pct(outcome_str: str):
+    """Parse '+7.8%' or '-3.2%' into float. None if unparseable."""
+    if not outcome_str:
+        return None
+    m = re.match(r'([+-]?\d+\.?\d*)%', outcome_str.strip())
+    if m:
+        return float(m.group(1))
+    return None
+
 
 def _get_cached_collection():
     """Return cached collection, initializing on first call. Returns None on failure.
@@ -228,29 +257,50 @@ def _get_cached_collection():
         return None
 
 
-def query_ticker_knowledge(ticker, context_hint, n=3):
+def query_ticker_knowledge(ticker, context_hint, n=3, include_superseded=False):
     """Query knowledge store for a ticker, return compact summary string.
 
     Returns string like:
       "**Knowledge:** 3 trades, 2 lessons. Top: Sold 6 @ $16.08, full exit +7.8% (0.82)"
     Returns "" on any error or no relevant results.
+
+    Enhanced with decay weighting, outcome boost, and superseded filtering.
     """
     try:
         collection = _get_cached_collection()
         if collection is None or collection.count() == 0:
             return ""
+        # Fetch extra candidates to compensate for filtering
+        fetch_n = min(n * 3, collection.count())
         results = collection.query(
             query_texts=[context_hint],
-            n_results=min(n, collection.count()),
+            n_results=fetch_n,
             where={"ticker": ticker.upper()},
         )
         docs = results["documents"][0]
         metas = results["metadatas"][0]
         dists = results["distances"][0]
-        # Filter to relevance > 0.6 (cosine: 1.0 - dist/2.0)
-        hits = [(d, m, 1.0 - dist / 2.0)
-                for d, m, dist in zip(docs, metas, dists)
-                if 1.0 - dist / 2.0 > 0.6]
+
+        adjusted_hits = []
+        for d, m, dist in zip(docs, metas, dists):
+            if not include_superseded and m.get("superseded") == "true":
+                continue
+            base_rel = 1.0 - dist / 2.0
+            if base_rel <= 0.4:
+                continue
+            decay = _compute_decay(m.get("date", "unknown"))
+            outcome_boost = 1.0
+            outcome_str = m.get("outcome", "")
+            if outcome_str:
+                pct = _parse_outcome_pct(outcome_str)
+                if pct is not None:
+                    outcome_boost = 1.0 + min(abs(pct) / 20.0, 0.5)  # max 1.5x
+            effective = base_rel * decay * outcome_boost
+            if effective > 0.4:
+                adjusted_hits.append((d, m, effective))
+        adjusted_hits.sort(key=lambda x: x[2], reverse=True)
+        hits = adjusted_hits[:n]
+
         if not hits:
             return ""
         # Count by category
@@ -459,6 +509,107 @@ def cmd_resync(args):
     cmd_ingest(args)
 
 
+def cmd_apply(args):
+    """Apply consolidation updates from knowledge-consolidation-updates.json."""
+    updates_path = _ROOT / "knowledge-consolidation-updates.json"
+    if not updates_path.exists():
+        print("*Error: knowledge-consolidation-updates.json not found. "
+              "Run the knowledge-consolidation-workflow first.*")
+        return
+
+    try:
+        data = json.loads(updates_path.read_text())
+    except json.JSONDecodeError as e:
+        print(f"*Error: JSON parse error: {e}*")
+        return
+
+    _, collection = _get_collection()
+    applied = {"superseded": 0, "new_lessons": 0, "annotations": 0, "portfolio_lessons": 0}
+
+    # 1. Mark superseded entries
+    for entry in data.get("superseded", []):
+        entry_id = entry.get("id")
+        if not entry_id:
+            continue
+        try:
+            result = collection.get(ids=[entry_id], include=["metadatas"])
+            if not result["metadatas"]:
+                print(f"*Warning: ID {entry_id} not found — skipping supersede.*")
+                continue
+            old_meta = result["metadatas"][0]
+            old_meta["superseded"] = "true"
+            collection.update(ids=[entry_id], metadatas=[old_meta])
+            applied["superseded"] += 1
+        except Exception as e:
+            print(f"*Warning: Failed to supersede {entry_id}: {e}*")
+
+    # 2. Add new lesson entries
+    for entry in data.get("new_lessons", []):
+        ticker = entry.get("ticker", "UNKNOWN").upper()
+        text = entry.get("text", "")
+        if not text:
+            continue
+        d = TODAY
+        doc_id = _make_id(ticker, "lesson", d, text)
+        meta = {
+            "ticker": ticker,
+            "category": entry.get("category", "lesson"),
+            "date": d,
+            "source": "consolidation",
+        }
+        consolidated_from = entry.get("consolidated_from", [])
+        if consolidated_from:
+            meta["consolidated_from"] = json.dumps(consolidated_from)
+        collection.upsert(ids=[doc_id], documents=[text], metadatas=[meta])
+        applied["new_lessons"] += 1
+
+    # 3. Append annotation text to existing entries
+    for ann in data.get("annotations", []):
+        ann_id = ann.get("id")
+        append_text = ann.get("append_text", "")
+        if not ann_id or not append_text:
+            continue
+        try:
+            result = collection.get(ids=[ann_id], include=["documents", "metadatas"])
+            if not result["documents"]:
+                print(f"*Warning: ID {ann_id} not found — skipping annotation.*")
+                continue
+            old_doc = result["documents"][0]
+            old_meta = result["metadatas"][0]
+            collection.update(ids=[ann_id], documents=[old_doc + append_text],
+                              metadatas=[old_meta])
+            applied["annotations"] += 1
+        except Exception as e:
+            print(f"*Warning: Failed to annotate {ann_id}: {e}*")
+
+    # 4. Add portfolio lessons under ticker="PORTFOLIO"
+    for entry in data.get("portfolio_lessons", []):
+        text = entry.get("text", "")
+        if not text:
+            continue
+        d = TODAY
+        doc_id = _make_id("PORTFOLIO", "portfolio_lesson", d, text)
+        meta = {
+            "ticker": "PORTFOLIO",
+            "category": "portfolio_lesson",
+            "date": d,
+            "source": "consolidation",
+        }
+        sample_size = entry.get("sample_size")
+        if sample_size is not None:
+            meta["sample_size"] = str(sample_size)
+        collection.upsert(ids=[doc_id], documents=[text], metadatas=[meta])
+        applied["portfolio_lessons"] += 1
+
+    print(f"Applied consolidation updates:")
+    print(f"| Action | Count |")
+    print(f"| :--- | :--- |")
+    print(f"| Superseded | {applied['superseded']} |")
+    print(f"| New Lessons | {applied['new_lessons']} |")
+    print(f"| Annotations | {applied['annotations']} |")
+    print(f"| Portfolio Lessons | {applied['portfolio_lessons']} |")
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -486,6 +637,7 @@ def main():
     sub.add_parser("ingest")
     sub.add_parser("stats")
     sub.add_parser("resync")
+    sub.add_parser("apply")
 
     args = parser.parse_args()
     {
@@ -494,6 +646,7 @@ def main():
         "ingest": cmd_ingest,
         "stats": cmd_stats,
         "resync": cmd_resync,
+        "apply": cmd_apply,
     }[args.command](args)
 
 
