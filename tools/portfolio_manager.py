@@ -273,6 +273,19 @@ def cmd_fill(data, args):
          "Removed" if idx is not None else "No match"),
     ])
 
+    # Auto-show sell targets after fill
+    try:
+        _tools_dir = str(Path(__file__).resolve().parent)
+        if _tools_dir not in sys.path:
+            sys.path.insert(0, _tools_dir)
+        from sell_target_calculator import analyze_ticker
+        print()
+        print("---")
+        print()
+        analyze_ticker(ticker, data)
+    except Exception:
+        pass  # Non-critical — don't block fill on target calc failure
+
 
 def cmd_sell(data, args):
     ticker = args.ticker.upper()
