@@ -292,7 +292,7 @@ def recommend_sell(math_targets, resistance_levels):
     if not resistance_levels:
         return standard, "Math Standard (6.0%) — no resistance levels found in zone"
 
-    # Find closest to standard target
+    # Find closest to standard target (on full tie, lowest price wins — conservative bias)
     best = None
     best_dist = float('inf')
     for lvl in resistance_levels:
@@ -306,7 +306,7 @@ def recommend_sell(math_targets, resistance_levels):
         return standard, "Math Standard (6.0%) — no resistance levels found in zone"
 
     nearest_target = _nearest_math_target(best["price"], math_targets)
-    basis = f"{best['source']} resistance, {best['reject_rate']:.0f}% rejection rate, closest to {nearest_target}"
+    basis = f"{best['source']} resistance, {best['reject_rate']:.0f}% rejection rate, near {nearest_target}"
     return best["price"], basis
 
 
@@ -391,55 +391,45 @@ def analyze_ticker(ticker, portfolio):
     if current_price > zone_high:
         print(f"> Current price ({_fmt_dollar(current_price)}) is already above the 7.5% target ({_fmt_dollar(zone_high)}) — consider taking profit.")
         print()
-        # Skip resistance scan — show SELL orders and recommend math target
-        _print_sell_orders(ticker, pending_all)
+        # Skip resistance scan — recommend math target directly
         rec_price = math_prices["standard"]
-        expected_pl = (rec_price - avg_cost) / avg_cost * 100
-        print("### Recommendation")
-        print("| Field | Value |")
-        print("| :--- | :--- |")
-        print(f"| Recommended Sell | {_fmt_dollar(rec_price)} |")
-        print(f"| Basis | Price above all targets — consider immediate profit-taking |")
-        print(f"| Total Shares | {shares} |")
-        print(f"| Expected Proceeds | {_fmt_dollar(round(rec_price * shares, 2))} |")
-        print(f"| Expected P/L | +{expected_pl:.1f}% |")
-        return
-
-    # Find resistance levels in buffered zone
-    pa_resistances = find_pa_resistances(hist, zone_low, zone_high)
-    hvn_ceilings = find_hvn_ceilings(hist, zone_low, zone_high)
-    resistance_levels = merge_resistance_levels(pa_resistances, hvn_ceilings)
-
-    # Count approach/rejection events per level
-    for lvl in resistance_levels:
-        result = count_resistance_approaches(hist, lvl["price"])
-        lvl.update(result)
-
-    # Print resistance levels table
-    zone_width = zone_high - zone_low
-    buffer = zone_width * 0.5
-    search_low = zone_low - buffer
-    search_high = zone_high + buffer
-
-    print(f"### Resistance Levels in Target Zone ({_fmt_dollar(search_low)} — {_fmt_dollar(search_high)})")
-    if resistance_levels:
-        print("| Level | Source | Approaches | Rejected | Reject Rate | Nearest Target |")
-        print("| :--- | :--- | :--- | :--- | :--- | :--- |")
-        for lvl in resistance_levels:
-            nearest = _nearest_math_target(lvl["price"], math_prices)
-            print(f"| {_fmt_dollar(lvl['price'])} | {lvl['source']} "
-                  f"| {lvl['approaches']} | {lvl['rejected']} "
-                  f"| {lvl['reject_rate']:.0f}% | {nearest} |")
-        print()
+        basis = "Price above all targets — consider immediate profit-taking"
     else:
-        print("*No resistance levels found in target zone.*")
-        print()
+        # Find resistance levels in buffered zone
+        pa_resistances = find_pa_resistances(hist, zone_low, zone_high)
+        hvn_ceilings = find_hvn_ceilings(hist, zone_low, zone_high)
+        resistance_levels = merge_resistance_levels(pa_resistances, hvn_ceilings)
 
-    # SELL orders
+        # Count approach/rejection events per level
+        for lvl in resistance_levels:
+            result = count_resistance_approaches(hist, lvl["price"])
+            lvl.update(result)
+
+        # Print resistance levels table
+        zone_width = zone_high - zone_low
+        buffer = zone_width * 0.5
+        search_low = zone_low - buffer
+        search_high = zone_high + buffer
+
+        print(f"### Resistance Levels in Target Zone ({_fmt_dollar(search_low)} — {_fmt_dollar(search_high)})")
+        if resistance_levels:
+            print("| Level | Source | Approaches | Rejected | Reject Rate | Nearest Target |")
+            print("| :--- | :--- | :--- | :--- | :--- | :--- |")
+            for lvl in resistance_levels:
+                nearest = _nearest_math_target(lvl["price"], math_prices)
+                print(f"| {_fmt_dollar(lvl['price'])} | {lvl['source']} "
+                      f"| {lvl['approaches']} | {lvl['rejected']} "
+                      f"| {lvl['reject_rate']:.0f}% | {nearest} |")
+            print()
+        else:
+            print("*No resistance levels found in target zone.*")
+            print()
+
+        rec_price, basis = recommend_sell(math_prices, resistance_levels)
+
+    # SELL orders + unified recommendation block
     _print_sell_orders(ticker, pending_all)
 
-    # Recommendation
-    rec_price, basis = recommend_sell(math_prices, resistance_levels)
     expected_proceeds = round(rec_price * shares, 2)
     expected_pl = (rec_price - avg_cost) / avg_cost * 100
 
