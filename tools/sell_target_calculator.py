@@ -1,8 +1,9 @@
 """Sell target calculator: data-driven sell targets from math + resistance levels.
 
 Computes profit targets (4.5%/6.0%/7.5%) and finds historical resistance levels
-in the target zone using 13-month daily price data. Recommends sell price based
-on resistance closest to 6% target, with rejection rate as tiebreaker.
+in the target zone using 13-month daily price data. Scores levels by rejection
+quality and proximity to Standard (6%), then splits shares across eligible
+resistance levels when multiple qualify.
 
 Usage:
     python3 tools/sell_target_calculator.py CIFR
@@ -294,7 +295,6 @@ def _score_level(lvl, standard, zone_width):
 
     Returns float score (higher = better).
     """
-    import math
     reject_rate = lvl.get("reject_rate", 0) / 100.0  # 0..1
     approaches = lvl.get("approaches", 0)
 
@@ -303,7 +303,6 @@ def _score_level(lvl, standard, zone_width):
 
     # Distance penalty: normalized by zone width
     dist = abs(lvl["price"] - standard) / zone_width if zone_width > 0 else 0
-    DISTANCE_WEIGHT = 0.3
     distance_penalty = dist * DISTANCE_WEIGHT
 
     # Profit bonus: slight preference for higher price (normalized by zone width)
@@ -314,6 +313,7 @@ def _score_level(lvl, standard, zone_width):
 
 # Minimum score threshold — levels below this are too weak to recommend
 MIN_SCORE = -0.1
+DISTANCE_WEIGHT = 0.3  # Penalty for distance from Standard target in _score_level()
 
 
 def _basis_label(lvl, math_targets):
