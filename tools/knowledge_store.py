@@ -196,6 +196,7 @@ def _make_id(ticker, category, date, text):
 # ---------------------------------------------------------------------------
 
 _CACHED_COLLECTION = None
+_UNCOUNTABLE_CATEGORIES = {"news", "macro"}
 
 
 def _get_cached_collection():
@@ -241,9 +242,9 @@ def query_ticker_knowledge(ticker, context_hint, n=3):
         for _, m, _ in hits:
             c = m.get("category", "other")
             cats[c] = cats.get(c, 0) + 1
-        _UNCOUNTABLE = {"news", "macro"}
         cat_str = ", ".join(
-            f"{v} {k}" if k in _UNCOUNTABLE else f"{v} {k}{'s' if v > 1 else ''}"
+            f"{v} {k}" if k in _UNCOUNTABLE_CATEGORIES
+            else f"{v} {k}{'s' if v > 1 else ''}"
             for k, v in cats.items()
         )
         # Top hit snippet
@@ -259,6 +260,7 @@ def store_fill(ticker, price, shares, total_shares, new_avg, zone):
     """Store a fill event. Called from portfolio_manager.cmd_fill()."""
     collection = _get_cached_collection()
     if collection is None:
+        print("*Warning: knowledge store unavailable — fill not recorded.*")
         return
     text = (f"{ticker}: BUY {shares} shares @ ${price:.2f} ({zone}). "
             f"Now {total_shares} shares @ ${new_avg:.2f} avg.")
@@ -273,6 +275,7 @@ def store_sell(ticker, price, shares, old_avg, pct_change):
     """Store a sell event (full close). Called from portfolio_manager.cmd_sell()."""
     collection = _get_cached_collection()
     if collection is None:
+        print("*Warning: knowledge store unavailable — sell not recorded.*")
         return
     sign = "+" if pct_change >= 0 else ""
     text = (f"{ticker}: SELL {shares} shares @ ${price:.2f} (full exit). "
@@ -289,6 +292,7 @@ def store_partial_sell(ticker, price, shares, remaining):
     """Store a partial sell (trim). Called from portfolio_manager.cmd_sell() else branch."""
     collection = _get_cached_collection()
     if collection is None:
+        print("*Warning: knowledge store unavailable — sell not recorded.*")
         return
     text = (f"{ticker}: SELL {shares} shares @ ${price:.2f} "
             f"(partial trim). {remaining} shares remaining.")
