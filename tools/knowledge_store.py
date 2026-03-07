@@ -433,6 +433,8 @@ def cmd_stats(args):
 
 def cmd_resync(args):
     """Delete collection and re-ingest from scratch."""
+    global _CACHED_COLLECTION
+    _CACHED_COLLECTION = None
     client, _ = _get_collection()
     client.delete_collection("trading_knowledge")
     print("Collection deleted. Re-ingesting...")
