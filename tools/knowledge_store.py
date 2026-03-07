@@ -196,14 +196,16 @@ def _make_id(ticker, category, date, text):
 # ---------------------------------------------------------------------------
 
 _CACHED_COLLECTION = None
+_CACHE_INITIALIZED = False
 _UNCOUNTABLE_CATEGORIES = {"news", "macro"}
 
 
 def _get_cached_collection():
     """Return cached collection, initializing on first call. Returns None on failure."""
-    global _CACHED_COLLECTION
-    if _CACHED_COLLECTION is not None:
+    global _CACHED_COLLECTION, _CACHE_INITIALIZED
+    if _CACHE_INITIALIZED:
         return _CACHED_COLLECTION
+    _CACHE_INITIALIZED = True
     try:
         _, collection = _get_collection()
         _CACHED_COLLECTION = collection
@@ -433,8 +435,9 @@ def cmd_stats(args):
 
 def cmd_resync(args):
     """Delete collection and re-ingest from scratch."""
-    global _CACHED_COLLECTION
+    global _CACHED_COLLECTION, _CACHE_INITIALIZED
     _CACHED_COLLECTION = None
+    _CACHE_INITIALIZED = False
     client, _ = _get_collection()
     client.delete_collection("trading_knowledge")
     print("Collection deleted. Re-ingesting...")
