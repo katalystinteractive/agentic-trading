@@ -861,6 +861,16 @@ def build_per_position_detail(positions):
 
         # Verdict Trace
         parts.append(f"**Verdict Trace:** Rule {rule} — {p['reason']}")
+
+        # Knowledge store context
+        try:
+            from knowledge_store import query_ticker_knowledge
+            ks = query_ticker_knowledge(ticker, f"{ticker} exit sell outcome profit loss")
+            if ks:
+                parts.append(ks)
+        except Exception:
+            pass
+
         parts.append("")
 
         # LLM tasks

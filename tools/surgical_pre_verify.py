@@ -634,6 +634,15 @@ def build_report(checks, shortlist_json):
         if rec_issue:
             lines.append(f"- Recommendation: **{rec_issue['concern']}**")
 
+        # Knowledge store context
+        try:
+            from knowledge_store import query_ticker_knowledge
+            ks = query_ticker_knowledge(ticker, f"{ticker} support levels entry buy")
+            if ks:
+                lines.append(f"- {ks}")
+        except Exception:
+            pass
+
         lines.append("")
 
     # --- Data Quality Issues ---

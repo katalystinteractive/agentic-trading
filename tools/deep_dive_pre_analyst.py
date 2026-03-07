@@ -746,6 +746,17 @@ def build_output(header, wick_data, portfolio_data, identity_table, identity_war
         lines.append("No warnings.")
     lines.append("")
 
+    # Knowledge store context — standalone section, NOT inside warnings
+    try:
+        from knowledge_store import query_ticker_knowledge
+        ks = query_ticker_knowledge(ticker, f"{ticker} support level wick hold break")
+        if ks:
+            lines.append("## Historical Context")
+            lines.append(f"- {ks}")
+            lines.append("")
+    except Exception:
+        pass
+
     # Bullet Plan
     active_filled = bullet_plan["active_filled_count"]
     active_count = bullet_plan["active_count"]

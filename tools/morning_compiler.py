@@ -288,6 +288,19 @@ def build_condensed_cached_section(ticker, file_list, label_map):
             if summary != "No institutional data":
                 parts.append(f"\n**Institutional:** {summary}")
 
+    # Knowledge store context — use position-type-specific hints
+    try:
+        from knowledge_store import query_ticker_knowledge
+        # Caller passes file_list; ACTIVE_FILES includes "wick_analysis.md", WATCHLIST_FILES does not
+        is_active = "wick_analysis.md" in file_list
+        hint = ("recent trades exits profit loss lessons" if is_active
+                else "screening support levels observations entry")
+        ks = query_ticker_knowledge(ticker, hint)
+        if ks:
+            parts.append(f"\n{ks}")
+    except Exception:
+        pass
+
     return "\n".join(parts), files_read, missing
 
 
