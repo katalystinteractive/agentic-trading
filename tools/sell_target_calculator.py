@@ -35,6 +35,7 @@ MATH_TARGETS = {
 
 MIN_TOUCHES = 2       # Narrow zone (~3% of price), 3+ is too strict
 MERGE_PCT = 0.02      # 2% dedup threshold for merging nearby resistance levels
+ZONE_BUFFER = 0.5     # Buffer = 50% of zone width on each side
 
 
 # ---------------------------------------------------------------------------
@@ -65,6 +66,13 @@ def _compute_math_targets(avg_cost):
     return {key: round(avg_cost * mult, 2) for key, (_, mult) in MATH_TARGETS.items()}
 
 
+def _search_bounds(zone_low, zone_high):
+    """Compute buffered search window around the target zone."""
+    zone_width = zone_high - zone_low
+    buffer = zone_width * ZONE_BUFFER
+    return zone_low - buffer, zone_high + buffer
+
+
 def _nearest_math_target(price, math_prices):
     """Find which math target a price is closest to. Returns display label."""
     nearest = "Standard (6.0%)"
@@ -79,10 +87,7 @@ def _nearest_math_target(price, math_prices):
 
 def find_pa_resistances(hist, zone_low, zone_high):
     """Cluster daily Highs in buffered zone. Uses max(cluster) for resistance price."""
-    zone_width = zone_high - zone_low
-    buffer = zone_width * 0.5
-    search_low = zone_low - buffer
-    search_high = zone_high + buffer
+    search_low, search_high = _search_bounds(zone_low, zone_high)
 
     all_highs = hist["High"].values
     # Filter to highs within the search window
@@ -122,10 +127,7 @@ def find_hvn_ceilings(hist, zone_low, zone_high, n_bins=20):
     Bins are scoped to the buffered search window (not full price range) so that
     narrow target zones get adequate granularity for resistance detection.
     """
-    zone_width = zone_high - zone_low
-    buffer = zone_width * 0.5
-    search_low = zone_low - buffer
-    search_high = zone_high + buffer
+    search_low, search_high = _search_bounds(zone_low, zone_high)
 
     lows = hist["Low"].values
     highs = hist["High"].values
@@ -310,6 +312,26 @@ def recommend_sell(math_targets, resistance_levels):
     return best["price"], basis
 
 
+def _print_sell_orders(ticker, pending_all):
+    """Print existing SELL orders for context."""
+    orders = pending_all.get(ticker, [])
+    sell_orders = [o for o in orders if o["type"] == "SELL"]
+
+    print("### Existing SELL Orders")
+    if not sell_orders:
+        print("No pending SELL orders.")
+        print()
+        return
+
+    print("| Price | Shares | Placed | Note |")
+    print("| :--- | :--- | :--- | :--- |")
+    for order in sell_orders:
+        placed = "Yes" if order.get("placed", False) else "—"
+        note = order.get("note", "")
+        print(f"| {_fmt_dollar(order['price'])} | {order.get('shares', '—')} | {placed} | {note} |")
+    print()
+
+
 # ---------------------------------------------------------------------------
 # Main analysis
 # ---------------------------------------------------------------------------
@@ -406,10 +428,7 @@ def analyze_ticker(ticker, portfolio):
             lvl.update(result)
 
         # Print resistance levels table
-        zone_width = zone_high - zone_low
-        buffer = zone_width * 0.5
-        search_low = zone_low - buffer
-        search_high = zone_high + buffer
+        search_low, search_high = _search_bounds(zone_low, zone_high)
 
         print(f"### Resistance Levels in Target Zone ({_fmt_dollar(search_low)} — {_fmt_dollar(search_high)})")
         if resistance_levels:
@@ -441,26 +460,6 @@ def analyze_ticker(ticker, portfolio):
     print(f"| Total Shares | {shares} |")
     print(f"| Expected Proceeds | {_fmt_dollar(expected_proceeds)} |")
     print(f"| Expected P/L | +{expected_pl:.1f}% |")
-
-
-def _print_sell_orders(ticker, pending_all):
-    """Print existing SELL orders for context."""
-    orders = pending_all.get(ticker, [])
-    sell_orders = [o for o in orders if o["type"] == "SELL"]
-
-    print("### Existing SELL Orders")
-    if not sell_orders:
-        print("No pending SELL orders.")
-        print()
-        return
-
-    print("| Price | Shares | Placed | Note |")
-    print("| :--- | :--- | :--- | :--- |")
-    for order in sell_orders:
-        placed = "Yes" if order.get("placed", False) else "—"
-        note = order.get("note", "")
-        print(f"| {_fmt_dollar(order['price'])} | {order.get('shares', '—')} | {placed} | {note} |")
-    print()
 
 
 # ---------------------------------------------------------------------------
