@@ -195,8 +195,6 @@ def _make_id(ticker, category, date, text):
 # Public helpers (called from portfolio_manager.py)
 # ---------------------------------------------------------------------------
 
-_MODEL_LOADED = False
-
 _CACHED_COLLECTION = None
 
 
@@ -243,7 +241,11 @@ def query_ticker_knowledge(ticker, context_hint, n=3):
         for _, m, _ in hits:
             c = m.get("category", "other")
             cats[c] = cats.get(c, 0) + 1
-        cat_str = ", ".join(f"{v} {k}{'s' if v > 1 else ''}" for k, v in cats.items())
+        _UNCOUNTABLE = {"news", "macro"}
+        cat_str = ", ".join(
+            f"{v} {k}" if k in _UNCOUNTABLE else f"{v} {k}{'s' if v > 1 else ''}"
+            for k, v in cats.items()
+        )
         # Top hit snippet
         top_doc = hits[0][0].replace("\n", " ").strip()
         top_rel = f"{hits[0][2]:.2f}"
@@ -255,11 +257,9 @@ def query_ticker_knowledge(ticker, context_hint, n=3):
 
 def store_fill(ticker, price, shares, total_shares, new_avg, zone):
     """Store a fill event. Called from portfolio_manager.cmd_fill()."""
-    global _MODEL_LOADED
-    if not _MODEL_LOADED:
-        print("(Knowledge store: first-time model load...)")
-        _MODEL_LOADED = True
-    _, collection = _get_collection()
+    collection = _get_cached_collection()
+    if collection is None:
+        return
     text = (f"{ticker}: BUY {shares} shares @ ${price:.2f} ({zone}). "
             f"Now {total_shares} shares @ ${new_avg:.2f} avg.")
     d = datetime.date.today().isoformat()
@@ -271,11 +271,9 @@ def store_fill(ticker, price, shares, total_shares, new_avg, zone):
 
 def store_sell(ticker, price, shares, old_avg, pct_change):
     """Store a sell event (full close). Called from portfolio_manager.cmd_sell()."""
-    global _MODEL_LOADED
-    if not _MODEL_LOADED:
-        print("(Knowledge store: first-time model load...)")
-        _MODEL_LOADED = True
-    _, collection = _get_collection()
+    collection = _get_cached_collection()
+    if collection is None:
+        return
     sign = "+" if pct_change >= 0 else ""
     text = (f"{ticker}: SELL {shares} shares @ ${price:.2f} (full exit). "
             f"Profit: {sign}{pct_change}% from ${old_avg:.2f} avg. Position closed.")
@@ -289,11 +287,9 @@ def store_sell(ticker, price, shares, old_avg, pct_change):
 
 def store_partial_sell(ticker, price, shares, remaining):
     """Store a partial sell (trim). Called from portfolio_manager.cmd_sell() else branch."""
-    global _MODEL_LOADED
-    if not _MODEL_LOADED:
-        print("(Knowledge store: first-time model load...)")
-        _MODEL_LOADED = True
-    _, collection = _get_collection()
+    collection = _get_cached_collection()
+    if collection is None:
+        return
     text = (f"{ticker}: SELL {shares} shares @ ${price:.2f} "
             f"(partial trim). {remaining} shares remaining.")
     d = datetime.date.today().isoformat()
