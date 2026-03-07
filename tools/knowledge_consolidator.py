@@ -8,12 +8,10 @@ aggregates cross-ticker patterns, and writes knowledge-consolidation-raw.md.
 Usage: python3 tools/knowledge_consolidator.py
 """
 
-import json
-import math
 import re
 import sys
 from collections import defaultdict
-from datetime import date, datetime, timedelta
+from datetime import date, datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -24,6 +22,11 @@ OUTPUT_PATH = PROJECT_ROOT / "knowledge-consolidation-raw.md"
 
 TODAY = date.today()
 RECENCY_DAYS = 30
+
+
+def _escape_pipe(text: str) -> str:
+    """Escape pipe characters for safe markdown table embedding."""
+    return text.replace("|", "\\|")
 
 
 # ---------------------------------------------------------------------------
@@ -426,7 +429,11 @@ def aggregate_cross_ticker_patterns(
 
 def main():
     print("Loading all ChromaDB entries...", file=sys.stderr)
-    all_entries = load_all_entries()
+    try:
+        all_entries = load_all_entries()
+    except Exception as e:
+        print(f"*Error: Failed to load ChromaDB entries: {e}*")
+        sys.exit(1)
     total_entries = sum(len(v) for v in all_entries.values())
 
     if total_entries == 0:
@@ -437,7 +444,6 @@ def main():
 
     all_stats = {}
     all_wick_data = {}
-    all_beliefs = []
     contradictions = []
     skipped_tickers = []
     ticker_sections = []
@@ -484,7 +490,7 @@ def main():
         section.append("| ID | Category | Date | Content |")
         section.append("| :--- | :--- | :--- | :--- |")
         for e in entries:
-            content_short = e["doc"].replace("\n", " ").strip()[:80]
+            content_short = _escape_pipe(e["doc"].replace("\n", " ").strip()[:80])
             section.append(f"| {e['id']} | {e['meta'].get('category', '?')} "
                            f"| {e['meta'].get('date', '?')} | {content_short} |")
 
@@ -504,7 +510,6 @@ def main():
 
             for le in filtered_lessons:
                 belief = build_belief_evidence_table(le, entries, wick_data)
-                all_beliefs.append({"ticker": ticker, **belief})
 
                 if belief["note"]:
                     section.append(f"\n*Skipped: {le['doc'][:60]}... — {belief['note']}*")
@@ -516,9 +521,9 @@ def main():
 
                 for_items = [e["event"] for e in belief["evidence_for"]]
                 against_items = [e["event"] for e in belief["evidence_against"]]
-                for_str = "; ".join(for_items) if for_items else "None"
-                against_str = "; ".join(against_items) if against_items else "None"
-                ctx_str = "; ".join(belief["context_events"][:3]) if belief["context_events"] else "None"
+                for_str = _escape_pipe("; ".join(for_items)) if for_items else "None"
+                against_str = _escape_pipe("; ".join(against_items)) if against_items else "None"
+                ctx_str = _escape_pipe("; ".join(belief["context_events"][:3])) if belief["context_events"] else "None"
 
                 section.append(f"| Evidence FOR | {for_str} |")
                 section.append(f"| Evidence AGAINST | {against_str} |")

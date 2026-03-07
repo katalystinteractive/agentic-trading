@@ -523,6 +523,10 @@ def cmd_apply(args):
         print(f"*Error: JSON parse error: {e}*")
         return
 
+    if not isinstance(data, dict):
+        print(f"*Error: updates.json top-level must be an object, got {type(data).__name__}*")
+        return
+
     _, collection = _get_collection()
     applied = {"superseded": 0, "new_lessons": 0, "annotations": 0, "portfolio_lessons": 0}
 

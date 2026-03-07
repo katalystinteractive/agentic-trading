@@ -33,11 +33,19 @@ def check_coverage(raw_text: str, report_text: str) -> dict:
     """Check 1: every contradiction > 0.3 in raw has classification in report."""
     issues = []
 
-    # Extract contradictions from raw
+    # Extract contradictions from raw — only from the summary table
     contradiction_tickers = []
+    contradiction_section = ""
+    heading_match = re.search(r'## Belief Contradictions Requiring Review\n', raw_text)
+    if heading_match:
+        section_start = heading_match.end()
+        # Section ends at next ## heading or EOF
+        next_heading = re.search(r'\n## ', raw_text[section_start:])
+        section_end = section_start + next_heading.start() if next_heading else len(raw_text)
+        contradiction_section = raw_text[section_start:section_end]
     for m in re.finditer(
         r'\|\s*\d+\s*\|\s*(\w+)\s*\|.*?\|\s*(\w+)\s*\|\s*([\d.]+)\s*\|',
-        raw_text
+        contradiction_section
     ):
         ticker, entry_id, score = m.group(1), m.group(2), float(m.group(3))
         if score > 0.3:
@@ -104,6 +112,12 @@ def check_evidence_citations(report_text: str) -> dict:
             "result": "FAIL",
             "details": "; ".join(issues),
         }
+    if classified_count == 0:
+        return {
+            "name": "Evidence Citations",
+            "result": "WARN",
+            "details": "No classification sections found — analyst may have used non-standard headings.",
+        }
     return {
         "name": "Evidence Citations",
         "result": "PASS",
@@ -111,16 +125,15 @@ def check_evidence_citations(report_text: str) -> dict:
     }
 
 
-def check_json_wellformedness(updates_path: Path) -> dict:
+def check_json_wellformedness(updates_data: dict | None, parse_error: str | None) -> dict:
     """Check 3: updates.json parses, all required fields non-empty."""
-    if not updates_path.exists():
+    if parse_error:
+        return {"name": "JSON Well-formedness", "result": "FAIL",
+                "details": parse_error}
+    if updates_data is None:
         return {"name": "JSON Well-formedness", "result": "FAIL",
                 "details": "knowledge-consolidation-updates.json not found."}
-    try:
-        data = json.loads(updates_path.read_text())
-    except json.JSONDecodeError as e:
-        return {"name": "JSON Well-formedness", "result": "FAIL",
-                "details": f"JSON parse error: {e}"}
+    data = updates_data
 
     issues = []
     # Check required top-level keys
@@ -157,25 +170,20 @@ def check_json_wellformedness(updates_path: Path) -> dict:
             "details": "All fields valid."}
 
 
-def check_superseded_pairing(updates_path: Path) -> dict:
+def check_superseded_pairing(updates_data: dict | None) -> dict:
     """Check 4: every superseded ID has matching new_lesson with same ticker."""
-    if not updates_path.exists():
+    if updates_data is None:
         return {"name": "Superseded-Replacement Pairing", "result": "SKIP",
-                "details": "No updates.json."}
-    try:
-        data = json.loads(updates_path.read_text())
-    except json.JSONDecodeError:
-        return {"name": "Superseded-Replacement Pairing", "result": "SKIP",
-                "details": "JSON parse error (caught in Check 3)."}
+                "details": "No updates.json or parse error (caught in Check 3)."}
 
-    superseded_ids = {e["id"] for e in data.get("superseded", []) if e.get("id")}
+    superseded_ids = {e["id"] for e in updates_data.get("superseded", []) if e.get("id")}
     if not superseded_ids:
         return {"name": "Superseded-Replacement Pairing", "result": "PASS",
                 "details": "No superseded entries."}
 
     # Build map of new_lessons by consolidated_from
     covered_ids = set()
-    for lesson in data.get("new_lessons", []):
+    for lesson in updates_data.get("new_lessons", []):
         for src_id in lesson.get("consolidated_from", []):
             covered_ids.add(src_id)
 
@@ -217,18 +225,13 @@ def check_stats_transcription(raw_text: str, report_text: str) -> dict:
             "details": f"Checked {len(raw_win_rates)} ticker win rates."}
 
 
-def check_portfolio_lesson_threshold(updates_path: Path) -> dict:
+def check_portfolio_lesson_threshold(updates_data: dict | None) -> dict:
     """Check 6: all portfolio lessons have sample_size >= 5."""
-    if not updates_path.exists():
+    if updates_data is None:
         return {"name": "Portfolio Lesson Threshold", "result": "SKIP",
-                "details": "No updates.json."}
-    try:
-        data = json.loads(updates_path.read_text())
-    except json.JSONDecodeError:
-        return {"name": "Portfolio Lesson Threshold", "result": "SKIP",
-                "details": "JSON parse error."}
+                "details": "No updates.json or parse error."}
 
-    lessons = data.get("portfolio_lessons", [])
+    lessons = updates_data.get("portfolio_lessons", [])
     if not lessons:
         return {"name": "Portfolio Lesson Threshold", "result": "PASS",
                 "details": "No portfolio lessons."}
@@ -258,14 +261,25 @@ def main():
     raw_text = RAW_PATH.read_text()
     report_text = REPORT_PATH.read_text()
 
+    # Parse updates.json once for checks 3, 4, 6
+    updates_data = None
+    updates_parse_error = None
+    if not UPDATES_PATH.exists():
+        updates_parse_error = "knowledge-consolidation-updates.json not found."
+    else:
+        try:
+            updates_data = json.loads(UPDATES_PATH.read_text())
+        except json.JSONDecodeError as e:
+            updates_parse_error = f"JSON parse error: {e}"
+
     # Run all 6 checks
     checks = [
         check_coverage(raw_text, report_text),
         check_evidence_citations(report_text),
-        check_json_wellformedness(UPDATES_PATH),
-        check_superseded_pairing(UPDATES_PATH),
+        check_json_wellformedness(updates_data, updates_parse_error),
+        check_superseded_pairing(updates_data),
         check_stats_transcription(raw_text, report_text),
-        check_portfolio_lesson_threshold(UPDATES_PATH),
+        check_portfolio_lesson_threshold(updates_data),
     ]
 
     # Count results
