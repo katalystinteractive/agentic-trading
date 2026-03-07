@@ -167,9 +167,32 @@ def find_hvn_ceilings(hist, zone_low, zone_high, n_bins=20):
     return ceilings
 
 
+def _dedup_levels(levels):
+    """Merge levels within MERGE_PCT of each other, keeping highest volume/touches."""
+    if not levels:
+        return levels
+    levels = sorted(levels, key=lambda x: x["price"])
+    merged = [levels[0]]
+    for lvl in levels[1:]:
+        prev = merged[-1]
+        if prev["price"] > 0 and abs(lvl["price"] - prev["price"]) / prev["price"] < MERGE_PCT:
+            # Keep the one with higher volume (HVN) or more touches (PA)
+            if lvl.get("volume", 0) > prev.get("volume", 0):
+                lvl["source"] = prev["source"] if prev["source"] == lvl["source"] else prev["source"] + "+" + lvl["source"]
+                lvl["touches"] = max(lvl.get("touches", 0), prev.get("touches", 0))
+                merged[-1] = lvl
+            else:
+                prev["touches"] = max(prev.get("touches", 0), lvl.get("touches", 0))
+        else:
+            merged.append(lvl)
+    return merged
+
+
 def merge_resistance_levels(pa, hvn):
     """Dedup within 2%, merge sources (HVN+PA). Returns sorted list."""
-    all_levels = list(hvn)  # Start with HVN
+    # Dedup HVN levels first (zone-scoped bins can produce many nearby levels)
+    deduped_hvn = _dedup_levels(hvn)
+    all_levels = list(deduped_hvn)
 
     for p in pa:
         duplicate = False
@@ -215,18 +238,8 @@ def count_resistance_approaches(hist, level, proximity_pct=8.0):
         # Distance: how far below the resistance level the high is (as %)
         dist_pct = ((level - high) / level) * 100 if level > 0 else 100
 
-        if 0 <= dist_pct < proximity_pct:
-            # High is within proximity zone below resistance
-            if not in_approach:
-                in_approach = True
-                approach_broke = False
-            gap_days = 0
-
-            # Check if close broke through resistance
-            if close >= level:
-                approach_broke = True
-        elif dist_pct < 0:
-            # High is above resistance — definitely in approach territory
+        if dist_pct < proximity_pct:
+            # High is near or above resistance (within proximity zone or broke through)
             if not in_approach:
                 in_approach = True
                 approach_broke = False
