@@ -133,31 +133,30 @@ def check_json_wellformedness(updates_data: dict | None, parse_error: str | None
     if updates_data is None:
         return {"name": "JSON Well-formedness", "result": "FAIL",
                 "details": "knowledge-consolidation-updates.json not found."}
-    data = updates_data
 
     issues = []
     # Check required top-level keys
     for key in ("superseded", "new_lessons", "annotations", "portfolio_lessons"):
-        if key not in data:
+        if key not in updates_data:
             issues.append(f"Missing key: {key}")
-        elif not isinstance(data[key], list):
+        elif not isinstance(updates_data[key], list):
             issues.append(f"{key} is not a list")
 
     # Check superseded entries
-    for i, entry in enumerate(data.get("superseded", [])):
+    for i, entry in enumerate(updates_data.get("superseded", [])):
         if not entry.get("id"):
             issues.append(f"superseded[{i}] missing 'id'")
         if not entry.get("reason"):
             issues.append(f"superseded[{i}] missing 'reason'")
 
     # Check new_lessons
-    for i, entry in enumerate(data.get("new_lessons", [])):
+    for i, entry in enumerate(updates_data.get("new_lessons", [])):
         for field in ("ticker", "category", "text"):
             if not entry.get(field):
                 issues.append(f"new_lessons[{i}] missing '{field}'")
 
     # Check annotations
-    for i, entry in enumerate(data.get("annotations", [])):
+    for i, entry in enumerate(updates_data.get("annotations", [])):
         if not entry.get("id"):
             issues.append(f"annotations[{i}] missing 'id'")
         if not entry.get("append_text"):
@@ -202,21 +201,32 @@ def check_stats_transcription(raw_text: str, report_text: str) -> dict:
     """Check 5: ticker card metrics in report match raw."""
     issues = []
 
-    # Extract win rates from raw
+    # Extract win rates from raw — split by ticker section to avoid cross-boundary matching
     raw_win_rates = {}
-    for m in re.finditer(r'###\s+(\w+)\s+\(.*?\).*?Win Rate\s*\|\s*(\d+)%', raw_text, re.DOTALL):
-        raw_win_rates[m.group(1)] = int(m.group(2))
+    # Split on ### TICKER headers, then look for Win Rate within each section
+    raw_sections = re.split(r'(?=^### \w+ \()', raw_text, flags=re.MULTILINE)
+    for section in raw_sections:
+        ticker_match = re.match(r'### (\w+) \(', section)
+        if not ticker_match:
+            continue
+        ticker = ticker_match.group(1)
+        wr_match = re.search(r'Win Rate\s*\|\s*(\d+)%', section)
+        if wr_match:
+            raw_win_rates[ticker] = int(wr_match.group(1))
 
-    # Extract win rates from report
+    # Extract win rates from report — also split per-section
+    report_sections = re.split(r'(?=^### \w+)', report_text, flags=re.MULTILINE)
+    report_win_rates = {}
+    for section in report_sections:
+        for ticker in raw_win_rates:
+            if re.match(rf'### {re.escape(ticker)}\b', section):
+                wr_match = re.search(r'[Ww]in [Rr]ate.*?(\d+)%', section)
+                if wr_match:
+                    report_win_rates[ticker] = int(wr_match.group(1))
+
     for ticker, raw_rate in raw_win_rates.items():
-        report_match = re.search(
-            rf'{re.escape(ticker)}.*?[Ww]in [Rr]ate.*?(\d+)%',
-            report_text, re.DOTALL
-        )
-        if report_match:
-            report_rate = int(report_match.group(1))
-            if report_rate != raw_rate:
-                issues.append(f"{ticker} win rate: raw={raw_rate}%, report={report_rate}%")
+        if ticker in report_win_rates and report_win_rates[ticker] != raw_rate:
+            issues.append(f"{ticker} win rate: raw={raw_rate}%, report={report_win_rates[ticker]}%")
 
     if issues:
         return {"name": "Stats Transcription", "result": "FAIL",

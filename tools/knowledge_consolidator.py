@@ -480,9 +480,12 @@ def main():
             levels_str = ", ".join(f"{l} ({c}x)" for l, c in stats["most_mentioned_levels"])
             section.append(f"| Top Levels | {levels_str} |")
         if wick_data:
-            best = max(wick_data["levels"], key=lambda l: l["approaches"])
-            section.append(f"| Most Reliable Level | ${best['support']:.2f} "
-                           f"({best['hold_rate']}% hold, {best['approaches']} approaches) |")
+            # Filter to levels with ≥3 approaches for statistical relevance
+            tested_levels = [l for l in wick_data["levels"] if l["approaches"] >= 3]
+            if tested_levels:
+                best = max(tested_levels, key=lambda l: l["hold_rate"])
+                section.append(f"| Most Reliable Level | ${best['support']:.2f} "
+                               f"({best['hold_rate']}% hold, {best['approaches']} approaches) |")
 
         # Entry ID Reference table
         section.append("")
@@ -568,8 +571,8 @@ def main():
         out.append("| # | Ticker | Belief | Lesson ID | Score | Key Evidence Against |")
         out.append("| :--- | :--- | :--- | :--- | :--- | :--- |")
         for i, c in enumerate(contradictions, 1):
-            out.append(f"| {i} | {c['ticker']} | {c['belief'][:50]} "
-                       f"| {c['entry_id']} | {c['score']} | {c['key_against'][:60]} |")
+            out.append(f"| {i} | {c['ticker']} | {_escape_pipe(c['belief'][:50])} "
+                       f"| {c['entry_id']} | {c['score']} | {_escape_pipe(c['key_against'][:60])} |")
     else:
         out.append("")
         out.append("## Belief Contradictions Requiring Review")
