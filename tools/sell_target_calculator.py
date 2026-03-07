@@ -208,7 +208,7 @@ def merge_resistance_levels(pa, hvn):
             if existing["price"] > 0 and abs(p["price"] - existing["price"]) / existing["price"] < MERGE_PCT:
                 if "PA" not in existing["source"]:
                     existing["source"] += "+PA"
-                existing["touches"] = p.get("touches", 0)
+                existing["touches"] = max(existing.get("touches", 0), p.get("touches", 0))
                 duplicate = True
                 break
         if not duplicate:
