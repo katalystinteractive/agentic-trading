@@ -282,34 +282,125 @@ def count_resistance_approaches(hist, level, proximity_pct=8.0):
 # Recommendation logic
 # ---------------------------------------------------------------------------
 
-def recommend_sell(math_targets, resistance_levels):
-    """Pick resistance closest to 6% target; tiebreaker: higher rejection rate.
+def _score_level(lvl, standard, zone_width):
+    """Score a resistance level by combining rejection quality with proximity to Standard.
+
+    rejection_quality = reject_rate × log(approaches + 1)
+      → rewards both high rejection AND sample size
+      → 57% on 7 approaches >> 0% on 1 approach
+    distance_penalty = abs(price - standard) / zone_width × DISTANCE_WEIGHT
+      → normalized by zone width so penalty scales with price
+    profit_bonus = small bonus for higher price (all else equal, more profit is better)
+
+    Returns float score (higher = better).
+    """
+    import math
+    reject_rate = lvl.get("reject_rate", 0) / 100.0  # 0..1
+    approaches = lvl.get("approaches", 0)
+
+    # Quality: rejection rate weighted by sample size (log scale)
+    quality = reject_rate * math.log(approaches + 1)
+
+    # Distance penalty: normalized by zone width
+    dist = abs(lvl["price"] - standard) / zone_width if zone_width > 0 else 0
+    DISTANCE_WEIGHT = 0.3
+    distance_penalty = dist * DISTANCE_WEIGHT
+
+    # Profit bonus: slight preference for higher price (normalized by zone width)
+    profit_bonus = (lvl["price"] - standard) / zone_width * 0.05 if zone_width > 0 else 0
+
+    return quality - distance_penalty + profit_bonus
+
+
+# Minimum score threshold — levels below this are too weak to recommend
+MIN_SCORE = -0.1
+
+
+def _basis_label(lvl, math_targets):
+    """Build basis string for a level, appending '(weak signal)' when appropriate."""
+    nearest_target = _nearest_math_target(lvl["price"], math_targets)
+    basis = f"{lvl['source']} resistance, {lvl['reject_rate']:.0f}% reject, near {nearest_target}"
+    # Weak signal: < 3 approaches means low confidence in this level.
+    # Distinct from the score-cap threshold (< 2 approaches) which gates whether
+    # a level can win at all.  This is display-only — a confidence warning.
+    if lvl.get("approaches", 0) < 3:
+        basis += " (weak signal)"
+    return basis
+
+
+def _split_shares(n_levels, shares):
+    """Equal split with remainder to lowest-priced (first) levels."""
+    base = shares // n_levels
+    remainder = shares % n_levels
+    alloc = [base + (1 if i < remainder else 0) for i in range(n_levels)]
+    return alloc
+
+
+def recommend_sell(math_targets, resistance_levels, shares):
+    """Score-based recommendation with tranche splitting.
+
+    Scores each eligible level using _score_level(). Levels with < 2 approaches
+    are capped at MIN_SCORE so they only win if nothing better exists.
+    Falls back to math Standard (6%) if no level scores above MIN_SCORE.
+    When 2+ levels remain and shares allow, splits shares equally across them.
 
     math_targets: dict with keys "conservative", "standard", "aggressive" -> price.
-    resistance_levels: list of dicts with "price", "reject_rate", etc.
-    Returns (price, basis_str) or falls back to math 6%.
+    resistance_levels: list of dicts with "price", "reject_rate", "approaches", etc.
+    shares: int — total shares to sell.
+    Returns list of dicts: [{"price", "shares", "basis"}, ...].
     """
     standard = math_targets["standard"]
+    conservative = math_targets["conservative"]
+    aggressive = math_targets["aggressive"]
+    zone_width = aggressive - conservative
 
     if not resistance_levels:
-        return standard, "Math Standard (6.0%) — no resistance levels found in zone"
+        return [{"price": standard, "shares": shares,
+                 "basis": "Math Standard (6.0%) — no resistance levels found in zone"}]
 
-    # Find closest to standard target (on full tie, lowest price wins — conservative bias)
-    best = None
-    best_dist = float('inf')
-    for lvl in resistance_levels:
-        dist = abs(lvl["price"] - standard)
-        if dist < best_dist or (dist == best_dist and best is not None
-                                and lvl.get("reject_rate", 0) > best.get("reject_rate", 0)):
-            best_dist = dist
-            best = lvl
+    # Filter out levels below the Conservative (4.5%) floor
+    eligible = [lvl for lvl in resistance_levels if lvl["price"] >= conservative]
+    if not eligible:
+        return [{"price": standard, "shares": shares,
+                 "basis": "Math Standard (6.0%) — no resistance levels above 4.5% floor"}]
 
-    if best is None:
-        return standard, "Math Standard (6.0%) — no resistance levels found in zone"
+    # Score each level
+    scored = []
+    for lvl in eligible:
+        score = _score_level(lvl, standard, zone_width)
+        # Cap weak levels (< 2 approaches) so they only win as last resort
+        if lvl.get("approaches", 0) < 2:
+            score = min(score, MIN_SCORE)
+        scored.append((score, lvl))
 
-    nearest_target = _nearest_math_target(best["price"], math_targets)
-    basis = f"{best['source']} resistance, {best['reject_rate']:.0f}% rejection rate, near {nearest_target}"
-    return best["price"], basis
+    # Filter out levels strictly below MIN_SCORE (levels capped AT MIN_SCORE are retained)
+    scored = [(s, lvl) for s, lvl in scored if s >= MIN_SCORE]
+
+    if not scored:
+        return [{"price": standard, "shares": shares,
+                 "basis": "Math Standard (6.0%) — resistance levels too weak to recommend"}]
+
+    # Sort by score descending, tiebreak by higher price
+    scored.sort(key=lambda x: (x[0], x[1]["price"]), reverse=True)
+
+    # Minimum share guard: can't allocate 0 shares to a tranche
+    if shares < len(scored):
+        best = scored[0][1]
+        return [{"price": best["price"], "shares": shares,
+                 "basis": _basis_label(best, math_targets)}]
+
+    if len(scored) == 1:
+        best = scored[0][1]
+        return [{"price": best["price"], "shares": shares,
+                 "basis": _basis_label(best, math_targets)}]
+
+    # 2+ levels: sort by price ascending (lowest first), split shares equally
+    levels = sorted([lvl for _, lvl in scored], key=lambda x: x["price"])
+    alloc = _split_shares(len(levels), shares)
+
+    return [{"price": lvl["price"], "shares": alloc[i],
+             "basis": _basis_label(lvl, math_targets)}
+            for i, lvl in enumerate(levels)]
 
 
 def _print_sell_orders(ticker, pending_all):
@@ -330,6 +421,38 @@ def _print_sell_orders(ticker, pending_all):
         note = order.get("note", "")
         print(f"| {_fmt_dollar(order['price'])} | {order.get('shares', '—')} | {placed} | {note} |")
     print()
+
+
+def _print_recommendation(recommendations, avg_cost):
+    """Print recommendation as field/value table (single) or tranche table (multi)."""
+    # P/L always positive: all levels >= Conservative (4.5%) floor
+    print("### Recommendation")
+    if len(recommendations) == 1:
+        rec = recommendations[0]
+        proceeds = round(rec["price"] * rec["shares"], 2)
+        pl_pct = (rec["price"] - avg_cost) / avg_cost * 100
+        print("| Field | Value |")
+        print("| :--- | :--- |")
+        print(f"| Recommended Sell | {_fmt_dollar(rec['price'])} |")
+        print(f"| Basis | {rec['basis']} |")
+        print(f"| Total Shares | {rec['shares']} |")
+        print(f"| Expected Proceeds | {_fmt_dollar(proceeds)} |")
+        print(f"| Expected P/L | +{pl_pct:.1f}% |")
+    else:
+        print("| Tranche | Price | Shares | Proceeds | P/L % | Basis |")
+        print("| :--- | :--- | :--- | :--- | :--- | :--- |")
+        total_shares = 0
+        total_proceeds = 0.0
+        for idx, rec in enumerate(recommendations, 1):
+            proceeds = round(rec["price"] * rec["shares"], 2)
+            pl_pct = (rec["price"] - avg_cost) / avg_cost * 100
+            total_shares += rec["shares"]
+            total_proceeds += proceeds
+            print(f"| {idx} | {_fmt_dollar(rec['price'])} | {rec['shares']} "
+                  f"| {_fmt_dollar(proceeds)} | +{pl_pct:.1f}% | {rec['basis']} |")
+        total_pl = (total_proceeds / (total_shares * avg_cost) - 1) * 100 if total_shares > 0 else 0
+        print(f"| **Total** | — | **{total_shares}** | **{_fmt_dollar(total_proceeds)}** "
+              f"| **+{total_pl:.1f}%** | — |")
 
 
 # ---------------------------------------------------------------------------
@@ -414,8 +537,8 @@ def analyze_ticker(ticker, portfolio):
         print(f"> Current price ({_fmt_dollar(current_price)}) is already above the 7.5% target ({_fmt_dollar(zone_high)}) — consider taking profit.")
         print()
         # Skip resistance scan — recommend math target directly
-        rec_price = math_prices["standard"]
-        basis = "Price above all targets — consider immediate profit-taking"
+        recommendations = [{"price": math_prices["standard"], "shares": shares,
+                            "basis": "Price above all targets — consider immediate profit-taking"}]
     else:
         # Find resistance levels in buffered zone
         pa_resistances = find_pa_resistances(hist, zone_low, zone_high)
@@ -444,22 +567,11 @@ def analyze_ticker(ticker, portfolio):
             print("*No resistance levels found in target zone.*")
             print()
 
-        rec_price, basis = recommend_sell(math_prices, resistance_levels)
+        recommendations = recommend_sell(math_prices, resistance_levels, shares)
 
     # SELL orders + unified recommendation block
     _print_sell_orders(ticker, pending_all)
-
-    expected_proceeds = round(rec_price * shares, 2)
-    expected_pl = (rec_price - avg_cost) / avg_cost * 100
-
-    print("### Recommendation")
-    print("| Field | Value |")
-    print("| :--- | :--- |")
-    print(f"| Recommended Sell | {_fmt_dollar(rec_price)} |")
-    print(f"| Basis | {basis} |")
-    print(f"| Total Shares | {shares} |")
-    print(f"| Expected Proceeds | {_fmt_dollar(expected_proceeds)} |")
-    print(f"| Expected P/L | +{expected_pl:.1f}% |")
+    _print_recommendation(recommendations, avg_cost)
 
 
 # ---------------------------------------------------------------------------

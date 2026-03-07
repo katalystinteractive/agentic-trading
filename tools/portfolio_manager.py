@@ -283,8 +283,8 @@ def cmd_fill(data, args):
         print("---")
         print()
         analyze_ticker(ticker, data)
-    except Exception:
-        pass  # Non-critical — don't block fill on target calc failure
+    except Exception as e:
+        print(f"(Sell target error: {e})")
 
 
 def cmd_sell(data, args):
