@@ -581,6 +581,8 @@ def cmd_apply(args):
                 continue
             old_doc = result["documents"][0]
             old_meta = result["metadatas"][0]
+            if old_doc.endswith(append_text):
+                continue  # already annotated — idempotent skip
             collection.update(ids=[ann_id], documents=[old_doc + append_text],
                               metadatas=[old_meta])
             applied["annotations"] += 1
