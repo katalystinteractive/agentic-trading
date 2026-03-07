@@ -64,7 +64,7 @@ def _fmt_dollar(val):
 
 
 # ---------------------------------------------------------------------------
-# Resistance detection
+# Math targets and zone helpers
 # ---------------------------------------------------------------------------
 
 def _compute_math_prices(avg_cost):
@@ -531,8 +531,8 @@ def analyze_ticker(ticker, portfolio):
     if current_price > zone_high:
         print(f"> Current price ({_fmt_dollar(current_price)}) is already above the 7.5% target ({_fmt_dollar(zone_high)}) — consider taking profit.")
         print()
-        # Skip resistance scan — recommend math target directly
-        recommendations = [{"price": math_prices["standard"], "shares": shares,
+        # Use current price: a limit sell at Standard fills immediately at market
+        recommendations = [{"price": current_price, "shares": shares,
                             "basis": "Price above all targets — consider immediate profit-taking"}]
     else:
         # Find resistance levels in buffered zone
