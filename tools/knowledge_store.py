@@ -197,6 +197,7 @@ def _make_id(ticker, category, date, text):
 
 _CACHED_COLLECTION = None
 _CACHE_INITIALIZED = False
+_TRANSIENT_ERROR_COUNT = 0
 _UNCOUNTABLE_CATEGORIES = {"news", "macro"}
 
 
@@ -204,18 +205,26 @@ def _get_cached_collection():
     """Return cached collection, initializing on first call. Returns None on failure.
 
     Caches on success and on permanent failure (missing deps). Transient errors
-    (RuntimeError, etc.) are NOT cached — next call will retry.
+    (RuntimeError, etc.) are retried up to 3 times; then permanently disabled.
     """
-    global _CACHED_COLLECTION, _CACHE_INITIALIZED
+    global _CACHED_COLLECTION, _CACHE_INITIALIZED, _TRANSIENT_ERROR_COUNT
     if _CACHE_INITIALIZED:
         return _CACHED_COLLECTION
     try:
         _, collection = _get_collection()
         _CACHED_COLLECTION = collection
         _CACHE_INITIALIZED = True
+        _TRANSIENT_ERROR_COUNT = 0  # reset on success
         return collection
     except (SystemExit, ImportError):
         _CACHE_INITIALIZED = True  # permanent failure — don't retry
+        return None
+    except Exception:
+        _TRANSIENT_ERROR_COUNT += 1
+        if _TRANSIENT_ERROR_COUNT >= 3:
+            print("*Warning: knowledge store initialization failed 3 times. "
+                  "Disabling to prevent hang. Check .chroma/ permissions.*")
+            _CACHE_INITIALIZED = True
         return None
 
 
@@ -440,9 +449,10 @@ def cmd_stats(args):
 
 def cmd_resync(args):
     """Delete collection and re-ingest from scratch."""
-    global _CACHED_COLLECTION, _CACHE_INITIALIZED
+    global _CACHED_COLLECTION, _CACHE_INITIALIZED, _TRANSIENT_ERROR_COUNT
     _CACHED_COLLECTION = None
     _CACHE_INITIALIZED = False
+    _TRANSIENT_ERROR_COUNT = 0
     client, _ = _get_collection()
     client.delete_collection("trading_knowledge")
     print("Collection deleted. Re-ingesting...")
