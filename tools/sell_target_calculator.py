@@ -38,6 +38,11 @@ MIN_TOUCHES = 2       # Narrow zone (~3% of price), 3+ is too strict
 MERGE_PCT = 0.02      # 2% dedup threshold for merging nearby resistance levels
 ZONE_BUFFER = 0.5     # Buffer = 50% of zone width on each side
 
+# Scoring weights for _score_level()
+MIN_SCORE = -0.1          # Levels below this are too weak to recommend
+DISTANCE_WEIGHT = 0.3     # Penalty for distance from Standard target
+PROFIT_BONUS_WEIGHT = 0.05  # Bonus for higher price (more profit)
+
 
 # ---------------------------------------------------------------------------
 # Portfolio helpers
@@ -306,19 +311,14 @@ def _score_level(lvl, standard, zone_width):
     distance_penalty = dist * DISTANCE_WEIGHT
 
     # Profit bonus: slight preference for higher price (normalized by zone width)
-    profit_bonus = (lvl["price"] - standard) / zone_width * 0.05 if zone_width > 0 else 0
+    profit_bonus = (lvl["price"] - standard) / zone_width * PROFIT_BONUS_WEIGHT if zone_width > 0 else 0
 
     return quality - distance_penalty + profit_bonus
 
 
-# Minimum score threshold — levels below this are too weak to recommend
-MIN_SCORE = -0.1
-DISTANCE_WEIGHT = 0.3  # Penalty for distance from Standard target in _score_level()
-
-
-def _basis_label(lvl, math_targets):
+def _basis_label(lvl, math_prices):
     """Build basis string for a level, appending '(weak signal)' when appropriate."""
-    nearest_target = _nearest_math_target(lvl["price"], math_targets)
+    nearest_target = _nearest_math_target(lvl["price"], math_prices)
     basis = f"{lvl['source']} resistance, {lvl['reject_rate']:.0f}% reject, near {nearest_target}"
     # Weak signal: < 3 approaches means low confidence in this level.
     # Distinct from the score-cap threshold (< 2 approaches) which gates whether
@@ -336,7 +336,7 @@ def _split_shares(n_levels, shares):
     return alloc
 
 
-def recommend_sell(math_targets, resistance_levels, shares):
+def recommend_sell(math_prices, resistance_levels, shares):
     """Score-based recommendation with tranche splitting.
 
     Scores each eligible level using _score_level(). Levels with < 2 approaches
@@ -344,14 +344,14 @@ def recommend_sell(math_targets, resistance_levels, shares):
     Falls back to math Standard (6%) if no level scores above MIN_SCORE.
     When 2+ levels remain and shares allow, splits shares equally across them.
 
-    math_targets: dict with keys "conservative", "standard", "aggressive" -> price.
+    math_prices: dict with keys "conservative", "standard", "aggressive" -> price.
     resistance_levels: list of dicts with "price", "reject_rate", "approaches", etc.
     shares: int — total shares to sell.
     Returns list of dicts: [{"price", "shares", "basis"}, ...].
     """
-    standard = math_targets["standard"]
-    conservative = math_targets["conservative"]
-    aggressive = math_targets["aggressive"]
+    standard = math_prices["standard"]
+    conservative = math_prices["conservative"]
+    aggressive = math_prices["aggressive"]
     zone_width = aggressive - conservative
 
     if not resistance_levels:
@@ -383,23 +383,18 @@ def recommend_sell(math_targets, resistance_levels, shares):
     # Sort by score descending, tiebreak by higher price
     scored.sort(key=lambda x: (x[0], x[1]["price"]), reverse=True)
 
-    # Minimum share guard: can't allocate 0 shares to a tranche
-    if shares < len(scored):
+    # Single level: either only 1 survived scoring, or share guard prevents splitting
+    if len(scored) == 1 or shares < len(scored):
         best = scored[0][1]
         return [{"price": best["price"], "shares": shares,
-                 "basis": _basis_label(best, math_targets)}]
-
-    if len(scored) == 1:
-        best = scored[0][1]
-        return [{"price": best["price"], "shares": shares,
-                 "basis": _basis_label(best, math_targets)}]
+                 "basis": _basis_label(best, math_prices)}]
 
     # 2+ levels: sort by price ascending (lowest first), split shares equally
     levels = sorted([lvl for _, lvl in scored], key=lambda x: x["price"])
     alloc = _split_shares(len(levels), shares)
 
     return [{"price": lvl["price"], "shares": alloc[i],
-             "basis": _basis_label(lvl, math_targets)}
+             "basis": _basis_label(lvl, math_prices)}
             for i, lvl in enumerate(levels)]
 
 
