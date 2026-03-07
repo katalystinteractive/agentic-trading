@@ -27,11 +27,11 @@ from wick_offset_analyzer import fetch_history
 # Constants
 # ---------------------------------------------------------------------------
 
-MATH_TARGETS = [
-    ("Conservative (4.5%)", 1.045),
-    ("Standard (6.0%)", 1.060),
-    ("Aggressive (7.5%)", 1.075),
-]
+MATH_TARGETS = {
+    "conservative": ("Conservative (4.5%)", 1.045),
+    "standard": ("Standard (6.0%)", 1.060),
+    "aggressive": ("Aggressive (7.5%)", 1.075),
+}
 
 MIN_TOUCHES = 2       # Narrow zone (~3% of price), 3+ is too strict
 MERGE_PCT = 0.02      # 2% dedup threshold for merging nearby resistance levels
@@ -51,12 +51,31 @@ def _fmt_dollar(val):
         return "N/A"
     if not isinstance(val, (int, float)):
         return str(val)
+    if val < 0:
+        return f"-${abs(val):.2f}"
     return f"${val:.2f}"
 
 
 # ---------------------------------------------------------------------------
 # Resistance detection
 # ---------------------------------------------------------------------------
+
+def _compute_math_targets(avg_cost):
+    """Compute math target prices from avg_cost. Returns dict: key -> price."""
+    return {key: round(avg_cost * mult, 2) for key, (_, mult) in MATH_TARGETS.items()}
+
+
+def _nearest_math_target(price, math_prices):
+    """Find which math target a price is closest to. Returns display label."""
+    nearest = "Standard (6.0%)"
+    nearest_dist = float('inf')
+    for key, (label, _) in MATH_TARGETS.items():
+        d = abs(price - math_prices[key])
+        if d < nearest_dist:
+            nearest_dist = d
+            nearest = label
+    return nearest
+
 
 def find_pa_resistances(hist, zone_low, zone_high):
     """Cluster daily Highs in buffered zone. Uses max(cluster) for resistance price."""
@@ -97,8 +116,12 @@ def find_pa_resistances(hist, zone_low, zone_high):
     return clusters
 
 
-def find_hvn_ceilings(hist, zone_low, zone_high, n_bins=40):
-    """Volume profile HVN nodes in target zone (180-day decay, 40 bins, 70th pctl)."""
+def find_hvn_ceilings(hist, zone_low, zone_high, n_bins=20):
+    """Volume profile HVN nodes in target zone (180-day decay, zone-scoped bins, 70th pctl).
+
+    Bins are scoped to the buffered search window (not full price range) so that
+    narrow target zones get adequate granularity for resistance detection.
+    """
     zone_width = zone_high - zone_low
     buffer = zone_width * 0.5
     search_low = zone_low - buffer
@@ -109,18 +132,20 @@ def find_hvn_ceilings(hist, zone_low, zone_high, n_bins=40):
     volumes = hist["Volume"].values
     dates = hist.index
 
-    price_min, price_max = lows.min(), highs.max()
-    bin_edges = np.linspace(price_min * 0.95, price_max * 1.05, n_bins + 1)
+    bin_edges = np.linspace(search_low, search_high, n_bins + 1)
 
     reference = dates[-1].to_pydatetime().replace(tzinfo=None)
 
     vol_by_bin = np.zeros(n_bins)
     for i in range(len(hist)):
+        day_low, day_high = lows[i], highs[i]
+        # Skip bars that don't overlap the search window at all
+        if day_high < search_low or day_low > search_high:
+            continue
         days_old = (reference - dates[i].to_pydatetime().replace(tzinfo=None)).days
         decay = math.exp(-days_old * math.log(2) / 180)
         weighted_vol = volumes[i] * decay
 
-        day_low, day_high = lows[i], highs[i]
         day_range = day_high - day_low if day_high > day_low else 0.01
         for b in range(n_bins):
             bin_lo, bin_hi = bin_edges[b], bin_edges[b + 1]
@@ -133,12 +158,11 @@ def find_hvn_ceilings(hist, zone_low, zone_high, n_bins=40):
     for b in range(n_bins):
         if vol_by_bin[b] >= threshold:
             bin_top = bin_edges[b + 1]
-            if search_low <= bin_top <= search_high:
-                ceilings.append({
-                    "price": round(float(bin_top), 4),
-                    "volume": vol_by_bin[b],
-                    "source": "HVN",
-                })
+            ceilings.append({
+                "price": round(float(bin_top), 4),
+                "volume": vol_by_bin[b],
+                "source": "HVN",
+            })
 
     return ceilings
 
@@ -268,20 +292,7 @@ def recommend_sell(math_targets, resistance_levels):
     if best is None:
         return standard, "Math Standard (6.0%) — no resistance levels found in zone"
 
-    # Determine which math target it's closest to
-    target_names = {
-        "conservative": "Conservative (4.5%)",
-        "standard": "Standard (6.0%)",
-        "aggressive": "Aggressive (7.5%)",
-    }
-    nearest_target = "Standard (6.0%)"
-    nearest_dist = float('inf')
-    for key, name in target_names.items():
-        d = abs(best["price"] - math_targets[key])
-        if d < nearest_dist:
-            nearest_dist = d
-            nearest_target = name
-
+    nearest_target = _nearest_math_target(best["price"], math_targets)
     basis = f"{best['source']} resistance, {best['reject_rate']:.0f}% rejection rate, closest to {nearest_target}"
     return best["price"], basis
 
@@ -326,12 +337,7 @@ def analyze_ticker(ticker, portfolio):
     now = datetime.datetime.now().strftime("%Y-%m-%d")
 
     # Compute math targets
-    math_prices = {}
-    for label, mult in MATH_TARGETS:
-        math_prices[label] = round(avg_cost * mult, 2)
-    math_prices["conservative"] = math_prices["Conservative (4.5%)"]
-    math_prices["standard"] = math_prices["Standard (6.0%)"]
-    math_prices["aggressive"] = math_prices["Aggressive (7.5%)"]
+    math_prices = _compute_math_targets(avg_cost)
 
     zone_low = math_prices["conservative"]
     zone_high = math_prices["aggressive"]
@@ -361,8 +367,8 @@ def analyze_ticker(ticker, portfolio):
     print("### Mathematical Targets")
     print("| Target | Price | P/L % | Proceeds |")
     print("| :--- | :--- | :--- | :--- |")
-    for label, mult in MATH_TARGETS:
-        price = round(avg_cost * mult, 2)
+    for key, (label, mult) in MATH_TARGETS.items():
+        price = math_prices[key]
         pct = (mult - 1) * 100
         proceeds = round(price * shares, 2)
         print(f"| {label} | {_fmt_dollar(price)} | +{pct:.1f}% | {_fmt_dollar(proceeds)} |")
@@ -374,14 +380,16 @@ def analyze_ticker(ticker, portfolio):
         print()
         # Skip resistance scan — show SELL orders and recommend math target
         _print_sell_orders(ticker, pending_all)
+        rec_price = math_prices["standard"]
+        expected_pl = (rec_price - avg_cost) / avg_cost * 100
         print("### Recommendation")
         print("| Field | Value |")
         print("| :--- | :--- |")
-        print(f"| Recommended Sell | {_fmt_dollar(math_prices['standard'])} |")
+        print(f"| Recommended Sell | {_fmt_dollar(rec_price)} |")
         print(f"| Basis | Price above all targets — consider immediate profit-taking |")
         print(f"| Total Shares | {shares} |")
-        print(f"| Expected Proceeds | {_fmt_dollar(round(math_prices['standard'] * shares, 2))} |")
-        print(f"| Expected P/L | +6.0% |")
+        print(f"| Expected Proceeds | {_fmt_dollar(round(rec_price * shares, 2))} |")
+        print(f"| Expected P/L | +{expected_pl:.1f}% |")
         return
 
     # Find resistance levels in buffered zone
@@ -394,38 +402,23 @@ def analyze_ticker(ticker, portfolio):
         result = count_resistance_approaches(hist, lvl["price"])
         lvl.update(result)
 
-    # Determine nearest math target for each resistance level
-    target_map = {
-        "conservative": ("Conservative (4.5%)", math_prices["conservative"]),
-        "standard": ("Standard (6.0%)", math_prices["standard"]),
-        "aggressive": ("Aggressive (7.5%)", math_prices["aggressive"]),
-    }
-
     # Print resistance levels table
     zone_width = zone_high - zone_low
     buffer = zone_width * 0.5
     search_low = zone_low - buffer
     search_high = zone_high + buffer
 
+    print(f"### Resistance Levels in Target Zone ({_fmt_dollar(search_low)} — {_fmt_dollar(search_high)})")
     if resistance_levels:
-        print(f"### Resistance Levels in Target Zone ({_fmt_dollar(search_low)} — {_fmt_dollar(search_high)})")
         print("| Level | Source | Approaches | Rejected | Reject Rate | Nearest Target |")
         print("| :--- | :--- | :--- | :--- | :--- | :--- |")
         for lvl in resistance_levels:
-            # Find nearest math target
-            nearest = "Standard (6.0%)"
-            nearest_dist = float('inf')
-            for key, (name, price) in target_map.items():
-                d = abs(lvl["price"] - price)
-                if d < nearest_dist:
-                    nearest_dist = d
-                    nearest = name
+            nearest = _nearest_math_target(lvl["price"], math_prices)
             print(f"| {_fmt_dollar(lvl['price'])} | {lvl['source']} "
                   f"| {lvl['approaches']} | {lvl['rejected']} "
                   f"| {lvl['reject_rate']:.0f}% | {nearest} |")
         print()
     else:
-        print(f"### Resistance Levels in Target Zone ({_fmt_dollar(search_low)} — {_fmt_dollar(search_high)})")
         print("*No resistance levels found in target zone.*")
         print()
 
