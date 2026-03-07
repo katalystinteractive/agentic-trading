@@ -14,6 +14,7 @@ Usage:
     python3 tools/knowledge_store.py ingest
     python3 tools/knowledge_store.py stats
     python3 tools/knowledge_store.py resync
+    python3 tools/knowledge_store.py apply
 """
 import sys
 import re
@@ -605,9 +606,9 @@ def cmd_apply(args):
         collection.upsert(ids=[doc_id], documents=[text], metadatas=[meta])
         applied["portfolio_lessons"] += 1
 
-    print(f"Applied consolidation updates:")
-    print(f"| Action | Count |")
-    print(f"| :--- | :--- |")
+    print("Applied consolidation updates:")
+    print("| Action | Count |")
+    print("| :--- | :--- |")
     print(f"| Superseded | {applied['superseded']} |")
     print(f"| New Lessons | {applied['new_lessons']} |")
     print(f"| Annotations | {applied['annotations']} |")

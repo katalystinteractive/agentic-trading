@@ -31,8 +31,6 @@ _CITATION_RE = re.compile(r'\$\d|%|\d{4}-\d{2}-\d{2}|\b\d+\.\d+\b')
 
 def check_coverage(raw_text: str, report_text: str) -> dict:
     """Check 1: every contradiction > 0.3 in raw has classification in report."""
-    issues = []
-
     # Extract contradictions from raw — only from the summary table
     contradiction_tickers = []
     contradiction_section = ""
@@ -54,20 +52,24 @@ def check_coverage(raw_text: str, report_text: str) -> dict:
     if not contradiction_tickers:
         return {"name": "Coverage", "result": "PASS", "details": "No contradictions above threshold."}
 
-    # Check each has a classification in report
+    # Check each has a classification in report — split per-section to avoid cross-boundary
+    report_sections = re.split(r'(?=^###\s)', report_text, flags=re.MULTILINE)
     missing = []
     for ticker, entry_id, score in contradiction_tickers:
-        # Look for classification pattern near ticker mention
-        pattern = rf'(?i)\[?{re.escape(ticker)}\]?\s.*?(?:TEMPORARY|STRUCTURAL)'
-        if not re.search(pattern, report_text):
-            # Fallback: just check ticker + classification exist
-            has_ticker = ticker in report_text
-            has_class = bool(re.search(
-                rf'{re.escape(ticker)}.*?(?:Classification|TEMPORARY|STRUCTURAL)',
-                report_text, re.DOTALL | re.IGNORECASE
-            ))
-            if not (has_ticker and has_class):
-                missing.append(f"{ticker} (ID: {entry_id}, score: {score})")
+        found = False
+        for section in report_sections:
+            if re.match(rf'###\s+\[?{re.escape(ticker)}\]?\b', section):
+                if re.search(r'TEMPORARY|STRUCTURAL', section):
+                    found = True
+                    break
+        if not found:
+            # Fallback: check ticker + classification anywhere in report (same section)
+            for section in report_sections:
+                if ticker in section and re.search(r'TEMPORARY|STRUCTURAL', section):
+                    found = True
+                    break
+        if not found:
+            missing.append(f"{ticker} (ID: {entry_id}, score: {score})")
 
     if missing:
         return {
@@ -295,13 +297,19 @@ def main():
     # Count results
     passed = sum(1 for c in checks if c["result"] == "PASS")
     failed = sum(1 for c in checks if c["result"] == "FAIL")
+    warned = sum(1 for c in checks if c["result"] == "WARN")
 
     # Write output
     out = []
     out.append("# Knowledge Consolidation — Mechanical Verification")
     out.append("")
-    out.append(f"**Result: {passed}/{len(checks)} checks passed" +
-               (f", {failed} FAILED**" if failed else "**"))
+    summary = f"**Result: {passed}/{len(checks)} checks passed"
+    if failed:
+        summary += f", {failed} FAILED"
+    if warned:
+        summary += f", {warned} WARN"
+    summary += "**"
+    out.append(summary)
     out.append("")
     out.append("## Verification Summary")
     out.append("| # | Check | Result | Details |")
