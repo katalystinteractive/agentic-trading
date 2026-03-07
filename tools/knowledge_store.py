@@ -201,16 +201,21 @@ _UNCOUNTABLE_CATEGORIES = {"news", "macro"}
 
 
 def _get_cached_collection():
-    """Return cached collection, initializing on first call. Returns None on failure."""
+    """Return cached collection, initializing on first call. Returns None on failure.
+
+    Caches on success and on permanent failure (missing deps). Transient errors
+    (RuntimeError, etc.) are NOT cached — next call will retry.
+    """
     global _CACHED_COLLECTION, _CACHE_INITIALIZED
     if _CACHE_INITIALIZED:
         return _CACHED_COLLECTION
-    _CACHE_INITIALIZED = True
     try:
         _, collection = _get_collection()
         _CACHED_COLLECTION = collection
+        _CACHE_INITIALIZED = True
         return collection
     except (SystemExit, ImportError):
+        _CACHE_INITIALIZED = True  # permanent failure — don't retry
         return None
 
 
