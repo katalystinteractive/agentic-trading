@@ -67,7 +67,7 @@ def _fmt_dollar(val):
 # Resistance detection
 # ---------------------------------------------------------------------------
 
-def _compute_math_targets(avg_cost):
+def _compute_math_prices(avg_cost):
     """Compute math target prices from avg_cost. Returns dict: key -> price."""
     return {key: round(avg_cost * mult, 2) for key, (_, mult) in MATH_TARGETS.items()}
 
@@ -106,7 +106,7 @@ def find_pa_resistances(hist, zone_low, zone_high):
 
     for i in range(1, len(in_zone)):
         cluster_med = np.median(current_cluster)
-        if cluster_med > 0 and (in_zone[i] - cluster_med) / cluster_med < 0.02:
+        if cluster_med > 0 and (in_zone[i] - cluster_med) / cluster_med < MERGE_PCT:
             current_cluster.append(in_zone[i])
         else:
             if len(current_cluster) >= MIN_TOUCHES:
@@ -490,7 +490,7 @@ def analyze_ticker(ticker, portfolio):
     now = datetime.datetime.now().strftime("%Y-%m-%d")
 
     # Compute math targets
-    math_prices = _compute_math_targets(avg_cost)
+    math_prices = _compute_math_prices(avg_cost)
 
     zone_low = math_prices["conservative"]
     zone_high = math_prices["aggressive"]
