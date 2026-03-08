@@ -286,6 +286,16 @@ def cmd_fill(data, args):
     except Exception as e:
         print(f"(Sell target error: {e})")
 
+    # Auto-store fill event in knowledge store
+    try:
+        _tools_dir = str(Path(__file__).resolve().parent)
+        if _tools_dir not in sys.path:
+            sys.path.insert(0, _tools_dir)
+        from knowledge_store import store_fill
+        store_fill(ticker, price, shares, total_shares, new_avg, zone)
+    except Exception:
+        pass  # Non-critical
+
 
 def cmd_sell(data, args):
     ticker = args.ticker.upper()
@@ -357,6 +367,16 @@ def cmd_sell(data, args):
             ("SELL Orders Removed", sell_removed, "—"),
             ("BUY Orders Kept", sum(1 for o in remaining if o["type"] == "BUY"), "—"),
         ])
+
+        # Auto-store sell event in knowledge store
+        try:
+            _tools_dir = str(Path(__file__).resolve().parent)
+            if _tools_dir not in sys.path:
+                sys.path.insert(0, _tools_dir)
+            from knowledge_store import store_sell
+            store_sell(ticker, price, shares, old_avg, pct_change)
+        except Exception:
+            pass
     else:
         # Partial sell
         new_shares = old_shares - shares
@@ -382,6 +402,16 @@ def cmd_sell(data, args):
             ("SELL Order Removed", f"@ {_fmt_dollar(price)}" if sell_idx is not None else "—",
              "Removed" if sell_idx is not None else "No match"),
         ])
+
+        # Auto-store partial sell event in knowledge store
+        try:
+            _tools_dir = str(Path(__file__).resolve().parent)
+            if _tools_dir not in sys.path:
+                sys.path.insert(0, _tools_dir)
+            from knowledge_store import store_partial_sell
+            store_partial_sell(ticker, price, shares, new_shares)
+        except Exception:
+            pass
 
 
 def cmd_order(data, args):

@@ -1,0 +1,99 @@
+{
+  "generated": "2026-03-05T07:45:00",
+  "candidates": [
+    {
+      "rank": 1,
+      "ticker": "OUST",
+      "sector": "Tech",
+      "price": 22.38,
+      "score": 95,
+      "key_flags": [
+        "OUST $20.89: cost $20.89 vs budget $30",
+        "OUST $20.32: cost $20.32 vs budget $30"
+      ],
+      "recommendation": "Onboard",
+      "qualitative_summary": "LiDAR sensor company with zero portfolio overlap, 10-13 approaches at each active level, and B1 entry within 0.3% of current price. Ideal entry timing with 100% hold reserve floor at $17.28."
+    },
+    {
+      "rank": 2,
+      "ticker": "IREN",
+      "sector": "Crypto",
+      "price": 43.84,
+      "score": 84,
+      "key_flags": [
+        "IREN $39.65: cost $39.65 vs budget $60",
+        "IREN $39.61: cost $39.61 vs budget $60",
+        "IREN $36.94: cost $36.94 vs budget $60",
+        "IREN $36.52: cost $36.52 vs budget $60",
+        "Recency deterioration: 2 levels",
+        "Sector concentration: 4x Crypto",
+        "Active-reserve gap: 54%"
+      ],
+      "recommendation": "Monitor",
+      "qualitative_summary": "Bitcoin miner identical in sub-sector to APLD/CIFR/CLSK; adding IREN would push Crypto to 4x and create a 54% dead zone with no practical reserve rescue. Do not onboard until one Crypto position closes."
+    },
+    {
+      "rank": 3,
+      "ticker": "QBTS",
+      "sector": "Quantum",
+      "price": 18.91,
+      "score": 83,
+      "key_flags": [
+        "QBTS $16.17: cost $16.17 vs budget $30"
+      ],
+      "recommendation": "Onboard",
+      "qualitative_summary": "D-Wave quantum annealing provides genuine sub-sector differentiation from IONQ's trapped-ion approach; all 4 active levels showing improving recency with 11% active-reserve gap and B1 within 1.9% of current price."
+    },
+    {
+      "rank": 4,
+      "ticker": "HUT",
+      "sector": "Crypto",
+      "price": 54.21,
+      "score": 81,
+      "key_flags": [
+        "HUT $52.75: cost $52.75 vs budget $30",
+        "HUT $45.26: cost $45.26 vs budget $30",
+        "Sector concentration: 4x Crypto",
+        "Active-reserve gap: 26%"
+      ],
+      "recommendation": "Monitor",
+      "qualitative_summary": "Mechanically strong with improving recency and excellent reserves, but the same Crypto sector block as IREN applies; HUT8 is a BTC miner identical in business model to existing APLD/CIFR/CLSK positions."
+    },
+    {
+      "rank": 5,
+      "ticker": "RGTI",
+      "sector": "Quantum",
+      "price": 17.76,
+      "score": 79,
+      "key_flags": [
+        "RGTI $15.96: cost $15.96 vs budget $30"
+      ],
+      "recommendation": "Watch",
+      "qualitative_summary": "Strongest recency improvement in the screen with multiple levels at 100% recent hold, but B1 is 8.6% away and onboarding alongside QBTS would push Quantum to 3x concentration."
+    },
+    {
+      "rank": 6,
+      "ticker": "NTLA",
+      "sector": "Biotech",
+      "price": 13.82,
+      "score": 79,
+      "key_flags": [
+        "Active-reserve gap: 26%"
+      ],
+      "recommendation": "Watch",
+      "qualitative_summary": "CRISPR gene editing adds genuine diversification but the active zone is choppy with two deteriorating levels and binary FDA event risk that can gap through the 26% dead zone in a single session."
+    },
+    {
+      "rank": 7,
+      "ticker": "RDW",
+      "sector": "Space",
+      "price": 9.28,
+      "score": 78,
+      "key_flags": [
+        "Recency deterioration: 3 levels"
+      ],
+      "recommendation": "Watch",
+      "qualitative_summary": "Three consecutive active levels dropped to 0% recent hold rate from 29-54% historical averages, indicating structural support breakdown; thin reserve layer (0 levels at 40%+ hold) provides no safety net."
+    }
+  ]
+}

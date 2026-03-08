@@ -1,0 +1,131 @@
+{
+  "date": "2026-03-08",
+  "regime": "Risk-Off",
+  "regime_detail": {
+    "vix": 29.49,
+    "reasoning": "0/3 indices above 50-SMA, VIX 29.5 (elevated)",
+    "indices_above_sma": 0,
+    "sector_breadth": 2
+  },
+  "tickers": [
+    {
+      "ticker": "NU",
+      "type": "active",
+      "agent": "active-ticker-analyst",
+      "input_file": "morning-work/NU.md"
+    },
+    {
+      "ticker": "IONQ",
+      "type": "active",
+      "agent": "active-ticker-analyst",
+      "input_file": "morning-work/IONQ.md"
+    },
+    {
+      "ticker": "LUNR",
+      "type": "active",
+      "agent": "active-ticker-analyst",
+      "input_file": "morning-work/LUNR.md"
+    },
+    {
+      "ticker": "USAR",
+      "type": "active",
+      "agent": "active-ticker-analyst",
+      "input_file": "morning-work/USAR.md"
+    },
+    {
+      "ticker": "OUST",
+      "type": "active",
+      "agent": "active-ticker-analyst",
+      "input_file": "morning-work/OUST.md"
+    },
+    {
+      "ticker": "APLD",
+      "type": "active",
+      "agent": "active-ticker-analyst",
+      "input_file": "morning-work/APLD.md"
+    },
+    {
+      "ticker": "TMC",
+      "type": "active",
+      "agent": "active-ticker-analyst",
+      "input_file": "morning-work/TMC.md"
+    },
+    {
+      "ticker": "CIFR",
+      "type": "active",
+      "agent": "active-ticker-analyst",
+      "input_file": "morning-work/CIFR.md"
+    },
+    {
+      "ticker": "ARM",
+      "type": "active",
+      "agent": "active-ticker-analyst",
+      "input_file": "morning-work/ARM.md"
+    },
+    {
+      "ticker": "ACHR",
+      "type": "active",
+      "agent": "active-ticker-analyst",
+      "input_file": "morning-work/ACHR.md"
+    },
+    {
+      "ticker": "CLSK",
+      "type": "active",
+      "agent": "active-ticker-analyst",
+      "input_file": "morning-work/CLSK.md"
+    },
+    {
+      "ticker": "CLF",
+      "type": "active",
+      "agent": "active-ticker-analyst",
+      "input_file": "morning-work/CLF.md"
+    },
+    {
+      "ticker": "NNE",
+      "type": "active",
+      "agent": "active-ticker-analyst",
+      "input_file": "morning-work/NNE.md"
+    },
+    {
+      "ticker": "SMCI",
+      "type": "watchlist",
+      "agent": "watchlist-ticker-analyst",
+      "input_file": "morning-work/SMCI.md"
+    },
+    {
+      "ticker": "TEM",
+      "type": "watchlist",
+      "agent": "watchlist-ticker-analyst",
+      "input_file": "morning-work/TEM.md"
+    },
+    {
+      "ticker": "SOUN",
+      "type": "watchlist",
+      "agent": "watchlist-ticker-analyst",
+      "input_file": "morning-work/SOUN.md"
+    },
+    {
+      "ticker": "AR",
+      "type": "watchlist",
+      "agent": "watchlist-ticker-analyst",
+      "input_file": "morning-work/AR.md"
+    },
+    {
+      "ticker": "BBAI",
+      "type": "watchlist",
+      "agent": "watchlist-ticker-analyst",
+      "input_file": "morning-work/BBAI.md"
+    },
+    {
+      "ticker": "NVDA",
+      "type": "watchlist",
+      "agent": "watchlist-ticker-analyst",
+      "input_file": "morning-work/NVDA.md"
+    }
+  ],
+  "capital": {
+    "deployed": 3745.22,
+    "velocity_pool": 1000.0,
+    "bounce_pool": 1000.0
+  }
+}

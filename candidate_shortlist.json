@@ -1,0 +1,839 @@
+{
+  "generated": "2026-03-05T07:44:49",
+  "shortlist": [
+    {
+      "ticker": "OUST",
+      "total_score": 95,
+      "scores": {
+        "bullets_tier": 21,
+        "b1_proximity": 15,
+        "zone_coverage": 19,
+        "reserve_depth": 15,
+        "swing": 10,
+        "sector_diversity": 15
+      },
+      "wick_failed": false,
+      "flags": [
+        "OUST $20.89: cost $20.89 vs budget $30",
+        "OUST $20.32: cost $20.32 vs budget $30"
+      ],
+      "verification": {
+        "tier_check": true,
+        "bullet_math_check": false,
+        "pool_check": true,
+        "sample_size_flags": [],
+        "recency_flags": [],
+        "recency_detail": [
+          {
+            "support_price": 22.05,
+            "overall_hold_pct": 46.2,
+            "recent_hold_pct": 40.0,
+            "recent_events": 5,
+            "trend": "Deteriorating"
+          },
+          {
+            "support_price": 21.11,
+            "overall_hold_pct": 50.0,
+            "recent_hold_pct": 50.0,
+            "recent_events": 4,
+            "trend": "Stable"
+          },
+          {
+            "support_price": 20.16,
+            "overall_hold_pct": 36.4,
+            "recent_hold_pct": 40.0,
+            "recent_events": 5,
+            "trend": "Stable"
+          },
+          {
+            "support_price": 19.22,
+            "overall_hold_pct": 30.0,
+            "recent_hold_pct": 40.0,
+            "recent_events": 5,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 17.28,
+            "overall_hold_pct": 100.0,
+            "recent_hold_pct": 100.0,
+            "recent_events": 1,
+            "trend": "Stable"
+          },
+          {
+            "support_price": 9.22,
+            "overall_hold_pct": 83.3,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          },
+          {
+            "support_price": 6.79,
+            "overall_hold_pct": 66.7,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          }
+        ],
+        "issues": [
+          "OUST $20.89: cost $20.89 vs budget $30",
+          "OUST $20.32: cost $20.32 vs budget $30"
+        ]
+      },
+      "stress_metrics": {
+        "min_active_approaches": 10,
+        "all_active_above_3": true,
+        "b1_distance_pct": 0.3,
+        "sector_count_after": 1,
+        "sector_exceeds_limit": false,
+        "active_total_cost": 129.37,
+        "reserve_total_cost": 274.25,
+        "all_in_cost": 403.62,
+        "cap_total": 600,
+        "budget_feasible": true,
+        "reserve_count_40pct": 3,
+        "active_reserve_gap_pct": 13.4
+      },
+      "passer": {
+        "ticker": "OUST",
+        "median_swing": 56.5,
+        "consistency": 95.0,
+        "price": 22.38,
+        "avg_vol": 1872275.0,
+        "sector": "Tech"
+      }
+    },
+    {
+      "ticker": "IREN",
+      "total_score": 84,
+      "scores": {
+        "bullets_tier": 25,
+        "b1_proximity": 15,
+        "zone_coverage": 20,
+        "reserve_depth": 12,
+        "swing": 10,
+        "sector_diversity": 2
+      },
+      "wick_failed": false,
+      "flags": [
+        "IREN $39.65: cost $39.65 vs budget $60",
+        "IREN $39.61: cost $39.61 vs budget $60",
+        "IREN $36.94: cost $36.94 vs budget $60",
+        "IREN $36.52: cost $36.52 vs budget $60",
+        "Recency deterioration: 2 levels",
+        "Sector concentration: 4x Crypto",
+        "Active-reserve gap: 54%"
+      ],
+      "verification": {
+        "tier_check": true,
+        "bullet_math_check": false,
+        "pool_check": true,
+        "sample_size_flags": [],
+        "recency_flags": [
+          "$42.79: recent hold 17% vs overall 46%",
+          "$39.0: recent hold 40% vs overall 62%"
+        ],
+        "recency_detail": [
+          {
+            "support_price": 42.79,
+            "overall_hold_pct": 45.5,
+            "recent_hold_pct": 16.7,
+            "recent_events": 6,
+            "trend": "Deteriorating"
+          },
+          {
+            "support_price": 39.0,
+            "overall_hold_pct": 62.5,
+            "recent_hold_pct": 40.0,
+            "recent_events": 5,
+            "trend": "Deteriorating"
+          },
+          {
+            "support_price": 37.55,
+            "overall_hold_pct": 40.0,
+            "recent_hold_pct": 20.0,
+            "recent_events": 5,
+            "trend": "Deteriorating"
+          },
+          {
+            "support_price": 36.03,
+            "overall_hold_pct": 66.7,
+            "recent_hold_pct": 80.0,
+            "recent_events": 5,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 34.62,
+            "overall_hold_pct": 60.0,
+            "recent_hold_pct": 75.0,
+            "recent_events": 4,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 16.25,
+            "overall_hold_pct": 50.0,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          },
+          {
+            "support_price": 11.6,
+            "overall_hold_pct": 100.0,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          },
+          {
+            "support_price": 10.75,
+            "overall_hold_pct": 100.0,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          }
+        ],
+        "issues": [
+          "IREN $39.65: cost $39.65 vs budget $60",
+          "IREN $39.61: cost $39.61 vs budget $60",
+          "IREN $36.94: cost $36.94 vs budget $60",
+          "IREN $36.52: cost $36.52 vs budget $60"
+        ]
+      },
+      "stress_metrics": {
+        "min_active_approaches": 5,
+        "all_active_above_3": true,
+        "b1_distance_pct": 1.4,
+        "sector_count_after": 4,
+        "sector_exceeds_limit": true,
+        "active_total_cost": 195.93,
+        "reserve_total_cost": 275.31,
+        "all_in_cost": 471.24,
+        "cap_total": 600,
+        "budget_feasible": true,
+        "reserve_count_40pct": 3,
+        "active_reserve_gap_pct": 54.1
+      },
+      "passer": {
+        "ticker": "IREN",
+        "median_swing": 61.9,
+        "consistency": 100.0,
+        "price": 43.84,
+        "avg_vol": 39719285.0,
+        "sector": "Crypto"
+      }
+    },
+    {
+      "ticker": "QBTS",
+      "total_score": 83,
+      "scores": {
+        "bullets_tier": 13,
+        "b1_proximity": 15,
+        "zone_coverage": 20,
+        "reserve_depth": 15,
+        "swing": 10,
+        "sector_diversity": 10
+      },
+      "wick_failed": false,
+      "flags": [
+        "QBTS $16.17: cost $16.17 vs budget $30"
+      ],
+      "verification": {
+        "tier_check": true,
+        "bullet_math_check": false,
+        "pool_check": true,
+        "sample_size_flags": [],
+        "recency_flags": [],
+        "recency_detail": [
+          {
+            "support_price": 17.69,
+            "overall_hold_pct": 27.3,
+            "recent_hold_pct": 50.0,
+            "recent_events": 2,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 17.15,
+            "overall_hold_pct": 20.0,
+            "recent_hold_pct": 50.0,
+            "recent_events": 2,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 16.56,
+            "overall_hold_pct": 30.0,
+            "recent_hold_pct": 100.0,
+            "recent_events": 2,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 15.77,
+            "overall_hold_pct": 27.3,
+            "recent_hold_pct": 100.0,
+            "recent_events": 1,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 15.44,
+            "overall_hold_pct": 16.7,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          },
+          {
+            "support_price": 13.57,
+            "overall_hold_pct": 66.7,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          },
+          {
+            "support_price": 5.65,
+            "overall_hold_pct": 42.9,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          },
+          {
+            "support_price": 5.12,
+            "overall_hold_pct": 60.0,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          }
+        ],
+        "issues": [
+          "QBTS $16.17: cost $16.17 vs budget $30"
+        ]
+      },
+      "stress_metrics": {
+        "min_active_approaches": 10,
+        "all_active_above_3": true,
+        "b1_distance_pct": 1.9,
+        "sector_count_after": 2,
+        "sector_exceeds_limit": false,
+        "active_total_cost": 224.81,
+        "reserve_total_cost": 280.07,
+        "all_in_cost": 504.88,
+        "cap_total": 600,
+        "budget_feasible": true,
+        "reserve_count_40pct": 3,
+        "active_reserve_gap_pct": 10.9
+      },
+      "passer": {
+        "ticker": "QBTS",
+        "median_swing": 55.1,
+        "consistency": 95.0,
+        "price": 18.91,
+        "avg_vol": 25569940.0,
+        "sector": "Quantum"
+      }
+    },
+    {
+      "ticker": "HUT",
+      "total_score": 81,
+      "scores": {
+        "bullets_tier": 19,
+        "b1_proximity": 15,
+        "zone_coverage": 20,
+        "reserve_depth": 15,
+        "swing": 10,
+        "sector_diversity": 2
+      },
+      "wick_failed": false,
+      "flags": [
+        "HUT $52.75: cost $52.75 vs budget $30",
+        "HUT $45.26: cost $45.26 vs budget $30",
+        "Sector concentration: 4x Crypto",
+        "Active-reserve gap: 26%"
+      ],
+      "verification": {
+        "tier_check": true,
+        "bullet_math_check": false,
+        "pool_check": true,
+        "sample_size_flags": [],
+        "recency_flags": [],
+        "recency_detail": [
+          {
+            "support_price": 51.42,
+            "overall_hold_pct": 30.0,
+            "recent_hold_pct": 28.6,
+            "recent_events": 7,
+            "trend": "Stable"
+          },
+          {
+            "support_price": 47.91,
+            "overall_hold_pct": 44.4,
+            "recent_hold_pct": 57.1,
+            "recent_events": 7,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 46.22,
+            "overall_hold_pct": 45.5,
+            "recent_hold_pct": 71.4,
+            "recent_events": 7,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 43.94,
+            "overall_hold_pct": 20.0,
+            "recent_hold_pct": 25.0,
+            "recent_events": 4,
+            "trend": "Stable"
+          },
+          {
+            "support_price": 42.45,
+            "overall_hold_pct": 22.2,
+            "recent_hold_pct": 40.0,
+            "recent_events": 5,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 31.67,
+            "overall_hold_pct": 80.0,
+            "recent_hold_pct": 100.0,
+            "recent_events": 1,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 18.64,
+            "overall_hold_pct": 80.0,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          },
+          {
+            "support_price": 10.54,
+            "overall_hold_pct": 66.7,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          }
+        ],
+        "issues": [
+          "HUT $52.75: cost $52.75 vs budget $30",
+          "HUT $45.26: cost $45.26 vs budget $30"
+        ]
+      },
+      "stress_metrics": {
+        "min_active_approaches": 9,
+        "all_active_above_3": true,
+        "b1_distance_pct": 2.7,
+        "sector_count_after": 4,
+        "sector_exceeds_limit": true,
+        "active_total_cost": 239.86,
+        "reserve_total_cost": 289.81,
+        "all_in_cost": 529.6700000000001,
+        "cap_total": 600,
+        "budget_feasible": true,
+        "reserve_count_40pct": 3,
+        "active_reserve_gap_pct": 26.5
+      },
+      "passer": {
+        "ticker": "HUT",
+        "median_swing": 57.1,
+        "consistency": 100.0,
+        "price": 54.21,
+        "avg_vol": 5204510.0,
+        "sector": "Crypto"
+      }
+    },
+    {
+      "ticker": "RGTI",
+      "total_score": 79,
+      "scores": {
+        "bullets_tier": 15,
+        "b1_proximity": 10,
+        "zone_coverage": 19,
+        "reserve_depth": 15,
+        "swing": 10,
+        "sector_diversity": 10
+      },
+      "wick_failed": false,
+      "flags": [
+        "RGTI $15.96: cost $15.96 vs budget $30"
+      ],
+      "verification": {
+        "tier_check": true,
+        "bullet_math_check": false,
+        "pool_check": true,
+        "sample_size_flags": [],
+        "recency_flags": [],
+        "recency_detail": [
+          {
+            "support_price": 15.26,
+            "overall_hold_pct": 37.5,
+            "recent_hold_pct": 75.0,
+            "recent_events": 4,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 15.65,
+            "overall_hold_pct": 20.0,
+            "recent_hold_pct": 25.0,
+            "recent_events": 4,
+            "trend": "Stable"
+          },
+          {
+            "support_price": 14.12,
+            "overall_hold_pct": 55.6,
+            "recent_hold_pct": 100.0,
+            "recent_events": 2,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 14.7,
+            "overall_hold_pct": 16.7,
+            "recent_hold_pct": 100.0,
+            "recent_events": 1,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 13.33,
+            "overall_hold_pct": 50.0,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          },
+          {
+            "support_price": 10.18,
+            "overall_hold_pct": 66.7,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          },
+          {
+            "support_price": 7.51,
+            "overall_hold_pct": 50.0,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          }
+        ],
+        "issues": [
+          "RGTI $15.96: cost $15.96 vs budget $30"
+        ]
+      },
+      "stress_metrics": {
+        "min_active_approaches": 6,
+        "all_active_above_3": true,
+        "b1_distance_pct": 8.6,
+        "sector_count_after": 2,
+        "sector_exceeds_limit": false,
+        "active_total_cost": 182.95,
+        "reserve_total_cost": 290.59,
+        "all_in_cost": 473.53999999999996,
+        "cap_total": 600,
+        "budget_feasible": true,
+        "reserve_count_40pct": 3,
+        "active_reserve_gap_pct": 6.8
+      },
+      "passer": {
+        "ticker": "RGTI",
+        "median_swing": 58.6,
+        "consistency": 95.0,
+        "price": 17.76,
+        "avg_vol": 30094580.0,
+        "sector": "Quantum"
+      }
+    },
+    {
+      "ticker": "NTLA",
+      "total_score": 79,
+      "scores": {
+        "bullets_tier": 14,
+        "b1_proximity": 10,
+        "zone_coverage": 20,
+        "reserve_depth": 15,
+        "swing": 10,
+        "sector_diversity": 10
+      },
+      "wick_failed": false,
+      "flags": [
+        "Active-reserve gap: 26%"
+      ],
+      "verification": {
+        "tier_check": true,
+        "bullet_math_check": true,
+        "pool_check": true,
+        "sample_size_flags": [],
+        "recency_flags": [],
+        "recency_detail": [
+          {
+            "support_price": 12.48,
+            "overall_hold_pct": 33.3,
+            "recent_hold_pct": 25.0,
+            "recent_events": 4,
+            "trend": "Deteriorating"
+          },
+          {
+            "support_price": 11.62,
+            "overall_hold_pct": 18.2,
+            "recent_hold_pct": 33.3,
+            "recent_events": 3,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 11.02,
+            "overall_hold_pct": 14.3,
+            "recent_hold_pct": 0.0,
+            "recent_events": 2,
+            "trend": "Deteriorating"
+          },
+          {
+            "support_price": 10.71,
+            "overall_hold_pct": 28.6,
+            "recent_hold_pct": 50.0,
+            "recent_events": 2,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 10.42,
+            "overall_hold_pct": 35.7,
+            "recent_hold_pct": 50.0,
+            "recent_events": 4,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 7.52,
+            "overall_hold_pct": 50.0,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          },
+          {
+            "support_price": 6.9,
+            "overall_hold_pct": 50.0,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          },
+          {
+            "support_price": 6.59,
+            "overall_hold_pct": 33.3,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          }
+        ],
+        "issues": []
+      },
+      "stress_metrics": {
+        "min_active_approaches": 7,
+        "all_active_above_3": true,
+        "b1_distance_pct": 8.7,
+        "sector_count_after": 2,
+        "sector_exceeds_limit": false,
+        "active_total_cost": 181.08,
+        "reserve_total_cost": 289.23,
+        "all_in_cost": 470.31000000000006,
+        "cap_total": 600,
+        "budget_feasible": true,
+        "reserve_count_40pct": 2,
+        "active_reserve_gap_pct": 26.3
+      },
+      "passer": {
+        "ticker": "NTLA",
+        "median_swing": 43.8,
+        "consistency": 95.0,
+        "price": 13.82,
+        "avg_vol": 4267780.0,
+        "sector": "Biotech"
+      }
+    },
+    {
+      "ticker": "RDW",
+      "total_score": 78,
+      "scores": {
+        "bullets_tier": 20,
+        "b1_proximity": 11,
+        "zone_coverage": 20,
+        "reserve_depth": 7,
+        "swing": 10,
+        "sector_diversity": 10
+      },
+      "wick_failed": false,
+      "flags": [
+        "Recency deterioration: 3 levels"
+      ],
+      "verification": {
+        "tier_check": true,
+        "bullet_math_check": true,
+        "pool_check": true,
+        "sample_size_flags": [],
+        "recency_flags": [
+          "$7.55: recent hold 0% vs overall 33%",
+          "$7.76: recent hold 0% vs overall 54%",
+          "$6.96: recent hold 0% vs overall 29%"
+        ],
+        "recency_detail": [
+          {
+            "support_price": 8.43,
+            "overall_hold_pct": 25.0,
+            "recent_hold_pct": 20.0,
+            "recent_events": 5,
+            "trend": "Stable"
+          },
+          {
+            "support_price": 8.13,
+            "overall_hold_pct": 42.9,
+            "recent_hold_pct": 50.0,
+            "recent_events": 6,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 7.55,
+            "overall_hold_pct": 33.3,
+            "recent_hold_pct": 0.0,
+            "recent_events": 4,
+            "trend": "Deteriorating"
+          },
+          {
+            "support_price": 7.76,
+            "overall_hold_pct": 53.8,
+            "recent_hold_pct": 0.0,
+            "recent_events": 4,
+            "trend": "Deteriorating"
+          },
+          {
+            "support_price": 6.96,
+            "overall_hold_pct": 28.6,
+            "recent_hold_pct": 0.0,
+            "recent_events": 3,
+            "trend": "Deteriorating"
+          },
+          {
+            "support_price": 5.98,
+            "overall_hold_pct": 33.3,
+            "recent_hold_pct": 50.0,
+            "recent_events": 2,
+            "trend": "Improving"
+          }
+        ],
+        "issues": []
+      },
+      "stress_metrics": {
+        "min_active_approaches": 7,
+        "all_active_above_3": true,
+        "b1_distance_pct": 7.4,
+        "sector_count_after": 2,
+        "sector_exceeds_limit": false,
+        "active_total_cost": 192.73,
+        "reserve_total_cost": 94.8,
+        "all_in_cost": 287.53,
+        "cap_total": 600,
+        "budget_feasible": true,
+        "reserve_count_40pct": 0,
+        "active_reserve_gap_pct": 14.0
+      },
+      "passer": {
+        "ticker": "RDW",
+        "median_swing": 61.2,
+        "consistency": 95.0,
+        "price": 9.28,
+        "avg_vol": 18808165.0,
+        "sector": "Space"
+      }
+    }
+  ],
+  "all_scored": [
+    {
+      "ticker": "OUST",
+      "total_score": 95,
+      "wick_failed": false
+    },
+    {
+      "ticker": "IREN",
+      "total_score": 84,
+      "wick_failed": false
+    },
+    {
+      "ticker": "QBTS",
+      "total_score": 83,
+      "wick_failed": false
+    },
+    {
+      "ticker": "HUT",
+      "total_score": 81,
+      "wick_failed": false
+    },
+    {
+      "ticker": "RGTI",
+      "total_score": 79,
+      "wick_failed": false
+    },
+    {
+      "ticker": "NTLA",
+      "total_score": 79,
+      "wick_failed": false
+    },
+    {
+      "ticker": "RDW",
+      "total_score": 78,
+      "wick_failed": false
+    },
+    {
+      "ticker": "NVAX",
+      "total_score": 78,
+      "wick_failed": false
+    },
+    {
+      "ticker": "BEAM",
+      "total_score": 78,
+      "wick_failed": false
+    },
+    {
+      "ticker": "RIOT",
+      "total_score": 74,
+      "wick_failed": false
+    },
+    {
+      "ticker": "WOLF",
+      "total_score": 73,
+      "wick_failed": false
+    },
+    {
+      "ticker": "OPEN",
+      "total_score": 70,
+      "wick_failed": false
+    },
+    {
+      "ticker": "RUN",
+      "total_score": 68,
+      "wick_failed": false
+    },
+    {
+      "ticker": "LCID",
+      "total_score": 58,
+      "wick_failed": false
+    },
+    {
+      "ticker": "MARA",
+      "total_score": 54,
+      "wick_failed": false
+    },
+    {
+      "ticker": "DNA",
+      "total_score": 51,
+      "wick_failed": false
+    },
+    {
+      "ticker": "HIMS",
+      "total_score": 46,
+      "wick_failed": false
+    },
+    {
+      "ticker": "RXRX",
+      "total_score": 41,
+      "wick_failed": false
+    },
+    {
+      "ticker": "SMR",
+      "total_score": 20,
+      "wick_failed": false
+    },
+    {
+      "ticker": "UPST",
+      "total_score": 15,
+      "wick_failed": false
+    }
+  ]
+}

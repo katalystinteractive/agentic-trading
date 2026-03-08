@@ -1,4 +1,4 @@
-*Generated: 2026-02-27 09:47*
+*Generated: 2026-03-08 17:18*
 
 ## Short Interest: Nu Holdings Ltd. (NU)
 
@@ -8,9 +8,9 @@
 | Shares Short | 91.86M |
 | Short Ratio (DTC) | 1.77 |
 | Short % Float | 2.41% |
-| Float Shares | 3.66B |
-| Shares Outstanding | 3.82B |
-| Avg Volume | 43.77M |
+| Float Shares | 3.67B |
+| Shares Outstanding | 3.83B |
+| Avg Volume | 50.05M |
 | Change from Prior Month | -13.0% (decreasing) |
 
 ### Squeeze Risk

@@ -1,4 +1,4 @@
-*Generated: 2026-02-27 09:47*
+*Generated: 2026-03-08 17:18*
 
 ## Short Interest: USA Rare Earth, Inc. (USAR)
 
@@ -10,7 +10,7 @@
 | Short % Float | 21.85% |
 | Float Shares | 121.55M |
 | Shares Outstanding | 217.94M |
-| Avg Volume | 18.29M |
+| Avg Volume | 18.32M |
 | Change from Prior Month | +105.8% (increasing) |
 
 ### Squeeze Risk

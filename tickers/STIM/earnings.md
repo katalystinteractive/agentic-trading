@@ -1,4 +1,4 @@
-*Generated: 2026-02-27 09:47*
+*Generated: 2026-03-04 23:24*
 
 ## Earnings Analysis: Neuronetics, Inc. (STIM)
 
@@ -6,10 +6,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-03-17 |
-| Days Until | 18 |
+| Days Until | 13 |
 | EPS Estimate | $-0.11 |
 | Revenue Estimate | $40.8M |
-| Earnings Rule | Clear (>18d out) |
+| **Earnings Rule** | **WARNING: <14 days — avoid new entries** |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |

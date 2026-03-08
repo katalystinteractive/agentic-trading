@@ -1,7 +1,8 @@
 # Agent Memory: Archer Aviation (ACHR)
 
 ## Trade Log
-*No fills yet. Limit buy pending at $6.55 (B1).*
+- **2026-03-02:** BUY 4 shares @ $6.89 (Bullet 1 filled, pre-market; limit was $6.96). Cost: $27.56. Now 4 shares @ $6.89 avg.
+- **2026-03-02:** SELL 4 shares @ $7.41 (full exit). Revenue: $29.64. **Profit: +$2.08 (+7.5%).** Position closed.
 
 ## Observations
 - **2026-02-19:** Originally selected as bounce candidate from ETF-sourced screener (ARKX ETF holding). Converted to surgical strategy after monthly swing analysis revealed 40.7% median swing with 100% of months hitting 10%+.

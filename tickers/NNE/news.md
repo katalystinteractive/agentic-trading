@@ -1,4 +1,4 @@
-*Generated: 2026-02-26 22:17*
+*Generated: 2026-03-08 17:19*
 
 ## News & Sentiment: Nano Nuclear Energy Inc. (NNE)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,54 +6,55 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-08 | AOL.com | Where Will Centrus Energy (LEU) Stock Be in 10 Years? - AOL.... | Positive | +0.27 | — |
+| 2026-03-07 | simplywall.st | NANO Nuclear Eyes Gulf Growth With UAE MOU And Valuation Dis... | Positive | +0.38 | — |
+| 2026-03-07 | Simply Wall St. | A Look At NANO Nuclear Energy (NNE) Valuation After Recent S... | Positive | +0.13 | — |
+| 2026-03-06 | The Motley Fool | Is Nano Nuclear Energy Stock Going to $50? - The Motley Fool | Negative | -0.20 | — |
+| 2026-03-06 | The Globe and M | Is Nano Nuclear Energy Stock Going to $50? - The Globe and M... | Positive | +0.27 | — |
+| 2026-03-06 | AOL.com | Between Price Target Cuts and Poor Market Sentiment, NuScale... | Negative | -0.36 | Analyst |
+| 2026-03-06 | Motley Fool | Is Nano Nuclear Energy Stock Going to $50? | Positive | +0.27 | — |
+| 2026-03-05 | simplywall.st | Assessing NANO Nuclear Energy (NNE) Valuation After Gulf JV ... | Positive | +0.27 | — |
+| 2026-03-04 | MarketBeat | Seth Jason Berl Sells 3,664 Shares of Nano Nuclear Energy (N... | Positive | +0.51 | Earnings |
+| 2026-03-03 | simplywall.st | Does NANO Nuclear Energy (NNE)ʼs Gulf MMR Venture Hint at a ... | Positive | +0.27 | — |
+| 2026-03-02 | MarketBeat | Ameresco Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
+| 2026-03-02 | Zacks Investmen | Best Nuclear Energy Stocks to Buy March 2026 - Zacks Investm... | Positive | +0.74 | — |
+| 2026-02-26 | Seeking Alpha | NANO Nuclear Energy: I Added More At These Price Levels (Ear... | Positive | +0.27 | Earnings |
 | 2026-02-26 | simplywall.st | NANO Nuclear Energy (NNE) Valuation After New Gulf KRONOS MM... | Positive | +0.27 | — |
-| 2026-02-25 | The Motley Fool | Nano Nuclear Energy Stock Is Down 60%. Is It Finally Time to... | Negative | -0.20 | — |
 | 2026-02-24 | GlobeNewswire | NANO Nuclear Energy Signs Memorandum of Understanding with E... | Positive | +0.27 | — |
 | 2026-02-24 | Stock Titan | UAE group, NANO Nuclear eye micro reactors for data centers ... | Neutral | +0.00 | — |
-| 2026-02-24 | Investing.com | Texas Capital Securities reiterates Buy on Nano Nuclear stoc... | Positive | +0.30 | Regulatory |
-| 2026-02-24 | simplywall.st | Does Insider Sale And Nuclear Policy Hire Change The Bull Ca... | Positive | +0.27 | — |
-| 2026-02-24 | FinancialConten | The Portable Power Revolution: A Deep Dive into Nano Nuclear... | Positive | +0.27 | — |
-| 2026-02-24 | marketscreener. | Nano Nuclear Energy - Signed memorandum of understanding wit... | Positive | +0.27 | — |
+| 2026-02-24 | Yahoo Finance | Nano Nuclear Energy Stock Is Down 60%. Is It Finally Time to... | Positive | +0.27 | — |
 | 2026-02-24 | Motley Fool | NuScale Power Has Tumbled From All-Time Highs in 2025. Here'... | Neutral | +0.00 | — |
-| 2026-02-23 | Yahoo Finance | Did Narrower-Than-Expected Losses and KRONOS Progress Just S... | Neutral | +0.03 | — |
-| 2026-02-23 | MarketBeat | Nuclear Stocks To Watch Now - February 21st - MarketBeat | Neutral | +0.00 | Earnings |
+| 2026-02-22 | Stock Titan | NNE - Nano Nuclear Energy Inc. Latest Stock News & Market Up... | Positive | +0.27 | — |
+| 2026-02-22 | Yahoo Finance | Did Narrower-Than-Expected Losses and KRONOS Progress Just S... | Neutral | +0.03 | — |
 | 2026-02-21 | Motley Fool | Could This $14 Stock Be Your Ticket to Millionaire Status? | Neutral | +0.00 | — |
 | 2026-02-20 | Investing.com | NANO Nuclear Energy CEO on microreactors and the looming pow... | Negative | -0.54 | Corporate |
 | 2026-02-20 | GlobeNewswire | NANO Nuclear Expands its Nuclear Policy Leadership Expertise... | Positive | +0.10 | — |
 | 2026-02-20 | Zacks | OKLO's Licensing Approach Aims to Accelerate Reactor Rollout | Neutral | +0.00 | — |
 | 2026-02-20 | MarketBeat | Nano Nuclear Energy Inc. (NASDAQ:NNE) Given Average Rating o... | Positive | +0.27 | Earnings |
-| 2026-02-20 | The Motley Fool | Nano Nuclear Energy's President and Chairman Sold $30 Millio... | Positive | +0.05 | — |
-| 2026-02-20 | MarketBeat | What is Northland Securities' Forecast for NNE Q2 Earnings? ... | Positive | +0.30 | Earnings, Regulatory |
 | 2026-02-20 | MarketBeat | HC Wainwright Has Optimistic Outlook of NNE Q2 Earnings - Ma... | Positive | +0.32 | Earnings |
+| 2026-02-20 | MarketBeat | What is Northland Securities' Forecast for NNE Q2 Earnings? ... | Positive | +0.30 | Earnings, Regulatory |
+| 2026-02-20 | Motley Fool | Nano Nuclear Energy's President and Chairman Sold $30 Millio... | Positive | +0.48 | — |
 | 2026-02-19 | PR Newswire | Uranium Demand Continues to Rise as AI Power Demand Rewrites... | Negative | -0.25 | — |
 | 2026-02-18 | Moby | Nano Nuclear Energy Inc Q1 2026 Earnings Call Summary | Positive | +0.27 | Earnings |
-| 2026-02-18 | GuruFocus.com | Nano Nuclear Energy Inc (NNE) Q1 2026 Earnings Call Highligh... | Positive | +0.27 | Earnings |
-| 2026-02-18 | simplywall.st | Nano Nuclear’s KRONOS Progress And AI Deal Versus Weak Share... | Positive | +0.27 | — |
-| 2026-02-18 | Investing.com | Benchmark reaffirms Nano Nuclear stock rating on reactor pro... | Positive | +0.42 | — |
-| 2026-02-18 | Nasdaq | NANO Nuclear Energy Inc. Q1 Loss Climbs - Nasdaq | Negative | -0.05 | — |
-| 2026-02-17 | MarketBeat | Nano Nuclear Energy Q1 Earnings Call Highlights | Positive | +0.27 | Earnings |
-| 2026-02-17 | Benzinga | Nano Nuclear Stock Climbs After Narrower Q1 Loss: Details | Negative | -0.32 | — |
-| 2026-02-17 | GlobeNewswire | NANO Nuclear Reports Q1 FY 2026 Financial Results and Provid... | Neutral | +0.00 | — |
-| 2026-02-17 | Benzinga | Palo Alto, Opendoor, Carvana And More Stocks With Earnings T... | Neutral | +0.00 | Earnings |
-| 2026-02-17 | Stock Titan | NANO Nuclear amasses $577.5M to push microreactors for AI da... | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 16 (53%) |
-| Neutral | 9 (30%) |
-| Negative | 5 (17%) |
-| Average Score | +0.096 |
-| Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 181 |
+| Positive | 20 (67%) |
+| Neutral | 6 (20%) |
+| Negative | 4 (13%) |
+| Average Score | +0.164 |
+| Overall Sentiment | **Bullish** |
+| Total Unique Headlines | 184 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 8 | Nuclear Stocks To Watch Now - February 2..; Nano Nuclear Energy Inc. (NASDAQ:NNE) Gi.. |
-| Regulatory | 2 | Texas Capital Securities reiterates Buy ..; What is Northland Securities' Forecast f.. |
+| Earnings | 7 | Seth Jason Berl Sells 3,664 Shares of Na..; Ameresco Q4 Earnings Call Highlights |
+| Analyst | 1 | Between Price Target Cuts and Poor Marke.. |
 | Corporate | 1 | NANO Nuclear Energy CEO on microreactors.. |
+| Regulatory | 1 | What is Northland Securities' Forecast f.. |
 
 ### Deep Dive Articles
 

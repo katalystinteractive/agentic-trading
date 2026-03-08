@@ -27,4 +27,4 @@
     *   Total active deployment: ~$296 if all fill.
 *   **Reserve:** None — all support levels fall within the 17.5% active radius.
 *   **Bullet Sizing Note:** At ~$31, each ~$60 bullet buys only 1-2 shares. Position building is thinner than sub-$10 stocks.
-*   **Status:** **ACTIVE WATCHLIST — LIMITS PENDING.**
+*   **Status:** **RE-ENTRY MODE — Position closed 2026-03-04 (+7.2%, cycle 2). 2/2 cycles profitable (+6.7%, +7.2%). B5 $28.78 placed.**

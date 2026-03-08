@@ -1,4 +1,4 @@
-*Generated: 2026-02-26 22:18*
+*Generated: 2026-03-08 17:18*
 
 ## News & Sentiment: TMC the metals company Inc. (TMC)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,55 +6,85 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Oilprice.com | Trumps Secret Weapon in the Rare Earth War | Negative | -0.73 | Regulatory |
-| 2026-02-25 | simplywall.st | TMC the metals (TMC) Is Up 9.1% After Regulatory Tailwinds C... | Neutral | +0.00 | — |
-| 2026-02-25 | Simply Wall St. | TMC the metals (TMC) Is Up 8.3% After Fresh Government Backi... | Positive | +0.32 | — |
+| 2026-03-08 | simplywall.st | TMC Consolidated U.S. Deep Sea Mining Bid Concentrates Regul... | Negative | -0.27 | Earnings |
+| 2026-03-08 | Simply Wall St. | Assessing TMC The Metals (TMC) Valuation After Strong 1-Year... | Positive | +0.40 | — |
+| 2026-03-08 | Simply Wall St. | TMC Files First Consolidated Deep Sea Mining Permits With Hi... | Neutral | +0.00 | — |
+| 2026-03-07 | MSN | TMC (TMC) Soars 28.8% as Key Investor Places $85-Million Bet... | Neutral | +0.00 | — |
+| 2026-03-06 | PR Newswire | U.S. Defense Manufacturers Face A Rare Earth Supply Squeeze ... | Positive | +0.13 | — |
+| 2026-03-06 | Nasdaq | The Metals Company (TMC) Could Set You Up for Life (Or Go to... | Neutral | +0.00 | — |
+| 2026-03-04 | simplywall.st | Will First U.S. Deep‑Seabed Mining Approval Reshape TMC’s (T... | Positive | +0.48 | Regulatory |
+| 2026-03-02 | 24/7 Wall St. | This Small-Cap Gem Could Be Your Ticket To Millionaire Statu... | Neutral | +0.00 | — |
+| 2026-03-02 | ACCESSWIRE | The Metals Royalty Company Inc. Announces Public Filing of R... | Positive | +0.30 | — |
+| 2026-03-01 | Motley Fool | Is TMC The Metals Company a Buy, Sell, or Hold in 2026? | Neutral | +0.00 | — |
+| 2026-02-27 | simplywall.st | Assessing The Metals Company (TMC) Valuation As Regulatory S... | Positive | +0.38 | — |
+| 2026-02-26 | Oilprice.com | Trumps Secret Weapon in the Rare Earth War | Negative | -0.73 | Regulatory |
+| 2026-02-25 | Yahoo Finance | TMC the metals (TMC) Is Up 8.3% After Fresh Government Backi... | Positive | +0.32 | — |
 | 2026-02-23 | Motley Fool | If You'd Invested $1,000 in The Metals Company 3 Years Ago, ... | Neutral | +0.00 | — |
-| 2026-02-18 | The Motley Fool | 3 Things Every TMC The Metals Company Investor Needs to Know... | Negative | -0.44 | — |
-| 2026-02-18 | MSN | US is reportedly weighing critical minerals price floor – MP... | Positive | +0.27 | — |
+| 2026-02-18 | Yahoo Finance | 3 Things Every TMC The Metals Company Investor Needs to Know... | Neutral | +0.00 | — |
+| 2026-02-18 | Stocktwits | US Is Reportedly Weighing Critical Minerals Price Floor – MP... | Positive | +0.27 | — |
 | 2026-02-17 | 24/7 Wall St. | Grade My Speculative Portfolio: My 3 Top Picks  What Do You ... | Positive | +0.30 | — |
 | 2026-02-17 | Insider Monkey | Analyst Boosts TMC Target to $12.25, Cites First-Mover Advan... | Positive | +0.51 | — |
+| 2026-02-17 | Quiver Quantita | $TMC stock is down 4% today. Here's what we see in our data.... | Neutral | +0.00 | — |
 | 2026-02-17 | 24/7 Wall St. | Grade My Speculative Portfolio: My 3 Top Picks – What Do You... | Positive | +0.30 | — |
-| 2026-02-14 | Simply Wall St. | Assessing TMC The Metals (TMC) Valuation After Sharp Short T... | Positive | +0.13 | Short |
 | 2026-02-12 | The Motley Fool | This $7 Stock Could Be Your Ticket to Millionaire Status - T... | Negative | -0.44 | — |
-| 2026-02-12 | Motley Fool | Should You Invest $1,000 In TMC The Metals Company Right Now... | Neutral | +0.00 | — |
+| 2026-02-12 | Nasdaq | Should You Invest $1,000 In TMC The Metals Company Right Now... | Neutral | +0.00 | — |
 | 2026-02-11 | Zacks | Rio Tinto Surges 36.7% in 3 Months: Should You Buy the Stock... | Neutral | +0.00 | — |
+| 2026-02-06 | Quiver Quantita | $TMC stock is up 13% today. Here's what we see in our data. ... | Neutral | +0.00 | — |
 | 2026-02-05 | Barchart | 3 Rare Earths Stocks to Buy as Trump Announces Project Vault | Neutral | +0.00 | — |
 | 2026-02-05 | Nasdaq | TMC The Metals Shares Cross Below 200 DMA - Nasdaq | Positive | +0.30 | — |
 | 2026-02-03 | Insider Monkey | TMC the metals company Inc. (TMC): A Bull Case Theory | Neutral | +0.00 | — |
 | 2026-02-02 | Barrons.com | Trump Wants a Critical Minerals Stockpile. What It Means for... | Negative | -0.32 | — |
 | 2026-01-29 | Benzinga | Rare Earth Stocks Get Rocked: Here Are The Facts | Neutral | +0.00 | — |
 | 2026-01-29 | Motley Fool | 3 Rare Earth Stocks to Watch in 2026 | Neutral | +0.00 | — |
-| 2026-01-29 | Quiver Quantita | $TMC stock is down 11% today. Here's what we see in our data... | Neutral | +0.00 | — |
-| 2026-01-27 | 24/7 Wall St. | Growth Stocks Are So 2021: These Stocks Could Be the Biggest... | Positive | +0.69 | — |
-| 2026-01-27 | Motley Fool | Why Shares of TMC the metals company Ripped 450.9% Higher in... | Positive | +0.30 | — |
-| 2026-01-27 | Insider Monkey | TMC the metals company Inc. (TMC) Falls 17.7% as Investors A... | Positive | +0.10 | — |
-| 2026-01-27 | Finimize | TMC’s Stock Jumped On US Deep-Sea Mining Permit Momentum - F... | Neutral | +0.00 | — |
-| 2026-01-26 | Motley Fool | Why TMC The Metals Company Stock Dropped 17.7% Today | Neutral | +0.00 | — |
-| 2026-01-26 | TheStreet | Stock Market Today: Trump's Medicare announcement slams heal... | Neutral | +0.00 | — |
-| 2026-01-25 | Insider Monkey | TMC the metals company (TMC) Jumps 30% as Firm Eyes Wider Ex... | Positive | +0.23 | — |
-| 2026-01-24 | Motley Fool | Should You Buy The Metals Company While It's Under $10? | Neutral | +0.00 | — |
-| 2026-01-24 | Insider Monkey | TMC the metals company Inc. (TMC) Soars 13.5% as Firm Seeks ... | Positive | +0.48 | Regulatory |
-| 2026-01-24 | Trefis | TMC Stock (+13%): NOAA Filing Accelerates De-Risking Narrati... | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 12 (40%) |
-| Neutral | 14 (47%) |
+| Positive | 11 (37%) |
+| Neutral | 15 (50%) |
 | Negative | 4 (13%) |
-| Average Score | +0.066 |
+| Average Score | +0.064 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 162 |
+| Total Unique Headlines | 167 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Regulatory | 2 | Trumps Secret Weapon in the Rare Earth W..; TMC the metals company Inc. (TMC) Soars .. |
-| Short | 1 | Assessing TMC The Metals (TMC) Valuation.. |
+| Regulatory | 2 | Will First U.S. Deep‑Seabed Mining Appro..; Trumps Secret Weapon in the Rare Earth W.. |
+| Earnings | 1 | TMC Consolidated U.S. Deep Sea Mining Bi.. |
 
 ### Deep Dive Articles
+
+#### U.S. Defense Manufacturers Face A Rare Earth Supply Squeeze - OilPrice.com Market Commentary
+*Source: PR Newswire | Date: 2026-03-06 | Sentiment: Positive (+0.34)*
+
+> NEW YORK,March 6, 2026/PRNewswire/ -- According to sources, the Pentagon willprohibit the use of rare earth magnet materialsoriginating from China in U.S. military platforms beginning in 2027. This mandate will have broad implications across the American defense industrial base,requiring manufacturersto verify the origin of the rare earth metals used in their systems, tracing them back to the earliest stages of the processing chain. Companies mentioned in this release include:REalloys Inc. (ALOY),Olin Corporation(NYSE: OLN),The Metals Company(NASDAQ: TMC),Huntington Ingalls Industries(NYSE: HII),BWX Technologies(NYSE: BWXT),TransDigm Group(NYSE: TDG).
+
+> Defense giants like Lockheed Martin are overhauling their magnet supply chains to avoid non-compliance in 2027, warning that rare earth sourcing restrictions require traceability down to the mining level across multi-tier supplier networks.Northrop Grummanhas issued supplier notices reinforcing magnet-origin requirements and pushing those obligations through its supply chain.
+
+> Now, these aerospace and defense behemoths are qualifying compliant suppliers in a market where rare earth processing capacity has been controlled almost exclusively by China for decades.
+
+> In Euclid, Ohio, that's all changing. Here,REalloys (ALOY)has achieved a North American first: industrial production of magnet-grade heavy rare earth metals for defense applications.
+
+> Where Defense Giants Will Get Their Magnet-Grade Metals
+
+**Catalysts:** Regulatory
+
+#### The Metals Royalty Company Inc. Announces Public Filing of Registration Statement for Proposed Direct Listing of Its Common Shares
+*Source: ACCESSWIRE | Date: 2026-03-02 | Sentiment: Positive (+0.99)*
+
+> Not Intended For Dissemination in Canada
+
+> LONDON, UK /ACCESS Newswire/ March 2, 2026 /The Metals Royalty Company Inc. ("TMCR" or the "Company"), a purpose-built financing platform dedicated to advancing U.S. critical mineral security and re-industrialization, today announced that it has publicly filed its registration statement on Form F-1 (the "Registration Statement") with the U.S. Securities and Exchange Commission (the "SEC") relating to the proposed direct listing of its common shares on The Nasdaq Stock Market ("Nasdaq").
+
+> The proposed direct listing is expected to occur after the SEC completes its review of the Registration Statement and the Registration Statement is declared effective, subject to market and other conditions. The Registration Statement can be accessed through the SEC's website atwww.sec.gov.
+
+> A registration statement relating to these securities has been filed with the SEC but has not yet become effective. These securities may not be sold, nor may offers to buy be accepted, prior to the time the registration statement becomes effective. This press release shall not constitute an offer to sell or the solicitation of an offer to buy these securities, nor shall there be any sale of these securities in any state or jurisdiction in which such offer, solicitation, or sale would be unlawful prior to registration or qualification under the securities laws of any such state or jurisdiction.
+
+> TMCR is focused on deploying capital to fortify America's mineral security and re-industrialization. It supports domestic industry growth across energy, defense, and the broader critical minerals value chain through the acquisition and management of royalties, streams, and similar structured interests. The Company's royalty-based business model is designed to enable participation in the long-term cash flows and commodity upside of strategically significant assets, with reduced exposure to the operational and development risks typically associated with resource production. The Company is anchored by a 2.0% gross overriding royalty on the NORI polymetallic deposit operated by TMC the metals company Inc. (NASDAQ:TMC).
+
+**Catalysts:** Earnings, Regulatory, Corporate
 
 #### Analyst Boosts TMC Target to $12.25, Cites First-Mover Advantage
 *Source: Insider Monkey | Date: 2026-02-17 | Sentiment: Positive (+0.99)*
@@ -100,33 +130,3 @@
 > While this is a binary, event-driven investment with significant downside risk, the combination of unique assets, geopolitical relevance, and regulatory momentum makes TMC a high-risk, high-reward opportunity for investors seeking exposure to critical metals supply chain disruption and strategic U.S. resource independence.
 
 **Catalysts:** Regulatory, Equity
-
-#### Rare Earth Stocks Get Rocked: Here Are The Facts
-*Source: Benzinga | Date: 2026-01-29 | Sentiment: Negative (-0.40)*
-
-> The rare earth sector got a shock Wednesday evening when Reutersreported that the Trump administration is walking back previous promises to guarantee price floors for domesticcritical mineral projects.
-
-> Rare earth and critical minerals stocks cratered on Thursday morning.
-
-> According to the report, senior administration officials informed industry leaders at a closed-door meeting thatfuture projectsmust prove “financial independence” without federal price supports.
-
-> It is a significant reversal from the aggressive Operation Warp Speed-style rhetoric the administration used last year to bolster the domestic rare earth supply chain against Chinese dominance.
-
-> Stock Market Impact:The news triggered a steep sell-off in rare earth and critical minerals stocks:
-
-**Catalysts:** Regulatory
-
-#### 3 Rare Earth Stocks to Watch in 2026
-*Source: Motley Fool | Date: 2026-01-29 | Sentiment: Positive (+0.85)*
-
-> MP Materials operates one of the two large-scale light rare-earth production facilities outside China.
-
-> TMC aims to mine polymetallic nodules on the seabed, which are rich in certain critical minerals.
-
-> USA Rare Earth is focused on building a domestic "mine-to-magnet" supply chain and recently secured U.S. government funding to support its growth.
-
-> Rare-earth stocks are grabbing headlines lately, as China tightens its grip on exports in the midst of the ongoing trade war with the United States. With the spotlight on critical minerals, U.S. policymakers are prioritizing mining, production, and processing to bolster domestic manufacturing.
-
-> Three stocks to pay close attention to in 2026 areMP Materials(NYSE: MP),The Metals Company(NASDAQ: TMC), andUSA Rare Earth(NASDAQ: USAR). Here's what investors need to know about investing in these up-and-coming mining stocks.
-
-**Catalysts:** Regulatory

@@ -1,4 +1,4 @@
-*Generated: 2026-02-26 22:17*
+*Generated: 2026-03-08 17:18*
 
 ## News & Sentiment: USA Rare Earth, Inc. (USAR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,129 +6,128 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Insider Monkey | Is USA Rare Earth, Inc. (USAR) One of the Best Manufacturing... | Positive | +0.64 | — |
-| Today | Oilprice.com | Trumps Secret Weapon in the Rare Earth War | Negative | -0.73 | Regulatory |
-| 2026-02-26 | International B | USA Rare Earth (USAR) Stock Dips 1.5% on Funding vs. Risks -... | Negative | -0.27 | — |
-| 2026-02-26 | Yahoo Finance | Reassessing USA Rare Earth (USAR) Valuation After Recent Sha... | Positive | +0.30 | — |
-| 2026-02-25 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Stock Price Down 1.5% - Here's ... | Neutral | +0.00 | Earnings |
-| 2026-02-25 | FinancialConten | The Trump Administration Takes Stake in USA Rare Earth: 21% ... | Neutral | +0.00 | — |
-| 2026-02-25 | Motley Fool | USA Rare Earth Has Tumbled From All-Time Highs in 2025. Here... | Neutral | +0.00 | — |
-| 2026-02-24 | Investor's Busi | Rare Earth Stocks Warm Up As Oxide Prices Climb; REalloys To... | Positive | +0.23 | — |
-| 2026-02-24 | Investor's Busi | Rare Earth Stock REalloys To Start Trading As Oxide Prices C... | Neutral | +0.00 | — |
-| 2026-02-24 | TechStock² | USA Rare Earth (USAR) stock slips in premarket after 9% jump... | Neutral | +0.00 | — |
-| 2026-02-24 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Up 9.1% - Still a Buy? -... | Positive | +0.30 | Earnings |
-| 2026-02-22 | MarketBeat | USA Rare Earth Inc. (NASDAQ:USAR) Receives Average Recommend... | Neutral | +0.00 | Earnings |
-| 2026-02-19 | Schaeffer's Res | The Week Ahead: February Closes with Inflation Data, Dow Ear... | Neutral | +0.00 | Earnings |
-| 2026-02-19 | Insider Monkey | USA Rare Earth (USAR) Tumbles 4.3%, Here's Why | Neutral | +0.00 | — |
-| 2026-02-19 | The Motley Fool | Where Will USA Rare Earth Stock Be in 3 Years? - The Motley ... | Negative | -0.44 | — |
-| 2026-02-19 | simplywall.st | Has USA Rare Earth (USAR) Become Attractive After Recent Sha... | Positive | +0.62 | — |
-| 2026-02-19 | Motley Fool | Where Will USA Rare Earth Stock Be in 3 Years? | Neutral | +0.00 | — |
-| 2026-02-19 | Simply Wall St. | USA Rare Earth Funding And Acquisition Reshape Domestic Supp... | Positive | +0.30 | Corporate |
-| 2026-02-18 | Barrons.com | International Stocks Are Outperforming. Investment Pros Weig... | Neutral | +0.00 | Analyst |
-| 2026-02-18 | Zacks | Rising Development Expenses Pressure USAR: What's the Road A... | Negative | -0.30 | — |
-| 2026-02-18 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Down 4.3% - Should You S... | Positive | +0.30 | Earnings |
-| 2026-02-17 | The Motley Fool | USA Rare Earth Stock: Buy, Sell, or Hold? - The Motley Fool | Negative | -0.44 | — |
-| 2026-02-17 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Down 2% - Time to Sell? ... | Positive | +0.30 | Earnings |
-| 2026-02-16 | Zacks | USA Rare Earth Surges 35.6% in 3 Months: Should You Buy the ... | Neutral | +0.00 | — |
-| 2026-02-14 | Insider Monkey | Analysts See 94% Upside To USA Rare Earth, Inc. (USAR) | Neutral | +0.00 | — |
-| 2026-02-13 | The Motley Fool | Should You Buy USA Rare Earth While It's Below $25? - The Mo... | Negative | -0.44 | — |
-| 2026-02-13 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Up 1.7% - Still a Buy? -... | Positive | +0.30 | Earnings |
-| 2026-02-12 | Benzinga | Trump's Favorite Commodity Is Coming To Derivatives Market | Positive | +0.46 | — |
-| 2026-02-12 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Down 12.4% - Here's What... | Positive | +0.30 | Earnings |
-| 2026-02-11 | Zacks | Can USA Rare Earth's Stillwater Facility Accelerate Its Next... | Positive | +0.38 | — |
+| 2026-03-07 | Trefis | USA Rare Earth (-8.6%): Senate Scrutiny of $1.6B Funding Dea... | Neutral | +0.00 | — |
+| 2026-03-07 | Motley Fool | Is USA Rare Earth Stock a Once-in-a-Decade Rare Earth Opport... | Positive | +0.42 | — |
+| 2026-03-06 | Investor's Busi | Rare Earth Stocks: REalloys Lights Up As Iran War Stokes Dem... | Negative | -0.66 | — |
+| 2026-03-06 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Down 8.6% - What's Next?... | Positive | +0.30 | Earnings |
+| 2026-03-06 | Simply Wall St. | USA Rare Earth Secures Round Top Ownership As Market Values ... | Positive | +0.36 | Regulatory |
+| 2026-03-05 | Benzinga | What's Going On USA Rare Earth Shares On Thursday? | Positive | +0.30 | — |
+| 2026-03-05 | GuruFocus.com | USA Rare Earth Moves to Consolidate Round Top | Positive | +0.20 | — |
+| 2026-03-05 | GlobeNewswire | USA Rare Earth to Acquire Texas Mineral Resources Corporatio... | Neutral | +0.00 | — |
+| 2026-03-05 | Bloomberg | USA Rare Earth Poised to Buy Rest of Stake in Round Top Depo... | Positive | +0.42 | — |
+| 2026-03-05 | Seeking Alpha | USA Rare Earth to buy Texas Mineral Resources in $73M all-st... | Neutral | +0.00 | — |
+| 2026-03-05 | TradingView | USA Rare Earth, Texas Mineral Resources Agree to Stock Merge... | Positive | +0.71 | Corporate |
+| 2026-03-05 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Trading 1% Higher - Still a Buy... | Neutral | +0.00 | Earnings |
+| 2026-03-05 | TradingView | Texas Mineral Resources to Merge With USA Rare Earth; Holder... | Positive | +0.30 | — |
+| 2026-03-05 | Benzinga | What's Going On USA Rare Earth Shares On Thursday? - Benzing... | Positive | +0.30 | — |
+| 2026-03-04 | Zacks | Can the Stillwater Facility Anchor USA Rare Earth's Growth T... | Positive | +0.38 | — |
+| 2026-03-04 | Yahoo Finance | Is USA Rare Earth Stock a Millionaire Maker? - Yahoo Finance | Neutral | +0.00 | — |
+| 2026-03-04 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Down 2.6% - Time to Sell... | Positive | +0.30 | Earnings |
+| 2026-03-04 | Trefis | USA Rare Earth (+10%): Bullish Sector Report Cites Shifting ... | Neutral | +0.00 | Regulatory |
+| 2026-03-04 | Motley Fool | Why USA Rare Earth Stock Plummeted 15.7% Last Month But Has ... | Neutral | +0.00 | — |
+| 2026-03-04 | Motley Fool | Is USA Rare Earth Stock a Millionaire Maker? | Neutral | +0.00 | — |
+| 2026-03-04 | Simply Wall St. | USA Rare Earth Buys LCM As Magnet Chain And Policy Support C... | Positive | +0.40 | — |
+| 2026-03-03 | Insider Monkey | Jim Cramer on USA Rare Earth: "This Is a Totally Speculative... | Positive | +0.18 | — |
+| 2026-03-03 | PR Newswire | China's Rare Earth Dominance and the Strategic Failure of th... | Negative | -0.36 | — |
+| 2026-03-03 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Down 6.9% - Time to Sell... | Positive | +0.30 | Earnings |
+| 2026-03-02 | Investor's Busi | Rare Earth Stocks Flash Buy Signals As Missiles Fly | Neutral | +0.00 | Earnings |
+| 2026-03-02 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Stock Price Up 10.4% - Time to ... | Neutral | +0.00 | Earnings |
+| 2026-03-02 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Trading 8.7% Higher - What's Ne... | Neutral | +0.00 | Earnings |
+| 2026-03-01 | Seeking Alpha | USA Rare Earth: $4.1B Bet On Breaking China's Grip - But Exe... | Neutral | +0.00 | — |
+| 2026-02-28 | simplywall.st | Is It Time To Revisit USA Rare Earth (USAR) After Its Recent... | Positive | +0.30 | — |
+| 2026-02-27 | Zacks | MP Materials vs. USA Rare Earth: Which Rare-Earth Stock has ... | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 12 (40%) |
-| Neutral | 12 (40%) |
-| Negative | 6 (20%) |
-| Average Score | +0.059 |
-| Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 179 |
+| Positive | 15 (50%) |
+| Neutral | 13 (43%) |
+| Negative | 2 (7%) |
+| Average Score | +0.138 |
+| Overall Sentiment | **Bullish** |
+| Total Unique Headlines | 185 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 8 | USA Rare Earth (NASDAQ:USAR) Stock Price..; USA Rare Earth (NASDAQ:USAR) Shares Up 9.. |
-| Regulatory | 1 | Trumps Secret Weapon in the Rare Earth W.. |
-| Corporate | 1 | USA Rare Earth Funding And Acquisition R.. |
-| Analyst | 1 | International Stocks Are Outperforming. .. |
+| Earnings | 7 | USA Rare Earth (NASDAQ:USAR) Shares Down..; USA Rare Earth (NASDAQ:USAR) Trading 1% .. |
+| Regulatory | 2 | USA Rare Earth Secures Round Top Ownersh..; USA Rare Earth (+10%): Bullish Sector Re.. |
+| Corporate | 1 | USA Rare Earth, Texas Mineral Resources .. |
 
 ### Deep Dive Articles
 
-#### Is USA Rare Earth, Inc. (USAR) One of the Best Manufacturing Stocks to Invest In Now?
-*Source: Insider Monkey | Date: Today | Sentiment: Positive (+0.98)*
+#### What's Going On USA Rare Earth Shares On Thursday?
+*Source: Benzinga | Date: 2026-03-05 | Sentiment: Positive (+0.97)*
 
-> USA Rare Earth, Inc. (NASDAQ:USAR) isone of the best manufacturing stocks to invest in now. On January 24, USA Rare Earth, Inc. (NASDAQ:USAR), received a significant boost in its bid to develop a rare-earth mineral site in Sierra Blanca, Texas. The United States government announced plans to take a 10% stake in the company as part of a $1.6 billion debt-and-equity investment package.
+> USA Rare Earth(NASDAQ:USAR) shares closed down on Wednesday,reflecting a broaderdownturn across the market, particularly within the Materials sector. As of Thursday, the shares are seesawing, but are still down.
 
-> With the $1.6 billion debt-equity investment, the US government is to receive 16.1 million shares in the company and an additional 17.6 million shares. The investment is part of the Trump administration’s bid to secure critical minerals for national security.
+> The stock’s dip comes as the company announces a significant acquisition, which could reshape its strategic positioning.
 
-> To complement the federal support, the company has secured $1.5 billion in private investment from institutional backers. The investment brings a $3.1 billion capital injection to help accelerate the company’s mine-to-magnet projects in Texas.
+> In a major strategic move, USA Rare Earth has entered into a definitive agreement to acquire all outstanding shares ofTexas Mineral Resources Corp.(TMRC) for 3,823,328 shares of USA Rare Earth common stock.
 
-> The significant capital injection will help the company develop its domestic mine and magnet facility. The company has been developing the Sierra Blanca mine, which is slated to open in 2028. The company also owns a magnet manufacturing facility in Stillwater, Oklahoma.
+> The deal, valued at approximately $73 million based on USA Rare Earth’s closing stock price, underscores the company’s ambition to lead a globally integrated mine-to-magnet platform.
 
-> USA Rare Earth, Inc. (NASDAQ:USAR) is a vertically integrated American company developing a domestic supply chain for rare earth magnets, spanning from mining to finished product. It focuses on producing neodymium and other heavy rare earth elements at its Round Top Mountain project in Texas and on manufacturing permanent magnets in Stillwater, Oklahoma.
+> The deal is expected to close no later than the third calendar quarter of 2026, subject to customary closing conditions.
 
-**Catalysts:** Regulatory
+**Catalysts:** Regulatory, Corporate
 
-#### The Week Ahead: February Closes with Inflation Data, Dow Earnings
-*Source: Schaeffer's Research | Date: 2026-02-19 | Sentiment: Positive (+0.68)*
+#### USA Rare Earth to Acquire Texas Mineral Resources Corporation
+*Source: GlobeNewswire | Date: 2026-03-05 | Sentiment: Positive (+0.99)*
 
-> The last week of February features plenty of key earnings reports, as well as some delayed economic data and speeches from several Federal Reserve officials. Wall Street will also be eyeing key inflation data in the form of the the producer price index (PPI) for January.
+> Transaction Establishes USAR as Exclusive Operator of the Round Top Heavy Rare Earth and Critical Minerals Project
 
-> On the earnings front, Domino's Pizza (DPZ),C3.ai(AI),CoreWeave(CRWV), Dell Technologies (DELL),Hims & Hers Health(HIMS),Home Depot(HD),IonQ(IONQ),Lucid Group(LCID),Lowe's(LOW),HP(HPQ)Mosaic(MOS),MP Materials(MP),Nvidia(NVDA),Revolve Group(RVLV),Salesforce(CRM),Snowflake(SNOW),Paramount Skydance(PSKY), TJX (TJX), andUSA Rare Earth(USAR) will all announce quarterly results next week,
+> Round Top is North America’s Richest Known Deposit of Heavy Rare Earths and Critical Minerals
 
-> Below is the schedule of key market events for the week ahead. All economic dates are tentative and subject to change.
+> STILLWATER, Okla., March  05, 2026  (GLOBE NEWSWIRE) --  USA Rare Earth, Inc. (Nasdaq: USAR) (“USAR”) and Texas Mineral Resources Corp. (OTCQB: TMRC) (“TMRC”) today announced a definitive agreement for USAR to acquire all of the outstanding shares of TMRC for 3,823,328 shares of USAR common stock.
 
-> Factory orders are due out onMonday, Feb. 23, following remarks from Fed Governor Christopher Waller.
+> The acquisition secures outstanding minority interests, establishing USAR as the sole operator and 100% economic beneficiary of the Round Top Project. This strategic transaction streamlines USAR’s operations as it builds a global champion in critical minerals and technology. USAR is developing the leading globally integrated mine to magnet platform, which is a U.S.-anchored, non-China value chain essential for the modern defense, robotics, energy, semiconductor and advanced manufacturing industries.
 
-> The S&P Case-Shiller home price index and wholesale inventories are on tap onTuesday, Feb. 24, as well as consumer confidence data. Plus, Chicago Fed President Austan Goolsbee, Fed President Raphael Bostic, and Fed Governor Lisa Cook are set to speak.
+> The implied total deal value is approximately $73 million, based on the closing price of USAR’s common stock on March 4, 2026, and provides TMRC stockholders with the benefits of USAR’s enhanced capital markets presence, liquidity and balance sheet.
 
-**Catalysts:** Earnings
+**Catalysts:** Regulatory, Corporate
 
-#### USA Rare Earth (USAR) Tumbles 4.3%, Here's Why
-*Source: Insider Monkey | Date: 2026-02-19 | Sentiment: Positive (+0.88)*
+#### Can the Stillwater Facility Anchor USA Rare Earth's Growth Trajectory?
+*Source: Zacks | Date: 2026-03-04 | Sentiment: Positive (+0.98)*
 
-> We recently published10 Losing Stocks in an Otherwise Optimistic Market. USA Rare Earth Inc. (NASDAQ:USAR) was one of the worst performers on Wednesday.
+> USA Rare Earth, Inc.USAR is progressing with development of its Stillwater magnet manufacturing facility in Oklahoma as it moves closer to commercial production. The site will manufacture Neodymium Iron Boron (NdFeB) magnets for defense, aerospace, automotive and other fast-growing end markets. Once operational, Stillwater is expected to rank among the first large-scale NdFeB magnet production facilities in the United States, reinforcing domestic rare earth supply-chain capabilities.Throughout 2025, USAR concentrated on equipment installation, assembly of Line 1a and preparations for commissioning in early 2026. The company also expanded its workforce, recruiting and training engineers and technicians to support operations, with the goal of achieving commercial-scale output and securing long-term customer contracts.To support its growth plans, USAR boosted its balance sheet through PIPE financing and warrant exercises, lifting its cash position to more than $400 million as of November 2025. The capital is being deployed toward plant enhancements, expanded magnet finishing capabilities and completion of Line 1b, which is expected to raise total NdFeB magnet production capacity to approximately 1,200 metric tons.In November 2025, the company further advanced its vertical integration strategy with the acquisition of Less Common Metals, gaining access to essential metals and alloys for the Stillwater facility. These initiatives position USAR to increase production and expand capacity in the quarters ahead.
 
-> USA Rare Earth extended losses for a second day on Wednesday, shedding 4.31 percent to finish at $18.20 apiece as investors parked funds amid the absence of fresh catalysts to boost buying appetite.
+> Among its major peers,Trilogy Metals Inc.TMQ continues to make steady progress at the Ambler mining district. Although Trilogy is not yet in production, it is taking a step ahead with Ambler Metals LLC, which is a joint venture with South32 Limited. In July 2025, Trilogy began a multi-year core re-boxing program to protect drill core for long-term future use.USAR’s other peer,NioCorp Developments Ltd.NB, is working to move its Elk Creek Project in Nebraska closer to production. In August 2025, NioCorp completed its first drilling program at the Elk Creek Project on schedule and within budget. In February 2026, NioCorp started construction of the main underground access for its Elk Creek Critical Minerals Project in southeast Nebraska,
 
-> Despite the decline, USA Rare Earth Inc. (NASDAQ:USAR) was notably up by 53 percent year-to-date, albeit its month-to-date tally showed a decline of 18.8 percent.
+> Shares of USAR have gained 75.1% in the past year compared with the industry’s growth of 63.2%.
 
-> Last month, the company announced a series of developments that saw the successful raising of as much as $3.1 billion in fresh funds. This includes the US government’s $1.6 billion financial backing, involving $1.3 billion in senior secured loans under the CHIPS Act, as well as another $277-million in proposed federal funding.
-
-> Additionally, USA Rare Earth Inc. (NASDAQ:USAR) raised another $1.5 billion from a private investment in public equity (PIPE) financing with strategic investors, covering the sale of 69.8 million common shares at a price of $21.50 per share.
-
-**Catalysts:** Regulatory
-
-#### Rising Development Expenses Pressure USAR: What's the Road Ahead?
-*Source: Zacks | Date: 2026-02-18 | Sentiment: Positive (+0.91)*
-
-> USA Rare Earth, Inc.USAR is working to advance rare earth mining and magnet manufacturing operations in the United States, including the Round Top mining project in Texas and a magnet production facility in Oklahoma. However, the company is still in the pre-revenue phase, as its mining assets have not yet achieved commercial-scale output, leading to ongoing operating losses since inception.USAR has been facing escalating development expenditures as it moves forward through the project development stage. In the third quarter of 2025, the company’s selling, general and administrative expenses rose to $11.4 million from $0.8 million recorded in the year-ago quarter, due to higher legal and consulting costs, an expanded workforce, recruitment spending and additional overheads.USA Rare Earth’s research and development expenses also increased to $4.45 million from $1.16 million in the same period due to higher employee-related costs linked to staff expansion. As a result, the company posted a loss of 25 cents per share for the third quarter.Despite higher spending, USA Rare Earth continues to advance toward the targeted commercialization of multiple rare earth projects. These projects are expected to take at least several more quarters before achieving commercial production.It is worth noting that USAR disclosed that its Round Top rare earth and critical minerals project is now anticipated to commence commercial production in late 2028, which is two years earlier than its prior timeline. Until revenue generation begins, substantial project development outlays and operating expenses are expected to remain a short-term drag. The absence of revenues, along with increasing development costs, is likely to pressure the company’s near-term financial performance.
-
-> Among its major peers,Trilogy Metals Inc.TMQ continues to maintain financial discipline as it advances work at the Upper Kobuk Mineral Projects through its joint venture, Ambler Metals LLC. Trilogy’s salaries expense increased in fiscal 2025, recording higher cash-based compensation compared with fiscal 2024. Trilogy Metals’ disciplined capital approach is allowing it to manage expenditures at a time when development projects often require significant investment.Its another peer,NioCorp Developments Ltd.NB, is facing cost pressure. In the first quarter of fiscal 2026, its total operating expenses increased significantly on a year-over-year basis due to expenses incurred for the advancement of the Elk Creek Project. Rising costs and expenses, if not controlled, might affect NioCorp Developments’ margin performance moving ahead.
-
-> Shares of USAR have gained 72.1% in the past year compared with the industry’s growth of 47.3%.
-
-> From a valuation standpoint, USAR is trading at a forward price-to-earnings ratio of negative 65.60X against the industry’s average of 15.85X. USA Rare Earth has a Value Score of F.
+> From a valuation standpoint, USAR is trading at a forward price-to-earnings ratio of negative 63.44X against the industry’s average of 16.47X. USA Rare Earth carries a Value Score of F.
 
 > The Zacks Consensus Estimate for USAR’s 2026 earnings has increased over the past 60 days.
 
-**Catalysts:** Earnings, Short
+**Catalysts:** Earnings, Regulatory, Corporate
 
-#### USA Rare Earth Surges 35.6% in 3 Months: Should You Buy the Stock Now?
-*Source: Zacks | Date: 2026-02-16 | Sentiment: Positive (+1.00)*
+#### Jim Cramer on USA Rare Earth: "This Is a Totally Speculative Situation"
+*Source: Insider Monkey | Date: 2026-03-03 | Sentiment: Positive (+0.88)*
 
-> USA Rare Earth, Inc.USAR shares have climbed 35.6% in the past three months, underperforming the industry and outperforming the S&P 500, which have returned 35.6% and 3%, respectively. In comparison, the company’s peers likeNioCorp Developments Ltd.NB andBHP Group LimitedBHP have gained 4.2% and 34.5%, respectively, over the same time frame.
+> USA Rare Earth, Inc. (NASDAQ:USAR) is one of thestocks on Jim Cramer’s radar. During the lightning round, a caller asked about the stock, and Cramer remarked:
 
-> Closing at $19.40 in the last trading session, the stock is trading below its 52-week high of $43.98 but higher than its 52-week low of $5.56. It is trading above both its 50-day and 200-day moving averages, indicating solid upward momentum and confidence in the company's long-term prospects.
+> Okay, so I’m going to tell you this is a totally speculative situation. Now, in How to Make Money in Any Market, I say you can buy one of these, okay? Let that be your one. Do not betray me and buy two of them. That’ll be too dangerous.
 
-> Let’s take a look at USAR’s fundamentals to better analyze how to play the stock.
+> USA Rare Earth, Inc. (NASDAQ:USAR) supplies rare earth elements and other critical minerals, including neodymium, dysprosium, terbium, gallium, beryllium, and lithium. Cramer was asked about the stock during the January 6 episode, and he responded, “See, I think that’s one of those years of magical investing stocks, and that year ended. I can’t bless it. Losing too much money.”
 
-> USA Rare Earth is working to move its Stillwater magnet manufacturing facility in Oklahoma closer to commercial production. The plant is designed to produce Neodymium Iron Boron (NdFeB) magnets, which are essential for defense, aviation, automotive and other high-growth applications. The Stillwater facility is expected to become one of the first large-scale magnet plants in the United States, supporting the country’s efforts to build a domestic rare earth supply chain.USA Rare Earth is installing key equipment, assembling Line 1a and completing final preparations at the Stillwater facility for commissioning in early 2026. It is worth noting that the company began hiring and training engineers and technicians to operate the facility. These efforts are likely to improve USAR’s ability to reach commercial-scale production and help it secure long-term customer contracts.USA Rare Earth also bolstered its balance sheet through PIPE financing and warrant exercises, bringing its total cash position to more than $400 million as of November 2025. It is worth noting that the company completed the $1.5 billion PIPE financing in January 2026. This funding is being used to make upgrades at the Stillwater plant, expand magnet finishing capabilities and complete Line 1b to increase total NdFeB magnet-producing capacity to roughly 1,200 metric tons.USAR completed the acquisition of Less Common Metals in November 2025, which will supply critical metal and alloy feedstock for the Stillwater plant. In December 2025, LCM partnered with Solvay and Arnold Magnetic Technologies Corp. (Arnold) to provide a stable and premium-quality source of rare-earth materials. With this addition and continued progress across its development initiatives, the company is well-positioned to expand capacity and scale production in the quarters ahead.However, since its inception, USA Rare Earth has remained in the exploration and research stages, incurring losses while yet to generate any revenues. Amid its project development phase, the company has been grappling with rising operational expenses, adversely impacting its margins and profitability. In third-quarter 2025, USAR’s selling, general and administrative expenses increased to $11.4 million from $0.8 million in the year-ago quarter due to a rise in legal & consulting costs, higher headcount & recruiting fees, and other costs.Research and development expenses rose to $4.45 million compared with $1.16 million reported in the year-ago quarter due to an increase in employee-related expenses. The lack of revenues and elevated expenses, partially offset by higher interest and dividend income from increased money market fund balances, resulted in a loss of 25 cents per share in the third quarter.USAR operates in the mineral exploration and mining markets, which include major industry players like NioCorp and BHP Group.
+> We recently mentioned the stock while discussing noteworthy manufacturing stocks. You can read ithere.
 
-> The Zacks Consensus Estimate for USAR’s bottom line for 2026 has increased in the past 60 days.
+> While we acknowledge the potential of USAR as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you're looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
 
-**Catalysts:** Earnings, Regulatory, Corporate, Shareholder, Analyst
+**Catalysts:** Short
+
+#### China's Rare Earth Dominance and the Strategic Failure of the West
+*Source: PR Newswire | Date: 2026-03-03 | Sentiment: Positive (+0.71)*
+
+> NEW YORK,March 3, 2026/PRNewswire/ --REalloys (ALOY)and a small number of other North American companies are doing what the rest of the Western world failed to do for three decades: They are breaking China's "kill switch" on the U.S. defense supply chain. Companies mentioned in this release include:REalloys Inc. (ALOY),Vale S.A.(NYSE: VALE),Energy Fuels Inc.(NYSE American: UUUU),MP Materials Corp.(NYSE: MP),Critical Metals Corp.(NASDAQ: CRML),USA Rare Earth Inc.(NASDAQ: USAR)
+
+> While the U.S. defense sector has long been reliant on international processing for these materials, REalloys has established itself as the only North American facility currently producing the specialized alloys essential for high-performance magnets used in advanced defense systems.
+
+> China's dominance isn't in the dirt. It's in the downstream conversion. And as the U.S. government injects$8.5 billionto reclaim the supply chain, the industry has realized a cold truth: factories don't run on rocks, they run on metals.
+
+> "China didn't win this by mining. It won by building the entire system—separation, refining, metals, magnets—all connected," saysREalloys CEO Lipi Sternheim. "Our competitors, no matter how well-funded, are at least three years away from production. We are already here."
+
+> By the time rare earths became strategically visible, the infrastructure that determined who could actually build was already concentrated in one place. Then it was weaponized, with Beijing placing restrictions on rare earth exports in order to control which defense and advanced manufacturing programs received supply.
+
+**Catalysts:** Regulatory, Corporate

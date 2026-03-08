@@ -2,6 +2,9 @@
 
 ## Trade Log
 - **2026-02-13:** Bullet 1 filled at $16.61 (6 shares). Mid-month low hit as expected.
+- **2026-02-27:** Reserve 1 filled at $14.88 (6 shares). Now 24 shares @ $16.08 avg. Bullets used: 4.
+- **2026-03-02:** BUY 4 shares @ $14.67 (Bullet 5 filled, pre-market; limit was $14.70). Cost: $58.68. Now 28 shares @ $15.88 avg. Bullets used: 5.
+- **2026-03-02:** BUY 4 shares @ $14.70 + 2 shares @ $14.60 (R1 filled, 6 shares total; limit was $14.70). Cost: $88.00. Now 34 shares @ $15.66 avg. Bullets used: 5 active + R1.
 
 ## Observations
 - Earnings Feb 25 — watch for pre-earnings run-up pattern.

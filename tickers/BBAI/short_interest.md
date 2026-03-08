@@ -1,21 +1,21 @@
-*Generated: 2026-02-25 21:01*
+*Generated: 2026-03-05 21:53*
 
 ## Short Interest: BigBear.ai, Inc. (BBAI)
 
 ### Key Metrics
 | Metric | Value |
 | :--- | :--- |
-| Shares Short | 120.75M |
-| Short Ratio (DTC) | 1.51 |
-| Short % Float | 26.50% |
-| Float Shares | 433.30M |
+| Shares Short | 132.49M |
+| Short Ratio (DTC) | 1.70 |
+| Short % Float | 29.08% |
+| Float Shares | 472.52M |
 | Shares Outstanding | 457.89M |
-| Avg Volume | 82.42M |
-| Change from Prior Month | +12.4% (increasing) |
+| Avg Volume | 74.79M |
+| Change from Prior Month | +29.4% (increasing) |
 
 ### Squeeze Risk
 | Metric | Value |
 | :--- | :--- |
 | Risk Rating | HIGH |
 | Score | 65/100 |
-| Key Factors | High short% (26.5%); Low DTC (1.5); Shorts increasing rapidly |
+| Key Factors | High short% (29.1%); Low DTC (1.7); Shorts increasing rapidly |

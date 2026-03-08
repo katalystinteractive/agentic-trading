@@ -1,4 +1,4 @@
-*Generated: 2026-02-26 22:17*
+*Generated: 2026-03-08 17:18*
 
 ## News & Sentiment: Applied Digital Corporation (APLD)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,128 +6,128 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Schaeffer's Res | 16 Stocks That Are Short Squeeze Candidates | Neutral | +0.00 | Short |
-| 2026-02-26 | TipRanks | Mixed options sentiment in Applied Digital Corp with shares ... | Positive | +0.30 | — |
-| 2026-02-26 | Finviz | 3 Russell 2000 Stocks with Open Questions - Finviz | Neutral | +0.00 | — |
-| 2026-02-26 | Schaeffer's Inv | 16 Stocks That Are Short Squeeze Candidates - Schaeffer's In... | Neutral | +0.00 | Short |
-| 2026-02-26 | StockStory | 3 Russell 2000 Stocks with Open Questions | Neutral | +0.00 | — |
-| 2026-02-25 | simplywall.st | Assessing Applied Digital’s Valuation After Nvidia Exits Its... | Neutral | +0.00 | — |
-| 2026-02-25 | MarketBeat | Applied Digital (NASDAQ:APLD) Shares Down 5.2% - What's Next... | Positive | +0.30 | Earnings |
-| 2026-02-24 | The Motley Fool | Nvidia Just Sold Its Stake in Applied Digital and Arm Holdin... | Positive | +0.05 | Corporate |
-| 2026-02-24 | TipRanks | VRT vs. APLD vs. GEV: Which ‘Strong Buy’ Data Center Infrast... | Positive | +0.64 | — |
-| 2026-02-24 | simplywall.st | Why Applied Digital (APLD) Is Down 15.0% After Nvidia Fully ... | Neutral | +0.00 | — |
-| 2026-02-24 | MarketBeat | Applied Digital (NASDAQ:APLD) Stock Price Up 2.2% - What's N... | Neutral | +0.00 | Earnings |
-| 2026-02-24 | MarketBeat | Applied Digital (NASDAQ:APLD) Trading Up 3.3% - Here's What ... | Neutral | +0.00 | Earnings |
-| 2026-02-24 | Simply Wall St. | Could Nvidia’s Exit From Applied Digital (APLD) Reframe Its ... | Neutral | +0.00 | — |
-| 2026-02-23 | Bez Kabli | Applied Digital (APLD) stock price slips premarket as AI dat... | Neutral | +0.00 | — |
-| 2026-02-22 | MarketBeat | Applied Digital Corporation (NASDAQ:APLD) Given Average Reco... | Neutral | +0.00 | Earnings |
-| 2026-02-21 | Barchart | As Nvidia Ditches Applied Digital Stock, Should You? | Neutral | +0.00 | — |
-| 2026-02-21 | The Motley Fool | Better Data Center Stock: Applied Digital vs. Riot Platforms... | Negative | -0.56 | — |
-| 2026-02-21 | Trefis | APLD Stock Falls -24% In 8-day Spree On Nvidia’s Full Stake ... | Neutral | +0.00 | — |
-| 2026-02-21 | MarketBeat | Applied Digital (NASDAQ:APLD) Trading Down 7.9% - What's Nex... | Neutral | +0.00 | Earnings |
-| 2026-02-21 | The Motley Fool | 2 Monster Stocks to Hold for the Next 5 Years - The Motley F... | Negative | -0.44 | — |
-| 2026-02-21 | Motley Fool | 2 Monster Stocks to Hold for the Next 5 Years | Neutral | +0.00 | — |
-| 2026-02-20 | Benzinga | Neocloud Contagion: CoreWeave Financing Woes Drag Down Nebiu... | Negative | -0.78 | — |
-| 2026-02-20 | Quiver Quantita | Applied Digital (APLD) slides as investors digest Nvidia’s d... | Neutral | +0.00 | — |
-| 2026-02-20 | The Motley Fool | AI Spending Is Poised to Hit $700 Billion in 2026. 2 Top Sto... | Positive | +0.05 | — |
-| 2026-02-20 | MarketBeat | Applied Digital (OTCMKTS:APLD) Trading Down 8% - Here's What... | Neutral | +0.00 | Earnings |
-| 2026-02-19 | MarketBeat | NVIDIA's 13F Bombshell: A New AI Power Trio Emerges | Neutral | +0.00 | — |
-| 2026-02-19 | Insider Monkey | Applied Digital (APLD) Loses 4.9% as Nvidia Disposes of Shar... | Neutral | -0.03 | — |
-| 2026-02-19 | MarketBeat | Applied Digital (NASDAQ:APLD) Trading Down 1.2% - Here's Why... | Neutral | +0.00 | Earnings |
-| 2026-02-19 | StockStory | 3 Volatile Stocks That Fall Short | Neutral | +0.00 | Short |
-| 2026-02-18 | GuruFocus.com | Nvidia Exits Arm Stake | Neutral | +0.00 | — |
+| 2026-03-08 | The Motley Fool | Why Applied Digital Stock Fell 19% Last Month - The Motley F... | Negative | -0.44 | — |
+| 2026-03-08 | The Motley Fool | Where Will Applied Digital Be in 5 Years - The Motley Fool | Negative | -0.44 | — |
+| 2026-03-08 | Motley Fool | Why Applied Digital Stock Fell 19% Last Month | Neutral | +0.00 | — |
+| 2026-03-07 | MarketBeat | 43,342 Shares in Applied Digital Corporation $APLD Bought by... | Positive | +0.30 | Earnings |
+| 2026-03-07 | Simply Wall St. | Applied Digital Ties AI Growth To Oracle Lease And Power Dea... | Positive | +0.38 | — |
+| 2026-03-06 | Insider Monkey | Applied Digital (APLD) Prices $2.15B Private Offering for No... | Neutral | +0.00 | Equity |
+| 2026-03-06 | Quiver Quantita | Applied Digital falls 10.5% as investors digest fresh mega-d... | Positive | +0.32 | — |
+| 2026-03-06 | simplywall.st | Applied Digital Raises US$2.15b For AI Campus And Power Expa... | Neutral | +0.00 | — |
+| 2026-03-06 | Motley Fool | This Small-Cap Manager Just Sold Its Entire $110 Million Sta... | Positive | +0.34 | Regulatory |
+| 2026-03-05 | TipRanks | Crypto Currents: Bitcoin tops $71,000 as ETF inflows return | Positive | +0.51 | — |
+| 2026-03-05 | Zacks | Can IREN's GPU Expansion Drive $3.7B AI Cloud ARR by 2026? | Neutral | +0.00 | — |
+| 2026-03-05 | Trefis | Applied Digital (+9.6%): Prices $2.15B Notes to Fund AI Data... | Neutral | +0.00 | — |
+| 2026-03-05 | Bitget | Applied Digital Stock Price Guide: APLD Trading & Investment... | Neutral | +0.00 | — |
+| 2026-03-05 | Simply Wall St. | A Look At Applied Digital (APLD) Valuation After Its $2.15b ... | Neutral | +0.00 | — |
+| 2026-03-05 | Motley Fool | Why Babcock & Wilcox Enterprises Stock Rocketed Nearly 46% H... | Neutral | +0.00 | — |
+| 2026-03-04 | Insider Monkey | Roth Capital and Citizens Stay Bullish on Applied Digital Co... | Neutral | +0.00 | — |
+| 2026-03-04 | Benzinga | Applied Digital Prices $2.15 Billion Debt Deal To Build Mass... | Negative | -0.36 | — |
+| 2026-03-04 | Benzinga | Babcock & Wilcox Rockets On $2.4 Billion AI Data Center Proj... | Neutral | +0.00 | — |
+| 2026-03-04 | GlobeNewswire | Applied Digital Announces Pricing of $2.15 Billion of Senior... | Positive | +0.40 | Regulatory |
+| 2026-03-04 | Business Wire | Babcock & Wilcox Reports Fourth Quarter and Full Year 2025 R... | Neutral | +0.00 | — |
+| 2026-03-04 | Business Wire | Babcock & Wilcox Receives Full Notice to Proceed on $2.4 Bil... | Neutral | +0.00 | — |
+| 2026-03-04 | Insider Monkey | Applied Digital Corporation (APLD) Expands HPC and AI Infras... | Positive | +0.10 | — |
+| 2026-03-04 | ChartMill | APLD Stock Price, Quote & Chart - APPLIED DIGITAL CORP (NASD... | Neutral | +0.00 | — |
+| 2026-03-04 | MarketBeat | Applied Digital (NASDAQ:APLD) Shares Up 9.6% - Should You Bu... | Positive | +0.30 | Earnings |
+| 2026-03-04 | MarketBeat | Applied Digital (OTCMKTS:APLD) Trading 9.2% Higher - Still a... | Neutral | +0.00 | Earnings |
+| 2026-03-04 | TipRanks | Applied Digital Guarantees Major Power Project for AI Growth... | Positive | +0.38 | — |
+| 2026-03-04 | TipRanks | Applied Digital Raises $2.15B to Expand AI Campus - TipRanks | Positive | +0.32 | — |
+| 2026-03-04 | Intellectia AI | Applied Digital's Subsidiary Prices $2.15B Senior Secured No... | Positive | +0.40 | Regulatory, Equity |
+| 2026-03-04 | MT Newswires | Exchange-Traded Funds, Equity Futures Higher Pre-Bell Wednes... | Neutral | +0.00 | — |
+| 2026-03-03 | GuruFocus.com | Applied Digital Seeks $2.15 Billion Junk Bond for Oracle Dat... | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 5 (17%) |
-| Neutral | 22 (73%) |
+| Positive | 11 (37%) |
+| Neutral | 16 (53%) |
 | Negative | 3 (10%) |
-| Average Score | -0.016 |
+| Average Score | +0.084 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 180 |
+| Total Unique Headlines | 185 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 7 | Applied Digital (NASDAQ:APLD) Shares Dow..; Applied Digital (NASDAQ:APLD) Stock Pric.. |
-| Short | 3 | 16 Stocks That Are Short Squeeze Candida..; 16 Stocks That Are Short Squeeze Candida.. |
-| Corporate | 1 | Nvidia Just Sold Its Stake in Applied Di.. |
+| Earnings | 3 | 43,342 Shares in Applied Digital Corpora..; Applied Digital (NASDAQ:APLD) Shares Up .. |
+| Regulatory | 3 | This Small-Cap Manager Just Sold Its Ent..; Applied Digital Announces Pricing of $2... |
+| Equity | 2 | Applied Digital (APLD) Prices $2.15B Pri..; Applied Digital's Subsidiary Prices $2.1.. |
 
 ### Deep Dive Articles
 
-#### 16 Stocks That Are Short Squeeze Candidates
-*Source: Schaeffer's Research | Date: Today | Sentiment: Negative (-0.12)*
+#### Applied Digital (APLD) Prices $2.15B Private Offering for North Dakota AI Factory
+*Source: Insider Monkey | Date: 2026-03-06 | Sentiment: Positive (+0.96)*
 
-> The last thing investors are thinking about right now -- as Wall Street wrestles with AI disruption -- is a short squeeze. But maybe that's what contrarians should be doing now, monitoring stocks to buy the dip on that could send bearish bettors packing.
+> Applied Digital Corporation (NASDAQ:APLD) is one of thestocks that should double in 3 years. On March 4, Applied Digital Corporation announced that its subsidiary, APLD ComputeCo 2 LLC, priced a $2.15 billion private offering of 6.750% senior secured notes due 2031. These notes are being issued at a price of 98% and are intended for sale to qualified institutional buyers and non-US persons. The transaction is expected to close on or around March 10, contingent upon standard market and closing conditions.
 
-> This screen finds stocks where the shorts might be at a big loss and therefore likely to begin covering. Obviously, there are quite a few assumptions so these would be very rough estimates.
+> The company intends to use the net proceeds from this offering to finance the development and construction of 200 megawatts of critical IT load at its Polaris Forge 2 AI Factory campus located in Harwood, North Dakota. Additionally, the funds will be used to satisfy project account requirements, including a Debt Service Reserve Account, and to cover related transaction fees and expenses. Applied Digital Corporation (NASDAQ:APLD) will also provide customary completion guarantees to ensure the project is finished on schedule.
 
-> To estimate the return for the shorts, Rocky went back over the past year of short interest reports to find when the shorts were added. Then he used the average price over the prior two weeks and estimated the shorts were added at that average price. Below are stocks where significant shorts have been added and they could be at a big loss.
+> The notes will be fully and unconditionally guaranteed by several of APLD ComputeCo 2’s existing and future subsidiaries. These obligations are backed by first-priority liens on all assets of the issuer and its guarantors, as well as the equity interests held by the direct parent company, APLD FAR Holdings LLC. As these securities have not been registered under the Securities Act, they are subject to specific offering restrictions and may not be sold in the US without registration or an applicable exemption.
 
-> Bear in mind, this data is from the most recent reporting period (2/15).
+> Applied Digital Corporation (NASDAQ:APLD) designs, develops, and operates digital infrastructure solutions for HPC and AI industries in North America. It operates through the Data Center Hosting Business and the HPC Hosting Business.
 
-> Highlights on the list includeStarlink competitorAST SpaceMobile (ASTS), Southern Copper (SCCO), andcryptocurrency data centerApplied Digital (APLD).
+> While we acknowledge the potential of APLD as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
 
-**Catalysts:** Short
+**Catalysts:** Regulatory, Equity, Short
 
-#### Neocloud Contagion: CoreWeave Financing Woes Drag Down Nebius, Applied Digital
-*Source: Benzinga | Date: 2026-02-20 | Sentiment: Negative (-0.13)*
+#### Can IREN's GPU Expansion Drive $3.7B AI Cloud ARR by 2026?
+*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+0.98)*
 
-> The specialized neocloud sector faced a stress test on Friday as shares ofNebius Group N.V.(NASDAQ:NBIS) andApplied Digital Corp.(NASDAQ:APLD)tumbled in sympathywithCoreWeave, Inc.(NASDAQ:CRWV).
+> IREN LimitedIREN recently announced plans to expand the capacity of its AI cloud infrastructure, where the company has agreed to purchase more than 50,000 NVIDIA B300 graphics processing units (GPUs). After this purchase, the company’s total GPU fleet is expected to reach 150,000 GPUs. IREN expects this capacity to support more than $3.7 billion in AI cloud annualized run-rate revenues (ARR) by the end of fiscal 2026.
 
-> The sell-off was ignited by a Business Insiderreportsuggesting a major financing friction point for CoreWeave's ambitious infrastructure expansion.
+> The additional GPUs will be deployed in phases during the second half of fiscal 2026. They will be installed in IREN’s existing air-cooled data centers in Mackenzie, British Columbia and Childress, Texas. Since these facilities already have power and infrastructure in place, IREN can add GPUs without building new data centers. In the second quarter of fiscal 2026, IREN reported around $2.3 billion of ARR under contract, which includes its large AI cloud agreement with Microsoft and about $0.4-$0.5 billion of ARR from the Prince George site. This shows that the company already has a strong base to start from.
 
-> CoreWeave shares fell as much as 12% intraday following news that its key financing partner,Blue Owl Capital(NYSE:OWL), allegedly failed to secure sufficient funding for a massive $4 billion data center project in Pennsylvania.
+> IREN has also raised significant capital to support expansion of its AI cloud capacity. Over the past eight months, IREN raised about $9.3 billion through customer prepayments, convertible notes, GPU leasing and GPU financing. IREN has secured $3.6 billion in GPU financing from Goldman Sachs and JPMorgan during the second quarter and plans to raise around $3.5 billion in additional capital spending for the new GPU orders in the second half of 2026 to fund its AI cloud infrastructure expansion.
 
-> The facility was intended to be a flagship site for CoreWeave's GPU-as-a-service model. The anxiety was compounded by Blue Owl’s recent decision to halt quarterly redemptions for one of its retail-focused funds, which investors interpreted as a “canary in the coal mine” for liquidity within the AI infrastructure space.
+> Overall, the above-mentioned factors should support the company's plans to reach the $3.7 billion AI Cloud ARR target by the end of fiscal 2026. The Zacks Consensus Estimate for IREN's fiscal 2026 revenues is pegged at $984.53 billion, suggesting a year-over-year increase of 93.3%. The Zacks Consensus Estimate for IREN's fiscal 2027 revenues is pegged at $2.70 billion, indicating a year-over-year increase of 173.9%.
 
-> The contagion quickly spread to Nebius and Applied Digital, as both companies operate within the same capital-intensive ecosystem.
+> IREN faces intense competition fromApplied DigitalAPLD andTeraWulfWULF in the AI infrastructure space.
 
 **Catalysts:** Earnings, Regulatory
 
-#### NVIDIA's 13F Bombshell: A New AI Power Trio Emerges
-*Source: MarketBeat | Date: 2026-02-19 | Sentiment: Positive (+0.99)*
+#### Roth Capital and Citizens Stay Bullish on Applied Digital Corporation (APLD)
+*Source: Insider Monkey | Date: 2026-03-04 | Sentiment: Positive (+0.94)*
 
-> The world’s most valuable company just made some headline-grabbing news.Semiconductor giantNVIDIA (NASDAQ: NVDA)has released its latest 13F SEC filing, detailing the investments the company made and sold during Q4 2025. As the firm leading the artificial intelligence (AI) infrastructure boom, investors watch NVIDIA's trades closely.
+> Applied Digital Corporation (NASDAQ:APLD)is one of the15 AI Stocks With Explosive Growth Potential.
 
-> The filing not only indicates which stocks NVIDIA may see value in, but also highlights its strategic moves within the AI and semiconductor ecosystem. While NVIDIA announced many of these trades in advance of its 13F release, investors were not aware of all of them until now. The clearest takeaway from the 13F is where NVIDIA added exposure, where it exited, and what it chose not to change.
+> Applied Digital Corporation (NASDAQ:APLD) is one of the best AI stocks with explosive growth potential. On February 18, Roth Capital reiterated its Buy rating on Applied Digital Corporation (NASDAQ:APLD) with a price target of $58. The research firm said it is “buying shares” after the stock fell in after-hours trading following news that NVIDIA Corporation (NASDAQ:NVDA) is selling its stake in Applied Digital Corporation (NASDAQ:APLD).
 
-> Three new names showed up on NVIDIA’s latest 13F filing:Intel (NASDAQ: INTC),Synopsys (NASDAQ: SNPS)andNokia (NYSE: NOK). The company announced these investments in several press releases during 2025, but they are still worth examining.
+> Roth Capital’s analyst said many things have changed since the earlier NVIDIA-led financing. The company has signed 2 colocation leases, one with CoreWeave, Inc. (NASDAQ:CRWV) and another with a hyperscaler, with a third lease expected to come soon. According to Roth Capital, the recent stock drop is driven more by “headline risk than any fundamental change” in the company’s investment story.
 
-> Intel is now NVIDIA’s largest holding. At the end of Q4, it held over214 million Intel shares, valued at approximately $7.9 billion. This represents around 61% of the firm’s overall public equity portfolio. NVIDIA revealed this investment inSeptember of 2025, initiating a $5 billion purchase at $23.28 per share. Since then, Intel stock is up nearly 50%, benefiting from a 23% spike immediately after NVIDIA’s press release.
+> Earlier, on February 12, Citizens also reiterated its Market Outperform rating on Applied Digital Corporation (NASDAQ:APLD) with a $40 price target. The research firm pointed to its 400 megawatts (MW) of purpose-built capacity at its Polaris Forge 1 Campus, which is fully leased to CoreWeave, Inc. (NASDAQ:CRWV). The first 100MW became ready for service in November 2025. Another 150MW is scheduled to be ready by mid-2026, and the remaining 150MW is expected to come online in 2027.
 
-> Synopsys is one of the world’s two giants in the electronic design automation industry. This software is essential to designing highly advanced chips. Synopsys also owns key intellectual property that serves as “building blocks” in semiconductor design. NVIDIA owns over 4.8 million Synopsys shares valued at over $2.2 billion at the end of Q4. Synopsys is up over 5% since NVIDIA announced its $2 billion purchase inDecember of 2025at $414.79 per share.
+> Citizens also pointed out that Applied Digital Corporation (NASDAQ:APLD) has signed a 200MW lease with an investment-grade hyperscaler. This agreement includes an option for an additional 800MW, which could allow the company to reach a total deployment of 1 gigawatt (GW).
 
-**Catalysts:** Regulatory
+**Catalysts:** Analyst
 
-#### Applied Digital (APLD) Loses 4.9% as Nvidia Disposes of Shares
-*Source: Insider Monkey | Date: 2026-02-19 | Sentiment: Negative (-0.69)*
+#### Applied Digital Prices $2.15 Billion Debt Deal To Build Massive AI Campus
+*Source: Benzinga | Date: 2026-03-04 | Sentiment: Positive (+0.90)*
 
-> We recently published10 Losing Stocks in an Otherwise Optimistic Market. Applied Digital Corp. (NASDAQ:APLD) was one of the worst performers on Wednesday.
+> Applied Digital Corp.(NASDAQ:APLD)shares rose on Wednesday after the company announced thepricing of a $2.15 billionsenior secured notes offering to fund its Polaris Forge 2 project.
 
-> Applied Digital extended its losing streak to a sixth straight day on Wednesday, dropping 4.92 percent to close at $31.91 apiece, as investor sentiment was further dragged by news that Nvidia Corp. has entirely disposed of its stake in the company.
+> APLD ComputeCo 2 LLC, a subsidiary, priced 6.750% senior secured notes due 2031 at 98% of face value.
 
-> Apart from Applied Digital Corp. (NASDAQ:APLD), Nvidia—considered the technology benchmark bolstering AI—also sold shares in Recursion Pharmaceuticals, WeRide, and Arm Holdings. It did not divulge the reason for the sale transactions.
+> Proceeds will support the development and construction of 200 megawatts of critical IT capacity at the Polaris Forge 2 campus in Harwood, North Dakota.
 
-> In contrast, Nvidia acquired shares in CoreWeave Inc., Intel Corp., Nebius Group, Nokia Corp., and Synopsys Inc.
+> The company expects to close the offering by March 10, 2026, subject to customary conditions. The notes are secured by first-priority liens on most assets of APLD Compute 2 and its subsidiaries.
 
-> In other news, Applied Digital Corp. (NASDAQ:APLD) last month officially broke ground for its new AI factory campus in Dallas, Texas.
+> In aseparate announcement,Babcock & Wilcox Enterprises Inc.(NYSE:BW) said it has received full notice to proceed on a $2.4 billion power generation project for Base Electron, an independent power producer backed by Applied Digital. The project will deliver 1.2 gigawatts of new generation capacity intended to supply electricity to Applied Digital's AI Factory campuses.
 
-**Catalysts:** None
+**Catalysts:** Regulatory, Equity
 
-#### Recursion Pharmaceuticals Stock Drops: What's Behind It?
-*Source: Benzinga | Date: 2026-02-18 | Sentiment: Positive (+0.55)*
+#### Babcock & Wilcox Rockets On $2.4 Billion AI Data Center Project, Reports Q4 Results
+*Source: Benzinga | Date: 2026-03-04 | Sentiment: Positive (+0.92)*
 
-> Recursion Pharmaceuticals Inc(NASDAQ:RXRX) shares are under pressure Wednesday after new regulatory filings showed thatNvidia Corp(NASDAQ:NVDA) has fully exited its investment in the AI‑focused drug‑discovery company. Here’swhat you should know.
+> Babcock & Wilcox Enterprises Inc.(NYSE:BW) shares skyrocketed on Wednesday after the company said it received fullnotice to proceed on a $2.4 billiondesign-build agreement with Base Electron to deliver 1.2 gigawatts of new power generation capacity.
 
-> Nvidia revealed in a Tuesday filing that it no longer holds any Recursion shares as of Dec. 31, alongsidesimilar exitsfromApplied Digital Corp(NASDAQ:APLD) and autonomous‑driving firmWeRide Inc(NASDAQ:WRD), Barron’sreported.
+> The generation will supportApplied Digital Corp’s(NASDAQ:APLD) AI Factory campuses under separate power supply agreements.
 
-> Nvidia's positions in these companies were relatively small at the end of the third quarter of 2025, but the chipmaker has spent recent years building a portfolio of AI‑related investments across multiple industries.
+> The project includes four 300-megawatt natural gas-fired boilers and steam turbine generator systems designed to supply power to high-density AI data centers.
 
-> Recursion Pharmaceuticals is currently positioned below all key moving averages, indicating bearish momentum. The stock is trading 18.2% below its 20-day SMA, 22.5% below its 50-day SMA and significantly below its longer-term averages, suggesting a lack of upward strength.
+> Base Electron, an independent power producer backed by Applied Digital, is developing generation assets that provide new dispatchable capacity to the grid and contracted customers.
 
-> The RSI is currently at 33.28, which is considered neutral but close to oversold territory, suggesting there could be potential for a bounce if buying interest picks up, but it also indicates that sellers have been in control. MACD is below its signal line, indicating bearish pressure on Recursion. The downward trend may continue unless we see a shift in momentum.
+> Under the agreement, Babcock & Wilcox will handle engineering, procurement, and construction of the facility, with engineering and manufacturing already underway.
 
 **Catalysts:** None

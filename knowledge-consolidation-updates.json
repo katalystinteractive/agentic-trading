@@ -1,0 +1,36 @@
+{
+  "superseded": [],
+  "new_lessons": [],
+  "annotations": [
+    {
+      "id": "91c5c8e2",
+      "append_text": " — Note: Contradiction score 1.0 is a scoring artifact. The 10 wicks breaking at $34-$35 zone (Sep 2025–Feb 2026) CONFIRM this lesson's claim about POC zone unreliability; they do not contradict it."
+    },
+    {
+      "id": "44173c4f",
+      "append_text": " — Note: Contradiction score 0.89 is a scoring artifact. The 7 wicks breaking in the $6.24-$6.99 range (Sep 2025–Feb 2026) CONFIRM this lesson's warning about $7.01 level unreliability; they do not contradict it."
+    }
+  ],
+  "portfolio_lessons": [
+    {
+      "category": "portfolio_lesson",
+      "text": "Wick offset strategy is structurally validated: break rates are 66-72% across ALL approach-count tiers (1-3: 72%, 4-6: 66%, 7+: 71%) based on 2,664 total approaches. Entry prices must always be set below raw support using wick_offset_analyzer — placing limits at raw support levels violates a data-validated rule.",
+      "sample_size": 2664
+    },
+    {
+      "category": "portfolio_lesson",
+      "text": "Technology sector has 100% win rate across 10 completed trades (CIFR ×4, CLSK ×3, BBAI, SOUN, SMCI, TEM). When surgical screening produces comparable scores across sectors, prioritize tech candidates.",
+      "sample_size": 10
+    },
+    {
+      "category": "portfolio_lesson",
+      "text": "Industrial sector confirms strategy portability: 5/5 trades profitable. The wick-offset entry framework generalizes beyond pure tech to space, defense, and industrial-adjacent sectors.",
+      "sample_size": 5
+    },
+    {
+      "category": "portfolio_lesson",
+      "text": "Approach count does not predict level reliability. Break rates are roughly equal at 66-72% regardless of whether a level has 1-3, 4-6, or 7+ historical approaches. Level reliability is determined by hold rate (percentage held), not raw approach count. Only levels with 75%+ hold rate should be treated as high-confidence.",
+      "sample_size": 2664
+    }
+  ]
+}

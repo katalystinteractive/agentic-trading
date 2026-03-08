@@ -27,4 +27,4 @@
     *   B4: $12.86 (8 shares, ~$103) — $12.41 PA, 50% hold, Full tier.
     *   Total active deployment: ~$190 if B2-B4 fill.
 *   **Reserve:** $5.38 (18 shares, ~$97) from $5.27 PA, 50% hold rate, 8 approaches — only fills on structural collapse below $12.
-*   **Status:** **ACTIVE POSITION — 10 shares @ $14.87 avg (B1+B2 filled). Sell target $16.36. B3 $14.10, B4 $12.86, R1 $5.38 pending.**
+*   **Status:** **RE-ENTRY MODE — Position closed 2026-03-04 (+7.8%, cycle 4). 4/4 cycles profitable (+5.9%, +7.2%, +7.0%, +7.8%). B3 $14.07 placed, B4 $12.86, R1 $5.38 pending.**

@@ -1,20 +1,20 @@
-*Generated: 2026-02-23 21:02*
+*Generated: 2026-03-08 17:20*
 
 ## Earnings Analysis: Antero Resources Corporation (AR)
 
 ### Next Earnings
 | Metric | Value |
 | :--- | :--- |
-| Earnings Date | 2026-04-30 |
-| Days Until | 66 |
-| EPS Estimate | $0.91079 |
-| Revenue Estimate | $1.54B |
-| Earnings Rule | Clear (>66d out) |
+| Earnings Date | 2026-04-29 |
+| Days Until | 52 |
+| EPS Estimate | $0.93859 |
+| Revenue Estimate | $1.60B |
+| Earnings Rule | Clear (>52d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $0.52 | $0.43 | -17.9% | -3.7% | -0.2% | Strong Bear |
+| Q1 2026 | $0.54 | $0.62 | 13.8% | -3.7% | -0.2% | Strong Bear |
 | Q4 2025 | $0.25 | $0.16 | -37.3% | -5.0% | +3.8% | Strong Bear |
 | Q3 2025 | $0.42 | $0.35 | -16.4% | +3.3% | -2.4% | Strong Bull |
 | Q2 2025 | $0.88 | $0.78 | -11.0% | -0.5% | +5.4% | Bearish |

@@ -1,15 +1,15 @@
-*Generated: 2026-02-27 09:47*
+*Generated: 2026-03-08 17:18*
 
 ## Earnings Analysis: Applied Digital Corporation (APLD)
 
 ### Next Earnings
 | Metric | Value |
 | :--- | :--- |
-| Earnings Date | 2026-04-10 |
-| Days Until | 42 |
+| Earnings Date | 2026-04-09 |
+| Days Until | 32 |
 | EPS Estimate | $-0.21 |
 | Revenue Estimate | $78.5M |
-| Earnings Rule | Clear (>42d out) |
+| Earnings Rule | Clear (>32d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |

@@ -1,4 +1,4 @@
-*Generated: 2026-02-26 22:17*
+*Generated: 2026-03-08 17:19*
 
 ## News & Sentiment: Cleveland-Cliffs Inc. (CLF)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,6 +6,23 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-08 | MarketBeat | Dimensional Fund Advisors LP Sells 2,994,777 Shares of Cleve... | Positive | +0.30 | Earnings |
+| 2026-03-07 | Trefis | Cleveland-Cliffs Stock (-8.0%): CEO Stock Sale After Revenue... | Negative | -0.15 | Earnings, Corporate |
+| 2026-03-07 | MarketBeat | Neo Ivy Capital Management Takes Position in Cleveland-Cliff... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-03-06 | StocksToTrade | Cleveland-Cliffs Stock Plummets Amid Executive Stock Sale an... | Negative | -0.15 | Earnings |
+| 2026-03-06 | MarketBeat | Cleveland-Cliffs (NYSE:CLF) Stock Price Down 8.4% - Here's W... | Neutral | +0.00 | Earnings |
+| 2026-03-06 | timothysykes.co | CEO’s Stock Sale Sparks CLF’s Decline Amid Poor Financial Ou... | Negative | -0.48 | Corporate |
+| 2026-03-05 | Zacks | Here is What to Know Beyond Why Cleveland-Cliffs Inc. (CLF) ... | Neutral | +0.00 | — |
+| 2026-03-03 | MarketBeat | South Dakota Investment Council Sells 201,228 Shares of Clev... | Positive | +0.30 | Earnings |
+| 2026-03-03 | MarketBeat | Contrarius Group Holdings Ltd Buys New Shares in Cleveland-C... | Positive | +0.30 | Earnings |
+| 2026-03-02 | GuruFocus | Cleveland-Cliffs Inc (CLF) Shares Up 4.69% on Mar 2 - GuruFo... | Positive | +0.30 | — |
+| 2026-03-02 | Simply Wall St. | Cleveland Cliffs Board Shifts Oversight As Shares Flagged Un... | Positive | +0.30 | — |
+| 2026-03-01 | Insider Monkey | BofA Maintains a Neutral Rating on Cleveland-Cliffs Inc. (CL... | Neutral | +0.00 | — |
+| 2026-03-01 | Yahoo Finance | Is It Time To Reassess Cleveland Cliffs (CLF) After Its Rece... | Positive | +0.30 | — |
+| 2026-03-01 | MarketBeat | Cleveland-Cliffs Inc. $CLF Shares Sold by Quantbot Technolog... | Positive | +0.30 | Earnings |
+| 2026-03-01 | Simply Wall St. | A Look At Cleveland-Cliffs (CLF) Valuation After Recent Shar... | Negative | -0.15 | — |
+| 2026-02-28 | simplywall.st | Does Cleveland-Cliffs’ (CLF) Board Refresh Hint At A Deeper ... | Neutral | +0.00 | — |
+| 2026-02-27 | AD HOC NEWS | Cleveland-Cliffs Stock: Fresh Deal Rumors, Union Talks And A... | Positive | +0.32 | — |
 | 2026-02-26 | Trefis | Cleveland-Cliffs Stock: Can 2026 Mark a Turnaround Year? - T... | Neutral | +0.00 | — |
 | 2026-02-26 | simplywall.st | Cleveland Cliffs (CLF) Valuation Check After Recent Share Pr... | Positive | +0.48 | — |
 | 2026-02-25 | Zacks | Is CMC's North America Steel Group Segment Set for Long-Term... | Positive | +0.38 | — |
@@ -13,50 +30,62 @@
 | 2026-02-24 | MarketBeat | Cleveland-Cliffs Inc. (NYSE:CLF) Given Consensus Recommendat... | Neutral | +0.00 | Earnings |
 | 2026-02-23 | Business Wire | Cleveland-Cliffs Inc. Appoints Ralph Michael as Lead Directo... | Neutral | +0.00 | — |
 | 2026-02-23 | Zacks | Can CRS's Brownfield Expansion Project Fuel Long-Term Growth... | Positive | +0.38 | — |
-| 2026-02-23 | MarketBeat | Citigroup Inc. Increases Stock Position in Cleveland-Cliffs ... | Neutral | +0.00 | Earnings |
+| 2026-02-23 | Stock Titan | Ex-AK Steel chair who led sale becomes Cleveland-Cliffs lead... | Neutral | +0.00 | — |
 | 2026-02-23 | Simply Wall St. | How The Cleveland-Cliffs (CLF) Narrative Is Shifting On Tari... | Neutral | +0.00 | — |
 | 2026-02-23 | Simply Wall St. | How Investors May Respond To Cleveland-Cliffs (CLF) Wider 20... | Negative | -0.40 | Earnings, Shareholder |
 | 2026-02-21 | MarketBeat | Monaco Asset Management SAM Sells 105,000 Shares of Clevelan... | Positive | +0.57 | Earnings, Corporate |
 | 2026-02-19 | Zacks | Cleveland-Cliffs Inc. (CLF) is Attracting Investor Attention... | Positive | +0.48 | — |
-| 2026-02-19 | TipRanks | Top Cleveland-Cliffs Executive Makes a Major Move With Compa... | Positive | +0.20 | — |
-| 2026-02-19 | MarketBeat | Rothschild Investment LLC Lowers Position in Cleveland-Cliff... | Negative | -0.13 | Earnings |
 | 2026-02-18 | Zacks | Can Commercial Metals' TAG Program Drive Margin Expansion? | Neutral | +0.00 | — |
-| 2026-02-18 | MarketBeat | Cleveland-Cliffs Inc. $CLF is Hodges Capital Management Inc.... | Neutral | +0.00 | Earnings, Corporate |
-| 2026-02-18 | MarketBeat | Cleveland-Cliffs (NYSE:CLF) COO Clifford Smith Sells 200,000... | Positive | +0.30 | Earnings |
-| 2026-02-18 | MarketBeat | Cleveland-Cliffs Inc. $CLF Shares Acquired by Readystate Ass... | Positive | +0.57 | Earnings, Corporate |
-| 2026-02-17 | Bloomberg | US Open to Metals Tariff Enforcement Adjustments, Greer Says | Neutral | +0.00 | — |
-| 2026-02-17 | Seeking Alpha | Cleveland-Cliffs: A Bet On 2026 Recovery I Am Not Willing To... | Neutral | +0.00 | — |
-| 2026-02-17 | Stock Titan | CLF SEC Filings - Cleveland-Cliffs Inc 10-K, 10-Q, 8-K Forms... | Neutral | +0.00 | Regulatory |
-| 2026-02-15 | Simply Wall St. | Cleveland-Cliffs Insider Sale And Contract Exit Frame 2025 R... | Neutral | +0.00 | — |
-| 2026-02-14 | simplywall.st | Assessing Cleveland-Cliffs (CLF) Valuation After Losses, Mar... | Negative | -0.59 | Earnings |
-| 2026-02-14 | Simply Wall St. | Is Cleveland Cliffs (CLF) Now An Opportunity After Recent Sh... | Positive | +0.61 | — |
-| 2026-02-13 | Barchart | Stocks Settle Slightly Higher as Bond Yields Fall | Neutral | +0.00 | — |
-| 2026-02-13 | The Wall Street | Steel and Aluminum Stocks Fall, Automakers Gain After Report... | Positive | +0.53 | — |
-| 2026-02-13 | Benzinga | Nucor, Cleveland-Cliffs, Alcoa Slide As Trump Reportedly Mul... | Neutral | +0.00 | — |
-| 2026-02-13 | The Wall Street | Shares in Steel and Aluminum Companies Fall After Reports of... | Positive | +0.30 | — |
-| 2026-02-13 | Barchart | Stocks Edge Lower as AI Fears Linger | Negative | -0.61 | — |
-| 2026-02-13 | Investor's Busi | Trump Could Reduce Steel And Aluminum Tariffs And These Stoc... | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 12 (40%) |
-| Neutral | 14 (47%) |
-| Negative | 4 (13%) |
-| Average Score | +0.117 |
+| Positive | 14 (47%) |
+| Neutral | 11 (37%) |
+| Negative | 5 (17%) |
+| Average Score | +0.126 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 178 |
+| Total Unique Headlines | 182 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 9 | Cleveland-Cliffs Inc. (NYSE:CLF) Given C..; Citigroup Inc. Increases Stock Position .. |
-| Corporate | 3 | Monaco Asset Management SAM Sells 105,00..; Cleveland-Cliffs Inc. $CLF is Hodges Cap.. |
+| Earnings | 11 | Dimensional Fund Advisors LP Sells 2,994..; Cleveland-Cliffs Stock (-8.0%): CEO Stoc.. |
+| Corporate | 4 | Cleveland-Cliffs Stock (-8.0%): CEO Stoc..; Neo Ivy Capital Management Takes Positio.. |
 | Shareholder | 1 | How Investors May Respond To Cleveland-C.. |
-| Regulatory | 1 | CLF SEC Filings - Cleveland-Cliffs Inc 1.. |
 
 ### Deep Dive Articles
+
+#### Here is What to Know Beyond Why Cleveland-Cliffs Inc. (CLF) is a Trending Stock
+*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+0.97)*
+
+> Cleveland-Cliffs(CLF) has been one of the most searched-for stocks on Zacks.com lately. So, you might want to look at some of the facts that could shape the stock's performance in the near term.
+
+> Over the past month, shares of this mining company have returned -25.5%, compared to the Zacks S&P 500 composite's -0.2% change. During this period, the Zacks Steel - Producers industry, which Cleveland-Cliffs falls in, has lost 3.2%. The key question now is: What could be the stock's future direction?
+
+> While media releases or rumors about a substantial change in a company's business prospects usually make its stock 'trending' and lead to an immediate price change, there are always some fundamental facts that eventually dominate the buy-and-hold decision-making.
+
+> Rather than focusing on anything else, we at Zacks prioritize evaluating the change in a company's earnings projection. This is because we believe the fair value for its stock is determined by the present value of its future stream of earnings.
+
+> Our analysis is essentially based on how sell-side analysts covering the stock are revising their earnings estimates to take the latest business trends into account. When earnings estimates for a company go up, the fair value for its stock goes up as well. And when a stock's fair value is higher than its current market price, investors tend to buy the stock, resulting in its price moving upward. Because of this, empirical studies indicate a strong correlation between trends in earnings estimate revisions and short-term stock price movements.
+
+**Catalysts:** Earnings, Short
+
+#### BofA Maintains a Neutral Rating on Cleveland-Cliffs Inc. (CLF)
+*Source: Insider Monkey | Date: 2026-03-01 | Sentiment: Positive (+0.44)*
+
+> Cleveland-Cliffs Inc. (NYSE:CLF)is among the10 Best Steel Stocks to Buy Right Now.
+
+> On February 12, 2026, BofA lowered Cleveland-Cliffs Inc. (NYSE:CLF)'s price objective to $13 from $14.50 while maintaining a Neutral rating. The analyst noted a relatively stretched balance sheet and said a potential partnership with POSCO could significantly improve the company's financial and operational outlook.
+
+> On February 10, 2026, GLJ Research cut Cleveland-Cliffs Inc. (NYSE:CLF)' price target to $9.42 from $9.52 while maintaining a Sell rating. The firm modified its model following the fourth-quarter report to reflect decreased demand and described the company's results and outlook as disappointing.
+
+> On February 9, 2026, Citi elevated Cleveland-Cliffs Inc. (NYSE:CLF)' price objective from $11 to $13 while maintaining a Neutral rating.  The analyst stated that the stock plunged 15%-20% as first-quarter 2026 projections showed approximately $140 million in EBITDA, which was lower than the $321 million Bloomberg consensus. Citi cited persistent EBITDA-per-ton and free cash flow concerns.
+
+> Cleveland-Cliffs Inc. (NYSE:CLF) is a flat-rolled steel firm that provides iron ore pellets to the North American steel industry. It specializes in the manufacturing of metallic and coke, iron and steelmaking, rolling and finishing, and downstream tubular components, stamping, and tooling.
+
+**Catalysts:** Analyst
 
 #### Is CMC's North America Steel Group Segment Set for Long-Term Growth?
 *Source: Zacks | Date: 2026-02-25 | Sentiment: Positive (+0.99)*
@@ -102,33 +131,3 @@
 > Carpenter Technology is currently trading at a forward price/sales ratio of 5.96 compared with the industry's 2.07.
 
 **Catalysts:** Earnings, Regulatory, Equity
-
-#### Cleveland-Cliffs Inc. (CLF) is Attracting Investor Attention: Here is What You Should Know
-*Source: Zacks | Date: 2026-02-19 | Sentiment: Positive (+0.98)*
-
-> Cleveland-Cliffs(CLF) has been one of the most searched-for stocks on Zacks.com lately. So, you might want to look at some of the facts that could shape the stock's performance in the near term.
-
-> Over the past month, shares of this mining company have returned -27.9%, compared to the Zacks S&P 500 composite's -0.8% change. During this period, the Zacks Steel - Producers industry, which Cleveland-Cliffs falls in, has gained 5.6%. The key question now is: What could be the stock's future direction?
-
-> Although media reports or rumors about a significant change in a company's business prospects usually cause its stock to trend and lead to an immediate price change, there are always certain fundamental factors that ultimately drive the buy-and-hold decision.
-
-> Rather than focusing on anything else, we at Zacks prioritize evaluating the change in a company's earnings projection. This is because we believe the fair value for its stock is determined by the present value of its future stream of earnings.
-
-> We essentially look at how sell-side analysts covering the stock are revising their earnings estimates to reflect the impact of the latest business trends. And if earnings estimates go up for a company, the fair value for its stock goes up. A higher fair value than the current market price drives investors' interest in buying the stock, leading to its price moving higher. This is why empirical research shows a strong correlation between trends in earnings estimate revisions and near-term stock price movements.
-
-**Catalysts:** Earnings
-
-#### Can Commercial Metals' TAG Program Drive Margin Expansion?
-*Source: Zacks | Date: 2026-02-18 | Sentiment: Positive (+1.00)*
-
-> Commercial Metals Company’s CMC Transform, Advance, Grow (TAG) Program focuses on driving higher through-the-cycle margins, earnings, cash flows and ROIC. CMC expects an annualized EBITDA benefit of $150 million in fiscal 2026 from the program.Launched in 2024, the TAG program aims to drive consistency across all areas of the business. The program is designed to optimize logistics, reduce input consumption, lower costs and boost energy efficiency. The program includes more than 150 individual projects across all the company’s business segments and support functions. The program has already aided improvements in melt shops and rolling mills that have resulted in production of higher volumes of product while maintaining the same levels of energy and raw material consumption.Commercial Metals is gaining from continued success in optimizing scrap, improving yield and cost mix. CMC maintained a solid momentum in the program in the first fiscal quarter, with the latest initiatives aimed at margin expansion and full value realization for the company’s industry-leading service.For fiscal 2027 and beyond, the company expects the TAG program to yield significant and lasting transformation on its margin profile. Benefits from the TAG program, along with strong market dynamics and effective operational execution, will generate momentum in CMC's existing businesses.
-
-> Cleveland-Cliffs Inc.CLF is executing significant cost-reduction initiatives, with lowering steel unit costs $150 per ton in three years. The company reduced overhead and fixed costs, along with optimizing its integrated footprint and improving efficiencies. Cleveland-Cliffs expects further cost reduction in 2026. It expects to gain from Stelco’s low-cost structure andasset optimization.Steel Dynamics, Inc.STLD is providing innovative alternative metal solutions to its customers, employing its expertise in operating highly efficient, low-cost melting, casting and rolling facilities. The company is developing a lower-carbon facility that offers an energy-efficient alternative to traditional production. This facility is expected to diversify and enhance Steel Dynamics' high-margin, value-added product portfolio.
-
-> Commercial Metals shares have gained 51.3% in the past year compared with the industry’s 50.1% growth. In comparison, the Zacks Basic Materials sector and the S&P 500 have returned 47.2% and 15.3%, respectively.
-
-> Commercial Metals is currently trading at a forward price/sales ratio of 0.96 compared with the industry's 1.77.
-
-> Cleveland-Cliffs is a cheaper option, trading at a forward price/sales ratio of 0.29, while Steel Dynamics is trading at a higher 1.37, respectively.The Zacks Consensus Estimate for Commercial Metals’ fiscal 2026 sales is $8.89 billion, indicating a 13.9% year-over-year jump. The consensus mark for the year’s earnings is pegged at $7.34 per share, indicating a year-over-year upsurge of 134.5%.
-
-**Catalysts:** Earnings, Regulatory

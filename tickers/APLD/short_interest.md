@@ -1,4 +1,4 @@
-*Generated: 2026-02-27 09:47*
+*Generated: 2026-03-08 17:18*
 
 ## Short Interest: Applied Digital Corporation (APLD)
 
@@ -8,9 +8,9 @@
 | Shares Short | 80.34M |
 | Short Ratio (DTC) | 2.46 |
 | Short % Float | 31.25% |
-| Float Shares | 236.03M |
+| Float Shares | 236.11M |
 | Shares Outstanding | 279.59M |
-| Avg Volume | 30.56M |
+| Avg Volume | 29.77M |
 | Change from Prior Month | -6.9% (decreasing) |
 
 ### Squeeze Risk

@@ -2,7 +2,8 @@
 
 ## Trade Log
 - **2026-02-17:** Bullet 1 filled at $32.47 (3 shares). First entry on intraday dip to $32.39.
-- **2026-02-20:** Bullet 2 filled at $31.21 (1 share). Bullet 3 filled at $30.02 (1 share). Bullet 4 filled at $29.49 (2 shares). NVDA stake exit drove 6-day selloff — day range $28.92-$31.28. **Now holding 7 shares, avg $31.09. B5 $27.71 pending.**
+- **2026-02-20:** Bullet 2 filled at $31.21 (1 share). Bullet 3 filled at $30.02 (1 share). Bullet 4 filled at $29.49 (2 shares). NVDA stake exit drove 6-day selloff — day range $28.92-$31.28.
+- **2026-02-27:** Bullet 5 filled at $27.71 (3 shares). Now 11 shares @ $30.39 avg. All 5 active bullets deployed.
 
 ## Observations
 - **2026-02-16:** Onboarded from Gemini conversation (Feb 12-13). No position — Gemini's limits at $33.55/$32.50/$31.40 never filled (market holiday Feb 12, price recovered before fills).

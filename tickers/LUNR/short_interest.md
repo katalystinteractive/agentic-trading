@@ -1,4 +1,4 @@
-*Generated: 2026-02-27 09:47*
+*Generated: 2026-03-08 17:18*
 
 ## Short Interest: Intuitive Machines, Inc. (LUNR)
 
@@ -10,7 +10,7 @@
 | Short % Float | 20.20% |
 | Float Shares | 76.86M |
 | Shares Outstanding | 142.31M |
-| Avg Volume | 10.73M |
+| Avg Volume | 11.35M |
 | Change from Prior Month | +0.9% (increasing) |
 
 ### Squeeze Risk

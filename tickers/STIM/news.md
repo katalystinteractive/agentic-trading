@@ -1,61 +1,69 @@
-*Generated: 2026-02-26 22:17*
+*Generated: 2026-03-04 23:24*
 
 ## News & Sentiment: Neuronetics, Inc. (STIM)
-*Sources: Finviz (100), Google News (40), yfinance (10) | Method: VADER | Deep Dives: 5*
+*Sources: Finviz (100), Google News (71), yfinance (10) | Method: VADER | Deep Dives: 5*
 
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-03 | GlobeNewswire | Neuronetics to Report Fourth Quarter 2025 Financial and Oper... | Neutral | +0.00 | — |
+| 2026-03-03 | Stock Titan | Neuronetics sets Q4 2025 financial results call for March 17... | Neutral | +0.00 | — |
+| 2026-03-02 | Stock Titan | Neuronetics (STIM) revises Madryn registration rights and ad... | Neutral | +0.00 | — |
+| 2026-03-02 | Defense World | Analyzing ADB International Group (OTCMKTS:EQUR) & Neuroneti... | Positive | +0.13 | — |
+| 2026-02-28 | Stock Titan | STIM Financials: Income Statement, Balance Sheet & Cash Flow... | Neutral | +0.00 | — |
+| 2026-02-27 | Investing.com | Macan, Neuronetics EVP, CLO and CS, sells $4.6k in STIM stoc... | Neutral | +0.00 | — |
+| 2026-02-27 | Stock Titan | Neuronetics (STIM) CEO sells 8,452 shares to cover RSU tax -... | Positive | +0.30 | Corporate |
+| 2026-02-27 | Stock Titan | Neuronetics (STIM) EVP sells 3,427 shares in tax withholding... | Positive | +0.30 | — |
+| 2026-02-27 | Intellectia AI | STIM Technical Analysis & Stock Price Forecast - Intellectia... | Neutral | +0.00 | — |
+| 2026-02-26 | Stock Titan | STIM (NASDAQ: STIM) files Form 144 to sell 3,427 vested comm... | Positive | +0.42 | — |
+| 2026-02-25 | Stock Titan | Neuronetics (STIM) approves 2026 annual cash incentives for ... | Positive | +0.70 | Corporate |
 | 2026-02-24 | MarketBeat | Neuronetics (STIM) to Release Earnings on Tuesday - MarketBe... | Neutral | +0.00 | Earnings |
-| 2026-02-18 | MarketBeat | Neuronetics (NASDAQ:STIM) EVP Sells $23,298.00 in Stock - Ma... | Neutral | +0.00 | Earnings |
-| 2026-02-17 | MarketBeat | Neuronetics, Inc. (NASDAQ:STIM) Short Interest Update - Mark... | Positive | +0.46 | Earnings, Short |
-| 2026-02-13 | Simply Wall St. | Assessing Neuronetics (STIM) Valuation After Positive Cash F... | Positive | +0.78 | Earnings |
+| 2026-02-24 | Benzinga | Peering Into Neuronetics Inc's Recent Short Interest - Benzi... | Positive | +0.46 | Short |
+| 2026-02-14 | simplywall.st | Neuronetics (STIM) Is Down 9.0% After Turning Cash-Flow Posi... | Positive | +0.48 | — |
+| 2026-02-13 | Yahoo Finance | Assessing Neuronetics (STIM) Valuation After Positive Cash F... | Positive | +0.78 | Earnings |
+| 2026-02-12 | Stock Titan | Neuronetics (STIM) CEO sells 40,976 shares for tax withholdi... | Positive | +0.30 | Corporate |
 | 2026-02-12 | MarketBeat | Keith Sullivan Sells 40,976 Shares of Neuronetics (NASDAQ:ST... | Positive | +0.30 | Earnings |
+| 2026-02-12 | Stock Titan | [144] Neuronetics, Inc. SEC Filing - Stock Titan | Neutral | +0.00 | Regulatory |
+| 2026-02-12 | Stock Titan | STIM (NASDAQ: STIM) holder Keith Sullivan plans 33,847-share... | Neutral | +0.00 | — |
 | 2026-02-11 | Benzinga | Neuronetics (STIM) Stock Rises 41% After Hours: What's Going... | Neutral | +0.00 | — |
 | 2026-02-11 | MT Newswires | Top Midday Gainers | Positive | +0.20 | — |
 | 2026-02-10 | GlobeNewswire | Neuronetics Announces Selected Preliminary Unaudited Fourth ... | Neutral | +0.00 | — |
 | 2026-02-10 | Stock Titan | Neuronetics lifts 2025 revenue 99%, books positive Q4 operat... | Positive | +0.56 | Earnings |
+| 2026-02-10 | Stock Titan | Insider plans sale of 40,976 STIM (STIM) shares under Rule 1... | Positive | +0.30 | — |
+| 2026-01-28 | simplywall.st | Following a 26% decline over last year, recent gains may ple... | Positive | +0.57 | — |
 | 2026-01-07 | simplywall.st | There's No Escaping Neuronetics, Inc.'s (NASDAQ:STIM) Muted ... | Negative | -0.26 | Earnings |
+| 2025-12-25 | DirectorsTalk I | Neuronetics, Inc. (STIM) Stock Analysis: Exploring a 357.75%... | Neutral | +0.00 | Regulatory |
 | 2025-12-24 | Trefis | Would You Still Hold Neuronetics Stock If It Fell Another 30... | Neutral | +0.00 | — |
 | 2025-12-17 | Yahoo Finance | Neuronetics (NASDAQ:STIM) adds US$25m to market cap in the p... | Neutral | +0.00 | — |
 | 2025-12-13 | simplywall.st | Would Neuronetics (NASDAQ:STIM) Be Better Off With Less Debt... | Positive | +0.18 | — |
-| 2025-11-21 | 富途牛牛 | Neuronetics, Inc.'s (NASDAQ:STIM) 36% Loss Last Week Hit Bot... | Negative | -0.05 | — |
-| 2025-11-20 | GlobeNewswire | Neuronetics to Participate at the Piper Sandler 37th Annual ... | Neutral | +0.00 | — |
-| 2025-11-17 | Quiver Quantita | $STIM stock is down 18% today. Here's what we see in our dat... | Neutral | +0.00 | — |
-| 2025-11-12 | GlobeNewswire | TRICARE West Expands NeuroStar TMS Coverage to Include Adole... | Negative | -0.73 | — |
-| 2025-11-06 | simplywall.st | The Neuronetics, Inc. (NASDAQ:STIM) Third-Quarter Results Ar... | Neutral | +0.00 | — |
-| 2025-11-06 | Yahoo Finance | Here's What Analysts Are Forecasting For Neuronetics, Inc. (... | Neutral | +0.00 | — |
-| 2025-11-05 | simplywall.st | Neuronetics (STIM): Ongoing Losses Challenge Bullish Narrati... | Positive | +0.05 | Earnings |
-| 2025-11-04 | GuruFocus.com | Neuronetics Inc (STIM) Q3 2025 Earnings Call Highlights: Rev... | Neutral | +0.00 | Earnings, Corporate |
-| 2025-11-04 | Zacks | Neuronetics (STIM) Reports Q3 Loss, Misses Revenue Estimates | Negative | -0.49 | Earnings |
-| 2025-11-04 | Associated Pres | Neuronetics: Q3 Earnings Snapshot | Neutral | +0.00 | Earnings |
-| 2025-11-04 | GlobeNewswire | Neuronetics Reports Third Quarter 2025 Financial and Operati... | Neutral | +0.00 | Corporate |
-| 2025-11-04 | Yahoo Finance | Neuronetics (STIM): Losses Worsen Despite Revenue Growth Out... | Negative | -0.80 | Earnings |
-| 2025-11-03 | GuruFocus.com | Neuronetics Inc (STIM) Q3 2025: Everything You Need To Know ... | Neutral | +0.00 | Earnings |
-| 2025-10-31 | GlobeNewswire | Neuronetics Reports Inducement Grant Under Nasdaq Listing Ru... | Positive | +0.36 | — |
-| 2025-10-30 | GlobeNewswire | Neuronetics Announces Three-Year Exclusive Partnership with ... | Positive | +0.78 | — |
-| 2025-10-30 | Stock Titan | Neuronetics (NASDAQ: STIM) sole TMS provider to Elite DNA’s ... | Neutral | +0.00 | — |
-| 2025-10-23 | DirectorsTalk I | Neuronetics, Inc. (STIM): Potential 121.84% Upside Sparks In... | Positive | +0.84 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 10 (33%) |
-| Neutral | 15 (50%) |
-| Negative | 5 (17%) |
-| Average Score | +0.073 |
-| Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 122 |
+| Positive | 15 (50%) |
+| Neutral | 14 (47%) |
+| Negative | 1 (3%) |
+| Average Score | +0.190 |
+| Overall Sentiment | **Bullish** |
+| Total Unique Headlines | 149 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 14 | Neuronetics (STIM) to Release Earnings o..; Neuronetics (NASDAQ:STIM) EVP Sells $23,.. |
-| Corporate | 2 | Neuronetics Inc (STIM) Q3 2025 Earnings ..; Neuronetics Reports Third Quarter 2025 F.. |
-| Short | 1 | Neuronetics, Inc. (NASDAQ:STIM) Short In.. |
+| Earnings | 5 | Neuronetics (STIM) to Release Earnings o..; Assessing Neuronetics (STIM) Valuation A.. |
+| Corporate | 3 | Neuronetics (STIM) CEO sells 8,452 share..; Neuronetics (STIM) approves 2026 annual .. |
+| Regulatory | 2 | [144] Neuronetics, Inc. SEC Filing - Sto..; Neuronetics, Inc. (STIM) Stock Analysis:.. |
+| Short | 1 | Peering Into Neuronetics Inc's Recent Sh.. |
 
 ### Deep Dive Articles
+
+#### Neuronetics to Report Fourth Quarter 2025 Financial and Operating Results and Host Conference Call
+*Source: GlobeNewswire | Date: 2026-03-03 | Sentiment: Positive (+0.87)*
+
+> MALVERN, Pa., March  03, 2026  (GLOBE NEWSWIRE) -- Neuronetics, Inc., (NASDAQ: STIM) (the “Company” or “Neuronetics”), a vertically integrated, commercial stage, medical technology and healthcare company with a strategic vision of transforming the lives of patients whenever and wherever they need help, with the leading neurohealth therapies in the world, today announced that it plans to release fourth quarter 2025 financial and operating results prior to market open on Tuesday, March 17, 2026. The Company will host a conference call to review its results at 8:30 a.m. Eastern Time the same day.The conference call will be broadcast live in listen-only mode via webcast athttps://edge.media-server.com/mmc/p/t8xxgfnr. To listen to the conference call on your telephone, participants may register for the callhere. While it is not required, it is recommended you join 10 minutes prior to the event start.About NeuroneticsNeuronetics, Inc. believes that mental health is as important as physical health. As a global leader in neuroscience, Neuronetics is delivering more treatment options to patients and physicians by offering exceptional in-office treatments that produce extraordinary results. NeuroStar Advanced Therapy (“NeuroStar Therapy”) is a non-drug, noninvasive treatment that can improve the quality of life for people suffering from neurohealth conditions when traditional medication has not helped. In addition to selling the NeuroStar Advanced Therapy System (the “NeuroStar System”) and associated treatment sessions to customers, Neuronetics operates Greenbrook treatment centers across the United States, offering NeuroStar Therapy, SPRAVATO, and other treatment modalities for the treatment of MDD and other mental health disorders.NeuroStar Therapy is indicated for the treatment of depressive episodes and for decreasing anxiety symptoms for those who may exhibit comorbid anxiety symptoms in adult patients suffering from MDD and who failed to achieve satisfactory improvement from previous antidepressant medication treatment in the current episode. It is also cleared by the U.S. Food and Drug Administration as an adjunct for adults with obsessive-compulsive disorder and for adolescent patients aged 15 to 21 with MDD. Neuronetics is committed to transforming lives by offering an exceptional treatment that produces extraordinary results.Investor Contact:Mike Vallie or Mark KlausnerICR Healthcare443-213-0499[email protected]Media Contact:EvolveMKD646-517-4220[email protected]
+
+**Catalysts:** Equity
 
 #### Neuronetics (STIM) Stock Rises 41% After Hours: What's Going On?
 *Source: Benzinga | Date: 2026-02-11 | Sentiment: Positive (+0.80)*
@@ -114,18 +122,3 @@
 > "The demands of military life can create unique stressors for the children of service members, increasing their vulnerability to depression and other mental health challenges,” said Geoffrey Grammer, MD, Chief Medical Officer of Neuronetics and retired U.S. Army Colonel. “By expanding coverage to include NeuroStar TMS, TriWest is taking a meaningful step toward ensuring that the sons and daughters of our active-duty and retired military heroes receive the care and support that honors their families’ service to our nation."
 
 **Catalysts:** Earnings, Corporate, Equity
-
-#### Neuronetics (STIM) Reports Q3 Loss, Misses Revenue Estimates
-*Source: Zacks | Date: 2025-11-04 | Sentiment: Negative (-0.08)*
-
-> Neuronetics (STIM) came out with a quarterly loss of $0.13 per share versus the Zacks Consensus Estimate of a loss of $0.11. This compares to a loss of $0.29 per share a year ago. These figures are adjusted for non-recurring items.
-
-> This quarterly report represents an earnings surprise of -18.18%. A quarter ago, it was expected that this medical device company focused on psychiatric disorders would post a loss of $0.08 per share when it actually produced a loss of $0.15, delivering a surprise of -87.5%.
-
-> Over the last four quarters, the company has not been able to surpass consensus EPS estimates.
-
-> Neuronetics, which belongs to the Zacks Medical - Instruments industry, posted revenues of $37.3 million for the quarter ended September 2025, missing the Zacks Consensus Estimate by 2.21%. This compares to year-ago revenues of $18.53 million. The company has topped consensus revenue estimates three times over the last four quarters.
-
-> The sustainability of the stock's immediate price movement based on the recently-released numbers and future earnings expectations will mostly depend on management's commentary on the earnings call.
-
-**Catalysts:** Earnings, Corporate

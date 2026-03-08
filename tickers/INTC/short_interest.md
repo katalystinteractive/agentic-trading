@@ -1,4 +1,4 @@
-*Generated: 2026-02-27 09:47*
+*Generated: 2026-03-04 23:24*
 
 ## Short Interest: Intel Corporation (INTC)
 
@@ -10,7 +10,7 @@
 | Short % Float | 2.36% |
 | Float Shares | 4.99B |
 | Shares Outstanding | 5.00B |
-| Avg Volume | 103.97M |
+| Avg Volume | 101.63M |
 | Change from Prior Month | -12.1% (decreasing) |
 
 ### Squeeze Risk

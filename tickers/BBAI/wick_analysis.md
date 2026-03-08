@@ -1,29 +1,28 @@
-*Generated: 2026-02-25 21:00*
+*Generated: 2026-03-05 22:47 | Data as of: 2026-03-05*
 
-## Wick Offset Analysis: BBAI (13-Month, as of 2026-02-25)
+## Wick Offset Analysis: BBAI (13-Month, as of 2026-03-05)
 **Current Price: $4.01**
-**Monthly Swing: 55.6%** | 100% of months hit 10%+ | Active Zone: within 27.8% of current price
+**Monthly Swing: 51.3%** | 100% of months hit 10%+ | Active Zone: within 18.4% of current price
 
 ### Support Levels & Buy Recommendations
-| Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| $3.97 | HVN+PA | 11 | 2 | 18% | +1.66% | $4.03 ↑above | Active | Half |
-| $3.75 | HVN+PA | 10 | 4 | 40% | +3.24% | $3.88 | Active | Std |
-| $3.65 | PA | 8 | 5 | 62% | +2.74% | $3.75 | Active | Full |
-| $3.55 | PA | 6 | 2 | 33% | +3.10% | $3.66 | Active | Std |
-| $3.39 | PA | 7 | 3 | 43% | +7.67% | $3.65 | Active | Std |
-| $3.32 | PA | 6 | 1 | 17% | +5.42% | $3.50 | Active | Half |
-| $3.22 | PA | 7 | 2 | 29% | +3.42% | $3.33 | Active | Half |
-| $3.01 | PA | 6 | 0 | 0% | N/A | N/A (no holds) | Active | Skip |
-| $2.86 | PA | 7 | 2 | 29% | +2.97% | $2.95 | Reserve | Half |
-| $2.80 | PA | 6 | 3 | 50% | +4.64% | $2.93 | Reserve | Full |
-| $2.62 | PA | 2 | 1 | 50% | +1.53% | $2.66 | Reserve | Half |
-| $2.41 | PA | 3 | 3 | 100% | +0.83% | $2.43 | Reserve | Full |
+| Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier | Decayed | Trend | Fresh |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| $3.97 | HVN+PA | 12 | 2 | 17% | +1.66% | $4.03 ↑above | Active | Half | 16% | - | 2026-03-05 |
+| $3.75 | HVN+PA | 9 | 3 | 33% | +1.78% | $3.82 | Active | Full | 53% (Full^) | ^ | 2026-02-24 |
+| $3.65 | PA | 7 | 4 | 57% | +1.64% | $3.71 | Active | Full | 82% | ^ | 2026-02-17 |
+| $3.55 | PA | 6 | 2 | 33% | +3.10% | $3.66 | Active | Full | 75% (Full^) | ^ | 2026-02-20 |
+| $3.39 | PA | 7 | 3 | 43% | +7.67% | $3.65 | Active | Std | 48% | ? | 2025-06-13 [D] |
+| $3.32 | PA | 6 | 1 | 17% | +5.42% | $3.50 | Active | Skip | 10% (Skipv) | ? | 2025-05-13 [D] |
+| $3.22 | PA | 7 | 2 | 29% | +3.42% | $3.33 | Reserve | Std | 35% (Std^) | ? | 2025-05-19 [D] |
+| $3.01 | PA | 6 | 0 | 0% | N/A | N/A (no holds) | Reserve | Skip | 0% | ? | 2025-04-25 [D] |
+| $2.86 | PA | 7 | 2 | 29% | +2.97% | $2.95 | Reserve | Half | 29% | ? | 2025-05-02 [D] |
+| $2.80 | PA | 6 | 3 | 50% | +4.64% | $2.93 | Reserve | Std | 49% (Stdv) | ? | 2025-05-06 [D] |
+| $2.62 | PA | 2 | 1 | 50% | +1.53% | $2.66 | Reserve | Half | 54% | ? | 2025-04-23 [D] |
+| $2.41 | PA | 3 | 3 | 100% | +0.83% | $2.43 | Reserve | Full | 100% | ? | 2025-04-22 [D] |
 
 ### Detail: $3.97 (HVN+PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
-| 2025-01-21 | $3.93 | -0.99% | **BROKE** |
 | 2025-01-30 | $3.78 | -4.77% | **BROKE** |
 | 2025-03-06 | $4.10 | +3.30% | Yes |
 | 2025-05-27 | $3.76 | -5.40% | **BROKE** |
@@ -33,12 +32,13 @@
 | 2025-06-20 | $3.78 | -4.77% | **BROKE** |
 | 2026-02-05 | $3.97 | +0.02% | Yes |
 | 2026-02-18 | $3.89 | -2.00% | **BROKE** |
-| 2026-02-25 | $3.88 | -2.25% | **BROKE** |
+| 2026-02-26 | $3.93 | -0.89% | **BROKE** |
+| 2026-03-02 | $3.78 | -4.77% | **BROKE** |
+| 2026-03-05 | $3.73 | -6.03% | **BROKE** |
 
 ### Detail: $3.75 (HVN+PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
-| 2025-01-21 | $3.93 | +4.71% | Yes |
 | 2025-01-30 | $3.78 | +0.71% | Yes |
 | 2025-05-14 | $3.75 | -0.09% | **BROKE** |
 | 2025-05-22 | $3.66 | -2.49% | **BROKE** |
@@ -52,7 +52,6 @@
 ### Detail: $3.65 (PA)
 | Date | Wick Low | Offset | Held |
 | :--- | :--- | :--- | :--- |
-| 2025-01-21 | $3.93 | +7.67% | Yes |
 | 2025-01-27 | $3.50 | -4.11% | **BROKE** |
 | 2025-01-30 | $3.78 | +3.56% | Yes |
 | 2025-05-14 | $3.75 | +2.74% | Yes |
@@ -148,16 +147,16 @@
 | 2025-04-22 | $2.43 | +0.83% | Yes |
 
 ### Suggested Bullet Plan
-*Based on 55.6% monthly swing — Active zone within 27.8% of current price.*
+*Based on 51.3% monthly swing — Active zone within 18.4% of current price.*
 
 | # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | Active | $3.75 | $3.88 | 40% | Std | 15 | $58.13 |
-| 2 | Active | $3.65 | $3.75 | 62% | Full | 15 | $56.25 |
-| 3 | Active | $3.55 | $3.66 | 33% | Std | 16 | $58.56 |
+| 1 | Active | $3.75 | $3.82 | 33% | Full | 15 | $57.30 |
+| 2 | Active | $3.65 | $3.71 | 57% | Full | 16 | $59.36 |
+| 3 | Active | $3.55 | $3.66 | 33% | Full | 16 | $58.56 |
 | 4 | Active | $3.39 | $3.65 | 43% | Std | 16 | $58.40 |
-| 5 | Active | $3.32 | $3.50 | 17% | Half | 8 | $28.00 |
-| 6 | Reserve | $2.80 | $2.93 | 50% | Full | 34 | $99.62 |
+| 5 | Reserve | $3.22 | $3.33 | 29% | Std | 30 | $99.90 |
+| 6 | Reserve | $2.80 | $2.93 | 50% | Std | 34 | $99.62 |
 | 7 | Reserve | $2.41 | $2.43 | 100% | Full | 41 | $99.63 |
 
 *Note: 1 Active level(s) excluded — buy price at or above current price: $3.97*

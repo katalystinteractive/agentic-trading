@@ -1,110 +1,100 @@
-# Portfolio Status — 2026-02-27 11:28
+# Portfolio Status — 2026-03-08 17:18
+*Note: Market closed — all price data as of 2026-03-06. Fill detection suppressed.*
 
 ## Active Positions
 | Ticker | Shares | Avg Cost | Current | Day Low | Day High | P/L $ | P/L % | Target | Dist to Target |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| NU | 18 | $16.48 | $15.06 | $15.04 | $15.94 | $-25.56 | -8.6% | $18.50 | +22.8% |
-| STIM | 143 | $1.35 | $1.42 | $1.31 | $1.42 | $10.01 | +5.2% | $1.79 | +26.1% |
-| IONQ | 15 | $44.43 | $40.88 | $38.75 | $41.90 | $-53.25 | -8.0% | N/A | N/A |
-| LUNR | 9 | $17.04 | $17.67 | $16.01 | $17.83 | $5.67 | +3.7% | $18.74 | +6.1% |
-| USAR | 15 | $21.57 | $20.13 | $19.46 | $20.47 | $-21.60 | -6.7% | $23.05 | +14.5% |
-| INTC | 5 | $46.78 | $45.46 | $44.39 | $46.95 | $-6.60 | -2.8% | $51.21 | +12.6% |
-| APLD | 8 | $31.39 | $28.65 | $28.25 | $29.46 | $-21.92 | -8.7% | $38.00 | +32.6% |
-| SMCI | 3 | $31.30 | $32.28 | $31.16 | $33.45 | $2.94 | +3.1% | $34.43 | +6.7% |
+| NU | 30 | $15.85 | $14.58 | $14.23 | $14.73 | $-38.10 | -8.0% | $18.50 | +26.9% |
+| STIM | 0 | $0.00 | $1.38 | $1.34 | $1.41 | $0.00 | +inf% | N/A | N/A |
+| IONQ | 15 | $44.43 | $35.73 | $35.10 | $37.48 | $-130.50 | -19.6% | N/A | N/A |
+| LUNR | 1 | $17.61 | $17.63 | $17.20 | $19.15 | $0.02 | +0.1% | N/A | N/A |
+| USAR | 15 | $21.57 | $17.45 | $17.44 | $19.29 | $-61.80 | -19.1% | $23.05 | +32.1% |
+| OUST | 5 | $21.70 | $20.27 | $20.07 | $21.66 | $-7.15 | -6.6% | N/A | N/A |
+| INTC | 0 | $0.00 | $43.42 | $43.28 | $45.18 | $0.00 | +inf% | N/A | N/A |
+| APLD | 15 | $29.06 | $25.14 | $25.07 | $28.41 | $-58.80 | -13.5% | $38.00 | +51.2% |
+| SMCI | 0 | $0.00 | $31.31 | $31.12 | $32.41 | $0.00 | +inf% | N/A | N/A |
+| TMC | 38 | $6.00 | $5.73 | $5.54 | $5.99 | $-10.26 | -4.5% | N/A | N/A |
+| CIFR | 11 | $14.62 | $13.62 | $13.54 | $14.76 | $-11.00 | -6.8% | N/A | N/A |
+| ARM | 4 | $120.88 | $114.38 | $113.51 | $119.27 | $-26.00 | -5.4% | N/A | N/A |
+| ACHR | 61 | $6.78 | $6.26 | $6.22 | $6.46 | $-31.72 | -7.7% | N/A | N/A |
+| TEM | 0 | $0.00 | $52.26 | $51.57 | $53.50 | $0.00 | +inf% | N/A | N/A |
+| CLSK | 7 | $10.17 | $9.21 | $9.12 | $9.71 | $-6.72 | -9.4% | N/A | N/A |
+| CLF | 21 | $10.26 | $9.83 | $9.72 | $10.41 | $-9.03 | -4.2% | N/A | N/A |
+| BBAI | 0 | $0.00 | $4.25 | $3.97 | $4.42 | $0.00 | +inf% | N/A | N/A |
+| NNE | 6 | $24.19 | $23.54 | $23.45 | $26.21 | $-3.90 | -2.7% | N/A | N/A |
 
 ## Pending Orders
 | Ticker | Type | Zone | Price | Current | Near Wick | Wick Dist | Dist to Fill | Status | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| NU | SELL | Sell | $18.50 | $15.06 | $15.94 | +16.1% | +22.8% |  | Target ~12.2% from $16.48 avg |
-| NU | BUY | Reserve | $14.88 | $15.06 | $15.04 | -1.1% | -1.2% |  | Reserve 1 — $14.07 PA, 67% hold rate, wick-adjusted — PAUSED until post-earnings Feb 26 |
-| STIM | SELL | Sell | $1.79 | $1.42 | $1.42 | +25.6% | +26.1% |  | Target ~32.6% from $1.35 avg — $1.79 tested resistance + 84% sell wall |
-| AR | BUY | Active | $32.68 | $34.38 | $33.74 | -3.1% | -4.9% |  | Bullet 1 — $31.36 HVN, 50% hold rate, wick-adjusted |
-| AR | BUY | Active | $31.16 | $34.38 | $33.74 | -7.6% | -9.4% |  | Bullet 2 — $29.72 Price Action, 67% hold rate, wick-adjusted |
-| INTC | SELL | Sell | $51.21 | $45.46 | $46.95 | +9.1% | +12.6% |  | Target 10% from avg |
-| INTC | BUY | Active | $42.28 | $45.46 | $44.39 | -4.8% | -7.0% |  | Last active bullet — $40.10 HVN, 50% hold, wick-adjusted (updated 2026-02-23) |
-| INTC | BUY | Reserve | $37.56 | $45.46 | $44.39 | -15.4% | -17.4% |  | Reserve 1 — $37.06 HVN, wick-adjusted |
-| INTC | BUY | Reserve | $36.38 | $45.46 | $44.39 | -18.0% | -20.0% |  | Reserve 2 — $36.04 HVN, wick-adjusted |
-| APLD | SELL | Sell | $38.00 | $28.65 | $29.46 | +29.0% | +32.6% |  | Target ~21% — $37.60-$38.76 HVN resistance zone |
-| APLD | BUY | Active | $27.71 | $28.65 | $28.25 | -1.9% | -3.3% |  | Bullet 5 — $27.62 Price Action, 44% hold rate, wick-adjusted |
-| CLF | BUY | Active | $9.97 | $11.05 | $10.70 | -6.8% | -9.8% |  | Bullet 1 — $9.92 HVN+PA, 45% hold rate, wick-adjusted |
-| CLF | BUY | Active | $9.53 | $11.05 | $10.70 | -10.9% | -13.8% |  | Bullet 2 — $9.04 PA, 71% hold rate, wick-adjusted |
-| CLF | BUY | Active | $8.48 | $11.05 | $10.70 | -20.7% | -23.3% |  | Bullet 3 — $8.25 PA, 71% hold rate, wick-adjusted |
-| CIFR | BUY | Active | $14.91 | $16.48 | $15.72 | -5.2% | -9.5% |  | Bullet 1 — $14.91 PA, 20% hold, raw level |
-| CIFR | BUY | Active | $14.28 | $16.48 | $15.72 | -9.2% | -13.3% |  | Bullet 2 — $14.28 HVN+PA, 50% hold, raw level |
-| CIFR | BUY | Active | $13.45 | $16.48 | $15.72 | -14.4% | -18.4% |  | Bullet 3 — $13.45 PA, 38% hold, raw level |
-| CIFR | BUY | Active | $12.86 | $16.48 | $15.72 | -18.2% | -22.0% |  | Bullet 4 — $12.41 PA, 50% hold, wick-adjusted |
-| CIFR | BUY | Reserve | $5.38 | $16.48 | $15.72 | -65.8% | -67.4% |  | Reserve 1 — $5.27 PA, 50% hold, wick-adjusted |
-| ACHR | BUY | Active | $6.55 | $7.38 | $6.96 | -5.9% | -11.2% |  | Bullet 1 — $6.55 PA, 75% hold rate |
-| ACHR | BUY | Active | $5.98 | $7.38 | $6.96 | -14.1% | -19.0% |  | Bullet 2 — $5.85 PA, 50% hold rate, bounce-derived |
-| ACHR | BUY | Reserve | $5.49 | $7.38 | $6.96 | -21.1% | -25.6% |  | Reserve 1 — $5.41 PA, 46% hold rate, bounce-derived |
-| SOUN | BUY | Active | $7.48 | $8.98 | $8.56 | -12.6% | -16.7% |  | Bullet 1 — $7.48 PA, 50% hold, raw level — PAUSED until post-earnings Feb 27 |
-| SOUN | BUY | Active | $7.53 | $8.98 | $8.56 | -12.0% | -16.1% |  | Bullet 2 — $7.21 PA, 40% hold rate, wick-adjusted — PAUSED until post-earnings Feb 27 |
-| SOUN | BUY | Active | $7.26 | $8.98 | $8.56 | -15.2% | -19.2% |  | Bullet 3 — $6.95 PA, 75% hold rate, wick-adjusted — PAUSED until post-earnings Feb 27 |
-| SOUN | BUY | Reserve | $5.37 | $8.98 | $8.56 | -37.3% | -40.2% |  | Reserve 1 — $5.20 PA, 50% hold rate, bounce-derived |
-| CLSK | BUY | Active | $9.40 | $10.44 | $9.93 | -5.3% | -10.0% |  | Bullet 1 — $9.40 HVN+PA, 26% hold, raw level |
-| CLSK | BUY | Active | $9.11 | $10.44 | $9.93 | -8.3% | -12.7% |  | Bullet 2 — $8.93 HVN+PA, 45% hold, Std tier, wick-adjusted (updated 2026-02-23) |
-| CLSK | BUY | Active | $8.96 | $10.44 | $9.93 | -9.8% | -14.2% |  | Bullet 3 — $8.46 HVN+PA, 47% hold, wick-adjusted |
-| CLSK | BUY | Active | $8.40 | $10.44 | $9.93 | -15.4% | -19.5% |  | Bullet 4 — $8.25 PA 58% + $8.00 HVN+PA 27% (converged), wick-adjusted |
-| CLSK | BUY | Reserve | $7.70 | $10.44 | $9.93 | -22.5% | -26.2% |  | Reserve 1 — $7.53 HVN+PA, 62% hold, wick-adjusted |
-| CLSK | BUY | Reserve | $7.24 | $10.44 | $9.93 | -27.1% | -30.7% |  | Reserve 2 — $6.94 PA, 67% hold, wick-adjusted |
-| SMCI | SELL | Sell | $34.43 | $32.28 | $33.45 | +2.9% | +6.7% |  | Target ~10% from $31.30 avg |
-| SMCI | BUY | Active | $29.35 | $32.28 | $31.16 | -5.8% | -9.1% |  | Bullet 2 — $28.96 HVN, 45% hold, wick-adjusted |
-| SMCI | BUY | Active | $28.84 | $32.28 | $31.16 | -7.4% | -10.7% |  | Bullet 3 — $28.34 PA 67% + $27.22 PA 91% (converged), wick-adjusted |
-| LUNR | SELL | Sell | $18.74 | $17.67 | $17.83 | +5.1% | +6.1% |  | Target ~10% from $17.04 avg |
-| LUNR | BUY | Active | $15.52 | $17.67 | $16.01 | -3.1% | -12.2% |  | Bullet 4 — $15.52 PA, 50% hold, raw level |
-| LUNR | BUY | Active | $15.08 | $17.67 | $16.01 | -5.8% | -14.7% |  | Bullet 5 — $15.08 PA, 60% hold, raw level |
-| LUNR | BUY | Reserve | $14.32 | $17.67 | $16.01 | -10.6% | -19.0% |  | Reserve 1 — $14.32 PA, 50% hold, raw level |
-| LUNR | BUY | Reserve | $10.20 | $17.67 | $16.01 | -36.3% | -42.3% |  | Reserve 2 — $9.90 HVN+PA, 44% hold rate, Std tier, wick-adjusted |
-| LUNR | BUY | Reserve | $10.06 | $17.67 | $16.01 | -37.2% | -43.1% |  | Reserve 3 — $9.52 PA, 56% hold rate, Full tier, wick-adjusted |
-| LUNR | BUY | Reserve | $6.64 | $17.67 | $16.01 | -58.5% | -62.4% |  | Reserve 4 — $6.53 PA, 75% hold rate, Full tier, structural floor |
-| NNE | BUY | Active | $24.03 | $27.72 | $25.82 | -6.9% | -13.3% |  | Bullet 1 — $23.58 PA, 45% hold rate, Std tier, wick-adjusted |
-| NNE | BUY | Active | $23.61 | $27.72 | $25.82 | -8.6% | -14.8% |  | Bullet 2 — $22.89 PA, 45% hold rate, Std tier, wick-adjusted |
-| NNE | BUY | Active | $23.20 | $27.72 | $25.82 | -10.2% | -16.3% |  | Bullet 3 — $22.02 PA, 67% hold rate, Full tier, wick-adjusted |
-| NNE | BUY | Active | $20.50 | $27.72 | $25.82 | -20.6% | -26.0% |  | Bullet 4 — $20.12 PA, 75% hold rate, Full tier, wick-adjusted |
-| NNE | BUY | Reserve | $19.28 | $27.72 | $25.82 | -25.3% | -30.4% |  | Reserve 1 — $18.81 PA, 67% hold rate, Full tier, wick-adjusted |
-| UAMY | BUY | Active | $7.71 | $8.91 | $8.60 | -10.3% | -13.5% |  | Bullet 1 — $7.50 HVN+PA, 27% hold rate, Half tier, wick-adjusted |
-| UAMY | BUY | Active | $7.10 | $8.91 | $8.60 | -17.4% | -20.3% |  | Bullet 2 — $6.85 PA, 40% hold rate, Std tier, wick-adjusted |
-| UAMY | BUY | Active | $6.67 | $8.91 | $8.60 | -22.4% | -25.1% |  | Bullet 3 — $6.52/$6.35 HVN+PA/PA converged, 43%/25% hold rate, Std tier, wick-adjusted |
-| UAMY | BUY | Active | $6.22 | $8.91 | $8.60 | -27.7% | -30.2% |  | Bullet 4 — $6.04 HVN+PA, 33% hold rate, Std tier, wick-adjusted |
-| UAMY | BUY | Active | $5.95 | $8.91 | $8.60 | -30.8% | -33.2% |  | Bullet 5 — $5.69 PA, 17% hold rate, Half tier, wick-adjusted |
-| UAMY | BUY | Reserve | $5.29 | $8.91 | $8.60 | -38.5% | -40.6% |  | Reserve 1 — $5.16 PA, 40% hold rate, Std tier, wick-adjusted |
-| UAMY | BUY | Reserve | $4.82 | $8.91 | $8.60 | -44.0% | -45.9% |  | Reserve 2 — $4.77/$4.57 PA/HVN+PA converged, 33%/20% hold rate, Std tier, wick-adjusted |
-| UAMY | BUY | Reserve | $4.36 | $8.91 | $8.60 | -49.3% | -51.1% |  | Reserve 3 — $4.22/$4.36 PA converged, 50%/20% hold rate, Full tier, wick-adjusted |
-| TMC | BUY | Active | $6.26 | $6.60 | $6.28 | -0.3% | -5.2% |  | Bullet 1 — $6.06 HVN+PA, 50% hold rate, Full tier, wick-adjusted |
-| TMC | BUY | Active | $5.90 | $6.60 | $6.28 | -6.1% | -10.6% |  | Bullet 2 — $5.79 HVN+PA, 60% hold rate, Full tier, wick-adjusted |
-| TMC | BUY | Active | $5.63 | $6.60 | $6.28 | -10.4% | -14.7% |  | Bullet 3 — $5.53 HVN+PA, 42% hold rate, Std tier, wick-adjusted |
-| TMC | BUY | Active | $5.43 | $6.60 | $6.28 | -13.5% | -17.7% |  | Bullet 4 — $5.26 HVN+PA, 40% hold rate, Std tier, wick-adjusted |
-| TMC | BUY | Active | $5.20 | $6.60 | $6.28 | -17.2% | -21.2% |  | Bullet 5 — $4.99 HVN+PA, 33% hold rate, Std tier, wick-adjusted |
-| TMC | BUY | Reserve | $4.93 | $6.60 | $6.28 | -21.5% | -25.3% |  | Reserve 1 — $4.74 PA, 33% hold rate, Std tier, wick-adjusted |
-| TMC | BUY | Reserve | $4.75 | $6.60 | $6.28 | -24.4% | -28.0% |  | Reserve 2 — $4.57 PA, 50% hold rate, Full tier, wick-adjusted |
-| TMC | BUY | Reserve | $1.66 | $6.60 | $6.28 | -73.6% | -74.8% |  | Reserve 3 — $1.60 PA, 40% hold rate, Std tier, wick-adjusted |
-| BBAI | BUY | Active | $3.88 | $4.15 | $3.93 | -1.4% | -6.5% |  | Bullet 1 — $3.75 HVN+PA, 40% hold rate, Std tier, wick-adjusted — PAUSED until post-earnings Mar 2 |
-| BBAI | BUY | Active | $3.75 | $4.15 | $3.93 | -4.7% | -9.6% |  | Bullet 2 — $3.65 PA, 62% hold rate, Full tier, wick-adjusted — PAUSED until post-earnings Mar 2 |
-| BBAI | BUY | Active | $3.66 | $4.15 | $3.93 | -7.0% | -11.8% |  | Bullet 3 — $3.55/$3.39 PA converged, 33%/43% hold rate, Std tier, wick-adjusted — PAUSED until post-earnings Mar 2 |
-| BBAI | BUY | Active | $3.50 | $4.15 | $3.93 | -11.0% | -15.7% |  | Bullet 4 — $3.32 PA, 17% hold rate, Half tier, wick-adjusted — PAUSED until post-earnings Mar 2 |
-| BBAI | BUY | Active | $3.33 | $4.15 | $3.93 | -15.4% | -19.8% |  | Bullet 5 — $3.22 PA, 29% hold rate, Half tier, wick-adjusted — PAUSED until post-earnings Mar 2 |
-| BBAI | BUY | Reserve | $2.94 | $4.15 | $3.93 | -25.3% | -29.2% |  | Reserve 1 — $2.86/$2.80 PA converged, 29%/50% hold rate, Full tier, wick-adjusted — PAUSED until post-earnings Mar 2 |
-| BBAI | BUY | Reserve | $2.66 | $4.15 | $3.93 | -32.4% | -35.9% |  | Reserve 2 — $2.62 PA, 50% hold rate, Full tier, wick-adjusted — PAUSED until post-earnings Mar 2 |
-| BBAI | BUY | Reserve | $2.43 | $4.15 | $3.93 | -38.2% | -41.4% |  | Reserve 3 — $2.41 PA, 100% hold rate, Full tier, wick-adjusted — PAUSED until post-earnings Mar 2 |
+| NU | SELL | Sell | $18.50 | $14.58 | $14.73 | +25.6% | +26.9% |  | Target ~18.1% from $15.66 avg |
+| NU | BUY | Reserve | $13.03 | $14.58 | $14.23 | -8.5% | -10.6% |  | Reserve 2 — $12.52 PA, 33% hold rate, Std tier, wick-adjusted (placed 2026-03-02) |
+| AR | BUY | Active | $35.00 | $38.83 | $38.64 | -9.4% | -9.9% |  | Bullet 1 — $34.61 HVN+PA, 30% hold rate (6/20), Std tier, wick-adjusted (merged w/ $34.15 HVN) |
+| AR | BUY | Active | $32.68 | $38.83 | $38.64 | -15.4% | -15.8% |  | Bullet 2 — $31.36 HVN+PA, 50% hold rate (5/10), Full tier, wick-adjusted |
+| AR | BUY | Active | $31.16 | $38.83 | $38.64 | -19.4% | -19.8% |  | Bullet 3 — $29.72 PA, 67% hold rate (4/6), Full tier, wick-adjusted |
+| APLD | SELL | Sell | $38.00 | $25.14 | $28.41 | +33.8% | +51.2% |  | Target ~25% — $37.60-$38.76 HVN resistance zone |
+| APLD | BUY | Reserve | $21.93 | $25.14 | $25.07 | -12.5% | -12.8% |  | Reserve 2 — $20.55 PA, 33% hold, Std tier, wick-adjusted |
+| CLF | BUY | Active | $9.97 | $9.83 | $9.72 | +2.6% | +1.4% |  | Bullet 1 — $9.90 PA, 54% hold rate, Full tier, wick-adjusted |
+| CLF | BUY | Active | $9.88 | $9.83 | $9.72 | +1.6% | +0.5% |  | Bullet 2 — $9.27 PA, 54% hold rate, Full tier, wick-adjusted (added 2026-02-28) |
+| CLF | BUY | Active | $9.41 | $9.83 | $9.72 | -3.2% | -4.3% |  | Bullet 3 — $9.04 PA, 67% hold rate, Full tier, wick-adjusted (updated 2026-02-28) |
+| CLF | BUY | Active | $8.48 | $9.83 | $9.72 | -12.8% | -13.7% |  | Bullet 4 — $8.25 PA, 71% hold rate, Full tier, wick-adjusted |
+| CIFR | BUY | Active | $14.07 | $13.62 | $13.54 | +3.9% | +3.3% |  | Bullet 3 — $13.45 PA, 44% hold, Full^ tier, wick-adjusted (added 2026-03-02) |
+| CIFR | BUY | Active | $12.86 | $13.62 | $13.54 | -5.0% | -5.6% |  | Bullet 4 — $12.41 PA, 50% hold, Full tier, wick-adjusted |
+| CIFR | BUY | Reserve | $5.38 | $13.62 | $13.54 | -60.3% | -60.5% |  | Reserve 1 — $5.27 PA, 57% hold, Full tier, wick-adjusted |
+| ACHR | BUY | — | $5.98 | $6.26 | $6.22 | -3.9% | -4.5% |  | B5 reserve — $5.85 PA bounce level, 50% hold rate |
+| SOUN | BUY | Active | $7.48 | $8.07 | $8.00 | -6.5% | -7.3% |  | Bullet 1 — $7.48 HVN+PA, 50% hold, Full tier, wick-adjusted (updated 2026-02-28) |
+| SOUN | BUY | Active | $7.26 | $8.07 | $8.00 | -9.3% | -10.0% |  | Bullet 2 — $6.95 PA, 75% hold, Full tier, wick-adjusted (updated 2026-02-28) |
+| CLSK | BUY | Active | $9.11 | $9.21 | $9.12 | -0.1% | -1.1% |  | Bullet 3 — $8.93 HVN+PA, 50% hold, Full tier, wick-adjusted |
+| CLSK | BUY | Active | $8.88 | $9.21 | $9.12 | -2.6% | -3.6% |  | Bullet 4 — $8.62 PA, 38% hold, Std tier, wick-adjusted (updated 2026-03-02) |
+| SMCI | BUY | Active | $28.78 | $31.31 | $31.12 | -7.5% | -8.1% |  | Bullet 5 — $27.22 PA, 90% hold, Full tier, wick-adjusted |
+| LUNR | BUY | Active | $17.16 | $17.63 | $17.20 | -0.3% | -2.7% |  | Bullet 2 — $16.41 PA, 30% hold, Skip tier (placed as manual override) |
+| LUNR | BUY | Active | $16.68 | $17.63 | $17.20 | -3.1% | -5.4% |  | Bullet 3 — $15.94 HVN+PA, 33% hold, Skip tier (placed as manual override) |
+| LUNR | BUY | Active | $15.33 | $17.63 | $17.20 | -10.9% | -13.0% |  | Bullet 3 — $15.08 PA, 67% hold, Full tier, sized up for $200 target (added 2026-03-02) |
+| LUNR | BUY | Active | $15.20 | $17.63 | $17.20 | -11.7% | -13.8% |  | Bullet 4 — $14.32 PA, 60% hold, Full tier, wick-adjusted |
+| LUNR | BUY | Reserve | $10.06 | $17.63 | $17.20 | -41.5% | -42.9% |  | Reserve 1 — $9.52 PA, 56% hold, Std tier, wick-adjusted |
+| LUNR | BUY | Reserve | $7.78 | $17.63 | $17.20 | -54.8% | -55.9% |  | Reserve 2 — $7.48 PA, 56% hold, Full tier, wick-adjusted (added 2026-03-03) |
+| LUNR | BUY | Reserve | $6.64 | $17.63 | $17.20 | -61.4% | -62.3% |  | Reserve 3 — $6.53 PA, 75% hold, Full tier, structural floor |
+| NNE | BUY | Active | $24.03 | $23.54 | $23.45 | +2.5% | +2.1% |  | Bullet 2 — $23.60 PA, 50% hold, Std tier, wick-adjusted (updated 2026-02-28) |
+| NNE | BUY | Active | $23.50 | $23.54 | $23.45 | +0.2% | -0.2% |  | Bullet 3 — $22.89+$22.02 PA merged, 67% hold, Full tier, wick-adjusted (updated 2026-02-28) |
+| NVDA | BUY | Active | $174.60 | $177.82 | $176.82 | -1.3% | -1.8% |  | Bullet 1 — $173.61 HVN+PA, 38% hold, Std tier, wick-adjusted. NOT PLACED — waiting for entry signal |
+| NVDA | BUY | Active | $169.54 | $177.82 | $176.82 | -4.1% | -4.7% |  | Bullet 2 — $161.14 PA, 100% hold (9/9), Full tier, wick-adjusted. NOT PLACED |
+| NVDA | BUY | Active | $168.40 | $177.82 | $176.82 | -4.8% | -5.3% |  | Bullet 3 — $157.32 PA, 71% hold (5/7), Full tier, wick-adjusted. NOT PLACED [D] |
+| NVDA | BUY | Reserve | $146.74 | $177.82 | $176.82 | -17.0% | -17.5% |  | Reserve 1 — $141.99 HVN+PA, 50% hold (2/4), Full tier, wick-adjusted. NOT PLACED [D] |
+| ARM | BUY | Active | $112.53 | $114.38 | $113.51 | -0.9% | -1.6% |  | Bullet 5 — $110.90 HVN+PA, 43% hold, Full^ tier, wick-adjusted |
+| TMC | BUY | Active | $5.63 | $5.73 | $5.54 | +1.6% | -1.7% |  | Bullet 3 — $5.53 HVN+PA, 42% hold, Std tier, wick-adjusted |
+| TEM | BUY | Active | $50.98 | $52.26 | $51.57 | -1.1% | -2.4% |  | Bullet 1 — $49.35 PA, 22% hold, Std tier, wick-adjusted |
+| TEM | BUY | Active | $48.75 | $52.26 | $51.57 | -5.5% | -6.7% |  | Bullets 2+3 — $48.01/$47.00 PA converged, 46%/64% hold, Full tier, wick-adjusted |
+| OUST | BUY | Active | $20.32 | $20.27 | $20.07 | +1.2% | +0.2% |  | Bullet 3 — $19.22 HVN+PA, 30% hold rate, Half tier, wick-adjusted |
+| BBAI | BUY | Active | $3.82 | $4.25 | $3.97 | -3.8% | -10.1% |  | Bullet 1 — $3.75 HVN+PA, 33% hold rate, Full tier, wick-adjusted |
+| BBAI | BUY | Active | $3.71 | $4.25 | $3.97 | -6.5% | -12.7% |  | Bullet 2 — $3.65 PA, 57% hold rate, Full tier, wick-adjusted |
+| BBAI | BUY | Active | $3.66 | $4.25 | $3.97 | -7.8% | -13.9% |  | Bullet 3 — $3.55 PA, 33% hold rate, Full tier, wick-adjusted |
 
 ## Watchlist
 | Ticker | Price | Day Low | Day High | Day % |
 | :--- | :--- | :--- | :--- | :--- |
-| AR | $34.38 | $33.74 | $34.83 | -0.1% |
-| VALE | $17.31 | $16.84 | $17.36 | -1.3% |
-| CLF | $11.05 | $10.70 | $11.15 | +2.4% |
-| SEDG | $40.40 | $39.45 | $42.35 | -4.8% |
-| ACHR | $7.38 | $6.96 | $7.40 | +3.9% |
-| RKT | $17.77 | $17.23 | $17.87 | +2.5% |
-| NNE | $27.72 | $25.82 | $27.81 | +1.9% |
-| UAMY | $8.91 | $8.60 | $9.32 | -2.6% |
-| TMC | $6.60 | $6.28 | $6.67 | +3.3% |
-| BBAI | $4.15 | $3.93 | $4.15 | +5.6% |
+| NU | $14.58 | $14.23 | $14.73 | -1.6% |
+| IONQ | $35.73 | $35.10 | $37.48 | -0.8% |
+| USAR | $17.45 | $17.44 | $19.29 | -8.6% |
+| APLD | $25.14 | $25.07 | $28.41 | -10.5% |
+| SMCI | $31.31 | $31.12 | $32.41 | -2.9% |
+| TMC | $5.73 | $5.54 | $5.99 | -3.9% |
+| CIFR | $13.62 | $13.54 | $14.76 | -10.1% |
+| ARM | $114.38 | $113.51 | $119.27 | -5.2% |
+| ACHR | $6.26 | $6.22 | $6.46 | -3.1% |
+| TEM | $52.26 | $51.57 | $53.50 | -1.5% |
+| CLSK | $9.21 | $9.12 | $9.71 | -7.4% |
+| CLF | $9.83 | $9.72 | $10.41 | -8.0% |
+| LUNR | $17.63 | $17.20 | $19.15 | -0.2% |
+| SOUN | $8.07 | $8.00 | $8.49 | -2.4% |
+| AR | $38.83 | $38.64 | $39.95 | -0.2% |
+| NNE | $23.54 | $23.45 | $26.21 | -7.9% |
+| BBAI | $4.25 | $3.97 | $4.42 | +5.2% |
+| NVDA | $177.82 | $176.82 | $182.76 | -3.0% |
+| OUST | $20.27 | $20.07 | $21.66 | -4.3% |
 
 ## Capital Summary
 | Metric | Value |
 | :--- | :--- |
-| Deployed | $2211.97 |
+| Deployed | $3745.22 |
 | Per-Stock Budget | $600.00 |
 | Active Bullet (Full/Std) | $60.00 |
 | Active Bullet (Half) | $30.00 |

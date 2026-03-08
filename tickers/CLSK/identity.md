@@ -32,4 +32,4 @@
     *   R1: $7.70 (12 shares, ~$92) — $7.53 HVN+PA, 62% hold.
     *   R2: $7.24 (13 shares, ~$94) — $6.94 PA, 67% hold.
 *   **Sector Note:** Fellow BTC miner with CIFR — monitor for correlation.
-*   **Status:** **ACTIVE POSITION — B1 filled at $9.61, sell target $10.57. B2-B4 + R1-R2 pending.**
+*   **Status:** **RE-ENTRY MODE — Position closed 2026-03-04 (+6.9%, cycle 3). 3/3 cycles profitable (+7.6%, +7.9%, +6.9%). B2 $9.66, B3 $9.11, B4 $8.88 placed.**

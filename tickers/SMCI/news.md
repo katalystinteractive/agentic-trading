@@ -1,4 +1,4 @@
-*Generated: 2026-02-26 22:17*
+*Generated: 2026-03-08 17:19*
 
 ## News & Sentiment: Super Micro Computer, Inc. (SMCI)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,126 +6,127 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Insider Monkey | Jim Cramer Says "Super Micro Is in My No-Fly Zone" | Positive | +0.60 | — |
-| Today | PR Newswire | Supermicro Introduces Industry's Highest Density AMD EPYC 40... | Neutral | +0.00 | — |
-| Today | GuruFocus.com | Super Micro Stock Pops After Unveiling Nvidia-Backed AI Syst... | Positive | +0.60 | — |
-| Today | Zacks | If You Invested $1000 in Super Micro Computer a Decade Ago, ... | Positive | +0.70 | — |
-| 2026-02-26 | Seeking Alpha | Super Micro: Margin Compression Has Caused The Market To Mis... | Positive | +0.60 | — |
-| 2026-02-26 | Finviz | Jim Cramer Says "Super Micro Is in My No-Fly Zone" - Finviz | Positive | +0.60 | — |
-| 2026-02-26 | TipRanks | Super Micro Computer Stock (SMCI) Is a Bargain-Basement Buy ... | Positive | +0.60 | — |
-| 2026-02-26 | CoinCentral | Super Micro Computer (SMCI) Stock: New Blade Server Platform... | Positive | +0.60 | — |
-| 2026-02-26 | Trefis | SMCI Stock (+7.9%) : New NVIDIA AI Platform Launch Lifts Sen... | Neutral | +0.00 | — |
-| 2026-02-26 | Trefis | S&P 500 Movers - Winners: AXON, COIN, SMCI - Losers: GDDY, F... | Negative | -0.08 | — |
-| 2026-02-26 | TipRanks | Mixed options sentiment in Super Micro with shares down 5.62... | Positive | +0.73 | — |
-| 2026-02-26 | FXLeaders | SMCI Stock Jumps on Revenue Strength but Faces $35 Level as ... | Negative | -0.21 | Earnings |
-| 2026-02-26 | MT Newswires | Equity Markets Mostly Fall Intraday as Nvidia Drags Tech Low... | Negative | -0.44 | — |
-| 2026-02-26 | Simply Wall St. | Super Micro Links Grid Aware AI Servers With Turnkey CNode X... | Positive | +0.60 | — |
-| 2026-02-25 | StockStory | Why Super Micro (SMCI) Stock Is Trading Up Today | Positive | +0.60 | — |
-| 2026-02-25 | PR Newswire | Supermicro and VAST Data Launch a New Enterprise AI Data Pla... | Positive | +0.32 | — |
-| 2026-02-25 | Zacks | The Zacks Analyst Blog Highlights Dell, Hewlett-Packard, Cis... | Positive | +0.60 | — |
-| 2026-02-25 | PR Newswire | CPower, Bentaus and Supermicro Successfully Flex AI Compute ... | Positive | +0.40 | — |
-| 2026-02-25 | Zacks | SMCI Doubles Down on DCBBS: Is it the Next Growth Engine? | Positive | +0.38 | — |
-| 2026-02-25 | GuruFocus.com | IonQ Earnings Preview: What To Expcet From Upcoming Report | Neutral | +0.00 | Earnings |
-| 2026-02-25 | Yahoo Finance | Why Super Micro (SMCI) Stock Is Trading Up Today - Yahoo Fin... | Positive | +0.60 | — |
-| 2026-02-25 | simplywall.st | Is Super Micro Computer (SMCI) Pricing Reflect Its AI Server... | Positive | +0.83 | — |
-| 2026-02-25 | Benzinga | Why Super Micro Computer Stock Is Trading Higher Today? - Be... | Positive | +0.60 | — |
-| 2026-02-25 | MarketBeat | Super Micro Computer (NASDAQ:SMCI) Shares Up 7.8% - Still a ... | Positive | +0.73 | Earnings |
-| 2026-02-25 | GuruFocus | Super Micro (SMCI) Sees Mixed Options Sentiment Amid Stock R... | Positive | +0.60 | — |
-| 2026-02-25 | TradingView | The AI Land Grab: Why SMCI's Drop Is Your Gain - TradingView | Positive | +0.32 | — |
-| 2026-02-25 | MarketBeat | The AI Land Grab: Why SMCI's Drop Is Your Gain - MarketBeat | Positive | +0.32 | Earnings |
-| 2026-02-25 | Benzinga | What Does the Market Think About Super Micro Computer Inc? -... | Positive | +0.60 | — |
-| 2026-02-24 | Zacks | DELL Gears Up to Report Q4 Earnings: Buy, Sell, or Hold the ... | Neutral | +0.00 | Earnings |
-| 2026-02-24 | Zacks | The Zacks Analyst Blog Highlights NVIDIA, Taiwan Semiconduct... | Positive | +0.60 | — |
+| 2026-03-07 | MarketBeat | MarketBeat Week in Review  03/02 - 03/06 | Neutral | +0.00 | Earnings |
+| 2026-03-07 | MarketBeat | MarketBeat Week in Review – 03/02 - 03/06 | Neutral | +0.00 | Earnings |
+| 2026-03-07 | Motley Fool | Disciplined Growth Investors Trim InterDigital After Strong ... | Positive | +0.71 | — |
+| 2026-03-06 | Barchart | How Is Super Micro Computer's Stock Performance Compared to ... | Positive | +0.60 | — |
+| 2026-03-06 | TIKR.com | SMCI Revenue Jumped 123% Year-Over-Year: Here’s the 85% Upsi... | Neutral | +0.00 | Earnings |
+| 2026-03-06 | MarketBeat | Super Micro Computer (NASDAQ:SMCI) Trading Down 2.9% - Here'... | Positive | +0.60 | Earnings |
+| 2026-03-06 | MarketBeat | American Century Companies Inc. Acquires 416,932 Shares of S... | Positive | +0.73 | Earnings |
+| 2026-03-06 | FXEmpire | TSLA, PLTR and SMCI Forecast – Tech Stocks Under Pressure Ea... | Negative | -0.30 | — |
+| 2026-03-06 | Simply Wall St. | Super Micro Computer Targets Scalable AI Growth With Modular... | Positive | +0.76 | — |
+| 2026-03-05 | Barchart | As Supermicro Joins a Key AI Data Center Alliance, Should Yo... | Neutral | +0.00 | — |
+| 2026-03-05 | Zacks | Dell's ISG Revenue Growth Strengthens: Will the Momentum Con... | Positive | +0.68 | Earnings |
+| 2026-03-05 | Zacks | Vertiv Trades at a Premium Valuation: Should You Still Buy t... | Neutral | +0.00 | — |
+| 2026-03-05 | Zacks | Super Micro (SMCI) Down 3.3% Since Last Earnings Report: Can... | Positive | +0.60 | Earnings |
+| 2026-03-05 | The Motley Fool | Why Super Micro Computer Surged Double-Digits in February - ... | Positive | +0.25 | — |
+| 2026-03-05 | MarketBeat | Super Micro Computer (NASDAQ:SMCI) Stock Price Down 1.3% - H... | Positive | +0.60 | Earnings |
+| 2026-03-05 | National Today | Super Micro Computer Stock Price Drops 1.3% - National Today | Positive | +0.60 | — |
+| 2026-03-05 | Insider Monkey | Is Nebius Group N.V. (NBIS) A Good Stock To Buy Now? | Positive | +0.44 | — |
+| 2026-03-04 | MarketWatch | Tech stocks are roaring back on Wednesday | Neutral | +0.00 | — |
+| 2026-03-04 | Benzinga | Nvidia Leads Chip Stock Rebound, Billionaire Investor Buys 1... | Negative | -0.15 | — |
+| 2026-03-04 | MarketBeat | Advanced Micro Devices CEO Lisa Su Teases MI450 Ramp, 6GW Me... | Positive | +0.34 | Corporate |
+| 2026-03-04 | TipRanks | Super Micro Computer Stock (SMCI) Rises on Plan to ‘Bring Da... | Positive | +0.60 | — |
+| 2026-03-04 | Stocktwits | SMCI Stock Struggles To Break Out: Will A New AI Data Center... | Neutral | -0.03 | — |
+| 2026-03-03 | MarketBeat | Netlist Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
+| 2026-03-03 | Benzinga | Taiwan Semiconductor's AI Breakthroughs Don't Calm Wall Stre... | Negative | -0.24 | Earnings |
+| 2026-03-03 | Zacks | Super Micro Computer, Inc. (SMCI) is Attracting Investor Att... | Positive | +0.79 | — |
+| 2026-03-03 | Seeking Alpha | Unloved Super Micro Computer Is Due For A Rally (NASDAQ:SMCI... | Positive | +0.25 | — |
+| 2026-03-03 | simplywall.st | Super Micro Links AI Data Centers To Grid Flexibility And Ne... | Positive | +0.74 | — |
+| 2026-03-03 | MarketBeat | Super Micro Computer (NASDAQ:SMCI) Shares Down 3.6% - Here's... | Positive | +0.73 | Earnings |
+| 2026-03-03 | FXEmpire | Super Micro Computer (SMCI) Price Forecast: Breakdown Risk B... | Positive | +0.42 | — |
+| 2026-03-03 | GuruFocus | Super Micro (SMCI) Sees Moderate Bearish Sentiment in Option... | Positive | +0.60 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 23 (77%) |
-| Neutral | 4 (13%) |
+| Positive | 19 (63%) |
+| Neutral | 8 (27%) |
 | Negative | 3 (10%) |
-| Average Score | +0.413 |
+| Average Score | +0.344 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 178 |
+| Total Unique Headlines | 184 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 5 | SMCI Stock Jumps on Revenue Strength but..; IonQ Earnings Preview: What To Expcet Fr.. |
+| Earnings | 11 | MarketBeat Week in Review  03/02 - 03/06; MarketBeat Week in Review – 03/02 - 03/0.. |
+| Corporate | 1 | Advanced Micro Devices CEO Lisa Su Tease.. |
 
 ### Deep Dive Articles
 
-#### Jim Cramer Says "Super Micro Is in My No-Fly Zone"
-*Source: Insider Monkey | Date: Today | Sentiment: Positive (+0.98)*
+#### Dell's ISG Revenue Growth Strengthens: Will the Momentum Continue?
+*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+1.00)*
 
-> Super Micro Computer, Inc. (NASDAQ:SMCI) is one of thestocks that was on Jim Cramer’s radar recently. A caller inquired if it was time to “dip a speculative toe in the water,” and here’s what Cramer had to say in response:
+> Dell TechnologiesDELL is witnessing strengthening momentum in its Infrastructure Solutions Group (ISG), which has emerged as the company’s key growth driver. The segment is benefiting from accelerating demand for AI infrastructure and ongoing enterprise data center modernization. The segment reported record revenues of $19.6 billion in the fourth quarter of fiscal 2026, up 73% year over year, while full-year revenues increased 40% to $60.8 billion, highlighting strong uptake of Dell’s server and storage portfolio.A key catalyst behind this momentum is Dell’s fast-growing AI server segment. Growing enterprise demand for AI infrastructure is accelerating the adoption of the company’s high-performance server solutions. Dell reported $9 billion in AI-optimized server revenues in the fourth quarter. For fiscal 2027, it expects AI revenues to reach approximately $50 billion, implying nearly 100% year-over-year growth. A record AI backlog of $43 billion and strong order momentum support clear revenue visibility ahead.Traditional servers and networking continue to play an important role in Dell’s business, supported by enterprise investments to upgrade infrastructure for higher computing workloads and AI adoption. At the same time, the company’s storage platforms — including PowerMax, PowerStore and PowerScale — are seeing steady demand as organizations modernize their systems and manage growing data volumes.These trends highlight ISG as DELL’s key growth driver. As enterprises expand AI deployments and modernize data centers, the segment is likely to support continued revenue growth. The Zacks Consensus Estimate projects year-over-year total revenue growth of 24.2% in fiscal 2027, supporting continued momentum.
 
-> No, I’ll tell you the truth. I mean, I would rather have you, if you’re going to do that, buy Dell. Although Dell is about to report on the 26, but Super Micro is in my no-fly zone. I’m sorry.
+> Dell is a major player in the AI infrastructure market but faces stiff competition fromSuper Micro ComputerSMCI andHewlett Packard EnterpriseHPE.Super Micro Computer is strengthening its position in the AI infrastructure market through its vertically integrated design approach and rapid time-to-market capabilities. Its Data Center Building Block Solutions platform enables faster AI data center deployment while improving power efficiency and operational costs. Strong engineering expertise, modular system design and automated manufacturing further enhance scalability. Close collaboration with NVIDIA and AMD, along with expanding global manufacturing capacity, supports SMCI’s ability to deliver high-performance AI infrastructure at scale.Hewlett Packard Enterprise is strengthening its AI infrastructure position with an integrated portfolio spanning AI servers, networking, hybrid cloud and storage solutions. The company supports large-scale AI training and inference workloads with high-performance computing platforms and AI-optimized systems. HPE’s Juniper Networks integration enhances AI-native networking capabilities, while its GreenLake platform and AI factory architecture help enterprises deploy, manage and scale AI workloads efficiently across modern data center environments.
 
-> Super Micro Computer, Inc. (NASDAQ:SMCI) designs and sells modular server and storage systems, including AI, cloud, and edge computing solutions. A caller asked about the stock during the January 16 episode and Cramer replied:
+> Shares of Dell have gained 16.8% year to date, outperforming the broader Zacks Computer & Technology sector and the Zacks Computer - Micro Computers industry’s decline of 3.4% and 2.7%, respectively.
 
-> Sell. I don’t need that. And it just, you know… you gotta move on. You want to own that area, you own NVIDIA. Period. End of story.
+> From a valuation standpoint, its forward price-to-earnings ratio of 13.01 is significantly below the industry’s average of 28.92.
 
-> While we acknowledge the potential of SMCI as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you're looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+> The Zacks Consensus Estimate for fiscal 2027 earnings is pegged at $11.72 per share, increasing 3.9% over the past 30 days. This suggests 13.79% year-over-year growth.
 
-**Catalysts:** Short
+**Catalysts:** Earnings, Regulatory, Analyst
 
-#### Supermicro Introduces Industry's Highest Density AMD EPYC 4005 Series MicroBlade for Cloud, Edge, and SaaS Workloads
-*Source: PR Newswire | Date: Today | Sentiment: Positive (+0.99)*
+#### Vertiv Trades at a Premium Valuation: Should You Still Buy the Stock?
+*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+1.00)*
 
-> SAN JOSE, Calif.,Feb. 26, 2026/PRNewswire/ --Supermicro, Inc.(NASDAQ: SMCI), a Total IT Solution Provider for AI, Cloud, Storage, and 5G/Edge, is announcing the launch of the industry's first and highest-density blade server platform powered by the latest AMD EPYC™ 4005 series processors. Designed with a flexible, density-optimized blade architecture, Supermicro's new MicroBlade platform is designed for longevity and versatility. By including the latest AMD EPYC 4005 series processors, along with previous versions, the system provides seamless scalability and long-term investment protection, allowing organizations to expand and upgrade as compute requirements evolve.
+> VertivVRT is currently overvalued, as suggested by a Value Score of F.In terms of the trailing 12-month Price/Book, Vertiv is currently trading at 24.39X compared with the broader Computer and Technology sector’s 10.26X.
 
-> "Our flexible blade architecture enables customers to mix different node types with different CPUs within a single enclosure and can incorporate up to 320 server nodes in a standard 48U rack," said Charles Liang, president and CEO of Supermicro. "Supermicro continues to lead the industry in delivering advanced, energy-efficient platforms to market that maximize scalability, lower total cost of ownership, and protecting data center investments for the long term."
+> However, VRT’s shares have surged 185.6% in the trailing 12-month period, outperforming the broader Zacks Computer and Technology sector’s increase of 26.8%. The Zacks Computers - IT Services industry declined 26.7% in the same time frame.The company has also outperformed its closest peers,Super Micro ComputerSMCI andHewlett-Packard EnterpriseHPE. Both Super Micro Computer and Hewlett-Packard Enterprise are expanding their capabilities in the AI infrastructure market. While Hewlett Packard Enterprise shares have rallied 14.1%, Super Micro Computer shares have plunged 16.1% over the trailing 12-month period.The outperformance of VRT stock can be attributed to its extensive product portfolio, which spans thermal systems, liquid cooling, UPS, switchgear, busbars, and modular solutions. In the trailing 12 months, organic orders grew approximately 81%, with a book-to-bill of 2.9 times for the fourth quarter of 2025, indicating a strong prospect.
 
-> For more information, please visit:https://www.supermicro.com/en/Aplus/MicroBlade/module/MBA-315R-1DE12.php
+> Vertiv’s expanding portfolio has been noteworthy. In the fourth quarter of 2025, organic orders rose approximately 252% year over year, with the backlog increasing to $15.0 billion, up 109% compared with the fourth quarter of 2024 and up 57% sequentially from the third quarter of 2025. This growth is primarily driven by the rapid adoption of AI and the increasing need for data centers to support the digital transformation.Further expanding its portfolio, in February 2026, Vertiv announced a significant change in data center deployment by introducing a high-fidelity Digital Twin platform. This platform aims to speed up AI infrastructure builds using Vertiv OneCore modular solutions. The system combines power, cooling and infrastructure into factory-built blocks. This approach lowers deployment time by up to 50% and reduces total ownership costs by as much as 25%.As part of the launch,Hut 8HUT worked with Vertiv to integrate OneCore into certain AI data center projects. The collaboration between Vertiv and Hut 8 merges power-first infrastructure with modular deployment. The goal of the partnership with Hut 8 is to streamline AI data center construction and enable scalable, high-density computing environments for next-generation workloads.The global acceleration of AI adoption is driving significant demand for data center infrastructure. Vertiv is capitalizing on this trend, particularly in the Americas, which saw a 46% organic sales growth in the fourth quarter of 2025.
 
-> The new 6U system supports up to 40 nodes in a single enclosure, delivering unparalleled compute density, energy efficiency, and cost effectiveness for scale-out and multi-tenant environments. The platform is optimized for a wide range of efficient and high-density workloads, including:
+> Vertiv’s strengthening efforts to support rapidly growing AI and high-density data center demand have been a major growth driver.Building on this momentum, the company recently announced a partnership with Generate Capital to provide Bring Your Own Power & Cooling solutions for data centers in the United States.This collaboration combines Vertiv’s power, cooling, and services infrastructure with Generate Capital’s financing and operational skills. The goal is to help data center operators deploy capacity more quickly in grid-constrained markets. This partnership allows for immediate on-site power solutions while keeping the option to switch to utility power in the future.
 
-> Each node supports a single AMD EPYC 4005 series processor with two DDR5 ECC UDIMM slots operating at up to 5600 MT/s, along with two PCIe Gen5 E1.S SSDs and one M.2 SSD per node. Integrated networking features dual-port 25GbE via Broadcom BCM57414, with advanced security and manageability including TPM 2.0, signed firmware, hardware root of trust, IPMI 2.0, KVM over IP, and Redfish API support. The new MicroBlade system uniquely enables flexible mix-and-match configurations across single-wide and double-wide nodes further showcasing the versatility of the all-in-one Supermicro blade system. Connectivity further elevates its capabilities, with two integrated 25G Ethernet switches with 100G uplinks in the back of the enclosure, ensuring reliable, high-speed networking while lowering the TCO through cable reduction.
+> Vertiv is benefiting from its strong portfolio and rich partner base, which will continue to benefit the company’s top-line growth.For first-quarter 2026, revenues are expected to be between $2.5 billion and $2.7 billion. Organic net sales are expected to increase in the 18% to 26% range. The Zacks Consensus Estimate for Vertiv’s first-quarter 2026 revenues is pegged at $2.65 billion, suggesting growth of 30.08% year over year.VRT expects first-quarter 2026 non-GAAP earnings per share between 95 cents and $1.01. The Zacks Consensus Estimate for first-quarter 2026 earnings is currently pegged at $1 per share, which has increased by a couple of pennies over the past 30 days. The figure indicates a year-over-year increase of 56.25%.
 
-**Catalysts:** Regulatory, Corporate, Analyst
+**Catalysts:** Earnings, Regulatory, Analyst
 
-#### If You Invested $1000 in Super Micro Computer a Decade Ago, This is How Much It'd Be Worth Now
-*Source: Zacks | Date: Today | Sentiment: Positive (+0.99)*
+#### Super Micro (SMCI) Down 3.3% Since Last Earnings Report: Can It Rebound?
+*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+0.99)*
 
-> For most investors, how much a stock's price changes over time is important. This factor can impact your investment portfolio as well as help you compare investment results across sectors and industries.
+> It has been about a month since the last earnings report for Super Micro Computer (SMCI). Shares have lost about 3.3% in that time frame, underperforming the S&P 500.
 
-> The fear of missing out, or FOMO, also plays a factor in investing, especially with particular tech giants, as well as popular consumer-facing stocks.
+> But investors have to be wondering, will the recent negative trend continue leading up to its next earnings release, or is Super Micro due for a breakout? Before we dive into how investors and analysts have reacted as of late, let's take a quick look at the most recent earnings report in order to get a better handle on the important catalysts.
 
-> What if you'd invested in Super Micro Computer (SMCI) ten years ago? It may not have been easy to hold on to SMCI for all that time, but if you did, how much would your investment be worth today?
+> Super Micro Computer came out with second-quarter fiscal 2026 earnings of 69 cents per share, which beat the Zacks Consensus Estimate by 40.8%. The bottom line increased 16.9% year over year.
 
-> With that in mind, let's take a look at Super Micro Computer's  main business drivers.
+> Super Micro Computer posted revenues of $12.68 billion for the second quarter of fiscal 2026, which beat the Zacks Consensus Estimate by 21.42%. The top line jumped 122.8% year over year.
 
-> Super Micro Computer, headquartered in San Jose, CA, is a global leader in high-performance, energy-efficient IT solutions. Founded in 1993 and reincorporated in Delaware in 2007, Super Micro Computer designs, develops, and manufactures server and storage systems optimized for data centers, cloud computing, artificial intelligence (AI) and edge computing workloads. The company’s solutions are based on its innovative Server Building Block Solutions architecture.
-
-**Catalysts:** Earnings, Regulatory
-
-#### Why Super Micro (SMCI) Stock Is Trading Up Today
-*Source: StockStory | Date: 2026-02-25 | Sentiment: Positive (+0.97)*
-
-> Shares of server solutions provider Super Micro (NASDAQ:SMCI) jumped 8% in the afternoon session after the company made two significant announcements: a successful test of its AI infrastructure as a high-speed 'Virtual Power Plant' and the launch of a new enterprise AI data platform.
-
-> In a joint test with CPower Energy and Bentaus, the company proved its AI systems could help stabilize electric grids during surges in power demand. This demonstration showcased a new use for its hardware. Separately, Super Micro, alongside VAST Data, launched the CNode-X Solution, an integrated AI data platform that featured NVIDIA technology. This new product was designed to help businesses deploy their AI systems more rapidly by combining Supermicro’s servers with advanced AI software.
-
-> Is now the time to buy Super Micro?Access our full analysis report here, it’s free.
-
-> Super Micro’s shares are extremely volatile and have had 57 moves greater than 5% over the last year. In that context, today’s move indicates the market considers this news meaningful but not something that would fundamentally change its perception of the business.
-
-> The previous big move we wrote about was 2 days ago when the stock dropped 3.8% on the news that the Trump administration's announcement of new global tariffs, reignited trade policy uncertainty. The move came swiftly after the Supreme Court ruled the previous week that the president could not use the International Emergency Economic Powers Act (IEEPA) for such duties, a decision that had initially sent markets higher. However, the administration invoked a different authority, the Trade Act of 1974, to impose a 15% global tariff for up to 150 days. The rapid reimposition of trade barriers creates significant uncertainty for companies across multiple sectors that depend on international supply chains and global trade. Investors are now weighing the potential impact of these new duties on corporate earnings and broader economic activity.
+> Coming to SMCI’s customer verticals, revenues from OEM Appliance and Large Data Center (approximately 84% of total revenues) were $10.7 billion, up 151% year over year and 210% sequentially, driven by strong hyperscale AI deployments. Revenues from the Enterprise/Channel segment (around 16% of total revenues) totaled $2 billion, reflecting a 42% year-over-year increase and a 29% sequential rise.
 
 **Catalysts:** Earnings, Regulatory
 
-#### Supermicro and VAST Data Launch a New Enterprise AI Data Platform Solution with NVIDIA to Accelerate AI Factory Deployment
-*Source: PR Newswire | Date: 2026-02-25 | Sentiment: Positive (+0.99)*
+#### Nvidia Leads Chip Stock Rebound, Billionaire Investor Buys 1 Million Shares To Defy AI 'Bubble' Fears
+*Source: Benzinga | Date: 2026-03-04 | Sentiment: Negative (-0.95)*
 
-> SAN JOSE, Calif. and SALT LAKE CITY,Feb. 25, 2026/PRNewswire/ --VAST Forward--Supermicro, Inc. (NASDAQ: SMCI), a Total IT Solution Provider for AI, Cloud, Storage, and 5G/Edge, is launching, with VAST Data, the CNode-X Solution, a highly integrated, rapidly deployable AI Data Platform. The VAST AI Operating System, including the VAST InsightEngine and VAST DataBase, together with NVIDIA open models, microservices and libraries, along with Supermicro GPU and storage servers, form a fully integrated AI infrastructure stack, enabling enterprises to rapidly deploy a complete AI solution.
+> Semiconductor stocks reboundedon Wednesday after several sessions of steep losses as investors reassessed geopolitical risks, tech-sector volatility, and fresh commentary from market figures.
 
-> "Building on our successful collaboration with VAST Data, this solution brings together Supermicro's high-performance AI systems, VAST's software, and NVIDIA's technology into a truly integrated enterprise AI platform," said Charles Liang, president and CEO of Supermicro. "Together, we enable organizations to accelerate AI factory deployment, whether scaling large AI initiatives or deploying enterprise applications like generative AI and video analytics."
+> Major semiconductor names includingNvidia Corp(NASDAQ:NVDA),Advanced Micro Devices, Inc(NASDAQ:AMD),Broadcom Inc(NASDAQ:AVGO),Taiwan Semiconductor Manufacturing Company Ltd(NYSE:TSM),Intel Corp(NASDAQ:INTC),Arm Holdings Plc(NASDAQ:ARM),Micron Technology, Inc(NASDAQ:MU),ON Semiconductor Corp(NASDAQ:ON),Super Micro Computer, Inc(NASDAQ:SMCI) recovered some ground after a selloff that began late last week.
 
-> For more information about the new Supermicro and VAST solution, please visit:https://www.supermicro.com/en/solutions/vast
+> The decline came despite Nvidia reporting strong earnings, as investors focused on concernsaround AI profitability, heavy capital spending, broader macroeconomic pressures, and escalating geopolitical tensions in the Middle East.
 
-> "CNode-X brings together Supermicro's integrated infrastructure expertise with the VAST AI Operating System and NVIDIA-accelerated compute to deliver a turnkey foundation for enterprise AI factories," said John Mao, Vice President, Global Technology Alliances at VAST Data. "Together, we're making it dramatically easier for organizations to deploy an end-to-end AI data platform – keeping GPUs fed with data, helping teams move faster from deployment to firsttoken, and scaling AI workloads with confidence."
+> Reportsalso indicated that Iran explored backchannel discussions aimed at ending the conflict a day after the U.S. and Israel launched joint strikes.
 
-> Supermicro's existing EBox solution with VAST, which was launched in 2024 and widely adopted by large storage customers based on its space, power, and cost efficiency, combines two different server nodes into a single server. The second-generation EBox solution has been updated to the latest AMD EPYC™ 9005 CPUs.
+> CNBC’sJim Cramersaidinvestors should remain cautious and avoid panic selling amid sharp market swings driven by geopolitical tensions and tech-stock volatility.
 
-**Catalysts:** Regulatory, Corporate
+**Catalysts:** Earnings, Regulatory
+
+#### Taiwan Semiconductor's AI Breakthroughs Don't Calm Wall Street-Profits Are The Flashpoint
+*Source: Benzinga | Date: 2026-03-03 | Sentiment: Positive (+0.70)*
+
+> Taiwan Semiconductor Manufacturing Company Ltd(NYSE:TSM) stock extended its selloff on Tuesday in tandem with the broader semiconductor index,Invesco PHLX Semiconductor ETF(NASDAQ:SOXQ)
+
+> Investors pushed semiconductor and major tech stocks lower even afterNvidia Corp(NASDAQ:NVDA) posted strong earnings, as they weighed concerns about AI profitability, heavy capital spending, broader macro pressures, and rising Middle East geopolitical tensions.
+
+> While stock prices dipped, the industry is moving fast to make AI more affordable and efficient.
+
+> ASML Holding N.V.(NYSE:ASML) is expanding its reach by developing advanced “packaging” tools—essentially high-tech methods for stacking and connecting chips—to boost performance.
+
+> Taiwan Semiconductor is a leading user of ASML’s EUV technology.
+
+**Catalysts:** Earnings
