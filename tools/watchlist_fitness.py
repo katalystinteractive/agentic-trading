@@ -92,7 +92,7 @@ def _compute_cycle_data(hist, current_price):
         low_3m = float(recent_63["Low"].min())
         high_3m = float(recent_63["High"].max())
         range_3m = high_3m - low_3m
-        range_pctile = ((current_price - low_3m) / range_3m * 100) if range_3m > 0 else 50.0
+        range_pctile = max(0.0, min(100.0, ((current_price - low_3m) / range_3m * 100))) if range_3m > 0 else 50.0
     else:
         range_pctile = None
 
@@ -570,6 +570,12 @@ def main():
     ]
     for r in results:
         md_lines.append(_format_ticker_md(r))
+
+    # Verdict summary table
+    md_lines.append("## Verdict Summary")
+    md_lines.append("")
+    md_lines.append(_format_summary_table(results))
+    md_lines.append("")
 
     if errors:
         md_lines.append("## Errors")
