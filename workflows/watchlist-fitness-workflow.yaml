@@ -1,0 +1,48 @@
+name: watchlist-fitness-workflow
+description: >
+  Watchlist fitness review. Phase 1: watchlist_fitness.py computes per-ticker
+  fitness scores, cycle data, engagement verdicts. Phase 2: LLM adds thesis
+  and timing context. Phase 3: mechanical pre-critic + LLM adversarial review.
+version: "1.0.0"
+
+phases:
+  - id: gather
+    name: Watchlist Fitness Data Gathering
+    description: Run watchlist_fitness.py — single fetch per ticker, fitness scoring, verdicts
+    agent: watchlist-fitness-gatherer
+    artifacts:
+      - watchlist-fitness.md
+      - watchlist-fitness.json
+    timeout_minutes: 12
+
+  - id: analyze
+    name: Watchlist Fitness Analysis
+    description: LLM adds thesis assessment, cycle context, portfolio notes per ticker
+    agent: watchlist-fitness-analyst
+    depends_on:
+      - gather
+    requires:
+      - watchlist-fitness.json
+      - watchlist-fitness.md
+    artifacts:
+      - watchlist-fitness-report.md
+    timeout_minutes: 14
+
+  - id: review
+    name: Watchlist Fitness Review
+    description: Run pre-critic (6 checks) then LLM adversarial stress-test
+    agent: watchlist-fitness-critic
+    depends_on:
+      - analyze
+    requires:
+      - watchlist-fitness.json
+      - watchlist-fitness-report.md
+    artifacts:
+      - watchlist-fitness-pre-critic.md
+      - watchlist-fitness-review.md
+    timeout_minutes: 10
+
+settings:
+  max_fix_iterations: 0
+  require_approval: false
+  timeout_minutes: 40

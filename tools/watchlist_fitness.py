@@ -1,0 +1,613 @@
+#!/usr/bin/env python3
+"""Watchlist fitness review — evaluates whether watchlist tickers still fit the
+mean-reversion strategy and whether they're at the right cycle point to engage.
+
+Combines gatherer + pre-analyst: Python does all mechanical work (scoring,
+verdicts, cycle data). LLM agents add qualitative judgment in the workflow.
+
+Usage:
+    python3 tools/watchlist_fitness.py              # all watchlist + position tickers
+    python3 tools/watchlist_fitness.py AR SOUN       # specific tickers
+"""
+import sys
+import json
+import datetime
+from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+_ROOT = Path(__file__).resolve().parent.parent
+PORTFOLIO_PATH = _ROOT / "portfolio.json"
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from wick_offset_analyzer import (
+    analyze_stock_data, fetch_history, load_capital_config, load_tickers_from_portfolio,
+)
+from technical_scanner import calc_rsi, sma
+from bullet_recommender import match_order_to_level, classify_drift, is_paused, parse_bullets_used
+from shared_constants import MATCH_TOLERANCE
+from trading_calendar import last_trading_day, as_of_date_label
+
+# ---------------------------------------------------------------------------
+# Constants — scoring
+# ---------------------------------------------------------------------------
+SWING_POINTS = 20
+CONSISTENCY_POINTS = 20
+LEVEL_COUNT_POINTS = 20
+HOLD_RATE_POINTS = 10
+ORDER_HYGIENE_POINTS = 30
+
+DRIFT_TOLERANCE = 0.05  # 5% — same as bullet_recommender
+
+
+# ---------------------------------------------------------------------------
+# Portfolio helpers
+# ---------------------------------------------------------------------------
+def _load_portfolio():
+    with open(PORTFOLIO_PATH, "r") as f:
+        return json.load(f)
+
+
+# ---------------------------------------------------------------------------
+# Per-ticker fetch + analysis (runs in thread pool)
+# ---------------------------------------------------------------------------
+def _fetch_and_analyze(ticker):
+    """Single fetch per ticker: fetch_history once, pass to analyze_stock_data."""
+    try:
+        hist = fetch_history(ticker, months=13)
+    except Exception as e:
+        return ticker, None, None, f"*Error fetching {ticker}: {e}*"
+    if hist.empty or len(hist) < 60:
+        return ticker, None, None, f"*Skipping {ticker} — insufficient data*"
+
+    data, err = analyze_stock_data(ticker, hist=hist)
+    if data is None:
+        return ticker, None, None, err
+    return ticker, data, hist, None
+
+
+# ---------------------------------------------------------------------------
+# Cycle data computation
+# ---------------------------------------------------------------------------
+def _compute_cycle_data(hist, current_price):
+    """Compute cycle position indicators from hist. Informational only."""
+    close = hist["Close"]
+
+    # RSI
+    rsi_series = calc_rsi(close)
+    rsi = float(rsi_series.iloc[-1]) if len(rsi_series.dropna()) > 0 else None
+
+    # SMA distances
+    sma50_series = sma(close, 50)
+    sma50 = float(sma50_series.iloc[-1]) if len(sma50_series.dropna()) > 0 else None
+    sma50_dist_pct = ((current_price - sma50) / sma50 * 100) if sma50 else None
+
+    sma200_series = sma(close, 200)
+    if len(sma200_series.dropna()) >= 1:
+        sma200 = float(sma200_series.iloc[-1])
+        sma200_dist_pct = ((current_price - sma200) / sma200 * 100)
+    else:
+        sma200 = None
+        sma200_dist_pct = None
+
+    # 3-month range percentile
+    recent_63 = hist.tail(63)
+    if len(recent_63) >= 20:
+        low_3m = float(recent_63["Low"].min())
+        high_3m = float(recent_63["High"].max())
+        range_3m = high_3m - low_3m
+        range_pctile = ((current_price - low_3m) / range_3m * 100) if range_3m > 0 else 50.0
+    else:
+        range_pctile = None
+
+    # Up-day ratio (last 20 days)
+    recent_20 = hist.tail(20)
+    up_days = int((recent_20["Close"] > recent_20["Open"]).sum())
+    up_day_total = len(recent_20)
+
+    # Technical state classification (first-match-wins)
+    cycle_state = "NEUTRAL"
+    if rsi is not None and sma50_dist_pct is not None:
+        if rsi > 70 and sma50_dist_pct > 10:
+            cycle_state = "OVERBOUGHT"
+        elif rsi < 30 and sma50_dist_pct < -10:
+            cycle_state = "OVERSOLD"
+        elif rsi > 65 and sma50_dist_pct > 5:
+            cycle_state = "EXTENDED"
+        elif rsi < 40 and sma50_dist_pct < -5:
+            cycle_state = "PULLBACK"
+
+    return {
+        "rsi": round(rsi, 1) if rsi is not None else None,
+        "sma50": round(sma50, 2) if sma50 is not None else None,
+        "sma50_dist_pct": round(sma50_dist_pct, 1) if sma50_dist_pct is not None else None,
+        "sma200": round(sma200, 2) if sma200 is not None else None,
+        "sma200_dist_pct": round(sma200_dist_pct, 1) if sma200_dist_pct is not None else None,
+        "range_pctile": round(range_pctile, 0) if range_pctile is not None else None,
+        "up_days": up_days,
+        "up_day_total": up_day_total,
+        "cycle_state": cycle_state,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Fitness scoring
+# ---------------------------------------------------------------------------
+def _score_swing(swing):
+    if swing is None or swing < 10:
+        return 0
+    if swing < 15:
+        return 10
+    return SWING_POINTS
+
+
+def _score_consistency(consistency):
+    if consistency is None or consistency < 80:
+        return 0
+    if consistency < 90:
+        return 10
+    return CONSISTENCY_POINTS
+
+
+def _count_active_half_plus(levels):
+    """Count Active-zone levels with effective_tier in (Half, Std, Full)."""
+    count = 0
+    for lvl in levels:
+        if lvl.get("zone") == "Active" and lvl.get("effective_tier", lvl.get("tier")) in ("Half", "Std", "Full"):
+            count += 1
+    return count
+
+
+def _score_level_count(active_half_plus_count):
+    return min(active_half_plus_count * 4, LEVEL_COUNT_POINTS)
+
+
+def _best_active_hold_rate(levels):
+    """Best hold rate among Active Half+ levels. Returns 0.0 if none exist."""
+    rates = []
+    for lvl in levels:
+        if lvl.get("zone") == "Active" and lvl.get("effective_tier", lvl.get("tier")) in ("Half", "Std", "Full"):
+            rates.append(lvl.get("hold_rate", 0))
+    return max(rates) if rates else 0.0
+
+
+def _score_hold_rate(best_rate):
+    return min(int(best_rate / 10), HOLD_RATE_POINTS)
+
+
+def _score_order_hygiene(orphaned_count, all_active_above_price, has_non_paused_orders):
+    pts = ORDER_HYGIENE_POINTS
+    pts -= orphaned_count * 10
+    if has_non_paused_orders and all_active_above_price:
+        pts -= 5
+    return max(pts, 0)
+
+
+# ---------------------------------------------------------------------------
+# Order analysis
+# ---------------------------------------------------------------------------
+def _analyze_orders(ticker, data, portfolio):
+    """Analyze pending orders for a ticker. Returns dict with order stats."""
+    pending_all = portfolio.get("pending_orders", {})
+    orders = pending_all.get(ticker, [])
+    buy_orders = [o for o in orders if o.get("type") == "BUY"]
+
+    active_orders = [o for o in buy_orders if not is_paused(o)]
+    paused_orders = [o for o in buy_orders if is_paused(o)]
+
+    current_price = data["current_price"]
+    levels = data.get("levels", [])
+
+    matched = 0
+    drifted = 0
+    orphaned = 0
+    orphaned_orders = []
+    all_above_price = False
+
+    for order in active_orders:
+        level, dist = match_order_to_level(order["price"], levels)
+        if level is not None:
+            status = classify_drift(dist)
+            if status == "MATCH":
+                matched += 1
+            elif status == "DRIFT":
+                drifted += 1
+        else:
+            orphaned += 1
+            orphaned_orders.append(order)
+
+    # Check if all non-paused orders are above current price
+    if active_orders:
+        all_above_price = all(o["price"] > current_price for o in active_orders)
+    else:
+        all_above_price = False
+
+    all_paused = len(buy_orders) > 0 and len(active_orders) == 0
+
+    return {
+        "total_buy_orders": len(buy_orders),
+        "active_count": len(active_orders),
+        "paused_count": len(paused_orders),
+        "matched": matched,
+        "drifted": drifted,
+        "orphaned": orphaned,
+        "orphaned_orders": orphaned_orders,
+        "all_above_price": all_above_price,
+        "all_paused": all_paused,
+        "has_non_paused_orders": len(active_orders) > 0,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Engagement verdict
+# ---------------------------------------------------------------------------
+def _compute_verdict(ticker, data, portfolio, order_info, swing, consistency):
+    """Compute base verdict + position-aware modifier. Returns (verdict, verdict_note)."""
+    positions = portfolio.get("positions", {})
+    has_position = ticker in positions and positions[ticker].get("shares", 0) > 0
+    pending_all = portfolio.get("pending_orders", {})
+
+    # Step A: Pre-strategy / Recovery detection (active positions only)
+    if ticker in positions:
+        pos = positions[ticker]
+        parsed = parse_bullets_used(pos.get("bullets_used", 0), pos.get("note", ""))
+        if parsed["pre_strategy"] and pos.get("shares", 0) > 0:
+            return "RECOVERY", "Pre-strategy position — use exit-review-workflow for assessment."
+
+    # Step B/E: Strategy fitness verdicts (first-match-wins)
+    levels = data.get("levels", [])
+
+    # Count active Half+ levels
+    active_half_plus = _count_active_half_plus(levels)
+
+    # Check if all active-zone levels are Skip
+    active_levels = [lvl for lvl in levels if lvl.get("zone") == "Active"]
+    all_active_skip = len(active_levels) > 0 and all(
+        lvl.get("effective_tier", lvl.get("tier")) == "Skip" for lvl in active_levels
+    )
+
+    # REMOVE — fails strategy selection criteria
+    if (swing is not None and swing < 10) or (consistency is not None and consistency < 80):
+        note = "Fails strategy selection criteria"
+        if swing is not None and swing < 10:
+            note += f" (swing {swing:.1f}% < 10%)"
+        if consistency is not None and consistency < 80:
+            note += f" (consistency {consistency:.1f}% < 80%)"
+        # Check for pending orders
+        buy_count = sum(
+            1 for o in pending_all.get(ticker, []) if o.get("type") == "BUY"
+        )
+        if buy_count > 0:
+            note += f". {buy_count} pending BUY order(s) should be cancelled"
+        base = "REMOVE"
+        if has_position:
+            return "EXIT-REVIEW", note + ". Active position — defer to exit-review-workflow."
+        return base, note
+
+    # REVIEW — approaching boundary
+    if (swing is not None and swing < 12) or (consistency is not None and consistency < 85):
+        note = "Approaching strategy boundary"
+        if swing is not None and swing < 12:
+            note += f" (swing {swing:.1f}% near 10% floor)"
+        if consistency is not None and consistency < 85:
+            note += f" (consistency {consistency:.1f}% near 80% floor)"
+        base = "REVIEW"
+        if has_position:
+            return "HOLD-WAIT", note + ". Keep position, don't add bullets until resolved."
+        return base, note
+
+    # RESTRUCTURE — strategy fits BUT orders misaligned
+    restructure_reasons = []
+    if order_info["orphaned"] > 0:
+        restructure_reasons.append(f"{order_info['orphaned']} orphaned order(s)")
+    if all_active_skip and len(active_levels) > 0:
+        restructure_reasons.append("all Active-zone levels are Skip tier")
+    if order_info["has_non_paused_orders"] and order_info["all_above_price"]:
+        restructure_reasons.append("all non-paused orders above current price")
+
+    if restructure_reasons:
+        note = "Strategy fits, orders need adjustment: " + "; ".join(restructure_reasons)
+        base = "RESTRUCTURE"
+        if has_position:
+            return "HOLD-WAIT", note + ". Keep position, don't add bullets until orders fixed."
+        return base, note
+
+    # ENGAGE — catch-all for tickers that fit and aren't RESTRUCTURE
+    note = "Strategy fits, ready for engagement"
+    base = "ENGAGE"
+    if has_position:
+        return "ADD", note + ". Active position — ready to add bullets."
+    return base, note
+
+
+# ---------------------------------------------------------------------------
+# Re-entry signals (RESTRUCTURE / HOLD-WAIT only)
+# ---------------------------------------------------------------------------
+def _compute_reentry_signals(data, hist):
+    """Compute re-entry signals for RESTRUCTURE / HOLD-WAIT tickers."""
+    levels = data.get("levels", [])
+    current_price = data["current_price"]
+
+    # First reliable Active Half+ level
+    first_level = None
+    for lvl in levels:
+        if (lvl.get("zone") == "Active"
+                and lvl.get("effective_tier", lvl.get("tier")) in ("Half", "Std", "Full")
+                and lvl.get("recommended_buy") is not None
+                and lvl["recommended_buy"] < current_price):
+            first_level = lvl
+            break
+
+    # Pullback estimate: 20-day high * (1 - monthly_swing/100)
+    swing = data.get("monthly_swing")
+    high_20d = float(hist["High"].iloc[-20:].max()) if len(hist) >= 20 else None
+    pullback_est = None
+    if high_20d is not None and swing is not None and swing > 0:
+        pullback_est = round(high_20d * (1 - swing / 100), 2)
+
+    return {
+        "first_reliable_level": round(first_level["recommended_buy"], 2) if first_level else None,
+        "first_reliable_support": round(first_level["support_price"], 2) if first_level else None,
+        "pullback_estimate": pullback_est,
+        "high_20d": round(high_20d, 2) if high_20d is not None else None,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Main per-ticker pipeline
+# ---------------------------------------------------------------------------
+def _process_ticker(ticker, data, hist, portfolio):
+    """Run full analysis pipeline for one ticker. Returns result dict."""
+    current_price = data["current_price"]
+    swing = data.get("monthly_swing")
+    consistency = data.get("swing_consistency")
+    levels = data.get("levels", [])
+
+    # Order analysis
+    order_info = _analyze_orders(ticker, data, portfolio)
+
+    # Verdict
+    verdict, verdict_note = _compute_verdict(ticker, data, portfolio, order_info, swing, consistency)
+
+    # For RECOVERY — skip scoring
+    if verdict == "RECOVERY":
+        return {
+            "ticker": ticker,
+            "current_price": current_price,
+            "last_date": data.get("last_date"),
+            "verdict": verdict,
+            "verdict_note": verdict_note,
+            "recovery": True,
+            "fitness_score": None,
+            "score_components": None,
+            "cycle_data": None,
+            "order_info": {
+                "total_buy_orders": order_info["total_buy_orders"],
+                "matched": order_info["matched"],
+                "drifted": order_info["drifted"],
+                "orphaned": order_info["orphaned"],
+                "paused": order_info["paused_count"],
+                "all_paused": order_info["all_paused"],
+            },
+            "reentry_signals": None,
+        }
+
+    # Fitness scoring
+    active_half_plus = _count_active_half_plus(levels)
+    best_hr = _best_active_hold_rate(levels)
+
+    swing_pts = _score_swing(swing)
+    consistency_pts = _score_consistency(consistency)
+    level_pts = _score_level_count(active_half_plus)
+    hr_pts = _score_hold_rate(best_hr)
+    hygiene_pts = _score_order_hygiene(
+        order_info["orphaned"],
+        order_info["all_above_price"],
+        order_info["has_non_paused_orders"],
+    )
+    total = swing_pts + consistency_pts + level_pts + hr_pts + hygiene_pts
+
+    score_components = {
+        "swing": {"value": swing, "points": swing_pts, "max": SWING_POINTS},
+        "consistency": {"value": consistency, "points": consistency_pts, "max": CONSISTENCY_POINTS},
+        "level_quality": {"count": active_half_plus, "points": level_pts, "max": LEVEL_COUNT_POINTS},
+        "hold_rate": {"best": best_hr, "points": hr_pts, "max": HOLD_RATE_POINTS},
+        "order_hygiene": {"orphaned": order_info["orphaned"], "points": hygiene_pts, "max": ORDER_HYGIENE_POINTS},
+    }
+
+    # Cycle data
+    cycle_data = _compute_cycle_data(hist, current_price)
+
+    # Re-entry signals for RESTRUCTURE / HOLD-WAIT
+    reentry = None
+    if verdict in ("RESTRUCTURE", "HOLD-WAIT"):
+        reentry = _compute_reentry_signals(data, hist)
+
+    return {
+        "ticker": ticker,
+        "current_price": current_price,
+        "last_date": data.get("last_date"),
+        "monthly_swing": swing,
+        "swing_consistency": consistency,
+        "verdict": verdict,
+        "verdict_note": verdict_note,
+        "recovery": False,
+        "fitness_score": total,
+        "score_components": score_components,
+        "cycle_data": cycle_data,
+        "order_info": {
+            "total_buy_orders": order_info["total_buy_orders"],
+            "matched": order_info["matched"],
+            "drifted": order_info["drifted"],
+            "orphaned": order_info["orphaned"],
+            "paused": order_info["paused_count"],
+            "all_paused": order_info["all_paused"],
+        },
+        "reentry_signals": reentry,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Markdown output
+# ---------------------------------------------------------------------------
+def _fmt(val, fmt_str=".1f", prefix="", suffix=""):
+    if val is None:
+        return "N/A"
+    return f"{prefix}{val:{fmt_str}}{suffix}"
+
+
+def _format_ticker_md(result):
+    """Format one ticker result as markdown section."""
+    t = result["ticker"]
+    v = result["verdict"]
+    lines = [f"### {t} — {v}", ""]
+
+    if result["recovery"]:
+        lines.append(f"**Verdict**: {v} — {result['verdict_note']}")
+        lines.append("")
+        return "\n".join(lines)
+
+    # Fitness score table
+    sc = result["score_components"]
+    lines.append(f"**Fitness Score: {result['fitness_score']}/100**")
+    lines.append("")
+    lines.append("| Component | Points | Max |")
+    lines.append("| :--- | :--- | :--- |")
+    lines.append(f"| Swing ({_fmt(sc['swing']['value'])}%) | {sc['swing']['points']} | {sc['swing']['max']} |")
+    lines.append(f"| Consistency ({_fmt(sc['consistency']['value'])}%) | {sc['consistency']['points']} | {sc['consistency']['max']} |")
+    lines.append(f"| Level Quality ({sc['level_quality']['count']} Active Half+) | {sc['level_quality']['points']} | {sc['level_quality']['max']} |")
+    lines.append(f"| Hold Rate ({_fmt(sc['hold_rate']['best'])}%) | {sc['hold_rate']['points']} | {sc['hold_rate']['max']} |")
+    lines.append(f"| Order Hygiene ({sc['order_hygiene']['orphaned']} orphaned) | {sc['order_hygiene']['points']} | {sc['order_hygiene']['max']} |")
+    lines.append(f"| **Total** | **{result['fitness_score']}** | **100** |")
+    lines.append("")
+
+    # Cycle data table
+    cd = result["cycle_data"]
+    if cd:
+        lines.append("**Cycle Data** *(informational — not a verdict driver)*:")
+        lines.append("| Indicator | Value |")
+        lines.append("| :--- | :--- |")
+        lines.append(f"| RSI(14) | {_fmt(cd['rsi'])} |")
+        lines.append(f"| 50-SMA distance | {_fmt(cd['sma50_dist_pct'], '+.1f')}% |" if cd['sma50_dist_pct'] is not None else "| 50-SMA distance | N/A |")
+        lines.append(f"| 200-SMA distance | {_fmt(cd['sma200_dist_pct'], '+.1f')}% |" if cd['sma200_dist_pct'] is not None else "| 200-SMA distance | N/A |")
+        lines.append(f"| 3-month range pctile | {_fmt(cd['range_pctile'], '.0f')}th |" if cd['range_pctile'] is not None else "| 3-month range pctile | N/A |")
+        lines.append(f"| Up days (last 20) | {cd['up_days']}/{cd['up_day_total']} |")
+        lines.append(f"| Cycle State | {cd['cycle_state']} |")
+        lines.append("")
+
+    # Order sanity
+    oi = result["order_info"]
+    paused_note = ""
+    if oi["all_paused"] and oi["total_buy_orders"] > 0:
+        paused_note = " — All orders paused (earnings/market gate active)"
+    lines.append(f"**Order Sanity**: {oi['matched']} matched, {oi['drifted']} drifted, {oi['orphaned']} orphaned, {oi['paused']} paused{paused_note}")
+    lines.append("")
+
+    # Verdict
+    lines.append(f"**Verdict**: {v} — {result['verdict_note']}")
+    lines.append("")
+
+    # Re-entry signals
+    re = result.get("reentry_signals")
+    if re:
+        parts = []
+        if re["first_reliable_level"]:
+            parts.append(f"First reliable Active Half+ level: ${re['first_reliable_level']:.2f} (support ${re['first_reliable_support']:.2f})")
+        if re["pullback_estimate"]:
+            parts.append(f"Pullback estimate: ${re['pullback_estimate']:.2f} (from 20d high ${re['high_20d']:.2f})")
+        if parts:
+            lines.append("**Re-entry signals**: " + " | ".join(parts))
+            lines.append("")
+
+    return "\n".join(lines)
+
+
+def _format_summary_table(results):
+    """Format stdout summary table."""
+    lines = []
+    lines.append("| Ticker | Score | Verdict | Cycle | Note |")
+    lines.append("| :--- | :--- | :--- | :--- | :--- |")
+    for r in results:
+        score = str(r["fitness_score"]) if r["fitness_score"] is not None else "—"
+        cycle = r["cycle_data"]["cycle_state"] if r.get("cycle_data") else "—"
+        note = r["verdict_note"][:60] + "..." if len(r.get("verdict_note", "")) > 60 else r.get("verdict_note", "")
+        lines.append(f"| {r['ticker']} | {score} | {r['verdict']} | {cycle} | {note} |")
+    return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+def main():
+    portfolio = _load_portfolio()
+
+    if len(sys.argv) > 1:
+        tickers = [t.upper() for t in sys.argv[1:]]
+    else:
+        tickers = load_tickers_from_portfolio()
+
+    as_of = as_of_date_label()
+
+    # Parallel fetch + analyze
+    results = []
+    errors = []
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        futures = {pool.submit(_fetch_and_analyze, t): t for t in tickers}
+        for future in as_completed(futures):
+            ticker, data, hist, err = future.result()
+            if err:
+                errors.append((ticker, err))
+                continue
+            result = _process_ticker(ticker, data, hist, portfolio)
+            results.append(result)
+
+    # Sort by ticker for deterministic output
+    results.sort(key=lambda r: r["ticker"])
+
+    # Build markdown report
+    md_lines = [
+        f"# Watchlist Fitness Review",
+        f"",
+        f"*Data as of: {as_of}*",
+        f"",
+    ]
+    for r in results:
+        md_lines.append(_format_ticker_md(r))
+
+    if errors:
+        md_lines.append("## Errors")
+        md_lines.append("")
+        for ticker, err in sorted(errors):
+            md_lines.append(f"- **{ticker}**: {err}")
+        md_lines.append("")
+
+    md_content = "\n".join(md_lines)
+
+    # Build JSON output (strip non-serializable hist)
+    json_data = {
+        "as_of": as_of,
+        "generated": datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "ticker_count": len(results),
+        "error_count": len(errors),
+        "tickers": results,
+        "errors": [{"ticker": t, "error": e} for t, e in sorted(errors)],
+    }
+
+    # Write files
+    md_path = _ROOT / "watchlist-fitness.md"
+    json_path = _ROOT / "watchlist-fitness.json"
+    with open(md_path, "w") as f:
+        f.write(md_content)
+    with open(json_path, "w") as f:
+        json.dump(json_data, f, indent=2, default=str)
+
+    # Print summary to stdout
+    print(f"Watchlist Fitness Review — {as_of}")
+    print(f"Tickers analyzed: {len(results)}, errors: {len(errors)}")
+    print()
+    print(_format_summary_table(results))
+    print()
+    print(f"Files written: {md_path.name}, {json_path.name}")
+
+
+if __name__ == "__main__":
+    main()

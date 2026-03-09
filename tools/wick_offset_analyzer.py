@@ -383,16 +383,18 @@ def _compute_bullet_plan(level_results, current_price, cap=None):
     }
 
 
-def analyze_stock_data(ticker):
+def analyze_stock_data(ticker, hist=None):
     """Full per-stock, per-level analysis. Returns (data_dict, error_str) tuple.
 
     Returns (dict, None) on success, (None, "reason") on failure.
     NEVER prints — pure data function for batch callers.
+    If hist is provided, skips internal fetch_history() call (saves one yfinance round-trip).
     """
-    try:
-        hist = fetch_history(ticker, months=13)
-    except Exception as e:
-        return None, f"*Error fetching data for {ticker}: {e}*"
+    if hist is None:
+        try:
+            hist = fetch_history(ticker, months=13)
+        except Exception as e:
+            return None, f"*Error fetching data for {ticker}: {e}*"
     if hist.empty or len(hist) < 60:
         return None, f"*Skipping {ticker} — insufficient data (need 60+ trading days)*"
 
@@ -560,6 +562,7 @@ def analyze_stock_data(ticker):
         ],
         "bullet_plan": _compute_bullet_plan(level_results, current_price, load_capital_config()),
     }
+    data["hist"] = hist
 
     return data, None
 
