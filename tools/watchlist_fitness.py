@@ -520,7 +520,7 @@ def _format_ticker_md(result):
 
 
 def _format_summary_table(results):
-    """Format stdout summary table."""
+    """Format verdict summary table (used in stdout and watchlist-fitness.md)."""
     lines = []
     lines.append("| Ticker | Score | Verdict | Cycle | Note |")
     lines.append("| :--- | :--- | :--- | :--- | :--- |")
