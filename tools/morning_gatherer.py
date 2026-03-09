@@ -19,6 +19,7 @@ from datetime import date, datetime
 from pathlib import Path
 
 from trading_calendar import as_of_date_label, last_trading_day, is_trading_day
+from shared_constants import MATCH_TOLERANCE
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
@@ -209,31 +210,33 @@ def format_price(price):
 
 
 def cross_reference_fills(positions, pending_orders):
-    """Cross-reference pending BUY orders against recorded fill_prices.
+    """Cross-reference pending orders against recorded fill_prices and legacy notes.
 
-    Returns dict of {(ticker, order_price): "RECORDED"} for orders that
-    match a fill_price within 0.5% tolerance or have a legacy filled note.
+    Checks both BUY and SELL orders:
+    - BUY orders: matched against fill_prices within MATCH_TOLERANCE
+    - Both types: legacy "(filled 20..." note pattern marks as RECORDED
+
+    Returns dict of {(ticker, order_price): "RECORDED"}.
     """
     recorded = {}
     for ticker, orders in pending_orders.items():
         fill_prices = positions.get(ticker, {}).get("fill_prices", [])
         for order in orders:
-            if order.get("type", "").upper() != "BUY":
-                continue
             price = order.get("price", 0)
             if price == 0:
                 continue
-            # Legacy filled order: "(filled 20..." in note field
+            # Legacy filled order: "(filled 20..." in note field (any type)
             if "(filled 20" in order.get("note", ""):
                 recorded[(ticker, price)] = "RECORDED"
                 continue
-            # Check against fill_prices
-            for fp in fill_prices:
-                if fp == 0:
-                    continue
-                if abs(fp - price) / price <= 0.005:
-                    recorded[(ticker, price)] = "RECORDED"
-                    break
+            # Check BUY orders against fill_prices
+            if order.get("type", "").upper() == "BUY":
+                for fp in fill_prices:
+                    if fp == 0:
+                        continue
+                    if abs(fp - price) / price <= MATCH_TOLERANCE:
+                        recorded[(ticker, price)] = "RECORDED"
+                        break
     return recorded
 
 
@@ -414,7 +417,7 @@ def main():
         dte_str = str(dte) if dte is not None else "Unknown"
 
         # Status — RECORDED if fill already confirmed
-        status_str = recorded_fills.get((ticker, order.get("price", 0)), "")
+        status_str = recorded_fills.get((ticker, order_price), "")
         if status_str == "RECORDED":
             recorded_count += 1
 

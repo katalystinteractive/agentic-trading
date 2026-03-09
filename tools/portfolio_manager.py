@@ -20,14 +20,13 @@ import shutil
 from datetime import date
 from pathlib import Path
 
-# Sibling import (tools/ directory)
+# Sibling imports (tools/ directory)
 from trading_calendar import last_trading_day
+from shared_constants import MATCH_TOLERANCE
 
 _ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
 BACKUP_PATH = _ROOT / "portfolio.json.bak"
-
-MATCH_TOLERANCE = 0.005  # 0.5% — from bullet_recommender.py line 30
 
 TODAY = last_trading_day().isoformat()
 

@@ -27,7 +27,7 @@ from wick_offset_analyzer import analyze_stock_data, load_capital_config
 # Constants
 # ---------------------------------------------------------------------------
 
-MATCH_TOLERANCE = 0.005   # 0.5% — tighter than 2% to handle SOUN B1/B2 0.7% apart
+from shared_constants import MATCH_TOLERANCE  # 0.5%
 DRIFT_TOLERANCE = 0.05    # 5%
 CONVERGENCE_TOLERANCE = 0.005  # 0.5% for merging nearby levels
 
