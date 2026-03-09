@@ -21,13 +21,13 @@ PORTFOLIO_PATH = _ROOT / "portfolio.json"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from wick_offset_analyzer import analyze_stock_data, load_capital_config
+from shared_constants import MATCH_TOLERANCE
 
 
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
 
-from shared_constants import MATCH_TOLERANCE  # 0.5%
 DRIFT_TOLERANCE = 0.05    # 5%
 CONVERGENCE_TOLERANCE = 0.005  # 0.5% for merging nearby levels
 
