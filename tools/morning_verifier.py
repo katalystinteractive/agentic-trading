@@ -463,15 +463,26 @@ def parse_condensed_earnings(condensed_text, ticker):
                     except ValueError:
                         pass
 
-    # Try Pending Orders Detail table
-    for line in condensed_text.split("\n"):
+    # Try Pending Orders Detail table — header-based DTE column detection
+    lines = condensed_text.split("\n")
+    dte_col_idx = None
+    for line_idx, line in enumerate(lines):
         cells = parse_table_row(line)
-        if len(cells) >= 9 and cells[0].strip() == ticker:
-            try:
-                days = int(cells[7].strip())
-                return None, days
-            except ValueError:
-                pass
+        if len(cells) >= 8 and any("Days" in c and "Earnings" in c for c in cells):
+            for i, cell in enumerate(cells):
+                if "Days" in cell and "Earnings" in cell:
+                    dte_col_idx = i
+                    break
+            if dte_col_idx is not None:
+                for j in range(line_idx + 1, len(lines)):
+                    data_cells = parse_table_row(lines[j])
+                    if len(data_cells) > dte_col_idx and data_cells[0].strip() == ticker:
+                        try:
+                            days = int(data_cells[dte_col_idx].strip())
+                            return None, days
+                        except ValueError:
+                            pass
+                break
 
     return None, None
 

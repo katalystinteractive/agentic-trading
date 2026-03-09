@@ -44,9 +44,17 @@ For each pending BUY order, evaluate TWO gates:
 
 ### Step 1b: Fill Alert Detection
 
-For each pending BUY order, check the Day Range section:
-- If Day Low <= Order Price + 2%, flag as **near-fill** or **filled** (if Day Low <= Order Price)
-- Include fill alerts in the card's Buy Levels table Note column
+**CRITICAL TERMINOLOGY:**
+- **FILLED?** (in Portfolio Status table) = intraday detection (day low crossed order price). Requires broker verification.
+- **RECORDED** (in Pending Orders Status column) = fill already confirmed via portfolio.json fill_prices. No verification needed.
+- RECORDED always overrides FILLED? — never re-flag a RECORDED order.
+
+1. **Trading Day gate:** If Global Context "Trading Day" = "No", skip entirely.
+   Output: "Fill alerts suppressed (market closed, data from [date])."
+2. **Recorded fill gate:** If Pending Orders Status = "RECORDED", skip that order.
+3. **For remaining orders only** (Status blank):
+   - BUY: if day low <= order price + 2%, flag as **near-fill** or **filled** (if day low <= order price)
+   - Include fill alerts in the card's Buy Levels table Note column
 
 ### Step 2: Write Card
 

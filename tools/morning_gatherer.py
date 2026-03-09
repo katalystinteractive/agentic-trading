@@ -18,6 +18,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime
 from pathlib import Path
 
+from trading_calendar import as_of_date_label, last_trading_day, is_trading_day
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
 TOOLS_DIR = PROJECT_ROOT / "tools"
@@ -206,6 +208,35 @@ def format_price(price):
     return f"${price:.2f}"
 
 
+def cross_reference_fills(positions, pending_orders):
+    """Cross-reference pending BUY orders against recorded fill_prices.
+
+    Returns dict of {(ticker, order_price): "RECORDED"} for orders that
+    match a fill_price within 0.5% tolerance or have a legacy filled note.
+    """
+    recorded = {}
+    for ticker, orders in pending_orders.items():
+        fill_prices = positions.get(ticker, {}).get("fill_prices", [])
+        for order in orders:
+            if order.get("type", "").upper() != "BUY":
+                continue
+            price = order.get("price", 0)
+            if price == 0:
+                continue
+            # Legacy filled order: "(filled 20..." in note field
+            if "(filled 20" in order.get("note", ""):
+                recorded[(ticker, price)] = "RECORDED"
+                continue
+            # Check against fill_prices
+            for fp in fill_prices:
+                if fp == 0:
+                    continue
+                if abs(fp - price) / price <= 0.005:
+                    recorded[(ticker, price)] = "RECORDED"
+                    break
+    return recorded
+
+
 def main():
     print("Morning Gatherer — Tool Execution Script")
     print("=" * 50)
@@ -235,7 +266,7 @@ def main():
 
     all_errors = []
     now_str = datetime.now().strftime("%Y-%m-%d %H:%M")
-    today_str = date.today().isoformat()
+    today_str = last_trading_day().isoformat()
 
     # --- Step 1: Market-level tools ---
     print("\n[1/7] Running market_pulse.py...")
@@ -336,8 +367,12 @@ def main():
     pending_rows = []
     buy_count = 0
     sell_count = 0
+    recorded_count = 0
     buy_by_ticker = {}
     sell_by_ticker = {}
+
+    # Cross-reference fills against recorded fill_prices
+    recorded_fills = cross_reference_fills(positions, pending_orders)
 
     # Collect all orders sorted by ticker then price
     all_orders = []
@@ -378,8 +413,13 @@ def main():
         dte = earnings_data.get(ticker)
         dte_str = str(dte) if dte is not None else "Unknown"
 
+        # Status — RECORDED if fill already confirmed
+        status_str = recorded_fills.get((ticker, order.get("price", 0)), "")
+        if status_str == "RECORDED":
+            recorded_count += 1
+
         pending_rows.append(
-            f"| {ticker} | {order_type} | ${order_price:.2f} | {order_shares} | {format_price(current)} | {pct_str} | {active_str} | {dte_str} | {order_note} |"
+            f"| {ticker} | {order_type} | ${order_price:.2f} | {order_shares} | {format_price(current)} | {pct_str} | {active_str} | {dte_str} | {status_str} | {order_note} |"
         )
 
     # --- Step 5: Velocity & Bounce ---
@@ -417,8 +457,10 @@ def main():
 
     # Pending Orders Detail
     parts.append("## Pending Orders Detail\n")
-    parts.append("| Ticker | Type | Order Price | Shares | Current Price | % Below Current | Active Position | Days to Earnings | Notes |")
-    parts.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    trading_today = is_trading_day()
+    parts.append(f"*Data as of: {as_of_date_label()}. Trading day: {'Yes' if trading_today else 'No'}.*\n")
+    parts.append("| Ticker | Type | Order Price | Shares | Current Price | % Below Current | Active Position | Days to Earnings | Status | Notes |")
+    parts.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     for row in pending_rows:
         parts.append(row)
     parts.append("\n---\n")
@@ -536,18 +578,22 @@ def main():
                 json_sell_count += 1
                 json_sell_tickers[ticker] = json_sell_tickers.get(ticker, 0) + 1
 
+    # Adjust counts to exclude RECORDED orders for mismatch check
+    effective_buy_count = buy_count - recorded_count
+    effective_json_buy_count = json_buy_count - recorded_count
+
     parts.append(f"- Total pending BUY orders in portfolio.json: **{json_buy_count}** across **{len(json_buy_tickers)}** tickers ({', '.join(f'{t}:{c}' for t, c in sorted(json_buy_tickers.items()))})")
-    parts.append(f"- Total pending BUY order rows written: **{buy_count}**")
+    parts.append(f"- Total pending BUY order rows written: **{buy_count}** ({recorded_count} RECORDED)")
     parts.append(f"- Total pending SELL orders in portfolio.json: **{json_sell_count}** across **{len(json_sell_tickers)}** tickers ({', '.join(f'{t}:{c}' for t, c in sorted(json_sell_tickers.items()))})")
     parts.append(f"- Total pending SELL order rows written: **{sell_count}**")
     parts.append(f"- Active positions with tool data: **{len(active_tickers)}** ({', '.join(active_tickers)})")
     parts.append(f"- Watchlist tickers with tool data: **{len(watchlist_with_orders)}** ({', '.join(watchlist_with_orders)})")
     parts.append(f"- Scouting tickers (no orders): **{len(scouting)}** ({', '.join(scouting)})" if scouting else f"- Scouting tickers (no orders): **0**")
 
-    # Mismatch check
+    # Mismatch check (using effective counts that exclude RECORDED orders)
     mismatch = []
-    if json_buy_count != buy_count:
-        mismatch.append(f"BUY count mismatch: portfolio.json={json_buy_count}, written={buy_count}")
+    if effective_json_buy_count != effective_buy_count:
+        mismatch.append(f"BUY count mismatch: portfolio.json={effective_json_buy_count}, written={effective_buy_count}")
     if json_sell_count != sell_count:
         mismatch.append(f"SELL count mismatch: portfolio.json={json_sell_count}, written={sell_count}")
     parts.append(f"- Mismatch: **{'none' if not mismatch else '; '.join(mismatch)}**")
@@ -569,7 +615,7 @@ def main():
     print(f"Watchlist tickers: {len(watchlist_with_orders)} (with pending orders)")
     print(f"Scouting: {len(scouting)} (no orders)")
     print(f"Tool errors: {len(all_errors)}")
-    print(f"BUY orders: {buy_count} (json: {json_buy_count}) {'✓' if buy_count == json_buy_count else '✗ MISMATCH'}")
+    print(f"BUY orders: {buy_count} (json: {json_buy_count}, {recorded_count} RECORDED) {'✓' if effective_buy_count == effective_json_buy_count else '✗ MISMATCH'}")
     print(f"SELL orders: {sell_count} (json: {json_sell_count}) {'✓' if sell_count == json_sell_count else '✗ MISMATCH'}")
 
 

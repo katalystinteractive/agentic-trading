@@ -20,13 +20,16 @@ import shutil
 from datetime import date
 from pathlib import Path
 
+# Sibling import (tools/ directory)
+from trading_calendar import last_trading_day
+
 _ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
 BACKUP_PATH = _ROOT / "portfolio.json.bak"
 
 MATCH_TOLERANCE = 0.005  # 0.5% — from bullet_recommender.py line 30
 
-TODAY = date.today().strftime("%Y-%m-%d")
+TODAY = last_trading_day().isoformat()
 
 
 # ---------------------------------------------------------------------------
@@ -50,15 +53,17 @@ def _save(data):
 # Helpers
 # ---------------------------------------------------------------------------
 
-def _match_order(orders, price):
-    """Find order matching price within ±0.5% tolerance.
+def _match_order(orders, price, tolerance=None):
+    """Find order matching price within tolerance (default ±0.5%).
 
     Returns (index, order) or (None, None).
     """
+    if tolerance is None:
+        tolerance = MATCH_TOLERANCE
     for i, order in enumerate(orders):
         if order["price"] == 0:
             continue
-        if abs(order["price"] - price) / order["price"] <= MATCH_TOLERANCE:
+        if abs(order["price"] - price) / order["price"] <= tolerance:
             return i, order
     return None, None
 
@@ -239,6 +244,11 @@ def cmd_fill(data, args):
     buy_orders = [(i, o) for i, o in enumerate(orders) if o["type"] == "BUY"]
     buy_only = [o for _, o in buy_orders]
     match_idx, matched_order = _match_order(buy_only, price)
+    if match_idx is None:
+        # Fallback: try 2% tolerance for market order slippage
+        match_idx, matched_order = _match_order(buy_only, price, tolerance=0.02)
+        if match_idx is not None:
+            print(f"*Note: matched within 2% (order ${matched_order['price']:.2f}, fill ${price:.2f}).*")
     zone = "active"  # default
 
     if match_idx is not None:

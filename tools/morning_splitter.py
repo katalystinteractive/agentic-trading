@@ -14,6 +14,8 @@ import re
 import sys
 from pathlib import Path
 
+from trading_calendar import is_trading_day, as_of_date_label
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 CONDENSED = PROJECT_ROOT / "morning-briefing-condensed.md"
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
@@ -266,7 +268,7 @@ def parse_pending_orders(lines):
 
     headers = [
         "type", "order_price", "shares", "current_price",
-        "pct_below", "active_position", "days_to_earnings", "notes"
+        "pct_below", "active_position", "days_to_earnings", "status", "notes"
     ]
 
     for i in range(start + 1, len(lines)):
@@ -284,6 +286,9 @@ def parse_pending_orders(lines):
         order = {}
         for idx, key in enumerate(headers):
             order[key] = cells[idx + 1].strip() if idx + 1 < len(cells) else ""
+        # Skip confirmed fills — Status column is the single authoritative signal
+        if order.get("status", "").strip().upper() == "RECORDED":
+            continue
         orders.setdefault(ticker, []).append(order)
 
     return orders
@@ -420,7 +425,7 @@ def parse_date(lines):
 
 def build_ticker_file(ticker, ticker_type, date, regime_info, portfolio_summary,
                       capital, position_data, pending_orders_list,
-                      tool_output_text, day_range=None):
+                      tool_output_text, portfolio_data, day_range=None):
     """Build the content for a single TICKER.md file."""
     parts = []
 
@@ -440,6 +445,9 @@ def build_ticker_file(ticker, ticker_type, date, regime_info, portfolio_summary,
     parts.append(f"| VIX 5D% | {vix_5d} |")
     parts.append(f"| Indices Above 50-SMA | {regime_info['indices_above_sma']}/3 |")
     parts.append(f"| Sector Breadth | {regime_info['sector_breadth']}/11 positive |")
+    trading_today = is_trading_day()
+    parts.append(f"| Data Freshness | {as_of_date_label()} |")
+    parts.append(f"| Trading Day | {'Yes' if trading_today else 'No — fill detection suppressed'} |")
     parts.append("")
 
     # Portfolio Summary (all active tickers)
@@ -499,11 +507,24 @@ def build_ticker_file(ticker, ticker_type, date, regime_info, portfolio_summary,
         parts.append("Day range not available")
     parts.append("")
 
+    # Recorded Fills (watchlist-safe)
+    parts.append("## Recorded Fills")
+    ticker_pos = portfolio_data.get("positions", {}).get(ticker) if portfolio_data else None
+    fill_prices = ticker_pos.get("fill_prices", []) if ticker_pos else []
+    if fill_prices:
+        parts.append("| # | Fill Price |")
+        parts.append("| :--- | :--- |")
+        for idx, fp in enumerate(fill_prices, 1):
+            parts.append(f"| {idx} | ${fp:.2f} |")
+    else:
+        parts.append("No recorded fills")
+    parts.append("")
+
     # Pending Orders
     parts.append("## Pending Orders")
     if pending_orders_list:
-        parts.append("| Type | Order Price | Shares | % Below Current | Days to Earnings | Notes |")
-        parts.append("| :--- | :--- | :--- | :--- | :--- | :--- |")
+        parts.append("| Type | Order Price | Shares | % Below Current | Days to Earnings | Status | Notes |")
+        parts.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         for order in pending_orders_list:
             parts.append(
                 f"| {order.get('type', '')} "
@@ -511,6 +532,7 @@ def build_ticker_file(ticker, ticker_type, date, regime_info, portfolio_summary,
                 f"| {order.get('shares', '')} "
                 f"| {order.get('pct_below', '')} "
                 f"| {order.get('days_to_earnings', '')} "
+                f"| {order.get('status', '')} "
                 f"| {order.get('notes', '')} |"
             )
     else:
@@ -636,7 +658,7 @@ def main():
 
         file_content = build_ticker_file(
             ticker, "active", date, regime_info, portfolio_summary,
-            capital, pos_data, orders, tool_text,
+            capital, pos_data, orders, tool_text, portfolio_data,
             day_range=day_ranges.get(ticker)
         )
 
@@ -663,7 +685,7 @@ def main():
 
         file_content = build_ticker_file(
             ticker, "watchlist", date, regime_info, portfolio_summary,
-            capital, pos_data, orders, tool_text,
+            capital, pos_data, orders, tool_text, portfolio_data,
             day_range=day_ranges.get(ticker)
         )
 
@@ -691,7 +713,7 @@ def main():
 
         file_content = build_ticker_file(
             ticker, "scouting", date, regime_info, portfolio_summary,
-            capital, pos_data, orders, tool_text,
+            capital, pos_data, orders, tool_text, portfolio_data,
             day_range=day_ranges.get(ticker)
         )
 
