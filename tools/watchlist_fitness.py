@@ -20,12 +20,11 @@ PORTFOLIO_PATH = _ROOT / "portfolio.json"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from wick_offset_analyzer import (
-    analyze_stock_data, fetch_history, load_capital_config, load_tickers_from_portfolio,
+    analyze_stock_data, fetch_history, load_tickers_from_portfolio,
 )
 from technical_scanner import calc_rsi, sma
 from bullet_recommender import match_order_to_level, classify_drift, is_paused, parse_bullets_used
-from shared_constants import MATCH_TOLERANCE
-from trading_calendar import last_trading_day, as_of_date_label
+from trading_calendar import as_of_date_label
 
 # ---------------------------------------------------------------------------
 # Constants — scoring
@@ -35,8 +34,6 @@ CONSISTENCY_POINTS = 20
 LEVEL_COUNT_POINTS = 20
 HOLD_RATE_POINTS = 10
 ORDER_HYGIENE_POINTS = 30
-
-DRIFT_TOLERANCE = 0.05  # 5% — same as bullet_recommender
 
 
 # ---------------------------------------------------------------------------
@@ -255,15 +252,7 @@ def _compute_verdict(ticker, data, portfolio, order_info, swing, consistency):
 
     # Step B/E: Strategy fitness verdicts (first-match-wins)
     levels = data.get("levels", [])
-
-    # Count active Half+ levels
-    active_half_plus = _count_active_half_plus(levels)
-
-    # Check if all active-zone levels are Skip
-    active_levels = [lvl for lvl in levels if lvl.get("zone") == "Active"]
-    all_active_skip = len(active_levels) > 0 and all(
-        lvl.get("effective_tier", lvl.get("tier")) == "Skip" for lvl in active_levels
-    )
+    all_active_skip = order_info.get("all_active_skip", False)
 
     # REMOVE — fails strategy selection criteria
     if (swing is not None and swing < 10) or (consistency is not None and consistency < 80):
@@ -299,7 +288,7 @@ def _compute_verdict(ticker, data, portfolio, order_info, swing, consistency):
     restructure_reasons = []
     if order_info["orphaned"] > 0:
         restructure_reasons.append(f"{order_info['orphaned']} orphaned order(s)")
-    if all_active_skip and len(active_levels) > 0:
+    if all_active_skip:
         restructure_reasons.append("all Active-zone levels are Skip tier")
     if order_info["has_non_paused_orders"] and order_info["all_above_price"]:
         restructure_reasons.append("all non-paused orders above current price")
@@ -365,8 +354,29 @@ def _process_ticker(ticker, data, hist, portfolio):
     # Order analysis
     order_info = _analyze_orders(ticker, data, portfolio)
 
+    # Compute all_active_skip for verdict + JSON export
+    active_levels = [lvl for lvl in levels if lvl.get("zone") == "Active"]
+    all_active_skip = len(active_levels) > 0 and all(
+        lvl.get("effective_tier", lvl.get("tier")) == "Skip" for lvl in active_levels
+    )
+    order_info["all_active_skip"] = all_active_skip
+
     # Verdict
     verdict, verdict_note = _compute_verdict(ticker, data, portfolio, order_info, swing, consistency)
+
+    # Shared order_info dict for JSON output
+    def _order_info_json():
+        return {
+            "total_buy_orders": order_info["total_buy_orders"],
+            "matched": order_info["matched"],
+            "drifted": order_info["drifted"],
+            "orphaned": order_info["orphaned"],
+            "paused": order_info["paused_count"],
+            "all_paused": order_info["all_paused"],
+            "all_active_skip": order_info["all_active_skip"],
+            "all_above_price": order_info["all_above_price"],
+            "has_non_paused_orders": order_info["has_non_paused_orders"],
+        }
 
     # For RECOVERY — skip scoring
     if verdict == "RECOVERY":
@@ -380,14 +390,7 @@ def _process_ticker(ticker, data, hist, portfolio):
             "fitness_score": None,
             "score_components": None,
             "cycle_data": None,
-            "order_info": {
-                "total_buy_orders": order_info["total_buy_orders"],
-                "matched": order_info["matched"],
-                "drifted": order_info["drifted"],
-                "orphaned": order_info["orphaned"],
-                "paused": order_info["paused_count"],
-                "all_paused": order_info["all_paused"],
-            },
+            "order_info": _order_info_json(),
             "reentry_signals": None,
         }
 
@@ -434,14 +437,7 @@ def _process_ticker(ticker, data, hist, portfolio):
         "fitness_score": total,
         "score_components": score_components,
         "cycle_data": cycle_data,
-        "order_info": {
-            "total_buy_orders": order_info["total_buy_orders"],
-            "matched": order_info["matched"],
-            "drifted": order_info["drifted"],
-            "orphaned": order_info["orphaned"],
-            "paused": order_info["paused_count"],
-            "all_paused": order_info["all_paused"],
-        },
+        "order_info": _order_info_json(),
         "reentry_signals": reentry,
     }
 
@@ -487,9 +483,12 @@ def _format_ticker_md(result):
         lines.append("| Indicator | Value |")
         lines.append("| :--- | :--- |")
         lines.append(f"| RSI(14) | {_fmt(cd['rsi'])} |")
-        lines.append(f"| 50-SMA distance | {_fmt(cd['sma50_dist_pct'], '+.1f')}% |" if cd['sma50_dist_pct'] is not None else "| 50-SMA distance | N/A |")
-        lines.append(f"| 200-SMA distance | {_fmt(cd['sma200_dist_pct'], '+.1f')}% |" if cd['sma200_dist_pct'] is not None else "| 200-SMA distance | N/A |")
-        lines.append(f"| 3-month range pctile | {_fmt(cd['range_pctile'], '.0f')}th |" if cd['range_pctile'] is not None else "| 3-month range pctile | N/A |")
+        sma50_str = f"{cd['sma50_dist_pct']:+.1f}%" if cd['sma50_dist_pct'] is not None else "N/A"
+        lines.append(f"| 50-SMA distance | {sma50_str} |")
+        sma200_str = f"{cd['sma200_dist_pct']:+.1f}%" if cd['sma200_dist_pct'] is not None else "N/A"
+        lines.append(f"| 200-SMA distance | {sma200_str} |")
+        range_str = f"{cd['range_pctile']:.0f}th" if cd['range_pctile'] is not None else "N/A"
+        lines.append(f"| 3-month range pctile | {range_str} |")
         lines.append(f"| Up days (last 20) | {cd['up_days']}/{cd['up_day_total']} |")
         lines.append(f"| Cycle State | {cd['cycle_state']} |")
         lines.append("")

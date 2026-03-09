@@ -562,7 +562,6 @@ def analyze_stock_data(ticker, hist=None):
         ],
         "bullet_plan": _compute_bullet_plan(level_results, current_price, load_capital_config()),
     }
-    data["hist"] = hist
 
     return data, None
 

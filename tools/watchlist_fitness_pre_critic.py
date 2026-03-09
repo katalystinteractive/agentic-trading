@@ -48,8 +48,13 @@ def _rederive_base_verdict(t):
         return "REVIEW"  # position modifier → HOLD-WAIT
 
     oi = t.get("order_info", {})
+    # RESTRUCTURE has 3 conditions (any triggers it)
     if oi.get("orphaned", 0) > 0:
-        return "RESTRUCTURE"  # position modifier → HOLD-WAIT
+        return "RESTRUCTURE"
+    if oi.get("all_active_skip", False):
+        return "RESTRUCTURE"
+    if oi.get("has_non_paused_orders", False) and oi.get("all_above_price", False):
+        return "RESTRUCTURE"
 
     return "ENGAGE"  # position modifier → ADD
 
@@ -137,15 +142,19 @@ def check_order_count(data, portfolio):
 def check_paused_annotation(data, report_text):
     """Check 4: all_paused==true tickers have annotation in report."""
     issues = []
+    report_lower = report_text.lower()
     for t in data.get("tickers", []):
         if t.get("order_info", {}).get("all_paused") and t.get("order_info", {}).get("total_buy_orders", 0) > 0:
             ticker = t["ticker"]
-            # Check if report mentions paused for this ticker
             if ticker not in report_text:
                 issues.append(f"{ticker}: all_paused=true but ticker not found in report")
-            elif "paused" not in report_text.lower().split(ticker.lower())[-1][:500].lower() if ticker in report_text else True:
-                # Rough check — paused mention within 500 chars after ticker
-                pass  # relaxed — just check ticker presence
+                continue
+            # Check for "paused" mention within 500 chars after ticker in report
+            idx = report_lower.find(ticker.lower())
+            if idx >= 0:
+                after = report_lower[idx:idx + 500]
+                if "paused" not in after:
+                    issues.append(f"{ticker}: all_paused=true but no 'paused' annotation found near ticker in report")
 
     status = "PASS" if not issues else "MINOR"
     return {"check": "PAUSED Annotation", "status": status, "issues": issues}
