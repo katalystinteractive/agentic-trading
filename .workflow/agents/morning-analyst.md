@@ -199,7 +199,7 @@ RECORDED (confirmed) always overrides FILLED? (unverified intraday detection).
 
 Compare day ranges from the Portfolio Status Output in morning-briefing-condensed.md against pending orders:
 - **BUY fill alerts:** For each pending BUY order (Status blank only), check if the day's low approached or breached the order price. If day low <= order price + 2%, flag as a potential fill or near-fill.
-- **SELL fill alerts:** For each pending SELL order, check if the day's high approached or breached the order price. If day high >= order price - 2%, flag as a potential fill or near-fill.
+- **SELL fill alerts:** For each pending SELL order (Status blank only), check if the day's high approached or breached the order price. If day high >= order price - 2%, flag as a potential fill or near-fill.
 - Note fill probability: "Filled" (price crossed order level), "Near-fill" (within 2%), or omit if not close.
 
 ### Step 8: Compile Morning Briefing

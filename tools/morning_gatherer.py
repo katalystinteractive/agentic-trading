@@ -418,7 +418,7 @@ def main():
 
         # Status — RECORDED if fill already confirmed
         status_str = recorded_fills.get((ticker, order_price), "")
-        if status_str == "RECORDED":
+        if status_str == "RECORDED" and order_type == "BUY":
             recorded_count += 1
 
         pending_rows.append(
