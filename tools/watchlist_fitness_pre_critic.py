@@ -124,7 +124,7 @@ def check_cycle_state(data):
 
 
 def check_order_count(data, portfolio):
-    """Check 3: Non-paused BUY count in portfolio.json vs JSON totals."""
+    """Check 3: Total BUY order count in portfolio.json vs JSON totals."""
     issues = []
     pending_all = portfolio.get("pending_orders", {})
     for t in data.get("tickers", []):

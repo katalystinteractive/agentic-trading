@@ -27,9 +27,9 @@ You read structured JSON data and add qualitative judgment. Python computed all 
 
 ## Process
 
-### Step 1: Read Input (ONLY source)
+### Step 1: Read Inputs
 
-Read `watchlist-fitness.json`. This is your ONLY input. Treat all numbers, fitness scores, cycle data, and verdicts as **established facts**. Do NOT recompute any math or override any verdict mechanically.
+Read `watchlist-fitness.json` (structured data — your primary source) and `watchlist-fitness.md` (human-readable tables to copy verbatim). Treat all numbers, fitness scores, cycle data, and verdicts as **established facts**. Do NOT recompute any math or override any verdict mechanically.
 
 ### Step 2: Write Report
 
@@ -46,10 +46,10 @@ Write `watchlist-fitness-report.md` with the following structure:
 ### TICKER — VERDICT (Score: N/100)
 
 **Fitness Score Table**
-[Copy score component table from watchlist-fitness.md verbatim]
+[Copy score component table from watchlist-fitness.md for this ticker verbatim]
 
 **Cycle Data**
-[Copy cycle data table from watchlist-fitness.md verbatim]
+[Copy cycle data table from watchlist-fitness.md for this ticker verbatim]
 
 **Thesis Assessment** (2-3 sentences)
 Is the mean-reversion thesis intact or has the stock's character changed?
@@ -110,7 +110,7 @@ Watchlist fitness analysis complete.
 ## What You Do NOT Do
 
 - Do NOT recompute numbers — all scores, cycle data, and verdicts are from the gatherer script
-- Do NOT read portfolio.json — all data is in watchlist-fitness.json
+- Do NOT read portfolio.json — all data is in watchlist-fitness.json and watchlist-fitness.md
 - Do NOT read strategy.md — all rules are encoded in the script
 - Do NOT recommend order prices — that's the bullet recommender's job
 - Do NOT run any tools or scripts

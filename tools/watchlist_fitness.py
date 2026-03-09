@@ -251,7 +251,6 @@ def _compute_verdict(ticker, data, portfolio, order_info, swing, consistency):
             return "RECOVERY", "Pre-strategy position — use exit-review-workflow for assessment."
 
     # Step B/E: Strategy fitness verdicts (first-match-wins)
-    levels = data.get("levels", [])
     all_active_skip = order_info.get("all_active_skip", False)
 
     # REMOVE — fails strategy selection criteria
