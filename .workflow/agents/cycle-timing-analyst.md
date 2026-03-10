@@ -29,7 +29,9 @@ You read structured JSON data and raw markdown, then add qualitative judgment. P
 
 ### Step 1: Read Inputs
 
-Read `cycle-timing-raw.md` (human-readable tables — copy verbatim where needed) and per-ticker `tickers/<TICKER>/cycle_timing.json` (structured data — your primary source).
+1. Read `cycle-timing-raw.md` and extract the list of analyzed tickers by finding all `## Cycle Timing Analysis: TICKER` headers (e.g., `## Cycle Timing Analysis: OUST` → ticker is `OUST`).
+2. For each discovered ticker, read `tickers/<TICKER>/cycle_timing.json` (structured data — your primary source).
+3. Copy tables verbatim from `cycle-timing-raw.md` where the report template calls for it.
 
 Treat all numbers, cycle durations, cooldown recommendations, and confidence levels as **established facts**. Do NOT recompute any math.
 

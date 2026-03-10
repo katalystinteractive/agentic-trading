@@ -156,7 +156,6 @@ def check_recency(data):
     """Most recent cycle >90 days = stale. days_deep >= days_first for all cycles."""
     issues = []
     cycles = data.get("cycles", [])
-    ticker = data.get("ticker", "?")
 
     # Staleness
     if cycles:
@@ -204,7 +203,6 @@ def main():
         print("*No tickers found in cycle-timing-raw.md.*")
         return
 
-    all_results = []
     check_names = [
         "Math verification",
         "Cooldown formula",
@@ -255,8 +253,7 @@ def main():
     for i, name in enumerate(check_names, 1):
         issues = global_issues[name]
         # Minor issues don't fail the check
-        real_issues = [x for x in issues if not x.startswith("[Minor]")
-                       and not any(x.startswith(f"{t}: [Minor]") for t in tickers)]
+        real_issues = [x for x in issues if "[Minor]" not in x]
         if not real_issues:
             lines.append(f"| {i} | {name} | PASS |")
             total_pass += 1

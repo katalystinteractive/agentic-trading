@@ -11,7 +11,6 @@ Usage:
 """
 import sys
 import json
-import datetime
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -19,7 +18,6 @@ import numpy as np
 import pandas as pd
 
 _ROOT = Path(__file__).resolve().parent.parent
-PORTFOLIO_PATH = _ROOT / "portfolio.json"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from wick_offset_analyzer import (
@@ -59,10 +57,10 @@ def _dedupe_levels(levels, tolerance_pct=0.02):
         if prev["price"] > 0 and (lvl["price"] - prev["price"]) / prev["price"] < tolerance_pct:
             # Merge: average price, combine sources, keep max touches/volume
             prev["price"] = round((prev["price"] + lvl["price"]) / 2, 4)
-            src_prev = prev.get("source", "")
-            src_new = lvl.get("source", "")
-            if src_new and src_new not in src_prev:
-                prev["source"] = src_prev + "+" + src_new if src_prev else src_new
+            # Combine sources using set to avoid duplicates like "HVN+HVN"
+            prev_sources = set(prev.get("source", "").split("+")) - {""}
+            new_sources = set(lvl.get("source", "").split("+")) - {""}
+            prev["source"] = "+".join(sorted(prev_sources | new_sources))
             prev["touches"] = max(prev.get("touches", 0), lvl.get("touches", 0))
             prev["volume"] = max(prev.get("volume", 0), lvl.get("volume", 0))
         else:
@@ -137,7 +135,9 @@ def _detect_resistance(hist, current_price):
     resistance_levels = [l for l in resistance_levels
                          if l["price"] >= current_price]
 
-    # Fallback: if nothing found, widen zone below current_price
+    # Fallback: if nothing found, widen zone below current_price.
+    # Intentionally omits price >= current_price filter — captures levels
+    # the stock recently broke through (0-10% below current price).
     if not resistance_levels:
         zone_low = current_price * 0.90
         pa_levels = find_pa_resistances(hist, zone_low, zone_high)
@@ -284,6 +284,19 @@ def analyze_ticker(ticker):
 
     # Step A: Resistance levels
     resistance_levels = _detect_resistance(hist, current_price)
+    # Consistent schema for NO_DATA returns
+    _NO_DATA_STATS = {
+        "total_cycles": 0,
+        "median_first": None, "min_first": None, "max_first": None,
+        "median_deep": None, "min_deep": None, "max_deep": None,
+        "immediate_fill_pct": 0,
+    }
+    _NO_DATA_REC = {
+        "cooldown_days": None,
+        "confidence": "NO_DATA",
+        "immediate_reentry_viable": False,
+    }
+
     if not resistance_levels:
         return ticker, {
             "ticker": ticker,
@@ -293,13 +306,9 @@ def analyze_ticker(ticker):
             "support_levels_used": [],
             "current_cycle": None,
             "cycles": [],
-            "statistics": {"total_cycles": 0},
+            "statistics": dict(_NO_DATA_STATS),
             "post_resistance_decay": {},
-            "recommendation": {
-                "cooldown_days": None,
-                "confidence": "NO_DATA",
-                "immediate_reentry_viable": False,
-            },
+            "recommendation": dict(_NO_DATA_REC),
         }, None
 
     # Step B: Resistance events
@@ -323,13 +332,9 @@ def analyze_ticker(ticker):
             "support_levels_used": [],
             "current_cycle": None,
             "cycles": [],
-            "statistics": {"total_cycles": 0},
+            "statistics": dict(_NO_DATA_STATS),
             "post_resistance_decay": {},
-            "recommendation": {
-                "cooldown_days": None,
-                "confidence": "NO_DATA",
-                "immediate_reentry_viable": False,
-            },
+            "recommendation": dict(_NO_DATA_REC),
         }, None
 
     # Step C: Support levels
@@ -672,14 +677,15 @@ def main():
 
     for ticker in sorted(results.keys()):
         r = results[ticker]
-        output_lines.append(_format_ticker_report(r))
+        ticker_md = _format_ticker_report(r)
+        output_lines.append(ticker_md)
 
         # Write per-ticker files
         ticker_dir = _ROOT / "tickers" / ticker
         ticker_dir.mkdir(parents=True, exist_ok=True)
         md_path = ticker_dir / "cycle_timing.md"
         json_path = ticker_dir / "cycle_timing.json"
-        md_path.write_text(_format_ticker_report(r), encoding="utf-8")
+        md_path.write_text(ticker_md, encoding="utf-8")
         json_path.write_text(json.dumps(r, indent=2, default=str),
                              encoding="utf-8")
 
