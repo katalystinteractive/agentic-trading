@@ -1,0 +1,46 @@
+name: cycle-timing-workflow
+description: >
+  Cycle timing analysis for re-entry order placement. Phase 1: Python measures
+  resistance-to-support cycle duration. Phase 2: LLM adds sector/regime context.
+  Phase 3: pre-critic verifies math + LLM stress-tests recommendations.
+version: "1.0.0"
+
+phases:
+  - id: gather
+    name: Cycle Timing Data Gathering
+    description: Run cycle_timing_analyzer.py for specified tickers
+    agent: cycle-timing-gatherer
+    artifacts:
+      - cycle-timing-raw.md
+    timeout_minutes: 5
+
+  - id: analyze
+    name: Cycle Timing Analysis
+    description: LLM reads raw data + per-ticker JSON, adds qualitative context
+    agent: cycle-timing-analyst
+    depends_on:
+      - gather
+    requires:
+      - cycle-timing-raw.md
+    artifacts:
+      - cycle-timing-report.md
+    timeout_minutes: 8
+
+  - id: review
+    name: Cycle Timing Review
+    description: Pre-critic verifies math + LLM stress-tests recommendations
+    agent: cycle-timing-critic
+    depends_on:
+      - analyze
+    requires:
+      - cycle-timing-raw.md
+      - cycle-timing-report.md
+    artifacts:
+      - cycle-timing-pre-critic.md
+      - cycle-timing-review.md
+    timeout_minutes: 6
+
+settings:
+  max_fix_iterations: 0
+  require_approval: false
+  timeout_minutes: 19
