@@ -37,6 +37,19 @@ PROXIMITY_PCT = 8.0          # matches upstream functions
 DEEP_THRESHOLD_PCT = 10.0    # support >10% below resistance = "order-zone" level
 DECAY_OFFSETS = [1, 3, 5, 10]
 
+# Consistent schema for NO_DATA / early-return results
+_NO_DATA_STATS = {
+    "total_cycles": 0,
+    "median_first": None, "min_first": None, "max_first": None,
+    "median_deep": None, "min_deep": None, "max_deep": None,
+    "immediate_fill_pct": 0,
+}
+_NO_DATA_REC = {
+    "cooldown_days": None,
+    "confidence": "NO_DATA",
+    "immediate_reentry_viable": False,
+}
+
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -117,6 +130,22 @@ def _enrich_resistance_levels(resistance_levels, hist, current_price):
             lvl["historical_approaches"] = max(0, lvl.get("approaches", 0) - 1)
         else:
             lvl["historical_approaches"] = lvl.get("approaches", 0)
+
+
+def _serialize_resistance_levels(resistance_levels):
+    """Serialize resistance levels to a clean subset of keys for JSON output."""
+    return [
+        {
+            "price": round(l["price"], 2),
+            "approaches": l.get("approaches", 0),
+            "historical_approaches": l.get("historical_approaches", 0),
+            "rejected": l.get("rejected", 0),
+            "broke": l.get("broke", 0),
+            "reject_rate": round(l.get("reject_rate", 0), 1),
+            "source": l.get("source", ""),
+        }
+        for l in resistance_levels
+    ]
 
 
 def _detect_resistance(hist, current_price):
@@ -243,12 +272,14 @@ def find_first_support_after(hist, support_levels, after_date_str,
         subset = subset[subset.index < end_dt]
 
     sorted_supports = sorted(support_levels, key=lambda l: l["price"], reverse=True)
-    for date, row in subset.iterrows():
-        low = row["Low"]
+    lows = subset["Low"].values
+    dates = subset.index
+    for i in range(len(subset)):
+        low = lows[i]
         for lvl in sorted_supports:
             price = lvl["price"]
             if low <= price * (1 + pct) and low >= price * (1 - pct):
-                return date.strftime("%Y-%m-%d"), price
+                return dates[i].strftime("%Y-%m-%d"), price
     return None, None
 
 
@@ -286,25 +317,13 @@ def analyze_ticker(ticker):
 
     # Step A: Resistance levels
     resistance_levels = _detect_resistance(hist, current_price)
-    # Consistent schema for NO_DATA returns
-    _NO_DATA_STATS = {
-        "total_cycles": 0,
-        "median_first": None, "min_first": None, "max_first": None,
-        "median_deep": None, "min_deep": None, "max_deep": None,
-        "immediate_fill_pct": 0,
-    }
-    _NO_DATA_REC = {
-        "cooldown_days": None,
-        "confidence": "NO_DATA",
-        "immediate_reentry_viable": False,
-    }
 
     if not resistance_levels:
         return ticker, {
             "ticker": ticker,
             "current_price": current_price,
             "last_date": last_date,
-            "resistance_levels": [],
+            "resistance_levels": _serialize_resistance_levels([]),
             "support_levels_used": [],
             "current_cycle": None,
             "cycles": [],
@@ -330,7 +349,7 @@ def analyze_ticker(ticker):
             "ticker": ticker,
             "current_price": current_price,
             "last_date": last_date,
-            "resistance_levels": resistance_levels,
+            "resistance_levels": _serialize_resistance_levels(resistance_levels),
             "support_levels_used": [],
             "current_cycle": None,
             "cycles": [],
@@ -347,18 +366,7 @@ def analyze_ticker(ticker):
             "ticker": ticker,
             "current_price": current_price,
             "last_date": last_date,
-            "resistance_levels": [
-                {
-                    "price": round(l["price"], 2),
-                    "approaches": l.get("approaches", 0),
-                    "historical_approaches": l.get("historical_approaches", 0),
-                    "rejected": l.get("rejected", 0),
-                    "broke": l.get("broke", 0),
-                    "reject_rate": round(l.get("reject_rate", 0), 1),
-                    "source": l.get("source", ""),
-                }
-                for l in resistance_levels
-            ],
+            "resistance_levels": _serialize_resistance_levels(resistance_levels),
             "support_levels_used": [],
             "current_cycle": None,
             "cycles": [],
@@ -472,18 +480,7 @@ def analyze_ticker(ticker):
         "ticker": ticker,
         "current_price": current_price,
         "last_date": last_date,
-        "resistance_levels": [
-            {
-                "price": round(l["price"], 2),
-                "approaches": l.get("approaches", 0),
-                "historical_approaches": l.get("historical_approaches", 0),
-                "rejected": l.get("rejected", 0),
-                "broke": l.get("broke", 0),
-                "reject_rate": round(l.get("reject_rate", 0), 1),
-                "source": l.get("source", ""),
-            }
-            for l in resistance_levels
-        ],
+        "resistance_levels": _serialize_resistance_levels(resistance_levels),
         "support_levels_used": [
             {"price": round(s["price"], 2), "source": s.get("source", "")}
             for s in all_supports
@@ -600,9 +597,13 @@ def _format_ticker_report(r):
 
     # Cycle Event Log
     lines.append("### Cycle Event Log")
-    lines.append("| # | R Date | R Level | 1st Touch | Days | "
-                  "Deep Touch | Days |")
-    lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    if not r["cycles"]:
+        lines.append("*No completed cycles recorded.*")
+        lines.append("")
+    else:
+        lines.append("| # | R Date | R Level | 1st Touch | Days | "
+                      "Deep Touch | Days |")
+        lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     for i, c in enumerate(r["cycles"], 1):
         ft = c.get("first_touch_date", "—") or "—"
         ft_p = _fmt_dollar(c.get("first_touch_price"))
