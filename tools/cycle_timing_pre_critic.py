@@ -157,12 +157,15 @@ def check_recency(data):
     issues = []
     cycles = data.get("cycles", [])
 
-    # Staleness
+    # Staleness — use last_date from data (not date.today()) per data staleness convention
     if cycles:
         most_recent = max(c["resistance_date"] for c in cycles)
         try:
             rd = datetime.date.fromisoformat(most_recent)
-            age = (datetime.date.today() - rd).days
+            last_date_str = data.get("last_date", "")
+            ref_date = (datetime.date.fromisoformat(last_date_str)
+                        if last_date_str else datetime.date.today())
+            age = (ref_date - rd).days
             if age > 90:
                 issues.append(f"[Minor] Most recent cycle is {age} days old (stale)")
         except ValueError:

@@ -103,6 +103,22 @@ def _compute_decay(hist, res_date_str, offsets=DECAY_OFFSETS):
 # ---------------------------------------------------------------------------
 # Step A: Detect resistance levels
 # ---------------------------------------------------------------------------
+def _enrich_resistance_levels(resistance_levels, hist, current_price):
+    """Add approach counts and historical_approaches to each resistance level.
+
+    Modifies levels in-place. Deflates approach count by 1 if current_price
+    is near the level (live approach included in count_resistance_approaches).
+    """
+    for lvl in resistance_levels:
+        stats = count_resistance_approaches(hist, lvl["price"],
+                                             proximity_pct=PROXIMITY_PCT)
+        lvl.update(stats)
+        if current_price >= lvl["price"] * (1 - PROXIMITY_PCT / 100.0):
+            lvl["historical_approaches"] = max(0, lvl.get("approaches", 0) - 1)
+        else:
+            lvl["historical_approaches"] = lvl.get("approaches", 0)
+
+
 def _detect_resistance(hist, current_price):
     """Find resistance levels with approach counts and breakout filtering.
 
@@ -116,16 +132,7 @@ def _detect_resistance(hist, current_price):
     hvn_levels = find_hvn_ceilings(hist, zone_low, zone_high)
     resistance_levels = merge_resistance_levels(pa_levels, hvn_levels)
 
-    # Enrich with approach counts
-    for lvl in resistance_levels:
-        stats = count_resistance_approaches(hist, lvl["price"],
-                                             proximity_pct=PROXIMITY_PCT)
-        lvl.update(stats)
-        # Deflate if current price is near this level (live approach included)
-        if current_price >= lvl["price"] * (1 - PROXIMITY_PCT / 100.0):
-            lvl["historical_approaches"] = max(0, lvl.get("approaches", 0) - 1)
-        else:
-            lvl["historical_approaches"] = lvl.get("approaches", 0)
+    _enrich_resistance_levels(resistance_levels, hist, current_price)
 
     # Filter: 2+ historical approaches
     resistance_levels = [l for l in resistance_levels
@@ -143,14 +150,7 @@ def _detect_resistance(hist, current_price):
         pa_levels = find_pa_resistances(hist, zone_low, zone_high)
         hvn_levels = find_hvn_ceilings(hist, zone_low, zone_high)
         resistance_levels = merge_resistance_levels(pa_levels, hvn_levels)
-        for lvl in resistance_levels:
-            stats = count_resistance_approaches(hist, lvl["price"],
-                                                 proximity_pct=PROXIMITY_PCT)
-            lvl.update(stats)
-            if current_price >= lvl["price"] * (1 - PROXIMITY_PCT / 100.0):
-                lvl["historical_approaches"] = max(0, lvl.get("approaches", 0) - 1)
-            else:
-                lvl["historical_approaches"] = lvl.get("approaches", 0)
+        _enrich_resistance_levels(resistance_levels, hist, current_price)
         resistance_levels = [l for l in resistance_levels
                              if l.get("historical_approaches", 0) >= 2]
 
@@ -170,14 +170,16 @@ def find_resistance_events(hist, resistance_levels, proximity_pct=PROXIMITY_PCT)
     events = []
     pct = proximity_pct / 100.0
 
+    highs = hist["High"].values
+    closes = hist["Close"].values
+    dates = hist.index
+
     for lvl in resistance_levels:
         price = lvl["price"]
         lower = price * (1 - pct)
         for i in range(len(hist)):
-            high = hist["High"].iloc[i]
-            close = hist["Close"].iloc[i]
-            if high >= lower and close < price:
-                date_str = hist.index[i].strftime("%Y-%m-%d")
+            if highs[i] >= lower and closes[i] < price:
+                date_str = dates[i].strftime("%Y-%m-%d")
                 events.append((date_str, price))
 
     # Deduplicate exact (date, price) pairs, sort by date then price
@@ -339,6 +341,32 @@ def analyze_ticker(ticker):
 
     # Step C: Support levels
     all_supports = _detect_supports(hist, resistance_levels, current_price)
+
+    if not all_supports:
+        return ticker, {
+            "ticker": ticker,
+            "current_price": current_price,
+            "last_date": last_date,
+            "resistance_levels": [
+                {
+                    "price": round(l["price"], 2),
+                    "approaches": l.get("approaches", 0),
+                    "historical_approaches": l.get("historical_approaches", 0),
+                    "rejected": l.get("rejected", 0),
+                    "broke": l.get("broke", 0),
+                    "reject_rate": round(l.get("reject_rate", 0), 1),
+                    "source": l.get("source", ""),
+                }
+                for l in resistance_levels
+            ],
+            "support_levels_used": [],
+            "current_cycle": None,
+            "cycles": [],
+            "statistics": dict(_NO_DATA_STATS),
+            "post_resistance_decay": {},
+            "recommendation": dict(_NO_DATA_REC),
+            "_note": "No support levels detected — cycle matching not possible.",
+        }, None
 
     # Step D: Match cycles
     cycles = []
@@ -506,6 +534,12 @@ def _format_ticker_report(r):
     lines.append(f"*Data as of: {r['last_date']}*")
     lines.append(f"**Current Price: {_fmt_dollar(r['current_price'])}**")
     lines.append("")
+
+    # Surface notes (e.g., "No support levels detected")
+    note = r.get("_note")
+    if note:
+        lines.append(f"*{note}*")
+        lines.append("")
 
     # Current Cycle
     cc = r.get("current_cycle")

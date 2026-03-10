@@ -50,7 +50,10 @@ Write `cycle-timing-report.md` with the following structure:
 ### TICKER — Cooldown: Nd (Confidence: NORMAL/LOW/NO_DATA)
 
 **Cycle Statistics**
-[Copy statistics tables from cycle-timing-raw.md for this ticker verbatim]
+[Copy "Cycle Statistics", "Post-Resistance Price Decay", and recommendation tables from cycle-timing-raw.md for this ticker verbatim]
+
+**Cycle Event Log**
+[Copy "Cycle Event Log" table from cycle-timing-raw.md for this ticker verbatim — the critic needs this for backtesting]
 
 **Sector Context** (1-2 sentences)
 Why does this stock cycle at this speed? Sector-specific catalysts (e.g., crypto
