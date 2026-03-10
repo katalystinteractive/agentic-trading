@@ -24,12 +24,12 @@ OUTPUT_PATH = _ROOT / "cycle-timing-pre-critic.md"
 def _load_text(path):
     if not path.exists():
         return ""
-    with open(path, "r") as f:
+    with open(path, "r", encoding="utf-8") as f:
         return f.read()
 
 
 def _load_json(path):
-    with open(path, "r") as f:
+    with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 

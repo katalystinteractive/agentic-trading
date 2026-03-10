@@ -604,19 +604,19 @@ def _format_ticker_report(r):
         lines.append("| # | R Date | R Level | 1st Touch | Days | "
                       "Deep Touch | Days |")
         lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
-    for i, c in enumerate(r["cycles"], 1):
-        ft = c.get("first_touch_date", "—") or "—"
-        ft_p = _fmt_dollar(c.get("first_touch_price"))
-        ft_str = f"{ft} @ {ft_p}" if ft != "—" else "—"
-        dt = c.get("deep_touch_date", "—") or "—"
-        dt_p = _fmt_dollar(c.get("deep_touch_price"))
-        dt_str = f"{dt} @ {dt_p}" if dt != "—" else "—"
-        lines.append(
-            f"| {i} | {c['resistance_date']} | "
-            f"{_fmt_dollar(c['resistance_price'])} | "
-            f"{ft_str} | {_fmt_days(c.get('days_first'))} | "
-            f"{dt_str} | {_fmt_days(c.get('days_deep'))} |"
-        )
+        for i, c in enumerate(r["cycles"], 1):
+            ft = c.get("first_touch_date", "—") or "—"
+            ft_p = _fmt_dollar(c.get("first_touch_price"))
+            ft_str = f"{ft} @ {ft_p}" if ft != "—" else "—"
+            dt = c.get("deep_touch_date", "—") or "—"
+            dt_p = _fmt_dollar(c.get("deep_touch_price"))
+            dt_str = f"{dt} @ {dt_p}" if dt != "—" else "—"
+            lines.append(
+                f"| {i} | {c['resistance_date']} | "
+                f"{_fmt_dollar(c['resistance_price'])} | "
+                f"{ft_str} | {_fmt_days(c.get('days_first'))} | "
+                f"{dt_str} | {_fmt_days(c.get('days_deep'))} |"
+            )
     lines.append("")
 
     # Resistance Levels Detected
