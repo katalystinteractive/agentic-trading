@@ -27,8 +27,39 @@ from shared_constants import MATCH_TOLERANCE
 _ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
 BACKUP_PATH = _ROOT / "portfolio.json.bak"
+TRADE_HISTORY_PATH = _ROOT / "trade_history.json"
 
 TODAY = last_trading_day().isoformat()
+
+
+# ---------------------------------------------------------------------------
+# Trade history ledger
+# ---------------------------------------------------------------------------
+
+def _record_trade(trade_dict):
+    """Append a trade record to trade_history.json (auto-creates file).
+
+    If the file exists but contains corrupt JSON, renames it to
+    trade_history.json.corrupt and starts fresh so future trades
+    are not permanently blocked.
+    """
+    if TRADE_HISTORY_PATH.exists():
+        try:
+            with open(TRADE_HISTORY_PATH, "r", encoding="utf-8") as f:
+                history = json.load(f)
+        except (json.JSONDecodeError, ValueError):
+            ts = date.today().isoformat()
+            corrupt = TRADE_HISTORY_PATH.with_name(f"trade_history.json.corrupt.{ts}")
+            TRADE_HISTORY_PATH.rename(corrupt)
+            history = {"trades": []}
+    else:
+        history = {"trades": []}
+    trades = history.setdefault("trades", [])
+    trade_dict["id"] = max((t["id"] for t in trades), default=0) + 1
+    trades.append(trade_dict)
+    with open(TRADE_HISTORY_PATH, "w", encoding="utf-8") as f:
+        json.dump(history, f, indent=2)
+        f.write("\n")
 
 
 # ---------------------------------------------------------------------------
@@ -253,13 +284,14 @@ def cmd_fill(data, args):
     if match_idx is not None:
         # Map back to original index in orders list
         idx = buy_orders[match_idx][0]
-        note = matched_order.get("note", "")
-        if "reserve" in note.lower():
+        matched_note = matched_order.get("note", "")
+        if "reserve" in matched_note.lower():
             zone = "reserve"
         orders.pop(idx)
         pending[ticker] = orders
     else:
         idx = None
+        matched_note = ""
         print(f"*Warning: no matching pending order found for {ticker} @ {_fmt_dollar(price)}.*")
 
     # Increment bullets_used
@@ -271,6 +303,22 @@ def cmd_fill(data, args):
         pos["entry_date"] = TODAY
 
     _save(data)
+
+    try:
+        _record_trade({
+            "ticker": ticker,
+            "side": "BUY",
+            "date": TODAY,
+            "shares": shares,
+            "price": price,
+            "avg_cost_before": round(old_avg, 2),
+            "avg_cost_after": round(new_avg, 2),
+            "total_shares_after": total_shares,
+            "zone": zone,
+            "note": matched_note,
+        })
+    except Exception:
+        pass
 
     # Print confirmation
     _print_table([
@@ -366,6 +414,22 @@ def cmd_sell(data, args):
 
         _save(data)
 
+        try:
+            _record_trade({
+                "ticker": ticker,
+                "side": "SELL",
+                "date": TODAY,
+                "shares": shares,
+                "price": price,
+                "avg_cost_before": round(old_avg, 2),
+                "avg_cost_after": 0,
+                "total_shares_after": 0,
+                "pnl_pct": round(pct_change, 1),
+                "note": "Full close",
+            })
+        except Exception:
+            pass
+
         _print_table([
             ("Shares", old_shares, 0),
             ("Avg Cost", _fmt_dollar(old_avg), _fmt_dollar(0)),
@@ -404,6 +468,23 @@ def cmd_sell(data, args):
         pos["shares"] = new_shares
 
         _save(data)
+
+        pct_change_partial = round((price - old_avg) / old_avg * 100, 1) if old_avg > 0 else 0
+        try:
+            _record_trade({
+                "ticker": ticker,
+                "side": "SELL",
+                "date": TODAY,
+                "shares": shares,
+                "price": price,
+                "avg_cost_before": round(old_avg, 2),
+                "avg_cost_after": round(old_avg, 2),
+                "total_shares_after": new_shares,
+                "pnl_pct": pct_change_partial,
+                "note": "Partial sell",
+            })
+        except Exception:
+            pass
 
         _print_table([
             ("Shares", old_shares, new_shares),
