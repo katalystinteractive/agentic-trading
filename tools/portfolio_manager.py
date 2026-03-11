@@ -54,6 +54,8 @@ def _record_trade(trade_dict):
             history = {"trades": []}
     else:
         history = {"trades": []}
+    if not isinstance(history, dict):
+        history = {"trades": []}
     trades = history.setdefault("trades", [])
     trade_dict["id"] = max((t.get("id", 0) for t in trades), default=0) + 1
     trades.append(trade_dict)
@@ -310,7 +312,7 @@ def cmd_fill(data, args):
             "side": "BUY",
             "date": TODAY,
             "shares": shares,
-            "price": price,
+            "price": round(price, 2),
             "avg_cost_before": round(old_avg, 2),
             "avg_cost_after": round(new_avg, 2),
             "total_shares_after": total_shares,
@@ -422,7 +424,7 @@ def cmd_sell(data, args):
                 "side": "SELL",
                 "date": TODAY,
                 "shares": shares,
-                "price": price,
+                "price": round(price, 2),
                 "avg_cost_before": round(old_avg, 2),
                 "avg_cost_after": 0,
                 "total_shares_after": 0,
@@ -478,7 +480,7 @@ def cmd_sell(data, args):
                 "side": "SELL",
                 "date": TODAY,
                 "shares": shares,
-                "price": price,
+                "price": round(price, 2),
                 "avg_cost_before": round(old_avg, 2),
                 "avg_cost_after": round(old_avg, 2),
                 "total_shares_after": new_shares,
