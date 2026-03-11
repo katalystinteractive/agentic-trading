@@ -55,7 +55,7 @@ def _record_trade(trade_dict):
     else:
         history = {"trades": []}
     trades = history.setdefault("trades", [])
-    trade_dict["id"] = max((t["id"] for t in trades), default=0) + 1
+    trade_dict["id"] = max((t.get("id", 0) for t in trades), default=0) + 1
     trades.append(trade_dict)
     with open(TRADE_HISTORY_PATH, "w", encoding="utf-8") as f:
         json.dump(history, f, indent=2)
@@ -67,14 +67,14 @@ def _record_trade(trade_dict):
 # ---------------------------------------------------------------------------
 
 def _load():
-    with open(PORTFOLIO_PATH, "r") as f:
+    with open(PORTFOLIO_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
 def _save(data):
     shutil.copy2(PORTFOLIO_PATH, BACKUP_PATH)
     data["last_updated"] = TODAY
-    with open(PORTFOLIO_PATH, "w") as f:
+    with open(PORTFOLIO_PATH, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
         f.write("\n")
 
@@ -317,8 +317,8 @@ def cmd_fill(data, args):
             "zone": zone,
             "note": matched_note,
         })
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"Warning: trade history not recorded: {e}", file=sys.stderr)
 
     # Print confirmation
     _print_table([
@@ -414,6 +414,8 @@ def cmd_sell(data, args):
 
         _save(data)
 
+        # zone omitted from SELL — position doesn't track per-share zone;
+        # cross-reference BUY records in trade_history.json if needed.
         try:
             _record_trade({
                 "ticker": ticker,
@@ -427,8 +429,8 @@ def cmd_sell(data, args):
                 "pnl_pct": round(pct_change, 1),
                 "note": "Full close",
             })
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"Warning: trade history not recorded: {e}", file=sys.stderr)
 
         _print_table([
             ("Shares", old_shares, 0),
@@ -483,8 +485,8 @@ def cmd_sell(data, args):
                 "pnl_pct": pct_change_partial,
                 "note": "Partial sell",
             })
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"Warning: trade history not recorded: {e}", file=sys.stderr)
 
         _print_table([
             ("Shares", old_shares, new_shares),
