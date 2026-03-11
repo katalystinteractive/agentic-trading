@@ -55,9 +55,12 @@ def _record_trade(trade_dict):
     else:
         history = {"trades": []}
     if not isinstance(history, dict):
+        ts = date.today().isoformat()
+        corrupt = TRADE_HISTORY_PATH.with_name(f"trade_history.json.corrupt.{ts}")
+        TRADE_HISTORY_PATH.rename(corrupt)
         history = {"trades": []}
     trades = history.setdefault("trades", [])
-    trade_dict["id"] = max((t.get("id", 0) for t in trades), default=0) + 1
+    trade_dict["id"] = max((t.get("id", 0) for t in trades if isinstance(t, dict)), default=0) + 1
     trades.append(trade_dict)
     with open(TRADE_HISTORY_PATH, "w", encoding="utf-8") as f:
         json.dump(history, f, indent=2)
