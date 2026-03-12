@@ -4,7 +4,7 @@ from pathlib import Path
 
 # Allow importing from tools/
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
-from wick_offset_analyzer import classify_level, compute_effective_tier, _compute_bullet_plan, compute_pool_sizing
+from wick_offset_analyzer import classify_level, compute_effective_tier, _compute_bullet_plan, compute_pool_sizing, POOL_MAX_FRACTION
 
 
 class TestClassifyLevel:
@@ -341,8 +341,9 @@ class TestPoolSizing:
         shares = [r["shares"] for r in result]
         # $5 and $10 are uncapped → equal shares
         assert abs(shares[0] - shares[1]) <= 1
-        # $15 is capped at 40% = $120 → floor($120/$15) = 8
-        assert shares[2] == 8
+        # $15 is capped at POOL_MAX_FRACTION of pool
+        expected_capped = int(300 * POOL_MAX_FRACTION / 15.0)
+        assert shares[2] == expected_capped
         # Total cost should use most of the budget
         total = sum(r["cost"] for r in result)
         assert total <= 300

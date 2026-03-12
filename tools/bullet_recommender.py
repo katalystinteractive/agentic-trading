@@ -160,17 +160,6 @@ def classify_drift(dist):
 # Sizing
 # ---------------------------------------------------------------------------
 
-def compute_sizing(level, pool, cap):
-    """Single-level fallback sizing. Prefer compute_pool_sizing() for batch."""
-    budget = cap["active_pool"] if pool == "active" else cap["reserve_pool"]
-    sized = compute_pool_sizing([level], budget, pool)
-    if sized:
-        s = sized[0]
-        return s["shares"], s["cost"], s.get("dollar_alloc", s["cost"])
-    shares = max(1, int(budget / level["recommended_buy"]))
-    cost = round(shares * level["recommended_buy"], 2)
-    return shares, cost, cost
-
 
 def is_capped(level):
     """Check if a level's tier was capped from Full/Std to Half due to <3 approaches."""
