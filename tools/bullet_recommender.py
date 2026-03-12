@@ -383,14 +383,24 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
             reserve_slots_remaining = cap["reserve_bullets_max"] - effective_reserve_used
         active_slots_remaining = cap["active_bullets_max"] - effective_active_used
     else:
-        # Sum costs of filled levels from the full-batch sizing
+        # Sum costs of filled levels from the full-batch sizing.
+        # Include both uncovered fills (filled_levels) AND covered levels
+        # that match a fill_price (fill at a level with pending order).
+        all_filled_level_refs = list(filled_levels)
+        if fill_prices_list and case == "A":
+            for cl in covered_levels:
+                lvl = cl["level"]
+                for fp in fill_prices_list:
+                    if lvl["recommended_buy"] and abs(fp - lvl["recommended_buy"]) / lvl["recommended_buy"] <= DRIFT_TOLERANCE:
+                        all_filled_level_refs.append(lvl)
+                        break
         filled_active_cost = sum(
             sizing_lookup.get(id(fl), (0, 0))[1]
-            for fl in filled_levels if fl["zone"] == "Active"
+            for fl in all_filled_level_refs if fl["zone"] == "Active"
         )
         filled_reserve_cost = sum(
             sizing_lookup.get(id(fl), (0, 0))[1]
-            for fl in filled_levels if fl["zone"] == "Reserve"
+            for fl in all_filled_level_refs if fl["zone"] == "Reserve"
         )
         active_budget_remaining = cap["active_pool"] - filled_active_cost
         reserve_budget_remaining = cap["reserve_pool"] - filled_reserve_cost

@@ -332,3 +332,15 @@ class TestPoolSizing:
         levels = [self._make_level(15.0), self._make_level(5.0), self._make_level(10.0)]
         result = compute_pool_sizing(levels, 300, "active")
         assert [r["recommended_buy"] for r in result] == [15.0, 5.0, 10.0]
+
+    def test_all_capped_distributes_via_residual(self):
+        """When all levels exceed 40% cap, residual redistribution handles the overflow."""
+        levels = [self._make_level(50.0), self._make_level(50.0)]
+        result = compute_pool_sizing(levels, 300, "active")
+        # Each capped at 40% = $120, total capped = $240.
+        # Residual: $300 - $240 = $60 → 1 extra share to highest hold_rate (tied, first wins)
+        total = sum(r["cost"] for r in result)
+        assert total <= 300
+        assert total >= 250  # at least 5 shares total at $50 each
+        for r in result:
+            assert r["shares"] >= 2  # floor($120/$50) = 2

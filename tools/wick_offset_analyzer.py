@@ -55,6 +55,11 @@ def load_capital_config():
     }
 
 
+# Pool sizing constants
+POOL_TIER_MULT = {"Full": 1.0, "Std": 1.0, "Half": 0.5}
+POOL_MAX_FRACTION = 0.40  # per-bullet cap: 40% of pool
+
+
 def compute_pool_sizing(levels, pool_budget, pool_name="active"):
     """Distribute pool_budget across levels for equal averaging impact.
 
@@ -70,14 +75,11 @@ def compute_pool_sizing(levels, pool_budget, pool_name="active"):
     if not levels:
         return []
 
-    TIER_MULT = {"Full": 1.0, "Std": 1.0, "Half": 0.5}
-    MAX_FRACTION = 0.40  # per-bullet cap: 40% of pool
-
     result = []
     for lv in levels:
         price = lv["recommended_buy"]
         tier = lv.get("effective_tier", lv.get("tier", "Full"))
-        mult = TIER_MULT.get(tier, 1.0)
+        mult = POOL_TIER_MULT.get(tier, 1.0)
         weight = price * mult
         result.append({**lv, "_weight": weight, "_tier_mult": mult})
 
@@ -86,7 +88,7 @@ def compute_pool_sizing(levels, pool_budget, pool_name="active"):
         return result
 
     # First pass: allocate dollars proportional to weight, apply per-bullet cap
-    cap_dollars = pool_budget * MAX_FRACTION
+    cap_dollars = pool_budget * POOL_MAX_FRACTION
     uncapped = []
     uncapped_weight = 0
     remaining_budget = pool_budget
@@ -130,7 +132,7 @@ def compute_pool_sizing(levels, pool_budget, pool_name="active"):
                 extra = int(leftover / price)
                 result[i]["shares"] += extra
                 result[i]["cost"] = round(result[i]["shares"] * price, 2)
-                leftover -= extra * price
+                leftover = round(leftover - extra * price, 6)
 
     # Clean up internal keys
     for r in result:
