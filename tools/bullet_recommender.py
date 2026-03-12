@@ -157,9 +157,8 @@ def classify_drift(dist):
 
 
 # ---------------------------------------------------------------------------
-# Sizing
+# Level helpers
 # ---------------------------------------------------------------------------
-
 
 def is_capped(level):
     """Check if a level's tier was capped from Full/Std to Half due to <3 approaches."""
