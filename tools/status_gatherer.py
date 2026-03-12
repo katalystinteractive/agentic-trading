@@ -439,6 +439,7 @@ def extract_capital_from_ps(portfolio_status_output):
 def build_capital_note(portfolio, ps_output):
     """Build the capital summary section."""
     parts = []
+    desc = sizing_description()
 
     # First try to extract from portfolio_status output
     cap_table = extract_capital_from_ps(ps_output) if ps_output else ""
@@ -457,7 +458,6 @@ def build_capital_note(portfolio, ps_output):
         parts.append("| :--- | :--- |")
         parts.append(f"| Deployed | ${deployed:,.2f} |")
         parts.append(f"| Per-Stock Budget | {_fmt_or_na(cap.get('per_stock_total'))} |")
-        desc = sizing_description()
         parts.append(f"| Active Pool | {_fmt_or_na(cap.get('active_pool'))} ({desc['method']}) |")
         parts.append(f"| Reserve Pool | {_fmt_or_na(cap.get('reserve_pool'))} ({desc['method']}) |")
 

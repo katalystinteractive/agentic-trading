@@ -380,7 +380,9 @@ class TestSizingDescription:
         assert set(desc.keys()) == expected
 
     def test_values_match_constants(self):
-        desc = sizing_description()
+        custom = {"active_pool": 300, "reserve_pool": 300,
+                  "active_bullets_max": 5, "reserve_bullets_max": 3}
+        desc = sizing_description(cap=custom)
         assert desc["active_pool"] == 300
         assert desc["reserve_pool"] == 300
         assert desc["max_fraction_pct"] == 40
