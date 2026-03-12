@@ -333,6 +333,28 @@ class TestPoolSizing:
         result = compute_pool_sizing(levels, 300, "active")
         assert [r["recommended_buy"] for r in result] == [15.0, 5.0, 10.0]
 
+    def test_equal_impact_different_prices(self):
+        """3 Full-tier levels at $5/$10/$15: uncapped levels get equal shares.
+        $15 hits 40% cap ($120 → 8 shares), $5/$10 share the rest equally (~12 shares each)."""
+        levels = [self._make_level(5.0), self._make_level(10.0), self._make_level(15.0)]
+        result = compute_pool_sizing(levels, 300, "active")
+        shares = [r["shares"] for r in result]
+        # $5 and $10 are uncapped → equal shares
+        assert abs(shares[0] - shares[1]) <= 1
+        # $15 is capped at 40% = $120 → floor($120/$15) = 8
+        assert shares[2] == 8
+        # Total cost should use most of the budget
+        total = sum(r["cost"] for r in result)
+        assert total <= 300
+        assert total >= 260
+
+    def test_output_only_has_expected_keys(self):
+        """compute_pool_sizing() should not leak input keys beyond the documented output."""
+        levels = [self._make_level(10.0, hold_rate=60.0)]
+        result = compute_pool_sizing(levels, 300, "active")
+        expected_keys = {"recommended_buy", "hold_rate", "shares", "cost", "dollar_alloc"}
+        assert set(result[0].keys()) == expected_keys
+
     def test_all_capped_distributes_via_residual(self):
         """When all levels exceed 40% cap, residual redistribution handles the overflow."""
         levels = [self._make_level(50.0), self._make_level(50.0)]

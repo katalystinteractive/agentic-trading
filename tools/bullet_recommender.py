@@ -391,7 +391,7 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
             for cl in covered_levels:
                 lvl = cl["level"]
                 for fp in fill_prices_list:
-                    if lvl["recommended_buy"] and abs(fp - lvl["recommended_buy"]) / lvl["recommended_buy"] <= DRIFT_TOLERANCE:
+                    if lvl["recommended_buy"] and abs(fp - lvl["recommended_buy"]) / lvl["recommended_buy"] <= MATCH_TOLERANCE:
                         all_filled_level_refs.append(lvl)
                         break
         filled_active_cost = sum(
@@ -671,9 +671,6 @@ def _print_recommend(ctx):
 
         # Geographic zone label
         level_label = zone_labels[lvl_idx]
-
-        # Budget pool follows data model zone, NOT display label
-        ref_pool = "active" if lvl["zone"] == "Active" else "reserve"
 
         # Compute sizing from batch
         ref_shares, ref_cost = sizing_lookup.get(id(lvl), (1, lvl["recommended_buy"]))

@@ -81,7 +81,11 @@ def compute_pool_sizing(levels, pool_budget, pool_name="active"):
         tier = lv.get("effective_tier", lv.get("tier", "Full"))
         mult = POOL_TIER_MULT.get(tier, 1.0)
         weight = price * mult
-        result.append({**lv, "_weight": weight, "_tier_mult": mult})
+        result.append({
+            "recommended_buy": price,
+            "hold_rate": lv.get("hold_rate", 0),
+            "_weight": weight, "_tier_mult": mult,
+        })
 
     total_weight = sum(r["_weight"] for r in result)
     if total_weight == 0:
