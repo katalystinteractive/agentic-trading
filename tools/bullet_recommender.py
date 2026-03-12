@@ -20,7 +20,7 @@ _ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from wick_offset_analyzer import analyze_stock_data, load_capital_config
+from wick_offset_analyzer import analyze_stock_data, load_capital_config, compute_pool_sizing
 from shared_constants import MATCH_TOLERANCE
 
 
@@ -79,7 +79,9 @@ def filter_valid_levels(levels, current_price):
             continue
         if lvl.get("effective_tier", lvl["tier"]) == "Skip":
             continue
-        # Reserve-zone Half-tier: not worth a reserve slot at $30 sizing
+        # Reserve-zone Half-tier: gets ~half weight in pool distribution,
+        # consuming a reserve slot for a small allocation. Filter retained
+        # to preserve slot efficiency — reserve slots are scarce (max 3).
         if lvl["zone"] == "Reserve" and lvl.get("effective_tier", lvl["tier"]) == "Half":
             continue
         valid.append(lvl)
@@ -159,21 +161,15 @@ def classify_drift(dist):
 # ---------------------------------------------------------------------------
 
 def compute_sizing(level, pool, cap):
-    """Tier-aware sizing.
-
-    pool = "active" or "reserve" — the CALLER determines which budget pool
-    this bullet draws from, NOT the level's geographic zone label.
-    Half tier always uses active_bullet_half ($30) regardless of pool.
-    """
-    if level.get("effective_tier", level["tier"]) == "Half":
-        size = cap["active_bullet_half"]   # $30 for Half, regardless of pool
-    elif pool == "active":
-        size = cap["active_bullet_full"]   # $60 for Full/Std in active pool
-    else:
-        size = cap["reserve_bullet_size"]  # $100 for Full/Std in reserve pool
-    shares = max(1, int(size / level["recommended_buy"]))
+    """Single-level fallback sizing. Prefer compute_pool_sizing() for batch."""
+    budget = cap["active_pool"] if pool == "active" else cap["reserve_pool"]
+    sized = compute_pool_sizing([level], budget, pool)
+    if sized:
+        s = sized[0]
+        return s["shares"], s["cost"], s.get("dollar_alloc", s["cost"])
+    shares = max(1, int(budget / level["recommended_buy"]))
     cost = round(shares * level["recommended_buy"], 2)
-    return shares, cost, size
+    return shares, cost, cost
 
 
 def is_capped(level):
@@ -359,7 +355,22 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
         effective_active_used = covered_active
         effective_reserve_used = covered_reserve
 
-    # Budget computation
+    # --- Batch sizing: size ALL valid_levels as one batch ---
+    # IMPORTANT: id(lvl) relies on valid_levels keeping original dict references alive.
+    # Do not copy/reconstruct level dicts between this point and lookup usage.
+    all_active_levels = [lvl for lvl in valid_levels if lvl["zone"] == "Active"]
+    all_reserve_levels = [lvl for lvl in valid_levels if lvl["zone"] == "Reserve"]
+
+    active_sized = compute_pool_sizing(all_active_levels, cap["active_pool"], "active")
+    reserve_sized = compute_pool_sizing(all_reserve_levels, cap["reserve_pool"], "reserve")
+
+    sizing_lookup = {}
+    for lvl, sized in zip(all_active_levels, active_sized):
+        sizing_lookup[id(lvl)] = (sized["shares"], sized["cost"])
+    for lvl, sized in zip(all_reserve_levels, reserve_sized):
+        sizing_lookup[id(lvl)] = (sized["shares"], sized["cost"])
+
+    # Budget computation — derive filled costs from batch sizing
     if is_pre_strategy:
         deployed_cost = shares * avg_cost
         active_budget_remaining = cap["active_pool"] - deployed_cost
@@ -372,8 +383,17 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
             reserve_slots_remaining = cap["reserve_bullets_max"] - effective_reserve_used
         active_slots_remaining = cap["active_bullets_max"] - effective_active_used
     else:
-        active_budget_remaining = cap["active_pool"] - (parsed["active"] * cap["active_bullet_full"])
-        reserve_budget_remaining = cap["reserve_pool"] - (parsed["reserve"] * cap["reserve_bullet_size"])
+        # Sum costs of filled levels from the full-batch sizing
+        filled_active_cost = sum(
+            sizing_lookup.get(id(fl), (0, 0))[1]
+            for fl in filled_levels if fl["zone"] == "Active"
+        )
+        filled_reserve_cost = sum(
+            sizing_lookup.get(id(fl), (0, 0))[1]
+            for fl in filled_levels if fl["zone"] == "Reserve"
+        )
+        active_budget_remaining = cap["active_pool"] - filled_active_cost
+        reserve_budget_remaining = cap["reserve_pool"] - filled_reserve_cost
         active_slots_remaining = cap["active_bullets_max"] - effective_active_used
         reserve_slots_remaining = cap["reserve_bullets_max"] - effective_reserve_used
 
@@ -396,9 +416,9 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
     def _find_recommendation(pool, budget, slot_label):
         """Search uncovered levels for the first that fits within budget."""
         for lvl in uncovered_levels:
-            shares, cost, _ = compute_sizing(lvl, pool, cap)
-            if cost <= budget:
-                return {"level": lvl, "shares": shares, "cost": cost,
+            ref_shares, ref_cost = sizing_lookup.get(id(lvl), (1, lvl["recommended_buy"]))
+            if ref_cost <= budget:
+                return {"level": lvl, "shares": ref_shares, "cost": ref_cost,
                         "pool": pool, "label": slot_label}
         return None
 
@@ -458,6 +478,7 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
         "covered_active": covered_active, "covered_reserve": covered_reserve,
         "fully_deployed": fully_deployed, "warnings": warnings,
         "reasoning": reasoning, "cap": cap, "data": data,
+        "sizing_lookup": sizing_lookup,
     }
     _print_recommend(ctx)
 
@@ -515,6 +536,7 @@ def _print_recommend(ctx):
     warnings = ctx["warnings"]
     reasoning = ctx["reasoning"]
     cap = ctx["cap"]
+    sizing_lookup = ctx.get("sizing_lookup", {})
     effective_reserve_used = ctx["effective_reserve_used"]
 
     data = ctx["data"]
@@ -643,8 +665,8 @@ def _print_recommend(ctx):
         # Budget pool follows data model zone, NOT display label
         ref_pool = "active" if lvl["zone"] == "Active" else "reserve"
 
-        # Compute sizing
-        ref_shares, ref_cost, _ = compute_sizing(lvl, ref_pool, cap)
+        # Compute sizing from batch
+        ref_shares, ref_cost = sizing_lookup.get(id(lvl), (1, lvl["recommended_buy"]))
 
         if lid in covered_lookup:
             for cl in covered_lookup[lid]:
@@ -755,9 +777,10 @@ def _print_legend(active_radius, cap):
     print(f"- **B** = Buffer zone ({active_radius:.0f}–{2*active_radius:.0f}% from price)")
     print(f"- **R** = Reserve zone (beyond {2*active_radius:.0f}% from price)")
     print(f"- **Held** = Times support held / total approaches in 13 months (hold rate %)")
-    print(f"- **Full** (>=50% hold) = full sizing (${cap['active_bullet_full']} active / ${cap['reserve_bullet_size']} reserve)")
-    print(f"- **Std** (30-49% hold) = same sizing as Full, lower confidence signal")
-    print(f"- **Half** (15-29% hold) = half sizing (${cap['active_bullet_half']} active)")
+    print(f"- **Sizing** = ${cap['active_pool']} active / ${cap['reserve_pool']} reserve pool, distributed across all levels (equal impact)")
+    print(f"- **Full** (>=50% hold) = full weight in pool distribution")
+    print(f"- **Std** (30-49% hold) = same weight as Full, lower confidence signal")
+    print(f"- **Half** (15-29% hold) = half weight in pool distribution")
     print(f"- **Tier ^/v** = tier promoted/demoted by recency | **Trend ^/v** = hold-rate trajectory")
     print(f"- **[D]** = dormant (not tested in 90+ days)")
     print(f"- **>> Next** = recommended next order to place")

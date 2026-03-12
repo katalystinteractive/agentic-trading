@@ -5,12 +5,12 @@ We employ a **Mean Reversion** strategy, targeting stocks that consistently fluc
 
 ## Capital Allocation (Per Stock)
 *   **Total Allocation:** ~$600 per stock.
-*   **Active Pool ($300):** Up to 5 bullets, sized by support quality.
-    Full bullet (~$60): 50%+ hold rate — reliable floor.
-    Standard bullet (~$60): 30-49% hold rate — contested zone.
-    Half bullet (~$30): 15-29% hold rate — speed bump, lighter position.
-    Below 15% hold: no order (true dead zone).
-*   **Reserve Pool ($300):** 3 bullets of ~$100 each. Deployed at deep support
+*   **Active Pool ($300):** Up to 5 bullets, pool-distributed sizing with equal averaging impact.
+    Each pool is distributed across all levels using price-weighted allocation — each bullet
+    buys roughly the same number of shares, so each fill moves the average by the same amount.
+    Half-tier levels (15-29% hold rate) get ~half the shares. Per-bullet cap: 40% of pool.
+    Residual shares go to highest hold_rate levels. Below 15% hold: no order (true dead zone).
+*   **Reserve Pool ($300):** Up to 3 bullets, same pool-distributed sizing. Deployed at deep support
     (beyond normal monthly swing range) when the stock breaks structural levels.
     **Every stock has a reserve pool.**
 

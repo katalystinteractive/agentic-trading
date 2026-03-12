@@ -174,9 +174,8 @@ def build_report(portfolio, prices):
     lines.append(f"| :--- | :--- |")
     lines.append(f"| Deployed | {fmt_dollar(deployed)} |")
     lines.append(f"| Per-Stock Budget | {fmt_dollar(cap.get('per_stock_total'))} |")
-    lines.append(f"| Active Bullet (Full/Std) | {fmt_dollar(cap.get('active_bullet_full'))} |")
-    lines.append(f"| Active Bullet (Half) | {fmt_dollar(cap.get('active_bullet_half'))} |")
-    lines.append(f"| Reserve Bullet | {fmt_dollar(cap.get('reserve_bullet_size'))} |")
+    lines.append(f"| Active Pool | {fmt_dollar(cap.get('active_pool'))} (pool-distributed) |")
+    lines.append(f"| Reserve Pool | {fmt_dollar(cap.get('reserve_pool'))} (pool-distributed) |")
     lines.append("")
 
     return "\n".join(lines)

@@ -551,9 +551,7 @@ def main():
     parts.append(f"| Reserve Pool | ${capital.get('reserve_pool', 300):.2f} per stock |")
     parts.append(f"| Active Bullets Max | {capital.get('active_bullets_max', 5)} |")
     parts.append(f"| Reserve Bullets Max | {capital.get('reserve_bullets_max', 3)} |")
-    parts.append(f"| Active Bullet Full/Std | ${capital.get('active_bullet_full', 60):.2f} |")
-    parts.append(f"| Active Bullet Half | ${capital.get('active_bullet_half', 30):.2f} |")
-    parts.append(f"| Reserve Bullet Size | ${capital.get('reserve_bullet_size', 100):.2f} |")
+    parts.append(f"| Sizing Method | Pool-distributed (equal impact) |")
 
     vel_cap = data.get("velocity_capital", {})
     bounce_cap = data.get("bounce_capital", {})

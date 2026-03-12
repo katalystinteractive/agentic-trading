@@ -4,7 +4,7 @@ from pathlib import Path
 
 # Allow importing from tools/
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
-from wick_offset_analyzer import classify_level, compute_effective_tier, _compute_bullet_plan
+from wick_offset_analyzer import classify_level, compute_effective_tier, _compute_bullet_plan, compute_pool_sizing
 
 
 class TestClassifyLevel:
@@ -203,8 +203,6 @@ class TestBulletPlanPromotion:
     CAP = {
         "active_pool": 300, "reserve_pool": 300,
         "active_bullets_max": 5, "reserve_bullets_max": 3,
-        "active_bullet_full": 60, "active_bullet_half": 30,
-        "reserve_bullet_size": 100,
     }
 
     @staticmethod
@@ -263,5 +261,74 @@ class TestBulletPlanPromotion:
         bp = _compute_bullet_plan([level], current_price=11.0, cap=self.CAP)
         assert len(bp["reserve"]) == 1
         assert bp["reserve"][0]["tier"] == "Std"
-        # Std in reserve gets reserve_bullet_size ($100), not Half ($30)
-        assert bp["reserve"][0]["shares"] == 10  # $100 / $9.90 = 10
+        # Single reserve level gets full $300 pool: $300 / $9.90 = 30 shares
+        assert bp["reserve"][0]["shares"] == 30
+
+
+class TestPoolSizing:
+    """Tests for compute_pool_sizing() — equal-impact pool distribution."""
+
+    @staticmethod
+    def _make_level(price, tier="Full", hold_rate=60.0):
+        return {"recommended_buy": price, "effective_tier": tier, "tier": tier, "hold_rate": hold_rate}
+
+    def test_equal_shares_same_tier(self):
+        """Same-price, same-tier levels get equal shares (no cap interference)."""
+        levels = [self._make_level(10.0), self._make_level(10.0), self._make_level(10.0)]
+        result = compute_pool_sizing(levels, 300, "active")
+        shares = [r["shares"] for r in result]
+        assert max(shares) - min(shares) <= 1
+
+    def test_total_cost_near_budget(self):
+        levels = [self._make_level(5.0), self._make_level(10.0), self._make_level(15.0)]
+        result = compute_pool_sizing(levels, 300, "active")
+        total = sum(r["cost"] for r in result)
+        assert total <= 300
+        assert total >= 300 - sum(r["recommended_buy"] for r in result)
+
+    def test_cap_limits_expensive_level(self):
+        levels = [self._make_level(5.0), self._make_level(50.0)]
+        result = compute_pool_sizing(levels, 300, "active")
+        assert result[1]["cost"] <= 300 * 0.40 + 50
+
+    def test_cap_redistributes_to_uncapped(self):
+        levels = [self._make_level(2.0), self._make_level(100.0)]
+        result = compute_pool_sizing(levels, 300, "active")
+        assert result[0]["cost"] > 100  # cheap level gets redistributed budget
+
+    def test_residual_goes_to_highest_hold_rate(self):
+        levels = [self._make_level(7.0, hold_rate=80.0), self._make_level(7.0, hold_rate=30.0)]
+        result = compute_pool_sizing(levels, 300, "active")
+        assert result[0]["shares"] >= result[1]["shares"]
+
+    def test_half_tier_gets_half_shares(self):
+        """Half-tier gets ~half the shares of Full-tier. Use 3 Full + 1 Half to avoid cap."""
+        levels = [self._make_level(10.0, tier="Full"), self._make_level(10.0, tier="Full"),
+                  self._make_level(10.0, tier="Full"), self._make_level(10.0, tier="Half")]
+        result = compute_pool_sizing(levels, 300, "active")
+        full_shares = result[0]["shares"]
+        half_shares = result[3]["shares"]
+        ratio = half_shares / full_shares if full_shares > 0 else 0
+        assert 0.4 <= ratio <= 0.6
+
+    def test_empty_input(self):
+        assert compute_pool_sizing([], 300, "active") == []
+
+    def test_single_level_gets_full_pool(self):
+        result = compute_pool_sizing([self._make_level(10.0)], 300, "active")
+        assert result[0]["shares"] == 30 and result[0]["cost"] == 300.0
+
+    def test_single_half_level_gets_full_pool(self):
+        result = compute_pool_sizing([self._make_level(10.0, tier="Half")], 300, "active")
+        assert result[0]["shares"] == 30  # only level → 100% of pool
+
+    def test_minimum_one_share(self):
+        levels = [self._make_level(1.0)] + [self._make_level(100.0)] * 4
+        result = compute_pool_sizing(levels, 300, "active")
+        for r in result:
+            assert r["shares"] >= 1
+
+    def test_output_preserves_input_order(self):
+        levels = [self._make_level(15.0), self._make_level(5.0), self._make_level(10.0)]
+        result = compute_pool_sizing(levels, 300, "active")
+        assert [r["recommended_buy"] for r in result] == [15.0, 5.0, 10.0]

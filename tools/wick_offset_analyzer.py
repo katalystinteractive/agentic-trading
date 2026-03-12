@@ -52,10 +52,94 @@ def load_capital_config():
         "reserve_pool": cap.get("reserve_pool", 300),
         "active_bullets_max": cap.get("active_bullets_max", 5),
         "reserve_bullets_max": cap.get("reserve_bullets_max", 3),
-        "active_bullet_full": cap.get("active_bullet_full", 60),
-        "active_bullet_half": cap.get("active_bullet_half", 30),
-        "reserve_bullet_size": cap.get("reserve_bullet_size", 100),
     }
+
+
+def compute_pool_sizing(levels, pool_budget, pool_name="active"):
+    """Distribute pool_budget across levels for equal averaging impact.
+
+    Args:
+        levels: list of dicts with keys: recommended_buy, effective_tier (or tier),
+                hold_rate (used for residual redistribution)
+        pool_budget: total dollars to distribute (e.g. 300 for active)
+        pool_name: "active" or "reserve" (for logging only)
+
+    Returns:
+        list of dicts (same order as input) with added keys: shares, cost, dollar_alloc
+    """
+    if not levels:
+        return []
+
+    TIER_MULT = {"Full": 1.0, "Std": 1.0, "Half": 0.5}
+    MAX_FRACTION = 0.40  # per-bullet cap: 40% of pool
+
+    result = []
+    for lv in levels:
+        price = lv["recommended_buy"]
+        tier = lv.get("effective_tier", lv.get("tier", "Full"))
+        mult = TIER_MULT.get(tier, 1.0)
+        weight = price * mult
+        result.append({**lv, "_weight": weight, "_tier_mult": mult})
+
+    total_weight = sum(r["_weight"] for r in result)
+    if total_weight == 0:
+        return result
+
+    # First pass: allocate dollars proportional to weight, apply per-bullet cap
+    cap_dollars = pool_budget * MAX_FRACTION
+    uncapped = []
+    uncapped_weight = 0
+    remaining_budget = pool_budget
+
+    for r in result:
+        raw_alloc = (r["_weight"] / total_weight) * pool_budget
+        if raw_alloc > cap_dollars:
+            r["_capped"] = True
+            r["_dollar_alloc"] = cap_dollars
+            remaining_budget -= cap_dollars
+        else:
+            r["_capped"] = False
+            uncapped_weight += r["_weight"]
+            uncapped.append(r)
+
+    # Second pass: redistribute remaining budget among uncapped levels
+    for r in uncapped:
+        if uncapped_weight > 0:
+            r["_dollar_alloc"] = (r["_weight"] / uncapped_weight) * remaining_budget
+        else:
+            r["_dollar_alloc"] = 0
+
+    # Convert dollars to shares (floor), compute actual cost
+    for r in result:
+        price = r["recommended_buy"]
+        shares = max(1, int(r["_dollar_alloc"] / price))
+        cost = round(shares * price, 2)
+        r["shares"] = shares
+        r["cost"] = cost
+        r["dollar_alloc"] = round(r["_dollar_alloc"], 2)
+
+    # Residual redistribution: leftover dollars → extra shares to highest hold_rate levels
+    total_spent = sum(r["cost"] for r in result)
+    leftover = pool_budget - total_spent
+    if leftover > 0:
+        by_hold = sorted(range(len(result)),
+                         key=lambda i: result[i].get("hold_rate", 0), reverse=True)
+        for i in by_hold:
+            price = result[i]["recommended_buy"]
+            if leftover >= price:
+                extra = int(leftover / price)
+                result[i]["shares"] += extra
+                result[i]["cost"] = round(result[i]["shares"] * price, 2)
+                leftover -= extra * price
+
+    # Clean up internal keys
+    for r in result:
+        r.pop("_weight", None)
+        r.pop("_tier_mult", None)
+        r.pop("_capped", None)
+        r.pop("_dollar_alloc", None)
+
+    return result
 
 
 def fetch_history(ticker, months=13):
@@ -351,27 +435,37 @@ def _compute_bullet_plan(level_results, current_price, cap=None):
     reserve_bullets = reserve_candidates[:cap["reserve_bullets_max"]]
     reserve_bullets.sort(key=lambda r: -r["recommended_buy"])
 
-    def _bullet_entry(r, zone_label):
-        buy = r["recommended_buy"]
-        eff = r["effective_tier"]
-        size = cap["active_bullet_half"] if eff == "Half" else (
-            cap["active_bullet_full"] if zone_label == "Active" else cap["reserve_bullet_size"])
-        shares = max(1, int(size / buy))
+    # Prepare level dicts for compute_pool_sizing()
+    def _sizing_input(r):
+        return {
+            "recommended_buy": r["recommended_buy"],
+            "effective_tier": r["effective_tier"],
+            "tier": r.get("tier", r["effective_tier"]),
+            "hold_rate": r["hold_rate"],
+        }
+
+    active_sizing_input = [_sizing_input(r) for r in active_bullets]
+    reserve_sizing_input = [_sizing_input(r) for r in reserve_bullets]
+
+    active_sized = compute_pool_sizing(active_sizing_input, cap["active_pool"], "active")
+    reserve_sized = compute_pool_sizing(reserve_sizing_input, cap["reserve_pool"], "reserve")
+
+    def _bullet_entry(r, sized, zone_label):
         return {
             "zone": zone_label,
             "support_price": round(float(r["level"]["price"]), 2),
-            "buy_at": round(float(buy), 2),
+            "buy_at": round(float(r["recommended_buy"]), 2),
             "hold_rate": round(float(r["hold_rate"]), 1),
             "tier": r["effective_tier"],
             "raw_tier": r["tier"],
             "tier_promoted": r.get("tier_promoted", False),
             "approaches": int(r["total_approaches"]),
-            "shares": int(shares),
-            "cost": round(shares * buy, 2),
+            "shares": int(sized["shares"]),
+            "cost": round(sized["cost"], 2),
         }
 
-    active = [_bullet_entry(r, "Active") for r in active_bullets]
-    reserve = [_bullet_entry(r, "Reserve") for r in reserve_bullets]
+    active = [_bullet_entry(r, s, "Active") for r, s in zip(active_bullets, active_sized)]
+    reserve = [_bullet_entry(r, s, "Reserve") for r, s in zip(reserve_bullets, reserve_sized)]
 
     return {
         "active": active,

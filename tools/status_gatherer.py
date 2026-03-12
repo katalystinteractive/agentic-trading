@@ -454,9 +454,8 @@ def build_capital_note(portfolio, ps_output):
         parts.append("| :--- | :--- |")
         parts.append(f"| Deployed | ${deployed:,.2f} |")
         parts.append(f"| Per-Stock Budget | {_fmt_or_na(cap.get('per_stock_total'))} |")
-        parts.append(f"| Active Bullet (Full/Std) | {_fmt_or_na(cap.get('active_bullet_full'))} |")
-        parts.append(f"| Active Bullet (Half) | {_fmt_or_na(cap.get('active_bullet_half'))} |")
-        parts.append(f"| Reserve Bullet | {_fmt_or_na(cap.get('reserve_bullet_size'))} |")
+        parts.append(f"| Active Pool | {_fmt_or_na(cap.get('active_pool'))} (pool-distributed) |")
+        parts.append(f"| Reserve Pool | {_fmt_or_na(cap.get('reserve_pool'))} (pool-distributed) |")
 
     parts.append("")
     parts.append(

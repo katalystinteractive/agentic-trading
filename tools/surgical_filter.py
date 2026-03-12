@@ -13,7 +13,7 @@ import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from wick_offset_analyzer import classify_level
+from wick_offset_analyzer import classify_level, compute_pool_sizing
 
 ROOT = Path(__file__).resolve().parent.parent
 INPUT_PATH = ROOT / "screening_data.json"
@@ -230,20 +230,26 @@ def verify_candidate(ticker, wick_data, capital_config):
             tier_check = False
             issues.append(f"{ticker} ${b['support_price']}: tier {compare_tier} vs expected {expected_tier}")
 
-    # 2. Bullet math check — shares x price within 30% of budget
+    # 2. Bullet math check — re-derive expected sizing via compute_pool_sizing, 30% tolerance
     bullet_math_check = True
-    for b in all_bullets:
-        if b["zone"] == "Active":
-            if b["tier"] == "Half":
-                expected_budget = capital_config["active_bullet_half"]
-            else:
-                expected_budget = capital_config["active_bullet_full"]
-        else:
-            expected_budget = capital_config["reserve_bullet_size"]
+    active_levels_for_sizing = [{"recommended_buy": b["buy_at"],
+                                  "effective_tier": b["tier"],
+                                  "hold_rate": b["hold_rate"]}
+                                 for b in bp["active"]]
+    reserve_levels_for_sizing = [{"recommended_buy": b["buy_at"],
+                                   "effective_tier": b["tier"],
+                                   "hold_rate": b["hold_rate"]}
+                                  for b in bp["reserve"]]
+    expected_active = compute_pool_sizing(active_levels_for_sizing,
+                                          capital_config.get("active_pool", 300), "active")
+    expected_reserve = compute_pool_sizing(reserve_levels_for_sizing,
+                                           capital_config.get("reserve_pool", 300), "reserve")
+    for b, exp in list(zip(bp["active"], expected_active)) + list(zip(bp["reserve"], expected_reserve)):
         actual_cost = b["shares"] * b["buy_at"]
-        if expected_budget > 0 and abs(actual_cost - expected_budget) / expected_budget > 0.30:
+        expected_cost = exp["cost"]
+        if expected_cost > 0 and abs(actual_cost - expected_cost) / expected_cost > 0.30:
             bullet_math_check = False
-            issues.append(f"{ticker} ${b['buy_at']}: cost ${actual_cost:.2f} vs budget ${expected_budget}")
+            issues.append(f"{ticker} ${b['buy_at']}: cost ${actual_cost:.2f} vs expected ${expected_cost:.2f}")
 
     # 3. Pool deployment check (5% tolerance)
     active_pool = capital_config["active_pool"]

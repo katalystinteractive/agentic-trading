@@ -226,9 +226,7 @@ def build_output(ticker, status, existing_context, portfolio_context, tool_resul
     parts.append(f"| reserve_pool | {capital.get('reserve_pool', 300)} |")
     parts.append(f"| active_bullets_max | {capital.get('active_bullets_max', 5)} |")
     parts.append(f"| reserve_bullets_max | {capital.get('reserve_bullets_max', 3)} |")
-    parts.append(f"| active_bullet_full | {capital.get('active_bullet_full', 60)} |")
-    parts.append(f"| active_bullet_half | {capital.get('active_bullet_half', 30)} |")
-    parts.append(f"| reserve_bullet_size | {capital.get('reserve_bullet_size', 100)} |")
+    parts.append(f"| sizing_method | pool-distributed (equal impact) |")
     parts.append("")
 
     return "\n".join(parts)
