@@ -389,7 +389,9 @@ class TestSizingDescription:
         assert desc["tier_weights"]["Half"] == 0.5
 
     def test_one_liner_contains_pool_amounts(self):
-        desc = sizing_description()
+        custom = {"active_pool": 300, "reserve_pool": 300,
+                  "active_bullets_max": 5, "reserve_bullets_max": 3}
+        desc = sizing_description(cap=custom)
         assert "$300" in desc["one_liner"]
         assert "equal impact" in desc["one_liner"]
 

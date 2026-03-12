@@ -157,7 +157,7 @@ Write `deep-dive-review.md` with:
 
 ## Bullet Math Detail
 
-| Bullet | Buy Price | Expected Shares | Actual Shares | Expected Cost | Actual Cost | Result |
+| Bullet | Buy Price | Pre-analyst Shares | Identity Shares | Pre-analyst Cost | Identity Cost | Result |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | B1 | $X.XX | N | N | ~$YY | ~$YY | PASS/FAIL |
 | ... | ... | ... | ... | ... | ... | ... |
