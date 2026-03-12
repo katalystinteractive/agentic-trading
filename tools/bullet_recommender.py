@@ -396,7 +396,9 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
         active_slots_remaining = cap["active_bullets_max"] - effective_active_used
         reserve_slots_remaining = cap["reserve_bullets_max"] - effective_reserve_used
 
-    # Clamp to >= 0 for display (can go negative if overdeployed)
+    # Clamp to >= 0 for display (can go negative if overdeployed or wick data drifts)
+    active_budget_remaining = max(0, active_budget_remaining)
+    reserve_budget_remaining = max(0, reserve_budget_remaining)
     active_slots_remaining = max(0, active_slots_remaining)
     reserve_slots_remaining = max(0, reserve_slots_remaining)
 
@@ -413,8 +415,11 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
 
     # --- Step 6: Find recommendation ---
     def _find_recommendation(pool, budget, slot_label):
-        """Search uncovered levels for the first that fits within budget."""
+        """Search uncovered levels matching pool zone for the first that fits within budget."""
+        target_zone = "Active" if pool == "active" else "Reserve"
         for lvl in uncovered_levels:
+            if lvl["zone"] != target_zone:
+                continue
             ref_shares, ref_cost = sizing_lookup.get(id(lvl), (1, lvl["recommended_buy"]))
             if ref_cost <= budget:
                 return {"level": lvl, "shares": ref_shares, "cost": ref_cost,
