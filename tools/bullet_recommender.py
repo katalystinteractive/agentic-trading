@@ -687,15 +687,13 @@ def _print_recommend(ctx):
                     status_str = f"Limit Order{flags}"
                 else:
                     status_str = f"Pending{flags}"
-                # Shares/cost from order
+                # Shares/cost: always show pool-sized values (authoritative).
+                # Flag when actual order differs so user knows to resize.
+                shares_str = str(ref_shares)
+                cost_str = f"~{_fmt_dollar(ref_cost)}"
                 ord_shares = order.get("shares")
-                if ord_shares:
-                    ord_cost = round(ord_shares * order["price"], 2)
-                    shares_str = str(ord_shares)
-                    cost_str = f"~{_fmt_dollar(ord_cost)}"
-                else:
-                    shares_str = str(ref_shares)
-                    cost_str = f"~{_fmt_dollar(ref_cost)}"
+                if ord_shares and ord_shares != ref_shares:
+                    shares_str = f"{ref_shares} (order has {ord_shares})"
                 print(f"| {row_label} | {support_str} | {_fmt_dollar(order['price'])} | {hold_str} | {tier_display} "
                       f"| {trend_str} | {shares_str} | {cost_str} | {status_str}{dormant_tag} |")
         elif lid in filled_lookup:
