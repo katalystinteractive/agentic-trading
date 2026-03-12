@@ -779,9 +779,10 @@ def _print_legend(active_radius, cap):
     print(f"- **Held** = Times support held / total approaches in 13 months (hold rate %)")
     desc = sizing_description(cap)
     print(f"- **Sizing** = {desc['one_liner']}")
-    print(f"- **Full** (>=50% hold) = {desc['tier_weights']['Full']}x weight in pool distribution")
-    print(f"- **Std** (30-49% hold) = {desc['tier_weights']['Std']}x weight in pool distribution")
-    print(f"- **Half** (15-29% hold) = {desc['tier_weights']['Half']}x weight in pool distribution")
+    tw = desc['tier_weights']
+    print(f"- **Full** (>=50% hold) = full weight in pool distribution")
+    print(f"- **Std** (30-49% hold) = same weight as Full, lower confidence signal")
+    print(f"- **Half** (15-29% hold) = {tw['Half']}x weight in pool distribution")
     print(f"- **Tier ^/v** = tier promoted/demoted by recency | **Trend ^/v** = hold-rate trajectory")
     print(f"- **[D]** = dormant (not tested in 90+ days)")
     print(f"- **>> Next** = recommended next order to place")
