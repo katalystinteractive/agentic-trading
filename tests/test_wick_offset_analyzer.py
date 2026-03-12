@@ -4,7 +4,7 @@ from pathlib import Path
 
 # Allow importing from tools/
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
-from wick_offset_analyzer import classify_level, compute_effective_tier, _compute_bullet_plan, compute_pool_sizing, POOL_MAX_FRACTION
+from wick_offset_analyzer import classify_level, compute_effective_tier, _compute_bullet_plan, compute_pool_sizing, POOL_MAX_FRACTION, sizing_description
 
 
 class TestClassifyLevel:
@@ -367,3 +367,33 @@ class TestPoolSizing:
         assert total >= 250  # at least 5 shares total at $50 each
         for r in result:
             assert r["shares"] >= 2  # floor($120/$50) = 2
+
+
+class TestSizingDescription:
+    """Tests for sizing_description() — centralized sizing strings."""
+
+    def test_returns_all_expected_keys(self):
+        desc = sizing_description()
+        expected = {"method", "active_pool", "reserve_pool", "active_max", "reserve_max",
+                    "tier_weights", "max_fraction_pct", "one_liner", "capital_note",
+                    "tier_rules", "verification_note"}
+        assert set(desc.keys()) == expected
+
+    def test_values_match_constants(self):
+        desc = sizing_description()
+        assert desc["active_pool"] == 300
+        assert desc["reserve_pool"] == 300
+        assert desc["max_fraction_pct"] == 40
+        assert desc["tier_weights"]["Half"] == 0.5
+
+    def test_one_liner_contains_pool_amounts(self):
+        desc = sizing_description()
+        assert "$300" in desc["one_liner"]
+        assert "equal impact" in desc["one_liner"]
+
+    def test_custom_cap_override(self):
+        custom = {"active_pool": 500, "reserve_pool": 200,
+                  "active_bullets_max": 7, "reserve_bullets_max": 2}
+        desc = sizing_description(cap=custom)
+        assert desc["active_pool"] == 500
+        assert "$500" in desc["one_liner"]

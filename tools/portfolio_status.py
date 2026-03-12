@@ -1,7 +1,11 @@
 import json
 import datetime
+import sys
 from pathlib import Path
 import yfinance as yf
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from wick_offset_analyzer import sizing_description
 
 _ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
@@ -174,8 +178,9 @@ def build_report(portfolio, prices):
     lines.append(f"| :--- | :--- |")
     lines.append(f"| Deployed | {fmt_dollar(deployed)} |")
     lines.append(f"| Per-Stock Budget | {fmt_dollar(cap.get('per_stock_total'))} |")
-    lines.append(f"| Active Pool | {fmt_dollar(cap.get('active_pool'))} (pool-distributed) |")
-    lines.append(f"| Reserve Pool | {fmt_dollar(cap.get('reserve_pool'))} (pool-distributed) |")
+    desc = sizing_description()
+    lines.append(f"| Active Pool | {fmt_dollar(cap.get('active_pool'))} ({desc['method']}) |")
+    lines.append(f"| Reserve Pool | {fmt_dollar(cap.get('reserve_pool'))} ({desc['method']}) |")
     lines.append("")
 
     return "\n".join(lines)

@@ -20,6 +20,7 @@ from pathlib import Path
 
 from trading_calendar import as_of_date_label, last_trading_day, is_trading_day
 from shared_constants import MATCH_TOLERANCE
+from wick_offset_analyzer import sizing_description
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
@@ -551,7 +552,8 @@ def main():
     parts.append(f"| Reserve Pool | ${capital.get('reserve_pool', 300):.2f} per stock |")
     parts.append(f"| Active Bullets Max | {capital.get('active_bullets_max', 5)} |")
     parts.append(f"| Reserve Bullets Max | {capital.get('reserve_bullets_max', 3)} |")
-    parts.append(f"| Sizing Method | Pool-distributed (equal impact) |")
+    desc = sizing_description()
+    parts.append(f"| Sizing Method | {desc['method']} |")
 
     vel_cap = data.get("velocity_capital", {})
     bounce_cap = data.get("bounce_capital", {})

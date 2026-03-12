@@ -84,8 +84,8 @@ Do NOT recompute or modify values — they are pre-verified arithmetic. Only ref
 ### Step 5: Copy Bullet Plan and Averages
 
 From `deep-dive-pre-analyst.md`, transcribe into identity.md's indented list format:
-- "Bullet Plan (Active Pool)" section → under `*   **Bullet Plan (Active Pool — $300):**`
-- "Reserve Plan" section → under `*   **Reserve Plan ($300):**`
+- "Bullet Plan (Active Pool)" section → find the heading that starts with "## Bullet Plan (Active Pool" in `deep-dive-pre-analyst.md` and copy it exactly (the pool amount is dynamic, not always $300)
+- "Reserve Plan" section → find the heading that starts with "## Reserve Plan" and copy it exactly (pool amount is dynamic)
 - "Projected Averages" table → under `*   **Projected Averages (if bullets fill):**`
 
 For FILLED bullets, the pre-analyst outputs only a count summary (no prices). You MUST read the "Current Memory" section in `deep-dive-raw.md` to find actual fill prices from the trade log, then write FILLED bullet entries with real prices and dates (e.g., `B1: $17.57 (3 shares, $52.71) — **FILLED 2026-02-25.**`).
@@ -124,11 +124,11 @@ Write `tickers/<TICKER>/identity.md` matching the exact format. Structure:
 
     *   **[Dead Zone/Convergence warnings if applicable]**
     *   **Monthly Swing:** [X]% median swing, [Y]% of months hit 10%+.
-*   **Bullet Plan (Active Pool — $300):**
+*   **Bullet Plan (Active Pool — $[amount from pre-analyst]):**
     *   B1: ...
     *   B2: ...
     *   Total active deployment: ~$[N] if all fill.
-*   **Reserve Plan ($300):**
+*   **Reserve Plan ($[amount from pre-analyst]):**
     *   R1: ...
 *   **Projected Averages (if bullets fill):**
 
@@ -212,7 +212,7 @@ Ready for bullet plan review.
 - Do NOT recompute wick table, bullet plan, or projected averages — transcribe from `deep-dive-pre-analyst.md`
 - Do NOT change Zone labels in the wick table — they reflect active-radius math, not bullet pool assignment. An unfunded Active-zone level stays "Active"
 - Do NOT substitute or reorder levels in the bullet plan — use exactly the levels the pre-analyst computed from the wick tool's suggested plan
-- Do NOT exceed budget limits: $300 active pool, $300 reserve pool
+- Do NOT exceed budget limits shown in the Capital Configuration table (active pool and reserve pool amounts)
 - Do NOT modify memory.md for existing tickers
 - Do NOT include Skip-tier levels (< 15% hold rate) in the bullet plan
 - Do NOT place bullets at exact support levels — always use wick-adjusted buy-at prices

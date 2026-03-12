@@ -20,7 +20,7 @@ _ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from wick_offset_analyzer import analyze_stock_data, load_capital_config, compute_pool_sizing
+from wick_offset_analyzer import analyze_stock_data, load_capital_config, compute_pool_sizing, sizing_description
 from shared_constants import MATCH_TOLERANCE
 
 
@@ -777,10 +777,9 @@ def _print_legend(active_radius, cap):
     print(f"- **B** = Buffer zone ({active_radius:.0f}–{2*active_radius:.0f}% from price)")
     print(f"- **R** = Reserve zone (beyond {2*active_radius:.0f}% from price)")
     print(f"- **Held** = Times support held / total approaches in 13 months (hold rate %)")
-    print(f"- **Sizing** = ${cap['active_pool']} active / ${cap['reserve_pool']} reserve pool, distributed across all levels (equal impact)")
-    print(f"- **Full** (>=50% hold) = full weight in pool distribution")
-    print(f"- **Std** (30-49% hold) = same weight as Full, lower confidence signal")
-    print(f"- **Half** (15-29% hold) = half weight in pool distribution")
+    desc = sizing_description(cap)
+    print(f"- **Sizing** = {desc['one_liner']}")
+    print(f"- {desc['tier_rules']}")
     print(f"- **Tier ^/v** = tier promoted/demoted by recency | **Trend ^/v** = hold-rate trajectory")
     print(f"- **[D]** = dormant (not tested in 90+ days)")
     print(f"- **>> Next** = recommended next order to place")

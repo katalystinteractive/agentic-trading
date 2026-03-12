@@ -61,14 +61,14 @@ Read `deep-dive-raw.md`, `deep-dive-pre-analyst.md`, the ticker's `identity.md`,
 
 **Skip FILLED bullets:** Any bullet line containing "FILLED" uses actual fill prices (from memory.md), not wick-computed buy-at prices. Do NOT verify shares/cost math for FILLED bullets — only verify bullets marked PENDING or unmarked (new tickers).
 
+Bullet shares and costs are computed by the pool-distributed sizing algorithm (`compute_pool_sizing()`). There are NO fixed per-bullet dollar sizes — each bullet's allocation depends on all levels in its pool. Independent recalculation is not possible from the identity file alone.
+
 For each bullet (B1 through B5, R1 through R3):
 
-1. **Shares calculation:** Verify shares = floor(dollar_size / buy_price)
-   - Full/Std bullets: dollar_size ~$60, shares = floor(60 / buy_price), minimum 1
-   - Half bullets: dollar_size ~$30, shares = floor(30 / buy_price), minimum 1
-   - Reserve bullets: dollar_size ~$100, shares = floor(100 / buy_price), minimum 1
-2. **Cost calculation:** Verify reported cost ~ shares x buy_price (allow 3% tolerance or $1, whichever is greater)
-3. Record each bullet's result: PASS or FAIL with specifics
+1. **Transcription check:** Compare shares, cost, buy_at, and tier in identity.md against `deep-dive-pre-analyst.md` output — they must match exactly (analyst transcribes without modification)
+2. **Cost sanity:** Verify reported cost ~ shares × buy_price (allow 3% tolerance or $1, whichever is greater)
+3. **Minimum shares:** Every bullet must have at least 1 share
+4. Record each bullet's result: PASS or FAIL with specifics
 
 ### Step 3: Tier Classification Verification
 
@@ -103,10 +103,10 @@ For each level in the wick-adjusted buy levels table:
 
 ### Step 6: Budget Compliance Verification
 
-1. Sum all active bullet costs — must be ≤ $300
-2. Sum all reserve bullet costs — must be ≤ $300
-3. Count active bullets — must be ≤ 5
-4. Count reserve bullets — must be ≤ 3
+1. Sum all active bullet costs — must be ≤ active pool budget (from `deep-dive-raw.md` Capital Configuration table)
+2. Sum all reserve bullet costs — must be ≤ reserve pool budget (from Capital Configuration)
+3. Count active bullets — must be ≤ active_bullets_max (from Capital Configuration)
+4. Count reserve bullets — must be ≤ reserve_bullets_max (from Capital Configuration)
 
 ### Step 6b: Projected Averages Verification
 
@@ -162,8 +162,8 @@ Write `deep-dive-review.md` with:
 | B1 | $X.XX | N | N | ~$YY | ~$YY | PASS/FAIL |
 | ... | ... | ... | ... | ... | ... | ... |
 
-**Active total:** $[X] / $300 — PASS/FAIL
-**Reserve total:** $[X] / $300 — PASS/FAIL
+**Active total:** $[X] / $[active_pool] — PASS/FAIL (where [active_pool] = active_pool value from deep-dive-raw.md Capital Configuration table)
+**Reserve total:** $[X] / $[reserve_pool] — PASS/FAIL (where [reserve_pool] = reserve_pool value from Capital Configuration table)
 
 ## Issues Found
 [Numbered list of specific issues, or "No issues found."]

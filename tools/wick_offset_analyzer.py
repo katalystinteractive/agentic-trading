@@ -60,6 +60,51 @@ POOL_TIER_MULT = {"Full": 1.0, "Std": 1.0, "Half": 0.5}
 POOL_MAX_FRACTION = 0.40  # per-bullet cap: 40% of pool
 
 
+def sizing_description(cap=None):
+    """Return human-readable sizing strings derived from actual constants.
+
+    Single source of truth for sizing descriptions. All display tools
+    and agent personas should use these strings instead of hardcoding.
+    """
+    if cap is None:
+        cap = load_capital_config()
+    return {
+        "method": "pool-distributed (equal impact)",
+        "active_pool": cap["active_pool"],
+        "reserve_pool": cap["reserve_pool"],
+        "active_max": cap["active_bullets_max"],
+        "reserve_max": cap["reserve_bullets_max"],
+        "tier_weights": dict(POOL_TIER_MULT),
+        "max_fraction_pct": int(POOL_MAX_FRACTION * 100),
+        # Pre-built display strings
+        "one_liner": (
+            f"${cap['active_pool']} active / ${cap['reserve_pool']} reserve pool, "
+            f"distributed across all levels (equal impact)"
+        ),
+        "capital_note": (
+            f"Active pool = ${cap['active_pool']}/stock (up to {cap['active_bullets_max']} bullets), "
+            f"Reserve pool = ${cap['reserve_pool']}/stock (up to {cap['reserve_bullets_max']} bullets). "
+            f"Pool-distributed sizing: each bullet buys roughly equal shares "
+            f"(equal averaging impact). Half-tier = {POOL_TIER_MULT['Half']}x weight. "
+            f"Per-bullet cap: {int(POOL_MAX_FRACTION * 100)}% of pool."
+        ),
+        "tier_rules": (
+            f"Full (>=50% hold) = full weight in pool distribution. "
+            f"Std (30-49%) = same weight as Full. "
+            f"Half (15-29%) = {POOL_TIER_MULT['Half']}x weight. "
+            f"Skip (<15%) = excluded."
+        ),
+        "verification_note": (
+            "Bullet shares/costs are computed by compute_pool_sizing() — "
+            "do NOT verify against fixed dollar amounts. "
+            f"Verify: total active cost <= ${cap['active_pool']}, "
+            f"total reserve cost <= ${cap['reserve_pool']}, "
+            f"active count <= {cap['active_bullets_max']}, "
+            f"reserve count <= {cap['reserve_bullets_max']}."
+        ),
+    }
+
+
 def compute_pool_sizing(levels, pool_budget, pool_name="active"):
     """Distribute pool_budget across levels for equal averaging impact.
 

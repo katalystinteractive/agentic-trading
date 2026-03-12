@@ -18,6 +18,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from wick_offset_analyzer import sizing_description
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
 TOOLS_DIR = PROJECT_ROOT / "tools"
@@ -226,7 +229,8 @@ def build_output(ticker, status, existing_context, portfolio_context, tool_resul
     parts.append(f"| reserve_pool | {capital.get('reserve_pool', 300)} |")
     parts.append(f"| active_bullets_max | {capital.get('active_bullets_max', 5)} |")
     parts.append(f"| reserve_bullets_max | {capital.get('reserve_bullets_max', 3)} |")
-    parts.append(f"| sizing_method | pool-distributed (equal impact) |")
+    desc = sizing_description()
+    parts.append(f"| sizing_method | {desc['method']} |")
     parts.append("")
 
     return "\n".join(parts)

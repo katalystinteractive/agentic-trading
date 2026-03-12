@@ -69,7 +69,7 @@ For each ticker:
    - **POSSIBLE PARTIAL SELL**: Broker shows fewer shares. Confirm if a sell order executed.
    - **Stale wick data**: Identity.md has outdated Hold Rate, Buy At, or Tier compared to wick_analysis.md. Recommend running `python3 tools/wick_offset_analyzer.py TICKER` to refresh, or manually updating identity.md.
    - **Zone mismatches**: Order says Active but wick says Reserve (or vice versa). Usually means wick_analysis was re-run and zones shifted. Recommend updating the order note or re-evaluating the bullet plan.
-   - **Pool overrun**: Deployed + pending exceeds $300 budget. Identify which orders to cancel or resize.
+   - **Pool overrun**: Deployed + pending exceeds the pool budget. Identify which orders to cancel or resize.
    - **Missing orders**: Active wick levels have no corresponding pending order. Surface to user — they decide whether to place the order.
 4. **Present recommended updates**: Show the JSON snippet for portfolio.json edits, including updated fill_prices array
 5. **Get user confirmation** before applying any changes
@@ -92,7 +92,7 @@ After user confirms:
 ### Pre-Strategy Positions
 - These entered before the strategy system started
 - Validate shares and avg match broker data
-- Skip pool budget validation (they may exceed $300 active pool)
+- Skip pool budget validation (they may exceed the active pool budget)
 - Label clearly as PRE-STRATEGY in all output
 
 ### Bounce-Derived Orders

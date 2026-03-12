@@ -761,7 +761,8 @@ def build_output(header, wick_data, portfolio_data, identity_table, identity_war
     active_filled = bullet_plan["active_filled_count"]
     active_count = bullet_plan["active_count"]
     active_filled_indices = bullet_plan.get("active_filled_indices", set())
-    lines.append("## Bullet Plan (Active Pool — $300)")
+    capital = portfolio_data["capital"]
+    lines.append(f"## Bullet Plan (Active Pool — ${capital.get('active_pool', 300)})")
     if bullet_plan["active_lines"]:
         for al in bullet_plan["active_lines"]:
             lines.append(al)
@@ -777,7 +778,7 @@ def build_output(header, wick_data, portfolio_data, identity_table, identity_war
     lines.append("")
 
     # Reserve Plan
-    lines.append("## Reserve Plan ($300)")
+    lines.append(f"## Reserve Plan (${capital.get('reserve_pool', 300)})")
     reserve_filled = bullet_plan["reserve_filled_count"]
     reserve_count = bullet_plan["reserve_count"]
     reserve_filled_indices = bullet_plan.get("reserve_filled_indices", set())

@@ -17,6 +17,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from wick_offset_analyzer import sizing_description
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = PROJECT_ROOT / "portfolio.json"
 TICKERS_DIR = PROJECT_ROOT / "tickers"
@@ -454,14 +457,12 @@ def build_capital_note(portfolio, ps_output):
         parts.append("| :--- | :--- |")
         parts.append(f"| Deployed | ${deployed:,.2f} |")
         parts.append(f"| Per-Stock Budget | {_fmt_or_na(cap.get('per_stock_total'))} |")
-        parts.append(f"| Active Pool | {_fmt_or_na(cap.get('active_pool'))} (pool-distributed) |")
-        parts.append(f"| Reserve Pool | {_fmt_or_na(cap.get('reserve_pool'))} (pool-distributed) |")
+        desc = sizing_description()
+        parts.append(f"| Active Pool | {_fmt_or_na(cap.get('active_pool'))} ({desc['method']}) |")
+        parts.append(f"| Reserve Pool | {_fmt_or_na(cap.get('reserve_pool'))} ({desc['method']}) |")
 
     parts.append("")
-    parts.append(
-        "Capital allocation note: Active pool = $300/stock, Reserve pool = $300/stock. "
-        "Bullet sizing scales with share price (~$100 for $16+ stocks, ~$30 for $1.50 stocks)."
-    )
+    parts.append(desc["capital_note"])
 
     return "\n".join(parts)
 
