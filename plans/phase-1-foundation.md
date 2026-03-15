@@ -250,6 +250,10 @@ Skip division entirely.
 | Rank | Ticker | Cycles | Win% | Avg Profit (%) | Total $ | Simple Ann. | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 
+**Ticker universe:** All tickers present in `cycle_history.json`, regardless of current
+watchlist membership. A ticker removed from the watchlist but with completed cycles still
+appears in the ranking.
+
 **Sort order:** Rank by `Total $` descending (highest realized dollar profit first). Tickers
 with 0 completed cycles sort to the bottom, ordered alphabetically.
 
@@ -368,8 +372,9 @@ cycle entry date to avoid silently truncated "All Time" benchmark returns.
 - **`close_5d_pct`:** `(close_5d_after - sell_price) / sell_price * 100`.
 - **`tracking_complete`:** `true` once 5 trading days have elapsed since sell date.
 - **Incomplete window:** If fewer than 5 trading days have elapsed, write partial data with
-  all available fields populated (peak/trough from days so far) and `tracking_complete: false`.
-  On subsequent runs, overwrite partial data with updated values until the window closes.
+  peak/trough from days so far and `tracking_complete: false`. `close_5d_after` and
+  `close_5d_pct` are `null` until the 5th trading day. On subsequent runs, overwrite partial
+  data with updated values until the window closes.
 
 **Output schema per cycle:**
 ```json
