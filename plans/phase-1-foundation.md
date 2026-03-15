@@ -30,7 +30,7 @@ Know how the system is actually performing before optimizing it. Every optimizat
 | `portfolio_status.py` | `tools/` | `fetch_prices(tickers)` returns `{ticker: {price, day_low, day_high, stale, last_trade_date}}`. Reuse for live prices — do NOT re-implement yfinance fetching. |
 | `market_pulse.py` | `tools/` | SPY/QQQ/IWM + VIX 3-month data. Reference for benchmark fetch pattern. |
 | `trading_calendar.py` | `tools/` | `is_trading_day(d)`, `last_trading_day(d)`, `as_of_date_label(d)`. Reuse for trading day counting. |
-| `cooldown.json` | Root | Structured cooldown entries: ticker, sold_date, reeval_date, cooldown_days, note. |
+| `cooldown.json` | Root | Root key `"cooldowns"` → list of `{ticker, sold_date, reeval_date, cooldown_days, note}`. |
 
 ## Detailed Requirements
 
@@ -61,11 +61,13 @@ _record_trade()` handles that.
    **Pattern C — "Sold":** `r'\*\*(\d{4}-\d{2}-\d{2}):\*\*\s+Sold\s+(\d+)\s+shares?\s+@\s+\$?([\d.]+)'`
    Implicit side = SELL. Example: `**2026-02-27:** Sold 3 shares @ $33.40`
 
-   **Pattern D — Multi-trade line:** When a line matches Pattern A once AND contains additional
-   `BUY` or `SELL` keywords, apply a date-free regex globally (`re.findall`):
+   **Pattern D — Multi-trade line:** When a line yields more than one match from the date-free
+   trade regex (below), use Pattern D instead of Pattern A. Detection: apply `re.findall`
+   with the date-free regex and check `len(matches) > 1`. Do NOT use keyword substring
+   search (`"SELL" in line`) — this would false-positive on words like "SELL-off".
    `r'(BUY|SELL)\s+(\d+)\s+(?:shares?\s+)?@\s+\$?([\d.]+)'`
-   Discard the Pattern A result for this line and use Pattern D findall results exclusively,
-   attaching the Pattern A date to each.
+   Use Pattern D findall results exclusively for this line, attaching the date extracted
+   by Pattern A to each match.
    Example: `**2026-03-03:** BUY 3 @ $17.16 (B1). BUY 3 @ $16.92 (B2).`
    yields two BUY records both dated 2026-03-03.
 
@@ -78,14 +80,21 @@ _record_trade()` handles that.
 2. Produce records matching `_record_trade()` schema: `{ticker, side, date, shares, price, note}`.
    Set `avg_cost_before`, `avg_cost_after`, `total_shares_after` to `null` (cannot be
    reconstructed reliably for backfilled records).
+   **`id` assignment:** Read existing `trade_history.json`, find `max(t["id"] for t in trades)`,
+   assign backfilled records sequential ids starting at `max_id + 1`. If no existing trades,
+   start at 1.
 3. Add `"backfilled": true` flag to distinguish from auto-recorded trades.
 4. **Deduplication:** Before inserting, check if a trade with matching `(ticker, side, date,
    shares)` exists in `trade_history.json` AND `abs(existing.price - parsed.price) < 0.01`.
    The 4 non-price fields are sufficient for identity; price tolerance handles text-to-float
    rounding (e.g., "$31.30" → 31.3 vs recorded 31.30). Skip if match found.
 5. **Validation:** For each SELL in memory.md that states a profit % (regex:
-   `r'[+-]?([\d.]+)%'`), compute `(sell_price - entry_avg) / entry_avg * 100` from preceding
-   BUYs. If discrepancy > 0.5 percentage points, add to `parse_warnings[]`:
+   `r'[+-]?([\d.]+)%'`), compute `(sell_price - entry_avg) / entry_avg * 100` where
+   `entry_avg` comes from all BUYs for the same ticker since the last SELL that brought
+   shares to 0 (i.e., same-cycle BUYs). If no preceding BUY exists (orphaned SELL), skip
+   validation for that SELL and add to `parse_warnings[]`:
+   `"{TICKER}: cannot validate SELL profit — no preceding BUYs found"`.
+   If discrepancy > 0.5 percentage points, add to `parse_warnings[]`:
    `"CLSK: memory.md states +7.9% but computed +7.6% for 2026-03-02 SELL"`.
 6. **Pre-strategy flag:** If `portfolio.json` position note or `tickers/<TICKER>/identity.md`
    contains "pre-strategy", flag all trades for that ticker as `"pre_strategy": true`.
@@ -109,8 +118,10 @@ records into completed trade cycles.
 
 **Mechanical cycle definition:**
 - **Start:** First BUY record for a ticker where either (a) no prior trade exists for this
-  ticker, or (b) the immediately preceding trade has `total_shares_after == 0`.
-- **End (full close):** A SELL record where `total_shares_after == 0`. Closes the cycle.
+  ticker, or (b) the immediately preceding trade has `total_shares_after == 0` (or `null`
+  with running count at 0 — see "Backfilled records" below).
+- **End (full close):** A SELL record where `total_shares_after == 0` (or `null` with running
+  count reaching 0). Closes the cycle.
 - **Partial sell:** A SELL where `total_shares_after > 0` is a sub-event within the open
   cycle — does NOT close it.
 - **Still open:** If the last trade for a ticker has `total_shares_after > 0`, the cycle
@@ -148,9 +159,12 @@ records into completed trade cycles.
 | `zones_used` | `list(set(e.get("zone") for e in entries if e.get("zone")))` — preserves active/reserve segmentation from trade_history.json |
 
 **Output:** Writes `cycle_history.json`:
-`{"cycles": [...], "last_updated": "YYYY-MM-DD"}`
+`{"cycles": [...], "parse_warnings": [...], "last_updated": "YYYY-MM-DD"}`
 
 **CLI:** `python3 tools/cycle_grouper.py [--ticker CLSK]`
+- `--ticker`: Filter output to cycles for the specified ticker only. Still processes all
+  trades internally (to maintain correct running share counts), but only writes cycles
+  matching the filter to output. When omitted, outputs all tickers.
 
 **Merge strategy:** When `cycle_history.json` already exists, cycle_grouper reads it first.
 For each cycle_id present in both old and new data, preserve any `post_sell_tracking`
@@ -174,6 +188,12 @@ using `trading_calendar.as_of_date_label()`.
 `portfolio_status.py` convention).
 
 **CLI:** `python3 tools/pnl_dashboard.py [--period week|month|ytd|all] [--ticker CLSK]`
+- `--period`: Filters Tables 1-2 and 5 to the specified period only (instead of showing all
+  periods). Tables 3, 4, and 6 are unaffected (they are snapshot-based, not period-based).
+  Default: show all periods.
+- `--ticker`: Filters Tables 1-3 to cycles for the specified ticker. Table 4 filters to that
+  ticker's open position (if any). Tables 5-6 are unaffected (benchmark and utilization are
+  portfolio-wide). Default: all tickers.
 
 #### Table 1: Summary
 
@@ -197,7 +217,7 @@ Skip division entirely.
 
 #### Table 2: Period Breakdown
 
-| Period | Cycles | Win Rate | Profit | Avg/Cycle |
+| Period | Cycles | Win Rate | Profit ($) | Avg/Cycle (%) |
 | :--- | :--- | :--- | :--- | :--- |
 | This Week | ... | ... | ... | ... |
 | This Month | ... | ... | ... | ... |
@@ -219,6 +239,9 @@ Skip division entirely.
 
 | Rank | Ticker | Cycles | Win% | Avg Profit | Total $ | Simple Ann. | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+
+**Sort order:** Rank by `Total $` descending (highest realized dollar profit first). Tickers
+with 0 completed cycles sort to the bottom, ordered alphabetically.
 
 **Annualized return:** `total_profit_pct_for_ticker * (365 / observation_days)` where
 `observation_days = (today - first_entry_date).days` for that ticker's first cycle entry.
@@ -246,6 +269,9 @@ size differences between cycles).
 
 Formulas:
 - `unrealized_pnl_pct = (current_price - avg_cost) / avg_cost * 100`
+- `entry_date`: Read from `portfolio.json positions[ticker]["entry_date"]`. If absent, fall
+  back to earliest BUY date in `cycle_history.json` for the ticker's current open cycle.
+  If neither exists, use `"unknown"` and display "N/A" for days_held.
 - `days_held = (today - date.fromisoformat(entry_date)).days`
 - For `entry_date` starting with "pre-", parse as `2026-01-01` and append "(est)" to output.
 
