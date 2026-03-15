@@ -370,7 +370,7 @@ corrupt boolean filters — the formal binding ensures it is excluded consistent
 | `avg_cycle_days` | `mean(exit_day_idx - entry_day_idx + 1 for completed)` (trading days) | `null` if 0 cycles |
 | `win_rate` | `len([c for c in completed if c["won"]]) / len(completed) * 100` | 0.0 if 0 cycles |
 | `total_profit_simple` | `sum(c["profit"] for completed)` in simple mode | 0.0 |
-| `total_profit_compound` | `sum(c["profit"] for completed)` in compound mode | 0.0 |
+| `total_profit_compound` | `sum(c["profit"] for completed)` in compound mode | `null` when `--compound` not passed; 0.0 if compound with 0 cycles |
 | `max_drawdown_pct` | `min(c["max_drawdown_pct"] for c in completed)` — worst intra-cycle drawdown from cost basis (uses `completed`, excludes open_at_end) | 0.0 if none |
 | `longest_cycle_days` | `max(exit_day_idx - entry_day_idx + 1 for completed)` | 0 |
 | `timeout_cycles` | `len([c for c in completed if c.get("timeout")])` | 0 |
@@ -410,6 +410,8 @@ and `optimal.compound` would have float values instead of `null`.
 }
 ```
 
+- `data_period`: `start` = `hist.index[0].strftime("%Y-%m-%d")`, `end` = `hist.index[-1].strftime("%Y-%m-%d")`,
+  `trading_days` = `len(hist)`. Never use `datetime.date.today()` — use actual OHLC data boundaries.
 - `avg_cycle_days`: `null` when 0 cycles
 - `results[].open_at_end`: **boolean** per target-% row — `true` if simulation at that target %
   ended with an open (unrealized) position. Used for filtering: rows with `open_at_end: true`
