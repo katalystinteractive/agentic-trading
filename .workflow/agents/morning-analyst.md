@@ -202,7 +202,22 @@ Compare day ranges from the Portfolio Status Output in morning-briefing-condense
 - **SELL fill alerts:** For each pending SELL order (Status blank only), check if the day's high approached or breached the order price. If day high >= order price - 2%, flag as a potential fill or near-fill.
 - Note fill probability: "Filled" (price crossed order level), "Near-fill" (within 2%), or omit if not close.
 
-### Step 8: Compile Morning Briefing
+### Step 8: Synthesize Capital Intelligence
+
+Read the ## Capital Intelligence section in morning-briefing-condensed.md.
+
+For each ticker, incorporate into its action card:
+- Fill Prob → "B1 has 72% fill probability (5d)" in Pending Orders narrative
+- Cycle Phase → "PULLBACK phase, position 0.32" in State line
+- Deployment → note "Hold" recommendations and available capital
+- Cooldown → add verdict to Executive Summary
+
+Include "Nearest Fills" table verbatim in ## Immediate Actions.
+Include any REDEPLOY or [STALE] verdicts in ## Immediate Actions.
+
+You do NOT recompute any values. Python tools are the source of truth.
+
+### Step 9: Compile Morning Briefing
 
 Write `morning-briefing.md` with this structure:
 

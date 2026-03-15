@@ -273,7 +273,7 @@ def main():
     today_str = last_trading_day().isoformat()
 
     # --- Step 1: Market-level tools ---
-    print("\n[1/7] Running market_pulse.py...")
+    print("\n[1/11] Running market_pulse.py...")
     market_output, market_err = run_tool("market_pulse.py")
     if market_err:
         all_errors.append(market_err)
@@ -281,7 +281,7 @@ def main():
     else:
         print("  OK")
 
-    print("[2/7] Running portfolio_status.py...")
+    print("[2/11] Running portfolio_status.py...")
     portfolio_output, portfolio_err = run_tool("portfolio_status.py")
     if portfolio_err:
         all_errors.append(portfolio_err)
@@ -294,12 +294,45 @@ def main():
     watchlist_prices = get_watchlist_prices(portfolio_output)
     all_prices = {**active_prices, **watchlist_prices}
 
+    # --- Step 1b: Capital Intelligence tools ---
+    print("[3/11] Running fill_probability.py...")
+    fill_prob_out, fill_prob_err = run_tool("fill_probability.py", timeout=120)
+    if fill_prob_err:
+        all_errors.append(fill_prob_err)
+        print(f"  {fill_prob_err}")
+    else:
+        print("  OK")
+
+    print("[4/11] Running cycle_phase_detector.py...")
+    cycle_phase_out, cycle_phase_err = run_tool("cycle_phase_detector.py", timeout=60)
+    if cycle_phase_err:
+        all_errors.append(cycle_phase_err)
+        print(f"  {cycle_phase_err}")
+    else:
+        print("  OK")
+
+    print("[5/11] Running deployment_advisor.py...")
+    deploy_out, deploy_err = run_tool("deployment_advisor.py", timeout=60)
+    if deploy_err:
+        all_errors.append(deploy_err)
+        print(f"  {deploy_err}")
+    else:
+        print("  OK")
+
+    print("[6/11] Running cooldown_evaluator.py...")
+    cooldown_out, cooldown_err = run_tool("cooldown_evaluator.py", timeout=60)
+    if cooldown_err:
+        all_errors.append(cooldown_err)
+        print(f"  {cooldown_err}")
+    else:
+        print("  OK")
+
     # --- Step 2: Per-ticker tools for active positions ---
     active_tools = ["earnings_analyzer.py", "technical_scanner.py", "short_interest.py", "news_sentiment.py"]
     active_results = {}  # {ticker: {tool: (output, error)}}
     earnings_data = {}  # {ticker: days_to_earnings}
 
-    print(f"\n[3/7] Running per-ticker tools for {len(active_tickers)} active positions...")
+    print(f"\n[7/11] Running per-ticker tools for {len(active_tickers)} active positions...")
     for i, ticker in enumerate(active_tickers, 1):
         print(f"  [{i}/{len(active_tickers)}] {ticker}...", end=" ", flush=True)
         results = run_ticker_tools(ticker, active_tools)
@@ -317,7 +350,7 @@ def main():
     watchlist_tools = ["news_sentiment.py", "earnings_analyzer.py"]
     watchlist_results = {}
 
-    print(f"\n[4/7] Running per-ticker tools for {len(watchlist_with_orders)} watchlist tickers...")
+    print(f"\n[8/11] Running per-ticker tools for {len(watchlist_with_orders)} watchlist tickers...")
     for i, ticker in enumerate(watchlist_with_orders, 1):
         print(f"  [{i}/{len(watchlist_with_orders)}] {ticker}...", end=" ", flush=True)
         results = run_ticker_tools(ticker, watchlist_tools)
@@ -331,7 +364,7 @@ def main():
         earnings_data[ticker] = days
 
     # --- Step 4: Compute derived fields ---
-    print("\n[5/7] Computing derived fields...")
+    print("\n[9/11] Computing derived fields...")
 
     # Position Summary rows
     pos_summary_rows = []
@@ -427,14 +460,14 @@ def main():
         )
 
     # --- Step 5: Velocity & Bounce ---
-    print("[6/7] Checking velocity/bounce positions...")
+    print("[10/11] Checking velocity/bounce positions...")
     velocity_pos = data.get("velocity_positions", {})
     bounce_pos = data.get("bounce_positions", {})
     has_velocity = any(v.get("shares", 0) > 0 for v in velocity_pos.values()) if velocity_pos else False
     has_bounce = any(v.get("shares", 0) > 0 for v in bounce_pos.values()) if bounce_pos else False
 
     # --- Step 6: Assemble output ---
-    print("[7/7] Writing morning-tools-raw.md...")
+    print("[11/11] Writing morning-tools-raw.md...")
 
     parts = []
     parts.append(f"# Morning Tools Raw Data — {today_str}\n")
@@ -467,6 +500,17 @@ def main():
     parts.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     for row in pending_rows:
         parts.append(row)
+    parts.append("\n---\n")
+
+    # Capital Intelligence
+    parts.append("## Capital Intelligence\n")
+    parts.append(fill_prob_out or "*No output*")
+    parts.append("")
+    parts.append(cycle_phase_out or "*No output*")
+    parts.append("")
+    parts.append(deploy_out or "*No output*")
+    parts.append("")
+    parts.append(cooldown_out or "*No output*")
     parts.append("\n---\n")
 
     # Per-Ticker Active Tool Outputs
