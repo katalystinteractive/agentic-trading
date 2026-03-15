@@ -347,7 +347,7 @@ def main():
             verdict = "KEEP"
         elif only_one_ticker:
             verdict = "KEEP"
-        elif r["ev_30d"] == 0 and best_alt_ev > 0:
+        elif r["ev_30d"] <= 0 and best_alt_ev > 0:
             verdict = "REDEPLOY"
         elif r["ev_30d"] > 0:
             ratio = best_alt_ev / r["ev_30d"]

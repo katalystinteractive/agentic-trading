@@ -162,14 +162,6 @@ def main():
             slot_map[slot] = b
 
         # Determine recommendations
-        def get_status(slot):
-            if slot not in slot_map:
-                return "—"
-            b = slot_map[slot]
-            if b["status"] == "Filled":
-                return "Filled"
-            return b["status"]  # Will be overridden by deployment rules below
-
         def is_filled(slot):
             return slot in slot_map and slot_map[slot]["status"] == "Filled"
 
@@ -181,7 +173,6 @@ def main():
                 recommendations[slot] = "Filled"
                 continue
 
-            label = slot
             num = b["num"]
 
             # B1, B2: always place

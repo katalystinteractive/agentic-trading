@@ -294,38 +294,33 @@ def main():
     watchlist_prices = get_watchlist_prices(portfolio_output)
     all_prices = {**active_prices, **watchlist_prices}
 
-    # --- Step 1b: Capital Intelligence tools ---
-    print("[3/11] Running fill_probability.py...")
-    fill_prob_out, fill_prob_err = run_tool("fill_probability.py", timeout=120)
-    if fill_prob_err:
-        all_errors.append(fill_prob_err)
-        print(f"  {fill_prob_err}")
-    else:
-        print("  OK")
-
-    print("[4/11] Running cycle_phase_detector.py...")
-    cycle_phase_out, cycle_phase_err = run_tool("cycle_phase_detector.py", timeout=60)
-    if cycle_phase_err:
-        all_errors.append(cycle_phase_err)
-        print(f"  {cycle_phase_err}")
-    else:
-        print("  OK")
-
-    print("[5/11] Running deployment_advisor.py...")
-    deploy_out, deploy_err = run_tool("deployment_advisor.py", timeout=60)
-    if deploy_err:
-        all_errors.append(deploy_err)
-        print(f"  {deploy_err}")
-    else:
-        print("  OK")
-
-    print("[6/11] Running cooldown_evaluator.py...")
-    cooldown_out, cooldown_err = run_tool("cooldown_evaluator.py", timeout=60)
-    if cooldown_err:
-        all_errors.append(cooldown_err)
-        print(f"  {cooldown_err}")
-    else:
-        print("  OK")
+    # --- Step 1b: Capital Intelligence tools (parallel) ---
+    print("[3-6/11] Running Capital Intelligence tools in parallel...")
+    cap_intel_tools = {
+        "fill_probability": ("fill_probability.py", 120),
+        "cycle_phase": ("cycle_phase_detector.py", 60),
+        "deploy": ("deployment_advisor.py", 60),
+        "cooldown": ("cooldown_evaluator.py", 60),
+    }
+    cap_intel_results = {}
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        futures = {
+            executor.submit(run_tool, script, timeout=timeout): key
+            for key, (script, timeout) in cap_intel_tools.items()
+        }
+        for future in as_completed(futures):
+            key = futures[future]
+            out, err = future.result()
+            cap_intel_results[key] = (out, err)
+            if err:
+                all_errors.append(err)
+                print(f"  {key}: {err}")
+            else:
+                print(f"  {key}: OK")
+    fill_prob_out = cap_intel_results["fill_probability"][0]
+    cycle_phase_out = cap_intel_results["cycle_phase"][0]
+    deploy_out = cap_intel_results["deploy"][0]
+    cooldown_out = cap_intel_results["cooldown"][0]
 
     # --- Step 2: Per-ticker tools for active positions ---
     active_tools = ["earnings_analyzer.py", "technical_scanner.py", "short_interest.py", "news_sentiment.py"]

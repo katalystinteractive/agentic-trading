@@ -168,6 +168,9 @@ def main():
             reeval_display = reeval_date or "—"
 
         # Sell price from trade_history
+        if not sold_date:
+            print(f"| {ticker} | — | — | — | No sold_date | — | — | — | HOLD |")
+            continue
         sell_price = get_sell_price(ticker, sold_date, trade_history)
         sell_price_str = f"${sell_price:.2f}" if sell_price else "—"
 
