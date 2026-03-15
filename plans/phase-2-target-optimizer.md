@@ -180,8 +180,8 @@ for day_idx in range(len(hist)):
                     lv["support_price"] = base["support_price"]
                 unfilled_levels = list(sim_levels)
 
-    # TIMEOUT — 30 trading days stuck
-    if shares_held > 0 and (day_idx - entry_day_idx + 1) > 30:
+    # TIMEOUT — timeout_days trading days stuck
+    if shares_held > 0 and (day_idx - entry_day_idx + 1) > timeout_days:
         cycle_low = min(cycle_low, day["Low"])  # refresh before recording
         exit_price = day["Close"]  # force-close at close
         profit = (exit_price - avg_cost) * shares_held
@@ -255,7 +255,7 @@ if shares_held > 0:
 | `profit` | `(exit_price - avg_cost) * shares_held` |
 | `profit_pct` | `(exit_price - avg_cost) / avg_cost * 100` |
 | `cooldown` | 1 trading day (skip 1 hist row after exit) |
-| `timeout` | `day_idx - entry_day_idx + 1 > 30` (hist rows = trading days) |
+| `timeout` | `day_idx - entry_day_idx + 1 > timeout_days` (default 30, CLI `--timeout`) |
 | `max_concurrent` | 1 cycle at a time (no overlapping positions) |
 
 ### 1D. Multiple Fills Same Day
@@ -269,7 +269,9 @@ Process levels from **highest `buy_at` to lowest** (B1 before B2). Each fill upd
 | Simple (default) | `active_pool` (constant $300) | Computed once at start |
 | Compound (`--compound`) | `active_pool + cumulative_profit` | Recomputed after each exit via `compute_pool_sizing()` |
 
-**Pool exhaustion guard (compound):** If `pool_budget <= 0`, simulation stops. Record `"pool_exhausted": true`.
+**Pool exhaustion guard (compound):** If `pool_budget <= 0`, simulation stops. Set `pool_exhausted = True`
+on the simulation return dict (see JSON schema `results[].pool_exhausted`). Not a per-cycle field —
+it's a simulation-level flag indicating early termination.
 **Guard ordering is load-bearing:** The `pool_budget <= 0` check MUST precede `compute_pool_sizing()`.
 If called with `pool_budget <= 0`, `compute_pool_sizing` returns 1-share fallback entries (not empty),
 which would create phantom trades instead of a clean stop.
@@ -307,11 +309,14 @@ scoring — comparing against a single optimal % is misleading. Phase 4 handles 
 Text bar chart generated from results[]:
 ```python
 max_profit = max(r["total_profit_simple"] for r in results)
-for r in results:
-    filled = round(r["total_profit_simple"] / max_profit * 30)
-    bar = "█" * filled + "░" * (30 - filled)
-    marker = " <-- OPTIMAL" if r == optimal else ""
-    print(f"{r['target_pct']:4.1f}%  | ${r['total_profit_simple']:>7.2f} | {bar}{marker}")
+if max_profit <= 0:
+    print("No profitable cycles — bar chart skipped.")
+else:
+    for r in results:
+        filled = round(r["total_profit_simple"] / max_profit * 30)
+        bar = "█" * filled + "░" * (30 - filled)
+        marker = " <-- OPTIMAL" if r == optimal else ""
+        print(f"{r['target_pct']:4.1f}%  | ${r['total_profit_simple']:>7.2f} | {bar}{marker}")
 ```
 
 Both simple and compound curves printed when `--compound` used.
@@ -336,7 +341,7 @@ The target maximizing compound profit may differ from simple — both optima rep
 
 1. **Gap-down:** `fill_price = min(day_open, buy_at)`. If open < buy_at, fill at open (worse than limit).
 2. **Same-day entry+exit:** Process entries first, then exit check. Valid 1-trading-day cycle.
-3. **30-day timeout:** `day_idx - entry_day_idx + 1 > 30` → force-close at `day_close`. Can still be a win if close > avg_cost.
+3. **Timeout:** `day_idx - entry_day_idx + 1 > timeout_days` (default 30, CLI `--timeout`) → force-close at `day_close`. Can still be a win if close > avg_cost.
 4. **Partial cascade:** Each level checked independently. Only levels where `day_low <= buy_at` fill.
 5. **No levels found:** Skip ticker. Print `"Skipped {TICKER}: no qualifying support levels"`.
 6. **Insufficient data:** `len(hist) < 60` → skip. Print reason.
@@ -386,7 +391,8 @@ corrupt boolean filters — the formal binding ensures it is excluded consistent
     {"target_pct": 2.0, "cycles_completed": 0, "cycles_per_month": 0.0,
      "avg_cycle_days": null, "win_rate": 0.0, "total_profit_simple": 0.0,
      "total_profit_compound": 0.0, "max_drawdown_pct": 0.0,
-     "longest_cycle_days": 0, "timeout_cycles": 0, "open_at_end": false}
+     "longest_cycle_days": 0, "timeout_cycles": 0,
+     "open_at_end": false, "pool_exhausted": false}
   ],
   "optimal": {
     "simple": {"target_pct": 3.5, "total_profit": 325.50},
@@ -397,7 +403,14 @@ corrupt boolean filters — the formal binding ensures it is excluded consistent
 ```
 
 - `avg_cycle_days`: `null` when 0 cycles
-- `open_position_at_end`: `{"avg_cost": X, "shares": N, "unrealized_pct": Y}` or `null`
+- `results[].open_at_end`: **boolean** per target-% row — `true` if simulation at that target %
+  ended with an open (unrealized) position. Used for filtering: rows with `open_at_end: true`
+  have an unrealized last cycle not counted in `win_rate` or `cycles_completed`.
+- `open_position_at_end`: **object or null** — top-level, populated once from the *last* simulation
+  run (the optimal target %). Contains `{"avg_cost": X, "shares": N, "unrealized_pct": Y}` or `null`.
+  This is the detail view of the open position; `results[].open_at_end` is the flag.
+- `results[].pool_exhausted`: **boolean** — `true` if compound mode pool hit ≤ 0 and simulation
+  stopped early. Only meaningful when `--compound` is used.
 - `optimal.simple` and `.compound` may differ
 
 ### Markdown (`tickers/{TICKER}/target_optimization.md`)
@@ -436,8 +449,8 @@ Uses `argparse` (matching sell_target_calculator.py pattern).
    # Header usage: as_of_date_label(datetime.date.today())
    ```
 2. `compute_simulation_levels(ticker, hist)` — wraps 1A steps, returns `(sim_levels, base_levels, hist, current_price)` where sim_levels has `buy_at` + `shares` keys, base_levels has `recommended_buy` + `effective_tier` for compound re-sizing
-3. `simulate_single(hist, sim_levels, target_pct, active_pool, compound=False)` — core loop from 1B
-4. `sweep_targets(hist, sim_levels, range_low, range_high, step, timeout_days)` — loops simulate_single, finds optimal
+3. `simulate_single(hist, sim_levels, base_levels, target_pct, active_pool, timeout_days=30, compound=False)` — core loop from 1B. `base_levels` required for compound re-sizing; `timeout_days` parameterizes the stuck-position force-close threshold.
+4. `sweep_targets(hist, sim_levels, base_levels, active_pool, range_low, range_high, step, timeout_days=30, compound=False)` — loops simulate_single across target range, finds optimal. Passes `base_levels`, `active_pool`, `compound` through to each simulation.
 5. `format_report(ticker, sweep_result)` — markdown tables + bar chart
 6. `--all` batch mode — loop tickers, cross-ticker comparison table
 7. Optional Phase 1 validation — compare vs cycle_history.json if it exists
