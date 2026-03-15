@@ -77,10 +77,12 @@ Already filtered (Skip removed, capped at `active_bullets_max`, sized via `compu
 
 **Post-processing for simulation:**
 1. Extract `sim_levels = data["bullet_plan"]["active"]` — levels with sizing already computed
-2. Filter is redundant (`_compute_bullet_plan` already excludes None and >= current_price) — skip
-3. Sort descending by `buy_at` (highest = B1)
-4. `active_pool = capital["active_pool"]`
-5. Prepare `base_levels` for compound mode re-sizing (maps `buy_at` → `recommended_buy` for
+2. **Empty guard (edge case #5):** `if not sim_levels: return None, "no qualifying support levels"`
+   — checked inside `compute_simulation_levels`, caller prints skip reason and continues to next ticker
+3. Filter is redundant (`_compute_bullet_plan` already excludes None and >= current_price) — skip
+4. Sort descending by `buy_at` (highest = B1)
+5. `active_pool = capital["active_pool"]`
+6. Prepare `base_levels` for compound mode re-sizing (maps `buy_at` → `recommended_buy` for
    `compute_pool_sizing`, preserves tier metadata for re-attachment after re-sizing):
    ```python
    base_levels = [{"recommended_buy": lv["buy_at"], "effective_tier": lv["tier"],
@@ -109,6 +111,7 @@ shares_held = 0; avg_cost = 0.0; total_cost = 0.0
 entry_day_idx = None; cycle_low = None
 cooldown_remaining = 0; cumulative_profit = 0.0
 pool_budget = active_pool  # tracks current pool; updated in compound mode after each exit
+pool_exhausted = False
 fills = []; unfilled_levels = list(sim_levels)
 cycles = []
 ```
@@ -170,6 +173,7 @@ for day_idx in range(len(hist)):
             if compound:
                 pool_budget = active_pool + cumulative_profit
                 if pool_budget <= 0:
+                    pool_exhausted = True
                     break  # pool exhausted
                 sim_levels = compute_pool_sizing(base_levels, pool_budget, "active")
                 # Translate back: compute_pool_sizing returns recommended_buy; sim uses buy_at
@@ -211,6 +215,7 @@ for day_idx in range(len(hist)):
         if compound:
             pool_budget = active_pool + cumulative_profit
             if pool_budget <= 0:
+                pool_exhausted = True
                 break
             sim_levels = compute_pool_sizing(base_levels, pool_budget, "active")
             for lv, base in zip(sim_levels, base_levels):
@@ -409,9 +414,12 @@ corrupt boolean filters — the formal binding ensures it is excluded consistent
 - `open_position_at_end`: **object or null** — top-level, populated once from the *last* simulation
   run (the optimal target %). Contains `{"avg_cost": X, "shares": N, "unrealized_pct": Y}` or `null`.
   This is the detail view of the open position; `results[].open_at_end` is the flag.
+- `results[].total_profit_compound`: **float** — when `--compound` is NOT passed, set to `null`.
+  Always run simple mode. Only run compound mode when `--compound` is explicitly requested.
+  This avoids doubling simulation time for the common case.
 - `results[].pool_exhausted`: **boolean** — `true` if compound mode pool hit ≤ 0 and simulation
-  stopped early. Only meaningful when `--compound` is used.
-- `optimal.simple` and `.compound` may differ
+  stopped early. `false` when `--compound` is not used.
+- `optimal.simple` always populated. `optimal.compound` is `null` when `--compound` is not used.
 
 ### Markdown (`tickers/{TICKER}/target_optimization.md`)
 
@@ -450,7 +458,28 @@ Uses `argparse` (matching sell_target_calculator.py pattern).
    ```
 2. `compute_simulation_levels(ticker, hist)` — wraps 1A steps, returns `(sim_levels, base_levels, hist, current_price)` where sim_levels has `buy_at` + `shares` keys, base_levels has `recommended_buy` + `effective_tier` for compound re-sizing
 3. `simulate_single(hist, sim_levels, base_levels, target_pct, active_pool, timeout_days=30, compound=False)` — core loop from 1B. `base_levels` required for compound re-sizing; `timeout_days` parameterizes the stuck-position force-close threshold.
+   **Returns:**
+   ```python
+   {
+       "cycles": cycles,                    # list of cycle dicts (15 fields each, see 1B)
+       "cumulative_profit": cumulative_profit,
+       "pool_exhausted": pool_exhausted,     # bool — True if compound pool hit <= 0
+       "pool_budget_final": pool_budget,     # final pool value (compound mode)
+   }
+   ```
 4. `sweep_targets(hist, sim_levels, base_levels, active_pool, range_low, range_high, step, timeout_days=30, compound=False)` — loops simulate_single across target range, finds optimal. Passes `base_levels`, `active_pool`, `compound` through to each simulation.
+   **Returns:** dict matching the top-level JSON schema:
+   ```python
+   {
+       "results": [...],          # one dict per target_pct (metric fields from Metric Formulas table)
+       "optimal": {               # best target_pct by total_profit for each mode
+           "simple": {"target_pct": X, "total_profit": Y},
+           "compound": {"target_pct": X, "total_profit": Y},  # null if not compound
+       },
+       "open_position_at_end": {...} or None,  # from optimal simple run's last cycle
+   }
+   ```
+   Each `results[]` entry is built by computing all 9 metrics from `simulate_single` return's `cycles` list, plus `pool_exhausted` and `open_at_end` flags from that run.
 5. `format_report(ticker, sweep_result)` — markdown tables + bar chart
 6. `--all` batch mode — loop tickers, cross-ticker comparison table
 7. Optional Phase 1 validation — compare vs cycle_history.json if it exists
