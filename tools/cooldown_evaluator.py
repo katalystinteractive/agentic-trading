@@ -240,11 +240,12 @@ def main():
         all_broke = check_support_breaks(ticker, sold_date, level_prices, df) if level_prices else False
         if all_broke:
             verdict = "EXTEND"
-        # 2. EXIT: decay < 0 AND best tier in (Std, Full)
+        # 2. RE-ENTER: decay < 0 AND best tier in (Std, Full)
+        # Named RE-ENTER (not EXIT) to avoid confusion with exit-review EXIT = sell
         elif decay_pct is not None and decay_pct < 0:
             clean_best = re.sub(r'[\^v]', '', best_tier).strip()
             if clean_best in ("Std", "Full"):
-                verdict = "EXIT"
+                verdict = "RE-ENTER"
             else:
                 verdict = "HOLD"
         # 3. HOLD: default

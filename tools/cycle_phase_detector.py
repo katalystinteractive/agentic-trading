@@ -12,7 +12,6 @@ import re
 import sys
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 import yfinance as yf
 
@@ -108,16 +107,22 @@ def clamp(val, lo, hi):
     return max(lo, min(hi, val))
 
 
-def find_local_extremes(values, window=10):
-    """Find most recent local high and low from values array."""
-    local_highs = []
-    local_lows = []
+def find_local_highs(values, window=10):
+    """Find local highs from values array (use High series)."""
+    result = []
     for i in range(window, len(values) - window):
         if values[i] == max(values[i - window:i + window + 1]):
-            local_highs.append((i, values[i]))
+            result.append((i, values[i]))
+    return result
+
+
+def find_local_lows(values, window=10):
+    """Find local lows from values array (use Low series)."""
+    result = []
+    for i in range(window, len(values) - window):
         if values[i] == min(values[i - window:i + window + 1]):
-            local_lows.append((i, values[i]))
-    return local_highs, local_lows
+            result.append((i, values[i]))
+    return result
 
 
 def apply_phase_rules(position, prev_position, roc, nearest_support, current, atr):
@@ -191,8 +196,9 @@ def main():
             print(f"*Warning: ATR unavailable for {ticker}*")
             atr_val = float("nan")
 
-        # Local extremes
-        local_highs_list, local_lows_list = find_local_extremes(highs)
+        # Local extremes — highs from High series, lows from Low series
+        local_highs_list = find_local_highs(highs)
+        local_lows_list = find_local_lows(lows)
         local_high = local_highs_list[-1][1] if local_highs_list else max(highs)
         local_low = local_lows_list[-1][1] if local_lows_list else min(lows)
 

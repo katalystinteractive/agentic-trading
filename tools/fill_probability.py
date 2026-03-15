@@ -20,14 +20,7 @@ import yfinance as yf
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from technical_scanner import calc_atr
-
-try:
-    from market_context_pre_analyst import classify_regime
-except ImportError as e:
-    print(f"*Warning: classify_regime import failed ({e}), using Neutral regime*")
-    def classify_regime(indices, vix):
-        return {"regime": "Neutral", "indices_above": 0, "indices_total": 0,
-                "vix_value": None, "reasoning": "Import fallback"}
+from shared_regime import fetch_regime
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
@@ -66,34 +59,6 @@ def parse_bullet_label(note):
     return "B?"
 
 
-def fetch_regime():
-    """Fetch market regime using classify_regime. Returns regime string."""
-    try:
-        indices = []
-        for sym in ["SPY", "QQQ", "IWM"]:
-            try:
-                df = yf.download(sym, period="6mo", auto_adjust=True, progress=False)
-                close = df["Close"]
-                if isinstance(close, pd.DataFrame):
-                    close = close.iloc[:, 0]
-                sma50 = close.rolling(50).mean().iloc[-1]
-                current = close.iloc[-1]
-                vs_50sma = "Above 50-SMA" if current >= sma50 else "Below 50-SMA"
-                indices.append({"vs_50sma": vs_50sma})
-            except Exception:
-                print(f"*Warning: Failed to fetch {sym} for regime, skipping*")
-        vix_df = yf.download("^VIX", period="5d", auto_adjust=True, progress=False)
-        vix_close = vix_df["Close"]
-        if isinstance(vix_close, pd.DataFrame):
-            vix_close = vix_close.iloc[:, 0]
-        vix_val = float(vix_close.iloc[-1])
-        result = classify_regime(indices, {"value": vix_val})
-        return result["regime"]
-    except Exception as e:
-        print(f"*Warning: Regime fetch failed ({e}), using Neutral*")
-        return "Neutral"
-
-
 def get_unfilled_buys(portfolio):
     """Get all unfilled BUY orders from portfolio.json."""
     orders = []
@@ -123,8 +88,6 @@ def compute_fill_probability(order_price, current_price, df, atr, regime):
     # Already fillable
     if dist_pct >= 0:
         return {5: 0.99, 10: 0.99, 30: 0.99}
-
-    abs_dist = abs(dist_pct)
 
     # Historical frequency — 30-day base rate from recent 30 trading days
     recent = df.tail(30)

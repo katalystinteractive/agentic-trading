@@ -17,14 +17,7 @@ import yfinance as yf
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from technical_scanner import calc_atr
-
-try:
-    from market_context_pre_analyst import classify_regime
-except ImportError as e:
-    print(f"*Warning: classify_regime import failed ({e}), using Neutral regime*")
-    def classify_regime(indices, vix):
-        return {"regime": "Neutral", "indices_above": 0, "indices_total": 0,
-                "vix_value": None, "reasoning": "Import fallback"}
+from shared_regime import fetch_regime
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
@@ -72,34 +65,6 @@ def bullet_number(label):
 def is_reserve(label):
     """Check if label is a reserve bullet."""
     return label.startswith("R")
-
-
-def fetch_regime():
-    """Fetch market regime. Returns regime string."""
-    try:
-        indices = []
-        for sym in ["SPY", "QQQ", "IWM"]:
-            try:
-                df = yf.download(sym, period="6mo", auto_adjust=True, progress=False)
-                close = df["Close"]
-                if isinstance(close, pd.DataFrame):
-                    close = close.iloc[:, 0]
-                sma50 = close.rolling(50).mean().iloc[-1]
-                current = close.iloc[-1]
-                vs_50sma = "Above 50-SMA" if current >= sma50 else "Below 50-SMA"
-                indices.append({"vs_50sma": vs_50sma})
-            except Exception:
-                pass
-        vix_df = yf.download("^VIX", period="5d", auto_adjust=True, progress=False)
-        vix_close = vix_df["Close"]
-        if isinstance(vix_close, pd.DataFrame):
-            vix_close = vix_close.iloc[:, 0]
-        vix_val = float(vix_close.iloc[-1])
-        result = classify_regime(indices, {"value": vix_val})
-        return result["regime"]
-    except Exception as e:
-        print(f"*Warning: Regime fetch failed ({e}), using Neutral*")
-        return "Neutral"
 
 
 def get_bullet_status(order):
@@ -275,11 +240,36 @@ def main():
                 r_statuses.append(s)
         r_col = ", ".join(r_statuses) if r_statuses else "—"
 
-        # Action column
-        actions = []
+        # Action column — detect Unplaced bullets that rules say to deploy
+        place_actions = []
         for slot, rec in recommendations.items():
-            if rec in ("Placed", "Unplaced") and slot_map[slot]["status"] != rec:
-                actions.append(f"Place {slot}")
+            b = slot_map.get(slot)
+            if not b or b["status"] != "Unplaced" or rec in ("Hold", "Filled"):
+                continue
+            # B1/B2: always place (standard deploy)
+            if not b["is_reserve"] and b["num"] <= 2:
+                place_actions.append(f"Place {slot}: standard deploy")
+            # B3: within 2×ATR of B2
+            elif atr is not None and not b["is_reserve"] and b["num"] == 3:
+                b2_price = slot_map.get("B2", {}).get("price")
+                if b2_price and abs(current - b2_price) <= 2 * atr:
+                    place_actions.append(f"Place {slot}: within 2×ATR of B2")
+                elif is_filled("B2"):
+                    place_actions.append(f"Place {slot}: B2 filled")
+            # B4/B5: Risk-Off or B3 filled
+            elif not b["is_reserve"] and b["num"] in (4, 5):
+                if regime == "Risk-Off":
+                    place_actions.append(f"Place {slot}: Risk-Off regime")
+                elif is_filled("B3"):
+                    place_actions.append(f"Place {slot}: B3 filled")
+            # Reserves: all B3+ filled
+            elif b["is_reserve"]:
+                active_b3_plus = [s for s, sb in slot_map.items()
+                                  if not sb["is_reserve"] and sb["num"] >= 3]
+                if active_b3_plus and all(is_filled(s) for s in active_b3_plus):
+                    place_actions.append(f"Place {slot}: all active B3+ filled")
+
+        actions = list(place_actions)
         if hold_capital > 0:
             hold_slots = [s for s, r in recommendations.items() if r == "Hold"]
             actions.append(f"{'+'.join(hold_slots)} capital available: ${hold_capital:.0f}")
@@ -287,21 +277,6 @@ def main():
             action_str = "Fully deployed"
         else:
             action_str = "; ".join(actions)
-
-        # Detect "Place" recommendations (unfilled but rule says deploy)
-        place_actions = []
-        for slot, rec in recommendations.items():
-            b = slot_map.get(slot)
-            if b and b["status"] == "Unplaced" and rec != "Hold" and rec != "Filled":
-                if atr is not None and not b["is_reserve"] and b["num"] == 3:
-                    b2_price = slot_map.get("B2", {}).get("price")
-                    if b2_price and abs(current - b2_price) <= 2 * atr:
-                        place_actions.append(f"Place {slot}: within 2×ATR of B2")
-                elif not b["is_reserve"] and b["num"] in (4, 5) and regime == "Risk-Off":
-                    place_actions.append(f"Place {slot}: Risk-Off regime")
-
-        if place_actions:
-            action_str = "; ".join(place_actions + ([f"Hold capital: ${hold_capital:.0f}"] if hold_capital > 0 else []))
 
         rows.append(f"| {ticker} | {col('B1')} | {col('B2')} | {col('B3')} | {col('B4')} | {col('B5')} | {r_col} | {action_str} |")
 
