@@ -57,8 +57,11 @@ reimplement level-finding, approach analysis, wick offsets, decayed tiers, or ac
 That function already computes all of it (including recency-weighted active_radius at `:604-614`
 and decayed hold rate with 90-day half-life at `:584-601`) and prevents divergence.
 
+**`hist` is passed in by the caller** (main fetches it once via `fetch_history(ticker, months=13)`
+and passes to both `compute_simulation_levels` and `sweep_targets`).
+
 ```python
-hist = fetch_history(ticker, months=13)
+# hist received as parameter — caller owns the fetch
 if hist is None or len(hist) < 60:
     return None, f"insufficient data ({len(hist) if hist is not None else 0} rows, need 60+)"
 
