@@ -101,7 +101,9 @@ _record_trade()` handles that.
 
 **CLI:** `python3 tools/trade_history_backfill.py [--dry-run]`
 - `--dry-run`: Print what would be added without writing.
-- Output: markdown table of added trades + warnings.
+- Output to stdout: markdown table of added trades, followed by `## Warnings` section
+  listing all `parse_warnings` entries. Warnings are NOT written to `trade_history.json`
+  — they are display-only for human review.
 
 **Missing file handling:** If `tickers/<TICKER>/memory.md` does not exist, skip that ticker
 with a note: `"Skipped {ticker}: no memory.md"`. Do not raise an error.
@@ -236,10 +238,10 @@ Skip division entirely.
 
 | Period | Filter predicate |
 | :--- | :--- |
-| This Week | `last_exit >= Monday of current ISO week` where Monday = `today - timedelta(days=today.weekday())`. `today = date.today()` (calendar day, not last trading day — cycle exit dates are calendar dates, so the filter should use calendar boundaries). |
-| This Month | `last_exit.year == today.year AND last_exit.month == today.month` |
-| Last 30 Days | `last_exit >= today - timedelta(days=30)` |
-| YTD | `last_exit.year == today.year` |
+| This Week | `last_exit_date >= Monday of current ISO week` where Monday = `today - timedelta(days=today.weekday())`. `today = date.today()` (calendar day, not last trading day — cycle exit dates are calendar dates, so the filter should use calendar boundaries). |
+| This Month | `last_exit_date.year == today.year AND last_exit_date.month == today.month` |
+| Last 30 Days | `last_exit_date >= today - timedelta(days=30)` |
+| YTD | `last_exit_date.year == today.year` |
 | All Time | All closed cycles |
 
 #### Table 3: Per-Ticker Ranking
@@ -331,7 +333,7 @@ cycle entry date to avoid silently truncated "All Time" benchmark returns.
 | Ticker count | `len(portfolio["watchlist"])` — read from portfolio.json, never hardcode |
 | Total pool | `ticker_count * capital["per_stock_total"]` |
 | Active positions (at cost) | `sum(pos["shares"] * pos["avg_cost"] for pos in positions.values() if pos["shares"] > 0)` |
-| Pending buy orders | `sum(order["price"] * order["shares"] for all BUY orders without "filled" key)` — limit price × shares = max commitment. Exclude filled orders (those with `"filled"` key). |
+| Pending buy orders | Iterate `portfolio["pending_orders"]` (top-level dict keyed by ticker → list of `{type, price, shares, ...}`). Sum: `sum(o["price"] * o["shares"] for orders in pending_orders.values() for o in orders if o["type"] == "BUY" and "filled" not in o)`. Exclude SELL orders and filled orders (those with `"filled"` key). |
 | Available (idle) | `total_pool - active_positions - pending_buy_orders` — can be negative if over-allocated |
 | Utilization rate | `(active_positions + pending_buy_orders) / total_pool * 100` |
 
@@ -356,7 +358,9 @@ cycle entry date to avoid silently truncated "All Time" benchmark returns.
 - **`peak_after_sell`:** Highest **daily close** (not intraday high) during the 5-trading-day
   window. Rationale: intraday highs are not realistically capturable; close prices represent
   achievable exits.
+- **`peak_date`:** ISO date string of the trading day whose close equals `peak_after_sell`.
 - **`trough_after_sell`:** Lowest daily close during the window.
+- **`trough_date`:** ISO date string of the trading day whose close equals `trough_after_sell`.
 - **`money_left_on_table_pct`:** `max(0, (peak_after_sell - sell_price) / sell_price * 100)`.
   Clamped to 0 — if price only fell after sell, money left = 0.
 - **`close_5d_after`:** Closing price on the 5th trading day after sell.
@@ -421,3 +425,8 @@ cycle entry date to avoid silently truncated "All Time" benchmark returns.
 - [ ] Post-sell tracking uses daily close (not intraday high) with clamped `money_left >= 0`
 - [ ] `trade_history_backfill.py` deduplicates against existing `trade_history.json` records
 - [ ] Backfilled records flagged with `"backfilled": true`, pre-strategy with `"pre_strategy": true`
+- [ ] Cycle schema includes `first_entry_date`, `last_exit_date`, `ticker`, `entry_trade_ids`, `exit_trade_ids`
+- [ ] Open cycles have `null` for all exit-dependent fields (`exit_shares`, `exit_avg`, `profit_pct`, `profit_dollar`, `cycle_days`, `trading_days`, `last_exit_date`)
+- [ ] `cycle_grouper.py --ticker X` preserves all other tickers' cycles in `cycle_history.json`
+- [ ] `post_sell_tracker.py` maps `sell_price = cycle.exit_avg`, `sell_date = cycle.last_exit_date`
+- [ ] Period filter predicates reference `last_exit_date` (not `last_exit`)
