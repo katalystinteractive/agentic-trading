@@ -381,6 +381,9 @@ corrupt boolean filters — the formal binding ensures it is excluded consistent
 
 ### JSON (`tickers/{TICKER}/target_optimization.json`)
 
+Example below shows **default (non-compound) output**. For `--compound` output, `total_profit_compound`
+and `optimal.compound` would have float values instead of `null`.
+
 ```json
 {
   "ticker": "CLSK",
@@ -395,13 +398,13 @@ corrupt boolean filters — the formal binding ensures it is excluded consistent
   "results": [
     {"target_pct": 2.0, "cycles_completed": 0, "cycles_per_month": 0.0,
      "avg_cycle_days": null, "win_rate": 0.0, "total_profit_simple": 0.0,
-     "total_profit_compound": 0.0, "max_drawdown_pct": 0.0,
+     "total_profit_compound": null, "max_drawdown_pct": 0.0,
      "longest_cycle_days": 0, "timeout_cycles": 0,
      "open_at_end": false, "pool_exhausted": false}
   ],
   "optimal": {
     "simple": {"target_pct": 3.5, "total_profit": 325.50},
-    "compound": {"target_pct": 3.0, "total_profit": 412.80}
+    "compound": null
   },
   "open_position_at_end": null
 }
@@ -456,7 +459,10 @@ Uses `argparse` (matching sell_target_calculator.py pattern).
    import datetime, argparse, json
    # Header usage: as_of_date_label(datetime.date.today())
    ```
-2. `compute_simulation_levels(ticker, hist)` — wraps 1A steps, returns `(sim_levels, base_levels, hist, current_price)` where sim_levels has `buy_at` + `shares` keys, base_levels has `recommended_buy` + `effective_tier` for compound re-sizing
+2. `compute_simulation_levels(ticker, hist)` — wraps 1A steps, returns `(sim_levels, base_levels, data_levels, current_price)` where:
+   - `sim_levels`: has `buy_at` + `shares` keys (from bullet_plan active)
+   - `base_levels`: has `recommended_buy` + `effective_tier` for compound re-sizing
+   - `data_levels`: `data["levels"]` — needed for `source` ("PA"/"HVN") join at report time (sim_levels lacks source field)
 3. `simulate_single(hist, sim_levels, base_levels, target_pct, active_pool, timeout_days=30, compound=False)` — core loop from 1B. `base_levels` required for compound re-sizing; `timeout_days` parameterizes the stuck-position force-close threshold.
    **Returns:**
    ```python
@@ -474,13 +480,18 @@ Uses `argparse` (matching sell_target_calculator.py pattern).
        "results": [...],          # one dict per target_pct (metric fields from Metric Formulas table)
        "optimal": {               # best target_pct by total_profit for each mode
            "simple": {"target_pct": X, "total_profit": Y},
-           "compound": {"target_pct": X, "total_profit": Y},  # null if not compound
+           "compound": {"target_pct": X, "total_profit": Y},  # None if not compound
        },
        "open_position_at_end": {...} or None,  # from optimal simple run's last cycle
    }
    ```
    Each `results[]` entry is built by computing all 9 metrics from `simulate_single` return's `cycles` list, plus `pool_exhausted` and `open_at_end` flags from that run.
-5. `format_report(ticker, sweep_result)` — markdown tables + bar chart
+   **Note:** `sweep_targets` does NOT include `support_levels_used` or `capital_config` — those are
+   assembled by the caller (main) from `data_levels`, `sim_levels`, and `capital` before passing to
+   `format_report`. This keeps `sweep_targets` focused on simulation, not metadata assembly.
+5. `format_report(ticker, sweep_result, support_levels_used, capital_config)` — markdown tables + bar chart.
+   `support_levels_used` built by caller: join `sim_levels` with `data_levels` via `support_price` to
+   attach `source` ("PA"/"HVN"). `capital_config` from `load_capital_config()` + `levels_used` count.
 6. `--all` batch mode — loop tickers, cross-ticker comparison table
 7. Optional Phase 1 validation — compare vs cycle_history.json if it exists
 
