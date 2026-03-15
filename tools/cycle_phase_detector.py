@@ -17,6 +17,7 @@ import yfinance as yf
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from technical_scanner import calc_atr
 from shared_utils import parse_bullet_label
+from shared_wick import parse_wick_active_supports, find_local_highs, find_local_lows
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
@@ -27,51 +28,6 @@ def load_json(path):
         return {}
     with open(path) as f:
         return json.load(f)
-
-
-def parse_wick_active_supports(ticker):
-    """Parse active support levels from wick_analysis.md.
-    Returns list of float support prices (raw Support column, not Buy At)."""
-    wick_path = PROJECT_ROOT / "tickers" / ticker / "wick_analysis.md"
-    if not wick_path.exists():
-        return []
-    text = wick_path.read_text(encoding="utf-8")
-    # Find "Support Levels & Buy Recommendations" table
-    supports = []
-    in_table = False
-    headers = []
-    for line in text.split("\n"):
-        if "Support Levels" in line and "Buy Recommendations" in line:
-            in_table = True
-            continue
-        if in_table and line.strip().startswith("|"):
-            parts = [p.strip() for p in line.split("|")]
-            parts = [p for p in parts if p]
-            if not headers:
-                if "Zone" in parts or "Level" in parts:
-                    headers = parts
-                continue
-            if parts[0].startswith(":") or parts[0].startswith("-"):
-                continue
-            if len(parts) < len(headers):
-                continue
-            # Map columns
-            col_map = {h: i for i, h in enumerate(headers)}
-            zone_idx = col_map.get("Zone")
-            support_idx = col_map.get("Support") if "Support" in col_map else col_map.get("Level")
-            if zone_idx is None or support_idx is None:
-                continue
-            zone = parts[zone_idx].strip()
-            if zone != "Active":
-                continue
-            price_str = parts[support_idx].replace("$", "").replace(",", "").strip()
-            try:
-                supports.append(float(price_str))
-            except ValueError:
-                pass
-        elif in_table and not line.strip().startswith("|") and line.strip():
-            break
-    return supports
 
 
 def get_buy_prices_for_ticker(ticker, portfolio):
@@ -85,24 +41,6 @@ def get_buy_prices_for_ticker(ticker, portfolio):
 
 def clamp(val, lo, hi):
     return max(lo, min(hi, val))
-
-
-def find_local_highs(values, window=10):
-    """Find local highs from values array (use High series)."""
-    result = []
-    for i in range(window, len(values) - window):
-        if values[i] == max(values[i - window:i + window + 1]):
-            result.append((i, values[i]))
-    return result
-
-
-def find_local_lows(values, window=10):
-    """Find local lows from values array (use Low series)."""
-    result = []
-    for i in range(window, len(values) - window):
-        if values[i] == min(values[i - window:i + window + 1]):
-            result.append((i, values[i]))
-    return result
 
 
 def apply_phase_rules(position, prev_position, roc, nearest_support, current, atr):

@@ -214,6 +214,10 @@ For each ticker, incorporate into its action card:
 
 Include "Nearest Fills" table verbatim in ## Immediate Actions.
 Include any REDEPLOY or [STALE] verdicts in ## Immediate Actions.
+Include any ABANDON_CANDIDATE or REVIEW verdicts from Loss Evaluator Flags in ## Immediate Actions.
+Include Cascade Alerts (if any) in ## Immediate Actions.
+Include pullback fill rates (B1/B2 fill rate %) in per-ticker Pending Orders narrative.
+Include Capital Trap Alerts in Executive Summary when present.
 
 You do NOT recompute any values. Python tools are the source of truth.
 

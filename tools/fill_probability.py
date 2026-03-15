@@ -210,6 +210,16 @@ def main():
         except Exception as e:
             print(f"*Error fetching {ticker}: {e}*")
 
+    # Compute 3-day ROC per ticker for cascade detection
+    for ticker, td in ticker_data.items():
+        close = td["df"]["Close"]
+        if isinstance(close, pd.DataFrame):
+            close = close.iloc[:, 0]
+        if len(close) >= 4:
+            td["roc"] = (float(close.iloc[-1]) - float(close.iloc[-4])) / float(close.iloc[-4])
+        else:
+            td["roc"] = 0.0
+
     # Compute probabilities for all orders
     results = []
     for o in orders:
@@ -258,6 +268,7 @@ def main():
             "ev_30d": ev_30d,
             "exp_profit_pct": exp_profit_pct,
             "stale": stale,
+            "roc": td["roc"],
         })
 
     # --- Block 1: Fill Probability Table ---
@@ -342,6 +353,54 @@ def main():
 
         delta = best_alt_ev - r["ev_30d"]
         print(f"| {r['ticker']} | {label} | ${r['capital']:.0f} | {r['probs'][30]:.0%} | ${r['ev_30d']:.2f} | ${best_alt_ev:.2f} | ${delta:+.2f} | {verdict} |")
+
+    # --- Block 4: Cascade Alerts ---
+    print("")
+    print("### Cascade Alerts")
+    print("| Ticker | 3d ROC | Nearest Fill | B2 Dist | B3 Dist | Signal |")
+    print("| :--- | :--- | :--- | :--- | :--- | :--- |")
+
+    # Group results by ticker
+    ticker_orders = {}
+    for r in results:
+        ticker_orders.setdefault(r["ticker"], []).append(r)
+
+    has_cascade = False
+    for ticker in sorted(ticker_orders.keys()):
+        orders_for_ticker = sorted(ticker_orders[ticker], key=lambda x: -x["price"])
+        if len(orders_for_ticker) < 2:
+            continue
+        roc = orders_for_ticker[0]["roc"]
+        roc_per_day = roc / 3
+
+        # Nearest fill (highest price order)
+        nearest = orders_for_ticker[0]
+        nearest_str = f"{nearest['label']} {nearest['dist_pct']:+.1f}%"
+
+        # Find B2, B3 distances
+        b2_str = "—"
+        b3_str = "—"
+        for o in orders_for_ticker:
+            if o["label"] == "B2":
+                b2_str = f"{o['dist_pct']:+.1f}%"
+            elif o["label"] == "B3":
+                b3_str = f"{o['dist_pct']:+.1f}%"
+
+        # Signal rules
+        if roc_per_day < -0.02:
+            below_labels = [o["label"] for o in orders_for_ticker[1:] if o["dist_pct"] < 0]
+            if below_labels:
+                signal = f"Cascade to {'/'.join(below_labels)} likely"
+            else:
+                signal = "Fast decline — monitor"
+            has_cascade = True
+            print(f"| {ticker} | {roc_per_day*100:.1f}%/d | {nearest_str} | {b2_str} | {b3_str} | {signal} |")
+        elif roc_per_day < -0.01:
+            has_cascade = True
+            print(f"| {ticker} | {roc_per_day*100:.1f}%/d | {nearest_str} | {b2_str} | {b3_str} | Approaching fast — monitor B2 |")
+
+    if not has_cascade:
+        print("No cascade conditions detected")
 
 
 if __name__ == "__main__":
