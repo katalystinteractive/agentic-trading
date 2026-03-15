@@ -18,6 +18,7 @@ import yfinance as yf
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from technical_scanner import calc_atr
 from shared_regime import fetch_regime
+from shared_utils import parse_bullet_label
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
@@ -28,26 +29,6 @@ def load_json(path):
         return {}
     with open(path) as f:
         return json.load(f)
-
-
-def parse_bullet_label(note):
-    """Parse bullet label from order note."""
-    if not note:
-        return "B?"
-    prefix = note.split("\u2014")[0].split("—")[0].strip()
-    m = re.match(r"Bullets?\s+(\d+\+\d+)", prefix, re.IGNORECASE)
-    if m:
-        return f"B{m.group(1)}"
-    m = re.match(r"B(\d+)\s+reserve", prefix, re.IGNORECASE)
-    if m:
-        return f"R{m.group(1)}"
-    m = re.match(r"Reserve\s+(\d+)", prefix, re.IGNORECASE)
-    if m:
-        return f"R{m.group(1)}"
-    m = re.match(r"Bullet\s+(\d+)", prefix, re.IGNORECASE)
-    if m:
-        return f"B{m.group(1)}"
-    return "B?"
 
 
 def bullet_number(label):
@@ -165,6 +146,10 @@ def main():
         def is_filled(slot):
             return slot in slot_map and slot_map[slot]["status"] == "Filled"
 
+        # Pre-compute active B3+ slots (used by reserve rules and action column)
+        active_b3_plus = [s for s, sb in slot_map.items()
+                          if not sb["is_reserve"] and sb["num"] >= 3]
+
         recommendations = {}
         hold_capital = 0.0
 
@@ -205,8 +190,6 @@ def main():
 
             # R1-R3: place if all active B3+ are filled
             if b["is_reserve"]:
-                active_b3_plus = [s for s, sb in slot_map.items()
-                                  if not sb["is_reserve"] and sb["num"] >= 3]
                 all_filled = all(is_filled(s) for s in active_b3_plus) if active_b3_plus else False
                 if all_filled:
                     recommendations[slot] = b["status"]
@@ -255,8 +238,6 @@ def main():
                     place_actions.append(f"Place {slot}: B3 filled")
             # Reserves: all B3+ filled
             elif b["is_reserve"]:
-                active_b3_plus = [s for s, sb in slot_map.items()
-                                  if not sb["is_reserve"] and sb["num"] >= 3]
                 if active_b3_plus and all(is_filled(s) for s in active_b3_plus):
                     place_actions.append(f"Place {slot}: all active B3+ filled")
 

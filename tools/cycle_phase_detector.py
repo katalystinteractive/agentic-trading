@@ -8,7 +8,6 @@ CLI: python3 tools/cycle_phase_detector.py
 """
 
 import json
-import re
 import sys
 from pathlib import Path
 
@@ -17,6 +16,7 @@ import yfinance as yf
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from technical_scanner import calc_atr
+from shared_utils import parse_bullet_label
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
@@ -81,26 +81,6 @@ def get_buy_prices_for_ticker(ticker, portfolio):
         if o.get("type", "").upper() == "BUY" and not o.get("filled"):
             prices.append(o["price"])
     return prices
-
-
-def parse_bullet_label(note):
-    """Parse bullet label from order note."""
-    if not note:
-        return "B?"
-    prefix = note.split("\u2014")[0].split("—")[0].strip()
-    m = re.match(r"Bullets?\s+(\d+\+\d+)", prefix, re.IGNORECASE)
-    if m:
-        return f"B{m.group(1)}"
-    m = re.match(r"B(\d+)\s+reserve", prefix, re.IGNORECASE)
-    if m:
-        return f"R{m.group(1)}"
-    m = re.match(r"Reserve\s+(\d+)", prefix, re.IGNORECASE)
-    if m:
-        return f"R{m.group(1)}"
-    m = re.match(r"Bullet\s+(\d+)", prefix, re.IGNORECASE)
-    if m:
-        return f"B{m.group(1)}"
-    return "B?"
 
 
 def clamp(val, lo, hi):

@@ -1,7 +1,7 @@
-"""Shared regime fetcher — fetches market regime (Risk-On/Neutral/Risk-Off) once.
+"""Shared regime fetcher — fetches market regime (Risk-On/Neutral/Risk-Off).
 
-Used by fill_probability.py and deployment_advisor.py to avoid duplicate
-yfinance calls for SPY/QQQ/IWM/VIX when both run in the same session.
+Single implementation used by fill_probability.py and deployment_advisor.py
+to avoid duplicating the regime classification logic across tools.
 """
 
 import sys

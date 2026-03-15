@@ -139,6 +139,12 @@ def check_support_breaks(ticker, sold_date_str, level_prices, df):
     return True  # ALL levels broke
 
 
+def _extract_hold_rate(lv):
+    """Extract numeric hold rate from level dict for sorting."""
+    m = re.search(r'(\d+)', lv["hold_rate"])
+    return int(m.group(1)) if m else 0
+
+
 def main():
     cooldown_data = load_json(COOLDOWN)
     trade_history = load_json(TRADE_HISTORY)
@@ -210,10 +216,7 @@ def main():
             best_rank = max(lv["rank"] for lv in active_levels)
             best_levels = [lv for lv in active_levels if lv["rank"] == best_rank]
             # Among same-rank, pick highest hold rate
-            def extract_hr(lv):
-                m = re.search(r'(\d+)', lv["hold_rate"])
-                return int(m.group(1)) if m else 0
-            best_level = max(best_levels, key=extract_hr)
+            best_level = max(best_levels, key=_extract_hold_rate)
             best_tier = best_level["tier"]
             hold_rate = best_level["hold_rate"]
             level_prices = [lv["price"] for lv in active_levels]
