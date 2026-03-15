@@ -79,7 +79,8 @@ _record_trade()` handles that.
    0, 1, or N records (Pattern D).
 2. Produce records matching `_record_trade()` schema: `{ticker, side, date, shares, price, note}`.
    Set `avg_cost_before`, `avg_cost_after`, `total_shares_after` to `null` (cannot be
-   reconstructed reliably for backfilled records).
+   reconstructed reliably for backfilled records). Set `note` to `"backfilled from memory.md
+   (Pattern X)"` where X is the pattern letter (A-E) that matched.
    **`id` assignment:** Read existing `trade_history.json`, find `max(t["id"] for t in trades)`,
    assign backfilled records sequential ids starting at `max_id + 1`. If no existing trades,
    start at 1.
@@ -126,8 +127,8 @@ records into completed trade cycles.
   count reaching 0). Closes the cycle.
 - **Partial sell:** A SELL where `total_shares_after > 0` is a sub-event within the open
   cycle — does NOT close it.
-- **Still open:** If the last trade for a ticker has `total_shares_after > 0`, the cycle
-  has `"status": "open"`.
+- **Still open:** If the last trade for a ticker has `total_shares_after > 0` (or `null`
+  with running count > 0), the cycle has `"status": "open"`.
 - **Backfilled records** (null `total_shares_after`): Sort all records by `(ticker, date, id)`
   first, then walk in order maintaining running share count. A SELL bringing the running
   count to 0 = cycle end. Sorting is required because backfilled records may be inserted
@@ -149,7 +150,7 @@ records into completed trade cycles.
 | `cycle_id` | `"{TICKER}-{N}"` — sequential per ticker |
 | `ticker` | Ticker symbol string |
 | `status` | `"closed"` or `"open"` |
-| `pre_strategy` | `true` if any entry BUY has `"pre_strategy": true` |
+| `pre_strategy` | `true` if any entry BUY has `"pre_strategy": true`, otherwise `false` (always present) |
 | `first_entry_date` | `min(e.date for e in entries)` — ISO date string |
 | `last_exit_date` | `max(x.date for x in exits)` — ISO date string; `null` for open cycles |
 | `entry_trade_ids` | `[e.id for e in entries]` — references into trade_history.json |
@@ -366,6 +367,9 @@ cycle entry date to avoid silently truncated "All Time" benchmark returns.
 - **`close_5d_after`:** Closing price on the 5th trading day after sell.
 - **`close_5d_pct`:** `(close_5d_after - sell_price) / sell_price * 100`.
 - **`tracking_complete`:** `true` once 5 trading days have elapsed since sell date.
+- **Incomplete window:** If fewer than 5 trading days have elapsed, write partial data with
+  all available fields populated (peak/trough from days so far) and `tracking_complete: false`.
+  On subsequent runs, overwrite partial data with updated values until the window closes.
 
 **Output schema per cycle:**
 ```json
