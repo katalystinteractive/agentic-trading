@@ -59,6 +59,9 @@ and decayed hold rate with 90-day half-life at `:584-601`) and prevents divergen
 
 ```python
 hist = fetch_history(ticker, months=13)
+if hist is None or len(hist) < 60:
+    return None, f"insufficient data ({len(hist) if hist is not None else 0} rows, need 60+)"
+
 data, err = analyze_stock_data(ticker, hist)
 if err:
     return None, err  # skip ticker
@@ -320,7 +323,7 @@ else:
     for r in results:
         filled = round(r["total_profit_simple"] / max_profit * 30)
         bar = "█" * filled + "░" * (30 - filled)
-        marker = " <-- OPTIMAL" if r == optimal else ""
+        marker = " <-- OPTIMAL" if r["target_pct"] == optimal["simple"]["target_pct"] else ""
         print(f"{r['target_pct']:4.1f}%  | ${r['total_profit_simple']:>7.2f} | {bar}{marker}")
 ```
 
