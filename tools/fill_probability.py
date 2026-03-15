@@ -316,7 +316,7 @@ def main():
         if only_one_ticker:
             best_alt_ev = 0.0
         else:
-            best_alt_ev = max(ev for t, ev in ticker_best_ev.items() if t != r["ticker"]) if len(ticker_best_ev) > 1 else 0.0
+            best_alt_ev = max(ev for t, ev in ticker_best_ev.items() if t != r["ticker"])
 
         # Verdict precedence
         if is_b1_b2:
