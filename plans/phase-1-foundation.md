@@ -145,16 +145,21 @@ records into completed trade cycles.
 | Field | Formula |
 | :--- | :--- |
 | `cycle_id` | `"{TICKER}-{N}"` — sequential per ticker |
+| `ticker` | Ticker symbol string |
 | `status` | `"closed"` or `"open"` |
 | `pre_strategy` | `true` if any entry BUY has `"pre_strategy": true` |
+| `first_entry_date` | `min(e.date for e in entries)` — ISO date string |
+| `last_exit_date` | `max(x.date for x in exits)` — ISO date string; `null` for open cycles |
+| `entry_trade_ids` | `[e.id for e in entries]` — references into trade_history.json |
+| `exit_trade_ids` | `[x.id for x in exits]` — references into trade_history.json; `[]` for open cycles |
 | `entry_shares` | `sum(e.shares for e in entries)` |
 | `entry_avg` | `sum(e.shares * e.price for e in entries) / sum(e.shares for e in entries)` |
-| `exit_shares` | `sum(x.shares for x in exits)` |
-| `exit_avg` | `sum(x.shares * x.price for x in exits) / sum(x.shares for x in exits)` |
-| `profit_pct` | `(exit_avg - entry_avg) / entry_avg * 100` |
-| `profit_dollar` | `(exit_avg - entry_avg) * exit_shares` |
-| `cycle_days` | `(last_exit_date - first_entry_date).days` (calendar days) |
-| `trading_days` | Count of `is_trading_day()` days between first entry and last exit (inclusive) |
+| `exit_shares` | `sum(x.shares for x in exits)`; `null` for open cycles |
+| `exit_avg` | `sum(x.shares * x.price for x in exits) / sum(x.shares for x in exits)`; `null` for open cycles |
+| `profit_pct` | `(exit_avg - entry_avg) / entry_avg * 100`; `null` for open cycles |
+| `profit_dollar` | `(exit_avg - entry_avg) * exit_shares`; `null` for open cycles |
+| `cycle_days` | `(last_exit_date - first_entry_date).days` (calendar days); `null` for open cycles |
+| `trading_days` | Count of `is_trading_day()` days between first entry and last exit (inclusive); `null` for open cycles |
 | `bullets_used` | `len(entries)` |
 | `zones_used` | `list(set(e.get("zone") for e in entries if e.get("zone")))` — preserves active/reserve segmentation from trade_history.json |
 
@@ -162,9 +167,11 @@ records into completed trade cycles.
 `{"cycles": [...], "parse_warnings": [...], "last_updated": "YYYY-MM-DD"}`
 
 **CLI:** `python3 tools/cycle_grouper.py [--ticker CLSK]`
-- `--ticker`: Filter output to cycles for the specified ticker only. Still processes all
-  trades internally (to maintain correct running share counts), but only writes cycles
-  matching the filter to output. When omitted, outputs all tickers.
+- `--ticker`: Filter to cycles for the specified ticker only. Still processes all trades
+  internally (to maintain correct running share counts). **Write behavior:** reads existing
+  `cycle_history.json`, replaces only cycles matching the filtered ticker, preserves all
+  other tickers' cycles unchanged. This prevents a filtered run from destroying unrelated
+  ticker data. When omitted, replaces all cycles.
 
 **Merge strategy:** When `cycle_history.json` already exists, cycle_grouper reads it first.
 For each cycle_id present in both old and new data, preserve any `post_sell_tracking`
@@ -237,7 +244,7 @@ Skip division entirely.
 
 #### Table 3: Per-Ticker Ranking
 
-| Rank | Ticker | Cycles | Win% | Avg Profit | Total $ | Simple Ann. | Status |
+| Rank | Ticker | Cycles | Win% | Avg Profit (%) | Total $ | Simple Ann. | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 
 **Sort order:** Rank by `Total $` descending (highest realized dollar profit first). Tickers
@@ -306,6 +313,10 @@ returns for same periods as Table 2.
 **Period start dates:** Same as Table 2 period definitions. For "All Time", start = earliest
 `first_entry` date across all cycles.
 
+**Known limitation:** `period="1y"` covers the current strategy lifetime (~1 month). If the
+strategy runs longer than 12 months, replace with a dynamic period computed from the earliest
+cycle entry date to avoid silently truncated "All Time" benchmark returns.
+
 | Benchmark | Period | Benchmark Return | Strategy Return | Excess Return |
 | :--- | :--- | :--- | :--- | :--- |
 
@@ -332,6 +343,11 @@ returns for same periods as Table 2.
 
 **Solution:** New tool `tools/post_sell_tracker.py` that reads `cycle_history.json` and updates closed cycles with post-sell price tracking data.
 
+**Field mapping from cycle to tracking:**
+- `sell_price` = `cycle.exit_avg`
+- `sell_date` = `cycle.last_exit_date`
+- `ticker` = `cycle.ticker` (used for yfinance fetch)
+
 **Mechanical definitions:**
 
 - **Tracking window:** 5 trading days after sell date. Count using
@@ -356,6 +372,7 @@ returns for same periods as Table 2.
     "peak_after_sell": 10.80,
     "peak_date": "2026-03-14",
     "trough_after_sell": 9.50,
+    "trough_date": "2026-03-17",
     "money_left_on_table_pct": 5.5,
     "close_5d_after": 9.76,
     "close_5d_pct": -4.7,
