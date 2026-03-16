@@ -44,6 +44,7 @@ SLOPE_FALLING_THRESHOLD = -3.0       # 10d slope of 20-SMA < -3% = falling knife
 MIN_BULLETS_USED = 3                 # qualification: at least 3 bullets spent
 RESERVE_CONFLICT_PCT = 0.02          # 2% tolerance for reserve order conflict detection
 NEAR_RANGE_PCT = 0.10               # 10% below 20d low = near-range cutoff
+MIN_HOLD_RATE = 15.0                 # % — below this = dead zone, no order
 
 # Scoring weights (sum to 100)
 STABILITY_PTS = 25
@@ -293,6 +294,10 @@ def _compute_accumulation_scenarios(candidate, hist, metrics, portfolio,
             above_range_count += 1
             continue
 
+        # Skip dead-zone levels (hold_rate < 15% = no order per strategy)
+        if lvl.get("hold_rate", 0) < MIN_HOLD_RATE:
+            continue
+
         lvl["range_class"] = range_class
         in_range.append(lvl)
 
@@ -387,6 +392,12 @@ def _compute_accumulation_scenarios(candidate, hist, metrics, portfolio,
 
     context["blended_avg_final"] = old_avg if scenarios else candidate["avg_cost"]
     context["total_shares_final"] = old_shares if scenarios else candidate["shares"]
+
+    # Empty scenarios (all levels rounded to 0 shares) → treat as None
+    if not scenarios:
+        context["message"] = "Budget too small for any allocation at current levels"
+        return None, context
+
     return scenarios, context
 
 
@@ -800,6 +811,7 @@ def _build_json_output(results):
         else:
             entry["score"] = r["score"]
             entry["verdict"] = r["verdict"]
+            entry["data_as_of"] = r.get("data_as_of")
             entry["stability"] = r.get("stability")
             entry["swing_20d"] = r.get("metrics", {}).get("swing_20d")
             entry["exit_reachable"] = r.get("exit_reachable", False)
