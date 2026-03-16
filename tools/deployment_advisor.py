@@ -310,7 +310,7 @@ def main():
             # R1-R3: VIX-graduated reserve deployment
             if b["is_reserve"]:
                 reserve_status = ticker_reserve_status[ticker]
-                all_b3_filled = all(is_filled(s) for s in active_b3_plus) if active_b3_plus else False
+                all_b3_filled = all(is_filled(s) for s in active_b3_plus) if active_b3_plus else True
                 if not all_b3_filled:
                     # B3+ not all filled — reserves always hold
                     recommendations[slot] = "Hold"

@@ -333,7 +333,7 @@ def main():
     active_results = {}  # {ticker: {tool: (output, error)}}
     earnings_data = {}  # {ticker: days_to_earnings}
 
-    print(f"\n[9/13] Running per-ticker tools for {len(active_tickers)} active positions...")
+    print(f"\n[10/14] Running per-ticker tools for {len(active_tickers)} active positions...")
     for i, ticker in enumerate(active_tickers, 1):
         print(f"  [{i}/{len(active_tickers)}] {ticker}...", end=" ", flush=True)
         results = run_ticker_tools(ticker, active_tools)
@@ -351,7 +351,7 @@ def main():
     watchlist_tools = ["news_sentiment.py", "earnings_analyzer.py"]
     watchlist_results = {}
 
-    print(f"\n[10/13] Running per-ticker tools for {len(watchlist_with_orders)} watchlist tickers...")
+    print(f"\n[11/14] Running per-ticker tools for {len(watchlist_with_orders)} watchlist tickers...")
     for i, ticker in enumerate(watchlist_with_orders, 1):
         print(f"  [{i}/{len(watchlist_with_orders)}] {ticker}...", end=" ", flush=True)
         results = run_ticker_tools(ticker, watchlist_tools)
@@ -365,7 +365,7 @@ def main():
         earnings_data[ticker] = days
 
     # --- Step 4: Compute derived fields ---
-    print("\n[11/13] Computing derived fields...")
+    print("\n[12/14] Computing derived fields...")
 
     # Position Summary rows
     pos_summary_rows = []
@@ -461,14 +461,14 @@ def main():
         )
 
     # --- Step 5: Velocity & Bounce ---
-    print("[12/13] Checking velocity/bounce positions...")
+    print("[13/14] Checking velocity/bounce positions...")
     velocity_pos = data.get("velocity_positions", {})
     bounce_pos = data.get("bounce_positions", {})
     has_velocity = any(v.get("shares", 0) > 0 for v in velocity_pos.values()) if velocity_pos else False
     has_bounce = any(v.get("shares", 0) > 0 for v in bounce_pos.values()) if bounce_pos else False
 
     # --- Step 6: Assemble output ---
-    print("[13/13] Writing morning-tools-raw.md...")
+    print("[14/14] Writing morning-tools-raw.md...")
 
     parts = []
     parts.append(f"# Morning Tools Raw Data — {today_str}\n")

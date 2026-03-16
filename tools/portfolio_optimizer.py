@@ -242,9 +242,10 @@ def main():
         except Exception as e:
             print(f"*Warning: Failed to fetch {ticker}: {e}*", file=sys.stderr)
 
-    # Pre-compute per-ticker data (avoid re-reading JSON per order)
+    # Pre-compute per-ticker data (avoid re-reading JSON / re-filtering per order)
     ticker_cycle_days = {t: get_cycle_days_estimate(t) for t in tickers}
     ticker_phase = {t: get_current_phase(t) for t in tickers}
+    ticker_exp_profit = {t: get_ticker_exp_profit(t, trade_hist, portfolio_median_pnl) for t in tickers}
 
     # Compute EV per order
     orders_with_ev = []
@@ -257,7 +258,7 @@ def main():
         prob_30 = probs[30]
         prob_5 = probs[5]
 
-        exp_profit = get_ticker_exp_profit(o["ticker"], trade_hist, portfolio_median_pnl)
+        exp_profit = ticker_exp_profit.get(o["ticker"], portfolio_median_pnl)
         cycle_days = ticker_cycle_days.get(o["ticker"], DEFAULT_CYCLE_DAYS)
         ev_per_day = compute_ev_per_dollar_per_day(prob_30, exp_profit, cycle_days)
         phase = ticker_phase.get(o["ticker"], "Unknown")
