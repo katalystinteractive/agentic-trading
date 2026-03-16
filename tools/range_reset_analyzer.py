@@ -479,10 +479,11 @@ def _assess_risk(metrics, stability, pool_budget, scenarios, reserve_pool=300):
     else:
         components["stability"] = ("HIGH", f"{metrics['convergence']}% convergence")
 
-    # 2. Capital concentration
+    # 2. Capital concentration — measured against available budget (not total pool)
+    # to reflect true exposure when reserves are partially committed elsewhere
     total_cost = sum(s["cost"] for s in scenarios) if scenarios else 0
     if pool_budget > 0:
-        conc_pct = total_cost / reserve_pool * 100
+        conc_pct = total_cost / pool_budget * 100
     else:
         conc_pct = 0
     if conc_pct < 20:
@@ -754,6 +755,10 @@ def _format_ticker_md(r):
         msg = ctx.get("message", "No scenarios available")
         lines.append(f"*{msg}*\n")
     else:
+        # Below-threshold warning per strategy rule (minimum 50/100 to deploy)
+        if verdict in ("MONITOR", "NO-RESET"):
+            lines.append("*Below deployment threshold (need 50+). Scenarios shown for reference only.*\n")
+
         # Accumulation Scenarios table
         lines.append("**Accumulation Scenarios**")
         lines.append("| Level | Buy At | Hold% | Tier | Shares | Cost | New Avg | 6% Exit | Reachable? | Conflict |")
@@ -772,6 +777,7 @@ def _format_ticker_md(r):
         p75 = m["high_20d_p75"]
         max_20d = m["high_20d"]
         lines.append(f"*Reachability: 6% exit vs 20d high p75 (${p75:.2f}). Absolute 20d max: ${max_20d:.2f} (reference only).*")
+        lines.append(f"*Averages are cumulative — each row assumes all rows above it also fill.*")
 
         rc = ctx.get("reserve_committed", 0)
         pb = ctx.get("pool_budget", 300)
