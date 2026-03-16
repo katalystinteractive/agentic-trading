@@ -37,6 +37,10 @@ HOLD_RATE_POINTS = 10
 ORDER_HYGIENE_POINTS = 25
 CYCLE_EFFICIENCY_POINTS = 20
 
+assert (SWING_POINTS + CONSISTENCY_POINTS + LEVEL_COUNT_POINTS +
+        HOLD_RATE_POINTS + ORDER_HYGIENE_POINTS +
+        CYCLE_EFFICIENCY_POINTS) == 100, "Scoring constants must sum to 100"
+
 
 # ---------------------------------------------------------------------------
 # Portfolio helpers
@@ -323,10 +327,9 @@ def _compute_verdict(ticker, data, portfolio, order_info, swing, consistency, cy
         cycle_pts = _score_cycle_efficiency(ticker)[0]
     has_cycle_data = cycle_pts >= 8
     on_existing_watchlist = ticker in portfolio.get("watchlist", [])
-    has_existing_position = ticker in positions and positions[ticker].get("shares", 0) > 0
 
     if not has_cycle_data:
-        if on_existing_watchlist or has_existing_position:
+        if on_existing_watchlist or has_position:
             # Grace period: existing watchlist tickers keep ENGAGE with warning
             note = "Strategy fits, ready for engagement. WARNING: No cycle timing data — run cycle_timing_analyzer.py to validate."
             base = "ENGAGE"
