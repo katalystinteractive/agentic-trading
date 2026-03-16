@@ -189,6 +189,27 @@ When a position was entered before the strategy was refined and is significantly
 *   **Relief Rally Validation:** After a sharp drop, the first bounce may be a "dead cat bounce." Validate by checking: (1) volume increasing on up days, (2) price holds above prior resistance for 2+ days, (3) RSI crosses back above 30.
 *   **LLM Cross-Verification:** When an LLM cites specific institutional buying (e.g., "JPMorgan +648%"), verify through `institutional_flow.py` before acting. Directional signals are usually correct, but specific names/numbers may be hallucinated.
 
+### Range Reset Protocol
+When a position is underwater with ≥3 active bullets exhausted but the stock has settled into a
+stable new trading range, deploy fresh bullets from the reserve pool to play that range.
+
+*   **Trigger:** Underwater position with ≥3 bullets exhausted, stock settled into new range.
+*   **Three signals required:** Median convergence <5% (STABLE), 20d swing ≥20%, 6% exit
+    reachable within the range (p75 of 20d highs).
+*   **Capital source:** Reserve pool ($300 per stock) — no new allocation beyond existing reserves.
+*   **Minimum score:** 50/100 (RESET-POSSIBLE or better) to deploy.
+*   **UNSTABLE = no deploy** regardless of score — wait for the range to stabilize.
+*   **Tool:** `python3 tools/range_reset_analyzer.py [TICKER ...]` — analyzes all qualifying
+    underwater positions or specific tickers. Outputs scored scenarios with sized bullets.
+*   **After deployment:** Update `portfolio.json` via `portfolio_manager.py`, re-run
+    `sell_target_calculator.py` for revised sell targets.
+*   **Does not override** exit-review verdicts for RECOVERY positions (those are excluded
+    from range reset analysis).
+
+**Scoring (100 points):** Stability (25), Swing (20), Exit Reachability (20),
+Cycle Efficiency (15), Risk inverse (20). Verdicts: RESET-READY (75+),
+RESET-POSSIBLE (50-74), MONITOR (25-49), NO-RESET (0-24).
+
 ### Cached Structural Data
 Structural tools auto-save per-ticker cache files to `tickers/<TICKER>/` on every run. These files refresh each time the tool is re-run:
 *   `wick_analysis.md` — Support levels & data-driven buy recommendations (from `wick_offset_analyzer.py`).
