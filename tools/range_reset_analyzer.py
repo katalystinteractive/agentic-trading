@@ -11,7 +11,9 @@ Usage:
 """
 import sys
 import json
+import copy
 import datetime
+import re
 import numpy as np
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
@@ -70,11 +72,13 @@ def _load_portfolio():
 
 
 def _identify_underwater(portfolio, requested_tickers=None):
-    """Return list of dicts for positions passing G2-G3 structural gates.
+    """Return (candidates_list, skipped_dict) for positions passing G2-G3 structural gates.
 
     G1 (underwater) and G4 (sufficient data) require price data — checked in _process_ticker.
+    skipped_dict: {ticker: reason} for explicitly requested tickers that didn't qualify.
     """
     candidates = []
+    skipped = {}
     positions = portfolio.get("positions", {})
     for ticker, pos in positions.items():
         if requested_tickers and ticker not in requested_tickers:
@@ -82,16 +86,22 @@ def _identify_underwater(portfolio, requested_tickers=None):
         shares = pos.get("shares", 0)
         avg_cost = pos.get("avg_cost", 0)
         if shares <= 0 or avg_cost <= 0:
-            continue  # closed position
+            if requested_tickers:
+                skipped[ticker] = "closed position"
+            continue
 
         # G3: not recovery mode
         note = pos.get("note", "")
         if "recovery mode" in note.lower():
+            if requested_tickers:
+                skipped[ticker] = "recovery mode"
             continue
 
         # G2: >= MIN_BULLETS_USED active bullets
         parsed = parse_bullets_used(pos.get("bullets_used", 0), note)
         if parsed["active"] < MIN_BULLETS_USED:
+            if requested_tickers:
+                skipped[ticker] = f"only {parsed['active']} active bullets (need {MIN_BULLETS_USED})"
             continue
 
         candidates.append({
@@ -105,7 +115,14 @@ def _identify_underwater(portfolio, requested_tickers=None):
             "note": note,
             "pre_strategy": parsed["pre_strategy"],
         })
-    return candidates
+
+    # Check for requested tickers not found in portfolio at all
+    if requested_tickers:
+        for t in requested_tickers:
+            if t not in positions and t not in skipped:
+                skipped[t] = "not in portfolio"
+
+    return candidates, skipped
 
 
 # ---------------------------------------------------------------------------
@@ -153,8 +170,9 @@ def _compute_range_metrics(hist):
         sma200_dist = (current_price - sma200) / sma200 * 100
 
     # 20-SMA slope (10d) — % change of 20-SMA over last 10 days
+    # Need >=40 days for non-overlapping 20-day windows (now vs 10d ago)
     sma20_slope = None
-    if len(hist) >= 30:
+    if len(hist) >= 40:
         sma20_now = float(hist["Close"].tail(20).mean())
         sma20_10d_ago = float(hist["Close"].iloc[-30:-10].mean())
         if sma20_10d_ago > 0:
@@ -216,10 +234,11 @@ def _detect_reserve_orders(pending_orders, ticker):
     orders = pending_orders.get(ticker, [])
     reserve_committed = 0.0
     reserve_orders = []
+    _reserve_re = re.compile(r"reserve|R\d", re.IGNORECASE)
     for o in orders:
         if o.get("type") != "BUY":
             continue
-        if "reserve" not in o.get("note", "").lower():
+        if not _reserve_re.search(o.get("note", "")):
             continue
         if o.get("filled"):
             continue  # already deployed as fill_prices
@@ -269,8 +288,8 @@ def _compute_accumulation_scenarios(candidate, hist, metrics, portfolio,
     below_range_count = 0
     above_range_count = 0
 
-    for lvl in all_levels:
-        buy_at = lvl.get("recommended_buy")
+    for raw_lvl in all_levels:
+        buy_at = raw_lvl.get("recommended_buy")
         if buy_at is None:
             continue
 
@@ -295,9 +314,11 @@ def _compute_accumulation_scenarios(candidate, hist, metrics, portfolio,
             continue
 
         # Skip dead-zone levels (hold_rate < 15% = no order per strategy)
-        if lvl.get("hold_rate", 0) < MIN_HOLD_RATE:
+        if raw_lvl.get("hold_rate", 0) < MIN_HOLD_RATE:
             continue
 
+        # Deep-copy to avoid mutating caller's precomputed_analysis data
+        lvl = copy.deepcopy(raw_lvl)
         lvl["range_class"] = range_class
         in_range.append(lvl)
 
@@ -502,7 +523,9 @@ def _assess_risk(metrics, stability, pool_budget, scenarios, reserve_pool=300):
     else:
         components["consolidation"] = ("HIGH", f"slope {slope:+.1f}%/10d")
 
-    # Overall = worst of stability, 200-SMA, consolidation
+    # Overall = worst of structural risk factors (stability, 200-SMA, consolidation).
+    # Capital and max_drawdown are informational — they scale with position size,
+    # not range quality, so they don't gate the deploy/no-deploy decision.
     key_ratings = [
         components["stability"][0],
         components["sma200"][0],
@@ -719,7 +742,11 @@ def _format_ticker_md(r):
     filled = ctx.get("filled_count", 0)
     pend = ctx.get("pending_count", 0)
     below = ctx.get("below_range_count", 0)
-    lines.append(f"| Levels (13-month) | {total} total: {in_r} usable, {filled} filled, {pend} pending, {below} below-range |")
+    above = ctx.get("above_range_count", 0)
+    parts = [f"{total} total: {in_r} usable, {filled} filled, {pend} pending, {below} below-range"]
+    if above:
+        parts[0] += f", {above} above-range"
+    lines.append(f"| Levels (13-month) | {parts[0]} |")
     lines.append("")
 
     scenarios = r.get("scenarios")
@@ -799,10 +826,10 @@ def _format_summary_table(results):
     return "\n".join(lines)
 
 
-def _build_json_output(results):
+def _build_json_output(results, report_date=None):
     """Build JSON-serializable output."""
     out = {
-        "date": datetime.date.today().isoformat(),
+        "date": report_date or datetime.date.today().isoformat(),
         "candidates": [],
     }
     for r in results:
@@ -827,6 +854,7 @@ def _build_json_output(results):
             entry["pool_budget"] = ctx.get("pool_budget", 0)
             entry["total_levels"] = ctx.get("total_levels", 0)
             entry["in_range_count"] = ctx.get("in_range_count", 0)
+            entry["above_range_count"] = ctx.get("above_range_count", 0)
             # Risk component breakdown
             risk_comps = r.get("risk", {}).get("components", {})
             entry["risk_components"] = {
@@ -847,7 +875,10 @@ def main():
     cap = load_capital_config()
     reserve_pool = cap.get("reserve_pool", 300)
 
-    candidates = _identify_underwater(portfolio, requested)
+    candidates, skipped = _identify_underwater(portfolio, requested)
+    if skipped:
+        for t, reason in skipped.items():
+            print(f"  {t}: skipped ({reason})")
     if not candidates:
         print("No qualifying underwater positions found (need ≥3 bullets used, not recovery).")
         return
@@ -885,8 +916,12 @@ def main():
     summary = _format_summary_table(results)
     print("\n" + summary)
 
+    # Effective data date = most recent data_as_of across all results
+    data_dates = [r.get("data_as_of") for r in results if r.get("data_as_of")]
+    report_date = max(data_dates) if data_dates else datetime.date.today().isoformat()
+
     # Full markdown report
-    md_parts = [f"# Range Reset Analysis — {datetime.date.today().isoformat()}\n"]
+    md_parts = [f"# Range Reset Analysis — {report_date}\n"]
     md_parts.append(summary + "\n")
     md_parts.append("---\n")
     for r in results:
@@ -899,7 +934,7 @@ def main():
     print(f"\nWrote {OUTPUT_MD}")
 
     # JSON output
-    json_out = _build_json_output(results)
+    json_out = _build_json_output(results, report_date=report_date)
     with open(OUTPUT_JSON, "w") as f:
         json.dump(json_out, f, indent=2)
     print(f"Wrote {OUTPUT_JSON}")
