@@ -7,7 +7,6 @@ Gap addressed: 5.3 (staged bullet deployment)
 CLI: python3 tools/deployment_advisor.py
 """
 
-import json
 import re
 import sys
 from pathlib import Path

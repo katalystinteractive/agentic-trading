@@ -7,7 +7,6 @@ Gap addressed: 2.4 (automated cooldown evaluation)
 CLI: python3 tools/cooldown_evaluator.py
 """
 
-import json
 import re
 import sys
 from datetime import datetime

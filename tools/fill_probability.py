@@ -8,7 +8,6 @@ Gaps addressed: 5.5, 2.2, 2.5, 5.1, 5.6
 CLI: python3 tools/fill_probability.py
 """
 
-import json
 import math
 import re
 import sys
@@ -21,7 +20,7 @@ import yfinance as yf
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from technical_scanner import calc_atr
 from shared_regime import fetch_regime
-from shared_utils import load_json, parse_bullet_label
+from shared_utils import load_json, parse_bullet_label, get_portfolio_median_pnl
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
@@ -144,16 +143,12 @@ def main():
     today = date.today()
 
     # Get expected profit pct from trade history
-    sell_records = [t for t in trade_hist.get("trades", []) if t.get("side") == "SELL" and t.get("pnl_pct")]
+    portfolio_median_pnl = get_portfolio_median_pnl(trade_hist)
     # Per-ticker sell pnl
+    sell_records = [t for t in trade_hist.get("trades", []) if t.get("side") == "SELL" and t.get("pnl_pct")]
     ticker_pnls = {}
     for t in sell_records:
         ticker_pnls.setdefault(t["ticker"], []).append(t["pnl_pct"])
-    all_pnls = [t["pnl_pct"] for t in sell_records]
-    if all_pnls:
-        portfolio_median_pnl = sorted(all_pnls)[len(all_pnls) // 2]
-    else:
-        portfolio_median_pnl = 6.0
 
     if not orders:
         # Empty output with headers
@@ -367,8 +362,8 @@ def main():
         roc_per_day = roc / 3
 
         # Nearest fill (highest price order)
-        nearest = orders_for_ticker[0]
-        nearest_str = f"{nearest['label']} {nearest['dist_pct']:+.1f}%"
+        nearest_order = orders_for_ticker[0]
+        nearest_str = f"{nearest_order['label']} {nearest_order['dist_pct']:+.1f}%"
 
         # Find B2, B3 distances
         b2_str = "—"

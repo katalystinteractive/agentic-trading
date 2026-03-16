@@ -9,7 +9,6 @@ CLI: python3 tools/loss_evaluator.py
      Evaluates all underwater active positions (shares > 0, current < avg_cost).
 """
 
-import json
 import re
 import sys
 from datetime import date

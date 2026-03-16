@@ -16,15 +16,14 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from shared_wick import parse_wick_active_supports
-from shared_utils import load_json, parse_entry_date, get_portfolio_median_pnl
+from shared_utils import load_json, parse_entry_date
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
-TRADE_HISTORY = PROJECT_ROOT / "trade_history.json"
 OUTPUT = PROJECT_ROOT / "ticker_profiles.json"
 
 
-def compute_abandon_flags(ticker, pos, current_price, today, portfolio, median_pnl):
+def compute_abandon_flags(ticker, pos, current_price, today, portfolio):
     """Compute abandon flags for a position. Returns list of triggered criteria."""
     flags = []
     avg_cost = pos.get("avg_cost", 0)
@@ -66,11 +65,8 @@ def compute_abandon_flags(ticker, pos, current_price, today, portfolio, median_p
 
 def main():
     portfolio = load_json(PORTFOLIO)
-    trade_hist = load_json(TRADE_HISTORY)
     positions = portfolio.get("positions", {})
     today = date.today()
-    median_pnl = get_portfolio_median_pnl(trade_hist)
-
     # Collect all tickers from positions and watchlist
     all_tickers = set(positions.keys())
     all_tickers.update(portfolio.get("watchlist", []))
@@ -112,7 +108,7 @@ def main():
                     current_price = float(close.iloc[-1])
             except Exception:
                 pass
-            flags = compute_abandon_flags(ticker, pos, current_price, today, portfolio, median_pnl) if current_price else []
+            flags = compute_abandon_flags(ticker, pos, current_price, today, portfolio) if current_price else []
         else:
             flags = []
 
