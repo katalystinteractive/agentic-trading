@@ -221,6 +221,10 @@ def main():
         except Exception as e:
             print(f"*Error fetching {ticker}: {e}*")
 
+    # Pre-compute reserve status per ticker (avoid repeated gate evaluation)
+    ticker_reserve_status = {t: compute_reserve_status(t, vix, positions)
+                             for t in tickers_with_buys}
+
     rows = []
     for ticker, buys in sorted(tickers_with_buys.items()):
         current = ticker_current.get(ticker)
@@ -305,7 +309,7 @@ def main():
 
             # R1-R3: VIX-graduated reserve deployment
             if b["is_reserve"]:
-                reserve_status = compute_reserve_status(ticker, vix, positions)
+                reserve_status = ticker_reserve_status[ticker]
                 all_b3_filled = all(is_filled(s) for s in active_b3_plus) if active_b3_plus else False
                 if not all_b3_filled:
                     # B3+ not all filled — reserves always hold
@@ -374,8 +378,7 @@ def main():
             # Reserves: graduated deployment
             elif b["is_reserve"]:
                 if rec not in ("Hold", "Filled", "Review"):
-                    reserve_status = compute_reserve_status(ticker, vix, positions)
-                    place_actions.append(f"Place {slot}: {reserve_status}")
+                    place_actions.append(f"Place {slot}: {ticker_reserve_status[ticker]}")
 
         actions = list(place_actions)
         if hold_capital > 0:
@@ -387,7 +390,7 @@ def main():
             action_str = "; ".join(actions)
 
         # Reserve status for display
-        res_status = compute_reserve_status(ticker, vix, positions)
+        res_status = ticker_reserve_status[ticker]
         rows.append(f"| {ticker} | {col('B1')} | {col('B2')} | {col('B3')} | {col('B4')} | {col('B5')} | {r_col} | {res_status} | {action_str} |")
 
     print("### Deployment Recommendations")

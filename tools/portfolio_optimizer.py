@@ -7,6 +7,7 @@ Gaps addressed: 5.2 (cross-portfolio optimization), 2.5 (enhanced distance-to-fi
 CLI: python3 tools/portfolio_optimizer.py
 """
 
+import statistics
 import sys
 from pathlib import Path
 
@@ -69,7 +70,6 @@ def get_ticker_exp_profit(ticker, trade_hist, portfolio_median):
              if t.get("side") == "SELL" and t.get("ticker") == ticker
              and t.get("pnl_pct") is not None]
     if len(sells) >= 3:
-        import statistics
         return statistics.median([t["pnl_pct"] for t in sells])
     return portfolio_median
 
@@ -116,7 +116,7 @@ def check_reallocation_constraints(from_order, to_order, portfolio):
                 total_deployed += amt
                 if SECTOR_MAP.get(t, "Unknown") == target_sector:
                     sector_deployed += amt
-        if total_deployed > 0 and (sector_deployed + to_order["capital"]) / total_deployed > MAX_SECTOR_PCT:
+        if total_deployed > 0 and (sector_deployed + from_order["capital"]) / total_deployed > MAX_SECTOR_PCT:
             return False
 
     return True
@@ -242,6 +242,10 @@ def main():
         except Exception as e:
             print(f"*Warning: Failed to fetch {ticker}: {e}*", file=sys.stderr)
 
+    # Pre-compute per-ticker data (avoid re-reading JSON per order)
+    ticker_cycle_days = {t: get_cycle_days_estimate(t) for t in tickers}
+    ticker_phase = {t: get_current_phase(t) for t in tickers}
+
     # Compute EV per order
     orders_with_ev = []
     for o in all_orders:
@@ -254,9 +258,9 @@ def main():
         prob_5 = probs[5]
 
         exp_profit = get_ticker_exp_profit(o["ticker"], trade_hist, portfolio_median_pnl)
-        cycle_days = get_cycle_days_estimate(o["ticker"])
+        cycle_days = ticker_cycle_days.get(o["ticker"], DEFAULT_CYCLE_DAYS)
         ev_per_day = compute_ev_per_dollar_per_day(prob_30, exp_profit, cycle_days)
-        phase = get_current_phase(o["ticker"])
+        phase = ticker_phase.get(o["ticker"], "Unknown")
 
         orders_with_ev.append({
             **o,
