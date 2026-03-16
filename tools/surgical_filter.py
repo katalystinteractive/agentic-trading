@@ -194,7 +194,7 @@ def evaluate_kpi_gates(passer, wick_data):
 
 
 # ---------------------------------------------------------------------------
-# Scoring functions (6 criteria, 100 pts total)
+# Scoring functions (7 criteria, 100 pts total)
 # All read from wick_data["bullet_plan"] and wick_data["current_price"]
 # ---------------------------------------------------------------------------
 
@@ -287,52 +287,9 @@ def score_swing(passer):
 
 
 def score_cycle_efficiency(cycle_timing):
-    """Criterion 7: Cycle Efficiency (0-20).
-
-    Sub-components:
-    - Cycle count (0-6): 0 cycles=0, 1-4=2, 5-9=4, 10+=6
-    - Immediate fill rate (0-6): <50%=0, 50-79%=2, 80-99%=4, 100%=6
-    - Median deep speed (0-5): >15d=0, 8-15d=2, 3-7d=3, 1-2d=5
-    - Consistency bonus (0-3): 10+ cycles AND 100% fill AND median_deep<=2 = 3
-    """
-    if cycle_timing is None:
-        return 0
-
-    pts = 0
-    total = cycle_timing.get("total_cycles", 0)
-    fill_pct = cycle_timing.get("immediate_fill_pct", 0)
-    median_deep = cycle_timing.get("median_deep")
-
-    # Cycle count (0-6)
-    if total >= 10:
-        pts += 6
-    elif total >= 5:
-        pts += 4
-    elif total >= 1:
-        pts += 2
-
-    # Immediate fill rate (0-6)
-    if fill_pct >= 100:
-        pts += 6
-    elif fill_pct >= 80:
-        pts += 4
-    elif fill_pct >= 50:
-        pts += 2
-
-    # Median deep speed (0-5)
-    if median_deep is not None:
-        if median_deep <= 2:
-            pts += 5
-        elif median_deep <= 7:
-            pts += 3
-        elif median_deep <= 15:
-            pts += 2
-
-    # Consistency bonus (0-3)
-    if total >= 10 and fill_pct >= 100 and median_deep is not None and median_deep <= 2:
-        pts += 3
-
-    return min(pts, MAX_CYCLE_EFFICIENCY)
+    """Criterion 7: Cycle Efficiency (0-20). Delegates to shared_utils."""
+    from shared_utils import score_cycle_efficiency as _shared_score
+    return _shared_score(cycle_timing, max_points=MAX_CYCLE_EFFICIENCY)
 
 
 def score_sector_diversity(ticker, sector, portfolio_ctx):

@@ -183,47 +183,19 @@ def _score_order_hygiene(orphaned_count, all_active_above_price, has_non_paused_
 
 def _score_cycle_efficiency(ticker):
     """Score cycle efficiency for watchlist fitness (0-20).
-    Returns (points, reason_str)."""
+    Returns (points, reason_str). Delegates scoring to shared_utils."""
+    from shared_utils import score_cycle_efficiency as _shared_score
     ct = load_cycle_timing(ticker)
     if ct is None:
         return 0, "No cycle data"
 
+    pts = _shared_score(ct, max_points=CYCLE_EFFICIENCY_POINTS)
+
     total = ct.get("total_cycles", 0)
     fill_pct = ct.get("immediate_fill_pct", 0)
     median_deep = ct.get("median_deep")
-
-    pts = 0
-    # Cycle count (0-6)
-    if total >= 10:
-        pts += 6
-    elif total >= 5:
-        pts += 4
-    elif total >= 1:
-        pts += 2
-
-    # Immediate fill rate (0-6)
-    if fill_pct >= 100:
-        pts += 6
-    elif fill_pct >= 80:
-        pts += 4
-    elif fill_pct >= 50:
-        pts += 2
-
-    # Median deep speed (0-5)
-    if median_deep is not None:
-        if median_deep <= 2:
-            pts += 5
-        elif median_deep <= 7:
-            pts += 3
-        elif median_deep <= 15:
-            pts += 2
-
-    # Consistency bonus (0-3)
-    if total >= 10 and fill_pct >= 100 and median_deep is not None and median_deep <= 2:
-        pts += 3
-
     reason = f"{total} cycles, {fill_pct:.0f}% fill, median {median_deep}d" if median_deep else f"{total} cycles"
-    return min(pts, CYCLE_EFFICIENCY_POINTS), reason
+    return pts, reason
 
 
 # ---------------------------------------------------------------------------
@@ -284,7 +256,7 @@ def _analyze_orders(ticker, data, portfolio):
 # ---------------------------------------------------------------------------
 # Engagement verdict
 # ---------------------------------------------------------------------------
-def _compute_verdict(ticker, data, portfolio, order_info, swing, consistency):
+def _compute_verdict(ticker, data, portfolio, order_info, swing, consistency, cycle_pts=None):
     """Compute base verdict + position-aware modifier. Returns (verdict, verdict_note)."""
     positions = portfolio.get("positions", {})
     has_position = ticker in positions and positions[ticker].get("shares", 0) > 0
@@ -347,12 +319,14 @@ def _compute_verdict(ticker, data, portfolio, order_info, swing, consistency):
         return base, note
 
     # CYCLE-GATE — require minimum cycle validation for ENGAGE
-    cycle_pts = _score_cycle_efficiency(ticker)[0]
+    if cycle_pts is None:
+        cycle_pts = _score_cycle_efficiency(ticker)[0]
     has_cycle_data = cycle_pts >= 8
     on_existing_watchlist = ticker in portfolio.get("watchlist", [])
+    has_existing_position = ticker in positions and positions[ticker].get("shares", 0) > 0
 
     if not has_cycle_data:
-        if on_existing_watchlist:
+        if on_existing_watchlist or has_existing_position:
             # Grace period: existing watchlist tickers keep ENGAGE with warning
             note = "Strategy fits, ready for engagement. WARNING: No cycle timing data — run cycle_timing_analyzer.py to validate."
             base = "ENGAGE"
@@ -425,8 +399,11 @@ def _process_ticker(ticker, data, hist, portfolio):
     )
     order_info["all_active_skip"] = all_active_skip
 
+    # Pre-compute cycle efficiency (used by both verdict and scoring)
+    cycle_pts, cycle_reason = _score_cycle_efficiency(ticker)
+
     # Verdict
-    verdict, verdict_note = _compute_verdict(ticker, data, portfolio, order_info, swing, consistency)
+    verdict, verdict_note = _compute_verdict(ticker, data, portfolio, order_info, swing, consistency, cycle_pts=cycle_pts)
 
     # Shared order_info dict for JSON output
     def _order_info_json():
@@ -471,7 +448,6 @@ def _process_ticker(ticker, data, hist, portfolio):
         order_info["all_above_price"],
         order_info["has_non_paused_orders"],
     )
-    cycle_pts, cycle_reason = _score_cycle_efficiency(ticker)
     total = swing_pts + consistency_pts + level_pts + hr_pts + hygiene_pts + cycle_pts
 
     score_components = {

@@ -14,8 +14,7 @@ import sys
 from datetime import date, datetime
 from pathlib import Path
 
-import sys as _sys
-_sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from shared_utils import load_cycle_timing
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent

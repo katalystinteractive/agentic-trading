@@ -1,7 +1,7 @@
 """Surgical Pre-Critic — mechanical confidence modifiers, FAIL filtering, ranking.
 
 Reads candidate-verification.json, candidate_shortlist.json, screening_data.json,
-and portfolio.json. Computes deterministic confidence modifiers (4 components),
+and portfolio.json. Computes deterministic confidence modifiers (5 components),
 filters FAIL candidates, ranks by final score, builds bullet summaries and
 portfolio impact. Writes candidate-pre-critic.md for the LLM critic.
 
@@ -306,11 +306,11 @@ def _compute_cycle_efficiency(shortlist_entry, screening_data):
         return 0
 
     # Check for split/inconsistent pattern
-    if median_deep and max_deep and max_deep > 3 * median_deep:
+    if median_deep is not None and max_deep is not None and max_deep > 3 * max(median_deep, 1):
         return -5
 
     # Slow cycler
-    if median_deep and median_deep > 15:
+    if median_deep is not None and median_deep > 15:
         return -3
 
     # Proven fast cycler
