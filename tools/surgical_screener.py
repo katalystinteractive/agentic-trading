@@ -21,6 +21,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from bounce_screener import TICKERS, get_excluded_tickers
 from wick_offset_analyzer import analyze_stock_data, load_capital_config
 from shared_utils import load_cycle_timing
+from cycle_timing_analyzer import analyze_ticker as _analyze_cycle_timing
 
 ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = ROOT / "portfolio.json"
@@ -252,19 +253,81 @@ def get_portfolio_context():
     }
 
 
-def gather_cycle_timing(screen_results):
-    """Gather cycle_timing.json data for all screening passers."""
+def gather_cycle_timing(screen_results, wick_tickers):
+    """Gather cycle timing data for screening passers.
+
+    For each ticker with wick analysis (top 20):
+    1. Try to load cached cycle_timing.json (fast path).
+    2. If no cache, run full cycle timing analysis on-the-fly from historical data.
+    3. Save computed results to tickers/<TICKER>/cycle_timing.json for future runs.
+
+    Args:
+        screen_results: All Stage 1 passers.
+        wick_tickers: Set of tickers that passed Stage 2 (have wick analysis).
+    """
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
     ct_data = {}
+    need_compute = []
+
+    # Fast path: load cached data
     for p in screen_results:
-        ct = load_cycle_timing(p["ticker"])
+        ticker = p["ticker"]
+        if ticker not in wick_tickers:
+            continue  # only compute for tickers with wick analysis
+        ct = load_cycle_timing(ticker)
         if ct is not None:
-            ct_data[p["ticker"]] = ct
+            ct_data[ticker] = ct
+        else:
+            need_compute.append(ticker)
+
+    if not need_compute:
+        print(f"[Cycle Timing] All {len(ct_data)} tickers loaded from cache")
+        return ct_data
+
+    print(f"[Cycle Timing] {len(ct_data)} cached, computing {len(need_compute)} on-the-fly: "
+          f"{', '.join(need_compute)}")
+
+    # Compute cycle timing in parallel for uncached tickers
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        futures = {executor.submit(_analyze_cycle_timing, t): t
+                   for t in need_compute}
+        for future in as_completed(futures):
+            ticker, result, err = future.result()
+            if err:
+                print(f"  {ticker}: {err}")
+                continue
+            if result is None:
+                continue
+
+            # Extract statistics for scoring
+            stats = result.get("statistics")
+            if stats and stats.get("total_cycles", 0) > 0:
+                ct_data[ticker] = {
+                    "total_cycles": stats.get("total_cycles", 0),
+                    "median_deep": stats.get("median_deep"),
+                    "median_first": stats.get("median_first"),
+                    "max_deep": stats.get("max_deep"),
+                    "immediate_fill_pct": stats.get("immediate_fill_pct", 0),
+                }
+
+            # Save full result to disk for future runs
+            ticker_dir = ROOT / "tickers" / ticker
+            ticker_dir.mkdir(parents=True, exist_ok=True)
+            json_path = ticker_dir / "cycle_timing.json"
+            json_path.write_text(
+                json.dumps(result, indent=2, default=str) + "\n",
+                encoding="utf-8",
+            )
+            print(f"  {ticker}: {stats.get('total_cycles', 0)} cycles → saved")
+
+    print(f"[Cycle Timing] Total: {len(ct_data)} tickers with cycle data")
     return ct_data
 
 
 def build_screening_json(screen_results, wick_results, portfolio_ctx):
     """Build and write screening_data.json."""
-    cycle_timings = gather_cycle_timing(screen_results)
+    cycle_timings = gather_cycle_timing(screen_results, set(wick_results.keys()))
     output = {
         "generated": datetime.datetime.now().isoformat(timespec="seconds"),
         "gates": {
