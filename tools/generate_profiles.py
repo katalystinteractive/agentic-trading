@@ -7,58 +7,21 @@ CLI: python3 tools/generate_profiles.py
 
 import json
 import re
-import statistics
 import sys
 from datetime import date
 from pathlib import Path
 
+import yfinance as yf
+import pandas as pd
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from shared_wick import parse_wick_active_supports
+from shared_utils import load_json, parse_entry_date, get_portfolio_median_pnl
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
 TRADE_HISTORY = PROJECT_ROOT / "trade_history.json"
 OUTPUT = PROJECT_ROOT / "ticker_profiles.json"
-
-
-def load_json(path):
-    if not path.exists():
-        return {}
-    with open(path) as f:
-        return json.load(f)
-
-
-def parse_entry_date(entry_date_str):
-    """Parse entry_date, handling 'pre-' prefix. Returns date or None."""
-    if not entry_date_str:
-        return None
-    if entry_date_str.startswith("pre-"):
-        rest = entry_date_str[4:]
-        try:
-            from datetime import datetime
-            return datetime.strptime(rest, "%Y-%m-%d").date()
-        except ValueError:
-            pass
-        try:
-            return date(int(rest), 1, 1)
-        except ValueError:
-            pass
-        return None
-    try:
-        from datetime import datetime
-        return datetime.strptime(entry_date_str, "%Y-%m-%d").date()
-    except ValueError:
-        return None
-
-
-def get_portfolio_median_pnl(trade_history):
-    """Compute portfolio median PnL from SELL records. Fallback 6.0%."""
-    sells = [t for t in trade_history.get("trades", [])
-             if t.get("side") == "SELL" and t.get("pnl_pct") is not None]
-    pnls = [t["pnl_pct"] for t in sells]
-    if len(pnls) < 3:
-        return 6.0
-    return statistics.median(pnls)
 
 
 def compute_abandon_flags(ticker, pos, current_price, today, portfolio, median_pnl):
@@ -77,7 +40,7 @@ def compute_abandon_flags(ticker, pos, current_price, today, portfolio, median_p
         flags.append("C1")
 
     # C2: days stuck > 30
-    entry = parse_entry_date(pos.get("entry_date", ""))
+    entry, _ = parse_entry_date(pos.get("entry_date", ""))
     if entry and (today - entry).days > 30:
         flags.append("C2")
 
@@ -138,13 +101,17 @@ def main():
         # Abandon flags (only for active underwater positions)
         shares = pos.get("shares", 0)
         if isinstance(shares, int) and shares > 0:
-            # Use cached pullback profile price or skip if not available
+            # Fetch current price directly (F5 fix: no fragile inference)
             current_price = None
-            if pp and pp.get("bullet_fill_rates"):
-                # Infer current from first bullet depth
-                bf = pp["bullet_fill_rates"][0]
-                if bf["depth_pct"] != 0:
-                    current_price = bf["price"] / (1 + bf["depth_pct"] / 100)
+            try:
+                df = yf.download(ticker, period="5d", auto_adjust=True, progress=False)
+                if not df.empty:
+                    close = df["Close"]
+                    if isinstance(close, pd.DataFrame):
+                        close = close.iloc[:, 0]
+                    current_price = float(close.iloc[-1])
+            except Exception:
+                pass
             flags = compute_abandon_flags(ticker, pos, current_price, today, portfolio, median_pnl) if current_price else []
         else:
             flags = []

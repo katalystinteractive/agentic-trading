@@ -1,6 +1,54 @@
 """Shared utilities for Capital Intelligence tools."""
 
+import json
 import re
+import statistics
+from datetime import date, datetime
+from pathlib import Path
+
+
+def load_json(path):
+    """Load a JSON file. Returns empty dict if file doesn't exist."""
+    if isinstance(path, str):
+        path = Path(path)
+    if not path.exists():
+        return {}
+    with open(path) as f:
+        return json.load(f)
+
+
+def parse_entry_date(entry_date_str):
+    """Parse entry_date, handling 'pre-' prefix dates.
+    Returns (date_obj, is_pre_strategy)."""
+    if not entry_date_str:
+        return None, False
+    if entry_date_str.startswith("pre-"):
+        rest = entry_date_str[4:]
+        try:
+            return datetime.strptime(rest, "%Y-%m-%d").date(), True
+        except ValueError:
+            pass
+        try:
+            year = int(rest)
+            return date(year, 1, 1), True
+        except ValueError:
+            pass
+        return None, True
+    try:
+        return datetime.strptime(entry_date_str, "%Y-%m-%d").date(), False
+    except ValueError:
+        return None, False
+
+
+def get_portfolio_median_pnl(trade_history):
+    """Compute portfolio median PnL from SELL records.
+    Fallback 6.0% if <3 records."""
+    sells = [t for t in trade_history.get("trades", [])
+             if t.get("side") == "SELL" and t.get("pnl_pct") is not None]
+    pnls = [t["pnl_pct"] for t in sells]
+    if len(pnls) < 3:
+        return 6.0
+    return statistics.median(pnls)
 
 
 def parse_bullet_label(note):

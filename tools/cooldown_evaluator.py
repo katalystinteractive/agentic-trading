@@ -18,17 +18,11 @@ import yfinance as yf
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from shared_wick import parse_wick_active_levels
+from shared_utils import load_json
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 COOLDOWN = PROJECT_ROOT / "cooldown.json"
 TRADE_HISTORY = PROJECT_ROOT / "trade_history.json"
-
-
-def load_json(path):
-    if not path.exists():
-        return {}
-    with open(path) as f:
-        return json.load(f)
 
 
 def get_sell_price(ticker, sold_date_str, trade_history):

@@ -9,6 +9,7 @@ CLI: python3 tools/pullback_profiler.py [TICKER ...]
 """
 
 import json
+import re
 import sys
 from datetime import date
 from pathlib import Path
@@ -18,18 +19,11 @@ import yfinance as yf
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from shared_wick import find_local_highs, find_local_lows
-from shared_utils import parse_bullet_label
+from shared_utils import load_json, parse_bullet_label
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
 DEPTH_STEPS = [-2, -3, -5, -7, -9, -12, -15, -20]
-
-
-def load_json(path):
-    if not path.exists():
-        return {}
-    with open(path) as f:
-        return json.load(f)
 
 
 def get_tickers_with_buys(portfolio):
@@ -55,15 +49,18 @@ def get_unfilled_buys(ticker, portfolio):
     return sorted(orders, key=lambda x: -x["price"])
 
 
-def compute_pullbacks(highs, lows):
+def compute_pullbacks(highs, lows, local_highs=None, local_lows=None):
     """Compute pullback depths from local high-low pairs.
 
     For each pair of consecutive local highs, find the deepest local low
     between them. For the last high, use lows after it.
     Returns list of (high_val, low_val, depth_pct).
+    Accepts pre-computed local_highs/local_lows to avoid redundant computation.
     """
-    local_highs = find_local_highs(highs, window=10)
-    local_lows = find_local_lows(lows, window=10)
+    if local_highs is None:
+        local_highs = find_local_highs(highs, window=10)
+    if local_lows is None:
+        local_lows = find_local_lows(lows, window=10)
 
     if not local_highs or not local_lows:
         return []
@@ -196,8 +193,12 @@ def profile_ticker(ticker, portfolio):
     closes = close.values.tolist()
     current = closes[-1]
 
+    # Compute local extremes once, reuse for pullbacks and phase detection (F8 fix)
+    local_highs_list = find_local_highs(highs, window=10)
+    local_lows_list = find_local_lows(lows, window=10)
+
     # Compute pullbacks
-    pullbacks = compute_pullbacks(highs, lows)
+    pullbacks = compute_pullbacks(highs, lows, local_highs_list, local_lows_list)
     distribution = build_distribution(pullbacks)
 
     # Stats
@@ -216,8 +217,6 @@ def profile_ticker(ticker, portfolio):
     bullet_fill_rates = map_bullets_to_distribution(buy_orders, current, distribution)
 
     # Detect phase
-    local_highs_list = find_local_highs(highs, window=10)
-    local_lows_list = find_local_lows(lows, window=10)
     phase = detect_phase(closes, local_highs_list, local_lows_list, current)
 
     # Build output
@@ -281,7 +280,8 @@ def main():
 
             # Summary row
             b1_rate = cache["bullet_fill_rates"][0]["fill_rate_pct"] if cache["bullet_fill_rates"] else "—"
-            b4_rates = [bf["fill_rate_pct"] for bf in cache["bullet_fill_rates"] if bf["label"] >= "B4"]
+            b4_rates = [bf["fill_rate_pct"] for bf in cache["bullet_fill_rates"]
+                        if (m := re.search(r'(\d+)', bf["label"])) and int(m.group(1)) >= 4]
             b4_rate = f"{b4_rates[0]:.0f}%" if b4_rates else "—"
             b1_str = f"{b1_rate:.0f}%" if isinstance(b1_rate, float) else b1_rate
             summary_rows.append({

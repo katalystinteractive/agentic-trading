@@ -16,18 +16,11 @@ import yfinance as yf
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from technical_scanner import calc_atr
-from shared_utils import parse_bullet_label
+from shared_utils import load_json, parse_bullet_label
 from shared_wick import parse_wick_active_supports, find_local_highs, find_local_lows
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
-
-
-def load_json(path):
-    if not path.exists():
-        return {}
-    with open(path) as f:
-        return json.load(f)
 
 
 def get_buy_prices_for_ticker(ticker, portfolio):

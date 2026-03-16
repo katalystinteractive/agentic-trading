@@ -11,9 +11,8 @@ CLI: python3 tools/loss_evaluator.py
 
 import json
 import re
-import statistics
 import sys
-from datetime import date, datetime
+from datetime import date
 from pathlib import Path
 
 import pandas as pd
@@ -22,54 +21,12 @@ import yfinance as yf
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from technical_scanner import calc_atr
 from shared_wick import parse_wick_active_supports, parse_wick_active_levels
+from shared_utils import load_json, parse_entry_date, get_portfolio_median_pnl
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
 TRADE_HISTORY = PROJECT_ROOT / "trade_history.json"
 OUTPUT_FILE = PROJECT_ROOT / "loss-evaluator-flags.md"
-
-
-def load_json(path):
-    if not path.exists():
-        return {}
-    with open(path) as f:
-        return json.load(f)
-
-
-def parse_entry_date(entry_date_str):
-    """Parse entry_date, handling 'pre-' prefix dates.
-    Returns (date_obj, is_pre_strategy)."""
-    if not entry_date_str:
-        return None, False
-    if entry_date_str.startswith("pre-"):
-        rest = entry_date_str[4:]
-        # Try "pre-2026-02-12"
-        try:
-            return datetime.strptime(rest, "%Y-%m-%d").date(), True
-        except ValueError:
-            pass
-        # Try "pre-2026"
-        try:
-            year = int(rest)
-            return date(year, 1, 1), True
-        except ValueError:
-            pass
-        return None, True
-    try:
-        return datetime.strptime(entry_date_str, "%Y-%m-%d").date(), False
-    except ValueError:
-        return None, False
-
-
-def get_portfolio_median_pnl(trade_history):
-    """Compute portfolio median PnL from SELL records.
-    Fallback 6.0% if <3 records."""
-    sells = [t for t in trade_history.get("trades", [])
-             if t.get("side") == "SELL" and t.get("pnl_pct") is not None]
-    pnls = [t["pnl_pct"] for t in sells]
-    if len(pnls) < 3:
-        return 6.0
-    return statistics.median(pnls)
 
 
 def get_reserve_orders(ticker, portfolio):
@@ -156,15 +113,16 @@ def check_c4(capital_at_risk, portfolio_median_pnl, median_fill_days, est_breake
 
     Only triggers when est_breakeven_days <= 30 (recovery window exists).
     When est_breakeven_days > 30: C2 already covers, C4 does NOT trigger.
+    Returns (triggered, redeploy_roi, hold_roi) — hold_roi is None when not applicable.
     """
     if median_fill_days is None or est_breakeven_days is None:
-        return False, 0, 0
+        return False, None, None
 
     cycle_days_est = max(median_fill_days + 3, 1)
     redeploy_roi_30d = capital_at_risk * (portfolio_median_pnl / 100) * (30 / cycle_days_est)
 
     if est_breakeven_days > 30:
-        return False, redeploy_roi_30d, 0
+        return False, redeploy_roi_30d, None
 
     hold_roi_30d = capital_at_risk * (30 - est_breakeven_days) / 30 * portfolio_median_pnl / 100
     if hold_roi_30d <= 0:
@@ -255,7 +213,7 @@ def main():
     positions = portfolio.get("positions", {})
     portfolio_median_pnl = get_portfolio_median_pnl(trade_hist)
 
-    # Find underwater active positions
+    # Find underwater active positions — single yfinance call per ticker (F1 fix)
     underwater = []
     for ticker, pos in positions.items():
         shares = pos.get("shares", 0)
@@ -263,7 +221,7 @@ def main():
             continue
 
         try:
-            df = yf.download(ticker, period="5d", auto_adjust=True, progress=False)
+            df = yf.download(ticker, period="1mo", auto_adjust=True, progress=False)
             if df.empty:
                 continue
             close = df["Close"]
@@ -278,18 +236,16 @@ def main():
         if current >= avg_cost:
             continue  # not underwater
 
-        # Compute ATR
+        # Compute ATR from same DataFrame
+        atr_val = None
         try:
-            df_atr = yf.download(ticker, period="1mo", auto_adjust=True, progress=False)
-            if not df_atr.empty:
-                atr_series = calc_atr(df_atr["High"], df_atr["Low"], df_atr["Close"])
-                if isinstance(atr_series, pd.DataFrame):
-                    atr_series = atr_series.iloc[:, 0]
-                atr_val = float(atr_series.iloc[-1]) if not pd.isna(atr_series.iloc[-1]) else None
-            else:
-                atr_val = None
+            atr_series = calc_atr(df["High"], df["Low"], df["Close"])
+            if isinstance(atr_series, pd.DataFrame):
+                atr_series = atr_series.iloc[:, 0]
+            if not pd.isna(atr_series.iloc[-1]):
+                atr_val = float(atr_series.iloc[-1])
         except Exception:
-            atr_val = None
+            pass
 
         underwater.append({
             "ticker": ticker,
@@ -337,6 +293,7 @@ def main():
     print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
     flag_lines = []
+    verdict_cache = {}  # F2 fix: cache verdicts for Block 4
     if not underwater:
         line = "| — | — | — | None | — | — | — | — |"
         print(line)
@@ -392,6 +349,9 @@ def main():
             else:
                 verdict = "HOLD"
 
+            # Cache verdict for Block 4 (F2 fix)
+            verdict_cache[ticker] = verdict
+
             # LLM check column
             llm_checks = []
             if c1_triggered:
@@ -400,7 +360,8 @@ def main():
                 llm_checks.append("Confirm thesis broken")
             llm_str = "; ".join(llm_checks) if llm_checks else "—"
 
-            redeploy_str = f"${redeploy_roi:.0f}" if redeploy_roi else "—"
+            # F6 fix: use `is not None` instead of truthiness check
+            redeploy_str = f"${redeploy_roi:.0f}" if redeploy_roi is not None else "—"
             be_display = be_str
 
             line = f"| {ticker} | {days_str} | {loss_pct:.1f}% | {trigger_str} | {redeploy_str} | {be_display} | {verdict} | {llm_str} |"
@@ -458,21 +419,8 @@ def main():
         else:
             redeploy_str = "No cycle data"
 
-        # Use the worst verdict from Block 2
-        # Re-derive since we need it
-        c1_triggered, _ = check_c1(ticker, u["current"])
-        c2_triggered, _ = check_c2(entry_date_str, today)
-        reserves = get_reserve_orders(ticker, portfolio)
-        c3_triggered, _, _ = check_c3(u["avg_cost"], u["current"], u["shares"], reserves)
-        capital_at_risk = u["shares"] * u["avg_cost"]
-        c4_triggered, _, _ = check_c4(capital_at_risk, portfolio_median_pnl, median_fill_days, be_days)
-        n_triggers = sum([c1_triggered, c2_triggered, c3_triggered, c4_triggered])
-        if n_triggers >= 2 or c1_triggered:
-            verdict = "ABANDON_CANDIDATE"
-        elif n_triggers == 1:
-            verdict = "REVIEW"
-        else:
-            verdict = "HOLD"
+        # F2 fix: use cached verdict from Block 2
+        verdict = verdict_cache.get(ticker, "HOLD")
 
         print(f"| {ticker} | {days} | {loss_pct:.1f}% | {be_str} | {redeploy_str} | {verdict} |")
 

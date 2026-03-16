@@ -18,17 +18,10 @@ import yfinance as yf
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from technical_scanner import calc_atr
 from shared_regime import fetch_regime
-from shared_utils import parse_bullet_label
+from shared_utils import load_json, parse_bullet_label
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
-
-
-def load_json(path):
-    if not path.exists():
-        return {}
-    with open(path) as f:
-        return json.load(f)
 
 
 def bullet_number(label):
