@@ -138,7 +138,7 @@ def find_reallocation_opportunities(ranked, portfolio):
                 continue
             if top["ev_per_day"] == 0:
                 continue
-            if bottom["ev_per_day"] == 0:
+            if bottom["ev_per_day"] <= 0:
                 ev_ratio = float("inf")
             else:
                 ev_ratio = top["ev_per_day"] / bottom["ev_per_day"]
