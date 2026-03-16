@@ -35,13 +35,14 @@ B1_POOR_PCT = 20.0
 COVERAGE_GOOD_MIN = 8.0
 COVERAGE_GOOD_MAX = 25.0
 
-# Max points per criterion
-MAX_BULLETS_TIER = 25
-MAX_B1_PROXIMITY = 15
-MAX_ZONE_COVERAGE = 20
-MAX_RESERVE_DEPTH = 15
+# Max points per criterion (must sum to 100)
+MAX_BULLETS_TIER = 20
+MAX_B1_PROXIMITY = 10
+MAX_ZONE_COVERAGE = 15
+MAX_RESERVE_DEPTH = 10
 MAX_SWING = 10
 MAX_SECTOR_DIVERSITY = 15
+MAX_CYCLE_EFFICIENCY = 20
 
 # Criterion 4: Reserve thresholds
 RESERVE_MIN_HOLD = 30.0
@@ -70,6 +71,12 @@ KPI_ANCHOR_LEVEL_MIN_HOLD = 50.0
 KPI_DEAD_ZONE_MAX = 30.0
 KPI_PRICE_MIN = 5.0
 KPI_PRICE_MAX = 30.0
+
+# KPI Gates 6-8: Cycle efficiency
+KPI_MIN_CYCLES = 5
+KPI_MIN_FILL_PCT = 85.0
+KPI_STRONG_HOLD_MIN = 50.0
+KPI_STRONG_LEVELS_MIN = 3
 
 
 # ---------------------------------------------------------------------------
@@ -154,6 +161,34 @@ def evaluate_kpi_gates(passer, wick_data):
         "passed": KPI_PRICE_MIN <= price <= KPI_PRICE_MAX,
     })
 
+    # Gate 6: Cycle data exists (>= 5 validated cycles)
+    cycle_timing = passer.get("cycle_timing")
+    cycle_count = cycle_timing["total_cycles"] if cycle_timing else 0
+    gates.append({
+        "name": "Cycle Data (>= 5 cycles)",
+        "threshold": f">= {KPI_MIN_CYCLES}",
+        "actual": str(cycle_count),
+        "passed": cycle_count >= KPI_MIN_CYCLES,
+    })
+
+    # Gate 7: Consistency (>= 85% immediate fill)
+    fill_pct = cycle_timing["immediate_fill_pct"] if cycle_timing else 0
+    gates.append({
+        "name": "Fill Consistency (>= 85%)",
+        "threshold": f">= {KPI_MIN_FILL_PCT}%",
+        "actual": f"{fill_pct:.0f}%",
+        "passed": fill_pct >= KPI_MIN_FILL_PCT,
+    })
+
+    # Gate 8: Active levels with 50%+ hold rate >= 3
+    strong_levels = sum(1 for b in active if b.get("hold_rate", 0) >= KPI_STRONG_HOLD_MIN)
+    gates.append({
+        "name": f"Strong Levels (hold >= {KPI_STRONG_HOLD_MIN:.0f}%)",
+        "threshold": f">= {KPI_STRONG_LEVELS_MIN}",
+        "actual": str(strong_levels),
+        "passed": strong_levels >= KPI_STRONG_LEVELS_MIN,
+    })
+
     pass_all = all(g["passed"] for g in gates)
     return pass_all, gates
 
@@ -164,14 +199,14 @@ def evaluate_kpi_gates(passer, wick_data):
 # ---------------------------------------------------------------------------
 
 def score_bullets_tier(wick_data):
-    """Criterion 1: Active Bullet Count & Tier Quality (0-25)."""
+    """Criterion 1: Active Bullet Count & Tier Quality (0-20)."""
     active = wick_data["bullet_plan"]["active"]
     raw = sum(TIER_POINTS.get(b.get("raw_tier", b["tier"]), 0) for b in active)
     return min(MAX_BULLETS_TIER, raw)
 
 
 def score_b1_proximity(wick_data):
-    """Criterion 2: B1 Proximity (0-15).
+    """Criterion 2: B1 Proximity (0-10).
     Returns 0 if no active bullets.
     """
     active = wick_data["bullet_plan"]["active"]
@@ -191,7 +226,7 @@ def score_b1_proximity(wick_data):
 
 
 def score_zone_coverage(wick_data):
-    """Criterion 3: Active Zone Coverage (0-20).
+    """Criterion 3: Active Zone Coverage (0-15).
     Returns 0 if no active bullets.
     """
     active = wick_data["bullet_plan"]["active"]
@@ -217,7 +252,7 @@ def score_zone_coverage(wick_data):
 
 
 def score_reserve_depth(wick_data):
-    """Criterion 4: Reserve Depth (0-15)."""
+    """Criterion 4: Reserve Depth (0-10)."""
     reserves = wick_data["bullet_plan"]["reserve"]
     viable = [r for r in reserves if r["hold_rate"] >= RESERVE_MIN_HOLD]
 
@@ -249,6 +284,55 @@ def score_swing(passer):
     if swing <= SWING_FLOOR:
         return 0
     return round(MAX_SWING * (swing - SWING_FLOOR) / (SWING_FULL_POINTS - SWING_FLOOR))
+
+
+def score_cycle_efficiency(cycle_timing):
+    """Criterion 7: Cycle Efficiency (0-20).
+
+    Sub-components:
+    - Cycle count (0-6): 0 cycles=0, 1-4=2, 5-9=4, 10+=6
+    - Immediate fill rate (0-6): <50%=0, 50-79%=2, 80-99%=4, 100%=6
+    - Median deep speed (0-5): >15d=0, 8-15d=2, 3-7d=3, 1-2d=5
+    - Consistency bonus (0-3): 10+ cycles AND 100% fill AND median_deep<=2 = 3
+    """
+    if cycle_timing is None:
+        return 0
+
+    pts = 0
+    total = cycle_timing.get("total_cycles", 0)
+    fill_pct = cycle_timing.get("immediate_fill_pct", 0)
+    median_deep = cycle_timing.get("median_deep")
+
+    # Cycle count (0-6)
+    if total >= 10:
+        pts += 6
+    elif total >= 5:
+        pts += 4
+    elif total >= 1:
+        pts += 2
+
+    # Immediate fill rate (0-6)
+    if fill_pct >= 100:
+        pts += 6
+    elif fill_pct >= 80:
+        pts += 4
+    elif fill_pct >= 50:
+        pts += 2
+
+    # Median deep speed (0-5)
+    if median_deep is not None:
+        if median_deep <= 2:
+            pts += 5
+        elif median_deep <= 7:
+            pts += 3
+        elif median_deep <= 15:
+            pts += 2
+
+    # Consistency bonus (0-3)
+    if total >= 10 and fill_pct >= 100 and median_deep is not None and median_deep <= 2:
+        pts += 3
+
+    return min(pts, MAX_CYCLE_EFFICIENCY)
 
 
 def score_sector_diversity(ticker, sector, portfolio_ctx):
@@ -536,9 +620,13 @@ def filter_and_score(data):
     results = []
     portfolio_ctx = data.get("portfolio_context", {})
     capital_config = data.get("capital_config", {})
+    cycle_timings = data.get("cycle_timings", {})
 
     for passer in data["passers"][:20]:
         ticker = passer["ticker"]
+        cycle_timing = cycle_timings.get(ticker)
+        # Attach cycle_timing to passer for KPI gates
+        passer["cycle_timing"] = cycle_timing
 
         if ticker not in data.get("wick_analyses", {}):
             sector_score = score_sector_diversity(
@@ -566,6 +654,7 @@ def filter_and_score(data):
             "swing": score_swing(passer),
             "sector_diversity": score_sector_diversity(
                 ticker, passer.get("sector", "Unknown"), portfolio_ctx),
+            "cycle_efficiency": score_cycle_efficiency(cycle_timing),
         }
         total = sum(scores.values())
 
@@ -633,10 +722,10 @@ def build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses):
 
     # Scoring Summary — Top 7
     lines.append(f"## Scoring Summary — Top {len(shortlist)}")
-    lines.append("| # | Ticker | Sector | Price | Swing% | Bullets (0-25) | B1 Prox (0-15) "
-                 "| Coverage (0-20) | Reserve (0-15) | Swing (0-10) | Sector (0-15) | Total | Flags |")
+    lines.append("| # | Ticker | Sector | Price | Swing% | Bullets (0-20) | B1 Prox (0-10) "
+                 "| Coverage (0-15) | Reserve (0-10) | Swing (0-10) | Sector (0-15) | Cycle (0-20) | Total | Flags |")
     lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- "
-                 "| :--- | :--- | :--- | :--- | :--- |")
+                 "| :--- | :--- | :--- | :--- | :--- | :--- |")
     for i, r in enumerate(shortlist, 1):
         p = r["passer"]
         s = r["scores"]
@@ -645,14 +734,14 @@ def build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses):
             lines.append(
                 f"| {i} | {r['ticker']} | {p.get('sector', '?')} | ${p['price']:.2f} "
                 f"| {p['median_swing']}% | — | — | — | — | — "
-                f"| {s.get('sector_diversity', '—')} | {r['total_score']} | {flag_str} |"
+                f"| {s.get('sector_diversity', '—')} | — | {r['total_score']} | {flag_str} |"
             )
         else:
             lines.append(
                 f"| {i} | {r['ticker']} | {p.get('sector', '?')} | ${p['price']:.2f} "
                 f"| {p['median_swing']}% | {s['bullets_tier']} | {s['b1_proximity']} "
                 f"| {s['zone_coverage']} | {s['reserve_depth']} | {s['swing']} "
-                f"| {s['sector_diversity']} | {r['total_score']} | {flag_str} |"
+                f"| {s['sector_diversity']} | {s['cycle_efficiency']} | {r['total_score']} | {flag_str} |"
             )
     lines.append("")
 
@@ -702,12 +791,13 @@ def build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses):
         lines.append("### Score Breakdown")
         lines.append("| Criterion | Score | Max | Detail |")
         lines.append("| :--- | :--- | :--- | :--- |")
-        lines.append(f"| Bullets & Tier Quality | {s['bullets_tier']} | 25 | Sum of tier points for active bullets |")
-        lines.append(f"| B1 Proximity | {s['b1_proximity']} | 15 | Distance from current price to first fill |")
-        lines.append(f"| Zone Coverage | {s['zone_coverage']} | 20 | Spread of active bullets across price range |")
-        lines.append(f"| Reserve Depth | {s['reserve_depth']} | 15 | Viable reserve levels with 30%+ hold |")
+        lines.append(f"| Bullets & Tier Quality | {s['bullets_tier']} | 20 | Sum of tier points for active bullets |")
+        lines.append(f"| B1 Proximity | {s['b1_proximity']} | 10 | Distance from current price to first fill |")
+        lines.append(f"| Zone Coverage | {s['zone_coverage']} | 15 | Spread of active bullets across price range |")
+        lines.append(f"| Reserve Depth | {s['reserve_depth']} | 10 | Viable reserve levels with 30%+ hold |")
         lines.append(f"| Swing Magnitude | {s['swing']} | 10 | Monthly swing opportunity |")
         lines.append(f"| Sector Diversity | {s['sector_diversity']} | 15 | New sector vs portfolio overlap |")
+        lines.append(f"| Cycle Efficiency | {s['cycle_efficiency']} | 20 | Cycle speed, fill rate, consistency |")
         lines.append(f"| **Total** | **{r['total_score']}** | **100** | |")
         lines.append("")
 

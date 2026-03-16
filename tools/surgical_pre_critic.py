@@ -282,8 +282,54 @@ def _compute_entry_timing(shortlist_entry):
     return -5
 
 
+def _compute_cycle_efficiency(shortlist_entry, screening_data):
+    """Cycle Efficiency component: -5 to +5.
+
+    +5: 10+ cycles, 100% fill, median_deep <= 2 (proven fast cycler)
+    +3: 5-9 cycles, >= 80% fill, median_deep <= 7
+    +1: 1-4 cycles with decent fill rate
+     0: No cycle data (neutral — unproven)
+    -3: Cycle data exists but median_deep > 15 (slow cycler)
+    -5: Cycle data shows split/inconsistent patterns (max_deep > 3x median_deep)
+    """
+    ticker = shortlist_entry["ticker"]
+    ct = screening_data.get("cycle_timings", {}).get(ticker)
+    if ct is None:
+        return 0  # no data = neutral, not penalty
+
+    total = ct.get("total_cycles", 0)
+    fill_pct = ct.get("immediate_fill_pct", 0)
+    median_deep = ct.get("median_deep")
+    max_deep = ct.get("max_deep")
+
+    if total == 0:
+        return 0
+
+    # Check for split/inconsistent pattern
+    if median_deep and max_deep and max_deep > 3 * median_deep:
+        return -5
+
+    # Slow cycler
+    if median_deep and median_deep > 15:
+        return -3
+
+    # Proven fast cycler
+    if total >= 10 and fill_pct >= 100 and median_deep is not None and median_deep <= 2:
+        return 5
+
+    # Good cycler
+    if total >= 5 and fill_pct >= 80 and median_deep is not None and median_deep <= 7:
+        return 3
+
+    # Some cycle data
+    if total >= 1:
+        return 1
+
+    return 0
+
+
 def compute_confidence_modifier(shortlist_entry, screening_data):
-    """Compute 4-component confidence modifier for one candidate.
+    """Compute 5-component confidence modifier for one candidate.
 
     Returns dict with component scores and totals.
     """
@@ -291,15 +337,17 @@ def compute_confidence_modifier(shortlist_entry, screening_data):
     recency = _compute_recency(shortlist_entry, screening_data)
     fit = _compute_portfolio_fit(shortlist_entry)
     timing = _compute_entry_timing(shortlist_entry)
+    cycle = _compute_cycle_efficiency(shortlist_entry, screening_data)
 
-    raw_total = sample + recency + fit + timing
-    capped_total = max(-10, min(10, raw_total))
+    raw_total = sample + recency + fit + timing + cycle
+    capped_total = max(-15, min(15, raw_total))
 
     return {
         "sample_size": sample,
         "recency": recency,
         "portfolio_fit": fit,
         "entry_timing": timing,
+        "cycle_efficiency": cycle,
         "raw_total": raw_total,
         "capped_total": capped_total,
     }
@@ -527,8 +575,8 @@ def build_report(eliminated, ranked, bullet_summaries, portfolio_impact, sector_
     # --- 2. Confidence Modifier Table ---
     lines.append("## Confidence Modifier Table")
     lines.append("")
-    lines.append("| Ticker | Adjusted Score | Sample Size | Recency | Portfolio Fit | Entry Timing | Raw | Capped | Pre-Critic Score | Rank |")
-    lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    lines.append("| Ticker | Adjusted Score | Sample Size | Recency | Portfolio Fit | Entry Timing | Cycle Eff | Raw | Capped | Pre-Critic Score | Rank |")
+    lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
     for entry in ranked:
         mod = entry["modifier_components"]
@@ -539,6 +587,7 @@ def build_report(eliminated, ranked, bullet_summaries, portfolio_impact, sector_
             f"| {_fmt_modifier(mod['recency'])} "
             f"| {_fmt_modifier(mod['portfolio_fit'])} "
             f"| {_fmt_modifier(mod['entry_timing'])} "
+            f"| {_fmt_modifier(mod['cycle_efficiency'])} "
             f"| {_fmt_modifier(mod['raw_total'])} "
             f"| {_fmt_modifier(mod['capped_total'])} "
             f"| {entry['final_score']} "
@@ -633,7 +682,7 @@ def build_report(eliminated, ranked, bullet_summaries, portfolio_impact, sector_
     # --- 5. Status Line ---
     lines.append("---")
     lines.append(f"Pre-critic: {len(ranked)} candidates ranked, {len(eliminated)} eliminated. "
-                 f"LLM critic adjusts final scores by +/-10.")
+                 f"5 modifiers (sample, recency, fit, timing, cycle). LLM critic adjusts final scores by +/-10.")
     lines.append("")
 
     return "\n".join(lines)
@@ -687,7 +736,8 @@ def main():
               f"adj={entry['adjusted_score']} + mod={entry['capped_modifier']} "
               f"= final {entry['final_score']} "
               f"[S={mod['sample_size']}, R={mod['recency']}, "
-              f"F={mod['portfolio_fit']}, T={mod['entry_timing']}]")
+              f"F={mod['portfolio_fit']}, T={mod['entry_timing']}, "
+              f"C={mod['cycle_efficiency']}]")
 
     # Bullet summaries
     bullet_summaries = {}

@@ -52,7 +52,7 @@ python3 tools/surgical_filter.py
 ```
 
 This writes `candidate_shortlist.md` and `candidate_shortlist.json` with:
-- Top 7 candidates scored on 100-point scale (6 criteria)
+- Top 7 candidates scored on 100-point scale (7 criteria including cycle efficiency)
 - Per-candidate verification (tier, bullet math, pool deployment)
 - Stress metrics (sample size, B1 distance, sector concentration, budget, reserves)
 - Recency analysis (90-day trend vs overall)
@@ -76,6 +76,10 @@ For each of the top 7 candidates in the shortlist, answer the "Qualitative Quest
 **Sector Quality Judgment:**
 - Beyond the mechanical count, does this ticker's business niche genuinely add diversification?
 - For flagged sector concentration: is the overlap meaningful (same sub-sector) or superficial?
+
+**Cycle Efficiency Assessment:**
+- Check cycle_timing data in screening_data.json. Candidates with 10+ fast cycles and 100% fill are strongly preferred.
+- Candidates with zero cycle data are higher risk — note this explicitly in your assessment.
 
 **Reserve Viability Narrative:**
 - If reserves are flagged with a gap, can they realistically rescue the position?

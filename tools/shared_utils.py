@@ -74,3 +74,26 @@ def parse_bullet_label(note):
     if m:
         return f"B{m.group(1)}"
     return "B?"
+
+
+def load_cycle_timing(ticker, project_root=None):
+    """Load cycle_timing.json for a ticker. Returns stats dict or None.
+
+    Returns: {"total_cycles": int, "median_deep": int, "immediate_fill_pct": float,
+              "median_first": int, "max_deep": int} or None if no data.
+    """
+    if project_root is None:
+        project_root = Path(__file__).resolve().parent.parent
+    ct = load_json(project_root / "tickers" / ticker / "cycle_timing.json")
+    if not ct:
+        return None
+    stats = ct.get("statistics")
+    if not stats:
+        return None
+    return {
+        "total_cycles": stats.get("total_cycles", 0),
+        "median_deep": stats.get("median_deep"),
+        "median_first": stats.get("median_first"),
+        "max_deep": stats.get("max_deep"),
+        "immediate_fill_pct": stats.get("immediate_fill_pct", 0),
+    }

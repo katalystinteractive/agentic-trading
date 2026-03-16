@@ -25,15 +25,17 @@ from wick_offset_analyzer import (
 from technical_scanner import calc_rsi, sma
 from bullet_recommender import match_order_to_level, classify_drift, is_paused, parse_bullets_used
 from trading_calendar import as_of_date_label
+from shared_utils import load_cycle_timing
 
 # ---------------------------------------------------------------------------
-# Constants — scoring
+# Constants — scoring (must sum to 100)
 # ---------------------------------------------------------------------------
-SWING_POINTS = 20
-CONSISTENCY_POINTS = 20
-LEVEL_COUNT_POINTS = 20
+SWING_POINTS = 15
+CONSISTENCY_POINTS = 15
+LEVEL_COUNT_POINTS = 15
 HOLD_RATE_POINTS = 10
-ORDER_HYGIENE_POINTS = 30
+ORDER_HYGIENE_POINTS = 25
+CYCLE_EFFICIENCY_POINTS = 20
 
 
 # ---------------------------------------------------------------------------
@@ -179,6 +181,51 @@ def _score_order_hygiene(orphaned_count, all_active_above_price, has_non_paused_
     return max(pts, 0)
 
 
+def _score_cycle_efficiency(ticker):
+    """Score cycle efficiency for watchlist fitness (0-20).
+    Returns (points, reason_str)."""
+    ct = load_cycle_timing(ticker)
+    if ct is None:
+        return 0, "No cycle data"
+
+    total = ct.get("total_cycles", 0)
+    fill_pct = ct.get("immediate_fill_pct", 0)
+    median_deep = ct.get("median_deep")
+
+    pts = 0
+    # Cycle count (0-6)
+    if total >= 10:
+        pts += 6
+    elif total >= 5:
+        pts += 4
+    elif total >= 1:
+        pts += 2
+
+    # Immediate fill rate (0-6)
+    if fill_pct >= 100:
+        pts += 6
+    elif fill_pct >= 80:
+        pts += 4
+    elif fill_pct >= 50:
+        pts += 2
+
+    # Median deep speed (0-5)
+    if median_deep is not None:
+        if median_deep <= 2:
+            pts += 5
+        elif median_deep <= 7:
+            pts += 3
+        elif median_deep <= 15:
+            pts += 2
+
+    # Consistency bonus (0-3)
+    if total >= 10 and fill_pct >= 100 and median_deep is not None and median_deep <= 2:
+        pts += 3
+
+    reason = f"{total} cycles, {fill_pct:.0f}% fill, median {median_deep}d" if median_deep else f"{total} cycles"
+    return min(pts, CYCLE_EFFICIENCY_POINTS), reason
+
+
 # ---------------------------------------------------------------------------
 # Order analysis
 # ---------------------------------------------------------------------------
@@ -299,6 +346,24 @@ def _compute_verdict(ticker, data, portfolio, order_info, swing, consistency):
             return "HOLD-WAIT", note + ". Keep position, don't add bullets until orders fixed."
         return base, note
 
+    # CYCLE-GATE — require minimum cycle validation for ENGAGE
+    cycle_pts = _score_cycle_efficiency(ticker)[0]
+    has_cycle_data = cycle_pts >= 8
+    on_existing_watchlist = ticker in portfolio.get("watchlist", [])
+
+    if not has_cycle_data:
+        if on_existing_watchlist:
+            # Grace period: existing watchlist tickers keep ENGAGE with warning
+            note = "Strategy fits, ready for engagement. WARNING: No cycle timing data — run cycle_timing_analyzer.py to validate."
+            base = "ENGAGE"
+        else:
+            # New tickers without cycle data cannot reach ENGAGE
+            note = "Strategy fits, but no cycle timing validation (cycle_pts < 8). Run cycle_timing_analyzer.py first."
+            base = "HOLD-WAIT"
+        if has_position:
+            return ("ADD" if base == "ENGAGE" else "HOLD-WAIT"), note
+        return base, note
+
     # ENGAGE — catch-all for tickers that fit and aren't RESTRUCTURE
     note = "Strategy fits, ready for engagement"
     base = "ENGAGE"
@@ -406,7 +471,8 @@ def _process_ticker(ticker, data, hist, portfolio):
         order_info["all_above_price"],
         order_info["has_non_paused_orders"],
     )
-    total = swing_pts + consistency_pts + level_pts + hr_pts + hygiene_pts
+    cycle_pts, cycle_reason = _score_cycle_efficiency(ticker)
+    total = swing_pts + consistency_pts + level_pts + hr_pts + hygiene_pts + cycle_pts
 
     score_components = {
         "swing": {"value": swing, "points": swing_pts, "max": SWING_POINTS},
@@ -414,6 +480,7 @@ def _process_ticker(ticker, data, hist, portfolio):
         "level_quality": {"count": active_half_plus, "points": level_pts, "max": LEVEL_COUNT_POINTS},
         "hold_rate": {"best": best_hr, "points": hr_pts, "max": HOLD_RATE_POINTS},
         "order_hygiene": {"orphaned": order_info["orphaned"], "points": hygiene_pts, "max": ORDER_HYGIENE_POINTS},
+        "cycle_efficiency": {"reason": cycle_reason, "points": cycle_pts, "max": CYCLE_EFFICIENCY_POINTS},
     }
 
     # Cycle data
@@ -472,6 +539,7 @@ def _format_ticker_md(result):
     lines.append(f"| Level Quality ({sc['level_quality']['count']} Active Half+) | {sc['level_quality']['points']} | {sc['level_quality']['max']} |")
     lines.append(f"| Hold Rate ({_fmt(sc['hold_rate']['best'])}%) | {sc['hold_rate']['points']} | {sc['hold_rate']['max']} |")
     lines.append(f"| Order Hygiene ({sc['order_hygiene']['orphaned']} orphaned) | {sc['order_hygiene']['points']} | {sc['order_hygiene']['max']} |")
+    lines.append(f"| Cycle Efficiency ({sc['cycle_efficiency']['reason']}) | {sc['cycle_efficiency']['points']} | {sc['cycle_efficiency']['max']} |")
     lines.append(f"| **Total** | **{result['fitness_score']}** | **100** |")
     lines.append("")
 

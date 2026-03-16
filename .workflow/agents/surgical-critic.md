@@ -49,7 +49,7 @@ python3 tools/surgical_pre_critic.py
 
 This writes `candidate-pre-critic.md` with:
 1. Elimination log (FAIL verdict and wick-failed candidates removed)
-2. Confidence modifier table (4 components: sample size, recency, portfolio fit, entry timing)
+2. Confidence modifier table (5 components: sample size, recency, portfolio fit, entry timing, cycle efficiency)
 3. Per-candidate bullet summaries (from screening data)
 4. Portfolio impact table (top 3 scenario)
 
@@ -81,6 +81,10 @@ For each candidate in the pre-critic's ranked list, apply adversarial reasoning:
 - The mechanical modifier scored sector count, but can you identify sub-sector overlaps?
 - Example: IONQ and RGTI are both quantum computing — the sector count may say "new sector" but the overlap is real
 - Challenge surface-level sector arguments from the evaluator
+
+**Cycle Efficiency Challenge:**
+- Challenge candidates with high total scores but zero cycle efficiency. A 75-point candidate with no cycle history has unproven cycling ability.
+- Compare cycle_efficiency modifier against surgical_filter cycle_efficiency score — they should be directionally consistent.
 
 **Adversarial Elimination:**
 - Find concrete reasons NOT to onboard each candidate

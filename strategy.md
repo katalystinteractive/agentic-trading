@@ -19,6 +19,27 @@ We employ a **Mean Reversion** strategy, targeting stocks that consistently fluc
 2.  **Volatility:** Must demonstrate 10%+ monthly swing (median), with 80%+ of months hitting 10%+.
 3.  **Liquidity:** High volume to ensure limit orders fill during "wicks".
 4.  **Sector Balance:** Diversify across uncorrelated sectors (e.g., Fintech, Energy, Infrastructure) to mitigate systemic risk.
+5.  **Cycle Efficiency:** Prefer stocks with fast, validated resistance→support→recovery cycles.
+
+### Cycle Efficiency Scoring (20 points)
+
+Cycle efficiency measures how quickly and reliably a stock completes resistance→support→recovery cycles:
+
+| Sub-Component | Points | Thresholds |
+| :--- | :--- | :--- |
+| Cycle Count | 0-6 | 0=0, 1-4=2, 5-9=4, 10+=6 |
+| Immediate Fill Rate | 0-6 | <50%=0, 50-79%=2, 80-99%=4, 100%=6 |
+| Median Deep Speed | 0-5 | >15d=0, 8-15d=2, 3-7d=3, 1-2d=5 |
+| Consistency Bonus | 0-3 | All three maxed = 3 |
+
+**Source:** `tickers/<TICKER>/cycle_timing.json` → `statistics` object.
+
+**KPI Gates (informational):**
+- Gate 6: >= 5 validated cycles
+- Gate 7: >= 85% immediate fill rate
+- Gate 8: >= 3 active levels with 50%+ hold rate
+
+Candidates failing these gates are flagged, not rejected — new tickers won't have cycle data yet.
 
 ## Execution Rules
 ### Entry Protocol ("Zone-Based Bullets")

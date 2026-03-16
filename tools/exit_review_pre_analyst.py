@@ -14,6 +14,10 @@ import sys
 from datetime import date, datetime
 from pathlib import Path
 
+import sys as _sys
+_sys.path.insert(0, str(Path(__file__).resolve().parent))
+from shared_utils import load_cycle_timing
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 RAW_PATH = PROJECT_ROOT / "exit-review-raw.md"
 PORTFOLIO_PATH = PROJECT_ROOT / "portfolio.json"
@@ -622,6 +626,32 @@ def compute_verdict(pos_data):
 
 
 # ---------------------------------------------------------------------------
+# Section 3b: Cycle Speed Annotation (post-check)
+# ---------------------------------------------------------------------------
+
+def _cycle_speed_annotation(ticker, verdict, days_held):
+    """Post-check: annotate verdict with cycle speed opportunity cost.
+    Returns annotation string or None."""
+    ct = load_cycle_timing(ticker)
+    if ct is None:
+        return None
+
+    median_deep = ct.get("median_deep")
+    total_cycles = ct.get("total_cycles", 0)
+
+    if median_deep is None or total_cycles < 3:
+        return None
+
+    expected_cycle = median_deep + 3  # recovery buffer
+    if days_held is not None and days_held > expected_cycle * 3 and verdict == "MONITOR":
+        cycles_missed = days_held // expected_cycle
+        return (f"Opportunity cost: {cycles_missed} cycles could have completed in "
+                f"{days_held}d (expected {expected_cycle}d/cycle). Consider REDUCE.")
+
+    return None
+
+
+# ---------------------------------------------------------------------------
 # Section 4: Cross-Checks (8 invariant checks)
 # ---------------------------------------------------------------------------
 
@@ -1104,6 +1134,11 @@ def main():
         pos_data["rule"] = rule
         pos_data["reason"] = reason
         pos_data["flags"] = flags
+
+        # Post-check: cycle speed annotation
+        cycle_annotation = _cycle_speed_annotation(ticker, verdict, days_held)
+        if cycle_annotation:
+            pos_data["flags"].append(cycle_annotation)
 
         positions.append(pos_data)
         print(f"  {ticker}: {verdict} (Rule {rule})")

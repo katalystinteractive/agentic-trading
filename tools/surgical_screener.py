@@ -20,6 +20,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from bounce_screener import TICKERS, get_excluded_tickers
 from wick_offset_analyzer import analyze_stock_data, load_capital_config
+from shared_utils import load_cycle_timing
 
 ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = ROOT / "portfolio.json"
@@ -251,8 +252,19 @@ def get_portfolio_context():
     }
 
 
+def gather_cycle_timing(screen_results):
+    """Gather cycle_timing.json data for all screening passers."""
+    ct_data = {}
+    for p in screen_results:
+        ct = load_cycle_timing(p["ticker"])
+        if ct is not None:
+            ct_data[p["ticker"]] = ct
+    return ct_data
+
+
 def build_screening_json(screen_results, wick_results, portfolio_ctx):
     """Build and write screening_data.json."""
+    cycle_timings = gather_cycle_timing(screen_results)
     output = {
         "generated": datetime.datetime.now().isoformat(timespec="seconds"),
         "gates": {
@@ -265,6 +277,7 @@ def build_screening_json(screen_results, wick_results, portfolio_ctx):
         "total_passers": len(screen_results),
         "passers": screen_results,
         "wick_analyses": wick_results,
+        "cycle_timings": cycle_timings,
         "portfolio_context": portfolio_ctx,
         "capital_config": load_capital_config(),
     }

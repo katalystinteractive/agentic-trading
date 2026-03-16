@@ -507,6 +507,75 @@ def check_recommendation_consistency(eval_json, shortlist_json):
 
 
 # ---------------------------------------------------------------------------
+# Check 8: Cycle Data Completeness
+# ---------------------------------------------------------------------------
+
+def check_cycle_data_completeness(shortlist_json, screening_data):
+    """Check that cycle_efficiency scores are consistent with cycle_timing data.
+
+    Returns: list of {"ticker": str, "issue": str}
+    """
+    cycle_timings = screening_data.get("cycle_timings", {})
+    issues = []
+
+    for entry in shortlist_json["shortlist"]:
+        ticker = entry["ticker"]
+        cycle_score = entry.get("scores", {}).get("cycle_efficiency", 0)
+        ct = cycle_timings.get(ticker)
+
+        if cycle_score > 0 and ct is None:
+            issues.append({
+                "ticker": ticker,
+                "issue": f"cycle_efficiency={cycle_score} but no cycle_timing data",
+            })
+        if ct and ct.get("total_cycles", 0) == 0:
+            issues.append({
+                "ticker": ticker,
+                "issue": "cycle_timing present but 0 cycles",
+            })
+
+    return issues
+
+
+# ---------------------------------------------------------------------------
+# Check 9: Active Zone Proximity
+# ---------------------------------------------------------------------------
+
+def check_active_zone_proximity(shortlist_json, screening_data):
+    """Flag candidates where nearest active buy level is > 15% below current price.
+
+    Returns: list of {"ticker": str, "price": float, "nearest_buy": float, "gap_pct": float}
+    """
+    wick_analyses = screening_data.get("wick_analyses", {})
+    issues = []
+
+    for entry in shortlist_json["shortlist"]:
+        ticker = entry["ticker"]
+        if entry.get("wick_failed"):
+            continue
+        wick = wick_analyses.get(ticker)
+        if not wick or "bullet_plan" not in wick:
+            continue
+
+        active = wick["bullet_plan"].get("active", [])
+        price = wick.get("current_price", 0)
+        if not active or price <= 0:
+            continue
+
+        nearest = min(b["buy_at"] for b in active)
+        gap_pct = (price - nearest) / price * 100
+        if gap_pct > 15:
+            issues.append({
+                "ticker": ticker,
+                "price": round(price, 2),
+                "nearest_buy": round(nearest, 2),
+                "gap_pct": round(gap_pct, 1),
+            })
+
+    return issues
+
+
+# ---------------------------------------------------------------------------
 # Output Rendering
 # ---------------------------------------------------------------------------
 
@@ -527,6 +596,8 @@ def build_report(checks, shortlist_json):
     recency_result = checks["recency_counts"]
     arith_result = checks["score_arithmetic"]
     rec_result = checks["recommendation"]
+    cycle_result = checks["cycle_data"]
+    zone_gap_result = checks["active_zone_gap"]
 
     has_hard_fail = score_result["mismatches"] or score_result["missing_from_eval"]
     score_status = "FAIL" if has_hard_fail else ("WARN" if score_result["extra_in_eval"] else "PASS")
@@ -555,6 +626,12 @@ def build_report(checks, shortlist_json):
     rec_status = "WARN" if rec_result else "PASS"
     rec_detail = f"{len(rec_result)} concerns" if rec_result else "All consistent"
 
+    cycle_status = "WARN" if cycle_result else "PASS"
+    cycle_detail = f"{len(cycle_result)} issues" if cycle_result else "All consistent"
+
+    zone_gap_status = "WARN" if zone_gap_result else "PASS"
+    zone_gap_detail = f"{len(zone_gap_result)} tickers >15% gap" if zone_gap_result else "All within range"
+
     lines.append("## Summary")
     lines.append("| Check | Result | Details |")
     lines.append("| :--- | :--- | :--- |")
@@ -565,6 +642,8 @@ def build_report(checks, shortlist_json):
     lines.append(f"| Recency counts | {recency_status} | {recency_detail} |")
     lines.append(f"| Score arithmetic | {arith_status} | {arith_detail} |")
     lines.append(f"| Recommendation consistency | {rec_status} | {rec_detail} |")
+    lines.append(f"| Cycle data completeness | {cycle_status} | {cycle_detail} |")
+    lines.append(f"| Active zone proximity | {zone_gap_status} | {zone_gap_detail} |")
     lines.append("")
 
     # --- Score Adjustments Recommended ---
@@ -633,6 +712,18 @@ def build_report(checks, shortlist_json):
         rec_issue = next((r for r in rec_result if r["ticker"] == ticker), None)
         if rec_issue:
             lines.append(f"- Recommendation: **{rec_issue['concern']}**")
+
+        # Cycle data completeness
+        cycle_issue = [c for c in cycle_result if c["ticker"] == ticker]
+        if cycle_issue:
+            for ci in cycle_issue:
+                lines.append(f"- Cycle data: **{ci['issue']}**")
+
+        # Active zone proximity
+        zone_issue = next((z for z in zone_gap_result if z["ticker"] == ticker), None)
+        if zone_issue:
+            lines.append(f"- Active zone gap: **{zone_issue['gap_pct']:.1f}%** — "
+                         f"nearest buy ${zone_issue['nearest_buy']:.2f} vs price ${zone_issue['price']:.2f}")
 
         # Knowledge store context
         try:
@@ -726,6 +817,8 @@ def main():
         "recency_counts": validate_recency_counts(shortlist_json, screening_data),
         "score_arithmetic": validate_score_arithmetic(shortlist_json),
         "recommendation": check_recommendation_consistency(eval_json, shortlist_json),
+        "cycle_data": check_cycle_data_completeness(shortlist_json, screening_data),
+        "active_zone_gap": check_active_zone_proximity(shortlist_json, screening_data),
     }
 
     report = build_report(checks, shortlist_json)
@@ -741,6 +834,8 @@ def main():
         ("Recency counts", "recency_counts"),
         ("Score arithmetic", "score_arithmetic"),
         ("Recommendation", "recommendation"),
+        ("Cycle data", "cycle_data"),
+        ("Active zone gap", "active_zone_gap"),
     ]:
         result = checks[key]
         if key == "score_match":
@@ -753,7 +848,7 @@ def main():
             n = 0
         if n == 0:
             status = "PASS"
-        elif key in ("recommendation", "duplicate_buy"):
+        elif key in ("recommendation", "duplicate_buy", "cycle_data", "active_zone_gap"):
             status = "WARN"
         elif key == "score_match" and not result["mismatches"] and not result["missing_from_eval"]:
             status = "WARN"  # Only extra_in_eval — data quality, not score integrity

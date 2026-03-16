@@ -45,7 +45,7 @@ Run the pre-verifier to perform all mechanical cross-checks:
 python3 tools/surgical_pre_verify.py
 ```
 
-This writes `candidate-pre-verify.md` with 7 mechanical checks:
+This writes `candidate-pre-verify.md` with 9 mechanical checks:
 1. Score match (eval JSON vs shortlist JSON)
 2. Flag coverage detection (which flags evaluator addressed/missed in prose)
 3. Sector classification audit
@@ -53,6 +53,8 @@ This writes `candidate-pre-verify.md` with 7 mechanical checks:
 5. Recency flag count validation
 6. Score arithmetic validation
 7. Recommendation-score consistency
+8. Cycle data completeness (cycle_efficiency score vs cycle_timing data)
+9. Active zone proximity (gap > 15% from price to nearest active buy)
 
 **If this step fails or `candidate-pre-verify.md` is missing/empty after running, HALT and output a FAIL verdict with the error details. Do NOT attempt mechanical checks manually — that defeats the purpose of mechanization and risks hallucinated results.**
 
@@ -90,6 +92,10 @@ For each candidate, check the evaluator's qualitative work:
 - Review the pre-verifier's recommendation consistency findings
 - Is an "Onboard" recommendation justified by both score and qualitative assessment?
 - Does a "Watch" or "Monitor" have a clear blocker identified?
+
+**Cycle Efficiency Verification:**
+- Verify cycle_efficiency score matches cycle_timing data (Check 8 from pre-verify). Flag if score > 0 but no cycle data exists.
+- Note candidates with zero cycle efficiency — they have unproven cycling ability.
 
 **Sector Differentiation Credibility:**
 - For flagged sector concentration: did the evaluator provide genuine differentiation reasoning?
