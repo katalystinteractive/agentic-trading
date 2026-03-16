@@ -180,7 +180,7 @@ def _compute_range_metrics(hist):
 # ---------------------------------------------------------------------------
 
 def _classify_stability(convergence):
-    if convergence <= MEDIAN_CONVERGENCE_STABLE:
+    if convergence < MEDIAN_CONVERGENCE_STABLE:
         return "STABLE"
     elif convergence <= MEDIAN_CONVERGENCE_SETTLING:
         return "SETTLING"
@@ -370,6 +370,7 @@ def _compute_accumulation_scenarios(candidate, hist, metrics, portfolio,
         for ro in reserve_orders:
             if abs(buy_at - ro["price"]) / ro["price"] <= RESERVE_CONFLICT_PCT:
                 conflict = f"Pending R @ ${ro['price']:.2f} — cancel & redeploy?"
+                break
 
         scenarios.append({
             "support_price": lvl.get("support_price", buy_at),
@@ -788,7 +789,7 @@ def _format_summary_table(results):
             lines.append(f"| {r['ticker']} | — | SKIPPED | — | — | — | {r['skip']} |")
             continue
         m = r.get("metrics", {})
-        reach = "YES" if r.get("exit_reachable") else "NO"
+        reach = "YES" if r.get("exit_reachable") else ("NO" if r.get("scenarios") is not None else "N/A")
         risk_overall = r.get("risk", {}).get("overall", "?")
         lines.append(
             f"| {r['ticker']} | {r['score']} | {r['verdict']} "
@@ -816,6 +817,7 @@ def _build_json_output(results):
             entry["swing_20d"] = r.get("metrics", {}).get("swing_20d")
             entry["exit_reachable"] = r.get("exit_reachable", False)
             entry["risk_overall"] = r.get("risk", {}).get("overall")
+            entry["metrics"] = r.get("metrics")
             entry["position"] = r.get("position")
             entry["scenarios"] = r.get("scenarios")
             entry["sell_recs"] = r.get("sell_recs")
