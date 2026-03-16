@@ -18,7 +18,6 @@ from concurrent.futures import ThreadPoolExecutor
 
 _ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
-TICKERS_DIR = _ROOT / "tickers"
 OUTPUT_MD = _ROOT / "range-reset-analysis.md"
 OUTPUT_JSON = _ROOT / "range-reset-analysis.json"
 
@@ -37,7 +36,9 @@ from sell_target_calculator import (
 MEDIAN_CONVERGENCE_STABLE = 5.0      # % — 20d within 5% of 40d = STABLE
 MEDIAN_CONVERGENCE_SETTLING = 10.0   # % — 5-10% = SETTLING, >10% = UNSTABLE
 SWING_MIN = 20.0                     # % — minimum 20d range swing
-EXIT_MULTIPLIER = 1.06               # 6% standard exit
+EXIT_CONSERVATIVE = 1.045             # 4.5% conservative exit
+EXIT_STANDARD = 1.06                  # 6% standard exit
+EXIT_AGGRESSIVE = 1.075               # 7.5% aggressive exit
 DOWNTREND_SMA200_THRESHOLD = -15.0   # % below 200-SMA = HIGH risk
 SLOPE_FALLING_THRESHOLD = -3.0       # 10d slope of 20-SMA < -3% = falling knife
 MIN_BULLETS_USED = 3                 # qualification: at least 3 bullets spent
@@ -68,7 +69,10 @@ def _load_portfolio():
 
 
 def _identify_underwater(portfolio, requested_tickers=None):
-    """Return list of dicts for positions passing G1-G4 gates."""
+    """Return list of dicts for positions passing G2-G3 structural gates.
+
+    G1 (underwater) and G4 (sufficient data) require price data — checked in _process_ticker.
+    """
     candidates = []
     positions = portfolio.get("positions", {})
     for ticker, pos in positions.items():
@@ -228,15 +232,21 @@ def _detect_reserve_orders(pending_orders, ticker):
 # Accumulation scenarios
 # ---------------------------------------------------------------------------
 
-def _compute_accumulation_scenarios(candidate, hist, metrics, portfolio, reserve_pool=300):
+def _compute_accumulation_scenarios(candidate, hist, metrics, portfolio,
+                                    reserve_pool=300, precomputed_analysis=None):
     """Compute new bullet scenarios from wick levels within the 20d range.
 
     Returns (scenarios_list, context_dict) or (None, context_dict) if no levels.
+    precomputed_analysis: optional (data_dict, None) tuple from a prior analyze_stock_data()
+        call — avoids re-running the expensive level discovery when called from workflows.
     """
     ticker = candidate["ticker"]
 
-    # Get all 13-month support levels
-    data, err = analyze_stock_data(ticker, hist)
+    # Get all 13-month support levels (reuse precomputed if available)
+    if precomputed_analysis is not None:
+        data, err = precomputed_analysis
+    else:
+        data, err = analyze_stock_data(ticker, hist)
     if err is not None:
         return None, {"error": err, "total_levels": 0}
 
@@ -347,7 +357,7 @@ def _compute_accumulation_scenarios(candidate, hist, metrics, portfolio, reserve
 
         total_shares = old_shares + new_shares
         blended_avg = round((old_shares * old_avg + new_shares * buy_at) / total_shares, 2)
-        exit_6pct = round(blended_avg * EXIT_MULTIPLIER, 2)
+        exit_6pct = round(blended_avg * EXIT_STANDARD, 2)
         reachable = exit_6pct <= metrics["high_20d_p75"]
 
         # Check reserve conflict
@@ -390,9 +400,9 @@ def _compute_exit_reachability(hist, blended_avg, total_shares, metrics):
     Returns (sell_recs, reachable_bool, details_dict).
     """
     math_prices = {
-        "conservative": round(blended_avg * 1.045, 2),
-        "standard": round(blended_avg * 1.06, 2),
-        "aggressive": round(blended_avg * 1.075, 2),
+        "conservative": round(blended_avg * EXIT_CONSERVATIVE, 2),
+        "standard": round(blended_avg * EXIT_STANDARD, 2),
+        "aggressive": round(blended_avg * EXIT_AGGRESSIVE, 2),
     }
     exit_zone_lo = math_prices["conservative"]
     exit_zone_hi = math_prices["aggressive"]
@@ -500,8 +510,9 @@ def _assess_risk(metrics, stability, pool_budget, scenarios, reserve_pool=300):
 # Scoring
 # ---------------------------------------------------------------------------
 
-def _score_candidate(stability, swing_20d, exit_reachable, ticker, risk_overall):
-    """Score 0-100."""
+def _score_candidate(stability, swing_20d, exit_reachable, ticker, risk_overall,
+                     cycle_timing=None):
+    """Score 0-100. cycle_timing: optional pre-loaded dict (avoids disk read)."""
     score = 0
 
     # Stability
@@ -521,8 +532,9 @@ def _score_candidate(stability, swing_20d, exit_reachable, ticker, risk_overall)
         score += EXIT_REACH_PTS
 
     # Cycle efficiency
-    ct = load_cycle_timing(ticker)
-    ce = score_cycle_efficiency(ct)
+    if cycle_timing is None:
+        cycle_timing = load_cycle_timing(ticker)
+    ce = score_cycle_efficiency(cycle_timing)
     score += round(ce * CYCLE_EFF_PTS / 20)
 
     # Risk (inverse)
@@ -565,6 +577,10 @@ def _process_ticker(candidate, hist, portfolio, reserve_pool=300):
 
     metrics = _compute_range_metrics(hist)
     current_price = metrics["current_price"]
+
+    # Data freshness: last trading date from history
+    last_date = hist.index[-1].strftime("%Y-%m-%d")
+    result["data_as_of"] = last_date
 
     # G1: underwater
     if current_price >= candidate["avg_cost"]:
@@ -651,7 +667,9 @@ def _format_ticker_md(r):
     verdict = r["verdict"]
     score = r["score"]
 
+    data_date = r.get("data_as_of", "?")
     lines.append(f"### {r['ticker']} — {verdict} (Score: {score}/100)\n")
+    lines.append(f"*Data as of {data_date} close.*\n")
 
     # Current Position
     lines.append("**Current Position**")
