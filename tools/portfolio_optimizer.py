@@ -95,14 +95,14 @@ def check_reallocation_constraints(from_order, to_order, portfolio):
     if len(source_buys) <= MIN_ACTIVE_BULLETS:
         return False
 
-    # Target ticker must not exceed MAX_PER_TICKER
+    # Target ticker must not exceed MAX_PER_TICKER after absorbing from_order's capital
     positions = portfolio.get("positions", {})
     target_pos = positions.get(to_order["ticker"], {})
     target_deployed = target_pos.get("shares", 0) * target_pos.get("avg_cost", 0)
     target_pending = sum(o.get("shares", 0) * o.get("price", 0)
                          for o in pending.get(to_order["ticker"], [])
                          if o.get("type", "").upper() == "BUY" and not o.get("filled"))
-    if target_deployed + target_pending + to_order["capital"] > MAX_PER_TICKER:
+    if target_deployed + target_pending + from_order["capital"] > MAX_PER_TICKER:
         return False
 
     # Sector cap check
@@ -179,7 +179,7 @@ def get_action_label(prob_5d, ev_per_day, ranked):
     if ranked:
         q_size = max(1, len(ranked) // 4)
         bottom_evs = [r["ev_per_day"] for r in ranked[-q_size:]]
-        if ev_per_day <= max(bottom_evs) if bottom_evs else False:
+        if bottom_evs and ev_per_day <= max(bottom_evs):
             return "Low EV — review"
     return "—"
 
