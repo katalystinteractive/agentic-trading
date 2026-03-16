@@ -12,7 +12,6 @@ Usage:
 import sys
 import json
 import datetime
-import math
 import numpy as np
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
@@ -25,7 +24,7 @@ OUTPUT_JSON = _ROOT / "range-reset-analysis.json"
 
 # --- Imports from sibling tools ---
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from wick_offset_analyzer import fetch_history, analyze_stock_data, compute_pool_sizing
+from wick_offset_analyzer import fetch_history, analyze_stock_data, compute_pool_sizing, load_capital_config
 from bullet_recommender import parse_bullets_used
 from shared_constants import MATCH_TOLERANCE
 from shared_utils import load_cycle_timing, score_cycle_efficiency
@@ -47,10 +46,13 @@ NEAR_RANGE_PCT = 0.10               # 10% below 20d low = near-range cutoff
 
 # Scoring weights (sum to 100)
 STABILITY_PTS = 25
+STABILITY_PTS_SETTLING = 15   # partial credit for SETTLING
 SWING_PTS = 20
+SWING_PTS_PARTIAL = 15        # partial credit for 20-30% swing
 EXIT_REACH_PTS = 20
 CYCLE_EFF_PTS = 15
 RISK_PTS = 20
+RISK_PTS_MODERATE = 10        # partial credit for MODERATE risk
 
 assert STABILITY_PTS + SWING_PTS + EXIT_REACH_PTS + CYCLE_EFF_PTS + RISK_PTS == 100, \
     "Scoring weights must sum to 100"
@@ -149,7 +151,7 @@ def _compute_range_metrics(hist):
     sma20_slope = None
     if len(hist) >= 30:
         sma20_now = float(hist["Close"].tail(20).mean())
-        sma20_10d_ago = float(hist["Close"].iloc[-30:-10].tail(20).mean())
+        sma20_10d_ago = float(hist["Close"].iloc[-30:-10].mean())
         if sma20_10d_ago > 0:
             sma20_slope = (sma20_now - sma20_10d_ago) / sma20_10d_ago * 100
 
@@ -226,7 +228,7 @@ def _detect_reserve_orders(pending_orders, ticker):
 # Accumulation scenarios
 # ---------------------------------------------------------------------------
 
-def _compute_accumulation_scenarios(candidate, hist, metrics, portfolio):
+def _compute_accumulation_scenarios(candidate, hist, metrics, portfolio, reserve_pool=300):
     """Compute new bullet scenarios from wick levels within the 20d range.
 
     Returns (scenarios_list, context_dict) or (None, context_dict) if no levels.
@@ -302,7 +304,8 @@ def _compute_accumulation_scenarios(candidate, hist, metrics, portfolio):
     reserve_orders, reserve_committed = _detect_reserve_orders(
         portfolio.get("pending_orders", {}), ticker
     )
-    pool_budget = round(300.0 - reserve_committed, 2)
+    pool_budget = round(float(reserve_pool) - reserve_committed, 2)
+    context["reserve_pool"] = reserve_pool
     context["reserve_committed"] = reserve_committed
     context["pool_budget"] = pool_budget
     context["reserve_orders"] = reserve_orders
@@ -312,17 +315,19 @@ def _compute_accumulation_scenarios(candidate, hist, metrics, portfolio):
         return None, context
 
     # Preserve original level metadata before compute_pool_sizing strips it
-    orig_meta = {
-        lvl["recommended_buy"]: {
+    # Keyed by index (not float price) to avoid collision when two levels share
+    # the same recommended_buy price.
+    orig_meta = [
+        {
             "tier": lvl.get("effective_tier", lvl.get("tier", "?")),
             "source": lvl.get("source", ""),
             "support_price": lvl.get("support_price", lvl.get("recommended_buy")),
             "range_class": lvl.get("range_class", "?"),
         }
         for lvl in in_range
-    }
+    ]
 
-    # Size bullets via compute_pool_sizing
+    # Size bullets via compute_pool_sizing (preserves input order)
     sized = compute_pool_sizing(in_range, pool_budget, pool_name="reserve")
 
     # Build scenario rows with blended avg math
@@ -330,9 +335,9 @@ def _compute_accumulation_scenarios(candidate, hist, metrics, portfolio):
     old_shares = candidate["shares"]
     old_avg = candidate["avg_cost"]
 
-    for lvl in sized:
+    for i, lvl in enumerate(sized):
         # Restore metadata stripped by compute_pool_sizing
-        meta = orig_meta.get(lvl["recommended_buy"], {})
+        meta = orig_meta[i] if i < len(orig_meta) else {}
         lvl.update(meta)
         buy_at = lvl["recommended_buy"]
         new_shares = lvl.get("shares", 0)
@@ -419,7 +424,7 @@ def _compute_exit_reachability(hist, blended_avg, total_shares, metrics):
 # Risk assessment
 # ---------------------------------------------------------------------------
 
-def _assess_risk(metrics, stability, pool_budget, scenarios):
+def _assess_risk(metrics, stability, pool_budget, scenarios, reserve_pool=300):
     """5-component risk assessment. Returns (components_dict, overall_str)."""
     components = {}
 
@@ -434,7 +439,7 @@ def _assess_risk(metrics, stability, pool_budget, scenarios):
     # 2. Capital concentration
     total_cost = sum(s["cost"] for s in scenarios) if scenarios else 0
     if pool_budget > 0:
-        conc_pct = total_cost / 300 * 100  # vs full reserve pool
+        conc_pct = total_cost / reserve_pool * 100
     else:
         conc_pct = 0
     if conc_pct < 20:
@@ -503,13 +508,13 @@ def _score_candidate(stability, swing_20d, exit_reachable, ticker, risk_overall)
     if stability == "STABLE":
         score += STABILITY_PTS
     elif stability == "SETTLING":
-        score += 15
+        score += STABILITY_PTS_SETTLING
 
     # Swing
     if swing_20d >= 30:
         score += SWING_PTS
     elif swing_20d >= SWING_MIN:
-        score += 15
+        score += SWING_PTS_PARTIAL
 
     # Exit reachability
     if exit_reachable:
@@ -524,12 +529,16 @@ def _score_candidate(stability, swing_20d, exit_reachable, ticker, risk_overall)
     if risk_overall == "LOW":
         score += RISK_PTS
     elif risk_overall == "MODERATE":
-        score += 10
+        score += RISK_PTS_MODERATE
 
     return score
 
 
-def _verdict_from_score(score):
+def _verdict_from_score(score, stability=None):
+    """Map score to verdict. UNSTABLE caps at MONITOR per strategy rule."""
+    if stability == "UNSTABLE":
+        # "UNSTABLE = no deploy regardless of score" — strategy.md
+        return "MONITOR" if score >= 25 else "NO-RESET"
     if score >= 75:
         return "RESET-READY"
     elif score >= 50:
@@ -544,7 +553,7 @@ def _verdict_from_score(score):
 # Process one ticker
 # ---------------------------------------------------------------------------
 
-def _process_ticker(candidate, hist, portfolio):
+def _process_ticker(candidate, hist, portfolio, reserve_pool=300):
     """Full pipeline for one ticker. Returns result dict."""
     ticker = candidate["ticker"]
     result = {"ticker": ticker}
@@ -581,18 +590,21 @@ def _process_ticker(candidate, hist, portfolio):
     result["stability"] = stability
 
     # Accumulation scenarios
-    scenarios, context = _compute_accumulation_scenarios(candidate, hist, metrics, portfolio)
+    scenarios, context = _compute_accumulation_scenarios(
+        candidate, hist, metrics, portfolio, reserve_pool=reserve_pool
+    )
     result["level_context"] = context
 
     if scenarios is None:
         # No scenarios — score with exit_reachable=False
         risk_components, risk_overall = _assess_risk(
-            metrics, stability, context.get("pool_budget", 0), []
+            metrics, stability, context.get("pool_budget", 0), [],
+            reserve_pool=reserve_pool,
         )
         result["risk"] = {"components": risk_components, "overall": risk_overall}
         score = _score_candidate(stability, metrics["swing_20d"], False, ticker, risk_overall)
         result["score"] = score
-        result["verdict"] = _verdict_from_score(score)
+        result["verdict"] = _verdict_from_score(score, stability)
         result["scenarios"] = None
         result["sell_recs"] = None
         return result
@@ -611,14 +623,15 @@ def _process_ticker(candidate, hist, portfolio):
 
     # Risk
     risk_components, risk_overall = _assess_risk(
-        metrics, stability, context.get("pool_budget", 300), scenarios
+        metrics, stability, context.get("pool_budget", reserve_pool), scenarios,
+        reserve_pool=reserve_pool,
     )
     result["risk"] = {"components": risk_components, "overall": risk_overall}
 
     # Score
     score = _score_candidate(stability, metrics["swing_20d"], exit_reachable, ticker, risk_overall)
     result["score"] = score
-    result["verdict"] = _verdict_from_score(score)
+    result["verdict"] = _verdict_from_score(score, stability)
 
     return result
 
@@ -705,7 +718,8 @@ def _format_ticker_md(r):
 
         rc = ctx.get("reserve_committed", 0)
         pb = ctx.get("pool_budget", 300)
-        lines.append(f"*Reserve pool: $300 − ${rc:.2f} committed = ${pb:.2f} available.*\n")
+        rp = ctx.get("reserve_pool", 300)
+        lines.append(f"*Reserve pool: ${rp} − ${rc:.2f} committed = ${pb:.2f} available.*\n")
 
     # Sell recommendation
     sell_recs = r.get("sell_recs")
@@ -775,6 +789,18 @@ def _build_json_output(results):
             entry["position"] = r.get("position")
             entry["scenarios"] = r.get("scenarios")
             entry["sell_recs"] = r.get("sell_recs")
+            # Context for downstream consumers
+            ctx = r.get("level_context", {})
+            entry["reserve_committed"] = ctx.get("reserve_committed", 0)
+            entry["pool_budget"] = ctx.get("pool_budget", 0)
+            entry["total_levels"] = ctx.get("total_levels", 0)
+            entry["in_range_count"] = ctx.get("in_range_count", 0)
+            # Risk component breakdown
+            risk_comps = r.get("risk", {}).get("components", {})
+            entry["risk_components"] = {
+                k: {"rating": v[0], "detail": v[1]}
+                for k, v in risk_comps.items()
+            }
         out["candidates"].append(entry)
     return out
 
@@ -786,6 +812,8 @@ def _build_json_output(results):
 def main():
     requested = [t.upper() for t in sys.argv[1:]] if len(sys.argv) > 1 else None
     portfolio = _load_portfolio()
+    cap = load_capital_config()
+    reserve_pool = cap.get("reserve_pool", 300)
 
     candidates = _identify_underwater(portfolio, requested)
     if not candidates:
@@ -793,6 +821,13 @@ def main():
         return
 
     tickers = [c["ticker"] for c in candidates]
+
+    # Data freshness warning (weekends/holidays)
+    now = datetime.datetime.now()
+    if now.weekday() >= 5:  # Saturday=5, Sunday=6
+        day_name = "Saturday" if now.weekday() == 5 else "Sunday"
+        print(f"Note: Today is {day_name} — all price data is from last trading day's close.")
+
     print(f"Analyzing {len(tickers)} tickers: {', '.join(tickers)}")
 
     # Fetch history in parallel
@@ -808,7 +843,7 @@ def main():
     for c in candidates:
         ticker = c["ticker"]
         hist = hist_map.get(ticker)
-        r = _process_ticker(c, hist, portfolio)
+        r = _process_ticker(c, hist, portfolio, reserve_pool=reserve_pool)
         results.append(r)
 
     # Sort by score descending (skipped at end)
