@@ -63,6 +63,14 @@ GAP_FLAG_PCT = 20.0  # informational flag threshold (more sensitive than scoring
 # Output
 SHORTLIST_SIZE = 7
 
+# Formal KPI Card v1.0 (Phase 5, Gap 1.3)
+KPI_MONTHLY_SWING_MIN = 35.0
+KPI_ACTIVE_LEVELS_MIN = 3
+KPI_ANCHOR_LEVEL_MIN_HOLD = 50.0
+KPI_DEAD_ZONE_MAX = 30.0
+KPI_PRICE_MIN = 5.0
+KPI_PRICE_MAX = 30.0
+
 
 # ---------------------------------------------------------------------------
 # Shared helpers
@@ -80,6 +88,74 @@ def _compute_gap_pct(active_bullets, reserve_bullets):
     if lowest_active == 0:
         return None
     return ((lowest_active - highest_reserve) / lowest_active) * 100
+
+
+def evaluate_kpi_gates(passer, wick_data):
+    """Evaluate formal KPI gates. Returns (pass_all, gates_list).
+
+    Each gate: {"name": str, "threshold": str, "actual": str, "passed": bool}
+    Candidates that fail gates are flagged, not removed (backtest hard gate deferred).
+    """
+    gates = []
+    bp = wick_data["bullet_plan"]
+    active = bp.get("active", [])
+    reserve = bp.get("reserve", [])
+
+    # Gate 1: Monthly Swing >= 35%
+    swing = passer["median_swing"]
+    gates.append({
+        "name": "Monthly Swing",
+        "threshold": f">= {KPI_MONTHLY_SWING_MIN}%",
+        "actual": f"{swing:.1f}%",
+        "passed": swing >= KPI_MONTHLY_SWING_MIN,
+    })
+
+    # Gate 2: Active levels with hold >= 30%: count >= 3
+    active_with_hold = [b for b in active if b.get("hold_rate", 0) >= 30]
+    gates.append({
+        "name": "Active Levels (hold >= 30%)",
+        "threshold": f">= {KPI_ACTIVE_LEVELS_MIN}",
+        "actual": str(len(active_with_hold)),
+        "passed": len(active_with_hold) >= KPI_ACTIVE_LEVELS_MIN,
+    })
+
+    # Gate 3: Anchor level with hold >= 50%
+    anchor_count = sum(1 for b in active if b.get("hold_rate", 0) >= KPI_ANCHOR_LEVEL_MIN_HOLD)
+    gates.append({
+        "name": "Anchor Level (hold >= 50%)",
+        "threshold": ">= 1",
+        "actual": str(anchor_count),
+        "passed": anchor_count >= 1,
+    })
+
+    # Gate 4: Dead zone < 30%
+    gap_pct = _compute_gap_pct(active, reserve)
+    if gap_pct is not None:
+        gates.append({
+            "name": "Dead Zone",
+            "threshold": f"< {KPI_DEAD_ZONE_MAX}%",
+            "actual": f"{gap_pct:.1f}%",
+            "passed": gap_pct < KPI_DEAD_ZONE_MAX,
+        })
+    else:
+        gates.append({
+            "name": "Dead Zone",
+            "threshold": f"< {KPI_DEAD_ZONE_MAX}%",
+            "actual": "N/A",
+            "passed": True,  # no gap = no dead zone
+        })
+
+    # Gate 5: Price in $5-$30
+    price = passer["price"]
+    gates.append({
+        "name": "Price Range",
+        "threshold": f"${KPI_PRICE_MIN}-${KPI_PRICE_MAX}",
+        "actual": f"${price:.2f}",
+        "passed": KPI_PRICE_MIN <= price <= KPI_PRICE_MAX,
+    })
+
+    pass_all = all(g["passed"] for g in gates)
+    return pass_all, gates
 
 
 # ---------------------------------------------------------------------------
@@ -476,6 +552,8 @@ def filter_and_score(data):
                 "verification": None,
                 "stress_metrics": None,
                 "flags": ["Wick analysis failed — capped at 40"],
+                "kpi_pass_all": False,
+                "kpi_gates": [],
             })
             continue
 
@@ -511,6 +589,12 @@ def filter_and_score(data):
         if stress.get("active_reserve_gap_pct") and stress["active_reserve_gap_pct"] > GAP_FLAG_PCT:
             flags.append(f"Active-reserve gap: {stress['active_reserve_gap_pct']:.0f}%")
 
+        # KPI Card evaluation
+        kpi_pass_all, kpi_gates = evaluate_kpi_gates(passer, wick)
+        if not kpi_pass_all:
+            failed_names = [g["name"] for g in kpi_gates if not g["passed"]]
+            flags.append(f"KPI gates failed: {', '.join(failed_names)}")
+
         results.append({
             "ticker": ticker,
             "passer": passer,
@@ -520,6 +604,8 @@ def filter_and_score(data):
             "verification": verification,
             "stress_metrics": stress,
             "flags": flags,
+            "kpi_pass_all": kpi_pass_all,
+            "kpi_gates": kpi_gates,
         })
 
     results.sort(key=lambda r: r["total_score"], reverse=True)
@@ -702,6 +788,18 @@ def build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses):
                 lines.append(f"| Active-reserve gap | {sm['active_reserve_gap_pct']:.0f}% | {gap_assess} |")
             lines.append("")
 
+        # KPI Card
+        kpi_gates = r.get("kpi_gates", [])
+        if kpi_gates:
+            kpi_pass = r.get("kpi_pass_all", False)
+            lines.append(f"### KPI Card {'— PASS' if kpi_pass else '— FAIL'}")
+            lines.append("| KPI | Threshold | Actual | Status |")
+            lines.append("| :--- | :--- | :--- | :--- |")
+            for g in kpi_gates:
+                status = "PASS" if g["passed"] else "FAIL"
+                lines.append(f"| {g['name']} | {g['threshold']} | {g['actual']} | {status} |")
+            lines.append("")
+
         # Flags
         if r["flags"]:
             lines.append("### Flags")
@@ -785,6 +883,8 @@ def main():
                 "verification": r["verification"],
                 "stress_metrics": r["stress_metrics"],
                 "passer": r["passer"],
+                "kpi_pass_all": r.get("kpi_pass_all", False),
+                "kpi_gates": r.get("kpi_gates", []),
             }
             for r in shortlist
         ],

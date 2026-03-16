@@ -295,7 +295,7 @@ def main():
     all_prices = {**active_prices, **watchlist_prices}
 
     # --- Step 1b: Capital Intelligence tools (parallel) ---
-    print("[3-8/13] Running Capital Intelligence tools in parallel...")
+    print("[3-9/14] Running Capital Intelligence tools in parallel...")
     cap_intel_tools = {
         "fill_probability": ("fill_probability.py", 120),
         "cycle_phase": ("cycle_phase_detector.py", 60),
@@ -303,9 +303,10 @@ def main():
         "cooldown": ("cooldown_evaluator.py", 60),
         "pullback": ("pullback_profiler.py", 120),
         "loss_eval": ("loss_evaluator.py", 60),
+        "portfolio_opt": ("portfolio_optimizer.py", 120),
     }
     cap_intel_results = {}
-    with ThreadPoolExecutor(max_workers=6) as executor:
+    with ThreadPoolExecutor(max_workers=7) as executor:
         futures = {
             executor.submit(run_tool, script, timeout=timeout): key
             for key, (script, timeout) in cap_intel_tools.items()
@@ -325,6 +326,7 @@ def main():
     cooldown_out = cap_intel_results["cooldown"][0]
     pullback_out = cap_intel_results["pullback"][0]
     loss_eval_out = cap_intel_results["loss_eval"][0]
+    portfolio_opt_out = cap_intel_results.get("portfolio_opt", ("", ""))[0]
 
     # --- Step 2: Per-ticker tools for active positions ---
     active_tools = ["earnings_analyzer.py", "technical_scanner.py", "short_interest.py", "news_sentiment.py"]
@@ -514,6 +516,8 @@ def main():
     parts.append(pullback_out or "*No output*")
     parts.append("")
     parts.append(loss_eval_out or "*No output*")
+    parts.append("")
+    parts.append(portfolio_opt_out or "*No output*")
     parts.append("\n---\n")
 
     # Per-Ticker Active Tool Outputs

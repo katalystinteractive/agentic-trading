@@ -9,6 +9,7 @@ CLI: python3 tools/deployment_advisor.py
 
 import re
 import sys
+from datetime import date, datetime
 from pathlib import Path
 
 import pandas as pd
@@ -16,11 +17,130 @@ import yfinance as yf
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from technical_scanner import calc_atr
-from shared_regime import fetch_regime
-from shared_utils import load_json, parse_bullet_label
+from shared_regime import fetch_regime_detail
+from shared_utils import load_json, parse_bullet_label, parse_entry_date
+from market_context_gatherer import SECTOR_MAP
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
+
+# Reserve deployment constants
+POSITION_AGE_MIN_DAYS = 7
+DORMANCY_THRESHOLD_DAYS = 90
+
+# Deployment status enum
+DEPLOY_R1_ONLY = "DEPLOY_R1_ONLY"
+DEPLOY_R1_R2 = "DEPLOY_R1_R2"
+HOLD_MECHANICAL = "HOLD_MECHANICAL"
+HOLD_VIX_RISK_ON = "HOLD_VIX_RISK_ON"
+HOLD_VIX_CRISIS = "HOLD_VIX_CRISIS"
+DEPLOY_PENDING_SECTOR_REVIEW = "DEPLOY_PENDING_SECTOR_REVIEW"
+
+
+def vix_base_status(vix):
+    """Step 1: VIX-based reserve deployment status."""
+    if vix is None:
+        return DEPLOY_R1_ONLY  # safe default
+    if vix < 18:
+        return HOLD_VIX_RISK_ON
+    if vix <= 25:
+        return DEPLOY_R1_ONLY
+    if vix <= 35:
+        return DEPLOY_R1_R2
+    return HOLD_VIX_CRISIS
+
+
+def check_position_age(ticker, positions):
+    """Gate 2a: Position too young? Pre-strategy positions skip."""
+    pos = positions.get(ticker, {})
+    entry_str = pos.get("entry_date", "")
+    if not entry_str:
+        return False  # no data = don't gate
+    entry, is_pre = parse_entry_date(entry_str)
+    if is_pre:
+        return False  # pre-strategy positions skip age gate
+    if entry is None:
+        return False
+    return (date.today() - entry).days < POSITION_AGE_MIN_DAYS
+
+
+def check_dormancy(ticker):
+    """Gate 2b: Stock dormant (no cycle activity in 90+ days)?
+    Checks both cycles array and current_cycle object."""
+    ct_path = PROJECT_ROOT / "tickers" / ticker / "cycle_timing.json"
+    ct = load_json(ct_path)
+    if not ct:
+        return False  # no data = don't gate
+
+    last_activity = None
+
+    # Check current_cycle first — active cycle means NOT dormant
+    current_cycle = ct.get("current_cycle", {})
+    for date_field in ("resistance_date",):
+        d_str = current_cycle.get(date_field)
+        if d_str:
+            try:
+                d = datetime.strptime(d_str, "%Y-%m-%d").date()
+                if last_activity is None or d > last_activity:
+                    last_activity = d
+            except ValueError:
+                pass
+
+    # Check cycles array
+    cycles = ct.get("cycles", [])
+    if cycles:
+        last_cycle = cycles[-1]
+        for date_field in ("resistance_date", "first_touch_date", "deep_touch_date"):
+            d_str = last_cycle.get(date_field)
+            if d_str:
+                try:
+                    d = datetime.strptime(d_str, "%Y-%m-%d").date()
+                    if last_activity is None or d > last_activity:
+                        last_activity = d
+                except ValueError:
+                    pass
+
+    if last_activity is None:
+        return False  # no parseable dates = don't gate
+    return (date.today() - last_activity).days > DORMANCY_THRESHOLD_DAYS
+
+
+def check_sector_concentration(ticker, positions):
+    """Gate 2c: Sector over-concentrated?
+    Fires when sector has >3 active positions AND >40% of total active."""
+    ticker_sector = SECTOR_MAP.get(ticker)
+    if not ticker_sector:
+        return False
+
+    sector_counts = {}
+    total_active = 0
+    for t, pos in positions.items():
+        if pos.get("shares", 0) > 0:
+            total_active += 1
+            s = SECTOR_MAP.get(t, "Unknown")
+            sector_counts[s] = sector_counts.get(s, 0) + 1
+
+    if total_active == 0:
+        return False
+
+    this_sector_count = sector_counts.get(ticker_sector, 0)
+    this_sector_pct = this_sector_count / total_active
+
+    return this_sector_count > 3 and this_sector_pct > 0.40
+
+
+def compute_reserve_status(ticker, vix, positions):
+    """3-step reserve deployment decision tree."""
+    base = vix_base_status(vix)
+    if base not in (DEPLOY_R1_ONLY, DEPLOY_R1_R2):
+        return base
+    if check_position_age(ticker, positions):
+        return HOLD_MECHANICAL
+    if check_dormancy(ticker):
+        return HOLD_MECHANICAL
+    if check_sector_concentration(ticker, positions):
+        return DEPLOY_PENDING_SECTOR_REVIEW
+    return base
 
 
 def bullet_number(label):
@@ -67,12 +187,15 @@ def main():
 
     if not has_unfilled:
         print("### Deployment Recommendations")
-        print("| Ticker | B1 | B2 | B3 | B4 | B5 | R1-R3 | Action |")
-        print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
-        print("| — | — | — | — | — | — | — | No pending orders |")
+        print("| Ticker | B1 | B2 | B3 | B4 | B5 | R1-R3 | Reserve Status | Action |")
+        print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+        print("| — | — | — | — | — | — | — | — | No pending orders |")
         return
 
-    regime = fetch_regime()
+    regime_detail = fetch_regime_detail()
+    regime = regime_detail["regime"]
+    vix = regime_detail["vix"]
+    positions = portfolio.get("positions", {})
 
     # Fetch ATR per ticker
     ticker_atr = {}
@@ -180,14 +303,34 @@ def main():
                     hold_capital += b["shares"] * b["price"]
                 continue
 
-            # R1-R3: place if all active B3+ are filled
+            # R1-R3: VIX-graduated reserve deployment
             if b["is_reserve"]:
-                all_filled = all(is_filled(s) for s in active_b3_plus) if active_b3_plus else False
-                if all_filled:
-                    recommendations[slot] = b["status"]
-                else:
+                reserve_status = compute_reserve_status(ticker, vix, positions)
+                all_b3_filled = all(is_filled(s) for s in active_b3_plus) if active_b3_plus else False
+                if not all_b3_filled:
+                    # B3+ not all filled — reserves always hold
                     recommendations[slot] = "Hold"
                     hold_capital += b["shares"] * b["price"]
+                elif reserve_status in (HOLD_VIX_RISK_ON, HOLD_VIX_CRISIS, HOLD_MECHANICAL):
+                    recommendations[slot] = "Hold"
+                    hold_capital += b["shares"] * b["price"]
+                elif reserve_status == DEPLOY_PENDING_SECTOR_REVIEW:
+                    recommendations[slot] = "Review"
+                    hold_capital += b["shares"] * b["price"]
+                elif reserve_status == DEPLOY_R1_ONLY:
+                    if num == 1:
+                        recommendations[slot] = b["status"]
+                    else:
+                        recommendations[slot] = "Hold"
+                        hold_capital += b["shares"] * b["price"]
+                elif reserve_status == DEPLOY_R1_R2:
+                    if num <= 2:
+                        recommendations[slot] = b["status"]
+                    else:
+                        recommendations[slot] = "Hold"
+                        hold_capital += b["shares"] * b["price"]
+                else:
+                    recommendations[slot] = b["status"]
                 continue
 
             # Default: Hold
@@ -228,10 +371,11 @@ def main():
                     place_actions.append(f"Place {slot}: Risk-Off regime")
                 elif is_filled("B3"):
                     place_actions.append(f"Place {slot}: B3 filled")
-            # Reserves: all B3+ filled
+            # Reserves: graduated deployment
             elif b["is_reserve"]:
-                if active_b3_plus and all(is_filled(s) for s in active_b3_plus):
-                    place_actions.append(f"Place {slot}: all active B3+ filled")
+                if rec not in ("Hold", "Filled", "Review"):
+                    reserve_status = compute_reserve_status(ticker, vix, positions)
+                    place_actions.append(f"Place {slot}: {reserve_status}")
 
         actions = list(place_actions)
         if hold_capital > 0:
@@ -242,11 +386,13 @@ def main():
         else:
             action_str = "; ".join(actions)
 
-        rows.append(f"| {ticker} | {col('B1')} | {col('B2')} | {col('B3')} | {col('B4')} | {col('B5')} | {r_col} | {action_str} |")
+        # Reserve status for display
+        res_status = compute_reserve_status(ticker, vix, positions)
+        rows.append(f"| {ticker} | {col('B1')} | {col('B2')} | {col('B3')} | {col('B4')} | {col('B5')} | {r_col} | {res_status} | {action_str} |")
 
     print("### Deployment Recommendations")
-    print("| Ticker | B1 | B2 | B3 | B4 | B5 | R1-R3 | Action |")
-    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    print("| Ticker | B1 | B2 | B3 | B4 | B5 | R1-R3 | Reserve Status | Action |")
+    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     for row in rows:
         print(row)
 

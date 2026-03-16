@@ -219,6 +219,12 @@ Include Cascade Alerts (if any) in ## Immediate Actions.
 Include pullback fill rates (B1/B2 fill rate %) in per-ticker Pending Orders narrative.
 Include Capital Trap Alerts in Executive Summary when present.
 
+Include top-3 Portfolio Fill Priority rankings in Executive Summary.
+Include capital reallocation recommendations (EV Gain > $2/month) in Immediate Actions.
+Include Reserve Status from deployment advisor in per-ticker action cards.
+For DEPLOY_PENDING_SECTOR_REVIEW: assess whether sector decline is structural (HOLD reserves) or cyclical (DEPLOY reserves).
+Include KPI Card failures when evaluating surgical screening candidates.
+
 You do NOT recompute any values. Python tools are the source of truth.
 
 ### Step 9: Compile Morning Briefing

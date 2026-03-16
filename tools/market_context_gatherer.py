@@ -51,6 +51,12 @@ SECTOR_MAP = {
     "CIFR": "Technology",
     "CLSK": "Technology",
     "SOUN": "Technology",
+    "NVDA": "Technology",
+    "ARM": "Technology",
+    "TEM": "Healthcare",
+    "OKLO": "Utilities",
+    "OUST": "Technology",
+    "RUN": "Energy",
 }
 
 # Sector ETF mapping (must match market_pulse.py SECTORS dict)

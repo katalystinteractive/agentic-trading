@@ -17,6 +17,8 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from shared_wick import parse_wick_active_supports
 from shared_utils import load_json, parse_entry_date
+from shared_regime import fetch_regime_detail
+from deployment_advisor import compute_reserve_status
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
@@ -73,6 +75,9 @@ def main():
     for t in portfolio.get("pending_orders", {}).keys():
         all_tickers.add(t)
 
+    # Fetch regime once for deployment_status computation
+    regime_detail = fetch_regime_detail()
+
     profiles = {}
     for ticker in sorted(all_tickers):
         pos = positions.get(ticker, {})
@@ -112,6 +117,11 @@ def main():
         else:
             flags = []
 
+        # Deployment status for active positions
+        deploy_status = None
+        if isinstance(shares, int) and shares > 0:
+            deploy_status = compute_reserve_status(ticker, regime_detail["vix"], positions)
+
         profiles[ticker] = {
             "optimal_target_pct": None,
             "optimal_bullet_count": None,
@@ -122,7 +132,7 @@ def main():
             "reserve_utilization_pct": None,
             "abandon_threshold_pct": None,
             "abandon_flags": flags,
-            "deployment_status": None,
+            "deployment_status": deploy_status,
             "current_phase": current_phase,
             "last_updated": today.isoformat(),
         }
