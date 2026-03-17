@@ -22,7 +22,6 @@ import json
 import copy
 import datetime
 import re
-import numpy as np
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 
@@ -121,7 +120,6 @@ def _identify_uplift_candidates(portfolio, requested_tickers=None):
             "shares": pos.get("shares", 0),
             "avg_cost": pos.get("avg_cost", 0),
             "unfilled_buys": unfilled_buys,
-            "all_orders": orders,
         })
 
     # Check for requested tickers not found in pending_orders at all
@@ -406,13 +404,14 @@ def _assess_risk(metrics, stability, hist):
     atr_20d = float((h20["High"] - h20["Low"]).mean())
     overext = current_price - median_20d
 
+    atr_ratio = overext / atr_20d if atr_20d > 0 else 0
     if atr_20d > 0:
         if overext < 1.0 * atr_20d:
-            components["overextension"] = ("LOW", f"price < median + 1 ATR")
+            components["overextension"] = ("LOW", f"{atr_ratio:.1f} ATR above median")
         elif overext < 1.5 * atr_20d:
-            components["overextension"] = ("MODERATE", f"price < median + 1.5 ATR")
+            components["overextension"] = ("MODERATE", f"{atr_ratio:.1f} ATR above median")
         else:
-            components["overextension"] = ("HIGH", f"price >= median + 1.5 ATR")
+            components["overextension"] = ("HIGH", f"{atr_ratio:.1f} ATR above median")
     else:
         components["overextension"] = ("MODERATE", "ATR=0 (insufficient data)")
 
@@ -682,7 +681,7 @@ def _format_ticker_md(r):
     else:
         all_range = f"${all_prices[0]:.2f}"
     lines.append(f"| Pending BUY Orders | {total_buys} ({all_range}) |")
-    lines.append(f"| Dormant Orders | {len(dormant)} of {total_buys} (all >{DORMANCY_DIST_PCT:.0%} below price) |")
+    lines.append(f"| Dormant Orders | {len(dormant)} of {total_buys} (each >{DORMANCY_DIST_PCT:.0%} below price) |")
     lines.append(f"| Freed Capital | ${r['freed_capital']:.2f} |")
     lines.append("")
 
