@@ -33,8 +33,7 @@ OUTPUT_JSON = _ROOT / "range-uplift-analysis.json"
 
 # --- Imports from sibling tools ---
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from wick_offset_analyzer import fetch_history, analyze_stock_data, compute_pool_sizing, load_capital_config
-from shared_constants import MATCH_TOLERANCE
+from wick_offset_analyzer import fetch_history, analyze_stock_data, compute_pool_sizing
 from shared_utils import load_cycle_timing, score_cycle_efficiency
 from sell_target_calculator import (
     find_pa_resistances, find_hvn_ceilings, count_resistance_approaches,
@@ -44,15 +43,12 @@ from range_reset_analyzer import (
     _compute_range_metrics, _classify_stability, _is_match, _classify_level_range,
 )
 
-# --- Constants (reused from range_reset) ---
-MEDIAN_CONVERGENCE_STABLE = 5.0
-MEDIAN_CONVERGENCE_SETTLING = 10.0
-SWING_MIN = 20.0
-EXIT_CONSERVATIVE = 1.045
-EXIT_STANDARD = 1.06
-EXIT_AGGRESSIVE = 1.075
-SLOPE_FALLING_THRESHOLD = -3.0
-MIN_HOLD_RATE = 15.0
+# --- Constants ---
+SWING_MIN = 20.0                 # % — minimum 20d range swing (gate G5)
+EXIT_CONSERVATIVE = 1.045        # 4.5% conservative exit
+EXIT_STANDARD = 1.06             # 6% standard exit
+EXIT_AGGRESSIVE = 1.075          # 7.5% aggressive exit
+MIN_HOLD_RATE = 15.0             # % — below this = dead zone, no order
 
 # Uplift-specific
 DORMANCY_DIST_PCT = 0.15         # 15% below current price = dormant
@@ -304,17 +300,13 @@ def _compute_redeployment_scenarios(candidate, hist, metrics, active_orders,
             continue
 
         total_shares = old_shares + new_shares
-        if old_shares > 0 and old_avg > 0:
+        if old_shares > 0:
             blended_avg = round(
                 (old_shares * old_avg + new_shares * buy_at) / total_shares, 2
             )
         else:
-            # Watchlist ticker (no position) — avg starts from first scenario
-            blended_avg = round(
-                (old_shares * old_avg + new_shares * buy_at) / total_shares, 2
-            ) if old_shares > 0 else round(buy_at, 2)
-            # For subsequent rows when old_shares was 0 on first row,
-            # old_avg gets set to blended_avg below
+            # Watchlist ticker (no position) — first scenario sets the avg
+            blended_avg = round(buy_at, 2)
 
         exit_6pct = round(blended_avg * EXIT_STANDARD, 2)
         reachable = exit_6pct <= metrics["high_20d_p75"]
@@ -583,7 +575,6 @@ def _process_ticker(candidate, hist, portfolio):
 
     # Build result
     total_pending = len(candidate["unfilled_buys"])
-    dormant_prices = [d["price"] for d in dormant]
     result["position"] = {
         "shares": shares,
         "avg_cost": avg_cost,
@@ -684,10 +675,13 @@ def _format_ticker_md(r):
     else:
         lines.append("| Shares | 0 (watchlist) |")
 
-    # Dormant order price range
-    d_prices = [d["price"] for d in dormant]
-    d_range = f"${min(d_prices):.2f} — ${max(d_prices):.2f}" if len(d_prices) > 1 else f"${d_prices[0]:.2f}"
-    lines.append(f"| Pending BUY Orders | {total_buys} ({d_range}) |")
+    # All pending order price range (dormant + active)
+    all_prices = [d["price"] for d in dormant] + [a["price"] for a in active]
+    if len(all_prices) > 1:
+        all_range = f"${min(all_prices):.2f} — ${max(all_prices):.2f}"
+    else:
+        all_range = f"${all_prices[0]:.2f}"
+    lines.append(f"| Pending BUY Orders | {total_buys} ({all_range}) |")
     lines.append(f"| Dormant Orders | {len(dormant)} of {total_buys} (all >{DORMANCY_DIST_PCT:.0%} below price) |")
     lines.append(f"| Freed Capital | ${r['freed_capital']:.2f} |")
     lines.append("")
