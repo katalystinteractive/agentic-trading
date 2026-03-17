@@ -27,7 +27,7 @@ OUTPUT_JSON = _ROOT / "range-reset-analysis.json"
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from wick_offset_analyzer import fetch_history, analyze_stock_data, compute_pool_sizing, load_capital_config
 from bullet_recommender import parse_bullets_used
-from shared_constants import MATCH_TOLERANCE
+from shared_constants import MATCH_TOLERANCE, EXIT_CONSERVATIVE, EXIT_STANDARD, EXIT_AGGRESSIVE, SWING_MIN, MIN_HOLD_RATE
 from shared_utils import load_cycle_timing, score_cycle_efficiency
 from sell_target_calculator import (
     find_pa_resistances, find_hvn_ceilings, count_resistance_approaches,
@@ -37,16 +37,11 @@ from sell_target_calculator import (
 # --- Constants ---
 MEDIAN_CONVERGENCE_STABLE = 5.0      # % — 20d within 5% of 40d = STABLE
 MEDIAN_CONVERGENCE_SETTLING = 10.0   # % — 5-10% = SETTLING, >10% = UNSTABLE
-SWING_MIN = 20.0                     # % — minimum 20d range swing
-EXIT_CONSERVATIVE = 1.045             # 4.5% conservative exit
-EXIT_STANDARD = 1.06                  # 6% standard exit
-EXIT_AGGRESSIVE = 1.075               # 7.5% aggressive exit
 DOWNTREND_SMA200_THRESHOLD = -15.0   # % below 200-SMA = HIGH risk
 SLOPE_FALLING_THRESHOLD = -3.0       # 10d slope of 20-SMA < -3% = falling knife
 MIN_BULLETS_USED = 3                 # qualification: at least 3 bullets spent
 RESERVE_CONFLICT_PCT = 0.02          # 2% tolerance for reserve order conflict detection
 NEAR_RANGE_PCT = 0.10               # 10% below 20d low = near-range cutoff
-MIN_HOLD_RATE = 15.0                 # % — below this = dead zone, no order
 
 # Scoring weights (sum to 100)
 STABILITY_PTS = 25

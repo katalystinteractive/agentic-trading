@@ -33,6 +33,7 @@ OUTPUT_JSON = _ROOT / "range-uplift-analysis.json"
 # --- Imports from sibling tools ---
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from wick_offset_analyzer import fetch_history, analyze_stock_data, compute_pool_sizing
+from shared_constants import EXIT_CONSERVATIVE, EXIT_STANDARD, EXIT_AGGRESSIVE, SWING_MIN, MIN_HOLD_RATE
 from shared_utils import load_cycle_timing, score_cycle_efficiency
 from sell_target_calculator import (
     find_pa_resistances, find_hvn_ceilings, count_resistance_approaches,
@@ -42,14 +43,7 @@ from range_reset_analyzer import (
     _compute_range_metrics, _classify_stability, _is_match, _classify_level_range,
 )
 
-# --- Constants ---
-SWING_MIN = 20.0                 # % — minimum 20d range swing (gate G5)
-EXIT_CONSERVATIVE = 1.045        # 4.5% conservative exit
-EXIT_STANDARD = 1.06             # 6% standard exit
-EXIT_AGGRESSIVE = 1.075          # 7.5% aggressive exit
-MIN_HOLD_RATE = 15.0             # % — below this = dead zone, no order
-
-# Uplift-specific
+# --- Uplift-specific constants ---
 DORMANCY_DIST_PCT = 0.15         # 15% below current price = dormant
 MIN_DORMANT_ORDERS = 1           # need at least 1 dormant order to qualify
 MIN_FREED_CAPITAL = 20.0         # $ — skip if freed capital too small
@@ -405,13 +399,15 @@ def _assess_risk(metrics, stability, hist):
     overext = current_price - median_20d
 
     atr_ratio = overext / atr_20d if atr_20d > 0 else 0
+    direction = "above" if overext >= 0 else "below"
+    abs_ratio = abs(atr_ratio)
     if atr_20d > 0:
         if overext < 1.0 * atr_20d:
-            components["overextension"] = ("LOW", f"{atr_ratio:.1f} ATR above median")
+            components["overextension"] = ("LOW", f"{abs_ratio:.1f} ATR {direction} median")
         elif overext < 1.5 * atr_20d:
-            components["overextension"] = ("MODERATE", f"{atr_ratio:.1f} ATR above median")
+            components["overextension"] = ("MODERATE", f"{abs_ratio:.1f} ATR {direction} median")
         else:
-            components["overextension"] = ("HIGH", f"{atr_ratio:.1f} ATR above median")
+            components["overextension"] = ("HIGH", f"{abs_ratio:.1f} ATR {direction} median")
     else:
         components["overextension"] = ("MODERATE", "ATR=0 (insufficient data)")
 
@@ -527,7 +523,7 @@ def _verdict_from_score(score, stability=None):
 # Process one ticker
 # ---------------------------------------------------------------------------
 
-def _process_ticker(candidate, hist, portfolio):
+def _process_ticker(candidate, hist):
     """Full pipeline for one ticker. Returns result dict."""
     ticker = candidate["ticker"]
     result = {"ticker": ticker}
@@ -886,7 +882,7 @@ def main():
     for c in candidates:
         ticker = c["ticker"]
         hist = hist_map.get(ticker)
-        r = _process_ticker(c, hist, portfolio)
+        r = _process_ticker(c, hist)
         results.append(r)
 
     # Sort by score descending (skipped at end)
