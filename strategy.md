@@ -210,6 +210,25 @@ stable new trading range, deploy fresh bullets from the reserve pool to play tha
 Cycle Efficiency (15), Risk inverse (20). Verdicts: RESET-READY (75+),
 RESET-POSSIBLE (50-74), MONITOR (25-49), NO-RESET (0-24).
 
+### Range Uplift Protocol
+When pending BUY orders become dormant because the stock established a higher trading range,
+cancel dormant orders and redeploy at support levels within the new range.
+
+*   **Trigger:** Pending BUY orders >15% below current price AND 20d range low >10% above order price.
+*   **Three signals required:** Median convergence <5% (STABLE), 20d swing >=20%, 6% exit
+    reachable within the range (p75 of 20d highs).
+*   **Capital source:** Freed capital from cancelled dormant orders — no new allocation.
+*   **Minimum score:** 50/100 (UPLIFT-POSSIBLE or better) to redeploy.
+*   **UNSTABLE = no deploy** regardless of score — wait for the range to stabilize.
+*   **Tool:** `python3 tools/range_uplift_analyzer.py [TICKER ...]`
+*   **After redeployment:** Cancel old orders, place new orders, update `portfolio.json`
+    via `portfolio_manager.py`.
+*   **Does not override** exit-review verdicts for RECOVERY positions.
+
+**Scoring (100 points):** Stability (25), Swing (20), Exit Reachability (20),
+Cycle Efficiency (15), Risk inverse (20). Verdicts: UPLIFT-READY (75+),
+UPLIFT-POSSIBLE (50-74), MONITOR (25-49), NO-UPLIFT (0-24).
+
 ### Cached Structural Data
 Structural tools auto-save per-ticker cache files to `tickers/<TICKER>/` on every run. These files refresh each time the tool is re-run:
 *   `wick_analysis.md` — Support levels & data-driven buy recommendations (from `wick_offset_analyzer.py`).
