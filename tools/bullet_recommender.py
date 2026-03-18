@@ -346,6 +346,8 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
     # --- Batch sizing: size ALL valid_levels as one batch ---
     # IMPORTANT: id(lvl) relies on valid_levels keeping original dict references alive.
     # Do not copy/reconstruct level dicts between this point and lookup usage.
+    # Buffer levels (dormant, non-promoted) are intentionally excluded from both pools.
+    # They get 1-share fallback via sizing_lookup.get() default in the Level Map.
     all_active_levels = [lvl for lvl in valid_levels if lvl["zone"] == "Active"]
     all_reserve_levels = [lvl for lvl in valid_levels if lvl["zone"] == "Reserve"]
 
@@ -707,12 +709,14 @@ def _print_recommend(ctx):
             print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
                   f"| {trend_str} | {recommendation['shares']} | ~{_fmt_dollar(recommendation['cost'])} | **>> Next**{dormant_tag} |")
         else:
-            # Uncovered level — Available or —
-            pool = "active" if lvl["zone"] == "Active" else "reserve"
-            if pool == "active":
+            # Uncovered level — Available, — , or reference-only (Buffer)
+            if lvl["zone"] == "Active":
                 has_capacity = active_slots_remaining > 0 and active_budget_remaining >= ref_cost
-            else:
+            elif lvl["zone"] == "Reserve":
                 has_capacity = reserve_slots_remaining > 0 and reserve_budget_remaining >= ref_cost
+            else:
+                # Buffer (dormant, non-promoted) — reference only, not deployable
+                has_capacity = False
             status_str = "Available" if has_capacity else "—"
             if dormant_tag:
                 status_str = f"{status_str}{dormant_tag}" if status_str != "—" else f"—{dormant_tag}"

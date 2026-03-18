@@ -800,7 +800,13 @@ def _format_stock_report(ticker, data):
         trend_str = trend_map.get(trend_raw, "?")
         last_tested = lvl.get("last_tested", "N/A")
         dormant = lvl.get("dormant", False)
-        fresh_str = f"{last_tested} [D]" if dormant else last_tested
+        zone_promoted = lvl.get("zone_promoted", False)
+        if zone_promoted:
+            fresh_str = f"{last_tested} [P]"
+        elif dormant:
+            fresh_str = f"{last_tested} [D]"
+        else:
+            fresh_str = last_tested
         lines.append(
             f"| {fmt_dollar(lvl['support_price'])} | {lvl['source']} "
             f"| {lvl['total_approaches']} | {lvl['held']} "
