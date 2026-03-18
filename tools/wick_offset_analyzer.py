@@ -236,13 +236,19 @@ def compute_swing_consistency(hist, threshold=10.0):
 
 
 def classify_level(hold_rate, gap_pct, active_radius, approaches=0):
-    """Classify a support level into Zone (Active/Reserve) and Tier (Full/Std/Half/Skip).
+    """Classify a support level into Zone (Active/Buffer/Reserve) and Tier.
 
-    Zone: Active if gap_pct <= active_radius, else Reserve.
+    Zone: Active if gap_pct <= active_radius, Buffer if <= 2× active_radius, else Reserve.
+    Buffer levels are candidates for recency-based promotion to Active.
     Tier (hold_rate is 0-100%): Full (50%+), Std (30-49%), Half (15-29%), Skip (<15%).
     Confidence gate: Full/Std require 3+ approaches; fewer approaches cap at Half.
     """
-    zone = "Active" if gap_pct <= active_radius else "Reserve"
+    if gap_pct <= active_radius:
+        zone = "Active"
+    elif gap_pct <= 2 * active_radius:
+        zone = "Buffer"
+    else:
+        zone = "Reserve"
     if hold_rate >= 50:
         tier = "Full"
     elif hold_rate >= 30:
@@ -480,7 +486,8 @@ def _compute_bullet_plan(level_results, current_price, cap=None):
     active_candidates = [r for r in level_results
                          if r["zone"] == "Active" and r["effective_tier"] != "Skip"
                          and r["recommended_buy"] and r["recommended_buy"] < current_price]
-    active_candidates.sort(key=lambda r: r["recommended_buy"], reverse=True)
+    # Sort: fresh first, then by proximity (highest price = closest)
+    active_candidates.sort(key=lambda r: (r.get("dormant", False), -r["recommended_buy"]))
     active_bullets = active_candidates[:cap["active_bullets_max"]]
 
     reserve_candidates = [r for r in level_results
@@ -499,11 +506,31 @@ def _compute_bullet_plan(level_results, current_price, cap=None):
             "hold_rate": r["hold_rate"],
         }
 
-    active_sizing_input = [_sizing_input(r) for r in active_bullets]
-    reserve_sizing_input = [_sizing_input(r) for r in reserve_bullets]
+    # Concentrated sizing: fresh levels get full pool, dormant get 1-share minimum
+    def _concentrated_sizing(bullets, pool_budget, pool_name):
+        """Split fresh vs dormant for concentrated pool sizing."""
+        fresh = [(i, r) for i, r in enumerate(bullets) if not r.get("dormant", False)]
+        dormant = [(i, r) for i, r in enumerate(bullets) if r.get("dormant", False)]
 
-    active_sized = compute_pool_sizing(active_sizing_input, cap["active_pool"], "active")
-    reserve_sized = compute_pool_sizing(reserve_sizing_input, cap["reserve_pool"], "reserve")
+        fresh_input = [_sizing_input(r) for _, r in fresh]
+        dormant_cost = sum(r["recommended_buy"] for _, r in dormant)  # 1 share each
+        fresh_budget = max(pool_budget - dormant_cost, 0)
+
+        fresh_sized = compute_pool_sizing(fresh_input, fresh_budget, pool_name) if fresh_input else []
+        dormant_sized = [{"shares": 1, "cost": r["recommended_buy"],
+                          "dollar_alloc": r["recommended_buy"]}
+                         for _, r in dormant]
+
+        # Reassemble in original order
+        result = [None] * len(bullets)
+        for (orig_i, _), sized in zip(fresh, fresh_sized):
+            result[orig_i] = sized
+        for (orig_i, _), sized in zip(dormant, dormant_sized):
+            result[orig_i] = sized
+        return result
+
+    active_sized = _concentrated_sizing(active_bullets, cap["active_pool"], "active")
+    reserve_sized = _concentrated_sizing(reserve_bullets, cap["reserve_pool"], "reserve")
 
     def _bullet_entry(r, sized, zone_label):
         return {
@@ -517,6 +544,8 @@ def _compute_bullet_plan(level_results, current_price, cap=None):
             "approaches": int(r["total_approaches"]),
             "shares": int(sized["shares"]),
             "cost": round(sized["cost"], 2),
+            "dormant": r.get("dormant", False),
+            "zone_promoted": r.get("zone_promoted", False),
         }
 
     active = [_bullet_entry(r, s, "Active") for r, s in zip(active_bullets, active_sized)]
@@ -664,6 +693,13 @@ def analyze_stock_data(ticker, hist=None):
         r["recent_held"] = recent_held_count
         r["trend"] = trend
 
+        # Zone promotion: fresh Buffer levels → Active (recency-based)
+        if r["zone"] == "Buffer" and not dormant:
+            r["zone"] = "Active"       # Mutate — all downstream sees "Active"
+            r["zone_promoted"] = True   # Display flag for [P] marker
+        else:
+            r["zone_promoted"] = False
+
     # Build structured output — all values must be Python-native types
     data = {
         "current_price": float(current_price),
@@ -694,6 +730,7 @@ def analyze_stock_data(ticker, hist=None):
                 "recent_approaches": r.get("recent_approaches", 0),
                 "approach_velocity": round(float(r.get("approach_velocity", 0)), 2),
                 "dormant": r.get("dormant", False),
+                "zone_promoted": r.get("zone_promoted", False),
                 "recent_hold_pct": round(float(r["recent_hold_pct"]), 1) if r.get("recent_hold_pct") is not None else None,
                 "recent_held": r.get("recent_held", 0),
                 "trend": r.get("trend", "—"),
