@@ -392,12 +392,13 @@ def run_watchlist_fitness():
         removal.append(entry)
 
     if removal:
-        print("### Removal Candidates")
+        removal.sort(key=lambda e: e["fitness_score"])
+        print(f"### Removal Candidates ({len(removal)} tickers)")
         print()
         print("| Ticker | Score | Verdict | Note |")
         print("| :--- | :--- | :--- | :--- |")
         for entry in removal:
-            note = entry.get("verdict_note", "")
+            note = entry.get("verdict_note", "").replace("|", "-")
             if len(note) > 60:
                 note = note[:60] + "..."
             print(f"| {entry['ticker']} | {entry['fitness_score']} | {entry.get('verdict', '')} | {note} |")
@@ -453,6 +454,9 @@ def run_candidate_screening():
     if result.stdout.strip():
         print(result.stdout.strip())
         print()
+    else:
+        print("*Filter completed.*")
+        print()
 
     # Read shortlist JSON
     try:
@@ -480,7 +484,8 @@ def run_candidate_screening():
             new_candidates.append(entry)
 
     if new_candidates:
-        print(f"### New Candidates (score >= {CANDIDATE_SCORE_THRESHOLD}, not tracked)")
+        new_candidates.sort(key=lambda e: e.get("total_score", 0), reverse=True)
+        print(f"### New Candidates ({len(new_candidates)} tickers, score >= {CANDIDATE_SCORE_THRESHOLD}, not tracked)")
         print()
         print("| Ticker | Score | Sector | Swing | Top Strength |")
         print("| :--- | :--- | :--- | :--- | :--- |")
