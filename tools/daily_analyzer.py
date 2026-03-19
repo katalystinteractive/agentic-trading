@@ -22,7 +22,7 @@ PORTFOLIO_PATH = _ROOT / "portfolio.json"
 COOLDOWN_PATH = _ROOT / "cooldown.json"
 
 sys.path.insert(0, str(TOOLS_DIR))
-from portfolio_manager import _load, _save, cmd_fill, cmd_sell, parse_bullets_used
+from portfolio_manager import _load, cmd_fill, cmd_sell, parse_bullets_used
 
 
 # ---------------------------------------------------------------------------
@@ -58,6 +58,8 @@ def process_transactions(fills, sells):
     if not fills and not sells:
         return
 
+    ok, fail = 0, 0
+
     # Suppress sell_target auto-output during batch fills
     import sell_target_calculator
     _orig_analyze = sell_target_calculator.analyze_ticker
@@ -68,9 +70,15 @@ def process_transactions(fills, sells):
         try:
             data = _load()
             cmd_fill(data, args)
+            ok += 1
             print()
         except SystemExit:
             print(f"*Error: failed to process fill {ticker}:{price}:{shares}*")
+            fail += 1
+            print()
+        except Exception as e:
+            print(f"*Error: fill {ticker}:{price}:{shares} — {e}*")
+            fail += 1
             print()
 
     # Restore sell_target_calculator
@@ -81,10 +89,22 @@ def process_transactions(fills, sells):
         try:
             data = _load()
             cmd_sell(data, args)
+            ok += 1
             print()
         except SystemExit:
             print(f"*Error: failed to process sell {ticker}:{price}:{shares}*")
+            fail += 1
             print()
+        except Exception as e:
+            print(f"*Error: sell {ticker}:{price}:{shares} — {e}*")
+            fail += 1
+            print()
+
+    summary = f"**Processed {ok} transaction(s)**"
+    if fail:
+        summary += f", **{fail} failed**"
+    print(summary)
+    print()
 
 
 # ---------------------------------------------------------------------------
