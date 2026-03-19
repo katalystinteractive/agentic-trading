@@ -652,6 +652,7 @@ def _print_recommend(ctx):
     has_promotion = False
     has_demotion = False
     has_promoted_zone = False
+    has_baseline_zone = False
 
     # Assign geographic A/B/R labels
     zone_labels = build_zone_labels(valid_levels, active_radius)
@@ -675,10 +676,15 @@ def _print_recommend(ctx):
         trend_map = {"Improving": "^", "Deteriorating": "v", "Stable": "-", "—": "?"}
         trend_str = trend_map.get(trend_raw, "?")
         # Dormant / promoted tags for status
-        dormant_tag = " [D]" if lvl.get("dormant", False) else ""
+        dormant_tag = ""
         if lvl.get("zone_promoted", False):
             dormant_tag = " [P]"
             has_promoted_zone = True
+        elif lvl.get("dormant", False):
+            dormant_tag = " [D]"
+        elif lvl.get("zone_baseline", False):
+            dormant_tag = " [B]"
+            has_baseline_zone = True
         support_str = f"{_fmt_dollar(lvl['support_price'])} {lvl['source']}"
         buy_str = _fmt_dollar(lvl["recommended_buy"])
         held = lvl.get("held", 0)
@@ -740,7 +746,7 @@ def _print_recommend(ctx):
             print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
                   f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | {status_str} |")
 
-    if has_capped or has_promotion or has_demotion or has_promoted_zone:
+    if has_capped or has_promotion or has_demotion or has_promoted_zone or has_baseline_zone:
         markers = []
         if has_promotion:
             markers.append("^ = tier promoted by recent holds")
@@ -749,7 +755,9 @@ def _print_recommend(ctx):
         if has_capped:
             markers.append("* = capped to Half by approach count (<3)")
         if has_promoted_zone:
-            markers.append("[P] = promoted from Buffer to Active (recently tested)")
+            markers.append("[P] = promoted from Buffer to Active (pullback-tested)")
+        if has_baseline_zone:
+            markers.append("[B] = recent activity but not from pullback")
         print()
         print(f"*{'; '.join(markers)}*")
 
@@ -810,7 +818,8 @@ def _print_legend(active_radius, cap):
     print(f"- **Half** (15-29% hold) = {tw['Half']}x weight in pool distribution")
     print(f"- **Tier ^/v** = tier promoted/demoted by recency | **Trend ^/v** = hold-rate trajectory")
     print(f"- **[D]** = dormant (not tested in 90+ days)")
-    print(f"- **[P]** = promoted from Buffer to Active (recently tested)")
+    print(f"- **[P]** = promoted from Buffer to Active (pullback-tested)")
+    print(f"- **[B]** = recent activity near level, not a pullback from above")
     print(f"- **>> Next** = recommended next order to place")
     print()
 

@@ -394,7 +394,11 @@ def find_approach_events(hist, level, proximity_pct=8.0):
 
     closes = hist["Close"].values
     lows = hist["Low"].values
+    highs = hist["High"].values
     dates = hist.index
+
+    LOOKBACK = 20  # trading days for prior-high computation
+    approach_prior_high = None
 
     for i in range(len(hist)):
         close = closes[i]
@@ -408,6 +412,7 @@ def find_approach_events(hist, level, proximity_pct=8.0):
                     "min_low": approach_min_low,
                     "offset_pct": ((approach_min_low - level) / level) * 100,
                     "held": approach_min_low >= level,
+                    "prior_high": approach_prior_high,
                 })
                 in_approach = False
             continue
@@ -420,6 +425,8 @@ def find_approach_events(hist, level, proximity_pct=8.0):
                 in_approach = True
                 approach_start = dates[i].strftime("%Y-%m-%d")
                 approach_min_low = low
+                lb = max(0, i - LOOKBACK)
+                approach_prior_high = float(highs[lb:i].max()) if i > 0 else float(highs[0])
             else:
                 approach_min_low = min(approach_min_low, low)
             gap_days = 0
@@ -429,6 +436,8 @@ def find_approach_events(hist, level, proximity_pct=8.0):
                 in_approach = True
                 approach_start = dates[i].strftime("%Y-%m-%d")
                 approach_min_low = low
+                lb = max(0, i - LOOKBACK)
+                approach_prior_high = float(highs[lb:i].max()) if i > 0 else float(highs[0])
             else:
                 approach_min_low = min(approach_min_low, low)
             gap_days = 0
@@ -442,6 +451,7 @@ def find_approach_events(hist, level, proximity_pct=8.0):
                         "min_low": approach_min_low,
                         "offset_pct": ((approach_min_low - level) / level) * 100,
                         "held": approach_min_low >= level,
+                        "prior_high": approach_prior_high,
                     })
                     in_approach = False
                     gap_days = 0
@@ -453,6 +463,7 @@ def find_approach_events(hist, level, proximity_pct=8.0):
             "min_low": approach_min_low,
             "offset_pct": ((approach_min_low - level) / level) * 100,
             "held": approach_min_low >= level,
+            "prior_high": approach_prior_high,
         })
 
     return events
@@ -546,6 +557,7 @@ def _compute_bullet_plan(level_results, current_price, cap=None):
             "cost": round(sized["cost"], 2),
             "dormant": r.get("dormant", False),
             "zone_promoted": r.get("zone_promoted", False),
+            "zone_baseline": r.get("zone_baseline", False),
         }
 
     active = [_bullet_entry(r, s, "Active") for r, s in zip(active_bullets, active_sized)]
@@ -693,12 +705,27 @@ def analyze_stock_data(ticker, hist=None):
         r["recent_held"] = recent_held_count
         r["trend"] = trend
 
-        # Zone promotion: fresh Buffer levels → Active (recency-based)
+        # Zone promotion: fresh Buffer levels → Active (recency + pullback validated)
         if r["zone"] == "Buffer" and not dormant:
-            r["zone"] = "Active"       # Mutate — all downstream sees "Active"
-            r["zone_promoted"] = True   # Display flag for [P] marker
+            # Require at least one recent approach to be a genuine pullback
+            recent_pullback = False
+            for e in r["events"]:
+                if e["start"] >= cutoff_90d:
+                    rally_pct = ((e["prior_high"] - lvl_price) / lvl_price) * 100
+                    if rally_pct >= active_radius:
+                        recent_pullback = True
+                        break
+
+            if recent_pullback:
+                r["zone"] = "Active"       # Mutate — all downstream sees "Active"
+                r["zone_promoted"] = True   # Display flag for [P] marker
+                r["zone_baseline"] = False
+            else:
+                r["zone_promoted"] = False
+                r["zone_baseline"] = True   # Fresh but NOT a pullback
         else:
             r["zone_promoted"] = False
+            r["zone_baseline"] = False
 
     # Build structured output — all values must be Python-native types
     data = {
@@ -731,6 +758,7 @@ def analyze_stock_data(ticker, hist=None):
                 "approach_velocity": round(float(r.get("approach_velocity", 0)), 2),
                 "dormant": r.get("dormant", False),
                 "zone_promoted": r.get("zone_promoted", False),
+                "zone_baseline": r.get("zone_baseline", False),
                 "recent_hold_pct": round(float(r["recent_hold_pct"]), 1) if r.get("recent_hold_pct") is not None else None,
                 "recent_held": r.get("recent_held", 0),
                 "trend": r.get("trend", "—"),
@@ -740,6 +768,7 @@ def analyze_stock_data(ticker, hist=None):
                         "min_low": round(float(e["min_low"]), 2),
                         "offset_pct": round(float(e["offset_pct"]), 2),
                         "held": bool(e["held"]),
+                        "prior_high": round(float(e["prior_high"]), 2),
                     }
                     for e in r["events"]
                 ],
@@ -805,6 +834,8 @@ def _format_stock_report(ticker, data):
             fresh_str = f"{last_tested} [P]"
         elif dormant:
             fresh_str = f"{last_tested} [D]"
+        elif lvl.get("zone_baseline", False):
+            fresh_str = f"{last_tested} [B]"
         else:
             fresh_str = last_tested
         lines.append(
@@ -821,11 +852,12 @@ def _format_stock_report(ticker, data):
         if not lvl["events"]:
             continue
         lines.append(f"### Detail: {fmt_dollar(lvl['support_price'])} ({lvl['source']})")
-        lines.append("| Date | Wick Low | Offset | Held |")
-        lines.append("| :--- | :--- | :--- | :--- |")
+        lines.append("| Date | Wick Low | Offset | Prior High | Held |")
+        lines.append("| :--- | :--- | :--- | :--- | :--- |")
         for e in lvl["events"]:
             held_str = "Yes" if e["held"] else "**BROKE**"
-            lines.append(f"| {e['date']} | {fmt_dollar(e['min_low'])} | {fmt_pct(e['offset_pct'])} | {held_str} |")
+            prior_high_str = fmt_dollar(e.get("prior_high", 0)) if e.get("prior_high") else "N/A"
+            lines.append(f"| {e['date']} | {fmt_dollar(e['min_low'])} | {fmt_pct(e['offset_pct'])} | {prior_high_str} | {held_str} |")
         lines.append("")
 
     # Bullet plan from pre-computed data
