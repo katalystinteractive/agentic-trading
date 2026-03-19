@@ -351,13 +351,30 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
     all_active_levels = [lvl for lvl in valid_levels if lvl["zone"] == "Active"]
     all_reserve_levels = [lvl for lvl in valid_levels if lvl["zone"] == "Reserve"]
 
-    active_sized = compute_pool_sizing(all_active_levels, cap["active_pool"], "active")
-    reserve_sized = compute_pool_sizing(all_reserve_levels, cap["reserve_pool"], "reserve")
+    # Concentrated sizing: fresh levels get full pool, dormant get 1-share minimum
+    def _concentrated_pool_sizing(levels, pool_budget, pool_name):
+        fresh = [lvl for lvl in levels if not lvl.get("dormant", False)]
+        dormant = [lvl for lvl in levels if lvl.get("dormant", False)]
+        dormant_cost = sum(lvl["recommended_buy"] for lvl in dormant)
+        fresh_budget = max(pool_budget - dormant_cost, 0)
+        fresh_sized = compute_pool_sizing(fresh, fresh_budget, pool_name) if fresh else []
+        dormant_sized = [{"shares": 1, "cost": lvl["recommended_buy"],
+                          "dollar_alloc": lvl["recommended_buy"]} for lvl in dormant]
+        return fresh, fresh_sized, dormant, dormant_sized
+
+    fresh_a, fresh_a_sized, dormant_a, dormant_a_sized = _concentrated_pool_sizing(
+        all_active_levels, cap["active_pool"], "active")
+    fresh_r, fresh_r_sized, dormant_r, dormant_r_sized = _concentrated_pool_sizing(
+        all_reserve_levels, cap["reserve_pool"], "reserve")
 
     sizing_lookup = {}
-    for lvl, sized in zip(all_active_levels, active_sized):
+    for lvl, sized in zip(fresh_a, fresh_a_sized):
         sizing_lookup[id(lvl)] = (sized["shares"], sized["cost"])
-    for lvl, sized in zip(all_reserve_levels, reserve_sized):
+    for lvl, sized in zip(dormant_a, dormant_a_sized):
+        sizing_lookup[id(lvl)] = (sized["shares"], sized["cost"])
+    for lvl, sized in zip(fresh_r, fresh_r_sized):
+        sizing_lookup[id(lvl)] = (sized["shares"], sized["cost"])
+    for lvl, sized in zip(dormant_r, dormant_r_sized):
         sizing_lookup[id(lvl)] = (sized["shares"], sized["cost"])
 
     # Budget computation — derive filled costs from batch sizing
