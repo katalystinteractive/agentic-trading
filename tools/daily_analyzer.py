@@ -51,6 +51,10 @@ def parse_specs(spec_string):
             print(f"*Error: bad spec '{item}' — price/shares not numeric*")
             errors += 1
             continue
+        if shares <= 0:
+            print(f"*Error: bad spec '{item}' — shares must be positive*")
+            errors += 1
+            continue
         results.append((ticker, price, shares))
     return results, errors
 
