@@ -18,7 +18,6 @@ from datetime import date
 
 _ROOT = Path(__file__).resolve().parent.parent
 TOOLS_DIR = Path(__file__).resolve().parent
-PORTFOLIO_PATH = _ROOT / "portfolio.json"
 COOLDOWN_PATH = _ROOT / "cooldown.json"
 
 sys.path.insert(0, str(TOOLS_DIR))
@@ -30,10 +29,11 @@ from portfolio_manager import _load, cmd_fill, cmd_sell, parse_bullets_used
 # ---------------------------------------------------------------------------
 
 def parse_specs(spec_string):
-    """Parse 'TICKER:PRICE:SHARES,...' → list of (ticker, price, shares)."""
+    """Parse 'TICKER:PRICE:SHARES,...' → (list of tuples, parse_error_count)."""
     if not spec_string:
-        return []
+        return [], 0
     results = []
+    errors = 0
     for item in spec_string.split(","):
         item = item.strip()
         if not item:
@@ -41,6 +41,7 @@ def parse_specs(spec_string):
         parts = item.split(":")
         if len(parts) != 3:
             print(f"*Error: bad spec '{item}' — expected TICKER:PRICE:SHARES*")
+            errors += 1
             continue
         ticker = parts[0].strip().upper()
         try:
@@ -48,17 +49,18 @@ def parse_specs(spec_string):
             shares = int(parts[2].strip())
         except ValueError:
             print(f"*Error: bad spec '{item}' — price/shares not numeric*")
+            errors += 1
             continue
         results.append((ticker, price, shares))
-    return results
+    return results, errors
 
 
-def process_transactions(fills, sells):
+def process_transactions(fills, sells, parse_errors=0):
     """Call cmd_fill/cmd_sell for each spec with sys.exit trap."""
-    if not fills and not sells:
+    if not fills and not sells and not parse_errors:
         return
 
-    ok, fail = 0, 0
+    ok, fail = 0, parse_errors
 
     # Suppress sell_target auto-output during batch fills
     import sell_target_calculator
@@ -116,7 +118,7 @@ def truncate_note(note, max_len=45):
     if not note:
         return ""
     m = re.match(
-        r'((?:A\d|B\d|R\d|Bullet \d|Reserve \d).*?,\s*(?:Full|Std|Half|Skip))\b',
+        r'((?:A\d|B\d|R\d|Bullet \d|Reserve \d).*?,\s*(?:Full|Std|Half|Skip)[\^v]?)',
         note,
     )
     if m:
@@ -303,6 +305,9 @@ def print_deployment_recs(tickers):
             if result.returncode == 0 and result.stdout.strip():
                 print(result.stdout.strip())
             else:
+                if result.stdout.strip():
+                    print(result.stdout.strip())
+                    print()
                 err = result.stderr.strip() if result.stderr.strip() else "unknown error"
                 print(f"*Error running bullet_recommender for {ticker}: {err}*")
         except subprocess.TimeoutExpired:
@@ -334,14 +339,15 @@ def main():
     )
     args = parser.parse_args()
 
-    fills = parse_specs(args.fills)
-    sells = parse_specs(args.sells)
+    fills, fill_parse_err = parse_specs(args.fills)
+    sells, sell_parse_err = parse_specs(args.sells)
+    parse_errors = fill_parse_err + sell_parse_err
 
     # Part 1: Process transactions
-    if fills or sells:
+    if fills or sells or parse_errors:
         print("## Part 1 — Processing Transactions")
         print()
-        process_transactions(fills, sells)
+        process_transactions(fills, sells, parse_errors)
 
     # Part 2: Consolidated orders
     print_consolidated_orders()
