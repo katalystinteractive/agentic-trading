@@ -861,6 +861,14 @@ def run_audit(ticker, data, portfolio):
 
         if matched is not None:
             status = classify_drift(dist)
+            # Zone state tag (display only, not part of verdict)
+            zone_tag = ""
+            if matched.get("zone_promoted", False):
+                zone_tag = " [P]"
+            elif matched.get("dormant", False):
+                zone_tag = " [D]"
+            elif matched.get("zone_baseline", False):
+                zone_tag = " [B]"
             drift_str = f"{dist * 100:.1f}%"
             level_str = f"{_fmt_dollar(matched['support_price'])} {matched['source']}"
             buy_at_str = _fmt_dollar(matched["recommended_buy"])
@@ -874,6 +882,7 @@ def run_audit(ticker, data, portfolio):
             sort_key = gap  # lower gap = closer to price = sorted first
         else:
             status = "ORPHANED"
+            zone_tag = ""
             drift_str = "N/A"
             level_str = "—"
             buy_at_str = "—"
@@ -887,7 +896,8 @@ def run_audit(ticker, data, portfolio):
             status += ", PAUSED"
 
         rows.append({
-            "order": order, "status": status, "drift_str": drift_str,
+            "order": order, "status": status, "zone_tag": zone_tag,
+            "drift_str": drift_str,
             "level_str": level_str, "buy_at_str": buy_at_str, "hr_str": hr_str,
             "tier_str": tier_str, "capped_str": capped_str, "gap": gap,
             "sort_key": sort_key, "is_orphan": gap == float('inf'),
@@ -911,7 +921,8 @@ def run_audit(ticker, data, portfolio):
             else:
                 label = "—"
         verdicts.append(row["status"])
-        print(f"| {label} | {_fmt_dollar(row['order']['price'])} | {row['level_str']} | {row['buy_at_str']} | {row['drift_str']} | {row['hr_str']} | {row['tier_str']} | {row['capped_str']} | {row['status']} |")
+        display_status = f"{row['status']}{row['zone_tag']}"
+        print(f"| {label} | {_fmt_dollar(row['order']['price'])} | {row['level_str']} | {row['buy_at_str']} | {row['drift_str']} | {row['hr_str']} | {row['tier_str']} | {row['capped_str']} | {display_status} |")
 
     print()
 

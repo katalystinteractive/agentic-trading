@@ -856,7 +856,7 @@ def _format_stock_report(ticker, data):
         lines.append("| :--- | :--- | :--- | :--- | :--- |")
         for e in lvl["events"]:
             held_str = "Yes" if e["held"] else "**BROKE**"
-            prior_high_str = fmt_dollar(e.get("prior_high", 0)) if e.get("prior_high") else "N/A"
+            prior_high_str = fmt_dollar(e.get("prior_high"))
             lines.append(f"| {e['date']} | {fmt_dollar(e['min_low'])} | {fmt_pct(e['offset_pct'])} | {prior_high_str} | {held_str} |")
         lines.append("")
 
