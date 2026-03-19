@@ -402,11 +402,11 @@ def run_watchlist_fitness():
         print("| Ticker | Score | Verdict | Note |")
         print("| :--- | :--- | :--- | :--- |")
         for entry in removal:
-            note = entry.get("verdict_note", "").replace("|", "-")
+            note = (entry.get("verdict_note") or "").replace("|", "-")
             if len(note) > 60:
                 note = note[:60] + "..."
             verdict = (entry.get("verdict") or "").replace("|", "-")
-            print(f"| {entry['ticker']} | {entry['fitness_score']} | {verdict} | {note} |")
+            print(f"| {ticker} | {entry['fitness_score']} | {verdict} | {note} |")
         print()
     else:
         print("*No removal candidates — all tickers score >= 50 or have active positions/orders.*")
@@ -498,7 +498,7 @@ def run_candidate_screening():
         print("| Ticker | Score | Sector | Swing | Top Strength |")
         print("| :--- | :--- | :--- | :--- | :--- |")
         for entry in new_candidates:
-            passer = entry.get("passer", {})
+            passer = entry.get("passer") or {}
             sector = (passer.get("sector") or "—").replace("|", "-")
             swing = passer.get("median_swing")
             swing_str = f"{swing:.1f}%" if swing is not None else "—"
@@ -515,7 +515,7 @@ def run_candidate_screening():
                 else:
                     strength = "—"
 
-            print(f"| {entry['ticker']} | {entry['total_score']} | {sector} | {swing_str} | {strength} |")
+            print(f"| {ticker} | {score} | {sector} | {swing_str} | {strength} |")
         print()
     else:
         print(f"*No new candidates scoring >= {CANDIDATE_SCORE_THRESHOLD} outside current watchlist.*")
