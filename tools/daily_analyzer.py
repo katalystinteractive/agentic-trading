@@ -166,7 +166,7 @@ def print_consolidated_orders():
         return
 
     today = date.today().isoformat()
-    print(f"## Placed Orders & Positions — {today}")
+    print(f"## Placed Orders & Positions — {today} ({len(tickers_to_show)} tickers)")
     print()
     print("| Ticker | Type | Price | Shares | Note |")
     print("| :--- | :--- | :--- | :--- | :--- |")
@@ -302,7 +302,7 @@ def print_deployment_recs(tickers):
         print("*All tickers have active placed orders — no deployment needed.*")
         return
 
-    print("## Deployment Recommendations")
+    print(f"## Deployment Recommendations ({len(tickers)} tickers)")
     print()
 
     for ticker in tickers:
