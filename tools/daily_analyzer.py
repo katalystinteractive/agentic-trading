@@ -1,12 +1,15 @@
 """Daily Analyzer — consolidated session tool.
 
 Processes fills/sells in batch, shows consolidated placed orders with
-position summaries and sell targets, and recommends new deployments.
+position summaries and sell targets, recommends new deployments,
+evaluates watchlist fitness, and screens for new candidates.
 
 Usage:
-    python3 tools/daily_analyzer.py --fills "CIFR:14.18:8,RGTI:15.17:5" --sells "LUNR:18.89:2"
-    python3 tools/daily_analyzer.py                   # no fills, show state + deploy
-    python3 tools/daily_analyzer.py --no-deploy       # just consolidated table
+    python3 tools/daily_analyzer.py --fills "CIFR:14.18:8" --sells "LUNR:18.89:2"
+    python3 tools/daily_analyzer.py                   # full flow: Parts 1-5 (~6-11 min)
+    python3 tools/daily_analyzer.py --no-deploy       # Parts 1-2 only (quick)
+    python3 tools/daily_analyzer.py --no-fitness      # Parts 1-3 only
+    python3 tools/daily_analyzer.py --no-screen       # Parts 1-4 only (skip screening)
 """
 import sys
 import json
@@ -19,6 +22,10 @@ from datetime import date
 _ROOT = Path(__file__).resolve().parent.parent
 TOOLS_DIR = Path(__file__).resolve().parent
 COOLDOWN_PATH = _ROOT / "cooldown.json"
+FITNESS_JSON_PATH = _ROOT / "watchlist-fitness.json"
+SHORTLIST_JSON_PATH = _ROOT / "candidate_shortlist.json"
+REMOVAL_SCORE_THRESHOLD = 50
+CANDIDATE_SCORE_THRESHOLD = 80
 
 sys.path.insert(0, str(TOOLS_DIR))
 from portfolio_manager import _load, cmd_fill, cmd_sell, parse_bullets_used
@@ -333,6 +340,181 @@ def print_deployment_recs(tickers):
 
 
 # ---------------------------------------------------------------------------
+# Part 4 — Watchlist Fitness Check
+# ---------------------------------------------------------------------------
+
+def run_watchlist_fitness():
+    """Run watchlist_fitness.py, print summary, flag removal candidates."""
+    print("## Part 4 — Watchlist Fitness Check")
+    print()
+    try:
+        result = subprocess.run(
+            [sys.executable, str(TOOLS_DIR / "watchlist_fitness.py")],
+            capture_output=True, text=True, timeout=180,
+        )
+        if result.returncode != 0:
+            print(f"*Error: watchlist_fitness.py failed: {result.stderr.strip() or 'unknown'}*")
+            return
+    except subprocess.TimeoutExpired:
+        print("*Error: watchlist_fitness.py timed out (180s)*")
+        return
+    except Exception as e:
+        print(f"*Error: {e}*")
+        return
+
+    if result.stdout.strip():
+        print(result.stdout.strip())
+        print()
+
+    # Read JSON
+    try:
+        with open(FITNESS_JSON_PATH) as f:
+            fitness_data = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"*Error reading {FITNESS_JSON_PATH.name}: {e}*")
+        return
+
+    # Cross-reference portfolio.json for removal check
+    data = _load()
+    positions = data.get("positions", {})
+    pending = data.get("pending_orders", {})
+
+    removal = []
+    for entry in fitness_data.get("tickers", []):
+        ticker = entry.get("ticker", "")
+        score = entry.get("fitness_score")
+        if score is None or score >= REMOVAL_SCORE_THRESHOLD:
+            continue
+        if positions.get(ticker, {}).get("shares", 0) > 0:
+            continue
+        if any(_is_active_buy(o) for o in pending.get(ticker, [])):
+            continue
+        removal.append(entry)
+
+    if removal:
+        print("### Removal Candidates")
+        print()
+        print("| Ticker | Score | Verdict | Note |")
+        print("| :--- | :--- | :--- | :--- |")
+        for entry in removal:
+            note = entry.get("verdict_note", "")
+            if len(note) > 60:
+                note = note[:60] + "..."
+            print(f"| {entry['ticker']} | {entry['fitness_score']} | {entry.get('verdict', '')} | {note} |")
+        print()
+    else:
+        print("*No removal candidates — all tickers score >= 50 or have active positions/orders.*")
+        print()
+
+
+# ---------------------------------------------------------------------------
+# Part 5 — New Candidate Screening
+# ---------------------------------------------------------------------------
+
+def run_candidate_screening():
+    """Run screener → filter → print new strong candidates not already tracked."""
+    print("## Part 5 — New Candidate Screening")
+    print()
+    print("*Running screener (~3-5 min)...*")
+    print()
+
+    # Step A: Screener
+    try:
+        result = subprocess.run(
+            [sys.executable, str(TOOLS_DIR / "surgical_screener.py")],
+            capture_output=True, text=True, timeout=420,
+        )
+        if result.returncode != 0:
+            print(f"*Error: surgical_screener.py failed: {result.stderr.strip() or 'unknown'}*")
+            return
+    except subprocess.TimeoutExpired:
+        print("*Error: surgical_screener.py timed out (420s)*")
+        return
+    except Exception as e:
+        print(f"*Error: {e}*")
+        return
+
+    # Step B: Filter (only runs if screener succeeded)
+    try:
+        result = subprocess.run(
+            [sys.executable, str(TOOLS_DIR / "surgical_filter.py")],
+            capture_output=True, text=True, timeout=180,
+        )
+        if result.returncode != 0:
+            print(f"*Error: surgical_filter.py failed: {result.stderr.strip() or 'unknown'}*")
+            return
+    except subprocess.TimeoutExpired:
+        print("*Error: surgical_filter.py timed out (180s)*")
+        return
+    except Exception as e:
+        print(f"*Error: {e}*")
+        return
+
+    if result.stdout.strip():
+        print(result.stdout.strip())
+        print()
+
+    # Read shortlist JSON
+    try:
+        with open(SHORTLIST_JSON_PATH) as f:
+            shortlist_data = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"*Error reading {SHORTLIST_JSON_PATH.name}: {e}*")
+        return
+
+    # Build tracked set from portfolio.json
+    data = _load()
+    tracked = set(data.get("watchlist", [])) | set(data.get("positions", {}).keys())
+
+    shortlist = shortlist_data.get("shortlist", [])
+    new_candidates = []
+    already_tracked = []
+    for entry in shortlist:
+        ticker = entry.get("ticker", "")
+        score = entry.get("total_score", 0)
+        if score < CANDIDATE_SCORE_THRESHOLD:
+            continue
+        if ticker in tracked:
+            already_tracked.append((ticker, score))
+        else:
+            new_candidates.append(entry)
+
+    if new_candidates:
+        print(f"### New Candidates (score >= {CANDIDATE_SCORE_THRESHOLD}, not tracked)")
+        print()
+        print("| Ticker | Score | Sector | Swing | Top Strength |")
+        print("| :--- | :--- | :--- | :--- | :--- |")
+        for entry in new_candidates:
+            passer = entry.get("passer", {})
+            sector = passer.get("sector", "—")
+            swing = passer.get("median_swing")
+            swing_str = f"{swing:.1f}%" if swing is not None else "—"
+
+            # Top Strength from cycle timing
+            ct = passer.get("cycle_timing") or {}
+            if "total_cycles" in ct and "immediate_fill_pct" in ct:
+                strength = f"{ct['total_cycles']} cycles, {ct['immediate_fill_pct']:.0f}% fill"
+            else:
+                flags = entry.get("flags", [])
+                if flags:
+                    s = str(flags[0])
+                    strength = s[:40] + ("..." if len(s) > 40 else "")
+                else:
+                    strength = "—"
+
+            print(f"| {entry['ticker']} | {entry['total_score']} | {sector} | {swing_str} | {strength} |")
+        print()
+    else:
+        print(f"*No new candidates scoring >= {CANDIDATE_SCORE_THRESHOLD} outside current watchlist.*")
+        print()
+
+    if already_tracked:
+        labels = ", ".join(f"{t} ({s})" for t, s in already_tracked)
+        print(f"*Already tracked: {labels}*")
+        print()
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -350,7 +532,15 @@ def main():
     )
     parser.add_argument(
         "--no-deploy", action="store_true",
-        help="Skip Part 3 deployment recommendations",
+        help="Skip Parts 3-5 (deployment, fitness, screening)",
+    )
+    parser.add_argument(
+        "--no-fitness", action="store_true",
+        help="Skip Parts 4-5 (fitness check and screening)",
+    )
+    parser.add_argument(
+        "--no-screen", action="store_true",
+        help="Skip Part 5 (new candidate screening)",
     )
     args = parser.parse_args()
 
@@ -371,6 +561,14 @@ def main():
     if not args.no_deploy:
         deploy_tickers = find_deployment_tickers()
         print_deployment_recs(deploy_tickers)
+
+    # Part 4: Watchlist Fitness Check
+    if not args.no_deploy and not args.no_fitness:
+        run_watchlist_fitness()
+
+    # Part 5: New Candidate Screening
+    if not args.no_deploy and not args.no_fitness and not args.no_screen:
+        run_candidate_screening()
 
 
 if __name__ == "__main__":
