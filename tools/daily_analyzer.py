@@ -182,11 +182,12 @@ def print_consolidated_orders():
         shares = pos.get("shares", 0)
         avg_cost = pos.get("avg_cost", 0)
 
-        # BUY rows
-        for o in orders:
-            if _is_active_buy(o):
-                note = truncate_note(o.get("note", ""))
-                print(f"| {ticker} | BUY | ${o['price']:.2f} | {o['shares']} | {note} |")
+        # BUY rows (price descending — highest first)
+        active_buys = [o for o in orders if _is_active_buy(o)]
+        active_buys.sort(key=lambda o: o["price"], reverse=True)
+        for o in active_buys:
+            note = truncate_note(o.get("note", ""))
+            print(f"| {ticker} | BUY | ${o['price']:.2f} | {o['shares']} | {note} |")
 
         # Position summary (only if shares > 0)
         if shares > 0:
@@ -251,7 +252,7 @@ def find_deployment_tickers():
     all_tickers = set(watchlist) | set(positions.keys())
 
     # Load cooldowns
-    cooldown_tickers = set()
+    cooldown_tickers = {}  # ticker → reeval_date
     if COOLDOWN_PATH.exists():
         try:
             with open(COOLDOWN_PATH, "r", encoding="utf-8") as f:
@@ -259,16 +260,13 @@ def find_deployment_tickers():
             today = date.today().isoformat()
             for entry in cd.get("cooldowns", []):
                 if entry.get("reeval_date", "") > today:
-                    cooldown_tickers.add(entry["ticker"])
+                    cooldown_tickers[entry["ticker"]] = entry["reeval_date"]
         except (json.JSONDecodeError, KeyError):
             pass
 
     result = []
+    skipped_cooldown = []
     for ticker in sorted(all_tickers):
-        # Skip cooldown
-        if ticker in cooldown_tickers:
-            continue
-
         orders = pending.get(ticker, [])
         pos = positions.get(ticker, {})
         shares = pos.get("shares", 0)
@@ -279,8 +277,21 @@ def find_deployment_tickers():
 
         # Check active coverage
         has_active_buy = any(_is_active_buy(o) for o in orders)
-        if not has_active_buy:
-            result.append(ticker)
+        if has_active_buy:
+            continue
+
+        # Cooldown check — only for tickers that would otherwise need deployment
+        if ticker in cooldown_tickers:
+            skipped_cooldown.append(
+                f"{ticker} (until {cooldown_tickers[ticker]})"
+            )
+            continue
+
+        result.append(ticker)
+
+    if skipped_cooldown:
+        print(f"*Cooldown: {', '.join(skipped_cooldown)}*")
+        print()
 
     return result
 
