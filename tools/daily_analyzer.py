@@ -405,7 +405,8 @@ def run_watchlist_fitness():
             note = entry.get("verdict_note", "").replace("|", "-")
             if len(note) > 60:
                 note = note[:60] + "..."
-            print(f"| {entry['ticker']} | {entry['fitness_score']} | {entry.get('verdict', '')} | {note} |")
+            verdict = (entry.get("verdict") or "").replace("|", "-")
+            print(f"| {entry['ticker']} | {entry['fitness_score']} | {verdict} | {note} |")
         print()
     else:
         print("*No removal candidates — all tickers score >= 50 or have active positions/orders.*")
@@ -475,6 +476,9 @@ def run_candidate_screening():
     tracked = set(data.get("watchlist", [])) | set(data.get("positions", {}).keys())
 
     shortlist = shortlist_data.get("shortlist", [])
+    print(f"*Shortlisted {len(shortlist)} tickers.*")
+    print()
+
     new_candidates = []
     already_tracked = []
     for entry in shortlist:
