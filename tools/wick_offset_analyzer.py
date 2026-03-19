@@ -557,7 +557,6 @@ def _compute_bullet_plan(level_results, current_price, cap=None):
             "cost": round(sized["cost"], 2),
             "dormant": r.get("dormant", False),
             "zone_promoted": r.get("zone_promoted", False),
-            "zone_baseline": r.get("zone_baseline", False),
         }
 
     active = [_bullet_entry(r, s, "Active") for r, s in zip(active_bullets, active_sized)]

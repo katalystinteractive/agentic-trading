@@ -675,15 +675,15 @@ def _print_recommend(ctx):
         trend_raw = lvl.get("trend", "—")
         trend_map = {"Improving": "^", "Deteriorating": "v", "Stable": "-", "—": "?"}
         trend_str = trend_map.get(trend_raw, "?")
-        # Dormant / promoted tags for status
-        dormant_tag = ""
+        # Zone state tags for status
+        zone_tag = ""
         if lvl.get("zone_promoted", False):
-            dormant_tag = " [P]"
+            zone_tag = " [P]"
             has_promoted_zone = True
         elif lvl.get("dormant", False):
-            dormant_tag = " [D]"
+            zone_tag = " [D]"
         elif lvl.get("zone_baseline", False):
-            dormant_tag = " [B]"
+            zone_tag = " [B]"
             has_baseline_zone = True
         support_str = f"{_fmt_dollar(lvl['support_price'])} {lvl['source']}"
         buy_str = _fmt_dollar(lvl["recommended_buy"])
@@ -724,13 +724,13 @@ def _print_recommend(ctx):
                 if ord_shares and ord_shares != ref_shares:
                     shares_str = f"{ref_shares} (order has {ord_shares})"
                 print(f"| {row_label} | {support_str} | {_fmt_dollar(order['price'])} | {hold_str} | {tier_display} "
-                      f"| {trend_str} | {shares_str} | {cost_str} | {status_str}{dormant_tag} |")
+                      f"| {trend_str} | {shares_str} | {cost_str} | {status_str}{zone_tag} |")
         elif lid in filled_lookup:
             print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
-                  f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | Filled{dormant_tag} |")
+                  f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | Filled{zone_tag} |")
         elif lid == rec_level_id:
             print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
-                  f"| {trend_str} | {recommendation['shares']} | ~{_fmt_dollar(recommendation['cost'])} | **>> Next**{dormant_tag} |")
+                  f"| {trend_str} | {recommendation['shares']} | ~{_fmt_dollar(recommendation['cost'])} | **>> Next**{zone_tag} |")
         else:
             # Uncovered level — Available, — , or reference-only (Buffer)
             if lvl["zone"] == "Active":
@@ -741,8 +741,8 @@ def _print_recommend(ctx):
                 # Buffer (dormant, non-promoted) — reference only, not deployable
                 has_capacity = False
             status_str = "Available" if has_capacity else "—"
-            if dormant_tag:
-                status_str = f"{status_str}{dormant_tag}" if status_str != "—" else f"—{dormant_tag}"
+            if zone_tag:
+                status_str = f"{status_str}{zone_tag}" if status_str != "—" else f"—{zone_tag}"
             print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
                   f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | {status_str} |")
 
@@ -757,7 +757,7 @@ def _print_recommend(ctx):
         if has_promoted_zone:
             markers.append("[P] = promoted from Buffer to Active (pullback-tested)")
         if has_baseline_zone:
-            markers.append("[B] = recent activity but not from pullback")
+            markers.append("[B] = recent activity near level, not a pullback from above")
         print()
         print(f"*{'; '.join(markers)}*")
 
