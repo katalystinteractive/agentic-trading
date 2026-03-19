@@ -374,13 +374,17 @@ def run_watchlist_fitness():
         print(f"*Error reading {FITNESS_JSON_PATH.name}: {e}*")
         return
 
+    all_tickers = fitness_data.get("tickers", [])
+    print(f"*Evaluated {len(all_tickers)} tickers.*")
+    print()
+
     # Cross-reference portfolio.json for removal check
     data = _load()
     positions = data.get("positions", {})
     pending = data.get("pending_orders", {})
 
     removal = []
-    for entry in fitness_data.get("tickers", []):
+    for entry in all_tickers:
         ticker = entry.get("ticker", "")
         score = entry.get("fitness_score")
         if score is None or score >= REMOVAL_SCORE_THRESHOLD:
@@ -491,7 +495,7 @@ def run_candidate_screening():
         print("| :--- | :--- | :--- | :--- | :--- |")
         for entry in new_candidates:
             passer = entry.get("passer", {})
-            sector = passer.get("sector", "—")
+            sector = (passer.get("sector") or "—").replace("|", "-")
             swing = passer.get("median_swing")
             swing_str = f"{swing:.1f}%" if swing is not None else "—"
 
@@ -502,7 +506,7 @@ def run_candidate_screening():
             else:
                 flags = entry.get("flags", [])
                 if flags:
-                    s = str(flags[0])
+                    s = str(flags[0]).replace("|", "-")
                     strength = s[:40] + ("..." if len(s) > 40 else "")
                 else:
                     strength = "—"
@@ -514,6 +518,7 @@ def run_candidate_screening():
         print()
 
     if already_tracked:
+        already_tracked.sort(key=lambda x: x[1], reverse=True)
         labels = ", ".join(f"{t} ({s})" for t, s in already_tracked)
         print(f"*Already tracked: {labels}*")
         print()
