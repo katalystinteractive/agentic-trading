@@ -1064,6 +1064,9 @@ def main():
     cap = load_capital_config()
 
     if args.json_output:
+        if args.mode == "audit":
+            print("Error: --json is only supported with --mode recommend", file=sys.stderr)
+            sys.exit(1)
         results = []
         for ticker in args.tickers:
             data, err = analyze_stock_data(ticker)
