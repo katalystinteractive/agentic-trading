@@ -24,7 +24,6 @@ from datetime import date
 _ROOT = Path(__file__).resolve().parent.parent
 TOOLS_DIR = Path(__file__).resolve().parent
 COOLDOWN_PATH = _ROOT / "cooldown.json"
-PERF_JSON_PATH = _ROOT / "ticker-perf-analysis.json"
 FITNESS_JSON_PATH = _ROOT / "watchlist-fitness.json"
 SHORTLIST_JSON_PATH = _ROOT / "candidate_shortlist.json"
 REMOVAL_SCORE_THRESHOLD = 50

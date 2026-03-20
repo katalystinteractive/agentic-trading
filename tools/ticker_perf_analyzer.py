@@ -15,7 +15,7 @@ import sys
 import json
 import argparse
 import warnings
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 from statistics import median
 
@@ -24,7 +24,6 @@ import pandas as pd
 _ROOT = Path(__file__).resolve().parent.parent
 TRADE_HISTORY_PATH = _ROOT / "trade_history.json"
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
-PROFILES_PATH = _ROOT / "ticker_profiles.json"
 PERF_OUTPUT_PATH = _ROOT / "ticker-perf-analysis.json"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -77,10 +76,7 @@ def _load_active_pool():
     return portfolio.get("capital", {}).get("active_pool", 300)
 
 
-def _build_ticker_universe():
-    portfolio = _load_portfolio()
-    trade_history = _load_trade_history()
-
+def _build_ticker_universe(portfolio, trade_history):
     universe = set()
     universe.update(portfolio.get("watchlist", []))
     universe.update(portfolio.get("positions", {}).keys())
@@ -161,6 +157,10 @@ def reconstruct_cycles(trades, ticker):
 
             elif running_shares < 0:
                 # Negative shares guard — orphaned SELL or missing BUY
+                trade_id = trade.get("id", "?")
+                print(f"WARNING: {ticker} trade id={trade_id} — negative shares "
+                      f"({running_shares}), closing cycle as data-incomplete",
+                      file=sys.stderr)
                 cycle = _build_cycle(current_buys, current_sells,
                                      avg_cost_timeline, True)
                 completed.append(cycle)
@@ -220,7 +220,6 @@ def _build_cycle(buys, sells, avg_cost_timeline, data_incomplete):
     if buys and sells:
         first_buy_date = buys[0]["date"]
         last_sell_date = sells[-1]["date"]
-        from datetime import datetime
         d1 = datetime.strptime(first_buy_date, "%Y-%m-%d")
         d2 = datetime.strptime(last_sell_date, "%Y-%m-%d")
         cycle_days = (d2 - d1).days
@@ -247,6 +246,17 @@ def _build_cycle(buys, sells, avg_cost_timeline, data_incomplete):
 # KPI computations
 # ---------------------------------------------------------------------------
 
+def _post_sell_peak(cycle, hist):
+    """Find max High in POST_SELL_PEAK_DAYS after last sell. Returns (max_high, n_days) or (None, 0)."""
+    if not cycle["sells"]:
+        return None, 0
+    last_sell_date = cycle["sells"][-1]["date"]
+    post_sell = hist[hist.index > _ts(last_sell_date, hist)].head(POST_SELL_PEAK_DAYS)
+    if len(post_sell) == 0:
+        return None, 0
+    return float(post_sell["High"].max()), len(post_sell)
+
+
 def compute_deployment_depth(cycle, active_pool):
     if active_pool <= 0:
         return 0.0
@@ -263,13 +273,10 @@ def compute_capture_ratio(cycle, hist):
     actual_pnl_pct = (blended_sell - avg_cost) / avg_cost * 100
 
     # Find post-sell peak
-    last_sell_date = cycle["sells"][-1]["date"]
-
-    post_sell = hist[hist.index > _ts(last_sell_date, hist)].head(POST_SELL_PEAK_DAYS)
-    if len(post_sell) == 0:
+    max_high, n_days = _post_sell_peak(cycle, hist)
+    if max_high is None:
         return None  # Skip — no trading days after sell
 
-    max_high = float(post_sell["High"].max())
     peak_profit = (max_high - avg_cost) / avg_cost * 100
 
     if peak_profit <= 0:
@@ -390,7 +397,7 @@ def compute_all_kpis(ticker, cycles, hist, active_pool):
 # Recommendations
 # ---------------------------------------------------------------------------
 
-def generate_recommendations(ticker, kpis, cycles, hist, active_pool):
+def generate_recommendations(ticker, kpis, cycles, hist):
     """Generate recommendations based on KPIs. Returns list of rec dicts."""
     recs = []
     n = kpis["completed_cycles"]
@@ -408,11 +415,9 @@ def generate_recommendations(ticker, kpis, cycles, hist, active_pool):
             avg_cost = c.get("avg_cost")
             if not avg_cost or avg_cost <= 0 or not c["sells"]:
                 continue
-            last_sell_date = c["sells"][-1]["date"]
-            post_sell = hist[hist.index > _ts(last_sell_date, hist)].head(POST_SELL_PEAK_DAYS)
-            if len(post_sell) == 0:
+            max_high, n_days = _post_sell_peak(c, hist)
+            if max_high is None:
                 continue
-            max_high = float(post_sell["High"].max())
             peak_profit_pct = (max_high - avg_cost) / avg_cost * 100
             if peak_profit_pct > 0:
                 peak_profits.append(peak_profit_pct)
@@ -469,9 +474,12 @@ def compute_frequency(prev, current_recs):
         return {"consecutive_no_change": 0, "recommendation": "daily"}
 
     prev_recs = prev.get("recommendations", [])
-    # Compare using (ticker, type, proposed_value) tuples
-    prev_set = {(r["ticker"], r["type"], r["proposed_value"]) for r in prev_recs}
-    curr_set = {(r["ticker"], r["type"], r["proposed_value"]) for r in current_recs}
+    # Compare using (ticker, type, proposed_value) tuples — sell_target only
+    # (sizing_mode is informational/display-only, should not affect frequency)
+    prev_set = {(r["ticker"], r["type"], r["proposed_value"])
+                for r in prev_recs if r["type"] == "sell_target"}
+    curr_set = {(r["ticker"], r["type"], r["proposed_value"])
+                for r in current_recs if r["type"] == "sell_target"}
 
     if curr_set == prev_set:
         count = prev.get("frequency", {}).get("consecutive_no_change", 0) + 1
@@ -645,12 +653,13 @@ def main():
     warnings.filterwarnings("ignore", category=FutureWarning)
 
     all_trades = _load_trade_history()
-    active_pool = _load_active_pool()
+    portfolio = _load_portfolio()
+    active_pool = portfolio.get("capital", {}).get("active_pool", 300)
 
     if args.tickers:
         universe = sorted(set(args.tickers))
     else:
-        universe = _build_ticker_universe()
+        universe = _build_ticker_universe(portfolio, all_trades)
 
     # Load previous run for frequency comparison
     prev_run = load_previous_run()
@@ -672,7 +681,7 @@ def main():
             hist = hist_cache[ticker]
 
         kpis = compute_all_kpis(ticker, cycles, hist, active_pool)
-        recs = generate_recommendations(ticker, kpis, cycles, hist, active_pool)
+        recs = generate_recommendations(ticker, kpis, cycles, hist)
 
         all_results.append({
             "ticker": ticker,
