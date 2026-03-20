@@ -293,7 +293,10 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
                 "rec_shares": 0,
                 "action": "CANCEL (orphaned)",
             })
-            actions.append(f"BUY {ticker}: CANCEL (orphaned) @ ${o['price']:.2f}")
+            actions.append(
+                _format_buy_action(ticker, "CANCEL (orphaned)", o["price"],
+                                   o.get("shares", 0), 0, 0)
+            )
     else:
         # No wick data — show active BUY orders with ? action
         for o in orders:
@@ -373,7 +376,7 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
                     "basis": rec_sell_basis,
                 })
                 if action not in ("OK", "OK (price)"):
-                    if "shares" in action:
+                    if action in (_ACTION_ADJUST_BOTH, "ADJUST shares"):
                         actions.append(
                             f"SELL {ticker}: {action} ${broker_price:.2f}/{broker_shares}sh "
                             f"→ ${rec_sell_price:.2f}/{shares}sh ({rec_sell_basis})"
