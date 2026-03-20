@@ -22,6 +22,8 @@ PROFILES_PATH = _ROOT / "ticker_profiles.json"
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from shared_constants import MATCH_TOLERANCE
 from shared_utils import is_active_buy as _is_active_buy, is_active_sell as _is_active_sell
+from bullet_recommender import classify_drift, build_zone_labels as _br_build_zone_labels
+from wick_offset_analyzer import analyze_stock_data, load_capital_config
 
 SELL_DEFAULT_PCT = 6.0
 FILL_MATCH_TOLERANCE = 0.001  # 0.1% — tighter than MATCH_TOLERANCE
@@ -74,7 +76,6 @@ def _get_bullet_ctx(ticker, portfolio, cap):
     the ctx dict, not console output.
     """
     try:
-        from wick_offset_analyzer import analyze_stock_data
         data, err = analyze_stock_data(ticker)
         if data is None:
             return None
@@ -197,8 +198,7 @@ def _build_zone_labels_from_ctx(ctx):
     valid_levels = ctx.get("valid_levels", [])
     data = ctx.get("data", {})
     active_radius = data.get("active_radius", 15.0)
-    from bullet_recommender import build_zone_labels as br_build_zone_labels
-    labels_list = br_build_zone_labels(valid_levels, active_radius)
+    labels_list = _br_build_zone_labels(valid_levels, active_radius)
     result = {}
     for lvl, label in zip(valid_levels, labels_list):
         result[id(lvl)] = label
@@ -242,8 +242,6 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
     actions = []
 
     if bullet_ctx:
-        from bullet_recommender import classify_drift
-
         # Process covered levels (orders matched to wick levels)
         for cl in bullet_ctx.get("covered_levels", []):
             lvl = cl["level"]
@@ -555,7 +553,6 @@ def main():
     profiles = _load_profiles()
     trade_buys = _load_trade_history_buys()
 
-    from wick_offset_analyzer import load_capital_config
     cap = load_capital_config()
 
     # Determine tickers
