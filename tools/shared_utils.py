@@ -148,3 +148,21 @@ def score_cycle_efficiency(cycle_timing, max_points=20):
         pts += 3
 
     return min(pts, max_points)
+
+
+# ---------------------------------------------------------------------------
+# Order filter helpers (used by daily_analyzer, broker_reconciliation)
+# ---------------------------------------------------------------------------
+
+def is_active_buy(order):
+    """Unfilled, placed BUY order."""
+    return (order.get("type") == "BUY"
+            and order.get("placed", False)
+            and "filled" not in order)
+
+
+def is_active_sell(order):
+    """Unfilled, placed SELL order."""
+    return (order.get("type") == "SELL"
+            and order.get("placed", False)
+            and "filled" not in order)

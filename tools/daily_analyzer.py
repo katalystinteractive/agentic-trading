@@ -32,6 +32,7 @@ CANDIDATE_SCORE_THRESHOLD = 80
 
 sys.path.insert(0, str(TOOLS_DIR))
 from portfolio_manager import _load, cmd_fill, cmd_sell, parse_bullets_used
+from shared_utils import is_active_buy as _is_active_buy, is_active_sell as _is_active_sell
 
 
 # ---------------------------------------------------------------------------
@@ -138,24 +139,6 @@ def truncate_note(note, max_len=45):
     if m:
         return m.group(1)
     return note[:max_len] + ("..." if len(note) > max_len else "")
-
-
-def _is_active_buy(order):
-    """Unfilled, placed BUY order."""
-    return (
-        order.get("type") == "BUY"
-        and order.get("placed", False)
-        and "filled" not in order
-    )
-
-
-def _is_active_sell(order):
-    """Unfilled, placed SELL order."""
-    return (
-        order.get("type") == "SELL"
-        and order.get("placed", False)
-        and "filled" not in order
-    )
 
 
 def print_consolidated_orders():

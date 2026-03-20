@@ -11,6 +11,7 @@ import sys
 import json
 import io
 import contextlib
+import warnings
 from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parent.parent
@@ -20,6 +21,7 @@ PROFILES_PATH = _ROOT / "ticker_profiles.json"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from shared_constants import MATCH_TOLERANCE
+from shared_utils import is_active_buy as _is_active_buy, is_active_sell as _is_active_sell
 
 SELL_DEFAULT_PCT = 6.0
 FILL_MATCH_TOLERANCE = 0.001  # 0.1% — tighter than MATCH_TOLERANCE
@@ -80,7 +82,10 @@ def _get_bullet_ctx(ticker, portfolio, cap):
         with contextlib.redirect_stdout(io.StringIO()):
             ctx = run_recommend(ticker, "any", data, portfolio, cap)
         return ctx
-    except Exception:
+    except (FileNotFoundError, ValueError, KeyError):
+        return None
+    except Exception as e:
+        warnings.warn(f"broker_reconciliation: unexpected error for {ticker}: {e}")
         return None
 
 
@@ -97,12 +102,12 @@ def match_fills_to_history(fill_prices, trade_buys):
     matched_indices = set()
     results = []
     for fp in fill_prices:
+        if fp == 0:
+            continue
         found = False
         for i, trade in enumerate(trade_buys):
             if i in matched_indices:
                 continue
-            if fp == 0:
-                break
             if abs(trade["price"] - fp) / fp <= FILL_MATCH_TOLERANCE:
                 results.append({
                     "date": trade.get("date", "—"),
@@ -131,7 +136,10 @@ def compute_recommended_sell(ticker, avg_cost, pos, profiles):
     """Compute what the SELL price SHOULD be based on approved targets.
 
     Priority: optimized target > target_exit > default 6%.
+    Returns (0, "no avg cost") if avg_cost is 0 (data inconsistency guard).
     """
+    if avg_cost <= 0:
+        return 0, "no avg cost"
     profile = profiles.get(ticker, {})
     opt = profile.get("optimal_target_pct")
     if opt is not None:
@@ -184,23 +192,6 @@ def _compute_sell_action(broker_price, broker_shares, rec_price, rec_shares):
 # Zone label computation
 # ---------------------------------------------------------------------------
 
-def _build_zone_labels(valid_levels, sizing_lookup):
-    """Pre-compute zone labels (A1, A2, B1, R1) keyed by id(level_dict).
-
-    Mirrors bullet_recommender.build_zone_labels but returns dict keyed by id.
-    """
-    from bullet_recommender import build_zone_labels as br_build_zone_labels
-    # valid_levels already sorted by gap ascending in bullet_recommender
-    data_active_radius = 15.0  # default; will be overridden if data available
-    # We don't have data["active_radius"] here, but valid_levels have gap_pct set
-    # Use the bullet_recommender function directly
-    labels_list = br_build_zone_labels(valid_levels, data_active_radius)
-    result = {}
-    for lvl, label in zip(valid_levels, labels_list):
-        result[id(lvl)] = label
-    return result
-
-
 def _build_zone_labels_from_ctx(ctx):
     """Build zone labels from bullet recommender ctx."""
     valid_levels = ctx.get("valid_levels", [])
@@ -217,18 +208,6 @@ def _build_zone_labels_from_ctx(ctx):
 # ---------------------------------------------------------------------------
 # Reconciliation engine
 # ---------------------------------------------------------------------------
-
-def _is_active_buy(order):
-    return (order.get("type") == "BUY"
-            and order.get("placed", False)
-            and "filled" not in order)
-
-
-def _is_active_sell(order):
-    return (order.get("type") == "SELL"
-            and order.get("placed", False)
-            and "filled" not in order)
-
 
 def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
     """Produce reconciliation data for a single ticker.
@@ -350,33 +329,52 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
         active_sells = [o for o in orders if _is_active_sell(o)]
 
         if active_sells:
-            # Multi-tranche: check total shares across all sell orders
+            # Multi-tranche: compare aggregate shares vs position
             total_sell_shares = sum(o.get("shares", 0) for o in active_sells)
+            is_multi_tranche = len(active_sells) > 1
+            shares_covered = (total_sell_shares == shares)
+
             for o in active_sells:
-                action = _compute_sell_action(
-                    o["price"], o.get("shares", 0),
-                    rec_sell_price, shares,  # rec_shares = full position
-                )
-                # For multi-tranche, if total shares match position,
-                # don't flag individual share mismatches
-                if len(active_sells) > 1 and total_sell_shares == shares:
-                    price_ok = (rec_sell_price > 0 and
-                                abs(o["price"] - rec_sell_price) / rec_sell_price <= MATCH_TOLERANCE)
-                    action = "OK" if price_ok else "ADJUST price"
+                broker_price = o["price"]
+                broker_shares = o.get("shares", 0)
+                price_ok = (rec_sell_price > 0 and
+                            abs(broker_price - rec_sell_price) / rec_sell_price <= MATCH_TOLERANCE)
+
+                if is_multi_tranche:
+                    # Multi-tranche: check price per order, shares at aggregate level
+                    if price_ok and shares_covered:
+                        action = "OK"
+                    elif price_ok and not shares_covered:
+                        action = "OK (price)"  # individual price OK, total shares issue
+                    else:
+                        action = "ADJUST price"
+                else:
+                    # Single SELL: check both price and shares
+                    action = _compute_sell_action(
+                        broker_price, broker_shares,
+                        rec_sell_price, shares,
+                    )
 
                 sell_orders.append({
-                    "broker_price": o["price"],
-                    "broker_shares": o.get("shares", 0),
+                    "broker_price": broker_price,
+                    "broker_shares": broker_shares,
                     "rec_price": rec_sell_price,
                     "rec_shares": shares,
                     "action": action,
                     "basis": rec_sell_basis,
                 })
-                if action != "OK":
+                if action not in ("OK", "OK (price)"):
                     actions.append(
-                        f"SELL {ticker}: {action} from ${o['price']:.2f} to "
+                        f"SELL {ticker}: {action} from ${broker_price:.2f} to "
                         f"${rec_sell_price:.2f} ({rec_sell_basis})"
                     )
+
+            # Aggregate shares mismatch note for multi-tranche
+            if is_multi_tranche and not shares_covered:
+                actions.append(
+                    f"SELL {ticker}: total SELL shares ({total_sell_shares}) != "
+                    f"position ({shares}) — review tranche sizing"
+                )
         else:
             # No SELL order exists
             sell_orders.append({
@@ -405,16 +403,16 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
 
 
 def _format_buy_action(ticker, action, broker_price, broker_shares, rec_price, rec_shares):
-    """Format a BUY action item string."""
+    """Format a BUY action item string. Always includes broker price for identification."""
     if "CANCEL" in action:
         return f"BUY {ticker}: {action} @ ${broker_price:.2f}"
-    parts = [f"BUY {ticker}: {action}"]
-    if "price" in action:
-        parts.append(f"@ ${broker_price:.2f} → ${rec_price:.2f}")
-    if "shares" in action:
-        parts.append(f"x {broker_shares} → {rec_shares}")
+    parts = [f"BUY {ticker}"]
+    if "price" in action and "shares" in action:
+        parts.append(f"@ ${broker_price:.2f}: {action} → ${rec_price:.2f} x {rec_shares}")
     elif "price" in action:
-        parts.append(f"x {rec_shares}")
+        parts.append(f"@ ${broker_price:.2f}: {action} → ${rec_price:.2f} x {rec_shares}")
+    elif "shares" in action:
+        parts.append(f"@ ${broker_price:.2f}: {action} x {broker_shares} → {rec_shares}")
     return " ".join(parts)
 
 
