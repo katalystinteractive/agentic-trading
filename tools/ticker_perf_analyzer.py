@@ -71,11 +71,6 @@ def _load_portfolio():
         return {}
 
 
-def _load_active_pool():
-    portfolio = _load_portfolio()
-    return portfolio.get("capital", {}).get("active_pool", 300)
-
-
 def _build_ticker_universe(portfolio, trade_history):
     universe = set()
     universe.update(portfolio.get("watchlist", []))
@@ -335,7 +330,7 @@ def compute_drawdown(cycle, hist):
             if dd < max_dd:
                 max_dd = dd
 
-    return round(max_dd, 2) if max_dd < 0 else None
+    return round(max_dd, 2)
 
 
 def compute_all_kpis(ticker, cycles, hist, active_pool):
@@ -402,7 +397,7 @@ def generate_recommendations(ticker, kpis, cycles, hist):
     recs = []
     n = kpis["completed_cycles"]
 
-    if n < MIN_CYCLES_FOR_RECS:
+    if n < MIN_CYCLES_FOR_RECS or hist is None:
         return recs
 
     # Sell target recommendation
