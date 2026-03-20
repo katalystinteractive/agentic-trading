@@ -19,6 +19,7 @@ from pathlib import Path
 
 _ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
+PROFILES_PATH = _ROOT / "ticker_profiles.json"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from wick_offset_analyzer import fetch_history
@@ -67,9 +68,25 @@ def _fmt_dollar(val):
 # Math targets and zone helpers
 # ---------------------------------------------------------------------------
 
-def _compute_math_prices(avg_cost):
-    """Compute math target prices from avg_cost. Returns dict: key -> price."""
-    return {key: round(avg_cost * mult, 2) for key, (_, mult) in MATH_TARGETS.items()}
+def _load_profile(ticker):
+    """Load ticker profile from ticker_profiles.json. Returns dict or None."""
+    try:
+        with open(PROFILES_PATH) as f:
+            profiles = json.load(f)
+        return profiles.get(ticker)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return None
+
+
+def _compute_math_prices(avg_cost, custom_pct=None):
+    """Compute math target prices from avg_cost. Returns dict: key -> price.
+
+    If custom_pct is provided, adds an 'optimized' key with the custom target.
+    """
+    result = {key: round(avg_cost * mult, 2) for key, (_, mult) in MATH_TARGETS.items()}
+    if custom_pct is not None:
+        result["optimized"] = round(avg_cost * (1 + custom_pct / 100), 2)
+    return result
 
 
 def _search_bounds(zone_low, zone_high):
@@ -475,6 +492,12 @@ def analyze_ticker(ticker, portfolio):
 
     target_exit = pos.get("target_exit")
 
+    # Check for profile override
+    profile = _load_profile(ticker)
+    custom_pct = None
+    if profile and profile.get("optimal_target_pct"):
+        custom_pct = profile["optimal_target_pct"]
+
     # Fetch current price
     try:
         hist = fetch_history(ticker, months=13)
@@ -489,8 +512,8 @@ def analyze_ticker(ticker, portfolio):
     last_date = hist.index[-1].strftime("%Y-%m-%d")
     now = datetime.datetime.now().strftime("%Y-%m-%d")
 
-    # Compute math targets
-    math_prices = _compute_math_prices(avg_cost)
+    # Compute math targets (with optional optimized target)
+    math_prices = _compute_math_prices(avg_cost, custom_pct=custom_pct)
 
     zone_low = math_prices["conservative"]
     zone_high = math_prices["aggressive"]
@@ -525,7 +548,20 @@ def analyze_ticker(ticker, portfolio):
         pct = (mult - 1) * 100
         proceeds = round(price * shares, 2)
         print(f"| {label} | {_fmt_dollar(price)} | +{pct:.1f}% | {_fmt_dollar(proceeds)} |")
+    if custom_pct is not None:
+        opt_price = math_prices["optimized"]
+        opt_proceeds = round(opt_price * shares, 2)
+        print(f"| **Optimized ({custom_pct:.1f}%)** | {_fmt_dollar(opt_price)} | +{custom_pct:.1f}% | {_fmt_dollar(opt_proceeds)} |")
     print()
+
+    # Cross-reference note when optimized target is set
+    if custom_pct is not None and custom_pct <= 7.5:
+        print(f"> *Optimized target ({custom_pct:.1f}%) is within the resistance search zone. Recommendation below uses resistance analysis independently.*")
+        print()
+    elif custom_pct is not None and custom_pct > 7.5:
+        opt_price = math_prices["optimized"]
+        print(f"> *Note: Optimized target ({custom_pct:.1f}% = {_fmt_dollar(opt_price)}) is above the resistance search zone (4.5%-7.5%). The Recommendation below reflects resistance in the standard zone. To use the optimized target, place a manual limit sell at {_fmt_dollar(opt_price)}.*")
+        print()
 
     # Check if current price is already above 7.5% target
     if current_price > zone_high:

@@ -78,6 +78,15 @@ def main():
     # Fetch regime once for deployment_status computation
     regime_detail = fetch_regime_detail()
 
+    # Load existing profiles to preserve approved values
+    existing_profiles = {}
+    try:
+        with open(OUTPUT) as f:
+            existing_data = json.load(f)
+        existing_profiles = {k: v for k, v in existing_data.items() if not k.startswith("_")}
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
+
     profiles = {}
     for ticker in sorted(all_tickers):
         pos = positions.get(ticker, {})
@@ -122,9 +131,14 @@ def main():
         if isinstance(shares, int) and shares > 0:
             deploy_status = compute_reserve_status(ticker, regime_detail["vix"], positions)
 
+        # Preserve approved values from previous run
+        prev = existing_profiles.get(ticker, {})
+        preserved_target = prev.get("optimal_target_pct")
+        preserved_bullet = prev.get("optimal_bullet_count")
+
         profiles[ticker] = {
-            "optimal_target_pct": None,
-            "optimal_bullet_count": None,
+            "optimal_target_pct": preserved_target,
+            "optimal_bullet_count": preserved_bullet,
             "avg_pullback_depth_pct": avg_depth,
             "b1_fill_rate_pct": b1_rate,
             "median_fill_days": median_fill_days,

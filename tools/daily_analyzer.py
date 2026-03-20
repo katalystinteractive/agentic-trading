@@ -1,15 +1,17 @@
 """Daily Analyzer — consolidated session tool.
 
 Processes fills/sells in batch, shows consolidated placed orders with
-position summaries and sell targets, recommends new deployments,
-evaluates watchlist fitness, and screens for new candidates.
+position summaries and sell targets, analyzes per-ticker performance,
+recommends new deployments, evaluates watchlist fitness, and screens
+for new candidates.
 
 Usage:
     python3 tools/daily_analyzer.py --fills "CIFR:14.18:8" --sells "LUNR:18.89:2"
-    python3 tools/daily_analyzer.py                   # full flow: Parts 1-5 (~6-11 min)
+    python3 tools/daily_analyzer.py                   # full flow: Parts 1-6 (~7-14 min)
     python3 tools/daily_analyzer.py --no-deploy       # Parts 1-2 only (quick)
-    python3 tools/daily_analyzer.py --no-fitness      # Parts 1-3 only
-    python3 tools/daily_analyzer.py --no-screen       # Parts 1-4 only (skip screening)
+    python3 tools/daily_analyzer.py --no-perf         # Parts 1-2, 4-6 (skip perf analysis)
+    python3 tools/daily_analyzer.py --no-fitness      # Parts 1-4 only
+    python3 tools/daily_analyzer.py --no-screen       # Parts 1-5 only (skip screening)
 """
 import sys
 import json
@@ -22,6 +24,7 @@ from datetime import date
 _ROOT = Path(__file__).resolve().parent.parent
 TOOLS_DIR = Path(__file__).resolve().parent
 COOLDOWN_PATH = _ROOT / "cooldown.json"
+PERF_JSON_PATH = _ROOT / "ticker-perf-analysis.json"
 FITNESS_JSON_PATH = _ROOT / "watchlist-fitness.json"
 SHORTLIST_JSON_PATH = _ROOT / "candidate_shortlist.json"
 REMOVAL_SCORE_THRESHOLD = 50
@@ -249,7 +252,41 @@ def print_consolidated_orders():
 
 
 # ---------------------------------------------------------------------------
-# Part 3 — Deployment recommendations
+# Part 3 — Ticker Performance Analysis
+# ---------------------------------------------------------------------------
+
+def run_ticker_perf_analysis():
+    """Run ticker_perf_analyzer.py, display results."""
+    print("## Part 3 — Ticker Performance Analysis")
+    print()
+    try:
+        result = subprocess.run(
+            [sys.executable, str(TOOLS_DIR / "ticker_perf_analyzer.py"), "--json"],
+            capture_output=True, text=True, timeout=300,
+        )
+        if result.returncode != 0:
+            print(f"*Error: ticker_perf_analyzer.py failed: {result.stderr.strip() or 'unknown'}*")
+            return
+    except subprocess.TimeoutExpired:
+        print("*Error: ticker_perf_analyzer.py timed out (300s)*")
+        return
+    except Exception as e:
+        print(f"*Error: {e}*")
+        return
+
+    if result.stdout.strip():
+        # Strip the subprocess's own header (we already printed the Part 3 version)
+        lines = result.stdout.strip().split("\n")
+        if lines and lines[0].startswith("## "):
+            lines = lines[1:]
+        output = "\n".join(lines).strip()
+        if output:
+            print(output)
+        print()
+
+
+# ---------------------------------------------------------------------------
+# Part 4 — Deployment recommendations
 # ---------------------------------------------------------------------------
 
 def find_deployment_tickers():
@@ -313,7 +350,7 @@ def print_deployment_recs(tickers):
         print("*All tickers have active placed orders — no deployment needed.*")
         return
 
-    print(f"## Deployment Recommendations ({len(tickers)} tickers)")
+    print(f"## Part 4 — Deployment Recommendations ({len(tickers)} tickers)")
     print()
 
     for ticker in tickers:
@@ -340,12 +377,12 @@ def print_deployment_recs(tickers):
 
 
 # ---------------------------------------------------------------------------
-# Part 4 — Watchlist Fitness Check
+# Part 5 — Watchlist Fitness Check
 # ---------------------------------------------------------------------------
 
 def run_watchlist_fitness():
     """Run watchlist_fitness.py, print summary, flag removal candidates."""
-    print("## Part 4 — Watchlist Fitness Check")
+    print("## Part 5 — Watchlist Fitness Check")
     print()
     try:
         result = subprocess.run(
@@ -415,12 +452,12 @@ def run_watchlist_fitness():
 
 
 # ---------------------------------------------------------------------------
-# Part 5 — New Candidate Screening
+# Part 6 — New Candidate Screening
 # ---------------------------------------------------------------------------
 
 def run_candidate_screening():
     """Run screener → filter → print new strong candidates not already tracked."""
-    print("## Part 5 — New Candidate Screening")
+    print("## Part 6 — New Candidate Screening")
     print()
     print("*Running screener (~3-5 min)...*")
     print()
@@ -549,15 +586,19 @@ def main():
     )
     parser.add_argument(
         "--no-deploy", action="store_true",
-        help="Skip Parts 3-5 (deployment, fitness, screening)",
+        help="Skip Parts 3-6 (perf analysis, deployment, fitness, screening)",
+    )
+    parser.add_argument(
+        "--no-perf", action="store_true",
+        help="Skip Part 3 (performance analysis)",
     )
     parser.add_argument(
         "--no-fitness", action="store_true",
-        help="Skip Parts 4-5 (fitness check and screening)",
+        help="Skip Parts 5-6 (fitness check and screening)",
     )
     parser.add_argument(
         "--no-screen", action="store_true",
-        help="Skip Part 5 (new candidate screening)",
+        help="Skip Part 6 (new candidate screening)",
     )
     args = parser.parse_args()
 
@@ -574,16 +615,20 @@ def main():
     # Part 2: Consolidated orders
     print_consolidated_orders()
 
-    # Part 3: Deployment recommendations
+    # Part 3: Performance Analysis (before deployment so profiles are fresh)
+    if not args.no_deploy and not args.no_perf:
+        run_ticker_perf_analysis()
+
+    # Part 4: Deployment recommendations
     if not args.no_deploy:
         deploy_tickers = find_deployment_tickers()
         print_deployment_recs(deploy_tickers)
 
-    # Part 4: Watchlist Fitness Check
+    # Part 5: Watchlist Fitness Check
     if not args.no_deploy and not args.no_fitness:
         run_watchlist_fitness()
 
-    # Part 5: New Candidate Screening
+    # Part 6: New Candidate Screening
     if not args.no_deploy and not args.no_fitness and not args.no_screen:
         run_candidate_screening()
 
