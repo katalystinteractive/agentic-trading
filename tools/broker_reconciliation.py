@@ -222,7 +222,13 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
     # --- Fills ---
     fills = []
     if shares > 0 and fill_prices:
-        fills = match_fills_to_history(fill_prices, trade_buys)
+        # Filter trade_buys to current cycle (avoid matching old-cycle fills)
+        entry_date = pos.get("entry_date", "") if pos else ""
+        if entry_date and not entry_date.startswith("pre-"):
+            cycle_buys = [t for t in trade_buys if t.get("date", "") >= entry_date]
+        else:
+            cycle_buys = trade_buys
+        fills = match_fills_to_history(fill_prices, cycle_buys)
 
     # --- Zone labels from bullet ctx ---
     zone_labels = {}
@@ -246,7 +252,7 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
             if "filled" in order or not order.get("placed", False):
                 continue
             drift_status = classify_drift(cl["dist"])
-            rec_shares, rec_cost = sizing_lookup.get(id(lvl), (1, lvl.get("recommended_buy", 0)))
+            rec_shares = sizing_lookup.get(id(lvl), (1, 0))[0]
             rec_price = lvl.get("recommended_buy", 0)
             label = zone_labels.get(id(lvl), "?")
             source = lvl.get("source", "")
@@ -407,9 +413,7 @@ def _format_buy_action(ticker, action, broker_price, broker_shares, rec_price, r
     if "CANCEL" in action:
         return f"BUY {ticker}: {action} @ ${broker_price:.2f}"
     parts = [f"BUY {ticker}"]
-    if "price" in action and "shares" in action:
-        parts.append(f"@ ${broker_price:.2f}: {action} → ${rec_price:.2f} x {rec_shares}")
-    elif "price" in action:
+    if "price" in action:
         parts.append(f"@ ${broker_price:.2f}: {action} → ${rec_price:.2f} x {rec_shares}")
     elif "shares" in action:
         parts.append(f"@ ${broker_price:.2f}: {action} x {broker_shares} → {rec_shares}")
@@ -496,7 +500,7 @@ def format_ticker_report(recon):
             bp = f"${so['broker_price']:.2f}" if so['broker_price'] > 0 else "—"
             bs = str(so['broker_shares']) if so['broker_shares'] > 0 else "—"
             action_str = so['action']
-            if so['basis'] and action_str != "OK":
+            if so['basis'] and not action_str.startswith("OK"):
                 action_str += f" ({so['basis']})"
             lines.append(
                 f"| {bp} | {bs} | ${so['rec_price']:.2f} | "
