@@ -2,16 +2,17 @@
 
 Processes fills/sells in batch, shows consolidated placed orders with
 position summaries and sell targets, analyzes per-ticker performance,
-recommends new deployments, evaluates watchlist fitness, and screens
-for new candidates.
+recommends new deployments, evaluates watchlist fitness, screens for
+new candidates, and reconciles broker state.
 
 Usage:
     python3 tools/daily_analyzer.py --fills "CIFR:14.18:8" --sells "LUNR:18.89:2"
-    python3 tools/daily_analyzer.py                   # full flow: Parts 1-6 (~7-14 min)
-    python3 tools/daily_analyzer.py --no-deploy       # Parts 1-2 only (quick)
-    python3 tools/daily_analyzer.py --no-perf         # Parts 1-2, 4-6 (skip perf analysis)
-    python3 tools/daily_analyzer.py --no-fitness      # Parts 1-4 only
-    python3 tools/daily_analyzer.py --no-screen       # Parts 1-5 only (skip screening)
+    python3 tools/daily_analyzer.py                   # full flow: Parts 1-7 (~7-14 min)
+    python3 tools/daily_analyzer.py --no-deploy       # Parts 1-2, 7 only (quick)
+    python3 tools/daily_analyzer.py --no-perf         # Parts 1-2, 4-7 (skip perf analysis)
+    python3 tools/daily_analyzer.py --no-fitness      # Parts 1-4, 7 only
+    python3 tools/daily_analyzer.py --no-screen       # Parts 1-5, 7 only (skip screening)
+    python3 tools/daily_analyzer.py --no-recon        # Parts 1-6 only (skip reconciliation)
 """
 import sys
 import json
@@ -568,6 +569,38 @@ def run_candidate_screening():
 
 
 # ---------------------------------------------------------------------------
+# Part 7 — Broker Reconciliation
+# ---------------------------------------------------------------------------
+
+def run_broker_reconciliation():
+    """Run broker_reconciliation.py for Part 7."""
+    try:
+        result = subprocess.run(
+            [sys.executable, str(TOOLS_DIR / "broker_reconciliation.py")],
+            capture_output=True, text=True, timeout=300,
+        )
+        if result.returncode != 0:
+            print("## Part 7 — Broker Reconciliation")
+            print()
+            print(f"*Error: broker_reconciliation.py failed: {result.stderr.strip() or 'unknown'}*")
+            return
+    except subprocess.TimeoutExpired:
+        print("## Part 7 — Broker Reconciliation")
+        print()
+        print("*Error: broker_reconciliation.py timed out (300s)*")
+        return
+    except Exception as e:
+        print("## Part 7 — Broker Reconciliation")
+        print()
+        print(f"*Error: {e}*")
+        return
+
+    if result.stdout.strip():
+        print(result.stdout.strip())
+        print()
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -586,6 +619,10 @@ def main():
     parser.add_argument(
         "--no-deploy", action="store_true",
         help="Skip Parts 3-6 (perf analysis, deployment, fitness, screening)",
+    )
+    parser.add_argument(
+        "--no-recon", action="store_true",
+        help="Skip Part 7 (broker reconciliation)",
     )
     parser.add_argument(
         "--no-perf", action="store_true",
@@ -630,6 +667,10 @@ def main():
     # Part 6: New Candidate Screening
     if not args.no_deploy and not args.no_fitness and not args.no_screen:
         run_candidate_screening()
+
+    # Part 7: Broker Reconciliation (independent of --no-deploy)
+    if not args.no_recon:
+        run_broker_reconciliation()
 
 
 if __name__ == "__main__":

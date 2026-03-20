@@ -12,6 +12,8 @@ Usage:
 import sys
 import json
 import re
+import io
+import contextlib
 import argparse
 import datetime
 from pathlib import Path
@@ -501,8 +503,10 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
         "fully_deployed": fully_deployed, "warnings": warnings,
         "reasoning": reasoning, "cap": cap, "data": data,
         "sizing_lookup": sizing_lookup,
+        "uncovered_levels": uncovered_levels,
     }
     _print_recommend(ctx)
+    return ctx
 
 
 # ---------------------------------------------------------------------------
@@ -940,6 +944,106 @@ def run_audit(ticker, data, portfolio):
 
 
 # ---------------------------------------------------------------------------
+# JSON serialization helpers
+# ---------------------------------------------------------------------------
+
+def _level_to_dict(lvl, sizing_lookup):
+    """Convert a wick level dict to JSON-serializable form."""
+    shares, cost = sizing_lookup.get(id(lvl), (1, lvl.get("recommended_buy") or 0.0))
+    return {
+        "support_price": lvl.get("support_price"),
+        "recommended_buy": lvl.get("recommended_buy"),
+        "source": lvl.get("source"),
+        "hold_rate": lvl.get("hold_rate"),
+        "tier": lvl.get("tier"),
+        "zone": lvl.get("zone"),
+        "rec_shares": shares,
+        "rec_cost": cost,
+    }
+
+
+def _ctx_to_json(ctx):
+    """Extract JSON-serializable subset of ctx for machine consumption."""
+    sizing = ctx.get("sizing_lookup", {})
+    parsed = ctx["parsed"]
+
+    covered = []
+    for cl in ctx["covered_levels"]:
+        covered.append({
+            "level": _level_to_dict(cl["level"], sizing),
+            "order_price": cl["order"]["price"],
+            "order_shares": cl["order"].get("shares", 0),
+            "drift_status": classify_drift(cl["dist"]),
+            "duplicate": cl.get("duplicate", False),
+            "paused": cl.get("paused", False),
+        })
+
+    orphaned = []
+    for o in ctx["orphaned_orders"]:
+        orphaned.append({
+            "price": o["price"],
+            "shares": o.get("shares", 0),
+            "note": o.get("note", ""),
+        })
+
+    filled = [_level_to_dict(fl, sizing) for fl in ctx["filled_levels"]]
+    available = [_level_to_dict(ul, sizing) for ul in ctx.get("uncovered_levels", [])]
+
+    rec = ctx["recommendation"]
+    rec_out = None
+    if rec is not None:
+        rec_out = {
+            "level": _level_to_dict(rec["level"], sizing),
+            "shares": rec["shares"],
+            "cost": rec["cost"],
+            "pool": rec["pool"],
+            "label": rec["label"],
+        }
+
+    pending_sells_out = []
+    for ps in ctx["pending_sells"]:
+        pending_sells_out.append({
+            "price": ps["price"],
+            "shares": ps.get("shares", 0),
+            "placed": ps.get("placed", False),
+        })
+
+    sc = ctx["sell_check"]
+    sell_check_out = None
+    if sc is not None:
+        sell_check_out = {
+            "sell_price": sc["sell_price"],
+            "pct_from_avg": sc["pct_from_avg"],
+            "stale": sc["stale"],
+        }
+
+    return {
+        "ticker": ctx["ticker"],
+        "current_price": ctx["current_price"],
+        "shares": ctx["shares"],
+        "avg_cost": ctx["avg_cost"],
+        "bullets_used": {
+            "active": parsed["active"],
+            "reserve": parsed["reserve"],
+            "pre_strategy": parsed["pre_strategy"],
+        },
+        "active_slots_remaining": ctx["active_slots_remaining"],
+        "reserve_slots_remaining": ctx["reserve_slots_remaining"],
+        "active_budget_remaining": ctx["active_budget_remaining"],
+        "reserve_budget_remaining": ctx["reserve_budget_remaining"],
+        "is_pre_strategy": ctx["is_pre_strategy"],
+        "covered_levels": covered,
+        "orphaned_orders": orphaned,
+        "filled_levels": filled,
+        "available_levels": available,
+        "recommendation": rec_out,
+        "pending_sells": pending_sells_out,
+        "sell_check": sell_check_out,
+        "fully_deployed": ctx["fully_deployed"],
+    }
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -951,31 +1055,45 @@ def main():
                         help="recommend (default) or audit existing orders")
     parser.add_argument("--type", choices=["active", "reserve", "any"], default="any",
                         dest="type_filter", help="Filter recommendations (default: any)")
+    parser.add_argument("--json", action="store_true", dest="json_output",
+                        help="Output structured JSON instead of markdown")
     args = parser.parse_args()
 
     # Load portfolio and capital config once
     portfolio = _load_portfolio()
     cap = load_capital_config()
 
-    any_success = False
-    for i, ticker in enumerate(args.tickers):
-        if i > 0:
-            print("\n---\n")
+    if args.json_output:
+        results = []
+        for ticker in args.tickers:
+            data, err = analyze_stock_data(ticker)
+            if data is None:
+                continue
+            with contextlib.redirect_stdout(io.StringIO()):
+                ctx = run_recommend(ticker, args.type_filter, data, portfolio, cap)
+            if ctx is not None:
+                results.append(_ctx_to_json(ctx))
+        print(json.dumps(results, indent=2))
+    else:
+        any_success = False
+        for i, ticker in enumerate(args.tickers):
+            if i > 0:
+                print("\n---\n")
 
-        # Run wick analysis
-        data, err = analyze_stock_data(ticker)
-        if data is None:
-            print(f"*Error: wick analysis failed for {ticker}: {err}*")
-            continue
+            # Run wick analysis
+            data, err = analyze_stock_data(ticker)
+            if data is None:
+                print(f"*Error: wick analysis failed for {ticker}: {err}*")
+                continue
 
-        any_success = True
-        if args.mode == "recommend":
-            run_recommend(ticker, args.type_filter, data, portfolio, cap)
-        elif args.mode == "audit":
-            run_audit(ticker, data, portfolio)
+            any_success = True
+            if args.mode == "recommend":
+                run_recommend(ticker, args.type_filter, data, portfolio, cap)
+            elif args.mode == "audit":
+                run_audit(ticker, data, portfolio)
 
-    if not any_success:
-        sys.exit(1)
+        if not any_success:
+            sys.exit(1)
 
 
 if __name__ == "__main__":
