@@ -27,6 +27,7 @@ from wick_offset_analyzer import analyze_stock_data, load_capital_config
 
 SELL_DEFAULT_PCT = 6.0
 FILL_MATCH_TOLERANCE = 0.001  # 0.1% — tighter than MATCH_TOLERANCE
+_ACTION_ADJUST_BOTH = "ADJUST price+shares"
 
 
 # ---------------------------------------------------------------------------
@@ -169,7 +170,7 @@ def _compute_buy_action(broker_price, broker_shares, rec_price, rec_shares,
     if price_ok and shares_ok:
         return "OK"
     if not price_ok and not shares_ok:
-        return "ADJUST price+shares"
+        return _ACTION_ADJUST_BOTH
     if not price_ok:
         return "ADJUST price"
     return "ADJUST shares"
@@ -183,7 +184,7 @@ def _compute_sell_action(broker_price, broker_shares, rec_price, rec_shares):
     if price_ok and shares_ok:
         return "OK"
     if not price_ok and not shares_ok:
-        return "ADJUST price+shares"
+        return _ACTION_ADJUST_BOTH
     if not price_ok:
         return "ADJUST price"
     return "ADJUST shares"
@@ -273,7 +274,11 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
             if action != "OK":
                 actions.append(
                     _format_buy_action(ticker, action, order["price"],
-                                       order.get("shares", 0), rec_price, rec_shares)
+                                       order.get("shares", 0), rec_price, rec_shares,
+                                       source=lvl.get("source", ""),
+                                       hold_rate=lvl.get("hold_rate"),
+                                       effective_tier=lvl.get("effective_tier", lvl.get("tier", "")),
+                                       support_price=lvl.get("support_price", 0))
                 )
 
         # Orphaned orders
@@ -368,10 +373,16 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
                     "basis": rec_sell_basis,
                 })
                 if action not in ("OK", "OK (price)"):
-                    actions.append(
-                        f"SELL {ticker}: {action} from ${broker_price:.2f} to "
-                        f"${rec_sell_price:.2f} ({rec_sell_basis})"
-                    )
+                    if "shares" in action:
+                        actions.append(
+                            f"SELL {ticker}: {action} ${broker_price:.2f}/{broker_shares}sh "
+                            f"→ ${rec_sell_price:.2f}/{shares}sh ({rec_sell_basis})"
+                        )
+                    else:
+                        actions.append(
+                            f"SELL {ticker}: {action} ${broker_price:.2f} "
+                            f"→ ${rec_sell_price:.2f} x {broker_shares} ({rec_sell_basis})"
+                        )
 
             # Aggregate shares mismatch note for multi-tranche
             if is_multi_tranche and not shares_covered:
@@ -406,15 +417,31 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
     }
 
 
-def _format_buy_action(ticker, action, broker_price, broker_shares, rec_price, rec_shares):
+def _format_buy_action(ticker, action, broker_price, broker_shares, rec_price, rec_shares,
+                       source="", hold_rate=None, effective_tier="", support_price=0):
     """Format a BUY action item string. Always includes broker price for identification."""
     if "CANCEL" in action:
         return f"BUY {ticker}: {action} @ ${broker_price:.2f}"
+
+    # Build justification suffix from level metadata
+    jparts = []
+    if support_price and source:
+        jparts.append(f"${support_price:.2f} {source}")
+    if hold_rate is not None:
+        jparts.append(f"{hold_rate:.0f}% hold")
+    if effective_tier:
+        jparts.append(effective_tier)
+    justification = f" ({', '.join(jparts)})" if jparts else ""
+
     parts = [f"BUY {ticker}"]
-    if "price" in action:
-        parts.append(f"@ ${broker_price:.2f}: {action} → ${rec_price:.2f} x {rec_shares}")
+    if action == _ACTION_ADJUST_BOTH:
+        # Show both deltas: old price/shares → new price/shares
+        parts.append(f"@ ${broker_price:.2f}/{broker_shares}sh: {action} "
+                     f"→ ${rec_price:.2f}/{rec_shares}sh{justification}")
+    elif "price" in action:
+        parts.append(f"@ ${broker_price:.2f}: {action} → ${rec_price:.2f} x {rec_shares}{justification}")
     elif "shares" in action:
-        parts.append(f"@ ${broker_price:.2f}: {action} x {broker_shares} → {rec_shares}")
+        parts.append(f"@ ${broker_price:.2f}: {action} x {broker_shares} → {rec_shares}{justification}")
     return " ".join(parts)
 
 
