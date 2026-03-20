@@ -441,9 +441,9 @@ def _format_buy_action(ticker, action, broker_price, broker_shares, rec_price, r
         # Show both deltas: old price/shares → new price/shares
         parts.append(f"@ ${broker_price:.2f}/{broker_shares}sh: {action} "
                      f"→ ${rec_price:.2f}/{rec_shares}sh{justification}")
-    elif "price" in action:
+    elif action == "ADJUST price":
         parts.append(f"@ ${broker_price:.2f}: {action} → ${rec_price:.2f} x {rec_shares}{justification}")
-    elif "shares" in action:
+    elif action == "ADJUST shares":
         parts.append(f"@ ${broker_price:.2f}: {action} x {broker_shares} → {rec_shares}{justification}")
     return " ".join(parts)
 
