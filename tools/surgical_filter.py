@@ -5,8 +5,10 @@ on a deterministic 100-point scale, verifies arithmetic, and writes
 candidate_shortlist.md for the LLM evaluator.
 
 Usage:
-    python3 tools/surgical_filter.py
+    python3 tools/surgical_filter.py                  # default shortlist of 7
+    python3 tools/surgical_filter.py --shortlist 25   # larger shortlist
 """
+import argparse
 import json
 import sys
 import datetime
@@ -899,7 +901,7 @@ def build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses):
 # CLI Entry Point
 # ---------------------------------------------------------------------------
 
-def main():
+def main(shortlist_size=None):
     if not INPUT_PATH.exists():
         print(f"*Error: {INPUT_PATH.name} not found — run surgical_screener.py first*")
         sys.exit(1)
@@ -910,8 +912,14 @@ def main():
         print(f"*Error parsing {INPUT_PATH.name}: {e}*")
         sys.exit(1)
 
+    # Allow runtime override of shortlist size
+    global SHORTLIST_SIZE
+    if shortlist_size is not None:
+        SHORTLIST_SIZE = shortlist_size
+
     print(f"Loaded {INPUT_PATH.name}: {data.get('total_passers', '?')} passers, "
-          f"{len(data.get('wick_analyses', {}))} wick analyses")
+          f"{len(data.get('wick_analyses', {}))} wick analyses "
+          f"(shortlist: {SHORTLIST_SIZE})")
 
     shortlist, all_scored = filter_and_score(data)
 
@@ -955,4 +963,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Surgical Filter — score and shortlist candidates")
+    parser.add_argument("--shortlist", type=int, default=None,
+                        help=f"Shortlist size (default: {SHORTLIST_SIZE})")
+    args = parser.parse_args()
+    main(shortlist_size=args.shortlist)

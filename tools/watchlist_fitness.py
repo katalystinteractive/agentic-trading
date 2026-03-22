@@ -6,9 +6,12 @@ Combines gatherer + pre-analyst: Python does all mechanical work (scoring,
 verdicts, cycle data). LLM agents add qualitative judgment in the workflow.
 
 Usage:
-    python3 tools/watchlist_fitness.py              # all watchlist + position tickers
-    python3 tools/watchlist_fitness.py AR SOUN       # specific tickers
+    python3 tools/watchlist_fitness.py                        # all watchlist + position tickers
+    python3 tools/watchlist_fitness.py AR SOUN                # specific tickers
+    python3 tools/watchlist_fitness.py --tier ENGAGED         # filter by tier
+    python3 tools/watchlist_fitness.py --summary-only         # compact output for 200+ tickers
 """
+import argparse
 import sys
 import json
 import datetime
@@ -582,20 +585,79 @@ def _format_summary_table(results):
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
+def _filter_by_tier(tickers, tier, portfolio):
+    """Filter tickers by watchlist manager tier."""
+    from watchlist_manager import _classify_tier
+    return [t for t in tickers if _classify_tier(t, portfolio) == tier]
+
+
+def _format_summary_compact(results):
+    """Compact summary for --summary-only mode (200+ ticker friendly)."""
+    # Group by verdict
+    by_verdict = {}
+    for r in results:
+        v = r["verdict"]
+        by_verdict.setdefault(v, []).append(r)
+
+    lines = []
+    lines.append("## Verdict Distribution")
+    lines.append("")
+    lines.append("| Verdict | Count | Tickers |")
+    lines.append("| :--- | :--- | :--- |")
+    for verdict in ["ENGAGE", "ADD", "HOLD-WAIT", "RESTRUCTURE", "REVIEW",
+                    "REMOVE", "EXIT-REVIEW", "RECOVERY"]:
+        group = by_verdict.get(verdict, [])
+        if group:
+            tickers_str = ", ".join(r["ticker"] for r in group[:15])
+            if len(group) > 15:
+                tickers_str += f" (+{len(group) - 15} more)"
+            lines.append(f"| {verdict} | {len(group)} | {tickers_str} |")
+    lines.append("")
+
+    # Score distribution
+    scored = [r for r in results if r["fitness_score"] is not None]
+    if scored:
+        scores = [r["fitness_score"] for r in scored]
+        lines.append("## Score Distribution")
+        lines.append(f"- Range: {min(scores)}-{max(scores)}")
+        lines.append(f"- Median: {sorted(scores)[len(scores)//2]}")
+        above_70 = [r for r in scored if r["fitness_score"] >= 70]
+        lines.append(f"- Score >= 70: {len(above_70)} tickers")
+        below_40 = [r for r in scored if r["fitness_score"] < 40]
+        lines.append(f"- Score < 40: {len(below_40)} tickers")
+        lines.append("")
+
+    return "\n".join(lines)
+
+
 def main():
+    parser = argparse.ArgumentParser(description="Watchlist Fitness Review")
+    parser.add_argument("tickers", nargs="*", help="Specific tickers to analyze")
+    parser.add_argument("--tier", choices=["ACTIVE", "ENGAGED", "SCOUTING"],
+                        help="Filter by watchlist manager tier")
+    parser.add_argument("--summary-only", action="store_true",
+                        help="Compact output (verdict distribution + scores only)")
+    args = parser.parse_args()
+
     portfolio = _load_portfolio()
 
-    if len(sys.argv) > 1:
-        tickers = [t.upper() for t in sys.argv[1:]]
+    if args.tickers:
+        tickers = [t.upper() for t in args.tickers]
     else:
         tickers = load_tickers_from_portfolio()
+
+    # Tier filter
+    if args.tier:
+        tickers = _filter_by_tier(tickers, args.tier, portfolio)
+        print(f"Filtered to {len(tickers)} {args.tier} tickers")
 
     as_of = as_of_date_label()
 
     # Parallel fetch + analyze
     results = []
     errors = []
-    with ThreadPoolExecutor(max_workers=4) as pool:
+    workers = min(8, max(4, len(tickers) // 10))  # scale workers with ticker count
+    with ThreadPoolExecutor(max_workers=workers) as pool:
         futures = {pool.submit(_fetch_and_analyze, t): t for t in tickers}
         for future in as_completed(futures):
             ticker, data, hist, err = future.result()
@@ -609,20 +671,30 @@ def main():
     results.sort(key=lambda r: r["ticker"])
 
     # Build markdown report
-    md_lines = [
-        f"# Watchlist Fitness Review",
-        f"",
-        f"*Data as of: {as_of}*",
-        f"",
-    ]
-    for r in results:
-        md_lines.append(_format_ticker_md(r))
+    if args.summary_only:
+        md_lines = [
+            f"# Watchlist Fitness Review (Summary)",
+            f"",
+            f"*Data as of: {as_of} | {len(results)} tickers*",
+            f"",
+        ]
+        md_lines.append(_format_summary_compact(results))
+        md_lines.append(_format_summary_table(results))
+    else:
+        md_lines = [
+            f"# Watchlist Fitness Review",
+            f"",
+            f"*Data as of: {as_of}*",
+            f"",
+        ]
+        for r in results:
+            md_lines.append(_format_ticker_md(r))
 
-    # Verdict summary table
-    md_lines.append("## Verdict Summary")
-    md_lines.append("")
-    md_lines.append(_format_summary_table(results))
-    md_lines.append("")
+        # Verdict summary table
+        md_lines.append("## Verdict Summary")
+        md_lines.append("")
+        md_lines.append(_format_summary_table(results))
+        md_lines.append("")
 
     if errors:
         md_lines.append("## Errors")
@@ -655,6 +727,8 @@ def main():
     print(f"Watchlist Fitness Review — {as_of}")
     print(f"Tickers analyzed: {len(results)}, errors: {len(errors)}")
     print()
+    if args.summary_only:
+        print(_format_summary_compact(results))
     print(_format_summary_table(results))
     print()
     print(f"Files written: {md_path.name}, {json_path.name}")

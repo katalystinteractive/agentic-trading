@@ -19,7 +19,7 @@ from shared_utils import load_json, parse_bullet_label, get_portfolio_median_pnl
 from fill_probability import compute_fill_probability
 from technical_scanner import calc_atr
 from shared_regime import fetch_regime_detail
-from market_context_gatherer import SECTOR_MAP
+from market_context_gatherer import SECTOR_MAP  # broad sector proxy via sector_registry
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"

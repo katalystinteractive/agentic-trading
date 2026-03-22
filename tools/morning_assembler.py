@@ -16,6 +16,9 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from sector_registry import get_sector, shard_tickers
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 MORNING_WORK = PROJECT_ROOT / "morning-work"
 MANIFEST = MORNING_WORK / "manifest.json"
@@ -1332,10 +1335,25 @@ def main():
         "## Active Positions\n",
     ]
 
-    # Active cards pasted verbatim
-    for card in active_cards:
-        sections.append(card["text"].rstrip())
-        sections.append("\n---\n")
+    # Active cards pasted verbatim, grouped by sector when >10 tickers
+    if len(active_cards) > 10:
+        active_by_sector = {}
+        for card in active_cards:
+            sector = get_sector(card["ticker"])
+            active_by_sector.setdefault(sector, []).append(card)
+        shards = shard_tickers([c["ticker"] for c in active_cards])
+        for shard_name in sorted(shards.keys()):
+            shard_tickers_list = shards[shard_name]
+            shard_cards = [c for c in active_cards if c["ticker"] in shard_tickers_list]
+            if shard_cards:
+                sections.append(f"#### Sector: {shard_name}\n")
+                for card in shard_cards:
+                    sections.append(card["text"].rstrip())
+                    sections.append("\n---\n")
+    else:
+        for card in active_cards:
+            sections.append(card["text"].rstrip())
+            sections.append("\n---\n")
 
     # Cross-ticker intelligence
     sections.append(
@@ -1346,11 +1364,22 @@ def main():
     )
     sections.append("---\n")
 
-    # Watchlist
+    # Watchlist, grouped by sector when >10 tickers
     sections.append("## Watchlist\n")
-    for card in watchlist_cards:
-        sections.append(card["text"].rstrip())
-        sections.append("\n---\n")
+    if len(watchlist_cards) > 10:
+        wl_shards = shard_tickers([c["ticker"] for c in watchlist_cards])
+        for shard_name in sorted(wl_shards.keys()):
+            shard_tickers_list = wl_shards[shard_name]
+            shard_cards = [c for c in watchlist_cards if c["ticker"] in shard_tickers_list]
+            if shard_cards:
+                sections.append(f"#### Sector: {shard_name}\n")
+                for card in shard_cards:
+                    sections.append(card["text"].rstrip())
+                    sections.append("\n---\n")
+    else:
+        for card in watchlist_cards:
+            sections.append(card["text"].rstrip())
+            sections.append("\n---\n")
 
     # Scouting
     scouting_section = build_scouting(scouting_tickers)

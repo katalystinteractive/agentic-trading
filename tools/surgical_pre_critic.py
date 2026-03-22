@@ -16,7 +16,7 @@ from pathlib import Path
 # Same-directory imports
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from surgical_filter import SECTOR_CONCENTRATION_LIMIT
-from surgical_screener import SECTOR_MAP
+from sector_registry import FINE_SECTOR_MAP as SECTOR_MAP
 
 ROOT = Path(__file__).resolve().parent.parent
 VERIFICATION_JSON_PATH = ROOT / "candidate-verification.json"

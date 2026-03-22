@@ -24,7 +24,8 @@ OUTPUT_PATH = PROJECT_ROOT / "market-context-pre-analyst.md"
 # Same-directory imports
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from news_sweep_collector import split_table_row
-from market_context_gatherer import SECTOR_MAP, SECTOR_ETF
+from sector_registry import SECTOR_ETF
+from market_context_gatherer import SECTOR_MAP
 
 
 # ---------------------------------------------------------------------------

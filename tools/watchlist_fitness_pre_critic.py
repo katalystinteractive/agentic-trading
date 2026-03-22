@@ -90,7 +90,7 @@ def check_verdict_consistency(data):
         # Map position modifiers back to base
         modifier_map = {
             "EXIT-REVIEW": "REMOVE",
-            "HOLD-WAIT": ["REVIEW", "RESTRUCTURE"],
+            "HOLD-WAIT": ["REVIEW", "RESTRUCTURE", "ENGAGE"],  # ENGAGE via cycle gate
             "ADD": "ENGAGE",
         }
         # Check if actual is consistent with expected base
@@ -100,6 +100,12 @@ def check_verdict_consistency(data):
                 expected_options = [expected_options]
             if expected_base not in expected_options:
                 issues.append(f"{t['ticker']}: verdict={actual} implies base in {expected_options}, but derived={expected_base}")
+            # Extra check: HOLD-WAIT from ENGAGE requires cycle_pts < 8
+            elif actual == "HOLD-WAIT" and expected_base == "ENGAGE":
+                ce = t.get("score_components", {}).get("cycle_efficiency", {})
+                cycle_pts = ce.get("points", 0) if isinstance(ce, dict) else 0
+                if cycle_pts >= 8:
+                    issues.append(f"{t['ticker']}: verdict=HOLD-WAIT from ENGAGE but cycle_pts={cycle_pts} >= 8 (gate should not trigger)")
         elif actual != expected_base:
             issues.append(f"{t['ticker']}: expected base={expected_base}, got verdict={actual}")
 

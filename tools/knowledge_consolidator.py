@@ -364,7 +364,7 @@ def aggregate_cross_ticker_patterns(
     all_stats: dict, all_wick_data: dict[str, dict]
 ) -> list[dict]:
     """Portfolio-level patterns from wick data and trade stats."""
-    from market_context_gatherer import SECTOR_MAP
+    from sector_registry import FINE_SECTOR_MAP as SECTOR_MAP
 
     patterns = []
 

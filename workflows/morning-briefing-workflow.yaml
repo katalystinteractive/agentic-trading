@@ -30,7 +30,7 @@ phases:
       items_key: tickers
       id_field: ticker
       agent_field: agent
-      concurrency: 8
+      concurrency: 12
       item_timeout_minutes: 15
       max_item_retries: 3
       output_file_template: "morning-work/{ticker}-card.md"
@@ -66,4 +66,4 @@ phases:
 settings:
   max_fix_iterations: 0
   require_approval: false
-  timeout_minutes: 45
+  timeout_minutes: 60

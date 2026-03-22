@@ -15,7 +15,7 @@ from pathlib import Path
 
 # Same-directory imports
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from surgical_screener import SECTOR_MAP
+from sector_registry import FINE_SECTOR_MAP as SECTOR_MAP
 from surgical_filter import RECENCY_WINDOW_DAYS, RECENCY_DROP_THRESHOLD
 
 ROOT = Path(__file__).resolve().parent.parent

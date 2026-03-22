@@ -26,53 +26,39 @@ TOOLS_DIR = PROJECT_ROOT / "tools"
 OUTPUT_PATH = PROJECT_ROOT / "market-context-raw.md"
 
 # ---------------------------------------------------------------------------
-# Sector mapping — must match market_pulse.py's 11 sector names.
-# UPDATE THIS DICT when new tickers are added to portfolio.json.
+# Sector mapping — centralized in sector_registry.py
+# SECTOR_MAP here is broad (11-ETF-aligned) for market context tools.
 # ---------------------------------------------------------------------------
-SECTOR_MAP = {
-    "NU": "Financial",
-    "STIM": "Healthcare",
-    "IONQ": "Technology",
-    "LUNR": "Industrial",
-    "USAR": "Materials",
-    "INTC": "Technology",
-    "APLD": "Technology",
-    "SMCI": "Technology",
-    "AR": "Energy",
-    "VALE": "Materials",
-    "CLF": "Materials",
-    "SEDG": "Technology",
-    "ACHR": "Industrial",
-    "RKT": "Financial",
-    "NNE": "Utilities",
-    "UAMY": "Materials",
-    "TMC": "Materials",
-    "BBAI": "Technology",
-    "CIFR": "Technology",
-    "CLSK": "Technology",
-    "SOUN": "Technology",
-    "NVDA": "Technology",
-    "ARM": "Technology",
-    "TEM": "Healthcare",
-    "OKLO": "Utilities",
-    "OUST": "Technology",
-    "RUN": "Energy",
-}
+from sector_registry import SECTOR_ETF, get_broad_sector as _get_broad
 
-# Sector ETF mapping (must match market_pulse.py SECTORS dict)
-SECTOR_ETF = {
-    "Technology": "XLK",
-    "Financial": "XLF",
-    "Energy": "XLE",
-    "Healthcare": "XLV",
-    "Industrial": "XLI",
-    "Comm Services": "XLC",
-    "Cons Cyclical": "XLY",
-    "Cons Defensive": "XLP",
-    "Real Estate": "XLRE",
-    "Utilities": "XLU",
-    "Materials": "XLB",
-}
+# Lazy broad sector map — built on first access from portfolio tickers
+_BROAD_SECTOR_CACHE = {}
+
+
+def _ensure_broad_cache(tickers):
+    """Populate broad sector cache for given tickers."""
+    for t in tickers:
+        if t not in _BROAD_SECTOR_CACHE:
+            _BROAD_SECTOR_CACHE[t] = _get_broad(t)
+
+
+class _BroadSectorProxy(dict):
+    """Dict-like proxy that auto-resolves broad sectors via sector_registry."""
+
+    def get(self, key, default=None):
+        if key not in _BROAD_SECTOR_CACHE:
+            _BROAD_SECTOR_CACHE[key] = _get_broad(key)
+        val = _BROAD_SECTOR_CACHE.get(key, default)
+        return val if val != "Unknown" else default if default is not None else "Unknown"
+
+    def __getitem__(self, key):
+        return self.get(key, "Unknown")
+
+    def __contains__(self, key):
+        return True  # always try to resolve
+
+
+SECTOR_MAP = _BroadSectorProxy()
 
 
 # ---------------------------------------------------------------------------

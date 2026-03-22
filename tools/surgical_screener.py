@@ -2,12 +2,16 @@
 
 Collects ALL data upfront so workflow agents can evaluate without network calls.
 Stage 1: Batch swing screen ~150 tickers through surgical gates.
-Stage 2: Deep wick analysis on top 20 passers.
+Stage 2: Deep wick analysis on top 20 passers (or 50 with --expanded).
 Stage 3: Build screening_data.json with all results + portfolio context.
 
 Usage:
-    python3 tools/surgical_screener.py
+    python3 tools/surgical_screener.py                      # default (150 tickers, top 20 wick)
+    python3 tools/surgical_screener.py --universe           # use dynamic universe passers
+    python3 tools/surgical_screener.py --expanded           # top 50 wick analysis
+    python3 tools/surgical_screener.py --universe --expanded # both
 """
+import argparse
 import json
 import sys
 import datetime
@@ -34,75 +38,8 @@ MIN_PRICE = 3.0
 MAX_PRICE = 60.0
 MIN_AVG_VOL = 500_000
 
-# --- Sector mapping for the ~150-ticker universe ---
-SECTOR_MAP = {
-    # Tech / Software / AI
-    "PLTR": "Tech", "HOOD": "Fintech", "RKLB": "Space", "SMCI": "AI/Infra",
-    "PATH": "Tech", "NET": "Tech", "DDOG": "Tech", "MDB": "Tech",
-    "SQ": "Fintech", "PINS": "Tech", "SNAP": "Tech", "ROKU": "Tech",
-    "ABNB": "Tech", "DASH": "Tech", "LYFT": "Tech", "UBER": "Tech",
-    "AFRM": "Fintech", "UPST": "Fintech", "LMND": "Fintech", "OPEN": "Tech",
-    "RDFN": "Tech", "BBAI": "AI", "AI": "AI",
-    "OKTA": "Tech", "ZS": "Tech", "CRWD": "Tech", "SNOW": "Tech", "SHOP": "Tech",
-    # Space / Quantum / Frontier
-    "JOBY": "Space", "LILM": "Space", "ASTS": "Space", "RDW": "Space",
-    "LUNR": "Space", "OKLO": "Nuclear", "SMR": "Nuclear", "NNE": "Nuclear",
-    "RGTI": "Quantum", "QBTS": "Quantum",
-    # Crypto-adjacent
-    "COIN": "Crypto", "RIOT": "Crypto", "MARA": "Crypto", "HUT": "Crypto",
-    "BITF": "Crypto", "CLSK": "Crypto", "MSTR": "Crypto",
-    # Energy / Solar / Nuclear
-    "FSLR": "Solar", "ENPH": "Solar", "RUN": "Solar", "NOVA": "Solar",
-    "OXY": "Energy", "DVN": "Energy", "MRO": "Energy", "HAL": "Energy",
-    "SLB": "Energy", "CTRA": "Energy", "EQT": "Energy", "RRC": "Energy",
-    "VST": "Energy", "CEG": "Nuclear",
-    # EV / Clean Energy
-    "PLUG": "EV/Clean", "BE": "EV/Clean", "BLNK": "EV/Clean", "CHPT": "EV/Clean",
-    "QS": "EV/Clean", "RIVN": "EV/Clean", "LCID": "EV/Clean", "NKLA": "EV/Clean",
-    "GOEV": "EV/Clean", "WKHS": "EV/Clean",
-    # Biotech / Health
-    "MRNA": "Biotech", "BNTX": "Biotech", "NVAX": "Biotech", "DNA": "Biotech",
-    "BEAM": "Biotech", "CRSP": "Biotech", "EDIT": "Biotech", "NTLA": "Biotech",
-    "PACB": "Biotech", "HIMS": "Health", "DOCS": "Health", "EXAS": "Health",
-    # Materials / Mining / Steel
-    "FCX": "Materials", "NEM": "Materials", "GOLD": "Materials", "AA": "Materials",
-    "X": "Steel", "NUE": "Steel", "STLD": "Steel", "MP": "Materials", "TMC": "Materials",
-    # Finance / Fintech
-    "PYPL": "Fintech", "ALLY": "Finance", "LC": "Fintech",
-    # Retail / Consumer
-    "CHWY": "Retail", "DKS": "Retail", "CROX": "Retail", "ETSY": "Retail",
-    "W": "Retail", "GME": "Retail", "AMC": "Retail", "BB": "Tech",
-    # China ADR
-    "BABA": "China ADR", "JD": "China ADR", "PDD": "China ADR", "NIO": "China ADR",
-    "XPEV": "China ADR", "LI": "China ADR", "BIDU": "China ADR", "FUTU": "China ADR",
-    # Defense / Industrial
-    "KTOS": "Defense", "AVAV": "Defense", "IREN": "Crypto",
-    # Misc volatile
-    "CLOV": "Health", "TTWO": "Gaming", "EA": "Gaming", "WOLF": "Tech",
-    "ON": "Semi", "MRVL": "Semi", "ARM": "Semi",
-    "SWAV": "Health", "TEM": "AI", "RXRX": "Biotech", "SOUN": "AI",
-    "NNOX": "Health", "VLD": "Tech", "PSNY": "EV/Clean",
-    "LAZR": "Tech", "OUST": "Tech", "LIDR": "Tech", "TOST": "Tech",
-    "GRAB": "Tech", "SE": "Tech", "CPNG": "Retail",
-    "DUOL": "Tech", "MNDY": "Tech", "GLBE": "Tech", "CAVA": "Retail",
-    "CART": "Retail", "DLO": "Fintech",
-    # Portfolio tickers not in screening universe
-    "IONQ": "Quantum", "ACHR": "eVTOL", "APLD": "Crypto",
-    "CIFR": "Crypto", "CLF": "Steel", "INTC": "Semi",
-    "NU": "Fintech", "STIM": "Biotech",
-    "UAMY": "Materials", "USAR": "Materials", "AR": "Energy",
-    "VALE": "Mining", "RKT": "Fintech", "SEDG": "Solar",
-    # REITs
-    "AGNC": "REIT", "NLY": "REIT", "MPW": "REIT",
-    # Telecom / Media
-    "PARA": "Media", "WBD": "Media",
-    # Additional volatile mid-caps
-    "BILL": "Tech", "GTLB": "Tech", "CFLT": "Tech", "ESTC": "Tech",
-    "ZI": "Tech", "BRZE": "Tech",
-    "APP": "Tech", "PUBM": "Tech", "MGNI": "Tech", "TTD": "Tech",
-    "CELH": "Consumer", "MNST": "Consumer",
-    "DKNG": "Gaming", "PENN": "Gaming", "RSI": "Gaming", "GENI": "Gaming",
-}
+# Sector mapping — centralized in sector_registry.py
+from sector_registry import FINE_SECTOR_MAP as SECTOR_MAP
 
 
 def batch_swing_screen():
@@ -204,24 +141,42 @@ def batch_swing_screen():
     return passers
 
 
-def deep_wick_analysis(passers, top_n=20):
-    """Run full wick offset analysis on top N candidates. Returns structured dicts."""
+def _analyze_one_wick(ticker):
+    """Analyze a single ticker for wick data. Thread-safe wrapper."""
+    try:
+        data, error = analyze_stock_data(ticker)
+        if data:
+            return ticker, data, None
+        return ticker, None, error
+    except Exception as e:
+        return ticker, None, str(e)
+
+
+def deep_wick_analysis(passers, top_n=20, max_workers=6):
+    """Run full wick offset analysis on top N candidates. Returns structured dicts.
+
+    Uses ThreadPoolExecutor for parallel analysis when top_n > 20.
+    """
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
     candidates = passers[:top_n]
-    print(f"\n[Stage 2] Deep wick analysis on top {len(candidates)} candidates...")
+    print(f"\n[Stage 2] Deep wick analysis on top {len(candidates)} candidates "
+          f"({max_workers} workers)...")
 
     results = {}
-    for i, p in enumerate(candidates, 1):
-        ticker = p["ticker"]
-        print(f"  [{i}/{len(candidates)}] {ticker}...", end=" ", flush=True)
-        try:
-            data, error = analyze_stock_data(ticker)
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {executor.submit(_analyze_one_wick, p["ticker"]): p["ticker"]
+                   for p in candidates}
+        done = 0
+        for future in as_completed(futures):
+            done += 1
+            ticker, data, error = future.result()
             if data:
                 results[ticker] = data
-                print("OK")
+                print(f"  [{done}/{len(candidates)}] {ticker}... OK")
             else:
-                print(f"no data ({error})" if error else "no data")
-        except Exception as e:
-            print(f"ERROR: {e}")
+                msg = f"no data ({error})" if error else "no data"
+                print(f"  [{done}/{len(candidates)}] {ticker}... {msg}")
 
     print(f"  Completed: {len(results)}/{len(candidates)}")
     return results
@@ -354,18 +309,52 @@ def build_screening_json(screen_results, wick_results, portfolio_ctx):
     return output
 
 
-def run_screener():
-    """Full pipeline: screen -> wick analysis -> write JSON."""
+def _load_universe_passers():
+    """Load pre-screened passers from universe_screener cache."""
+    cache_path = ROOT / "data" / "universe_screen_cache.json"
+    try:
+        data = json.loads(cache_path.read_text())
+        passers = data.get("passers", [])
+        print(f"  Loaded {len(passers)} passers from universe cache "
+              f"(generated {data.get('generated', '?')})")
+        return passers
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"  *Error loading universe cache: {e}*")
+        print(f"  Run: python3 tools/universe_screener.py first")
+        return None
+
+
+def run_screener(use_universe=False, expanded=False):
+    """Full pipeline: screen -> wick analysis -> write JSON.
+
+    Args:
+        use_universe: If True, load passers from universe_screen_cache.json
+                      instead of running batch_swing_screen().
+        expanded: If True, run wick analysis on top 50 (vs default 20).
+    """
+    top_n = 50 if expanded else 20
+
     print("=" * 60)
     print("  Surgical Candidate Screener")
+    if use_universe:
+        print("  Mode: Dynamic Universe")
+    if expanded:
+        print(f"  Expanded: top {top_n} wick analysis")
     print("=" * 60)
 
-    screen_results = batch_swing_screen()
+    if use_universe:
+        screen_results = _load_universe_passers()
+        if screen_results is None:
+            return
+    else:
+        screen_results = batch_swing_screen()
+
     if not screen_results:
         print("*No tickers passed surgical gates.*")
         return
 
-    wick_results = deep_wick_analysis(screen_results, top_n=20)
+    workers = 6 if top_n > 20 else 4
+    wick_results = deep_wick_analysis(screen_results, top_n=top_n, max_workers=workers)
     portfolio_ctx = get_portfolio_context()
     build_screening_json(screen_results, wick_results, portfolio_ctx)
 
@@ -373,4 +362,10 @@ def run_screener():
 
 
 if __name__ == "__main__":
-    run_screener()
+    parser = argparse.ArgumentParser(description="Surgical Candidate Screener")
+    parser.add_argument("--universe", action="store_true",
+                        help="Use dynamic universe passers from universe_screen_cache.json")
+    parser.add_argument("--expanded", action="store_true",
+                        help="Run wick analysis on top 50 candidates (vs default 20)")
+    args = parser.parse_args()
+    run_screener(use_universe=args.universe, expanded=args.expanded)

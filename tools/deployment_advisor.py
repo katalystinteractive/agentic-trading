@@ -19,7 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from technical_scanner import calc_atr
 from shared_regime import fetch_regime_detail
 from shared_utils import load_json, parse_bullet_label, parse_entry_date
-from market_context_gatherer import SECTOR_MAP
+from market_context_gatherer import SECTOR_MAP  # broad sector proxy via sector_registry
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO = PROJECT_ROOT / "portfolio.json"
