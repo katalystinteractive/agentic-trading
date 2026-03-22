@@ -33,12 +33,9 @@ from morning_gatherer import (
     get_current_prices, get_watchlist_prices,
     extract_days_to_earnings, compute_days_held, compute_time_stop,
     compute_bullets_used, format_price, cross_reference_fills,
-    DEFAULT_BULLETS_MAX, TIME_STOP_EXCEEDED_DAYS, TIME_STOP_APPROACHING_DAYS,
 )
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-PORTFOLIO = PROJECT_ROOT / "portfolio.json"
-TOOLS_DIR = PROJECT_ROOT / "tools"
 OUTPUT = PROJECT_ROOT / "morning-tools-raw.md"
 
 # Concurrency settings

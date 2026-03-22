@@ -35,13 +35,6 @@ from sector_registry import SECTOR_ETF, get_broad_sector as _get_broad
 _BROAD_SECTOR_CACHE = {}
 
 
-def _ensure_broad_cache(tickers):
-    """Populate broad sector cache for given tickers."""
-    for t in tickers:
-        if t not in _BROAD_SECTOR_CACHE:
-            _BROAD_SECTOR_CACHE[t] = _get_broad(t)
-
-
 class _BroadSectorProxy(dict):
     """Dict-like proxy that auto-resolves broad sectors via sector_registry."""
 

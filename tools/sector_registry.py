@@ -65,7 +65,7 @@ FINE_SECTOR_MAP = {
     "KTOS": "Defense", "AVAV": "Defense", "IREN": "Crypto",
     # Misc volatile
     "CLOV": "Health", "TTWO": "Gaming", "EA": "Gaming", "WOLF": "Tech",
-    "ON": "Semi", "MRVL": "Semi", "ARM": "Semi",
+    "ON": "Semi", "MRVL": "Semi", "ARM": "Semi", "NVDA": "Semi",
     "SWAV": "Health", "TEM": "AI", "RXRX": "Biotech", "SOUN": "AI",
     "NNOX": "Health", "VLD": "Tech", "PSNY": "EV/Clean",
     "LAZR": "Tech", "OUST": "Tech", "LIDR": "Tech", "TOST": "Tech",
