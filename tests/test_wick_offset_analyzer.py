@@ -20,8 +20,12 @@ class TestClassifyLevel:
         zone, _ = classify_level(hold_rate=50, gap_pct=20.0, active_radius=20.0)
         assert zone == "Active"
 
-    def test_reserve_when_gap_above_radius(self):
+    def test_buffer_when_gap_above_radius(self):
         zone, _ = classify_level(hold_rate=50, gap_pct=20.01, active_radius=20.0)
+        assert zone == "Buffer"
+
+    def test_reserve_when_gap_above_double_radius(self):
+        zone, _ = classify_level(hold_rate=50, gap_pct=40.01, active_radius=20.0)
         assert zone == "Reserve"
 
     def test_zone_boundary_matches_price_formula(self):
@@ -40,7 +44,7 @@ class TestClassifyLevel:
         lvl_outside = 17.00  # below floor of 17.07
         gap_outside = ((current_price - lvl_outside) / current_price) * 100
         zone, _ = classify_level(50, gap_outside, active_radius)
-        assert zone == "Reserve"
+        assert zone == "Buffer"
         assert lvl_outside < current_price * (1 - active_radius / 100)
 
     def test_nne_18_81_is_active(self):
