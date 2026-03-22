@@ -1337,10 +1337,6 @@ def main():
 
     # Active cards pasted verbatim, grouped by sector when >10 tickers
     if len(active_cards) > 10:
-        active_by_sector = {}
-        for card in active_cards:
-            sector = get_sector(card["ticker"])
-            active_by_sector.setdefault(sector, []).append(card)
         shards = shard_tickers([c["ticker"] for c in active_cards])
         for shard_name in sorted(shards.keys()):
             shard_tickers_list = shards[shard_name]

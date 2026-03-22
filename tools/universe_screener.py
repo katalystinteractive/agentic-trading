@@ -104,7 +104,7 @@ def _screen_chunk(tickers):
                            progress=False, threads=True)
     except Exception as e:
         print(f"    *Chunk download error: {e}*")
-        return []
+        return None
 
     if data.empty:
         return []

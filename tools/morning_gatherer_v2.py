@@ -52,7 +52,7 @@ REQUEST_SPACING = 0.5  # seconds between yfinance calls per worker
 def _classify_tickers(positions, pending_orders, watchlist):
     """Classify tickers into active, engaged (watchlist with orders), scouting."""
     active = [t for t, p in positions.items()
-              if isinstance(p.get("shares", 0), int) and p["shares"] > 0]
+              if isinstance(p.get("shares", 0), (int, float)) and p["shares"] > 0]
     engaged = []
     scouting = []
     for t in watchlist:
@@ -301,7 +301,7 @@ def assemble_output(data, market_output, portfolio_output, cap_intel_results,
             pct_str = "N/A"
 
         pos_info = positions.get(ticker, {})
-        pos_shares = pos_info.get("shares", 0) if isinstance(pos_info.get("shares", 0), int) else 0
+        pos_shares = pos_info.get("shares", 0) if isinstance(pos_info.get("shares", 0), (int, float)) else 0
         active_str = f"Yes ({pos_shares} shares)" if pos_shares > 0 else "No (watchlist)"
 
         dte = earnings_data.get(ticker)
@@ -451,7 +451,7 @@ def assemble_output(data, market_output, portfolio_output, cap_intel_results,
     parts.append("| Metric | Value |")
     parts.append("| :--- | :--- |")
     deployed = sum(p["shares"] * p["avg_cost"] for p in positions.values()
-                   if isinstance(p.get("shares", 0), int) and p["shares"] > 0)
+                   if isinstance(p.get("shares", 0), (int, float)) and p["shares"] > 0)
     parts.append(f"| Deployed (from portfolio_status.py) | ${deployed:,.2f} |")
     parts.append(f"| Per-Stock Total Budget | ${capital.get('per_stock_total', 600):.2f} |")
     parts.append(f"| Active Pool | ${capital.get('active_pool', 300):.2f} per stock |")
