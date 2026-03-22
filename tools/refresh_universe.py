@@ -41,6 +41,11 @@ def _fetch_nasdaq_ftp():
             print(f"  Warning: Failed to fetch {url}: {e}")
             continue
 
+        is_nasdaq = "nasdaqlisted" in url
+        # nasdaqlisted.txt columns: Symbol|Name|Category|TestIssue|FinStatus|RoundLot|ETF|NextShares
+        # otherlisted.txt columns: ACTSymbol|Name|Exchange|CQS|ETF|RoundLot|TestIssue|NASDAQSymbol
+        test_col = 3 if is_nasdaq else 6
+
         for line in text.strip().split("\n")[1:]:  # skip header
             if "|" not in line:
                 continue
@@ -49,11 +54,7 @@ def _fetch_nasdaq_ftp():
             # Filter out test entries, empty, non-alpha
             if not symbol or not symbol.isalpha() or len(symbol) > 5:
                 continue
-            # nasdaqlisted.txt: col 6 = Test Issue (Y/N)
-            if len(parts) > 6 and parts[6].strip() == "Y":
-                continue
-            # otherlisted.txt: col 5 = Test Issue
-            if len(parts) > 5 and parts[5].strip() == "Y":
+            if len(parts) > test_col and parts[test_col].strip() == "Y":
                 continue
             tickers.add(symbol)
 
