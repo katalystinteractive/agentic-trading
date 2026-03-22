@@ -142,6 +142,7 @@ def cmd_promote(args):
     """Promote ticker to higher tier (SCOUTING→ENGAGED or CANDIDATE→SCOUTING)."""
     portfolio = _load_portfolio()
     watchlist = portfolio.get("watchlist", [])
+    changed = False
 
     for ticker in args.tickers:
         ticker = ticker.upper()
@@ -162,12 +163,13 @@ def cmd_promote(args):
             if ticker not in watchlist:
                 watchlist.append(ticker)
                 portfolio["watchlist"] = sorted(watchlist)
-                _save_portfolio(portfolio)
+                changed = True
                 print(f"  {ticker}: CANDIDATE → SCOUTING (added to watchlist)")
             else:
                 print(f"  {ticker}: already on watchlist")
 
-    _save_portfolio(portfolio)
+    if changed:
+        _save_portfolio(portfolio)
 
 
 def cmd_demote(args):

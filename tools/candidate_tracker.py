@@ -80,8 +80,12 @@ def cmd_list(args):
             age = (today - date.fromisoformat(added)).days
         except (ValueError, TypeError):
             age = "?"
+        swing = c.get('median_swing')
+        price = c.get('price')
+        swing_str = f"{swing}%" if swing is not None else "?%"
+        price_str = f"${price:.2f}" if price is not None else "N/A"
         print(f"| {i} | {c['ticker']} | {c.get('sector', '?')} "
-              f"| {c.get('median_swing', '?')}% | ${c.get('price', 0):.2f} "
+              f"| {swing_str} | {price_str} "
               f"| {added} | {age} | {c.get('source', '?')} |")
 
 

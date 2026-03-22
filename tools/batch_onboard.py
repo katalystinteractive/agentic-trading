@@ -164,8 +164,10 @@ def onboard_one(ticker, screening_data=None, dry_run=False):
                 lines.append("## Support Level Table")
                 lines.append("| Support | Hold% | Approaches | Offset | Buy At | Zone | Tier |")
                 lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
-                for b in bp.get("active", []) + bp.get("reserve", []):
-                    zone = "Active" if b in bp.get("active", []) else "Reserve"
+                active_levels = bp.get("active", [])
+                active_set = {id(b) for b in active_levels}
+                for b in active_levels + bp.get("reserve", []):
+                    zone = "Active" if id(b) in active_set else "Reserve"
                     lines.append(
                         f"| ${b['support_price']:.2f} | {b['hold_rate']:.0f}% "
                         f"| {b['approaches']} | ${b.get('offset', 0):.2f} "

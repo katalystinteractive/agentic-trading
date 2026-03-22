@@ -24,7 +24,6 @@ OUTPUT_PATH = PROJECT_ROOT / "market-context-pre-critic.md"
 # Same-directory imports
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from news_sweep_collector import split_table_row
-from market_context_gatherer import SECTOR_MAP  # broad sector proxy via sector_registry
 from market_context_pre_analyst import (
     parse_indices, parse_vix, parse_sectors, parse_tool_regime,
     parse_pending_buy_orders,
