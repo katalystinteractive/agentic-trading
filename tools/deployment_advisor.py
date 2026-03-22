@@ -109,7 +109,7 @@ def check_sector_concentration(ticker, positions):
     """Gate 2c: Sector over-concentrated?
     Fires when sector has >3 active positions AND >40% of total active."""
     ticker_sector = SECTOR_MAP.get(ticker)
-    if not ticker_sector:
+    if not ticker_sector or ticker_sector == "Unknown":
         return False
 
     sector_counts = {}
