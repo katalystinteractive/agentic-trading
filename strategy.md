@@ -54,7 +54,7 @@ Candidates failing these gates are flagged, not rejected — new tickers won't h
 *   Place up to 3 reserve bullets at the deepest reliable levels in the Reserve Zone.
 *   Hold rate determines bullet SIZE, not eligibility (minimum 15% hold to place any order).
 *   Run `python3 tools/wick_offset_analyzer.py <TICKER>` — the tool classifies each
-    level as Active/Reserve and suggests a bullet plan.
+    level as Active/Buffer/Reserve and suggests a bullet plan.
 *   **Fallback:** If monthly swing cannot be computed (< 3 months data), a 15% active
     radius is used. Results should be validated manually in this case.
 *   **Earnings Entry Gate:** Before placing limit buy orders, check the earnings calendar

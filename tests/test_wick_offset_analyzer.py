@@ -31,30 +31,30 @@ class TestClassifyLevel:
     def test_zone_boundary_matches_price_formula(self):
         """gap_pct <= active_radius ⟺ lvl_price >= current × (1 - active_radius/100)."""
         current_price = 24.60
-        active_radius = 30.6  # NNE's actual value
+        active_radius = 20.0  # capped radius (production max)
 
-        # Level just inside active zone
-        lvl_inside = 17.10  # above floor of 17.07
+        # Level just inside active zone: floor = 24.60 * 0.80 = 19.68
+        lvl_inside = 19.70  # above floor of 19.68
         gap_inside = ((current_price - lvl_inside) / current_price) * 100
         zone, _ = classify_level(50, gap_inside, active_radius)
         assert zone == "Active"
         assert lvl_inside >= current_price * (1 - active_radius / 100)
 
         # Level just outside active zone
-        lvl_outside = 17.00  # below floor of 17.07
+        lvl_outside = 19.60  # below floor of 19.68
         gap_outside = ((current_price - lvl_outside) / current_price) * 100
         zone, _ = classify_level(50, gap_outside, active_radius)
         assert zone == "Buffer"
         assert lvl_outside < current_price * (1 - active_radius / 100)
 
-    def test_nne_18_81_is_active(self):
-        """Regression test: NNE $18.81 was misclassified as Reserve before the fix."""
+    def test_nne_18_81_is_buffer_with_capped_radius(self):
+        """NNE $18.81 at gap ~23.5% is Buffer with capped 20% radius."""
         current_price = 24.60
         lvl_price = 18.81
-        active_radius = 30.6
+        active_radius = 20.0  # capped radius (production max)
         gap_pct = ((current_price - lvl_price) / current_price) * 100
         zone, tier = classify_level(67, gap_pct, active_radius, approaches=3)
-        assert zone == "Active"
+        assert zone == "Buffer"  # gap 23.5% > 20% radius
         assert tier == "Full"
 
     # --- Tier classification ---
