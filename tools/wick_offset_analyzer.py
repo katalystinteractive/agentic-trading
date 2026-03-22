@@ -58,6 +58,7 @@ def load_capital_config():
 # Pool sizing constants
 POOL_TIER_MULT = {"Full": 1.0, "Std": 1.0, "Half": 0.5}
 POOL_MAX_FRACTION = 0.40  # per-bullet cap: 40% of pool
+ACTIVE_RADIUS_CAP = 20.0  # max active zone radius (%)
 
 
 def sizing_description(cap=None):
@@ -652,6 +653,7 @@ def analyze_stock_data(ticker, hist=None):
     else:
         recent_swing = None
         active_radius = monthly_swing / 2 if monthly_swing else 15.0
+    active_radius = min(active_radius, ACTIVE_RADIUS_CAP)
 
     # Add zone/tier classification and recency metrics to each level result
     for r in level_results:

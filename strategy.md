@@ -44,8 +44,10 @@ Candidates failing these gates are flagged, not rejected — new tickers won't h
 ## Execution Rules
 ### Entry Protocol ("Zone-Based Bullets")
 *   **Active Zone** = support levels within half the stock's median monthly swing
-    from current price. These catch normal monthly pullbacks.
-*   **Reserve Zone** = support levels beyond the active zone. These deploy only
+    from current price, capped at 20%. These catch normal monthly pullbacks.
+*   **Buffer Zone** = support levels between 1× and 2× the active radius from
+    current price. These catch deeper pullbacks beyond the normal monthly range.
+*   **Reserve Zone** = support levels beyond the buffer zone. These deploy only
     when the stock breaks through normal fluctuation range.
 *   Place up to 5 active bullets at wick-adjusted prices across the Active Zone.
 *   Place up to 3 reserve bullets at the deepest reliable levels in the Reserve Zone.
