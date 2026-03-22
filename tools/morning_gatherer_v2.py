@@ -4,8 +4,7 @@ Morning Gatherer v2 — Sector-sharded parallel data collection.
 
 Two-level parallel execution for scaled watchlists (100+ tickers):
   Level 1: Market + Capital Intelligence (unchanged from v1, ~90s)
-  Level 2: Sector shards (8 concurrent sector workers)
-    Level 3: Per-ticker tools within shard (4 concurrent ticker workers)
+  Level 2: Sector shards (8 concurrent sector workers, sequential per-ticker within each)
 
 Delegates to morning_gatherer.py for the actual tool-running logic. This
 wrapper adds sector-based sharding around the per-ticker phase.
@@ -20,13 +19,12 @@ import json
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import date, datetime
+from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from sector_registry import shard_tickers, get_sector
+from sector_registry import shard_tickers
 from trading_calendar import as_of_date_label, last_trading_day, is_trading_day
-from shared_constants import MATCH_TOLERANCE
 from wick_offset_analyzer import sizing_description
 
 # Re-use helpers from v1
@@ -45,7 +43,6 @@ OUTPUT = PROJECT_ROOT / "morning-tools-raw.md"
 
 # Concurrency settings
 SECTOR_WORKERS = 8   # concurrent sector shards
-TICKER_WORKERS = 4   # concurrent tickers per shard
 REQUEST_SPACING = 0.5  # seconds between yfinance calls per worker
 
 
@@ -66,13 +63,12 @@ def _classify_tickers(positions, pending_orders, watchlist):
     return active, engaged, scouting
 
 
-def _run_sector_shard(shard_name, tickers, tool_map, spacing=REQUEST_SPACING):
+def _run_sector_shard(shard_name, tickers, spacing=REQUEST_SPACING):
     """Run per-ticker tools for all tickers in a sector shard.
 
     Args:
         shard_name: Sector group name (for logging)
         tickers: List of (ticker, tool_list) tuples
-        tool_map: Not used (tools embedded in tuples)
         spacing: Seconds between tool batches
 
     Returns:
@@ -186,7 +182,7 @@ def run_per_ticker_sharded(active, engaged, scouting):
 
     with ThreadPoolExecutor(max_workers=SECTOR_WORKERS) as executor:
         futures = {
-            executor.submit(_run_sector_shard, name, items, None): name
+            executor.submit(_run_sector_shard, name, items): name
             for name, items in shard_work
         }
         for future in as_completed(futures):

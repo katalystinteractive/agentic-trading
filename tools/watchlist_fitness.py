@@ -587,8 +587,8 @@ def _format_summary_table(results):
 # ---------------------------------------------------------------------------
 def _filter_by_tier(tickers, tier, portfolio):
     """Filter tickers by watchlist manager tier."""
-    from watchlist_manager import _classify_tier
-    return [t for t in tickers if _classify_tier(t, portfolio) == tier]
+    from watchlist_manager import classify_tier
+    return [t for t in tickers if classify_tier(t, portfolio) == tier]
 
 
 def _format_summary_compact(results):

@@ -41,7 +41,7 @@ def _save_portfolio(portfolio):
     _PORTFOLIO.write_text(json.dumps(portfolio, indent=2) + "\n")
 
 
-def _classify_tier(ticker, portfolio):
+def classify_tier(ticker, portfolio):
     """Determine tier for a single ticker from portfolio state."""
     positions = portfolio.get("positions", {})
     pending = portfolio.get("pending_orders", {})
@@ -75,7 +75,7 @@ def _tier_distribution(portfolio):
     """Compute tier distribution. Returns dict[tier, list[ticker]]."""
     tiers = {"ACTIVE": [], "ENGAGED": [], "SCOUTING": [], "CANDIDATE": []}
     for ticker in _get_all_tickers(portfolio):
-        tier = _classify_tier(ticker, portfolio)
+        tier = classify_tier(ticker, portfolio)
         tiers[tier].append(ticker)
     return tiers
 
@@ -146,7 +146,7 @@ def cmd_promote(args):
 
     for ticker in args.tickers:
         ticker = ticker.upper()
-        tier = _classify_tier(ticker, portfolio)
+        tier = classify_tier(ticker, portfolio)
 
         if tier == "ACTIVE":
             print(f"  {ticker}: already ACTIVE — cannot promote further")
@@ -179,7 +179,7 @@ def cmd_demote(args):
 
     for ticker in args.tickers:
         ticker = ticker.upper()
-        tier = _classify_tier(ticker, portfolio)
+        tier = classify_tier(ticker, portfolio)
 
         if tier == "ACTIVE":
             print(f"  {ticker}: ACTIVE — cannot auto-demote (has shares). Sell first.")
@@ -247,7 +247,7 @@ def cmd_rebalance(args):
     for entry in fitness.get("tickers", []):
         ticker = entry.get("ticker")
         verdict = entry.get("verdict", "")
-        tier = _classify_tier(ticker, portfolio)
+        tier = classify_tier(ticker, portfolio)
 
         # REMOVE verdict → propose drop or demote
         if verdict == "REMOVE":
