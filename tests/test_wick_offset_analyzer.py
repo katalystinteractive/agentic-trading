@@ -4,7 +4,7 @@ from pathlib import Path
 
 # Allow importing from tools/
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
-from wick_offset_analyzer import classify_level, compute_effective_tier, _compute_bullet_plan, compute_pool_sizing, POOL_MAX_FRACTION, sizing_description
+from wick_offset_analyzer import classify_level, compute_effective_tier, _compute_bullet_plan, compute_pool_sizing, POOL_MAX_FRACTION, ACTIVE_RADIUS_CAP, sizing_description
 
 
 class TestClassifyLevel:
@@ -60,6 +60,31 @@ class TestClassifyLevel:
         zone, tier = classify_level(67, gap_pct, active_radius, approaches=3)
         assert zone == "Buffer"  # gap 23.5% > 20% radius
         assert tier == "Full"
+
+    # --- Active radius cap ---
+
+    def test_active_radius_cap_value(self):
+        """ACTIVE_RADIUS_CAP constant is 20.0%."""
+        assert ACTIVE_RADIUS_CAP == 20.0
+
+    def test_active_radius_cap_applied(self):
+        """Verify that capping logic min(radius, ACTIVE_RADIUS_CAP) works as expected.
+
+        This mirrors the logic in analyze_stock_data() line 656:
+            active_radius = min(active_radius, ACTIVE_RADIUS_CAP)
+        We can't easily call analyze_stock_data() without full price history,
+        so we verify the math and that the constant is importable/correct.
+        """
+        # Simulated high-swing stock: 65% monthly swing → uncapped radius = 32.5%
+        uncapped_radius = 65.0 / 2
+        capped = min(uncapped_radius, ACTIVE_RADIUS_CAP)
+        assert capped == 20.0
+
+        # Level at 25% gap: Active with uncapped radius, Buffer with capped
+        zone_uncapped, _ = classify_level(50, 25.0, uncapped_radius)
+        zone_capped, _ = classify_level(50, 25.0, capped)
+        assert zone_uncapped == "Active"
+        assert zone_capped == "Buffer"
 
     # --- Tier classification ---
 
