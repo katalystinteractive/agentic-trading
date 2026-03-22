@@ -24,6 +24,10 @@ class TestClassifyLevel:
         zone, _ = classify_level(hold_rate=50, gap_pct=20.01, active_radius=20.0)
         assert zone == "Buffer"
 
+    def test_buffer_at_exact_double_radius(self):
+        zone, _ = classify_level(hold_rate=50, gap_pct=40.0, active_radius=20.0)
+        assert zone == "Buffer"
+
     def test_reserve_when_gap_above_double_radius(self):
         zone, _ = classify_level(hold_rate=50, gap_pct=40.01, active_radius=20.0)
         assert zone == "Reserve"
