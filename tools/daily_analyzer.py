@@ -27,6 +27,8 @@ TOOLS_DIR = Path(__file__).resolve().parent
 COOLDOWN_PATH = _ROOT / "cooldown.json"
 FITNESS_JSON_PATH = _ROOT / "watchlist-fitness.json"
 SHORTLIST_JSON_PATH = _ROOT / "candidate_shortlist.json"
+CANDIDATES_JSON_PATH = _ROOT / "data" / "candidates.json"
+UNIVERSE_CACHE_PATH = _ROOT / "data" / "universe_screen_cache.json"
 REMOVAL_SCORE_THRESHOLD = 50
 CANDIDATE_SCORE_THRESHOLD = 80
 
@@ -234,6 +236,28 @@ def print_consolidated_orders():
     print()
 
 
+def print_tier_summary():
+    """Print a compact tier one-liner from watchlist_manager.py."""
+    try:
+        result = subprocess.run(
+            [sys.executable, str(TOOLS_DIR / "watchlist_manager.py"), "--json", "status"],
+            capture_output=True, text=True, timeout=30,
+        )
+        if result.returncode != 0:
+            return
+        totals = json.loads(result.stdout).get("totals", {})
+    except Exception:
+        return
+    parts = []
+    for tier in ("ACTIVE", "ENGAGED", "SCOUTING", "CANDIDATE"):
+        count = totals.get(tier, 0)
+        if count:
+            parts.append(f"{count} {tier}")
+    if parts:
+        print(f"*Tiers: {' | '.join(parts)}*")
+        print()
+
+
 # ---------------------------------------------------------------------------
 # Part 3 — Ticker Performance Analysis
 # ---------------------------------------------------------------------------
@@ -369,7 +393,7 @@ def run_watchlist_fitness():
     print()
     try:
         result = subprocess.run(
-            [sys.executable, str(TOOLS_DIR / "watchlist_fitness.py")],
+            [sys.executable, str(TOOLS_DIR / "watchlist_fitness.py"), "--summary-only"],
             capture_output=True, text=True, timeout=180,
         )
         if result.returncode != 0:
@@ -438,17 +462,28 @@ def run_watchlist_fitness():
 # Part 6 — New Candidate Screening
 # ---------------------------------------------------------------------------
 
-def run_candidate_screening():
+def run_candidate_screening(wide_screen=False):
     """Run screener → filter → print new strong candidates not already tracked."""
     print("## Part 6 — New Candidate Screening")
     print()
-    print("*Running screener (~3-5 min)...*")
+
+    # Build screener args
+    screener_args = [sys.executable, str(TOOLS_DIR / "surgical_screener.py")]
+    if wide_screen:
+        if UNIVERSE_CACHE_PATH.exists():
+            screener_args.append("--universe")
+            print("*Running wide screener (dynamic universe)...*")
+        else:
+            print("*Universe cache not found — using default 160-ticker universe. "
+                  "Run: python3 tools/universe_screener.py to enable wide screening.*")
+    else:
+        print("*Running screener (~3-5 min)...*")
     print()
 
     # Step A: Screener
     try:
         result = subprocess.run(
-            [sys.executable, str(TOOLS_DIR / "surgical_screener.py")],
+            screener_args,
             capture_output=True, text=True, timeout=420,
         )
         if result.returncode != 0:
@@ -550,6 +585,49 @@ def run_candidate_screening():
         print(f"*Already tracked: {labels}*")
         print()
 
+    _persist_candidates([e["ticker"] for e in new_candidates])
+
+
+def _persist_candidates(tickers):
+    """Auto-add screening candidates to data/candidates.json for cross-session tracking."""
+    added_count = 0
+
+    # Step 1: Add new tickers (skip if empty)
+    if tickers:
+        try:
+            result = subprocess.run(
+                [sys.executable, str(TOOLS_DIR / "candidate_tracker.py"), "add"] + tickers,
+                capture_output=True, text=True, timeout=30,
+            )
+            if result.returncode == 0 and result.stdout:
+                m = re.search(r"Added (\d+)", result.stdout)
+                if m:
+                    added_count = int(m.group(1))
+        except Exception:
+            pass
+
+    # Step 2: Age-out stale entries
+    try:
+        subprocess.run(
+            [sys.executable, str(TOOLS_DIR / "candidate_tracker.py"), "age-out"],
+            capture_output=True, text=True, timeout=30,
+        )
+    except Exception:
+        pass
+
+    # Step 3: Report pool size
+    try:
+        with open(CANDIDATES_JSON_PATH) as f:
+            pool = json.load(f).get("candidates", [])
+        msg = f"*Candidate pool: {len(pool)} tickers"
+        if added_count:
+            msg += f" ({added_count} new added)"
+        msg += "*"
+        print(msg)
+        print()
+    except Exception:
+        pass
+
 
 # ---------------------------------------------------------------------------
 # Part 7 — Broker Reconciliation
@@ -619,6 +697,10 @@ def main():
         "--no-screen", action="store_true",
         help="Skip Part 6 (new candidate screening)",
     )
+    parser.add_argument(
+        "--wide-screen", action="store_true",
+        help="Use dynamic universe for screening (requires universe_screener.py cache)",
+    )
     args = parser.parse_args()
 
     fills, fill_parse_err = parse_specs(args.fills)
@@ -633,6 +715,7 @@ def main():
 
     # Part 2: Consolidated orders
     print_consolidated_orders()
+    print_tier_summary()
 
     # Part 3: Performance Analysis (before deployment so profiles are fresh)
     if not args.no_deploy and not args.no_perf:
@@ -649,7 +732,7 @@ def main():
 
     # Part 6: New Candidate Screening
     if not args.no_deploy and not args.no_fitness and not args.no_screen:
-        run_candidate_screening()
+        run_candidate_screening(wide_screen=args.wide_screen)
 
     # Part 7: Broker Reconciliation (independent of --no-deploy)
     if not args.no_recon:
