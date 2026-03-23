@@ -57,6 +57,8 @@ RESERVE_GAP_PENALTY = 30.0
 # Criterion 5: Swing thresholds
 SWING_FULL_POINTS = 20.0
 SWING_FLOOR = 10.0
+COMPRESSION_THRESHOLD = 0.65
+COMPRESSION_PENALTY = 3
 
 # Criterion 6: Sector thresholds
 SECTOR_CONCENTRATION_LIMIT = 3
@@ -195,6 +197,15 @@ def evaluate_kpi_gates(passer, wick_data):
         "passed": strong_levels >= KPI_STRONG_LEVELS_MIN,
     })
 
+    # Gate 9: Swing Compression (recent/median >= 0.65)
+    compression_ratio = passer.get("compression_ratio", 1.0)
+    gates.append({
+        "name": "Swing Compression",
+        "threshold": f">= {COMPRESSION_THRESHOLD}",
+        "actual": f"{compression_ratio:.2f}",
+        "passed": compression_ratio >= COMPRESSION_THRESHOLD,
+    })
+
     pass_all = all(g["passed"] for g in gates)
     return pass_all, gates
 
@@ -283,13 +294,20 @@ def score_reserve_depth(wick_data):
 def score_swing(passer):
     """Criterion 5: Monthly Swing (0-10).
     Reads from passer dict (screening passers list), NOT wick_data.
+    Applies compression penalty if recent swing is significantly below median.
     """
     swing = passer["median_swing"]
     if swing >= SWING_FULL_POINTS:
-        return MAX_SWING
-    if swing <= SWING_FLOOR:
-        return 0
-    return round(MAX_SWING * (swing - SWING_FLOOR) / (SWING_FULL_POINTS - SWING_FLOOR))
+        pts = MAX_SWING
+    elif swing <= SWING_FLOOR:
+        pts = 0
+    else:
+        pts = round(MAX_SWING * (swing - SWING_FLOOR) / (SWING_FULL_POINTS - SWING_FLOOR))
+    # Compression penalty: recent swing collapsing vs historical median
+    ratio = passer.get("compression_ratio", 1.0)
+    if ratio < COMPRESSION_THRESHOLD:
+        pts = max(0, pts - COMPRESSION_PENALTY)
+    return pts
 
 
 def score_cycle_efficiency(cycle_timing):

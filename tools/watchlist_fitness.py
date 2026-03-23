@@ -44,6 +44,9 @@ assert (SWING_POINTS + CONSISTENCY_POINTS + LEVEL_COUNT_POINTS +
         HOLD_RATE_POINTS + ORDER_HYGIENE_POINTS +
         CYCLE_EFFICIENCY_POINTS) == 100, "Scoring constants must sum to 100"
 
+COMPRESSION_THRESHOLD = 0.65
+COMPRESSION_PENALTY = 3
+
 
 # ---------------------------------------------------------------------------
 # Portfolio helpers
@@ -138,12 +141,16 @@ def _compute_cycle_data(hist, current_price):
 # ---------------------------------------------------------------------------
 # Fitness scoring
 # ---------------------------------------------------------------------------
-def _score_swing(swing):
+def _score_swing(swing, compression_ratio=1.0):
     if swing is None or swing < 10:
         return 0
     if swing < 15:
-        return 10
-    return SWING_POINTS
+        pts = 10
+    else:
+        pts = SWING_POINTS
+    if compression_ratio < COMPRESSION_THRESHOLD:
+        pts = max(0, pts - COMPRESSION_PENALTY)
+    return pts
 
 
 def _score_consistency(consistency):
@@ -263,7 +270,7 @@ def _analyze_orders(ticker, data, portfolio):
 # ---------------------------------------------------------------------------
 # Engagement verdict
 # ---------------------------------------------------------------------------
-def _compute_verdict(ticker, data, portfolio, order_info, swing, consistency, cycle_pts=None):
+def _compute_verdict(ticker, data, portfolio, order_info, swing, consistency, cycle_pts=None, recent_swing=None):
     """Compute base verdict + position-aware modifier. Returns (verdict, verdict_note)."""
     positions = portfolio.get("positions", {})
     has_position = ticker in positions and positions[ticker].get("shares", 0) > 0
@@ -308,6 +315,16 @@ def _compute_verdict(ticker, data, portfolio, order_info, swing, consistency, cy
         if has_position:
             return "HOLD-WAIT", note + ". Keep position, don't add bullets until resolved."
         return base, note
+
+    # COMPRESSION — recent swing decaying significantly
+    if swing and recent_swing and swing > 0:
+        comp_ratio = recent_swing / swing
+        if comp_ratio < COMPRESSION_THRESHOLD:
+            note = (f"Swing compressing: recent {recent_swing:.1f}% vs "
+                    f"median {swing:.1f}% (ratio {comp_ratio:.2f})")
+            if has_position:
+                return "HOLD-WAIT", note + ". Keep position, monitor for swing recovery."
+            return "HOLD-WAIT", note
 
     # RESTRUCTURE — strategy fits BUT orders misaligned
     restructure_reasons = []
@@ -392,6 +409,8 @@ def _process_ticker(ticker, data, hist, portfolio):
     """Run full analysis pipeline for one ticker. Returns result dict."""
     current_price = data["current_price"]
     swing = data.get("monthly_swing")
+    recent_swing = data.get("recent_swing")
+    compression_ratio = (recent_swing / swing) if (swing and recent_swing and swing > 0) else 1.0
     consistency = data.get("swing_consistency")
     levels = data.get("levels", [])
 
@@ -409,7 +428,7 @@ def _process_ticker(ticker, data, hist, portfolio):
     cycle_pts, cycle_reason = _score_cycle_efficiency(ticker)
 
     # Verdict
-    verdict, verdict_note = _compute_verdict(ticker, data, portfolio, order_info, swing, consistency, cycle_pts=cycle_pts)
+    verdict, verdict_note = _compute_verdict(ticker, data, portfolio, order_info, swing, consistency, cycle_pts=cycle_pts, recent_swing=recent_swing)
 
     # Shared order_info dict for JSON output
     def _order_info_json():
@@ -445,7 +464,7 @@ def _process_ticker(ticker, data, hist, portfolio):
     active_half_plus = _count_active_half_plus(levels)
     best_hr = _best_active_hold_rate(levels)
 
-    swing_pts = _score_swing(swing)
+    swing_pts = _score_swing(swing, compression_ratio)
     consistency_pts = _score_consistency(consistency)
     level_pts = _score_level_count(active_half_plus)
     hr_pts = _score_hold_rate(best_hr)
@@ -457,7 +476,7 @@ def _process_ticker(ticker, data, hist, portfolio):
     total = swing_pts + consistency_pts + level_pts + hr_pts + hygiene_pts + cycle_pts
 
     score_components = {
-        "swing": {"value": swing, "points": swing_pts, "max": SWING_POINTS},
+        "swing": {"value": swing, "recent": recent_swing, "ratio": round(compression_ratio, 2), "points": swing_pts, "max": SWING_POINTS},
         "consistency": {"value": consistency, "points": consistency_pts, "max": CONSISTENCY_POINTS},
         "level_quality": {"count": active_half_plus, "points": level_pts, "max": LEVEL_COUNT_POINTS},
         "hold_rate": {"best": best_hr, "points": hr_pts, "max": HOLD_RATE_POINTS},

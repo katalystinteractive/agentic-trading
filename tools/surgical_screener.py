@@ -105,6 +105,8 @@ def batch_swing_screen():
             median_swing = float(np.median(swings))
             above_thresh = sum(1 for s in swings if s >= MIN_SWING_PCT)
             consistency = round(above_thresh / len(swings) * 100, 1)
+            recent_swing = float(np.median(swings[-4:])) if len(swings) >= 4 else median_swing
+            compression_ratio = round(recent_swing / median_swing, 2) if median_swing > 0 else 1.0
 
             # Swing gate
             if median_swing < MIN_SWING_PCT:
@@ -121,6 +123,8 @@ def batch_swing_screen():
             passers.append({
                 "ticker": ticker,
                 "median_swing": round(median_swing, 1),
+                "recent_swing": round(recent_swing, 1),
+                "compression_ratio": compression_ratio,
                 "consistency": consistency,
                 "price": round(price, 2),
                 "avg_vol": avg_vol,
