@@ -35,13 +35,18 @@ You run the data collection and scoring pipeline, then provide qualitative evalu
 
 ### Step 1: Run Data Collection Pipeline
 
-Run the screener to collect market data:
+Run the screener with expanded universe to collect market data:
 
 ```bash
-python3 tools/surgical_screener.py
+python3 tools/surgical_screener.py --universe --expanded
 ```
 
+- `--universe` loads passers from the full US ticker universe cache (`data/universe_screen_cache.json`) instead of the default ~150 seed list
+- `--expanded` runs deep wick analysis on top 50 passers instead of default 20
+
 This writes `screening_data.json` with all gate-passing tickers and deep wick analysis.
+
+> **Note:** If the universe cache is stale (>7 days), first refresh it with `python3 tools/refresh_universe.py`, then re-run the screener.
 
 ### Step 2: Run Mechanical Scoring
 
@@ -176,5 +181,5 @@ Ready for verification.
 - Do NOT compute distances, pool budgets, or hold rates — use the shortlist data
 - Do NOT reject candidates based on portfolio fit alone (critic's job)
 - Do NOT create new scoring criteria beyond the 6 defined
-- Do NOT run any tool other than `surgical_screener.py` and `surgical_filter.py`
+- Do NOT run any tool other than `surgical_screener.py`, `surgical_filter.py`, and `refresh_universe.py`
 - Do NOT output scores in the JSON that differ from the shortlist — copy them exactly
