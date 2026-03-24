@@ -211,6 +211,21 @@ The strongest predictor of profitable cycling is hold rate quality at support le
 - Reliable levels: 0->0, 1->2, 2->4, 3+->6 pts
 - Floor bonus: +4 pts
 
+### Sector Diversity Scoring (Scaled for 300-500 Tickers)
+
+No hard per-sector cap. Scoring uses diminishing-returns curve:
+
+| Same-Sector Count | Points (of 10) | Rationale |
+| :--- | :--- | :--- |
+| 0 (new sector) | 10 | Full credit |
+| 1-2 | 8 | Mild — normal early concentration |
+| 3-5 | 6 | Moderate — watch but don't block |
+| 6-15 | 4 | Notable — scoring discourages, doesn't prevent |
+| 16+ | 2 | Heavy — accepted at scale, min 2 pts |
+
+A strong cycler-profile candidate (20/20 hold quality) overcomes even the heaviest
+sector penalty (2/10) with a total score of 82+/100.
+
 ### Position Reporting Order
 When reporting on active positions, always present information in this sequence:
 1.  **Trades Executed:** List each individual fill (date, price, shares) from the agent's `memory.md` trade log.

@@ -311,3 +311,72 @@ class TestFitnessHoldRate:
 
     def test_max_is_hold_rate_points(self):
         assert HOLD_RATE_POINTS == 10
+
+
+# ---------------------------------------------------------------------------
+# Sector diversity scoring (diminishing-returns curve)
+# ---------------------------------------------------------------------------
+
+from surgical_filter import score_sector_diversity, MAX_SECTOR_DIVERSITY
+
+
+class TestScoreSectorDiversity:
+    """Test diminishing-returns sector diversity scoring."""
+
+    def _ctx(self, sector, count):
+        """Build portfolio_ctx with `count` existing tickers in `sector`."""
+        return {"sectors": {sector: [f"TK{i}" for i in range(count)]}}
+
+    def test_new_sector(self):
+        assert score_sector_diversity("NEW", "Biotech", self._ctx("Biotech", 0)) == 10
+
+    def test_second_ticker(self):
+        assert score_sector_diversity("NEW", "Crypto", self._ctx("Crypto", 1)) == 8
+
+    def test_third_ticker(self):
+        assert score_sector_diversity("NEW", "Crypto", self._ctx("Crypto", 2)) == 8
+
+    def test_fourth_ticker(self):
+        assert score_sector_diversity("NEW", "Tech", self._ctx("Tech", 3)) == 6
+
+    def test_sixth_ticker(self):
+        assert score_sector_diversity("NEW", "Tech", self._ctx("Tech", 5)) == 6
+
+    def test_seventh_ticker(self):
+        assert score_sector_diversity("NEW", "Health", self._ctx("Health", 6)) == 4
+
+    def test_sixteenth_ticker(self):
+        assert score_sector_diversity("NEW", "Health", self._ctx("Health", 15)) == 4
+
+    def test_seventeenth_ticker(self):
+        assert score_sector_diversity("NEW", "Health", self._ctx("Health", 16)) == 2
+
+    def test_fiftieth_ticker(self):
+        assert score_sector_diversity("NEW", "Health", self._ctx("Health", 49)) == 2
+
+    def test_unknown_sector(self):
+        assert score_sector_diversity("NEW", "Unknown", {}) == MAX_SECTOR_DIVERSITY
+
+    def test_none_sector(self):
+        assert score_sector_diversity("NEW", None, {}) == MAX_SECTOR_DIVERSITY
+
+    def test_empty_sector(self):
+        assert score_sector_diversity("NEW", "", {}) == MAX_SECTOR_DIVERSITY
+
+    def test_never_exceeds_max(self):
+        """All branches return <= MAX_SECTOR_DIVERSITY."""
+        ctx = self._ctx("X", 0)
+        for count in range(0, 100):
+            ctx = self._ctx("X", count)
+            score = score_sector_diversity("NEW", "X", ctx)
+            assert score <= MAX_SECTOR_DIVERSITY, f"count={count} returned {score}"
+            assert score >= 0, f"count={count} returned negative {score}"
+
+    def test_never_returns_zero(self):
+        """Minimum score is 2, never 0."""
+        for count in [16, 50, 100, 500]:
+            ctx = self._ctx("X", count)
+            assert score_sector_diversity("NEW", "X", ctx) >= 2
+
+    def test_max_is_ten(self):
+        assert MAX_SECTOR_DIVERSITY == 10

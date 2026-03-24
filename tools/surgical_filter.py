@@ -62,7 +62,7 @@ COMPRESSION_THRESHOLD = 0.65
 COMPRESSION_PENALTY = 3
 
 # Criterion 6: Sector thresholds
-SECTOR_CONCENTRATION_LIMIT = 3
+SECTOR_CONCENTRATION_LIMIT = 999  # Effectively disabled; scoring handles concentration
 
 # Verification thresholds
 SAMPLE_SIZE_MIN = 3
@@ -352,21 +352,24 @@ def score_cycle_efficiency(cycle_timing):
 
 
 def score_sector_diversity(ticker, sector, portfolio_ctx):
-    """Criterion 6: Sector Diversity (0-15)."""
+    """Criterion 6: Sector Diversity (0-10).
+    Diminishing-returns curve: mild penalty for early concentration,
+    fades as portfolio scales. Never blocks a strong candidate.
+    """
     if not sector or sector == "Unknown":
         return MAX_SECTOR_DIVERSITY
     existing = portfolio_ctx.get("sectors", {}).get(sector, [])
     count = len(existing)
     if count == 0:
-        return 15
-    elif count == 1:
-        return 10
-    elif count == 2:
-        return 5
-    elif count == 3:
-        return 2
+        return MAX_SECTOR_DIVERSITY        # 10 — new sector, full points
+    elif count <= 2:
+        return MAX_SECTOR_DIVERSITY - 2    # 8 — 2nd-3rd ticker, mild
+    elif count <= 5:
+        return MAX_SECTOR_DIVERSITY - 4    # 6 — 4th-6th, moderate
+    elif count <= 15:
+        return MAX_SECTOR_DIVERSITY - 6    # 4 — 7th-16th, notable
     else:
-        return 0
+        return MAX_SECTOR_DIVERSITY - 8    # 2 — 17th+, heavy but not zero
 
 
 # ---------------------------------------------------------------------------
@@ -815,7 +818,7 @@ def build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses):
         lines.append(f"| Zone Coverage | {s['zone_coverage']} | 15 | Spread of active bullets across price range |")
         lines.append(f"| Reserve Depth | {s['reserve_depth']} | 10 | Viable reserve levels with 30%+ hold |")
         lines.append(f"| Swing Magnitude | {s['swing']} | 10 | Monthly swing opportunity |")
-        lines.append(f"| Sector Diversity | {s['sector_diversity']} | 15 | New sector vs portfolio overlap |")
+        lines.append(f"| Sector Diversity | {s['sector_diversity']} | {MAX_SECTOR_DIVERSITY} | Diminishing returns by sector count |")
         lines.append(f"| Cycle Efficiency | {s['cycle_efficiency']} | 20 | Cycle speed, fill rate, consistency |")
         lines.append(f"| **Total** | **{r['total_score']}** | **100** | |")
         lines.append("")
