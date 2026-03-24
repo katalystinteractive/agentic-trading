@@ -289,6 +289,7 @@ def build_position_summary_table(active_tickers, portfolio, prices):
 
         entry_date = pos.get("entry_date", "Unknown")
         days_held, days_display, is_pre = compute_days_held(entry_date)
+        # TODO: pass regime for Risk-Off time stop extension (daily_analyzer handles this)
         time_stop = compute_time_stop(days_held, is_pre)
         bullets = compute_bullets_used(pos.get("bullets_used", 0), pos.get("note", ""), capital)
 

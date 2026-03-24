@@ -360,6 +360,7 @@ def main():
 
         entry_date = pos.get("entry_date", "Unknown")
         days_held, days_display, is_pre = compute_days_held(entry_date)
+        # TODO: pass regime for Risk-Off time stop extension (daily_analyzer handles this)
         time_stop = compute_time_stop(days_held, is_pre)
         bullets = compute_bullets_used(pos.get("bullets_used", 0), pos.get("note", ""), capital)
 
@@ -408,7 +409,7 @@ def main():
             buy_count += 1
             buy_by_ticker[ticker] = buy_by_ticker.get(ticker, 0) + 1
             if current and current > 0:
-                pct_below = (order_price - current) / current * 100
+                pct_below = (current - order_price) / current * 100
                 pct_str = f"{pct_below:.1f}%"
             else:
                 pct_str = "N/A"

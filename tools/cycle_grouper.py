@@ -132,7 +132,7 @@ def _build_cycle(ticker, num, entries, exits, status):
     entry_avg = entry_cost / entry_shares if entry_shares > 0 else 0
 
     first_entry_date = min(e["date"] for e in entries)
-    pre_strategy = any(e.get("pre_strategy", False) or e.get("backfilled", False) and e.get("pre_strategy", False) for e in entries)
+    pre_strategy = any(e.get("pre_strategy", False) or e.get("backfilled", False) for e in entries)
 
     entry_trade_ids = [e.get("id") for e in entries if e.get("id") is not None]
     exit_trade_ids = [x.get("id") for x in exits if x.get("id") is not None]

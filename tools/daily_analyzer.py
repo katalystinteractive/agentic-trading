@@ -64,10 +64,15 @@ def _fetch_position_prices(tickers):
 
 def print_market_regime():
     """Part 0: Fetch and display market regime."""
-    from shared_regime import fetch_regime_detail
-    detail = fetch_regime_detail()
-    regime = detail["regime"]
-    vix = detail["vix"]
+    try:
+        from shared_regime import fetch_regime_detail
+        detail = fetch_regime_detail()
+        regime = detail["regime"]
+        vix = detail["vix"]
+    except Exception as e:
+        print(f"*Warning: Market regime fetch failed ({e}), defaulting to Neutral*\n")
+        regime = "Neutral"
+        vix = None
 
     print("## Market Regime\n")
     print("| Field | Value |")
