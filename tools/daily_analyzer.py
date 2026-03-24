@@ -35,6 +35,145 @@ CANDIDATE_SCORE_THRESHOLD = 80
 sys.path.insert(0, str(TOOLS_DIR))
 from portfolio_manager import _load, cmd_fill, cmd_sell, parse_bullets_used
 from shared_utils import is_active_buy as _is_active_buy, is_active_sell as _is_active_sell
+from shared_utils import compute_days_held, compute_time_stop
+
+
+# ---------------------------------------------------------------------------
+# Shared infrastructure
+# ---------------------------------------------------------------------------
+
+def _fetch_position_prices(tickers):
+    """Batch-fetch live prices for position tickers. Returns {ticker: price}."""
+    import yfinance as yf
+    if not tickers:
+        return {}
+    try:
+        data = yf.download(list(tickers), period="5d", progress=False)
+        prices = {}
+        for t in tickers:
+            try:
+                col = data["Close"][t] if len(tickers) > 1 else data["Close"]
+                val = col.dropna().iloc[-1]
+                prices[t] = round(float(val), 2)
+            except (KeyError, IndexError):
+                pass
+        return prices
+    except Exception:
+        return {}
+
+
+def print_market_regime():
+    """Part 0: Fetch and display market regime."""
+    from shared_regime import fetch_regime_detail
+    detail = fetch_regime_detail()
+    regime = detail["regime"]
+    vix = detail["vix"]
+
+    print("## Market Regime\n")
+    print("| Field | Value |")
+    print("| :--- | :--- |")
+    print(f"| Regime | **{regime}** |")
+    if vix is not None:
+        print(f"| VIX | {vix:.1f} |")
+
+    if regime == "Risk-Off":
+        print("\n*Risk-Off modifiers active: time stops +14d, sell upgrades suppressed, deployment cautioned*")
+    elif regime == "Risk-On":
+        print("\n*Risk-On: standard rules, full deployment*")
+    print()
+    return regime
+
+
+# ---------------------------------------------------------------------------
+# Catastrophic drawdown constants
+# ---------------------------------------------------------------------------
+CATASTROPHIC_WARNING = 15.0
+CATASTROPHIC_HARD_STOP = 25.0
+CATASTROPHIC_EXIT_REVIEW = 40.0
+
+
+def print_catastrophic_alerts(prices):
+    """Alert on positions with severe drawdown from avg cost."""
+    data = _load()
+    positions = data.get("positions", {})
+
+    alerts = []
+    for ticker, pos in sorted(positions.items()):
+        shares = pos.get("shares", 0)
+        avg = pos.get("avg_cost", 0)
+        if shares <= 0 or avg <= 0:
+            continue
+        price = prices.get(ticker)
+        if price is None:
+            continue
+        drawdown = round((price - avg) / avg * 100, 1)
+        if drawdown <= -CATASTROPHIC_WARNING:
+            if drawdown <= -CATASTROPHIC_EXIT_REVIEW:
+                severity = "EXIT REVIEW"
+            elif drawdown <= -CATASTROPHIC_HARD_STOP:
+                severity = "HARD STOP"
+            else:
+                severity = "WARNING"
+            alerts.append((ticker, avg, price, drawdown, severity))
+
+    if not alerts:
+        return set()
+
+    print("\n## Catastrophic Drawdown Alerts")
+    print("| Ticker | Avg Cost | Price | Drawdown | Severity | Action |")
+    print("| :--- | :--- | :--- | :--- | :--- | :--- |")
+    for ticker, avg, price, dd, sev in alerts:
+        action = {
+            "WARNING": "Check news before any action",
+            "HARD STOP": "Pause all pending BUYs — do NOT average down",
+            "EXIT REVIEW": "Recommend exit regardless of time stop",
+        }[sev]
+        print(f"| **{ticker}** | ${avg:.2f} | ${price:.2f} | {dd:.1f}% | **{sev}** | {action} |")
+
+    return {t for t, _, _, _, s in alerts if s in ("HARD STOP", "EXIT REVIEW")}
+
+
+def print_position_age_monitor(prices, regime="Neutral"):
+    """Print position age table with time stop status."""
+    data = _load()
+    positions = data.get("positions", {})
+    today = date.today()
+
+    rows = []
+    for ticker, pos in sorted(positions.items()):
+        shares = pos.get("shares", 0)
+        if shares <= 0:
+            continue
+        avg = pos.get("avg_cost", 0)
+        entry = pos.get("entry_date", "")
+        days, display, is_pre = compute_days_held(entry, today)
+        status = compute_time_stop(days, is_pre, regime)
+        price = prices.get(ticker, avg)
+        pnl = round((price - avg) / avg * 100, 1) if avg > 0 else 0
+        note = ""
+        if is_pre:
+            note = "Pre-strategy"
+        elif status == "EXCEEDED":
+            note = "Run exit-review workflow"
+        elif status == "APPROACHING":
+            note = "Plan exit strategy"
+        rows.append((ticker, display, status, avg, pnl, note))
+
+    if not rows:
+        return
+
+    flagged = [r for r in rows if r[2] in ("EXCEEDED", "APPROACHING")]
+    if not flagged and regime != "Risk-Off":
+        return
+
+    print("\n## Position Age Monitor")
+    if regime == "Risk-Off":
+        print("*Risk-Off: time stops extended +14 days (APPROACHING >=59d, EXCEEDED >74d)*\n")
+    print("| Ticker | Age | Status | Avg Cost | P/L% | Note |")
+    print("| :--- | :--- | :--- | :--- | :--- | :--- |")
+    for ticker, display, status, avg, pnl, note in rows:
+        marker = "**" if status in ("EXCEEDED", "APPROACHING") else ""
+        print(f"| {marker}{ticker}{marker} | {display}d | {marker}{status}{marker} | ${avg:.2f} | {pnl:+.1f}% | {note} |")
 
 
 # ---------------------------------------------------------------------------
@@ -351,7 +490,7 @@ def find_deployment_tickers():
     return result
 
 
-def print_deployment_recs(tickers):
+def print_deployment_recs(tickers, paused=None):
     """Run bullet_recommender per ticker via subprocess."""
     if not tickers:
         print("*All tickers have active placed orders — no deployment needed.*")
@@ -361,6 +500,10 @@ def print_deployment_recs(tickers):
     print()
 
     for ticker in tickers:
+        if paused and ticker in paused:
+            print(f"### {ticker}\n")
+            print("*PAUSED: Catastrophic drawdown — review before deploying*\n")
+            continue
         print(f"### {ticker}")
         print()
         try:
@@ -707,6 +850,9 @@ def main():
     sells, sell_parse_err = parse_specs(args.sells)
     parse_errors = fill_parse_err + sell_parse_err
 
+    # Part 0: Market Regime
+    regime = print_market_regime()
+
     # Part 1: Process transactions
     if fills or sells or parse_errors:
         print("## Part 1 — Processing Transactions")
@@ -717,14 +863,31 @@ def main():
     print_consolidated_orders()
     print_tier_summary()
 
+    # Fetch live prices once for monitoring sections
+    data = _load()
+    active_tickers = [t for t, p in data.get("positions", {}).items() if p.get("shares", 0) > 0]
+    live_prices = _fetch_position_prices(active_tickers)
+
+    # Position Age Monitor
+    print_position_age_monitor(live_prices, regime=regime)
+
+    # Catastrophic Drawdown Alerts
+    paused_tickers = print_catastrophic_alerts(live_prices)
+
     # Part 3: Performance Analysis (before deployment so profiles are fresh)
     if not args.no_deploy and not args.no_perf:
-        run_ticker_perf_analysis()
+        if regime != "Risk-Off":
+            run_ticker_perf_analysis()
+        else:
+            print("## Part 3 — Ticker Performance Analysis\n")
+            print("*Suppressed: Risk-Off regime — sell target upgrades paused*\n")
 
     # Part 4: Deployment recommendations
     if not args.no_deploy:
+        if regime == "Risk-Off":
+            print("*CAUTION: Risk-Off regime — consider half-sizing or pausing watchlist entries*\n")
         deploy_tickers = find_deployment_tickers()
-        print_deployment_recs(deploy_tickers)
+        print_deployment_recs(deploy_tickers, paused=paused_tickers)
 
     # Part 5: Watchlist Fitness Check
     if not args.no_deploy and not args.no_fitness:

@@ -24,9 +24,11 @@ TOOLS_DIR = PROJECT_ROOT / "tools"
 TICKERS_DIR = PROJECT_ROOT / "tickers"
 OUTPUT_PATH = PROJECT_ROOT / "exit-review-raw.md"
 
-# Time stop thresholds (calendar days) — must match strategy.md
-TIME_STOP_EXCEEDED_DAYS = 60
-TIME_STOP_APPROACHING_DAYS = 45
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from shared_utils import (
+    compute_days_held, compute_time_stop,
+    TIME_STOP_EXCEEDED_DAYS, TIME_STOP_APPROACHING_DAYS,
+)
 
 # Default capital settings
 DEFAULT_BULLETS_MAX = 5
@@ -70,31 +72,7 @@ def format_price(price):
     return f"${price:.2f}"
 
 
-def compute_days_held(entry_date_str):
-    """Compute days held from entry_date using today (real-time).
-    Returns (days_int, display_str, is_pre_strategy)."""
-    today = date.today()
-    if entry_date_str.startswith("pre-"):
-        return None, f">{TIME_STOP_EXCEEDED_DAYS} days (pre-strategy)", True
-    try:
-        entry = datetime.strptime(entry_date_str, "%Y-%m-%d").date()
-        days = (today - entry).days
-        return days, str(days), False
-    except ValueError:
-        return None, "Unknown", False
-
-
-def compute_time_stop(days_held, is_pre_strategy):
-    """Compute time stop status."""
-    if is_pre_strategy:
-        return "EXCEEDED (pre-strategy)"
-    if days_held is None:
-        return "Unknown"
-    if days_held > TIME_STOP_EXCEEDED_DAYS:
-        return "EXCEEDED"
-    if days_held >= TIME_STOP_APPROACHING_DAYS:
-        return "APPROACHING"
-    return "WITHIN"
+## compute_days_held and compute_time_stop are imported from shared_utils
 
 
 def compute_bullets_used(bullets_raw, note, capital):

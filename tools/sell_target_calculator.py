@@ -517,6 +517,9 @@ def analyze_ticker(ticker, portfolio):
 
     zone_low = math_prices["conservative"]
     zone_high = math_prices["aggressive"]
+    # Expand zone if custom target exceeds aggressive tier
+    if custom_pct and custom_pct > 7.5:
+        zone_high = math_prices.get("optimized", zone_high)
 
     # Unrealized P/L
     unrealized_pct = (current_price - avg_cost) / avg_cost * 100

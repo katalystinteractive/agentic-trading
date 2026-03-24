@@ -24,8 +24,6 @@ from exit_review_pre_analyst import (
     parse_technical_signals,
     parse_earnings_data,
     parse_short_interest_data,
-    compute_days_held,
-    compute_time_stop,
     classify_position,
     compute_pl,
     compute_earnings_gate,
@@ -34,6 +32,7 @@ from exit_review_pre_analyst import (
     compute_verdict,
     parse_bullets_status,
 )
+from shared_utils import compute_days_held, compute_time_stop
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 RAW_PATH = PROJECT_ROOT / "exit-review-raw.md"

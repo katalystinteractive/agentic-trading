@@ -166,3 +166,44 @@ def is_active_sell(order):
     return (order.get("type") == "SELL"
             and order.get("placed", False)
             and "filled" not in order)
+
+
+# ---------------------------------------------------------------------------
+# Time stop constants & functions
+# ---------------------------------------------------------------------------
+TIME_STOP_EXCEEDED_DAYS = 60
+TIME_STOP_APPROACHING_DAYS = 45
+
+
+def compute_days_held(entry_date_str, as_of_date=None):
+    """Compute days held from entry_date relative to as_of_date.
+
+    Returns (days_int, display_str, is_pre_strategy).
+    as_of_date defaults to date.today() if not provided.
+    """
+    from datetime import date, datetime as dt
+    if as_of_date is None:
+        as_of_date = date.today()
+    if entry_date_str.startswith("pre-"):
+        return None, f">{TIME_STOP_EXCEEDED_DAYS}d (pre-strategy)", True
+    try:
+        entry = dt.strptime(entry_date_str, "%Y-%m-%d").date()
+        days = (as_of_date - entry).days
+        return days, str(days), False
+    except ValueError:
+        return None, "Unknown", False
+
+
+def compute_time_stop(days_held, is_pre_strategy, regime="Neutral"):
+    """Compute time stop status. Risk-Off extends thresholds by 14 days."""
+    exceeded = TIME_STOP_EXCEEDED_DAYS + (14 if regime == "Risk-Off" else 0)
+    approaching = TIME_STOP_APPROACHING_DAYS + (14 if regime == "Risk-Off" else 0)
+    if is_pre_strategy:
+        return "EXCEEDED"
+    if days_held is None:
+        return "Unknown"
+    if days_held > exceeded:
+        return "EXCEEDED"
+    if days_held >= approaching:
+        return "APPROACHING"
+    return "WITHIN"

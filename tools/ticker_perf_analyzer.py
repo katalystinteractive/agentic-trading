@@ -37,9 +37,19 @@ MIN_CYCLES_FOR_RECS = 3
 CAPTURE_RATIO_THRESHOLD = 70
 CAPTURE_RATIO_CAP = 100.0
 SHALLOW_DEPTH_THRESHOLD = 25
-MAX_TARGET_PCT = 12.0
+MAX_TARGET_PCT = 10.0
 MIN_TARGET_PCT = 4.5
 POST_SELL_PEAK_DAYS = 5
+
+# Graduated sell target tiers
+FAST_CYCLER_MIN_CYCLES = 3
+FAST_CYCLER_MAX_MEDIAN_DAYS = 3
+FAST_CYCLER_TARGET = 8.0
+
+EXCEPTIONAL_CYCLER_MIN_CYCLES = 5
+EXCEPTIONAL_CYCLER_MAX_MEDIAN_DAYS = 2
+EXCEPTIONAL_CYCLER_MIN_CAPTURE = 50
+EXCEPTIONAL_CYCLER_TARGET = 10.0
 
 
 def _ts(date_str, hist):
@@ -400,41 +410,37 @@ def generate_recommendations(ticker, kpis, cycles, hist):
     if n < MIN_CYCLES_FOR_RECS or hist is None:
         return recs
 
-    # Sell target recommendation
+    # Sell target recommendation — graduated tiers
     capture = kpis.get("capture_ratio_pct")
-    if capture is not None and capture < CAPTURE_RATIO_THRESHOLD:
-        # Compute optimal target from post-sell peaks
-        peak_profits = []
-        avg_costs = []
-        for c in cycles:
-            avg_cost = c.get("avg_cost")
-            if not avg_cost or avg_cost <= 0 or not c["sells"]:
-                continue
-            max_high, n_days = _post_sell_peak(c, hist)
-            if max_high is None:
-                continue
-            peak_profit_pct = (max_high - avg_cost) / avg_cost * 100
-            if peak_profit_pct > 0:
-                peak_profits.append(peak_profit_pct)
-                avg_costs.append(avg_cost)
+    median_days = kpis.get("median_cycle_days")
 
-        if peak_profits:
-            median_peak = median(peak_profits)
-            # Round to nearest 0.5%
-            optimal = round(median_peak * 2) / 2
-            optimal = max(MIN_TARGET_PCT, min(optimal, MAX_TARGET_PCT))
+    proposed = None
+    basis = None
 
-            median_avg_cost = median(avg_costs)
-            median_peak_price = median_avg_cost * (1 + median_peak / 100)
+    # Exceptional cycler: 5+ cycles, ≤2d median, ≥50% capture → 10%
+    if (n >= EXCEPTIONAL_CYCLER_MIN_CYCLES
+            and median_days is not None
+            and median_days <= EXCEPTIONAL_CYCLER_MAX_MEDIAN_DAYS
+            and capture is not None
+            and capture >= EXCEPTIONAL_CYCLER_MIN_CAPTURE):
+        proposed = EXCEPTIONAL_CYCLER_TARGET
+        basis = f"Exceptional: {n} cycles, {median_days}d median, {capture:.0f}% capture"
+    # Fast cycler: 3+ cycles, ≤3d median → 8%
+    elif (n >= FAST_CYCLER_MIN_CYCLES
+            and median_days is not None
+            and median_days <= FAST_CYCLER_MAX_MEDIAN_DAYS):
+        proposed = FAST_CYCLER_TARGET
+        basis = f"Fast cycler: {n} cycles, {median_days}d median"
 
-            recs.append({
-                "ticker": ticker,
-                "type": "sell_target",
-                "current_value": 6.0,
-                "proposed_value": optimal,
-                "basis": f"Capture {capture:.0f}%, {n} cycles, median peak ${median_peak_price:.2f}",
-                "approved": False,
-            })
+    if proposed is not None:
+        recs.append({
+            "ticker": ticker,
+            "type": "sell_target",
+            "current_value": 6.0,
+            "proposed_value": proposed,
+            "basis": basis,
+            "approved": False,
+        })
 
     # Sizing mode recommendation (informational)
     depth = kpis.get("deployment_depth_pct")

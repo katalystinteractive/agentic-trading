@@ -162,6 +162,42 @@ Risk-Off carry elevated risk.
 calendar. Flag any ticker where earnings is <14 days away and pending buy orders
 are still active. This prevents accidental fills into binary events.
 
+### Market Regime Modifiers
+
+The daily analyzer fetches market regime (Risk-On/Neutral/Risk-Off) via `shared_regime.py` and adjusts downstream decisions:
+
+| Regime | Time Stops | Sell Upgrades | Deployments |
+| :--- | :--- | :--- | :--- |
+| Risk-Off (VIX>25, indices below 50-SMA) | Extended +14d (60->74d) | Suppressed | Cautioned |
+| Neutral | Standard (60d) | Allowed | Normal |
+| Risk-On (VIX<20, indices above 50-SMA) | Standard (60d) | Allowed | Full |
+
+During Risk-Off: do not flag underwater positions as "stuck" — market-wide drawdowns are regime events, not strategy failures. Be patient with positions that entered at valid support levels.
+
+### Catastrophic Event Protocol
+
+Drawdown thresholds from avg cost, checked daily:
+
+- **>15% drawdown**: WARNING — check news before any action
+- **>25% drawdown**: HARD STOP — pause all pending BUYs, do NOT average down without review
+- **>40% drawdown**: EXIT REVIEW — recommend exit regardless of time stop status
+
+NEVER place manual orders during sharp drops without first checking news. This overrides all bullet placement rules.
+
+### Dynamic Sell Targets
+
+Sell targets are graduated based on cycle performance data:
+
+| Tier | Requirements | Target |
+| :--- | :--- | :--- |
+| Default | All tickers | 6% |
+| Fast Cycler | 3+ completed cycles, <=3d median duration | 8% |
+| Exceptional | 5+ cycles, <=2d median, >=50% capture ratio | 10% |
+
+- Maximum target: 10% (never 12% — preserves capital velocity, the system's core edge)
+- Upgrades suppressed during Risk-Off regime
+- Tiered exits optional: sell half at 6%, rest at upgraded target
+
 ### Position Reporting Order
 When reporting on active positions, always present information in this sequence:
 1.  **Trades Executed:** List each individual fill (date, price, shares) from the agent's `memory.md` trade log.

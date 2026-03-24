@@ -26,8 +26,10 @@ OUTPUT_PATH = PROJECT_ROOT / "exit-review-pre-analyst.md"
 # Thresholds (module-level constants)
 # ---------------------------------------------------------------------------
 
-TIME_STOP_EXCEEDED_DAYS = 60
-TIME_STOP_APPROACHING_DAYS = 45
+from shared_utils import (
+    compute_days_held, compute_time_stop,
+    TIME_STOP_EXCEEDED_DAYS, TIME_STOP_APPROACHING_DAYS,
+)
 
 SQUEEZE_HIGH_THRESHOLD = 60
 RSI_BEARISH_THRESHOLD = 40
@@ -367,31 +369,7 @@ def parse_short_interest_data(text):
 # Section 2: Classification & Computation
 # ---------------------------------------------------------------------------
 
-def compute_days_held(entry_date_str, as_of_date):
-    """Compute days held from entry_date relative to as_of_date.
-    Returns (days_int, display_str, is_pre_strategy).
-    Local version — uses as_of_date parameter, NOT date.today()."""
-    if entry_date_str.startswith("pre-"):
-        return None, f">{TIME_STOP_EXCEEDED_DAYS} days (pre-strategy)", True
-    try:
-        entry = datetime.strptime(entry_date_str, "%Y-%m-%d").date()
-        days = (as_of_date - entry).days
-        return days, str(days), False
-    except ValueError:
-        return None, "Unknown", False
-
-
-def compute_time_stop(days_held, is_pre_strategy):
-    """Compute time stop status."""
-    if is_pre_strategy:
-        return "EXCEEDED"
-    if days_held is None:
-        return "Unknown"
-    if days_held > TIME_STOP_EXCEEDED_DAYS:
-        return "EXCEEDED"
-    if days_held >= TIME_STOP_APPROACHING_DAYS:
-        return "APPROACHING"
-    return "WITHIN"
+## compute_days_held and compute_time_stop are imported from shared_utils
 
 
 def classify_position(ticker, portfolio, pl_pct):

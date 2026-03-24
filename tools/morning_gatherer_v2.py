@@ -31,9 +31,10 @@ from wick_offset_analyzer import sizing_description
 from morning_gatherer import (
     run_tool, run_ticker_tools, load_portfolio,
     get_current_prices, get_watchlist_prices,
-    extract_days_to_earnings, compute_days_held, compute_time_stop,
+    extract_days_to_earnings,
     compute_bullets_used, format_price, cross_reference_fills,
 )
+from shared_utils import compute_days_held, compute_time_stop
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = PROJECT_ROOT / "morning-tools-raw.md"
