@@ -38,17 +38,18 @@ COVERAGE_GOOD_MIN = 8.0
 COVERAGE_GOOD_MAX = 25.0
 
 # Max points per criterion (must sum to 100)
-MAX_BULLETS_TIER = 20
-MAX_B1_PROXIMITY = 10
+MAX_BULLETS_TIER = 15
+MAX_B1_PROXIMITY = 5
 MAX_ZONE_COVERAGE = 15
-MAX_RESERVE_DEPTH = 10
+MAX_RESERVE_DEPTH = 5
 MAX_SWING = 10
-MAX_SECTOR_DIVERSITY = 15
+MAX_SECTOR_DIVERSITY = 10
 MAX_CYCLE_EFFICIENCY = 20
+MAX_HOLD_QUALITY = 20
 
 assert (MAX_BULLETS_TIER + MAX_B1_PROXIMITY + MAX_ZONE_COVERAGE +
         MAX_RESERVE_DEPTH + MAX_SWING + MAX_SECTOR_DIVERSITY +
-        MAX_CYCLE_EFFICIENCY) == 100, "Scoring constants must sum to 100"
+        MAX_CYCLE_EFFICIENCY + MAX_HOLD_QUALITY) == 100, "Scoring constants must sum to 100"
 
 # Criterion 4: Reserve thresholds
 RESERVE_MIN_HOLD = 30.0
@@ -84,7 +85,7 @@ KPI_PRICE_MAX = 30.0
 KPI_MIN_CYCLES = 5
 KPI_MIN_FILL_PCT = 85.0
 KPI_STRONG_HOLD_MIN = 50.0
-KPI_STRONG_LEVELS_MIN = 3
+KPI_STRONG_LEVELS_MIN = 2
 
 
 # ---------------------------------------------------------------------------
@@ -188,8 +189,9 @@ def evaluate_kpi_gates(passer, wick_data):
         "passed": fill_pct >= KPI_MIN_FILL_PCT,
     })
 
-    # Gate 8: Active levels with 50%+ hold rate >= 3
-    strong_levels = sum(1 for b in active if b.get("hold_rate", 0) >= KPI_STRONG_HOLD_MIN)
+    # Gate 8: Active levels with 50%+ hold rate (decayed) >= 2
+    strong_levels = sum(1 for b in active
+                        if b.get("decayed_hold_rate", b.get("hold_rate", 0)) >= KPI_STRONG_HOLD_MIN)
     gates.append({
         "name": f"Strong Levels (hold >= {KPI_STRONG_HOLD_MIN:.0f}%)",
         "threshold": f">= {KPI_STRONG_LEVELS_MIN}",
@@ -308,6 +310,39 @@ def score_swing(passer):
     if ratio < COMPRESSION_THRESHOLD:
         pts = max(0, pts - COMPRESSION_PENALTY)
     return pts
+
+
+def score_hold_quality(wick_data):
+    """Criterion 8: Hold Rate Quality (0-20).
+    Rewards tickers with multiple reliable support levels (decayed hold rate).
+    Uses decayed_hold_rate for recency weighting.
+    """
+    active = wick_data["bullet_plan"]["active"]
+
+    # Count reliable levels (decayed HR >= 50%)
+    reliable = sum(1 for b in active
+                   if b.get("decayed_hold_rate", b.get("hold_rate", 0)) >= 50)
+
+    # Floor level bonus (decayed HR >= 60%)
+    has_floor = any(b.get("decayed_hold_rate", b.get("hold_rate", 0)) >= 60
+                    for b in active)
+
+    # Scoring: 0-4 reliable levels -> 0-12 pts, floor bonus +8
+    if reliable >= 4:
+        pts = 12
+    elif reliable >= 3:
+        pts = 9
+    elif reliable >= 2:
+        pts = 6
+    elif reliable >= 1:
+        pts = 3
+    else:
+        pts = 0
+
+    if has_floor:
+        pts += 8
+
+    return min(pts, MAX_HOLD_QUALITY)
 
 
 def score_cycle_efficiency(cycle_timing):
@@ -636,6 +671,7 @@ def filter_and_score(data):
             "sector_diversity": score_sector_diversity(
                 ticker, passer.get("sector", "Unknown"), portfolio_ctx),
             "cycle_efficiency": score_cycle_efficiency(cycle_timing),
+            "hold_quality": score_hold_quality(wick),
         }
         total = sum(scores.values())
 

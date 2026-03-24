@@ -204,3 +204,110 @@ class TestSellTargetTiers:
     def test_none_capture(self):
         # Exceptional requires capture >= 50, but None capture should fall to fast
         assert self._classify(5, 2, None) == 8.0  # has cycles+speed, no capture → fast
+
+
+# ---------------------------------------------------------------------------
+# Hold rate quality scoring (surgical_filter)
+# ---------------------------------------------------------------------------
+
+from surgical_filter import score_hold_quality, MAX_HOLD_QUALITY
+
+
+class TestScoreHoldQuality:
+    """Test score_hold_quality from surgical_filter."""
+
+    def _wick(self, active_levels):
+        """Build minimal wick_data with active bullet levels."""
+        return {"bullet_plan": {"active": active_levels, "reserve": []}}
+
+    def _level(self, decayed_hr):
+        return {"decayed_hold_rate": decayed_hr, "hold_rate": decayed_hr}
+
+    def test_no_reliable_levels(self):
+        wick = self._wick([self._level(30), self._level(40)])
+        assert score_hold_quality(wick) == 0
+
+    def test_one_reliable(self):
+        wick = self._wick([self._level(50), self._level(30)])
+        assert score_hold_quality(wick) == 3  # 1 reliable, no floor
+
+    def test_two_reliable(self):
+        wick = self._wick([self._level(50), self._level(55)])
+        assert score_hold_quality(wick) == 6  # 2 reliable, no floor
+
+    def test_three_reliable(self):
+        wick = self._wick([self._level(50), self._level(55), self._level(52)])
+        assert score_hold_quality(wick) == 9
+
+    def test_four_reliable(self):
+        wick = self._wick([self._level(50), self._level(55), self._level(52), self._level(51)])
+        assert score_hold_quality(wick) == 12
+
+    def test_floor_bonus(self):
+        wick = self._wick([self._level(60)])
+        assert score_hold_quality(wick) == 3 + 8  # 1 reliable + floor
+
+    def test_max_score(self):
+        wick = self._wick([self._level(70), self._level(65), self._level(60), self._level(55)])
+        assert score_hold_quality(wick) == 20  # 12 + 8 = 20 = MAX
+
+    def test_empty_active(self):
+        wick = self._wick([])
+        assert score_hold_quality(wick) == 0
+
+    def test_fallback_to_hold_rate(self):
+        """When decayed_hold_rate missing, falls back to hold_rate."""
+        wick = self._wick([{"hold_rate": 55}])
+        assert score_hold_quality(wick) == 3  # 1 reliable, no floor
+
+    def test_floor_at_boundary(self):
+        wick = self._wick([self._level(59)])  # below 60% floor threshold
+        assert score_hold_quality(wick) == 3  # reliable but no floor bonus
+
+    def test_reliable_at_boundary(self):
+        wick = self._wick([self._level(49)])  # below 50% reliable threshold
+        assert score_hold_quality(wick) == 0
+
+
+# ---------------------------------------------------------------------------
+# Hold rate quality scoring (watchlist_fitness)
+# ---------------------------------------------------------------------------
+
+from watchlist_fitness import _score_hold_rate, HOLD_RATE_POINTS
+
+
+class TestFitnessHoldRate:
+    """Test _score_hold_rate from watchlist_fitness."""
+
+    def _level(self, zone, tier, decayed_hr):
+        return {"zone": zone, "effective_tier": tier, "decayed_hold_rate": decayed_hr}
+
+    def test_no_active_levels(self):
+        assert _score_hold_rate([]) == 0
+
+    def test_skip_tiers_excluded(self):
+        levels = [self._level("Active", "Skip", 60)]
+        assert _score_hold_rate(levels) == 0
+
+    def test_non_active_zones_excluded(self):
+        levels = [self._level("Buffer", "Full", 60)]
+        assert _score_hold_rate(levels) == 0
+
+    def test_one_reliable(self):
+        levels = [self._level("Active", "Full", 55)]
+        assert _score_hold_rate(levels) == 2
+
+    def test_two_reliable(self):
+        levels = [self._level("Active", "Full", 55), self._level("Active", "Std", 52)]
+        assert _score_hold_rate(levels) == 4
+
+    def test_three_reliable_plus_floor(self):
+        levels = [
+            self._level("Active", "Full", 65),
+            self._level("Active", "Std", 55),
+            self._level("Active", "Half", 50),
+        ]
+        assert _score_hold_rate(levels) == 6 + 4  # 3 reliable + floor = 10 = max
+
+    def test_max_is_hold_rate_points(self):
+        assert HOLD_RATE_POINTS == 10

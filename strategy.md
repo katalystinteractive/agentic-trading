@@ -198,6 +198,19 @@ Sell targets are graduated based on cycle performance data:
 - Upgrades suppressed during Risk-Off regime
 - Tiered exits optional: sell half at 6%, rest at upgraded target
 
+### Cycler Trait Scoring
+
+The strongest predictor of profitable cycling is hold rate quality at support levels:
+
+**Surgical Filter (20/100 pts):**
+- Reliable levels (decayed HR >=50%): 0->0, 1->3, 2->6, 3->9, 4+->12 pts
+- Floor level bonus (decayed HR >=60%): +8 pts
+- Uses decayed_hold_rate (90-day half-life) for recency weighting
+
+**Watchlist Fitness (10/100 pts):**
+- Reliable levels: 0->0, 1->2, 2->4, 3+->6 pts
+- Floor bonus: +4 pts
+
 ### Position Reporting Order
 When reporting on active positions, always present information in this sequence:
 1.  **Trades Executed:** List each individual fill (date, price, shares) from the agent's `memory.md` trade log.

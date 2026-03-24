@@ -550,6 +550,7 @@ def _compute_bullet_plan(level_results, current_price, cap=None):
             "support_price": round(float(r["level"]["price"]), 2),
             "buy_at": round(float(r["recommended_buy"]), 2),
             "hold_rate": round(float(r["hold_rate"]), 1),
+            "decayed_hold_rate": round(float(r["decayed_hold_rate"]), 1),
             "tier": r["effective_tier"],
             "raw_tier": r["tier"],
             "tier_promoted": r.get("tier_promoted", False),

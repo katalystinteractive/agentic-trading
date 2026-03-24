@@ -174,17 +174,35 @@ def _score_level_count(active_half_plus_count):
     return min(active_half_plus_count * 4, LEVEL_COUNT_POINTS)
 
 
-def _best_active_hold_rate(levels):
-    """Best hold rate among Active Half+ levels. Returns 0.0 if none exist."""
-    rates = []
+def _score_hold_rate(levels):
+    """Score based on count of reliable Active levels (decayed HR >= 50%) + floor bonus."""
+    reliable = 0
+    has_floor = False
     for lvl in levels:
-        if lvl.get("zone") == "Active" and lvl.get("effective_tier", lvl.get("tier")) in ("Half", "Std", "Full"):
-            rates.append(lvl.get("hold_rate", 0))
-    return max(rates) if rates else 0.0
+        if lvl.get("zone") != "Active":
+            continue
+        tier = lvl.get("effective_tier", lvl.get("tier"))
+        if tier == "Skip":
+            continue
+        hr = lvl.get("decayed_hold_rate", lvl.get("hold_rate", 0))
+        if hr >= 50:
+            reliable += 1
+        if hr >= 60:
+            has_floor = True
 
+    if reliable >= 3:
+        pts = 6
+    elif reliable >= 2:
+        pts = 4
+    elif reliable >= 1:
+        pts = 2
+    else:
+        pts = 0
 
-def _score_hold_rate(best_rate):
-    return min(int(best_rate / 10), HOLD_RATE_POINTS)
+    if has_floor:
+        pts += 4
+
+    return min(pts, HOLD_RATE_POINTS)
 
 
 def _score_order_hygiene(orphaned_count, all_active_above_price, has_non_paused_orders):
@@ -462,12 +480,11 @@ def _process_ticker(ticker, data, hist, portfolio):
 
     # Fitness scoring
     active_half_plus = _count_active_half_plus(levels)
-    best_hr = _best_active_hold_rate(levels)
 
     swing_pts = _score_swing(swing, compression_ratio)
     consistency_pts = _score_consistency(consistency)
     level_pts = _score_level_count(active_half_plus)
-    hr_pts = _score_hold_rate(best_hr)
+    hr_pts = _score_hold_rate(levels)
     hygiene_pts = _score_order_hygiene(
         order_info["orphaned"],
         order_info["all_above_price"],
@@ -479,7 +496,7 @@ def _process_ticker(ticker, data, hist, portfolio):
         "swing": {"value": swing, "recent": recent_swing, "ratio": round(compression_ratio, 2), "points": swing_pts, "max": SWING_POINTS},
         "consistency": {"value": consistency, "points": consistency_pts, "max": CONSISTENCY_POINTS},
         "level_quality": {"count": active_half_plus, "points": level_pts, "max": LEVEL_COUNT_POINTS},
-        "hold_rate": {"best": best_hr, "points": hr_pts, "max": HOLD_RATE_POINTS},
+        "hold_rate": {"points": hr_pts, "max": HOLD_RATE_POINTS},
         "order_hygiene": {"orphaned": order_info["orphaned"], "points": hygiene_pts, "max": ORDER_HYGIENE_POINTS},
         "cycle_efficiency": {"reason": cycle_reason, "points": cycle_pts, "max": CYCLE_EFFICIENCY_POINTS},
     }
