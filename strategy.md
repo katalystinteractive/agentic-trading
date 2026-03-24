@@ -224,7 +224,7 @@ No hard per-sector cap. Scoring uses diminishing-returns curve:
 | 16+ | 2 | Heavy — accepted at scale, min 2 pts |
 
 A strong cycler-profile candidate (20/20 hold quality) overcomes even the heaviest
-sector penalty (2/10) with a total score of 82+/100.
+sector penalty (2/10) with a total score of up to 92/100.
 
 ### Position Reporting Order
 When reporting on active positions, always present information in this sequence:
