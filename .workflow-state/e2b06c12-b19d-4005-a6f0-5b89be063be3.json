@@ -1,0 +1,110 @@
+{
+  "run_id": "e2b06c12-b19d-4005-a6f0-5b89be063be3",
+  "workflow_name": "surgical-candidate-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-21T14:10:12.060482+00:00",
+  "completed_at": "2026-02-21T14:37:27.308915+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nScreen, verify, and select surgical mean-reversion candidates for 2026-02-21. Rerun to test COMPLETE decision marker fix.",
+    "handoffs": {
+      "screen": "**Artifacts:** screening_data.md, candidate-evaluation.md\n**Gate passers:** 76 tickers passed surgical gates\n**Top 10 selected:** NNE (81), IREN (74), TMC (73), NTLA (72), DNA (67), BBAI (67), RGTI (63), RDW (63), HUT (60), OUST (60)\n\nReady for verification.",
+      "verify": "**Artifact:** `candidate-verification.md`\n\n**Results: 5 PASS / 5 FLAG / 0 FAIL**\n\n**Score range after adjustment: 56 (RDW) \u2013 81 (NNE)**\n\n| Ticker | Original | Adjusted | Verdict |\n| :--- | :--- | :--- | :--- |\n| NNE | 81 | **81** | PASS |\n| TMC | 73 | **75** | PASS (+2, swing% corrected) |\n| IREN | 74 | **69** | FLAG (50% active-to-reserve dead zone) |\n| NTLA | 72 | **71** | FLAG (B1 deteriorating, 1/5 recent) |\n| BBAI | 67 | **64** | FLAG ($2.41 reserve built on clustered data) |\n| DNA | 67 | **60** | FLAG (B1 has 0% hold in last 3 months, 0/8) |\n| RGTI | 63 | **63** | PASS |\n| RDW | 63 | **56** | FLAG (B1 failed 5 consecutive approaches since Oct 2025) |\n| HUT | 60 | **60** | PASS |\n| OUST | 60 | **60** | PASS |\n\n**Critical findings caught:**\n- **RDW** and **DNA** both have active-zone levels that have completely broken down in recent months \u2014 the screener's hold-rate claims are historically accurate but not reflective of current market behavior\n- **IREN** has a ~50% active-to-reserve dead zone that inflated its Reserve score\n- **TMC** was underscored on swing (61.6% actual vs 52.5% reported), bumping it to #1 by adjusted score (75)\n\nReady for final selection.",
+      "critic": "**Artifact:** `candidate-final.md`\n\n**Top 3:**\n1. **NNE** \u2014 91 \u2014 **Onboard** (Nuclear; new sector; 2 Full-tier active levels; B1 2.3% below current; stable recent holds)\n2. **TMC** \u2014 83 \u2014 **Onboard** (Materials; new sector; 5 active bullets at current price; 61.6% verified swing)\n3. **RGTI** \u2014 73 \u2014 **Onboard** (Quantum; all levels \u22656 approaches; B1 improving from 29%\u219267% recent; 0.8% to B1)\n\n**Key stress-test findings:**\n- **NTLA** dropped from verified #4 (71) to **Watch** (59) \u2014 B1 broke 4 of last 5 approaches including 2026-02-19 (two days ago). The level is actively deteriorating, not stable.\n- **RGTI** rose to #3 from #7 \u2014 maximum confidence modifier (+10) for improving recent hold rates and strong sample sizes across all levels.\n- **RDW and DNA eliminated** \u2014 both have active-zone levels that have completely broken down in the current market regime (0/5 and 0/8 respectively).\n- **IREN, BBAI, HUT** all blocked by portfolio concentration (3rd crypto / 4th AI) regardless of active-zone quality.\n\nScreening complete. Review `candidate-final.md` for onboarding decisions."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1
+  },
+  "phases": {
+    "screen": {
+      "phase_id": "screen",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-21T14:10:12.062928+00:00",
+      "completed_at": "2026-02-21T14:17:32.562386+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifacts:** screening_data.md, candidate-evaluation.md\n**Gate passers:** 76 tickers passed surgical gates\n**Top 10 selected:** NNE (81), IREN (74), TMC (73), NTLA (72), DNA (67), BBAI (67), RGTI (63), RDW (63), HUT (60), OUST (60)\n\nReady for verification.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":407819,\"duration_api_ms\":380740,\"num_turns\":23,\"result\":\"Screening and evaluation complete. Here's the summary:\\n\\n**76 tickers** passed all surgical gates. The top 20 received deep wick analysis (18/20 succeeded; RXRX and UPST returned no data). Each was scored on a 100-point scale across 6 criteria using only the script-generated data.\\n\\n**Top 10 selected:**\\n\\n| Rank | Ticker | Sector | Score |\\n| :--- | :--- | :--- | :--- |\\n| 1 | NNE | Nuclear | 81 |\\n| 2 | IREN | Crypto | 74 |\\n| 3 | TMC | Materials | 73 |\\n| 4 | NTLA | Biotech | 72 |\\n| 5 | DNA | Biotech | 67 |\\n| 6 | BBAI | AI | 67 |\\n| 7 | RGTI | Quantum | 63 |\\n| 8 | RDW | Space | 63 |\\n| 9 | HUT | Crypto | 60 |\\n| 10 | OUST | Tech | 60 |\\n\\nKey observations:\\n- **NNE** leads by a wide margin (81) \u2014 strong active bullets, new Nuclear sector, tight B1 proximity\\n- **New sectors** (Nuclear, Biotech, Materials) scored well on diversification\\n- **Crypto overlap** penalized IREN, HUT, and RIOT despite excellent wick data\\n- **SMR and HIMS** scored lowest (25, 24) \u2014 zero qualifying bullet levels despite high swings\\n\\n## Decision: CLEAN\\n\\n## HANDOFF\\n\\n**Artifacts:** screening_data.md, candidate-evaluation.md\\n**Gate passers:** 76 tickers passed surgical gates\\n**Top 10 selected:** NNE (81), IREN (74), TMC (73), NTLA (72), DNA (67), BBAI (67), RGTI (63), RDW (63), HUT (60), OUST (60)\\n\\nReady for verification.\",\"stop_reason\":null,\"session_id\":\"bd14155f-3ae6-4b78-ac4f-44ff2382c10e\",\"total_cost_usd\":2.18649625,\"usage\":{\"input_tokens\":19,\"cache_creation_input_tokens\":136051,\"cache_read_input_tokens\":1356007,\"output_tokens\":26272,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":136051,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-opus-4-6\":{\"inputTokens\":19,\"outputTokens\":26272,\"cacheReadInputTokens\":1356007,\"cacheCreationInputTokens\":136051,\"webSearchRequests\":0,\"costUSD\":2.18521725,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":1119,\"outputTokens\":32,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.001279,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"fd23313a-aa37-43c8-a81d-602d7a70f9b7\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "screening_data.md": "/Users/kamenkamenov/agentic-trading/screening_data.md",
+        "candidate-evaluation.md": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.md"
+      },
+      "metrics": {
+        "duration_seconds": 440.489972114563,
+        "token_usage": {
+          "input_tokens": 19,
+          "output_tokens": 26272,
+          "cache_read_tokens": 1356007,
+          "cache_write_tokens": 136051
+        },
+        "estimated_cost_usd": 1.31113,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "verify": {
+      "phase_id": "verify",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-21T14:17:32.566395+00:00",
+      "completed_at": "2026-02-21T14:29:41.964492+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** `candidate-verification.md`\n\n**Results: 5 PASS / 5 FLAG / 0 FAIL**\n\n**Score range after adjustment: 56 (RDW) \u2013 81 (NNE)**\n\n| Ticker | Original | Adjusted | Verdict |\n| :--- | :--- | :--- | :--- |\n| NNE | 81 | **81** | PASS |\n| TMC | 73 | **75** | PASS (+2, swing% corrected) |\n| IREN | 74 | **69** | FLAG (50% active-to-reserve dead zone) |\n| NTLA | 72 | **71** | FLAG (B1 deteriorating, 1/5 recent) |\n| BBAI | 67 | **64** | FLAG ($2.41 reserve built on clustered data) |\n| DNA | 67 | **60** | FLAG (B1 has 0% hold in last 3 months, 0/8) |\n| RGTI | 63 | **63** | PASS |\n| RDW | 63 | **56** | FLAG (B1 failed 5 consecutive approaches since Oct 2025) |\n| HUT | 60 | **60** | PASS |\n| OUST | 60 | **60** | PASS |\n\n**Critical findings caught:**\n- **RDW** and **DNA** both have active-zone levels that have completely broken down in recent months \u2014 the screener's hold-rate claims are historically accurate but not reflective of current market behavior\n- **IREN** has a ~50% active-to-reserve dead zone that inflated its Reserve score\n- **TMC** was underscored on swing (61.6% actual vs 52.5% reported), bumping it to #1 by adjusted score (75)\n\nReady for final selection.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":697238,\"duration_api_ms\":694765,\"num_turns\":31,\"result\":\"Verification complete. Here is the summary of findings:\\n\\n## HANDOFF\\n\\n**Artifact:** `candidate-verification.md`\\n\\n**Results: 5 PASS / 5 FLAG / 0 FAIL**\\n\\n**Score range after adjustment: 56 (RDW) \u2013 81 (NNE)**\\n\\n| Ticker | Original | Adjusted | Verdict |\\n| :--- | :--- | :--- | :--- |\\n| NNE | 81 | **81** | PASS |\\n| TMC | 73 | **75** | PASS (+2, swing% corrected) |\\n| IREN | 74 | **69** | FLAG (50% active-to-reserve dead zone) |\\n| NTLA | 72 | **71** | FLAG (B1 deteriorating, 1/5 recent) |\\n| BBAI | 67 | **64** | FLAG ($2.41 reserve built on clustered data) |\\n| DNA | 67 | **60** | FLAG (B1 has 0% hold in last 3 months, 0/8) |\\n| RGTI | 63 | **63** | PASS |\\n| RDW | 63 | **56** | FLAG (B1 failed 5 consecutive approaches since Oct 2025) |\\n| HUT | 60 | **60** | PASS |\\n| OUST | 60 | **60** | PASS |\\n\\n**Critical findings caught:**\\n- **RDW** and **DNA** both have active-zone levels that have completely broken down in recent months \u2014 the screener's hold-rate claims are historically accurate but not reflective of current market behavior\\n- **IREN** has a ~50% active-to-reserve dead zone that inflated its Reserve score\\n- **TMC** was underscored on swing (61.6% actual vs 52.5% reported), bumping it to #1 by adjusted score (75)\\n\\nReady for final selection.\\n\\n## Decision: COMPLETE\",\"stop_reason\":null,\"session_id\":\"303bf124-9cc6-457e-82ca-c0b164fbeac4\",\"total_cost_usd\":2.36503925,\"usage\":{\"input_tokens\":20,\"cache_creation_input_tokens\":110483,\"cache_read_input_tokens\":1290541,\"output_tokens\":41166,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":110483,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":20,\"outputTokens\":41166,\"cacheReadInputTokens\":1290541,\"cacheCreationInputTokens\":110483,\"webSearchRequests\":0,\"costUSD\":2.36503925,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"ed7f0e46-0572-452a-9af2-90dafc9ae788\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-verification.md": "/Users/kamenkamenov/agentic-trading/candidate-verification.md"
+      },
+      "metrics": {
+        "duration_seconds": 729.3947060108185,
+        "token_usage": {
+          "input_tokens": 20,
+          "output_tokens": 41166,
+          "cache_read_tokens": 1290541,
+          "cache_write_tokens": 110483
+        },
+        "estimated_cost_usd": 1.419024,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "critic": {
+      "phase_id": "critic",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-21T14:29:41.969553+00:00",
+      "completed_at": "2026-02-21T14:37:27.301339+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** `candidate-final.md`\n\n**Top 3:**\n1. **NNE** \u2014 91 \u2014 **Onboard** (Nuclear; new sector; 2 Full-tier active levels; B1 2.3% below current; stable recent holds)\n2. **TMC** \u2014 83 \u2014 **Onboard** (Materials; new sector; 5 active bullets at current price; 61.6% verified swing)\n3. **RGTI** \u2014 73 \u2014 **Onboard** (Quantum; all levels \u22656 approaches; B1 improving from 29%\u219267% recent; 0.8% to B1)\n\n**Key stress-test findings:**\n- **NTLA** dropped from verified #4 (71) to **Watch** (59) \u2014 B1 broke 4 of last 5 approaches including 2026-02-19 (two days ago). The level is actively deteriorating, not stable.\n- **RGTI** rose to #3 from #7 \u2014 maximum confidence modifier (+10) for improving recent hold rates and strong sample sizes across all levels.\n- **RDW and DNA eliminated** \u2014 both have active-zone levels that have completely broken down in the current market regime (0/5 and 0/8 respectively).\n- **IREN, BBAI, HUT** all blocked by portfolio concentration (3rd crypto / 4th AI) regardless of active-zone quality.\n\nScreening complete. Review `candidate-final.md` for onboarding decisions.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":432750,\"duration_api_ms\":431352,\"num_turns\":8,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifact:** `candidate-final.md`\\n\\n**Top 3:**\\n1. **NNE** \u2014 91 \u2014 **Onboard** (Nuclear; new sector; 2 Full-tier active levels; B1 2.3% below current; stable recent holds)\\n2. **TMC** \u2014 83 \u2014 **Onboard** (Materials; new sector; 5 active bullets at current price; 61.6% verified swing)\\n3. **RGTI** \u2014 73 \u2014 **Onboard** (Quantum; all levels \u22656 approaches; B1 improving from 29%\u219267% recent; 0.8% to B1)\\n\\n**Key stress-test findings:**\\n- **NTLA** dropped from verified #4 (71) to **Watch** (59) \u2014 B1 broke 4 of last 5 approaches including 2026-02-19 (two days ago). The level is actively deteriorating, not stable.\\n- **RGTI** rose to #3 from #7 \u2014 maximum confidence modifier (+10) for improving recent hold rates and strong sample sizes across all levels.\\n- **RDW and DNA eliminated** \u2014 both have active-zone levels that have completely broken down in the current market regime (0/5 and 0/8 respectively).\\n- **IREN, BBAI, HUT** all blocked by portfolio concentration (3rd crypto / 4th AI) regardless of active-zone quality.\\n\\nScreening complete. Review `candidate-final.md` for onboarding decisions.\",\"stop_reason\":null,\"session_id\":\"103e29b6-b820-41f0-8ede-40869d4b4177\",\"total_cost_usd\":1.1016644999999998,\"usage\":{\"input_tokens\":7,\"cache_creation_input_tokens\":64532,\"cache_read_input_tokens\":251359,\"output_tokens\":22905,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":64532,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":7,\"outputTokens\":22905,\"cacheReadInputTokens\":251359,\"cacheCreationInputTokens\":64532,\"webSearchRequests\":0,\"costUSD\":1.1016644999999998,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"58142fef-2a61-475f-aea3-df0bfc0b8cae\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-final.md": "/Users/kamenkamenov/agentic-trading/candidate-final.md"
+      },
+      "metrics": {
+        "duration_seconds": 465.3269670009613,
+        "token_usage": {
+          "input_tokens": 7,
+          "output_tokens": 22905,
+          "cache_read_tokens": 251359,
+          "cache_write_tokens": 64532
+        },
+        "estimated_cost_usd": 0.660999,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-21T14:37:27.309109+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/surgical-candidate-workflow.yaml",
+    "workflowHash": "6504e3a4704c0ae6"
+  }
+}

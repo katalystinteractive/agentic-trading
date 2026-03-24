@@ -3,40 +3,45 @@
 ## Global Context
 | Metric | Value |
 | :--- | :--- |
-| Date | 2026-03-08 |
-| Regime | Risk-Off |
-| Regime Detail | 0/3 indices above 50-SMA, VIX 29.5 (elevated) |
-| VIX | 29.49 |
-| VIX 5D% | +48.49% |
+| Date | 2026-03-16 |
+| Regime | Neutral |
+| Regime Detail | 0/3 indices above 50-SMA, VIX 24.2 |
+| VIX | 24.19 |
+| VIX 5D% | -5.14% |
 | Indices Above 50-SMA | 0/3 |
-| Sector Breadth | 2/11 positive |
+| Sector Breadth | 11/11 positive |
+| Data Freshness | 2026-03-16 close |
+| Trading Day | Yes |
 
 ## Portfolio Summary
 | Ticker | Shares | Avg Cost | P/L % |
 | :--- | :--- | :--- | :--- |
-| NU | 30 | $15.85 | -8.0% |
+| NU | 30 | $15.85 | -10.3% |
 | STIM | 0 | $0.00 | +inf% |
-| IONQ | 15 | $44.43 | -19.6% |
-| LUNR | 1 | $17.61 | +0.1% |
-| USAR | 15 | $21.57 | -19.1% |
-| OUST | 5 | $21.70 | -6.6% |
+| IONQ | 15 | $44.43 | -26.0% |
+| LUNR | 2 | $17.59 | -2.7% |
+| USAR | 15 | $21.57 | -11.3% |
+| OUST | 0 | $0.00 | +inf% |
 | INTC | 0 | $0.00 | +inf% |
-| APLD | 15 | $29.06 | -13.5% |
+| APLD | 15 | $29.06 | -4.9% |
 | SMCI | 0 | $0.00 | +inf% |
-| TMC | 38 | $6.00 | -4.5% |
-| CIFR | 11 | $14.62 | -6.8% |
-| ARM | 4 | $120.88 | -5.4% |
-| ACHR | 61 | $6.78 | -7.7% |
-| TEM | 0 | $0.00 | +inf% |
-| CLSK | 7 | $10.17 | -9.4% |
-| CLF | 21 | $10.26 | -4.2% |
+| TMC | 9 | $6.01 | -0.5% |
+| CIFR | 0 | $0.00 | +inf% |
+| ARM | 5 | $118.96 | +2.3% |
+| ACHR | 77 | $6.61 | -9.0% |
+| TEM | 1 | $50.98 | -1.0% |
+| CLSK | 0 | $0.00 | +inf% |
+| CLF | 47 | $9.39 | -9.2% |
 | BBAI | 0 | $0.00 | +inf% |
-| NNE | 6 | $24.19 | -2.7% |
+| NNE | 10 | $23.87 | -10.9% |
+| RUN | 0 | $0.00 | +inf% |
+| SOUN | 15 | $7.36 | +3.1% |
+| OKLO | 1 | $58.04 | +1.5% |
 
 ## Capital
 | Metric | Value |
 | :--- | :--- |
-| Deployed | $3,745.22 |
+| Deployed | $3,993.89 |
 | Velocity Pool | $1,000.00 |
 | Bounce Pool | $1,000.00 |
 
@@ -45,10 +50,10 @@
 | :--- | :--- |
 | Shares | 15 |
 | Avg Cost | $29.06 |
-| Current Price | $25.14 |
-| P/L % | -13.5% |
+| Current Price | $27.64 |
+| P/L % | -4.9% |
 | Entry Date | 2026-02-17 |
-| Days Held | 19 |
+| Days Held | 27 |
 | Time Stop Status | WITHIN |
 | Bullets Used | 5/5 |
 | Target Exit | $38.00 |
@@ -57,20 +62,29 @@
 ## Day Range
 | Metric | Value |
 | :--- | :--- |
-| Day Low | $25.07 |
-| Day High | $28.41 |
+| Day Low | $27.38 |
+| Day High | $29.06 |
+
+## Recorded Fills
+| # | Fill Price |
+| :--- | :--- |
+| 1 | $32.47 |
+| 2 | $31.21 |
+| 3 | $30.02 |
+| 4 | $29.49 |
+| 5 | $27.71 |
 
 ## Pending Orders
-| Type | Order Price | Shares | % Below Current | Days to Earnings | Notes |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| SELL | $38.00 | 15 | N/A | 32 | Target ~25% — $37.60-$38.76 HVN resistance zone |
-| BUY | $21.93 | 4 | 42.3% | 32 | Reserve 2 — $20.55 PA, 33% hold, Std tier, wick-adjusted |
+| Type | Order Price | Shares | % Below Current | Days to Earnings | Status | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| SELL | $38.00 | 15 | N/A | 24 |  | Target ~25% — $37.60-$38.76 HVN resistance zone |
+| BUY | $21.93 | 2 | 42.3% | 24 |  | Reserve 2 — $20.55 PA, 33% hold, Std tier, wick-adjusted (resized 2026-03-13) |
 
 ## Tool Outputs
 #### Earnings
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## Earnings Analysis: Applied Digital Corporation (APLD)
 
@@ -78,15 +92,15 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-04-09 |
-| Days Until | 32 |
+| Days Until | 24 |
 | EPS Estimate | $-0.21 |
 | Revenue Estimate | $78.5M |
-| Earnings Rule | Clear (>32d out) |
+| Earnings Rule | Clear (>24d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.12 | $-0.07 | 43.2% | +8.1% | +22.1% | Strong Bull |
+| Q1 2026 | $-0.21 | N/A | 100.0% | +8.1% | +22.1% | Strong Bull |
 | Q4 2025 | $-0.15 | $-0.03 | 80.7% | +16.0% | +25.1% | Strong Bull |
 | ... | *[trimmed — see morning-briefing-raw.md]* | | | | | |
 
@@ -99,51 +113,51 @@
 
 #### Technical Signals
 ## Technical Scan: Applied Digital Corporation (APLD)
-**Current Price: $25.14** | Date: 2026-03-06
+**Current Price: $27.61** | Date: 2026-03-16
 
 ### Trend Indicators
 | Indicator | Value | Price Position | Signal |
 | :--- | :--- | :--- | :--- |
-| SMA 20 | $31.32 | Below | Bearish |
-| SMA 50 | $32.21 | Below | Bearish |
-| SMA 200 | $22.68 | Above | Bullish |
-| EMA 9 | $28.04 | Below | Bearish |
-| EMA 21 | $30.17 | Below | Bearish |
+| SMA 20 | $28.64 | Below | Bearish |
+| SMA 50 | $32.53 | Below | Bearish |
+| SMA 200 | $23.29 | Above | Bullish |
+| EMA 9 | $27.65 | Below | Bearish |
+| EMA 21 | $29.01 | Below | Bearish |
 
 ### Momentum Indicators
 | Indicator | Value | Zone | Signal |
 | :--- | :--- | :--- | :--- |
-| RSI (14) | 37.5 | Bearish zone | Neutral-Bear |
-| MACD | -1.914 | Below signal | Bearish |
-| MACD Signal | -1.346 | Histogram: -0.567 | — |
-| Stochastic %K/%D | 0.7/17.1 | Oversold | Bearish |
+| RSI (14) | 44.7 | Bearish zone | Neutral-Bear |
+| MACD | -1.519 | Above signal | Bullish |
+| MACD Signal | -1.573 | Histogram: +0.054 | — |
+| Stochastic %K/%D | 44.0/40.9 | Neutral | Bullish |
 
 ### Volatility
 | Indicator | Value | Position | Signal |
 | :--- | :--- | :--- | :--- |
-| Bollinger Upper | $39.29 | 11% of band | Neutral |
-| Bollinger Lower | $23.35 | Width: $15.94 | — |
-| ATR (14) | $2.47 (9.8%) | High volatility | — |
+| Bollinger Upper | $32.73 | 37% of band | Neutral |
+| Bollinger Lower | $24.54 | Width: $8.19 | — |
+| ATR (14) | $2.31 (8.4%) | High volatility | — |
 
 ### Key Support/Resistance Levels
 | Level | Price | Type | Touches | Last Tested |
 | :--- | :--- | :--- | :--- | :--- |
-| Support | $27.62 (+9.9%) | Support | 1 | 2026-02-05 |
-| Support | $21.93 (-12.8%) | Support | 1 | 2025-12-17 |
-| Support | $19.00 (-24.4%) | Support | 1 | 2025-11-21 |
-| Resistance | $15.42 (-38.7%) | Resistance | 1 | 2025-06-06 |
-| Resistance | $34.86 (+38.7%) | Resistance | 1 | 2025-12-09 |
-| Support | $13.16 (-47.7%) | Support | 1 | 2025-09-08 |
-| Resistance | $40.20 (+59.9%) | Resistance | 1 | 2025-10-16 |
-| Support | $9.02 (-64.1%) | Support | 1 | 2025-07-11 |
+| Support | $27.62 (+0.0%) | Support | 1 | 2026-02-05 |
+| Support | $21.93 (-20.6%) | Support | 1 | 2025-12-17 |
+| Resistance | $34.86 (+26.3%) | Resistance | 1 | 2025-12-09 |
+| Support | $19.00 (-31.2%) | Support | 1 | 2025-11-21 |
+| Resistance | $15.42 (-44.2%) | Resistance | 1 | 2025-06-06 |
+| Resistance | $40.20 (+45.6%) | Resistance | 1 | 2025-10-16 |
+| Support | $13.16 (-52.3%) | Support | 1 | 2025-09-08 |
+| Resistance | $42.27 (+53.1%) | Resistance | 1 | 2026-01-28 |
 
 ### Signal Summary
 | Metric | Value |
 | :--- | :--- |
-| Overall Signal | **Bearish** |
-| Score | -4 |
-| Bullish Factors | Above SMA 200 |
-| Bearish Factors | Below SMA 20, Below SMA 50, Below EMA 9, Below EMA 21, MACD bearish |
+| Overall Signal | **Neutral-Bearish** |
+| Score | -2 |
+| Bullish Factors | Above SMA 200, MACD bullish |
+| Bearish Factors | Below SMA 20, Below SMA 50, Below EMA 9, Below EMA 21 |
 
 #### Short Interest
 ## Short Interest Analysis
@@ -151,20 +165,20 @@
 ### Short Interest Summary
 | Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
 | :--- | :--- | :--- | :--- | :--- |
-| APLD | 80.34M | 2.46 | 31.25% | -6.9% (decreasing) |
+| APLD | 79.02M | 3.04 | 30.74% | -8.7% (decreasing) |
 
 ### Squeeze Risk Assessment
 | Ticker | Risk Rating | Score (/100) | Key Factors |
 | :--- | :--- | :--- | :--- |
-| APLD | HIGH | 60 | Very high short% (31.2%); Low DTC (2.5) |
+| APLD | HIGH | 70 | Very high short% (30.7%); Moderate DTC (3.0) |
 
 ### Context
 | Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
 | :--- | :--- | :--- | :--- | :--- |
-| APLD | 236.11M | 279.59M | 29.77M | 2.5 |
+| APLD | 236.11M | 279.59M | 28.77M | 3.0 |
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## News & Sentiment: Applied Digital Corporation (APLD)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -176,45 +190,46 @@
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 11 (37%) |
-| Neutral | 16 (53%) |
-| Negative | 3 (10%) |
-| Average Score | +0.084 |
+| Positive | 8 (27%) |
+| Neutral | 13 (43%) |
+| Negative | 9 (30%) |
+| Average Score | +0.018 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 185 |
+| Total Unique Headlines | 189 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 3 | 43,342 Shares in Applied Digital Corpora..; Applied Digital (NASDAQ:APLD) Shares Up .. |
-| Regulatory | 3 | This Small-Cap Manager Just Sold Its Ent..; Applied Digital Announces Pricing of $2... |
-| Equity | 2 | Applied Digital (APLD) Prices $2.15B Pri..; Applied Digital's Subsidiary Prices $2.1.. |
+| Earnings | 3 | Applied Digital (NASDAQ:APLD) Shares Gap..; Applied Digital (NASDAQ:APLD) Trading Do.. |
+| Short | 3 | 15 Stocks With the Most Short Squeeze Po..; 15 Stocks With the Most Short Squeeze Po.. |
+| Equity | 1 | Applied Digital’s US$16b AI Leases Raise.. |
+| Analyst | 1 | Applied Digital: The Bull Case Requires .. |
 
 ### Deep Dive Articles
 
-#### Applied Digital (APLD) Prices $2.15B Private Offering for North Dakota AI Factory
-*Source: Insider Monkey | Date: 2026-03-06 | Sentiment: Positive (+0.96)*
-**Catalysts:** Regulatory, Equity, Short
+#### 15 Stocks With the Most Short Squeeze Potential
+*Source: Schaeffer's Research | Date: 2026-03-12 | Sentiment: Positive (+0.45)*
+**Catalysts:** Regulatory, Short
 
-#### Can IREN's GPU Expansion Drive $3.7B AI Cloud ARR by 2026?
-*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+0.98)*
-**Catalysts:** Earnings, Regulatory
+#### APLD Rises 58% in 6 Months: Three Key Reasons to Hold the Stock Now
+*Source: Zacks | Date: 2026-03-10 | Sentiment: Positive (+1.00)*
+**Catalysts:** Earnings, Regulatory, Equity, Analyst
 
-#### Roth Capital and Citizens Stay Bullish on Applied Digital Corporation (APLD)
-*Source: Insider Monkey | Date: 2026-03-04 | Sentiment: Positive (+0.94)*
-**Catalysts:** Analyst
+#### Can APLD's Multi-Gigawatt Pipeline Drive Further Upside for the Stock?
+*Source: Zacks | Date: 2026-03-09 | Sentiment: Positive (+0.99)*
+**Catalysts:** Earnings, Regulatory, Corporate, Analyst
 
-#### Applied Digital Prices $2.15 Billion Debt Deal To Build Massive AI Campus
-*Source: Benzinga | Date: 2026-03-04 | Sentiment: Positive (+0.90)*
-**Catalysts:** Regulatory, Equity
+#### IREN Limited Rises 22% in 6 Months: Buy, Sell or Hold the Stock?
+*Source: Zacks | Date: 2026-03-09 | Sentiment: Positive (+0.97)*
+**Catalysts:** Earnings, Regulatory, Analyst
 
-#### Babcock & Wilcox Rockets On $2.4 Billion AI Data Center Project, Reports Q4 Results
-*Source: Benzinga | Date: 2026-03-04 | Sentiment: Positive (+0.92)*
-**Catalysts:** None
+#### Oracle Leads Data Center Stocks as Applied Digital and CoreWeave Sink
+*Source: 24/7 Wall St. | Date: 2026-03-09 | Sentiment: Positive (+0.97)*
+**Catalysts:** Earnings, Shareholder, Analyst
 
 ---
 
-**Position Snapshot:** 15 shares @ $29.06, current $25.14, P/L -13.5% ($-58.80)
+**Position Snapshot:** 15 shares @ $29.06, current $27.64, P/L -4.9% ($-21.30)
 
 **Identity:** *   **Cycle:** TBD — insufficient data under strategy tracking. Monitor for monthly pattern emergence.
 *   Resistance: $42.27 (recent high, Feb 2), $38.00 (prior swing).
@@ -246,6 +261,6 @@
 *Note: 1 Active level(s) excluded — buy price at or above current price: $26.07*
 *Bullet plan is a suggestion — adjust based on cycle timing and position.*
 
-**Knowledge:** 2 trades, 1 observation. Top: Bullet 5 filled at $27.71 (3 shares). Now 11 shares @ $30.39 avg. All 5 active b... (0.59)
+**Knowledge:** 2 trades, 1 observation. Top: Bullet 5 filled at $27.71 (3 shares). Now 11 shares @ $30.39 avg. All 5 active b... (0.54)
 
 ---

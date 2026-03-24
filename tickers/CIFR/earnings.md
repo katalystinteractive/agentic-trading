@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-18 09:22*
 
 ## Earnings Analysis: Cipher Digital Inc. (CIFR)
 
@@ -6,10 +6,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-05 |
-| Days Until | 58 |
+| Days Until | 48 |
 | EPS Estimate | $-0.11 |
-| Revenue Estimate | $35.5M |
-| Earnings Rule | Clear (>58d out) |
+| Revenue Estimate | $36.3M |
+| Earnings Rule | Clear (>48d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |

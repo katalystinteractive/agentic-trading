@@ -1,0 +1,602 @@
+{
+  "date": "2026-03-17",
+  "candidates": [
+    {
+      "ticker": "CLF",
+      "score": 65,
+      "verdict": "RESET-POSSIBLE",
+      "data_as_of": "2026-03-17",
+      "stability": "STABLE",
+      "swing_20d": 37.8,
+      "exit_reachable": true,
+      "risk_overall": "HIGH",
+      "metrics": {
+        "current_price": 8.3100004196167,
+        "low_20d": 8.3100004196167,
+        "high_20d": 11.449999809265137,
+        "median_20d": 10.570000171661377,
+        "high_20d_p75": 10.944999694824219,
+        "swing_20d": 37.8,
+        "median_40d": 10.940000057220459,
+        "convergence": 3.4,
+        "sma200": 11.250850031375885,
+        "sma200_dist": -26.1,
+        "sma20_slope": -13.7
+      },
+      "position": {
+        "shares": 57,
+        "avg_cost": 9.24,
+        "current_price": 8.3100004196167,
+        "pnl_pct": -10.1,
+        "pnl_dollar": -53.01,
+        "bullets_used": 6,
+        "target_exit": null,
+        "pre_strategy": false
+      },
+      "scenarios": [
+        {
+          "support_price": 8.25,
+          "buy_at": 8.39,
+          "hold_rate": 75.0,
+          "tier": "Full",
+          "shares": 35,
+          "cost": 293.65,
+          "new_avg": 8.92,
+          "exit_6pct": 9.46,
+          "reachable": true,
+          "conflict": null,
+          "range_class": "in-range",
+          "source": "PA"
+        }
+      ],
+      "sell_recs": [
+        {
+          "price": 9.35,
+          "shares": 46,
+          "basis": "PA resistance, 33% reject, near Conservative (4.5%)"
+        },
+        {
+          "price": 9.617,
+          "shares": 46,
+          "basis": "HVN+PA resistance, 33% reject, near Aggressive (7.5%)"
+        }
+      ],
+      "reserve_committed": 0.0,
+      "pool_budget": 300.0,
+      "total_levels": 5,
+      "in_range_count": 1,
+      "above_range_count": 0,
+      "risk_components": {
+        "stability": {
+          "rating": "LOW",
+          "detail": "3.4% convergence"
+        },
+        "capital": {
+          "rating": "HIGH",
+          "detail": "$294 = 98% of pool"
+        },
+        "max_drawdown": {
+          "rating": "LOW",
+          "detail": "$59 at risk"
+        },
+        "sma200": {
+          "rating": "HIGH",
+          "detail": "-26.1%"
+        },
+        "consolidation": {
+          "rating": "HIGH",
+          "detail": "slope -13.7%/10d"
+        }
+      }
+    },
+    {
+      "ticker": "USAR",
+      "score": 60,
+      "verdict": "RESET-POSSIBLE",
+      "data_as_of": "2026-03-17",
+      "stability": "STABLE",
+      "swing_20d": 27.5,
+      "exit_reachable": true,
+      "risk_overall": "HIGH",
+      "metrics": {
+        "current_price": 19.55500030517578,
+        "low_20d": 16.81999969482422,
+        "high_20d": 21.44499969482422,
+        "median_20d": 19.4399995803833,
+        "high_20d_p75": 20.581249713897705,
+        "swing_20d": 27.5,
+        "median_40d": 20.104999542236328,
+        "convergence": 3.3,
+        "sma200": 17.012650055885317,
+        "sma200_dist": 14.9,
+        "sma20_slope": -5.5
+      },
+      "position": {
+        "shares": 15,
+        "avg_cost": 21.57,
+        "current_price": 19.55500030517578,
+        "pnl_pct": -9.3,
+        "pnl_dollar": -30.22,
+        "bullets_used": "3 active (pre-strategy)",
+        "target_exit": 23.05,
+        "pre_strategy": true
+      },
+      "scenarios": [
+        {
+          "support_price": 16.5287,
+          "buy_at": 16.97,
+          "hold_rate": 18.2,
+          "tier": "Std",
+          "shares": 7,
+          "cost": 118.79,
+          "new_avg": 20.11,
+          "exit_6pct": 21.32,
+          "reachable": false,
+          "conflict": null,
+          "range_class": "in-range",
+          "source": "HVN+PA"
+        },
+        {
+          "support_price": 16.05,
+          "buy_at": 16.97,
+          "hold_rate": 18.2,
+          "tier": "Std",
+          "shares": 7,
+          "cost": 118.79,
+          "new_avg": 19.35,
+          "exit_6pct": 20.51,
+          "reachable": true,
+          "conflict": null,
+          "range_class": "in-range",
+          "source": "PA"
+        },
+        {
+          "support_price": 15.08,
+          "buy_at": 15.48,
+          "hold_rate": 21.4,
+          "tier": "Half",
+          "shares": 4,
+          "cost": 61.92,
+          "new_avg": 18.88,
+          "exit_6pct": 20.01,
+          "reachable": true,
+          "conflict": null,
+          "range_class": "near-range",
+          "source": "PA"
+        }
+      ],
+      "sell_recs": [
+        {
+          "price": 20.243,
+          "shares": 33,
+          "basis": "HVN+PA resistance, 67% reject, near Aggressive (7.5%)"
+        }
+      ],
+      "reserve_committed": 0.0,
+      "pool_budget": 300.0,
+      "total_levels": 23,
+      "in_range_count": 3,
+      "above_range_count": 0,
+      "risk_components": {
+        "stability": {
+          "rating": "LOW",
+          "detail": "3.3% convergence"
+        },
+        "capital": {
+          "rating": "HIGH",
+          "detail": "$300 = 100% of pool"
+        },
+        "max_drawdown": {
+          "rating": "LOW",
+          "detail": "$60 at risk"
+        },
+        "sma200": {
+          "rating": "LOW",
+          "detail": "+14.9%"
+        },
+        "consolidation": {
+          "rating": "HIGH",
+          "detail": "slope -5.5%/10d"
+        }
+      }
+    },
+    {
+      "ticker": "ACHR",
+      "score": 60,
+      "verdict": "RESET-POSSIBLE",
+      "data_as_of": "2026-03-17",
+      "stability": "STABLE",
+      "swing_20d": 26.6,
+      "exit_reachable": true,
+      "risk_overall": "HIGH",
+      "metrics": {
+        "current_price": 6.204999923706055,
+        "low_20d": 5.965000152587891,
+        "high_20d": 7.550000190734863,
+        "median_20d": 6.740000009536743,
+        "high_20d_p75": 7.272500038146973,
+        "swing_20d": 26.6,
+        "median_40d": 7.009999990463257,
+        "convergence": 3.9,
+        "sma200": 9.168974990844726,
+        "sma200_dist": -32.3,
+        "sma20_slope": -4.6
+      },
+      "position": {
+        "shares": 92,
+        "avg_cost": 6.53,
+        "current_price": 6.204999923706055,
+        "pnl_pct": -5.0,
+        "pnl_dollar": -29.9,
+        "bullets_used": "5 active + R1",
+        "target_exit": null,
+        "pre_strategy": false
+      },
+      "scenarios": [
+        {
+          "support_price": 5.965,
+          "buy_at": 6.16,
+          "hold_rate": 66.7,
+          "tier": "Full",
+          "shares": 48,
+          "cost": 295.68,
+          "new_avg": 6.4,
+          "exit_6pct": 6.78,
+          "reachable": true,
+          "conflict": null,
+          "range_class": "in-range",
+          "source": "PA"
+        }
+      ],
+      "sell_recs": [
+        {
+          "price": 6.78,
+          "shares": 140,
+          "basis": "Math Standard (6.0%) \u2014 resistance levels too weak to recommend"
+        }
+      ],
+      "reserve_committed": 0.0,
+      "pool_budget": 300.0,
+      "total_levels": 1,
+      "in_range_count": 1,
+      "above_range_count": 0,
+      "risk_components": {
+        "stability": {
+          "rating": "LOW",
+          "detail": "3.9% convergence"
+        },
+        "capital": {
+          "rating": "HIGH",
+          "detail": "$296 = 99% of pool"
+        },
+        "max_drawdown": {
+          "rating": "LOW",
+          "detail": "$59 at risk"
+        },
+        "sma200": {
+          "rating": "HIGH",
+          "detail": "-32.3%"
+        },
+        "consolidation": {
+          "rating": "HIGH",
+          "detail": "slope -4.6%/10d"
+        }
+      }
+    },
+    {
+      "ticker": "NNE",
+      "score": 55,
+      "verdict": "RESET-POSSIBLE",
+      "data_as_of": "2026-03-17",
+      "stability": "SETTLING",
+      "swing_20d": 36.2,
+      "exit_reachable": true,
+      "risk_overall": "HIGH",
+      "metrics": {
+        "current_price": 21.885000228881836,
+        "low_20d": 20.75,
+        "high_20d": 28.270000457763672,
+        "median_20d": 24.899999618530273,
+        "high_20d_p75": 26.956499099731445,
+        "swing_20d": 36.2,
+        "median_40d": 26.260000228881836,
+        "convergence": 5.2,
+        "sma200": 34.371625175476076,
+        "sma200_dist": -36.3,
+        "sma20_slope": -5.8
+      },
+      "position": {
+        "shares": 14,
+        "avg_cost": 23.18,
+        "current_price": 21.885000228881836,
+        "pnl_pct": -5.6,
+        "pnl_dollar": -18.13,
+        "bullets_used": 6,
+        "target_exit": null,
+        "pre_strategy": false
+      },
+      "scenarios": [
+        {
+          "support_price": 21.31,
+          "buy_at": 22.06,
+          "hold_rate": 25.0,
+          "tier": "Std",
+          "shares": 4,
+          "cost": 88.24,
+          "new_avg": 22.93,
+          "exit_6pct": 24.31,
+          "reachable": true,
+          "conflict": null,
+          "range_class": "in-range",
+          "source": "PA"
+        },
+        {
+          "support_price": 20.12,
+          "buy_at": 20.5,
+          "hold_rate": 75.0,
+          "tier": "Full",
+          "shares": 6,
+          "cost": 123.0,
+          "new_avg": 22.32,
+          "exit_6pct": 23.66,
+          "reachable": true,
+          "conflict": null,
+          "range_class": "near-range",
+          "source": "PA"
+        },
+        {
+          "support_price": 18.81,
+          "buy_at": 19.28,
+          "hold_rate": 66.7,
+          "tier": "Full",
+          "shares": 4,
+          "cost": 77.12,
+          "new_avg": 21.89,
+          "exit_6pct": 23.2,
+          "reachable": true,
+          "conflict": null,
+          "range_class": "near-range",
+          "source": "PA"
+        }
+      ],
+      "sell_recs": [
+        {
+          "price": 23.2,
+          "shares": 28,
+          "basis": "Math Standard (6.0%) \u2014 resistance levels too weak to recommend"
+        }
+      ],
+      "reserve_committed": 0.0,
+      "pool_budget": 300.0,
+      "total_levels": 3,
+      "in_range_count": 3,
+      "above_range_count": 0,
+      "risk_components": {
+        "stability": {
+          "rating": "MODERATE",
+          "detail": "5.2% convergence"
+        },
+        "capital": {
+          "rating": "HIGH",
+          "detail": "$288 = 96% of pool"
+        },
+        "max_drawdown": {
+          "rating": "LOW",
+          "detail": "$58 at risk"
+        },
+        "sma200": {
+          "rating": "HIGH",
+          "detail": "-36.3%"
+        },
+        "consolidation": {
+          "rating": "HIGH",
+          "detail": "slope -5.8%/10d"
+        }
+      }
+    },
+    {
+      "ticker": "APLD",
+      "score": 51,
+      "verdict": "MONITOR",
+      "data_as_of": "2026-03-17",
+      "stability": "UNSTABLE",
+      "swing_20d": 37.0,
+      "exit_reachable": true,
+      "risk_overall": "HIGH",
+      "metrics": {
+        "current_price": 27.815000534057617,
+        "low_20d": 24.40999984741211,
+        "high_20d": 33.45000076293945,
+        "median_20d": 28.010000228881836,
+        "high_20d_p75": 30.382500171661377,
+        "swing_20d": 37.0,
+        "median_40d": 31.535000801086426,
+        "convergence": 11.2,
+        "sma200": 23.390375037193298,
+        "sma200_dist": 18.9,
+        "sma20_slope": -11.5
+      },
+      "position": {
+        "shares": 15,
+        "avg_cost": 29.06,
+        "current_price": 27.815000534057617,
+        "pnl_pct": -4.3,
+        "pnl_dollar": -18.67,
+        "bullets_used": "5 active + R1",
+        "target_exit": 38.0,
+        "pre_strategy": false
+      },
+      "scenarios": [
+        {
+          "support_price": 22.705,
+          "buy_at": 23.42,
+          "hold_rate": 37.5,
+          "tier": "Full",
+          "shares": 7,
+          "cost": 163.94,
+          "new_avg": 27.27,
+          "exit_6pct": 28.91,
+          "reachable": true,
+          "conflict": null,
+          "range_class": "near-range",
+          "source": "PA"
+        },
+        {
+          "support_price": 21.88,
+          "buy_at": 22.68,
+          "hold_rate": 33.3,
+          "tier": "Std",
+          "shares": 4,
+          "cost": 90.72,
+          "new_avg": 26.56,
+          "exit_6pct": 28.15,
+          "reachable": true,
+          "conflict": null,
+          "range_class": "near-range",
+          "source": "PA"
+        }
+      ],
+      "sell_recs": [
+        {
+          "price": 27.839,
+          "shares": 13,
+          "basis": "HVN resistance, 25% reject, near Conservative (4.5%)"
+        },
+        {
+          "price": 28.945,
+          "shares": 13,
+          "basis": "HVN+PA resistance, 25% reject, near Aggressive (7.5%)"
+        }
+      ],
+      "reserve_committed": 43.86,
+      "pool_budget": 256.14,
+      "total_levels": 36,
+      "in_range_count": 2,
+      "above_range_count": 0,
+      "risk_components": {
+        "stability": {
+          "rating": "HIGH",
+          "detail": "11.2% convergence"
+        },
+        "capital": {
+          "rating": "HIGH",
+          "detail": "$255 = 99% of pool"
+        },
+        "max_drawdown": {
+          "rating": "LOW",
+          "detail": "$51 at risk"
+        },
+        "sma200": {
+          "rating": "LOW",
+          "detail": "+18.9%"
+        },
+        "consolidation": {
+          "rating": "HIGH",
+          "detail": "slope -11.5%/10d"
+        }
+      }
+    },
+    {
+      "ticker": "NU",
+      "score": 35,
+      "verdict": "MONITOR",
+      "data_as_of": "2026-03-17",
+      "stability": "UNSTABLE",
+      "swing_20d": 27.3,
+      "exit_reachable": true,
+      "risk_overall": "HIGH",
+      "metrics": {
+        "current_price": 14.300000190734863,
+        "low_20d": 13.8149995803833,
+        "high_20d": 17.59000015258789,
+        "median_20d": 14.929999828338623,
+        "high_20d_p75": 16.65500020980835,
+        "swing_20d": 27.3,
+        "median_40d": 16.894999504089355,
+        "convergence": 11.6,
+        "sma200": 15.151650018692017,
+        "sma200_dist": -5.6,
+        "sma20_slope": -8.3
+      },
+      "position": {
+        "shares": 30,
+        "avg_cost": 15.85,
+        "current_price": 14.300000190734863,
+        "pnl_pct": -9.8,
+        "pnl_dollar": -46.5,
+        "bullets_used": 6,
+        "target_exit": 16.75,
+        "pre_strategy": false
+      },
+      "scenarios": [
+        {
+          "support_price": 14.06,
+          "buy_at": 14.17,
+          "hold_rate": 75.0,
+          "tier": "Full",
+          "shares": 10,
+          "cost": 141.7,
+          "new_avg": 15.43,
+          "exit_6pct": 16.36,
+          "reachable": true,
+          "conflict": null,
+          "range_class": "in-range",
+          "source": "PA"
+        },
+        {
+          "support_price": 13.1073,
+          "buy_at": 13.3,
+          "hold_rate": 50.0,
+          "tier": "Full",
+          "shares": 6,
+          "cost": 79.8,
+          "new_avg": 15.15,
+          "exit_6pct": 16.06,
+          "reachable": true,
+          "conflict": null,
+          "range_class": "near-range",
+          "source": "HVN+PA"
+        }
+      ],
+      "sell_recs": [
+        {
+          "price": 16.06,
+          "shares": 23,
+          "basis": "HVN resistance, 0% reject, near Standard (6.0%) (weak signal)"
+        },
+        {
+          "price": 16.4,
+          "shares": 23,
+          "basis": "PA resistance, 50% reject, near Aggressive (7.5%) (weak signal)"
+        }
+      ],
+      "reserve_committed": 78.18,
+      "pool_budget": 221.82,
+      "total_levels": 11,
+      "in_range_count": 2,
+      "above_range_count": 0,
+      "risk_components": {
+        "stability": {
+          "rating": "HIGH",
+          "detail": "11.6% convergence"
+        },
+        "capital": {
+          "rating": "HIGH",
+          "detail": "$222 = 100% of pool"
+        },
+        "max_drawdown": {
+          "rating": "LOW",
+          "detail": "$44 at risk"
+        },
+        "sma200": {
+          "rating": "MODERATE",
+          "detail": "-5.6%"
+        },
+        "consolidation": {
+          "rating": "HIGH",
+          "detail": "slope -8.3%/10d"
+        }
+      }
+    }
+  ]
+}

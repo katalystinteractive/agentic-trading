@@ -1,0 +1,75 @@
+{
+  "run_id": "c36b5c44-e386-49de-a796-242da5449c5d",
+  "workflow_name": "morning-briefing-workflow",
+  "task_guid": null,
+  "status": "cancelled",
+  "current_phase": null,
+  "started_at": "2026-02-22T15:40:40.576499+00:00",
+  "completed_at": "2026-02-22T15:59:35.874578+00:00",
+  "error_message": "Workflow was cancelled",
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun the unified morning briefing workflow. Gather all raw data (market pulse, portfolio status, per-ticker earnings/technicals/short interest/news), then analyze with regime classification, entry gates, exit verdicts, and per-ticker action cards, then verify all math, logic, and coverage.",
+    "handoffs": {},
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "retrying",
+      "attempts": 3,
+      "started_at": "2026-02-22T15:40:40.578183+00:00",
+      "completed_at": null,
+      "error_message": "Claude CLI exited with code 1: ",
+      "decision": null,
+      "handoff": null,
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":true,\"duration_ms\":369100,\"duration_api_ms\":176226,\"num_turns\":64,\"result\":\"Prompt is too long\",\"stop_reason\":\"stop_sequence\",\"session_id\":\"a7de1f70-34a9-4643-b9cb-e283db14688f\",\"total_cost_usd\":1.3086207499999998,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":112739,\"cache_read_input_tokens\":358495,\"output_tokens\":7785,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":112739,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":9,\"outputTokens\":7785,\"cacheReadInputTokens\":358495,\"cacheCreationInputTokens\":112739,\"webSearchRequests\":0,\"costUSD\":1.07853625,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":55322,\"outputTokens\":3814,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":124554,\"webSearchRequests\":0,\"costUSD\":0.2300845,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"0e531cdb-c69b-4ad9-ab56-9178399bb288\"}\n",
+      "output_truncated": false,
+      "artifacts": {},
+      "metrics": {
+        "duration_seconds": 401.0503969192505,
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "estimated_cost_usd": 0.0,
+        "model": "sonnet",
+        "attempts": 2
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "pending",
+      "attempts": 0,
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {}
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "pending",
+      "attempts": 0,
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {}
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-22T15:59:35.876177+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/morning-briefing-workflow.yaml",
+    "workflowHash": "71cbe8972ae59d29"
+  }
+}

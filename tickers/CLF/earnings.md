@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-18 09:22*
 
 ## Earnings Analysis: Cleveland-Cliffs Inc. (CLF)
 
@@ -6,10 +6,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-04-29 |
-| Days Until | 52 |
+| Days Until | 42 |
 | EPS Estimate | $-0.375 |
 | Revenue Estimate | $4.82B |
-| Earnings Rule | Clear (>52d out) |
+| Earnings Rule | Clear (>42d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
@@ -17,11 +17,11 @@
 | Q1 2026 | $-0.62 | $-0.43 | 30.1% | -0.3% | -14.5% | Bearish |
 | Q4 2025 | $-0.45 | $-0.45 | 0.6% | -17.2% | -14.9% | Strong Bear |
 | Q3 2025 | $-0.67 | $-0.50 | 25.9% | +6.2% | +5.6% | Strong Bull |
-| Q2 2025 | $-0.79 | $-1.00 | -26.2% | -15.8% | -11.2% | Strong Bear |
+| Q2 2025 | $-0.81 | $-0.92 | -13.6% | -15.8% | -11.2% | Strong Bear |
 | Q1 2025 | $-0.67 | $-0.68 | -1.0% | -3.2% | -9.5% | Strong Bear |
 | Q4 2024 | $-0.30 | $-0.33 | -8.2% | -11.4% | -4.5% | Strong Bear |
 | Q3 2024 | N/A | $0.11 | 4945.9% | +4.4% | +0.3% | Strong Bull |
-| Q2 2024 | $0.22 | $-0.14 | -162.5% | -11.0% | -13.4% | Strong Bear |
+| Q2 2024 | $0.21 | $0.18 | -15.8% | -11.0% | -13.4% | Strong Bear |
 
 ### Revenue Trend
 | Quarter | Revenue | QoQ Growth% | YoY Growth% |

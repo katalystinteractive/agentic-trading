@@ -1,0 +1,63 @@
+{
+  "run_id": "f41f77c3-fbb3-4bcc-bb0f-b89d69e20d94",
+  "workflow_name": "status-workflow",
+  "task_guid": null,
+  "status": "cancelled",
+  "current_phase": null,
+  "started_at": "2026-02-22T09:21:59.609630+00:00",
+  "completed_at": "2026-02-22T09:23:45.154087+00:00",
+  "error_message": "Workflow was cancelled",
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRetry with increased review phase timeout (10 min). Testing the new Phase 3 status-critic agent end-to-end.",
+    "handoffs": {},
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "running",
+      "attempts": 1,
+      "started_at": "2026-02-22T09:21:59.610424+00:00",
+      "completed_at": null,
+      "error_message": null,
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {}
+    },
+    "report": {
+      "phase_id": "report",
+      "status": "pending",
+      "attempts": 0,
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {}
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "pending",
+      "attempts": 0,
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {}
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-22T09:23:45.154476+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/status-workflow.yaml",
+    "workflowHash": "8f660262cf762831"
+  }
+}

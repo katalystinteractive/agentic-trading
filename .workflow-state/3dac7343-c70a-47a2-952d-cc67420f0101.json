@@ -1,0 +1,116 @@
+{
+  "run_id": "3dac7343-c70a-47a2-952d-cc67420f0101",
+  "workflow_name": "surgical-candidate-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-03-13T20:45:53.122589+00:00",
+  "completed_at": "2026-03-13T21:02:45.189850+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nScreen for new surgical mean-reversion candidates specifically looking for a ticker with behavior identical to CLSK. Key CLSK characteristics to match:\n\n1. **High monthly swing**: 43.8%, 100% of months hit 10%+ swings\n2. **Dense active support structure**: Multiple levels in active zone with strong hold rates (50%+ on key levels like $8.93 HVN+PA 50%, $8.62 PA 43%\u219282% decayed, $8.25 PA 58%)\n3. **Fast cycle completion**: 4/4 cycles profitable, typical cycle 1-3 days\n4. **Consistent 5-8% profit per cycle**: +7.6%, +7.9%, +6.9%, +5.8%\n5. **BTC miner / high-volatility tech sector** \u2014 look for similar sectors\n6. **Price range**: $5-$15 range (fits $300 pool sizing well)\n7. **Fresh support**: Multiple levels tested within last 2 weeks\n\nThe ideal candidate has CLSK-like volatility patterns, reliable support levels that hold, and enables rapid mean-reversion cycling. Exclude tickers already in the portfolio or watchlist.",
+    "handoffs": {
+      "screen": "**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\n\n**Gate passers:** 72 tickers passed surgical gates (from 149 screened)\n\n**Top 7 scored:** RGTI(90), OKLO(88), NTLA(87), QBTS(84), RDW(82), HUT(81), IREN(80)\n\n**Recommendations:**\n- **Onboard (1):** RGTI \u2014 best CLSK analog; 62.3% swing, 5 active levels all improving in 90d recency, $300 pool fits, Quantum sector at 1x\n- **Watch (3):** OKLO (price too high for $300 pool), NTLA (swing matches CLSK but hold rates weak), RDW (perfect price range but lower active zone failing + weak reserves)\n- **Monitor (3):** QBTS (59% dead zone), HUT (4x Crypto blocker), IREN (triple flagged)\n\n**CLSK Mission Result:** RGTI is the strongest available CLSK analog. It exceeds CLSK's swing magnitude (62.3% vs 43.8%), matches the dense improving support structure, and adds genuine Quantum sector diversification. Price at $16.17 is slightly above the $5-15 ideal range but workable with the $300 pool.\n\nReady for verification.",
+      "verify": "**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\n\n**Results:** 6 PASS, 1 FLAG, 0 FAIL\n\n**Score range after adjustment:** 80\u201390 (no adjustments applied; all 0)\n\n**Pre-verify:** 3 checks passed, 4 issues found (1 FAIL flag coverage, 1 FAIL sector audit, 2 WARN)\n\n---\n\n**Key findings:**\n\n- **RGTI (90, PASS):** Onboard confirmed. Improving active zone verified against shortlist data. 24% dead zone manageable given 62.3% swing magnitude.\n- **OKLO (88, PASS):** Watch confirmed despite 88 score. Pool efficiency blocker ($58/share \u2192 1 share/bullet) is a legitimate qualitative downgrade not captured mechanically. Recommendation WARN from pre-verifier is resolved.\n- **NTLA (87, PASS):** Watch confirmed. Evaluator correctly identified 3 deteriorating levels where the flag showed only 1. Clinical trial binary risk adds sector-specific depth.\n- **QBTS (84, PASS):** Monitor confirmed. 59% dead zone correctly treated as structural and permanent. Thin B3 sample (n=1 event \u2192 \"100%\") noted as a qualitative concern.\n- **RDW (82, FLAG):** Pre-verifier flagged missed flag coverage for \"Recency deterioration: 2 levels\" \u2014 but evaluator explicitly addressed both failing levels ($7.55 and $7.76) by name in both Pattern Quality and Risk sections. This is a pre-verifier keyword-matching false negative, not an actual evaluation gap. Watch recommendation stands.\n- **HUT (81, PASS):** Monitor confirmed. Sector blocker absolute; evaluator correctly rejected differentiation argument. Duplicate buy price ($39.86 for two closely-spaced levels) is a data artifact.\n- **IREN (80, PASS):** Monitor confirmed as lowest priority. All 3 flags addressed with substance. Triple-blocker analysis complete and accurate.\n\nReady for final selection.",
+      "critic": "**Artifacts:** candidate-pre-critic.md, candidate-final.md\n\n**Top 3:**\n1. RGTI \u2014 98 \u2014 Onboard\n2. OKLO \u2014 95 \u2014 Watch\n3. QBTS \u2014 89 \u2014 Monitor\n\n**Adversarial adjustments applied:**\n- **RGTI -2:** B1 \"sentinel\" framing understates its 20% hold rate and near-certain cascade to B2-B3 on any pullback; reserve levels have zero current-regime validation; IONQ correlation in broad sell-offs overstated as diversification\n- **OKLO -3:** B3/B4 untested in current regime leaves a 15% gap below B1 with no validated intermediate support; NRC licensing binary risk is structurally different from mean-reversion risk and can override all historical support levels\n- **QBTS -5:** 59% dead zone is categorically worse than a timing issue \u2014 it is permanent architecture failure; Quantum concentration reaches 3x limit (IONQ+RGTI+QBTS) making portfolio correlation risk material\n\n**Ranking unchanged from pre-critic top 3.** Only RGTI is actionable today. OKLO and QBTS are deferred to Watch/Monitor conditions.\n\nScreening complete. Review candidate-final.md for onboarding decisions."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1
+  },
+  "phases": {
+    "screen": {
+      "phase_id": "screen",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-13T20:45:53.128009+00:00",
+      "completed_at": "2026-03-13T20:52:27.430794+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\n\n**Gate passers:** 72 tickers passed surgical gates (from 149 screened)\n\n**Top 7 scored:** RGTI(90), OKLO(88), NTLA(87), QBTS(84), RDW(82), HUT(81), IREN(80)\n\n**Recommendations:**\n- **Onboard (1):** RGTI \u2014 best CLSK analog; 62.3% swing, 5 active levels all improving in 90d recency, $300 pool fits, Quantum sector at 1x\n- **Watch (3):** OKLO (price too high for $300 pool), NTLA (swing matches CLSK but hold rates weak), RDW (perfect price range but lower active zone failing + weak reserves)\n- **Monitor (3):** QBTS (59% dead zone), HUT (4x Crypto blocker), IREN (triple flagged)\n\n**CLSK Mission Result:** RGTI is the strongest available CLSK analog. It exceeds CLSK's swing magnitude (62.3% vs 43.8%), matches the dense improving support structure, and adds genuine Quantum sector diversification. Price at $16.17 is slightly above the $5-15 ideal range but workable with the $300 pool.\n\nReady for verification.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":388525,\"duration_api_ms\":362465,\"num_turns\":11,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\\n\\n**Gate passers:** 72 tickers passed surgical gates (from 149 screened)\\n\\n**Top 7 scored:** RGTI(90), OKLO(88), NTLA(87), QBTS(84), RDW(82), HUT(81), IREN(80)\\n\\n**Recommendations:**\\n- **Onboard (1):** RGTI \u2014 best CLSK analog; 62.3% swing, 5 active levels all improving in 90d recency, $300 pool fits, Quantum sector at 1x\\n- **Watch (3):** OKLO (price too high for $300 pool), NTLA (swing matches CLSK but hold rates weak), RDW (perfect price range but lower active zone failing + weak reserves)\\n- **Monitor (3):** QBTS (59% dead zone), HUT (4x Crypto blocker), IREN (triple flagged)\\n\\n**CLSK Mission Result:** RGTI is the strongest available CLSK analog. It exceeds CLSK's swing magnitude (62.3% vs 43.8%), matches the dense improving support structure, and adds genuine Quantum sector diversification. Price at $16.17 is slightly above the $5-15 ideal range but workable with the $300 pool.\\n\\nReady for verification.\",\"stop_reason\":\"end_turn\",\"session_id\":\"dca77b54-5278-47c8-8f81-8de5cbb288e0\",\"total_cost_usd\":0.5649078,\"usage\":{\"input_tokens\":12,\"cache_creation_input_tokens\":53372,\"cache_read_input_tokens\":403706,\"output_tokens\":16241,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":53372,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":12,\"outputTokens\":16241,\"cacheReadInputTokens\":403706,\"cacheCreationInputTokens\":53372,\"webSearchRequests\":0,\"costUSD\":0.5649078,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"544eb552-713d-433b-b1f2-cfd6fad43a44\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "screening_data.json": "/Users/kamenkamenov/agentic-trading/screening_data.json",
+        "candidate_shortlist.md": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.md",
+        "candidate_shortlist.json": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.json",
+        "candidate-evaluation.md": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.md",
+        "candidate-evaluation.json": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.json"
+      },
+      "metrics": {
+        "duration_seconds": 394.2924921512604,
+        "token_usage": {
+          "input_tokens": 12,
+          "output_tokens": 16241,
+          "cache_read_tokens": 403706,
+          "cache_write_tokens": 53372
+        },
+        "estimated_cost_usd": 0.564908,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "verify": {
+      "phase_id": "verify",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-13T20:52:27.442794+00:00",
+      "completed_at": "2026-03-13T20:58:22.580143+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\n\n**Results:** 6 PASS, 1 FLAG, 0 FAIL\n\n**Score range after adjustment:** 80\u201390 (no adjustments applied; all 0)\n\n**Pre-verify:** 3 checks passed, 4 issues found (1 FAIL flag coverage, 1 FAIL sector audit, 2 WARN)\n\n---\n\n**Key findings:**\n\n- **RGTI (90, PASS):** Onboard confirmed. Improving active zone verified against shortlist data. 24% dead zone manageable given 62.3% swing magnitude.\n- **OKLO (88, PASS):** Watch confirmed despite 88 score. Pool efficiency blocker ($58/share \u2192 1 share/bullet) is a legitimate qualitative downgrade not captured mechanically. Recommendation WARN from pre-verifier is resolved.\n- **NTLA (87, PASS):** Watch confirmed. Evaluator correctly identified 3 deteriorating levels where the flag showed only 1. Clinical trial binary risk adds sector-specific depth.\n- **QBTS (84, PASS):** Monitor confirmed. 59% dead zone correctly treated as structural and permanent. Thin B3 sample (n=1 event \u2192 \"100%\") noted as a qualitative concern.\n- **RDW (82, FLAG):** Pre-verifier flagged missed flag coverage for \"Recency deterioration: 2 levels\" \u2014 but evaluator explicitly addressed both failing levels ($7.55 and $7.76) by name in both Pattern Quality and Risk sections. This is a pre-verifier keyword-matching false negative, not an actual evaluation gap. Watch recommendation stands.\n- **HUT (81, PASS):** Monitor confirmed. Sector blocker absolute; evaluator correctly rejected differentiation argument. Duplicate buy price ($39.86 for two closely-spaced levels) is a data artifact.\n- **IREN (80, PASS):** Monitor confirmed as lowest priority. All 3 flags addressed with substance. Triple-blocker analysis complete and accurate.\n\nReady for final selection.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":352713,\"duration_api_ms\":324038,\"num_turns\":10,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\\n\\n**Results:** 6 PASS, 1 FLAG, 0 FAIL\\n\\n**Score range after adjustment:** 80\u201390 (no adjustments applied; all 0)\\n\\n**Pre-verify:** 3 checks passed, 4 issues found (1 FAIL flag coverage, 1 FAIL sector audit, 2 WARN)\\n\\n---\\n\\n**Key findings:**\\n\\n- **RGTI (90, PASS):** Onboard confirmed. Improving active zone verified against shortlist data. 24% dead zone manageable given 62.3% swing magnitude.\\n- **OKLO (88, PASS):** Watch confirmed despite 88 score. Pool efficiency blocker ($58/share \u2192 1 share/bullet) is a legitimate qualitative downgrade not captured mechanically. Recommendation WARN from pre-verifier is resolved.\\n- **NTLA (87, PASS):** Watch confirmed. Evaluator correctly identified 3 deteriorating levels where the flag showed only 1. Clinical trial binary risk adds sector-specific depth.\\n- **QBTS (84, PASS):** Monitor confirmed. 59% dead zone correctly treated as structural and permanent. Thin B3 sample (n=1 event \u2192 \\\"100%\\\") noted as a qualitative concern.\\n- **RDW (82, FLAG):** Pre-verifier flagged missed flag coverage for \\\"Recency deterioration: 2 levels\\\" \u2014 but evaluator explicitly addressed both failing levels ($7.55 and $7.76) by name in both Pattern Quality and Risk sections. This is a pre-verifier keyword-matching false negative, not an actual evaluation gap. Watch recommendation stands.\\n- **HUT (81, PASS):** Monitor confirmed. Sector blocker absolute; evaluator correctly rejected differentiation argument. Duplicate buy price ($39.86 for two closely-spaced levels) is a data artifact.\\n- **IREN (80, PASS):** Monitor confirmed as lowest priority. All 3 flags addressed with substance. Triple-blocker analysis complete and accurate.\\n\\nReady for final selection.\",\"stop_reason\":\"end_turn\",\"session_id\":\"4be82e8d-fc0a-40f0-85ec-91b5656ca56e\",\"total_cost_usd\":0.5317032,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":52802,\"cache_read_input_tokens\":279079,\"output_tokens\":16663,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":52802,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":9,\"outputTokens\":16663,\"cacheReadInputTokens\":279079,\"cacheCreationInputTokens\":52802,\"webSearchRequests\":0,\"costUSD\":0.5317032,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"93d77c2a-964b-42e4-a98a-4ddd70bbdcf0\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-verify.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-verify.md",
+        "candidate-verification.md": "/Users/kamenkamenov/agentic-trading/candidate-verification.md",
+        "candidate-verification.json": "/Users/kamenkamenov/agentic-trading/candidate-verification.json"
+      },
+      "metrics": {
+        "duration_seconds": 355.130628824234,
+        "token_usage": {
+          "input_tokens": 9,
+          "output_tokens": 16663,
+          "cache_read_tokens": 279079,
+          "cache_write_tokens": 52802
+        },
+        "estimated_cost_usd": 0.531703,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "critic": {
+      "phase_id": "critic",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-13T20:58:22.591130+00:00",
+      "completed_at": "2026-03-13T21:02:45.183643+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** candidate-pre-critic.md, candidate-final.md\n\n**Top 3:**\n1. RGTI \u2014 98 \u2014 Onboard\n2. OKLO \u2014 95 \u2014 Watch\n3. QBTS \u2014 89 \u2014 Monitor\n\n**Adversarial adjustments applied:**\n- **RGTI -2:** B1 \"sentinel\" framing understates its 20% hold rate and near-certain cascade to B2-B3 on any pullback; reserve levels have zero current-regime validation; IONQ correlation in broad sell-offs overstated as diversification\n- **OKLO -3:** B3/B4 untested in current regime leaves a 15% gap below B1 with no validated intermediate support; NRC licensing binary risk is structurally different from mean-reversion risk and can override all historical support levels\n- **QBTS -5:** 59% dead zone is categorically worse than a timing issue \u2014 it is permanent architecture failure; Quantum concentration reaches 3x limit (IONQ+RGTI+QBTS) making portfolio correlation risk material\n\n**Ranking unchanged from pre-critic top 3.** Only RGTI is actionable today. OKLO and QBTS are deferred to Watch/Monitor conditions.\n\nScreening complete. Review candidate-final.md for onboarding decisions.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":259786,\"duration_api_ms\":255160,\"num_turns\":8,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** candidate-pre-critic.md, candidate-final.md\\n\\n**Top 3:**\\n1. RGTI \u2014 98 \u2014 Onboard\\n2. OKLO \u2014 95 \u2014 Watch\\n3. QBTS \u2014 89 \u2014 Monitor\\n\\n**Adversarial adjustments applied:**\\n- **RGTI -2:** B1 \\\"sentinel\\\" framing understates its 20% hold rate and near-certain cascade to B2-B3 on any pullback; reserve levels have zero current-regime validation; IONQ correlation in broad sell-offs overstated as diversification\\n- **OKLO -3:** B3/B4 untested in current regime leaves a 15% gap below B1 with no validated intermediate support; NRC licensing binary risk is structurally different from mean-reversion risk and can override all historical support levels\\n- **QBTS -5:** 59% dead zone is categorically worse than a timing issue \u2014 it is permanent architecture failure; Quantum concentration reaches 3x limit (IONQ+RGTI+QBTS) making portfolio correlation risk material\\n\\n**Ranking unchanged from pre-critic top 3.** Only RGTI is actionable today. OKLO and QBTS are deferred to Watch/Monitor conditions.\\n\\nScreening complete. Review candidate-final.md for onboarding decisions.\",\"stop_reason\":\"end_turn\",\"session_id\":\"0fdbe906-b53a-4d5c-912c-07906297614e\",\"total_cost_usd\":0.4352562,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":46632,\"cache_read_input_tokens\":238564,\"output_tokens\":12586,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":46632,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":9,\"outputTokens\":12586,\"cacheReadInputTokens\":238564,\"cacheCreationInputTokens\":46632,\"webSearchRequests\":0,\"costUSD\":0.4352562,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"2fa917b7-8a1a-43b5-9446-f791c10b336e\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-critic.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-critic.md",
+        "candidate-final.md": "/Users/kamenkamenov/agentic-trading/candidate-final.md"
+      },
+      "metrics": {
+        "duration_seconds": 262.5861418247223,
+        "token_usage": {
+          "input_tokens": 9,
+          "output_tokens": 12586,
+          "cache_read_tokens": 238564,
+          "cache_write_tokens": 46632
+        },
+        "estimated_cost_usd": 0.435256,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-03-13T21:02:45.190052+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/surgical-candidate-workflow.yaml",
+    "workflowHash": "911887d0c859da61"
+  }
+}

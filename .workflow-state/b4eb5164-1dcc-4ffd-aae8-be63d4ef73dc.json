@@ -1,0 +1,108 @@
+{
+  "run_id": "b4eb5164-1dcc-4ffd-aae8-be63d4ef73dc",
+  "workflow_name": "status-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-27T16:21:23.289593+00:00",
+  "completed_at": "2026-02-27T16:31:14.795561+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun full portfolio status \u2014 focus on all pending limit orders (BUY and SELL), their distance from current prices, and any fills. The market is selling off hard today (2026-02-27) and we need to evaluate whether any pending order prices need adjustment. Pay special attention to: (1) BUY orders that are now very close to filling or at-the-money, (2) SELL targets that may now be unrealistic given new lower averages, (3) orders that may be too far from current prices to be useful.",
+    "handoffs": {
+      "gather": "**Artifact:** status-raw.md\n**Active positions queried:** 7 tickers\n**Watchlist tickers queried:** 10 tickers\n**Pending-only tickers queried:** 4 tickers\n**Fill alerts detected:** none\n\nReady for status report compilation.",
+      "report": "**Artifact:** status-report.md\n**Active positions reported:** 8\n**Fill alerts:** 1 (TMC BUY @ $6.26 \u2014 verify Monday)\n**Actionable items:** 4 items flagged\n\nKey findings for today's selloff (2026-02-27):\n\n- **TMC** essentially at-the-money ($6.27 close vs $6.26 order) \u2014 fill likely, verify at broker before Monday open\n- **BBAI** at $3.91, only $0.03 from trigger ($3.88) \u2014 earnings gate March 2 holds, do NOT unpause\n- **SMCI** buy orders at $29.35 / $28.84 are 9.7\u201311.3% below current $32.52 \u2014 could fill on one more down day\n- **LUNR** bullets 4/5 at $15.52 / $15.08 are 5.8\u20138.5% away \u2014 approaching range\n- **INTC** last active bullet at $42.28 is 6.5% below $45.45 \u2014 actionable distance on a semiconductor selloff\n- **SEDG** -10.9% today in the watchlist \u2014 significant technical damage, no orders placed, avoid without wick analysis\n- **CIFR, CLSK, SOUN** returned $0.00 price \u2014 data integrity issue, verify at broker\n- All SELL targets remain valid; none need adjustment on today's down day\n\nStatus report complete.",
+      "review": "**Artifact:** status-review.md\n**Verdict:** ISSUES\n**Checks passed:** 5/6 (1 with minor note)\n**Issues found:** 2 (1 critical, 1 minor)\n\n**Critical:** Actionable items #3 (LOW: IONQ time stop) is ranked before #4 (MEDIUM: $0.00 price tickers) \u2014 priority inversion. Fix: swap items 3 and 4 in both the summary table and section headers.\n\n**Minor:** TMC fill avg $6.26 is a manual verify \u2014 report correctly handles this with explicit broker verification instruction.\n\n**Qualitative assessment:** All 8 position narratives are grounded in structural data with no fabrication. BBAI earnings gate handling is exemplary (PAUSE enforced, three-scenario decision tree). TMC fill scenario math is correct ($56.34, 9.4% budget utilization). LUNR raw-level caveat is appropriate risk flagging. Selloff prioritization (SMCI \u2192 LUNR \u2192 INTC as most likely to fill on continued weakness) is accurate and addresses the session's core analytical ask.\n\nStatus review complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-27T16:21:23.291998+00:00",
+      "completed_at": "2026-02-27T16:22:11.530192+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** status-raw.md\n**Active positions queried:** 7 tickers\n**Watchlist tickers queried:** 10 tickers\n**Pending-only tickers queried:** 4 tickers\n**Fill alerts detected:** none\n\nReady for status report compilation.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":16003,\"duration_api_ms\":7885,\"num_turns\":2,\"result\":\"`status-raw.md` created successfully (48.4 KB, 6.2s).\\n\\n## HANDOFF\\n\\n**Artifact:** status-raw.md\\n**Active positions queried:** 7 tickers\\n**Watchlist tickers queried:** 10 tickers\\n**Pending-only tickers queried:** 4 tickers\\n**Fill alerts detected:** none\\n\\nReady for status report compilation.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"bd9c9295-97a4-4e97-b3b6-6b33bc7633a0\",\"total_cost_usd\":0.0961635,\"usage\":{\"input_tokens\":4,\"cache_creation_input_tokens\":10298,\"cache_read_input_tokens\":47974,\"output_tokens\":282,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":10298,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":4,\"outputTokens\":282,\"cacheReadInputTokens\":47974,\"cacheCreationInputTokens\":10298,\"webSearchRequests\":0,\"costUSD\":0.0954195,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":584,\"outputTokens\":32,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.000744,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"3d8d8542-32fa-4a91-867a-c1ee4781a0c6\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "status-raw.md": "/Users/kamenkamenov/agentic-trading/status-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 48.233474016189575,
+        "token_usage": {
+          "input_tokens": 4,
+          "output_tokens": 282,
+          "cache_read_tokens": 47974,
+          "cache_write_tokens": 10298
+        },
+        "estimated_cost_usd": 0.057252,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "report": {
+      "phase_id": "report",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-27T16:22:11.533025+00:00",
+      "completed_at": "2026-02-27T16:28:24.382955+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** status-report.md\n**Active positions reported:** 8\n**Fill alerts:** 1 (TMC BUY @ $6.26 \u2014 verify Monday)\n**Actionable items:** 4 items flagged\n\nKey findings for today's selloff (2026-02-27):\n\n- **TMC** essentially at-the-money ($6.27 close vs $6.26 order) \u2014 fill likely, verify at broker before Monday open\n- **BBAI** at $3.91, only $0.03 from trigger ($3.88) \u2014 earnings gate March 2 holds, do NOT unpause\n- **SMCI** buy orders at $29.35 / $28.84 are 9.7\u201311.3% below current $32.52 \u2014 could fill on one more down day\n- **LUNR** bullets 4/5 at $15.52 / $15.08 are 5.8\u20138.5% away \u2014 approaching range\n- **INTC** last active bullet at $42.28 is 6.5% below $45.45 \u2014 actionable distance on a semiconductor selloff\n- **SEDG** -10.9% today in the watchlist \u2014 significant technical damage, no orders placed, avoid without wick analysis\n- **CIFR, CLSK, SOUN** returned $0.00 price \u2014 data integrity issue, verify at broker\n- All SELL targets remain valid; none need adjustment on today's down day\n\nStatus report complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":340102,\"duration_api_ms\":338820,\"num_turns\":7,\"result\":\"## HANDOFF\\n\\n**Artifact:** status-report.md\\n**Active positions reported:** 8\\n**Fill alerts:** 1 (TMC BUY @ $6.26 \u2014 verify Monday)\\n**Actionable items:** 4 items flagged\\n\\nKey findings for today's selloff (2026-02-27):\\n\\n- **TMC** essentially at-the-money ($6.27 close vs $6.26 order) \u2014 fill likely, verify at broker before Monday open\\n- **BBAI** at $3.91, only $0.03 from trigger ($3.88) \u2014 earnings gate March 2 holds, do NOT unpause\\n- **SMCI** buy orders at $29.35 / $28.84 are 9.7\u201311.3% below current $32.52 \u2014 could fill on one more down day\\n- **LUNR** bullets 4/5 at $15.52 / $15.08 are 5.8\u20138.5% away \u2014 approaching range\\n- **INTC** last active bullet at $42.28 is 6.5% below $45.45 \u2014 actionable distance on a semiconductor selloff\\n- **SEDG** -10.9% today in the watchlist \u2014 significant technical damage, no orders placed, avoid without wick analysis\\n- **CIFR, CLSK, SOUN** returned $0.00 price \u2014 data integrity issue, verify at broker\\n- All SELL targets remain valid; none need adjustment on today's down day\\n\\nStatus report complete.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"f81c1848-76b5-4251-adef-d6586018ba61\",\"total_cost_usd\":0.8236955,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":35926,\"cache_read_input_tokens\":254388,\"output_tokens\":18830,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":35926,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":9,\"outputTokens\":18830,\"cacheReadInputTokens\":254388,\"cacheCreationInputTokens\":35926,\"webSearchRequests\":0,\"costUSD\":0.8225265,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":799,\"outputTokens\":74,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.001169,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"7ce9547e-d807-4e16-b737-fc616f6480e6\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "status-pre-analyst.md": "/Users/kamenkamenov/agentic-trading/status-pre-analyst.md",
+        "status-report.md": "/Users/kamenkamenov/agentic-trading/status-report.md"
+      },
+      "metrics": {
+        "duration_seconds": 372.84852504730225,
+        "token_usage": {
+          "input_tokens": 9,
+          "output_tokens": 18830,
+          "cache_read_tokens": 254388,
+          "cache_write_tokens": 35926
+        },
+        "estimated_cost_usd": 0.493516,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-27T16:28:24.388086+00:00",
+      "completed_at": "2026-02-27T16:31:14.793094+00:00",
+      "error_message": null,
+      "decision": "ISSUES",
+      "handoff": "**Artifact:** status-review.md\n**Verdict:** ISSUES\n**Checks passed:** 5/6 (1 with minor note)\n**Issues found:** 2 (1 critical, 1 minor)\n\n**Critical:** Actionable items #3 (LOW: IONQ time stop) is ranked before #4 (MEDIUM: $0.00 price tickers) \u2014 priority inversion. Fix: swap items 3 and 4 in both the summary table and section headers.\n\n**Minor:** TMC fill avg $6.26 is a manual verify \u2014 report correctly handles this with explicit broker verification instruction.\n\n**Qualitative assessment:** All 8 position narratives are grounded in structural data with no fabrication. BBAI earnings gate handling is exemplary (PAUSE enforced, three-scenario decision tree). TMC fill scenario math is correct ($56.34, 9.4% budget utilization). LUNR raw-level caveat is appropriate risk flagging. Selloff prioritization (SMCI \u2192 LUNR \u2192 INTC as most likely to fill on continued weakness) is accurate and addresses the session's core analytical ask.\n\nStatus review complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":137694,\"duration_api_ms\":136140,\"num_turns\":8,\"result\":\"## HANDOFF\\n\\n**Artifact:** status-review.md\\n**Verdict:** ISSUES\\n**Checks passed:** 5/6 (1 with minor note)\\n**Issues found:** 2 (1 critical, 1 minor)\\n\\n**Critical:** Actionable items #3 (LOW: IONQ time stop) is ranked before #4 (MEDIUM: $0.00 price tickers) \u2014 priority inversion. Fix: swap items 3 and 4 in both the summary table and section headers.\\n\\n**Minor:** TMC fill avg $6.26 is a manual verify \u2014 report correctly handles this with explicit broker verification instruction.\\n\\n**Qualitative assessment:** All 8 position narratives are grounded in structural data with no fabrication. BBAI earnings gate handling is exemplary (PAUSE enforced, three-scenario decision tree). TMC fill scenario math is correct ($56.34, 9.4% budget utilization). LUNR raw-level caveat is appropriate risk flagging. Selloff prioritization (SMCI \u2192 LUNR \u2192 INTC as most likely to fill on continued weakness) is accurate and addresses the session's core analytical ask.\\n\\nStatus review complete.\\n\\n## Decision: ISSUES\",\"stop_reason\":null,\"session_id\":\"3beaaabf-a131-4a13-840a-7283be03542c\",\"total_cost_usd\":0.4644455,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":30148,\"cache_read_input_tokens\":257259,\"output_tokens\":5847,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":30148,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":9,\"outputTokens\":5847,\"cacheReadInputTokens\":257259,\"cacheCreationInputTokens\":30148,\"webSearchRequests\":0,\"costUSD\":0.46327450000000003,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":851,\"outputTokens\":64,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.001171,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"36bed2e5-182b-465c-888f-90bf8623c867\"}\n",
+      "output_truncated": false,
+      "artifacts": {},
+      "metrics": {
+        "duration_seconds": 170.402685880661,
+        "token_usage": {
+          "input_tokens": 9,
+          "output_tokens": 5847,
+          "cache_read_tokens": 257259,
+          "cache_write_tokens": 30148
+        },
+        "estimated_cost_usd": 0.277965,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-27T16:31:14.795696+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/status-workflow.yaml",
+    "workflowHash": "b6d6d64a596b1197"
+  }
+}

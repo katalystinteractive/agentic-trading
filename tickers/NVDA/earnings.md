@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:20*
+*Generated: 2026-03-16 19:35*
 
 ## Earnings Analysis: NVIDIA Corporation (NVDA)
 
@@ -6,10 +6,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-20 |
-| Days Until | 73 |
-| EPS Estimate | $1.77936 |
-| Revenue Estimate | $78.43B |
-| Earnings Rule | Clear (>73d out) |
+| Days Until | 65 |
+| EPS Estimate | $1.77474 |
+| Revenue Estimate | $78.73B |
+| Earnings Rule | Clear (>65d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |

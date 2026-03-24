@@ -1,0 +1,109 @@
+{
+  "run_id": "e72304ad-f204-4d4e-bd24-c5e16cf76e96",
+  "workflow_name": "market-context-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-22T14:02:48.364953+00:00",
+  "completed_at": "2026-02-22T14:14:04.953399+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRetest after fixing APLD gap (cross-check step added) and increasing gather timeout to 8 min. Verify: (1) APLD $27.71 BUY appears in Pending BUY Orders Detail, (2) total = 43 orders across 14 tickers, (3) all 3 phases pass.",
+    "handoffs": {
+      "gather": "**Artifact:** `market-context-raw.md`\n**Pending BUY orders:** 43 orders across 14 tickers\n**Active positions:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n**Tool errors:** none\n\nKey data points:\n- Regime: **Risk-On** (2/3 indices above 50-SMA, VIX 19.1 falling)\n- APLD $27.71 BUY confirmed present (4.6% below current $29.04)\n- Nearest fills: SOUN $7.63 (2.4%), LUNR $17.16 (2.2%), NNE $24.03 (2.3%), STIM $1.25 (3.1%)\n- Deepest orders: CIFR $5.38 (63.3%), LUNR $6.64 (62.2%)\n- Sector alignment: Technology dominates portfolio; Energy (AR/XLE -0.54%) and Healthcare (STIM/XLV -0.28%) are lagging today\n\nReady for market context analysis.",
+      "analyze": "**Artifact:** `market-context-report.md`\n**Regime:** Risk-On\n**VIX:** 19.09 (Normal \u2014 Stable, -8.31% 5D)\n**Pending BUY orders evaluated:** 43\n**Gate decisions:** 43 ACTIVE, 0 CAUTION, 0 REVIEW, 0 PAUSE\n\n**Cross-checks passed:**\n1. APLD $27.71 BUY confirmed present in `market-context-raw.md` Pending BUY Orders Detail (4.6% below $29.04) \u2014 incorrect stale note from prior run removed from report.\n2. Total = 43 orders across 14 tickers: NU(1) + STIM(1) + AR(2) + UAMY(2) + INTC(3) + APLD(1) + CLF(3) + CIFR(3) + ACHR(3) + SOUN(4) + CLSK(5) + SMCI(3) + LUNR(7) + NNE(5) = **43** \u2713\n3. Regime = Risk-On (2/3 indices above 50-SMA + VIX 19.09 < 20) \u2014 all 43 orders ACTIVE, no gate restrictions.\n4. NNE corrected to Utilities (XLU +0.48%), not Energy \u2014 Aligned, not Misaligned.\n5. Sector alignment table scoped to sectors with pending BUY orders only (7 sectors).\n6. No CANCEL recommendations \u2014 strategy says PAUSE only.\n\nMarket context analysis complete.",
+      "review": "**Artifact:** `market-context-review.md`\n**Verdict:** PASS\n**Checks passed:** 5/5 (1 with minor note)\n**Issues found:** 1 (0 critical, 1 minor)\n\n**All three retest targets confirmed:**\n1. **APLD $27.71 BUY** \u2014 present in `market-context-raw.md` Pending BUY Orders Detail (4.6% below $29.04, 4.58% computed). Gather cross-check step is functioning correctly.\n2. **43 orders across 14 tickers** \u2014 verified row by row against `portfolio.json`. Count is exact.\n3. **All 3 phases pass** \u2014 regime (Risk-On: 2/3 above 50-SMA, VIX 19.09 < 20) correct; all 43 gate decisions correctly ACTIVE; no data mismatches, no coverage gaps, no strategy violations.\n\n**Single minor note:** The report does not explicitly call out the dual-gate principle (earnings gate + market context gate apply independently). No gate decisions are affected \u2014 all 43 are ACTIVE under Risk-On regardless.\n\nMarket context verification complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T14:02:48.366387+00:00",
+      "completed_at": "2026-02-22T14:06:52.848904+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `market-context-raw.md`\n**Pending BUY orders:** 43 orders across 14 tickers\n**Active positions:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n**Tool errors:** none\n\nKey data points:\n- Regime: **Risk-On** (2/3 indices above 50-SMA, VIX 19.1 falling)\n- APLD $27.71 BUY confirmed present (4.6% below current $29.04)\n- Nearest fills: SOUN $7.63 (2.4%), LUNR $17.16 (2.2%), NNE $24.03 (2.3%), STIM $1.25 (3.1%)\n- Deepest orders: CIFR $5.38 (63.3%), LUNR $6.64 (62.2%)\n- Sector alignment: Technology dominates portfolio; Energy (AR/XLE -0.54%) and Healthcare (STIM/XLV -0.28%) are lagging today\n\nReady for market context analysis.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":212199,\"duration_api_ms\":206388,\"num_turns\":12,\"result\":\"All three cross-checks pass:\\n\\n1. **APLD $27.71 BUY** \u2014 present in Pending BUY Orders Detail \u2713\\n2. **43 orders across 14 tickers** \u2014 confirmed by portfolio.json parse \u2713\\n3. **market-context-raw.md** \u2014 written with all 4 sections, verbatim market_pulse output, correct sort order \u2713\\n\\n---\\n\\n## HANDOFF\\n\\n**Artifact:** `market-context-raw.md`\\n**Pending BUY orders:** 43 orders across 14 tickers\\n**Active positions:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\\n**Tool errors:** none\\n\\nKey data points:\\n- Regime: **Risk-On** (2/3 indices above 50-SMA, VIX 19.1 falling)\\n- APLD $27.71 BUY confirmed present (4.6% below current $29.04)\\n- Nearest fills: SOUN $7.63 (2.4%), LUNR $17.16 (2.2%), NNE $24.03 (2.3%), STIM $1.25 (3.1%)\\n- Deepest orders: CIFR $5.38 (63.3%), LUNR $6.64 (62.2%)\\n- Sector alignment: Technology dominates portfolio; Energy (AR/XLE -0.54%) and Healthcare (STIM/XLV -0.28%) are lagging today\\n\\nReady for market context analysis.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"9fd6be21-dda8-4624-8add-7571bf326b83\",\"total_cost_usd\":0.83775375,\"usage\":{\"input_tokens\":12,\"cache_creation_input_tokens\":36076,\"cache_read_input_tokens\":403552,\"output_tokens\":15903,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":36076,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":12,\"outputTokens\":15903,\"cacheReadInputTokens\":403552,\"cacheCreationInputTokens\":36076,\"webSearchRequests\":0,\"costUSD\":0.824886,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":4139,\"outputTokens\":554,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":4767,\"webSearchRequests\":0,\"costUSD\":0.012867749999999999,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"40478ba4-4ba9-491b-8d0a-4cee50071345\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "market-context-raw.md": "/Users/kamenkamenov/agentic-trading/market-context-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 244.48016381263733,
+        "token_usage": {
+          "input_tokens": 12,
+          "output_tokens": 15903,
+          "cache_read_tokens": 403552,
+          "cache_write_tokens": 36076
+        },
+        "estimated_cost_usd": 0.494932,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T14:06:52.853525+00:00",
+      "completed_at": "2026-02-22T14:10:04.442441+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `market-context-report.md`\n**Regime:** Risk-On\n**VIX:** 19.09 (Normal \u2014 Stable, -8.31% 5D)\n**Pending BUY orders evaluated:** 43\n**Gate decisions:** 43 ACTIVE, 0 CAUTION, 0 REVIEW, 0 PAUSE\n\n**Cross-checks passed:**\n1. APLD $27.71 BUY confirmed present in `market-context-raw.md` Pending BUY Orders Detail (4.6% below $29.04) \u2014 incorrect stale note from prior run removed from report.\n2. Total = 43 orders across 14 tickers: NU(1) + STIM(1) + AR(2) + UAMY(2) + INTC(3) + APLD(1) + CLF(3) + CIFR(3) + ACHR(3) + SOUN(4) + CLSK(5) + SMCI(3) + LUNR(7) + NNE(5) = **43** \u2713\n3. Regime = Risk-On (2/3 indices above 50-SMA + VIX 19.09 < 20) \u2014 all 43 orders ACTIVE, no gate restrictions.\n4. NNE corrected to Utilities (XLU +0.48%), not Energy \u2014 Aligned, not Misaligned.\n5. Sector alignment table scoped to sectors with pending BUY orders only (7 sectors).\n6. No CANCEL recommendations \u2014 strategy says PAUSE only.\n\nMarket context analysis complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":159449,\"duration_api_ms\":156645,\"num_turns\":8,\"result\":\"---\\n\\n## HANDOFF\\n\\n**Artifact:** `market-context-report.md`\\n**Regime:** Risk-On\\n**VIX:** 19.09 (Normal \u2014 Stable, -8.31% 5D)\\n**Pending BUY orders evaluated:** 43\\n**Gate decisions:** 43 ACTIVE, 0 CAUTION, 0 REVIEW, 0 PAUSE\\n\\n**Cross-checks passed:**\\n1. APLD $27.71 BUY confirmed present in `market-context-raw.md` Pending BUY Orders Detail (4.6% below $29.04) \u2014 incorrect stale note from prior run removed from report.\\n2. Total = 43 orders across 14 tickers: NU(1) + STIM(1) + AR(2) + UAMY(2) + INTC(3) + APLD(1) + CLF(3) + CIFR(3) + ACHR(3) + SOUN(4) + CLSK(5) + SMCI(3) + LUNR(7) + NNE(5) = **43** \u2713\\n3. Regime = Risk-On (2/3 indices above 50-SMA + VIX 19.09 < 20) \u2014 all 43 orders ACTIVE, no gate restrictions.\\n4. NNE corrected to Utilities (XLU +0.48%), not Energy \u2014 Aligned, not Misaligned.\\n5. Sector alignment table scoped to sectors with pending BUY orders only (7 sectors).\\n6. No CANCEL recommendations \u2014 strategy says PAUSE only.\\n\\nMarket context analysis complete.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"86a5d2b1-70d3-4826-85d8-547ed6948f1a\",\"total_cost_usd\":0.64285525,\"usage\":{\"input_tokens\":8,\"cache_creation_input_tokens\":39783,\"cache_read_input_tokens\":248837,\"output_tokens\":10770,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":39783,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":8,\"outputTokens\":10770,\"cacheReadInputTokens\":248837,\"cacheCreationInputTokens\":39783,\"webSearchRequests\":0,\"costUSD\":0.64235225,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":343,\"outputTokens\":32,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.000503,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"d68a1d9d-0eb3-434d-ac7d-0ef560c6fa87\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "market-context-report.md": "/Users/kamenkamenov/agentic-trading/market-context-report.md"
+      },
+      "metrics": {
+        "duration_seconds": 191.58565664291382,
+        "token_usage": {
+          "input_tokens": 8,
+          "output_tokens": 10770,
+          "cache_read_tokens": 248837,
+          "cache_write_tokens": 39783
+        },
+        "estimated_cost_usd": 0.385411,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T14:10:04.443803+00:00",
+      "completed_at": "2026-02-22T14:14:04.951090+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `market-context-review.md`\n**Verdict:** PASS\n**Checks passed:** 5/5 (1 with minor note)\n**Issues found:** 1 (0 critical, 1 minor)\n\n**All three retest targets confirmed:**\n1. **APLD $27.71 BUY** \u2014 present in `market-context-raw.md` Pending BUY Orders Detail (4.6% below $29.04, 4.58% computed). Gather cross-check step is functioning correctly.\n2. **43 orders across 14 tickers** \u2014 verified row by row against `portfolio.json`. Count is exact.\n3. **All 3 phases pass** \u2014 regime (Risk-On: 2/3 above 50-SMA, VIX 19.09 < 20) correct; all 43 gate decisions correctly ACTIVE; no data mismatches, no coverage gaps, no strategy violations.\n\n**Single minor note:** The report does not explicitly call out the dual-gate principle (earnings gate + market context gate apply independently). No gate decisions are affected \u2014 all 43 are ACTIVE under Risk-On regardless.\n\nMarket context verification complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":208474,\"duration_api_ms\":207451,\"num_turns\":8,\"result\":\"Verification complete. All five checks pass.\\n\\n## HANDOFF\\n\\n**Artifact:** `market-context-review.md`\\n**Verdict:** PASS\\n**Checks passed:** 5/5 (1 with minor note)\\n**Issues found:** 1 (0 critical, 1 minor)\\n\\n**All three retest targets confirmed:**\\n1. **APLD $27.71 BUY** \u2014 present in `market-context-raw.md` Pending BUY Orders Detail (4.6% below $29.04, 4.58% computed). Gather cross-check step is functioning correctly.\\n2. **43 orders across 14 tickers** \u2014 verified row by row against `portfolio.json`. Count is exact.\\n3. **All 3 phases pass** \u2014 regime (Risk-On: 2/3 above 50-SMA, VIX 19.09 < 20) correct; all 43 gate decisions correctly ACTIVE; no data mismatches, no coverage gaps, no strategy violations.\\n\\n**Single minor note:** The report does not explicitly call out the dual-gate principle (earnings gate + market context gate apply independently). No gate decisions are affected \u2014 all 43 are ACTIVE under Risk-On regardless.\\n\\nMarket context verification complete.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"af96fde8-e847-41f6-a314-2f48d95bb704\",\"total_cost_usd\":0.76659075,\"usage\":{\"input_tokens\":7,\"cache_creation_input_tokens\":46645,\"cache_read_input_tokens\":220499,\"output_tokens\":14591,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":46645,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":7,\"outputTokens\":14591,\"cacheReadInputTokens\":220499,\"cacheCreationInputTokens\":46645,\"webSearchRequests\":0,\"costUSD\":0.76659075,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"dd334217-5158-4243-a8dd-7ff4f54d2850\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "market-context-review.md": "/Users/kamenkamenov/agentic-trading/market-context-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 240.50609183311462,
+        "token_usage": {
+          "input_tokens": 7,
+          "output_tokens": 14591,
+          "cache_read_tokens": 220499,
+          "cache_write_tokens": 46645
+        },
+        "estimated_cost_usd": 0.459954,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-22T14:14:04.953521+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/market-context-workflow.yaml",
+    "workflowHash": "199a11cadbc752f5"
+  }
+}

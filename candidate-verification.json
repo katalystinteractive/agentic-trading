@@ -1,61 +1,61 @@
 {
-  "generated": "2026-03-05T07:51:00",
+  "generated": "2026-03-23T22:30:00",
   "candidates": [
     {
-      "ticker": "OUST",
-      "original_score": 95,
+      "ticker": "NUAI",
+      "original_score": 92,
       "adjustment": 0,
-      "adjusted_score": 95,
+      "adjusted_score": 92,
       "verdict": "PASS",
-      "key_finding": "Thesis fully supported; LiDAR differentiation credible; risk callouts specific and actionable"
+      "key_finding": "Dead zone and sub-$5 correctly disqualified; reserve gap addressed substantively in prose"
     },
     {
-      "ticker": "IREN",
-      "original_score": 84,
+      "ticker": "ASTX",
+      "original_score": 86,
       "adjustment": 0,
-      "adjusted_score": 84,
+      "adjusted_score": 86,
       "verdict": "PASS",
-      "key_finding": "Correct Monitor verdict; all 3 qualitative questions answered with substance; sub-sector overlap argument accurate"
+      "key_finding": "Price range violation clearly articulated; 25% dead zone explicitly addressed"
     },
     {
-      "ticker": "QBTS",
+      "ticker": "BMNZ",
+      "original_score": 86,
+      "adjustment": 0,
+      "adjusted_score": 86,
+      "verdict": "PASS",
+      "key_finding": "1 strong level (vs 3 required) addressed in risk callouts; sector unknown correctly flagged"
+    },
+    {
+      "ticker": "VELO",
+      "original_score": 85,
+      "adjustment": 0,
+      "adjusted_score": 85,
+      "verdict": "PASS",
+      "key_finding": "39% dead zone addressed explicitly; Tech concentration a genuine qualitative add"
+    },
+    {
+      "ticker": "CRWU",
+      "original_score": 85,
+      "adjustment": 0,
+      "adjusted_score": 85,
+      "verdict": "PASS",
+      "key_finding": "$4.20 0% recent hold explicitly called broken; recency deterioration substantively addressed"
+    },
+    {
+      "ticker": "RGTZ",
       "original_score": 83,
       "adjustment": 0,
       "adjusted_score": 83,
       "verdict": "PASS",
-      "key_finding": "Recency-over-base-rate argument well-defended; D-Wave vs IonQ tech differentiation credible"
+      "key_finding": "31% dead zone explicitly quantified; n=1 reserve event correctly flagged as unreliable"
     },
     {
-      "ticker": "HUT",
-      "original_score": 81,
+      "ticker": "IREX",
+      "original_score": 82,
       "adjustment": 0,
-      "adjusted_score": 81,
+      "adjusted_score": 82,
       "verdict": "PASS",
-      "key_finding": "Correctly blocked on concentration; mechanical strengths accurately noted without over-weighting them"
-    },
-    {
-      "ticker": "RGTI",
-      "original_score": 79,
-      "adjustment": -2,
-      "adjusted_score": 77,
-      "verdict": "FLAG",
-      "key_finding": "Duplicate buy price ($14.78) not addressed; two separate levels would trigger same order — deployment ambiguity unresolved"
-    },
-    {
-      "ticker": "NTLA",
-      "original_score": 79,
-      "adjustment": 0,
-      "adjusted_score": 79,
-      "verdict": "PASS",
-      "key_finding": "FDA gap-down risk is genuine qualitative add; $11.02 zero-hold callout accurate and specific"
-    },
-    {
-      "ticker": "RDW",
-      "original_score": 78,
-      "adjustment": 0,
-      "adjusted_score": 78,
-      "verdict": "PASS",
-      "key_finding": "3-level simultaneous deterioration correctly characterized as structural; reserve weakness assessment accurate"
+      "key_finding": "All flags addressed; $22.78 anchor quality verified; zero reserves risk acknowledged"
     }
   ]
 }

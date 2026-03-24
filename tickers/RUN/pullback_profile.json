@@ -1,0 +1,86 @@
+{
+  "ticker": "RUN",
+  "pullback_count": 5,
+  "avg_depth_pct": -35.3,
+  "median_depth_pct": -29.1,
+  "distribution": [
+    {
+      "depth_pct": -2,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -3,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -5,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -7,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -9,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -12,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -15,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -20,
+      "reach_pct": 100.0
+    }
+  ],
+  "bullet_fill_rates": [
+    {
+      "label": "B2",
+      "price": 11.05,
+      "depth_pct": -13.3,
+      "fill_rate_pct": 100.0
+    },
+    {
+      "label": "B3",
+      "price": 10.69,
+      "depth_pct": -16.1,
+      "fill_rate_pct": 100.0
+    },
+    {
+      "label": "B4",
+      "price": 10.1,
+      "depth_pct": -20.7,
+      "fill_rate_pct": 100.0
+    },
+    {
+      "label": "B5",
+      "price": 10.05,
+      "depth_pct": -21.1,
+      "fill_rate_pct": 100.0
+    },
+    {
+      "label": "R1",
+      "price": 7.87,
+      "depth_pct": -38.2,
+      "fill_rate_pct": 100.0
+    },
+    {
+      "label": "R2",
+      "price": 6.11,
+      "depth_pct": -52.0,
+      "fill_rate_pct": 100.0
+    },
+    {
+      "label": "R3",
+      "price": 5.45,
+      "depth_pct": -57.2,
+      "fill_rate_pct": 100.0
+    }
+  ],
+  "current_phase": "SUPPORT",
+  "last_updated": "2026-03-16"
+}

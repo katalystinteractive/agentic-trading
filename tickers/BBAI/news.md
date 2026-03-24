@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:20*
+*Generated: 2026-03-16 19:35*
 
 ## News & Sentiment: BigBear.ai, Inc. (BBAI)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,54 +6,101 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-08 | TipRanks | PLTR vs. BBAI: Which AI Defense Stock Is the Better Buy afte... | Positive | +0.53 | Earnings |
-| 2026-03-07 | MarketBeat | MarketBeat Week in Review  03/02 - 03/06 | Neutral | +0.00 | Earnings |
-| 2026-03-07 | Seeking Alpha | BigBear.ai: Q4 2025 Revenue Contraction And The Pivot To The... | Neutral | +0.00 | Earnings |
-| 2026-03-07 | MarketBeat | BigBear.ai (NYSE:BBAI) Stock Acquired Rep. Lisa C. McClain -... | Neutral | +0.00 | Earnings |
-| 2026-03-07 | MarketBeat | Citigroup Inc. Sells 236,591 Shares of BigBear.ai Holdings, ... | Positive | +0.30 | Earnings |
-| 2026-03-07 | MarketBeat | Rep. Lisa C. McClain Buys BigBear.ai Holdings, Inc. (NYSE:BB... | Positive | +0.30 | Earnings |
-| 2026-03-07 | GuruFocus | Insider Sell: Dorothy Hayes Sells 17,000 Shares of BigBear.a... | Positive | +0.30 | — |
-| 2026-03-07 | Meyka | BBAI stock $4.25 on 06 Mar 2026 NYSE: cash and M&A may suppo... | Positive | +0.40 | — |
+| 2026-03-16 | Zacks | SERV Expands to 20 Cities: Is Nationwide Robot Delivery Near... | Positive | +0.10 | — |
+| 2026-03-15 | MarketBeat | 269,267 Shares in BigBear.ai Holdings, Inc. $BBAI Bought by ... | Positive | +0.30 | Earnings |
+| 2026-03-14 | MSN | Here's Why BigBear.ai Holdings, Inc. (BBAI) Fell More Than B... | Neutral | +0.00 | — |
+| 2026-03-13 | TradingView | Why is BBAI stock tanking to $3.91 on huge volume? - Trading... | Positive | +0.32 | — |
+| 2026-03-13 | Zacks | Can BigBear.ai's Strategic Partnerships Expand Its Defense R... | Positive | +0.44 | — |
+| 2026-03-12 | Yahoo Finance | BigBear.ai (BBAI) Is Up 8.1% After Steep Impairment and New ... | Neutral | +0.00 | Earnings |
+| 2026-03-12 | MarketBeat | BigBear.ai (NYSE:BBAI) Shares Down 2.5% - Should You Sell? -... | Positive | +0.30 | Earnings |
+| 2026-03-11 | The Motley Fool | Can BigBear.ai Stock Make You a Millionaire? - The Motley Fo... | Negative | -0.44 | — |
+| 2026-03-11 | Yahoo Finance | A Look At BigBear.ai Holdings (BBAI) Valuation After Recent ... | Positive | +0.30 | — |
+| 2026-03-10 | Insider Monkey | Cantor Fitzgerald Lowers BigBear.ai Holdings, Inc. (BBAI) Pr... | Negative | -0.13 | Analyst |
+| 2026-03-09 | Insider Monkey | H.C. Wainwright Reiterates Buy Rating on BigBear.ai (BBAI) | Neutral | +0.00 | — |
+| 2026-03-09 | MarketBeat | BigBear.ai (NYSE:BBAI) Trading Down 1.2% - Here's What Happe... | Neutral | +0.00 | Earnings |
+| 2026-03-07 | MarketBeat | MarketBeat Week in Review - 03/02 - 03/06 | Neutral | +0.00 | Earnings |
 | 2026-03-07 | MarketBeat | MarketBeat Week in Review – 03/02 - 03/06 | Neutral | +0.00 | Earnings |
 | 2026-03-06 | Zacks | Should You Buy, Sell or Hold BigBear.ai Stock After Q4 Resul... | Neutral | +0.00 | — |
-| 2026-03-06 | StocksToTrade | BigBear.ai Makes Bold Moves Despite Market Challenges - Stoc... | Positive | +0.34 | — |
 | 2026-03-06 | Simply Wall St. | BigBear.ai’s Debt Reset And Middle East Push Reframe Growth ... | Positive | +0.32 | — |
 | 2026-03-05 | Zacks | Gorilla Technology Roars Past $100M Revenues With a $7B+ Pip... | Neutral | +0.00 | Earnings |
-| 2026-03-05 | Yahoo Finance | BigBear.ai Shares Tumble. Should Investors Buy the Dip or St... | Positive | +0.30 | — |
-| 2026-03-05 | Investing.com | Lisa McClain purchases BigBear.ai stocks through Charles Sch... | Neutral | +0.00 | — |
-| 2026-03-05 | MarketBeat | BigBear.ai (NYSE:BBAI) Stock Price Up 5.5% - Here's Why - Ma... | Neutral | +0.00 | Earnings |
-| 2026-03-05 | Seeking Alpha | BigBear.ai: Defense AI Potential Is Real, But Execution Rema... | Positive | +0.06 | — |
-| 2026-03-05 | Seeking Alpha | BigBear.Ai: Niche Defense & Border Control Leader Remains Ex... | Positive | +0.13 | — |
-| 2026-03-05 | Stocktwits | BBAI Stock Slides 8% – Analyst Flags Soft Sales Estimate, Re... | Positive | +0.30 | — |
-| 2026-03-05 | MarketBeat | HC Wainwright Estimates BigBear.ai's Q3 Earnings (NYSE:BBAI)... | Neutral | +0.00 | Earnings |
-| 2026-03-05 | StocksToTrade | BigBear.ai Rides Waves of Strategic Moves and Financial Pivo... | Neutral | +0.00 | — |
-| 2026-03-05 | timothysykes.co | BigBear.ai Stock Rises on Turnaround Hopes and Strategic Mov... | Positive | +0.42 | — |
 | 2026-03-04 | Insider Monkey | BigBear.ai (BBAI) Strengthens Balance Sheet with 90% Debt Re... | Positive | +0.13 | — |
 | 2026-03-04 | Zacks | BigBear.ai Revenues Slump in Q4: Temporary Dip or Deeper Iss... | Neutral | +0.00 | Earnings |
-| 2026-03-04 | Forbes | What's Happening With BBAI Stock? - Forbes | Neutral | +0.00 | — |
-| 2026-03-04 | MarketBeat | BigBear.ai Stock Is Down Big, But Smart Money Is Quietly Buy... | Positive | +0.55 | Earnings |
-| 2026-03-04 | Seeking Alpha | BigBear.ai: Big Expectations, Big Doubts (NYSE:BBAI) - Seeki... | Negative | -0.30 | — |
+| 2026-03-04 | MarketBeat | BigBear.ai Stock Is Down Big, But Smart Money Is Quietly Buy... | Positive | +0.55 | — |
 | 2026-03-04 | Trefis | BigBear.ai Stock (-7.3%): Q4 Revenue Misses Estimates, Down ... | Negative | -0.23 | Earnings |
-| 2026-03-04 | Meyka | Pre-Market 04 Mar 2026: BBAI BigBear.ai (NYSE) $3.80 after Q... | Negative | -0.15 | Earnings |
-| 2026-03-04 | MarketBeat | HC Wainwright Predicts BigBear.ai's Q1 Earnings (NYSE:BBAI) ... | Neutral | +0.00 | Earnings |
+| 2026-03-03 | Benzinga | BigBear.AI Stock Falls Tuesday: What's Happening? | Neutral | +0.00 | — |
+| 2026-03-03 | Moby | BigBear.ai Holdings, Inc. Q4 2025 Earnings Call Summary | Neutral | +0.00 | Earnings |
+| 2026-03-03 | GuruFocus.com | BigBear.ai Holdings Inc (BBAI) Q4 2025 Earnings Call Highlig... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-03-03 | TipRanks | BigBear.ai Stock (BBAI) Is Down 7% Today —What Spooked Inves... | Neutral | +0.00 | — |
+| 2026-03-03 | Benzinga | BigBear.AI Stock Falls Tuesday: What's Happening? - Benzinga | Neutral | +0.00 | — |
+| 2026-03-02 | Benzinga | Berkshire Hathaway, AST SpaceMobile, MongoDB, Credo Technolo... | Neutral | +0.00 | — |
+| 2026-03-02 | MarketBeat | BigBear.ai Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
+| 2026-03-02 | Zacks | BigBear.ai Holdings, Inc. (BBAI) Reports Q4 Loss, Lags Reven... | Negative | -0.59 | Earnings |
+| 2026-03-02 | Business Wire | BigBear.ai Announces Fourth Quarter 2025 Results; Releases 2... | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 14 (47%) |
-| Neutral | 13 (43%) |
-| Negative | 3 (10%) |
-| Average Score | +0.123 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 179 |
+| Positive | 9 (30%) |
+| Neutral | 17 (57%) |
+| Negative | 4 (13%) |
+| Average Score | +0.045 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 182 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 15 | PLTR vs. BBAI: Which AI Defense Stock Is..; MarketBeat Week in Review  03/02 - 03/06 |
+| Earnings | 13 | 269,267 Shares in BigBear.ai Holdings, I..; BigBear.ai (BBAI) Is Up 8.1% After Steep.. |
+| Analyst | 1 | Cantor Fitzgerald Lowers BigBear.ai Hold.. |
+| Corporate | 1 | BigBear.ai Holdings Inc (BBAI) Q4 2025 E.. |
 
 ### Deep Dive Articles
+
+#### Cantor Fitzgerald Lowers BigBear.ai Holdings, Inc. (BBAI) Price Target to $5
+*Source: Insider Monkey | Date: 2026-03-10 | Sentiment: Positive (+0.98)*
+
+> On March 3, Cantor Fitzgerald lowered the firm’s price target on BigBear.ai Holdings, Inc. (NYSE:BBAI) to $5 from $6 while maintaining a Neutral rating following the company’s fourth-quarter results. Despite reporting revenue of $27.3 million, representing a 37.7% year-over-year decline largely due to disruptions in certain U.S. Army contracts and broader federal program headwinds, analysts noted that the company still delivered a relatively solid quarter under challenging conditions. The firm also highlighted that fiscal 2026 revenue guidance of $135 million to $165 million implies approximately 17% growth at the midpoint, including an estimated $25 million contribution from the company’s Ask Sage acquisition.
+
+> The same day, H.C. Wainwright lowered its price target on BigBear.ai Holdings, Inc. (NYSE:BBAI) to $6 from $8 but maintained a Buy rating, citing improvements in the company’s balance sheet that provide greater flexibility to fund growth initiatives.
+
+> BigBear.ai Holdings, Inc. (NYSE:BBAI) reported fourth-quarter earnings per share of negative $0.01, outperforming consensus expectations of negative $0.06. While revenue missed estimates and adjusted EBITDA declined to negative $10.3 million due to lower margins and higher operating expenses, management emphasized that 2025 represented a transformational year. Chief Executive Officer Kevin McAleenan noted that the company significantly strengthened its financial position by reducing debt by more than 90%, expanding internationally, completing two strategic acquisitions, and raising approximately $693 million through at-the-market facilities and warrants. Management also highlighted supportive tailwinds from the U.S. government’s AI Acceleration Strategy, which could drive future demand for secure, mission-focused artificial intelligence solutions.
+
+> BigBear.ai Holdings, Inc. (NYSE:BBAI) focuses on delivering advanced analytics and data-driven decision intelligence solutions for enterprise and government customers. The company develops and deploys artificial intelligence and machine learning capabilities through an end-to-end data analytics platform designed to operationalize insights at scale.
+
+> While we acknowledge the potential of BBAI as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+
+**Catalysts:** Earnings, Regulatory, Corporate, Analyst, Short
+
+#### H.C. Wainwright Reiterates Buy Rating on BigBear.ai (BBAI)
+*Source: Insider Monkey | Date: 2026-03-09 | Sentiment: Positive (+0.97)*
+
+> BigBear.ai Holdings Inc. (NYSE:BBAI) is one of the11 most popular AI penny stocks to buy now. As of the close of play on March 6, consensus sentiment for BigBear.ai Holdings Inc. (NYSE:BBAI) remained moderately bullish. The stock received coverage from 3 analysts, with 1 Buy rating and 2 Hold calls. With no Sell rating, it has a projected median 1-year price target of $5.33. This results in an upside potential of more than 25% at the current level.
+
+> On March 3, H.C. Wainwright reduced the firm’s price target on BigBear.ai Holdings Inc. (NYSE:BBAI) to $6 from $8. The firm maintained its Buy rating on the shares, which offer an adjusted upside potential of more than 41% despite the downward revision.
+
+> Following the company’s fourth-quarter report, the firm noted that recent improvements to the balance sheet provide greater flexibility to fund future growth initiatives. Despite this positive development, the firm reduced its price target due to lower sales estimates.
+
+> BigBear.ai Holdings Inc. (NYSE:BBAI) delivers AI-enabled decision-intelligence solutions across various segments. These include national security, digital identity, healthcare & life sciences, and manufacturing & warehouse operations. It offers unique solutions with varying features, such as Data Conflation at Scale, Discrete Event Simulation, and Next-Gen Decision Support.
+
+> While we acknowledge the potential of BBAI as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+
+**Catalysts:** Regulatory, Analyst, Short
+
+#### MarketBeat Week in Review - 03/02 - 03/06
+*Source: MarketBeat | Date: 2026-03-07 | Sentiment: Positive (+0.97)*
+
+> War, rising oil prices, and a negative jobs report were a powerful drag on stocks. All the major indexes were down for the week as uncertainty overtook investor confidence. It's uncomfortable to see stocks falling, but as a percentage, U.S. stocks are holding up well, and earnings season has been, on average, quite strong.
+
+> However, markets are likely to remain volatile until investors get more clarity around the length and the results of the conflict with Iran. Until then, markets are likely to move with the headlines, which ensures volatility will continue.
+
+> Next week, investors will get three different reads on inflation. The Consumer Price Index (CPI) and Producer Price Index (PPI) for February come out on Tuesday and Wednesday, respectively. The delayed Personal Consumption Expenditures (PCE) index from January will be released on Friday. A surprise in either direction will move stocks.
+
+> Amprius Technologies Inc. (NYSE: AMPX)had another strong quarter. Thomas Hughes has been bullish on AMPX stock for nearly a year, and in this week’s article, he made the case that thecompany’s strategy execution is paying offwith revenue and earnings entering a hypergrowth stage.
+
+> Hughes also wrote aboutIonQ Inc.'s (NYSE: IONQ)solid earnings report. The report shows that the long-term quantum computing thesis is in place. However, the company is a long way away from making a profit, whichmay mean the risk outweighs the reward, for now.
+
+**Catalysts:** Earnings
 
 #### Should You Buy, Sell or Hold BigBear.ai Stock After Q4 Results?
 *Source: Zacks | Date: 2026-03-06 | Sentiment: Positive (+1.00)*
@@ -84,48 +131,3 @@
 > It made share repurchases worth $3.5 million in 2025 and an additional repurchases worth $3 million in 2026.
 
 **Catalysts:** Earnings, Shareholder
-
-#### BigBear.ai (BBAI) Strengthens Balance Sheet with 90% Debt Reduction and $462M in Cash
-*Source: Insider Monkey | Date: 2026-03-04 | Sentiment: Positive (+0.97)*
-
-> BigBear.ai Holdings Inc. (NYSE:BBAI) is one of thebest low cost stocks to buy under $5. On March 2, BigBear.ai Holdings announced that it concluded 2025 reporting $462 million in total cash and investments and a 90% reduction in total debt. This transformation was fueled by $693 million in proceeds from equity facilities and the strategic settlement of 2029 convertible notes. The company also expanded its market footprint through the major acquisition of Ask Sage in late 2025 and CargoSeer in early 2026, alongside a new expansion into the Middle East, positioning the firm for a projected 17% revenue growth in the coming year.
-
-> Financial results for Q4 2025 showed revenue of $27.3 million, a decrease from the previous year due to lower volumes in Army programs and the non-recurrence of high-margin contracts. While the company reported a net loss of $5.8 million for the quarter, which was an improvement over the $138.2 million loss in Q4 2024, the results were impacted by a $53.4 million impairment of long-lived assets and an adjusted EBITDA loss of $10.3 million.
-
-> BigBear.ai Holdings Inc. (NYSE:BBAI) now projects full-year 2026 revenue to fall between $135 and $165 million. The CEO emphasized that the focus on national security and trade aligns with the US Government’s AI Acceleration Strategy, providing a solid foundation for scalable growth. With a cleared balance sheet and specialized tech assets, the company aims to capitalize on the increasing demand for secure, flexible AI decision intelligence solutions among global partners and government operators.
-
-> BigBear.ai Holdings Inc. (NYSE:BBAI) provides AI-powered decision intelligence solutions. It offers national security, supply chain management, and digital identity and biometrics solutions.
-
-> While we acknowledge the potential of BBAI as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
-
-**Catalysts:** Earnings, Regulatory, Corporate, Short
-
-#### BigBear.ai Revenues Slump in Q4: Temporary Dip or Deeper Issue?
-*Source: Zacks | Date: 2026-03-04 | Sentiment: Positive (+0.99)*
-
-> BigBear.ai Holdings, Inc.BBAI reported a notable revenue decline in fourth-quarter 2025, raising questions about whether the slowdown reflects a temporary disruption or deeper structural challenges. The company posted quarterly revenues of $27.3 million, down sharply from $43.8 million in the prior-year period, largely due to reduced volume on certain U.S. Army programs. For 2025, revenues totaled $127.7 million compared with $158.2 million in 2024, reflecting the impact of shifting contract timing and government program dynamics.The revenue drop also weighed on profitability. Adjusted EBITDA for the quarter came in at a loss of roughly $10.3 million compared with positive adjusted EBITDA in the year-ago period of $2 million. Lower gross margin and increased investments in research, development and selling activities contributed to the weaker earnings performance.Despite the near-term softness, management argues that the decline may be cyclical rather than structural. BigBear.ai ended 2025 in what it describes as the strongest financial position in its history, supported by record cash and investments and a sharp reduction in debt. The company also completed two strategic acquisitions — Ask Sage, a generative AI platform for secure government deployments, and CargoSeer, an AI-based cargo inspection technology — both aimed at expanding its capabilities in national security and global trade.BigBear.ai expects growth to resume. Management projects 2026 revenues between $135 million and $165 million, implying roughly 17% growth at the midpoint. Demand drivers include rising defense AI spending, the U.S. government’s AI acceleration initiatives and expanding adoption of mission-focused AI platforms.While execution risks remain, the company’s strengthened balance sheet, expanding AI portfolio and improving demand environment suggest the recent revenue slump may prove temporary rather than structural.
-
-> Competition in defense and government AI platforms provides important context for BigBear.ai’s recent revenue slowdown. One major rival isPalantir TechnologiesPLTR, which also delivers AI-driven analytics and decision-intelligence software to defense and intelligence agencies. Palantir has achieved a stronger scale and more predictable growth in fourth-quarter 2025, supported by large government contracts and expanding AI deployments across the U.S. military and intelligence community.Another relevant competitor isC3.aiAI, an enterprise AI platform provider focused on government, defense and industrial clients. C3.ai develops AI applications that help government agencies integrate data and deploy machine-learning models for mission-critical operations. The company has also pursued large defense opportunities, including agreements with U.S. Department of Defense agencies to accelerate AI deployment across military programs.In this competitive landscape, Palantir and C3.ai highlight the challenge BigBear.ai faces. While Palantir benefits from scale and contract visibility, and C3.ai continues expanding enterprise AI capabilities, BigBear.ai must demonstrate consistent execution to convert its defense-AI pipeline into stable revenue growth.
-
-> Shares of BBAI have trended downward 23.7% in the past six months, underperforming the Zacks Computers - IT Services industry, the Zacks Computer and Technology sector and the S&P 500 Index, as shown below.
-
-> BBAI stock is currently trading at a discount compared with the industry peers, with a forward 12-month price-to-sales (P/S) ratio of 9.59, as evidenced by the chart below.
-
-> BBAI’s P/S Ratio (Forward 12-Month) vs. Industry
-
-**Catalysts:** Earnings, Regulatory, Corporate
-
-#### BigBear.AI Stock Falls Tuesday: What's Happening?
-*Source: Benzinga | Date: 2026-03-03 | Sentiment: Negative (-0.71)*
-
-> BigBear.Ai, Inc.(NYSE:BBAI) shares are trading lower Tuesday after the company reportedfourth-quarter financial results.
-
-> BigBear.AI reported a fourth-quarter loss of 1 cent per share, beating the consensus estimate of a 6-cent loss. Meanwhile, revenue totaled $27.30 million, missing estimates of $33.30 million and declining 38% from $43.8 million year-over-year, primarily due to lower volume on Army programs.
-
-> The company ended 2025 with total cash and investments of $462 million and said it settled the remaining $125 million of its 2029 convertible notes in January 2026.
-
-> "At the start of 2025, we set out to transform our financial foundations to establish a base from which to accelerate in 2026. We have delivered exactly that," CEOKevin McAleenansaid. "As of year-end 2025, BigBear.ai is in the strongest financial position in the company’s history."
-
-> Looking ahead, BigBear.AI projects full-year 2026 revenue between $135 million and $165 million, versus the consensus estimate of $164.29 million.
-
-**Catalysts:** Earnings, Corporate

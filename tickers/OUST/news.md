@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:35*
 
 ## News & Sentiment: Ouster, Inc. (OUST)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,58 +6,73 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-06 | Yahoo Finance S | Assessing Ouster (OUST) Valuation After Earnings Upswing And... | Neutral | +0.00 | Earnings, Corporate |
-| 2026-03-06 | National Today | Ouster's 'Buy' Rating Reiterated at Rosenblatt Securities - ... | Positive | +0.30 | Regulatory |
+| 2026-03-16 | MarketBeat | Algert Global LLC Boosts Stake in Ouster, Inc. $OUST - Marke... | Positive | +0.32 | Earnings |
+| 2026-03-12 | simplywall.st | Ouster (OUST) Is Up 10.6% After First Quarterly Profit, Ster... | Positive | +0.44 | Earnings, Equity |
+| 2026-03-12 | Stock Titan | [144] Ouster, Inc. SEC Filing - Stock Titan | Neutral | +0.00 | Regulatory |
+| 2026-03-12 | Stock Titan | ETrade Financial (NASDAQ: OUST) plans sale of 29,167 shares ... | Positive | +0.30 | — |
+| 2026-03-11 | Trefis | Ouster Stock (+8.9%): Insider Buy and Conference Fuel Post-E... | Neutral | +0.00 | Earnings |
+| 2026-03-11 | MSN | OUSTER, INC. (OUST) - MSN | Neutral | +0.00 | — |
+| 2026-03-11 | Stock Titan | OUST SEC Filings - Ouster Inc 10-K, 10-Q, 8-K Forms - Stock ... | Neutral | +0.00 | Regulatory |
+| 2026-03-11 | Cantech Letter | This investor loves robotics stock Ouster - Cantech Letter | Positive | +0.57 | — |
+| 2026-03-10 | 24/7 Wall St. | Robotics Stocks Soar Tuesday: Ouster Up 9% and Teradyne Jump... | Neutral | +0.00 | — |
+| 2026-03-10 | simplywall.st | Evaluating Ouster (OUST) After Strong Q4 Results And New Rev... | Positive | +0.51 | Earnings |
+| 2026-03-10 | MarketBeat | Ouster (NYSE:OUST) Director Acquires $136,175.00 in Stock - ... | Neutral | +0.00 | Earnings |
+| 2026-03-10 | MarketBeat | Ouster (NYSE:OUST) Trading 10.2% Higher After Insider Buying... | Neutral | +0.00 | Earnings |
+| 2026-03-10 | National Today | Ouster Shares Rise After Insider Buying - National Today | Positive | +0.30 | — |
+| 2026-03-10 | GuruFocus | Insider Buying: Virginia Boulet Acquires Shares of Ouster In... | Positive | +0.30 | — |
+| 2026-03-06 | Sahm | Why Ouster (OUST) Is Up 13.0% After Profitable Q4, Higher 20... | Positive | +0.44 | Earnings, Equity |
 | 2026-03-06 | Simply Wall St. | Ouster StereoLabs Deal Recasts Company As AI Sensing Growth ... | Positive | +0.38 | — |
+| 2026-03-06 | Simply Wall St. | Assessing Ouster (OUST) Valuation After Earnings Upswing And... | Neutral | +0.00 | Earnings, Corporate |
 | 2026-03-05 | Business Wire | Ouster Accelerates Software Adoption in 2025 with Record Boo... | Neutral | +0.00 | — |
-| 2026-03-05 | simplywall.st | Why Ouster (OUST) Is Up 13.0% After Profitable Q4, Higher 20... | Positive | +0.44 | Earnings, Equity |
-| 2026-03-05 | Business Wire | Ouster Announces Upcoming Investor Events - Business Wire | Neutral | +0.00 | — |
+| 2026-03-05 | Stock Titan | Ouster execs head to New York and California for March inves... | Neutral | +0.00 | — |
+| 2026-03-05 | Stock Titan | Lidar firm Ouster wins traffic deals across US cities and Eu... | Positive | +0.57 | — |
 | 2026-03-05 | MarketBeat | Ouster (NYSE:OUST) Trading Down 9.5% - Should You Sell? - Ma... | Neutral | +0.00 | Earnings |
 | 2026-03-05 | National Today | Ouster Stock Drops 9.5% - Should Investors Sell? - National ... | Neutral | +0.00 | — |
 | 2026-03-05 | National Today | Ouster Shares Surge on Positive Market Outlook - National To... | Positive | +0.70 | — |
 | 2026-03-04 | Business Wire | Ouster Announces Upcoming Investor Events | Neutral | +0.00 | — |
+| 2026-03-04 | Trefis | Ouster Stock (+7.3%): Strong Q1 Guidance and Surprise Profit... | Positive | +0.81 | Earnings |
 | 2026-03-04 | Seeking Alpha | Ouster: Great Tech, Stock Fairly Priced (Downgrade) (NASDAQ:... | Positive | +0.62 | Analyst |
+| 2026-03-04 | MarketBeat | Vanguard Group Inc. Has $127.68 Million Stake in Ouster, Inc... | Neutral | +0.00 | Earnings |
 | 2026-03-03 | Barrons.com | Ouster Stock Soars. Surprise Payments Helped. | Positive | +0.27 | — |
 | 2026-03-03 | Investor's Busi | Ouster, The 'Eyes' Of Physical AI, Delivers Q4 Earnings Surp... | Positive | +0.27 | Earnings |
 | 2026-03-03 | Benzinga | Ouster Climbs Following Fourth-Quarter Results | Neutral | +0.00 | — |
-| 2026-03-03 | Moby | Ouster, Inc. Q4 2025 Earnings Call Summary | Neutral | +0.00 | Earnings |
-| 2026-03-03 | GuruFocus.com | Ouster Inc (OUST) Q4 2025 Earnings Call Highlights: Record S... | Positive | +0.51 | Earnings |
-| 2026-03-03 | GuruFocus | Ouster (OUST) Maintains 'Buy' Rating by Rosenblatt - OUST St... | Neutral | +0.00 | — |
-| 2026-03-03 | simplywall.st | Assessing Ouster (OUST) Valuation After Strong Revenue Growt... | Positive | +0.79 | Earnings |
-| 2026-03-03 | MarketBeat | Ouster (NYSE:OUST) Shares Gap Up - What's Next? - MarketBeat | Positive | +0.30 | Earnings |
-| 2026-03-03 | MarketBeat | Rosenblatt Securities Reaffirms Buy Rating for Ouster (NYSE:... | Positive | +0.30 | Earnings, Regulatory |
-| 2026-03-03 | The Globe and M | Ouster (OUST) Q4 2025 Earnings Call Transcript - The Globe a... | Neutral | +0.00 | Earnings |
-| 2026-03-03 | Simply Wall St. | Ouster (OUST) Is Up 12.1% After Record Q4 Profit And StereoL... | Positive | +0.44 | Earnings |
-| 2026-03-02 | MarketBeat | Ouster Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
-| 2026-03-02 | Business Wire | Ouster Announces Results for Fourth Quarter and Full Year 20... | Neutral | +0.00 | — |
-| 2026-03-02 | Benzinga | Archer, Riot, Rigetti and More Stocks With Earnings This Wee... | Negative | -0.56 | Earnings |
-| 2026-03-02 | ChartMill | Ouster Inc (NASDAQ:OUST) Soars on Massive Q4 Earnings Beat a... | Positive | +0.27 | Earnings |
-| 2026-03-02 | MarketBeat | Handelsbanken Fonder AB Increases Stock Position in Ouster, ... | Neutral | +0.00 | Earnings |
-| 2026-03-02 | Benzinga | Ouster Q4 Earnings Summary & Key Takeaways - Benzinga | Neutral | +0.00 | Earnings |
-| 2026-03-02 | Motley Fool | Ouster (OUST) Q4 2025 Earnings Call Transcript | Neutral | +0.00 | Earnings |
-| 2026-03-01 | Simply Wall St. | Ouster StereoLabs Deal Builds Physical AI Platform And Growt... | Positive | +0.38 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 14 (47%) |
+| Positive | 15 (50%) |
 | Neutral | 15 (50%) |
-| Negative | 1 (3%) |
-| Average Score | +0.181 |
+| Negative | 0 (0%) |
+| Average Score | +0.227 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 160 |
+| Total Unique Headlines | 161 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 17 | Assessing Ouster (OUST) Valuation After ..; Why Ouster (OUST) Is Up 13.0% After Prof.. |
-| Regulatory | 2 | Ouster's 'Buy' Rating Reiterated at Rose..; Rosenblatt Securities Reaffirms Buy Rati.. |
+| Earnings | 12 | Algert Global LLC Boosts Stake in Ouster..; Ouster (OUST) Is Up 10.6% After First Qu.. |
+| Equity | 2 | Ouster (OUST) Is Up 10.6% After First Qu..; Why Ouster (OUST) Is Up 13.0% After Prof.. |
+| Regulatory | 2 | [144] Ouster, Inc. SEC Filing - Stock Ti..; OUST SEC Filings - Ouster Inc 10-K, 10-Q.. |
 | Corporate | 1 | Assessing Ouster (OUST) Valuation After .. |
-| Equity | 1 | Why Ouster (OUST) Is Up 13.0% After Prof.. |
 | Analyst | 1 | Ouster: Great Tech, Stock Fairly Priced .. |
 
 ### Deep Dive Articles
+
+#### Robotics Stocks Soar Tuesday: Ouster Up 9% and Teradyne Jumps 3%
+*Source: 24/7 Wall St. | Date: 2026-03-10 | Sentiment: Positive (+0.95)*
+
+> Ouster (OUST) stock is up 9% on Tuesday as robotics and lidar sector momentum builds in March. Teradyne (TER) stock is up 2.68% midday, with multiple Wall Street analysts having raised their price targets in January 2026, citing AI test demand and robotics optimism. Ouster and Teradyne stocks are both up roughly 190% over the past year, reflecting the market’s rapid repricing of automation and AI infrastructure plays.
+
+> Shares ofOuster(NASDAQ:OUST) are surging 8% to 9% in Tuesday morning trading, pushing above $22 intraday.Teradyne(NASDAQ:TER) stock is also climbing, up 3% and hovering near $306. The robotics and automation sector is clearly on the move today.
+
+> Ouster reported Q4 2025 earnings on March 2, and the numbers were striking. Revenue came in at $62.18 million against an estimate of $41.09 million, a surprise of more than 51%. Revenue was up 106.6% year over year, driven in part by approximately $21 million in one-time IP royalties that boosted results alongside a record 8,100 sensor shipments.
+
+> The company posted a GAAP gross margin of 60% and swung to a GAAP net income of $3.98 million, a swing of approximately $28 million from the prior year. CEO Angus Pacala summed it up plainly: “2025 was a year of exceptional execution.” That’s not just a talking point when you’re posting triple-digit revenue growth and your first profitable quarter.
+
+> Ouster also acquired Stereolabs, a camera and perception technology company, during Q4, expanding its capabilities beyond lidar into a broader sensor suite. For Q1 2026, Ouster guided to $45 million to $48 million in revenue, and the company laid out a long-term framework targeting 30% to 50% annual revenue growth. Analysts have taken notice, with a consensus price target of $39.67 against today’s price near $22, and six Buy ratings and zero Sells on the Street.
+
+**Catalysts:** Earnings, Regulatory, Corporate, Analyst
 
 #### Ouster Climbs Following Fourth-Quarter Results
 *Source: Benzinga | Date: 2026-03-03 | Sentiment: Negative (-0.62)*
@@ -116,20 +131,5 @@
 > Looking at the full year, the Zacks Consensus Estimates suggest analysts are expecting earnings of -$1.53 per share and revenue of $148 million. These totals would mark changes of +26.44% and +33.21%, respectively, from last year.
 
 > Investors might also notice recent changes to analyst estimates for Ouster, Inc.  These latest adjustments often mirror the shifting dynamics of short-term business patterns.  As a result, upbeat changes in estimates indicate analysts' favorable outlook on the business health and profitability.
-
-**Catalysts:** Earnings, Regulatory, Short
-
-#### Why Ouster, Inc. (OUST) Dipped More Than Broader Market Today
-*Source: Zacks | Date: 2026-02-10 | Sentiment: Positive (+0.89)*
-
-> In the latest trading session, Ouster, Inc. (OUST) closed at $20.06, marking a -4.75% move from the previous day. This change lagged the S&P 500's 0.33% loss on the day. On the other hand, the Dow registered a gain of 0.1%, and the technology-centric Nasdaq decreased by 0.59%.
-
-> The company's stock has dropped by 22.91% in the past month, falling short of the Computer and Technology sector's loss of 1.09% and the S&P 500's loss of 0%.
-
-> Investors will be eagerly watching for the performance of Ouster, Inc. in its upcoming earnings disclosure. The company's earnings report is set to be unveiled on March 2, 2026. The company is expected to report EPS of -$0.39, up 18.75% from the prior-year quarter. Meanwhile, the Zacks Consensus Estimate for revenue is projecting net sales of $40.85 million, up 35.76% from the year-ago period.
-
-> Looking at the full year, the Zacks Consensus Estimates suggest analysts are expecting earnings of -$1.53 per share and revenue of $148 million. These totals would mark changes of +26.44% and +33.21%, respectively, from last year.
-
-> Investors should also note any recent changes to analyst estimates for Ouster, Inc.  Recent revisions tend to reflect the latest near-term business trends.  As a result, we can interpret positive estimate revisions as a good sign for the business outlook.
 
 **Catalysts:** Earnings, Regulatory, Short

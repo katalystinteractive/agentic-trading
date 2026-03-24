@@ -3,40 +3,45 @@
 ## Global Context
 | Metric | Value |
 | :--- | :--- |
-| Date | 2026-03-08 |
-| Regime | Risk-Off |
-| Regime Detail | 0/3 indices above 50-SMA, VIX 29.5 (elevated) |
-| VIX | 29.49 |
-| VIX 5D% | +48.49% |
+| Date | 2026-03-16 |
+| Regime | Neutral |
+| Regime Detail | 0/3 indices above 50-SMA, VIX 24.2 |
+| VIX | 24.19 |
+| VIX 5D% | -5.14% |
 | Indices Above 50-SMA | 0/3 |
-| Sector Breadth | 2/11 positive |
+| Sector Breadth | 11/11 positive |
+| Data Freshness | 2026-03-16 close |
+| Trading Day | Yes |
 
 ## Portfolio Summary
 | Ticker | Shares | Avg Cost | P/L % |
 | :--- | :--- | :--- | :--- |
-| NU | 30 | $15.85 | -8.0% |
+| NU | 30 | $15.85 | -10.3% |
 | STIM | 0 | $0.00 | +inf% |
-| IONQ | 15 | $44.43 | -19.6% |
-| LUNR | 1 | $17.61 | +0.1% |
-| USAR | 15 | $21.57 | -19.1% |
-| OUST | 5 | $21.70 | -6.6% |
+| IONQ | 15 | $44.43 | -26.0% |
+| LUNR | 2 | $17.59 | -2.7% |
+| USAR | 15 | $21.57 | -11.3% |
+| OUST | 0 | $0.00 | +inf% |
 | INTC | 0 | $0.00 | +inf% |
-| APLD | 15 | $29.06 | -13.5% |
+| APLD | 15 | $29.06 | -4.9% |
 | SMCI | 0 | $0.00 | +inf% |
-| TMC | 38 | $6.00 | -4.5% |
-| CIFR | 11 | $14.62 | -6.8% |
-| ARM | 4 | $120.88 | -5.4% |
-| ACHR | 61 | $6.78 | -7.7% |
-| TEM | 0 | $0.00 | +inf% |
-| CLSK | 7 | $10.17 | -9.4% |
-| CLF | 21 | $10.26 | -4.2% |
+| TMC | 9 | $6.01 | -0.5% |
+| CIFR | 0 | $0.00 | +inf% |
+| ARM | 5 | $118.96 | +2.3% |
+| ACHR | 77 | $6.61 | -9.0% |
+| TEM | 1 | $50.98 | -1.0% |
+| CLSK | 0 | $0.00 | +inf% |
+| CLF | 47 | $9.39 | -9.2% |
 | BBAI | 0 | $0.00 | +inf% |
-| NNE | 6 | $24.19 | -2.7% |
+| NNE | 10 | $23.87 | -10.9% |
+| RUN | 0 | $0.00 | +inf% |
+| SOUN | 15 | $7.36 | +3.1% |
+| OKLO | 1 | $58.04 | +1.5% |
 
 ## Capital
 | Metric | Value |
 | :--- | :--- |
-| Deployed | $3,745.22 |
+| Deployed | $3,993.89 |
 | Velocity Pool | $1,000.00 |
 | Bounce Pool | $1,000.00 |
 
@@ -45,10 +50,10 @@
 | :--- | :--- |
 | Shares | 30 |
 | Avg Cost | $15.85 |
-| Current Price | $14.58 |
-| P/L % | -8.0% |
+| Current Price | $14.22 |
+| P/L % | -10.3% |
 | Entry Date | 2026-02-13 |
-| Days Held | 23 |
+| Days Held | 31 |
 | Time Stop Status | WITHIN |
 | Bullets Used | 6/5 |
 | Target Exit | $18.50 |
@@ -57,20 +62,30 @@
 ## Day Range
 | Metric | Value |
 | :--- | :--- |
-| Day Low | $14.23 |
-| Day High | $14.73 |
+| Day Low | $14.06 |
+| Day High | $14.37 |
+
+## Recorded Fills
+| # | Fill Price |
+| :--- | :--- |
+| 1 | $16.79 |
+| 2 | $16.40 |
+| 3 | $16.32 |
+| 4 | $15.03 |
+| 5 | $14.82 |
+| 6 | $14.75 |
 
 ## Pending Orders
-| Type | Order Price | Shares | % Below Current | Days to Earnings | Notes |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| SELL | $18.50 | 34 | N/A | 67 | Target ~18.1% from $15.66 avg |
-| BUY | $13.03 | 7 | 29.6% | 67 | Reserve 2 — $12.52 PA, 33% hold rate, Std tier, wick-adjusted (placed 2026-03-02) |
+| Type | Order Price | Shares | % Below Current | Days to Earnings | Status | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| SELL | $18.50 | 34 | N/A | 59 |  | Target ~18.1% from $15.66 avg |
+| BUY | $13.03 | 6 | 29.6% | 59 |  | Reserve 2 — $12.52 PA, 33% hold rate, Std tier, wick-adjusted (placed 2026-03-02, resized 2026-03-13) |
 
 ## Tool Outputs
 #### Earnings
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
 ## Earnings Analysis: Nu Holdings Ltd. (NU)
 
@@ -78,10 +93,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-14 |
-| Days Until | 67 |
+| Days Until | 59 |
 | EPS Estimate | $0.20875 |
 | Revenue Estimate | $5.08B |
-| Earnings Rule | Clear (>67d out) |
+| Earnings Rule | Clear (>59d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
@@ -99,43 +114,43 @@
 
 #### Technical Signals
 ## Technical Scan: Nu Holdings Ltd. (NU)
-**Current Price: $14.58** | Date: 2026-03-06
+**Current Price: $14.22** | Date: 2026-03-16
 
 ### Trend Indicators
 | Indicator | Value | Price Position | Signal |
 | :--- | :--- | :--- | :--- |
-| SMA 20 | $16.32 | Below | Bearish |
-| SMA 50 | $16.96 | Below | Bearish |
-| SMA 200 | $15.07 | Below | Bearish |
-| EMA 9 | $15.28 | Below | Bearish |
-| EMA 21 | $16.04 | Below | Bearish |
+| SMA 20 | $15.44 | Below | Bearish |
+| SMA 50 | $16.67 | Below | Bearish |
+| SMA 200 | $15.14 | Below | Bearish |
+| EMA 9 | $14.52 | Below | Bearish |
+| EMA 21 | $15.29 | Below | Bearish |
 
 ### Momentum Indicators
 | Indicator | Value | Zone | Signal |
 | :--- | :--- | :--- | :--- |
-| RSI (14) | 31.7 | Bearish zone | Neutral-Bear |
-| MACD | -0.697 | Below signal | Bearish |
-| MACD Signal | -0.483 | Histogram: -0.214 | — |
-| Stochastic %K/%D | 12.0/18.4 | Oversold | Bearish |
+| RSI (14) | 34.1 | Bearish zone | Neutral-Bear |
+| MACD | -0.782 | Below signal | Bearish |
+| MACD Signal | -0.684 | Histogram: -0.097 | — |
+| Stochastic %K/%D | 13.3/6.1 | Oversold | Bullish |
 
 ### Volatility
 | Indicator | Value | Position | Signal |
 | :--- | :--- | :--- | :--- |
-| Bollinger Upper | $18.56 | 11% of band | Neutral |
-| Bollinger Lower | $14.08 | Width: $4.49 | — |
-| ATR (14) | $0.74 (5.1%) | High volatility | — |
+| Bollinger Upper | $17.78 | 24% of band | Neutral |
+| Bollinger Lower | $13.09 | Width: $4.69 | — |
+| ATR (14) | $0.68 (4.8%) | High volatility | — |
 
 ### Key Support/Resistance Levels
 | Level | Price | Type | Touches | Last Tested |
 | :--- | :--- | :--- | :--- | :--- |
-| Support | $14.56 (-0.1%) | Support | 1 | 2025-10-17 |
-| Resistance | $14.06 (-3.6%) | Resistance | 2 | 2025-07-17 |
-| Support | $15.19 (+4.2%) | Support | 1 | 2025-11-19 |
-| Resistance | $13.73 (-5.8%) | Resistance | 1 | 2025-05-14 |
-| Support | $15.59 (+6.9%) | Support | 1 | 2025-12-17 |
-| Resistance | $16.36 (+12.2%) | Resistance | 2 | 2026-01-16 |
-| Support | $11.89 (-18.4%) | Support | 2 | 2025-08-14 |
-| Support | $11.75 (-19.4%) | Support | 3 | 2025-06-23 |
+| Resistance | $14.06 (-1.1%) | Resistance | 2 | 2025-07-17 |
+| Support | $14.56 (+2.4%) | Support | 1 | 2025-10-17 |
+| Resistance | $13.73 (-3.4%) | Resistance | 1 | 2025-05-14 |
+| Support | $15.19 (+6.8%) | Support | 1 | 2025-11-19 |
+| Support | $15.59 (+9.6%) | Support | 1 | 2025-12-17 |
+| Resistance | $16.36 (+15.1%) | Resistance | 2 | 2026-01-16 |
+| Support | $11.89 (-16.4%) | Support | 2 | 2025-08-14 |
+| Support | $11.75 (-17.4%) | Support | 3 | 2025-06-23 |
 
 ### Signal Summary
 | Metric | Value |
@@ -150,20 +165,20 @@
 ### Short Interest Summary
 | Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
 | :--- | :--- | :--- | :--- | :--- |
-| NU | 91.86M | 1.77 | 2.41% | -13.0% (decreasing) |
+| NU | 117.55M | 2.00 | 3.08% | +7.9% (increasing) |
 
 ### Squeeze Risk Assessment
 | Ticker | Risk Rating | Score (/100) | Key Factors |
 | :--- | :--- | :--- | :--- |
-| NU | LOW | 0 | Minimal short% (2.4%); Low DTC (1.8); Shorts covering rapidly |
+| NU | LOW | 5 | Minimal short% (3.1%); Low DTC (2.0); Shorts slowly increasing |
 
 ### Context
 | Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
 | :--- | :--- | :--- | :--- | :--- |
-| NU | 3.67B | 3.83B | 50.05M | 1.8 |
+| NU | 3.67B | 3.83B | 52.06M | 2.0 |
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
 ## News & Sentiment: Nu Holdings Ltd. (NU)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -175,24 +190,34 @@
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 10 (33%) |
-| Neutral | 13 (43%) |
-| Negative | 7 (23%) |
-| Average Score | +0.059 |
+| Positive | 9 (30%) |
+| Neutral | 15 (50%) |
+| Negative | 6 (20%) |
+| Average Score | +0.090 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 183 |
+| Total Unique Headlines | 192 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 9 | Barclays PLC Grows Stock Holdings in Nu ..; Nu Holdings Refocuses On Revenue Per Use.. |
-| Analyst | 3 | UBS Lowers Nu Holdings (NU) Price Target..; UBS Lowers Nu Holdings (NU) Price Target.. |
-| Corporate | 1 | APG Asset Management N.V. Trims Stock Po.. |
+| Earnings | 6 | BofA Lowers PT on NU Holdings (NU), Keep..; NU (NU) Short Interest & Short Float - U.. |
+| Analyst | 3 | Morgan Stanley Raises Nu Holdings Ltd. (..; UBS Lowers Nu Holdings (NU) Price Target.. |
+| Short | 1 | NU (NU) Short Interest & Short Float - U.. |
+| Shareholder | 1 | Analysts Split on Nu Holdings (NU) After.. |
+| Corporate | 1 | CEO of Brazil's Nubank on pending US mar.. |
 
 ### Deep Dive Articles
 
+#### Morgan Stanley Raises Nu Holdings Ltd. (NU) Price Target to $21
+*Source: Insider Monkey | Date: 2026-03-10 | Sentiment: Positive (+0.97)*
+**Catalysts:** Earnings, Corporate, Analyst, Short
+
+#### Nubank (NU): Buy, Sell, or Hold Post Q3 Earnings?
+*Source: StockStory | Date: 2026-03-09 | Sentiment: Positive (+0.98)*
+**Catalysts:** Earnings, Equity
+
 #### UBS Lowers Nu Holdings (NU) Price Target To $17.2
-*Source: Insider Monkey | Date: Today | Sentiment: Positive (+0.97)*
+*Source: Insider Monkey | Date: 2026-03-08 | Sentiment: Positive (+0.97)*
 **Catalysts:** Earnings, Regulatory, Corporate, Analyst
 
 #### Nu  (NU) is an Incredible Growth Stock: 3 Reasons Why
@@ -203,17 +228,9 @@
 *Source: Benzinga | Date: 2026-03-01 | Sentiment: Negative (-0.60)*
 **Catalysts:** Earnings, Analyst
 
-#### Nu Holdings Ltd. (NU): A Bull Case Theory
-*Source: Insider Monkey | Date: 2026-02-28 | Sentiment: Positive (+0.99)*
-**Catalysts:** Earnings, Regulatory, Corporate, Equity
-
-#### FUTU vs. NU: Which Fintech Stock is a Better Buy Right Now?
-*Source: Zacks | Date: 2026-02-27 | Sentiment: Positive (+1.00)*
-**Catalysts:** Earnings, Regulatory, Corporate, Equity
-
 ---
 
-**Position Snapshot:** 30 shares @ $15.85, current $14.58, P/L -8.0% ($-38.10)
+**Position Snapshot:** 30 shares @ $15.85, current $14.22, P/L -10.3% ($-48.90)
 
 **Identity:** *   **Cycle:** "Mid-Month Bottomer" (Typically days 13-20).
 *   Resistance: $18.50 (Target).
@@ -241,6 +258,6 @@
 *Note: 1 Active level(s) excluded — buy price at or above current price: $14.92*
 *Bullet plan is a suggestion — adjust based on cycle timing and position.*
 
-**Knowledge:** 3 trades. Top: BUY 4 shares @ $14.67 (Bullet 5 filled, pre-market; limit was $14.70). Cost: $58... (0.61)
+**Knowledge:** 3 trades. Top: BUY 4 shares @ $14.67 (Bullet 5 filled, pre-market; limit was $14.70). Cost: $58... (0.56)
 
 ---

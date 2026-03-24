@@ -1,47 +1,29 @@
-### OUST — HOLD — P/L -6.6%
-**State:** 5 shares @ $21.70, target N/A (recovery), held 3 days
-**Objective:** Hold recovery position; work down average cost using remaining bullets at wick-adjusted support zones.
-**Decision:** HOLD — recovery position with neutral momentum (MACD above signal); Rule 10 (recovery default hold). Regime is Risk-Off — no new entries without regime improvement.
+### OUST — WATCHLIST — ACTIVE FILL ALERT
+**State:** 4 pending BUY orders, nearest $20.89 (~2.7% below current ~$21.47)
+**Objective:** Enter on pullback into active zone levels; Half-tier sizing at HVN+PA supports
 
-| Exit Criterion | Status | Detail |
+| Entry Gate | Status | Detail |
 | :--- | :--- | :--- |
-| Time Stop | WITHIN | 3 days held |
-| Profit Target | N/A — no target set | P/L -6.6%, recovery position |
-| Earnings Gate | CLEAR | 60 days to event (2026-05-07) |
-| Momentum | Neutral | RSI 48.4, MACD above signal (+0.443 histogram, bullish crossover), Stochastic bearish (43.3/59.9) |
-
-**Trades Executed:** Bullets Used 3/5; entered 2026-03-05. No detailed trade log in input — 3 bullets deployed since entry.
-
-**Sell-Side Advisory:** Recovery position — profit-taking not applicable. Recovery path: price must reach $21.70 for breakeven. If active bullet at $17.60 fills (3 shares), avg cost drops to $20.16, reducing breakeven gap. Remaining capacity: 2 bullets available. If price deteriorates with RSI dropping below 40 and MACD bearish crossover, reassess recovery thesis.
+| Market Gate | ACTIVE | Neutral regime, VIX 24.2 but VIX 5D% −5.14% (trending down — no CAUTION trigger) |
+| Earnings Gate | ACTIVE | 52 days to earnings (2026-05-07), clear window |
+| Overall | ACTIVE | Both gates clear |
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $20.32 | 1 | 0.0% | REVIEW | ACTIVE | REVIEW | Bullet 3 — $19.22 HVN+PA, 30% hold rate, Half tier, wick-adjusted |
+| BUY | $20.89 | 6 | ~2.7% | ACTIVE | ACTIVE | ACTIVE | Bullet 1 — $20.16 HVN+PA, 36% hold, Half tier; **NEAR-FILL** (day low $20.98, within 2%) |
+| BUY | $20.32 | 4 | ~5.4% | ACTIVE | ACTIVE | ACTIVE | Bullet 2 — $19.22 HVN+PA, 30% hold, Half tier |
+| BUY | $20.32 | 1 | ~5.4% | ACTIVE | ACTIVE | ACTIVE | Bullet 3 partial — $19.22 HVN+PA, 30% hold, Half tier |
+| BUY | $18.98 | 4 | ~11.6% | ACTIVE | ACTIVE | ACTIVE | Bullet 3 — $18.28 HVN+PA, 25% hold, Half tier |
 
-**Wick-Adjusted Buy Levels:**
-| Zone | Level | Buy At | Hold Rate | Tier | Shares |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| Active | $17.28 | $17.60 | 100% | Full | 3 |
-| Reserve | $9.22 | $9.31 | 83% | Full | 10 |
-| Reserve | $7.05 | $7.28 | 60% | Full | 13 |
-| Reserve | $6.79 | $7.17 | 67% | Full | 13 |
-
-*Note: 2 Active levels excluded — buy price at or above current price: $20.16, $19.22*
-
-**Projected Sell Levels:**
-| Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| Current (breakeven) | 5 | $21.70 | $21.70 | 0.0% | $108.50 |
-| Active bullet fills ($17.60 × 3 shares) | 8 | $20.16 | $20.16 | 0.0% | $161.28 |
-
-*No target set (recovery position) — scenarios show breakeven only. Monotonic check: lower buy ($17.60) → lower avg ($20.16 vs $21.70) ✓*
-
-**Fill Alerts:** ⚠️ BUY $20.32 (1 share) — day low $20.07 is below order price $20.32. **Likely filled — verify with broker immediately.**
+**Fill Alerts:** NEAR-FILL — Bullet 1 ($20.89 × 6 shares): day low $20.98 is within 2% of order price. Not yet filled (price stayed above $20.89), but very close. Verify with broker; continued weakness could trigger.
 
 **News & Catalysts:**
-- StereoLabs acquisition (2026-02-27): Ouster establishing Physical AI Platform integrating stereo vision — strategic expansion of addressable market, bullish long-term thesis.
-- Q1 2026 earnings beat: EPS $0.07 vs -$0.13 estimate (+149.3% surprise), stock up 13% post-results — confirms improving fundamentals.
-- Rosenblatt Securities reiterates Buy rating; short interest declining -6.3% to 9.85% float (medium squeeze risk, DTC 3.1 days).
-
-**Sector Context:** LiDAR / Physical AI hardware (XLK adjacency). Broad market Risk-Off: 0/3 indices above 50-SMA, VIX 29.5 (+48.5% 5-day surge), sector breadth 2/11 positive. Macro headwinds conflict with stock-specific bullish MACD. BUY order combined gate = REVIEW — do not place additional entries until regime improves.
+- **Sentiment:** Bullish (+0.227 avg, 50% positive, 0% negative across 30 articles)
+- **StereoLabs Acquisition (Feb 27):** OUST establishing Physical AI Platform via strategic acquisition — expanding into robotics/AI perception, major thesis catalyst
+- **Q1 2026 Earnings beat (Mar 3–10):** EPS $0.07 vs −$0.13 estimate (+149.3% surprise); stock up 10.6%–13% post-print. Strong Bull reaction confirms improving fundamentals
+- **Robotics sector rally (Mar 10):** OUST up 9% on broad robotics/AI momentum
+- **Revenue trend strong:** Q4 2025 $62.2M (+57.3% QoQ, +106.6% YoY)
+- **Analyst:** "Great Tech, Stock Fairly Priced" — positive on technology, neutral on valuation
+- **Institutional:** Algert Global LLC boosted stake — accumulation signal
+- **Next earnings:** 2026-05-07, 52 days out — window is clear

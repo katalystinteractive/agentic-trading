@@ -1,0 +1,94 @@
+{
+  "run_id": "0fb37897-5605-4a9f-a9ae-2d4e75a97dba",
+  "workflow_name": "exit-review-workflow",
+  "task_guid": null,
+  "status": "failed",
+  "current_phase": null,
+  "started_at": "2026-02-22T12:01:07.055816+00:00",
+  "completed_at": "2026-02-22T12:38:07.034105+00:00",
+  "error_message": "Workflow timed out after 37 minutes",
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun periodic exit review for all active positions. Evaluate each position against the 4 exit criteria (time stop, profit target, earnings gate, momentum) and produce EXIT/REDUCE/HOLD/MONITOR verdicts.",
+    "handoffs": {
+      "gather": "**Artifact:** `exit-review-raw.md`\n**Active positions collected:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n**Tools run per ticker:** earnings_analyzer, technical_scanner, short_interest (all 3)\n**Tool errors:** None\n\n**Key flags for analyst:**\n- **URGENT \u2014 Earnings in \u22643 days:** NU (Feb 25), IONQ (Feb 25), CIFR (Feb 24)\n- **Time stop EXCEEDED:** IONQ, UAMY, USAR, INTC (all pre-strategy positions)\n- **IONQ binary event:** Feb 25 earnings \u2014 management must address Wolfpack short report allegations; currently -28.1%\n- **CIFR:** Day high $16.18 nearly tagged $16.36 sell target; B3 at $14.10 is -3.8% away; earnings in 2 days\n- **CLSK:** Day high $10.18 came within $0.39 of $10.57 sell target\n- **USAR:** Short interest surged +139.6%; price $17.23 just above government warrant floor $17.17\n\nReady for exit analysis.",
+      "analyze": "**Artifact:** `exit-review-report.md`\n**Positions reviewed:** 9\n**Verdicts:** 0 EXIT, 2 REDUCE, 4 HOLD, 3 MONITOR\n**Capital rotation:** $105.18 (NU full exit at $17.53 \u00d7 6 shares)\n\n**Key decisions:**\n- **CIFR REDUCE** \u2014 Pause B3/B4/R1 buy orders today; hold 10 shares through Feb 24 earnings; sell at $16.36 remains active\n- **NU REDUCE** \u2014 Sell all 6 shares before Feb 25 open; lock in +5.5% gain ahead of binary event with -18.9% 1-day historical tail risk\n- **IONQ HOLD** \u2014 Rule 2 (REDUCE for recovery+gated) overridden by strategy.md specific-thesis exception; Wolfpack earnings response is the recovery catalyst; reducing now locks in maximum loss before the only event that can close the gap\n- **USAR HOLD** \u2014 Rule 5 squeeze catalyst: +139.6% short surge, HIGH (65/100), $17.17 warrant floor below\n- **UAMY, INTC HOLD** \u2014 Rule 7 recovery default; both have intact catalysts\n- **STIM, CLSK, APLD MONITOR** \u2014 Within time window; notable squeeze setups building\n\nExit analysis complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T12:01:07.057809+00:00",
+      "completed_at": "2026-02-22T12:13:38.741491+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** `exit-review-raw.md`\n**Active positions collected:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n**Tools run per ticker:** earnings_analyzer, technical_scanner, short_interest (all 3)\n**Tool errors:** None\n\n**Key flags for analyst:**\n- **URGENT \u2014 Earnings in \u22643 days:** NU (Feb 25), IONQ (Feb 25), CIFR (Feb 24)\n- **Time stop EXCEEDED:** IONQ, UAMY, USAR, INTC (all pre-strategy positions)\n- **IONQ binary event:** Feb 25 earnings \u2014 management must address Wolfpack short report allegations; currently -28.1%\n- **CIFR:** Day high $16.18 nearly tagged $16.36 sell target; B3 at $14.10 is -3.8% away; earnings in 2 days\n- **CLSK:** Day high $10.18 came within $0.39 of $10.57 sell target\n- **USAR:** Short interest surged +139.6%; price $17.23 just above government warrant floor $17.17\n\nReady for exit analysis.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":718568,\"duration_api_ms\":622279,\"num_turns\":55,\"result\":\"File written successfully \u2014 626 lines. Data collection complete.\\n\\n---\\n\\n## HANDOFF\\n\\n**Artifact:** `exit-review-raw.md`\\n**Active positions collected:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\\n**Tools run per ticker:** earnings_analyzer, technical_scanner, short_interest (all 3)\\n**Tool errors:** None\\n\\n**Key flags for analyst:**\\n- **URGENT \u2014 Earnings in \u22643 days:** NU (Feb 25), IONQ (Feb 25), CIFR (Feb 24)\\n- **Time stop EXCEEDED:** IONQ, UAMY, USAR, INTC (all pre-strategy positions)\\n- **IONQ binary event:** Feb 25 earnings \u2014 management must address Wolfpack short report allegations; currently -28.1%\\n- **CIFR:** Day high $16.18 nearly tagged $16.36 sell target; B3 at $14.10 is -3.8% away; earnings in 2 days\\n- **CLSK:** Day high $10.18 came within $0.39 of $10.57 sell target\\n- **USAR:** Short interest surged +139.6%; price $17.23 just above government warrant floor $17.17\\n\\nReady for exit analysis.\\n\\n## Decision: COMPLETE\",\"stop_reason\":null,\"session_id\":\"b0888b45-0f3e-46be-81ec-b6bd5572284b\",\"total_cost_usd\":2.2122902500000006,\"usage\":{\"input_tokens\":14,\"cache_creation_input_tokens\":97506,\"cache_read_input_tokens\":851145,\"output_tokens\":44917,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":97506,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":14,\"outputTokens\":44917,\"cacheReadInputTokens\":851145,\"cacheCreationInputTokens\":97506,\"webSearchRequests\":0,\"costUSD\":2.1579800000000007,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":27634,\"outputTokens\":1358,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":15909,\"webSearchRequests\":0,\"costUSD\":0.05431025,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"2dda0669-dd6c-4aa2-a36e-18a947426208\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "exit-review-raw.md": "/Users/kamenkamenov/agentic-trading/exit-review-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 751.6811170578003,
+        "token_usage": {
+          "input_tokens": 14,
+          "output_tokens": 44917,
+          "cache_read_tokens": 851145,
+          "cache_write_tokens": 97506
+        },
+        "estimated_cost_usd": 1.294788,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "completed",
+      "attempts": 2,
+      "started_at": "2026-02-22T12:13:38.744839+00:00",
+      "completed_at": "2026-02-22T12:35:55.360465+00:00",
+      "error_message": "Claude CLI timed out after 720s",
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `exit-review-report.md`\n**Positions reviewed:** 9\n**Verdicts:** 0 EXIT, 2 REDUCE, 4 HOLD, 3 MONITOR\n**Capital rotation:** $105.18 (NU full exit at $17.53 \u00d7 6 shares)\n\n**Key decisions:**\n- **CIFR REDUCE** \u2014 Pause B3/B4/R1 buy orders today; hold 10 shares through Feb 24 earnings; sell at $16.36 remains active\n- **NU REDUCE** \u2014 Sell all 6 shares before Feb 25 open; lock in +5.5% gain ahead of binary event with -18.9% 1-day historical tail risk\n- **IONQ HOLD** \u2014 Rule 2 (REDUCE for recovery+gated) overridden by strategy.md specific-thesis exception; Wolfpack earnings response is the recovery catalyst; reducing now locks in maximum loss before the only event that can close the gap\n- **USAR HOLD** \u2014 Rule 5 squeeze catalyst: +139.6% short surge, HIGH (65/100), $17.17 warrant floor below\n- **UAMY, INTC HOLD** \u2014 Rule 7 recovery default; both have intact catalysts\n- **STIM, CLSK, APLD MONITOR** \u2014 Within time window; notable squeeze setups building\n\nExit analysis complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":585094,\"duration_api_ms\":582274,\"num_turns\":9,\"result\":\"Cross-check passed:\\n\\n1. **P/L >= 7% \u2192 no EXIT** \u2713 \u2014 NU (+5.5%) gets REDUCE via earnings gate, not EXIT\\n2. **Recovery \u2192 no EXIT** \u2713 \u2014 IONQ, UAMY, USAR, INTC all assigned HOLD\\n3. **HOLD for time-stop-exceeded \u2192 explicit justification** \u2713\\n   - IONQ: Wolfpack specific thesis override documented\\n   - USAR: Rule 5 \u2014 +139.6% short surge (squeeze catalyst)\\n   - UAMY: Rule 7 \u2014 Idaho JV + above SMA50/200\\n   - INTC: Rule 7 \u2014 18A HVM catalyst + above SMA50/200\\n4. **EXIT verdicts have rotation suggestions** \u2713 \u2014 no EXIT verdicts issued\\n5. **All 4 criteria evaluated per position** \u2713 \u2014 each has a full Exit Criteria Summary table\\n\\n---\\n\\n## HANDOFF\\n\\n**Artifact:** `exit-review-report.md`\\n**Positions reviewed:** 9\\n**Verdicts:** 0 EXIT, 2 REDUCE, 4 HOLD, 3 MONITOR\\n**Capital rotation:** $105.18 (NU full exit at $17.53 \u00d7 6 shares)\\n\\n**Key decisions:**\\n- **CIFR REDUCE** \u2014 Pause B3/B4/R1 buy orders today; hold 10 shares through Feb 24 earnings; sell at $16.36 remains active\\n- **NU REDUCE** \u2014 Sell all 6 shares before Feb 25 open; lock in +5.5% gain ahead of binary event with -18.9% 1-day historical tail risk\\n- **IONQ HOLD** \u2014 Rule 2 (REDUCE for recovery+gated) overridden by strategy.md specific-thesis exception; Wolfpack earnings response is the recovery catalyst; reducing now locks in maximum loss before the only event that can close the gap\\n- **USAR HOLD** \u2014 Rule 5 squeeze catalyst: +139.6% short surge, HIGH (65/100), $17.17 warrant floor below\\n- **UAMY, INTC HOLD** \u2014 Rule 7 recovery default; both have intact catalysts\\n- **STIM, CLSK, APLD MONITOR** \u2014 Within time window; notable squeeze setups building\\n\\nExit analysis complete.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"94e8e4ae-605c-41ea-b483-5334819041f5\",\"total_cost_usd\":1.3656265000000003,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":62654,\"cache_read_input_tokens\":440630,\"output_tokens\":30126,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":62654,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":9,\"outputTokens\":30126,\"cacheReadInputTokens\":440630,\"cacheCreationInputTokens\":62654,\"webSearchRequests\":0,\"costUSD\":1.3650975000000003,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":369,\"outputTokens\":32,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.000529,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"b0839c2a-e86f-47d7-b9a3-96f5c55f98c7\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "exit-review-report.md": "/Users/kamenkamenov/agentic-trading/exit-review-report.md"
+      },
+      "metrics": {
+        "duration_seconds": 616.5814990997314,
+        "token_usage": {
+          "input_tokens": 9,
+          "output_tokens": 30126,
+          "cache_read_tokens": 440630,
+          "cache_write_tokens": 62654
+        },
+        "estimated_cost_usd": 0.819059,
+        "model": "sonnet",
+        "attempts": 2
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "running",
+      "attempts": 1,
+      "started_at": "2026-02-22T12:35:55.363531+00:00",
+      "completed_at": null,
+      "error_message": null,
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {}
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-22T12:38:07.035078+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/exit-review-workflow.yaml",
+    "workflowHash": "1be9848350d15ddc"
+  }
+}

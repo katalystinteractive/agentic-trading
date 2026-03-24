@@ -1,0 +1,76 @@
+{
+  "run_id": "6e24f5ca-088b-42e6-b4b0-fcd5d3bf18de",
+  "workflow_name": "morning-briefing-workflow",
+  "task_guid": null,
+  "status": "cancelled",
+  "current_phase": null,
+  "started_at": "2026-02-22T16:22:41.172733+00:00",
+  "completed_at": "2026-02-22T16:24:06.239750+00:00",
+  "error_message": "Workflow was cancelled",
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun the unified morning briefing workflow. Phase 1 runs all tools. Phase 2 reads cached files and compiles. Phase 3 analyzes with regime, gates, verdicts. Phase 4 verifies.",
+    "handoffs": {},
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "running",
+      "attempts": 1,
+      "started_at": "2026-02-22T16:22:41.173678+00:00",
+      "completed_at": null,
+      "error_message": null,
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {}
+    },
+    "compile": {
+      "phase_id": "compile",
+      "status": "pending",
+      "attempts": 0,
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {}
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "pending",
+      "attempts": 0,
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {}
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "pending",
+      "attempts": 0,
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {}
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-22T16:24:06.240011+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/morning-briefing-workflow.yaml",
+    "workflowHash": "ce4f449141faaaae"
+  }
+}

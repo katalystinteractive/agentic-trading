@@ -3,63 +3,178 @@
 ## Global Context
 | Metric | Value |
 | :--- | :--- |
-| Date | 2026-03-08 |
-| Regime | Risk-Off |
-| Regime Detail | 0/3 indices above 50-SMA, VIX 29.5 (elevated) |
-| VIX | 29.49 |
-| VIX 5D% | +48.49% |
+| Date | 2026-03-16 |
+| Regime | Neutral |
+| Regime Detail | 0/3 indices above 50-SMA, VIX 24.2 |
+| VIX | 24.19 |
+| VIX 5D% | -5.14% |
 | Indices Above 50-SMA | 0/3 |
-| Sector Breadth | 2/11 positive |
+| Sector Breadth | 11/11 positive |
+| Data Freshness | 2026-03-16 close |
+| Trading Day | Yes |
 
 ## Portfolio Summary
 | Ticker | Shares | Avg Cost | P/L % |
 | :--- | :--- | :--- | :--- |
-| NU | 30 | $15.85 | -8.0% |
+| NU | 30 | $15.85 | -10.3% |
 | STIM | 0 | $0.00 | +inf% |
-| IONQ | 15 | $44.43 | -19.6% |
-| LUNR | 1 | $17.61 | +0.1% |
-| USAR | 15 | $21.57 | -19.1% |
-| OUST | 5 | $21.70 | -6.6% |
+| IONQ | 15 | $44.43 | -26.0% |
+| LUNR | 2 | $17.59 | -2.7% |
+| USAR | 15 | $21.57 | -11.3% |
+| OUST | 0 | $0.00 | +inf% |
 | INTC | 0 | $0.00 | +inf% |
-| APLD | 15 | $29.06 | -13.5% |
+| APLD | 15 | $29.06 | -4.9% |
 | SMCI | 0 | $0.00 | +inf% |
-| TMC | 38 | $6.00 | -4.5% |
-| CIFR | 11 | $14.62 | -6.8% |
-| ARM | 4 | $120.88 | -5.4% |
-| ACHR | 61 | $6.78 | -7.7% |
-| TEM | 0 | $0.00 | +inf% |
-| CLSK | 7 | $10.17 | -9.4% |
-| CLF | 21 | $10.26 | -4.2% |
+| TMC | 9 | $6.01 | -0.5% |
+| CIFR | 0 | $0.00 | +inf% |
+| ARM | 5 | $118.96 | +2.3% |
+| ACHR | 77 | $6.61 | -9.0% |
+| TEM | 1 | $50.98 | -1.0% |
+| CLSK | 0 | $0.00 | +inf% |
+| CLF | 47 | $9.39 | -9.2% |
 | BBAI | 0 | $0.00 | +inf% |
-| NNE | 6 | $24.19 | -2.7% |
+| NNE | 10 | $23.87 | -10.9% |
+| RUN | 0 | $0.00 | +inf% |
+| SOUN | 15 | $7.36 | +3.1% |
+| OKLO | 1 | $58.04 | +1.5% |
 
 ## Capital
 | Metric | Value |
 | :--- | :--- |
-| Deployed | $3,745.22 |
+| Deployed | $3,993.89 |
 | Velocity Pool | $1,000.00 |
 | Bounce Pool | $1,000.00 |
 
 ## Position Data
-No active position (watchlist)
+| Field | Value |
+| :--- | :--- |
+| Shares | 1 |
+| Avg Cost | $50.98 |
+| Current Price | $50.48 |
+| P/L % | -1.0% |
+| Entry Date | 2026-03-09 |
+| Days Held | 7 |
+| Time Stop Status | WITHIN |
+| Bullets Used | 1/5 |
+| Target Exit | No target (recovery) |
+| Note | Position closed 2026-03-06 — sold 2 @ $53 |
 
 ## Day Range
 | Metric | Value |
 | :--- | :--- |
-| Day Low | $51.57 |
-| Day High | $53.50 |
+| Day Low | $49.82 |
+| Day High | $52.67 |
+
+## Recorded Fills
+| # | Fill Price |
+| :--- | :--- |
+| 1 | $50.98 |
 
 ## Pending Orders
-| Type | Order Price | Shares | % Below Current | Days to Earnings | Notes |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $50.98 | 1 | 0.0% | 58 | Bullet 1 — $49.35 PA, 22% hold, Std tier, wick-adjusted |
-| BUY | $48.75 | 2 | 4.4% | 58 | Bullets 2+3 — $48.01/$47.00 PA converged, 46%/64% hold, Full tier, wick-adjusted |
+| Type | Order Price | Shares | % Below Current | Days to Earnings | Status | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| SELL | $54.55 | 1 | N/A | 50 |  | PA resistance, 25% reject, +7.0% from $50.98 avg |
+| BUY | $48.75 | 2 | 10.6% | 50 |  | Bullets 2+3 — $48.01/$47.00 PA converged, 46%/64% hold, Full tier, wick-adjusted |
 
 ## Tool Outputs
-#### News & Sentiment
-*Generated: 2026-03-08 17:18*
+#### Earnings
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:34*
+
+## Earnings Analysis: Tempus AI, Inc. (TEM)
+
+### Next Earnings
+| Metric | Value |
+| :--- | :--- |
+| Earnings Date | 2026-05-05 |
+| Days Until | 50 |
+| EPS Estimate | $-0.19298 |
+| Revenue Estimate | $345.4M |
+| Earnings Rule | Clear (>50d out) |
+
+### Earnings History
+| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Q1 2026 | $-0.05 | $-0.04 | 22.1% | -7.3% | -11.3% | Strong Bear |
+| Q4 2025 | $-0.18 | $-0.11 | 37.3% | -2.6% | -15.3% | Bearish |
+| ... | *[trimmed — see morning-briefing-raw.md]* | | | | | |
+
+### Revenue Trend
+| Quarter | Revenue | QoQ Growth% | YoY Growth% |
+| :--- | :--- | :--- | :--- |
+| Q4 2025 | $367.2M | +9.9% | +83.0% |
+| Q3 2025 | $334.2M | +6.2% | N/A |
+| ... | *[trimmed — see morning-briefing-raw.md]* | | | | | |
+
+#### Technical Signals
+## Technical Scan: Tempus AI, Inc. (TEM)
+**Current Price: $50.38** | Date: 2026-03-16
+
+### Trend Indicators
+| Indicator | Value | Price Position | Signal |
+| :--- | :--- | :--- | :--- |
+| SMA 20 | $53.59 | Below | Bearish |
+| SMA 50 | $59.01 | Below | Bearish |
+| SMA 200 | $69.42 | Below | Bearish |
+| EMA 9 | $51.38 | Below | Bearish |
+| EMA 21 | $53.34 | Below | Bearish |
+
+### Momentum Indicators
+| Indicator | Value | Zone | Signal |
+| :--- | :--- | :--- | :--- |
+| RSI (14) | 40.1 | Bearish zone | Neutral-Bear |
+| MACD | -2.305 | Above signal | Bullish |
+| MACD Signal | -2.320 | Histogram: +0.014 | — |
+| Stochastic %K/%D | 18.1/12.7 | Oversold | Bullish |
+
+### Volatility
+| Indicator | Value | Position | Signal |
+| :--- | :--- | :--- | :--- |
+| Bollinger Upper | $59.55 | 23% of band | Neutral |
+| Bollinger Lower | $47.62 | Width: $11.93 | — |
+| ATR (14) | $3.03 (6.0%) | High volatility | — |
+
+### Key Support/Resistance Levels
+| Level | Price | Type | Touches | Last Tested |
+| :--- | :--- | :--- | :--- | :--- |
+| Support | $49.40 (-1.9%) | Support | 1 | 2026-02-12 |
+| Support | $52.55 (+4.3%) | Support | 1 | 2025-05-28 |
+| Support | $53.39 (+6.0%) | Support | 1 | 2025-08-01 |
+| Support | $55.77 (+10.7%) | Support | 1 | 2025-07-15 |
+| Support | $58.80 (+16.7%) | Support | 1 | 2025-12-31 |
+| Resistance | $62.00 (+23.1%) | Resistance | 1 | 2026-02-20 |
+| Support | $64.20 (+27.4%) | Support | 1 | 2025-11-18 |
+| Support | $36.22 (-28.1%) | Support | 1 | 2025-04-09 |
+
+### Signal Summary
+| Metric | Value |
+| :--- | :--- |
+| Overall Signal | **Bearish** |
+| Score | -4 |
+| Bullish Factors | MACD bullish |
+| Bearish Factors | Below SMA 20, Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21 |
+
+#### Short Interest
+## Short Interest Analysis
+
+### Short Interest Summary
+| Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
+| :--- | :--- | :--- | :--- | :--- |
+| TEM | 23.99M | 4.10 | 17.99% | +11.4% (increasing) |
+
+### Squeeze Risk Assessment
+| Ticker | Risk Rating | Score (/100) | Key Factors |
+| :--- | :--- | :--- | :--- |
+| TEM | HIGH | 65 | Elevated short% (18.0%); Moderate DTC (4.1); Shorts increasing rapidly |
+
+### Context
+| Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
+| :--- | :--- | :--- | :--- | :--- |
+| TEM | 112.86M | 173.73M | 5.43M | 4.1 |
+
+#### News & Sentiment
+*Generated: 2026-03-16 19:34*
 
 ## News & Sentiment: Tempus AI, Inc. (TEM)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -71,22 +186,29 @@ No active position (watchlist)
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 13 (43%) |
-| Neutral | 13 (43%) |
-| Negative | 4 (13%) |
-| Average Score | +0.115 |
+| Positive | 17 (57%) |
+| Neutral | 10 (33%) |
+| Negative | 3 (10%) |
+| Average Score | +0.145 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 186 |
+| Total Unique Headlines | 185 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 10 | TD Asset Management Inc Takes Position i..; Amova Asset Management Americas Inc. Has.. |
-| Corporate | 7 | TD Asset Management Inc Takes Position i..; Amova Asset Management Americas Inc. Has.. |
-| Equity | 2 | Tempus AI (TEM) Is Down 6.9% After Raisi..; Why Tempus AI (TEM) Is Down 7.5% After 2.. |
-| Analyst | 2 | Tempus AI (NASDAQ:TEM) Price Target Lowe..; Tempus AI (NASDAQ:TEM) Downgraded by Wal.. |
+| Earnings | 9 | Tempus AI, Inc. $TEM Shares Bought by Ba..; Casdin Capital LLC Purchases Shares of 2.. |
+| Corporate | 2 | Tempus AI, Inc. $TEM Shares Acquired by ..; TD Asset Management Inc Takes Position i.. |
+| Equity | 1 | Tempus cancer study: deeper test gives 1.. |
 
 ### Deep Dive Articles
+
+#### Hims and Hers Expands Consumer-Focused Digital Health Platform
+*Source: Zacks | Date: 2026-03-10 | Sentiment: Positive (+0.99)*
+**Catalysts:** Corporate, Equity, Short
+
+#### Should You Buy, Hold or Sell Tempus AI Stock Heading Into 2026?
+*Source: Zacks | Date: 2026-03-09 | Sentiment: Positive (+1.00)*
+**Catalysts:** Earnings
 
 #### Tempus AI, Inc. (TEM) Announces Strategic Deal with Merck to Fast-Track AI-Driven Precision Medicine
 *Source: Insider Monkey | Date: 2026-03-07 | Sentiment: Positive (+0.84)*
@@ -100,43 +222,14 @@ No active position (watchlist)
 *Source: Insider Monkey | Date: 2026-03-04 | Sentiment: Positive (+0.99)*
 **Catalysts:** Regulatory, Short
 
-#### AI-Powered Tempus Inks New Multi-Year Merck Deal
-*Source: Benzinga | Date: 2026-03-03 | Sentiment: Positive (+0.45)*
-**Catalysts:** None
-
-#### Hospital Networks Turn to AI-Enhanced Cardiac Imaging to Cut Costs and Improve Outcomes
-*Source: PR Newswire | Date: 2026-03-03 | Sentiment: Positive (+0.98)*
-**Catalysts:** Earnings, Corporate
-
-#### Earnings
-*Generated: 2026-03-08 17:19*
-
-## Earnings Analysis: Tempus AI, Inc. (TEM)
-
-### Next Earnings
-| Metric | Value |
-| :--- | :--- |
-| Earnings Date | 2026-05-05 |
-| Days Until | 58 |
-| EPS Estimate | $-0.19298 |
-| Revenue Estimate | $345.4M |
-| Earnings Rule | Clear (>58d out) |
-
-### Earnings History
-| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.05 | $-0.04 | 22.1% | -7.3% | -11.3% | Strong Bear |
-| Q4 2025 | $-0.42 | $-0.46 | -8.9% | -2.6% | -15.3% | Bearish |
-| ... | *[trimmed — see morning-briefing-raw.md]* | | | | | |
-
-### Revenue Trend
-| Quarter | Revenue | QoQ Growth% | YoY Growth% |
-| :--- | :--- | :--- | :--- |
-| Q4 2025 | $367.2M | +9.9% | +83.0% |
-| Q3 2025 | $334.2M | +6.2% | N/A |
-| ... | *[trimmed — see morning-briefing-raw.md]* | | | | | |
-
 ---
+
+**Position Snapshot:** 1 shares @ $50.98, current $50.48, P/L -1.0% ($-0.50)
+
+**Recent Trades:**
+- **2026-03-02:** BUY 1 share @ $51.20 (Bullet 1 filled, pre-market; limit was $52.38). Cost: $51.20. Now 1 share @ $51.20 avg.
+- **2026-03-03:** BUY 1 share @ $49.64 (Bullet 2 filled). Now 2 shares @ $50.42 avg.
+- **2026-03-06:** SELL 2 @ $53.45 — full close, +6.0% from $50.42 avg.
 
 #### Wick Bullet Plan
 **Current Price: $52.26**
@@ -153,6 +246,6 @@ No active position (watchlist)
 | 6 | Reserve | $41.35 | $42.10 | 50% | Std | 2 | $84.20 |
 *Bullet plan is a suggestion — adjust based on cycle timing and position.*
 
-**Knowledge:** 3 trades. Top: SELL 2 @ $53.45 — full close, +6.0% from $50.42 avg. (0.66)
+**Knowledge:** 3 trades. Top: TEM: BUY 1 shares @ $50.98 (active). Now 1 shares @ $50.98 avg. (0.62)
 
 ---

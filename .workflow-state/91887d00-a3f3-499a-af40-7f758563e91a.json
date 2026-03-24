@@ -1,0 +1,109 @@
+{
+  "run_id": "91887d00-a3f3-499a-af40-7f758563e91a",
+  "workflow_name": "exit-review-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-22T10:40:07.439366+00:00",
+  "completed_at": "2026-02-22T10:58:14.913074+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun periodic exit review for all active positions. Evaluate every position against the 4 exit criteria (time stop, profit target, earnings gate, momentum) and produce EXIT/REDUCE/HOLD/MONITOR verdicts.",
+    "handoffs": {
+      "gather": "**Artifact:** exit-review-raw.md\n**Active positions collected:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n**Tools run per ticker:** earnings_analyzer, technical_scanner, short_interest\n**Tool errors:** 0 \u2014 all tools completed cleanly\n\n**Key flags for analyst:**\n- **CIFR**: Earnings in 2 days (2026-02-24) \u2014 earnings gate active\n- **NU**: Earnings in 3 days (2026-02-25) \u2014 earnings gate active\n- **IONQ**: Earnings in 3 days (2026-02-25), pre-strategy EXCEEDED, -28.1% P/L \u2014 binary event (short report response)\n- **IONQ, UAMY, USAR, INTC**: All pre-strategy, all EXCEEDED time stop\n- **STIM**: Strong bearish technicals, EXTREME squeeze risk (80/100), -11.6% P/L, WITHIN window (day 7)\n- **APLD**: Extreme short% (33.7%), Nvidia relationship uncertainty, -6.6% P/L, day 5 WITHIN\n\nReady for exit analysis.",
+      "analyze": "**Artifact:** exit-review-report.md\n**Positions reviewed:** 9 (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n**Verdicts:** 0 EXIT, 3 REDUCE (CIFR, NU, IONQ), 3 HOLD (UAMY, USAR, INTC), 3 MONITOR (STIM, APLD, CLSK)\n**Capital rotation:** $570.68 freed if all REDUCE recommendations executed (CIFR full close, NU full close, IONQ partial 10 of 15 shares)\n**Priority actions:** CIFR close Monday open (earnings Tue), NU close Monday open (earnings Wed), IONQ reduce to 5 shares Monday open (earnings Wed)\n\nExit analysis complete.",
+      "review": "**Artifact:** exit-review-review.md\n**Verdict:** PASS\n**Checks passed:** 6/6 (2 with minor notes)\n**Issues found:** 2 (0 critical, 2 minor)\n\nAll 6 checks verified clean:\n\n- **Day Count Math** \u2014 PASS. All 9 positions correct: ISO dates (NU 9d, STIM 7d, APLD 5d, CIFR 2d, CLSK 3d) and non-ISO pre-strategy dates (IONQ, UAMY, USAR, INTC flagged as >21d EXCEEDED).\n- **P/L Math** \u2014 PASS. All 9 P/L $ / P/L % / distance-to-target calculations verified; capital rotation total of $570.68 correct.\n- **Verdict Assignment** \u2014 PASS. CIFR/NU/IONQ REDUCE via earnings gate rules (Rule 1/2), UAMY/USAR/INTC HOLD via Rule 7 with explicit bullish justification, STIM/APLD/CLSK MONITOR via Rule 11.\n- **Earnings Gate Logic** \u2014 PASS. All 9 earnings dates match raw data; day counts and gate classifications (GATED/CLEAR) all correct.\n- **Data Consistency** \u2014 PASS with 1 minor note: NU momentum label in report (\"Neutral-Bull\") differs from technical_scanner's \"Bullish\" designation. Non-material \u2014 verdict unaffected by earnings gate override.\n- **Coverage** \u2014 PASS with 1 minor note: Executive Summary does not explicitly call out the count of EXCEEDED positions (4) as a standalone metric. All other coverage requirements met."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T10:40:07.443973+00:00",
+      "completed_at": "2026-02-22T10:49:03.536708+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** exit-review-raw.md\n**Active positions collected:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n**Tools run per ticker:** earnings_analyzer, technical_scanner, short_interest\n**Tool errors:** 0 \u2014 all tools completed cleanly\n\n**Key flags for analyst:**\n- **CIFR**: Earnings in 2 days (2026-02-24) \u2014 earnings gate active\n- **NU**: Earnings in 3 days (2026-02-25) \u2014 earnings gate active\n- **IONQ**: Earnings in 3 days (2026-02-25), pre-strategy EXCEEDED, -28.1% P/L \u2014 binary event (short report response)\n- **IONQ, UAMY, USAR, INTC**: All pre-strategy, all EXCEEDED time stop\n- **STIM**: Strong bearish technicals, EXTREME squeeze risk (80/100), -11.6% P/L, WITHIN window (day 7)\n- **APLD**: Extreme short% (33.7%), Nvidia relationship uncertainty, -6.6% P/L, day 5 WITHIN\n\nReady for exit analysis.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":502780,\"duration_api_ms\":414564,\"num_turns\":49,\"result\":\"`exit-review-raw.md` written successfully.\\n\\n## HANDOFF\\n\\n**Artifact:** exit-review-raw.md\\n**Active positions collected:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\\n**Tools run per ticker:** earnings_analyzer, technical_scanner, short_interest\\n**Tool errors:** 0 \u2014 all tools completed cleanly\\n\\n**Key flags for analyst:**\\n- **CIFR**: Earnings in 2 days (2026-02-24) \u2014 earnings gate active\\n- **NU**: Earnings in 3 days (2026-02-25) \u2014 earnings gate active\\n- **IONQ**: Earnings in 3 days (2026-02-25), pre-strategy EXCEEDED, -28.1% P/L \u2014 binary event (short report response)\\n- **IONQ, UAMY, USAR, INTC**: All pre-strategy, all EXCEEDED time stop\\n- **STIM**: Strong bearish technicals, EXTREME squeeze risk (80/100), -11.6% P/L, WITHIN window (day 7)\\n- **APLD**: Extreme short% (33.7%), Nvidia relationship uncertainty, -6.6% P/L, day 5 WITHIN\\n\\nReady for exit analysis.\\n\\n## Decision: COMPLETE\",\"stop_reason\":null,\"session_id\":\"e1fe926a-2582-4865-b3ef-d78861702af1\",\"total_cost_usd\":1.47394325,\"usage\":{\"input_tokens\":10,\"cache_creation_input_tokens\":82464,\"cache_read_input_tokens\":332029,\"output_tokens\":30306,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":82464,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":10,\"outputTokens\":30306,\"cacheReadInputTokens\":332029,\"cacheCreationInputTokens\":82464,\"webSearchRequests\":0,\"costUSD\":1.4391145,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":23470,\"outputTokens\":1080,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":4767,\"webSearchRequests\":0,\"costUSD\":0.03482875,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"b98e5363-8fc8-42ce-b8aa-b2c05f56184d\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "exit-review-raw.md": "/Users/kamenkamenov/agentic-trading/exit-review-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 536.0898158550262,
+        "token_usage": {
+          "input_tokens": 10,
+          "output_tokens": 30306,
+          "cache_read_tokens": 332029,
+          "cache_write_tokens": 82464
+        },
+        "estimated_cost_usd": 0.863469,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T10:49:03.538591+00:00",
+      "completed_at": "2026-02-22T10:53:21.562734+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** exit-review-report.md\n**Positions reviewed:** 9 (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n**Verdicts:** 0 EXIT, 3 REDUCE (CIFR, NU, IONQ), 3 HOLD (UAMY, USAR, INTC), 3 MONITOR (STIM, APLD, CLSK)\n**Capital rotation:** $570.68 freed if all REDUCE recommendations executed (CIFR full close, NU full close, IONQ partial 10 of 15 shares)\n**Priority actions:** CIFR close Monday open (earnings Tue), NU close Monday open (earnings Wed), IONQ reduce to 5 shares Monday open (earnings Wed)\n\nExit analysis complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":226081,\"duration_api_ms\":224312,\"num_turns\":14,\"result\":\"`exit-review-report.md` written. Here's the decision log:\\n\\n**Cross-check verification:**\\n- No position with P/L \u2265 7% received EXIT verdict (NU at +5.5% correctly gets REDUCE via earnings gate rule 1, not EXIT) \u2713\\n- No recovery position received EXIT verdict (IONQ gets REDUCE via rule 2 \u2014 earnings gate for recovery; UAMY/USAR/INTC get HOLD) \u2713\\n- Every HOLD for time-stop-exceeded positions has explicit bullish justification (UAMY: above SMA50/200; USAR: rule 5 HIGH squeeze catalyst +139.6% short increase; INTC: rule 7, 18A catalyst, above SMAs) \u2713\\n- All 4 criteria evaluated for every position \u2713\\n\\n---\\n\\n## HANDOFF\\n\\n**Artifact:** exit-review-report.md\\n**Positions reviewed:** 9 (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\\n**Verdicts:** 0 EXIT, 3 REDUCE (CIFR, NU, IONQ), 3 HOLD (UAMY, USAR, INTC), 3 MONITOR (STIM, APLD, CLSK)\\n**Capital rotation:** $570.68 freed if all REDUCE recommendations executed (CIFR full close, NU full close, IONQ partial 10 of 15 shares)\\n**Priority actions:** CIFR close Monday open (earnings Tue), NU close Monday open (earnings Wed), IONQ reduce to 5 shares Monday open (earnings Wed)\\n\\nExit analysis complete.\\n\\n## Decision: COMPLETE\",\"stop_reason\":null,\"session_id\":\"3dc1a00a-f2eb-4d43-a4f0-ca49ed4f8338\",\"total_cost_usd\":0.934645,\"usage\":{\"input_tokens\":12,\"cache_creation_input_tokens\":61684,\"cache_read_input_tokens\":494970,\"output_tokens\":12063,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":61684,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":12,\"outputTokens\":12063,\"cacheReadInputTokens\":494970,\"cacheCreationInputTokens\":61684,\"webSearchRequests\":0,\"costUSD\":0.934645,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"483442c0-6bd8-4680-ab4a-33e41e55c306\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "exit-review-report.md": "/Users/kamenkamenov/agentic-trading/exit-review-report.md"
+      },
+      "metrics": {
+        "duration_seconds": 258.0220720767975,
+        "token_usage": {
+          "input_tokens": 12,
+          "output_tokens": 12063,
+          "cache_read_tokens": 494970,
+          "cache_write_tokens": 61684
+        },
+        "estimated_cost_usd": 0.560787,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T10:53:21.564621+00:00",
+      "completed_at": "2026-02-22T10:58:14.909431+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** exit-review-review.md\n**Verdict:** PASS\n**Checks passed:** 6/6 (2 with minor notes)\n**Issues found:** 2 (0 critical, 2 minor)\n\nAll 6 checks verified clean:\n\n- **Day Count Math** \u2014 PASS. All 9 positions correct: ISO dates (NU 9d, STIM 7d, APLD 5d, CIFR 2d, CLSK 3d) and non-ISO pre-strategy dates (IONQ, UAMY, USAR, INTC flagged as >21d EXCEEDED).\n- **P/L Math** \u2014 PASS. All 9 P/L $ / P/L % / distance-to-target calculations verified; capital rotation total of $570.68 correct.\n- **Verdict Assignment** \u2014 PASS. CIFR/NU/IONQ REDUCE via earnings gate rules (Rule 1/2), UAMY/USAR/INTC HOLD via Rule 7 with explicit bullish justification, STIM/APLD/CLSK MONITOR via Rule 11.\n- **Earnings Gate Logic** \u2014 PASS. All 9 earnings dates match raw data; day counts and gate classifications (GATED/CLEAR) all correct.\n- **Data Consistency** \u2014 PASS with 1 minor note: NU momentum label in report (\"Neutral-Bull\") differs from technical_scanner's \"Bullish\" designation. Non-material \u2014 verdict unaffected by earnings gate override.\n- **Coverage** \u2014 PASS with 1 minor note: Executive Summary does not explicitly call out the count of EXCEEDED positions (4) as a standalone metric. All other coverage requirements met.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":261230,\"duration_api_ms\":259558,\"num_turns\":17,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifact:** exit-review-review.md\\n**Verdict:** PASS\\n**Checks passed:** 6/6 (2 with minor notes)\\n**Issues found:** 2 (0 critical, 2 minor)\\n\\nAll 6 checks verified clean:\\n\\n- **Day Count Math** \u2014 PASS. All 9 positions correct: ISO dates (NU 9d, STIM 7d, APLD 5d, CIFR 2d, CLSK 3d) and non-ISO pre-strategy dates (IONQ, UAMY, USAR, INTC flagged as >21d EXCEEDED).\\n- **P/L Math** \u2014 PASS. All 9 P/L $ / P/L % / distance-to-target calculations verified; capital rotation total of $570.68 correct.\\n- **Verdict Assignment** \u2014 PASS. CIFR/NU/IONQ REDUCE via earnings gate rules (Rule 1/2), UAMY/USAR/INTC HOLD via Rule 7 with explicit bullish justification, STIM/APLD/CLSK MONITOR via Rule 11.\\n- **Earnings Gate Logic** \u2014 PASS. All 9 earnings dates match raw data; day counts and gate classifications (GATED/CLEAR) all correct.\\n- **Data Consistency** \u2014 PASS with 1 minor note: NU momentum label in report (\\\"Neutral-Bull\\\") differs from technical_scanner's \\\"Bullish\\\" designation. Non-material \u2014 verdict unaffected by earnings gate override.\\n- **Coverage** \u2014 PASS with 1 minor note: Executive Summary does not explicitly call out the count of EXCEEDED positions (4) as a standalone metric. All other coverage requirements met.\",\"stop_reason\":null,\"session_id\":\"42c503bf-51eb-47a9-a696-b1ccdc152106\",\"total_cost_usd\":1.163442,\"usage\":{\"input_tokens\":13,\"cache_creation_input_tokens\":71618,\"cache_read_input_tokens\":577079,\"output_tokens\":17089,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":71618,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":13,\"outputTokens\":17089,\"cacheReadInputTokens\":577079,\"cacheCreationInputTokens\":71618,\"webSearchRequests\":0,\"costUSD\":1.163442,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"0d947803-3d4c-4c3c-a810-0fff025b5068\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "exit-review-review.md": "/Users/kamenkamenov/agentic-trading/exit-review-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 293.3424918651581,
+        "token_usage": {
+          "input_tokens": 13,
+          "output_tokens": 17089,
+          "cache_read_tokens": 577079,
+          "cache_write_tokens": 71618
+        },
+        "estimated_cost_usd": 0.698065,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-22T10:58:14.913940+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/exit-review-workflow.yaml",
+    "workflowHash": "1be9848350d15ddc"
+  }
+}

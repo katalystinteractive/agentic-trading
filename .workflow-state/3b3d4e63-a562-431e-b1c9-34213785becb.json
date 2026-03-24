@@ -1,0 +1,114 @@
+{
+  "run_id": "3b3d4e63-a562-431e-b1c9-34213785becb",
+  "workflow_name": "deep-dive-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-25T18:59:49.823845+00:00",
+  "completed_at": "2026-02-25T19:15:18.246358+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun deep dive for TMC \u2014 new onboarding. Surgical candidate workflow ranked TMC #1 with score 105, Onboard recommendation. The Metals Company \u2014 seabed mining, polymetallic nodules for EV battery materials. Current price ~$6.26. Need full identity.md with persona, wick-adjusted bullet plan (5 active + 3 reserve), and portfolio.json pending orders. Ticker: TMC. This is NEW onboarding, not existing position.",
+    "handoffs": {
+      "collect": "**Artifact:** deep-dive-raw.md\n**Ticker:** TMC\n**Status:** NEW\n**Tools completed:** 8/8\n**Tool failures:** none\n\n**Auto-saved files created:**\n- `tickers/TMC/wick_analysis.md`\n- `tickers/TMC/earnings.md`\n- `tickers/TMC/news.md`\n- `tickers/TMC/short_interest.md`\n- `tickers/TMC/institutional.md`\n\n**Key data for analyst:**\n- Current price: $6.49 | POC: $6.47 (price sitting right on POC)\n- Monthly swing: 53% | 100% of months hit 10%+\n- Bullet plan: 5 active levels ($6.26 \u2192 $5.20), 3 reserve ($4.93, $4.75, $1.66)\n- Best active levels: $5.79 (60% hold, Full tier) and $6.06 (50% hold, Full tier)\n- Technical: Strong Bullish (+4 score), above SMA20/200/EMA9/21, MACD bullish \u2014 only below SMA50\n- Earnings: 29 days out (Mar 26) \u2014 CLEAR window for onboarding\n- Smart money: ACCUMULATION signal \u2014 6/10 institutions increasing, avg +79%, Jane Street +561%\n- Short interest: 10.5% float, DTC 2.3 \u2014 MEDIUM squeeze risk, decreasing trend\n- Catalyst stack: NOAA permit filing (Jan 24), analyst PT $12.25 (Alliance Global), regulatory tailwinds today (+9.1%)\n- Risk: Pre-revenue ($0 revenue), binary regulatory risk, earnings misses (-762% surprise Q4 2025)\n\nReady for identity compilation.",
+      "compile": "**Artifact:** tickers/TMC/identity.md\n**Ticker:** TMC\n**Status:** NEW\n**Blocked:** no\n**Active bullets:** 5 (B1-B5, total ~$289) \u2014 $6.26, $5.90, $5.63, $5.43, $5.20\n**Reserve bullets:** 3 (R1-R3, total ~$298) \u2014 $4.93, $4.75, $1.66\n**Persona:** \"The Deep-Sea Miner.\"\n**Portfolio.json updated:** yes (watchlist + 8 pending orders)\n\n**Files created:**\n- `tickers/TMC/identity.md` \u2014 full identity with persona, 12-level wick table, 5+3 bullet plan, supplementary notes\n- `tickers/TMC/memory.md` \u2014 empty trade log template with onboarding observations\n- `portfolio.json` \u2014 TMC added to watchlist, 8 pending BUY orders (5 active + 3 reserve)\n\n**Key findings:**\n- Best active levels: $5.90 (60% hold, Full) and $6.26 (50% hold, Full)\n- Dead zone: $6.32 buy-at $6.61 above current price \u2014 excluded\n- Convergence: $4.21/$4.06 PA both produce $4.37 buy-at\n- Gap warning: R2 ($4.75) to R3 ($1.66) = 65% structural void\n- Sector overlap: UAMY also critical minerals \u2014 noted in identity\n- Earnings clear: 29 days to Mar 26\n\nReady for bullet plan review.",
+      "review": "**Artifact:** deep-dive-review.md\n**Ticker:** TMC\n**Verdict:** PASS\n**Checks passed:** 7/7\n**Issues found:** 0\n\n**Key findings:**\n- All bullet math correct \u2014 8/8 bullets pass (B1\u2013B5, R1\u2013R3)\n- All tier classifications correct per strategy.md thresholds\n- Zone floor $4.77 \u2014 all active/reserve zone assignments correct\n- All 12 buy-at prices match `wick_analysis.md` exactly; none at exact raw support\n- Active budget $288.57 / $300; Reserve $297.95 / $300; counts 5+3 within limits\n- portfolio.json: TMC in watchlist, 8 BUY orders match identity exactly, no positions entry\n- Notable: `deep-dive-raw.md` was overwritten by a subsequent BBAI run; verification used `tickers/TMC/wick_analysis.md` as ground truth. One tool mis-classification noted at $3.93 (tool says Half, 50% hold rate \u2192 Full per strategy.md; identity.md is correct, level not in plan)\n\nDeep dive review complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1
+  },
+  "phases": {
+    "collect": {
+      "phase_id": "collect",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-25T18:59:49.825623+00:00",
+      "completed_at": "2026-02-25T19:06:00.647857+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** deep-dive-raw.md\n**Ticker:** TMC\n**Status:** NEW\n**Tools completed:** 8/8\n**Tool failures:** none\n\n**Auto-saved files created:**\n- `tickers/TMC/wick_analysis.md`\n- `tickers/TMC/earnings.md`\n- `tickers/TMC/news.md`\n- `tickers/TMC/short_interest.md`\n- `tickers/TMC/institutional.md`\n\n**Key data for analyst:**\n- Current price: $6.49 | POC: $6.47 (price sitting right on POC)\n- Monthly swing: 53% | 100% of months hit 10%+\n- Bullet plan: 5 active levels ($6.26 \u2192 $5.20), 3 reserve ($4.93, $4.75, $1.66)\n- Best active levels: $5.79 (60% hold, Full tier) and $6.06 (50% hold, Full tier)\n- Technical: Strong Bullish (+4 score), above SMA20/200/EMA9/21, MACD bullish \u2014 only below SMA50\n- Earnings: 29 days out (Mar 26) \u2014 CLEAR window for onboarding\n- Smart money: ACCUMULATION signal \u2014 6/10 institutions increasing, avg +79%, Jane Street +561%\n- Short interest: 10.5% float, DTC 2.3 \u2014 MEDIUM squeeze risk, decreasing trend\n- Catalyst stack: NOAA permit filing (Jan 24), analyst PT $12.25 (Alliance Global), regulatory tailwinds today (+9.1%)\n- Risk: Pre-revenue ($0 revenue), binary regulatory risk, earnings misses (-762% surprise Q4 2025)\n\nReady for identity compilation.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":338935,\"duration_api_ms\":311899,\"num_turns\":16,\"result\":\"`deep-dive-raw.md` written. All 8 tools completed successfully.\\n\\n## HANDOFF\\n\\n**Artifact:** deep-dive-raw.md\\n**Ticker:** TMC\\n**Status:** NEW\\n**Tools completed:** 8/8\\n**Tool failures:** none\\n\\n**Auto-saved files created:**\\n- `tickers/TMC/wick_analysis.md`\\n- `tickers/TMC/earnings.md`\\n- `tickers/TMC/news.md`\\n- `tickers/TMC/short_interest.md`\\n- `tickers/TMC/institutional.md`\\n\\n**Key data for analyst:**\\n- Current price: $6.49 | POC: $6.47 (price sitting right on POC)\\n- Monthly swing: 53% | 100% of months hit 10%+\\n- Bullet plan: 5 active levels ($6.26 \u2192 $5.20), 3 reserve ($4.93, $4.75, $1.66)\\n- Best active levels: $5.79 (60% hold, Full tier) and $6.06 (50% hold, Full tier)\\n- Technical: Strong Bullish (+4 score), above SMA20/200/EMA9/21, MACD bullish \u2014 only below SMA50\\n- Earnings: 29 days out (Mar 26) \u2014 CLEAR window for onboarding\\n- Smart money: ACCUMULATION signal \u2014 6/10 institutions increasing, avg +79%, Jane Street +561%\\n- Short interest: 10.5% float, DTC 2.3 \u2014 MEDIUM squeeze risk, decreasing trend\\n- Catalyst stack: NOAA permit filing (Jan 24), analyst PT $12.25 (Alliance Global), regulatory tailwinds today (+9.1%)\\n- Risk: Pre-revenue ($0 revenue), binary regulatory risk, earnings misses (-762% surprise Q4 2025)\\n\\nReady for identity compilation.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"9f47deb6-f1da-4bfb-8a59-3ffb5cb9ed4c\",\"total_cost_usd\":1.0901694999999998,\"usage\":{\"input_tokens\":18,\"cache_creation_input_tokens\":47303,\"cache_read_input_tokens\":698098,\"output_tokens\":16951,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":47303,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":18,\"outputTokens\":16951,\"cacheReadInputTokens\":698098,\"cacheCreationInputTokens\":47303,\"webSearchRequests\":0,\"costUSD\":1.0685577499999999,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":7158,\"outputTokens\":315,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":10303,\"webSearchRequests\":0,\"costUSD\":0.02161175,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"9777bbb3-8184-4f6f-8bae-e74741848fad\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "file_0": "tickers/TMC/earnings.md",
+        "file_1": "tickers/TMC/institutional.md",
+        "file_2": "tickers/TMC/news.md",
+        "file_3": "tickers/TMC/short_interest.md",
+        "file_4": "tickers/TMC/wick_analysis.md"
+      },
+      "metrics": {
+        "duration_seconds": 370.82020711898804,
+        "token_usage": {
+          "input_tokens": 18,
+          "output_tokens": 16951,
+          "cache_read_tokens": 698098,
+          "cache_write_tokens": 47303
+        },
+        "estimated_cost_usd": 0.641135,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "compile": {
+      "phase_id": "compile",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-25T19:06:00.652375+00:00",
+      "completed_at": "2026-02-25T19:09:57.867170+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** tickers/TMC/identity.md\n**Ticker:** TMC\n**Status:** NEW\n**Blocked:** no\n**Active bullets:** 5 (B1-B5, total ~$289) \u2014 $6.26, $5.90, $5.63, $5.43, $5.20\n**Reserve bullets:** 3 (R1-R3, total ~$298) \u2014 $4.93, $4.75, $1.66\n**Persona:** \"The Deep-Sea Miner.\"\n**Portfolio.json updated:** yes (watchlist + 8 pending orders)\n\n**Files created:**\n- `tickers/TMC/identity.md` \u2014 full identity with persona, 12-level wick table, 5+3 bullet plan, supplementary notes\n- `tickers/TMC/memory.md` \u2014 empty trade log template with onboarding observations\n- `portfolio.json` \u2014 TMC added to watchlist, 8 pending BUY orders (5 active + 3 reserve)\n\n**Key findings:**\n- Best active levels: $5.90 (60% hold, Full) and $6.26 (50% hold, Full)\n- Dead zone: $6.32 buy-at $6.61 above current price \u2014 excluded\n- Convergence: $4.21/$4.06 PA both produce $4.37 buy-at\n- Gap warning: R2 ($4.75) to R3 ($1.66) = 65% structural void\n- Sector overlap: UAMY also critical minerals \u2014 noted in identity\n- Earnings clear: 29 days to Mar 26\n\nReady for bullet plan review.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":205121,\"duration_api_ms\":201984,\"num_turns\":12,\"result\":\"All files written and verified. Here's the summary:\\n\\n## Decision: CLEAN\\n\\n## HANDOFF\\n\\n**Artifact:** tickers/TMC/identity.md\\n**Ticker:** TMC\\n**Status:** NEW\\n**Blocked:** no\\n**Active bullets:** 5 (B1-B5, total ~$289) \u2014 $6.26, $5.90, $5.63, $5.43, $5.20\\n**Reserve bullets:** 3 (R1-R3, total ~$298) \u2014 $4.93, $4.75, $1.66\\n**Persona:** \\\"The Deep-Sea Miner.\\\"\\n**Portfolio.json updated:** yes (watchlist + 8 pending orders)\\n\\n**Files created:**\\n- `tickers/TMC/identity.md` \u2014 full identity with persona, 12-level wick table, 5+3 bullet plan, supplementary notes\\n- `tickers/TMC/memory.md` \u2014 empty trade log template with onboarding observations\\n- `portfolio.json` \u2014 TMC added to watchlist, 8 pending BUY orders (5 active + 3 reserve)\\n\\n**Key findings:**\\n- Best active levels: $5.90 (60% hold, Full) and $6.26 (50% hold, Full)\\n- Dead zone: $6.32 buy-at $6.61 above current price \u2014 excluded\\n- Convergence: $4.21/$4.06 PA both produce $4.37 buy-at\\n- Gap warning: R2 ($4.75) to R3 ($1.66) = 65% structural void\\n- Sector overlap: UAMY also critical minerals \u2014 noted in identity\\n- Earnings clear: 29 days to Mar 26\\n\\nReady for bullet plan review.\",\"stop_reason\":null,\"session_id\":\"821bd728-59ef-4d43-81e2-6faa41ba9b03\",\"total_cost_usd\":0.76582775,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":46793,\"cache_read_input_tokens\":358755,\"output_tokens\":11729,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":46793,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-opus-4-6\":{\"inputTokens\":9,\"outputTokens\":11729,\"cacheReadInputTokens\":358755,\"cacheCreationInputTokens\":46793,\"webSearchRequests\":0,\"costUSD\":0.76510375,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":564,\"outputTokens\":32,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.000724,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"7cd2d298-949c-4efd-96e5-185d2e322dcf\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "file_0": "tickers/TMC/identity.md",
+        "file_1": "tickers/TMC/memory.md"
+      },
+      "metrics": {
+        "duration_seconds": 237.21252393722534,
+        "token_usage": {
+          "input_tokens": 9,
+          "output_tokens": 11729,
+          "cache_read_tokens": 358755,
+          "cache_write_tokens": 46793
+        },
+        "estimated_cost_usd": 0.459062,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-25T19:09:57.869097+00:00",
+      "completed_at": "2026-02-25T19:15:18.242939+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** deep-dive-review.md\n**Ticker:** TMC\n**Verdict:** PASS\n**Checks passed:** 7/7\n**Issues found:** 0\n\n**Key findings:**\n- All bullet math correct \u2014 8/8 bullets pass (B1\u2013B5, R1\u2013R3)\n- All tier classifications correct per strategy.md thresholds\n- Zone floor $4.77 \u2014 all active/reserve zone assignments correct\n- All 12 buy-at prices match `wick_analysis.md` exactly; none at exact raw support\n- Active budget $288.57 / $300; Reserve $297.95 / $300; counts 5+3 within limits\n- portfolio.json: TMC in watchlist, 8 BUY orders match identity exactly, no positions entry\n- Notable: `deep-dive-raw.md` was overwritten by a subsequent BBAI run; verification used `tickers/TMC/wick_analysis.md` as ground truth. One tool mis-classification noted at $3.93 (tool says Half, 50% hold rate \u2192 Full per strategy.md; identity.md is correct, level not in plan)\n\nDeep dive review complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":288435,\"duration_api_ms\":287531,\"num_turns\":10,\"result\":\"`deep-dive-review.md` written. All 7 checks passed.\\n\\n## HANDOFF\\n\\n**Artifact:** deep-dive-review.md\\n**Ticker:** TMC\\n**Verdict:** PASS\\n**Checks passed:** 7/7\\n**Issues found:** 0\\n\\n**Key findings:**\\n- All bullet math correct \u2014 8/8 bullets pass (B1\u2013B5, R1\u2013R3)\\n- All tier classifications correct per strategy.md thresholds\\n- Zone floor $4.77 \u2014 all active/reserve zone assignments correct\\n- All 12 buy-at prices match `wick_analysis.md` exactly; none at exact raw support\\n- Active budget $288.57 / $300; Reserve $297.95 / $300; counts 5+3 within limits\\n- portfolio.json: TMC in watchlist, 8 BUY orders match identity exactly, no positions entry\\n- Notable: `deep-dive-raw.md` was overwritten by a subsequent BBAI run; verification used `tickers/TMC/wick_analysis.md` as ground truth. One tool mis-classification noted at $3.93 (tool says Half, 50% hold rate \u2192 Full per strategy.md; identity.md is correct, level not in plan)\\n\\nDeep dive review complete.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"eeabb735-d560-4011-972c-fda3647d23e5\",\"total_cost_usd\":1.0218525,\"usage\":{\"input_tokens\":8,\"cache_creation_input_tokens\":63070,\"cache_read_input_tokens\":319300,\"output_tokens\":18719,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":63070,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":8,\"outputTokens\":18719,\"cacheReadInputTokens\":319300,\"cacheCreationInputTokens\":63070,\"webSearchRequests\":0,\"costUSD\":1.0218525,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"66f62085-748b-47f8-a0cd-71a4b0aecf94\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "file_0": "tickers/TMC/wick_analysis.md"
+      },
+      "metrics": {
+        "duration_seconds": 320.3724720478058,
+        "token_usage": {
+          "input_tokens": 8,
+          "output_tokens": 18719,
+          "cache_read_tokens": 319300,
+          "cache_write_tokens": 63070
+        },
+        "estimated_cost_usd": 0.613112,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-25T19:15:18.246533+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/deep-dive-workflow.yaml",
+    "workflowHash": "d10f6553d05e5484"
+  }
+}

@@ -1,11 +1,11 @@
 {
-  "date": "2026-03-08",
-  "regime": "Risk-Off",
+  "date": "2026-03-16",
+  "regime": "Neutral",
   "regime_detail": {
-    "vix": 29.49,
-    "reasoning": "0/3 indices above 50-SMA, VIX 29.5 (elevated)",
+    "vix": 24.19,
+    "reasoning": "0/3 indices above 50-SMA, VIX 24.2",
     "indices_above_sma": 0,
-    "sector_breadth": 2
+    "sector_breadth": 11
   },
   "tickers": [
     {
@@ -33,12 +33,6 @@
       "input_file": "morning-work/USAR.md"
     },
     {
-      "ticker": "OUST",
-      "type": "active",
-      "agent": "active-ticker-analyst",
-      "input_file": "morning-work/OUST.md"
-    },
-    {
       "ticker": "APLD",
       "type": "active",
       "agent": "active-ticker-analyst",
@@ -49,12 +43,6 @@
       "type": "active",
       "agent": "active-ticker-analyst",
       "input_file": "morning-work/TMC.md"
-    },
-    {
-      "ticker": "CIFR",
-      "type": "active",
-      "agent": "active-ticker-analyst",
-      "input_file": "morning-work/CIFR.md"
     },
     {
       "ticker": "ARM",
@@ -69,10 +57,10 @@
       "input_file": "morning-work/ACHR.md"
     },
     {
-      "ticker": "CLSK",
+      "ticker": "TEM",
       "type": "active",
       "agent": "active-ticker-analyst",
-      "input_file": "morning-work/CLSK.md"
+      "input_file": "morning-work/TEM.md"
     },
     {
       "ticker": "CLF",
@@ -87,22 +75,34 @@
       "input_file": "morning-work/NNE.md"
     },
     {
+      "ticker": "SOUN",
+      "type": "active",
+      "agent": "active-ticker-analyst",
+      "input_file": "morning-work/SOUN.md"
+    },
+    {
+      "ticker": "OKLO",
+      "type": "active",
+      "agent": "active-ticker-analyst",
+      "input_file": "morning-work/OKLO.md"
+    },
+    {
       "ticker": "SMCI",
       "type": "watchlist",
       "agent": "watchlist-ticker-analyst",
       "input_file": "morning-work/SMCI.md"
     },
     {
-      "ticker": "TEM",
+      "ticker": "CIFR",
       "type": "watchlist",
       "agent": "watchlist-ticker-analyst",
-      "input_file": "morning-work/TEM.md"
+      "input_file": "morning-work/CIFR.md"
     },
     {
-      "ticker": "SOUN",
+      "ticker": "CLSK",
       "type": "watchlist",
       "agent": "watchlist-ticker-analyst",
-      "input_file": "morning-work/SOUN.md"
+      "input_file": "morning-work/CLSK.md"
     },
     {
       "ticker": "AR",
@@ -121,10 +121,22 @@
       "type": "watchlist",
       "agent": "watchlist-ticker-analyst",
       "input_file": "morning-work/NVDA.md"
+    },
+    {
+      "ticker": "OUST",
+      "type": "watchlist",
+      "agent": "watchlist-ticker-analyst",
+      "input_file": "morning-work/OUST.md"
+    },
+    {
+      "ticker": "RUN",
+      "type": "watchlist",
+      "agent": "watchlist-ticker-analyst",
+      "input_file": "morning-work/RUN.md"
     }
   ],
   "capital": {
-    "deployed": 3745.22,
+    "deployed": 3993.89,
     "velocity_pool": 1000.0,
     "bounce_pool": 1000.0
   }

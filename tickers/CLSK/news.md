@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:35*
 
 ## News & Sentiment: CleanSpark, Inc. (CLSK)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,55 +6,54 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-16 | MarketBeat | Fort Point Capital Partners LLC Sells 354,087 Shares of Clea... | Positive | +0.30 | Earnings |
+| 2026-03-15 | MarketBeat | Azora Capital LP Acquires Shares of 1,055,201 Cleanspark, In... | Positive | +0.30 | Earnings |
+| 2026-03-14 | simplywall.st | CleanSpark (CLSK) Is Up 6.0% After Highlighting AI-Focused S... | Neutral | +0.00 | — |
+| 2026-03-13 | GuruFocus.com | Crypto Stocks Jump As Bitcoin Finds Its Footing | Neutral | +0.00 | — |
+| 2026-03-13 | Yahoo Finance | Brokers Suggest Investing in CleanSpark (CLSK): Read This Be... | Neutral | +0.00 | — |
+| 2026-03-13 | MarketBeat | Cleanspark (NASDAQ:CLSK) Shares Gap Up - Should You Buy? - M... | Positive | +0.30 | Earnings |
+| 2026-03-13 | simplywall.st | CleanSpark (CLSK) Valuation Check After Mixed Returns And Co... | Positive | +0.25 | — |
+| 2026-03-13 | MarketBeat | Aurelius Capital Management LP Invests $3.01 Million in Clea... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-03-13 | GuruFocus | Cleanspark Inc (CLSK) Trading 6.18% Higher on Mar 13 - GuruF... | Neutral | +0.00 | — |
+| 2026-03-13 | Simply Wall St. | CleanSpark’s Pivot Into AI Data Centers Might Change The Cas... | Neutral | +0.00 | — |
+| 2026-03-12 | Bitget | Investors Are Actively Looking Into Cleanspark, Inc. (CLSK):... | Positive | +0.32 | — |
+| 2026-03-12 | Yahoo Finance | Investors Heavily Search Cleanspark, Inc. (CLSK): Here is Wh... | Neutral | +0.00 | — |
+| 2026-03-12 | MarketBeat | Van ECK Associates Corp Trims Stock Holdings in Cleanspark, ... | Neutral | +0.00 | Earnings |
+| 2026-03-11 | Seeking Alpha | CleanSpark: 1.8 GW Of Power And An Asymmetric Buying Opportu... | Positive | +0.42 | — |
+| 2026-03-11 | MarketBeat | Magnetar Financial LLC Has $6.16 Million Position in Cleansp... | Neutral | +0.00 | Earnings |
+| 2026-03-11 | Zacks | Circle Internet Soars 110% in a Month: Should You Buy, Sell ... | Neutral | +0.00 | — |
+| 2026-03-10 | Bitget | CleanSpark (CLSK) Stock & Crypto: UK Investment Guide 2026 -... | Neutral | +0.00 | — |
 | 2026-03-07 | simplywall.st | Why CleanSpark (CLSK) Is Down 7.4% After Weak Q1 Loss And Te... | Negative | -0.64 | — |
 | 2026-03-07 | MarketBeat | Neo Ivy Capital Management Takes Position in Cleanspark, Inc... | Neutral | +0.00 | Earnings, Corporate |
 | 2026-03-06 | simplywall.st | CleanSpark (CLSK) Valuation Check After February 2026 Bitcoi... | Neutral | +0.00 | — |
+| 2026-03-06 | The Globe and M | CleanSpark Shareholders Back Board Slate and Auditor Selecti... | Neutral | +0.00 | — |
 | 2026-03-05 | Blockspace | CleanSpark finalizes second Texas acquisition, mines 568 bit... | Neutral | +0.00 | Regulatory, Corporate |
 | 2026-03-05 | PR Newswire | CleanSpark Releases February 2026 Operational Update | Neutral | +0.00 | — |
 | 2026-03-05 | Stock Titan | Bitcoin miner CleanSpark locks down 300 MW at second Texas c... | Neutral | +0.00 | Regulatory |
-| 2026-03-05 | MEXC | CleanSpark (CLSK) Stock: 300 MW Texas Expansion Despite Q1 E... | Neutral | +0.00 | Earnings, Short |
-| 2026-03-05 | National Today | Segall Bryant & Hamill LLC Acquires New Position in Cleanspa... | Neutral | +0.00 | — |
-| 2026-03-05 | MarketBeat | Quantbot Technologies LP Buys Shares of 122,894 Cleanspark, ... | Positive | +0.30 | Earnings |
 | 2026-03-05 | Trefis | Cleanspark Stock (+7.8%): Bitcoin Surges Past $72,000, Lifti... | Neutral | +0.00 | — |
-| 2026-03-05 | MEXC | CleanSpark (CLSK) Stock: Texas Campus Acquisition and Februa... | Neutral | +0.00 | Corporate |
-| 2026-03-05 | StocksToTrade | CleanSpark Faces Profit Dip Despite Revenue Climb​ - StocksT... | Positive | +0.44 | Earnings |
-| 2026-03-04 | GuruFocus | Cleanspark Inc (CLSK) Trading 6.32% Higher on Mar 4 - GuruFo... | Neutral | +0.00 | — |
+| 2026-03-05 | Stock Titan | CleanSpark (NASDAQ: CLSK) reports 68% turnout at 2026 shareh... | Neutral | +0.00 | — |
+| 2026-03-05 | MarketBeat | Quantbot Technologies LP Buys Shares of 122,894 Cleanspark, ... | Positive | +0.30 | Earnings |
+| 2026-03-05 | MarketBeat | Segall Bryant & Hamill LLC Acquires New Position in Cleanspa... | Neutral | +0.00 | Earnings |
 | 2026-03-04 | MarketBeat | Intrinsic Edge Capital Management LLC Sells 470,000 Shares o... | Positive | +0.30 | Earnings, Corporate |
 | 2026-03-04 | MarketBeat | Cleanspark, Inc. (NASDAQ:CLSK) Given Consensus Recommendatio... | Neutral | +0.00 | Earnings |
-| 2026-03-03 | Trefis | How Does Cleanspark Stock Compare With Peers? - Trefis | Neutral | +0.00 | — |
-| 2026-03-03 | Benzinga | Peering Into Cleanspark Inc's Recent Short Interest - Benzin... | Positive | +0.46 | Short |
-| 2026-03-02 | StockStory | Strategy (MSTR) Shares Skyrocket, What You Need To Know | Positive | +0.30 | — |
-| 2026-02-27 | simplywall.st | Why CleanSpark (CLSK) Is Up 6.3% After Emphasizing Its Pivot... | Neutral | +0.00 | — |
-| 2026-02-27 | MarketBeat | Vanguard Group Inc. Increases Position in Cleanspark, Inc. $... | Neutral | +0.00 | Earnings |
-| 2026-02-27 | MarketBeat | Cleanspark, Inc. $CLSK Stake Boosted by HighTower Advisors L... | Positive | +0.36 | Earnings |
-| 2026-02-27 | Simply Wall St. | A Look At CleanSpark (CLSK) Valuation After Wider Loss And A... | Negative | -0.32 | — |
-| 2026-02-26 | Blockspace | Bitcoin mining stocks slide as bitcoin fails to clear $70,00... | Negative | -0.05 | — |
-| 2026-02-26 | simplywall.st | CleanSpark (CLSK) Valuation Check After Wider Loss And AI Da... | Negative | -0.32 | — |
-| 2026-02-25 | Zacks | Cleanspark, Inc. (CLSK) is Attracting Investor Attention: He... | Positive | +0.48 | — |
-| 2026-02-24 | Benzinga | Tradr Targets Volatility With 2X Single-Stock ETFs On CleanS... | Neutral | +0.00 | — |
-| 2026-02-24 | MarketBeat | Cleanspark (NASDAQ:CLSK) Stock Price Up 7.6% - Should You Bu... | Neutral | +0.00 | Earnings |
-| 2026-02-23 | MarketBeat | 200,000 Shares in Cleanspark, Inc. $CLSK Bought by X Square ... | Positive | +0.30 | Earnings |
-| 2026-02-21 | MarketBeat | Cleanspark, Inc. $CLSK Holdings Lifted by Stevens Capital Ma... | Neutral | +0.00 | Earnings, Corporate |
-| 2026-02-20 | Zacks | Circle Stock Before Q4 Earnings Release: Should Investors St... | Neutral | +0.00 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
 | Positive | 8 (27%) |
-| Neutral | 18 (60%) |
-| Negative | 4 (13%) |
-| Average Score | +0.053 |
+| Neutral | 21 (70%) |
+| Negative | 1 (3%) |
+| Average Score | +0.061 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 175 |
+| Total Unique Headlines | 174 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 12 | Neo Ivy Capital Management Takes Positio..; CleanSpark (CLSK) Stock: 300 MW Texas Ex.. |
-| Corporate | 5 | Neo Ivy Capital Management Takes Positio..; CleanSpark finalizes second Texas acquis.. |
+| Earnings | 11 | Fort Point Capital Partners LLC Sells 35..; Azora Capital LP Acquires Shares of 1,05.. |
+| Corporate | 4 | Aurelius Capital Management LP Invests $..; Neo Ivy Capital Management Takes Positio.. |
 | Regulatory | 2 | CleanSpark finalizes second Texas acquis..; Bitcoin miner CleanSpark locks down 300 .. |
-| Short | 2 | CleanSpark (CLSK) Stock: 300 MW Texas Ex..; Peering Into Cleanspark Inc's Recent Sho.. |
 
 ### Deep Dive Articles
 

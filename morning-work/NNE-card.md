@@ -1,24 +1,24 @@
-### NNE — HOLD — P/L -2.7%
-**State:** 6 shares @ $24.19, target N/A (recovery), held 3 days
-**Objective:** Dig out of -2.7% deficit via squeeze catalyst and mean-reversion at active support zone; build position with remaining bullets as price consolidates
-**Decision:** HOLD — recovery position with EXTREME squeeze risk (32.89% short, 6.8 DTC) and MACD bullish crossover provides active squeeze/relief thesis; RSI 38 is bearish but not bearish-across-all (Rule 8)
+### NNE — MONITOR — P/L -10.9%
+**State:** 10 shares @ $23.87, target N/A (recovery), held 11 days
+**Objective:** Hold recovery position through extreme squeeze setup; await technical inflection or execute SELL tranches at $25.44 (+6.6%) and $26.02 (+9.0%) on catalyst-driven recovery
+**Decision:** MONITOR — recovery position with bearish technicals across all indicators (RSI 33.2, MACD bearish, all SMAs below); no active squeeze yet despite extreme short setup (30.6% float short, DTC 7.2, EXTREME score 80/100); watch for squeeze ignition or further deterioration (Rule 9)
 
 | Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |
-| Time Stop | WITHIN | 3 days |
-| Profit Target | N/A | P/L -2.7%, recovery — no target set |
-| Earnings Gate | CLEAR | 67 days to event (2026-05-14) |
-| Momentum | Bearish/Mixed | RSI 38.0 (<40 bearish), MACD above signal (+0.088 histogram — bullish crossover) |
+| Time Stop | WITHIN | 11 days held |
+| Profit Target | N/A — no target set | P/L -10.9%, Profit Zone: N/A (recovery) |
+| Earnings Gate | CLEAR | 59 days to event (2026-05-14) |
+| Momentum | Bearish | RSI 33.2 (<40), MACD -1.547 below signal -1.347 (histogram -0.200); price below all SMAs and EMAs; Stochastic 5.6/14.9 oversold |
 
-**Trades Executed:** None recorded
+**Trades Executed:** 5 fills recorded — $25.04, $24.03, $23.50, $23.40, $23.40 → 10 shares @ $23.87 avg. Bullets fully loaded (5/5).
 
-**Sell-Side Advisory:** Recovery position — no profit-taking target. Dig Out thesis: short squeeze (score 80/100, 32.9% float short, 6.8 DTC) creates asymmetric upside on any positive catalyst. MACD bullish crossover from oversold RSI (38) suggests possible mean-reversion bounce. Watch for squeeze trigger above $26 resistance. Hold all shares unless squeeze thesis invalidated (short interest drops below 20% or price fails to recover $24.19 avg by day 45).
+**Sell-Side Advisory:** Recovery position — always shown. Two SELL tranches already placed: T1 @ $25.44 (+6.6%) and T2 @ $26.02 (+9.0%) — these are the Dig Out exits. Thesis: extreme short interest (30.6% float, EXTREME squeeze risk, DTC 7.2) combined with bullish nuclear catalysts (UAE MOU, HALEU transport partnership, clean power demand) provides squeeze-driven recovery path. Shorts are slowly increasing (+4.4%) — squeeze has not triggered yet. If price deteriorates below $20.12 support with no catalyst ignition, evaluate whether recovery thesis remains valid or consider Dig Out on next relief rally. No new buys — 5/5 bullets used.
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $24.03 | 2 | 0.0% | REVIEW | ACTIVE | REVIEW | Bullet 2 — $23.60 PA, 50% hold, Std tier, wick-adjusted |
-| BUY | $23.50 | 2 | 2.2% | REVIEW | ACTIVE | REVIEW | Bullet 3 — $22.89+$22.02 PA merged, 67% hold, Full tier, wick-adjusted |
+| SELL | $25.44 | 5 | N/A | N/A | N/A | N/A | Tranche 1 — HVN+PA resistance, +6.6% from $23.87 avg |
+| SELL | $26.02 | 5 | N/A | N/A | N/A | N/A | Tranche 2 — HVN resistance, 33% reject, +9.0% from $23.87 avg |
 
 **Wick-Adjusted Buy Levels:**
 | Zone | Level | Buy At | Hold Rate | Tier | Shares |
@@ -28,22 +28,23 @@
 | Active | $20.12 | $20.31 | 67% | Full | 2 |
 | Active | $18.81 | $19.28 | 67% | Full | 3 |
 
+*5/5 bullets used — position fully loaded. Levels shown for reference only; no new buys until a bullet is freed.*
+
 **Projected Sell Levels:**
 | Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Current (breakeven) | 6 | $24.19 | $24.19 | 0.0% | $145.14 |
-| After B2 fills @ $24.03 (breakeven) | 8 | $24.15 | $24.15 | 0.0% | $193.20 |
-| After B2+B3 fill @ $23.50 (breakeven) | 10 | $24.02 | $24.02 | 0.0% | $240.20 |
+| Current (hold) | 10 | $23.87 | $21.27 | -10.9% | — |
+| Tranche 1 exits | 5 | $23.87 | $25.44 | +6.6% | $127.20 |
+| Tranche 2 exits | 5 | $23.87 | $26.02 | +9.0% | $130.10 |
+| Full exit (blended) | 10 | $23.87 | $25.73 | +7.8% | $257.30 |
 
-*No target set (recovery). Avg: B2 = (6×24.19 + 2×24.03)/8 = $24.15; B3 = (8×24.15 + 2×23.50)/10 = $24.02. Monotonic check: $24.19 > $24.15 > $24.02 ✓*
+*No target set (recovery position). Breakeven: $23.87.*
 
-**Fill Alerts:**
-- **BUY $24.03** — ⚠️ LIKELY FILLED: Order price $24.03 is above current price $23.54; day low $23.45 confirms price was well below limit all day. Verify fill with broker immediately.
-- **BUY $23.50** — ⚠️ LIKELY FILLED: Day low $23.45 ≤ order price $23.50 — low crossed the limit. Verify with broker.
+**Fill Alerts:** None — Day high $22.96 is below both SELL thresholds ($25.44 × 98% = $24.93; $26.02 × 98% = $25.50). No BUY orders pending.
 
 **News & Catalysts:**
-- NANO Nuclear signs MOU with EHC Investment to advance micro modular reactor deployment in UAE — international expansion catalyst (2026-02-24)
-- NANO Nuclear appoints US Government Veteran Sarah Lennon as International Nuclear Policy Advisor — regulatory credibility boost (2026-02-20)
-- Uranium demand rising as AI power demand rewrites the nuclear playbook — macro tailwind for micro reactor thesis (2026-02-19)
+- NANO Nuclear advances HALEU Transportation System with global nuclear logistics leader GNS (today, +0.99 sentiment)
+- NNE enters MOU with UAE firm EHC Investment to advance Micro Modular Reactor deployment in UAE (2026-03-08)
+- Nuclear energy stocks advance on strong clean power outlook; sector-wide positive tone (Zacks, 2026-03-09)
 
-**Sector Context:** Nuclear/clean energy — 2/11 sectors positive in Risk-Off regime (VIX 29.5, +48% 5-day). Nuclear narrative remains constructive (AI power demand, reactor licensing momentum), but broad market selloff suppresses sector moves. Squeeze potential (score 80, EXTREME) is regime-independent and represents the primary upside catalyst regardless of macro.
+**Sector Context:** Nuclear/small modular reactors (SMR). Sector breadth 11/11 positive — broad market tailwind. VIX 24.2, declining (-5.14% 5D) — improving risk environment. Short interest extreme (30.6% float, EXTREME squeeze risk score 80/100, DTC 7.2) is the primary asymmetric upside factor; catalyst-driven covering could compress the loss rapidly.

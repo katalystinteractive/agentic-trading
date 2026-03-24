@@ -1,0 +1,111 @@
+{
+  "run_id": "448f1e40-30ff-4471-a5c1-38e011ce5a96",
+  "workflow_name": "exit-review-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-03-18T07:22:04.295571+00:00",
+  "completed_at": "2026-03-18T07:28:23.340356+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun exit review for IONQ. Position: 15 shares @ $44.43 avg, pre-strategy. Loss evaluator flags ABANDON_CANDIDATE (C2: 74 days stuck, C3: -26.1% loss). Key question: Is the thesis still intact post-Feb 25 earnings? Did management rebut the Wolfpack short report convincingly?",
+    "handoffs": {
+      "gather": "**Artifact:** exit-review-raw.md\n**Script:** exit_review_gatherer.py completed\n**Active positions collected:** 10 (ACHR, APLD, CIFR, CLF, IONQ, NNE, NU, TEM, TMC, USAR)\n**Tool errors:** 0\n\nReady for exit analysis.",
+      "analyze": "**Artifact:** exit-review-report.md\n**Positions reviewed:** 10\n**Verdicts:** 0 EXIT, 0 REDUCE, 2 HOLD, 8 MONITOR\n**Rule 3 overrides:** none (no REDUCE verdicts to override)\n**Capital rotation:** none\n\nKey qualitative additions:\n- **IONQ HOLD:** Thesis stress-test flagged as urgent manual action \u2014 Feb 25 earnings quality determines B2 deployment vs. manual reduce escalation. -25.0% drawdown with 1/5 bullets still available.\n- **NU MONITOR:** Most time-pressured position (33d, -10.1%, 6/5 bullets, +17.5% to target) \u2014 escalation trigger set at day 45.\n- **CLF MONITOR:** Second-largest drawdown (-9.6%) with maxed bullets and no defined target \u2014 personal alert flag at -12%.\n- All 8 cross-checks PASS.\n\nExit analysis complete.",
+      "review": "**Artifact:** exit-review-review.md\n**Verdict:** PASS\n**Checks passed:** 6/6 (0 with minor notes)\n**Issues found:** 0 (0 critical, 0 minor)\n\n**Qualitative assessment summary:**\n- Reasoning is data-grounded across all 10 positions; specific values cited throughout\n- Actions are specific and executable; CIFR/TEM/TMC correctly defer to `bullet_recommender.py`\n- No Rule 3 overrides were applicable (zero REDUCE verdicts); correctly handled\n- No rotate-to suggestions required (zero EXIT/REDUCE verdicts)\n- Executive summary accurately reflects all verdict counts and surfaces IONQ as the only urgent manual action\n- One data gap noted (momentum UNKNOWN across all positions) \u2014 a data availability limitation, not a report deficiency\n\n**Key risk flags surfaced (carried forward for user):**\n1. **IONQ (urgent manual):** Feb 25 earnings quality is the thesis decision fork \u2014 B2 vs. manual REDUCE\n2. **NU:** Day 45 escalation trigger \u2014 pool exhausted, clock running\n3. **CLF:** -12% personal alert set \u2014 no remaining bullets, no defined target\n\nExit review verification complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-18T07:22:04.302603+00:00",
+      "completed_at": "2026-03-18T07:23:00.118427+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** exit-review-raw.md\n**Script:** exit_review_gatherer.py completed\n**Active positions collected:** 10 (ACHR, APLD, CIFR, CLF, IONQ, NNE, NU, TEM, TMC, USAR)\n**Tool errors:** 0\n\nReady for exit analysis.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":49438,\"duration_api_ms\":6851,\"num_turns\":3,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifact:** exit-review-raw.md\\n**Script:** exit_review_gatherer.py completed\\n**Active positions collected:** 10 (ACHR, APLD, CIFR, CLF, IONQ, NNE, NU, TEM, TMC, USAR)\\n**Tool errors:** 0\\n\\nReady for exit analysis.\",\"stop_reason\":\"end_turn\",\"session_id\":\"d61a6b76-1e86-478b-b33f-f11f2cb8ac5f\",\"total_cost_usd\":0.09900434999999999,\"usage\":{\"input_tokens\":5,\"cache_creation_input_tokens\":20397,\"cache_read_input_tokens\":59352,\"output_tokens\":313,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":20397,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":5,\"outputTokens\":313,\"cacheReadInputTokens\":59352,\"cacheCreationInputTokens\":20397,\"webSearchRequests\":0,\"costUSD\":0.09900434999999999,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"ca5e865c-032e-4863-9ce9-47ede7c28d64\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "exit-review-raw.md": "/Users/kamenkamenov/agentic-trading/exit-review-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 55.805891036987305,
+        "token_usage": {
+          "input_tokens": 5,
+          "output_tokens": 313,
+          "cache_read_tokens": 59352,
+          "cache_write_tokens": 20397
+        },
+        "estimated_cost_usd": 0.099004,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-18T07:23:00.127421+00:00",
+      "completed_at": "2026-03-18T07:26:25.826920+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** exit-review-report.md\n**Positions reviewed:** 10\n**Verdicts:** 0 EXIT, 0 REDUCE, 2 HOLD, 8 MONITOR\n**Rule 3 overrides:** none (no REDUCE verdicts to override)\n**Capital rotation:** none\n\nKey qualitative additions:\n- **IONQ HOLD:** Thesis stress-test flagged as urgent manual action \u2014 Feb 25 earnings quality determines B2 deployment vs. manual reduce escalation. -25.0% drawdown with 1/5 bullets still available.\n- **NU MONITOR:** Most time-pressured position (33d, -10.1%, 6/5 bullets, +17.5% to target) \u2014 escalation trigger set at day 45.\n- **CLF MONITOR:** Second-largest drawdown (-9.6%) with maxed bullets and no defined target \u2014 personal alert flag at -12%.\n- All 8 cross-checks PASS.\n\nExit analysis complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":202963,\"duration_api_ms\":174074,\"num_turns\":7,\"result\":\"## Decision: CLEAN\\n\\n## HANDOFF\\n\\n**Artifact:** exit-review-report.md\\n**Positions reviewed:** 10\\n**Verdicts:** 0 EXIT, 0 REDUCE, 2 HOLD, 8 MONITOR\\n**Rule 3 overrides:** none (no REDUCE verdicts to override)\\n**Capital rotation:** none\\n\\nKey qualitative additions:\\n- **IONQ HOLD:** Thesis stress-test flagged as urgent manual action \u2014 Feb 25 earnings quality determines B2 deployment vs. manual reduce escalation. -25.0% drawdown with 1/5 bullets still available.\\n- **NU MONITOR:** Most time-pressured position (33d, -10.1%, 6/5 bullets, +17.5% to target) \u2014 escalation trigger set at day 45.\\n- **CLF MONITOR:** Second-largest drawdown (-9.6%) with maxed bullets and no defined target \u2014 personal alert flag at -12%.\\n- All 8 cross-checks PASS.\\n\\nExit analysis complete.\",\"stop_reason\":\"end_turn\",\"session_id\":\"e699bfc1-4477-4a68-ae68-37f212b9366e\",\"total_cost_usd\":0.34525425,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":33889,\"cache_read_input_tokens\":207195,\"output_tokens\":10399,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":33889,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":9,\"outputTokens\":10399,\"cacheReadInputTokens\":207195,\"cacheCreationInputTokens\":33889,\"webSearchRequests\":0,\"costUSD\":0.34525425,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"d942fdfd-d85e-46b7-a015-2619c49acbc9\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "exit-review-pre-analyst.md": "/Users/kamenkamenov/agentic-trading/exit-review-pre-analyst.md",
+        "exit-review-report.md": "/Users/kamenkamenov/agentic-trading/exit-review-report.md"
+      },
+      "metrics": {
+        "duration_seconds": 205.689120054245,
+        "token_usage": {
+          "input_tokens": 9,
+          "output_tokens": 10399,
+          "cache_read_tokens": 207195,
+          "cache_write_tokens": 33889
+        },
+        "estimated_cost_usd": 0.345254,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-18T07:26:25.832364+00:00",
+      "completed_at": "2026-03-18T07:28:23.334714+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** exit-review-review.md\n**Verdict:** PASS\n**Checks passed:** 6/6 (0 with minor notes)\n**Issues found:** 0 (0 critical, 0 minor)\n\n**Qualitative assessment summary:**\n- Reasoning is data-grounded across all 10 positions; specific values cited throughout\n- Actions are specific and executable; CIFR/TEM/TMC correctly defer to `bullet_recommender.py`\n- No Rule 3 overrides were applicable (zero REDUCE verdicts); correctly handled\n- No rotate-to suggestions required (zero EXIT/REDUCE verdicts)\n- Executive summary accurately reflects all verdict counts and surfaces IONQ as the only urgent manual action\n- One data gap noted (momentum UNKNOWN across all positions) \u2014 a data availability limitation, not a report deficiency\n\n**Key risk flags surfaced (carried forward for user):**\n1. **IONQ (urgent manual):** Feb 25 earnings quality is the thesis decision fork \u2014 B2 vs. manual REDUCE\n2. **NU:** Day 45 escalation trigger \u2014 pool exhausted, clock running\n3. **CLF:** -12% personal alert set \u2014 no remaining bullets, no defined target\n\nExit review verification complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":114777,\"duration_api_ms\":111357,\"num_turns\":8,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifact:** exit-review-review.md\\n**Verdict:** PASS\\n**Checks passed:** 6/6 (0 with minor notes)\\n**Issues found:** 0 (0 critical, 0 minor)\\n\\n**Qualitative assessment summary:**\\n- Reasoning is data-grounded across all 10 positions; specific values cited throughout\\n- Actions are specific and executable; CIFR/TEM/TMC correctly defer to `bullet_recommender.py`\\n- No Rule 3 overrides were applicable (zero REDUCE verdicts); correctly handled\\n- No rotate-to suggestions required (zero EXIT/REDUCE verdicts)\\n- Executive summary accurately reflects all verdict counts and surfaces IONQ as the only urgent manual action\\n- One data gap noted (momentum UNKNOWN across all positions) \u2014 a data availability limitation, not a report deficiency\\n\\n**Key risk flags surfaced (carried forward for user):**\\n1. **IONQ (urgent manual):** Feb 25 earnings quality is the thesis decision fork \u2014 B2 vs. manual REDUCE\\n2. **NU:** Day 45 escalation trigger \u2014 pool exhausted, clock running\\n3. **CLF:** -12% personal alert set \u2014 no remaining bullets, no defined target\\n\\nExit review verification complete.\",\"stop_reason\":\"end_turn\",\"session_id\":\"130953a3-5d56-41d7-affd-11b9b22ec834\",\"total_cost_usd\":0.24303975,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":29681,\"cache_read_input_tokens\":205680,\"output_tokens\":4667,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":29681,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":9,\"outputTokens\":4667,\"cacheReadInputTokens\":205680,\"cacheCreationInputTokens\":29681,\"webSearchRequests\":0,\"costUSD\":0.24303975,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"f747dc89-7915-4ae5-a326-acee51efb7d9\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "exit-review-pre-critic.md": "/Users/kamenkamenov/agentic-trading/exit-review-pre-critic.md",
+        "exit-review-review.md": "/Users/kamenkamenov/agentic-trading/exit-review-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 117.4946551322937,
+        "token_usage": {
+          "input_tokens": 9,
+          "output_tokens": 4667,
+          "cache_read_tokens": 205680,
+          "cache_write_tokens": 29681
+        },
+        "estimated_cost_usd": 0.24304,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-03-18T07:28:23.341276+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/exit-review-workflow.yaml",
+    "workflowHash": "7a8cdea7770348d2"
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "run_id": "eed0a8e6-65c4-4d75-bfee-74b8437b35f4",
+  "workflow_name": "morning-briefing-workflow",
+  "task_guid": null,
+  "status": "cancelled",
+  "current_phase": null,
+  "started_at": "2026-02-22T23:05:13.710103+00:00",
+  "completed_at": "2026-02-22T23:26:21.543368+00:00",
+  "error_message": "Workflow was cancelled",
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nMorning briefing v3.0.0 \u2014 run 4 with increased timeouts (analyze 15m, compile 10m, item 4m, concurrency 8). Assembler updated to output decision marker immediately.",
+    "handoffs": {
+      "gather": "**morning_gatherer.py summary:**\n- Active positions: 9 (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n- Watchlist with pending orders: 7 (AR, CLF, ACHR, SOUN, SMCI, LUNR, NNE)\n- Scouting (no orders): 3 (VALE, SEDG, RKT)\n- Tool errors: 0\n- BUY orders: 43 \u2713 (matches portfolio.json)\n- SELL orders: 6 \u2713 (matches portfolio.json)\n- Output: `morning-tools-raw.md` (272.6 KB)\n\n**morning_compiler.py summary:**\n- All 9 active positions compiled\n- All 7 watchlist tickers compiled\n- Cached files merged: identity \u00d716, memory \u00d79, wick_analysis \u00d716, institutional \u00d72\n- Missing institutional files: NU, UAMY, USAR, INTC, APLD, CIFR, CLSK (non-blocking)\n- Output: `morning-briefing-raw.md` (463.8 KB)\n- Condensed: `morning-briefing-condensed.md` (104.7 KB, 77% reduction, 6.5 KB/ticker avg)\n- Coverage: **COMPLETE**\n\nReady for morning analysis.",
+      "analyze": "- All 9 active position cards written to `morning-work/{TICKER}-card.md`\n- All 7 watchlist cards also generated from the previous phase's parallel run\n- Per-ticker input files (`morning-work/{TICKER}.md`) exist for all 16 tickers\n- Cards follow agent rules with cross-checks verified for: NU (Rule 1 \u2713), STIM (Rule 16 \u2713), IONQ (Rule 5 \u2713), CIFR (Rule 2 \u2713), UAMY (Rule 9 \u2713)\n- Key fill alert: CIFR SELL $16.36 \u2014 day high $16.18 was within 1.1% (near-fill)\n- Multiple watchlist fill alerts flagged: CLF B1, SOUN B1+B2, SMCI B1, LUNR B1, NNE B1\n- Ready for assembler phase"
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T23:05:13.719681+00:00",
+      "completed_at": "2026-02-22T23:07:55.236765+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**morning_gatherer.py summary:**\n- Active positions: 9 (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n- Watchlist with pending orders: 7 (AR, CLF, ACHR, SOUN, SMCI, LUNR, NNE)\n- Scouting (no orders): 3 (VALE, SEDG, RKT)\n- Tool errors: 0\n- BUY orders: 43 \u2713 (matches portfolio.json)\n- SELL orders: 6 \u2713 (matches portfolio.json)\n- Output: `morning-tools-raw.md` (272.6 KB)\n\n**morning_compiler.py summary:**\n- All 9 active positions compiled\n- All 7 watchlist tickers compiled\n- Cached files merged: identity \u00d716, memory \u00d79, wick_analysis \u00d716, institutional \u00d72\n- Missing institutional files: NU, UAMY, USAR, INTC, APLD, CIFR, CLSK (non-blocking)\n- Output: `morning-briefing-raw.md` (463.8 KB)\n- Condensed: `morning-briefing-condensed.md` (104.7 KB, 77% reduction, 6.5 KB/ticker avg)\n- Coverage: **COMPLETE**\n\nReady for morning analysis.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":129716,\"duration_api_ms\":12728,\"num_turns\":3,\"result\":\"Both scripts ran successfully.\\n\\n## HANDOFF\\n\\n**morning_gatherer.py summary:**\\n- Active positions: 9 (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\\n- Watchlist with pending orders: 7 (AR, CLF, ACHR, SOUN, SMCI, LUNR, NNE)\\n- Scouting (no orders): 3 (VALE, SEDG, RKT)\\n- Tool errors: 0\\n- BUY orders: 43 \u2713 (matches portfolio.json)\\n- SELL orders: 6 \u2713 (matches portfolio.json)\\n- Output: `morning-tools-raw.md` (272.6 KB)\\n\\n**morning_compiler.py summary:**\\n- All 9 active positions compiled\\n- All 7 watchlist tickers compiled\\n- Cached files merged: identity \u00d716, memory \u00d79, wick_analysis \u00d716, institutional \u00d72\\n- Missing institutional files: NU, UAMY, USAR, INTC, APLD, CIFR, CLSK (non-blocking)\\n- Output: `morning-briefing-raw.md` (463.8 KB)\\n- Condensed: `morning-briefing-condensed.md` (104.7 KB, 77% reduction, 6.5 KB/ticker avg)\\n- Coverage: **COMPLETE**\\n\\nReady for morning analysis.\\n\\n## Decision: COMPLETE\",\"stop_reason\":null,\"session_id\":\"86a7527f-80a6-4824-8170-fd337f008f29\",\"total_cost_usd\":0.12009,\"usage\":{\"input_tokens\":5,\"cache_creation_input_tokens\":10386,\"cache_read_input_tokens\":76153,\"output_tokens\":603,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":10386,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":5,\"outputTokens\":603,\"cacheReadInputTokens\":76153,\"cacheCreationInputTokens\":10386,\"webSearchRequests\":0,\"costUSD\":0.11808900000000001,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":1571,\"outputTokens\":86,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.002001,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"6a99df5a-f5c8-404c-a380-fae5ea6f9f30\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "morning-tools-raw.md": "/Users/kamenkamenov/agentic-trading/morning-tools-raw.md",
+        "morning-briefing-raw.md": "/Users/kamenkamenov/agentic-trading/morning-briefing-raw.md",
+        "morning-briefing-condensed.md": "/Users/kamenkamenov/agentic-trading/morning-briefing-condensed.md"
+      },
+      "metrics": {
+        "duration_seconds": 161.5142638683319,
+        "token_usage": {
+          "input_tokens": 5,
+          "output_tokens": 603,
+          "cache_read_tokens": 76153,
+          "cache_write_tokens": 10386
+        },
+        "estimated_cost_usd": 0.070853,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T23:07:55.238905+00:00",
+      "completed_at": "2026-02-22T23:12:17.078355+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "- All 9 active position cards written to `morning-work/{TICKER}-card.md`\n- All 7 watchlist cards also generated from the previous phase's parallel run\n- Per-ticker input files (`morning-work/{TICKER}.md`) exist for all 16 tickers\n- Cards follow agent rules with cross-checks verified for: NU (Rule 1 \u2713), STIM (Rule 16 \u2713), IONQ (Rule 5 \u2713), CIFR (Rule 2 \u2713), UAMY (Rule 9 \u2713)\n- Key fill alert: CIFR SELL $16.36 \u2014 day high $16.18 was within 1.1% (near-fill)\n- Multiple watchlist fill alerts flagged: CLF B1, SOUN B1+B2, SMCI B1, LUNR B1, NNE B1\n- Ready for assembler phase",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":230182,\"duration_api_ms\":228371,\"num_turns\":18,\"result\":\"All 16 ticker cards are complete and verified. Here is the full analysis summary:\\n\\n**Active Positions (9 cards):**\\n- **NU \u2014 REDUCE (+5.5%)**: Earnings GATED (2 days, Feb 25), profitable position \u2192 Rule 1\\n- **STIM \u2014 MONITOR (-11.6%)**: WITHIN time stop (8 days), CLEAR earnings (22 days), all 3 bullets deployed \u2192 Rule 16\\n- **IONQ \u2014 HOLD (-28.1%)**: Recovery mode, earnings GATED (2 days), P/L \u2264 -10% \u2192 Rule 5\\n- **UAMY \u2014 MONITOR (-7.2%)**: Pre-strategy / pool exhausted, recovery-like treatment, CLEAR earnings \u2192 Rule 9\\n- **USAR \u2014 MONITOR (-19.9%)**: Pre-strategy / pool exhausted, CLEAR earnings \u2192 recovery monitoring\\n- **INTC \u2014 HOLD (-5.2%)**: Pre-strategy, CLEAR earnings (60 days), bullish technicals offset bearish fundamentals \u2192 timed HOLD\\n- **APLD \u2014 MONITOR (-6.6%)**: WITHIN (6 days), CLEAR earnings (46 days), B5 pending \u2192 Rule 16\\n- **CIFR \u2014 HOLD (-1.5%)**: GATED (1 day, Feb 24), P/L \u2264 0%, unfilled bullets \u2192 Rule 2\\n- **CLSK \u2014 MONITOR (+0.4%)**: WITHIN (4 days), CLEAR earnings (74 days), B2-B4 pending \u2192 Rule 16\\n\\n**Watchlist (7 cards):** AR (ACTIVE), CLF (ACTIVE + FILL ALERT), ACHR (REVIEW \u2014 earnings 7 days), SOUN (PAUSE \u2014 earnings 3 days + FILL ALERTS), SMCI (ACTIVE + FILL ALERT), LUNR (ACTIVE + FILL ALERT), NNE (ACTIVE + FILL ALERT)\\n\\n**Critical action today:** NU = REDUCE (earnings in 2 days, lock in +5.5%). CIFR earnings tomorrow \u2014 SELL limit at $16.36 had a near-fill (day high $16.18, 1.1% from target).\\n\\n## HANDOFF\\n\\n- All 9 active position cards written to `morning-work/{TICKER}-card.md`\\n- All 7 watchlist cards also generated from the previous phase's parallel run\\n- Per-ticker input files (`morning-work/{TICKER}.md`) exist for all 16 tickers\\n- Cards follow agent rules with cross-checks verified for: NU (Rule 1 \u2713), STIM (Rule 16 \u2713), IONQ (Rule 5 \u2713), CIFR (Rule 2 \u2713), UAMY (Rule 9 \u2713)\\n- Key fill alert: CIFR SELL $16.36 \u2014 day high $16.18 was within 1.1% (near-fill)\\n- Multiple watchlist fill alerts flagged: CLF B1, SOUN B1+B2, SMCI B1, LUNR B1, NNE B1\\n- Ready for assembler phase\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"ae67b0c2-402f-46fd-bba4-1ce7f668a60e\",\"total_cost_usd\":1.356733,\"usage\":{\"input_tokens\":17,\"cache_creation_input_tokens\":87722,\"cache_read_input_tokens\":1013091,\"output_tokens\":11889,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":87722,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":17,\"outputTokens\":11889,\"cacheReadInputTokens\":1013091,\"cacheCreationInputTokens\":87722,\"webSearchRequests\":0,\"costUSD\":1.352118,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":2080,\"outputTokens\":507,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.004615,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"cf32600b-a4ea-4d61-bed5-ffa15a424376\"}\n",
+      "output_truncated": false,
+      "artifacts": {},
+      "metrics": {
+        "duration_seconds": 261.8381004333496,
+        "token_usage": {
+          "input_tokens": 17,
+          "output_tokens": 11889,
+          "cache_read_tokens": 1013091,
+          "cache_write_tokens": 87722
+        },
+        "estimated_cost_usd": 0.811271,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "compile": {
+      "phase_id": "compile",
+      "status": "retrying",
+      "attempts": 2,
+      "started_at": "2026-02-22T23:12:17.079810+00:00",
+      "completed_at": null,
+      "error_message": "Claude CLI timed out after 600s",
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {},
+      "metrics": {
+        "duration_seconds": 0.0,
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "estimated_cost_usd": 0.0,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "pending",
+      "attempts": 0,
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {}
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-22T23:26:21.544219+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/morning-briefing-workflow.yaml",
+    "workflowHash": "57aed5bcfa69e1bb"
+  }
+}

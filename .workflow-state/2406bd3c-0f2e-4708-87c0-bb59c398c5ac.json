@@ -1,0 +1,92 @@
+{
+  "run_id": "2406bd3c-0f2e-4708-87c0-bb59c398c5ac",
+  "workflow_name": "morning-briefing-workflow",
+  "task_guid": null,
+  "status": "cancelled",
+  "current_phase": null,
+  "started_at": "2026-02-22T17:56:58.455456+00:00",
+  "completed_at": "2026-02-22T18:16:38.675087+00:00",
+  "error_message": "Workflow was cancelled",
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun the unified morning briefing workflow. Phase 1 runs morning_gatherer.py + morning_compiler.py (all tools + cached file merge, ~2 min). Phase 2 analyzes with regime, gates, verdicts. Phase 3 verifies.",
+    "handoffs": {
+      "gather": "### Phase 1 \u2014 Data Gathering & Compilation: COMPLETE \u2705\n\n**Gatherer Summary:**\n- Active positions: 9/9 processed (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n- Watchlist with pending orders: 7/7 processed (AR, CLF, ACHR, SOUN, SMCI, LUNR, NNE)\n- Scouting tickers: 3/3 (VALE, SEDG, RKT \u2014 no orders)\n- Tool execution: **0 errors** \u2014 all tools ran successfully\n- Order verification: **MATCH** \u2014 BUY: 43/43 \u2713, SELL: 6/6 \u2713\n- Output: `morning-tools-raw.md` (273.2 KB)\n\n**Compiler Summary:**\n- Active ticker sections: 9/9 compiled\n- Watchlist sections: 7/7 compiled\n- Cached files merged: identity (16), memory (9), wick_analysis (16), institutional (2 of 9)\n- Coverage: **COMPLETE** \u2014 all 16 tickers from portfolio.json present in output\n- Output: `morning-briefing-raw.md` (464.5 KB)\n\n**Status:** Ready for Phase 2 analysis (regime detection, gates, verdicts)\n\n---"
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T17:56:58.456435+00:00",
+      "completed_at": "2026-02-22T17:59:46.986120+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "### Phase 1 \u2014 Data Gathering & Compilation: COMPLETE \u2705\n\n**Gatherer Summary:**\n- Active positions: 9/9 processed (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n- Watchlist with pending orders: 7/7 processed (AR, CLF, ACHR, SOUN, SMCI, LUNR, NNE)\n- Scouting tickers: 3/3 (VALE, SEDG, RKT \u2014 no orders)\n- Tool execution: **0 errors** \u2014 all tools ran successfully\n- Order verification: **MATCH** \u2014 BUY: 43/43 \u2713, SELL: 6/6 \u2713\n- Output: `morning-tools-raw.md` (273.2 KB)\n\n**Compiler Summary:**\n- Active ticker sections: 9/9 compiled\n- Watchlist sections: 7/7 compiled\n- Cached files merged: identity (16), memory (9), wick_analysis (16), institutional (2 of 9)\n- Coverage: **COMPLETE** \u2014 all 16 tickers from portfolio.json present in output\n- Output: `morning-briefing-raw.md` (464.5 KB)\n\n**Status:** Ready for Phase 2 analysis (regime detection, gates, verdicts)\n\n---",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":135016,\"duration_api_ms\":13793,\"num_turns\":4,\"result\":\"## HANDOFF\\n\\n### Phase 1 \u2014 Data Gathering & Compilation: COMPLETE \u2705\\n\\n**Gatherer Summary:**\\n- Active positions: 9/9 processed (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\\n- Watchlist with pending orders: 7/7 processed (AR, CLF, ACHR, SOUN, SMCI, LUNR, NNE)\\n- Scouting tickers: 3/3 (VALE, SEDG, RKT \u2014 no orders)\\n- Tool execution: **0 errors** \u2014 all tools ran successfully\\n- Order verification: **MATCH** \u2014 BUY: 43/43 \u2713, SELL: 6/6 \u2713\\n- Output: `morning-tools-raw.md` (273.2 KB)\\n\\n**Compiler Summary:**\\n- Active ticker sections: 9/9 compiled\\n- Watchlist sections: 7/7 compiled\\n- Cached files merged: identity (16), memory (9), wick_analysis (16), institutional (2 of 9)\\n- Coverage: **COMPLETE** \u2014 all 16 tickers from portfolio.json present in output\\n- Output: `morning-briefing-raw.md` (464.5 KB)\\n\\n**Status:** Ready for Phase 2 analysis (regime detection, gates, verdicts)\\n\\n---\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"962d994b-cb91-41fc-9c3c-e50af1d9de02\",\"total_cost_usd\":0.037927100000000005,\"usage\":{\"input_tokens\":34,\"cache_creation_input_tokens\":15462,\"cache_read_input_tokens\":100556,\"output_tokens\":1187,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":15462,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-haiku-4-5-20251001\":{\"inputTokens\":1904,\"outputTokens\":1328,\"cacheReadInputTokens\":100556,\"cacheCreationInputTokens\":15462,\"webSearchRequests\":0,\"costUSD\":0.037927100000000005,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"ea5a2e73-1bce-4d3f-b219-2c8bf4cc7cc0\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "morning-tools-raw.md": "/Users/kamenkamenov/agentic-trading/morning-tools-raw.md",
+        "morning-briefing-raw.md": "/Users/kamenkamenov/agentic-trading/morning-briefing-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 168.52815175056458,
+        "token_usage": {
+          "input_tokens": 34,
+          "output_tokens": 1187,
+          "cache_read_tokens": 100556,
+          "cache_write_tokens": 15462
+        },
+        "estimated_cost_usd": 0.106056,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "retrying",
+      "attempts": 2,
+      "started_at": "2026-02-22T17:59:46.987871+00:00",
+      "completed_at": null,
+      "error_message": "Claude CLI timed out after 900s",
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {},
+      "metrics": {
+        "duration_seconds": 0.0,
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "estimated_cost_usd": 0.0,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "pending",
+      "attempts": 0,
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {}
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-22T18:16:38.675380+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/morning-briefing-workflow.yaml",
+    "workflowHash": "278f0eede4cfcfb3"
+  }
+}

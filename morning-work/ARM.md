@@ -3,73 +3,86 @@
 ## Global Context
 | Metric | Value |
 | :--- | :--- |
-| Date | 2026-03-08 |
-| Regime | Risk-Off |
-| Regime Detail | 0/3 indices above 50-SMA, VIX 29.5 (elevated) |
-| VIX | 29.49 |
-| VIX 5D% | +48.49% |
+| Date | 2026-03-16 |
+| Regime | Neutral |
+| Regime Detail | 0/3 indices above 50-SMA, VIX 24.2 |
+| VIX | 24.19 |
+| VIX 5D% | -5.14% |
 | Indices Above 50-SMA | 0/3 |
-| Sector Breadth | 2/11 positive |
+| Sector Breadth | 11/11 positive |
+| Data Freshness | 2026-03-16 close |
+| Trading Day | Yes |
 
 ## Portfolio Summary
 | Ticker | Shares | Avg Cost | P/L % |
 | :--- | :--- | :--- | :--- |
-| NU | 30 | $15.85 | -8.0% |
+| NU | 30 | $15.85 | -10.3% |
 | STIM | 0 | $0.00 | +inf% |
-| IONQ | 15 | $44.43 | -19.6% |
-| LUNR | 1 | $17.61 | +0.1% |
-| USAR | 15 | $21.57 | -19.1% |
-| OUST | 5 | $21.70 | -6.6% |
+| IONQ | 15 | $44.43 | -26.0% |
+| LUNR | 2 | $17.59 | -2.7% |
+| USAR | 15 | $21.57 | -11.3% |
+| OUST | 0 | $0.00 | +inf% |
 | INTC | 0 | $0.00 | +inf% |
-| APLD | 15 | $29.06 | -13.5% |
+| APLD | 15 | $29.06 | -4.9% |
 | SMCI | 0 | $0.00 | +inf% |
-| TMC | 38 | $6.00 | -4.5% |
-| CIFR | 11 | $14.62 | -6.8% |
-| ARM | 4 | $120.88 | -5.4% |
-| ACHR | 61 | $6.78 | -7.7% |
-| TEM | 0 | $0.00 | +inf% |
-| CLSK | 7 | $10.17 | -9.4% |
-| CLF | 21 | $10.26 | -4.2% |
+| TMC | 9 | $6.01 | -0.5% |
+| CIFR | 0 | $0.00 | +inf% |
+| ARM | 5 | $118.96 | +2.3% |
+| ACHR | 77 | $6.61 | -9.0% |
+| TEM | 1 | $50.98 | -1.0% |
+| CLSK | 0 | $0.00 | +inf% |
+| CLF | 47 | $9.39 | -9.2% |
 | BBAI | 0 | $0.00 | +inf% |
-| NNE | 6 | $24.19 | -2.7% |
+| NNE | 10 | $23.87 | -10.9% |
+| RUN | 0 | $0.00 | +inf% |
+| SOUN | 15 | $7.36 | +3.1% |
+| OKLO | 1 | $58.04 | +1.5% |
 
 ## Capital
 | Metric | Value |
 | :--- | :--- |
-| Deployed | $3,745.22 |
+| Deployed | $3,993.89 |
 | Velocity Pool | $1,000.00 |
 | Bounce Pool | $1,000.00 |
 
 ## Position Data
 | Field | Value |
 | :--- | :--- |
-| Shares | 4 |
-| Avg Cost | $120.88 |
-| Current Price | $114.38 |
-| P/L % | -5.4% |
+| Shares | 5 |
+| Avg Cost | $118.96 |
+| Current Price | $121.75 |
+| P/L % | +2.3% |
 | Entry Date | 2026-03-02 |
-| Days Held | 6 |
+| Days Held | 14 |
 | Time Stop Status | WITHIN |
-| Bullets Used | 4/5 |
+| Bullets Used | 5/5 |
 | Target Exit | No target (recovery) |
 | Note | — |
 
 ## Day Range
 | Metric | Value |
 | :--- | :--- |
-| Day Low | $113.51 |
-| Day High | $119.27 |
+| Day Low | $118.38 |
+| Day High | $121.93 |
+
+## Recorded Fills
+| # | Fill Price |
+| :--- | :--- |
+| 1 | $123.55 |
+| 2 | $122.00 |
+| 3 | $111.28 |
 
 ## Pending Orders
-| Type | Order Price | Shares | % Below Current | Days to Earnings | Notes |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $112.53 | 1 | 0.0% | 59 | Bullet 5 — $110.90 HVN+PA, 43% hold, Full^ tier, wick-adjusted |
+| Type | Order Price | Shares | % Below Current | Days to Earnings | Status | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| SELL | $127.17 | 5 | N/A | 51 |  | HVN+PA resistance, 40% reject, +6.9% from $118.96 avg |
+| BUY | $112.53 | 1 | 11.5% | 51 |  | Bullet 5 — $110.90 HVN+PA, 43% hold, Full^ tier, wick-adjusted |
 
 ## Tool Outputs
 #### Earnings
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:33*
 
 ## Earnings Analysis: Arm Holdings plc (ARM)
 
@@ -77,10 +90,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-06 |
-| Days Until | 59 |
+| Days Until | 51 |
 | EPS Estimate | $0.58181 |
 | Revenue Estimate | $1.47B |
-| Earnings Rule | Clear (>59d out) |
+| Earnings Rule | Clear (>51d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
@@ -98,50 +111,51 @@
 
 #### Technical Signals
 ## Technical Scan: Arm Holdings plc (ARM)
-**Current Price: $114.38** | Date: 2026-03-06
+**Current Price: $121.68** | Date: 2026-03-16
 
 ### Trend Indicators
 | Indicator | Value | Price Position | Signal |
 | :--- | :--- | :--- | :--- |
-| SMA 20 | $124.96 | Below | Bearish |
-| SMA 50 | $116.45 | Below | Bearish |
-| SMA 200 | $138.46 | Below | Bearish |
-| EMA 9 | $122.30 | Below | Bearish |
-| EMA 21 | $122.13 | Below | Bearish |
+| SMA 20 | $123.15 | Below | Bearish |
+| SMA 50 | $117.38 | Above | Bullish |
+| SMA 200 | $138.08 | Below | Bearish |
+| EMA 9 | $119.54 | Above | Bullish |
+| EMA 21 | $120.55 | Above | Bullish |
 
 ### Momentum Indicators
 | Indicator | Value | Zone | Signal |
 | :--- | :--- | :--- | :--- |
-| RSI (14) | 40.2 | Bearish zone | Neutral-Bear |
-| MACD | 1.008 | Below signal | Bearish |
-| MACD Signal | 2.357 | Histogram: -1.349 | — |
-| Stochastic %K/%D | 4.2/23.7 | Oversold | Bearish |
+| RSI (14) | 51.6 | Bullish zone | Neutral-Bull |
+| MACD | -0.453 | Below signal | Bearish |
+| MACD Signal | 0.473 | Histogram: -0.925 | — |
+| Stochastic %K/%D | 45.3/27.2 | Neutral | Bullish |
 
 ### Volatility
 | Indicator | Value | Position | Signal |
 | :--- | :--- | :--- | :--- |
-| Bollinger Upper | $132.19 | Below lower band | Oversold |
-| Bollinger Lower | $117.73 | Width: $14.46 | — |
-| ATR (14) | $5.79 (5.1%) | High volatility | — |
+| Bollinger Upper | $133.01 | 43% of band | Neutral |
+| Bollinger Lower | $113.30 | Width: $19.71 | — |
+| ATR (14) | $5.74 (4.7%) | High volatility | — |
 
 ### Key Support/Resistance Levels
 | Level | Price | Type | Touches | Last Tested |
 | :--- | :--- | :--- | :--- | :--- |
-| Resistance | $122.03 (+6.7%) | Resistance | 2 | 2026-01-05 |
-| Resistance | $124.33 (+8.7%) | Resistance | 2 | 2026-01-22 |
-| Resistance | $126.65 (+10.7%) | Resistance | 2 | 2025-08-20 |
-| Support | $102.01 (-10.8%) | Support | 1 | 2026-01-14 |
-| Support | $100.02 (-12.6%) | Support | 1 | 2026-02-05 |
-| Support | $137.62 (+20.3%) | Support | 1 | 2025-09-26 |
-| Support | $140.70 (+23.0%) | Support | 1 | 2025-07-14 |
-| Resistance | $144.25 (+26.1%) | Resistance | 1 | 2025-12-05 |
+| Support | $122.03 (+0.3%) | Support | 2 | 2026-01-05 |
+| Support | $124.33 (+2.2%) | Support | 2 | 2026-01-22 |
+| Support | $127.03 (+4.4%) | Support | 1 | 2025-08-20 |
+| Resistance | $134.25 (+10.3%) | Resistance | 1 | 2026-02-26 |
+| Support | $137.62 (+13.1%) | Support | 1 | 2025-09-26 |
+| Support | $140.70 (+15.6%) | Support | 1 | 2025-07-14 |
+| Support | $102.01 (-16.2%) | Support | 1 | 2026-01-14 |
+| Support | $100.02 (-17.8%) | Support | 1 | 2026-02-05 |
 
 ### Signal Summary
 | Metric | Value |
 | :--- | :--- |
-| Overall Signal | **Strong Bearish** |
-| Score | -5 |
-| Bearish Factors | Below SMA 20, Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21, MACD bearish |
+| Overall Signal | **Neutral-Bullish** |
+| Score | +0 |
+| Bullish Factors | Above SMA 50, Above EMA 9, Above EMA 21 |
+| Bearish Factors | Below SMA 20, Below SMA 200, MACD bearish |
 
 #### Short Interest
 ## Short Interest Analysis
@@ -149,20 +163,20 @@
 ### Short Interest Summary
 | Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
 | :--- | :--- | :--- | :--- | :--- |
-| ARM | 17.14M | 2.07 | 12.31% | -1.4% (decreasing) |
+| ARM | 14.83M | 2.22 | 10.65% | -3.4% (decreasing) |
 
 ### Squeeze Risk Assessment
 | Ticker | Risk Rating | Score (/100) | Key Factors |
 | :--- | :--- | :--- | :--- |
-| ARM | MEDIUM | 30 | Moderate short% (12.3%); Low DTC (2.1) |
+| ARM | MEDIUM | 30 | Moderate short% (10.7%); Low DTC (2.2) |
 
 ### Context
 | Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
 | :--- | :--- | :--- | :--- | :--- |
-| ARM | 136.80M | 1.06B | 5.99M | 2.1 |
+| ARM | 136.80M | 1.06B | 5.93M | 2.2 |
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:33*
 
 ## News & Sentiment: Arm Holdings plc (ARM)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -174,21 +188,25 @@
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 8 (27%) |
-| Neutral | 9 (30%) |
-| Negative | 13 (43%) |
-| Average Score | -0.042 |
+| Positive | 9 (30%) |
+| Neutral | 10 (33%) |
+| Negative | 11 (37%) |
+| Average Score | -0.062 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 191 |
+| Total Unique Headlines | 195 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 5 | BofA Raises PT on Arm Holdings plc (ARM)..; American Century Companies Inc. Lowers S.. |
-| Regulatory | 1 | Arm Holdings: Best Business Model In Its.. |
-| Corporate | 1 | Mitsubishi UFJ Asset Management Co. Ltd... |
+| Corporate | 1 | Exclusive-SpaceX taps Gibson Dunn and Da.. |
+| Analyst | 1 | SoftBank downgraded on OpenAI exposure a.. |
+| Earnings | 1 | BofA Raises PT on Arm Holdings plc (ARM).. |
 
 ### Deep Dive Articles
+
+#### Jim Cramer on Arm Holdings: "I Think There's Just a Lot of Good Stuff Happening"
+*Source: Insider Monkey | Date: 2026-03-11 | Sentiment: Positive (+0.96)*
+**Catalysts:** Short
 
 #### BofA Raises PT on Arm Holdings plc (ARM), Keeps a Hold Rating
 *Source: Insider Monkey | Date: 2026-03-06 | Sentiment: Positive (+0.97)*
@@ -206,13 +224,9 @@
 *Source: Benzinga | Date: 2026-03-04 | Sentiment: Negative (-0.84)*
 **Catalysts:** Earnings
 
-#### Wall Street Eager to Move Past Rough February Performance
-*Source: Schaeffer's Research | Date: 2026-02-27 | Sentiment: Positive (+0.96)*
-**Catalysts:** Earnings, Regulatory, Short
-
 ---
 
-**Position Snapshot:** 4 shares @ $120.88, current $114.38, P/L -5.4% ($-26.00)
+**Position Snapshot:** 5 shares @ $118.96, current $121.75, P/L +2.3% ($13.95)
 
 **Recent Trades:**
 - **2026-03-02:** BUY 1 share @ $123.55 (Bullet 1 filled, pre-market; limit was $127.03). Cost: $123.55. Now 1 share @ $123.55 avg.
@@ -236,6 +250,6 @@
 *Note: 1 Active level(s) excluded — buy price at or above current price: $125.44*
 *Bullet plan is a suggestion — adjust based on cycle timing and position.*
 
-**Knowledge:** 2 trades. Top: BUY 1 share @ $122.00 (Bullet 2 filled — A1 $119.62 HVN+PA level). Cost: $122.00... (0.62)
+**Knowledge:** 3 trades. Top: ARM: BUY 1 shares @ $111.28 (active). Now 5 shares @ $118.96 avg. (0.61)
 
 ---

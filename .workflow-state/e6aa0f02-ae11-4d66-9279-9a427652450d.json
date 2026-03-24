@@ -1,0 +1,116 @@
+{
+  "run_id": "e6aa0f02-ae11-4d66-9279-9a427652450d",
+  "workflow_name": "surgical-candidate-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-25T09:18:17.480720+00:00",
+  "completed_at": "2026-02-25T09:39:01.868278+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun the full surgical candidate screening workflow: screen \u2192 verify \u2192 critic. Use current portfolio.json, screening_data.json, and candidate files.",
+    "handoffs": {
+      "screen": "**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\n\n**Gate passers:** 75 tickers passed surgical gates (155 screened, 19 portfolio excluded)\n\n**Top 7 scored:** BBAI(90), TMC(90), TEM(89), RGTI(87), IREN(82), MP(81), DNA(80)\n\n**Recommendations:**\n- **Onboard (2):** BBAI, TMC\n- **Watch (3):** TEM, RGTI, DNA\n- **Monitor (2):** IREN, MP\n\n**Key findings:**\n- BBAI and TMC are clean Onboard candidates \u2014 no flags, improving recency, differentiated niches\n- TEM blocked by $51.31 level showing 0% recent hold rate and bullet sizing constraints at $57/share\n- RGTI best entered at $14.78 (confirmed 100% recent hold), not at current $16.48 where top bullets are underpowered\n- IREN hard-blocked by 4x Crypto concentration limit and 50% active-reserve dead zone\n- MP has structural support breakdown with 3 levels at 0% recent hold \u2014 worst recency profile in shortlist\n- DNA shows best recency momentum (all 4 levels improving) but low bullet quality warrants one more cycle\n\nReady for verification.",
+      "verify": "**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\n\n**Results:** 5 PASS, 2 FLAG, 0 FAIL\n\n**Score range after adjustment:** 80\u201390\n\n**Pre-verify:** 5 checks passed, 2 issues found (1 FAIL \u2014 flag coverage, parser false misses only; 1 WARN \u2014 2 duplicate buy prices)\n\n**Key verification findings:**\n\n- **BBAI (90, PASS):** Defense AI niche differentiation credible; DOGE/defense spending risk is substantive qualitative depth not captured mechanically\n- **TMC (90, PASS):** ISA regulatory risk specific; deep-sea niche vs UAMY/USAR is the strongest sector differentiation argument in the shortlist\n- **TEM (89 \u2192 87, FLAG):** Reserve duplicate buy price ($41.92 shared by two reserve levels) unaddressed; $51.31 regime analysis incomplete; Watch still correct\n- **RGTI (87 \u2192 84, FLAG):** Active duplicate buy price ($14.78 shared by $14.12/$14.70) is the more material gap \u2014 evaluator recommends entering at exactly this double-fill point without disclosing the 6-share simultaneous fill; Watch still correct\n- **IREN (82, PASS):** All 3 hard blockers fully addressed with rigorous analysis; no inflation of 62.9% swing magnitude\n- **MP (81, PASS):** Strongest analytical assessment in shortlist \u2014 structural breakdown correctly identified, rare earth/USAR overlap substantively argued\n- **DNA (80, PASS):** Best recency momentum correctly assessed; going-concern/dilution history adds appropriate fundamental caution\n\n**Pre-verify flag coverage FAIL is a parser artifact** \u2014 all flags were addressed in prose; critic should treat coverage as passing.\n\nReady for final selection.",
+      "critic": "**Artifacts:** `candidate-pre-critic.md`, `candidate-final.md`\n\n**Pre-critic tool output:** 7 candidates ranked, 0 eliminated. Scores: BBAI 100, RGTI 93, TMC 92, TEM 90, DNA 90, IREN 77, MP 73.\n\n**Adversarial qualitative adjustments applied:**\n\n| Ticker | Adjustment | Reasoning |\n| :--- | :--- | :--- |\n| BBAI | +2 | DOGE/IC risk less acute than presented \u2014 IC budget lines historically resist executive cuts better than direct procurement; thesis survives adversarial testing |\n| RGTI | -3 | Double-fill at $14.78 (6-share simultaneous deployment) is a material entry mechanics gap at the exact price the evaluator recommends \u2014 entry plan requires correction before bullet placement |\n| TMC | -2 | Critical minerals macro thesis correlation with UAMY/USAR is real despite genuine business-model differentiation; ISA binary risk (pre-revenue existential) warrants sharper language than \"risk callout\" |\n| DNA | -3 | Ginkgo Bioworks' reverse split/near-bankruptcy history adds a fundamental overhang the price-action framework cannot capture; \"improvement\" in hold rates may be stabilization artifact |\n| TEM | -5 | 3-way AI concentration (SOUN + BBAI + TEM) not captured by mechanical F=0 \u2014 the pre-critic ran on current portfolio pre-BBAI onboarding; $51.31 definitive 0% recent hold makes Watch window potentially indefinite |\n| IREN | 0 | Hard blockers (4x Crypto, 50% dead zone) correctly identified; no qualitative factors to add |\n| MP | 0 | Structural breakdown analysis is strongest in shortlist; no gaps |\n\n**Top 3:**\n1. **BBAI** \u2014 102 \u2014 **Onboard**\n2. **RGTI** \u2014 90 \u2014 **Watch** (entry mechanics correction required: resolve $14.78 double-fill before bullet placement)\n3. **TMC** \u2014 90 \u2014 **Onboard**\n\nScreening complete. Review `candidate-final.md` for onboarding decisions."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1
+  },
+  "phases": {
+    "screen": {
+      "phase_id": "screen",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-25T09:18:17.483305+00:00",
+      "completed_at": "2026-02-25T09:26:01.086949+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\n\n**Gate passers:** 75 tickers passed surgical gates (155 screened, 19 portfolio excluded)\n\n**Top 7 scored:** BBAI(90), TMC(90), TEM(89), RGTI(87), IREN(82), MP(81), DNA(80)\n\n**Recommendations:**\n- **Onboard (2):** BBAI, TMC\n- **Watch (3):** TEM, RGTI, DNA\n- **Monitor (2):** IREN, MP\n\n**Key findings:**\n- BBAI and TMC are clean Onboard candidates \u2014 no flags, improving recency, differentiated niches\n- TEM blocked by $51.31 level showing 0% recent hold rate and bullet sizing constraints at $57/share\n- RGTI best entered at $14.78 (confirmed 100% recent hold), not at current $16.48 where top bullets are underpowered\n- IREN hard-blocked by 4x Crypto concentration limit and 50% active-reserve dead zone\n- MP has structural support breakdown with 3 levels at 0% recent hold \u2014 worst recency profile in shortlist\n- DNA shows best recency momentum (all 4 levels improving) but low bullet quality warrants one more cycle\n\nReady for verification.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":430185,\"duration_api_ms\":413348,\"num_turns\":14,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\\n\\n**Gate passers:** 75 tickers passed surgical gates (155 screened, 19 portfolio excluded)\\n\\n**Top 7 scored:** BBAI(90), TMC(90), TEM(89), RGTI(87), IREN(82), MP(81), DNA(80)\\n\\n**Recommendations:**\\n- **Onboard (2):** BBAI, TMC\\n- **Watch (3):** TEM, RGTI, DNA\\n- **Monitor (2):** IREN, MP\\n\\n**Key findings:**\\n- BBAI and TMC are clean Onboard candidates \u2014 no flags, improving recency, differentiated niches\\n- TEM blocked by $51.31 level showing 0% recent hold rate and bullet sizing constraints at $57/share\\n- RGTI best entered at $14.78 (confirmed 100% recent hold), not at current $16.48 where top bullets are underpowered\\n- IREN hard-blocked by 4x Crypto concentration limit and 50% active-reserve dead zone\\n- MP has structural support breakdown with 3 levels at 0% recent hold \u2014 worst recency profile in shortlist\\n- DNA shows best recency momentum (all 4 levels improving) but low bullet quality warrants one more cycle\\n\\nReady for verification.\",\"stop_reason\":null,\"session_id\":\"8df6edde-1e3b-47ea-95e4-2a5dc7436b5b\",\"total_cost_usd\":1.1709055,\"usage\":{\"input_tokens\":15,\"cache_creation_input_tokens\":54044,\"cache_read_input_tokens\":625057,\"output_tokens\":20718,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":54044,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":15,\"outputTokens\":20718,\"cacheReadInputTokens\":625057,\"cacheCreationInputTokens\":54044,\"webSearchRequests\":0,\"costUSD\":1.1683284999999999,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":1837,\"outputTokens\":148,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.002577,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"32a5dd66-fbdf-4244-b10c-3b2b9a7f4f09\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "screening_data.json": "/Users/kamenkamenov/agentic-trading/screening_data.json",
+        "candidate_shortlist.md": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.md",
+        "candidate_shortlist.json": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.json",
+        "candidate-evaluation.md": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.md",
+        "candidate-evaluation.json": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.json"
+      },
+      "metrics": {
+        "duration_seconds": 463.59946513175964,
+        "token_usage": {
+          "input_tokens": 15,
+          "output_tokens": 20718,
+          "cache_read_tokens": 625057,
+          "cache_write_tokens": 54044
+        },
+        "estimated_cost_usd": 0.700997,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "verify": {
+      "phase_id": "verify",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-25T09:26:01.089826+00:00",
+      "completed_at": "2026-02-25T09:32:48.627169+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\n\n**Results:** 5 PASS, 2 FLAG, 0 FAIL\n\n**Score range after adjustment:** 80\u201390\n\n**Pre-verify:** 5 checks passed, 2 issues found (1 FAIL \u2014 flag coverage, parser false misses only; 1 WARN \u2014 2 duplicate buy prices)\n\n**Key verification findings:**\n\n- **BBAI (90, PASS):** Defense AI niche differentiation credible; DOGE/defense spending risk is substantive qualitative depth not captured mechanically\n- **TMC (90, PASS):** ISA regulatory risk specific; deep-sea niche vs UAMY/USAR is the strongest sector differentiation argument in the shortlist\n- **TEM (89 \u2192 87, FLAG):** Reserve duplicate buy price ($41.92 shared by two reserve levels) unaddressed; $51.31 regime analysis incomplete; Watch still correct\n- **RGTI (87 \u2192 84, FLAG):** Active duplicate buy price ($14.78 shared by $14.12/$14.70) is the more material gap \u2014 evaluator recommends entering at exactly this double-fill point without disclosing the 6-share simultaneous fill; Watch still correct\n- **IREN (82, PASS):** All 3 hard blockers fully addressed with rigorous analysis; no inflation of 62.9% swing magnitude\n- **MP (81, PASS):** Strongest analytical assessment in shortlist \u2014 structural breakdown correctly identified, rare earth/USAR overlap substantively argued\n- **DNA (80, PASS):** Best recency momentum correctly assessed; going-concern/dilution history adds appropriate fundamental caution\n\n**Pre-verify flag coverage FAIL is a parser artifact** \u2014 all flags were addressed in prose; critic should treat coverage as passing.\n\nReady for final selection.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":375650,\"duration_api_ms\":371690,\"num_turns\":12,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\\n\\n**Results:** 5 PASS, 2 FLAG, 0 FAIL\\n\\n**Score range after adjustment:** 80\u201390\\n\\n**Pre-verify:** 5 checks passed, 2 issues found (1 FAIL \u2014 flag coverage, parser false misses only; 1 WARN \u2014 2 duplicate buy prices)\\n\\n**Key verification findings:**\\n\\n- **BBAI (90, PASS):** Defense AI niche differentiation credible; DOGE/defense spending risk is substantive qualitative depth not captured mechanically\\n- **TMC (90, PASS):** ISA regulatory risk specific; deep-sea niche vs UAMY/USAR is the strongest sector differentiation argument in the shortlist\\n- **TEM (89 \u2192 87, FLAG):** Reserve duplicate buy price ($41.92 shared by two reserve levels) unaddressed; $51.31 regime analysis incomplete; Watch still correct\\n- **RGTI (87 \u2192 84, FLAG):** Active duplicate buy price ($14.78 shared by $14.12/$14.70) is the more material gap \u2014 evaluator recommends entering at exactly this double-fill point without disclosing the 6-share simultaneous fill; Watch still correct\\n- **IREN (82, PASS):** All 3 hard blockers fully addressed with rigorous analysis; no inflation of 62.9% swing magnitude\\n- **MP (81, PASS):** Strongest analytical assessment in shortlist \u2014 structural breakdown correctly identified, rare earth/USAR overlap substantively argued\\n- **DNA (80, PASS):** Best recency momentum correctly assessed; going-concern/dilution history adds appropriate fundamental caution\\n\\n**Pre-verify flag coverage FAIL is a parser artifact** \u2014 all flags were addressed in prose; critic should treat coverage as passing.\\n\\nReady for final selection.\",\"stop_reason\":null,\"session_id\":\"97b8bfff-9ba3-43b1-92fc-48f1a9337093\",\"total_cost_usd\":0.95187825,\"usage\":{\"input_tokens\":11,\"cache_creation_input_tokens\":49115,\"cache_read_input_tokens\":441001,\"output_tokens\":16923,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":49115,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":11,\"outputTokens\":16923,\"cacheReadInputTokens\":441001,\"cacheCreationInputTokens\":49115,\"webSearchRequests\":0,\"costUSD\":0.95059925,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":839,\"outputTokens\":88,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.0012789999999999998,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"5d0d0fac-39c7-42ff-8516-b98653d09ecf\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-verify.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-verify.md",
+        "candidate-verification.md": "/Users/kamenkamenov/agentic-trading/candidate-verification.md",
+        "candidate-verification.json": "/Users/kamenkamenov/agentic-trading/candidate-verification.json"
+      },
+      "metrics": {
+        "duration_seconds": 407.5356388092041,
+        "token_usage": {
+          "input_tokens": 11,
+          "output_tokens": 16923,
+          "cache_read_tokens": 441001,
+          "cache_write_tokens": 49115
+        },
+        "estimated_cost_usd": 0.57036,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "critic": {
+      "phase_id": "critic",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-25T09:32:48.629842+00:00",
+      "completed_at": "2026-02-25T09:39:01.865041+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** `candidate-pre-critic.md`, `candidate-final.md`\n\n**Pre-critic tool output:** 7 candidates ranked, 0 eliminated. Scores: BBAI 100, RGTI 93, TMC 92, TEM 90, DNA 90, IREN 77, MP 73.\n\n**Adversarial qualitative adjustments applied:**\n\n| Ticker | Adjustment | Reasoning |\n| :--- | :--- | :--- |\n| BBAI | +2 | DOGE/IC risk less acute than presented \u2014 IC budget lines historically resist executive cuts better than direct procurement; thesis survives adversarial testing |\n| RGTI | -3 | Double-fill at $14.78 (6-share simultaneous deployment) is a material entry mechanics gap at the exact price the evaluator recommends \u2014 entry plan requires correction before bullet placement |\n| TMC | -2 | Critical minerals macro thesis correlation with UAMY/USAR is real despite genuine business-model differentiation; ISA binary risk (pre-revenue existential) warrants sharper language than \"risk callout\" |\n| DNA | -3 | Ginkgo Bioworks' reverse split/near-bankruptcy history adds a fundamental overhang the price-action framework cannot capture; \"improvement\" in hold rates may be stabilization artifact |\n| TEM | -5 | 3-way AI concentration (SOUN + BBAI + TEM) not captured by mechanical F=0 \u2014 the pre-critic ran on current portfolio pre-BBAI onboarding; $51.31 definitive 0% recent hold makes Watch window potentially indefinite |\n| IREN | 0 | Hard blockers (4x Crypto, 50% dead zone) correctly identified; no qualitative factors to add |\n| MP | 0 | Structural breakdown analysis is strongest in shortlist; no gaps |\n\n**Top 3:**\n1. **BBAI** \u2014 102 \u2014 **Onboard**\n2. **RGTI** \u2014 90 \u2014 **Watch** (entry mechanics correction required: resolve $14.78 double-fill before bullet placement)\n3. **TMC** \u2014 90 \u2014 **Onboard**\n\nScreening complete. Review `candidate-final.md` for onboarding decisions.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":341090,\"duration_api_ms\":338513,\"num_turns\":9,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** `candidate-pre-critic.md`, `candidate-final.md`\\n\\n**Pre-critic tool output:** 7 candidates ranked, 0 eliminated. Scores: BBAI 100, RGTI 93, TMC 92, TEM 90, DNA 90, IREN 77, MP 73.\\n\\n**Adversarial qualitative adjustments applied:**\\n\\n| Ticker | Adjustment | Reasoning |\\n| :--- | :--- | :--- |\\n| BBAI | +2 | DOGE/IC risk less acute than presented \u2014 IC budget lines historically resist executive cuts better than direct procurement; thesis survives adversarial testing |\\n| RGTI | -3 | Double-fill at $14.78 (6-share simultaneous deployment) is a material entry mechanics gap at the exact price the evaluator recommends \u2014 entry plan requires correction before bullet placement |\\n| TMC | -2 | Critical minerals macro thesis correlation with UAMY/USAR is real despite genuine business-model differentiation; ISA binary risk (pre-revenue existential) warrants sharper language than \\\"risk callout\\\" |\\n| DNA | -3 | Ginkgo Bioworks' reverse split/near-bankruptcy history adds a fundamental overhang the price-action framework cannot capture; \\\"improvement\\\" in hold rates may be stabilization artifact |\\n| TEM | -5 | 3-way AI concentration (SOUN + BBAI + TEM) not captured by mechanical F=0 \u2014 the pre-critic ran on current portfolio pre-BBAI onboarding; $51.31 definitive 0% recent hold makes Watch window potentially indefinite |\\n| IREN | 0 | Hard blockers (4x Crypto, 50% dead zone) correctly identified; no qualitative factors to add |\\n| MP | 0 | Structural breakdown analysis is strongest in shortlist; no gaps |\\n\\n**Top 3:**\\n1. **BBAI** \u2014 102 \u2014 **Onboard**\\n2. **RGTI** \u2014 90 \u2014 **Watch** (entry mechanics correction required: resolve $14.78 double-fill before bullet placement)\\n3. **TMC** \u2014 90 \u2014 **Onboard**\\n\\nScreening complete. Review `candidate-final.md` for onboarding decisions.\",\"stop_reason\":null,\"session_id\":\"16c65106-4200-4e69-8279-c41e334115e8\",\"total_cost_usd\":0.856437,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":44270,\"cache_read_input_tokens\":305051,\"output_tokens\":17032,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":44270,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":9,\"outputTokens\":17032,\"cacheReadInputTokens\":305051,\"cacheCreationInputTokens\":44270,\"webSearchRequests\":0,\"costUSD\":0.855058,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":1009,\"outputTokens\":74,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.001379,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"4142a8e9-4447-428e-b8bd-ee87e8deb4b0\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-critic.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-critic.md",
+        "candidate-final.md": "/Users/kamenkamenov/agentic-trading/candidate-final.md"
+      },
+      "metrics": {
+        "duration_seconds": 373.2334930896759,
+        "token_usage": {
+          "input_tokens": 9,
+          "output_tokens": 17032,
+          "cache_read_tokens": 305051,
+          "cache_write_tokens": 44270
+        },
+        "estimated_cost_usd": 0.513035,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-25T09:39:01.868478+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/surgical-candidate-workflow.yaml",
+    "workflowHash": "911887d0c859da61"
+  }
+}

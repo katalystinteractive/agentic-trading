@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-18 09:22*
 
 ## Earnings Analysis: USA Rare Earth, Inc. (USAR)
 
@@ -6,10 +6,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-03-30 |
-| Days Until | 22 |
+| Days Until | 12 |
 | EPS Estimate | $-0.13667 |
 | Revenue Estimate | $0 |
-| Earnings Rule | Clear (>22d out) |
+| **Earnings Rule** | **WARNING: <14 days — avoid new entries** |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |

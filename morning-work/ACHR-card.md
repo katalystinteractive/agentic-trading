@@ -1,47 +1,48 @@
-### ACHR — MONITOR — P/L -7.7%
-**State:** 61 shares @ $6.78, target N/A (recovery), held 6 days
-**Objective:** Recover position via mean-reversion bounce on ARKX-sourced eVTOL holding; monitor for technical stabilization before deploying final B5 reserve bullet.
-**Decision:** MONITOR — Recovery position with bearish momentum across all indicators; hold current shares, B5 reserve on REVIEW (Risk-Off regime), watch for RSI recovery above 45 and MACD relief before adding. (Rule 9)
+### ACHR — MONITOR — P/L -8.9%
+**State:** 77 shares @ $6.61, target N/A (recovery), held 14 days
+**Objective:** Recover to breakeven ($6.61) and assess full exit; all 5 bullets used, no further averaging available
+**Decision:** MONITOR — recovery position with bearish momentum across all indicators; watch for mean-reversion setup or catalyst-driven bounce before acting (Rule 9, Dig Out exit consideration)
 
 | Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |
-| Time Stop | WITHIN | 6 days held |
-| Profit Target | N/A | P/L -7.7%, no target set (recovery) |
-| Earnings Gate | CLEAR | 64 days to event (2026-05-11) |
-| Momentum | Bearish | RSI 36.8 (<40), MACD -0.270 below signal (-0.238), histogram -0.032; all SMAs bearish |
+| Time Stop | WITHIN | 14 days |
+| Profit Target | N/A — no target set | P/L -8.9%, Recovery position |
+| Earnings Gate | CLEAR | 56 days to event (2026-05-11) |
+| Momentum | Bearish | RSI 36.0, MACD -0.357 below signal (-0.302) |
 
 **Trades Executed:**
-- 2026-03-02: BUY 4 shares @ $6.89 (Bullet 1, pre-market; limit was $6.96). Cost: $27.56.
-- 2026-03-02: SELL 4 shares @ $7.41 (full exit prior cycle). Revenue: $29.64. Profit: +$2.08 (+7.5%). Position closed.
-- 2026-03-02: Re-entry — 8 shares @ $7.00 (per position note); subsequent bullets brought position to 61 shares @ $6.78 avg. Bullets used: 4/5.
+- 2026-03-02: BUY 4 shares @ $6.89 (Bullet 1, pre-market)
+- 2026-03-02: SELL 4 shares @ $7.41 (full exit prior cycle, +7.5%)
+- Current position fills: $7.35 → $7.24 → $6.96 → $6.59 → $5.98 (5/5 bullets used)
 
-**Sell-Side Advisory (Recovery):**
-Recovery thesis intact: ACHR selected from ARKX ETF screener with 40.7% median monthly swing and 100% of months hitting 10%+. Prior cycle confirmed the pattern (+7.5% in one day). Current re-entry is 4 days old and underwater at -7.7%. With 4/5 bullets deployed and RSI in bearish zone (36.8), position is near max exposure. Watch for RSI recovery above 45 and MACD histogram turning positive before considering B5 activation. If price breaks below $5.85 (PA support) with no bounce, treat as Dig Out signal — consider partial reduction to preserve capital for a cleaner re-entry.
+**Sell-Side Advisory:** Recovery thesis rests on eVTOL regulatory tailwinds ("Future of Flight") and FAA partnership momentum. Breakeven requires +9.8% move to $6.61 from current $6.02. All bullets exhausted — no further averaging possible. Needham PT at $9 (+49% upside) provides fundamental anchor, but technicals are deeply bearish (all SMAs overhead, Stochastic at 2.2, RSI 36). If price stabilizes above $5.84 (Bollinger Lower) and RSI begins turning up from oversold, monitor for bounce signal. If price breaks below $5.84 with no catalyst, consider partial Dig Out exit to reduce exposure before recovery thesis is retested.
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $5.98 | 16 | 4.5% | REVIEW | ACTIVE | REVIEW | B5 reserve — $5.85 PA bounce level, 50% hold rate; Risk-Off limits new entries (active, ≤15% below) |
+| — | — | — | — | — | — | — | No pending orders |
 
 **Wick-Adjusted Buy Levels:**
 | Zone | Level | Buy At | Hold Rate | Tier | Shares |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| — | No bullet plan available | — | — | — | — |
+| — | — | — | — | — | — |
+*No bullet plan found — all 5 bullets used*
 
 **Projected Sell Levels:**
 | Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Current (breakeven) | 61 | $6.78 | $6.78 | 0.0% | $413.58 |
-| If B5 fills @ $5.98 (breakeven) | 77 | $6.61 | $6.61 | 0.0% | $508.97 |
+| Breakeven | 77 | $6.61 | $6.61 | 0.0% | $508.97 |
+| Partial recovery | 77 | $6.61 | $7.00 | +5.9% | $539.00 |
+| Prior cycle exit level | 77 | $6.61 | $7.35 | +11.2% | $565.95 |
+| Needham PT | 77 | $6.61 | $9.00 | +36.2% | $693.00 |
 
-*Monotonic check: lower buy ($5.98) → lower avg ($6.61 < $6.78) ✓*
-*Recovery position — no profit target set. Breakeven scenarios shown only.*
+*Recovery position — no profit target set. Breakeven and resistance recovery scenarios shown.*
 
-**Fill Alerts:** None (BUY $5.98 alert threshold $6.10; day low $6.22 > $6.10)
+**Fill Alerts:** None (no pending orders)
 
 **News & Catalysts:**
-- ARK Investment Management LLC acquired ACHR shares — institutional accumulation signal amid eVTOL sector dip.
-- Uber entered new deal with Joby Aviation on electric air taxis — positive sector catalyst validating eVTOL demand, indirect tailwind for ACHR (2026-03-03).
-- Jim Cramer skeptical: "I'm Not as Into These Stocks as Others" — retail sentiment headwind; short interest rising +5.8% to 14.1% float (DTC 2.3, medium squeeze risk 35/100).
+- Trump admin named Joby, Archer, Beta as winners in "Future of Flight" initiative (2026-03-10, positive regulatory tailwind)
+- Needham lowered PT to $9 — still 49% upside from current $6.02 (2026-03-10)
+- Archer filed countersuit vs Joby alleging China ties and fraud amid FAA partnership dispute (2026-03-10, corporate/legal event)
 
-**Sector Context:** eVTOL / Aviation (ARKX ETF holding). Regime: Risk-Off — 0/3 indices above 50-SMA, VIX 29.5 (+48.49% 5D), sector breadth 2/11 positive. Broad market weakness creates significant headwinds for speculative growth names.
+**Sector Context:** eVTOL / Advanced Air Mobility (ARKX ETF holding). Regime: Neutral — 0/3 indices above 50-SMA, VIX 24.2 declining (-5.14% over 5 days). Sector breadth 11/11 positive provides mild tailwind, but ACHR technicals remain strong bearish (score -6, below all SMAs/EMAs).

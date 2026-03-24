@@ -1,0 +1,416 @@
+{
+  "ticker": "OKLO",
+  "current_price": 61.28,
+  "last_date": "2026-03-17",
+  "resistance_levels": [
+    {
+      "price": 61.28,
+      "approaches": 6,
+      "historical_approaches": 5,
+      "rejected": 4,
+      "broke": 2,
+      "reject_rate": 66.7,
+      "source": "HVN"
+    },
+    {
+      "price": 63.45,
+      "approaches": 4,
+      "historical_approaches": 3,
+      "rejected": 2,
+      "broke": 2,
+      "reject_rate": 50.0,
+      "source": "PA"
+    },
+    {
+      "price": 67.38,
+      "approaches": 2,
+      "historical_approaches": 2,
+      "rejected": 0,
+      "broke": 2,
+      "reject_rate": 0.0,
+      "source": "PA"
+    },
+    {
+      "price": 69.58,
+      "approaches": 5,
+      "historical_approaches": 5,
+      "rejected": 4,
+      "broke": 1,
+      "reject_rate": 80.0,
+      "source": "PA"
+    },
+    {
+      "price": 72.43,
+      "approaches": 2,
+      "historical_approaches": 2,
+      "rejected": 1,
+      "broke": 1,
+      "reject_rate": 50.0,
+      "source": "PA"
+    },
+    {
+      "price": 74.54,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 2,
+      "broke": 1,
+      "reject_rate": 66.7,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 79.79,
+      "approaches": 4,
+      "historical_approaches": 4,
+      "rejected": 2,
+      "broke": 2,
+      "reject_rate": 50.0,
+      "source": "PA"
+    },
+    {
+      "price": 85.83,
+      "approaches": 4,
+      "historical_approaches": 4,
+      "rejected": 2,
+      "broke": 2,
+      "reject_rate": 50.0,
+      "source": "PA"
+    },
+    {
+      "price": 87.79,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 1,
+      "broke": 2,
+      "reject_rate": 33.3,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 91.39,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 1,
+      "broke": 2,
+      "reject_rate": 33.3,
+      "source": "PA"
+    },
+    {
+      "price": 95.1,
+      "approaches": 2,
+      "historical_approaches": 2,
+      "rejected": 0,
+      "broke": 2,
+      "reject_rate": 0.0,
+      "source": "PA"
+    },
+    {
+      "price": 97.08,
+      "approaches": 2,
+      "historical_approaches": 2,
+      "rejected": 0,
+      "broke": 2,
+      "reject_rate": 0.0,
+      "source": "PA"
+    },
+    {
+      "price": 101.05,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 1,
+      "broke": 2,
+      "reject_rate": 33.3,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 104.57,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 0,
+      "broke": 3,
+      "reject_rate": 0.0,
+      "source": "PA"
+    },
+    {
+      "price": 109.7,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 1,
+      "broke": 2,
+      "reject_rate": 33.3,
+      "source": "PA"
+    },
+    {
+      "price": 114.3,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 2,
+      "broke": 1,
+      "reject_rate": 66.7,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 117.44,
+      "approaches": 4,
+      "historical_approaches": 4,
+      "rejected": 3,
+      "broke": 1,
+      "reject_rate": 75.0,
+      "source": "PA"
+    },
+    {
+      "price": 123.44,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 2,
+      "broke": 1,
+      "reject_rate": 66.7,
+      "source": "PA"
+    },
+    {
+      "price": 132.11,
+      "approaches": 2,
+      "historical_approaches": 2,
+      "rejected": 0,
+      "broke": 2,
+      "reject_rate": 0.0,
+      "source": "PA"
+    },
+    {
+      "price": 138.66,
+      "approaches": 2,
+      "historical_approaches": 2,
+      "rejected": 0,
+      "broke": 2,
+      "reject_rate": 0.0,
+      "source": "PA"
+    },
+    {
+      "price": 145.3,
+      "approaches": 2,
+      "historical_approaches": 2,
+      "rejected": 1,
+      "broke": 1,
+      "reject_rate": 50.0,
+      "source": "PA"
+    },
+    {
+      "price": 154.45,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 2,
+      "broke": 1,
+      "reject_rate": 66.7,
+      "source": "PA"
+    }
+  ],
+  "support_levels_used": [
+    {
+      "price": 19.89,
+      "source": "PA"
+    },
+    {
+      "price": 20.62,
+      "source": "PA"
+    },
+    {
+      "price": 21.38,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 22.11,
+      "source": "PA"
+    },
+    {
+      "price": 23.02,
+      "source": "PA"
+    },
+    {
+      "price": 24.44,
+      "source": "PA"
+    },
+    {
+      "price": 25.16,
+      "source": "PA"
+    },
+    {
+      "price": 25.9,
+      "source": "HVN"
+    },
+    {
+      "price": 27.23,
+      "source": "PA"
+    },
+    {
+      "price": 29.11,
+      "source": "PA"
+    },
+    {
+      "price": 33.57,
+      "source": "PA"
+    },
+    {
+      "price": 35.69,
+      "source": "PA"
+    },
+    {
+      "price": 46.01,
+      "source": "PA"
+    },
+    {
+      "price": 49.02,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 50.24,
+      "source": "PA"
+    },
+    {
+      "price": 52.88,
+      "source": "PA"
+    },
+    {
+      "price": 54.23,
+      "source": "HVN+PA"
+    }
+  ],
+  "current_cycle": {
+    "resistance_date": "2026-03-17",
+    "resistance_price": 61.28,
+    "days_elapsed": 0,
+    "status": "IN PROGRESS"
+  },
+  "cycles": [
+    {
+      "resistance_date": "2025-02-10",
+      "resistance_price": 61.28,
+      "first_touch_date": "2025-02-11",
+      "first_touch_price": 52.88,
+      "days_first": 1,
+      "deep_touch_date": "2025-02-11",
+      "deep_touch_price": 52.88,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -6.8,
+        "3": 2.4,
+        "5": -6.6,
+        "10": -40.3
+      }
+    },
+    {
+      "resistance_date": "2025-02-14",
+      "resistance_price": 61.28,
+      "first_touch_date": "2025-02-18",
+      "first_touch_price": 52.88,
+      "days_first": 1,
+      "deep_touch_date": "2025-02-18",
+      "deep_touch_price": 52.88,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -4.6,
+        "3": -18.9,
+        "5": -35.2,
+        "10": -44.2
+      }
+    },
+    {
+      "resistance_date": "2025-05-28",
+      "resistance_price": 61.28,
+      "first_touch_date": "2025-05-29",
+      "first_touch_price": 54.23,
+      "days_first": 1,
+      "deep_touch_date": "2025-05-29",
+      "deep_touch_price": 54.23,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -4.2,
+        "3": -5.1,
+        "5": -11.1,
+        "10": 23.2
+      }
+    },
+    {
+      "resistance_date": "2025-06-03",
+      "resistance_price": 61.28,
+      "first_touch_date": "2025-06-04",
+      "first_touch_price": 46.01,
+      "days_first": 1,
+      "deep_touch_date": "2025-06-04",
+      "deep_touch_price": 46.01,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -1.4,
+        "3": 1.0,
+        "5": 5.6,
+        "10": 26.1
+      }
+    },
+    {
+      "resistance_date": "2025-06-03",
+      "resistance_price": 63.45,
+      "first_touch_date": "2025-06-04",
+      "first_touch_price": 46.01,
+      "days_first": 1,
+      "deep_touch_date": "2025-06-04",
+      "deep_touch_price": 46.01,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -1.4,
+        "3": 1.0,
+        "5": 5.6,
+        "10": 26.1
+      }
+    },
+    {
+      "resistance_date": "2025-06-30",
+      "resistance_price": 61.28,
+      "first_touch_date": "2025-07-01",
+      "first_touch_price": 54.23,
+      "days_first": 1,
+      "deep_touch_date": "2025-07-01",
+      "deep_touch_price": 54.23,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -7.6,
+        "3": -4.1,
+        "5": -4.4,
+        "10": 8.9
+      }
+    },
+    {
+      "resistance_date": "2025-07-08",
+      "resistance_price": 61.28,
+      "first_touch_date": "2025-07-09",
+      "first_touch_price": 54.23,
+      "days_first": 1,
+      "deep_touch_date": "2025-07-09",
+      "deep_touch_price": 54.23,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": 0.8,
+        "3": 4.8,
+        "5": 13.9,
+        "10": 14.6
+      }
+    }
+  ],
+  "statistics": {
+    "total_cycles": 7,
+    "median_first": 1,
+    "min_first": 1,
+    "max_first": 1,
+    "median_deep": 1,
+    "min_deep": 1,
+    "max_deep": 1,
+    "immediate_fill_pct": 100.0
+  },
+  "post_resistance_decay": {
+    "1": -4.4,
+    "3": -1.5,
+    "5": -5.5,
+    "10": 11.8
+  },
+  "recommendation": {
+    "cooldown_days": 3,
+    "confidence": "NORMAL",
+    "immediate_reentry_viable": true
+  }
+}

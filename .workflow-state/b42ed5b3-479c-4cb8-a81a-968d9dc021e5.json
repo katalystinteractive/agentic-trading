@@ -1,0 +1,81 @@
+{
+  "run_id": "b42ed5b3-479c-4cb8-a81a-968d9dc021e5",
+  "workflow_name": "status-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-21T13:01:56.511153+00:00",
+  "completed_at": "2026-02-21T13:11:22.180290+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nDaily portfolio status report for 2026-02-21",
+    "handoffs": {
+      "gather": "**Artifact:** `status-raw.md`\n**Active positions queried:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n**Watchlist tickers queried:** 9 tickers (AR, VALE, CLF, SEDG, ACHR, SOUN, SMCI, RKT, LUNR)\n**Fill alerts detected:** None confirmed (notable near-wicks: SOUN B1 touched $7.63 day low = order price; LUNR B1 at $17.16 within $0.05 of $17.21 day low; APLD B5 at $27.71 within $0.65 of $28.36 day low)\n\n**Key flags for analyst:**\n- **NU earnings 2026-02-25** (4 days) \u2014 WARNING: <14 days, avoid new entries\n- **IONQ earnings 2026-02-25** (4 days) \u2014 WARNING: <14 days, avoid new entries; -28.1% P/L recovery mode\n- **STIM** earnings clear (Mar 17); current $1.29 near reserve level $1.25; EXTREME short squeeze risk (80/100)\n- **APLD** Nvidia-exit headwind; B5 at $27.71 close; current $29.04 (-6.6%)\n- **CLSK** only wick-adjusted levels available in active positions; currently $9.65, barely green\n- **CIFR** Q4 earnings upcoming (Zacks article today); SELL target $16.36 with day high $16.18 near-touch\n- Wick levels missing for most watchlist tickers (AR, VALE, CLF, SEDG, ACHR, SOUN)\n- No velocity or bounce trades active\n\nReady for status report compilation.",
+      "report": "**Artifact:** `status-report.md`\n**Active positions reported:** 9 (IONQ, USAR, STIM, UAMY, APLD, INTC, CIFR, CLSK, NU) \u2014 sorted worst-to-best by P/L %\n**Watchlist tickers:** 10 (AR, VALE, CLF, SEDG, ACHR, SOUN, CLSK, SMCI, RKT, LUNR)\n**Fill alerts:** 1 \u2014 SOUN B1 at $7.63 (day low matched exactly \u2014 verify with broker)\n**Actionable items:** 5 categories, 17 individual items flagged\n\n**Key items for immediate attention:**\n1. **SOUN fill check** \u2014 day low $7.63 = order price; potential new position opened\n2. **NU / IONQ earnings Feb 25** (4 days) \u2014 earnings gate active on both; no new entries\n3. **CIFR earnings unknown** \u2014 Zacks article signals Q4 earnings upcoming; run `earnings_analyzer.py CIFR` before market open\n4. **CIFR near-sell** \u2014 day high $16.18 was $0.18 from $16.36 sell target; may fill next up-session\n5. **STIM reserve** at $1.25 is 3.1% away with 100% hold rate \u2014 near-touch possible\n\n**Total open P/L:** -$308.32 across 9 positions. Net losses concentrated in pre-strategy recovery positions (IONQ -$187.35, USAR -$64.35)."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-21T13:01:56.513115+00:00",
+      "completed_at": "2026-02-21T13:06:41.800695+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `status-raw.md`\n**Active positions queried:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n**Watchlist tickers queried:** 9 tickers (AR, VALE, CLF, SEDG, ACHR, SOUN, SMCI, RKT, LUNR)\n**Fill alerts detected:** None confirmed (notable near-wicks: SOUN B1 touched $7.63 day low = order price; LUNR B1 at $17.16 within $0.05 of $17.21 day low; APLD B5 at $27.71 within $0.65 of $28.36 day low)\n\n**Key flags for analyst:**\n- **NU earnings 2026-02-25** (4 days) \u2014 WARNING: <14 days, avoid new entries\n- **IONQ earnings 2026-02-25** (4 days) \u2014 WARNING: <14 days, avoid new entries; -28.1% P/L recovery mode\n- **STIM** earnings clear (Mar 17); current $1.29 near reserve level $1.25; EXTREME short squeeze risk (80/100)\n- **APLD** Nvidia-exit headwind; B5 at $27.71 close; current $29.04 (-6.6%)\n- **CLSK** only wick-adjusted levels available in active positions; currently $9.65, barely green\n- **CIFR** Q4 earnings upcoming (Zacks article today); SELL target $16.36 with day high $16.18 near-touch\n- Wick levels missing for most watchlist tickers (AR, VALE, CLF, SEDG, ACHR, SOUN)\n- No velocity or bounce trades active\n\nReady for status report compilation.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":252827,\"duration_api_ms\":245279,\"num_turns\":25,\"result\":\"`status-raw.md` written successfully.\\n\\n---\\n\\n## HANDOFF\\n\\n**Artifact:** `status-raw.md`\\n**Active positions queried:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\\n**Watchlist tickers queried:** 9 tickers (AR, VALE, CLF, SEDG, ACHR, SOUN, SMCI, RKT, LUNR)\\n**Fill alerts detected:** None confirmed (notable near-wicks: SOUN B1 touched $7.63 day low = order price; LUNR B1 at $17.16 within $0.05 of $17.21 day low; APLD B5 at $27.71 within $0.65 of $28.36 day low)\\n\\n**Key flags for analyst:**\\n- **NU earnings 2026-02-25** (4 days) \u2014 WARNING: <14 days, avoid new entries\\n- **IONQ earnings 2026-02-25** (4 days) \u2014 WARNING: <14 days, avoid new entries; -28.1% P/L recovery mode\\n- **STIM** earnings clear (Mar 17); current $1.29 near reserve level $1.25; EXTREME short squeeze risk (80/100)\\n- **APLD** Nvidia-exit headwind; B5 at $27.71 close; current $29.04 (-6.6%)\\n- **CLSK** only wick-adjusted levels available in active positions; currently $9.65, barely green\\n- **CIFR** Q4 earnings upcoming (Zacks article today); SELL target $16.36 with day high $16.18 near-touch\\n- Wick levels missing for most watchlist tickers (AR, VALE, CLF, SEDG, ACHR, SOUN)\\n- No velocity or bounce trades active\\n\\nReady for status report compilation.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"221ccce3-87bd-44b0-b746-0e1be02a88ef\",\"total_cost_usd\":0.8710562499999999,\"usage\":{\"input_tokens\":10,\"cache_creation_input_tokens\":48894,\"cache_read_input_tokens\":276667,\"output_tokens\":15828,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":48894,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":10,\"outputTokens\":15828,\"cacheReadInputTokens\":276667,\"cacheCreationInputTokens\":48894,\"webSearchRequests\":0,\"costUSD\":0.839671,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":8564,\"outputTokens\":1137,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":13709,\"webSearchRequests\":0,\"costUSD\":0.03138525000000001,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"2001d7d6-3e9b-4431-aefb-ebab9ad0de17\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "status-raw.md": "/Users/kamenkamenov/agentic-trading/status-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 285.2787969112396,
+        "token_usage": {
+          "input_tokens": 10,
+          "output_tokens": 15828,
+          "cache_read_tokens": 276667,
+          "cache_write_tokens": 48894
+        },
+        "estimated_cost_usd": 0.503803,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "report": {
+      "phase_id": "report",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-21T13:06:41.804008+00:00",
+      "completed_at": "2026-02-21T13:11:22.177407+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `status-report.md`\n**Active positions reported:** 9 (IONQ, USAR, STIM, UAMY, APLD, INTC, CIFR, CLSK, NU) \u2014 sorted worst-to-best by P/L %\n**Watchlist tickers:** 10 (AR, VALE, CLF, SEDG, ACHR, SOUN, CLSK, SMCI, RKT, LUNR)\n**Fill alerts:** 1 \u2014 SOUN B1 at $7.63 (day low matched exactly \u2014 verify with broker)\n**Actionable items:** 5 categories, 17 individual items flagged\n\n**Key items for immediate attention:**\n1. **SOUN fill check** \u2014 day low $7.63 = order price; potential new position opened\n2. **NU / IONQ earnings Feb 25** (4 days) \u2014 earnings gate active on both; no new entries\n3. **CIFR earnings unknown** \u2014 Zacks article signals Q4 earnings upcoming; run `earnings_analyzer.py CIFR` before market open\n4. **CIFR near-sell** \u2014 day high $16.18 was $0.18 from $16.36 sell target; may fill next up-session\n5. **STIM reserve** at $1.25 is 3.1% away with 100% hold rate \u2014 near-touch possible\n\n**Total open P/L:** -$308.32 across 9 positions. Net losses concentrated in pre-strategy recovery positions (IONQ -$187.35, USAR -$64.35).",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":248297,\"duration_api_ms\":246473,\"num_turns\":5,\"result\":\"`status-report.md` written.\\n\\n---\\n\\n## HANDOFF\\n\\n**Artifact:** `status-report.md`\\n**Active positions reported:** 9 (IONQ, USAR, STIM, UAMY, APLD, INTC, CIFR, CLSK, NU) \u2014 sorted worst-to-best by P/L %\\n**Watchlist tickers:** 10 (AR, VALE, CLF, SEDG, ACHR, SOUN, CLSK, SMCI, RKT, LUNR)\\n**Fill alerts:** 1 \u2014 SOUN B1 at $7.63 (day low matched exactly \u2014 verify with broker)\\n**Actionable items:** 5 categories, 17 individual items flagged\\n\\n**Key items for immediate attention:**\\n1. **SOUN fill check** \u2014 day low $7.63 = order price; potential new position opened\\n2. **NU / IONQ earnings Feb 25** (4 days) \u2014 earnings gate active on both; no new entries\\n3. **CIFR earnings unknown** \u2014 Zacks article signals Q4 earnings upcoming; run `earnings_analyzer.py CIFR` before market open\\n4. **CIFR near-sell** \u2014 day high $16.18 was $0.18 from $16.36 sell target; may fill next up-session\\n5. **STIM reserve** at $1.25 is 3.1% away with 100% hold rate \u2014 near-touch possible\\n\\n**Total open P/L:** -$308.32 across 9 positions. Net losses concentrated in pre-strategy recovery positions (IONQ -$187.35, USAR -$64.35).\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"b8c4316a-53ef-438f-ac92-d91e4d3f473f\",\"total_cost_usd\":0.72317675,\"usage\":{\"input_tokens\":5,\"cache_creation_input_tokens\":45675,\"cache_read_input_tokens\":96366,\"output_tokens\":15580,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":45675,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":5,\"outputTokens\":15580,\"cacheReadInputTokens\":96366,\"cacheCreationInputTokens\":45675,\"webSearchRequests\":0,\"costUSD\":0.72317675,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"5948ecce-ad75-4783-a7d9-3899cec94b99\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "status-report.md": "/Users/kamenkamenov/agentic-trading/status-report.md"
+      },
+      "metrics": {
+        "duration_seconds": 280.3713688850403,
+        "token_usage": {
+          "input_tokens": 5,
+          "output_tokens": 15580,
+          "cache_read_tokens": 96366,
+          "cache_write_tokens": 45675
+        },
+        "estimated_cost_usd": 0.433906,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-21T13:11:22.180539+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/status-workflow.yaml",
+    "workflowHash": "8eae58cfd56c9bc2"
+  }
+}

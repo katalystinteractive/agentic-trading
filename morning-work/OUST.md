@@ -3,167 +3,73 @@
 ## Global Context
 | Metric | Value |
 | :--- | :--- |
-| Date | 2026-03-08 |
-| Regime | Risk-Off |
-| Regime Detail | 0/3 indices above 50-SMA, VIX 29.5 (elevated) |
-| VIX | 29.49 |
-| VIX 5D% | +48.49% |
+| Date | 2026-03-16 |
+| Regime | Neutral |
+| Regime Detail | 0/3 indices above 50-SMA, VIX 24.2 |
+| VIX | 24.19 |
+| VIX 5D% | -5.14% |
 | Indices Above 50-SMA | 0/3 |
-| Sector Breadth | 2/11 positive |
+| Sector Breadth | 11/11 positive |
+| Data Freshness | 2026-03-16 close |
+| Trading Day | Yes |
 
 ## Portfolio Summary
 | Ticker | Shares | Avg Cost | P/L % |
 | :--- | :--- | :--- | :--- |
-| NU | 30 | $15.85 | -8.0% |
+| NU | 30 | $15.85 | -10.3% |
 | STIM | 0 | $0.00 | +inf% |
-| IONQ | 15 | $44.43 | -19.6% |
-| LUNR | 1 | $17.61 | +0.1% |
-| USAR | 15 | $21.57 | -19.1% |
-| OUST | 5 | $21.70 | -6.6% |
+| IONQ | 15 | $44.43 | -26.0% |
+| LUNR | 2 | $17.59 | -2.7% |
+| USAR | 15 | $21.57 | -11.3% |
+| OUST | 0 | $0.00 | +inf% |
 | INTC | 0 | $0.00 | +inf% |
-| APLD | 15 | $29.06 | -13.5% |
+| APLD | 15 | $29.06 | -4.9% |
 | SMCI | 0 | $0.00 | +inf% |
-| TMC | 38 | $6.00 | -4.5% |
-| CIFR | 11 | $14.62 | -6.8% |
-| ARM | 4 | $120.88 | -5.4% |
-| ACHR | 61 | $6.78 | -7.7% |
-| TEM | 0 | $0.00 | +inf% |
-| CLSK | 7 | $10.17 | -9.4% |
-| CLF | 21 | $10.26 | -4.2% |
+| TMC | 9 | $6.01 | -0.5% |
+| CIFR | 0 | $0.00 | +inf% |
+| ARM | 5 | $118.96 | +2.3% |
+| ACHR | 77 | $6.61 | -9.0% |
+| TEM | 1 | $50.98 | -1.0% |
+| CLSK | 0 | $0.00 | +inf% |
+| CLF | 47 | $9.39 | -9.2% |
 | BBAI | 0 | $0.00 | +inf% |
-| NNE | 6 | $24.19 | -2.7% |
+| NNE | 10 | $23.87 | -10.9% |
+| RUN | 0 | $0.00 | +inf% |
+| SOUN | 15 | $7.36 | +3.1% |
+| OKLO | 1 | $58.04 | +1.5% |
 
 ## Capital
 | Metric | Value |
 | :--- | :--- |
-| Deployed | $3,745.22 |
+| Deployed | $3,993.89 |
 | Velocity Pool | $1,000.00 |
 | Bounce Pool | $1,000.00 |
 
 ## Position Data
-| Field | Value |
-| :--- | :--- |
-| Shares | 5 |
-| Avg Cost | $21.70 |
-| Current Price | $20.27 |
-| P/L % | -6.6% |
-| Entry Date | 2026-03-05 |
-| Days Held | 3 |
-| Time Stop Status | WITHIN |
-| Bullets Used | 3/5 |
-| Target Exit | No target (recovery) |
-| Note | — |
+No active position (watchlist)
 
 ## Day Range
 | Metric | Value |
 | :--- | :--- |
-| Day Low | $20.07 |
-| Day High | $21.66 |
+| Day Low | $20.98 |
+| Day High | $22.30 |
+
+## Recorded Fills
+No recorded fills
 
 ## Pending Orders
-| Type | Order Price | Shares | % Below Current | Days to Earnings | Notes |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $20.32 | 1 | 0.0% | 60 | Bullet 3 — $19.22 HVN+PA, 30% hold rate, Half tier, wick-adjusted |
+| Type | Order Price | Shares | % Below Current | Days to Earnings | Status | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| BUY | $20.32 | 1 | 0.0% | 52 |  | Bullet 3 — $19.22 HVN+PA, 30% hold rate, Half tier, wick-adjusted |
+| BUY | $20.89 | 6 | -2.8% | 52 |  | Bullet 1 — $20.16 HVN+PA, 36% hold, Half tier, wick-adjusted (2026-03-13) |
+| BUY | $20.32 | 4 | 0.0% | 52 |  | Bullet 2 — $19.22 HVN+PA, 30% hold, Half tier, wick-adjusted (2026-03-13) |
+| BUY | $18.98 | 4 | 6.6% | 52 |  | Bullet 3 — $18.28 HVN+PA, 25% hold, Half tier, wick-adjusted (2026-03-13) |
 
 ## Tool Outputs
-#### Earnings
-*Generated: 2026-03-08 17:18*
-
-*Generated: 2026-03-08 17:18*
-
-## Earnings Analysis: Ouster, Inc. (OUST)
-
-### Next Earnings
-| Metric | Value |
-| :--- | :--- |
-| Earnings Date | 2026-05-07 |
-| Days Until | 60 |
-| EPS Estimate | $-0.12 |
-| Revenue Estimate | $46.3M |
-| Earnings Rule | Clear (>60d out) |
-
-### Earnings History
-| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.13 | $0.07 | 149.3% | +7.3% | +0.1% | Strong Bull |
-| Q4 2025 | $-0.45 | $-0.37 | 17.8% | -6.5% | -10.4% | Strong Bear |
-| ... | *[trimmed — see morning-briefing-raw.md]* | | | | | |
-
-### Revenue Trend
-| Quarter | Revenue | QoQ Growth% | YoY Growth% |
-| :--- | :--- | :--- | :--- |
-| Q3 2025 | $39.5M | +12.8% | +40.8% |
-| Q2 2025 | $35.0M | +7.4% | N/A |
-| ... | *[trimmed — see morning-briefing-raw.md]* | | | | | |
-
-#### Technical Signals
-## Technical Scan: Ouster, Inc. (OUST)
-**Current Price: $20.27** | Date: 2026-03-06
-
-### Trend Indicators
-| Indicator | Value | Price Position | Signal |
-| :--- | :--- | :--- | :--- |
-| SMA 20 | $19.61 | Above | Bullish |
-| SMA 50 | $22.21 | Below | Bearish |
-| SMA 200 | $24.63 | Below | Bearish |
-| EMA 9 | $20.45 | Below | Bearish |
-| EMA 21 | $20.40 | Below | Bearish |
-
-### Momentum Indicators
-| Indicator | Value | Zone | Signal |
-| :--- | :--- | :--- | :--- |
-| RSI (14) | 48.4 | Bearish zone | Neutral-Bear |
-| MACD | -0.283 | Above signal | Bullish |
-| MACD Signal | -0.726 | Histogram: +0.443 | — |
-| Stochastic %K/%D | 43.3/59.9 | Neutral | Bearish |
-
-### Volatility
-| Indicator | Value | Position | Signal |
-| :--- | :--- | :--- | :--- |
-| Bollinger Upper | $22.04 | 64% of band | Neutral |
-| Bollinger Lower | $17.17 | Width: $4.87 | — |
-| ATR (14) | $1.66 (8.2%) | High volatility | — |
-
-### Key Support/Resistance Levels
-| Level | Price | Type | Touches | Last Tested |
-| :--- | :--- | :--- | :--- | :--- |
-| Support | $20.74 (+2.3%) | Support | 1 | 2025-12-17 |
-| Support | $21.31 (+5.1%) | Support | 1 | 2025-08-01 |
-| Support | $18.52 (-8.6%) | Support | 1 | 2025-11-21 |
-| Support | $17.28 (-14.8%) | Support | 1 | 2026-02-05 |
-| Resistance | $26.18 (+29.2%) | Resistance | 2 | 2025-09-30 |
-| Resistance | $26.56 (+31.0%) | Resistance | 2 | 2025-12-11 |
-| Resistance | $12.03 (-40.7%) | Resistance | 1 | 2025-03-24 |
-| Resistance | $11.76 (-42.0%) | Resistance | 1 | 2025-05-12 |
-
-### Signal Summary
-| Metric | Value |
-| :--- | :--- |
-| Overall Signal | **Neutral-Bearish** |
-| Score | -2 |
-| Bullish Factors | Above SMA 20, MACD bullish |
-| Bearish Factors | Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21 |
-
-#### Short Interest
-## Short Interest Analysis
-
-### Short Interest Summary
-| Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
-| :--- | :--- | :--- | :--- | :--- |
-| OUST | 5.70M | 3.09 | 9.85% | -6.3% (decreasing) |
-
-### Squeeze Risk Assessment
-| Ticker | Risk Rating | Score (/100) | Key Factors |
-| :--- | :--- | :--- | :--- |
-| OUST | MEDIUM | 25 | Low short% (9.9%); Moderate DTC (3.1) |
-
-### Context
-| Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
-| :--- | :--- | :--- | :--- | :--- |
-| OUST | 60.33M | 60.01M | 1.83M | 3.1 |
-
 #### News & Sentiment
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
+
+*Generated: 2026-03-16 19:35*
 
 ## News & Sentiment: Ouster, Inc. (OUST)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -175,23 +81,27 @@
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 14 (47%) |
+| Positive | 15 (50%) |
 | Neutral | 15 (50%) |
-| Negative | 1 (3%) |
-| Average Score | +0.181 |
+| Negative | 0 (0%) |
+| Average Score | +0.227 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 160 |
+| Total Unique Headlines | 161 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 17 | Assessing Ouster (OUST) Valuation After ..; Why Ouster (OUST) Is Up 13.0% After Prof.. |
-| Regulatory | 2 | Ouster's 'Buy' Rating Reiterated at Rose..; Rosenblatt Securities Reaffirms Buy Rati.. |
+| Earnings | 12 | Algert Global LLC Boosts Stake in Ouster..; Ouster (OUST) Is Up 10.6% After First Qu.. |
+| Equity | 2 | Ouster (OUST) Is Up 10.6% After First Qu..; Why Ouster (OUST) Is Up 13.0% After Prof.. |
+| Regulatory | 2 | [144] Ouster, Inc. SEC Filing - Stock Ti..; OUST SEC Filings - Ouster Inc 10-K, 10-Q.. |
 | Corporate | 1 | Assessing Ouster (OUST) Valuation After .. |
-| Equity | 1 | Why Ouster (OUST) Is Up 13.0% After Prof.. |
 | Analyst | 1 | Ouster: Great Tech, Stock Fairly Priced .. |
 
 ### Deep Dive Articles
+
+#### Robotics Stocks Soar Tuesday: Ouster Up 9% and Teradyne Jumps 3%
+*Source: 24/7 Wall St. | Date: 2026-03-10 | Sentiment: Positive (+0.95)*
+**Catalysts:** Earnings, Regulatory, Corporate, Analyst
 
 #### Ouster Climbs Following Fourth-Quarter Results
 *Source: Benzinga | Date: 2026-03-03 | Sentiment: Negative (-0.62)*
@@ -209,26 +119,50 @@
 *Source: Zacks | Date: 2026-02-19 | Sentiment: Positive (+0.74)*
 **Catalysts:** Earnings, Regulatory, Short
 
-#### Why Ouster, Inc. (OUST) Dipped More Than Broader Market Today
-*Source: Zacks | Date: 2026-02-10 | Sentiment: Positive (+0.89)*
-**Catalysts:** Earnings, Regulatory, Short
+#### Earnings
+*Generated: 2026-03-16 19:35*
+
+## Earnings Analysis: Ouster, Inc. (OUST)
+
+### Next Earnings
+| Metric | Value |
+| :--- | :--- |
+| Earnings Date | 2026-05-07 |
+| Days Until | 52 |
+| EPS Estimate | $-0.12 |
+| Revenue Estimate | $46.3M |
+| Earnings Rule | Clear (>52d out) |
+
+### Earnings History
+| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Q1 2026 | $-0.13 | $0.07 | 149.3% | +7.3% | +1.5% | Strong Bull |
+| Q4 2025 | $-0.18 | $-0.16 | 10.8% | -6.5% | -10.4% | Strong Bear |
+| ... | *[trimmed — see morning-briefing-raw.md]* | | | | | |
+
+### Revenue Trend
+| Quarter | Revenue | QoQ Growth% | YoY Growth% |
+| :--- | :--- | :--- | :--- |
+| Q4 2025 | $62.2M | +57.3% | +106.6% |
+| Q3 2025 | $39.5M | +12.8% | N/A |
+| ... | *[trimmed — see morning-briefing-raw.md]* | | | | | |
 
 ---
 
-**Position Snapshot:** 5 shares @ $21.70, current $20.27, P/L -6.6% ($-7.15)
-
 #### Wick Bullet Plan
-**Current Price: $20.27**
-**Monthly Swing: 51.9%** | 100% of months hit 10%+ | Active Zone: within 18.9% of current price
+**Current Price: $21.47**
+**Monthly Swing: 56.3%** | 100% of months hit 10%+ | Active Zone: within 18.9% of current price
 ### Suggested Bullet Plan
-*Based on 51.9% monthly swing — Active zone within 18.9% of current price.*
+*Based on 56.3% monthly swing — Active zone within 18.9% of current price.*
 | # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | Active | $17.28 | $17.60 | 100% | Full | 3 | $52.80 |
-| 2 | Reserve | $9.22 | $9.31 | 83% | Full | 10 | $93.10 |
-| 3 | Reserve | $7.05 | $7.28 | 60% | Full | 13 | $94.64 |
-| 4 | Reserve | $6.79 | $7.17 | 67% | Full | 13 | $93.15 |
-*Note: 2 Active level(s) excluded — buy price at or above current price: $20.16, $19.22*
+| 1 | Active | $20.16 | $20.89 | 36% | Half | 6 | $125.35 |
+| 2 | Active | $19.22 | $20.32 | 30% | Half | 4 | $81.28 |
+| 3 | Active | $18.28 | $18.98 | 25% | Half | 4 | $75.92 |
+| 4 | Reserve | $17.28 | $17.60 | 100% | Full | 7 | $123.20 |
+| 5 | Reserve | $9.22 | $9.31 | 83% | Full | 11 | $102.41 |
+| 6 | Reserve | $6.79 | $7.17 | 67% | Full | 10 | $71.65 |
+*Note: 1 Active level(s) excluded — buy price at or above current price: $21.11*
 *Bullet plan is a suggestion — adjust based on cycle timing and position.*
 
 ---

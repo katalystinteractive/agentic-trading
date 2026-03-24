@@ -1,0 +1,25 @@
+{
+  "ticker": "OKLS",
+  "current_price": 53.86,
+  "last_date": "2026-03-23",
+  "resistance_levels": [],
+  "support_levels_used": [],
+  "current_cycle": null,
+  "cycles": [],
+  "statistics": {
+    "total_cycles": 0,
+    "median_first": null,
+    "min_first": null,
+    "max_first": null,
+    "median_deep": null,
+    "min_deep": null,
+    "max_deep": null,
+    "immediate_fill_pct": 0
+  },
+  "post_resistance_decay": {},
+  "recommendation": {
+    "cooldown_days": null,
+    "confidence": "NO_DATA",
+    "immediate_reentry_viable": false
+  }
+}

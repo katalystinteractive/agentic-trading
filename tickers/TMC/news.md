@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## News & Sentiment: TMC the metals company Inc. (TMC)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,36 +6,36 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-16 | Stock Titan | Inside the smart-trailer tools Wabash is demoing at TMC 2026... | Neutral | +0.00 | — |
+| 2026-03-15 | Quiver Quantita | TMC the metals company Stock (TMC) Opinions on ISA Permittin... | Neutral | +0.00 | — |
+| 2026-03-14 | The Globe and M | Prediction: The Metals Company Stock Is a Buy Before March 2... | Neutral | +0.00 | — |
+| 2026-03-14 | Intellectia AI | TMC's Novel Deep-Sea Mining Opportunity - Intellectia AI | Positive | +0.62 | — |
+| 2026-03-13 | Yahoo Finance | Better Mining Stock: The Metals Company (TMC) vs. SSR Mining... | Positive | +0.44 | — |
+| 2026-03-13 | Intellectia AI | TMC Should I Buy - Intellectia AI | Neutral | +0.00 | — |
+| 2026-03-13 | 24/7 Wall St. | AMD vs. TSMC: Which Chip Stock Actually Delivers the Smarter... | Positive | +0.46 | — |
+| 2026-03-12 | ChartMill | TMC Stock Price, Quote & Chart - TMC THE METALS CO INC (NASD... | Neutral | +0.00 | — |
+| 2026-03-12 | Stocktwits | TMC Stock Pares Rally Premarket After US Ocean Agency Backs ... | Negative | -0.05 | — |
+| 2026-03-12 | Simply Wall St. | Why TMC the metals (TMC) Is Up 5.9% After NOAA Backs Deep-Se... | Negative | -0.05 | — |
+| 2026-03-11 | simplywall.st | NOAA Finding TMC’s Deep-Sea Mining Application Compliant Mig... | Neutral | +0.00 | — |
+| 2026-03-11 | The Motley Fool | TMC Is About to Dive Into Deep-Seabed Mining. Is the Stock a... | Negative | -0.44 | — |
+| 2026-03-10 | ACCESSWIRE | The Metals Royalty Company to Host Corporate Webinar on Marc... | Neutral | +0.00 | — |
+| 2026-03-10 | Trefis | TMC The Metals (+9.4%): Nickel Prices Surge on Supply Concer... | Neutral | +0.00 | — |
+| 2026-03-10 | Seeking Alpha | The Metals Company: Larger Applied-For Territory Warrants Re... | Neutral | +0.00 | — |
+| 2026-03-10 | Stock Titan | Metals Royalty outlines U.S. mineral strategy in pre-Nasdaq ... | Neutral | +0.00 | — |
+| 2026-03-10 | The Globe and M | TMC Secures Key NOAA Milestone for Deep-Sea Mining - The Glo... | Positive | +0.32 | Regulatory |
+| 2026-03-10 | MT Newswires | TMC to See Faster Production Path After NOAA Decision, Wedbu... | Neutral | +0.00 | — |
+| 2026-03-09 | Benzinga | The Metals Company Shares Rise After NOAA Finds Mining Appli... | Positive | +0.46 | Regulatory |
+| 2026-03-09 | GlobeNewswire | NOAA Determines TMC USA's Consolidated Deep-Seabed Mining Ap... | Positive | +0.20 | Regulatory |
+| 2026-03-09 | Stock Titan | Inside NOAA’s first 65,000 km² deep-sea nodule mining bid - ... | Neutral | +0.00 | — |
+| 2026-03-09 | Stocktwits | What’s Sending TMC Shares Higher Today? - Stocktwits | Positive | +0.30 | — |
+| 2026-03-09 | Seeking Alpha | TMC jumps as NOAA says deep-sea mining application in substa... | Positive | +0.20 | Regulatory |
 | 2026-03-08 | simplywall.st | TMC Consolidated U.S. Deep Sea Mining Bid Concentrates Regul... | Negative | -0.27 | Earnings |
 | 2026-03-08 | Simply Wall St. | Assessing TMC The Metals (TMC) Valuation After Strong 1-Year... | Positive | +0.40 | — |
 | 2026-03-08 | Simply Wall St. | TMC Files First Consolidated Deep Sea Mining Permits With Hi... | Neutral | +0.00 | — |
 | 2026-03-07 | MSN | TMC (TMC) Soars 28.8% as Key Investor Places $85-Million Bet... | Neutral | +0.00 | — |
 | 2026-03-06 | PR Newswire | U.S. Defense Manufacturers Face A Rare Earth Supply Squeeze ... | Positive | +0.13 | — |
-| 2026-03-06 | Nasdaq | The Metals Company (TMC) Could Set You Up for Life (Or Go to... | Neutral | +0.00 | — |
-| 2026-03-04 | simplywall.st | Will First U.S. Deep‑Seabed Mining Approval Reshape TMC’s (T... | Positive | +0.48 | Regulatory |
-| 2026-03-02 | 24/7 Wall St. | This Small-Cap Gem Could Be Your Ticket To Millionaire Statu... | Neutral | +0.00 | — |
-| 2026-03-02 | ACCESSWIRE | The Metals Royalty Company Inc. Announces Public Filing of R... | Positive | +0.30 | — |
-| 2026-03-01 | Motley Fool | Is TMC The Metals Company a Buy, Sell, or Hold in 2026? | Neutral | +0.00 | — |
-| 2026-02-27 | simplywall.st | Assessing The Metals Company (TMC) Valuation As Regulatory S... | Positive | +0.38 | — |
-| 2026-02-26 | Oilprice.com | Trumps Secret Weapon in the Rare Earth War | Negative | -0.73 | Regulatory |
-| 2026-02-25 | Yahoo Finance | TMC the metals (TMC) Is Up 8.3% After Fresh Government Backi... | Positive | +0.32 | — |
-| 2026-02-23 | Motley Fool | If You'd Invested $1,000 in The Metals Company 3 Years Ago, ... | Neutral | +0.00 | — |
-| 2026-02-18 | Yahoo Finance | 3 Things Every TMC The Metals Company Investor Needs to Know... | Neutral | +0.00 | — |
-| 2026-02-18 | Stocktwits | US Is Reportedly Weighing Critical Minerals Price Floor – MP... | Positive | +0.27 | — |
-| 2026-02-17 | 24/7 Wall St. | Grade My Speculative Portfolio: My 3 Top Picks  What Do You ... | Positive | +0.30 | — |
-| 2026-02-17 | Insider Monkey | Analyst Boosts TMC Target to $12.25, Cites First-Mover Advan... | Positive | +0.51 | — |
-| 2026-02-17 | Quiver Quantita | $TMC stock is down 4% today. Here's what we see in our data.... | Neutral | +0.00 | — |
-| 2026-02-17 | 24/7 Wall St. | Grade My Speculative Portfolio: My 3 Top Picks – What Do You... | Positive | +0.30 | — |
-| 2026-02-12 | The Motley Fool | This $7 Stock Could Be Your Ticket to Millionaire Status - T... | Negative | -0.44 | — |
-| 2026-02-12 | Nasdaq | Should You Invest $1,000 In TMC The Metals Company Right Now... | Neutral | +0.00 | — |
-| 2026-02-11 | Zacks | Rio Tinto Surges 36.7% in 3 Months: Should You Buy the Stock... | Neutral | +0.00 | — |
-| 2026-02-06 | Quiver Quantita | $TMC stock is up 13% today. Here's what we see in our data. ... | Neutral | +0.00 | — |
-| 2026-02-05 | Barchart | 3 Rare Earths Stocks to Buy as Trump Announces Project Vault | Neutral | +0.00 | — |
-| 2026-02-05 | Nasdaq | TMC The Metals Shares Cross Below 200 DMA - Nasdaq | Positive | +0.30 | — |
-| 2026-02-03 | Insider Monkey | TMC the metals company Inc. (TMC): A Bull Case Theory | Neutral | +0.00 | — |
-| 2026-02-02 | Barrons.com | Trump Wants a Critical Minerals Stockpile. What It Means for... | Negative | -0.32 | — |
-| 2026-01-29 | Benzinga | Rare Earth Stocks Get Rocked: Here Are The Facts | Neutral | +0.00 | — |
-| 2026-01-29 | Motley Fool | 3 Rare Earth Stocks to Watch in 2026 | Neutral | +0.00 | — |
+| 2026-03-06 | simplywall.st | Assessing TMC The Metals (TMC) Valuation After Cooling Momen... | Positive | +0.69 | — |
+| 2026-03-06 | MarketBeat | Quantbot Technologies LP Increases Stock Holdings in TMC the... | Neutral | +0.00 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
@@ -44,17 +44,62 @@
 | Positive | 11 (37%) |
 | Neutral | 15 (50%) |
 | Negative | 4 (13%) |
-| Average Score | +0.064 |
-| Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 167 |
+| Average Score | +0.114 |
+| Overall Sentiment | **Bullish** |
+| Total Unique Headlines | 170 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Regulatory | 2 | Will First U.S. Deep‑Seabed Mining Appro..; Trumps Secret Weapon in the Rare Earth W.. |
-| Earnings | 1 | TMC Consolidated U.S. Deep Sea Mining Bi.. |
+| Regulatory | 4 | TMC Secures Key NOAA Milestone for Deep-..; The Metals Company Shares Rise After NOA.. |
+| Earnings | 2 | TMC Consolidated U.S. Deep Sea Mining Bi..; Quantbot Technologies LP Increases Stock.. |
 
 ### Deep Dive Articles
+
+#### The Metals Royalty Company to Host Corporate Webinar on March 16, 2026 Ahead of Planned Nasdaq Direct Listing
+*Source: ACCESSWIRE | Date: 2026-03-10 | Sentiment: Positive (+0.93)*
+
+> Not Intended For Dissemination in Canada
+
+> LONDON, UK /ACCESS Newswire/ March 10, 2026 /The Metals Royalty Company Inc. ("TMCR" or the "Company"), a purpose-built financing platform dedicated to advancing U.S. critical mineral security and re-industrialization, today announced that it will host a corporate webinar on Monday, March 16, 2026, at 11:00 a.m. Eastern Time ahead of the Company's planned Nasdaq direct listing.
+
+> Brian Paes-Braga, Chief Executive Officer and Chairman, will provide a corporate overview and discuss the Company's strategic vision, recent milestones and growth opportunities. An interactive question-and-answer session will follow the formal presentation.
+
+> To participate in the webinar, interested parties are invited to register using the details below:
+
+> The Metals Royalty Company - Corporate Webinar
+
+**Catalysts:** Regulatory
+
+#### The Metals Company Shares Rise After NOAA Finds Mining Application In Substantial Compliance
+*Source: Benzinga | Date: 2026-03-09 | Sentiment: Positive (+0.94)*
+
+> The Metals Company Inc.(NASDAQ:TMC) shares are trading higher Monday after the National Oceanic and Atmospheric Administration (NOAA) determined the company’s seabed mining application is in substantial compliancewith federal requirements.
+
+> The determination relates to a consolidated application submitted by the company's subsidiary, The Metals Company USA LLC, for an exploration license and commercial recovery permit under the Deep Seabed Hard Mineral Resources Act.
+
+> The application covers approximately 65,000 square kilometers in the Clarion Clipperton Zone in the Pacific Ocean for the exploration and recovery of polymetallic nodules. The area includes an estimated resource of 619 million tonnes of wet nodules, with potential exploration upside of an additional 200 million tonnes.
+
+> "NOAA’s determination reflects the depth of work our team and partners have put into understanding this resource and how it can be responsibly developed," saidGerard Barron, Chairman and CEO of The Metals Company.
+
+> TMC Price Action:At the time of writing, The Metals Company shares are trading 1.57% higher at $5.83, according to data fromBenzinga Pro.
+
+**Catalysts:** Regulatory, Corporate, Equity
+
+#### NOAA Determines TMC USA's Consolidated Deep-Seabed Mining Application is in Substantial Compliance
+*Source: GlobeNewswire | Date: 2026-03-09 | Sentiment: Positive (+0.98)*
+
+> NEW YORK, March  09, 2026  (GLOBE NEWSWIRE) -- TMC the metals company Inc. (Nasdaq: TMC) (“TMC” or the “Company”), a leading developer of the world’s largest resource of critical metals essential to energy, defense, manufacturing and infrastructure, today announced that the National Oceanic and Atmospheric Administration (NOAA) has determined that the consolidated application submitted by the Company’s subsidiary, The Metals Company USA LLC (“TMC USA”), for an exploration license and commercial recovery permit under the Deep Seabed Hard Mineral Resources Act (DSHMRA) is in substantial compliance with the requirements of the Act and its implementing regulations.
+
+> Earlier this year, TMC USA submitteda consolidated applicationfor an exploration license and a commercial recovery permit for polymetallic nodules in international waters of the Clarion Clipperton Zone (CCZ) in the Pacific Ocean. The application was filed under NOAA’snew consolidated application and review processand represents the first submission of its kind. It covers a ~65,000 km2exploration and commercial recovery area in the CCZ, compared to a commercial recovery area of ~25,000 km2in TMC USA’s initial commercial recovery permit application from April 2025. Pursuant to DSHMRA and its implementing regulations, NOAA has determined that TMC USA’s consolidated application is in substantial compliance with the requirements of the U.S. regulations.
+
+> The consolidated application process provides a more efficient regulatory timeline by allowing exploration-phase environmental, geological and engineering data to be incorporated directly into the commercial recovery review process. Meanwhile, TMC USA's exploration ​license ​applications (TMC ​USA A & TMC USA B) ​are moving along as expected ​with public ​comment ​periods ​now completed.
+
+> Gerard Barron, Chairman and CEO of The Metals Company, said: “NOAA’s determination reflects the depth of work our team and partners have put into understanding this resource and how it can be responsibly developed. After more than a decade of environmental research, successful offshore trials and commercial-scale metallurgical processing, we believe polymetallic nodules can provide a new and lower-impact source of critical metals for the U.S. We welcome the streamlined consolidated review process and look forward to the next stages.”
+
+> TMC USA’s application is informed by more than a decade of environmental baseline studies, scientificresearchandoffshore engineeringconducted by the Company and its partners, building one of the most comprehensive datasets ever assembled on polymetallic nodules and their surrounding ecosystems.
+
+**Catalysts:** Earnings, Regulatory, Corporate, Equity
 
 #### U.S. Defense Manufacturers Face A Rare Earth Supply Squeeze - OilPrice.com Market Commentary
 *Source: PR Newswire | Date: 2026-03-06 | Sentiment: Positive (+0.34)*
@@ -85,48 +130,3 @@
 > TMCR is focused on deploying capital to fortify America's mineral security and re-industrialization. It supports domestic industry growth across energy, defense, and the broader critical minerals value chain through the acquisition and management of royalties, streams, and similar structured interests. The Company's royalty-based business model is designed to enable participation in the long-term cash flows and commodity upside of strategically significant assets, with reduced exposure to the operational and development risks typically associated with resource production. The Company is anchored by a 2.0% gross overriding royalty on the NORI polymetallic deposit operated by TMC the metals company Inc. (NASDAQ:TMC).
 
 **Catalysts:** Earnings, Regulatory, Corporate
-
-#### Analyst Boosts TMC Target to $12.25, Cites First-Mover Advantage
-*Source: Insider Monkey | Date: 2026-02-17 | Sentiment: Positive (+0.99)*
-
-> We recently published an article titled11 Best Canadian Growth Stocks to Buy According to Hedge Funds.
-
-> On January 23, Alliance Global increased its price target on TMC the metals company Inc. (NASDAQ:TMC) to $12.25 from $6.50 while maintaining a Buy rating, reflecting growing confidence in the company’s regulatory and operational progress. The revision follows the announcement of a significant permitting milestone tied to its deep-sea mining initiatives, which the analyst characterized as a pivotal step toward commercial development. Alliance Global also pointed to evolving regulatory frameworks as a structural tailwind for the industry, suggesting that clearer oversight could accelerate project timelines and enhance investor visibility. Importantly, the firm believes TMC retains a first-mover advantage in the emerging deep-sea mining sector, positioning it to capitalize on early-stage supply opportunities in critical minerals essential for global electrification trends.
-
-> During its third-quarter 2025 earnings conference call, TMC the metals company Inc. (NASDAQ:TMC) outlined several operational and financial metrics that underscore its long-term development potential. The company reported approximately $165 million in liquidity, with the possibility of securing more than $400 million in additional proceeds through warrant exercises, reinforcing its near- to mid-term funding runway. Management highlighted an estimated in-situ resource value exceeding $23 billion and projected revenues of nearly $600 per dry ton of nodules during steady-state production anticipated between 2031 and 2043. Furthermore, the participation of TMC’s Hidden Gem vessel in Japanese nodule collection trials signals expanding international collaboration and potential commercial validation. Collectively, these updates suggest that the company is strengthening both its balance sheet and strategic partnerships as it advances toward large-scale production.
-
-> Founded in 2011 and headquartered in Vancouver, Canada, TMC the metals company Inc. (NASDAQ:TMC) is focused on the exploration and development of polymetallic nodules in the Clarion Clipperton Zone of the Pacific Ocean. An impressive EPS growth of 28.26% in the past 3 years ranks TMC 7th in the list of 11 best Canadian growth stocks to buy according to hedge funds.
-
-> While we acknowledge the potential of TMC as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
-
-**Catalysts:** Earnings, Regulatory, Corporate, Analyst, Short
-
-#### Rio Tinto Surges 36.7% in 3 Months: Should You Buy the Stock Now?
-*Source: Zacks | Date: 2026-02-11 | Sentiment: Positive (+1.00)*
-
-> Rio Tinto GroupRIO shares have climbed 36.7% in the past three months, outperforming the industry and the S&P 500, which have returned 23.3% and 2.4%, respectively. In comparison, the company’s peers likeBHP Group LimitedBHP andTMC the metals company Inc.TMC have gained 28.4% and 13.5%, respectively, over the same time frame.
-
-> Closing at $97.24 in the last trading session, the stock is trading close to its 52-week high of $98.60 and significantly higher than its 52-week low of $51.67. It is trading above both its 50-day and 200-day moving averages, indicating solid upward momentum and confidence in the company's long-term prospects.
-
-> Let’s take a look at RIO’s fundamentals to better analyze how to play the stock.
-
-> Rio Tinto is gaining from rising copper production, driven by strong operational performance across its assets. Per the production results, the company’s consolidated copper output increased 5% year over year in the fourth quarter of 2025.RIO is making steady progress across its growth pipeline. In December 2025, the company achieved its first copper production at the Johnson Camp mine in Arizona using its proprietary Nuton technology. This marks a significant milestone, as Nuton enables cleaner, faster and more efficient copper recovery at an industrial scale.The Johnson Camp deployment includes the design and delivery of a heap leach technology package, targeting approximately 30,000 tons of refined copper over a four-year demonstration period. RIO plans to use Nuton technology to produce copper at this site with the lowest carbon emissions in the US.Also, the company is actively collaborating with U.S. customers to strengthen the domestic copper supply. Its total copper production reached 883 kilotonne (kt) in 2025, up 11% on a year-over-year basis.In the fourth quarter, RIO’s iron ore operations in the Pilbara facility showed improvement, with shipments rising 7% from the previous year. The aluminum production also delivered encouraging results. RIO’s aluminum output rose 2% in the quarter, on a year-over-year basis, as refinery and smelter operations improved.Also, in January 2026, Rio Tinto and Aluminum Corporation of China Limited (Chalco) inked a deal to acquire Votorantim’s controlling stake in Brazilian aluminium company CBA through a joint venture.  The joint venture will be owned 33% by Rio Tinto and 67% by Chalco. The deal will help RIO to expand its green aluminium footprint and strengthen its supply chain.Several major growth projects of the company are progressing as well. In December 2025, RIO’s Rhodes Ridge joint venture approved a $191 million feasibility study to develop one of the world’s major undeveloped iron ore deposits in Western Australia, aiming for an initial annual production of 40-50 million tons. The study is expected to conclude in 2029. In October 2025, at the Simandou iron ore project in Guinea, the first ore was loaded and transported, marking the start of commissioning across the mine, rail and port infrastructure.Despite the overall solid performance, the company faced some challenges during the quarter. Weather-related disruptions earlier in 2025 affected iron ore volumes. Planned maintenance activities at some copper mining projects temporarily reduced output, while cost pressures from inflation and higher sustaining capital spending impacted margins.RIO operates in the mineral exploration and mining markets, which include major industry players like BHP Group and TMC.It is worth noting that Rio Tinto is scheduled to release fourth-quarter 2025 results on Feb. 19, 2026.
-
-> The Zacks Consensus Estimate for RIO’s bottom line for 2026 has increased 6.4% in the past 60 days.
-
-**Catalysts:** Earnings, Regulatory, Analyst
-
-#### TMC the metals company Inc. (TMC): A Bull Case Theory
-*Source: Insider Monkey | Date: 2026-02-03 | Sentiment: Positive (+0.92)*
-
-> We came across abullish thesison TMC the metals company Inc. on stocks subreddit by lehmanhoes. In this article, we will summarize the bulls’ thesis on TMC. TMC the metals company Inc.'s share was trading at $8.41 as of January 28th.
-
-> The Metals Company (TMC) is a deep-sea mining firm focused on harvesting polymetallic nodules from the Pacific Ocean, targeting a critical intersection of geopolitics and the global metals market. These nodules are rich in nickel, cobalt, copper, and manganese—metals essential for electric vehicles and renewable energy—offering a potential alternative to China’s dominance in strategic materials. TMC is the only company globally with the technical capability to mine the ocean floor at scale, positioning it uniquely to capitalize on a global undersea metals market estimated to be as high as $20 trillion.
-
-> The company’s strategic nodules holdings, combined with its technological moat, make it a one-stop source for metals the West currently relies on China to supply. Geopolitical tailwinds further bolster the thesis, as U.S.–China trade tensions and the strategic importance of critical minerals create a favorable backdrop for government support. TMC has already filed for U.S. permits and operates under the International Seabed Authority framework, putting it ahead of potential competitors if regulations are finalized or the U.S. pursues independent action.
-
-> Executive actions from the White House, along with authorities under the Defense Production Act and potential direct government equity stakes, could serve as near-term catalysts, potentially accelerating TMC’s path to production and re-rating the stock. Analysts, including Wedbush, Cantor, Alliance Global, and HC Wainwright, have given buy ratings, with upside potential into the $20s if government support materializes.
-
-> While this is a binary, event-driven investment with significant downside risk, the combination of unique assets, geopolitical relevance, and regulatory momentum makes TMC a high-risk, high-reward opportunity for investors seeking exposure to critical metals supply chain disruption and strategic U.S. resource independence.
-
-**Catalysts:** Regulatory, Equity

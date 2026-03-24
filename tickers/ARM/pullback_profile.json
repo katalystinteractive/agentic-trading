@@ -1,0 +1,50 @@
+{
+  "ticker": "ARM",
+  "pullback_count": 7,
+  "avg_depth_pct": -22.5,
+  "median_depth_pct": -19.0,
+  "distribution": [
+    {
+      "depth_pct": -2,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -3,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -5,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -7,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -9,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -12,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -15,
+      "reach_pct": 85.7
+    },
+    {
+      "depth_pct": -20,
+      "reach_pct": 42.9
+    }
+  ],
+  "bullet_fill_rates": [
+    {
+      "label": "B5",
+      "price": 112.53,
+      "depth_pct": -7.6,
+      "fill_rate_pct": 100.0
+    }
+  ],
+  "current_phase": "RECOVERY",
+  "last_updated": "2026-03-16"
+}

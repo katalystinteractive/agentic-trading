@@ -1,45 +1,50 @@
-### ARM — MONITOR — P/L -5.4%
-**State:** 4 shares @ $120.88, target N/A (recovery), held 6 days
-**Objective:** Monitor for Dig Out recovery — await bullish reversal signal before deploying final bullet; protect against further drawdown in Risk-Off regime
-**Decision:** MONITOR — Recovery position with bearish technicals across all indicators; no active squeeze or bullish relief present; Dig Out exit consideration if deterioration continues (Rule 9: recovery + bearish across all)
+### ARM — MONITOR — P/L +2.3%
+**State:** 5 shares @ $118.96, target N/A (no target set), held 14 days
+**Objective:** Mean-reversion accumulation play; hold through consolidation with pending lower bullet at $112.53; SELL order set at $127.17 HVN resistance (+4.5% above current)
+**Decision:** MONITOR — time stop WITHIN (14 days), P/L early-stage at +2.3%, standard tracking (Rule 16). Note: "no target (recovery)" flag overridden by pre-check — P/L > 0% treated as non-recovery.
 
 | Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |
-| Time Stop | WITHIN | 6 days |
-| Profit Target | N/A — no target set | P/L -5.4%, recovery position |
-| Earnings Gate | CLEAR | 59 days to event (2026-05-06) |
-| Momentum | Bearish | RSI 40.2, MACD below signal (histogram -1.349, bearish crossover) |
+| Time Stop | WITHIN | 14 days |
+| Profit Target | BELOW | P/L +2.3%, Profit Zone: Below (< 7%) |
+| Earnings Gate | CLEAR | 51 days to event (2026-05-06) |
+| Momentum | Neutral | RSI 51.6, MACD below signal (histogram -0.925) |
 
 **Trades Executed:**
-- 2026-03-02: BUY 1 share @ $123.55 (Bullet 1 — pre-market; limit was $127.03). 1 share @ $123.55 avg.
-- 2026-03-02: BUY 1 share @ $122.00 (Bullet 2 — $119.62 HVN+PA level). 2 shares @ $122.78 avg.
-- Bullets 3–4 filled (not shown in memory extract); 4 shares total @ $120.88 avg confirmed.
+- 2026-03-02: BUY 1 @ $123.55 (Bullet 1, pre-market; limit was $127.03)
+- 2026-03-02: BUY 1 @ $122.00 (Bullet 2 — $119.62 HVN+PA level)
+- BUY 1 @ $111.28 (Bullet 3, per knowledge store — active zone fill). Now 5 shares @ $118.96 avg.
 
-**Sell-Side Advisory:** Recovery position — no profit target set. Breakeven at $120.88 (+5.7% from current $114.38). ARM is below all SMAs (20/50/200) and EMA 9/21, with MACD firmly negative — no bullish relief visible. If Bullet 5 fills at $112.53, new avg improves to $119.21 (breakeven at +4.2% from that fill price). Dig Out consideration: if price sustains below $112.53 with no stabilization signal in Risk-Off regime, reassess recovery thesis and consider partial exit to limit exposure.
+**Sell-Side Advisory:** Not applicable — P/L +2.3% below 7% threshold.
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $112.53 | 1 | 1.6% | REVIEW | ACTIVE | REVIEW | Bullet 5 — $110.90 HVN+PA, 43% hold, Full^ tier; Risk-Off: active pos ≤15% below = REVIEW |
+| SELL | $127.17 | 5 | N/A | N/A | N/A | N/A | HVN+PA resistance, 40% reject, +6.9% from avg |
+| BUY | $112.53 | 1 | 11.5% | ACTIVE | ACTIVE | ACTIVE | Bullet 5 — $110.90 HVN+PA, 43% hold, Full^ tier, wick-adjusted |
 
 **Wick-Adjusted Buy Levels:**
 | Zone | Level | Buy At | Hold Rate | Tier | Shares |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Active | $110.90 | $112.53 | 43% | Full^ | 1 |
+| Active | $110.90 | $112.53 | 43% | Std | 1 |
+| Active | $107.99 | $109.25 | 43% | Half | 1 |
+| Reserve | $105.08 | $108.38 | 33% | Std | 1 |
+| Reserve | $100.02 | $102.01 | 50% | Std | 1 |
+| Reserve | $97.33 | $98.96 | 80% | Full | 1 |
 
 **Projected Sell Levels:**
 | Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Current — Breakeven | 4 | $120.88 | $120.88 | 0.0% | $483.52 |
-| If B5 fills @ $112.53 — Breakeven | 5 | $119.21 | $119.21 | 0.0% | $596.05 |
+| Current | 5 | $118.96 | $127.17 | +6.9% | $635.85 |
+| If B5 fills ($112.53) | 6 | $117.89 | $127.17 | +7.9% | $763.02 |
 
-*Monotonic check: lower buy ($112.53) → lower avg ($119.21 vs $120.88). Pass.*
+*Monotonic check: lower buy $112.53 → lower avg $117.89 < $118.96 ✓*
 
-**Fill Alerts:** BUY $112.53 NEAR FILL — Day low $113.51 is within 0.9% of order price (alert threshold: order + 2% = $114.78; $113.51 ≤ $114.78). Verify with broker — may have filled intraday.
+**Fill Alerts:** None (SELL $127.17: day high $121.93 < $124.63 alert threshold; BUY $112.53: day low $118.38 > $114.78 alert threshold)
 
 **News & Catalysts:**
-- BofA raises price target on ARM, maintains Hold rating (2026-03-06) — mild positive analyst signal amid market weakness
-- ARM enters multi-year partnership with Tensor (2026-03-04) — corporate growth catalyst
-- Malaysia anti-graft agency probing ARM for $279M deal (2026-03-04) — regulatory overhang; negative sentiment risk
+- BofA raised price target on ARM, maintains Hold rating (2026-03-06) — mild positive analyst signal
+- ARM enters multi-year partnership with Tensor (2026-03-04) — positive corporate growth catalyst
+- Malaysia anti-graft agency probing ARM for $279M deal (2026-03-04) — regulatory overhang, headline risk to monitor
 
-**Sector Context:** Semiconductors — SOXX/SMH; sector broadly under pressure in Risk-Off regime (0/3 indices above 50-SMA, VIX 29.5, 2/11 sectors positive); ARM trading below SMA20/50/200 and both EMAs
+**Sector Context:** Semiconductors/AI infrastructure. Neutral-Bullish technical signal — above SMA50, EMA9, EMA21 but below SMA20 and SMA200. MACD bearish drag. Short interest decreasing (-3.4%), medium squeeze risk (30/100). Regime Neutral (0/3 indices above 50-SMA, VIX 24.2 falling -5.14% over 5 days). Earnings 51 days out (May 6) with strong beat history.

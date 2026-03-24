@@ -1,0 +1,111 @@
+{
+  "run_id": "3ecfa3e5-d99d-43f3-af15-b6d3b5d90da9",
+  "workflow_name": "status-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-26T21:57:54.315074+00:00",
+  "completed_at": "2026-02-26T22:11:30.964556+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun the full daily status workflow end-to-end: Phase 1 (gather via status_gatherer.py), Phase 2 (pre-analyst + LLM report), Phase 3 (pre-critic + LLM review). This is the first end-to-end test of the mechanized v2.0.0 workflow.",
+    "handoffs": {
+      "gather": "**Artifact:** status-raw.md\n**Active positions queried:** 8 tickers (APLD, INTC, IONQ, LUNR, NU, STIM, SMCI, USAR)\n**Watchlist tickers queried:** 10 tickers (ACHR, AR, BBAI, CLF, RKT, NNE, SEDG, TMC, VALE, UAMY)\n**Pending-only tickers queried:** 3 tickers (CIFR, CLSK, SOUN)\n**Fill alerts detected:** none reported by script\n**Elapsed:** 5.5s\n\nReady for status report compilation.",
+      "report": "**Artifact:** status-report.md\n**Active positions reported:** 8 (APLD, NU, IONQ, USAR, INTC, SMCI, LUNR, STIM)\n**Fill alerts:** None\n**Actionable items:** 2 items flagged\n\n**Key narratives added:**\n- **APLD**: Nvidia stake exit (8-day -24% sell-off) + neocloud contagion from CoreWeave, EXTREME short squeeze risk 75/100 (+13.6% MoM short buildup)\n- **NU**: Earnings gate cleared \u2014 Q4 beat on revenue/EPS but -6.3% AH drop; Reserve 1 at $14.88 only 1.2% away, activation recommended\n- **IONQ**: Massive Q4 beat (+429% YoY revenue, +19% today) \u2014 recovery gap narrowed to 8.7%, time stop concern lifted\n- **USAR**: $3.1B capital raise + US govt 10% stake intact; short interest spiked +139.6% MoM (HIGH risk)\n- **INTC**: Near breakeven, SambaNova AI inference partnership, NVDA holds 214M INTC shares; LOW short risk, decreasing\n- **SMCI**: Bullish news 77% positive; Nvidia-backed CNode-X launch; Jim Cramer \"no-fly zone\" (contrarian signal)\n- **LUNR**: $175M dilutive raise closes tomorrow (Feb 27); STRONG institutional accumulation (D.E. Shaw +3258%, Point72 +851%)\n- **STIM**: EXTREME squeeze risk 80/100, DTC 6.48, Madryn rebuilt full position; earnings March 17 (20 days \u2014 approaching gate)\n- **Watchlist**: TMC closest to B1 (-5.2%); CIFR/CLSK/SOUN price data unavailable \u2014 broker verification flagged",
+      "review": "**Artifact:** status-review.md\n**Verdict:** PASS\n**Checks passed:** 6/6 mechanical (all clean) + qualitative PASS\n**Issues found:** 0 critical, 3 minor\n\n**Minor observations:**\n1. IONQ \u2014 Morgan Stanley PT ($37) is 9.6% below current price ($40.88); the report mentions it but doesn't flag the bearish implication for exit level planning\n2. LUNR \u2014 $175M offering settlement (Feb 27) is noted in narrative but missing from Actionable Items as a Monday open monitoring trigger\n3. STIM \u2014 TRICARE West news (Nov 2025) presented without timestamp qualifier, slightly overstating recency\n\n**Strengths:** No fabricated data across 8 positions. Earnings gate transitions (NU cleared, IONQ catalyst, LUNR/STIM approaching) handled accurately. Actionable item #1 (NU activation) is concrete and broker-ready. Honest handling of missing institutional data and CIFR/CLSK/SOUN price unavailability.\n\nStatus review complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-26T21:57:54.322346+00:00",
+      "completed_at": "2026-02-26T21:58:47.004748+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** status-raw.md\n**Active positions queried:** 8 tickers (APLD, INTC, IONQ, LUNR, NU, STIM, SMCI, USAR)\n**Watchlist tickers queried:** 10 tickers (ACHR, AR, BBAI, CLF, RKT, NNE, SEDG, TMC, VALE, UAMY)\n**Pending-only tickers queried:** 3 tickers (CIFR, CLSK, SOUN)\n**Fill alerts detected:** none reported by script\n**Elapsed:** 5.5s\n\nReady for status report compilation.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":20025,\"duration_api_ms\":12485,\"num_turns\":2,\"result\":\"`status-raw.md` confirmed \u2014 51.6 KB generated in 5.5 seconds.\\n\\n## HANDOFF\\n\\n**Artifact:** status-raw.md\\n**Active positions queried:** 8 tickers (APLD, INTC, IONQ, LUNR, NU, STIM, SMCI, USAR)\\n**Watchlist tickers queried:** 10 tickers (ACHR, AR, BBAI, CLF, RKT, NNE, SEDG, TMC, VALE, UAMY)\\n**Pending-only tickers queried:** 3 tickers (CIFR, CLSK, SOUN)\\n**Fill alerts detected:** none reported by script\\n**Elapsed:** 5.5s\\n\\nReady for status report compilation.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"a8e3eaf4-b03c-4809-a694-baa5ba8a4d93\",\"total_cost_usd\":0.127748,\"usage\":{\"input_tokens\":4,\"cache_creation_input_tokens\":15292,\"cache_read_input_tokens\":43318,\"output_tokens\":390,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":15292,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":4,\"outputTokens\":390,\"cacheReadInputTokens\":43318,\"cacheCreationInputTokens\":15292,\"webSearchRequests\":0,\"costUSD\":0.127004,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":584,\"outputTokens\":32,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.000744,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"8ab526fc-7222-4b82-a662-85c31e5bf117\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "status-raw.md": "/Users/kamenkamenov/agentic-trading/status-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 52.678934812545776,
+        "token_usage": {
+          "input_tokens": 4,
+          "output_tokens": 390,
+          "cache_read_tokens": 43318,
+          "cache_write_tokens": 15292
+        },
+        "estimated_cost_usd": 0.076202,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "report": {
+      "phase_id": "report",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-26T21:58:47.007996+00:00",
+      "completed_at": "2026-02-26T22:07:49.298081+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** status-report.md\n**Active positions reported:** 8 (APLD, NU, IONQ, USAR, INTC, SMCI, LUNR, STIM)\n**Fill alerts:** None\n**Actionable items:** 2 items flagged\n\n**Key narratives added:**\n- **APLD**: Nvidia stake exit (8-day -24% sell-off) + neocloud contagion from CoreWeave, EXTREME short squeeze risk 75/100 (+13.6% MoM short buildup)\n- **NU**: Earnings gate cleared \u2014 Q4 beat on revenue/EPS but -6.3% AH drop; Reserve 1 at $14.88 only 1.2% away, activation recommended\n- **IONQ**: Massive Q4 beat (+429% YoY revenue, +19% today) \u2014 recovery gap narrowed to 8.7%, time stop concern lifted\n- **USAR**: $3.1B capital raise + US govt 10% stake intact; short interest spiked +139.6% MoM (HIGH risk)\n- **INTC**: Near breakeven, SambaNova AI inference partnership, NVDA holds 214M INTC shares; LOW short risk, decreasing\n- **SMCI**: Bullish news 77% positive; Nvidia-backed CNode-X launch; Jim Cramer \"no-fly zone\" (contrarian signal)\n- **LUNR**: $175M dilutive raise closes tomorrow (Feb 27); STRONG institutional accumulation (D.E. Shaw +3258%, Point72 +851%)\n- **STIM**: EXTREME squeeze risk 80/100, DTC 6.48, Madryn rebuilt full position; earnings March 17 (20 days \u2014 approaching gate)\n- **Watchlist**: TMC closest to B1 (-5.2%); CIFR/CLSK/SOUN price data unavailable \u2014 broker verification flagged",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":510341,\"duration_api_ms\":509183,\"num_turns\":32,\"result\":\"## HANDOFF\\n\\n**Artifact:** status-report.md\\n**Active positions reported:** 8 (APLD, NU, IONQ, USAR, INTC, SMCI, LUNR, STIM)\\n**Fill alerts:** None\\n**Actionable items:** 2 items flagged\\n\\n**Key narratives added:**\\n- **APLD**: Nvidia stake exit (8-day -24% sell-off) + neocloud contagion from CoreWeave, EXTREME short squeeze risk 75/100 (+13.6% MoM short buildup)\\n- **NU**: Earnings gate cleared \u2014 Q4 beat on revenue/EPS but -6.3% AH drop; Reserve 1 at $14.88 only 1.2% away, activation recommended\\n- **IONQ**: Massive Q4 beat (+429% YoY revenue, +19% today) \u2014 recovery gap narrowed to 8.7%, time stop concern lifted\\n- **USAR**: $3.1B capital raise + US govt 10% stake intact; short interest spiked +139.6% MoM (HIGH risk)\\n- **INTC**: Near breakeven, SambaNova AI inference partnership, NVDA holds 214M INTC shares; LOW short risk, decreasing\\n- **SMCI**: Bullish news 77% positive; Nvidia-backed CNode-X launch; Jim Cramer \\\"no-fly zone\\\" (contrarian signal)\\n- **LUNR**: $175M dilutive raise closes tomorrow (Feb 27); STRONG institutional accumulation (D.E. Shaw +3258%, Point72 +851%)\\n- **STIM**: EXTREME squeeze risk 80/100, DTC 6.48, Madryn rebuilt full position; earnings March 17 (20 days \u2014 approaching gate)\\n- **Watchlist**: TMC closest to B1 (-5.2%); CIFR/CLSK/SOUN price data unavailable \u2014 broker verification flagged\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"dbd26b56-a822-4f97-a3e2-516fca1e3b53\",\"total_cost_usd\":1.4879084999999999,\"usage\":{\"input_tokens\":13,\"cache_creation_input_tokens\":90816,\"cache_read_input_tokens\":689907,\"output_tokens\":22965,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":90816,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":13,\"outputTokens\":22965,\"cacheReadInputTokens\":689907,\"cacheCreationInputTokens\":90816,\"webSearchRequests\":0,\"costUSD\":1.4867435,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":795,\"outputTokens\":74,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.0011649999999999998,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"5c9f58d0-35ca-4fce-8728-502a38f04232\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "status-pre-analyst.md": "/Users/kamenkamenov/agentic-trading/status-pre-analyst.md",
+        "status-report.md": "/Users/kamenkamenov/agentic-trading/status-report.md"
+      },
+      "metrics": {
+        "duration_seconds": 542.2874748706818,
+        "token_usage": {
+          "input_tokens": 13,
+          "output_tokens": 22965,
+          "cache_read_tokens": 689907,
+          "cache_write_tokens": 90816
+        },
+        "estimated_cost_usd": 0.892046,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-26T22:07:49.302965+00:00",
+      "completed_at": "2026-02-26T22:11:30.958246+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** status-review.md\n**Verdict:** PASS\n**Checks passed:** 6/6 mechanical (all clean) + qualitative PASS\n**Issues found:** 0 critical, 3 minor\n\n**Minor observations:**\n1. IONQ \u2014 Morgan Stanley PT ($37) is 9.6% below current price ($40.88); the report mentions it but doesn't flag the bearish implication for exit level planning\n2. LUNR \u2014 $175M offering settlement (Feb 27) is noted in narrative but missing from Actionable Items as a Monday open monitoring trigger\n3. STIM \u2014 TRICARE West news (Nov 2025) presented without timestamp qualifier, slightly overstating recency\n\n**Strengths:** No fabricated data across 8 positions. Earnings gate transitions (NU cleared, IONQ catalyst, LUNR/STIM approaching) handled accurately. Actionable item #1 (NU activation) is concrete and broker-ready. Honest handling of missing institutional data and CIFR/CLSK/SOUN price unavailability.\n\nStatus review complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":189629,\"duration_api_ms\":187433,\"num_turns\":8,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifact:** status-review.md\\n**Verdict:** PASS\\n**Checks passed:** 6/6 mechanical (all clean) + qualitative PASS\\n**Issues found:** 0 critical, 3 minor\\n\\n**Minor observations:**\\n1. IONQ \u2014 Morgan Stanley PT ($37) is 9.6% below current price ($40.88); the report mentions it but doesn't flag the bearish implication for exit level planning\\n2. LUNR \u2014 $175M offering settlement (Feb 27) is noted in narrative but missing from Actionable Items as a Monday open monitoring trigger\\n3. STIM \u2014 TRICARE West news (Nov 2025) presented without timestamp qualifier, slightly overstating recency\\n\\n**Strengths:** No fabricated data across 8 positions. Earnings gate transitions (NU cleared, IONQ catalyst, LUNR/STIM approaching) handled accurately. Actionable item #1 (NU activation) is concrete and broker-ready. Honest handling of missing institutional data and CIFR/CLSK/SOUN price unavailability.\\n\\nStatus review complete.\",\"stop_reason\":null,\"session_id\":\"b4aa6001-d9f0-4582-a920-2a083de1d495\",\"total_cost_usd\":0.5767585000000001,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":38596,\"cache_read_input_tokens\":273737,\"output_tokens\":7898,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":38596,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":9,\"outputTokens\":7898,\"cacheReadInputTokens\":273737,\"cacheCreationInputTokens\":38596,\"webSearchRequests\":0,\"costUSD\":0.5755885,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":850,\"outputTokens\":64,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.00117,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"e7116843-0205-4cbe-a57c-535b5ef396b9\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "status-pre-critic.md": "/Users/kamenkamenov/agentic-trading/status-pre-critic.md",
+        "status-review.md": "/Users/kamenkamenov/agentic-trading/status-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 221.65152311325073,
+        "token_usage": {
+          "input_tokens": 9,
+          "output_tokens": 7898,
+          "cache_read_tokens": 273737,
+          "cache_write_tokens": 38596
+        },
+        "estimated_cost_usd": 0.345353,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-26T22:11:30.964780+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/status-workflow.yaml",
+    "workflowHash": "b6d6d64a596b1197"
+  }
+}

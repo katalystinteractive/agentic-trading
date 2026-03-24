@@ -1,0 +1,374 @@
+{
+  "ticker": "STIM",
+  "current_price": 1.43,
+  "last_date": "2026-03-19",
+  "resistance_levels": [
+    {
+      "price": 1.5,
+      "approaches": 4,
+      "historical_approaches": 3,
+      "rejected": 2,
+      "broke": 2,
+      "reject_rate": 50.0,
+      "source": "PA"
+    },
+    {
+      "price": 1.56,
+      "approaches": 5,
+      "historical_approaches": 5,
+      "rejected": 3,
+      "broke": 2,
+      "reject_rate": 60.0,
+      "source": "PA"
+    },
+    {
+      "price": 1.63,
+      "approaches": 4,
+      "historical_approaches": 4,
+      "rejected": 1,
+      "broke": 3,
+      "reject_rate": 25.0,
+      "source": "PA"
+    },
+    {
+      "price": 1.67,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 0,
+      "broke": 3,
+      "reject_rate": 0.0,
+      "source": "PA"
+    },
+    {
+      "price": 1.79,
+      "approaches": 4,
+      "historical_approaches": 4,
+      "rejected": 1,
+      "broke": 3,
+      "reject_rate": 25.0,
+      "source": "PA"
+    },
+    {
+      "price": 1.88,
+      "approaches": 4,
+      "historical_approaches": 4,
+      "rejected": 2,
+      "broke": 2,
+      "reject_rate": 50.0,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 2.07,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 1,
+      "broke": 2,
+      "reject_rate": 33.3,
+      "source": "PA"
+    },
+    {
+      "price": 2.16,
+      "approaches": 4,
+      "historical_approaches": 4,
+      "rejected": 2,
+      "broke": 2,
+      "reject_rate": 50.0,
+      "source": "PA"
+    },
+    {
+      "price": 2.33,
+      "approaches": 2,
+      "historical_approaches": 2,
+      "rejected": 1,
+      "broke": 1,
+      "reject_rate": 50.0,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 3.23,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 2,
+      "broke": 1,
+      "reject_rate": 66.7,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 3.49,
+      "approaches": 2,
+      "historical_approaches": 2,
+      "rejected": 1,
+      "broke": 1,
+      "reject_rate": 50.0,
+      "source": "PA"
+    },
+    {
+      "price": 3.77,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 2,
+      "broke": 1,
+      "reject_rate": 66.7,
+      "source": "PA"
+    },
+    {
+      "price": 3.92,
+      "approaches": 4,
+      "historical_approaches": 4,
+      "rejected": 2,
+      "broke": 2,
+      "reject_rate": 50.0,
+      "source": "PA"
+    },
+    {
+      "price": 4.12,
+      "approaches": 2,
+      "historical_approaches": 2,
+      "rejected": 0,
+      "broke": 2,
+      "reject_rate": 0.0,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 4.39,
+      "approaches": 4,
+      "historical_approaches": 4,
+      "rejected": 1,
+      "broke": 3,
+      "reject_rate": 25.0,
+      "source": "PA"
+    },
+    {
+      "price": 4.61,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 0,
+      "broke": 3,
+      "reject_rate": 0.0,
+      "source": "PA"
+    },
+    {
+      "price": 4.72,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 2,
+      "broke": 1,
+      "reject_rate": 66.7,
+      "source": "PA"
+    },
+    {
+      "price": 4.86,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 2,
+      "broke": 1,
+      "reject_rate": 66.7,
+      "source": "PA"
+    },
+    {
+      "price": 5.06,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 2,
+      "broke": 1,
+      "reject_rate": 66.7,
+      "source": "PA"
+    },
+    {
+      "price": 5.2,
+      "approaches": 4,
+      "historical_approaches": 4,
+      "rejected": 3,
+      "broke": 1,
+      "reject_rate": 75.0,
+      "source": "PA"
+    },
+    {
+      "price": 5.34,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 2,
+      "broke": 1,
+      "reject_rate": 66.7,
+      "source": "PA"
+    }
+  ],
+  "support_levels_used": [
+    {
+      "price": 1.17,
+      "source": "HVN"
+    },
+    {
+      "price": 1.2,
+      "source": "PA"
+    },
+    {
+      "price": 1.23,
+      "source": "PA"
+    },
+    {
+      "price": 1.3,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 1.36,
+      "source": "PA"
+    }
+  ],
+  "current_cycle": {
+    "resistance_date": "2026-03-19",
+    "resistance_price": 1.5,
+    "days_elapsed": 0,
+    "status": "IN PROGRESS"
+  },
+  "cycles": [
+    {
+      "resistance_date": "2025-11-20",
+      "resistance_price": 1.5,
+      "first_touch_date": "2025-11-21",
+      "first_touch_price": 1.3,
+      "days_first": 1,
+      "deep_touch_date": "2025-11-21",
+      "deep_touch_price": 1.3,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": 0.8,
+        "3": 5.4,
+        "5": 14.6,
+        "10": 3.8
+      }
+    },
+    {
+      "resistance_date": "2025-11-20",
+      "resistance_price": 1.56,
+      "first_touch_date": "2025-11-21",
+      "first_touch_price": 1.3,
+      "days_first": 1,
+      "deep_touch_date": "2025-11-21",
+      "deep_touch_price": 1.3,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": 0.8,
+        "3": 5.4,
+        "5": 14.6,
+        "10": 3.8
+      }
+    },
+    {
+      "resistance_date": "2025-11-20",
+      "resistance_price": 1.63,
+      "first_touch_date": "2025-11-21",
+      "first_touch_price": 1.3,
+      "days_first": 1,
+      "deep_touch_date": "2025-11-21",
+      "deep_touch_price": 1.3,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": 0.8,
+        "3": 5.4,
+        "5": 14.6,
+        "10": 3.8
+      }
+    },
+    {
+      "resistance_date": "2025-12-05",
+      "resistance_price": 1.5,
+      "first_touch_date": "2025-12-08",
+      "first_touch_price": 1.36,
+      "days_first": 1,
+      "deep_touch_date": "2025-12-08",
+      "deep_touch_price": 1.3,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -3.7,
+        "3": -1.5,
+        "5": 12.6,
+        "10": 3.7
+      }
+    },
+    {
+      "resistance_date": "2025-12-05",
+      "resistance_price": 1.56,
+      "first_touch_date": "2025-12-08",
+      "first_touch_price": 1.36,
+      "days_first": 1,
+      "deep_touch_date": "2025-12-08",
+      "deep_touch_price": 1.36,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -3.7,
+        "3": -1.5,
+        "5": 12.6,
+        "10": 3.7
+      }
+    },
+    {
+      "resistance_date": "2026-02-19",
+      "resistance_price": 1.5,
+      "first_touch_date": "2026-02-20",
+      "first_touch_price": 1.36,
+      "days_first": 1,
+      "deep_touch_date": "2026-02-20",
+      "deep_touch_price": 1.3,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -3.7,
+        "3": -5.2,
+        "5": 6.0,
+        "10": 5.2
+      }
+    },
+    {
+      "resistance_date": "2026-02-27",
+      "resistance_price": 1.5,
+      "first_touch_date": "2026-03-02",
+      "first_touch_price": 1.3,
+      "days_first": 1,
+      "deep_touch_date": "2026-03-02",
+      "deep_touch_price": 1.3,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -3.7,
+        "3": -0.7,
+        "5": 3.0,
+        "10": -3.4
+      }
+    },
+    {
+      "resistance_date": "2026-03-09",
+      "resistance_price": 1.5,
+      "first_touch_date": "2026-03-10",
+      "first_touch_price": 1.3,
+      "days_first": 1,
+      "deep_touch_date": "2026-03-10",
+      "deep_touch_price": 1.3,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -7.6,
+        "3": -3.8,
+        "5": 3.0
+      }
+    }
+  ],
+  "statistics": {
+    "total_cycles": 8,
+    "median_first": 1,
+    "min_first": 1,
+    "max_first": 1,
+    "median_deep": 1,
+    "min_deep": 1,
+    "max_deep": 1,
+    "immediate_fill_pct": 100.0
+  },
+  "post_resistance_decay": {
+    "1": -3.7,
+    "3": -1.5,
+    "5": 6.0,
+    "10": 3.8
+  },
+  "recommendation": {
+    "cooldown_days": 3,
+    "confidence": "NORMAL",
+    "immediate_reentry_viable": true
+  }
+}

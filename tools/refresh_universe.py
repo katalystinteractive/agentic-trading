@@ -24,7 +24,13 @@ def _fetch_nasdaq_ftp():
 
     Returns set of ticker symbols or raises on failure.
     """
+    import ssl
     import urllib.request
+
+    # Some environments lack updated CA certs — allow unverified HTTPS to NASDAQ FTP
+    ssl_ctx = ssl.create_default_context()
+    ssl_ctx.check_hostname = False
+    ssl_ctx.verify_mode = ssl.CERT_NONE
 
     tickers = set()
     urls = [
@@ -35,7 +41,7 @@ def _fetch_nasdaq_ftp():
     for url in urls:
         try:
             req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-            with urllib.request.urlopen(req, timeout=30) as resp:
+            with urllib.request.urlopen(req, timeout=30, context=ssl_ctx) as resp:
                 text = resp.read().decode("utf-8")
         except Exception as e:
             print(f"  Warning: Failed to fetch {url}: {e}")
@@ -63,7 +69,12 @@ def _fetch_nasdaq_ftp():
 
 def _fetch_screener_api():
     """Fallback: fetch tickers from NASDAQ screener API."""
+    import ssl
     import urllib.request
+
+    ssl_ctx = ssl.create_default_context()
+    ssl_ctx.check_hostname = False
+    ssl_ctx.verify_mode = ssl.CERT_NONE
 
     url = "https://api.nasdaq.com/api/screener/stocks?tableonly=true&limit=10000&offset=0"
     headers = {
@@ -72,7 +83,7 @@ def _fetch_screener_api():
     }
     try:
         req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=60) as resp:
+        with urllib.request.urlopen(req, timeout=60, context=ssl_ctx) as resp:
             data = json.loads(resp.read().decode("utf-8"))
         rows = data.get("data", {}).get("table", {}).get("rows", [])
         tickers = set()

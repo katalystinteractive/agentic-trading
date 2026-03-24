@@ -1,0 +1,106 @@
+{
+  "run_id": "2f25cb5b-cf4f-4b24-ac9b-5146b48eafce",
+  "workflow_name": "status-workflow",
+  "task_guid": null,
+  "status": "failed",
+  "current_phase": null,
+  "started_at": "2026-02-22T08:52:04.481396+00:00",
+  "completed_at": "2026-02-22T09:20:04.455898+00:00",
+  "error_message": "Workflow timed out after 28 minutes",
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRetry end-to-end status workflow test with increased report phase timeout (12 min). Testing the new Phase 3 status-critic agent.",
+    "handoffs": {
+      "gather": "**Artifact:** `status-raw.md`\n\n**Active positions queried:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK) \u2014 full ticker_query.py output\n\n**Watchlist tickers queried (levels only):** 10 tickers (AR, VALE, CLF, SEDG, ACHR, SOUN, SMCI, RKT, LUNR, NNE)\n\n**Fill alerts detected:** None detected \u2014 no fills triggered between last update and current prices\n\n**Key flags captured:**\n- **NU**: Earnings 2026-02-25 (3 days) \u2014 WARNING <14 days gate active, existing position only\n- **IONQ**: Earnings 2026-02-25 (3 days) \u2014 WARNING <14 days gate active, existing position only\n- **STIM**: Earnings clear (30 days out); EXTREME short squeeze risk (80/100), 21.63% float short; reserve order $1.25 is -3.1% away from current $1.29\n- **SOUN**: B1 order $7.63 is essentially at the wick ($7.63 day low) \u2014 near-fill condition\n- **LUNR**: B1 order $17.16 is -2.2% away from current $17.55 \u2014 proximity alert\n- **NNE**: B1 order $24.03 is -2.3% away from current $24.60 \u2014 proximity alert\n- **APLD**: Heavy negative news \u2014 Nvidia exit catalyst, -6.6% P/L, B5 $27.71 is -4.6% away\n- **CLSK/CIFR**: Wick-adjusted levels cached; both crypto miners showing negative sector sentiment in news\n\n**Structural data coverage:**\n- Full (earnings + news + short + institutional): STIM, IONQ\n- Earnings + news only: NU\n- News only: UAMY, USAR, INTC, APLD, CIFR, CLSK\n\nReady for status report compilation.",
+      "report": "**Artifact:** `status-report.md`\n\n**Active positions reported:** 9 (IONQ, USAR, STIM, UAMY, APLD, INTC, CIFR, CLSK, NU \u2014 sorted by P/L % ascending per Position Reporting Order)\n\n**Fill alerts:** 1 \u2014 SOUN B1 @ $7.63 (day low = order price exactly; broker verification required before Monday open)\n\n**Actionable items:** 11 items flagged across CRITICAL / HIGH / MEDIUM / LOW priority\n\n**Key flags surfaced:**\n- CRITICAL: SOUN B1 potential fill \u2014 verify at broker\n- HIGH: NU + IONQ earnings 3 days out (2026-02-25) \u2014 gate any new entries\n- MEDIUM: LUNR B1 (-2.2%), NNE B1 (-2.3%), STIM Reserve (-3.1%) all near trigger \u2014 orders live\n- MEDIUM: APLD B5 (-4.6%) \u2014 fill math shown: new avg $30.08 if triggered\n- LOW: Time stop review due for all 4 pre-strategy recovery positions (IONQ, UAMY, USAR, INTC)\n\n**Position Reporting Order:** Followed exactly for all 9 positions (Trades Executed \u2192 Current Average \u2192 Pending Limit Orders \u2192 Wick-Adjusted Buy Levels \u2192 Projected Sell Levels \u2192 Context Flags)\n\n**Wick-adjusted levels:** CLSK and SMCI have wick_analysis.md caches; all pending orders for CLSK confirmed vs. cache (only the above-current $9.66 Half-tier level omitted from orders \u2014 not actionable). All other positions reflect prior wick analysis in placed orders.\n\nStatus report complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T08:52:04.482388+00:00",
+      "completed_at": "2026-02-22T08:59:53.185130+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `status-raw.md`\n\n**Active positions queried:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK) \u2014 full ticker_query.py output\n\n**Watchlist tickers queried (levels only):** 10 tickers (AR, VALE, CLF, SEDG, ACHR, SOUN, SMCI, RKT, LUNR, NNE)\n\n**Fill alerts detected:** None detected \u2014 no fills triggered between last update and current prices\n\n**Key flags captured:**\n- **NU**: Earnings 2026-02-25 (3 days) \u2014 WARNING <14 days gate active, existing position only\n- **IONQ**: Earnings 2026-02-25 (3 days) \u2014 WARNING <14 days gate active, existing position only\n- **STIM**: Earnings clear (30 days out); EXTREME short squeeze risk (80/100), 21.63% float short; reserve order $1.25 is -3.1% away from current $1.29\n- **SOUN**: B1 order $7.63 is essentially at the wick ($7.63 day low) \u2014 near-fill condition\n- **LUNR**: B1 order $17.16 is -2.2% away from current $17.55 \u2014 proximity alert\n- **NNE**: B1 order $24.03 is -2.3% away from current $24.60 \u2014 proximity alert\n- **APLD**: Heavy negative news \u2014 Nvidia exit catalyst, -6.6% P/L, B5 $27.71 is -4.6% away\n- **CLSK/CIFR**: Wick-adjusted levels cached; both crypto miners showing negative sector sentiment in news\n\n**Structural data coverage:**\n- Full (earnings + news + short + institutional): STIM, IONQ\n- Earnings + news only: NU\n- News only: UAMY, USAR, INTC, APLD, CIFR, CLSK\n\nReady for status report compilation.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":436562,\"duration_api_ms\":421516,\"num_turns\":27,\"result\":\"`status-raw.md` is written. All data collected successfully.\\n\\n## HANDOFF\\n\\n**Artifact:** `status-raw.md`\\n\\n**Active positions queried:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK) \u2014 full ticker_query.py output\\n\\n**Watchlist tickers queried (levels only):** 10 tickers (AR, VALE, CLF, SEDG, ACHR, SOUN, SMCI, RKT, LUNR, NNE)\\n\\n**Fill alerts detected:** None detected \u2014 no fills triggered between last update and current prices\\n\\n**Key flags captured:**\\n- **NU**: Earnings 2026-02-25 (3 days) \u2014 WARNING <14 days gate active, existing position only\\n- **IONQ**: Earnings 2026-02-25 (3 days) \u2014 WARNING <14 days gate active, existing position only\\n- **STIM**: Earnings clear (30 days out); EXTREME short squeeze risk (80/100), 21.63% float short; reserve order $1.25 is -3.1% away from current $1.29\\n- **SOUN**: B1 order $7.63 is essentially at the wick ($7.63 day low) \u2014 near-fill condition\\n- **LUNR**: B1 order $17.16 is -2.2% away from current $17.55 \u2014 proximity alert\\n- **NNE**: B1 order $24.03 is -2.3% away from current $24.60 \u2014 proximity alert\\n- **APLD**: Heavy negative news \u2014 Nvidia exit catalyst, -6.6% P/L, B5 $27.71 is -4.6% away\\n- **CLSK/CIFR**: Wick-adjusted levels cached; both crypto miners showing negative sector sentiment in news\\n\\n**Structural data coverage:**\\n- Full (earnings + news + short + institutional): STIM, IONQ\\n- Earnings + news only: NU\\n- News only: UAMY, USAR, INTC, APLD, CIFR, CLSK\\n\\nReady for status report compilation.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"225e7525-e69c-4808-94ad-5d2f3246f2c5\",\"total_cost_usd\":1.3467795,\"usage\":{\"input_tokens\":12,\"cache_creation_input_tokens\":58796,\"cache_read_input_tokens\":447491,\"output_tokens\":28930,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":58796,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":12,\"outputTokens\":28930,\"cacheReadInputTokens\":447491,\"cacheCreationInputTokens\":58796,\"webSearchRequests\":0,\"costUSD\":1.3145305,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":9484,\"outputTokens\":997,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":14224,\"webSearchRequests\":0,\"costUSD\":0.03224900000000001,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"04c02ee1-3473-4fe9-82e2-05a526dad35b\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "status-raw.md": "/Users/kamenkamenov/agentic-trading/status-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 468.70045375823975,
+        "token_usage": {
+          "input_tokens": 12,
+          "output_tokens": 28930,
+          "cache_read_tokens": 447491,
+          "cache_write_tokens": 58796
+        },
+        "estimated_cost_usd": 0.788718,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "report": {
+      "phase_id": "report",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T08:59:53.187861+00:00",
+      "completed_at": "2026-02-22T09:05:04.312413+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `status-report.md`\n\n**Active positions reported:** 9 (IONQ, USAR, STIM, UAMY, APLD, INTC, CIFR, CLSK, NU \u2014 sorted by P/L % ascending per Position Reporting Order)\n\n**Fill alerts:** 1 \u2014 SOUN B1 @ $7.63 (day low = order price exactly; broker verification required before Monday open)\n\n**Actionable items:** 11 items flagged across CRITICAL / HIGH / MEDIUM / LOW priority\n\n**Key flags surfaced:**\n- CRITICAL: SOUN B1 potential fill \u2014 verify at broker\n- HIGH: NU + IONQ earnings 3 days out (2026-02-25) \u2014 gate any new entries\n- MEDIUM: LUNR B1 (-2.2%), NNE B1 (-2.3%), STIM Reserve (-3.1%) all near trigger \u2014 orders live\n- MEDIUM: APLD B5 (-4.6%) \u2014 fill math shown: new avg $30.08 if triggered\n- LOW: Time stop review due for all 4 pre-strategy recovery positions (IONQ, UAMY, USAR, INTC)\n\n**Position Reporting Order:** Followed exactly for all 9 positions (Trades Executed \u2192 Current Average \u2192 Pending Limit Orders \u2192 Wick-Adjusted Buy Levels \u2192 Projected Sell Levels \u2192 Context Flags)\n\n**Wick-adjusted levels:** CLSK and SMCI have wick_analysis.md caches; all pending orders for CLSK confirmed vs. cache (only the above-current $9.66 Half-tier level omitted from orders \u2014 not actionable). All other positions reflect prior wick analysis in placed orders.\n\nStatus report complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":279230,\"duration_api_ms\":278009,\"num_turns\":7,\"result\":\"The `status-report.md` is complete. Here is a summary of what was produced:\\n\\n---\\n\\n## HANDOFF\\n\\n**Artifact:** `status-report.md`\\n\\n**Active positions reported:** 9 (IONQ, USAR, STIM, UAMY, APLD, INTC, CIFR, CLSK, NU \u2014 sorted by P/L % ascending per Position Reporting Order)\\n\\n**Fill alerts:** 1 \u2014 SOUN B1 @ $7.63 (day low = order price exactly; broker verification required before Monday open)\\n\\n**Actionable items:** 11 items flagged across CRITICAL / HIGH / MEDIUM / LOW priority\\n\\n**Key flags surfaced:**\\n- CRITICAL: SOUN B1 potential fill \u2014 verify at broker\\n- HIGH: NU + IONQ earnings 3 days out (2026-02-25) \u2014 gate any new entries\\n- MEDIUM: LUNR B1 (-2.2%), NNE B1 (-2.3%), STIM Reserve (-3.1%) all near trigger \u2014 orders live\\n- MEDIUM: APLD B5 (-4.6%) \u2014 fill math shown: new avg $30.08 if triggered\\n- LOW: Time stop review due for all 4 pre-strategy recovery positions (IONQ, UAMY, USAR, INTC)\\n\\n**Position Reporting Order:** Followed exactly for all 9 positions (Trades Executed \u2192 Current Average \u2192 Pending Limit Orders \u2192 Wick-Adjusted Buy Levels \u2192 Projected Sell Levels \u2192 Context Flags)\\n\\n**Wick-adjusted levels:** CLSK and SMCI have wick_analysis.md caches; all pending orders for CLSK confirmed vs. cache (only the above-current $9.66 Half-tier level omitted from orders \u2014 not actionable). All other positions reflect prior wick analysis in placed orders.\\n\\nStatus report complete.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"af784700-049c-4c57-aa7b-9b94e3467836\",\"total_cost_usd\":0.8797409999999999,\"usage\":{\"input_tokens\":7,\"cache_creation_input_tokens\":57792,\"cache_read_input_tokens\":239562,\"output_tokens\":15949,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":57792,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":7,\"outputTokens\":15949,\"cacheReadInputTokens\":239562,\"cacheCreationInputTokens\":57792,\"webSearchRequests\":0,\"costUSD\":0.8797409999999999,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"0161eb07-965b-498f-a0f3-2455da09e481\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "status-report.md": "/Users/kamenkamenov/agentic-trading/status-report.md"
+      },
+      "metrics": {
+        "duration_seconds": 311.1227707862854,
+        "token_usage": {
+          "input_tokens": 7,
+          "output_tokens": 15949,
+          "cache_read_tokens": 239562,
+          "cache_write_tokens": 57792
+        },
+        "estimated_cost_usd": 0.527845,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "retrying",
+      "attempts": 3,
+      "started_at": "2026-02-22T09:05:04.315085+00:00",
+      "completed_at": null,
+      "error_message": "Claude CLI timed out after 360s",
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {},
+      "metrics": {
+        "duration_seconds": 0.0,
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "estimated_cost_usd": 0.0,
+        "model": "sonnet",
+        "attempts": 2
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-22T09:20:04.456219+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/status-workflow.yaml",
+    "workflowHash": "8ebb324374326b3b"
+  }
+}

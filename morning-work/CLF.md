@@ -3,76 +3,88 @@
 ## Global Context
 | Metric | Value |
 | :--- | :--- |
-| Date | 2026-03-08 |
-| Regime | Risk-Off |
-| Regime Detail | 0/3 indices above 50-SMA, VIX 29.5 (elevated) |
-| VIX | 29.49 |
-| VIX 5D% | +48.49% |
+| Date | 2026-03-16 |
+| Regime | Neutral |
+| Regime Detail | 0/3 indices above 50-SMA, VIX 24.2 |
+| VIX | 24.19 |
+| VIX 5D% | -5.14% |
 | Indices Above 50-SMA | 0/3 |
-| Sector Breadth | 2/11 positive |
+| Sector Breadth | 11/11 positive |
+| Data Freshness | 2026-03-16 close |
+| Trading Day | Yes |
 
 ## Portfolio Summary
 | Ticker | Shares | Avg Cost | P/L % |
 | :--- | :--- | :--- | :--- |
-| NU | 30 | $15.85 | -8.0% |
+| NU | 30 | $15.85 | -10.3% |
 | STIM | 0 | $0.00 | +inf% |
-| IONQ | 15 | $44.43 | -19.6% |
-| LUNR | 1 | $17.61 | +0.1% |
-| USAR | 15 | $21.57 | -19.1% |
-| OUST | 5 | $21.70 | -6.6% |
+| IONQ | 15 | $44.43 | -26.0% |
+| LUNR | 2 | $17.59 | -2.7% |
+| USAR | 15 | $21.57 | -11.3% |
+| OUST | 0 | $0.00 | +inf% |
 | INTC | 0 | $0.00 | +inf% |
-| APLD | 15 | $29.06 | -13.5% |
+| APLD | 15 | $29.06 | -4.9% |
 | SMCI | 0 | $0.00 | +inf% |
-| TMC | 38 | $6.00 | -4.5% |
-| CIFR | 11 | $14.62 | -6.8% |
-| ARM | 4 | $120.88 | -5.4% |
-| ACHR | 61 | $6.78 | -7.7% |
-| TEM | 0 | $0.00 | +inf% |
-| CLSK | 7 | $10.17 | -9.4% |
-| CLF | 21 | $10.26 | -4.2% |
+| TMC | 9 | $6.01 | -0.5% |
+| CIFR | 0 | $0.00 | +inf% |
+| ARM | 5 | $118.96 | +2.3% |
+| ACHR | 77 | $6.61 | -9.0% |
+| TEM | 1 | $50.98 | -1.0% |
+| CLSK | 0 | $0.00 | +inf% |
+| CLF | 47 | $9.39 | -9.2% |
 | BBAI | 0 | $0.00 | +inf% |
-| NNE | 6 | $24.19 | -2.7% |
+| NNE | 10 | $23.87 | -10.9% |
+| RUN | 0 | $0.00 | +inf% |
+| SOUN | 15 | $7.36 | +3.1% |
+| OKLO | 1 | $58.04 | +1.5% |
 
 ## Capital
 | Metric | Value |
 | :--- | :--- |
-| Deployed | $3,745.22 |
+| Deployed | $3,993.89 |
 | Velocity Pool | $1,000.00 |
 | Bounce Pool | $1,000.00 |
 
 ## Position Data
 | Field | Value |
 | :--- | :--- |
-| Shares | 21 |
-| Avg Cost | $10.26 |
-| Current Price | $9.83 |
-| P/L % | -4.2% |
+| Shares | 47 |
+| Avg Cost | $9.39 |
+| Current Price | $8.52 |
+| P/L % | -9.3% |
 | Entry Date | 2026-03-03 |
-| Days Held | 5 |
+| Days Held | 13 |
 | Time Stop Status | WITHIN |
-| Bullets Used | 3/5 |
+| Bullets Used | 5/5 |
 | Target Exit | No target (recovery) |
 | Note | — |
 
 ## Day Range
 | Metric | Value |
 | :--- | :--- |
-| Day Low | $9.72 |
-| Day High | $10.41 |
+| Day Low | $8.44 |
+| Day High | $8.72 |
+
+## Recorded Fills
+| # | Fill Price |
+| :--- | :--- |
+| 1 | $11.28 |
+| 2 | $9.97 |
+| 3 | $9.88 |
+| 4 | $9.53 |
+| 5 | $8.48 |
 
 ## Pending Orders
-| Type | Order Price | Shares | % Below Current | Days to Earnings | Notes |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $9.97 | 10 | 0.0% | 52 | Bullet 1 — $9.90 PA, 54% hold rate, Full tier, wick-adjusted |
-| BUY | $9.88 | 6 | 0.9% | 52 | Bullet 2 — $9.27 PA, 54% hold rate, Full tier, wick-adjusted (added 2026-02-28) |
-| BUY | $9.41 | 10 | 5.6% | 52 | Bullet 3 — $9.04 PA, 67% hold rate, Full tier, wick-adjusted (updated 2026-02-28) |
-| BUY | $8.48 | 11 | 14.9% | 52 | Bullet 4 — $8.25 PA, 71% hold rate, Full tier, wick-adjusted |
+| Type | Order Price | Shares | % Below Current | Days to Earnings | Status | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| SELL | $9.95 | 47 | N/A | 44 |  | PA resistance, 33% reject, +6.0% from $9.39 avg (updated 2026-03-13) |
+| BUY | $9.41 | 10 | 5.4% | 44 |  | Bullet 3 — $9.04 PA, 67% hold rate, Full tier, wick-adjusted (updated 2026-02-28) |
 
 ## Tool Outputs
 #### Earnings
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:34*
 
 ## Earnings Analysis: Cleveland-Cliffs Inc. (CLF)
 
@@ -80,10 +92,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-04-29 |
-| Days Until | 52 |
+| Days Until | 44 |
 | EPS Estimate | $-0.375 |
 | Revenue Estimate | $4.82B |
-| Earnings Rule | Clear (>52d out) |
+| Earnings Rule | Clear (>44d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
@@ -101,49 +113,50 @@
 
 #### Technical Signals
 ## Technical Scan: Cleveland-Cliffs Inc. (CLF)
-**Current Price: $9.83** | Date: 2026-03-06
+**Current Price: $8.51** | Date: 2026-03-16
 
 ### Trend Indicators
 | Indicator | Value | Price Position | Signal |
 | :--- | :--- | :--- | :--- |
-| SMA 20 | $11.13 | Below | Bearish |
-| SMA 50 | $12.70 | Below | Bearish |
-| SMA 200 | $11.17 | Below | Bearish |
-| EMA 9 | $10.71 | Below | Bearish |
-| EMA 21 | $11.31 | Below | Bearish |
+| SMA 20 | $10.20 | Below | Bearish |
+| SMA 50 | $12.15 | Below | Bearish |
+| SMA 200 | $11.24 | Below | Bearish |
+| EMA 9 | $9.36 | Below | Bearish |
+| EMA 21 | $10.29 | Below | Bearish |
 
 ### Momentum Indicators
 | Indicator | Value | Zone | Signal |
 | :--- | :--- | :--- | :--- |
-| RSI (14) | 34.3 | Bearish zone | Neutral-Bear |
-| MACD | -0.669 | Below signal | Bearish |
-| MACD Signal | -0.668 | Histogram: -0.001 | — |
-| Stochastic %K/%D | 6.4/32.3 | Oversold | Bearish |
+| RSI (14) | 27.1 | Oversold | Bullish |
+| MACD | -0.955 | Below signal | Bearish |
+| MACD Signal | -0.813 | Histogram: -0.142 | — |
+| Stochastic %K/%D | 3.6/2.4 | Oversold | Bullish |
 
 ### Volatility
 | Indicator | Value | Position | Signal |
 | :--- | :--- | :--- | :--- |
-| Bollinger Upper | $13.32 | 20% of band | Neutral |
-| Bollinger Lower | $8.95 | Width: $4.37 | — |
-| ATR (14) | $0.59 (6.0%) | High volatility | — |
+| Bollinger Upper | $11.94 | 2% of band | Neutral |
+| Bollinger Lower | $8.46 | Width: $3.48 | — |
+| ATR (14) | $0.60 (7.0%) | High volatility | — |
 
 ### Key Support/Resistance Levels
 | Level | Price | Type | Touches | Last Tested |
 | :--- | :--- | :--- | :--- | :--- |
-| Support | $9.92 (+0.9%) | Support | 2 | 2026-02-13 |
-| Resistance | $9.24 (-6.0%) | Resistance | 2 | 2025-08-07 |
-| Resistance | $8.09 (-17.7%) | Resistance | 1 | 2025-06-10 |
-| Support | $11.68 (+18.8%) | Support | 1 | 2026-01-08 |
-| Resistance | $11.96 (+21.7%) | Resistance | 1 | 2025-07-22 |
-| Support | $6.72 (-31.6%) | Support | 1 | 2025-06-23 |
-| Support | $6.17 (-37.2%) | Support | 1 | 2025-04-04 |
-| Resistance | $14.02 (+42.6%) | Resistance | 1 | 2025-12-24 |
+| Resistance | $8.09 (-4.9%) | Resistance | 1 | 2025-06-10 |
+| Support | $9.24 (+8.6%) | Support | 2 | 2025-08-07 |
+| Support | $9.92 (+16.6%) | Support | 2 | 2026-02-13 |
+| Support | $6.72 (-21.0%) | Support | 1 | 2025-06-23 |
+| Support | $6.17 (-27.5%) | Support | 1 | 2025-04-04 |
+| Support | $5.63 (-33.8%) | Support | 1 | 2025-05-30 |
+| Resistance | $11.45 (+34.5%) | Resistance | 1 | 2026-03-02 |
+| Support | $11.68 (+37.3%) | Support | 1 | 2026-01-08 |
 
 ### Signal Summary
 | Metric | Value |
 | :--- | :--- |
 | Overall Signal | **Strong Bearish** |
-| Score | -6 |
+| Score | -5 |
+| Bullish Factors | RSI oversold |
 | Bearish Factors | Below SMA 20, Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21, MACD bearish |
 
 #### Short Interest
@@ -152,20 +165,20 @@
 ### Short Interest Summary
 | Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
 | :--- | :--- | :--- | :--- | :--- |
-| CLF | 77.38M | 3.70 | 16.76% | -6.4% (decreasing) |
+| CLF | 73.52M | 3.70 | 15.93% | -4.3% (decreasing) |
 
 ### Squeeze Risk Assessment
 | Ticker | Risk Rating | Score (/100) | Key Factors |
 | :--- | :--- | :--- | :--- |
-| CLF | HIGH | 50 | Elevated short% (16.8%); Moderate DTC (3.7) |
+| CLF | HIGH | 50 | Elevated short% (15.9%); Moderate DTC (3.7) |
 
 ### Context
 | Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
 | :--- | :--- | :--- | :--- | :--- |
-| CLF | 564.25M | 570.39M | 16.69M | 3.7 |
+| CLF | 564.25M | 570.39M | 16.98M | 3.7 |
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:34*
 
 ## News & Sentiment: Cleveland-Cliffs Inc. (CLF)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -177,21 +190,26 @@
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 14 (47%) |
-| Neutral | 11 (37%) |
+| Positive | 11 (37%) |
+| Neutral | 14 (47%) |
 | Negative | 5 (17%) |
-| Average Score | +0.126 |
-| Overall Sentiment | **Bullish** |
+| Average Score | +0.095 |
+| Overall Sentiment | **Neutral** |
 | Total Unique Headlines | 182 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 11 | Dimensional Fund Advisors LP Sells 2,994..; Cleveland-Cliffs Stock (-8.0%): CEO Stoc.. |
-| Corporate | 4 | Cleveland-Cliffs Stock (-8.0%): CEO Stoc..; Neo Ivy Capital Management Takes Positio.. |
-| Shareholder | 1 | How Investors May Respond To Cleveland-C.. |
+| Earnings | 11 | Cleveland-Cliffs' (CLF) "Sell" Rating Re..; CLF Stock Falls -26% In 9-Day Spree On R.. |
+| Corporate | 3 | Cleveland-Cliffs CEO’s Stock Sale Raises..; Cleveland-Cliffs Stock (-8.0%): CEO Stoc.. |
+| Analyst | 2 | CLF Stock Falls -26% In 9-Day Spree On R..; This Fund Initiated a $5 Million Stake i.. |
+| Regulatory | 1 | CLF SEC Filings - Cleveland-Cliffs Inc 1.. |
 
 ### Deep Dive Articles
+
+#### Surging Oil Prices, Dollar Drag Copper, Steel Stocks Lower
+*Source: Schaeffer's Research | Date: 2026-03-09 | Sentiment: Positive (+0.17)*
+**Catalysts:** Regulatory
 
 #### Here is What to Know Beyond Why Cleveland-Cliffs Inc. (CLF) is a Trending Stock
 *Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+0.97)*
@@ -209,13 +227,9 @@
 *Source: Zacks | Date: 2026-02-25 | Sentiment: Positive (+0.93)*
 **Catalysts:** Earnings, Regulatory, Corporate
 
-#### Can CRS's Brownfield Expansion Project Fuel Long-Term Growth?
-*Source: Zacks | Date: 2026-02-23 | Sentiment: Positive (+0.99)*
-**Catalysts:** Earnings, Regulatory, Equity
-
 ---
 
-**Position Snapshot:** 21 shares @ $10.26, current $9.83, P/L -4.2% ($-9.03)
+**Position Snapshot:** 47 shares @ $9.39, current $8.52, P/L -9.2% ($-40.66)
 
 **Identity:** *   **Cycle:** "Early-Month Bottomer" (9 of 13 months bottom Days 1-8).
 *   Resistance: $14.98 (Feb high), $15.35 (Jan high), $16.70 (Oct high).
@@ -239,6 +253,6 @@
 *Note: 2 Active level(s) excluded — buy price at or above current price: $9.58, $9.27*
 *Bullet plan is a suggestion — adjust based on cycle timing and position.*
 
-**Knowledge:** 1 observation. Top: Onboarded after screening 8 candidates for AR-like characteristics. CLF won on s... (0.43)
+**Knowledge:** 1 trade. Top: CLF: BUY 5 shares @ $9.53 (active). Now 26 shares @ $10.12 avg. (0.61)
 
 ---

@@ -1,0 +1,111 @@
+{
+  "run_id": "3e1ac2ac-e0dd-4f21-95d2-56aa5e199b51",
+  "workflow_name": "exit-review-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-27T07:46:42.525835+00:00",
+  "completed_at": "2026-02-27T07:55:17.546385+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun the full exit-review workflow v2.0.0 for all active positions. This is the first live run after mechanization \u2014 Python pre-processors handle all data gathering, verdict computation, and verification checks.",
+    "handoffs": {
+      "gather": "**Artifact:** exit-review-raw.md\n**Script:** exit_review_gatherer.py completed\n**Active positions collected:** 8 (APLD, INTC, IONQ, LUNR, NU, SMCI, STIM, USAR)\n**Tool errors:** none\n\nReady for exit analysis.",
+      "analyze": "**Artifact:** exit-review-report.md\n**Positions reviewed:** 8\n**Verdicts:** 0 EXIT, 1 REDUCE, 3 HOLD, 4 MONITOR\n**Rule 3 overrides:** none\n**Capital rotation:** $255.97 (STIM \u2192 AR / CLF / UAMY)\n\nExit analysis complete.",
+      "review": "**Artifact:** exit-review-review.md\n**Verdict:** PASS\n**Checks passed:** 6/6 (all clean, no minor notes)\n**Issues found:** 0 (0 critical, 0 minor)\n\n**Qualitative summary:**\n- All 8 positions have data-grounded reasoning with specific price references\n- Broker instructions are specific and executable across all verdicts\n- No Rule 3 overrides triggered (N/A)\n- STIM rotate-to suggestions name existing staged orders \u2014 operationally ready capital deployment\n- Executive summary counts and figures match the matrix exactly\n- Standout analyst judgment: correctly flagged LUNR -61.0% P/L as a likely data artifact rather than accepting it, with appropriate no-action response on a 2-day position\n\nExit review verification complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-27T07:46:42.536455+00:00",
+      "completed_at": "2026-02-27T07:47:52.625200+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** exit-review-raw.md\n**Script:** exit_review_gatherer.py completed\n**Active positions collected:** 8 (APLD, INTC, IONQ, LUNR, NU, SMCI, STIM, USAR)\n**Tool errors:** none\n\nReady for exit analysis.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":37746,\"duration_api_ms\":6883,\"num_turns\":2,\"result\":\"`exit-review-raw.md` exists and is non-empty (73.2 KB).\\n\\n## HANDOFF\\n\\n**Artifact:** exit-review-raw.md\\n**Script:** exit_review_gatherer.py completed\\n**Active positions collected:** 8 (APLD, INTC, IONQ, LUNR, NU, SMCI, STIM, USAR)\\n**Tool errors:** none\\n\\nReady for exit analysis.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"eaf0dddf-f976-4090-aa17-2583d5e8a757\",\"total_cost_usd\":0.12587575,\"usage\":{\"input_tokens\":4,\"cache_creation_input_tokens\":15417,\"cache_read_input_tokens\":43527,\"output_tokens\":282,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":15417,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":4,\"outputTokens\":282,\"cacheReadInputTokens\":43527,\"cacheCreationInputTokens\":15417,\"webSearchRequests\":0,\"costUSD\":0.12518975,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":526,\"outputTokens\":32,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.000686,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"5297cb67-8b03-4cc0-b693-e329f31c3fb8\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "exit-review-raw.md": "/Users/kamenkamenov/agentic-trading/exit-review-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 70.08083701133728,
+        "token_usage": {
+          "input_tokens": 4,
+          "output_tokens": 282,
+          "cache_read_tokens": 43527,
+          "cache_write_tokens": 15417
+        },
+        "estimated_cost_usd": 0.075114,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-27T07:47:52.628379+00:00",
+      "completed_at": "2026-02-27T07:52:32.207539+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** exit-review-report.md\n**Positions reviewed:** 8\n**Verdicts:** 0 EXIT, 1 REDUCE, 3 HOLD, 4 MONITOR\n**Rule 3 overrides:** none\n**Capital rotation:** $255.97 (STIM \u2192 AR / CLF / UAMY)\n\nExit analysis complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":247538,\"duration_api_ms\":245500,\"num_turns\":8,\"result\":\"## Decision: CLEAN\\n\\n## HANDOFF\\n\\n**Artifact:** exit-review-report.md\\n**Positions reviewed:** 8\\n**Verdicts:** 0 EXIT, 1 REDUCE, 3 HOLD, 4 MONITOR\\n**Rule 3 overrides:** none\\n**Capital rotation:** $255.97 (STIM \u2192 AR / CLF / UAMY)\\n\\nExit analysis complete.\",\"stop_reason\":null,\"session_id\":\"01c58f2d-537f-4c8f-948d-9cf010fbb146\",\"total_cost_usd\":0.7115144999999999,\"usage\":{\"input_tokens\":10,\"cache_creation_input_tokens\":35902,\"cache_read_input_tokens\":293378,\"output_tokens\":13589,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":35902,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":10,\"outputTokens\":13589,\"cacheReadInputTokens\":293378,\"cacheCreationInputTokens\":35902,\"webSearchRequests\":0,\"costUSD\":0.7108515,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":503,\"outputTokens\":32,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.000663,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"b317f14a-1aac-4ea5-a3b5-56b5cd048d36\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "exit-review-pre-analyst.md": "/Users/kamenkamenov/agentic-trading/exit-review-pre-analyst.md",
+        "exit-review-report.md": "/Users/kamenkamenov/agentic-trading/exit-review-report.md"
+      },
+      "metrics": {
+        "duration_seconds": 279.5765309333801,
+        "token_usage": {
+          "input_tokens": 10,
+          "output_tokens": 13589,
+          "cache_read_tokens": 293378,
+          "cache_write_tokens": 35902
+        },
+        "estimated_cost_usd": 0.426511,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-27T07:52:32.212696+00:00",
+      "completed_at": "2026-02-27T07:55:17.543266+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** exit-review-review.md\n**Verdict:** PASS\n**Checks passed:** 6/6 (all clean, no minor notes)\n**Issues found:** 0 (0 critical, 0 minor)\n\n**Qualitative summary:**\n- All 8 positions have data-grounded reasoning with specific price references\n- Broker instructions are specific and executable across all verdicts\n- No Rule 3 overrides triggered (N/A)\n- STIM rotate-to suggestions name existing staged orders \u2014 operationally ready capital deployment\n- Executive summary counts and figures match the matrix exactly\n- Standout analyst judgment: correctly flagged LUNR -61.0% P/L as a likely data artifact rather than accepting it, with appropriate no-action response on a 2-day position\n\nExit review verification complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":132318,\"duration_api_ms\":130502,\"num_turns\":9,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifact:** exit-review-review.md\\n**Verdict:** PASS\\n**Checks passed:** 6/6 (all clean, no minor notes)\\n**Issues found:** 0 (0 critical, 0 minor)\\n\\n**Qualitative summary:**\\n- All 8 positions have data-grounded reasoning with specific price references\\n- Broker instructions are specific and executable across all verdicts\\n- No Rule 3 overrides triggered (N/A)\\n- STIM rotate-to suggestions name existing staged orders \u2014 operationally ready capital deployment\\n- Executive summary counts and figures match the matrix exactly\\n- Standout analyst judgment: correctly flagged LUNR -61.0% P/L as a likely data artifact rather than accepting it, with appropriate no-action response on a 2-day position\\n\\nExit review verification complete.\",\"stop_reason\":null,\"session_id\":\"90deb92b-1435-47a3-884e-09996032e51d\",\"total_cost_usd\":0.4616699999999999,\"usage\":{\"input_tokens\":10,\"cache_creation_input_tokens\":27948,\"cache_read_input_tokens\":283986,\"output_tokens\":5751,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":27948,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":10,\"outputTokens\":5751,\"cacheReadInputTokens\":283986,\"cacheCreationInputTokens\":27948,\"webSearchRequests\":0,\"costUSD\":0.46049299999999993,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":857,\"outputTokens\":64,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.001177,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"eff76534-0bea-41e0-aa10-71d7bca6c1cd\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "exit-review-pre-critic.md": "/Users/kamenkamenov/agentic-trading/exit-review-pre-critic.md",
+        "exit-review-review.md": "/Users/kamenkamenov/agentic-trading/exit-review-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 165.32829213142395,
+        "token_usage": {
+          "input_tokens": 10,
+          "output_tokens": 5751,
+          "cache_read_tokens": 283986,
+          "cache_write_tokens": 27948
+        },
+        "estimated_cost_usd": 0.276296,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-27T07:55:17.546592+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/exit-review-workflow.yaml",
+    "workflowHash": "7a8cdea7770348d2"
+  }
+}

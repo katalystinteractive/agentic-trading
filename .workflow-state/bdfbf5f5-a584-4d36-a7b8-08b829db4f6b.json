@@ -1,0 +1,119 @@
+{
+  "run_id": "bdfbf5f5-a584-4d36-a7b8-08b829db4f6b",
+  "workflow_name": "surgical-candidate-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-03-23T19:21:45.325518+00:00",
+  "completed_at": "2026-03-23T19:40:54.846298+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: python\n- **Language**: python\n\n## Context\n\nEvaluate 3 new candidate tickers from daily screening (2026-03-23): NTLA (score 87, Biotech, 44.2% swing, 11 cycles, 100% fill), OPEN (score 82, Tech, 46.6% swing, 5 cycles, 100% fill), BEAM (score 81, Biotech, 34.2% swing, 4 cycles, 100% fill). Run full surgical verification and critic evaluation for all 3 candidates.",
+    "handoffs": {
+      "screen": "**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\n\n**Gate passers:** 66 tickers passed surgical gates (screened 146, excluded 27 portfolio tickers)\n\n**Top 7 scored:**\n- OPEN: 82\n- NTLA: 78\n- HUT: 77\n- IREN: 75\n- AFRM: 74\n- BEAM: 74\n- NVAX: 73\n\n**Recommendations:** 0 Onboard | 4 Watch (OPEN, NTLA, AFRM, BEAM) | 3 Monitor (HUT, IREN, NVAX)\n\n**Key findings:**\n\n- **No Onboard candidates today.** Every candidate has a structural gap.\n- **NTLA** (78): Perfect cycle score (20/20, 11 cycles/100% fill) but all active levels are Half-tier with no anchor level. Best Watch candidate by cycle quality.\n- **AFRM** (74): Best active level quality (3 anchor levels, improving recency) but zero reserve depth \u2014 strategy is structurally incomplete.\n- **HUT/IREN** (77/75): Both sector-blocked (4x Crypto concentration with APLD/CLSK/CIFR). Do not onboard until one Crypto position exits.\n- **BEAM** (74): Strongest near-term recency signal (100% recent hold at B1/B2) but only 4 cycles and swing below threshold. Coordinate with NTLA \u2014 only one CRISPR biotech at a time.\n- **OPEN** (82): Highest score but broken reserve structure (74% dead zone, ~$3 reserve capital) and deteriorating B1. PropTech business in fundamental distress.\n- **NVAX** (73): Improving trend but all active holds are 13-20% \u2014 too weak for entry. Monitor for sustained recovery above 25-30%.\n\nReady for verification.",
+      "verify": "**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\n\n**Results:** 7 PASS, 0 FLAG, 0 FAIL\n\n**Score range after adjustment:** 73\u201382 (no adjustments made \u2014 all 0)\n\n**Pre-verify:** 7 checks passed, 2 issues found (1 FAIL: flag coverage false positive due to parsing; 1 WARN: duplicate buy price at OPEN $1.12; 1 WARN: active zone proximity for OPEN/HUT/NVAX \u2014 confirmed as measurement artifact)\n\n**Key verification findings:**\n- Flag coverage FAIL (17 unaddressed) is a false positive \u2014 pre-verifier could not parse per-ticker sections; all material flags were substantively addressed in evaluation prose\n- Active zone proximity WARN for OPEN/HUT/NVAX is a pre-verifier artifact measuring distance to lowest active buy, not nearest buy; B1 proximity scores confirm bullets are appropriately placed\n- OPEN duplicate buy price ($1.12 \u00d7 2) is a data artifact; evaluator correctly characterized both reserve levels as worthless without naming the anomaly \u2014 immaterial to recommendation\n- AFRM is the only FLAG-adjacent finding: thin sample at $39.12 (2 approaches) not formally called as a risk, but not material to Watch recommendation\n- Strongest qualitative contributions: BEAM evaluator identified CRISPR sub-sector coordination risk with NTLA (not detectable mechanically); NVAX evaluator converted hold rates to non-hold probability (80-87%)\n\nReady for final selection (critic phase).",
+      "critic": "**Artifacts:** candidate-pre-critic.md, candidate-final.md\n\n**Top 3:**\n1. BEAM \u2014 88 \u2014 Watch\n2. NTLA \u2014 87 \u2014 Watch\n3. OPEN \u2014 79 \u2014 Monitor\n\n**Key adversarial findings:**\n\n- **OPEN demoted -10 (89 \u2192 79, Watch \u2192 Monitor):** The entry timing modifier (+5) rewarded B1 proximity, but B1 is actively breaking (16.7% recent hold). Proximity to a failing level is a trap. Reserve structure failure ($2.98 effective capital vs. $300 pool) is disqualifying \u2014 no other candidate has a failure of this magnitude. PropTech business in fundamental distress.\n\n- **NTLA promoted +3 (84 \u2192 87):** The -7 recency modifier was driven by a single deteriorating level (B3), creating an outsized penalty against an 11-cycle track record. 11 cycles at 100% fill/1-day recovery is the strongest single data point in the screen and was underweighted by the mechanical modifier.\n\n- **BEAM unchanged (88):** 100% recent hold at B1/B2 across 12-13 approach events is sample-robust, not noise. Pre-critic baseline is fair. Remains top-ranked.\n\n- **NVAX penalized -5 (84 \u2192 79):** The +3 recency modifier rewards directional improvement from \"terrible\" to \"very weak\" (13-20% \u2192 20-25%). 80-87% non-hold probability at all active levels is not an entry threshold, regardless of trend direction.\n\n- **HUT penalized -5 (83 \u2192 78):** Mechanical -5 portfolio fit undersells the real risk \u2014 4 economically-identical Bitcoin miners crash simultaneously; reserves deploy only during a systemic Crypto collapse when correlated exposure is maximum.\n\n**Practical recommendation:** Onboard BEAM first (strongest recency signal, price sweet spot). Keep NTLA at Watch pending hold rate recovery above 30% at B2/B3 or 2-3 additional cycles. OPEN Monitor \u2014 do not onboard until B1 demonstrates recovery and reserve structure issue is addressed. CRISPR coordination enforced: BEAM and NTLA do not onboard simultaneously.\n\nScreening complete. Review candidate-final.md for onboarding decisions."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1,
+    "head_before_screen": "f611c25a324f54d8356f869d9a04004452271783",
+    "head_before_verify": "f611c25a324f54d8356f869d9a04004452271783",
+    "head_before_critic": "f611c25a324f54d8356f869d9a04004452271783"
+  },
+  "phases": {
+    "screen": {
+      "phase_id": "screen",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-23T19:21:45.329918+00:00",
+      "completed_at": "2026-03-23T19:30:00.405306+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\n\n**Gate passers:** 66 tickers passed surgical gates (screened 146, excluded 27 portfolio tickers)\n\n**Top 7 scored:**\n- OPEN: 82\n- NTLA: 78\n- HUT: 77\n- IREN: 75\n- AFRM: 74\n- BEAM: 74\n- NVAX: 73\n\n**Recommendations:** 0 Onboard | 4 Watch (OPEN, NTLA, AFRM, BEAM) | 3 Monitor (HUT, IREN, NVAX)\n\n**Key findings:**\n\n- **No Onboard candidates today.** Every candidate has a structural gap.\n- **NTLA** (78): Perfect cycle score (20/20, 11 cycles/100% fill) but all active levels are Half-tier with no anchor level. Best Watch candidate by cycle quality.\n- **AFRM** (74): Best active level quality (3 anchor levels, improving recency) but zero reserve depth \u2014 strategy is structurally incomplete.\n- **HUT/IREN** (77/75): Both sector-blocked (4x Crypto concentration with APLD/CLSK/CIFR). Do not onboard until one Crypto position exits.\n- **BEAM** (74): Strongest near-term recency signal (100% recent hold at B1/B2) but only 4 cycles and swing below threshold. Coordinate with NTLA \u2014 only one CRISPR biotech at a time.\n- **OPEN** (82): Highest score but broken reserve structure (74% dead zone, ~$3 reserve capital) and deteriorating B1. PropTech business in fundamental distress.\n- **NVAX** (73): Improving trend but all active holds are 13-20% \u2014 too weak for entry. Monitor for sustained recovery above 25-30%.\n\nReady for verification.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":490069,\"duration_api_ms\":466801,\"num_turns\":20,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\\n\\n**Gate passers:** 66 tickers passed surgical gates (screened 146, excluded 27 portfolio tickers)\\n\\n**Top 7 scored:**\\n- OPEN: 82\\n- NTLA: 78\\n- HUT: 77\\n- IREN: 75\\n- AFRM: 74\\n- BEAM: 74\\n- NVAX: 73\\n\\n**Recommendations:** 0 Onboard | 4 Watch (OPEN, NTLA, AFRM, BEAM) | 3 Monitor (HUT, IREN, NVAX)\\n\\n**Key findings:**\\n\\n- **No Onboard candidates today.** Every candidate has a structural gap.\\n- **NTLA** (78): Perfect cycle score (20/20, 11 cycles/100% fill) but all active levels are Half-tier with no anchor level. Best Watch candidate by cycle quality.\\n- **AFRM** (74): Best active level quality (3 anchor levels, improving recency) but zero reserve depth \u2014 strategy is structurally incomplete.\\n- **HUT/IREN** (77/75): Both sector-blocked (4x Crypto concentration with APLD/CLSK/CIFR). Do not onboard until one Crypto position exits.\\n- **BEAM** (74): Strongest near-term recency signal (100% recent hold at B1/B2) but only 4 cycles and swing below threshold. Coordinate with NTLA \u2014 only one CRISPR biotech at a time.\\n- **OPEN** (82): Highest score but broken reserve structure (74% dead zone, ~$3 reserve capital) and deteriorating B1. PropTech business in fundamental distress.\\n- **NVAX** (73): Improving trend but all active holds are 13-20% \u2014 too weak for entry. Monitor for sustained recovery above 25-30%.\\n\\nReady for verification.\",\"stop_reason\":\"end_turn\",\"session_id\":\"e8694a18-72f2-426d-9a73-d8ba8868414b\",\"total_cost_usd\":0.79046445,\"usage\":{\"input_tokens\":2171,\"cache_creation_input_tokens\":61651,\"cache_read_input_tokens\":716284,\"output_tokens\":22525,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":61651,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":2171,\"outputTokens\":22525,\"cacheReadInputTokens\":716284,\"cacheCreationInputTokens\":61651,\"webSearchRequests\":0,\"costUSD\":0.79046445,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"0795a091-736c-43fd-b345-45fa4ef28a03\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "screening_data.json": "/Users/kamenkamenov/agentic-trading/screening_data.json",
+        "candidate_shortlist.md": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.md",
+        "candidate_shortlist.json": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.json",
+        "candidate-evaluation.md": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.md",
+        "candidate-evaluation.json": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.json"
+      },
+      "metrics": {
+        "duration_seconds": 493.2770948410034,
+        "token_usage": {
+          "input_tokens": 2171,
+          "output_tokens": 22525,
+          "cache_read_tokens": 716284,
+          "cache_write_tokens": 61651
+        },
+        "estimated_cost_usd": 0.790464,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "verify": {
+      "phase_id": "verify",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-23T19:30:01.122961+00:00",
+      "completed_at": "2026-03-23T19:35:30.417851+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\n\n**Results:** 7 PASS, 0 FLAG, 0 FAIL\n\n**Score range after adjustment:** 73\u201382 (no adjustments made \u2014 all 0)\n\n**Pre-verify:** 7 checks passed, 2 issues found (1 FAIL: flag coverage false positive due to parsing; 1 WARN: duplicate buy price at OPEN $1.12; 1 WARN: active zone proximity for OPEN/HUT/NVAX \u2014 confirmed as measurement artifact)\n\n**Key verification findings:**\n- Flag coverage FAIL (17 unaddressed) is a false positive \u2014 pre-verifier could not parse per-ticker sections; all material flags were substantively addressed in evaluation prose\n- Active zone proximity WARN for OPEN/HUT/NVAX is a pre-verifier artifact measuring distance to lowest active buy, not nearest buy; B1 proximity scores confirm bullets are appropriately placed\n- OPEN duplicate buy price ($1.12 \u00d7 2) is a data artifact; evaluator correctly characterized both reserve levels as worthless without naming the anomaly \u2014 immaterial to recommendation\n- AFRM is the only FLAG-adjacent finding: thin sample at $39.12 (2 approaches) not formally called as a risk, but not material to Watch recommendation\n- Strongest qualitative contributions: BEAM evaluator identified CRISPR sub-sector coordination risk with NTLA (not detectable mechanically); NVAX evaluator converted hold rates to non-hold probability (80-87%)\n\nReady for final selection (critic phase).",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":326939,\"duration_api_ms\":303437,\"num_turns\":13,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\\n\\n**Results:** 7 PASS, 0 FLAG, 0 FAIL\\n\\n**Score range after adjustment:** 73\u201382 (no adjustments made \u2014 all 0)\\n\\n**Pre-verify:** 7 checks passed, 2 issues found (1 FAIL: flag coverage false positive due to parsing; 1 WARN: duplicate buy price at OPEN $1.12; 1 WARN: active zone proximity for OPEN/HUT/NVAX \u2014 confirmed as measurement artifact)\\n\\n**Key verification findings:**\\n- Flag coverage FAIL (17 unaddressed) is a false positive \u2014 pre-verifier could not parse per-ticker sections; all material flags were substantively addressed in evaluation prose\\n- Active zone proximity WARN for OPEN/HUT/NVAX is a pre-verifier artifact measuring distance to lowest active buy, not nearest buy; B1 proximity scores confirm bullets are appropriately placed\\n- OPEN duplicate buy price ($1.12 \u00d7 2) is a data artifact; evaluator correctly characterized both reserve levels as worthless without naming the anomaly \u2014 immaterial to recommendation\\n- AFRM is the only FLAG-adjacent finding: thin sample at $39.12 (2 approaches) not formally called as a risk, but not material to Watch recommendation\\n- Strongest qualitative contributions: BEAM evaluator identified CRISPR sub-sector coordination risk with NTLA (not detectable mechanically); NVAX evaluator converted hold rates to non-hold probability (80-87%)\\n\\nReady for final selection (critic phase).\",\"stop_reason\":\"end_turn\",\"session_id\":\"bf4dfbaa-5fdf-436d-9fb7-38884e45a2c7\",\"total_cost_usd\":0.5257371000000001,\"usage\":{\"input_tokens\":11,\"cache_creation_input_tokens\":51652,\"cache_read_input_tokens\":382097,\"output_tokens\":14492,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":51652,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":11,\"outputTokens\":14492,\"cacheReadInputTokens\":382097,\"cacheCreationInputTokens\":51652,\"webSearchRequests\":0,\"costUSD\":0.5257371000000001,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"d4be4d0a-061d-4711-8fb2-b0cd02948fde\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-verify.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-verify.md",
+        "candidate-verification.md": "/Users/kamenkamenov/agentic-trading/candidate-verification.md",
+        "candidate-verification.json": "/Users/kamenkamenov/agentic-trading/candidate-verification.json"
+      },
+      "metrics": {
+        "duration_seconds": 328.9055850505829,
+        "token_usage": {
+          "input_tokens": 11,
+          "output_tokens": 14492,
+          "cache_read_tokens": 382097,
+          "cache_write_tokens": 51652
+        },
+        "estimated_cost_usd": 0.525737,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "critic": {
+      "phase_id": "critic",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-23T19:35:30.767068+00:00",
+      "completed_at": "2026-03-23T19:40:54.508324+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** candidate-pre-critic.md, candidate-final.md\n\n**Top 3:**\n1. BEAM \u2014 88 \u2014 Watch\n2. NTLA \u2014 87 \u2014 Watch\n3. OPEN \u2014 79 \u2014 Monitor\n\n**Key adversarial findings:**\n\n- **OPEN demoted -10 (89 \u2192 79, Watch \u2192 Monitor):** The entry timing modifier (+5) rewarded B1 proximity, but B1 is actively breaking (16.7% recent hold). Proximity to a failing level is a trap. Reserve structure failure ($2.98 effective capital vs. $300 pool) is disqualifying \u2014 no other candidate has a failure of this magnitude. PropTech business in fundamental distress.\n\n- **NTLA promoted +3 (84 \u2192 87):** The -7 recency modifier was driven by a single deteriorating level (B3), creating an outsized penalty against an 11-cycle track record. 11 cycles at 100% fill/1-day recovery is the strongest single data point in the screen and was underweighted by the mechanical modifier.\n\n- **BEAM unchanged (88):** 100% recent hold at B1/B2 across 12-13 approach events is sample-robust, not noise. Pre-critic baseline is fair. Remains top-ranked.\n\n- **NVAX penalized -5 (84 \u2192 79):** The +3 recency modifier rewards directional improvement from \"terrible\" to \"very weak\" (13-20% \u2192 20-25%). 80-87% non-hold probability at all active levels is not an entry threshold, regardless of trend direction.\n\n- **HUT penalized -5 (83 \u2192 78):** Mechanical -5 portfolio fit undersells the real risk \u2014 4 economically-identical Bitcoin miners crash simultaneously; reserves deploy only during a systemic Crypto collapse when correlated exposure is maximum.\n\n**Practical recommendation:** Onboard BEAM first (strongest recency signal, price sweet spot). Keep NTLA at Watch pending hold rate recovery above 30% at B2/B3 or 2-3 additional cycles. OPEN Monitor \u2014 do not onboard until B1 demonstrates recovery and reserve structure issue is addressed. CRISPR coordination enforced: BEAM and NTLA do not onboard simultaneously.\n\nScreening complete. Review candidate-final.md for onboarding decisions.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":321013,\"duration_api_ms\":315661,\"num_turns\":8,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** candidate-pre-critic.md, candidate-final.md\\n\\n**Top 3:**\\n1. BEAM \u2014 88 \u2014 Watch\\n2. NTLA \u2014 87 \u2014 Watch\\n3. OPEN \u2014 79 \u2014 Monitor\\n\\n**Key adversarial findings:**\\n\\n- **OPEN demoted -10 (89 \u2192 79, Watch \u2192 Monitor):** The entry timing modifier (+5) rewarded B1 proximity, but B1 is actively breaking (16.7% recent hold). Proximity to a failing level is a trap. Reserve structure failure ($2.98 effective capital vs. $300 pool) is disqualifying \u2014 no other candidate has a failure of this magnitude. PropTech business in fundamental distress.\\n\\n- **NTLA promoted +3 (84 \u2192 87):** The -7 recency modifier was driven by a single deteriorating level (B3), creating an outsized penalty against an 11-cycle track record. 11 cycles at 100% fill/1-day recovery is the strongest single data point in the screen and was underweighted by the mechanical modifier.\\n\\n- **BEAM unchanged (88):** 100% recent hold at B1/B2 across 12-13 approach events is sample-robust, not noise. Pre-critic baseline is fair. Remains top-ranked.\\n\\n- **NVAX penalized -5 (84 \u2192 79):** The +3 recency modifier rewards directional improvement from \\\"terrible\\\" to \\\"very weak\\\" (13-20% \u2192 20-25%). 80-87% non-hold probability at all active levels is not an entry threshold, regardless of trend direction.\\n\\n- **HUT penalized -5 (83 \u2192 78):** Mechanical -5 portfolio fit undersells the real risk \u2014 4 economically-identical Bitcoin miners crash simultaneously; reserves deploy only during a systemic Crypto collapse when correlated exposure is maximum.\\n\\n**Practical recommendation:** Onboard BEAM first (strongest recency signal, price sweet spot). Keep NTLA at Watch pending hold rate recovery above 30% at B2/B3 or 2-3 additional cycles. OPEN Monitor \u2014 do not onboard until B1 demonstrates recovery and reserve structure issue is addressed. CRISPR coordination enforced: BEAM and NTLA do not onboard simultaneously.\\n\\nScreening complete. Review candidate-final.md for onboarding decisions.\",\"stop_reason\":\"end_turn\",\"session_id\":\"22cbed2c-54b3-4703-ae5f-76b58827461a\",\"total_cost_usd\":0.5013021000000001,\"usage\":{\"input_tokens\":8,\"cache_creation_input_tokens\":61684,\"cache_read_input_tokens\":226627,\"output_tokens\":13465,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":61684,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":8,\"outputTokens\":13465,\"cacheReadInputTokens\":226627,\"cacheCreationInputTokens\":61684,\"webSearchRequests\":0,\"costUSD\":0.5013021000000001,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"86360e7c-aac1-4ad1-9cd1-e55eb214d10a\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-critic.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-critic.md",
+        "candidate-final.md": "/Users/kamenkamenov/agentic-trading/candidate-final.md"
+      },
+      "metrics": {
+        "duration_seconds": 323.37568521499634,
+        "token_usage": {
+          "input_tokens": 8,
+          "output_tokens": 13465,
+          "cache_read_tokens": 226627,
+          "cache_write_tokens": 61684
+        },
+        "estimated_cost_usd": 0.501302,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-03-23T19:40:54.846475+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/surgical-candidate-workflow.yaml",
+    "workflowHash": "911887d0c859da61"
+  }
+}

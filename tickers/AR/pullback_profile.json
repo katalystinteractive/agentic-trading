@@ -1,0 +1,62 @@
+{
+  "ticker": "AR",
+  "pullback_count": 7,
+  "avg_depth_pct": -18.1,
+  "median_depth_pct": -14.1,
+  "distribution": [
+    {
+      "depth_pct": -2,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -3,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -5,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -7,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -9,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -12,
+      "reach_pct": 71.4
+    },
+    {
+      "depth_pct": -15,
+      "reach_pct": 42.9
+    },
+    {
+      "depth_pct": -20,
+      "reach_pct": 28.6
+    }
+  ],
+  "bullet_fill_rates": [
+    {
+      "label": "B1",
+      "price": 35.0,
+      "depth_pct": -14.8,
+      "fill_rate_pct": 44.0
+    },
+    {
+      "label": "B2",
+      "price": 32.68,
+      "depth_pct": -20.5,
+      "fill_rate_pct": 29.0
+    },
+    {
+      "label": "B3",
+      "price": 31.16,
+      "depth_pct": -24.2,
+      "fill_rate_pct": 29.0
+    }
+  ],
+  "current_phase": "RESISTANCE",
+  "last_updated": "2026-03-16"
+}

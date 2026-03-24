@@ -1,4 +1,4 @@
-*Generated: 2026-03-03 22:21*
+*Generated: 2026-03-09 21:39*
 
 ## Short Interest: Super Micro Computer, Inc. (SMCI)
 
@@ -8,9 +8,9 @@
 | Shares Short | 86.19M |
 | Short Ratio (DTC) | 2.27 |
 | Short % Float | 18.97% |
-| Float Shares | 499.35M |
+| Float Shares | 499.61M |
 | Shares Outstanding | 598.99M |
-| Avg Volume | 29.21M |
+| Avg Volume | 29.73M |
 | Change from Prior Month | -1.8% (decreasing) |
 
 ### Squeeze Risk

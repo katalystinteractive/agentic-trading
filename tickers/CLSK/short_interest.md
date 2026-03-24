@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-09 21:39*
 
 ## Short Interest: CleanSpark, Inc. (CLSK)
 
@@ -10,7 +10,7 @@
 | Short % Float | 46.84% |
 | Float Shares | 246.85M |
 | Shares Outstanding | 255.75M |
-| Avg Volume | 27.24M |
+| Avg Volume | 27.14M |
 | Change from Prior Month | +3.7% (increasing) |
 
 ### Squeeze Risk

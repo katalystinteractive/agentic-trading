@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:34*
 
 ## News & Sentiment: Nano Nuclear Energy Inc. (NNE)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,57 +6,97 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-08 | AOL.com | Where Will Centrus Energy (LEU) Stock Be in 10 Years? - AOL.... | Positive | +0.27 | — |
+| Today | GlobeNewswire | NANO Nuclear Energy Advances Development of Optimized HALEU ... | Positive | +0.62 | — |
+| 2026-03-16 | Stock Titan | Inside NANO Nuclear’s plan to move next‑gen reactor fuel saf... | Positive | +0.49 | — |
+| 2026-03-16 | Stock Titan | [EFFECT] Nano Nuclear Energy Inc. SEC Filing - Stock Titan | Positive | +0.27 | Regulatory |
+| 2026-03-13 | simplywall.st | A Look At Nano Nuclear Energy (NNE) Valuation As UAE Micro R... | Positive | +0.38 | — |
+| 2026-03-13 | Stock Titan | Nano Nuclear (NNE) registers 8.49M shares for resale by priv... | Positive | +0.30 | — |
+| 2026-03-13 | MarketBeat | Promising Nuclear Stocks To Keep An Eye On - March 13th - Ma... | Positive | +0.40 | Earnings |
+| 2026-03-11 | MarketBeat | Van ECK Associates Corp Boosts Stake in Nano Nuclear Energy ... | Positive | +0.53 | Earnings |
+| 2026-03-10 | simplywall.st | Could NANO Nuclear (NNE)ʼs UAE Microreactor JV Talks Reframe... | Positive | +0.27 | — |
+| 2026-03-09 | Zacks | Nuclear Energy Stocks Advance on Strong Clean Power Outlook | Positive | +0.80 | — |
+| 2026-03-08 | Insider Monkey | Nano Nuclear Energy (NNE) Enters Into Fresh Memorandum With ... | Positive | +0.53 | — |
+| 2026-03-07 | Yahoo Finance | A Look At NANO Nuclear Energy (NNE) Valuation After Recent S... | Positive | +0.13 | — |
+| 2026-03-07 | MarketBeat | Vanguard Group Inc. Acquires 516,129 Shares of Nano Nuclear ... | Positive | +0.51 | Earnings |
 | 2026-03-07 | simplywall.st | NANO Nuclear Eyes Gulf Growth With UAE MOU And Valuation Dis... | Positive | +0.38 | — |
-| 2026-03-07 | Simply Wall St. | A Look At NANO Nuclear Energy (NNE) Valuation After Recent S... | Positive | +0.13 | — |
 | 2026-03-06 | The Motley Fool | Is Nano Nuclear Energy Stock Going to $50? - The Motley Fool | Negative | -0.20 | — |
 | 2026-03-06 | The Globe and M | Is Nano Nuclear Energy Stock Going to $50? - The Globe and M... | Positive | +0.27 | — |
-| 2026-03-06 | AOL.com | Between Price Target Cuts and Poor Market Sentiment, NuScale... | Negative | -0.36 | Analyst |
+| 2026-03-06 | MSN | Here is Why NANO Nuclear (NNE) Stock Skyrocketed Today - MSN | Neutral | +0.00 | — |
 | 2026-03-06 | Motley Fool | Is Nano Nuclear Energy Stock Going to $50? | Positive | +0.27 | — |
-| 2026-03-05 | simplywall.st | Assessing NANO Nuclear Energy (NNE) Valuation After Gulf JV ... | Positive | +0.27 | — |
 | 2026-03-04 | MarketBeat | Seth Jason Berl Sells 3,664 Shares of Nano Nuclear Energy (N... | Positive | +0.51 | Earnings |
-| 2026-03-03 | simplywall.st | Does NANO Nuclear Energy (NNE)ʼs Gulf MMR Venture Hint at a ... | Positive | +0.27 | — |
 | 2026-03-02 | MarketBeat | Ameresco Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
-| 2026-03-02 | Zacks Investmen | Best Nuclear Energy Stocks to Buy March 2026 - Zacks Investm... | Positive | +0.74 | — |
 | 2026-02-26 | Seeking Alpha | NANO Nuclear Energy: I Added More At These Price Levels (Ear... | Positive | +0.27 | Earnings |
-| 2026-02-26 | simplywall.st | NANO Nuclear Energy (NNE) Valuation After New Gulf KRONOS MM... | Positive | +0.27 | — |
 | 2026-02-24 | GlobeNewswire | NANO Nuclear Energy Signs Memorandum of Understanding with E... | Positive | +0.27 | — |
+| 2026-02-24 | The Motley Fool | Nano Nuclear Energy Stock Is Down 60%. Is It Finally Time to... | Negative | -0.20 | — |
 | 2026-02-24 | Stock Titan | UAE group, NANO Nuclear eye micro reactors for data centers ... | Neutral | +0.00 | — |
-| 2026-02-24 | Yahoo Finance | Nano Nuclear Energy Stock Is Down 60%. Is It Finally Time to... | Positive | +0.27 | — |
 | 2026-02-24 | Motley Fool | NuScale Power Has Tumbled From All-Time Highs in 2025. Here'... | Neutral | +0.00 | — |
-| 2026-02-22 | Stock Titan | NNE - Nano Nuclear Energy Inc. Latest Stock News & Market Up... | Positive | +0.27 | — |
 | 2026-02-22 | Yahoo Finance | Did Narrower-Than-Expected Losses and KRONOS Progress Just S... | Neutral | +0.03 | — |
+| 2026-02-22 | Stock Titan | NNE - Nano Nuclear Energy Inc. Latest Stock News & Market Up... | Positive | +0.27 | — |
 | 2026-02-21 | Motley Fool | Could This $14 Stock Be Your Ticket to Millionaire Status? | Neutral | +0.00 | — |
 | 2026-02-20 | Investing.com | NANO Nuclear Energy CEO on microreactors and the looming pow... | Negative | -0.54 | Corporate |
 | 2026-02-20 | GlobeNewswire | NANO Nuclear Expands its Nuclear Policy Leadership Expertise... | Positive | +0.10 | — |
 | 2026-02-20 | Zacks | OKLO's Licensing Approach Aims to Accelerate Reactor Rollout | Neutral | +0.00 | — |
-| 2026-02-20 | MarketBeat | Nano Nuclear Energy Inc. (NASDAQ:NNE) Given Average Rating o... | Positive | +0.27 | Earnings |
-| 2026-02-20 | MarketBeat | HC Wainwright Has Optimistic Outlook of NNE Q2 Earnings - Ma... | Positive | +0.32 | Earnings |
-| 2026-02-20 | MarketBeat | What is Northland Securities' Forecast for NNE Q2 Earnings? ... | Positive | +0.30 | Earnings, Regulatory |
-| 2026-02-20 | Motley Fool | Nano Nuclear Energy's President and Chairman Sold $30 Millio... | Positive | +0.48 | — |
-| 2026-02-19 | PR Newswire | Uranium Demand Continues to Rise as AI Power Demand Rewrites... | Negative | -0.25 | — |
-| 2026-02-18 | Moby | Nano Nuclear Energy Inc Q1 2026 Earnings Call Summary | Positive | +0.27 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
 | Positive | 20 (67%) |
-| Neutral | 6 (20%) |
-| Negative | 4 (13%) |
-| Average Score | +0.164 |
+| Neutral | 7 (23%) |
+| Negative | 3 (10%) |
+| Average Score | +0.222 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 184 |
+| Total Unique Headlines | 182 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 7 | Seth Jason Berl Sells 3,664 Shares of Na..; Ameresco Q4 Earnings Call Highlights |
-| Analyst | 1 | Between Price Target Cuts and Poor Marke.. |
+| Earnings | 6 | Promising Nuclear Stocks To Keep An Eye ..; Van ECK Associates Corp Boosts Stake in .. |
+| Regulatory | 1 | [EFFECT] Nano Nuclear Energy Inc. SEC Fi.. |
 | Corporate | 1 | NANO Nuclear Energy CEO on microreactors.. |
-| Regulatory | 1 | What is Northland Securities' Forecast f.. |
 
 ### Deep Dive Articles
+
+#### NANO Nuclear Energy Advances Development of Optimized HALEU Transportation System with Global Nuclear Logistics Leader GNS
+*Source: GlobeNewswire | Date: Today | Sentiment: Positive (+0.99)*
+
+> Conceptual design milestone achieved for advanced, proprietary HALEU transport package supporting next-generation nuclear reactors
+
+> New York, N.Y., March  16, 2026(GLOBE NEWSWIRE)-- NANO Nuclear Energy Inc. (NASDAQ: NNE) (“NANO Nuclear” or “the Company”),a leading advanced nuclear micro modular reactor (MMR) and technology company focused on developing clean energy solutions, today announced significant progress in its initiative to develop a proprietary, optimized transportation solution for High-Assay Low-Enriched Uranium (HALEU) fuel.
+
+> The project leverages NANO Nuclear’s exclusively licensed nuclear fuel transportation basket design, developed with the technical support ofGNS Gesellschaft für Nuklear-Service mbH (GNS), one of the world’s foremost specialists in the treatment, packaging, and transportation of radioactive materials. GNS is globally recognized for its expertise in transport and storage cask design, licensing, and manufacturing, as well as advanced technologies for nuclear waste processing and facility decommissioning.
+
+> NANO Nuclear is undertaking these efforts through its subsidiary,Advanced Fuel Transportation, Inc., as part of its overall mission to develop commercially focused, vertically integrated capabilities across the nuclear energy supply chain, from parts of the front end fuel cycle, to transportation, to cutting edge microreactors like NANO Nuclear’sKRONOS MMRTMEnergy Systemunder development.
+
+> The progress announced today arises from a September 2024 agreement between NANO Nuclear and GNS to develop the HALEU transportation system solution. Together, the companies are advancing a robust, innovative, and regulatory-compliant HALEU transportation package, designed to support the rapidly growing demand for advanced nuclear fuels needed for next-generation reactor technologies.
+
+**Catalysts:** Earnings, Equity
+
+#### Nuclear Energy Stocks Advance on Strong Clean Power Outlook
+*Source: Zacks | Date: 2026-03-09 | Sentiment: Positive (+1.00)*
+
+> An updated edition of the January 15, 2026 article.Nuclear energy is increasingly being recognized as a critical solution to meet the world’s rising demand for clean electricity. As utilities continue transitioning toward low-carbon power sources, nuclear plants stand out for their ability to deliver dependable, carbon-free generation. Unlike solar and wind power, which are weather-dependent, nuclear energy provides consistent, around-the-clock output.The renewed momentum in the sector is reflected in the extension of operating licenses for existing reactors, ongoing development of Small Modular Reactors (SMRs), approvals for the construction of new nuclear facilities, and the restart of previously shut U.S. reactors. Investments from major technology companies to support SMR development further underscore the growing investor interest in nuclear energy stocks.In the United States, new policies aim to expand nuclear capacity from roughly 100 gigawatts (“GW”) in 2024 to about 400 GW by 2050. The nuclear energy sector is gaining momentum as it supports global decarbonization goals.Favorable regulations and ongoing R&D in advanced SMRs are strengthening its outlook. Meanwhile, rising demand for reliable 24/7 clean power from AI data centers, manufacturing reshoring and electric vehicles is creating new growth opportunities. Government initiatives to boost domestic uranium supply are further supporting the sector’s momentum.With this increasing importance, nuclear energy-related stocks, such asEntergy CorporationETR,Nano Nuclear Energy Inc.NNE andNexGen EnergyNXE, are becoming attractive investment options. Unlike other clean energy sources affected by intermittency, nuclear power plants provide a consistent and stable energy output, operating around the clock except during planned maintenance intervals.Compared with other clean energy sources, nuclear power requires significantly less land to generate the same amount of clean electricity. Additionally, while all traditional energy sources produce waste, nuclear energy stands apart for its highly regulated, secure and systematic approach to waste management and storage. Increasing adoption of electric vehicles, rising demand from the power grids and the development of large artificial intelligence-powered data centers are increasing the importance of nuclear power plants.Nuclear Energy stocks have huge potential and can offer significant growth opportunities for investors. Our Nuclear Energy Screen makes it easier for investors to locate high-potential stocks at any given time. Apart from the stocks mentioned above, investors can also explore stocks likeDenison Mines Corp. DNN andBHP Group LimitedBHP, as these companies ensure the supply of uranium for the smooth running of nuclear power plants.Ready to uncover more transformative thematic investment ideas? Explore 36 cutting-edge investment themes with Zacks Thematic Investing Screens and discover your next big opportunity.Entergy Corporation’s nuclear energy portfolio supports its long-term growth strategy and transition to cleaner energy. As of Dec. 31. 2025, the company’s major nuclear plants generated around 21% of its total power capacity. Entergy is actively pursuing license extensions and system upgrades at these facilities, targeting an additional 275 MW through uprates. These enhancements not only increase generation but also highlight Entergy’s ongoing commitment to delivering stable, carbon-free baseload electricity. The company has taken initiatives to add 40 MW at its River Bend nuclear plant in Louisiana.Entergy is advancing efforts to explore next-generation nuclear technologies to further lower emissions. The company has secured a permit in Mississippi for a potential new reactor site and is working to engage industrial customers and technology firms, particularly those in the AI and data sectors. These partnerships aim to collaboratively address the financial and regulatory challenges associated with developing next-generation nuclear projects.Entergy’s nuclear expansion is gaining momentum as electricity demand rises from AI-driven industries and large data centers. Supported by strong market demand and a forward-looking strategy, the company’s nuclear initiatives are well-positioned to enhance regional energy reliability and advance broader U.S. decarbonization goals.This Zacks Rank #2 (Buy) company intends to invest $43 billion during the 2026-2029 period to fund the company's generation fleet transition and grid modernization, and expand its zero-carbon generation portfolio.You can see the complete list of today’s Zacks #1 Rank (Strong Buy) stocks here.Nano Nuclear Energy Inc. is a microreactor developer, aiming to become the leading advanced nuclear microreactor developer in North America. The company is advancing KRONOS toward licensing and already has a pipeline of potential commercial customers and strategic partners in the United States and globally for its KRONOS MMRTM system.Uranium plays a vital role in the successful operation of nuclear power plants. The company continues to address the key bottlenecks within the nuclear fuel supply chain and is in discussion with different providers for securing a dependable uranium source for NANO Nuclear Energy’s future fuel requirements.Nano Nuclear Energy has completed the assembly of its proprietary Annular Linear Induction Pump technology prototype and expects to begin commercial sales efforts. The milestone demonstrates the company’s ability to advance its technology from initial design through construction and successful demonstration.This Zacks Rank #2 company has a growing pipeline of opportunities with potential AI data center, industrial and military-related customers for its KRONOS MM system.NexGen Energy is emerging as an important player in the global nuclear fuel supply chain, led by its flagship Rook I uranium project in Canada’s Athabasca Basin. As nuclear power gains renewed importance in the global energy transition, the company is well-positioned to benefit from rising uranium demand. Government support for nuclear generation to meet decarbonization goals and rising electricity consumption creates a favorable environment for uranium developers like NexGen Energy.NexGen Energy reached a key milestone in 2026 after securing final approval from the Canadian Nuclear Safety Commission to begin site preparation and construction of the Rook I project. Once operational around 2030, the project could produce up to 30 million pounds of uranium annually and will be ready to meet the demand from nuclear power plants.Zacks #2 Ranked NexGen Energy’s long-term outlook remains favorable as global interest in nuclear power rises and uranium supply tightens. Increasing electricity demand from AI technologies and large data centers is expected to boost nuclear expansion and uranium consumption. Backed by a high-quality resource base and a clear path to production, the company is well-positioned to become a leading uranium supplier and generate long-term investor value.
+
+> Want the latest recommendations from Zacks Investment Research? Today, you can download 7 Best Stocks for the Next 30 Days.Click to get this free report
+
+> This article originally published on Zacks Investment Research (zacks.com).
+
+**Catalysts:** Earnings, Regulatory, Corporate, Analyst
+
+#### Nano Nuclear Energy (NNE) Enters Into Fresh Memorandum With Emirati Firm
+*Source: Insider Monkey | Date: 2026-03-08 | Sentiment: Positive (+0.98)*
+
+> We recently published10 Best Performing Nuclear Energy Stocks According to Analysts.  Nano Nuclear Energy Inc (NASDAQ:NNE) is one of the best-performing nuclear energy stocks.
+
+> Nuclear power generation equipment designer Nano Nuclear Energy Inc (NASDAQ:NNE) announced on February 24th that it had entered into a memorandum with an Emirati investment firm to study the deployment of micro modular nuclear reactors in the UAE. The Emirati firm, EHC Investment, focuses on the region’s energy infrastructure and has prior experience in the gas industry. Through the deal, Nano Nuclear Energy Inc (NASDAQ:NNE) and EHC will enter into a joint venture after securing a commercial project or an order.
+
+> The announcement came soon after Nano Nuclear Energy Inc (NASDAQ:NNE) had reported its financial updates for the first quarter of 2026. As part of the release, the firm outlined that it had ended the quarter with $577 million in cash and equivalents. Nano Nuclear Energy Inc (NASDAQ:NNE) added that it had used $4 million in operating activities and $3.1 million in investing activities during the quarter. Additionally, the nuclear company also generated $381 million in net cash through financing activities in the quarter.
+
+> Nano Nuclear Energy Inc (NASDAQ:NNE) designs and develops batteries and nuclear power reactors. Its products include the LOKI and KRONOS MMR nuclear reactors.
+
+> While we acknowledge the potential of NNE as an investment, our conviction lies in the belief that some AI stocks hold greater promise for delivering higher returns and have limited downside risk. If you are looking for an extremely cheap AI stock that is also a major beneficiary of Trump tariffs and onshoring, see our free report on thebest short-term AI stock.
+
+**Catalysts:** Regulatory, Short
 
 #### NANO Nuclear Energy Signs Memorandum of Understanding with EHC Investment L.L.C to Advance Micro Modular Reactor Deployment in the UAE
 *Source: GlobeNewswire | Date: 2026-02-24 | Sentiment: Positive (+1.00)*
@@ -87,48 +127,3 @@
 > “We are thrilled to welcome a professional of Sarah’s caliber to the team,”saidJay Yu, Founder and Chairman of NANO Nuclear.“Her deep experience in nuclear policy and regulatory affairs, developed over her years of service at the DOE and NNSA, will be an invaluable asset as we engage with international stakeholders and advance our projects, notably our lead project the KRONOS MMR™modular microreactor energy system, in the United States and beyond. Sarah’s insights and leadership strengthen our policy strategy and support the responsible development of our proprietary technologies.”
 
 **Catalysts:** Earnings, Regulatory
-
-#### OKLO's Licensing Approach Aims to Accelerate Reactor Rollout
-*Source: Zacks | Date: 2026-02-20 | Sentiment: Positive (+0.99)*
-
-> Regulatory execution is becoming one of the biggest deciding factors in bringing advanced nuclear technologies to market. In this industry, licensing timelines often determine whether projects move forward or face delays. ForOklo Inc.OKLO, steady progress with the U.S. Nuclear Regulatory Commission (NRC) is key to its plan to deploy fast fission reactors at scale. By engaging early and following a structured regulatory process, the company aims to reduce uncertainty and offer clearer visibility on deployment timelines — an important edge in a capital-intensive, tightly regulated space.OKLO has chosen to follow a combined license pathway under Part 52, instead of the traditional two-step process used for older reactors. This single application covers both construction and operating approvals, aligning with OKLO’s strategy of designing, building, and operating its own plants. Filing a custom combined license application for an advanced fission reactor sets a regulatory benchmark that could be reused for future projects, potentially narrowing the scope of later reviews.This strategy enables OKLO to reuse major regulatory documents, including safety and design reports, which may help shorten review cycles for the upcoming sites. Progress at the Aurora-INL location supports that effort, with readiness activities completed and the license application currently under review. The company’s passive safety design features may also simplify the regulatory process. Taken together, these steps suggest building regulatory momentum and improved clarity on timelines.
-
-> NuScale PowerSMR has long been active in the U.S. regulatory system. NuScale worked closely with the NRC to secure design certification and later obtain standard design approval for its small modular reactor. NuScale continues to coordinate with regulators as projects move toward construction and operating approvals, viewing regulatory engagement as essential for commercial success and credibility.NANO Nuclear EnergyNNE, meanwhile, is progressing through earlier regulatory stages for its advanced microreactor concepts. NANO Nuclear engages the NRC through pre-application discussions, technical reports and fuel qualification efforts, and has brought in former regulators to guide its licensing strategy. For NANO Nuclear, consistent and early coordination is seen as key to lowering risk and supporting future construction permit filings.
-
-> Shares of Oklo have surged more than 70% over the past year, breezing past the industry's growth.
-
-> OKLO currently has an average brokerage recommendation (ABR) of 2.00 on a scale of 1 to 5 (Strong Buy to Strong Sell), calculated based on the actual recommendations (Buy, Hold, Sell, etc.) made by 20 brokerage firms.
-
-> See how the Zacks Consensus Estimate for OKLO’s earnings has been revised over the past 90 days.
-
-**Catalysts:** Earnings, Regulatory, Short
-
-#### Uranium Demand Continues to Rise as AI Power Demand Rewrites the Nuclear Playbook
-*Source: PR Newswire | Date: 2026-02-19 | Sentiment: Positive (+0.97)*
-
-> Issued on behalf of Eagle Energy Metals Corp.
-
-> VANCOUVER, BC,Feb. 19, 2026/PRNewswire/ -- U.S. data center electricity demand is projected to grow from 176 terawatt hours to as high as 580 terawatt hours by 2028, with AI-driven consumption outpacing available grid capacity in multiple regions[1]. Spot uranium prices rose 25% in January 2026, surpassing $100 per pound for the first time in two years (before correcting back down to a still-high $89), as institutional buyers accelerated physical accumulation of the fuel[2]. These dynamics are converging aroundSpring Valley Acquisition Corp. II(OTC: SVIIF),Oklo(NYSE: OKLO),Meta Platforms(NASDAQ: META),NANO Nuclear Energy(NASDAQ: NNE), andUcore Rare Metals(TSXV: UCU) (OTCQX: UURAF).
-
-> Next-generation nuclear designs, including small modular reactors and factory-built microreactors, are gaining traction as scalable baseload technologies capable of meeting always-on AI power requirements[3]. Meanwhile, U.S. domestic uranium concentrate production fell 44% in the third quarter of 2025, to roughly 330,000 pounds of U₃O₈ from just six operating facilities according to theU.S. Energy Information Association (EIA)[4]. With over 95% of utility purchases still sourced from abroad, also according to theEIA[5], the race to secure domestic supply has turned uranium deposits into strategic national assets.
-
-> Eagle Energy Metals(NASDAQ: SVIIF), a next-generation nuclear energy company, recently announced[6]that theSEChas declared effective the registration statement for its proposed business combination withSpring Valley Acquisition Corp. II(OTC: SVIIF)[7]. Shareholders will vote on the deal at an Extraordinary General Meeting scheduled for February 23, 2026.
-
-> Upon closing, which is subject to the satisfaction or waiver (as applicable) of applicable conditions, the combined company's stock and warrants will trade onNasdaqunder the ticker symbols NUCL and NUCLW, respectively. The transaction is being led by the same SPAC team that broughtNuScale Power(NYSE: SMR) public in 2022.
-
-**Catalysts:** Regulatory, Corporate
-
-#### Nano Nuclear Stock Climbs After Narrower Q1 Loss: Details
-*Source: Benzinga | Date: 2026-02-17 | Sentiment: Positive (+0.54)*
-
-> Nano Nuclear Energy, Inc.(NASDAQ:NNE) shares climbed in Tuesday's extended trading after the company released its fourth-quarter earnings report with a narrower-than-expectedloss per share.
-
-> Here's a look at the details in the report.
-
-> The Details:Nano Nuclear reported quarterly losses of 13 cents per share which beat the consensus estimate for losses of 29 cents per share.
-
-> The company expects estimatedcash expendituresof approximately $65 million over the next 12 months.
-
-> NNE Stock Price:According to data fromBenzinga Pro, Nano Nuclear stock rose 1.03% to $25.49 in Tuesday's extended trading.
-
-**Catalysts:** Earnings

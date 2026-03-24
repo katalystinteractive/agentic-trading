@@ -3,79 +3,88 @@
 ## Global Context
 | Metric | Value |
 | :--- | :--- |
-| Date | 2026-03-08 |
-| Regime | Risk-Off |
-| Regime Detail | 0/3 indices above 50-SMA, VIX 29.5 (elevated) |
-| VIX | 29.49 |
-| VIX 5D% | +48.49% |
+| Date | 2026-03-16 |
+| Regime | Neutral |
+| Regime Detail | 0/3 indices above 50-SMA, VIX 24.2 |
+| VIX | 24.19 |
+| VIX 5D% | -5.14% |
 | Indices Above 50-SMA | 0/3 |
-| Sector Breadth | 2/11 positive |
+| Sector Breadth | 11/11 positive |
+| Data Freshness | 2026-03-16 close |
+| Trading Day | Yes |
 
 ## Portfolio Summary
 | Ticker | Shares | Avg Cost | P/L % |
 | :--- | :--- | :--- | :--- |
-| NU | 30 | $15.85 | -8.0% |
+| NU | 30 | $15.85 | -10.3% |
 | STIM | 0 | $0.00 | +inf% |
-| IONQ | 15 | $44.43 | -19.6% |
-| LUNR | 1 | $17.61 | +0.1% |
-| USAR | 15 | $21.57 | -19.1% |
-| OUST | 5 | $21.70 | -6.6% |
+| IONQ | 15 | $44.43 | -26.0% |
+| LUNR | 2 | $17.59 | -2.7% |
+| USAR | 15 | $21.57 | -11.3% |
+| OUST | 0 | $0.00 | +inf% |
 | INTC | 0 | $0.00 | +inf% |
-| APLD | 15 | $29.06 | -13.5% |
+| APLD | 15 | $29.06 | -4.9% |
 | SMCI | 0 | $0.00 | +inf% |
-| TMC | 38 | $6.00 | -4.5% |
-| CIFR | 11 | $14.62 | -6.8% |
-| ARM | 4 | $120.88 | -5.4% |
-| ACHR | 61 | $6.78 | -7.7% |
-| TEM | 0 | $0.00 | +inf% |
-| CLSK | 7 | $10.17 | -9.4% |
-| CLF | 21 | $10.26 | -4.2% |
+| TMC | 9 | $6.01 | -0.5% |
+| CIFR | 0 | $0.00 | +inf% |
+| ARM | 5 | $118.96 | +2.3% |
+| ACHR | 77 | $6.61 | -9.0% |
+| TEM | 1 | $50.98 | -1.0% |
+| CLSK | 0 | $0.00 | +inf% |
+| CLF | 47 | $9.39 | -9.2% |
 | BBAI | 0 | $0.00 | +inf% |
-| NNE | 6 | $24.19 | -2.7% |
+| NNE | 10 | $23.87 | -10.9% |
+| RUN | 0 | $0.00 | +inf% |
+| SOUN | 15 | $7.36 | +3.1% |
+| OKLO | 1 | $58.04 | +1.5% |
 
 ## Capital
 | Metric | Value |
 | :--- | :--- |
-| Deployed | $3,745.22 |
+| Deployed | $3,993.89 |
 | Velocity Pool | $1,000.00 |
 | Bounce Pool | $1,000.00 |
 
 ## Position Data
 | Field | Value |
 | :--- | :--- |
-| Shares | 1 |
-| Avg Cost | $17.61 |
-| Current Price | $17.63 |
-| P/L % | +0.1% |
-| Entry Date | 2026-03-06 |
-| Days Held | 2 |
+| Shares | 2 |
+| Avg Cost | $17.59 |
+| Current Price | $17.12 |
+| P/L % | -2.7% |
+| Entry Date | 2026-03-16 |
+| Days Held | 0 |
 | Time Stop Status | WITHIN |
 | Bullets Used | 1/5 |
 | Target Exit | No target (recovery) |
-| Note | — |
+| Note | Re-entry 2026-03-16 |
 
 ## Day Range
 | Metric | Value |
 | :--- | :--- |
-| Day Low | $17.20 |
-| Day High | $19.15 |
+| Day Low | $16.82 |
+| Day High | $18.30 |
+
+## Recorded Fills
+| # | Fill Price |
+| :--- | :--- |
+| 1 | $17.59 |
 
 ## Pending Orders
-| Type | Order Price | Shares | % Below Current | Days to Earnings | Notes |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $17.16 | 1 | 0.0% | 11 | Bullet 2 — $16.41 PA, 30% hold, Skip tier (placed as manual override) |
-| BUY | $16.68 | 1 | 2.8% | 11 | Bullet 3 — $15.94 HVN+PA, 33% hold, Skip tier (placed as manual override) |
-| BUY | $15.33 | 6 | 10.7% | 11 | Bullet 3 — $15.08 PA, 67% hold, Full tier, sized up for $200 target (added 2026-03-02) |
-| BUY | $15.20 | 3 | 11.4% | 11 | Bullet 4 — $14.32 PA, 60% hold, Full tier, wick-adjusted |
-| BUY | $10.06 | 9 | 41.4% | 11 | Reserve 1 — $9.52 PA, 56% hold, Std tier, wick-adjusted |
-| BUY | $7.78 | 12 | 54.7% | 11 | Reserve 2 — $7.48 PA, 56% hold, Full tier, wick-adjusted (added 2026-03-03) |
-| BUY | $6.64 | 15 | 61.3% | 11 | Reserve 3 — $6.53 PA, 75% hold, Full tier, structural floor |
+| Type | Order Price | Shares | % Below Current | Days to Earnings | Status | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| BUY | $16.00 | 5 | 9.0% | 3 |  | Bullet 2 — $15.70 PA, 50% hold, Std tier, wick-adjusted (2026-03-13) |
+| BUY | $15.33 | 7 | 12.8% | 3 |  | Bullet 3 — $15.08 PA, 67% hold, Full tier, wick-adjusted (2026-03-13) |
+| BUY | $15.20 | 5 | 13.6% | 3 |  | Bullet 4 — $14.32 PA, 60% hold, Full tier, wick-adjusted (2026-03-13) |
+| BUY | $10.06 | 9 | 42.8% | 3 |  | Reserve 1 — $9.52 PA, 56% hold, Std tier, wick-adjusted |
+| BUY | $7.78 | 12 | 55.8% | 3 |  | Reserve 2 — $7.48 PA, 56% hold, Full tier, wick-adjusted (added 2026-03-03) |
+| BUY | $6.64 | 15 | 62.3% | 3 |  | Reserve 3 — $6.53 PA, 75% hold, Full tier, structural floor |
 
 ## Tool Outputs
 #### Earnings
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## Earnings Analysis: Intuitive Machines, Inc. (LUNR)
 
@@ -83,9 +92,9 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-03-19 |
-| Days Until | 11 |
-| EPS Estimate | $-0.0512 |
-| Revenue Estimate | $53.4M |
+| Days Until | 3 |
+| EPS Estimate | $-0.0452 |
+| Revenue Estimate | $59.0M |
 | **Earnings Rule** | **WARNING: <14 days — avoid new entries** |
 
 ### Earnings History
@@ -104,51 +113,51 @@
 
 #### Technical Signals
 ## Technical Scan: Intuitive Machines, Inc. (LUNR)
-**Current Price: $17.63** | Date: 2026-03-06
+**Current Price: $17.10** | Date: 2026-03-16
 
 ### Trend Indicators
 | Indicator | Value | Price Position | Signal |
 | :--- | :--- | :--- | :--- |
-| SMA 20 | $17.59 | Above | Bullish |
-| SMA 50 | $18.19 | Below | Bearish |
-| SMA 200 | $12.57 | Above | Bullish |
-| EMA 9 | $17.75 | Below | Bearish |
-| EMA 21 | $17.76 | Below | Bearish |
+| SMA 20 | $17.69 | Below | Bearish |
+| SMA 50 | $18.39 | Below | Bearish |
+| SMA 200 | $12.75 | Above | Bullish |
+| EMA 9 | $17.67 | Below | Bearish |
+| EMA 21 | $17.74 | Below | Bearish |
 
 ### Momentum Indicators
 | Indicator | Value | Zone | Signal |
 | :--- | :--- | :--- | :--- |
-| RSI (14) | 49.7 | Bearish zone | Neutral-Bear |
-| MACD | -0.002 | Above signal | Bullish |
-| MACD Signal | -0.034 | Histogram: +0.032 | — |
-| Stochastic %K/%D | 59.1/68.8 | Neutral | Bearish |
+| RSI (14) | 47.3 | Bearish zone | Neutral-Bear |
+| MACD | -0.035 | Below signal | Bearish |
+| MACD Signal | 0.003 | Histogram: -0.039 | — |
+| Stochastic %K/%D | 40.5/48.9 | Neutral | Bearish |
 
 ### Volatility
 | Indicator | Value | Position | Signal |
 | :--- | :--- | :--- | :--- |
-| Bollinger Upper | $19.62 | 51% of band | Neutral |
-| Bollinger Lower | $15.56 | Width: $4.06 | — |
-| ATR (14) | $1.89 (10.7%) | High volatility | — |
+| Bollinger Upper | $19.15 | 30% of band | Neutral |
+| Bollinger Lower | $16.23 | Width: $2.92 | — |
+| ATR (14) | $1.79 (10.4%) | High volatility | — |
 
 ### Key Support/Resistance Levels
 | Level | Price | Type | Touches | Last Tested |
 | :--- | :--- | :--- | :--- | :--- |
-| Resistance | $14.50 (-17.8%) | Resistance | 3 | 2026-02-05 |
-| Resistance | $13.70 (-22.3%) | Resistance | 1 | 2025-07-28 |
-| Resistance | $13.11 (-25.6%) | Resistance | 1 | 2025-05-27 |
-| Resistance | $23.32 (+32.2%) | Resistance | 1 | 2026-01-28 |
-| Resistance | $9.50 (-46.1%) | Resistance | 2 | 2025-06-23 |
-| Support | $8.24 (-53.2%) | Support | 2 | 2025-09-10 |
-| Support | $7.78 (-55.9%) | Support | 1 | 2025-11-21 |
-| Support | $6.14 (-65.2%) | Support | 1 | 2025-04-07 |
+| Resistance | $14.50 (-15.2%) | Resistance | 3 | 2026-02-05 |
+| Resistance | $13.70 (-19.9%) | Resistance | 1 | 2025-07-28 |
+| Resistance | $13.11 (-23.3%) | Resistance | 1 | 2025-05-27 |
+| Resistance | $23.32 (+36.3%) | Resistance | 1 | 2026-01-28 |
+| Support | $9.52 (-44.3%) | Support | 1 | 2025-06-23 |
+| Support | $8.24 (-51.8%) | Support | 2 | 2025-09-10 |
+| Support | $7.78 (-54.5%) | Support | 1 | 2025-11-21 |
+| Support | $6.14 (-64.1%) | Support | 1 | 2025-04-07 |
 
 ### Signal Summary
 | Metric | Value |
 | :--- | :--- |
-| Overall Signal | **Neutral-Bullish** |
-| Score | +0 |
-| Bullish Factors | Above SMA 20, Above SMA 200, MACD bullish |
-| Bearish Factors | Below SMA 50, Below EMA 9, Below EMA 21 |
+| Overall Signal | **Bearish** |
+| Score | -4 |
+| Bullish Factors | Above SMA 200 |
+| Bearish Factors | Below SMA 20, Below SMA 50, Below EMA 9, Below EMA 21, MACD bearish |
 
 #### Short Interest
 ## Short Interest Analysis
@@ -156,20 +165,20 @@
 ### Short Interest Summary
 | Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
 | :--- | :--- | :--- | :--- | :--- |
-| LUNR | 27.55M | 2.47 | 20.20% | +0.9% (increasing) |
+| LUNR | 30.29M | 2.98 | 22.21% | +5.8% (increasing) |
 
 ### Squeeze Risk Assessment
 | Ticker | Risk Rating | Score (/100) | Key Factors |
 | :--- | :--- | :--- | :--- |
-| LUNR | HIGH | 55 | High short% (20.2%); Low DTC (2.5); Shorts slowly increasing |
+| LUNR | HIGH | 55 | High short% (22.2%); Low DTC (3.0); Shorts slowly increasing |
 
 ### Context
 | Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
 | :--- | :--- | :--- | :--- | :--- |
-| LUNR | 76.86M | 142.31M | 11.35M | 2.5 |
+| LUNR | 89.21M | 142.31M | 11.75M | 3.0 |
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## News & Sentiment: Intuitive Machines, Inc. (LUNR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -181,22 +190,25 @@
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 11 (37%) |
-| Neutral | 16 (53%) |
-| Negative | 3 (10%) |
-| Average Score | +0.096 |
-| Overall Sentiment | **Neutral** |
+| Positive | 12 (40%) |
+| Neutral | 14 (47%) |
+| Negative | 4 (13%) |
+| Average Score | +0.121 |
+| Overall Sentiment | **Bullish** |
 | Total Unique Headlines | 169 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 9 | Vanguard Group Inc. Buys 717,256 Shares ..; Intuitive Machines (NASDAQ:LUNR) Trading.. |
-| Corporate | 3 | Amova Asset Management Americas Inc. Boo..; Roundhill Launches Space ETF Ahead of Sp.. |
-| Equity | 2 | Intuitive Machines Equity Raise Fuels Lu..; Intuitive Machines Stock Plunges 16% Aft.. |
+| Earnings | 12 | Intuitive Machines, Inc. (NASDAQ:LUNR) R..; Intuitive Machines (LUNR) to Release Ear.. |
+| Corporate | 4 | Amova Asset Management Americas Inc. Boo..; Roundhill Launches Space ETF Ahead of Sp.. |
 | Regulatory | 1 | Intuitive Machines Bought an $800M Space.. |
 
 ### Deep Dive Articles
+
+#### Autonomous Warfare Technologies Propel AI Defense Market Toward $30 Billion
+*Source: PR Newswire | Date: 2026-03-11 | Sentiment: Positive (+0.99)*
+**Catalysts:** Earnings, Regulatory
 
 #### Roundhill Launches Space ETF Ahead of SpaceX IPO - One Holding Already Owns A Piece Of Musk's Rocket Company
 *Source: Benzinga | Date: 2026-03-05 | Sentiment: Positive (+0.97)*
@@ -214,13 +226,9 @@
 *Source: Benzinga | Date: 2026-03-03 | Sentiment: Positive (+0.92)*
 **Catalysts:** Earnings, Corporate
 
-#### Intuitive Machines Selected by L3Harris to Support SDA Proliferated Warfighter Space Architecture Tranche 3 Tracking Layer
-*Source: GlobeNewswire | Date: 2026-03-03 | Sentiment: Positive (+0.97)*
-**Catalysts:** Earnings, Regulatory, Corporate
-
 ---
 
-**Position Snapshot:** 1 shares @ $17.61, current $17.63, P/L +0.1% ($0.02)
+**Position Snapshot:** 2 shares @ $17.59, current $17.12, P/L -2.7% ($-0.94)
 
 **Identity:** *   **Cycle:** Early — 7 of 13 months bottom in Days 1-8 (Feb 26 day 5, Jan 26 day 2, Dec 25 day 3, Oct 25 day 2, Jul 25 day 7, May 25 day 6, Apr 25 day 7). Late bottoms in 4 months (Nov 25, Aug 25, Jun 25, Feb 25).
 *   Resistance: ~$20+ (Feb 2026 high $20.31), ~$23+ (Jan 2026 high $23.32).
@@ -238,20 +246,22 @@
 | Date | Insider | Title | Type | Shares | Value | Signal |
 
 #### Wick Bullet Plan
-**Current Price: $17.63**
-**Monthly Swing: 42.6%** | 100% of months hit 10%+ | Active Zone: within 28.0% of current price
+**Current Price: $17.60**
+**Monthly Swing: 43.8%** | 100% of months hit 10%+ | Active Zone: within 28.0% of current price
 ### Suggested Bullet Plan
-*Based on 42.6% monthly swing — Active zone within 28.0% of current price.*
+*Based on 43.8% monthly swing — Active zone within 28.0% of current price.*
 | # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | Active | $17.11 | $17.61 | 38% | Half | 1 | $17.61 |
-| 2 | Active | $15.08 | $15.33 | 67% | Full | 3 | $46.00 |
-| 3 | Active | $14.32 | $15.20 | 60% | Full | 3 | $45.60 |
-| 4 | Reserve | $9.87 | $10.15 | 56% | Full | 9 | $91.39 |
-| 5 | Reserve | $9.52 | $10.06 | 56% | Std | 9 | $90.54 |
-| 6 | Reserve | $6.53 | $6.64 | 75% | Full | 15 | $99.60 |
+| 1 | Active | $17.49 | $17.59 | 29% | Half | 2 | $35.18 |
+| 2 | Active | $15.70 | $16.00 | 50% | Std | 5 | $80.00 |
+| 3 | Active | $15.08 | $15.33 | 67% | Full | 7 | $107.33 |
+| 4 | Active | $14.32 | $15.20 | 60% | Full | 5 | $76.00 |
+| 5 | Reserve | $9.87 | $10.15 | 56% | Full | 11 | $111.70 |
+| 6 | Reserve | $9.52 | $10.06 | 56% | Std | 11 | $110.66 |
+| 7 | Reserve | $6.53 | $6.64 | 75% | Full | 11 | $73.04 |
+*Note: 1 Active level(s) excluded — buy price at or above current price: $17.11*
 *Bullet plan is a suggestion — adjust based on cycle timing and position.*
 
-**Knowledge:** 3 trades. Top: SELL 2 shares @ $18.91 (full exit). Revenue: $37.82. **Profit: +$2.88 (+8.2%).**... (0.73)
+**Knowledge:** 3 trades. Top: LUNR: SELL 2 shares @ $18.38 (full exit). Profit: +6.2% from $17.30 avg. Positio... (0.92)
 
 ---

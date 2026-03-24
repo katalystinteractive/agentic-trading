@@ -3,40 +3,45 @@
 ## Global Context
 | Metric | Value |
 | :--- | :--- |
-| Date | 2026-03-08 |
-| Regime | Risk-Off |
-| Regime Detail | 0/3 indices above 50-SMA, VIX 29.5 (elevated) |
-| VIX | 29.49 |
-| VIX 5D% | +48.49% |
+| Date | 2026-03-16 |
+| Regime | Neutral |
+| Regime Detail | 0/3 indices above 50-SMA, VIX 24.2 |
+| VIX | 24.19 |
+| VIX 5D% | -5.14% |
 | Indices Above 50-SMA | 0/3 |
-| Sector Breadth | 2/11 positive |
+| Sector Breadth | 11/11 positive |
+| Data Freshness | 2026-03-16 close |
+| Trading Day | Yes |
 
 ## Portfolio Summary
 | Ticker | Shares | Avg Cost | P/L % |
 | :--- | :--- | :--- | :--- |
-| NU | 30 | $15.85 | -8.0% |
+| NU | 30 | $15.85 | -10.3% |
 | STIM | 0 | $0.00 | +inf% |
-| IONQ | 15 | $44.43 | -19.6% |
-| LUNR | 1 | $17.61 | +0.1% |
-| USAR | 15 | $21.57 | -19.1% |
-| OUST | 5 | $21.70 | -6.6% |
+| IONQ | 15 | $44.43 | -26.0% |
+| LUNR | 2 | $17.59 | -2.7% |
+| USAR | 15 | $21.57 | -11.3% |
+| OUST | 0 | $0.00 | +inf% |
 | INTC | 0 | $0.00 | +inf% |
-| APLD | 15 | $29.06 | -13.5% |
+| APLD | 15 | $29.06 | -4.9% |
 | SMCI | 0 | $0.00 | +inf% |
-| TMC | 38 | $6.00 | -4.5% |
-| CIFR | 11 | $14.62 | -6.8% |
-| ARM | 4 | $120.88 | -5.4% |
-| ACHR | 61 | $6.78 | -7.7% |
-| TEM | 0 | $0.00 | +inf% |
-| CLSK | 7 | $10.17 | -9.4% |
-| CLF | 21 | $10.26 | -4.2% |
+| TMC | 9 | $6.01 | -0.5% |
+| CIFR | 0 | $0.00 | +inf% |
+| ARM | 5 | $118.96 | +2.3% |
+| ACHR | 77 | $6.61 | -9.0% |
+| TEM | 1 | $50.98 | -1.0% |
+| CLSK | 0 | $0.00 | +inf% |
+| CLF | 47 | $9.39 | -9.2% |
 | BBAI | 0 | $0.00 | +inf% |
-| NNE | 6 | $24.19 | -2.7% |
+| NNE | 10 | $23.87 | -10.9% |
+| RUN | 0 | $0.00 | +inf% |
+| SOUN | 15 | $7.36 | +3.1% |
+| OKLO | 1 | $58.04 | +1.5% |
 
 ## Capital
 | Metric | Value |
 | :--- | :--- |
-| Deployed | $3,745.22 |
+| Deployed | $3,993.89 |
 | Velocity Pool | $1,000.00 |
 | Bounce Pool | $1,000.00 |
 
@@ -46,21 +51,24 @@ No active position (watchlist)
 ## Day Range
 | Metric | Value |
 | :--- | :--- |
-| Day Low | $3.97 |
-| Day High | $4.42 |
+| Day Low | $3.90 |
+| Day High | $4.10 |
+
+## Recorded Fills
+No recorded fills
 
 ## Pending Orders
-| Type | Order Price | Shares | % Below Current | Days to Earnings | Notes |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $3.82 | 15 | 0.0% | 53 | Bullet 1 — $3.75 HVN+PA, 33% hold rate, Full tier, wick-adjusted |
-| BUY | $3.71 | 16 | 2.9% | 53 | Bullet 2 — $3.65 PA, 57% hold rate, Full tier, wick-adjusted |
-| BUY | $3.66 | 16 | 4.2% | 53 | Bullet 3 — $3.55 PA, 33% hold rate, Full tier, wick-adjusted |
+| Type | Order Price | Shares | % Below Current | Days to Earnings | Status | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| BUY | $3.82 | 22 | 0.0% | 45 |  | Bullet 1 — $3.75 HVN+PA, 33% hold rate, Full^ tier, wick-adjusted (resized 2026-03-13) |
+| BUY | $3.71 | 24 | 2.9% | 45 |  | Bullet 2 — $3.65 PA, 67% hold rate, Full tier, wick-adjusted (resized 2026-03-13) |
+| BUY | $3.66 | 22 | 4.2% | 45 |  | Bullet 3 — $3.39 PA, 33% hold rate, Std tier, wick-adjusted (resized 2026-03-13) |
 
 ## Tool Outputs
 #### News & Sentiment
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:20*
+*Generated: 2026-03-16 19:35*
 
 ## News & Sentiment: BigBear.ai, Inc. (BBAI)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -72,19 +80,33 @@ No active position (watchlist)
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 14 (47%) |
-| Neutral | 13 (43%) |
-| Negative | 3 (10%) |
-| Average Score | +0.123 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 179 |
+| Positive | 9 (30%) |
+| Neutral | 17 (57%) |
+| Negative | 4 (13%) |
+| Average Score | +0.045 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 182 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 15 | PLTR vs. BBAI: Which AI Defense Stock Is..; MarketBeat Week in Review  03/02 - 03/06 |
+| Earnings | 13 | 269,267 Shares in BigBear.ai Holdings, I..; BigBear.ai (BBAI) Is Up 8.1% After Steep.. |
+| Analyst | 1 | Cantor Fitzgerald Lowers BigBear.ai Hold.. |
+| Corporate | 1 | BigBear.ai Holdings Inc (BBAI) Q4 2025 E.. |
 
 ### Deep Dive Articles
+
+#### Cantor Fitzgerald Lowers BigBear.ai Holdings, Inc. (BBAI) Price Target to $5
+*Source: Insider Monkey | Date: 2026-03-10 | Sentiment: Positive (+0.98)*
+**Catalysts:** Earnings, Regulatory, Corporate, Analyst, Short
+
+#### H.C. Wainwright Reiterates Buy Rating on BigBear.ai (BBAI)
+*Source: Insider Monkey | Date: 2026-03-09 | Sentiment: Positive (+0.97)*
+**Catalysts:** Regulatory, Analyst, Short
+
+#### MarketBeat Week in Review - 03/02 - 03/06
+*Source: MarketBeat | Date: 2026-03-07 | Sentiment: Positive (+0.97)*
+**Catalysts:** Earnings
 
 #### Should You Buy, Sell or Hold BigBear.ai Stock After Q4 Results?
 *Source: Zacks | Date: 2026-03-06 | Sentiment: Positive (+1.00)*
@@ -94,20 +116,8 @@ No active position (watchlist)
 *Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+0.91)*
 **Catalysts:** Earnings, Shareholder
 
-#### BigBear.ai (BBAI) Strengthens Balance Sheet with 90% Debt Reduction and $462M in Cash
-*Source: Insider Monkey | Date: 2026-03-04 | Sentiment: Positive (+0.97)*
-**Catalysts:** Earnings, Regulatory, Corporate, Short
-
-#### BigBear.ai Revenues Slump in Q4: Temporary Dip or Deeper Issue?
-*Source: Zacks | Date: 2026-03-04 | Sentiment: Positive (+0.99)*
-**Catalysts:** Earnings, Regulatory, Corporate
-
-#### BigBear.AI Stock Falls Tuesday: What's Happening?
-*Source: Benzinga | Date: 2026-03-03 | Sentiment: Negative (-0.71)*
-**Catalysts:** Earnings, Corporate
-
 #### Earnings
-*Generated: 2026-03-08 17:20*
+*Generated: 2026-03-16 19:35*
 
 ## Earnings Analysis: BigBear.ai, Inc. (BBAI)
 
@@ -115,22 +125,22 @@ No active position (watchlist)
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-04-30 |
-| Days Until | 53 |
+| Days Until | 45 |
 | Revenue Estimate | $33.6M |
-| Earnings Rule | Clear (>53d out) |
+| Earnings Rule | Clear (>45d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.06 | $-0.01 | 83.3% | -7.3% | +3.7% | Strong Bear |
+| Q1 2026 | $-0.06 | $-0.01 | 83.3% | -7.3% | +2.4% | Strong Bear |
 | Q4 2025 | $-0.07 | $0.01 | 113.6% | +6.1% | -2.5% | Strong Bull |
 | ... | *[trimmed — see morning-briefing-raw.md]* | | | | | |
 
 ### Revenue Trend
 | Quarter | Revenue | QoQ Growth% | YoY Growth% |
 | :--- | :--- | :--- | :--- |
-| Q3 2025 | $33.1M | +2.1% | -20.1% |
-| Q2 2025 | $32.5M | -6.6% | N/A |
+| Q4 2025 | $27.3M | -17.6% | -37.7% |
+| Q3 2025 | $33.1M | +2.1% | N/A |
 | ... | *[trimmed — see morning-briefing-raw.md]* | | | | | |
 
 ---
@@ -156,6 +166,6 @@ No active position (watchlist)
 *Note: 1 Active level(s) excluded — buy price at or above current price: $3.97*
 *Bullet plan is a suggestion — adjust based on cycle timing and position.*
 
-**Knowledge:** 3 trades. Top: SELL 31 @ $4.00 — full close, +5.8% from $3.78 avg. Same-day round trip. (0.65)
+**Knowledge:** 3 trades. Top: SELL 31 @ $4.00 — full close, +5.8% from $3.78 avg. Same-day round trip. (0.59)
 
 ---

@@ -1,0 +1,109 @@
+{
+  "run_id": "19941ad6-634c-46b2-9e4c-da4c21535090",
+  "workflow_name": "market-context-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-22T13:37:38.691005+00:00",
+  "completed_at": "2026-02-22T13:47:27.613662+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nEnd-to-end test of the market context entry gate workflow. Run all 3 phases: gather market data and pending BUY order detail, classify regime and apply entry gate logic, then verify the report.",
+    "handoffs": {
+      "gather": "**Artifact:** `market-context-raw.md`\n**Pending BUY orders:** 42 orders across 13 tickers (ACHR, AR, CIFR, CLF, CLSK, INTC, LUNR, NNE, NU, SMCI, SOUN, STIM, UAMY)\n**Active positions:** 9 tickers (APLD, CIFR, CLSK, INTC, IONQ, NU, STIM, UAMY, USAR)\n**Tool errors:** None\n\n**Market Pulse Summary:**\n- Regime: **Risk-On** \u2014 2/3 indices above 50-SMA, VIX 19.1 (declining 5D)\n- QQQ is the sole index below 50-SMA\n- Leading: Comm Services (+1.44%), Cons Cyclical (+1.04%)\n- Lagging: Healthcare (-0.28%), Energy (-0.54%)\n\n**Notable pending BUY proximity:**\n- SOUN $7.63 Bullet 1: 2.4% away; $7.53 Bullet 2: 3.7% away\n- STIM $1.25 Reserve 1: 3.1% away\n- LUNR $17.16 Bullet 1: 2.2% away\n- NNE $24.03 Bullet 1: 2.3% away\n- ACHR $6.55 Bullet 1: 5.5% away\n- CIFR $14.10 Bullet 3: 3.8% away\n\nReady for market context analysis.",
+      "analyze": "**Artifact:** `market-context-report.md`\n**Regime:** Risk-On\n**VIX:** 19.09 (declining, -8.31% 5D)\n**Pending BUY orders evaluated:** 43 (42 from market-context-raw.md + 1 APLD from portfolio.json not captured by gather phase)\n**Gate decisions:** 43 ACTIVE, 0 CAUTION, 0 REVIEW, 0 PAUSE\n\nMarket context analysis complete. Discrepancy flagged: APLD BUY $27.71 present in portfolio.json but absent from market-context-raw.md \u2014 gather tool should be checked for APLD in the next run.",
+      "review": "**Artifact:** `market-context-review.md`\n**Verdict:** PASS\n**Checks passed:** 5/5 (2 with minor notes)\n**Issues found:** 3 minor, 0 critical\n\n| Check | Result |\n| :--- | :--- |\n| Regime Classification | PASS \u2014 Risk-On correctly assigned (2/3 indices above 50-SMA, VIX 19.09 < 20) |\n| Entry Gate Logic | PASS \u2014 All 43 orders correctly ACTIVE under Risk-On |\n| Data Consistency | PASS \u2014 All prices/shares match sources; 2 minor notes (NNE sector label split, APLD gather gap recovered correctly) |\n| Coverage | PASS \u2014 All 43 BUY orders evaluated, all 9 sectors covered, Executive Summary counts match |\n| Strategy Compliance | PASS \u2014 Gate logic correct; 1 minor note (earnings gate interaction not explicitly stated) |\n\nMarket context verification complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T13:37:38.698726+00:00",
+      "completed_at": "2026-02-22T13:42:06.349801+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `market-context-raw.md`\n**Pending BUY orders:** 42 orders across 13 tickers (ACHR, AR, CIFR, CLF, CLSK, INTC, LUNR, NNE, NU, SMCI, SOUN, STIM, UAMY)\n**Active positions:** 9 tickers (APLD, CIFR, CLSK, INTC, IONQ, NU, STIM, UAMY, USAR)\n**Tool errors:** None\n\n**Market Pulse Summary:**\n- Regime: **Risk-On** \u2014 2/3 indices above 50-SMA, VIX 19.1 (declining 5D)\n- QQQ is the sole index below 50-SMA\n- Leading: Comm Services (+1.44%), Cons Cyclical (+1.04%)\n- Lagging: Healthcare (-0.28%), Energy (-0.54%)\n\n**Notable pending BUY proximity:**\n- SOUN $7.63 Bullet 1: 2.4% away; $7.53 Bullet 2: 3.7% away\n- STIM $1.25 Reserve 1: 3.1% away\n- LUNR $17.16 Bullet 1: 2.2% away\n- NNE $24.03 Bullet 1: 2.3% away\n- ACHR $6.55 Bullet 1: 5.5% away\n- CIFR $14.10 Bullet 3: 3.8% away\n\nReady for market context analysis.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":234722,\"duration_api_ms\":245795,\"num_turns\":10,\"result\":\"`market-context-raw.md` written successfully.\\n\\n---\\n\\n## HANDOFF\\n\\n**Artifact:** `market-context-raw.md`\\n**Pending BUY orders:** 42 orders across 13 tickers (ACHR, AR, CIFR, CLF, CLSK, INTC, LUNR, NNE, NU, SMCI, SOUN, STIM, UAMY)\\n**Active positions:** 9 tickers (APLD, CIFR, CLSK, INTC, IONQ, NU, STIM, UAMY, USAR)\\n**Tool errors:** None\\n\\n**Market Pulse Summary:**\\n- Regime: **Risk-On** \u2014 2/3 indices above 50-SMA, VIX 19.1 (declining 5D)\\n- QQQ is the sole index below 50-SMA\\n- Leading: Comm Services (+1.44%), Cons Cyclical (+1.04%)\\n- Lagging: Healthcare (-0.28%), Energy (-0.54%)\\n\\n**Notable pending BUY proximity:**\\n- SOUN $7.63 Bullet 1: 2.4% away; $7.53 Bullet 2: 3.7% away\\n- STIM $1.25 Reserve 1: 3.1% away\\n- LUNR $17.16 Bullet 1: 2.2% away\\n- NNE $24.03 Bullet 1: 2.3% away\\n- ACHR $6.55 Bullet 1: 5.5% away\\n- CIFR $14.10 Bullet 3: 3.8% away\\n\\nReady for market context analysis.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"d572b07b-d3ae-422f-98fc-8a4381fa8f9c\",\"total_cost_usd\":0.9847835000000001,\"usage\":{\"input_tokens\":111,\"cache_creation_input_tokens\":36175,\"cache_read_input_tokens\":252281,\"output_tokens\":16606,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":36175,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":116,\"outputTokens\":18434,\"cacheReadInputTokens\":270358,\"cacheCreationInputTokens\":56367,\"webSearchRequests\":0,\"costUSD\":0.94890275,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":7737,\"outputTokens\":1842,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":15147,\"webSearchRequests\":0,\"costUSD\":0.03588075,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"2ddfded2-7243-4e52-a8b1-c9e4c8555421\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "market-context-raw.md": "/Users/kamenkamenov/agentic-trading/market-context-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 267.6479148864746,
+        "token_usage": {
+          "input_tokens": 111,
+          "output_tokens": 16606,
+          "cache_read_tokens": 252281,
+          "cache_write_tokens": 36175
+        },
+        "estimated_cost_usd": 0.460764,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T13:42:06.351155+00:00",
+      "completed_at": "2026-02-22T13:44:48.430182+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** `market-context-report.md`\n**Regime:** Risk-On\n**VIX:** 19.09 (declining, -8.31% 5D)\n**Pending BUY orders evaluated:** 43 (42 from market-context-raw.md + 1 APLD from portfolio.json not captured by gather phase)\n**Gate decisions:** 43 ACTIVE, 0 CAUTION, 0 REVIEW, 0 PAUSE\n\nMarket context analysis complete. Discrepancy flagged: APLD BUY $27.71 present in portfolio.json but absent from market-context-raw.md \u2014 gather tool should be checked for APLD in the next run.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":130390,\"duration_api_ms\":128812,\"num_turns\":5,\"result\":\"`market-context-report.md` written. Cross-check complete:\\n\\n- **43 orders evaluated** (42 from raw data + 1 APLD from portfolio.json, absent from raw table \u2014 flagged)\\n- **All 43 ACTIVE** \u2014 Risk-On regime (2/3 indices above 50-SMA, VIX 19.09 < 20) imposes no constraints on any order\\n- **No PAUSE, REVIEW, or CAUTION** statuses issued\\n- **No orders cancelled** \u2014 per strategy, PAUSE is the only valid hold action (not applied here)\\n- VIX (19.09) and index counts (2/3) match raw data exactly\\n- All sector assignments use the raw data sector mapping table\\n\\n---\\n\\n## HANDOFF\\n\\n**Artifact:** `market-context-report.md`\\n**Regime:** Risk-On\\n**VIX:** 19.09 (declining, -8.31% 5D)\\n**Pending BUY orders evaluated:** 43 (42 from market-context-raw.md + 1 APLD from portfolio.json not captured by gather phase)\\n**Gate decisions:** 43 ACTIVE, 0 CAUTION, 0 REVIEW, 0 PAUSE\\n\\nMarket context analysis complete. Discrepancy flagged: APLD BUY $27.71 present in portfolio.json but absent from market-context-raw.md \u2014 gather tool should be checked for APLD in the next run.\\n\\n## Decision: COMPLETE\",\"stop_reason\":null,\"session_id\":\"c4c7c7bb-31a8-493d-aef5-7bcbcf430d30\",\"total_cost_usd\":0.473586,\"usage\":{\"input_tokens\":5,\"cache_creation_input_tokens\":33522,\"cache_read_input_tokens\":92547,\"output_tokens\":8711,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":33522,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":5,\"outputTokens\":8711,\"cacheReadInputTokens\":92547,\"cacheCreationInputTokens\":33522,\"webSearchRequests\":0,\"costUSD\":0.473586,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"798bb968-466e-42e6-ab3e-ba293516a9fe\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "market-context-report.md": "/Users/kamenkamenov/agentic-trading/market-context-report.md"
+      },
+      "metrics": {
+        "duration_seconds": 162.0780701637268,
+        "token_usage": {
+          "input_tokens": 5,
+          "output_tokens": 8711,
+          "cache_read_tokens": 92547,
+          "cache_write_tokens": 33522
+        },
+        "estimated_cost_usd": 0.284152,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T13:44:48.431543+00:00",
+      "completed_at": "2026-02-22T13:47:27.611153+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `market-context-review.md`\n**Verdict:** PASS\n**Checks passed:** 5/5 (2 with minor notes)\n**Issues found:** 3 minor, 0 critical\n\n| Check | Result |\n| :--- | :--- |\n| Regime Classification | PASS \u2014 Risk-On correctly assigned (2/3 indices above 50-SMA, VIX 19.09 < 20) |\n| Entry Gate Logic | PASS \u2014 All 43 orders correctly ACTIVE under Risk-On |\n| Data Consistency | PASS \u2014 All prices/shares match sources; 2 minor notes (NNE sector label split, APLD gather gap recovered correctly) |\n| Coverage | PASS \u2014 All 43 BUY orders evaluated, all 9 sectors covered, Executive Summary counts match |\n| Strategy Compliance | PASS \u2014 Gate logic correct; 1 minor note (earnings gate interaction not explicitly stated) |\n\nMarket context verification complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":127586,\"duration_api_ms\":126001,\"num_turns\":6,\"result\":\"`market-context-review.md` written.\\n\\n---\\n\\n## HANDOFF\\n\\n**Artifact:** `market-context-review.md`\\n**Verdict:** PASS\\n**Checks passed:** 5/5 (2 with minor notes)\\n**Issues found:** 3 minor, 0 critical\\n\\n| Check | Result |\\n| :--- | :--- |\\n| Regime Classification | PASS \u2014 Risk-On correctly assigned (2/3 indices above 50-SMA, VIX 19.09 < 20) |\\n| Entry Gate Logic | PASS \u2014 All 43 orders correctly ACTIVE under Risk-On |\\n| Data Consistency | PASS \u2014 All prices/shares match sources; 2 minor notes (NNE sector label split, APLD gather gap recovered correctly) |\\n| Coverage | PASS \u2014 All 43 BUY orders evaluated, all 9 sectors covered, Executive Summary counts match |\\n| Strategy Compliance | PASS \u2014 Gate logic correct; 1 minor note (earnings gate interaction not explicitly stated) |\\n\\nMarket context verification complete.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"f21dd82b-5ab6-4b61-8152-4957114db9d0\",\"total_cost_usd\":0.47277325000000003,\"usage\":{\"input_tokens\":5,\"cache_creation_input_tokens\":37595,\"cache_read_input_tokens\":98659,\"output_tokens\":7538,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":37595,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":5,\"outputTokens\":7538,\"cacheReadInputTokens\":98659,\"cacheCreationInputTokens\":37595,\"webSearchRequests\":0,\"costUSD\":0.47277325000000003,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"693f901a-bb5e-43f4-a6fe-aef19952b006\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "market-context-review.md": "/Users/kamenkamenov/agentic-trading/market-context-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 159.17852902412415,
+        "token_usage": {
+          "input_tokens": 5,
+          "output_tokens": 7538,
+          "cache_read_tokens": 98659,
+          "cache_write_tokens": 37595
+        },
+        "estimated_cost_usd": 0.283664,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-22T13:47:27.613832+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/market-context-workflow.yaml",
+    "workflowHash": "c8f40f45388ef460"
+  }
+}

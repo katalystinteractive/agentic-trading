@@ -1,0 +1,111 @@
+{
+  "run_id": "43c1c15f-8104-408c-ab75-9972ec1c62be",
+  "workflow_name": "watchlist-fitness-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-03-09T22:22:25.991488+00:00",
+  "completed_at": "2026-03-09T22:24:28.409723+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun watchlist fitness review for AR only. The gatherer should run: python3 tools/watchlist_fitness.py AR",
+    "handoffs": {
+      "gather": "**Artifacts:** watchlist-fitness.md, watchlist-fitness.json  \n**Script:** watchlist_fitness.py completed  \n**Tickers analyzed:** 1 (AR)  \n**Errors:** none\n\nReady for fitness analysis.",
+      "analyze": "**Artifact:** watchlist-fitness-report.md\n**Tickers analyzed:** 1\n**Verdict breakdown:** 0 ENGAGE/ADD, 1 RESTRUCTURE/HOLD-WAIT, 0 REVIEW, 0 REMOVE/EXIT-REVIEW, 0 RECOVERY\n**Overrides applied:** 0\n\nWatchlist fitness analysis complete.",
+      "review": "**Artifacts:** watchlist-fitness-pre-critic.md, watchlist-fitness-review.md\n**Verdict:** PASS\n**Checks passed:** 6/6\n**Issues found:** 0 mechanical, 0 qualitative\n\nWatchlist fitness verification complete. AR \u2014 RESTRUCTURE verdict is sound: excellent swing mechanics (17.6% / 92.9% consistency) but all active-zone levels are Skip tier and the stock is EXTENDED (RSI 68.8, 90th pctile range). Pullback estimate of $32.92 is mathematically consistent and realistic for re-entry planning."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-09T22:22:25.998954+00:00",
+      "completed_at": "2026-03-09T22:22:54.220680+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifacts:** watchlist-fitness.md, watchlist-fitness.json  \n**Script:** watchlist_fitness.py completed  \n**Tickers analyzed:** 1 (AR)  \n**Errors:** none\n\nReady for fitness analysis.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":24304,\"duration_api_ms\":7225,\"num_turns\":3,\"result\":\"## Decision: CLEAN\\n\\n## HANDOFF\\n\\n**Artifacts:** watchlist-fitness.md, watchlist-fitness.json  \\n**Script:** watchlist_fitness.py completed  \\n**Tickers analyzed:** 1 (AR)  \\n**Errors:** none\\n\\nReady for fitness analysis.\",\"stop_reason\":\"end_turn\",\"session_id\":\"2261cc38-04ea-4705-9bf6-1d7722ac0a7c\",\"total_cost_usd\":0.03796425,\"usage\":{\"input_tokens\":26,\"cache_creation_input_tokens\":21001,\"cache_read_input_tokens\":83070,\"output_tokens\":676,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":21001,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-haiku-4-5-20251001\":{\"inputTokens\":26,\"outputTokens\":676,\"cacheReadInputTokens\":83070,\"cacheCreationInputTokens\":21001,\"webSearchRequests\":0,\"costUSD\":0.03796425,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"606665f2-74a6-497c-90b2-0c43d236768d\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "watchlist-fitness.md": "/Users/kamenkamenov/agentic-trading/watchlist-fitness.md",
+        "watchlist-fitness.json": "/Users/kamenkamenov/agentic-trading/watchlist-fitness.json"
+      },
+      "metrics": {
+        "duration_seconds": 28.216814756393433,
+        "token_usage": {
+          "input_tokens": 26,
+          "output_tokens": 676,
+          "cache_read_tokens": 83070,
+          "cache_write_tokens": 21001
+        },
+        "estimated_cost_usd": 0.113893,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-09T22:22:54.224213+00:00",
+      "completed_at": "2026-03-09T22:23:35.484522+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** watchlist-fitness-report.md\n**Tickers analyzed:** 1\n**Verdict breakdown:** 0 ENGAGE/ADD, 1 RESTRUCTURE/HOLD-WAIT, 0 REVIEW, 0 REMOVE/EXIT-REVIEW, 0 RECOVERY\n**Overrides applied:** 0\n\nWatchlist fitness analysis complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":38578,\"duration_api_ms\":38486,\"num_turns\":4,\"result\":\"`watchlist-fitness-report.md` written.\\n\\n**Key findings:**\\n- AR scores **70/100** \u2014 swing (17.6%) and consistency (92.9%) are perfect; level quality and hold rate are zeroed out because all active-zone orders are Skip tier\\n- **Cycle state is EXTENDED** (RSI 68.8, +13.4% above 50-SMA, 90th percentile range) \u2014 momentum run, not a structural breakout; energy names can flush hard from here\\n- **Action required:** re-run `bullet_recommender.py` to rebuild the order stack at levels where wick history supports Half+ tier sizing; pullback target ~$32.92 is the re-entry zone to watch\\n- No verdict overrides applied\\n\\n## Decision: CLEAN\\n\\n## HANDOFF\\n\\n**Artifact:** watchlist-fitness-report.md\\n**Tickers analyzed:** 1\\n**Verdict breakdown:** 0 ENGAGE/ADD, 1 RESTRUCTURE/HOLD-WAIT, 0 REVIEW, 0 REMOVE/EXIT-REVIEW, 0 RECOVERY\\n**Overrides applied:** 0\\n\\nWatchlist fitness analysis complete.\",\"stop_reason\":\"end_turn\",\"session_id\":\"1a9a15a1-99e5-41e5-8182-140c6bd9b02e\",\"total_cost_usd\":0.20136949999999998,\"usage\":{\"input_tokens\":5,\"cache_creation_input_tokens\":19968,\"cache_read_input_tokens\":54239,\"output_tokens\":1977,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":19968,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":5,\"outputTokens\":1977,\"cacheReadInputTokens\":54239,\"cacheCreationInputTokens\":19968,\"webSearchRequests\":0,\"costUSD\":0.20136949999999998,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"f9c3275b-cbe7-402e-b33e-5363d93c7d0e\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "watchlist-fitness-report.md": "/Users/kamenkamenov/agentic-trading/watchlist-fitness-report.md"
+      },
+      "metrics": {
+        "duration_seconds": 41.255208015441895,
+        "token_usage": {
+          "input_tokens": 5,
+          "output_tokens": 1977,
+          "cache_read_tokens": 54239,
+          "cache_write_tokens": 19968
+        },
+        "estimated_cost_usd": 0.120822,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-09T22:23:35.486346+00:00",
+      "completed_at": "2026-03-09T22:24:28.405731+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifacts:** watchlist-fitness-pre-critic.md, watchlist-fitness-review.md\n**Verdict:** PASS\n**Checks passed:** 6/6\n**Issues found:** 0 mechanical, 0 qualitative\n\nWatchlist fitness verification complete. AR \u2014 RESTRUCTURE verdict is sound: excellent swing mechanics (17.6% / 92.9% consistency) but all active-zone levels are Skip tier and the stock is EXTENDED (RSI 68.8, 90th pctile range). Pullback estimate of $32.92 is mathematically consistent and realistic for re-entry planning.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":50749,\"duration_api_ms\":48368,\"num_turns\":5,\"result\":\"## HANDOFF\\n\\n**Artifacts:** watchlist-fitness-pre-critic.md, watchlist-fitness-review.md\\n**Verdict:** PASS\\n**Checks passed:** 6/6\\n**Issues found:** 0 mechanical, 0 qualitative\\n\\nWatchlist fitness verification complete. AR \u2014 RESTRUCTURE verdict is sound: excellent swing mechanics (17.6% / 92.9% consistency) but all active-zone levels are Skip tier and the stock is EXTENDED (RSI 68.8, 90th pctile range). Pullback estimate of $32.92 is mathematically consistent and realistic for re-entry planning.\\n\\n## Decision: CLEAN\",\"stop_reason\":\"end_turn\",\"session_id\":\"829c50bd-cd0f-4137-8aee-3249a463cfbe\",\"total_cost_usd\":0.20689349999999998,\"usage\":{\"input_tokens\":6,\"cache_creation_input_tokens\":17854,\"cache_read_input_tokens\":81202,\"output_tokens\":2187,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":17854,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":6,\"outputTokens\":2187,\"cacheReadInputTokens\":81202,\"cacheCreationInputTokens\":17854,\"webSearchRequests\":0,\"costUSD\":0.20689349999999998,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"dc367dc6-7d79-4033-9e8e-1497e5c91c4a\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "watchlist-fitness-pre-critic.md": "/Users/kamenkamenov/agentic-trading/watchlist-fitness-pre-critic.md",
+        "watchlist-fitness-review.md": "/Users/kamenkamenov/agentic-trading/watchlist-fitness-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 52.916728019714355,
+        "token_usage": {
+          "input_tokens": 6,
+          "output_tokens": 2187,
+          "cache_read_tokens": 81202,
+          "cache_write_tokens": 17854
+        },
+        "estimated_cost_usd": 0.124136,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-03-09T22:24:28.409934+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/watchlist-fitness-workflow.yaml",
+    "workflowHash": "19cddaa6a7fec874"
+  }
+}

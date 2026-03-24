@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-18 09:22*
 
 ## Earnings Analysis: TMC the metals company Inc. (TMC)
 
@@ -6,10 +6,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-03-26 |
-| Days Until | 18 |
+| Days Until | 8 |
 | EPS Estimate | $-0.055 |
 | Revenue Estimate | $0 |
-| Earnings Rule | Clear (>18d out) |
+| **Earnings Rule** | **WARNING: <14 days — avoid new entries** |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |

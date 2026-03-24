@@ -1,0 +1,91 @@
+{
+  "run_id": "5a60ca7b-5d7d-45f8-a2b4-df4c9628ab53",
+  "workflow_name": "status-workflow",
+  "task_guid": null,
+  "status": "failed",
+  "current_phase": null,
+  "started_at": "2026-02-22T08:26:33.468767+00:00",
+  "completed_at": "2026-02-22T08:50:33.456473+00:00",
+  "error_message": "Workflow timed out after 24 minutes",
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun the daily status workflow end-to-end to test the new Phase 3 status-critic agent. Collect live prices, compile the status report, then verify it with the critic.",
+    "handoffs": {
+      "gather": "**Artifact:** `status-raw.md`\n\n**Active positions queried:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n\n**Watchlist tickers queried:** 10 tickers (AR, VALE, CLF, SEDG, ACHR, SOUN, SMCI, RKT, LUNR, NNE)\n\n**Fill alerts detected:** None. No fills since portfolio last updated 2026-02-20.\n\n**Notable flags for analyst:**\n- **NU earnings in 3 days (2026-02-25)** \u2014 earnings.md shows <14 day WARNING. Existing position held; no new entries allowed.\n- **IONQ earnings in 3 days (2026-02-25)** \u2014 same date. Pre-strategy recovery position held.\n- **STIM reserve B1 @ $1.25** \u2014 within 3.1% of current price ($1.29). Day low $1.28 nearly triggered.\n- **LUNR B1 @ $17.16** \u2014 within $0.05 of day low ($17.21). Ready to trigger Monday open.\n- **NNE B1 @ $24.03** \u2014 within $0.12 of day low ($24.15). Near trigger.\n- **APLD** \u2014 7-day losing streak, Nvidia relationship overhang, at $29.04 vs $31.09 avg (-6.6%). B5 $27.71 is -4.6% away (day low $28.36).\n- **STIM squeeze risk:** EXTREME (80/100), 21.6% short float, DTC 6.48.\n- **IONQ squeeze risk:** HIGH (65/100), 22.3% short float.\n- Velocity and Bounce pools: both idle ($0 deployed of $2,000 combined).\n\nReady for status report compilation."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T08:26:33.479692+00:00",
+      "completed_at": "2026-02-22T08:34:06.521606+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `status-raw.md`\n\n**Active positions queried:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n\n**Watchlist tickers queried:** 10 tickers (AR, VALE, CLF, SEDG, ACHR, SOUN, SMCI, RKT, LUNR, NNE)\n\n**Fill alerts detected:** None. No fills since portfolio last updated 2026-02-20.\n\n**Notable flags for analyst:**\n- **NU earnings in 3 days (2026-02-25)** \u2014 earnings.md shows <14 day WARNING. Existing position held; no new entries allowed.\n- **IONQ earnings in 3 days (2026-02-25)** \u2014 same date. Pre-strategy recovery position held.\n- **STIM reserve B1 @ $1.25** \u2014 within 3.1% of current price ($1.29). Day low $1.28 nearly triggered.\n- **LUNR B1 @ $17.16** \u2014 within $0.05 of day low ($17.21). Ready to trigger Monday open.\n- **NNE B1 @ $24.03** \u2014 within $0.12 of day low ($24.15). Near trigger.\n- **APLD** \u2014 7-day losing streak, Nvidia relationship overhang, at $29.04 vs $31.09 avg (-6.6%). B5 $27.71 is -4.6% away (day low $28.36).\n- **STIM squeeze risk:** EXTREME (80/100), 21.6% short float, DTC 6.48.\n- **IONQ squeeze risk:** HIGH (65/100), 22.3% short float.\n- Velocity and Bounce pools: both idle ($0 deployed of $2,000 combined).\n\nReady for status report compilation.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":418925,\"duration_api_ms\":413600,\"num_turns\":34,\"result\":\"`status-raw.md` written successfully.\\n\\n---\\n\\n## HANDOFF\\n\\n**Artifact:** `status-raw.md`\\n\\n**Active positions queried:** 9 tickers (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\\n\\n**Watchlist tickers queried:** 10 tickers (AR, VALE, CLF, SEDG, ACHR, SOUN, SMCI, RKT, LUNR, NNE)\\n\\n**Fill alerts detected:** None. No fills since portfolio last updated 2026-02-20.\\n\\n**Notable flags for analyst:**\\n- **NU earnings in 3 days (2026-02-25)** \u2014 earnings.md shows <14 day WARNING. Existing position held; no new entries allowed.\\n- **IONQ earnings in 3 days (2026-02-25)** \u2014 same date. Pre-strategy recovery position held.\\n- **STIM reserve B1 @ $1.25** \u2014 within 3.1% of current price ($1.29). Day low $1.28 nearly triggered.\\n- **LUNR B1 @ $17.16** \u2014 within $0.05 of day low ($17.21). Ready to trigger Monday open.\\n- **NNE B1 @ $24.03** \u2014 within $0.12 of day low ($24.15). Near trigger.\\n- **APLD** \u2014 7-day losing streak, Nvidia relationship overhang, at $29.04 vs $31.09 avg (-6.6%). B5 $27.71 is -4.6% away (day low $28.36).\\n- **STIM squeeze risk:** EXTREME (80/100), 21.6% short float, DTC 6.48.\\n- **IONQ squeeze risk:** HIGH (65/100), 22.3% short float.\\n- Velocity and Bounce pools: both idle ($0 deployed of $2,000 combined).\\n\\nReady for status report compilation.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"d07f36b2-a471-4216-963b-02dc08fbdc9f\",\"total_cost_usd\":1.2676505,\"usage\":{\"input_tokens\":10,\"cache_creation_input_tokens\":61969,\"cache_read_input_tokens\":347165,\"output_tokens\":26874,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":61969,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":10,\"outputTokens\":26874,\"cacheReadInputTokens\":347165,\"cacheCreationInputTokens\":61969,\"webSearchRequests\":0,\"costUSD\":1.2327887499999999,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":21903,\"outputTokens\":1400,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":4767,\"webSearchRequests\":0,\"costUSD\":0.034861750000000004,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"507da7a6-33c7-44e5-8fb9-6377a7a2fa21\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "status-raw.md": "/Users/kamenkamenov/agentic-trading/status-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 453.0333170890808,
+        "token_usage": {
+          "input_tokens": 10,
+          "output_tokens": 26874,
+          "cache_read_tokens": 347165,
+          "cache_write_tokens": 61969
+        },
+        "estimated_cost_usd": 0.739673,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "report": {
+      "phase_id": "report",
+      "status": "retrying",
+      "attempts": 3,
+      "started_at": "2026-02-22T08:34:06.528209+00:00",
+      "completed_at": null,
+      "error_message": "Claude CLI timed out after 480s",
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {},
+      "metrics": {
+        "duration_seconds": 0.0,
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "estimated_cost_usd": 0.0,
+        "model": "sonnet",
+        "attempts": 2
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "pending",
+      "attempts": 0,
+      "started_at": null,
+      "completed_at": null,
+      "error_message": null,
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {}
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-22T08:50:33.457748+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/status-workflow.yaml",
+    "workflowHash": "7f6ebfb9737927a3"
+  }
+}

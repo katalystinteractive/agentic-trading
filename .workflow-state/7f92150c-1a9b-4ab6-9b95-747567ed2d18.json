@@ -1,0 +1,116 @@
+{
+  "run_id": "7f92150c-1a9b-4ab6-9b95-747567ed2d18",
+  "workflow_name": "surgical-candidate-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-03-05T05:44:17.874959+00:00",
+  "completed_at": "2026-03-05T05:58:14.923881+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun surgical candidate screening to find new stock candidates for the portfolio. Current date: 2026-03-05. Portfolio has 11 active positions with $3,640 deployed. Market regime is Neutral (VIX 21.19, 1/3 indices above 50-SMA). Look for mean-reversion candidates with reliable wick-adjusted support levels and good risk/reward.",
+    "handoffs": {
+      "screen": "**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\n\n**Gate passers:** 71 tickers passed surgical gates (out of 151 screened; 22 portfolio tickers excluded). 20 received deep wick analysis.\n\n**Top 7 scored:** OUST(95), IREN(84), QBTS(83), HUT(81), RGTI(79), NTLA(79), RDW(78)\n\n**Recommendations:**\n- **Onboard (2):** OUST, QBTS\n- **Watch (3):** RGTI, NTLA, RDW\n- **Monitor (2):** IREN, HUT\n\n**Key findings:**\n- OUST is the clear top candidate \u2014 LiDAR/Tech sector with zero portfolio overlap, B1 within 0.3% of current price, 10-13 approaches per level, 100% hold reserve floor\n- QBTS is a solid Onboard \u2014 D-Wave annealing is genuinely distinct from IONQ trapped-ion; improving recency across all active levels; B1 within 1.9%\n- IREN and HUT are blocked by Crypto sector concentration (4th BTC miner would exceed the 3x limit already hit by APLD/CIFR/CLSK)\n- RGTI has the best recency trend in the screen but B1 is 8.6% away and would conflict with QBTS for the Quantum sector slot\n- NTLA is blocked by choppy active hold rates and binary FDA event risk; RDW is blocked by 3-level recency deterioration signaling structural support breakdown\n\nReady for verification.",
+      "verify": "**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\n\n**Results:** 6 PASS, 1 FLAG, 0 FAIL\n\n**Score range after adjustment:** 77 (RGTI) \u2013 95 (OUST)\n\n**Pre-verify:** 5 checks passed, 2 issues found (Sector audit FAIL: NVDA labeled Unknown; Duplicate buy WARN: RGTI $14.78 convergence)\n\n**Key findings:**\n- OUST and QBTS Onboard verdicts confirmed \u2014 both theses are well-supported\n- IREN and HUT Monitor verdicts confirmed \u2014 Crypto concentration block is accurate and the differentiation arguments were correctly rejected\n- RGTI flagged (-2) for not addressing the duplicate buy price at $14.78 \u2014 two separate support levels ($14.12 and $14.70) converge to the same order price, creating potential 8-share over-deployment at a single point; Watch recommendation still stands\n- NTLA and RDW Watch verdicts confirmed \u2014 specific, measurable re-entry conditions identified\n- NVDA sector misclassification (Unknown vs Semi) is a portfolio context issue that does not affect any top-7 candidate's sector diversity score\n\nReady for final selection.",
+      "critic": "**Artifacts:** candidate-pre-critic.md, candidate-final.md\n\n**Top 3:**\n1. OUST \u2014 105 \u2014 Onboard\n2. QBTS \u2014 90 \u2014 Onboard\n3. RGTI \u2014 83 \u2014 Watch\n\n**Key adversarial moves:**\n- **HUT demoted** (-8 qualitative): mechanical tool applied -5 for \"portfolio fit\" but the 4th BTC miner is a hard strategy rule violation, not a soft fit penalty. Pushed HUT from #3 (87) to #4 (79), below RGTI (83).\n- **IREN demoted** (-8 qualitative): same hard-block argument, compounded by systematic entry-zone recency deterioration at top-3 active levels.\n- **QBTS -3**: recency improvement at $15.44/$16.56 likely rests on 1-2 recent events (statistically fragile), and D-Wave's annealing architecture has a narrower competitive moat than gate-based approaches. Onboard verdict unchanged.\n- **OUST and RGTI unchanged**: OUST thesis is airtight; RGTI verifier -2 already captured the duplicate-buy concern.\n\n**Immediate actions:** Onboard OUST ($403.62 all-in, B1 at $22.31, 0.3% from current) and QBTS ($504.88 all-in, B1 at $18.55, 1.9% from current). Set RGTI alert at $16.30; re-evaluate when a Quantum slot opens.\n\nScreening complete. Review candidate-final.md for onboarding decisions."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1
+  },
+  "phases": {
+    "screen": {
+      "phase_id": "screen",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-05T05:44:17.876447+00:00",
+      "completed_at": "2026-03-05T05:49:53.953417+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\n\n**Gate passers:** 71 tickers passed surgical gates (out of 151 screened; 22 portfolio tickers excluded). 20 received deep wick analysis.\n\n**Top 7 scored:** OUST(95), IREN(84), QBTS(83), HUT(81), RGTI(79), NTLA(79), RDW(78)\n\n**Recommendations:**\n- **Onboard (2):** OUST, QBTS\n- **Watch (3):** RGTI, NTLA, RDW\n- **Monitor (2):** IREN, HUT\n\n**Key findings:**\n- OUST is the clear top candidate \u2014 LiDAR/Tech sector with zero portfolio overlap, B1 within 0.3% of current price, 10-13 approaches per level, 100% hold reserve floor\n- QBTS is a solid Onboard \u2014 D-Wave annealing is genuinely distinct from IONQ trapped-ion; improving recency across all active levels; B1 within 1.9%\n- IREN and HUT are blocked by Crypto sector concentration (4th BTC miner would exceed the 3x limit already hit by APLD/CIFR/CLSK)\n- RGTI has the best recency trend in the screen but B1 is 8.6% away and would conflict with QBTS for the Quantum sector slot\n- NTLA is blocked by choppy active hold rates and binary FDA event risk; RDW is blocked by 3-level recency deterioration signaling structural support breakdown\n\nReady for verification.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":330646,\"duration_api_ms\":310498,\"num_turns\":15,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\\n\\n**Gate passers:** 71 tickers passed surgical gates (out of 151 screened; 22 portfolio tickers excluded). 20 received deep wick analysis.\\n\\n**Top 7 scored:** OUST(95), IREN(84), QBTS(83), HUT(81), RGTI(79), NTLA(79), RDW(78)\\n\\n**Recommendations:**\\n- **Onboard (2):** OUST, QBTS\\n- **Watch (3):** RGTI, NTLA, RDW\\n- **Monitor (2):** IREN, HUT\\n\\n**Key findings:**\\n- OUST is the clear top candidate \u2014 LiDAR/Tech sector with zero portfolio overlap, B1 within 0.3% of current price, 10-13 approaches per level, 100% hold reserve floor\\n- QBTS is a solid Onboard \u2014 D-Wave annealing is genuinely distinct from IONQ trapped-ion; improving recency across all active levels; B1 within 1.9%\\n- IREN and HUT are blocked by Crypto sector concentration (4th BTC miner would exceed the 3x limit already hit by APLD/CIFR/CLSK)\\n- RGTI has the best recency trend in the screen but B1 is 8.6% away and would conflict with QBTS for the Quantum sector slot\\n- NTLA is blocked by choppy active hold rates and binary FDA event risk; RDW is blocked by 3-level recency deterioration signaling structural support breakdown\\n\\nReady for verification.\",\"stop_reason\":\"end_turn\",\"session_id\":\"b963841b-124d-4796-b6be-081156a2c281\",\"total_cost_usd\":1.0266335000000002,\"usage\":{\"input_tokens\":16,\"cache_creation_input_tokens\":58138,\"cache_read_input_tokens\":494132,\"output_tokens\":16645,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":58138,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":16,\"outputTokens\":16645,\"cacheReadInputTokens\":494132,\"cacheCreationInputTokens\":58138,\"webSearchRequests\":0,\"costUSD\":1.0266335000000002,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"35f00f2c-ba58-4872-b520-0aefecbdddf8\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "screening_data.json": "/Users/kamenkamenov/agentic-trading/screening_data.json",
+        "candidate_shortlist.md": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.md",
+        "candidate_shortlist.json": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.json",
+        "candidate-evaluation.md": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.md",
+        "candidate-evaluation.json": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.json"
+      },
+      "metrics": {
+        "duration_seconds": 336.0702657699585,
+        "token_usage": {
+          "input_tokens": 16,
+          "output_tokens": 16645,
+          "cache_read_tokens": 494132,
+          "cache_write_tokens": 58138
+        },
+        "estimated_cost_usd": 0.61598,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "verify": {
+      "phase_id": "verify",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-05T05:49:53.955667+00:00",
+      "completed_at": "2026-03-05T05:54:16.523499+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\n\n**Results:** 6 PASS, 1 FLAG, 0 FAIL\n\n**Score range after adjustment:** 77 (RGTI) \u2013 95 (OUST)\n\n**Pre-verify:** 5 checks passed, 2 issues found (Sector audit FAIL: NVDA labeled Unknown; Duplicate buy WARN: RGTI $14.78 convergence)\n\n**Key findings:**\n- OUST and QBTS Onboard verdicts confirmed \u2014 both theses are well-supported\n- IREN and HUT Monitor verdicts confirmed \u2014 Crypto concentration block is accurate and the differentiation arguments were correctly rejected\n- RGTI flagged (-2) for not addressing the duplicate buy price at $14.78 \u2014 two separate support levels ($14.12 and $14.70) converge to the same order price, creating potential 8-share over-deployment at a single point; Watch recommendation still stands\n- NTLA and RDW Watch verdicts confirmed \u2014 specific, measurable re-entry conditions identified\n- NVDA sector misclassification (Unknown vs Semi) is a portfolio context issue that does not affect any top-7 candidate's sector diversity score\n\nReady for final selection.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":260230,\"duration_api_ms\":255802,\"num_turns\":12,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\\n\\n**Results:** 6 PASS, 1 FLAG, 0 FAIL\\n\\n**Score range after adjustment:** 77 (RGTI) \u2013 95 (OUST)\\n\\n**Pre-verify:** 5 checks passed, 2 issues found (Sector audit FAIL: NVDA labeled Unknown; Duplicate buy WARN: RGTI $14.78 convergence)\\n\\n**Key findings:**\\n- OUST and QBTS Onboard verdicts confirmed \u2014 both theses are well-supported\\n- IREN and HUT Monitor verdicts confirmed \u2014 Crypto concentration block is accurate and the differentiation arguments were correctly rejected\\n- RGTI flagged (-2) for not addressing the duplicate buy price at $14.78 \u2014 two separate support levels ($14.12 and $14.70) converge to the same order price, creating potential 8-share over-deployment at a single point; Watch recommendation still stands\\n- NTLA and RDW Watch verdicts confirmed \u2014 specific, measurable re-entry conditions identified\\n- NVDA sector misclassification (Unknown vs Semi) is a portfolio context issue that does not affect any top-7 candidate's sector diversity score\\n\\nReady for final selection.\",\"stop_reason\":\"end_turn\",\"session_id\":\"6624cf66-ba0d-4c0d-bd9b-66973405c8aa\",\"total_cost_usd\":0.7209967500000002,\"usage\":{\"input_tokens\":11,\"cache_creation_input_tokens\":49117,\"cache_read_input_tokens\":276271,\"output_tokens\":11033,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":49117,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":11,\"outputTokens\":11033,\"cacheReadInputTokens\":276271,\"cacheCreationInputTokens\":49117,\"webSearchRequests\":0,\"costUSD\":0.7209967500000002,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"d1013571-7979-49dc-ae94-17e1ece98ed6\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-verify.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-verify.md",
+        "candidate-verification.md": "/Users/kamenkamenov/agentic-trading/candidate-verification.md",
+        "candidate-verification.json": "/Users/kamenkamenov/agentic-trading/candidate-verification.json"
+      },
+      "metrics": {
+        "duration_seconds": 262.5662536621094,
+        "token_usage": {
+          "input_tokens": 11,
+          "output_tokens": 11033,
+          "cache_read_tokens": 276271,
+          "cache_write_tokens": 49117
+        },
+        "estimated_cost_usd": 0.432598,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "critic": {
+      "phase_id": "critic",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-05T05:54:16.526515+00:00",
+      "completed_at": "2026-03-05T05:58:14.921084+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** candidate-pre-critic.md, candidate-final.md\n\n**Top 3:**\n1. OUST \u2014 105 \u2014 Onboard\n2. QBTS \u2014 90 \u2014 Onboard\n3. RGTI \u2014 83 \u2014 Watch\n\n**Key adversarial moves:**\n- **HUT demoted** (-8 qualitative): mechanical tool applied -5 for \"portfolio fit\" but the 4th BTC miner is a hard strategy rule violation, not a soft fit penalty. Pushed HUT from #3 (87) to #4 (79), below RGTI (83).\n- **IREN demoted** (-8 qualitative): same hard-block argument, compounded by systematic entry-zone recency deterioration at top-3 active levels.\n- **QBTS -3**: recency improvement at $15.44/$16.56 likely rests on 1-2 recent events (statistically fragile), and D-Wave's annealing architecture has a narrower competitive moat than gate-based approaches. Onboard verdict unchanged.\n- **OUST and RGTI unchanged**: OUST thesis is airtight; RGTI verifier -2 already captured the duplicate-buy concern.\n\n**Immediate actions:** Onboard OUST ($403.62 all-in, B1 at $22.31, 0.3% from current) and QBTS ($504.88 all-in, B1 at $18.55, 1.9% from current). Set RGTI alert at $16.30; re-evaluate when a Quantum slot opens.\n\nScreening complete. Review candidate-final.md for onboarding decisions.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":236079,\"duration_api_ms\":232657,\"num_turns\":10,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** candidate-pre-critic.md, candidate-final.md\\n\\n**Top 3:**\\n1. OUST \u2014 105 \u2014 Onboard\\n2. QBTS \u2014 90 \u2014 Onboard\\n3. RGTI \u2014 83 \u2014 Watch\\n\\n**Key adversarial moves:**\\n- **HUT demoted** (-8 qualitative): mechanical tool applied -5 for \\\"portfolio fit\\\" but the 4th BTC miner is a hard strategy rule violation, not a soft fit penalty. Pushed HUT from #3 (87) to #4 (79), below RGTI (83).\\n- **IREN demoted** (-8 qualitative): same hard-block argument, compounded by systematic entry-zone recency deterioration at top-3 active levels.\\n- **QBTS -3**: recency improvement at $15.44/$16.56 likely rests on 1-2 recent events (statistically fragile), and D-Wave's annealing architecture has a narrower competitive moat than gate-based approaches. Onboard verdict unchanged.\\n- **OUST and RGTI unchanged**: OUST thesis is airtight; RGTI verifier -2 already captured the duplicate-buy concern.\\n\\n**Immediate actions:** Onboard OUST ($403.62 all-in, B1 at $22.31, 0.3% from current) and QBTS ($504.88 all-in, B1 at $18.55, 1.9% from current). Set RGTI alert at $16.30; re-evaluate when a Quantum slot opens.\\n\\nScreening complete. Review candidate-final.md for onboarding decisions.\\n\\n## Decision: CLEAN\",\"stop_reason\":\"end_turn\",\"session_id\":\"27d63f1b-2f38-4b00-905c-02cd1a4c515c\",\"total_cost_usd\":0.7001665,\"usage\":{\"input_tokens\":10,\"cache_creation_input_tokens\":46058,\"cache_read_input_tokens\":216358,\"output_tokens\":12163,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":46058,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":10,\"outputTokens\":12163,\"cacheReadInputTokens\":216358,\"cacheCreationInputTokens\":46058,\"webSearchRequests\":0,\"costUSD\":0.7001665,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"7c0bb392-a3c6-45d5-8212-30a060f54260\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-critic.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-critic.md",
+        "candidate-final.md": "/Users/kamenkamenov/agentic-trading/candidate-final.md"
+      },
+      "metrics": {
+        "duration_seconds": 238.3930549621582,
+        "token_usage": {
+          "input_tokens": 10,
+          "output_tokens": 12163,
+          "cache_read_tokens": 216358,
+          "cache_write_tokens": 46058
+        },
+        "estimated_cost_usd": 0.4201,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-03-05T05:58:14.924049+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/surgical-candidate-workflow.yaml",
+    "workflowHash": "911887d0c859da61"
+  }
+}

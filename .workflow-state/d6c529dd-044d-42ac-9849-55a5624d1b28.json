@@ -1,0 +1,116 @@
+{
+  "run_id": "d6c529dd-044d-42ac-9849-55a5624d1b28",
+  "workflow_name": "surgical-candidate-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-03-08T16:14:37.232150+00:00",
+  "completed_at": "2026-03-08T16:33:20.545308+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nScreen for new ticker candidates, prioritizing sectors not currently under market stress. Focus on verticals with relative strength vs broad market weakness.",
+    "handoffs": {
+      "screen": "**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\n\n**Gate passers:** 75 tickers passed surgical gates | 19 wick analyses completed\n\n**Top 7 scored:**\n- RUN (93) \u2014 Solar\n- RGTI (87) \u2014 Quantum\n- QBTS (83) \u2014 Quantum\n- NTLA (81) \u2014 Biotech\n- RIOT (80) \u2014 Crypto\n- OKLO (79) \u2014 Nuclear\n- RDW (79) \u2014 Space\n\n**Recommendations:**\n- **Onboard (2):** RUN, RGTI\n- **Watch (3):** QBTS (sector crowding if RGTI added), NTLA (deteriorating upper zone), OKLO (price too high for bullet framework)\n- **Monitor (2):** RIOT (4x Crypto hard block), RDW (3-level recency collapse + zero reserve)\n\n**Key qualitative findings:**\n- RUN is the strongest add \u2014 only Solar in the screener universe, zero portfolio overlap, improving pattern, clean reserve structure\n- RGTI is a strong second Quantum add \u2014 uniformly improving recency with V-shaped bounces at $14-15, distinct hardware approach from IONQ\n- QBTS should only be onboarded if RGTI is declined; 3x Quantum is too concentrated\n- RIOT is mechanically excellent but hard-blocked by Crypto concentration (same sub-sector as CLSK)\n- RDW's middle active zone has structurally broken down with 0% holds across 3 levels and 3-4 events each \u2014 not noise\n\nReady for verification.",
+      "verify": "**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\n\n**Results:** 7 PASS, 0 FLAG, 0 FAIL\n\n**Score range after adjustment:** 79\u201393 (no adjustments applied)\n\n**Pre-verify:** 5 checks passed, 2 issues found (1 flag-coverage FAIL overridden as detection artifact for RDW; 1 sector audit FAIL for NVDA \"Unknown\" \u2014 no top-7 impact), 2 WARNs (duplicate buy prices for RGTI/QBTS \u2014 tool artifacts)\n\n**Notable mechanical findings resolved:**\n- **RDW flag \"missed\"**: Pre-verifier's keyword match failed to detect the evaluator's extensive prose coverage of the 3-level recency collapse. Overridden to Addressed \u2014 the evaluator's treatment was the most detailed in the set.\n- **RGTI/QBTS duplicate buy prices**: B3/B4 both fill at $14.78 for RGTI (active zone); QBTS reserve pair both at $5.77. Tool artifacts from nearby supports resolving to the same wick-adjusted price. Not recommendation-changing.\n- **NVDA \"Unknown\" sector**: Data quality issue in portfolio context table; affects sector diversity scoring only if a candidate shares NVDA's true sector (Semiconductor). No top-7 candidate is classified as Semi.\n\nReady for final selection.",
+      "critic": "**Artifacts:** candidate-pre-critic.md, candidate-final.md\n\n**Top 3:**\n1. RUN \u2014 98 \u2014 Onboard\n2. RGTI \u2014 90 \u2014 Onboard\n3. OKLO \u2014 89 \u2014 Watch\n\n**Key adversarial decisions:**\n\n- **RUN (-5):** Solar sector stress is real in 2026 (IRA rollbacks, tariffs) \u2014 the evaluator minimized this. Active zone's 20-29% hold rates are pass-through zones, not support. Still #1 by wide margin due to zero portfolio overlap + deepest reserve structure.\n\n- **RGTI (-3):** Hardware differentiation (superconducting vs trapped-ion) is technically real but trading correlation to quantum sector sentiment is shared with IONQ. 2x Quantum is within limits; the penalty reflects correlated drawdown risk the evaluator acknowledged but didn't fully price.\n\n- **QBTS (-8, demoted from #3 to #5):** The evaluator's own conditional logic \u2014 \"Watch, onboard only if RGTI NOT added\" \u2014 makes QBTS mutually exclusive with RGTI this cycle. With RGTI at #2, QBTS creates 3x Quantum (IONQ + RGTI + QBTS). A structural portfolio construction blocker is more disqualifying than a price constraint.\n\n- **OKLO (0, promoted from #4 to #3):** Thesis is fundamentally sound (nuclear tailwinds, AI power demand). Framework failure is price-driven and resolves at \u2264$40. Beats QBTS because a mechanical pricing constraint is conditional; 3x Quantum concentration is structural.\n\nScreening complete. Review candidate-final.md for onboarding decisions."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1
+  },
+  "phases": {
+    "screen": {
+      "phase_id": "screen",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-08T16:14:37.235444+00:00",
+      "completed_at": "2026-03-08T16:21:55.310757+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\n\n**Gate passers:** 75 tickers passed surgical gates | 19 wick analyses completed\n\n**Top 7 scored:**\n- RUN (93) \u2014 Solar\n- RGTI (87) \u2014 Quantum\n- QBTS (83) \u2014 Quantum\n- NTLA (81) \u2014 Biotech\n- RIOT (80) \u2014 Crypto\n- OKLO (79) \u2014 Nuclear\n- RDW (79) \u2014 Space\n\n**Recommendations:**\n- **Onboard (2):** RUN, RGTI\n- **Watch (3):** QBTS (sector crowding if RGTI added), NTLA (deteriorating upper zone), OKLO (price too high for bullet framework)\n- **Monitor (2):** RIOT (4x Crypto hard block), RDW (3-level recency collapse + zero reserve)\n\n**Key qualitative findings:**\n- RUN is the strongest add \u2014 only Solar in the screener universe, zero portfolio overlap, improving pattern, clean reserve structure\n- RGTI is a strong second Quantum add \u2014 uniformly improving recency with V-shaped bounces at $14-15, distinct hardware approach from IONQ\n- QBTS should only be onboarded if RGTI is declined; 3x Quantum is too concentrated\n- RIOT is mechanically excellent but hard-blocked by Crypto concentration (same sub-sector as CLSK)\n- RDW's middle active zone has structurally broken down with 0% holds across 3 levels and 3-4 events each \u2014 not noise\n\nReady for verification.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":435480,\"duration_api_ms\":413204,\"num_turns\":14,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\\n\\n**Gate passers:** 75 tickers passed surgical gates | 19 wick analyses completed\\n\\n**Top 7 scored:**\\n- RUN (93) \u2014 Solar\\n- RGTI (87) \u2014 Quantum\\n- QBTS (83) \u2014 Quantum\\n- NTLA (81) \u2014 Biotech\\n- RIOT (80) \u2014 Crypto\\n- OKLO (79) \u2014 Nuclear\\n- RDW (79) \u2014 Space\\n\\n**Recommendations:**\\n- **Onboard (2):** RUN, RGTI\\n- **Watch (3):** QBTS (sector crowding if RGTI added), NTLA (deteriorating upper zone), OKLO (price too high for bullet framework)\\n- **Monitor (2):** RIOT (4x Crypto hard block), RDW (3-level recency collapse + zero reserve)\\n\\n**Key qualitative findings:**\\n- RUN is the strongest add \u2014 only Solar in the screener universe, zero portfolio overlap, improving pattern, clean reserve structure\\n- RGTI is a strong second Quantum add \u2014 uniformly improving recency with V-shaped bounces at $14-15, distinct hardware approach from IONQ\\n- QBTS should only be onboarded if RGTI is declined; 3x Quantum is too concentrated\\n- RIOT is mechanically excellent but hard-blocked by Crypto concentration (same sub-sector as CLSK)\\n- RDW's middle active zone has structurally broken down with 0% holds across 3 levels and 3-4 events each \u2014 not noise\\n\\nReady for verification.\",\"stop_reason\":\"end_turn\",\"session_id\":\"b2865285-5db2-4c61-a199-afe4cbf1e2fd\",\"total_cost_usd\":1.0796425000000003,\"usage\":{\"input_tokens\":16,\"cache_creation_input_tokens\":49046,\"cache_read_input_tokens\":613450,\"output_tokens\":18652,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":49046,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":16,\"outputTokens\":18652,\"cacheReadInputTokens\":613450,\"cacheCreationInputTokens\":49046,\"webSearchRequests\":0,\"costUSD\":1.0796425000000003,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"879c28d2-3dcc-436d-932d-f6c7348d122b\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "screening_data.json": "/Users/kamenkamenov/agentic-trading/screening_data.json",
+        "candidate_shortlist.md": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.md",
+        "candidate_shortlist.json": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.json",
+        "candidate-evaluation.md": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.md",
+        "candidate-evaluation.json": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.json"
+      },
+      "metrics": {
+        "duration_seconds": 438.06525683403015,
+        "token_usage": {
+          "input_tokens": 16,
+          "output_tokens": 18652,
+          "cache_read_tokens": 613450,
+          "cache_write_tokens": 49046
+        },
+        "estimated_cost_usd": 0.647785,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "verify": {
+      "phase_id": "verify",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-08T16:21:55.320641+00:00",
+      "completed_at": "2026-03-08T16:28:40.423800+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\n\n**Results:** 7 PASS, 0 FLAG, 0 FAIL\n\n**Score range after adjustment:** 79\u201393 (no adjustments applied)\n\n**Pre-verify:** 5 checks passed, 2 issues found (1 flag-coverage FAIL overridden as detection artifact for RDW; 1 sector audit FAIL for NVDA \"Unknown\" \u2014 no top-7 impact), 2 WARNs (duplicate buy prices for RGTI/QBTS \u2014 tool artifacts)\n\n**Notable mechanical findings resolved:**\n- **RDW flag \"missed\"**: Pre-verifier's keyword match failed to detect the evaluator's extensive prose coverage of the 3-level recency collapse. Overridden to Addressed \u2014 the evaluator's treatment was the most detailed in the set.\n- **RGTI/QBTS duplicate buy prices**: B3/B4 both fill at $14.78 for RGTI (active zone); QBTS reserve pair both at $5.77. Tool artifacts from nearby supports resolving to the same wick-adjusted price. Not recommendation-changing.\n- **NVDA \"Unknown\" sector**: Data quality issue in portfolio context table; affects sector diversity scoring only if a candidate shares NVDA's true sector (Semiconductor). No top-7 candidate is classified as Semi.\n\nReady for final selection.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":402497,\"duration_api_ms\":372929,\"num_turns\":11,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\\n\\n**Results:** 7 PASS, 0 FLAG, 0 FAIL\\n\\n**Score range after adjustment:** 79\u201393 (no adjustments applied)\\n\\n**Pre-verify:** 5 checks passed, 2 issues found (1 flag-coverage FAIL overridden as detection artifact for RDW; 1 sector audit FAIL for NVDA \\\"Unknown\\\" \u2014 no top-7 impact), 2 WARNs (duplicate buy prices for RGTI/QBTS \u2014 tool artifacts)\\n\\n**Notable mechanical findings resolved:**\\n- **RDW flag \\\"missed\\\"**: Pre-verifier's keyword match failed to detect the evaluator's extensive prose coverage of the 3-level recency collapse. Overridden to Addressed \u2014 the evaluator's treatment was the most detailed in the set.\\n- **RGTI/QBTS duplicate buy prices**: B3/B4 both fill at $14.78 for RGTI (active zone); QBTS reserve pair both at $5.77. Tool artifacts from nearby supports resolving to the same wick-adjusted price. Not recommendation-changing.\\n- **NVDA \\\"Unknown\\\" sector**: Data quality issue in portfolio context table; affects sector diversity scoring only if a candidate shares NVDA's true sector (Semiconductor). No top-7 candidate is classified as Semi.\\n\\nReady for final selection.\",\"stop_reason\":\"end_turn\",\"session_id\":\"77768f27-98e2-46d4-81fe-2eaf22636a95\",\"total_cost_usd\":0.9111947499999999,\"usage\":{\"input_tokens\":12,\"cache_creation_input_tokens\":48519,\"cache_read_input_tokens\":398582,\"output_tokens\":16344,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":48519,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":12,\"outputTokens\":16344,\"cacheReadInputTokens\":398582,\"cacheCreationInputTokens\":48519,\"webSearchRequests\":0,\"costUSD\":0.9111947499999999,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"ae72eb14-7c66-4100-b936-63faf2712c28\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-verify.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-verify.md",
+        "candidate-verification.md": "/Users/kamenkamenov/agentic-trading/candidate-verification.md",
+        "candidate-verification.json": "/Users/kamenkamenov/agentic-trading/candidate-verification.json"
+      },
+      "metrics": {
+        "duration_seconds": 405.0980110168457,
+        "token_usage": {
+          "input_tokens": 12,
+          "output_tokens": 16344,
+          "cache_read_tokens": 398582,
+          "cache_write_tokens": 48519
+        },
+        "estimated_cost_usd": 0.546717,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "critic": {
+      "phase_id": "critic",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-08T16:28:40.428710+00:00",
+      "completed_at": "2026-03-08T16:33:20.540236+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** candidate-pre-critic.md, candidate-final.md\n\n**Top 3:**\n1. RUN \u2014 98 \u2014 Onboard\n2. RGTI \u2014 90 \u2014 Onboard\n3. OKLO \u2014 89 \u2014 Watch\n\n**Key adversarial decisions:**\n\n- **RUN (-5):** Solar sector stress is real in 2026 (IRA rollbacks, tariffs) \u2014 the evaluator minimized this. Active zone's 20-29% hold rates are pass-through zones, not support. Still #1 by wide margin due to zero portfolio overlap + deepest reserve structure.\n\n- **RGTI (-3):** Hardware differentiation (superconducting vs trapped-ion) is technically real but trading correlation to quantum sector sentiment is shared with IONQ. 2x Quantum is within limits; the penalty reflects correlated drawdown risk the evaluator acknowledged but didn't fully price.\n\n- **QBTS (-8, demoted from #3 to #5):** The evaluator's own conditional logic \u2014 \"Watch, onboard only if RGTI NOT added\" \u2014 makes QBTS mutually exclusive with RGTI this cycle. With RGTI at #2, QBTS creates 3x Quantum (IONQ + RGTI + QBTS). A structural portfolio construction blocker is more disqualifying than a price constraint.\n\n- **OKLO (0, promoted from #4 to #3):** Thesis is fundamentally sound (nuclear tailwinds, AI power demand). Framework failure is price-driven and resolves at \u2264$40. Beats QBTS because a mechanical pricing constraint is conditional; 3x Quantum concentration is structural.\n\nScreening complete. Review candidate-final.md for onboarding decisions.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":277667,\"duration_api_ms\":273076,\"num_turns\":9,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** candidate-pre-critic.md, candidate-final.md\\n\\n**Top 3:**\\n1. RUN \u2014 98 \u2014 Onboard\\n2. RGTI \u2014 90 \u2014 Onboard\\n3. OKLO \u2014 89 \u2014 Watch\\n\\n**Key adversarial decisions:**\\n\\n- **RUN (-5):** Solar sector stress is real in 2026 (IRA rollbacks, tariffs) \u2014 the evaluator minimized this. Active zone's 20-29% hold rates are pass-through zones, not support. Still #1 by wide margin due to zero portfolio overlap + deepest reserve structure.\\n\\n- **RGTI (-3):** Hardware differentiation (superconducting vs trapped-ion) is technically real but trading correlation to quantum sector sentiment is shared with IONQ. 2x Quantum is within limits; the penalty reflects correlated drawdown risk the evaluator acknowledged but didn't fully price.\\n\\n- **QBTS (-8, demoted from #3 to #5):** The evaluator's own conditional logic \u2014 \\\"Watch, onboard only if RGTI NOT added\\\" \u2014 makes QBTS mutually exclusive with RGTI this cycle. With RGTI at #2, QBTS creates 3x Quantum (IONQ + RGTI + QBTS). A structural portfolio construction blocker is more disqualifying than a price constraint.\\n\\n- **OKLO (0, promoted from #4 to #3):** Thesis is fundamentally sound (nuclear tailwinds, AI power demand). Framework failure is price-driven and resolves at \u2264$40. Beats QBTS because a mechanical pricing constraint is conditional; 3x Quantum concentration is structural.\\n\\nScreening complete. Review candidate-final.md for onboarding decisions.\",\"stop_reason\":\"end_turn\",\"session_id\":\"1ccb8605-7296-4646-ab03-077614b00905\",\"total_cost_usd\":0.7149567499999999,\"usage\":{\"input_tokens\":10,\"cache_creation_input_tokens\":38555,\"cache_read_input_tokens\":256976,\"output_tokens\":13818,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":38555,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":10,\"outputTokens\":13818,\"cacheReadInputTokens\":256976,\"cacheCreationInputTokens\":38555,\"webSearchRequests\":0,\"costUSD\":0.7149567499999999,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"e71357ac-7ebd-4639-bd1f-059aaa49e19b\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-critic.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-critic.md",
+        "candidate-final.md": "/Users/kamenkamenov/agentic-trading/candidate-final.md"
+      },
+      "metrics": {
+        "duration_seconds": 280.10530519485474,
+        "token_usage": {
+          "input_tokens": 10,
+          "output_tokens": 13818,
+          "cache_read_tokens": 256976,
+          "cache_write_tokens": 38555
+        },
+        "estimated_cost_usd": 0.428974,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-03-08T16:33:20.545539+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/surgical-candidate-workflow.yaml",
+    "workflowHash": "911887d0c859da61"
+  }
+}

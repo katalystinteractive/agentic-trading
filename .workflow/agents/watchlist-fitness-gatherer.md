@@ -37,7 +37,7 @@ python3 tools/watchlist_fitness.py
 This script handles ALL data collection and analysis:
 - Fetches 13-month history for all watchlist + position tickers (parallel, 4 workers)
 - Runs wick analysis per ticker (reuses fetched history — no duplicate yfinance calls)
-- Computes fitness score (5 components, max 100)
+- Computes fitness score (6 components, max 100: swing, consistency, level count, hold rate, order hygiene, cycle efficiency)
 - Computes cycle data (RSI, SMA distances, range percentile, cycle state)
 - Analyzes order sanity (matched, drifted, orphaned, paused)
 - Derives engagement verdict (RECOVERY, EXIT-REVIEW, REMOVE, HOLD-WAIT, REVIEW, RESTRUCTURE, ADD, ENGAGE)

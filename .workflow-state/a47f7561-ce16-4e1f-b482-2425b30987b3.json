@@ -1,0 +1,109 @@
+{
+  "run_id": "a47f7561-ce16-4e1f-b482-2425b30987b3",
+  "workflow_name": "deep-dive-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-25T18:28:26.009409+00:00",
+  "completed_at": "2026-02-25T18:48:55.328125+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun deep dive for UAMY \u2014 evaluating for watchlist re-add after full exit today (2026-02-25). Sold 40 shares @ $8.44 (+6.0%). Position closed. Need fresh wick analysis, support levels, and bullet plan to determine if UAMY has viable re-entry setup. Ticker: UAMY. Treat as potential new entry evaluation, not existing position.",
+    "handoffs": {
+      "collect": "**Artifact:** `deep-dive-raw.md`\n**Ticker:** UAMY\n**Status:** EXISTING (position closed today 2026-02-25; evaluating for re-entry)\n**Tools completed:** 7/8\n**Tool failures:** verify_stock.py \u2014 yfinance returned no data (price confirmed from technical_scanner: $8.93, volume_profile: $8.87)\n\n**Key data captured:**\n- Wick analysis fresh as of today \u2014 current price $8.94, ATR 9.2%, 78.1% monthly swing. Active support levels: $7.50 (27% hold), $6.85 (40%), $6.52 (43%), $6.04 (33%). Previous $7.01\u2013$7.16 levels now show 12% hold \u2014 confirmed weak.\n- Technical: **Strong Bullish (+6)** \u2014 above all MAs, RSI 56.6, MACD positive. Stochastic overbought at 90.5. Bollinger Upper $9.50.\n- Earnings: Next on 2026-03-19 (22 days). Clear window. Q4 2025 was a miss (-383.7% EPS surprise, -11.5% 5-day). Alternating bear/bull pattern historically.\n- News: 60% positive, avg +0.22. BMO conference presentation today. Macro tailwind ($30B critical minerals). Policy risk remains (price floors cancelled).\n- Short interest: 19.2% float shorted, increasing +6.9%. DTC only 1.5 \u2014 low squeeze risk.\n- Institutional: STRONG ACCUMULATION \u2014 8/10 holders increasing, avg +145.9%. Two Sigma +950%, Susquehanna +255%.\n- Volume profile: POC $8.19, current zone 8.50\u20139.12 (55% buy). POC zone 7.88\u20138.50 (250.1M volume, 51% buy). Buy pressure at $6.63\u20137.25 (58% buy).\n\nReady for identity compilation.",
+      "compile": "**Artifact:** tickers/UAMY/identity.md\n**Ticker:** UAMY\n**Status:** EXISTING (position closed 2026-02-25; re-entry evaluation)\n**Blocked:** no\n**Active bullets:** 5 (B1-B5, total ~$219) \u2014 B1 $7.71, B2 $7.10, B3 $6.67, B4 $6.22, B5 $5.95\n**Reserve bullets:** 3 (R1-R3, total ~$288) \u2014 R1 $5.29, R2 $4.82, R3 $4.36\n**Persona:** \"The Critical Mineral.\"\n**Portfolio.json updated:** yes (re-entry: added to watchlist, pending orders populated with 8 limit buys)\n\n**Key findings:**\n- 13.8% dead zone gap between current price ($8.94) and first bullet ($7.71) \u2014 $8.48 and $7.99 both Skip tier. Pullback must be meaningful before any fills.\n- 3 convergences detected and merged: $6.67 (Active), $4.82 (Reserve), $4.36 (Reserve).\n- Earnings 2026-03-19 (22 days) \u2014 Clear window. Enters APPROACHING March 5.\n- Short interest 19.2% \u2014 elevated but DTC only 1.5 (low squeeze risk).\n- Strong institutional accumulation (Two Sigma +951%, Susquehanna +255%).\n- Sector overlap with USAR (critical minerals) \u2014 correlated policy exposure noted.\n- memory.md preserved (not modified \u2014 existing ticker).\n- verify_stock.py failed (yfinance error) \u2014 price confirmed from technical_scanner ($8.93) and volume_profile ($8.87). No impact on analysis.\n\nReady for bullet plan review.",
+      "review": "**Artifact:** deep-dive-review.md\n**Ticker:** UAMY\n**Verdict:** PASS\n**Checks passed:** 7/7\n**Issues found:** 0 (7 notes, all non-blocking)\n\n**Bullet math:** All 8 orders verified clean.\n- B1 $7.71 \u00d7 3 = $23.13 (Half) \u2713\n- B2 $7.10 \u00d7 8 = $56.80 (Std) \u2713\n- B3 $6.67 \u00d7 8 = $53.36 (Std, convergence) \u2713\n- B4 $6.22 \u00d7 9 = $55.98 (Std) \u2713\n- B5 $5.95 \u00d7 5 = $29.75 (Half) \u2713\n- R1 $5.29 \u00d7 18 = $95.22 \u2713, R2 $4.82 \u00d7 20 = $96.40 \u2713, R3 $4.36 \u00d7 22 = $95.92 \u2713\n\n**Active: $219.02 / $300 | Reserve: $287.54 / $300**\n\n**Key observations (non-blocking):**\n- R2 text description transposes hold rates (table is correct)\n- $4.22 PA has only 2 approaches (low confidence, noted, not reclassified)\n- R3 buy-at $4.36 equals raw support \u2014 valid because wick tool computed 0% offset at that level\n- Analyst overrode tool's deep reserve picks ($2.40/$1.62/$1.69) with closer levels ($5.29/$4.82/$4.36) \u2014 valid judgment\n\nDeep dive review complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1
+  },
+  "phases": {
+    "collect": {
+      "phase_id": "collect",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-25T18:28:26.011451+00:00",
+      "completed_at": "2026-02-25T18:35:56.215284+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `deep-dive-raw.md`\n**Ticker:** UAMY\n**Status:** EXISTING (position closed today 2026-02-25; evaluating for re-entry)\n**Tools completed:** 7/8\n**Tool failures:** verify_stock.py \u2014 yfinance returned no data (price confirmed from technical_scanner: $8.93, volume_profile: $8.87)\n\n**Key data captured:**\n- Wick analysis fresh as of today \u2014 current price $8.94, ATR 9.2%, 78.1% monthly swing. Active support levels: $7.50 (27% hold), $6.85 (40%), $6.52 (43%), $6.04 (33%). Previous $7.01\u2013$7.16 levels now show 12% hold \u2014 confirmed weak.\n- Technical: **Strong Bullish (+6)** \u2014 above all MAs, RSI 56.6, MACD positive. Stochastic overbought at 90.5. Bollinger Upper $9.50.\n- Earnings: Next on 2026-03-19 (22 days). Clear window. Q4 2025 was a miss (-383.7% EPS surprise, -11.5% 5-day). Alternating bear/bull pattern historically.\n- News: 60% positive, avg +0.22. BMO conference presentation today. Macro tailwind ($30B critical minerals). Policy risk remains (price floors cancelled).\n- Short interest: 19.2% float shorted, increasing +6.9%. DTC only 1.5 \u2014 low squeeze risk.\n- Institutional: STRONG ACCUMULATION \u2014 8/10 holders increasing, avg +145.9%. Two Sigma +950%, Susquehanna +255%.\n- Volume profile: POC $8.19, current zone 8.50\u20139.12 (55% buy). POC zone 7.88\u20138.50 (250.1M volume, 51% buy). Buy pressure at $6.63\u20137.25 (58% buy).\n\nReady for identity compilation.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":416966,\"duration_api_ms\":353477,\"num_turns\":17,\"result\":\"## HANDOFF\\n\\n**Artifact:** `deep-dive-raw.md`\\n**Ticker:** UAMY\\n**Status:** EXISTING (position closed today 2026-02-25; evaluating for re-entry)\\n**Tools completed:** 7/8\\n**Tool failures:** verify_stock.py \u2014 yfinance returned no data (price confirmed from technical_scanner: $8.93, volume_profile: $8.87)\\n\\n**Key data captured:**\\n- Wick analysis fresh as of today \u2014 current price $8.94, ATR 9.2%, 78.1% monthly swing. Active support levels: $7.50 (27% hold), $6.85 (40%), $6.52 (43%), $6.04 (33%). Previous $7.01\u2013$7.16 levels now show 12% hold \u2014 confirmed weak.\\n- Technical: **Strong Bullish (+6)** \u2014 above all MAs, RSI 56.6, MACD positive. Stochastic overbought at 90.5. Bollinger Upper $9.50.\\n- Earnings: Next on 2026-03-19 (22 days). Clear window. Q4 2025 was a miss (-383.7% EPS surprise, -11.5% 5-day). Alternating bear/bull pattern historically.\\n- News: 60% positive, avg +0.22. BMO conference presentation today. Macro tailwind ($30B critical minerals). Policy risk remains (price floors cancelled).\\n- Short interest: 19.2% float shorted, increasing +6.9%. DTC only 1.5 \u2014 low squeeze risk.\\n- Institutional: STRONG ACCUMULATION \u2014 8/10 holders increasing, avg +145.9%. Two Sigma +950%, Susquehanna +255%.\\n- Volume profile: POC $8.19, current zone 8.50\u20139.12 (55% buy). POC zone 7.88\u20138.50 (250.1M volume, 51% buy). Buy pressure at $6.63\u20137.25 (58% buy).\\n\\nReady for identity compilation.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"297b8893-9486-4e79-be96-7edba786f690\",\"total_cost_usd\":1.1874055,\"usage\":{\"input_tokens\":17,\"cache_creation_input_tokens\":54660,\"cache_read_input_tokens\":721098,\"output_tokens\":18306,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":54660,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":17,\"outputTokens\":18306,\"cacheReadInputTokens\":721098,\"cacheCreationInputTokens\":54660,\"webSearchRequests\":0,\"costUSD\":1.1599089999999999,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":6414,\"outputTokens\":307,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":15638,\"webSearchRequests\":0,\"costUSD\":0.0274965,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"b21bb5ee-c641-470d-9e12-b6eaed0951e4\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "deep-dive-raw.md": "/Users/kamenkamenov/agentic-trading/deep-dive-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 450.20215916633606,
+        "token_usage": {
+          "input_tokens": 17,
+          "output_tokens": 18306,
+          "cache_read_tokens": 721098,
+          "cache_write_tokens": 54660
+        },
+        "estimated_cost_usd": 0.695945,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "compile": {
+      "phase_id": "compile",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-25T18:35:56.218014+00:00",
+      "completed_at": "2026-02-25T18:42:39.070789+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** tickers/UAMY/identity.md\n**Ticker:** UAMY\n**Status:** EXISTING (position closed 2026-02-25; re-entry evaluation)\n**Blocked:** no\n**Active bullets:** 5 (B1-B5, total ~$219) \u2014 B1 $7.71, B2 $7.10, B3 $6.67, B4 $6.22, B5 $5.95\n**Reserve bullets:** 3 (R1-R3, total ~$288) \u2014 R1 $5.29, R2 $4.82, R3 $4.36\n**Persona:** \"The Critical Mineral.\"\n**Portfolio.json updated:** yes (re-entry: added to watchlist, pending orders populated with 8 limit buys)\n\n**Key findings:**\n- 13.8% dead zone gap between current price ($8.94) and first bullet ($7.71) \u2014 $8.48 and $7.99 both Skip tier. Pullback must be meaningful before any fills.\n- 3 convergences detected and merged: $6.67 (Active), $4.82 (Reserve), $4.36 (Reserve).\n- Earnings 2026-03-19 (22 days) \u2014 Clear window. Enters APPROACHING March 5.\n- Short interest 19.2% \u2014 elevated but DTC only 1.5 (low squeeze risk).\n- Strong institutional accumulation (Two Sigma +951%, Susquehanna +255%).\n- Sector overlap with USAR (critical minerals) \u2014 correlated policy exposure noted.\n- memory.md preserved (not modified \u2014 existing ticker).\n- verify_stock.py failed (yfinance error) \u2014 price confirmed from technical_scanner ($8.93) and volume_profile ($8.87). No impact on analysis.\n\nReady for bullet plan review.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":369744,\"duration_api_ms\":367836,\"num_turns\":20,\"result\":\"## Decision: CLEAN\\n\\n## HANDOFF\\n\\n**Artifact:** tickers/UAMY/identity.md\\n**Ticker:** UAMY\\n**Status:** EXISTING (position closed 2026-02-25; re-entry evaluation)\\n**Blocked:** no\\n**Active bullets:** 5 (B1-B5, total ~$219) \u2014 B1 $7.71, B2 $7.10, B3 $6.67, B4 $6.22, B5 $5.95\\n**Reserve bullets:** 3 (R1-R3, total ~$288) \u2014 R1 $5.29, R2 $4.82, R3 $4.36\\n**Persona:** \\\"The Critical Mineral.\\\"\\n**Portfolio.json updated:** yes (re-entry: added to watchlist, pending orders populated with 8 limit buys)\\n\\n**Key findings:**\\n- 13.8% dead zone gap between current price ($8.94) and first bullet ($7.71) \u2014 $8.48 and $7.99 both Skip tier. Pullback must be meaningful before any fills.\\n- 3 convergences detected and merged: $6.67 (Active), $4.82 (Reserve), $4.36 (Reserve).\\n- Earnings 2026-03-19 (22 days) \u2014 Clear window. Enters APPROACHING March 5.\\n- Short interest 19.2% \u2014 elevated but DTC only 1.5 (low squeeze risk).\\n- Strong institutional accumulation (Two Sigma +951%, Susquehanna +255%).\\n- Sector overlap with USAR (critical minerals) \u2014 correlated policy exposure noted.\\n- memory.md preserved (not modified \u2014 existing ticker).\\n- verify_stock.py failed (yfinance error) \u2014 price confirmed from technical_scanner ($8.93) and volume_profile ($8.87). No impact on analysis.\\n\\nReady for bullet plan review.\",\"stop_reason\":null,\"session_id\":\"70520f5b-c349-4811-8dc2-f875c3631ef4\",\"total_cost_usd\":1.4126214999999998,\"usage\":{\"input_tokens\":17,\"cache_creation_input_tokens\":59376,\"cache_read_input_tokens\":999823,\"output_tokens\":21661,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":59376,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-opus-4-6\":{\"inputTokens\":17,\"outputTokens\":21661,\"cacheReadInputTokens\":999823,\"cacheCreationInputTokens\":59376,\"webSearchRequests\":0,\"costUSD\":1.4126214999999998,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"e096834d-9680-412a-8178-8f1998f18d91\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "file_0": "tickers/UAMY/identity.md"
+      },
+      "metrics": {
+        "duration_seconds": 402.85072207450867,
+        "token_usage": {
+          "input_tokens": 17,
+          "output_tokens": 21661,
+          "cache_read_tokens": 999823,
+          "cache_write_tokens": 59376
+        },
+        "estimated_cost_usd": 0.847573,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-25T18:42:39.073851+00:00",
+      "completed_at": "2026-02-25T18:48:55.324888+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** deep-dive-review.md\n**Ticker:** UAMY\n**Verdict:** PASS\n**Checks passed:** 7/7\n**Issues found:** 0 (7 notes, all non-blocking)\n\n**Bullet math:** All 8 orders verified clean.\n- B1 $7.71 \u00d7 3 = $23.13 (Half) \u2713\n- B2 $7.10 \u00d7 8 = $56.80 (Std) \u2713\n- B3 $6.67 \u00d7 8 = $53.36 (Std, convergence) \u2713\n- B4 $6.22 \u00d7 9 = $55.98 (Std) \u2713\n- B5 $5.95 \u00d7 5 = $29.75 (Half) \u2713\n- R1 $5.29 \u00d7 18 = $95.22 \u2713, R2 $4.82 \u00d7 20 = $96.40 \u2713, R3 $4.36 \u00d7 22 = $95.92 \u2713\n\n**Active: $219.02 / $300 | Reserve: $287.54 / $300**\n\n**Key observations (non-blocking):**\n- R2 text description transposes hold rates (table is correct)\n- $4.22 PA has only 2 approaches (low confidence, noted, not reclassified)\n- R3 buy-at $4.36 equals raw support \u2014 valid because wick tool computed 0% offset at that level\n- Analyst overrode tool's deep reserve picks ($2.40/$1.62/$1.69) with closer levels ($5.29/$4.82/$4.36) \u2014 valid judgment\n\nDeep dive review complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":344388,\"duration_api_ms\":343302,\"num_turns\":8,\"result\":\"Review complete. Here is the summary:\\n\\n---\\n\\n## HANDOFF\\n\\n**Artifact:** deep-dive-review.md\\n**Ticker:** UAMY\\n**Verdict:** PASS\\n**Checks passed:** 7/7\\n**Issues found:** 0 (7 notes, all non-blocking)\\n\\n**Bullet math:** All 8 orders verified clean.\\n- B1 $7.71 \u00d7 3 = $23.13 (Half) \u2713\\n- B2 $7.10 \u00d7 8 = $56.80 (Std) \u2713\\n- B3 $6.67 \u00d7 8 = $53.36 (Std, convergence) \u2713\\n- B4 $6.22 \u00d7 9 = $55.98 (Std) \u2713\\n- B5 $5.95 \u00d7 5 = $29.75 (Half) \u2713\\n- R1 $5.29 \u00d7 18 = $95.22 \u2713, R2 $4.82 \u00d7 20 = $96.40 \u2713, R3 $4.36 \u00d7 22 = $95.92 \u2713\\n\\n**Active: $219.02 / $300 | Reserve: $287.54 / $300**\\n\\n**Key observations (non-blocking):**\\n- R2 text description transposes hold rates (table is correct)\\n- $4.22 PA has only 2 approaches (low confidence, noted, not reclassified)\\n- R3 buy-at $4.36 equals raw support \u2014 valid because wick tool computed 0% offset at that level\\n- Analyst overrode tool's deep reserve picks ($2.40/$1.62/$1.69) with closer levels ($5.29/$4.82/$4.36) \u2014 valid judgment\\n\\nDeep dive review complete.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"f3359117-9e07-4f7b-aaee-ef5ae6f85b78\",\"total_cost_usd\":1.0188465,\"usage\":{\"input_tokens\":8,\"cache_creation_input_tokens\":57910,\"cache_read_input_tokens\":289238,\"output_tokens\":20490,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":57910,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":8,\"outputTokens\":20490,\"cacheReadInputTokens\":289238,\"cacheCreationInputTokens\":57910,\"webSearchRequests\":0,\"costUSD\":1.0188465,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"6dbf4348-b84e-4289-afa1-aec0245d80db\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "deep-dive-review.md": "/Users/kamenkamenov/agentic-trading/deep-dive-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 376.24945616722107,
+        "token_usage": {
+          "input_tokens": 8,
+          "output_tokens": 20490,
+          "cache_read_tokens": 289238,
+          "cache_write_tokens": 57910
+        },
+        "estimated_cost_usd": 0.611308,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-25T18:48:55.328447+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/deep-dive-workflow.yaml",
+    "workflowHash": "d10f6553d05e5484"
+  }
+}

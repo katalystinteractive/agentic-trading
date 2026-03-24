@@ -62,7 +62,10 @@ Evaluate ALL 4 exit criteria:
 
 ### Step 2: Generate Verdict
 
-**Pre-check:** If note contains "recovery"/"pre-strategy" BUT P/L > 0%, treat as non-recovery.
+**Pre-check — position classification (MUST evaluate before rules):**
+1. If note contains "recovery"/"pre-strategy" BUT P/L > 0%, treat as **non-recovery**.
+2. A position with P/L <= 0% after a **fresh re-entry** (prior profitable exit exists in memory) is **NON-RECOVERY** unless note explicitly says "recovery".
+3. Always check time-stop status BEFORE recovery rules. Time stop WITHIN/APPROACHING produces MONITOR (rules 15-16) for non-recovery, non-GATED positions regardless of other factors.
 
 Apply rules IN ORDER — first match wins:
 
@@ -113,10 +116,10 @@ For each pending BUY order, evaluate TWO gates:
 - Neutral: ACTIVE (CAUTION if VIX 20-25 and VIX 5D% is positive / trending up)
 - Risk-Off: Watchlist=PAUSE; Active>15% below=ACTIVE; Active<=15% below=REVIEW
 
-**Gate 2: Earnings Gate** (from Days to Earnings):
-- <7 days: PAUSE
-- 7-14 days: REVIEW
-- >14 days or unknown: ACTIVE
+**Gate 2: Earnings Gate** (from Days to Earnings — use exact thresholds, no discretion):
+- DTE < 7: PAUSE
+- 7 <= DTE <= 14: REVIEW
+- DTE > 14 or unknown: ACTIVE
 
 **Combined** = worst of both gates. Priority: ACTIVE < CAUTION < REVIEW < PAUSE
 SELL orders show N/A for all gates.

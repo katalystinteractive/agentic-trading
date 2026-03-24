@@ -1,0 +1,107 @@
+{
+  "run_id": "8fd33f32-7952-4a3d-8e92-33c5060f409c",
+  "workflow_name": "deep-dive-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-21T15:28:32.641161+00:00",
+  "completed_at": "2026-02-21T15:40:39.423812+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nNNE",
+    "handoffs": {
+      "collect": "**Artifact:** `deep-dive-raw.md`\n**Ticker:** NNE\n**Status:** NEW (no position, no watchlist entry, no existing identity.md)\n**Tools completed:** 8/8\n**Tool failures:** none\n\n**Key data points captured:**\n- Price: $24.60\u2013$24.61 (2026-02-20)\n- 6 support levels with wick-adjusted buy prices ($19.28\u2013$24.03 active/reserve)\n- 13 months of cycle data \u2014 massive 61.2% avg monthly swing, currently in sharp downtrend (-39% from Jan high)\n- Technical: Strong Bearish (score -6), all SMAs/EMAs above price, RSI 38.2, stoch oversold\n- Earnings: Next 2026-05-15 (83d clear), Q1 2026 beat (-$0.13 vs -$0.29 est), post-earnings fade pattern recurring\n- News: Bullish 57%, $577.5M raise, KRONOS MMR progress, heavy insider selling ($30M+ by President in Jan)\n- Short interest: EXTREME squeeze risk, 30.4% float short, 5.3 DTC, decreasing\n- Institutions: STRONG ACCUMULATION \u2014 9/10 holders increasing, BlackRock +31%, Vanguard +27%\n- Volume POC at $33.14 (+34.7% above current), VWAP $40.19 \u2014 current price is deep under all major volume clusters\n\nReady for identity compilation.",
+      "compile": "**Artifact:** tickers/NNE/identity.md\n**Ticker:** NNE\n**Status:** NEW\n**Blocked:** no\n**Active bullets:** 4 (B1-B4, total ~$183)\n**Reserve bullets:** 1 (R1, total ~$96)\n**Persona:** \"The Micro Reactor.\"\n**Portfolio.json updated:** yes\n\nReady for bullet plan review.",
+      "review": "**Artifact:** `deep-dive-review.md`\n**Ticker:** NNE\n**Verdict:** ISSUES\n**Checks passed:** 6/7\n**Issues found:** 1\n\n**Issue summary:** Zone assignment for $18.81 PA / $19.28 buy-at is classified as **Reserve** in both the tool output and identity.md, but the active floor by formula is $24.60 \u00d7 (1 \u2212 0.306) = **$17.07**. The buy-at price of $19.28 is $2.21 above the active floor, placing it in the Active zone. The tool's own header states \"Active Zone: within 30.6% of current price,\" yet the tool's classification contradicts this for the $18.81 level. If reclassified to Active (B5), reserve sizing (5 shares, ~$96) should be replaced with active-Full sizing (3 shares, ~$58 at $19.28).\n\nAll other checks \u2014 bullet math, tier classifications, price accuracy, budget compliance, format compliance, and portfolio.json consistency \u2014 pass cleanly."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1
+  },
+  "phases": {
+    "collect": {
+      "phase_id": "collect",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-21T15:28:32.650341+00:00",
+      "completed_at": "2026-02-21T15:33:03.852593+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `deep-dive-raw.md`\n**Ticker:** NNE\n**Status:** NEW (no position, no watchlist entry, no existing identity.md)\n**Tools completed:** 8/8\n**Tool failures:** none\n\n**Key data points captured:**\n- Price: $24.60\u2013$24.61 (2026-02-20)\n- 6 support levels with wick-adjusted buy prices ($19.28\u2013$24.03 active/reserve)\n- 13 months of cycle data \u2014 massive 61.2% avg monthly swing, currently in sharp downtrend (-39% from Jan high)\n- Technical: Strong Bearish (score -6), all SMAs/EMAs above price, RSI 38.2, stoch oversold\n- Earnings: Next 2026-05-15 (83d clear), Q1 2026 beat (-$0.13 vs -$0.29 est), post-earnings fade pattern recurring\n- News: Bullish 57%, $577.5M raise, KRONOS MMR progress, heavy insider selling ($30M+ by President in Jan)\n- Short interest: EXTREME squeeze risk, 30.4% float short, 5.3 DTC, decreasing\n- Institutions: STRONG ACCUMULATION \u2014 9/10 holders increasing, BlackRock +31%, Vanguard +27%\n- Volume POC at $33.14 (+34.7% above current), VWAP $40.19 \u2014 current price is deep under all major volume clusters\n\nReady for identity compilation.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":238844,\"duration_api_ms\":200517,\"num_turns\":13,\"result\":\"## HANDOFF\\n\\n**Artifact:** `deep-dive-raw.md`\\n**Ticker:** NNE\\n**Status:** NEW (no position, no watchlist entry, no existing identity.md)\\n**Tools completed:** 8/8\\n**Tool failures:** none\\n\\n**Key data points captured:**\\n- Price: $24.60\u2013$24.61 (2026-02-20)\\n- 6 support levels with wick-adjusted buy prices ($19.28\u2013$24.03 active/reserve)\\n- 13 months of cycle data \u2014 massive 61.2% avg monthly swing, currently in sharp downtrend (-39% from Jan high)\\n- Technical: Strong Bearish (score -6), all SMAs/EMAs above price, RSI 38.2, stoch oversold\\n- Earnings: Next 2026-05-15 (83d clear), Q1 2026 beat (-$0.13 vs -$0.29 est), post-earnings fade pattern recurring\\n- News: Bullish 57%, $577.5M raise, KRONOS MMR progress, heavy insider selling ($30M+ by President in Jan)\\n- Short interest: EXTREME squeeze risk, 30.4% float short, 5.3 DTC, decreasing\\n- Institutions: STRONG ACCUMULATION \u2014 9/10 holders increasing, BlackRock +31%, Vanguard +27%\\n- Volume POC at $33.14 (+34.7% above current), VWAP $40.19 \u2014 current price is deep under all major volume clusters\\n\\nReady for identity compilation.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"82632a55-381b-4ec9-b19b-14bdede6403c\",\"total_cost_usd\":0.7253155000000001,\"usage\":{\"input_tokens\":14,\"cache_creation_input_tokens\":34918,\"cache_read_input_tokens\":434488,\"output_tokens\":10928,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":34918,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":14,\"outputTokens\":10928,\"cacheReadInputTokens\":434488,\"cacheCreationInputTokens\":34918,\"webSearchRequests\":0,\"costUSD\":0.7087515000000001,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":9364,\"outputTokens\":315,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":4500,\"webSearchRequests\":0,\"costUSD\":0.016564,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"f851a514-e8d2-4447-b172-58a4e25437f2\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "deep-dive-raw.md": "/Users/kamenkamenov/agentic-trading/deep-dive-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 271.1946930885315,
+        "token_usage": {
+          "input_tokens": 14,
+          "output_tokens": 10928,
+          "cache_read_tokens": 434488,
+          "cache_write_tokens": 34918
+        },
+        "estimated_cost_usd": 0.425251,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "compile": {
+      "phase_id": "compile",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-21T15:33:03.854716+00:00",
+      "completed_at": "2026-02-21T15:37:26.039266+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** tickers/NNE/identity.md\n**Ticker:** NNE\n**Status:** NEW\n**Blocked:** no\n**Active bullets:** 4 (B1-B4, total ~$183)\n**Reserve bullets:** 1 (R1, total ~$96)\n**Persona:** \"The Micro Reactor.\"\n**Portfolio.json updated:** yes\n\nReady for bullet plan review.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":230167,\"duration_api_ms\":226320,\"num_turns\":17,\"result\":\"All three outputs verified \u2014 identity.md, memory.md, and portfolio.json all correctly updated.\\n\\n## Decision: CLEAN\\n\\n## HANDOFF\\n\\n**Artifact:** tickers/NNE/identity.md\\n**Ticker:** NNE\\n**Status:** NEW\\n**Blocked:** no\\n**Active bullets:** 4 (B1-B4, total ~$183)\\n**Reserve bullets:** 1 (R1, total ~$96)\\n**Persona:** \\\"The Micro Reactor.\\\"\\n**Portfolio.json updated:** yes\\n\\nReady for bullet plan review.\",\"stop_reason\":null,\"session_id\":\"a007bffe-f4d7-4883-add8-8a704ef56eee\",\"total_cost_usd\":0.88043025,\"usage\":{\"input_tokens\":13,\"cache_creation_input_tokens\":48555,\"cache_read_input_tokens\":563581,\"output_tokens\":11783,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":48555,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-opus-4-6\":{\"inputTokens\":13,\"outputTokens\":11783,\"cacheReadInputTokens\":563581,\"cacheCreationInputTokens\":48555,\"webSearchRequests\":0,\"costUSD\":0.87989925,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":371,\"outputTokens\":32,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.000531,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"adcf43a2-5ffd-4966-846c-b9e6bf41dcb8\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "file_0": "tickers/NNE/identity.md"
+      },
+      "metrics": {
+        "duration_seconds": 262.1798460483551,
+        "token_usage": {
+          "input_tokens": 13,
+          "output_tokens": 11783,
+          "cache_read_tokens": 563581,
+          "cache_write_tokens": 48555
+        },
+        "estimated_cost_usd": 0.52794,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-21T15:37:26.047020+00:00",
+      "completed_at": "2026-02-21T15:40:39.420234+00:00",
+      "error_message": null,
+      "decision": "ISSUES",
+      "handoff": "**Artifact:** `deep-dive-review.md`\n**Ticker:** NNE\n**Verdict:** ISSUES\n**Checks passed:** 6/7\n**Issues found:** 1\n\n**Issue summary:** Zone assignment for $18.81 PA / $19.28 buy-at is classified as **Reserve** in both the tool output and identity.md, but the active floor by formula is $24.60 \u00d7 (1 \u2212 0.306) = **$17.07**. The buy-at price of $19.28 is $2.21 above the active floor, placing it in the Active zone. The tool's own header states \"Active Zone: within 30.6% of current price,\" yet the tool's classification contradicts this for the $18.81 level. If reclassified to Active (B5), reserve sizing (5 shares, ~$96) should be replaced with active-Full sizing (3 shares, ~$58 at $19.28).\n\nAll other checks \u2014 bullet math, tier classifications, price accuracy, budget compliance, format compliance, and portfolio.json consistency \u2014 pass cleanly.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":160896,\"duration_api_ms\":158878,\"num_turns\":6,\"result\":\"## HANDOFF\\n\\n**Artifact:** `deep-dive-review.md`\\n**Ticker:** NNE\\n**Verdict:** ISSUES\\n**Checks passed:** 6/7\\n**Issues found:** 1\\n\\n**Issue summary:** Zone assignment for $18.81 PA / $19.28 buy-at is classified as **Reserve** in both the tool output and identity.md, but the active floor by formula is $24.60 \u00d7 (1 \u2212 0.306) = **$17.07**. The buy-at price of $19.28 is $2.21 above the active floor, placing it in the Active zone. The tool's own header states \\\"Active Zone: within 30.6% of current price,\\\" yet the tool's classification contradicts this for the $18.81 level. If reclassified to Active (B5), reserve sizing (5 shares, ~$96) should be replaced with active-Full sizing (3 shares, ~$58 at $19.28).\\n\\nAll other checks \u2014 bullet math, tier classifications, price accuracy, budget compliance, format compliance, and portfolio.json consistency \u2014 pass cleanly.\\n\\n## Decision: ISSUES\",\"stop_reason\":null,\"session_id\":\"037bdaf5-c8c7-47c6-9435-f31535a33078\",\"total_cost_usd\":0.5623975,\"usage\":{\"input_tokens\":5,\"cache_creation_input_tokens\":40818,\"cache_read_input_tokens\":98170,\"output_tokens\":10327,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":40818,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":5,\"outputTokens\":10327,\"cacheReadInputTokens\":98170,\"cacheCreationInputTokens\":40818,\"webSearchRequests\":0,\"costUSD\":0.5623975,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"8eb37394-279c-4303-bc7f-f72c69aa8030\"}\n",
+      "output_truncated": false,
+      "artifacts": {},
+      "metrics": {
+        "duration_seconds": 193.3703691959381,
+        "token_usage": {
+          "input_tokens": 5,
+          "output_tokens": 10327,
+          "cache_read_tokens": 98170,
+          "cache_write_tokens": 40818
+        },
+        "estimated_cost_usd": 0.337438,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-21T15:40:39.425304+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/deep-dive-workflow.yaml",
+    "workflowHash": "d10f6553d05e5484"
+  }
+}

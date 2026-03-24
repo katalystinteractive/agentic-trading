@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:35*
 
 ## Earnings Analysis: Ouster, Inc. (OUST)
 
@@ -6,16 +6,16 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-07 |
-| Days Until | 60 |
+| Days Until | 52 |
 | EPS Estimate | $-0.12 |
 | Revenue Estimate | $46.3M |
-| Earnings Rule | Clear (>60d out) |
+| Earnings Rule | Clear (>52d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.13 | $0.07 | 149.3% | +7.3% | +0.1% | Strong Bull |
-| Q4 2025 | $-0.45 | $-0.37 | 17.8% | -6.5% | -10.4% | Strong Bear |
+| Q1 2026 | $-0.13 | $0.07 | 149.3% | +7.3% | +1.5% | Strong Bull |
+| Q4 2025 | $-0.18 | $-0.16 | 10.8% | -6.5% | -10.4% | Strong Bear |
 | Q3 2025 | $-0.20 | $-0.26 | -28.8% | +11.7% | +51.7% | Strong Bull |
 | Q2 2025 | $-0.25 | $-0.31 | -21.7% | +22.8% | +29.9% | Strong Bull |
 | Q1 2025 | $-0.26 | $-0.37 | -42.4% | +31.9% | +19.1% | Strong Bull |
@@ -26,8 +26,8 @@
 ### Revenue Trend
 | Quarter | Revenue | QoQ Growth% | YoY Growth% |
 | :--- | :--- | :--- | :--- |
-| Q3 2025 | $39.5M | +12.8% | +40.8% |
+| Q4 2025 | $62.2M | +57.3% | +106.6% |
+| Q3 2025 | $39.5M | +12.8% | N/A |
 | Q2 2025 | $35.0M | +7.4% | N/A |
 | Q1 2025 | $32.6M | +8.4% | N/A |
-| Q4 2024 | $30.1M | +7.2% | N/A |
-| Q3 2024 | $28.1M | N/A | N/A |
+| Q4 2024 | $30.1M | N/A | N/A |

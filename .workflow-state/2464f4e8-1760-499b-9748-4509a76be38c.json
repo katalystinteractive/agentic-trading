@@ -1,0 +1,109 @@
+{
+  "run_id": "2464f4e8-1760-499b-9748-4509a76be38c",
+  "workflow_name": "deep-dive-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-25T18:00:15.713684+00:00",
+  "completed_at": "2026-02-25T18:19:10.420281+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun deep dive for LUNR \u2014 existing position refresh. 9 shares @ $17.04 avg, bullets 1-3 filled today (2026-02-25). Need to re-evaluate bullets 4-5 and remaining reserves. Ticker: LUNR. This is a position refresh, not new onboarding.",
+    "handoffs": {
+      "collect": "**Artifact:** `deep-dive-raw.md`\n**Ticker:** LUNR\n**Status:** EXISTING (position refresh \u2014 9 shares @ $17.04 avg, bullets 1-3 filled 2026-02-25)\n**Tools completed:** 8/8\n**Tool failures:** none\n\n**Critical context for analyst:**\n\n- **Major event today:** $175M dilutive equity offering announced 2026-02-25. Stock down 15-16% on the day (~$20 \u2192 ~$16.70). This is *why* B1-B3 all filled in a single session.\n- **Wick levels updated:** Prior run (2026-02-20) used $15.52/$15.08 PA. New run shows $15.70 (50%) and $15.08 (67%) \u2014 slight level shift. $14.32 hold rate improved 50%\u219260% (3 recent holds confirmed).\n- **Earnings:** March 19, 2026 (22 days out \u2014 technically \"Clear\" by strategy rule, but earnings will cover Lanteris acquisition).\n- **Institutional:** STRONG ACCUMULATION (8/10 holders increasing, D.E. Shaw +3258%, Point72 +850%). Insider-only sells (all executives, multiple months).\n- **Short interest:** 21% float short, HIGH squeeze risk score (55/100), DTC only 2.2 days.\n- **Volume POC:** $16.17 \u2014 current price ($16.68) is just above the POC. Current zone ($16.48-17.10) has 76% buy pressure.\n- **B4/B5 candidates from new wick run:** B4 \u2192 $15.33 (buy-at for $15.08 PA, 67% hold), B5 \u2192 $15.20 (buy-at for $14.32 PA, 60% hold). Prior plan had B4 at $14.87/$15.49.\n\nReady for identity compilation.",
+      "compile": "**Artifact:** tickers/LUNR/identity.md\n**Ticker:** LUNR\n**Status:** EXISTING\n**Blocked:** no\n**Active bullets:** 5 (B1-B3 filled $153.39, B4-B5 pending ~$94) \u2014 total ~$247\n**Reserve bullets:** 3 (R1-R3, total ~$288)\n**Persona:** \"The Moon Lander.\"\n**Portfolio.json updated:** no (existing ticker \u2014 manual update required)\n\n**Portfolio.json changes needed** (orders at raw levels must be updated to wick-adjusted):\n\n| Current Order | Action | New Order |\n| :--- | :--- | :--- |\n| B4: $15.52 (3 shares, raw) | REPLACE | B4: $16.00 (3 shares) \u2014 $15.70 PA, 50% hold, Full, wick-adjusted |\n| B5: $15.08 (3 shares, raw) | REPLACE | B5: $15.33 (3 shares) \u2014 $15.08 PA, 67% hold, Full, wick-adjusted |\n| R1: $14.32 (4 shares, raw) | REMOVE | Unfunded active level \u2014 5-bullet cap reached |\n| R2: $10.20 (9 shares) | KEEP as R1 | $10.20 (9 shares) \u2014 unchanged |\n| R3: $10.06 (9 shares) | REPLACE | R2: $9.61 (10 shares) \u2014 $9.39 HVN+PA, 44% hold, Std, wick-adjusted |\n| R4: $6.64 (15 shares) | KEEP as R3 | $6.64 (15 shares) \u2014 unchanged |\n\n**Key findings:**\n- Cycle now classified: **Early** (7/13 months)\n- $175M dilutive offering triggered 15% drop and all 3 active fills in one session\n- Short interest 21% with HIGH squeeze risk (DTC 2.2)\n- STRONG institutional accumulation (D.E. Shaw +3258%, Point72 +850%)\n- Earnings March 19 \u2014 Clear now, enters APPROACHING March 5, GATED March 12\n- Gap from last active ($15.33) to first reserve ($10.20) is 33% \u2014 wide no-man's land\n\nReady for bullet plan review.",
+      "review": "**Artifact:** `deep-dive-review.md`\n**Ticker:** LUNR\n**Verdict:** PASS\n**Checks passed:** 6/7 (Portfolio.json N/A \u2014 EXISTING ticker)\n**Issues found:** 0\n\n**Key verification results:**\n\n- **Bullet math:** All 7 bullets clean. B4 = 3 shares \u00d7 $16.00 = $48 \u2713. B5 = 3 shares \u00d7 $15.33 = $46 \u2713. R1 = 9 shares \u00d7 $10.20 = $92 \u2713. R2 = 10 shares \u00d7 $9.61 = $96 \u2713. R3 = 15 shares \u00d7 $6.64 = $100 \u2713.\n- **Projected averages:** B4 avg $16.78 \u2713, B4+B5 avg $16.49 \u2713, both 10% targets verified to the cent.\n- **Tier classifications:** All 20 levels match strategy.md thresholds. One anomaly: $6.13 PA (100% hold, 2 approaches) tool-classified as Half \u2014 not an analyst error, tool output reproduced faithfully.\n- **Zone assignments:** Active floor = $13.04. All three active levels (B4-B5 + unfunded B5 candidate) correctly above floor. All reserve levels correctly below.\n- **Price accuracy:** All 20 buy-at prices match raw wick data exactly. Zero bullets at raw support levels.\n- **Budget:** Active $247.38/$300 \u2713. Reserve $287.50/$300 \u2713.\n- **Portfolio.json:** Stale orders noted (B4/B5 at old raw prices, stale $14.32 reserve, stale $10.06 R2) \u2014 flagged for manual update, not blocking.\n\nDeep dive review complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1
+  },
+  "phases": {
+    "collect": {
+      "phase_id": "collect",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-25T18:00:15.723323+00:00",
+      "completed_at": "2026-02-25T18:07:28.859043+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `deep-dive-raw.md`\n**Ticker:** LUNR\n**Status:** EXISTING (position refresh \u2014 9 shares @ $17.04 avg, bullets 1-3 filled 2026-02-25)\n**Tools completed:** 8/8\n**Tool failures:** none\n\n**Critical context for analyst:**\n\n- **Major event today:** $175M dilutive equity offering announced 2026-02-25. Stock down 15-16% on the day (~$20 \u2192 ~$16.70). This is *why* B1-B3 all filled in a single session.\n- **Wick levels updated:** Prior run (2026-02-20) used $15.52/$15.08 PA. New run shows $15.70 (50%) and $15.08 (67%) \u2014 slight level shift. $14.32 hold rate improved 50%\u219260% (3 recent holds confirmed).\n- **Earnings:** March 19, 2026 (22 days out \u2014 technically \"Clear\" by strategy rule, but earnings will cover Lanteris acquisition).\n- **Institutional:** STRONG ACCUMULATION (8/10 holders increasing, D.E. Shaw +3258%, Point72 +850%). Insider-only sells (all executives, multiple months).\n- **Short interest:** 21% float short, HIGH squeeze risk score (55/100), DTC only 2.2 days.\n- **Volume POC:** $16.17 \u2014 current price ($16.68) is just above the POC. Current zone ($16.48-17.10) has 76% buy pressure.\n- **B4/B5 candidates from new wick run:** B4 \u2192 $15.33 (buy-at for $15.08 PA, 67% hold), B5 \u2192 $15.20 (buy-at for $14.32 PA, 60% hold). Prior plan had B4 at $14.87/$15.49.\n\nReady for identity compilation.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":388027,\"duration_api_ms\":355819,\"num_turns\":18,\"result\":\"`deep-dive-raw.md` written with all 8 tool outputs.\\n\\n---\\n\\n## HANDOFF\\n\\n**Artifact:** `deep-dive-raw.md`\\n**Ticker:** LUNR\\n**Status:** EXISTING (position refresh \u2014 9 shares @ $17.04 avg, bullets 1-3 filled 2026-02-25)\\n**Tools completed:** 8/8\\n**Tool failures:** none\\n\\n**Critical context for analyst:**\\n\\n- **Major event today:** $175M dilutive equity offering announced 2026-02-25. Stock down 15-16% on the day (~$20 \u2192 ~$16.70). This is *why* B1-B3 all filled in a single session.\\n- **Wick levels updated:** Prior run (2026-02-20) used $15.52/$15.08 PA. New run shows $15.70 (50%) and $15.08 (67%) \u2014 slight level shift. $14.32 hold rate improved 50%\u219260% (3 recent holds confirmed).\\n- **Earnings:** March 19, 2026 (22 days out \u2014 technically \\\"Clear\\\" by strategy rule, but earnings will cover Lanteris acquisition).\\n- **Institutional:** STRONG ACCUMULATION (8/10 holders increasing, D.E. Shaw +3258%, Point72 +850%). Insider-only sells (all executives, multiple months).\\n- **Short interest:** 21% float short, HIGH squeeze risk score (55/100), DTC only 2.2 days.\\n- **Volume POC:** $16.17 \u2014 current price ($16.68) is just above the POC. Current zone ($16.48-17.10) has 76% buy pressure.\\n- **B4/B5 candidates from new wick run:** B4 \u2192 $15.33 (buy-at for $15.08 PA, 67% hold), B5 \u2192 $15.20 (buy-at for $14.32 PA, 60% hold). Prior plan had B4 at $14.87/$15.49.\\n\\nReady for identity compilation.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"cea2c4fa-5b77-45b7-89f4-220941ca021d\",\"total_cost_usd\":1.09236325,\"usage\":{\"input_tokens\":11,\"cache_creation_input_tokens\":56786,\"cache_read_input_tokens\":385179,\"output_tokens\":20757,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":56786,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":11,\"outputTokens\":20757,\"cacheReadInputTokens\":385179,\"cacheCreationInputTokens\":56786,\"webSearchRequests\":0,\"costUSD\":1.066482,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":14135,\"outputTokens\":380,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":7877,\"webSearchRequests\":0,\"costUSD\":0.02588125,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"65d4e46c-3925-46b3-9b90-a2552c5b8338\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "deep-dive-raw.md": "/Users/kamenkamenov/agentic-trading/deep-dive-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 433.13128113746643,
+        "token_usage": {
+          "input_tokens": 11,
+          "output_tokens": 20757,
+          "cache_read_tokens": 385179,
+          "cache_write_tokens": 56786
+        },
+        "estimated_cost_usd": 0.639889,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "compile": {
+      "phase_id": "compile",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-25T18:07:28.863403+00:00",
+      "completed_at": "2026-02-25T18:13:51.238794+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** tickers/LUNR/identity.md\n**Ticker:** LUNR\n**Status:** EXISTING\n**Blocked:** no\n**Active bullets:** 5 (B1-B3 filled $153.39, B4-B5 pending ~$94) \u2014 total ~$247\n**Reserve bullets:** 3 (R1-R3, total ~$288)\n**Persona:** \"The Moon Lander.\"\n**Portfolio.json updated:** no (existing ticker \u2014 manual update required)\n\n**Portfolio.json changes needed** (orders at raw levels must be updated to wick-adjusted):\n\n| Current Order | Action | New Order |\n| :--- | :--- | :--- |\n| B4: $15.52 (3 shares, raw) | REPLACE | B4: $16.00 (3 shares) \u2014 $15.70 PA, 50% hold, Full, wick-adjusted |\n| B5: $15.08 (3 shares, raw) | REPLACE | B5: $15.33 (3 shares) \u2014 $15.08 PA, 67% hold, Full, wick-adjusted |\n| R1: $14.32 (4 shares, raw) | REMOVE | Unfunded active level \u2014 5-bullet cap reached |\n| R2: $10.20 (9 shares) | KEEP as R1 | $10.20 (9 shares) \u2014 unchanged |\n| R3: $10.06 (9 shares) | REPLACE | R2: $9.61 (10 shares) \u2014 $9.39 HVN+PA, 44% hold, Std, wick-adjusted |\n| R4: $6.64 (15 shares) | KEEP as R3 | $6.64 (15 shares) \u2014 unchanged |\n\n**Key findings:**\n- Cycle now classified: **Early** (7/13 months)\n- $175M dilutive offering triggered 15% drop and all 3 active fills in one session\n- Short interest 21% with HIGH squeeze risk (DTC 2.2)\n- STRONG institutional accumulation (D.E. Shaw +3258%, Point72 +850%)\n- Earnings March 19 \u2014 Clear now, enters APPROACHING March 5, GATED March 12\n- Gap from last active ($15.33) to first reserve ($10.20) is 33% \u2014 wide no-man's land\n\nReady for bullet plan review.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":334996,\"duration_api_ms\":331908,\"num_turns\":8,\"result\":\"Identity file updated. Now the HANDOFF.\\n\\n---\\n\\n## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifact:** tickers/LUNR/identity.md\\n**Ticker:** LUNR\\n**Status:** EXISTING\\n**Blocked:** no\\n**Active bullets:** 5 (B1-B3 filled $153.39, B4-B5 pending ~$94) \u2014 total ~$247\\n**Reserve bullets:** 3 (R1-R3, total ~$288)\\n**Persona:** \\\"The Moon Lander.\\\"\\n**Portfolio.json updated:** no (existing ticker \u2014 manual update required)\\n\\n**Portfolio.json changes needed** (orders at raw levels must be updated to wick-adjusted):\\n\\n| Current Order | Action | New Order |\\n| :--- | :--- | :--- |\\n| B4: $15.52 (3 shares, raw) | REPLACE | B4: $16.00 (3 shares) \u2014 $15.70 PA, 50% hold, Full, wick-adjusted |\\n| B5: $15.08 (3 shares, raw) | REPLACE | B5: $15.33 (3 shares) \u2014 $15.08 PA, 67% hold, Full, wick-adjusted |\\n| R1: $14.32 (4 shares, raw) | REMOVE | Unfunded active level \u2014 5-bullet cap reached |\\n| R2: $10.20 (9 shares) | KEEP as R1 | $10.20 (9 shares) \u2014 unchanged |\\n| R3: $10.06 (9 shares) | REPLACE | R2: $9.61 (10 shares) \u2014 $9.39 HVN+PA, 44% hold, Std, wick-adjusted |\\n| R4: $6.64 (15 shares) | KEEP as R3 | $6.64 (15 shares) \u2014 unchanged |\\n\\n**Key findings:**\\n- Cycle now classified: **Early** (7/13 months)\\n- $175M dilutive offering triggered 15% drop and all 3 active fills in one session\\n- Short interest 21% with HIGH squeeze risk (DTC 2.2)\\n- STRONG institutional accumulation (D.E. Shaw +3258%, Point72 +850%)\\n- Earnings March 19 \u2014 Clear now, enters APPROACHING March 5, GATED March 12\\n- Gap from last active ($15.33) to first reserve ($10.20) is 33% \u2014 wide no-man's land\\n\\nReady for bullet plan review.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"18628396-d893-425a-a68a-8dd13ace6e70\",\"total_cost_usd\":0.9501957499999999,\"usage\":{\"input_tokens\":5,\"cache_creation_input_tokens\":59933,\"cache_read_input_tokens\":101379,\"output_tokens\":20996,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":59933,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-opus-4-6\":{\"inputTokens\":5,\"outputTokens\":20996,\"cacheReadInputTokens\":101379,\"cacheCreationInputTokens\":59933,\"webSearchRequests\":0,\"costUSD\":0.9501957499999999,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"65764311-1336-44e1-9935-56a0cf8f0d8d\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "file_0": "tickers/LUNR/identity.md"
+      },
+      "metrics": {
+        "duration_seconds": 382.37341380119324,
+        "token_usage": {
+          "input_tokens": 5,
+          "output_tokens": 20996,
+          "cache_read_tokens": 101379,
+          "cache_write_tokens": 59933
+        },
+        "estimated_cost_usd": 0.570117,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-25T18:13:51.240706+00:00",
+      "completed_at": "2026-02-25T18:19:10.417666+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `deep-dive-review.md`\n**Ticker:** LUNR\n**Verdict:** PASS\n**Checks passed:** 6/7 (Portfolio.json N/A \u2014 EXISTING ticker)\n**Issues found:** 0\n\n**Key verification results:**\n\n- **Bullet math:** All 7 bullets clean. B4 = 3 shares \u00d7 $16.00 = $48 \u2713. B5 = 3 shares \u00d7 $15.33 = $46 \u2713. R1 = 9 shares \u00d7 $10.20 = $92 \u2713. R2 = 10 shares \u00d7 $9.61 = $96 \u2713. R3 = 15 shares \u00d7 $6.64 = $100 \u2713.\n- **Projected averages:** B4 avg $16.78 \u2713, B4+B5 avg $16.49 \u2713, both 10% targets verified to the cent.\n- **Tier classifications:** All 20 levels match strategy.md thresholds. One anomaly: $6.13 PA (100% hold, 2 approaches) tool-classified as Half \u2014 not an analyst error, tool output reproduced faithfully.\n- **Zone assignments:** Active floor = $13.04. All three active levels (B4-B5 + unfunded B5 candidate) correctly above floor. All reserve levels correctly below.\n- **Price accuracy:** All 20 buy-at prices match raw wick data exactly. Zero bullets at raw support levels.\n- **Budget:** Active $247.38/$300 \u2713. Reserve $287.50/$300 \u2713.\n- **Portfolio.json:** Stale orders noted (B4/B5 at old raw prices, stale $14.32 reserve, stale $10.06 R2) \u2014 flagged for manual update, not blocking.\n\nDeep dive review complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":274898,\"duration_api_ms\":268672,\"num_turns\":9,\"result\":\"`deep-dive-review.md` written. Here is the full verification result:\\n\\n---\\n\\n## HANDOFF\\n\\n**Artifact:** `deep-dive-review.md`\\n**Ticker:** LUNR\\n**Verdict:** PASS\\n**Checks passed:** 6/7 (Portfolio.json N/A \u2014 EXISTING ticker)\\n**Issues found:** 0\\n\\n**Key verification results:**\\n\\n- **Bullet math:** All 7 bullets clean. B4 = 3 shares \u00d7 $16.00 = $48 \u2713. B5 = 3 shares \u00d7 $15.33 = $46 \u2713. R1 = 9 shares \u00d7 $10.20 = $92 \u2713. R2 = 10 shares \u00d7 $9.61 = $96 \u2713. R3 = 15 shares \u00d7 $6.64 = $100 \u2713.\\n- **Projected averages:** B4 avg $16.78 \u2713, B4+B5 avg $16.49 \u2713, both 10% targets verified to the cent.\\n- **Tier classifications:** All 20 levels match strategy.md thresholds. One anomaly: $6.13 PA (100% hold, 2 approaches) tool-classified as Half \u2014 not an analyst error, tool output reproduced faithfully.\\n- **Zone assignments:** Active floor = $13.04. All three active levels (B4-B5 + unfunded B5 candidate) correctly above floor. All reserve levels correctly below.\\n- **Price accuracy:** All 20 buy-at prices match raw wick data exactly. Zero bullets at raw support levels.\\n- **Budget:** Active $247.38/$300 \u2713. Reserve $287.50/$300 \u2713.\\n- **Portfolio.json:** Stale orders noted (B4/B5 at old raw prices, stale $14.32 reserve, stale $10.06 R2) \u2014 flagged for manual update, not blocking.\\n\\nDeep dive review complete.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"2d0178bd-8fd6-4f67-9fe9-3bb9ebefea69\",\"total_cost_usd\":0.96530325,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":56103,\"cache_read_input_tokens\":361471,\"output_tokens\":17334,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":56103,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":9,\"outputTokens\":17334,\"cacheReadInputTokens\":361471,\"cacheCreationInputTokens\":56103,\"webSearchRequests\":0,\"costUSD\":0.9647742499999999,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":369,\"outputTokens\":32,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.000529,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"72eb1b9f-5e8b-493e-b5b4-26682f4b3c0c\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "deep-dive-review.md": "/Users/kamenkamenov/agentic-trading/deep-dive-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 319.1755588054657,
+        "token_usage": {
+          "input_tokens": 9,
+          "output_tokens": 17334,
+          "cache_read_tokens": 361471,
+          "cache_write_tokens": 56103
+        },
+        "estimated_cost_usd": 0.578865,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-25T18:19:10.420528+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/deep-dive-workflow.yaml",
+    "workflowHash": "d10f6553d05e5484"
+  }
+}

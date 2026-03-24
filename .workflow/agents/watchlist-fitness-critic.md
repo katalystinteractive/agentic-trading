@@ -53,6 +53,10 @@ For each ticker in the report, apply the appropriate stress-test:
 **ENGAGE/ADD tickers:**
 - Is entry timing sound given cycle data? Or is the analyst ignoring OVERBOUGHT/EXTENDED state?
 - Would placing orders now risk buying at a cycle peak?
+- Does the ticker have sufficient cycle efficiency (cycle_pts >= 8)? Challenge tickers with high fitness scores but zero cycle data.
+
+**HOLD-WAIT tickers (cycle gate):**
+- If HOLD-WAIT is due to insufficient cycle data (cycle_pts < 8), is that appropriate or should it be overridden based on other strong signals?
 
 **RESTRUCTURE/HOLD-WAIT tickers:**
 - Is the re-entry signal realistic? Or is the first reliable level too far from current price?

@@ -1,0 +1,50 @@
+{
+  "ticker": "TEM",
+  "pullback_count": 8,
+  "avg_depth_pct": -29.5,
+  "median_depth_pct": -26.7,
+  "distribution": [
+    {
+      "depth_pct": -2,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -3,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -5,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -7,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -9,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -12,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -15,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -20,
+      "reach_pct": 87.5
+    }
+  ],
+  "bullet_fill_rates": [
+    {
+      "label": "B2+3",
+      "price": 48.75,
+      "depth_pct": -3.4,
+      "fill_rate_pct": 100.0
+    }
+  ],
+  "current_phase": "SUPPORT",
+  "last_updated": "2026-03-16"
+}

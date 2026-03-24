@@ -1,0 +1,1150 @@
+{
+  "cycles": [
+    {
+      "cycle_id": "ACHR-1",
+      "ticker": "ACHR",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-02",
+      "entry_trade_ids": [
+        23
+      ],
+      "exit_trade_ids": [
+        24
+      ],
+      "entry_shares": 4,
+      "entry_avg": 6.89,
+      "bullets_used": 1,
+      "zones_used": [],
+      "last_exit_date": "2026-03-02",
+      "exit_shares": 4,
+      "exit_avg": 7.41,
+      "profit_pct": 7.55,
+      "profit_dollar": 2.08,
+      "cycle_days": 0,
+      "trading_days": 1,
+      "post_sell_tracking": {
+        "sell_price": 7.41,
+        "sell_date": "2026-03-02",
+        "peak_after_sell": 6.76,
+        "peak_date": "2026-03-04",
+        "trough_after_sell": 6.26,
+        "trough_date": "2026-03-06",
+        "money_left_on_table_pct": 0,
+        "tracking_complete": true,
+        "close_5d_after": 6.52,
+        "close_5d_pct": -12.0
+      }
+    },
+    {
+      "cycle_id": "ACHR-2",
+      "ticker": "ACHR",
+      "status": "open",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-17",
+      "entry_trade_ids": [
+        20
+      ],
+      "exit_trade_ids": [],
+      "entry_shares": 15,
+      "entry_avg": 6.09,
+      "bullets_used": 1,
+      "zones_used": [
+        "reserve"
+      ],
+      "last_exit_date": null,
+      "exit_shares": null,
+      "exit_avg": null,
+      "profit_pct": null,
+      "profit_dollar": null,
+      "cycle_days": null,
+      "trading_days": null
+    },
+    {
+      "cycle_id": "APLD-1",
+      "ticker": "APLD",
+      "status": "open",
+      "pre_strategy": false,
+      "first_entry_date": "2026-02-17",
+      "entry_trade_ids": [
+        25,
+        26,
+        27
+      ],
+      "exit_trade_ids": [],
+      "entry_shares": 7,
+      "entry_avg": 30.25,
+      "bullets_used": 3,
+      "zones_used": [],
+      "last_exit_date": null,
+      "exit_shares": null,
+      "exit_avg": null,
+      "profit_pct": null,
+      "profit_dollar": null,
+      "cycle_days": null,
+      "trading_days": null
+    },
+    {
+      "cycle_id": "ARM-1",
+      "ticker": "ARM",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-02",
+      "entry_trade_ids": [
+        28,
+        29
+      ],
+      "exit_trade_ids": [
+        15
+      ],
+      "entry_shares": 2,
+      "entry_avg": 122.775,
+      "bullets_used": 2,
+      "zones_used": [],
+      "last_exit_date": "2026-03-17",
+      "exit_shares": 5,
+      "exit_avg": 125.88,
+      "profit_pct": 2.53,
+      "profit_dollar": 15.52,
+      "cycle_days": 15,
+      "trading_days": 12
+    },
+    {
+      "cycle_id": "BBAI-1",
+      "ticker": "BBAI",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-05",
+      "entry_trade_ids": [
+        30,
+        31
+      ],
+      "exit_trade_ids": [
+        32
+      ],
+      "entry_shares": 31,
+      "entry_avg": 3.781,
+      "bullets_used": 2,
+      "zones_used": [],
+      "last_exit_date": "2026-03-05",
+      "exit_shares": 31,
+      "exit_avg": 4.0,
+      "profit_pct": 5.79,
+      "profit_dollar": 6.79,
+      "cycle_days": 0,
+      "trading_days": 1,
+      "post_sell_tracking": {
+        "sell_price": 4.0,
+        "sell_date": "2026-03-05",
+        "peak_after_sell": 4.25,
+        "peak_date": "2026-03-06",
+        "trough_after_sell": 4.03,
+        "trough_date": "2026-03-12",
+        "money_left_on_table_pct": 6.2,
+        "tracking_complete": true,
+        "close_5d_after": 4.03,
+        "close_5d_pct": 0.8
+      }
+    },
+    {
+      "cycle_id": "CIFR-1",
+      "ticker": "CIFR",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-02-19",
+      "entry_trade_ids": [
+        33
+      ],
+      "exit_trade_ids": [
+        34
+      ],
+      "entry_shares": 7,
+      "entry_avg": 14.82,
+      "bullets_used": 1,
+      "zones_used": [],
+      "last_exit_date": "2026-02-19",
+      "exit_shares": 7,
+      "exit_avg": 15.7,
+      "profit_pct": 5.94,
+      "profit_dollar": 6.16,
+      "cycle_days": 0,
+      "trading_days": 1,
+      "post_sell_tracking": {
+        "sell_price": 15.7,
+        "sell_date": "2026-02-19",
+        "peak_after_sell": 17.12,
+        "peak_date": "2026-02-24",
+        "trough_after_sell": 14.65,
+        "trough_date": "2026-02-20",
+        "money_left_on_table_pct": 9.0,
+        "tracking_complete": true,
+        "close_5d_after": 16.48,
+        "close_5d_pct": 5.0
+      }
+    },
+    {
+      "cycle_id": "CIFR-2",
+      "ticker": "CIFR",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-02-20",
+      "entry_trade_ids": [
+        35,
+        36
+      ],
+      "exit_trade_ids": [
+        37
+      ],
+      "entry_shares": 10,
+      "entry_avg": 14.868,
+      "bullets_used": 2,
+      "zones_used": [],
+      "last_exit_date": "2026-02-24",
+      "exit_shares": 13,
+      "exit_avg": 15.905,
+      "profit_pct": 6.97,
+      "profit_dollar": 13.48,
+      "cycle_days": 4,
+      "trading_days": 3,
+      "post_sell_tracking": {
+        "sell_price": 15.9,
+        "sell_date": "2026-02-24",
+        "peak_after_sell": 16.61,
+        "peak_date": "2026-02-25",
+        "trough_after_sell": 14.71,
+        "trough_date": "2026-03-03",
+        "money_left_on_table_pct": 4.4,
+        "tracking_complete": true,
+        "close_5d_after": 14.71,
+        "close_5d_pct": -7.5
+      }
+    },
+    {
+      "cycle_id": "CIFR-3",
+      "ticker": "CIFR",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-02",
+      "entry_trade_ids": [
+        38
+      ],
+      "exit_trade_ids": [
+        39
+      ],
+      "entry_shares": 4,
+      "entry_avg": 14.9,
+      "bullets_used": 1,
+      "zones_used": [],
+      "last_exit_date": "2026-03-02",
+      "exit_shares": 4,
+      "exit_avg": 15.95,
+      "profit_pct": 7.05,
+      "profit_dollar": 4.2,
+      "cycle_days": 0,
+      "trading_days": 1,
+      "post_sell_tracking": {
+        "sell_price": 15.95,
+        "sell_date": "2026-03-02",
+        "peak_after_sell": 16.04,
+        "peak_date": "2026-03-04",
+        "trough_after_sell": 13.62,
+        "trough_date": "2026-03-06",
+        "money_left_on_table_pct": 0.6,
+        "tracking_complete": true,
+        "close_5d_after": 14.31,
+        "close_5d_pct": -10.3
+      }
+    },
+    {
+      "cycle_id": "CIFR-4",
+      "ticker": "CIFR",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-03",
+      "entry_trade_ids": [
+        40,
+        41
+      ],
+      "exit_trade_ids": [
+        42
+      ],
+      "entry_shares": 6,
+      "entry_avg": 14.9067,
+      "bullets_used": 2,
+      "zones_used": [],
+      "last_exit_date": "2026-03-04",
+      "exit_shares": 6,
+      "exit_avg": 16.08,
+      "profit_pct": 7.87,
+      "profit_dollar": 7.04,
+      "cycle_days": 1,
+      "trading_days": 2,
+      "post_sell_tracking": {
+        "sell_price": 16.08,
+        "sell_date": "2026-03-04",
+        "peak_after_sell": 15.15,
+        "peak_date": "2026-03-05",
+        "trough_after_sell": 13.62,
+        "trough_date": "2026-03-06",
+        "money_left_on_table_pct": 0,
+        "tracking_complete": true,
+        "close_5d_after": 14.11,
+        "close_5d_pct": -12.3
+      }
+    },
+    {
+      "cycle_id": "CIFR-5",
+      "ticker": "CIFR",
+      "status": "open",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-17",
+      "entry_trade_ids": [
+        19
+      ],
+      "exit_trade_ids": [],
+      "entry_shares": 7,
+      "entry_avg": 14.82,
+      "bullets_used": 1,
+      "zones_used": [
+        "active"
+      ],
+      "last_exit_date": null,
+      "exit_shares": null,
+      "exit_avg": null,
+      "profit_pct": null,
+      "profit_dollar": null,
+      "cycle_days": null,
+      "trading_days": null
+    },
+    {
+      "cycle_id": "CLF-1",
+      "ticker": "CLF",
+      "status": "open",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-17",
+      "entry_trade_ids": [
+        22
+      ],
+      "exit_trade_ids": [],
+      "entry_shares": 10,
+      "entry_avg": 8.55,
+      "bullets_used": 1,
+      "zones_used": [
+        "active"
+      ],
+      "last_exit_date": null,
+      "exit_shares": null,
+      "exit_avg": null,
+      "profit_pct": null,
+      "profit_dollar": null,
+      "cycle_days": null,
+      "trading_days": null
+    },
+    {
+      "cycle_id": "CLSK-1",
+      "ticker": "CLSK",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-02-19",
+      "entry_trade_ids": [
+        43
+      ],
+      "exit_trade_ids": [
+        44
+      ],
+      "entry_shares": 3,
+      "entry_avg": 9.61,
+      "bullets_used": 1,
+      "zones_used": [],
+      "last_exit_date": "2026-02-24",
+      "exit_shares": 3,
+      "exit_avg": 10.45,
+      "profit_pct": 8.74,
+      "profit_dollar": 2.52,
+      "cycle_days": 5,
+      "trading_days": 4,
+      "post_sell_tracking": {
+        "sell_price": 10.45,
+        "sell_date": "2026-02-24",
+        "peak_after_sell": 10.55,
+        "peak_date": "2026-03-02",
+        "trough_after_sell": 9.89,
+        "trough_date": "2026-03-03",
+        "money_left_on_table_pct": 1.0,
+        "tracking_complete": true,
+        "close_5d_after": 9.89,
+        "close_5d_pct": -5.4
+      }
+    },
+    {
+      "cycle_id": "CLSK-2",
+      "ticker": "CLSK",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-02",
+      "entry_trade_ids": [
+        45
+      ],
+      "exit_trade_ids": [
+        46
+      ],
+      "entry_shares": 6,
+      "entry_avg": 9.66,
+      "bullets_used": 1,
+      "zones_used": [],
+      "last_exit_date": "2026-03-02",
+      "exit_shares": 6,
+      "exit_avg": 10.425,
+      "profit_pct": 7.92,
+      "profit_dollar": 4.59,
+      "cycle_days": 0,
+      "trading_days": 1,
+      "post_sell_tracking": {
+        "sell_price": 10.43,
+        "sell_date": "2026-03-02",
+        "peak_after_sell": 10.66,
+        "peak_date": "2026-03-04",
+        "trough_after_sell": 9.21,
+        "trough_date": "2026-03-06",
+        "money_left_on_table_pct": 2.3,
+        "tracking_complete": true,
+        "close_5d_after": 9.61,
+        "close_5d_pct": -7.8
+      }
+    },
+    {
+      "cycle_id": "CLSK-3",
+      "ticker": "CLSK",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-03",
+      "entry_trade_ids": [
+        47
+      ],
+      "exit_trade_ids": [
+        48
+      ],
+      "entry_shares": 2,
+      "entry_avg": 10.05,
+      "bullets_used": 1,
+      "zones_used": [],
+      "last_exit_date": "2026-03-04",
+      "exit_shares": 2,
+      "exit_avg": 10.74,
+      "profit_pct": 6.87,
+      "profit_dollar": 1.38,
+      "cycle_days": 1,
+      "trading_days": 2,
+      "post_sell_tracking": {
+        "sell_price": 10.74,
+        "sell_date": "2026-03-04",
+        "peak_after_sell": 9.95,
+        "peak_date": "2026-03-05",
+        "trough_after_sell": 9.21,
+        "trough_date": "2026-03-06",
+        "money_left_on_table_pct": 0,
+        "tracking_complete": true,
+        "close_5d_after": 9.81,
+        "close_5d_pct": -8.7
+      }
+    },
+    {
+      "cycle_id": "INTC-1",
+      "ticker": "INTC",
+      "status": "open",
+      "pre_strategy": true,
+      "first_entry_date": "2026-01-01",
+      "entry_trade_ids": [
+        49,
+        50,
+        51
+      ],
+      "exit_trade_ids": [],
+      "entry_shares": 5,
+      "entry_avg": 46.55,
+      "bullets_used": 3,
+      "zones_used": [],
+      "last_exit_date": null,
+      "exit_shares": null,
+      "exit_avg": null,
+      "profit_pct": null,
+      "profit_dollar": null,
+      "cycle_days": null,
+      "trading_days": null
+    },
+    {
+      "cycle_id": "IONQ-1",
+      "ticker": "IONQ",
+      "status": "open",
+      "pre_strategy": true,
+      "first_entry_date": "2026-01-01",
+      "entry_trade_ids": [
+        52,
+        53
+      ],
+      "exit_trade_ids": [],
+      "entry_shares": 15,
+      "entry_avg": 44.3933,
+      "bullets_used": 2,
+      "zones_used": [],
+      "last_exit_date": null,
+      "exit_shares": null,
+      "exit_avg": null,
+      "profit_pct": null,
+      "profit_dollar": null,
+      "cycle_days": null,
+      "trading_days": null
+    },
+    {
+      "cycle_id": "LUNR-1",
+      "ticker": "LUNR",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-02-23",
+      "entry_trade_ids": [
+        54
+      ],
+      "exit_trade_ids": [
+        55
+      ],
+      "entry_shares": 3,
+      "entry_avg": 17.33,
+      "bullets_used": 1,
+      "zones_used": [],
+      "last_exit_date": "2026-02-24",
+      "exit_shares": 3,
+      "exit_avg": 18.38,
+      "profit_pct": 6.06,
+      "profit_dollar": 3.15,
+      "cycle_days": 1,
+      "trading_days": 2,
+      "post_sell_tracking": {
+        "sell_price": 18.38,
+        "sell_date": "2026-02-24",
+        "peak_after_sell": 18.2,
+        "peak_date": "2026-03-03",
+        "trough_after_sell": 15.89,
+        "trough_date": "2026-02-25",
+        "money_left_on_table_pct": 0,
+        "tracking_complete": true,
+        "close_5d_after": 18.2,
+        "close_5d_pct": -1.0
+      }
+    },
+    {
+      "cycle_id": "LUNR-2",
+      "ticker": "LUNR",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-02-25",
+      "entry_trade_ids": [
+        56,
+        57,
+        58,
+        59
+      ],
+      "exit_trade_ids": [
+        60
+      ],
+      "entry_shares": 12,
+      "entry_avg": 16.615,
+      "bullets_used": 4,
+      "zones_used": [],
+      "last_exit_date": "2026-03-02",
+      "exit_shares": 12,
+      "exit_avg": 17.88,
+      "profit_pct": 7.61,
+      "profit_dollar": 15.18,
+      "cycle_days": 5,
+      "trading_days": 4,
+      "post_sell_tracking": {
+        "sell_price": 17.88,
+        "sell_date": "2026-03-02",
+        "peak_after_sell": 18.62,
+        "peak_date": "2026-03-04",
+        "trough_after_sell": 17.63,
+        "trough_date": "2026-03-06",
+        "money_left_on_table_pct": 4.1,
+        "tracking_complete": true,
+        "close_5d_after": 18.08,
+        "close_5d_pct": 1.1
+      }
+    },
+    {
+      "cycle_id": "LUNR-3",
+      "ticker": "LUNR",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-03",
+      "entry_trade_ids": [
+        61,
+        62
+      ],
+      "exit_trade_ids": [
+        63
+      ],
+      "entry_shares": 6,
+      "entry_avg": 17.04,
+      "bullets_used": 2,
+      "zones_used": [],
+      "last_exit_date": "2026-03-03",
+      "exit_shares": 6,
+      "exit_avg": 18.15,
+      "profit_pct": 6.51,
+      "profit_dollar": 6.66,
+      "cycle_days": 0,
+      "trading_days": 1,
+      "post_sell_tracking": {
+        "sell_price": 18.15,
+        "sell_date": "2026-03-03",
+        "peak_after_sell": 18.62,
+        "peak_date": "2026-03-04",
+        "trough_after_sell": 17.63,
+        "trough_date": "2026-03-06",
+        "money_left_on_table_pct": 2.6,
+        "tracking_complete": true,
+        "close_5d_after": 17.68,
+        "close_5d_pct": -2.6
+      }
+    },
+    {
+      "cycle_id": "LUNR-4",
+      "ticker": "LUNR",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-05",
+      "entry_trade_ids": [
+        64,
+        65
+      ],
+      "exit_trade_ids": [
+        66
+      ],
+      "entry_shares": 2,
+      "entry_avg": 17.47,
+      "bullets_used": 2,
+      "zones_used": [],
+      "last_exit_date": "2026-03-06",
+      "exit_shares": 2,
+      "exit_avg": 18.91,
+      "profit_pct": 8.24,
+      "profit_dollar": 2.88,
+      "cycle_days": 1,
+      "trading_days": 2,
+      "post_sell_tracking": {
+        "sell_price": 18.91,
+        "sell_date": "2026-03-06",
+        "peak_after_sell": 18.45,
+        "peak_date": "2026-03-11",
+        "trough_after_sell": 17.6,
+        "trough_date": "2026-03-13",
+        "money_left_on_table_pct": 0,
+        "tracking_complete": true,
+        "close_5d_after": 17.6,
+        "close_5d_pct": -6.9
+      }
+    },
+    {
+      "cycle_id": "LUNR-5",
+      "ticker": "LUNR",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-06",
+      "entry_trade_ids": [
+        67
+      ],
+      "exit_trade_ids": [
+        9
+      ],
+      "entry_shares": 1,
+      "entry_avg": 17.61,
+      "bullets_used": 1,
+      "zones_used": [],
+      "last_exit_date": "2026-03-12",
+      "exit_shares": 2,
+      "exit_avg": 18.38,
+      "profit_pct": 4.37,
+      "profit_dollar": 1.54,
+      "cycle_days": 6,
+      "trading_days": 5,
+      "post_sell_tracking": {
+        "sell_price": 18.38,
+        "sell_date": "2026-03-12",
+        "peak_after_sell": 18.9,
+        "peak_date": "2026-03-17",
+        "trough_after_sell": 17.6,
+        "trough_date": "2026-03-13",
+        "money_left_on_table_pct": 2.8,
+        "tracking_complete": false,
+        "close_5d_after": null,
+        "close_5d_pct": null
+      }
+    },
+    {
+      "cycle_id": "LUNR-6",
+      "ticker": "LUNR",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-16",
+      "entry_trade_ids": [
+        12
+      ],
+      "exit_trade_ids": [
+        16,
+        17
+      ],
+      "entry_shares": 2,
+      "entry_avg": 17.59,
+      "bullets_used": 1,
+      "zones_used": [
+        "active"
+      ],
+      "last_exit_date": "2026-03-17",
+      "exit_shares": 2,
+      "exit_avg": 18.63,
+      "profit_pct": 5.91,
+      "profit_dollar": 2.08,
+      "cycle_days": 1,
+      "trading_days": 2
+    },
+    {
+      "cycle_id": "NNE-1",
+      "ticker": "NNE",
+      "status": "open",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-17",
+      "entry_trade_ids": [
+        21
+      ],
+      "exit_trade_ids": [],
+      "entry_shares": 4,
+      "entry_avg": 21.45,
+      "bullets_used": 1,
+      "zones_used": [
+        "active"
+      ],
+      "last_exit_date": null,
+      "exit_shares": null,
+      "exit_avg": null,
+      "profit_pct": null,
+      "profit_dollar": null,
+      "cycle_days": null,
+      "trading_days": null
+    },
+    {
+      "cycle_id": "NU-1",
+      "ticker": "NU",
+      "status": "open",
+      "pre_strategy": false,
+      "first_entry_date": "2026-02-13",
+      "entry_trade_ids": [
+        68,
+        69,
+        70
+      ],
+      "exit_trade_ids": [],
+      "entry_shares": 14,
+      "entry_avg": 15.51,
+      "bullets_used": 3,
+      "zones_used": [],
+      "last_exit_date": null,
+      "exit_shares": null,
+      "exit_avg": null,
+      "profit_pct": null,
+      "profit_dollar": null,
+      "cycle_days": null,
+      "trading_days": null
+    },
+    {
+      "cycle_id": "OKLO-1",
+      "ticker": "OKLO",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-16",
+      "entry_trade_ids": [
+        13
+      ],
+      "exit_trade_ids": [
+        14
+      ],
+      "entry_shares": 1,
+      "entry_avg": 58.04,
+      "bullets_used": 1,
+      "zones_used": [
+        "active"
+      ],
+      "last_exit_date": "2026-03-17",
+      "exit_shares": 1,
+      "exit_avg": 63.09,
+      "profit_pct": 8.7,
+      "profit_dollar": 5.05,
+      "cycle_days": 1,
+      "trading_days": 2
+    },
+    {
+      "cycle_id": "OUST-1",
+      "ticker": "OUST",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-05",
+      "entry_trade_ids": [
+        1,
+        2,
+        3
+      ],
+      "exit_trade_ids": [
+        4
+      ],
+      "entry_shares": 5,
+      "entry_avg": 21.696,
+      "bullets_used": 3,
+      "zones_used": [
+        "active"
+      ],
+      "last_exit_date": "2026-03-10",
+      "exit_shares": 5,
+      "exit_avg": 23.13,
+      "profit_pct": 6.61,
+      "profit_dollar": 7.17,
+      "cycle_days": 5,
+      "trading_days": 4,
+      "post_sell_tracking": {
+        "sell_price": 23.13,
+        "sell_date": "2026-03-10",
+        "peak_after_sell": 24.75,
+        "peak_date": "2026-03-11",
+        "trough_after_sell": 21.3,
+        "trough_date": "2026-03-16",
+        "money_left_on_table_pct": 7.0,
+        "tracking_complete": true,
+        "close_5d_after": 21.39,
+        "close_5d_pct": -7.5
+      }
+    },
+    {
+      "cycle_id": "RUN-1",
+      "ticker": "RUN",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-09",
+      "entry_trade_ids": [
+        5,
+        6
+      ],
+      "exit_trade_ids": [
+        7,
+        8
+      ],
+      "entry_shares": 10,
+      "entry_avg": 11.09,
+      "bullets_used": 2,
+      "zones_used": [
+        "active"
+      ],
+      "last_exit_date": "2026-03-10",
+      "exit_shares": 10,
+      "exit_avg": 11.81,
+      "profit_pct": 6.49,
+      "profit_dollar": 7.2,
+      "cycle_days": 1,
+      "trading_days": 2,
+      "post_sell_tracking": {
+        "sell_price": 11.81,
+        "sell_date": "2026-03-10",
+        "peak_after_sell": 13.29,
+        "peak_date": "2026-03-17",
+        "trough_after_sell": 11.97,
+        "trough_date": "2026-03-12",
+        "money_left_on_table_pct": 12.5,
+        "tracking_complete": true,
+        "close_5d_after": 13.29,
+        "close_5d_pct": 12.5
+      }
+    },
+    {
+      "cycle_id": "SMCI-1",
+      "ticker": "SMCI",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-02-23",
+      "entry_trade_ids": [
+        71
+      ],
+      "exit_trade_ids": [
+        72
+      ],
+      "entry_shares": 3,
+      "entry_avg": 31.3,
+      "bullets_used": 1,
+      "zones_used": [],
+      "last_exit_date": "2026-02-27",
+      "exit_shares": 3,
+      "exit_avg": 33.4,
+      "profit_pct": 6.71,
+      "profit_dollar": 6.3,
+      "cycle_days": 4,
+      "trading_days": 5,
+      "post_sell_tracking": {
+        "sell_price": 33.4,
+        "sell_date": "2026-02-27",
+        "peak_after_sell": 32.65,
+        "peak_date": "2026-03-04",
+        "trough_after_sell": 30.68,
+        "trough_date": "2026-03-03",
+        "money_left_on_table_pct": 0,
+        "tracking_complete": true,
+        "close_5d_after": 31.31,
+        "close_5d_pct": -6.3
+      }
+    },
+    {
+      "cycle_id": "SMCI-2",
+      "ticker": "SMCI",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-02",
+      "entry_trade_ids": [
+        73,
+        74,
+        75,
+        76
+      ],
+      "exit_trade_ids": [
+        77
+      ],
+      "entry_shares": 5,
+      "entry_avg": 30.61,
+      "bullets_used": 4,
+      "zones_used": [],
+      "last_exit_date": "2026-03-04",
+      "exit_shares": 5,
+      "exit_avg": 32.8,
+      "profit_pct": 7.15,
+      "profit_dollar": 10.95,
+      "cycle_days": 2,
+      "trading_days": 3,
+      "post_sell_tracking": {
+        "sell_price": 32.8,
+        "sell_date": "2026-03-04",
+        "peak_after_sell": 32.24,
+        "peak_date": "2026-03-05",
+        "trough_after_sell": 31.31,
+        "trough_date": "2026-03-06",
+        "money_left_on_table_pct": 0,
+        "tracking_complete": true,
+        "close_5d_after": 31.79,
+        "close_5d_pct": -3.1
+      }
+    },
+    {
+      "cycle_id": "SOUN-1",
+      "ticker": "SOUN",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-02-23",
+      "entry_trade_ids": [
+        78
+      ],
+      "exit_trade_ids": [
+        79
+      ],
+      "entry_shares": 7,
+      "entry_avg": 7.71,
+      "bullets_used": 1,
+      "zones_used": [],
+      "last_exit_date": "2026-02-24",
+      "exit_shares": 7,
+      "exit_avg": 8.235,
+      "profit_pct": 6.81,
+      "profit_dollar": 3.67,
+      "cycle_days": 1,
+      "trading_days": 2,
+      "post_sell_tracking": {
+        "sell_price": 8.23,
+        "sell_date": "2026-02-24",
+        "peak_after_sell": 8.98,
+        "peak_date": "2026-02-26",
+        "trough_after_sell": 8.51,
+        "trough_date": "2026-03-03",
+        "money_left_on_table_pct": 9.0,
+        "tracking_complete": true,
+        "close_5d_after": 8.51,
+        "close_5d_pct": 3.3
+      }
+    },
+    {
+      "cycle_id": "SOUN-2",
+      "ticker": "SOUN",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-12",
+      "entry_trade_ids": [
+        10
+      ],
+      "exit_trade_ids": [
+        18
+      ],
+      "entry_shares": 7,
+      "entry_avg": 7.48,
+      "bullets_used": 1,
+      "zones_used": [
+        "active"
+      ],
+      "last_exit_date": "2026-03-17",
+      "exit_shares": 15,
+      "exit_avg": 7.76,
+      "profit_pct": 3.74,
+      "profit_dollar": 4.2,
+      "cycle_days": 5,
+      "trading_days": 4
+    },
+    {
+      "cycle_id": "STIM-1",
+      "ticker": "STIM",
+      "status": "open",
+      "pre_strategy": false,
+      "first_entry_date": "2026-02-15",
+      "entry_trade_ids": [
+        80,
+        81
+      ],
+      "exit_trade_ids": [],
+      "entry_shares": 42,
+      "entry_avg": 1.45,
+      "bullets_used": 2,
+      "zones_used": [],
+      "last_exit_date": null,
+      "exit_shares": null,
+      "exit_avg": null,
+      "profit_pct": null,
+      "profit_dollar": null,
+      "cycle_days": null,
+      "trading_days": null
+    },
+    {
+      "cycle_id": "TEM-1",
+      "ticker": "TEM",
+      "status": "closed",
+      "pre_strategy": false,
+      "first_entry_date": "2026-03-02",
+      "entry_trade_ids": [
+        82,
+        83
+      ],
+      "exit_trade_ids": [
+        84
+      ],
+      "entry_shares": 2,
+      "entry_avg": 50.42,
+      "bullets_used": 2,
+      "zones_used": [],
+      "last_exit_date": "2026-03-06",
+      "exit_shares": 2,
+      "exit_avg": 53.45,
+      "profit_pct": 6.01,
+      "profit_dollar": 6.06,
+      "cycle_days": 4,
+      "trading_days": 5,
+      "post_sell_tracking": {
+        "sell_price": 53.45,
+        "sell_date": "2026-03-06",
+        "peak_after_sell": 52.68,
+        "peak_date": "2026-03-11",
+        "trough_after_sell": 49.53,
+        "trough_date": "2026-03-12",
+        "money_left_on_table_pct": 0,
+        "tracking_complete": true,
+        "close_5d_after": 49.98,
+        "close_5d_pct": -6.5
+      }
+    },
+    {
+      "cycle_id": "TMC-1",
+      "ticker": "TMC",
+      "status": "open",
+      "pre_strategy": false,
+      "first_entry_date": "2026-02-27",
+      "entry_trade_ids": [
+        85
+      ],
+      "exit_trade_ids": [],
+      "entry_shares": 9,
+      "entry_avg": 6.32,
+      "bullets_used": 1,
+      "zones_used": [],
+      "last_exit_date": null,
+      "exit_shares": null,
+      "exit_avg": null,
+      "profit_pct": null,
+      "profit_dollar": null,
+      "cycle_days": null,
+      "trading_days": null
+    },
+    {
+      "cycle_id": "UAMY-1",
+      "ticker": "UAMY",
+      "status": "closed",
+      "pre_strategy": true,
+      "first_entry_date": "2026-01-01",
+      "entry_trade_ids": [
+        86
+      ],
+      "exit_trade_ids": [
+        87
+      ],
+      "entry_shares": 40,
+      "entry_avg": 7.96,
+      "bullets_used": 1,
+      "zones_used": [],
+      "last_exit_date": "2026-02-25",
+      "exit_shares": 40,
+      "exit_avg": 8.44,
+      "profit_pct": 6.03,
+      "profit_dollar": 19.2,
+      "cycle_days": 55,
+      "trading_days": 37,
+      "post_sell_tracking": {
+        "sell_price": 8.44,
+        "sell_date": "2026-02-25",
+        "peak_after_sell": 10.65,
+        "peak_date": "2026-03-02",
+        "trough_after_sell": 8.91,
+        "trough_date": "2026-02-26",
+        "money_left_on_table_pct": 26.2,
+        "tracking_complete": true,
+        "close_5d_after": 9.68,
+        "close_5d_pct": 14.7
+      }
+    },
+    {
+      "cycle_id": "USAR-1",
+      "ticker": "USAR",
+      "status": "open",
+      "pre_strategy": true,
+      "first_entry_date": "2026-01-01",
+      "entry_trade_ids": [
+        88,
+        89,
+        90
+      ],
+      "exit_trade_ids": [],
+      "entry_shares": 15,
+      "entry_avg": 21.5213,
+      "bullets_used": 3,
+      "zones_used": [],
+      "last_exit_date": null,
+      "exit_shares": null,
+      "exit_avg": null,
+      "profit_pct": null,
+      "profit_dollar": null,
+      "cycle_days": null,
+      "trading_days": null
+    }
+  ],
+  "parse_warnings": [
+    "WARNING: CIFR has orphaned SELL (id=11, date=2026-03-16) with no preceding BUY \u2014 skipping from cycle formation. Resolve via backfill.",
+    "WARNING: INTC cycle INTC-1 is open but portfolio.json shows 0 shares \u2014 likely missing SELL record.",
+    "WARNING: STIM cycle STIM-1 is open but portfolio.json shows 0 shares \u2014 likely missing SELL record."
+  ],
+  "last_updated": "2026-03-18"
+}

@@ -1,155 +1,180 @@
-# Morning Tools Raw Data — 2026-03-08
+# Morning Tools Raw Data — 2026-03-16
 
 ---
 
 ## Market Pulse Output
 
-*2026-03-08 17:18*
+*2026-03-16 19:32*
 
 ## Market Pulse
-*2026-03-08 17:18 | Data as of: 2026-03-06*
+*2026-03-16 19:32 | Data as of: 2026-03-16*
 
 ### Major Indices
 | Index | ETF | Price | Day% | 5D% | Trend (50-SMA) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| S&P 500 | SPY | $672.38 | -1.31% | -1.98% | Below 50-SMA |
-| Nasdaq 100 | QQQ | $599.75 | -1.50% | -1.24% | Below 50-SMA |
-| Russell 2000 | IWM | $250.89 | -2.29% | -4.02% | Below 50-SMA |
+| S&P 500 | SPY | $669.33 | +1.06% | -1.32% | Below 50-SMA |
+| Nasdaq 100 | QQQ | $601.23 | +1.26% | -1.07% | Below 50-SMA |
+| Russell 2000 | IWM | $249.51 | +1.18% | -1.62% | Below 50-SMA |
 
 ### Volatility & Rates
 | Indicator | Value | Interpretation |
 | :--- | :--- | :--- |
-| VIX | 29.49 (+48.49% 5D) | Elevated — Caution |
-| 10Y Yield | 4.13% (-0.31% day) | Treasury benchmark |
+| VIX | 24.19 (-5.14% 5D) | Elevated — Caution |
+| 10Y Yield | 4.24% (-1.07% day) | Treasury benchmark |
 
 ### Sector Performance (Ranked by Daily)
 | Sector | ETF | Day% | 5D% | 20D% |
 | :--- | :--- | :--- | :--- | :--- |
-| Cons Defensive | XLP | +0.43% | -4.70% | -1.31% |
-| Energy | XLE | +0.16% | +1.16% | +8.35% |
-| Utilities | XLU | -0.34% | -2.07% | +8.45% |
-| Healthcare | XLV | -0.79% | -4.68% | -1.38% |
-| Comm Services | XLC | -0.83% | -0.50% | +1.08% |
-| Real Estate | XLRE | -1.04% | -2.17% | +4.03% |
-| Industrial | XLI | -1.23% | -4.06% | +0.93% |
-| Financial | XLF | -1.29% | -1.67% | -5.10% |
-| Cons Cyclical | XLY | -1.81% | -2.07% | -2.61% |
-| Materials | XLB | -1.91% | -6.65% | -1.27% |
-| Technology | XLK | -2.06% | -1.06% | +1.22% |
+| Technology | XLK | +1.85% | -0.31% | -0.16% |
+| Cons Cyclical | XLY | +1.15% | -2.14% | -3.48% |
+| Real Estate | XLRE | +0.96% | -0.76% | -1.94% |
+| Healthcare | XLV | +0.86% | -2.06% | -4.18% |
+| Industrial | XLI | +0.77% | -2.94% | -4.74% |
+| Financial | XLF | +0.69% | -2.20% | -4.70% |
+| Comm Services | XLC | +0.60% | -2.06% | +0.49% |
+| Cons Defensive | XLP | +0.38% | -1.06% | -4.97% |
+| Utilities | XLU | +0.36% | +0.60% | +1.35% |
+| Materials | XLB | +0.28% | -1.32% | -7.47% |
+| Energy | XLE | +0.23% | +2.68% | +6.40% |
 
 ### Market Regime
 | Metric | Value |
 | :--- | :--- |
-| Regime | **Risk-Off** |
-| Reasoning | 0/3 indices above 50-SMA, VIX 29.5 (elevated) |
-| Leading Sectors | Cons Defensive, Energy |
-| Lagging Sectors | Cons Cyclical, Materials, Technology |
+| Regime | **Neutral** |
+| Reasoning | 0/3 indices above 50-SMA, VIX 24.2 |
+| Leading Sectors | Technology, Cons Cyclical, Real Estate |
 
 ---
 
 ## Portfolio Status Output
 
-# Portfolio Status — 2026-03-08 17:18
-*Note: Market closed — all price data as of 2026-03-06. Fill detection suppressed.*
+# Portfolio Status — 2026-03-16 19:32
 
 ## Active Positions
 | Ticker | Shares | Avg Cost | Current | Day Low | Day High | P/L $ | P/L % | Target | Dist to Target |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| NU | 30 | $15.85 | $14.58 | $14.23 | $14.73 | $-38.10 | -8.0% | $18.50 | +26.9% |
-| STIM | 0 | $0.00 | $1.38 | $1.34 | $1.41 | $0.00 | +inf% | N/A | N/A |
-| IONQ | 15 | $44.43 | $35.73 | $35.10 | $37.48 | $-130.50 | -19.6% | N/A | N/A |
-| LUNR | 1 | $17.61 | $17.63 | $17.20 | $19.15 | $0.02 | +0.1% | N/A | N/A |
-| USAR | 15 | $21.57 | $17.45 | $17.44 | $19.29 | $-61.80 | -19.1% | $23.05 | +32.1% |
-| OUST | 5 | $21.70 | $20.27 | $20.07 | $21.66 | $-7.15 | -6.6% | N/A | N/A |
-| INTC | 0 | $0.00 | $43.42 | $43.28 | $45.18 | $0.00 | +inf% | N/A | N/A |
-| APLD | 15 | $29.06 | $25.14 | $25.07 | $28.41 | $-58.80 | -13.5% | $38.00 | +51.2% |
-| SMCI | 0 | $0.00 | $31.31 | $31.12 | $32.41 | $0.00 | +inf% | N/A | N/A |
-| TMC | 38 | $6.00 | $5.73 | $5.54 | $5.99 | $-10.26 | -4.5% | N/A | N/A |
-| CIFR | 11 | $14.62 | $13.62 | $13.54 | $14.76 | $-11.00 | -6.8% | N/A | N/A |
-| ARM | 4 | $120.88 | $114.38 | $113.51 | $119.27 | $-26.00 | -5.4% | N/A | N/A |
-| ACHR | 61 | $6.78 | $6.26 | $6.22 | $6.46 | $-31.72 | -7.7% | N/A | N/A |
-| TEM | 0 | $0.00 | $52.26 | $51.57 | $53.50 | $0.00 | +inf% | N/A | N/A |
-| CLSK | 7 | $10.17 | $9.21 | $9.12 | $9.71 | $-6.72 | -9.4% | N/A | N/A |
-| CLF | 21 | $10.26 | $9.83 | $9.72 | $10.41 | $-9.03 | -4.2% | N/A | N/A |
-| BBAI | 0 | $0.00 | $4.25 | $3.97 | $4.42 | $0.00 | +inf% | N/A | N/A |
-| NNE | 6 | $24.19 | $23.54 | $23.45 | $26.21 | $-3.90 | -2.7% | N/A | N/A |
+| NU | 30 | $15.85 | $14.22 | $14.06 | $14.37 | $-48.90 | -10.3% | $18.50 | +30.1% |
+| STIM | 0 | $0.00 | $1.38 | $1.32 | $1.39 | $0.00 | +inf% | N/A | N/A |
+| IONQ | 15 | $44.43 | $32.87 | $32.39 | $34.41 | $-173.47 | -26.0% | N/A | N/A |
+| LUNR | 2 | $17.59 | $17.12 | $16.82 | $18.30 | $-0.94 | -2.7% | N/A | N/A |
+| USAR | 15 | $21.57 | $19.13 | $18.83 | $20.58 | $-36.60 | -11.3% | $23.05 | +20.5% |
+| OUST | 0 | $0.00 | $21.40 | $20.98 | $22.30 | $0.00 | +inf% | N/A | N/A |
+| INTC | 0 | $0.00 | $48.14 | $47.51 | $49.17 | $0.00 | +inf% | N/A | N/A |
+| APLD | 15 | $29.06 | $27.64 | $27.38 | $29.06 | $-21.30 | -4.9% | $38.00 | +37.5% |
+| SMCI | 0 | $0.00 | $31.51 | $30.92 | $32.07 | $0.00 | +inf% | N/A | N/A |
+| TMC | 9 | $6.01 | $5.98 | $5.86 | $6.17 | $-0.27 | -0.5% | N/A | N/A |
+| CIFR | 0 | $0.00 | $14.97 | $14.67 | $15.31 | $0.00 | +inf% | N/A | N/A |
+| ARM | 5 | $118.96 | $121.75 | $118.38 | $121.93 | $13.95 | +2.3% | N/A | N/A |
+| ACHR | 77 | $6.61 | $6.02 | $5.97 | $6.21 | $-45.64 | -9.0% | N/A | N/A |
+| TEM | 1 | $50.98 | $50.48 | $49.82 | $52.67 | $-0.50 | -1.0% | N/A | N/A |
+| CLSK | 0 | $0.00 | $10.02 | $9.80 | $10.42 | $0.00 | +inf% | N/A | N/A |
+| CLF | 47 | $9.39 | $8.52 | $8.44 | $8.72 | $-40.66 | -9.2% | N/A | N/A |
+| BBAI | 0 | $0.00 | $3.93 | $3.90 | $4.10 | $0.00 | +inf% | N/A | N/A |
+| NNE | 10 | $23.87 | $21.27 | $20.75 | $22.96 | $-26.00 | -10.9% | N/A | N/A |
+| RUN | 0 | $0.00 | $12.74 | $12.55 | $13.20 | $0.00 | +inf% | N/A | N/A |
+| SOUN | 15 | $7.36 | $7.59 | $7.34 | $7.65 | $3.38 | +3.1% | N/A | N/A |
+| OKLO | 1 | $58.04 | $58.90 | $57.83 | $60.36 | $0.86 | +1.5% | N/A | N/A |
 
 ## Pending Orders
 | Ticker | Type | Zone | Price | Current | Near Wick | Wick Dist | Dist to Fill | Status | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| NU | SELL | Sell | $18.50 | $14.58 | $14.73 | +25.6% | +26.9% |  | Target ~18.1% from $15.66 avg |
-| NU | BUY | Reserve | $13.03 | $14.58 | $14.23 | -8.5% | -10.6% |  | Reserve 2 — $12.52 PA, 33% hold rate, Std tier, wick-adjusted (placed 2026-03-02) |
-| AR | BUY | Active | $35.00 | $38.83 | $38.64 | -9.4% | -9.9% |  | Bullet 1 — $34.61 HVN+PA, 30% hold rate (6/20), Std tier, wick-adjusted (merged w/ $34.15 HVN) |
-| AR | BUY | Active | $32.68 | $38.83 | $38.64 | -15.4% | -15.8% |  | Bullet 2 — $31.36 HVN+PA, 50% hold rate (5/10), Full tier, wick-adjusted |
-| AR | BUY | Active | $31.16 | $38.83 | $38.64 | -19.4% | -19.8% |  | Bullet 3 — $29.72 PA, 67% hold rate (4/6), Full tier, wick-adjusted |
-| APLD | SELL | Sell | $38.00 | $25.14 | $28.41 | +33.8% | +51.2% |  | Target ~25% — $37.60-$38.76 HVN resistance zone |
-| APLD | BUY | Reserve | $21.93 | $25.14 | $25.07 | -12.5% | -12.8% |  | Reserve 2 — $20.55 PA, 33% hold, Std tier, wick-adjusted |
-| CLF | BUY | Active | $9.97 | $9.83 | $9.72 | +2.6% | +1.4% |  | Bullet 1 — $9.90 PA, 54% hold rate, Full tier, wick-adjusted |
-| CLF | BUY | Active | $9.88 | $9.83 | $9.72 | +1.6% | +0.5% |  | Bullet 2 — $9.27 PA, 54% hold rate, Full tier, wick-adjusted (added 2026-02-28) |
-| CLF | BUY | Active | $9.41 | $9.83 | $9.72 | -3.2% | -4.3% |  | Bullet 3 — $9.04 PA, 67% hold rate, Full tier, wick-adjusted (updated 2026-02-28) |
-| CLF | BUY | Active | $8.48 | $9.83 | $9.72 | -12.8% | -13.7% |  | Bullet 4 — $8.25 PA, 71% hold rate, Full tier, wick-adjusted |
-| CIFR | BUY | Active | $14.07 | $13.62 | $13.54 | +3.9% | +3.3% |  | Bullet 3 — $13.45 PA, 44% hold, Full^ tier, wick-adjusted (added 2026-03-02) |
-| CIFR | BUY | Active | $12.86 | $13.62 | $13.54 | -5.0% | -5.6% |  | Bullet 4 — $12.41 PA, 50% hold, Full tier, wick-adjusted |
-| CIFR | BUY | Reserve | $5.38 | $13.62 | $13.54 | -60.3% | -60.5% |  | Reserve 1 — $5.27 PA, 57% hold, Full tier, wick-adjusted |
-| ACHR | BUY | — | $5.98 | $6.26 | $6.22 | -3.9% | -4.5% |  | B5 reserve — $5.85 PA bounce level, 50% hold rate |
-| SOUN | BUY | Active | $7.48 | $8.07 | $8.00 | -6.5% | -7.3% |  | Bullet 1 — $7.48 HVN+PA, 50% hold, Full tier, wick-adjusted (updated 2026-02-28) |
-| SOUN | BUY | Active | $7.26 | $8.07 | $8.00 | -9.3% | -10.0% |  | Bullet 2 — $6.95 PA, 75% hold, Full tier, wick-adjusted (updated 2026-02-28) |
-| CLSK | BUY | Active | $9.11 | $9.21 | $9.12 | -0.1% | -1.1% |  | Bullet 3 — $8.93 HVN+PA, 50% hold, Full tier, wick-adjusted |
-| CLSK | BUY | Active | $8.88 | $9.21 | $9.12 | -2.6% | -3.6% |  | Bullet 4 — $8.62 PA, 38% hold, Std tier, wick-adjusted (updated 2026-03-02) |
-| SMCI | BUY | Active | $28.78 | $31.31 | $31.12 | -7.5% | -8.1% |  | Bullet 5 — $27.22 PA, 90% hold, Full tier, wick-adjusted |
-| LUNR | BUY | Active | $17.16 | $17.63 | $17.20 | -0.3% | -2.7% |  | Bullet 2 — $16.41 PA, 30% hold, Skip tier (placed as manual override) |
-| LUNR | BUY | Active | $16.68 | $17.63 | $17.20 | -3.1% | -5.4% |  | Bullet 3 — $15.94 HVN+PA, 33% hold, Skip tier (placed as manual override) |
-| LUNR | BUY | Active | $15.33 | $17.63 | $17.20 | -10.9% | -13.0% |  | Bullet 3 — $15.08 PA, 67% hold, Full tier, sized up for $200 target (added 2026-03-02) |
-| LUNR | BUY | Active | $15.20 | $17.63 | $17.20 | -11.7% | -13.8% |  | Bullet 4 — $14.32 PA, 60% hold, Full tier, wick-adjusted |
-| LUNR | BUY | Reserve | $10.06 | $17.63 | $17.20 | -41.5% | -42.9% |  | Reserve 1 — $9.52 PA, 56% hold, Std tier, wick-adjusted |
-| LUNR | BUY | Reserve | $7.78 | $17.63 | $17.20 | -54.8% | -55.9% |  | Reserve 2 — $7.48 PA, 56% hold, Full tier, wick-adjusted (added 2026-03-03) |
-| LUNR | BUY | Reserve | $6.64 | $17.63 | $17.20 | -61.4% | -62.3% |  | Reserve 3 — $6.53 PA, 75% hold, Full tier, structural floor |
-| NNE | BUY | Active | $24.03 | $23.54 | $23.45 | +2.5% | +2.1% |  | Bullet 2 — $23.60 PA, 50% hold, Std tier, wick-adjusted (updated 2026-02-28) |
-| NNE | BUY | Active | $23.50 | $23.54 | $23.45 | +0.2% | -0.2% |  | Bullet 3 — $22.89+$22.02 PA merged, 67% hold, Full tier, wick-adjusted (updated 2026-02-28) |
-| NVDA | BUY | Active | $174.60 | $177.82 | $176.82 | -1.3% | -1.8% |  | Bullet 1 — $173.61 HVN+PA, 38% hold, Std tier, wick-adjusted. NOT PLACED — waiting for entry signal |
-| NVDA | BUY | Active | $169.54 | $177.82 | $176.82 | -4.1% | -4.7% |  | Bullet 2 — $161.14 PA, 100% hold (9/9), Full tier, wick-adjusted. NOT PLACED |
-| NVDA | BUY | Active | $168.40 | $177.82 | $176.82 | -4.8% | -5.3% |  | Bullet 3 — $157.32 PA, 71% hold (5/7), Full tier, wick-adjusted. NOT PLACED [D] |
-| NVDA | BUY | Reserve | $146.74 | $177.82 | $176.82 | -17.0% | -17.5% |  | Reserve 1 — $141.99 HVN+PA, 50% hold (2/4), Full tier, wick-adjusted. NOT PLACED [D] |
-| ARM | BUY | Active | $112.53 | $114.38 | $113.51 | -0.9% | -1.6% |  | Bullet 5 — $110.90 HVN+PA, 43% hold, Full^ tier, wick-adjusted |
-| TMC | BUY | Active | $5.63 | $5.73 | $5.54 | +1.6% | -1.7% |  | Bullet 3 — $5.53 HVN+PA, 42% hold, Std tier, wick-adjusted |
-| TEM | BUY | Active | $50.98 | $52.26 | $51.57 | -1.1% | -2.4% |  | Bullet 1 — $49.35 PA, 22% hold, Std tier, wick-adjusted |
-| TEM | BUY | Active | $48.75 | $52.26 | $51.57 | -5.5% | -6.7% |  | Bullets 2+3 — $48.01/$47.00 PA converged, 46%/64% hold, Full tier, wick-adjusted |
-| OUST | BUY | Active | $20.32 | $20.27 | $20.07 | +1.2% | +0.2% |  | Bullet 3 — $19.22 HVN+PA, 30% hold rate, Half tier, wick-adjusted |
-| BBAI | BUY | Active | $3.82 | $4.25 | $3.97 | -3.8% | -10.1% |  | Bullet 1 — $3.75 HVN+PA, 33% hold rate, Full tier, wick-adjusted |
-| BBAI | BUY | Active | $3.71 | $4.25 | $3.97 | -6.5% | -12.7% |  | Bullet 2 — $3.65 PA, 57% hold rate, Full tier, wick-adjusted |
-| BBAI | BUY | Active | $3.66 | $4.25 | $3.97 | -7.8% | -13.9% |  | Bullet 3 — $3.55 PA, 33% hold rate, Full tier, wick-adjusted |
+| NU | SELL | Sell | $18.50 | $14.22 | $14.37 | +28.7% | +30.1% |  | Target ~18.1% from $15.66 avg |
+| NU | BUY | Reserve | $13.03 | $14.22 | $14.06 | -7.3% | -8.4% |  | Reserve 2 — $12.52 PA, 33% hold rate, Std tier, wick-adjusted (placed 2026-03-02, resized 2026-03-13) |
+| AR | BUY | Active | $35.00 | $41.09 | $40.50 | -13.6% | -14.8% |  | Bullet 1 — $34.61 HVN+PA, 30% hold rate (6/20), Std tier, wick-adjusted (merged w/ $34.15 HVN) |
+| AR | BUY | Active | $32.68 | $41.09 | $40.50 | -19.3% | -20.5% |  | Bullet 2 — $31.36 HVN+PA, 50% hold rate (5/10), Full tier, wick-adjusted |
+| AR | BUY | Active | $31.16 | $41.09 | $40.50 | -23.1% | -24.2% |  | Bullet 3 — $29.72 PA, 67% hold rate (4/6), Full tier, wick-adjusted |
+| APLD | SELL | Sell | $38.00 | $27.64 | $29.06 | +30.8% | +37.5% |  | Target ~25% — $37.60-$38.76 HVN resistance zone |
+| APLD | BUY | Reserve | $21.93 | $27.64 | $27.38 | -19.9% | -20.7% |  | Reserve 2 — $20.55 PA, 33% hold, Std tier, wick-adjusted (resized 2026-03-13) |
+| CLF | SELL | Sell | $9.95 | $8.52 | $8.72 | +14.1% | +16.7% |  | PA resistance, 33% reject, +6.0% from $9.39 avg (updated 2026-03-13) |
+| CLF | BUY | Active | $9.97 | $8.52 | $8.44 | +18.1% | +17.0% | **FILLED?** | Bullet 1 — $9.90 PA, 54% hold rate, Full tier, wick-adjusted |
+| CLF | BUY | Active | $9.88 | $8.52 | $8.44 | +17.0% | +15.9% | **FILLED?** | Bullet 2 — $9.27 PA, 54% hold rate, Full tier, wick-adjusted (added 2026-02-28) |
+| CLF | BUY | Active | $9.41 | $8.52 | $8.44 | +11.4% | +10.4% | **FILLED?** | Bullet 3 — $9.04 PA, 67% hold rate, Full tier, wick-adjusted (updated 2026-02-28) |
+| CLF | BUY | Active | $8.48 | $8.52 | $8.44 | +0.4% | -0.5% | **FILLED?** | Bullet 4 — $8.25 PA, 75% hold rate, Full tier, wick-adjusted (resized 2026-03-13) |
+| CIFR | BUY | Active | $14.07 | $14.97 | $14.67 | -4.1% | -6.0% |  | Bullet 3 — $13.45 PA, 44% hold, Full^ tier, wick-adjusted (added 2026-03-02) |
+| CIFR | BUY | Active | $12.86 | $14.97 | $14.67 | -12.3% | -14.1% |  | Bullet 4 — $13.02 PA, 71% hold, Full tier, wick-adjusted (resized 2026-03-13) |
+| CIFR | BUY | Reserve | $5.38 | $14.97 | $14.67 | -63.3% | -64.1% |  | Reserve 1 — $5.27 PA, 57% hold, Full tier, wick-adjusted |
+| ACHR | BUY | — | $5.98 | $6.02 | $5.97 | +0.2% | -0.6% | **FILLED?** | B5 reserve — $5.85 PA bounce level, 50% hold rate |
+| SOUN | SELL | Sell | $7.76 | $7.59 | $7.65 | +1.4% | +2.3% |  | HVN resistance, 0% reject, +5.4% from $7.36 avg (2026-03-13) |
+| SOUN | BUY | Active | $7.26 | $7.59 | $7.34 | -1.1% | -4.3% |  | Bullet 2 — $6.95 PA, 75% hold, Full tier, wick-adjusted (updated 2026-02-28) |
+| CLSK | SELL | Sell | $10.24 | $10.02 | $10.42 | -1.7% | +2.2% | **FILLED?** | Tranche 1 — HVN+PA resistance, 33% reject, +5.7% from $9.68 avg |
+| CLSK | SELL | Sell | $10.54 | $10.02 | $10.42 | +1.2% | +5.2% |  | Tranche 2 — PA resistance, 40% reject, +8.9% from $9.68 avg |
+| CLSK | BUY | Active | $8.91 | $10.02 | $9.80 | -9.1% | -11.0% |  | Bullet 3 — $8.62 PA, 43% hold, Full^ tier, wick-adjusted (2026-03-13) |
+| CLSK | BUY | Active | $9.66 | $10.02 | $9.80 | -1.4% | -3.5% |  | Bullet 1 — $9.40 HVN+PA, 25% hold, Half tier, wick-adjusted (2026-03-13) |
+| CLSK | BUY | Active | $9.09 | $10.02 | $9.80 | -7.2% | -9.2% |  | Bullet 2 — $8.93 HVN+PA, 50% hold, Full tier, wick-adjusted (2026-03-13) |
+| CLSK | BUY | Active | $8.40 | $10.02 | $9.80 | -14.3% | -16.1% |  | Bullet 4 — $8.25 PA, 58% hold, Full tier, wick-adjusted (2026-03-13) |
+| SMCI | BUY | Active | $29.95 | $31.51 | $30.92 | -3.1% | -5.0% |  | Bullet 1 — $28.96 HVN+PA, 44% hold, Full^ tier, wick-adjusted |
+| SMCI | BUY | Active | $28.78 | $31.51 | $30.92 | -6.9% | -8.7% |  | Bullet 2 — $27.35 PA, 100% hold, Full tier, wick-adjusted |
+| LUNR | BUY | Active | $17.59 | $17.12 | $16.82 | +4.6% | +2.7% | **FILLED?** | Bullet 1 — $17.49 HVN, 29% hold, Half tier, wick-adjusted (2026-03-13) |
+| LUNR | BUY | Active | $16.00 | $17.12 | $16.82 | -4.9% | -6.5% |  | Bullet 2 — $15.70 PA, 50% hold, Std tier, wick-adjusted (2026-03-13) |
+| LUNR | BUY | Active | $15.33 | $17.12 | $16.82 | -8.9% | -10.5% |  | Bullet 3 — $15.08 PA, 67% hold, Full tier, wick-adjusted (2026-03-13) |
+| LUNR | BUY | Active | $15.20 | $17.12 | $16.82 | -9.6% | -11.2% |  | Bullet 4 — $14.32 PA, 60% hold, Full tier, wick-adjusted (2026-03-13) |
+| LUNR | BUY | Reserve | $10.06 | $17.12 | $16.82 | -40.2% | -41.2% |  | Reserve 1 — $9.52 PA, 56% hold, Std tier, wick-adjusted |
+| LUNR | BUY | Reserve | $7.78 | $17.12 | $16.82 | -53.7% | -54.6% |  | Reserve 2 — $7.48 PA, 56% hold, Full tier, wick-adjusted (added 2026-03-03) |
+| LUNR | BUY | Reserve | $6.64 | $17.12 | $16.82 | -60.5% | -61.2% |  | Reserve 3 — $6.53 PA, 75% hold, Full tier, structural floor |
+| NNE | SELL | Sell | $25.44 | $21.27 | $22.96 | +10.8% | +19.6% |  | Tranche 1 — HVN+PA resistance, +6.6% from $23.87 avg |
+| NNE | SELL | Sell | $26.02 | $21.27 | $22.96 | +13.3% | +22.3% |  | Tranche 2 — HVN resistance, 33% reject, +9.0% from $23.87 avg |
+| NNE | BUY | Active | $24.03 | $21.27 | $20.75 | +15.8% | +13.0% | **FILLED?** | Bullet 2 — $23.60 PA, 50% hold, Std tier, wick-adjusted (updated 2026-02-28) |
+| NVDA | BUY | Active | $174.60 | $184.78 | $182.87 | -4.5% | -5.5% |  | Bullet 1 — $173.61 HVN+PA, 38% hold, Std tier, wick-adjusted. NOT PLACED — waiting for entry signal |
+| NVDA | BUY | Active | $169.54 | $184.78 | $182.87 | -7.3% | -8.2% |  | Bullet 2 — $161.14 PA, 100% hold (9/9), Full tier, wick-adjusted. NOT PLACED |
+| NVDA | BUY | Active | $168.40 | $184.78 | $182.87 | -7.9% | -8.9% |  | Bullet 3 — $157.32 PA, 71% hold (5/7), Full tier, wick-adjusted. NOT PLACED [D] |
+| NVDA | BUY | Reserve | $146.74 | $184.78 | $182.87 | -19.8% | -20.6% |  | Reserve 1 — $141.99 HVN+PA, 50% hold (2/4), Full tier, wick-adjusted. NOT PLACED [D] |
+| ARM | SELL | Sell | $127.17 | $121.75 | $121.93 | +4.3% | +4.5% |  | HVN+PA resistance, 40% reject, +6.9% from $118.96 avg |
+| ARM | BUY | Active | $112.53 | $121.75 | $118.38 | -4.9% | -7.6% |  | Bullet 5 — $110.90 HVN+PA, 43% hold, Full^ tier, wick-adjusted |
+| TMC | SELL | Sell | $6.39 | $5.98 | $6.17 | +3.6% | +6.9% |  | HVN resistance, 40% reject, +6.3% from $6.01 avg (2026-03-13) |
+| TMC | BUY | Active | $6.01 | $5.98 | $5.86 | +2.6% | +0.5% | **FILLED?** | Bullet 1 — filled 2026-03-13 |
+| TMC | BUY | — | $5.63 | $5.98 | $5.86 | -3.9% | -5.9% |  |  |
+| TEM | SELL | Sell | $54.55 | $50.48 | $52.67 | +3.6% | +8.1% |  | PA resistance, 25% reject, +7.0% from $50.98 avg |
+| TEM | BUY | Active | $48.75 | $50.48 | $49.82 | -2.1% | -3.4% |  | Bullets 2+3 — $48.01/$47.00 PA converged, 46%/64% hold, Full tier, wick-adjusted |
+| OUST | BUY | Active | $20.32 | $21.40 | $20.98 | -3.1% | -5.0% |  | Bullet 3 — $19.22 HVN+PA, 30% hold rate, Half tier, wick-adjusted |
+| OUST | BUY | Active | $20.89 | $21.40 | $20.98 | -0.4% | -2.4% |  | Bullet 1 — $20.16 HVN+PA, 36% hold, Half tier, wick-adjusted (2026-03-13) |
+| OUST | BUY | Active | $20.32 | $21.40 | $20.98 | -3.1% | -5.0% |  | Bullet 2 — $19.22 HVN+PA, 30% hold, Half tier, wick-adjusted (2026-03-13) |
+| OUST | BUY | Active | $18.98 | $21.40 | $20.98 | -9.5% | -11.3% |  | Bullet 3 — $18.28 HVN+PA, 25% hold, Half tier, wick-adjusted (2026-03-13) |
+| RUN | BUY | Active | $11.05 | $12.74 | $12.55 | -12.0% | -13.3% |  | Bullet 2 — $10.65 HVN+PA, 20% hold, Std^ tier, wick-adjusted |
+| RUN | BUY | Active | $10.69 | $12.74 | $12.55 | -14.8% | -16.1% |  | Bullet 3 — $10.19 HVN+PA, 22% hold, Half tier, wick-adjusted |
+| RUN | BUY | Active | $10.10 | $12.74 | $12.55 | -19.5% | -20.7% |  | Bullet 4 — $9.85 PA, 50% hold, Std tier, wick-adjusted |
+| RUN | BUY | Active | $10.05 | $12.74 | $12.55 | -19.9% | -21.1% |  | Bullet 5 — $9.60 PA, 50% hold, Full tier, wick-adjusted |
+| RUN | BUY | Reserve | $7.87 | $12.74 | $12.55 | -37.3% | -38.2% |  | Reserve 1 — $7.80 PA, 60% hold, Std tier, wick-adjusted |
+| RUN | BUY | Reserve | $6.11 | $12.74 | $12.55 | -51.3% | -52.0% |  | Reserve 2 — $5.75 PA, 50% hold, Std tier, wick-adjusted |
+| RUN | BUY | Reserve | $5.45 | $12.74 | $12.55 | -56.6% | -57.2% |  | Reserve 3 — $5.38 PA, 100% hold, Full tier, structural floor |
+| BBAI | BUY | Active | $3.82 | $3.93 | $3.90 | -2.1% | -2.9% |  | Bullet 1 — $3.75 HVN+PA, 33% hold rate, Full^ tier, wick-adjusted (resized 2026-03-13) |
+| BBAI | BUY | Active | $3.71 | $3.93 | $3.90 | -4.9% | -5.7% |  | Bullet 2 — $3.65 PA, 67% hold rate, Full tier, wick-adjusted (resized 2026-03-13) |
+| BBAI | BUY | Active | $3.66 | $3.93 | $3.90 | -6.2% | -7.0% |  | Bullet 3 — $3.39 PA, 33% hold rate, Std tier, wick-adjusted (resized 2026-03-13) |
+| OKLO | BUY | Active | $58.04 | $58.90 | $57.83 | +0.4% | -1.5% | **FILLED?** | Bullet 1 — $56.47 PA, 67% hold, Full tier, wick-adjusted (2026-03-13) |
+| OKLO | BUY | Active | $57.21 | $58.90 | $57.83 | -1.1% | -2.9% |  | Bullet 2 — $53.95 HVN+PA, 20% hold, Std tier, wick-adjusted (2026-03-13) |
+| OKLO | BUY | Active | $51.10 | $58.90 | $57.83 | -11.6% | -13.2% |  | Bullet 3 — $49.27 HVN+PA, 33% hold, Std tier, wick-adjusted (2026-03-13) |
 
 ## Watchlist
 | Ticker | Price | Day Low | Day High | Day % |
 | :--- | :--- | :--- | :--- | :--- |
-| NU | $14.58 | $14.23 | $14.73 | -1.6% |
-| IONQ | $35.73 | $35.10 | $37.48 | -0.8% |
-| USAR | $17.45 | $17.44 | $19.29 | -8.6% |
-| APLD | $25.14 | $25.07 | $28.41 | -10.5% |
-| SMCI | $31.31 | $31.12 | $32.41 | -2.9% |
-| TMC | $5.73 | $5.54 | $5.99 | -3.9% |
-| CIFR | $13.62 | $13.54 | $14.76 | -10.1% |
-| ARM | $114.38 | $113.51 | $119.27 | -5.2% |
-| ACHR | $6.26 | $6.22 | $6.46 | -3.1% |
-| TEM | $52.26 | $51.57 | $53.50 | -1.5% |
-| CLSK | $9.21 | $9.12 | $9.71 | -7.4% |
-| CLF | $9.83 | $9.72 | $10.41 | -8.0% |
-| LUNR | $17.63 | $17.20 | $19.15 | -0.2% |
-| SOUN | $8.07 | $8.00 | $8.49 | -2.4% |
-| AR | $38.83 | $38.64 | $39.95 | -0.2% |
-| NNE | $23.54 | $23.45 | $26.21 | -7.9% |
-| BBAI | $4.25 | $3.97 | $4.42 | +5.2% |
-| NVDA | $177.82 | $176.82 | $182.76 | -3.0% |
-| OUST | $20.27 | $20.07 | $21.66 | -4.3% |
+| NU | $14.22 | $14.06 | $14.37 | +2.4% |
+| IONQ | $32.87 | $32.39 | $34.41 | -0.3% |
+| USAR | $19.13 | $18.83 | $20.58 | -1.7% |
+| APLD | $27.64 | $27.38 | $29.06 | +2.2% |
+| SMCI | $31.51 | $30.92 | $32.07 | +2.5% |
+| TMC | $5.98 | $5.86 | $6.17 | +0.2% |
+| CIFR | $14.97 | $14.67 | $15.31 | +6.3% |
+| ARM | $121.75 | $118.38 | $121.93 | +5.2% |
+| ACHR | $6.02 | $5.97 | $6.21 | -0.2% |
+| TEM | $50.48 | $49.82 | $52.67 | +1.0% |
+| CLSK | $10.02 | $9.80 | $10.42 | +2.6% |
+| CLF | $8.52 | $8.44 | $8.72 | +0.8% |
+| LUNR | $17.12 | $16.82 | $18.30 | -2.7% |
+| SOUN | $7.59 | $7.34 | $7.65 | +3.9% |
+| AR | $41.09 | $40.50 | $41.78 | +0.2% |
+| NNE | $21.27 | $20.75 | $22.96 | -6.8% |
+| BBAI | $3.93 | $3.90 | $4.10 | -0.1% |
+| NVDA | $184.78 | $182.87 | $185.06 | +2.5% |
+| OUST | $21.40 | $20.98 | $22.30 | -0.3% |
+| RUN | $12.74 | $12.55 | $13.20 | +4.9% |
+| OKLO | $58.90 | $57.83 | $60.36 | +0.9% |
 
 ## Capital Summary
 | Metric | Value |
 | :--- | :--- |
-| Deployed | $3745.22 |
+| Deployed | $3993.89 |
 | Per-Stock Budget | $600.00 |
-| Active Bullet (Full/Std) | $60.00 |
-| Active Bullet (Half) | $30.00 |
-| Reserve Bullet | $100.00 |
+| Active Pool | $300.00 (pool-distributed (equal impact)) |
+| Reserve Pool | $300.00 (pool-distributed (equal impact)) |
 
 ---
 
@@ -157,67 +182,593 @@
 
 | Ticker | Shares | Avg Cost | Current Price | P/L % | Entry Date | Days Held | Time Stop Status | Bullets Used | Target Exit | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| NU | 30 | $15.85 | $14.58 | -8.0% | 2026-02-13 | 23 | WITHIN | 6/5 | $18.50 | — |
-| IONQ | 15 | $44.43 | $35.73 | -19.6% | pre-2026 | >60 days (pre-strategy) | EXCEEDED (pre-strategy) | 1/5 | No target (recovery) | Pre-strategy, recovery mode |
-| LUNR | 1 | $17.61 | $17.63 | +0.1% | 2026-03-06 | 2 | WITHIN | 1/5 | No target (recovery) | — |
-| USAR | 15 | $21.57 | $17.45 | -19.1% | pre-2026-02-12 | >60 days (pre-strategy) | EXCEEDED (pre-strategy) | 3/5 (pre-strategy), pool exhausted | $23.05 | Pre-strategy, underwater |
-| OUST | 5 | $21.70 | $20.27 | -6.6% | 2026-03-05 | 3 | WITHIN | 3/5 | No target (recovery) | — |
-| APLD | 15 | $29.06 | $25.14 | -13.5% | 2026-02-17 | 19 | WITHIN | 5/5 | $38.00 | — |
-| TMC | 38 | $6.00 | $5.73 | -4.5% | 2026-02-27 | 9 | WITHIN | 4/5 | No target (recovery) | — |
-| CIFR | 11 | $14.62 | $13.62 | -6.8% | 2026-03-05 | 3 | WITHIN | 3/5 | No target (recovery) | — |
-| ARM | 4 | $120.88 | $114.38 | -5.4% | 2026-03-02 | 6 | WITHIN | 4/5 | No target (recovery) | — |
-| ACHR | 61 | $6.78 | $6.26 | -7.7% | 2026-03-02 | 6 | WITHIN | 4/5 | No target (recovery) | Re-entry 2026-03-02 — 8 @ $7 |
-| CLSK | 7 | $10.17 | $9.21 | -9.4% | 2026-03-05 | 3 | WITHIN | 3/5 | No target (recovery) | Position closed 2026-03-04 — sold 2 @ $10 |
-| CLF | 21 | $10.26 | $9.83 | -4.2% | 2026-03-03 | 5 | WITHIN | 3/5 | No target (recovery) | — |
-| NNE | 6 | $24.19 | $23.54 | -2.7% | 2026-03-05 | 3 | WITHIN | 3/5 | No target (recovery) | — |
+| NU | 30 | $15.85 | $14.22 | -10.3% | 2026-02-13 | 31 | WITHIN | 6/5 | $18.50 | — |
+| IONQ | 15 | $44.43 | $32.87 | -26.0% | pre-2026 | >60 days (pre-strategy) | EXCEEDED (pre-strategy) | 1/5 | No target (recovery) | Pre-strategy, recovery mode |
+| LUNR | 2 | $17.59 | $17.12 | -2.7% | 2026-03-16 | 0 | WITHIN | 1/5 | No target (recovery) | Re-entry 2026-03-16 |
+| USAR | 15 | $21.57 | $19.13 | -11.3% | pre-2026-02-12 | >60 days (pre-strategy) | EXCEEDED (pre-strategy) | 3/5 (pre-strategy), pool exhausted | $23.05 | Pre-strategy, underwater |
+| APLD | 15 | $29.06 | $27.64 | -4.9% | 2026-02-17 | 27 | WITHIN | 5/5 | $38.00 | — |
+| TMC | 9 | $6.01 | $5.98 | -0.5% | 2026-03-13 | 3 | WITHIN | 1/5 | No target (recovery) | Re-entry 2026-03-13 |
+| ARM | 5 | $118.96 | $121.75 | +2.3% | 2026-03-02 | 14 | WITHIN | 5/5 | No target (recovery) | — |
+| ACHR | 77 | $6.61 | $6.02 | -8.9% | 2026-03-02 | 14 | WITHIN | 5/5 | No target (recovery) | Re-entry 2026-03-02 — 8 @ $7 |
+| TEM | 1 | $50.98 | $50.48 | -1.0% | 2026-03-09 | 7 | WITHIN | 1/5 | No target (recovery) | Position closed 2026-03-06 — sold 2 @ $53 |
+| CLF | 47 | $9.39 | $8.52 | -9.3% | 2026-03-03 | 13 | WITHIN | 5/5 | No target (recovery) | — |
+| NNE | 10 | $23.87 | $21.27 | -10.9% | 2026-03-05 | 11 | WITHIN | 5/5 | No target (recovery) | — |
+| SOUN | 15 | $7.36 | $7.59 | +3.1% | 2026-03-12 | 4 | WITHIN | 2/5 | No target (recovery) | — |
+| OKLO | 1 | $58.04 | $58.90 | +1.5% | 2026-03-16 | 0 | WITHIN | 1/5 | No target (recovery) | Onboarded 2026-03-13 via surgical screening (score 95) |
 
 ---
 
 ## Pending Orders Detail
 
-| Ticker | Type | Order Price | Shares | Current Price | % Below Current | Active Position | Days to Earnings | Notes |
+*Data as of: 2026-03-16 close. Trading day: Yes.*
+
+| Ticker | Type | Order Price | Shares | Current Price | % Below Current | Active Position | Days to Earnings | Status | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| ACHR | BUY | $5.98 | 16 | $5.98 | 0.0% | Yes (77 shares) | 56 | RECORDED | B5 reserve — $5.85 PA bounce level, 50% hold rate |
+| APLD | SELL | $38.00 | 15 | $38.00 | N/A | Yes (15 shares) | 24 |  | Target ~25% — $37.60-$38.76 HVN resistance zone |
+| APLD | BUY | $21.93 | 2 | $38.00 | 42.3% | Yes (15 shares) | 24 |  | Reserve 2 — $20.55 PA, 33% hold, Std tier, wick-adjusted (resized 2026-03-13) |
+| AR | BUY | $35.00 | 1 | $35.00 | 0.0% | No (watchlist) | 44 |  | Bullet 1 — $34.61 HVN+PA, 30% hold rate (6/20), Std tier, wick-adjusted (merged w/ $34.15 HVN) |
+| AR | BUY | $32.68 | 3 | $35.00 | 6.6% | No (watchlist) | 44 |  | Bullet 2 — $31.36 HVN+PA, 50% hold rate (5/10), Full tier, wick-adjusted |
+| AR | BUY | $31.16 | 3 | $35.00 | 11.0% | No (watchlist) | 44 |  | Bullet 3 — $29.72 PA, 67% hold rate (4/6), Full tier, wick-adjusted |
+| ARM | SELL | $127.17 | 5 | $127.17 | N/A | Yes (5 shares) | 51 |  | HVN+PA resistance, 40% reject, +6.9% from $118.96 avg |
+| ARM | BUY | $112.53 | 1 | $127.17 | 11.5% | Yes (5 shares) | 51 |  | Bullet 5 — $110.90 HVN+PA, 43% hold, Full^ tier, wick-adjusted |
+| BBAI | BUY | $3.82 | 22 | $3.82 | 0.0% | No (watchlist) | 45 |  | Bullet 1 — $3.75 HVN+PA, 33% hold rate, Full^ tier, wick-adjusted (resized 2026-03-13) |
+| BBAI | BUY | $3.71 | 24 | $3.82 | 2.9% | No (watchlist) | 45 |  | Bullet 2 — $3.65 PA, 67% hold rate, Full tier, wick-adjusted (resized 2026-03-13) |
+| BBAI | BUY | $3.66 | 22 | $3.82 | 4.2% | No (watchlist) | 45 |  | Bullet 3 — $3.39 PA, 33% hold rate, Std tier, wick-adjusted (resized 2026-03-13) |
+| CIFR | BUY | $14.07 | 4 | $14.07 | 0.0% | No (watchlist) | 50 |  | Bullet 3 — $13.45 PA, 44% hold, Full^ tier, wick-adjusted (added 2026-03-02) |
+| CIFR | BUY | $12.86 | 22 | $14.07 | 8.6% | No (watchlist) | 50 |  | Bullet 4 — $13.02 PA, 71% hold, Full tier, wick-adjusted (resized 2026-03-13) |
+| CIFR | BUY | $5.38 | 18 | $14.07 | 61.8% | No (watchlist) | 50 |  | Reserve 1 — $5.27 PA, 57% hold, Full tier, wick-adjusted |
+| CLF | SELL | $9.95 | 47 | $9.95 | N/A | Yes (47 shares) | 44 |  | PA resistance, 33% reject, +6.0% from $9.39 avg (updated 2026-03-13) |
+| CLF | BUY | $9.97 | 10 | $9.95 | -0.2% | Yes (47 shares) | 44 | RECORDED | Bullet 1 — $9.90 PA, 54% hold rate, Full tier, wick-adjusted |
+| CLF | BUY | $9.88 | 6 | $9.95 | 0.7% | Yes (47 shares) | 44 | RECORDED | Bullet 2 — $9.27 PA, 54% hold rate, Full tier, wick-adjusted (added 2026-02-28) |
+| CLF | BUY | $9.41 | 10 | $9.95 | 5.4% | Yes (47 shares) | 44 |  | Bullet 3 — $9.04 PA, 67% hold rate, Full tier, wick-adjusted (updated 2026-02-28) |
+| CLF | BUY | $8.48 | 21 | $9.95 | 14.8% | Yes (47 shares) | 44 | RECORDED | Bullet 4 — $8.25 PA, 75% hold rate, Full tier, wick-adjusted (resized 2026-03-13) |
+| CLSK | SELL | $10.24 | 7 | $10.24 | N/A | No (watchlist) | 52 |  | Tranche 1 — HVN+PA resistance, 33% reject, +5.7% from $9.68 avg |
+| CLSK | SELL | $10.54 | 6 | $10.24 | N/A | No (watchlist) | 52 |  | Tranche 2 — PA resistance, 40% reject, +8.9% from $9.68 avg |
+| CLSK | BUY | $8.91 | 8 | $10.24 | 13.0% | No (watchlist) | 52 |  | Bullet 3 — $8.62 PA, 43% hold, Full^ tier, wick-adjusted (2026-03-13) |
+| CLSK | BUY | $9.66 | 4 | $10.24 | 5.7% | No (watchlist) | 52 |  | Bullet 1 — $9.40 HVN+PA, 25% hold, Half tier, wick-adjusted (2026-03-13) |
+| CLSK | BUY | $9.09 | 8 | $10.24 | 11.2% | No (watchlist) | 52 |  | Bullet 2 — $8.93 HVN+PA, 50% hold, Full tier, wick-adjusted (2026-03-13) |
+| CLSK | BUY | $8.40 | 10 | $10.24 | 18.0% | No (watchlist) | 52 |  | Bullet 4 — $8.25 PA, 58% hold, Full tier, wick-adjusted (2026-03-13) |
+| LUNR | BUY | $17.59 | 2 | $17.59 | 0.0% | Yes (2 shares) | 3 | RECORDED | Bullet 1 — $17.49 HVN, 29% hold, Half tier, wick-adjusted (2026-03-13) |
+| LUNR | BUY | $16.00 | 5 | $17.59 | 9.0% | Yes (2 shares) | 3 |  | Bullet 2 — $15.70 PA, 50% hold, Std tier, wick-adjusted (2026-03-13) |
+| LUNR | BUY | $15.33 | 7 | $17.59 | 12.8% | Yes (2 shares) | 3 |  | Bullet 3 — $15.08 PA, 67% hold, Full tier, wick-adjusted (2026-03-13) |
+| LUNR | BUY | $15.20 | 5 | $17.59 | 13.6% | Yes (2 shares) | 3 |  | Bullet 4 — $14.32 PA, 60% hold, Full tier, wick-adjusted (2026-03-13) |
+| LUNR | BUY | $10.06 | 9 | $17.59 | 42.8% | Yes (2 shares) | 3 |  | Reserve 1 — $9.52 PA, 56% hold, Std tier, wick-adjusted |
+| LUNR | BUY | $7.78 | 12 | $17.59 | 55.8% | Yes (2 shares) | 3 |  | Reserve 2 — $7.48 PA, 56% hold, Full tier, wick-adjusted (added 2026-03-03) |
+| LUNR | BUY | $6.64 | 15 | $17.59 | 62.3% | Yes (2 shares) | 3 |  | Reserve 3 — $6.53 PA, 75% hold, Full tier, structural floor |
+| NNE | SELL | $25.44 | 5 | $25.44 | N/A | Yes (10 shares) | 59 |  | Tranche 1 — HVN+PA resistance, +6.6% from $23.87 avg |
+| NNE | SELL | $26.02 | 5 | $25.44 | N/A | Yes (10 shares) | 59 |  | Tranche 2 — HVN resistance, 33% reject, +9.0% from $23.87 avg |
+| NNE | BUY | $24.03 | 2 | $25.44 | 5.5% | Yes (10 shares) | 59 | RECORDED | Bullet 2 — $23.60 PA, 50% hold, Std tier, wick-adjusted (updated 2026-02-28) |
+| NU | SELL | $18.50 | 34 | $18.50 | N/A | Yes (30 shares) | 59 |  | Target ~18.1% from $15.66 avg |
+| NU | BUY | $13.03 | 6 | $18.50 | 29.6% | Yes (30 shares) | 59 |  | Reserve 2 — $12.52 PA, 33% hold rate, Std tier, wick-adjusted (placed 2026-03-02, resized 2026-03-13) |
+| NVDA | BUY | $174.60 | 1 | $174.60 | 0.0% | No (watchlist) | 65 |  | Bullet 1 — $173.61 HVN+PA, 38% hold, Std tier, wick-adjusted. NOT PLACED — waiting for entry signal |
+| NVDA | BUY | $169.54 | 1 | $174.60 | 2.9% | No (watchlist) | 65 |  | Bullet 2 — $161.14 PA, 100% hold (9/9), Full tier, wick-adjusted. NOT PLACED |
+| NVDA | BUY | $168.40 | 1 | $174.60 | 3.6% | No (watchlist) | 65 |  | Bullet 3 — $157.32 PA, 71% hold (5/7), Full tier, wick-adjusted. NOT PLACED [D] |
+| NVDA | BUY | $146.74 | 1 | $174.60 | 16.0% | No (watchlist) | 65 |  | Reserve 1 — $141.99 HVN+PA, 50% hold (2/4), Full tier, wick-adjusted. NOT PLACED [D] |
+| OKLO | BUY | $58.04 | 1 | $58.04 | 0.0% | Yes (1 shares) | 1 | RECORDED | Bullet 1 — $56.47 PA, 67% hold, Full tier, wick-adjusted (2026-03-13) |
+| OKLO | BUY | $57.21 | 1 | $58.04 | 1.4% | Yes (1 shares) | 1 |  | Bullet 2 — $53.95 HVN+PA, 20% hold, Std tier, wick-adjusted (2026-03-13) |
+| OKLO | BUY | $51.10 | 1 | $58.04 | 12.0% | Yes (1 shares) | 1 |  | Bullet 3 — $49.27 HVN+PA, 33% hold, Std tier, wick-adjusted (2026-03-13) |
+| OUST | BUY | $20.32 | 1 | $20.32 | 0.0% | No (watchlist) | 52 |  | Bullet 3 — $19.22 HVN+PA, 30% hold rate, Half tier, wick-adjusted |
+| OUST | BUY | $20.89 | 6 | $20.32 | -2.8% | No (watchlist) | 52 |  | Bullet 1 — $20.16 HVN+PA, 36% hold, Half tier, wick-adjusted (2026-03-13) |
+| OUST | BUY | $20.32 | 4 | $20.32 | 0.0% | No (watchlist) | 52 |  | Bullet 2 — $19.22 HVN+PA, 30% hold, Half tier, wick-adjusted (2026-03-13) |
+| OUST | BUY | $18.98 | 4 | $20.32 | 6.6% | No (watchlist) | 52 |  | Bullet 3 — $18.28 HVN+PA, 25% hold, Half tier, wick-adjusted (2026-03-13) |
+| RUN | BUY | $11.05 | 5 | $11.05 | 0.0% | No (watchlist) | 51 |  | Bullet 2 — $10.65 HVN+PA, 20% hold, Std^ tier, wick-adjusted |
+| RUN | BUY | $10.69 | 2 | $11.05 | 3.3% | No (watchlist) | 51 |  | Bullet 3 — $10.19 HVN+PA, 22% hold, Half tier, wick-adjusted |
+| RUN | BUY | $10.10 | 5 | $11.05 | 8.6% | No (watchlist) | 51 |  | Bullet 4 — $9.85 PA, 50% hold, Std tier, wick-adjusted |
+| RUN | BUY | $10.05 | 5 | $11.05 | 9.0% | No (watchlist) | 51 |  | Bullet 5 — $9.60 PA, 50% hold, Full tier, wick-adjusted |
+| RUN | BUY | $7.87 | 12 | $11.05 | 28.8% | No (watchlist) | 51 |  | Reserve 1 — $7.80 PA, 60% hold, Std tier, wick-adjusted |
+| RUN | BUY | $6.11 | 16 | $11.05 | 44.7% | No (watchlist) | 51 |  | Reserve 2 — $5.75 PA, 50% hold, Std tier, wick-adjusted |
+| RUN | BUY | $5.45 | 18 | $11.05 | 50.7% | No (watchlist) | 51 |  | Reserve 3 — $5.38 PA, 100% hold, Full tier, structural floor |
+| SMCI | BUY | $29.95 | 4 | $29.95 | 0.0% | No (watchlist) | 50 |  | Bullet 1 — $28.96 HVN+PA, 44% hold, Full^ tier, wick-adjusted |
+| SMCI | BUY | $28.78 | 6 | $29.95 | 3.9% | No (watchlist) | 50 |  | Bullet 2 — $27.35 PA, 100% hold, Full tier, wick-adjusted |
+| SOUN | SELL | $7.76 | 15 | $7.76 | N/A | Yes (15 shares) | 52 |  | HVN resistance, 0% reject, +5.4% from $7.36 avg (2026-03-13) |
+| SOUN | BUY | $7.26 | 8 | $7.76 | 6.4% | Yes (15 shares) | 52 | RECORDED | Bullet 2 — $6.95 PA, 75% hold, Full tier, wick-adjusted (updated 2026-02-28) |
+| TEM | SELL | $54.55 | 1 | $54.55 | N/A | Yes (1 shares) | 50 |  | PA resistance, 25% reject, +7.0% from $50.98 avg |
+| TEM | BUY | $48.75 | 2 | $54.55 | 10.6% | Yes (1 shares) | 50 |  | Bullets 2+3 — $48.01/$47.00 PA converged, 46%/64% hold, Full tier, wick-adjusted |
+| TMC | SELL | $6.39 | 9 | $6.39 | N/A | Yes (9 shares) | 10 |  | HVN resistance, 40% reject, +6.3% from $6.01 avg (2026-03-13) |
+| TMC | BUY | $6.01 | 9 | $6.39 | 5.9% | Yes (9 shares) | 10 | RECORDED | Bullet 1 — filled 2026-03-13 |
+| TMC | BUY | $5.63 | 10 | $6.39 | 11.9% | Yes (9 shares) | 10 |  |  |
+
+---
+
+## Capital Intelligence
+
+### Fill Probability
+| Ticker | Order | Price | Distance | Fill Prob (5d) | Fill Prob (10d) | Fill Prob (30d) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| APLD | R2 | $21.93 | -20.7% | 1% | 1% | 1% |
+| AR | B1 | $35.00 | -14.8% | 8% | 15% | 35% |
+| AR | B2 | $32.68 | -20.5% | 1% | 1% | 2% |
+| AR | B3 | $31.16 | -24.2% | 1% | 1% | 1% |
+| ARM | B5 | $112.53 | -7.6% | 3% | 5% | 15% |
+| BBAI | B1 | $3.82 | -2.9% | 7% | 14% | 39% |
+| BBAI | B2 | $3.71 | -5.7% | 2% | 5% | 14% |
+| BBAI | B3 | $3.66 | -7.0% | 1% | 2% | 4% |
+| CIFR | B4 | $12.86 | -14.0% | 1% | 2% | 4% |
+| CIFR | R1 | $5.38 | -64.0% | 1% | 1% | 1% |
+| CLF | B3 | $9.41 | +10.4% | 99% | 99% | 99% |
+| CLSK | B1 | $9.66 | -3.5% | 20% | 37% | 77% |
+| CLSK | B2 | $9.09 | -9.2% | 4% | 7% | 20% |
+| CLSK | B3 | $8.91 | -11.0% | 1% | 3% | 8% |
+| CLSK | B4 | $8.40 | -16.1% | 1% | 1% | 2% |
+| LUNR | B2 | $16.00 | -6.5% | 8% | 16% | 42% |
+| LUNR | B3 | $15.33 | -10.5% | 2% | 3% | 9% |
+| LUNR | B4 | $15.20 | -11.2% | 2% | 3% | 9% |
+| LUNR | R1 | $10.06 | -41.2% | 1% | 1% | 1% |
+| LUNR | R2 | $7.78 | -54.6% | 1% | 1% | 1% |
+| LUNR | R3 | $6.64 | -61.2% | 1% | 1% | 1% |
+| NU | R2 | $13.03 | -8.4% | 1% | 1% | 1% |
+| NVDA | B1 | $174.60 | -5.5% | 2% | 4% | 13% |
+| NVDA | B2 | $169.54 | -8.3% | 1% | 1% | 1% |
+| NVDA | B3 | $168.40 | -8.9% | 1% | 1% | 1% |
+| NVDA | R1 | $146.74 | -20.6% | 1% | 1% | 1% |
+| OKLO | B2 | $57.21 | -2.9% | 1% | 2% | 6% |
+| OKLO | B3 | $51.10 | -13.2% | 1% | 1% | 1% |
+| OUST | B1 | $20.89 | -2.4% | 35% | 62% | 99% |
+| OUST | B2 | $20.32 | -5.0% | 26% | 46% | 98% |
+| OUST | B3 | $18.98 | -11.3% | 12% | 23% | 56% |
+| RUN | B2 | $11.05 | -13.3% | 1% | 1% | 4% |
+| RUN | B3 | $10.69 | -16.1% | 1% | 1% | 1% |
+| RUN | B4 | $10.10 | -20.7% | 1% | 1% | 1% |
+| RUN | B5 | $10.05 | -21.1% | 1% | 1% | 1% |
+| RUN | R1 | $7.87 | -38.2% | 1% | 1% | 1% |
+| RUN | R2 | $6.11 | -52.0% | 1% | 1% | 1% |
+| RUN | R3 | $5.45 | -57.2% | 1% | 1% | 1% |
+| SMCI | B1 | $29.95 | -4.9% | 5% | 10% | 29% |
+| SMCI | B2 | $28.78 | -8.6% | 1% | 2% | 5% |
+| TEM | B2+3 | $48.75 | -3.4% | 1% | 2% | 5% |
+| TMC | B? | $5.63 | -5.7% | 2% | 4% | 13% |
+
+### Nearest Fills
+| Ticker | Order | Price | Current | Distance | Fill Prob (5d) | Status |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| OUST | B1 | $20.89 | $21.40 | -2.4% | 35% | Approaching |
+| OKLO | B2 | $57.21 | $58.90 | -2.9% | 1% | Approaching |
+| BBAI | B1 | $3.82 | $3.93 | -2.9% | 7% | Approaching |
+| TEM | B2+3 | $48.75 | $50.48 | -3.4% | 1% | Approaching |
+| CLSK | B1 | $9.66 | $10.01 | -3.5% | 20% | Approaching |
+| SMCI | B1 | $29.95 | $31.50 | -4.9% | 5% | Approaching |
+| NVDA | B1 | $174.60 | $184.79 | -5.5% | 2% | Near |
+| TMC | B? | $5.63 | $5.97 | -5.7% | 2% | Near |
+| LUNR | B2 | $16.00 | $17.12 | -6.5% | 8% | Near |
+| ARM | B5 | $112.53 | $121.75 | -7.6% | 3% | Near |
+| NU | R2 | $13.03 | $14.22 | -8.4% | 1% | Near |
+| CLF | B3 | $9.41 | $8.52 | +10.4% | 99% | Distant |
+| RUN | B2 | $11.05 | $12.74 | -13.3% | 1% | Distant |
+| CIFR | B4 | $12.86 | $14.95 | -14.0% | 1% | Distant |
+| AR | B1 | $35.00 | $41.10 | -14.8% | 8% | Distant |
+| APLD | R2 | $21.93 | $27.64 | -20.7% | 1% | Distant |
+
+### Opportunity Cost Analysis
+| Ticker | Order | Capital | Fill Prob (30d) | EV (30d) | Best Alt EV | Delta | Verdict |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| APLD | R2 | $44 | 1% | $0.03 | $7.82 | $+7.79 | REDEPLOY |
+| AR | B1 | $35 | 35% | $0.77 | $7.82 | $+7.05 | KEEP |
+| AR | B2 | $98 | 2% | $0.11 | $7.82 | $+7.70 | KEEP |
+| AR | B3 | $93 | 1% | $0.06 | $7.82 | $+7.76 | REDEPLOY |
+| ARM | B5 | $113 | 15% | $1.04 | $7.82 | $+6.78 | REDEPLOY |
+| BBAI | B1 | $84 | 39% | $2.06 | $7.82 | $+5.75 | KEEP |
+| BBAI | B2 | $89 | 14% | $0.79 | $7.82 | $+7.02 | KEEP |
+| BBAI | B3 | $81 | 4% | $0.23 | $7.82 | $+7.59 | REDEPLOY |
+| CIFR | B4 | $283 | 4% | $0.79 | $7.82 | $+7.02 | REDEPLOY |
+| CIFR | R1 | $97 | 1% | $0.06 | $7.82 | $+7.76 | REDEPLOY |
+| CLF | B3 | $94 | 99% | $5.87 | $7.82 | $+1.95 | KEEP |
+| CLSK | B1 | $39 | 77% | $1.87 | $7.82 | $+5.95 | KEEP |
+| CLSK | B2 | $73 | 20% | $0.91 | $7.82 | $+6.90 | KEEP |
+| CLSK | B3 | $71 | 8% | $0.37 | $7.82 | $+7.45 | REDEPLOY |
+| CLSK | B4 | $84 | 2% | $0.12 | $7.82 | $+7.70 | REDEPLOY |
+| LUNR | B2 | $80 | 42% | $2.10 | $7.82 | $+5.72 | KEEP |
+| LUNR | B3 | $107 | 9% | $0.61 | $7.82 | $+7.20 | REDEPLOY |
+| LUNR | B4 | $76 | 9% | $0.43 | $7.82 | $+7.38 | REDEPLOY |
+| LUNR | R1 | $91 | 1% | $0.06 | $7.82 | $+7.76 | REDEPLOY |
+| LUNR | R2 | $93 | 1% | $0.06 | $7.82 | $+7.76 | REDEPLOY |
+| LUNR | R3 | $100 | 1% | $0.06 | $7.82 | $+7.75 | REDEPLOY |
+| NU | R2 | $78 | 1% | $0.05 | $7.82 | $+7.77 | REDEPLOY |
+| NVDA | B1 | $175 | 13% | $1.41 | $7.82 | $+6.41 | KEEP |
+| NVDA | B2 | $170 | 1% | $0.11 | $7.82 | $+7.71 | KEEP |
+| NVDA | B3 | $168 | 1% | $0.11 | $7.82 | $+7.71 | REDEPLOY |
+| NVDA | R1 | $147 | 1% | $0.09 | $7.82 | $+7.73 | REDEPLOY |
+| OKLO | B2 | $57 | 6% | $0.20 | $7.82 | $+7.62 | KEEP |
+| OKLO | B3 | $51 | 1% | $0.03 | $7.82 | $+7.79 | REDEPLOY |
+| OUST | B1 | $125 | 99% | $7.82 | $5.87 | $-1.95 | KEEP |
+| OUST | B2 | $81 | 98% | $4.99 | $5.87 | $+0.87 | KEEP |
+| OUST | B3 | $76 | 56% | $2.68 | $5.87 | $+3.19 | REVIEW |
+| RUN | B2 | $55 | 4% | $0.13 | $7.82 | $+7.69 | KEEP |
+| RUN | B3 | $21 | 1% | $0.01 | $7.82 | $+7.80 | REDEPLOY |
+| RUN | B4 | $50 | 1% | $0.03 | $7.82 | $+7.79 | REDEPLOY |
+| RUN | B5 | $50 | 1% | $0.03 | $7.82 | $+7.79 | REDEPLOY |
+| RUN | R1 | $94 | 1% | $0.06 | $7.82 | $+7.76 | REDEPLOY |
+| RUN | R2 | $98 | 1% | $0.06 | $7.82 | $+7.76 | REDEPLOY |
+| RUN | R3 | $98 | 1% | $0.06 | $7.82 | $+7.76 | REDEPLOY |
+| SMCI | B1 | $120 | 29% | $2.18 | $7.82 | $+5.63 | KEEP |
+| SMCI | B2 | $173 | 5% | $0.59 | $7.82 | $+7.23 | KEEP |
+| TEM | B2+3 | $98 | 5% | $0.31 | $7.82 | $+7.50 | KEEP |
+| TMC | B? | $56 | 13% | $0.46 | $7.82 | $+7.36 | REDEPLOY |
+
+### Cascade Alerts
+| Ticker | 3d ROC | Nearest Fill | B2 Dist | B3 Dist | Signal |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| BBAI | -1.7%/d | B1 -2.9% | -5.7% | -7.0% | Approaching fast — monitor B2 |
+| LUNR | -2.4%/d | B2 -6.5% | -6.5% | -10.5% | Cascade to B3/B4/R1/R2/R3 likely |
+| OKLO | -2.1%/d | B2 -2.9% | -2.9% | -13.2% | Cascade to B3 likely |
+| OUST | -4.5%/d | B1 -2.4% | -5.0% | -11.3% | Cascade to B2/B3 likely |
+
+### Cycle Phase
+| Ticker | Phase | Days in Phase | Position | B1 Distance | Median Cycle | Signal |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| APLD | SUPPORT | 14 | 0.00 | -20.7% | N/A | At support floor |
+| ARM | SUPPORT | 1 | 0.63 | -7.6% | N/A | At support floor |
+| BBAI | SUPPORT | 22 | 0.09 | -2.9% | N/A | At support floor |
+| CLF | SUPPORT | 7 | 0.00 | +10.4% | N/A | At support floor |
+| CLSK | SUPPORT | 8 | 0.63 | -3.5% | 1d | At support floor |
+| LUNR | SUPPORT | 14 | 0.29 | -6.5% | 1d | At support floor |
+| NU | SUPPORT | 16 | 0.00 | -8.4% | N/A | At support floor |
+| OKLO | SUPPORT | 24 | 0.00 | -2.9% | N/A | At support floor |
+| OUST | SUPPORT | 3 | 0.32 | -2.4% | 1d | At support floor |
+| RUN | SUPPORT | 12 | 0.00 | -13.3% | 1d | At support floor |
+| SMCI | SUPPORT | 5 | 0.45 | -4.9% | 1d | At support floor |
+| TEM | SUPPORT | 12 | 0.09 | -3.4% | N/A | At support floor |
+| TMC | SUPPORT | 3 | 0.36 | -5.7% | 1d | At support floor |
+| AR | RECOVERY | 4 | 1.00 | -14.8% | 1d | Rising from support |
+| CIFR | RECOVERY | 1 | 0.33 | -14.1% | N/A | Rising from support |
+| NVDA | RECOVERY | 1 | 0.44 | -5.5% | N/A | Rising from support |
+
+### Deployment Recommendations
+| Ticker | B1 | B2 | B3 | B4 | B5 | R1-R3 | Reserve Status | Action |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| ACHR | BUY | $5.98 | 16 | $5.98 | 0.0% | Yes (61 shares) | 64 | B5 reserve — $5.85 PA bounce level, 50% hold rate |
-| APLD | SELL | $38.00 | 15 | $38.00 | N/A | Yes (15 shares) | 32 | Target ~25% — $37.60-$38.76 HVN resistance zone |
-| APLD | BUY | $21.93 | 4 | $38.00 | 42.3% | Yes (15 shares) | 32 | Reserve 2 — $20.55 PA, 33% hold, Std tier, wick-adjusted |
-| AR | BUY | $35.00 | 1 | $35.00 | 0.0% | No (watchlist) | 52 | Bullet 1 — $34.61 HVN+PA, 30% hold rate (6/20), Std tier, wick-adjusted (merged w/ $34.15 HVN) |
-| AR | BUY | $32.68 | 3 | $35.00 | 6.6% | No (watchlist) | 52 | Bullet 2 — $31.36 HVN+PA, 50% hold rate (5/10), Full tier, wick-adjusted |
-| AR | BUY | $31.16 | 3 | $35.00 | 11.0% | No (watchlist) | 52 | Bullet 3 — $29.72 PA, 67% hold rate (4/6), Full tier, wick-adjusted |
-| ARM | BUY | $112.53 | 1 | $112.53 | 0.0% | Yes (4 shares) | 59 | Bullet 5 — $110.90 HVN+PA, 43% hold, Full^ tier, wick-adjusted |
-| BBAI | BUY | $3.82 | 15 | $3.82 | 0.0% | No (watchlist) | 53 | Bullet 1 — $3.75 HVN+PA, 33% hold rate, Full tier, wick-adjusted |
-| BBAI | BUY | $3.71 | 16 | $3.82 | 2.9% | No (watchlist) | 53 | Bullet 2 — $3.65 PA, 57% hold rate, Full tier, wick-adjusted |
-| BBAI | BUY | $3.66 | 16 | $3.82 | 4.2% | No (watchlist) | 53 | Bullet 3 — $3.55 PA, 33% hold rate, Full tier, wick-adjusted |
-| CIFR | BUY | $14.07 | 4 | $14.07 | 0.0% | Yes (11 shares) | 58 | Bullet 3 — $13.45 PA, 44% hold, Full^ tier, wick-adjusted (added 2026-03-02) |
-| CIFR | BUY | $12.86 | 8 | $14.07 | 8.6% | Yes (11 shares) | 58 | Bullet 4 — $12.41 PA, 50% hold, Full tier, wick-adjusted |
-| CIFR | BUY | $5.38 | 18 | $14.07 | 61.8% | Yes (11 shares) | 58 | Reserve 1 — $5.27 PA, 57% hold, Full tier, wick-adjusted |
-| CLF | BUY | $9.97 | 10 | $9.97 | 0.0% | Yes (21 shares) | 52 | Bullet 1 — $9.90 PA, 54% hold rate, Full tier, wick-adjusted |
-| CLF | BUY | $9.88 | 6 | $9.97 | 0.9% | Yes (21 shares) | 52 | Bullet 2 — $9.27 PA, 54% hold rate, Full tier, wick-adjusted (added 2026-02-28) |
-| CLF | BUY | $9.41 | 10 | $9.97 | 5.6% | Yes (21 shares) | 52 | Bullet 3 — $9.04 PA, 67% hold rate, Full tier, wick-adjusted (updated 2026-02-28) |
-| CLF | BUY | $8.48 | 11 | $9.97 | 14.9% | Yes (21 shares) | 52 | Bullet 4 — $8.25 PA, 71% hold rate, Full tier, wick-adjusted |
-| CLSK | BUY | $9.11 | 6 | $9.11 | 0.0% | Yes (7 shares) | 60 | Bullet 3 — $8.93 HVN+PA, 50% hold, Full tier, wick-adjusted |
-| CLSK | BUY | $8.88 | 9 | $9.11 | 2.5% | Yes (7 shares) | 60 | Bullet 4 — $8.62 PA, 38% hold, Std tier, wick-adjusted (updated 2026-03-02) |
-| LUNR | BUY | $17.16 | 1 | $17.16 | 0.0% | Yes (1 shares) | 11 | Bullet 2 — $16.41 PA, 30% hold, Skip tier (placed as manual override) |
-| LUNR | BUY | $16.68 | 1 | $17.16 | 2.8% | Yes (1 shares) | 11 | Bullet 3 — $15.94 HVN+PA, 33% hold, Skip tier (placed as manual override) |
-| LUNR | BUY | $15.33 | 6 | $17.16 | 10.7% | Yes (1 shares) | 11 | Bullet 3 — $15.08 PA, 67% hold, Full tier, sized up for $200 target (added 2026-03-02) |
-| LUNR | BUY | $15.20 | 3 | $17.16 | 11.4% | Yes (1 shares) | 11 | Bullet 4 — $14.32 PA, 60% hold, Full tier, wick-adjusted |
-| LUNR | BUY | $10.06 | 9 | $17.16 | 41.4% | Yes (1 shares) | 11 | Reserve 1 — $9.52 PA, 56% hold, Std tier, wick-adjusted |
-| LUNR | BUY | $7.78 | 12 | $17.16 | 54.7% | Yes (1 shares) | 11 | Reserve 2 — $7.48 PA, 56% hold, Full tier, wick-adjusted (added 2026-03-03) |
-| LUNR | BUY | $6.64 | 15 | $17.16 | 61.3% | Yes (1 shares) | 11 | Reserve 3 — $6.53 PA, 75% hold, Full tier, structural floor |
-| NNE | BUY | $24.03 | 2 | $24.03 | 0.0% | Yes (6 shares) | 67 | Bullet 2 — $23.60 PA, 50% hold, Std tier, wick-adjusted (updated 2026-02-28) |
-| NNE | BUY | $23.50 | 2 | $24.03 | 2.2% | Yes (6 shares) | 67 | Bullet 3 — $22.89+$22.02 PA merged, 67% hold, Full tier, wick-adjusted (updated 2026-02-28) |
-| NU | SELL | $18.50 | 34 | $18.50 | N/A | Yes (30 shares) | 67 | Target ~18.1% from $15.66 avg |
-| NU | BUY | $13.03 | 7 | $18.50 | 29.6% | Yes (30 shares) | 67 | Reserve 2 — $12.52 PA, 33% hold rate, Std tier, wick-adjusted (placed 2026-03-02) |
-| NVDA | BUY | $174.60 | 1 | $174.60 | 0.0% | No (watchlist) | 73 | Bullet 1 — $173.61 HVN+PA, 38% hold, Std tier, wick-adjusted. NOT PLACED — waiting for entry signal |
-| NVDA | BUY | $169.54 | 1 | $174.60 | 2.9% | No (watchlist) | 73 | Bullet 2 — $161.14 PA, 100% hold (9/9), Full tier, wick-adjusted. NOT PLACED |
-| NVDA | BUY | $168.40 | 1 | $174.60 | 3.6% | No (watchlist) | 73 | Bullet 3 — $157.32 PA, 71% hold (5/7), Full tier, wick-adjusted. NOT PLACED [D] |
-| NVDA | BUY | $146.74 | 1 | $174.60 | 16.0% | No (watchlist) | 73 | Reserve 1 — $141.99 HVN+PA, 50% hold (2/4), Full tier, wick-adjusted. NOT PLACED [D] |
-| OUST | BUY | $20.32 | 1 | $20.32 | 0.0% | Yes (5 shares) | 60 | Bullet 3 — $19.22 HVN+PA, 30% hold rate, Half tier, wick-adjusted |
-| SMCI | BUY | $28.78 | 2 | $28.78 | 0.0% | No (watchlist) | 58 | Bullet 5 — $27.22 PA, 90% hold, Full tier, wick-adjusted |
-| SOUN | BUY | $7.48 | 7 | $7.48 | 0.0% | No (watchlist) | 60 | Bullet 1 — $7.48 HVN+PA, 50% hold, Full tier, wick-adjusted (updated 2026-02-28) |
-| SOUN | BUY | $7.26 | 8 | $7.48 | 2.9% | No (watchlist) | 60 | Bullet 2 — $6.95 PA, 75% hold, Full tier, wick-adjusted (updated 2026-02-28) |
-| TEM | BUY | $50.98 | 1 | $50.98 | 0.0% | No (watchlist) | 58 | Bullet 1 — $49.35 PA, 22% hold, Std tier, wick-adjusted |
-| TEM | BUY | $48.75 | 2 | $50.98 | 4.4% | No (watchlist) | 58 | Bullets 2+3 — $48.01/$47.00 PA converged, 46%/64% hold, Full tier, wick-adjusted |
-| TMC | BUY | $5.63 | 10 | $5.63 | 0.0% | Yes (38 shares) | 18 | Bullet 3 — $5.53 HVN+PA, 42% hold, Std tier, wick-adjusted |
+| ACHR | — | — | — | — | — | — | DEPLOY_R1_ONLY | Fully deployed |
+| APLD | — | — | — | — | — | Hold | DEPLOY_R1_ONLY | R2 capital available: $44 |
+| AR | Placed | Placed | Hold | — | — | — | DEPLOY_R1_ONLY | B3 capital available: $93 |
+| ARM | — | — | — | — | Hold | — | DEPLOY_R1_ONLY | B5 capital available: $113 |
+| BBAI | Placed | Placed | Placed | — | — | — | DEPLOY_R1_ONLY | Fully deployed |
+| CIFR | — | — | Filled | Unplaced | — | Hold | DEPLOY_R1_ONLY | Place B4: B3 filled; R1 capital available: $97 |
+| CLF | Filled | Filled | Unplaced | Filled | — | — | DEPLOY_R1_ONLY | Place B3: B2 filled |
+| CLSK | Placed | Placed | Placed | Hold | — | — | DEPLOY_R1_ONLY | B4 capital available: $84 |
+| LUNR | Filled | Placed | Placed | Hold | — | Hold, Hold, Hold | HOLD_MECHANICAL | B4+R1+R2+R3 capital available: $360 |
+| NNE | — | Filled | — | — | — | — | DEPLOY_R1_ONLY | Fully deployed |
+| NU | — | — | — | — | — | Hold | DEPLOY_R1_ONLY | R2 capital available: $78 |
+| NVDA | Unplaced | Unplaced | Hold | — | — | Hold | DEPLOY_R1_ONLY | Place B1: standard deploy; Place B2: standard deploy; B3+R1 capital available: $315 |
+| OKLO | Filled | Placed | Placed | — | — | — | HOLD_MECHANICAL | Fully deployed |
+| OUST | Placed | Placed | Placed | — | — | — | DEPLOY_R1_ONLY | Fully deployed |
+| RUN | — | Placed | Placed | Hold | Hold | Hold, Hold, Hold | DEPLOY_R1_ONLY | B4+B5+R1+R2+R3 capital available: $391 |
+| SMCI | Placed | Placed | — | — | — | — | DEPLOY_R1_ONLY | Fully deployed |
+| SOUN | — | Filled | — | — | — | — | HOLD_MECHANICAL | Fully deployed |
+| TEM | — | Placed | — | — | — | — | DEPLOY_R1_ONLY | Fully deployed |
+| TMC | Filled | Unplaced | — | — | — | — | HOLD_MECHANICAL | Place B2: standard deploy |
+
+### Cooldown Status
+| Ticker | Sold | Sell Price | Current | Decay | Reeval | Best Active Tier | Hold Rate | Verdict |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| RUN | Mar 10 | $11.81 | $12.74 | +7.9% | Mar 16 | Full | 54% | HOLD |
+
+### Pullback Depth Profile — APLD
+| Depth | % Reaching | Mapped Bullet |
+| :--- | :--- | :--- |
+| -2% | 100% | — |
+| -3% | 100% | — |
+| -5% | 100% | — |
+| -7% | 100% | — |
+| -9% | 100% | — |
+| -12% | 100% | — |
+| -15% | 100% | — |
+| -20% | 100% | R2 ($21.93) 100% fill rate |
+Pullback count: 5 | Avg depth: -45.0% | Median depth: -41.5%
+
+### Pullback Depth Profile — AR
+| Depth | % Reaching | Mapped Bullet |
+| :--- | :--- | :--- |
+| -2% | 100% | — |
+| -3% | 100% | — |
+| -5% | 100% | — |
+| -7% | 100% | — |
+| -9% | 100% | — |
+| -12% | 71% | — |
+| -15% | 43% | B1 ($35.00) 44% fill rate |
+| -20% | 29% | B2 ($32.68) 29% fill rate |
+Pullback count: 7 | Avg depth: -18.1% | Median depth: -14.1%
+
+### Pullback Depth Profile — ARM
+| Depth | % Reaching | Mapped Bullet |
+| :--- | :--- | :--- |
+| -2% | 100% | — |
+| -3% | 100% | — |
+| -5% | 100% | — |
+| -7% | 100% | B5 ($112.53) 100% fill rate |
+| -9% | 100% | B5 ($112.53) 100% fill rate |
+| -12% | 100% | — |
+| -15% | 86% | — |
+| -20% | 43% | — |
+Pullback count: 7 | Avg depth: -22.5% | Median depth: -19.0%
+
+### Pullback Depth Profile — BBAI
+| Depth | % Reaching | Mapped Bullet |
+| :--- | :--- | :--- |
+| -2% | 100% | B1 ($3.82) 100% fill rate |
+| -3% | 100% | B1 ($3.82) 100% fill rate |
+| -5% | 100% | B2 ($3.71) 100% fill rate |
+| -7% | 100% | B2 ($3.71) 100% fill rate |
+| -9% | 100% | — |
+| -12% | 100% | — |
+| -15% | 100% | — |
+| -20% | 100% | — |
+Pullback count: 6 | Avg depth: -34.8% | Median depth: -35.2%
+
+### Pullback Depth Profile — CIFR
+| Depth | % Reaching | Mapped Bullet |
+| :--- | :--- | :--- |
+| -2% | 100% | — |
+| -3% | 100% | — |
+| -5% | 100% | — |
+| -7% | 100% | — |
+| -9% | 100% | — |
+| -12% | 100% | — |
+| -15% | 100% | B4 ($12.86) 100% fill rate |
+| -20% | 100% | — |
+Pullback count: 7 | Avg depth: -33.0% | Median depth: -35.4%
+
+### Pullback Depth Profile — CLF
+| Depth | % Reaching | Mapped Bullet |
+| :--- | :--- | :--- |
+| -2% | 100% | — |
+| -3% | 100% | — |
+| -5% | 100% | — |
+| -7% | 100% | — |
+| -9% | 100% | — |
+| -12% | 100% | — |
+| -15% | 100% | — |
+| -20% | 67% | — |
+Pullback count: 6 | Avg depth: -28.4% | Median depth: -28.7%
+
+### Pullback Depth Profile — CLSK
+| Depth | % Reaching | Mapped Bullet |
+| :--- | :--- | :--- |
+| -2% | 100% | B1 ($9.66) 100% fill rate |
+| -3% | 100% | B1 ($9.66) 100% fill rate |
+| -5% | 100% | B1 ($9.66) 100% fill rate |
+| -7% | 100% | — |
+| -9% | 100% | B2 ($9.09) 100% fill rate |
+| -12% | 100% | B3 ($8.91) 100% fill rate |
+| -15% | 100% | B4 ($8.40) 100% fill rate |
+| -20% | 100% | — |
+Pullback count: 6 | Avg depth: -37.8% | Median depth: -35.4%
+
+### Pullback Depth Profile — LUNR
+| Depth | % Reaching | Mapped Bullet |
+| :--- | :--- | :--- |
+| -2% | 100% | — |
+| -3% | 100% | — |
+| -5% | 100% | B2 ($16.00) 100% fill rate |
+| -7% | 100% | B2 ($16.00) 100% fill rate |
+| -9% | 100% | B3 ($15.33) 100% fill rate |
+| -12% | 100% | B3 ($15.33) 100% fill rate |
+| -15% | 100% | — |
+| -20% | 100% | — |
+Pullback count: 5 | Avg depth: -37.4% | Median depth: -37.6%
+
+### Pullback Depth Profile — NU
+| Depth | % Reaching | Mapped Bullet |
+| :--- | :--- | :--- |
+| -2% | 100% | — |
+| -3% | 100% | — |
+| -5% | 100% | — |
+| -7% | 100% | R2 ($13.03) 100% fill rate |
+| -9% | 100% | R2 ($13.03) 100% fill rate |
+| -12% | 67% | — |
+| -15% | 33% | — |
+| -20% | 17% | — |
+Pullback count: 6 | Avg depth: -15.2% | Median depth: -13.7%
+
+### Pullback Depth Profile — NVDA
+| Depth | % Reaching | Mapped Bullet |
+| :--- | :--- | :--- |
+| -2% | 100% | — |
+| -3% | 100% | — |
+| -5% | 100% | B1 ($174.60) 100% fill rate |
+| -7% | 100% | B1 ($174.60) 100% fill rate |
+| -9% | 100% | B2 ($169.54) 100% fill rate |
+| -12% | 33% | — |
+| -15% | 17% | — |
+| -20% | 17% | R1 ($146.74) 17% fill rate |
+Pullback count: 6 | Avg depth: -12.3% | Median depth: -11.3%
+
+### Pullback Depth Profile — OKLO
+| Depth | % Reaching | Mapped Bullet |
+| :--- | :--- | :--- |
+| -2% | 100% | B2 ($57.21) 100% fill rate |
+| -3% | 100% | B2 ($57.21) 100% fill rate |
+| -5% | 100% | — |
+| -7% | 100% | — |
+| -9% | 100% | — |
+| -12% | 100% | B3 ($51.10) 100% fill rate |
+| -15% | 100% | B3 ($51.10) 100% fill rate |
+| -20% | 100% | — |
+Pullback count: 6 | Avg depth: -41.5% | Median depth: -41.3%
+
+### Pullback Depth Profile — OUST
+| Depth | % Reaching | Mapped Bullet |
+| :--- | :--- | :--- |
+| -2% | 100% | B1 ($20.89) 100% fill rate |
+| -3% | 100% | B1 ($20.89) 100% fill rate |
+| -5% | 100% | B2 ($20.32) 100% fill rate |
+| -7% | 100% | — |
+| -9% | 100% | — |
+| -12% | 100% | B3 ($18.98) 100% fill rate |
+| -15% | 100% | — |
+| -20% | 100% | — |
+Pullback count: 7 | Avg depth: -36.3% | Median depth: -32.9%
+
+### Pullback Depth Profile — RUN
+| Depth | % Reaching | Mapped Bullet |
+| :--- | :--- | :--- |
+| -2% | 100% | — |
+| -3% | 100% | — |
+| -5% | 100% | — |
+| -7% | 100% | — |
+| -9% | 100% | — |
+| -12% | 100% | B2 ($11.05) 100% fill rate |
+| -15% | 100% | B2 ($11.05) 100% fill rate |
+| -20% | 100% | B4 ($10.10) 100% fill rate |
+Pullback count: 5 | Avg depth: -35.3% | Median depth: -29.1%
+
+### Pullback Depth Profile — SMCI
+| Depth | % Reaching | Mapped Bullet |
+| :--- | :--- | :--- |
+| -2% | 100% | — |
+| -3% | 100% | B1 ($29.95) 100% fill rate |
+| -5% | 100% | B1 ($29.95) 100% fill rate |
+| -7% | 100% | B2 ($28.78) 100% fill rate |
+| -9% | 100% | B2 ($28.78) 100% fill rate |
+| -12% | 100% | — |
+| -15% | 100% | — |
+| -20% | 80% | — |
+Pullback count: 5 | Avg depth: -29.7% | Median depth: -23.9%
+
+### Pullback Depth Profile — TEM
+| Depth | % Reaching | Mapped Bullet |
+| :--- | :--- | :--- |
+| -2% | 100% | B2+3 ($48.75) 100% fill rate |
+| -3% | 100% | B2+3 ($48.75) 100% fill rate |
+| -5% | 100% | B2+3 ($48.75) 100% fill rate |
+| -7% | 100% | — |
+| -9% | 100% | — |
+| -12% | 100% | — |
+| -15% | 100% | — |
+| -20% | 88% | — |
+Pullback count: 8 | Avg depth: -29.5% | Median depth: -26.7%
+
+### Pullback Depth Profile — TMC
+| Depth | % Reaching | Mapped Bullet |
+| :--- | :--- | :--- |
+| -2% | 100% | — |
+| -3% | 100% | — |
+| -5% | 100% | B? ($5.63) 100% fill rate |
+| -7% | 100% | B? ($5.63) 100% fill rate |
+| -9% | 100% | — |
+| -12% | 100% | — |
+| -15% | 100% | — |
+| -20% | 100% | — |
+Pullback count: 4 | Avg depth: -44.3% | Median depth: -46.9%
+
+### Pullback Summary
+| Ticker | Pullbacks | Avg Depth | Median Depth | B1 Fill Rate | B4+ Fill Rate |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| APLD | 5 | -45.0% | -41.5% | 100% | — |
+| AR | 7 | -18.1% | -14.1% | 44% | — |
+| ARM | 7 | -22.5% | -19.0% | 100% | 100% |
+| BBAI | 6 | -34.8% | -35.2% | 100% | — |
+| CIFR | 7 | -33.0% | -35.4% | 100% | 100% |
+| CLF | 6 | -28.4% | -28.7% | 99% | — |
+| CLSK | 6 | -37.8% | -35.4% | 100% | 100% |
+| LUNR | 5 | -37.4% | -37.6% | 100% | 100% |
+| NU | 6 | -15.2% | -13.7% | 100% | — |
+| NVDA | 6 | -12.3% | -11.3% | 100% | — |
+| OKLO | 6 | -41.5% | -41.3% | 100% | — |
+| OUST | 7 | -36.3% | -32.9% | 100% | — |
+| RUN | 5 | -35.3% | -29.1% | 100% | 100% |
+| SMCI | 5 | -29.7% | -23.9% | 100% | — |
+| TEM | 8 | -29.5% | -26.7% | 100% | — |
+| TMC | 4 | -44.3% | -46.9% | 100% | — |
+
+### Break-Even Estimates
+| Ticker | Avg Cost | Current | Loss | Nearest Support | Hold Rate | Est Break-Even |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| NU | $15.85 | $14.22 | -10.3% | $14.07 | N/A | 8 days |
+| IONQ | $44.43 | $32.85 | -26.1% | $30.85 | N/A | 14 days |
+| LUNR | $17.59 | $17.12 | -2.7% | $17.11 | 27% | 0 days |
+| USAR | $21.57 | $19.13 | -11.3% | $16.53 | N/A | 5 days |
+| APLD | $29.06 | $27.64 | -4.9% | $26.07 | 49% | 1 days |
+| TMC | $6.01 | $5.97 | -0.7% | $5.91 | 45% | 0 days |
+| ACHR | $6.61 | $6.01 | -9.0% | None | — | 30+ days |
+| TEM | $50.98 | $50.48 | -1.0% | $49.35 | 41% | 0 days |
+| CLF | $9.39 | $8.52 | -9.3% | $8.48 | 24% | 5 days |
+| NNE | $23.87 | $21.26 | -10.9% | $20.12 | 69% | 2 days |
+
+### Loss Evaluator Flags
+| Ticker | Days Stuck | Loss % | Triggers | Redeploy ROI (30d) | Est Break-Even | Verdict | LLM Check |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| NU | 31 | -10.3% | C2 | — | 8 days | REVIEW | — |
+| IONQ | 74 (pre) | -26.1% | C2, C3 | — | 14 days | ABANDON_CANDIDATE | Confirm thesis broken |
+| LUNR | 0 | -2.7% | C4 | $17 | 0 days | REVIEW | — |
+| USAR | 32 (pre) | -11.3% | C2 | — | 5 days | REVIEW | — |
+| APLD | 27 | -4.9% | None | — | 1 days | HOLD | — |
+| TMC | 3 | -0.7% | C4 | $26 | 0 days | REVIEW | — |
+| ACHR | 14 | -9.0% | None | — | 30+ days | HOLD | — |
+| TEM | 7 | -1.0% | None | — | 0 days | HOLD | — |
+| CLF | 13 | -9.3% | None | — | 5 days | HOLD | — |
+| NNE | 11 | -10.9% | None | — | 2 days | HOLD | — |
+
+### Reserve Effectiveness
+| Ticker | Current Shares | Current Avg | With Reserves | New Avg | Distance | Improvement | Verdict |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| NU | 30 | $15.85 | 36 | $15.38 | 8.2% | 3.0% | MARGINAL |
+| LUNR | 2 | $17.59 | 55 | $10.58 | -38.2% | 39.8% | DEPLOY |
+| APLD | 15 | $29.06 | 17 | $28.22 | 2.1% | 2.9% | DEPLOY |
+| TMC | 9 | $6.01 | 19 | $5.81 | -2.7% | 3.3% | DEPLOY |
+| TEM | 1 | $50.98 | 3 | $49.49 | -2.0% | 2.9% | DEPLOY |
+| CLF | 47 | $9.39 | 57 | $9.39 | 10.3% | -0.0% | MARGINAL |
+
+### Capital Trap Alert
+| Ticker | Days Stuck | Loss | Est Recovery | Redeploy Recovery | Verdict |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| NU | 31 | -10.3% | 8 days | No cycle data | REVIEW |
+| IONQ | 74 | -26.1% | 14 days | No cycle data | ABANDON_CANDIDATE |
+| USAR | 32 | -11.3% | 5 days | No cycle data | REVIEW |
+| APLD | 27 | -4.9% | 1 days | No cycle data | HOLD |
+
+### Portfolio Fill Priority
+| Priority | Ticker | Order | Fill Prob (5d) | EV/Day | Capital | Phase | Action |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | OUST | B1 $20.89 | 35% | 0.0156 | $125 | PULLBACK | — |
+| 2 | OUST | B2 $20.32 | 26% | 0.0154 | $81 | PULLBACK | — |
+| 3 | CLSK | B1 $9.66 | 20% | 0.0121 | $39 | RECOVERY | — |
+| 4 | OUST | B3 $18.98 | 12% | 0.0088 | $76 | PULLBACK | — |
+| 5 | LUNR | B2 $16.00 | 8% | 0.0066 | $80 | PULLBACK | — |
+| 6 | AR | B1 $35.00 | 8% | 0.0055 | $35 | RESISTANCE | — |
+| 7 | SMCI | B1 $29.95 | 5% | 0.0046 | $120 | PULLBACK | — |
+| 8 | CLF | B3 $9.41 | 99% | 0.0042 | $94 | SUPPORT | Ready to fill |
+| 9 | CLSK | B2 $9.09 | 4% | 0.0031 | $73 | RECOVERY | — |
+| 10 | TMC | B? $5.63 | 2% | 0.0020 | $56 | PULLBACK | — |
+| 11 | BBAI | B1 $3.82 | 7% | 0.0016 | $84 | SUPPORT | — |
+| 12 | LUNR | B3 $15.33 | 2% | 0.0014 | $107 | PULLBACK | — |
+| 13 | LUNR | B4 $15.20 | 2% | 0.0014 | $76 | PULLBACK | — |
+| 14 | CLSK | B3 $8.91 | 1% | 0.0013 | $71 | RECOVERY | — |
+| 15 | SMCI | B2 $28.78 | 1% | 0.0009 | $173 | PULLBACK | — |
+| 16 | ARM | B5 $112.53 | 3% | 0.0006 | $113 | RECOVERY | — |
+| 17 | BBAI | B2 $3.71 | 2% | 0.0006 | $89 | SUPPORT | — |
+| 18 | RUN | B2 $11.05 | 1% | 0.0006 | $55 | SUPPORT | — |
+| 19 | NVDA | B1 $174.60 | 2% | 0.0005 | $175 | PULLBACK | — |
+| 20 | CLSK | B4 $8.40 | 1% | 0.0004 | $84 | RECOVERY | — |
+| 21 | AR | B2 $32.68 | 1% | 0.0003 | $98 | RESISTANCE | — |
+| 22 | OKLO | B2 $57.21 | 1% | 0.0002 | $57 | SUPPORT | — |
+| 23 | TEM | B2+3 $48.75 | 1% | 0.0002 | $98 | SUPPORT | — |
+| 24 | CIFR | B4 $12.86 | 1% | 0.0002 | $283 | RECOVERY | — |
+| 25 | BBAI | B3 $3.66 | 1% | 0.0002 | $81 | SUPPORT | — |
+| 26 | AR | B3 $31.16 | 1% | 0.0002 | $93 | RESISTANCE | Low EV — review |
+| 27 | LUNR | R1 $10.06 | 1% | 0.0002 | $91 | PULLBACK | Low EV — review |
+| 28 | LUNR | R2 $7.78 | 1% | 0.0002 | $93 | PULLBACK | Low EV — review |
+| 29 | LUNR | R3 $6.64 | 1% | 0.0002 | $100 | PULLBACK | Low EV — review |
+| 30 | RUN | B3 $10.69 | 1% | 0.0002 | $21 | SUPPORT | Low EV — review |
+| 31 | RUN | B4 $10.10 | 1% | 0.0002 | $50 | SUPPORT | Low EV — review |
+| 32 | RUN | B5 $10.05 | 1% | 0.0002 | $50 | SUPPORT | Low EV — review |
+| 33 | RUN | R1 $7.87 | 1% | 0.0002 | $94 | SUPPORT | Low EV — review |
+| 34 | RUN | R2 $6.11 | 1% | 0.0002 | $98 | SUPPORT | Low EV — review |
+| 35 | RUN | R3 $5.45 | 1% | 0.0002 | $98 | SUPPORT | Low EV — review |
+| 36 | NU | R2 $13.03 | 1% | 0.0000 | $78 | SUPPORT | Low EV — review |
+| 37 | APLD | R2 $21.93 | 1% | 0.0000 | $44 | SUPPORT | Low EV — review |
+| 38 | CIFR | R1 $5.38 | 1% | 0.0000 | $97 | RECOVERY | Low EV — review |
+| 39 | NVDA | B2 $169.54 | 1% | 0.0000 | $170 | PULLBACK | Low EV — review |
+| 40 | NVDA | B3 $168.40 | 1% | 0.0000 | $168 | PULLBACK | Low EV — review |
+| 41 | NVDA | R1 $146.74 | 1% | 0.0000 | $147 | PULLBACK | Low EV — review |
+| 42 | OKLO | B3 $51.10 | 1% | 0.0000 | $51 | SUPPORT | Low EV — review |
+
+### Portfolio Capital Optimization
+| Action | From | To | Amount | EV Gain/Month |
+| :--- | :--- | :--- | :--- | :--- |
+| Redeploy | NVDA B3 (EV 0.0000) | AR B1 (EV 0.0055) | $168 | $27.42 |
+| Redeploy | NVDA R1 (EV 0.0000) | AR B1 (EV 0.0055) | $147 | $23.89 |
+| Redeploy | RUN R3 (EV 0.0002) | AR B1 (EV 0.0055) | $98 | $15.63 |
+| Redeploy | RUN R2 (EV 0.0002) | AR B1 (EV 0.0055) | $98 | $15.58 |
+| Redeploy | RUN R1 (EV 0.0002) | AR B1 (EV 0.0055) | $94 | $15.05 |
 
 ---
 
@@ -226,9 +777,9 @@
 ### NU
 
 #### Earnings
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
 ## Earnings Analysis: Nu Holdings Ltd. (NU)
 
@@ -236,10 +787,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-14 |
-| Days Until | 67 |
+| Days Until | 59 |
 | EPS Estimate | $0.20875 |
 | Revenue Estimate | $5.08B |
-| Earnings Rule | Clear (>67d out) |
+| Earnings Rule | Clear (>59d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
@@ -251,7 +802,7 @@
 | Q1 2025 | $0.12 | $0.13 | 7.1% | -18.9% | -15.7% | Strong Bear |
 | Q4 2024 | $0.11 | $0.12 | 11.8% | -2.9% | -14.8% | Bearish |
 | Q3 2024 | $0.10 | $0.12 | 21.6% | +5.3% | +13.7% | Strong Bull |
-| Q2 2024 | $0.07 | $0.08 | 3.8% | +4.7% | +4.1% | Strong Bull |
+| Q2 2024 | $0.08 | $0.09 | 10.6% | +4.7% | +4.1% | Strong Bull |
 
 ### Revenue Trend
 | Quarter | Revenue | QoQ Growth% | YoY Growth% |
@@ -264,43 +815,43 @@
 
 #### Technical Signals
 ## Technical Scan: Nu Holdings Ltd. (NU)
-**Current Price: $14.58** | Date: 2026-03-06
+**Current Price: $14.22** | Date: 2026-03-16
 
 ### Trend Indicators
 | Indicator | Value | Price Position | Signal |
 | :--- | :--- | :--- | :--- |
-| SMA 20 | $16.32 | Below | Bearish |
-| SMA 50 | $16.96 | Below | Bearish |
-| SMA 200 | $15.07 | Below | Bearish |
-| EMA 9 | $15.28 | Below | Bearish |
-| EMA 21 | $16.04 | Below | Bearish |
+| SMA 20 | $15.44 | Below | Bearish |
+| SMA 50 | $16.67 | Below | Bearish |
+| SMA 200 | $15.14 | Below | Bearish |
+| EMA 9 | $14.52 | Below | Bearish |
+| EMA 21 | $15.29 | Below | Bearish |
 
 ### Momentum Indicators
 | Indicator | Value | Zone | Signal |
 | :--- | :--- | :--- | :--- |
-| RSI (14) | 31.7 | Bearish zone | Neutral-Bear |
-| MACD | -0.697 | Below signal | Bearish |
-| MACD Signal | -0.483 | Histogram: -0.214 | — |
-| Stochastic %K/%D | 12.0/18.4 | Oversold | Bearish |
+| RSI (14) | 34.1 | Bearish zone | Neutral-Bear |
+| MACD | -0.782 | Below signal | Bearish |
+| MACD Signal | -0.684 | Histogram: -0.097 | — |
+| Stochastic %K/%D | 13.3/6.1 | Oversold | Bullish |
 
 ### Volatility
 | Indicator | Value | Position | Signal |
 | :--- | :--- | :--- | :--- |
-| Bollinger Upper | $18.56 | 11% of band | Neutral |
-| Bollinger Lower | $14.08 | Width: $4.49 | — |
-| ATR (14) | $0.74 (5.1%) | High volatility | — |
+| Bollinger Upper | $17.78 | 24% of band | Neutral |
+| Bollinger Lower | $13.09 | Width: $4.69 | — |
+| ATR (14) | $0.68 (4.8%) | High volatility | — |
 
 ### Key Support/Resistance Levels
 | Level | Price | Type | Touches | Last Tested |
 | :--- | :--- | :--- | :--- | :--- |
-| Support | $14.56 (-0.1%) | Support | 1 | 2025-10-17 |
-| Resistance | $14.06 (-3.6%) | Resistance | 2 | 2025-07-17 |
-| Support | $15.19 (+4.2%) | Support | 1 | 2025-11-19 |
-| Resistance | $13.73 (-5.8%) | Resistance | 1 | 2025-05-14 |
-| Support | $15.59 (+6.9%) | Support | 1 | 2025-12-17 |
-| Resistance | $16.36 (+12.2%) | Resistance | 2 | 2026-01-16 |
-| Support | $11.89 (-18.4%) | Support | 2 | 2025-08-14 |
-| Support | $11.75 (-19.4%) | Support | 3 | 2025-06-23 |
+| Resistance | $14.06 (-1.1%) | Resistance | 2 | 2025-07-17 |
+| Support | $14.56 (+2.4%) | Support | 1 | 2025-10-17 |
+| Resistance | $13.73 (-3.4%) | Resistance | 1 | 2025-05-14 |
+| Support | $15.19 (+6.8%) | Support | 1 | 2025-11-19 |
+| Support | $15.59 (+9.6%) | Support | 1 | 2025-12-17 |
+| Resistance | $16.36 (+15.1%) | Resistance | 2 | 2026-01-16 |
+| Support | $11.89 (-16.4%) | Support | 2 | 2025-08-14 |
+| Support | $11.75 (-17.4%) | Support | 3 | 2025-06-23 |
 
 ### Signal Summary
 | Metric | Value |
@@ -315,20 +866,20 @@
 ### Short Interest Summary
 | Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
 | :--- | :--- | :--- | :--- | :--- |
-| NU | 91.86M | 1.77 | 2.41% | -13.0% (decreasing) |
+| NU | 117.55M | 2.00 | 3.08% | +7.9% (increasing) |
 
 ### Squeeze Risk Assessment
 | Ticker | Risk Rating | Score (/100) | Key Factors |
 | :--- | :--- | :--- | :--- |
-| NU | LOW | 0 | Minimal short% (2.4%); Low DTC (1.8); Shorts covering rapidly |
+| NU | LOW | 5 | Minimal short% (3.1%); Low DTC (2.0); Shorts slowly increasing |
 
 ### Context
 | Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
 | :--- | :--- | :--- | :--- | :--- |
-| NU | 3.67B | 3.83B | 50.05M | 1.8 |
+| NU | 3.67B | 3.83B | 52.06M | 2.0 |
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
 ## News & Sentiment: Nu Holdings Ltd. (NU)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -336,59 +887,91 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Insider Monkey | UBS Lowers Nu Holdings (NU) Price Target To $17.2 | Negative | -0.13 | Analyst |
-| 2026-03-08 | Finviz | UBS Lowers Nu Holdings (NU) Price Target To $17.2 - Finviz | Negative | -0.13 | Analyst |
-| 2026-03-07 | MarketBeat | Barclays PLC Grows Stock Holdings in Nu Holdings Ltd. $NU - ... | Neutral | +0.00 | Earnings |
-| 2026-03-07 | Simply Wall St. | Nu Holdings Refocuses On Revenue Per User And Deposit Led Gr... | Positive | +0.38 | Earnings |
-| 2026-03-06 | StockStory | 1 Stock Under $50 for Long-Term Investors and 2 Facing Headw... | Neutral | +0.00 | — |
-| 2026-03-06 | Insider Monkey | Is Nu Holdings (Nu) Trading at a Reasonable Valuation? | Neutral | +0.00 | — |
+| 2026-03-16 | Seeking Alpha | Nu Holdings: Strong Credit Expansion A Catalyst (NYSE:NU) - ... | Positive | +0.71 | — |
+| 2026-03-16 | Zacks | Down 17.4% in 4 Weeks, Here's Why Nu  (NU) Looks Ripe for a ... | Neutral | +0.00 | — |
+| 2026-03-16 | Zacks | Wall Street Bulls Look Optimistic About Nu  (NU): Should You... | Positive | +0.32 | — |
+| 2026-03-15 | Bitget | Down 17.4% Over the Past 4 Weeks, Here's Why Nu (NU) May Be ... | Positive | +0.25 | — |
+| 2026-03-14 | Insider Monkey | BofA Lowers PT on NU Holdings (NU), Keeps a Hold Rating | Negative | -0.13 | Earnings |
+| 2026-03-14 | Simply Wall St. | Assessing Nu Holdings (NYSE:NU) Valuation After Recent Share... | Positive | +0.30 | — |
+| 2026-03-13 | MarketBeat | NU (NU) Short Interest & Short Float - Updated Mar 2026 $NU ... | Positive | +0.46 | Earnings, Short |
+| 2026-03-13 | TechStock² | Nu Holdings Stock Price Near $14 as Nubank’s Global Brand Pu... | Neutral | +0.00 | — |
+| 2026-03-13 | TradingView | Nu Holdings Turns Expanding Customer Base Into Profitable Gr... | Positive | +0.67 | Earnings |
+| 2026-03-13 | StockStory | 1 Growth Stock with All-Star Potential and 2 We Ignore | Neutral | +0.03 | — |
+| 2026-03-13 | Insider Monkey | Analysts Split on Nu Holdings (NU) After Q4 Results | Neutral | +0.00 | Shareholder |
+| 2026-03-13 | StockStory | Perella Weinberg, LendingClub, Enova, Farmer Mac, and Nubank... | Neutral | +0.00 | — |
+| 2026-03-12 | Simply Wall St. | Nubank Hires TikTok Veteran As U.S. Expansion And Valuation ... | Neutral | +0.00 | — |
+| 2026-03-12 | Motley Fool | Better Growth Stock: SoFi Technologies vs. Nu Holdings | Positive | +0.67 | — |
+| 2026-03-11 | Banking Dive | Nubank hires TikTok alum as marketing chief | Neutral | +0.00 | — |
+| 2026-03-10 | AFP | CEO of Brazil's Nubank on pending US market entry, Trump, AI... | Neutral | +0.00 | Corporate |
+| 2026-03-10 | Insider Monkey | Morgan Stanley Raises Nu Holdings Ltd. (NU) Price Target to ... | Neutral | +0.00 | Analyst |
+| 2026-03-09 | StockStory | Nubank (NU): Buy, Sell, or Hold Post Q3 Earnings? | Neutral | +0.00 | Earnings |
+| 2026-03-09 | The Motley Fool | Why Nu Holdings Stock Sank 15.6% In February - The Motley Fo... | Negative | -0.44 | — |
+| 2026-03-08 | Insider Monkey | UBS Lowers Nu Holdings (NU) Price Target To $17.2 | Negative | -0.13 | Analyst |
 | 2026-03-05 | CNBC TV | Inter Miami partners with Nubank to call its new stadium 'Nu... | Neutral | +0.00 | — |
-| 2026-03-05 | StockStory | 1 Cash-Heavy Stock with Impressive Fundamentals and 2 We Ign... | Positive | +0.20 | — |
 | 2026-03-04 | CNBC TV | Nubank Scores One Of MLS' Largest Sponsorship Deals, Lands I... | Neutral | +0.00 | — |
 | 2026-03-04 | MarketBeat | UBS Group Issues Pessimistic Forecast for NU (NYSE:NU) Stock... | Negative | -0.36 | Earnings |
 | 2026-03-04 | GuruFocus | UBS Lowers Price Target for Nu Holdings (NU) While Maintaini... | Negative | -0.13 | Analyst |
-| 2026-03-04 | Motley Fool | Nu Holdings' Next Growth Phase Depends on One Thing: Monetiz... | Positive | +0.38 | — |
-| 2026-03-04 | Simply Wall St. | Nu Holdings’ U.S. Bank Charter Puts Global Growth And Valuat... | Positive | +0.38 | — |
 | 2026-03-03 | Zacks | Nu  (NU) is an Incredible Growth Stock: 3 Reasons Why | Positive | +0.44 | — |
-| 2026-03-03 | GuruFocus | Nu Holdings Ltd (NU) Stock Price Down 5.1% on Mar 3 - GuruFo... | Neutral | +0.00 | — |
 | 2026-03-03 | Yahoo Finance | Nu (NU) is an Incredible Growth Stock: 3 Reasons Why - Yahoo... | Positive | +0.44 | — |
+| 2026-03-03 | GuruFocus | Nu Holdings Ltd (NU) Stock Price Down 5.1% on Mar 3 - GuruFo... | Neutral | +0.00 | — |
 | 2026-03-02 | AD HOC NEWS | Nu Holdings Stock Near Highs: Still a Buy for U.S. Investors... | Neutral | +0.00 | — |
-| 2026-03-02 | MarketBeat | APG Asset Management N.V. Trims Stock Position in Nu Holding... | Positive | +0.36 | Earnings, Corporate |
-| 2026-03-02 | MT Newswires | Nu Has Path to $100 Billion Valuation by 2026, Morgan Stanle... | Neutral | +0.00 | — |
-| 2026-03-02 | StockStory | 3 Financials Stocks Worth Investigating | Positive | +0.23 | — |
 | 2026-03-01 | Benzinga | Novo Nordisk, First Solar, And Corebridge Financial Are Amon... | Negative | -0.38 | — |
-| 2026-03-01 | MarketBeat | Quantbot Technologies LP Raises Stock Position in Nu Holding... | Neutral | +0.00 | Earnings |
 | 2026-03-01 | TechStock² | Nu Holdings stock price ends week at $14.98: what NU investo... | Neutral | +0.00 | Earnings |
-| 2026-02-28 | MarketBeat | NU Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
-| 2026-02-28 | Insider Monkey | Nu Holdings Ltd. (NU): A Bull Case Theory | Neutral | +0.00 | — |
-| 2026-02-28 | The Motley Fool | The Biggest Test for Nu Holdings Isn't Growth -- It's the Cr... | Negative | -0.36 | — |
-| 2026-02-28 | The Motley Fool | Nu Holdings' 2025 Review: From Fintech Disruptor to Emerging... | Negative | -0.44 | — |
-| 2026-02-28 | MarketBeat | Nu Holdings Ltd. $NU Stock Position Trimmed by Seven Springs... | Positive | +0.49 | Earnings |
-| 2026-02-28 | Finviz | Nu Holdings Ltd. (NU): A Bull Case Theory - Finviz | Neutral | +0.00 | — |
-| 2026-02-27 | GuruFocus.com | Nu Holdings Ltd (NU) Q4 2025 Earnings Call Highlights: Recor... | Positive | +0.38 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 10 (33%) |
-| Neutral | 13 (43%) |
-| Negative | 7 (23%) |
-| Average Score | +0.059 |
+| Positive | 9 (30%) |
+| Neutral | 15 (50%) |
+| Negative | 6 (20%) |
+| Average Score | +0.090 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 183 |
+| Total Unique Headlines | 192 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 9 | Barclays PLC Grows Stock Holdings in Nu ..; Nu Holdings Refocuses On Revenue Per Use.. |
-| Analyst | 3 | UBS Lowers Nu Holdings (NU) Price Target..; UBS Lowers Nu Holdings (NU) Price Target.. |
-| Corporate | 1 | APG Asset Management N.V. Trims Stock Po.. |
+| Earnings | 6 | BofA Lowers PT on NU Holdings (NU), Keep..; NU (NU) Short Interest & Short Float - U.. |
+| Analyst | 3 | Morgan Stanley Raises Nu Holdings Ltd. (..; UBS Lowers Nu Holdings (NU) Price Target.. |
+| Short | 1 | NU (NU) Short Interest & Short Float - U.. |
+| Shareholder | 1 | Analysts Split on Nu Holdings (NU) After.. |
+| Corporate | 1 | CEO of Brazil's Nubank on pending US mar.. |
 
 ### Deep Dive Articles
 
+#### Morgan Stanley Raises Nu Holdings Ltd. (NU) Price Target to $21
+*Source: Insider Monkey | Date: 2026-03-10 | Sentiment: Positive (+0.97)*
+
+> Nu Holdings Ltd. (NYSE:NU)is among the12 Low Price High Volume Stocks to Buy Right Now.
+
+> On March 2, Morgan Stanley analyst Jorge Kuri raised the firm’s price target on Nu Holdings Ltd. (NYSE:NU) to $21 from $18 and reiterated an Overweight rating following an investor roundtable with the company’s chief financial officer after its fourth-quarter results. The analyst said the discussion reinforced Nubank’s “long-term compounding story,” prompting an upward revision to earnings forecasts while suggesting that broader market consensus estimates remain conservative relative to the company’s growth trajectory.
+
+> On February 26, Nu Holdings Ltd. (NYSE:NU) reported strong fourth-quarter 2025 results. Founder and CEO David Vélez stated that Nubank closed the year with 131 million customers and added 17 million net customers during 2025. Average revenue per active customer reached $15, contributing to record quarterly revenue of $4.9 billion. The company also delivered an all-time high net income of $895 million and a return on equity of 33%, driven by strong customer engagement, improved monetization, and disciplined risk management. Nubank continues investing in its core Latin American markets while gradually building capabilities to evolve into a broader global digital banking platform.
+
+> Nu Holdings Ltd. (NYSE:NU) operates as Nubank, one of the largest digital banking platforms in the world. The company ranks ninth in the list of 12 low price high volume stocks to buy right now. It was founded in 2013 and operates primarily across Brazil, Mexico, and Colombia. Nubank offers mobile-first financial products, including credit cards, digital accounts, loans, and investment services designed to deliver low-fee banking solutions to underserved consumers.
+
+> While we acknowledge the potential of NU as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+
+**Catalysts:** Earnings, Corporate, Analyst, Short
+
+#### Nubank (NU): Buy, Sell, or Hold Post Q3 Earnings?
+*Source: StockStory | Date: 2026-03-09 | Sentiment: Positive (+0.98)*
+
+> Over the past six months, Nubank’s shares (currently trading at $14.55) have posted a disappointing 5.9% loss, well below the S&P 500’s 4.8% gain. This might have investors contemplating their next move.
+
+> Following the drawdown, is now an opportune time to buy NU?Find out in our full research report, it’s free.
+
+> With well over one hundred million customers across Brazil, Mexico, and Colombia through its viral member-get-member referral program, Nubank (NYSE:NU) is a digital banking platform that offers financial services including spending, saving, investing, borrowing, and protection products to millions of customers across Latin America.
+
+> A company’s long-term performance is an indicator of its overall quality. Any business can put up a good quarter or two, but the best consistently grow over the long haul.
+
+> Luckily, Nubank’s revenue grew at an incredible 77.2% compounded annual growth rate over the last five years. Its growth surpassed the average financials company and shows its offerings resonate with customers.
+
+**Catalysts:** Earnings, Equity
+
 #### UBS Lowers Nu Holdings (NU) Price Target To $17.2
-*Source: Insider Monkey | Date: Today | Sentiment: Positive (+0.97)*
+*Source: Insider Monkey | Date: 2026-03-08 | Sentiment: Positive (+0.97)*
 
 > Nu Holdings (NYSE:NU) is one of the13 Most Profitable Growth Stocks to Buy Right Now.
 
@@ -432,44 +1015,14 @@
 
 **Catalysts:** Earnings, Analyst
 
-#### Nu Holdings Ltd. (NU): A Bull Case Theory
-*Source: Insider Monkey | Date: 2026-02-28 | Sentiment: Positive (+0.99)*
-
-> We came across abullish thesison Nu Holdings Ltd. on CapexAndChill’s Substack. In this article, we will summarize the bulls’ thesis on NU. Nu Holdings Ltd.'s share was trading at $16.82 as of February 17th. NU’s trailing and forward P/E were 32.60 and 20.96 respectively according to Yahoo Finance.
-
-> Nu Holdings Ltd. provides digital banking platform in Brazil, Mexico, Colombia, the Cayman Islands, and the United States. NU is entering a pivotal phase in the Latin American fintech market as competitive dynamics intensify beyond the previously assumed “cozy duopoly” with MercadoLibre (MELI). Historically, Nu has captured the region’s digital banking opportunity, pricing in robust long-term growth and inheriting the financial lives of young users.
-
-> However, Sea Limited’s (SE) fintech arm, Monee, is establishing a pre-bank ecosystem targeting Gen-Z users through gaming and e-commerce, potentially eroding Nu’s future acquisition funnel. In response, Nu is deliberately pivoting toward low-yield secured lending, exchanging headline net interest margins for credit stability and regulatory defensibility. This strategy has driven a 133% YoY increase in payroll-deducted loans, compressing yields but protecting the long-term return on equity and building a moat that Monee cannot easily cross.
-
-> Financially, Nu generated GAAP net income of $783 million in Q3 2025, translating to ~$680 million in owner earnings after adjusting for stock-based compensation and maintenance CapEx. Despite record metrics, the company trades at ~30x annualized owner earnings, suggesting limited valuation upside unless growth expectations are met. Regulatory risks, particularly in Mexico, and off-platform data visibility challenges are being addressed through initiatives like the NuCel MVNO, aimed at securing data access and reinforcing customer retention.
-
-> Nu’s pivot positions it as a defensive utility with strong operational execution, a low-cost structure, and ownership of customer payroll flows, creating a regulatory fortress that competitors cannot replicate. While Sea’s Gen-Z push introduces future headwinds, Nu remains dominant in Brazil, well-capitalized, and strategically reinvesting to sustain long-term market leadership. The stock presents a compelling opportunity for investors seeking exposure to a resilient fintech leader with a defensive growth profile, offering upside from continued operational leverage and regional expansion.
-
-**Catalysts:** Earnings, Regulatory, Corporate, Equity
-
-#### FUTU vs. NU: Which Fintech Stock is a Better Buy Right Now?
-*Source: Zacks | Date: 2026-02-27 | Sentiment: Positive (+1.00)*
-
-> BothNu HoldingsNU andFutu Holdings LimitedFUTU are prominent fintech players stirring up the market. NU, with its banking, credit cards and other financial services, serves the Latin American market. FUTU is a digital brokerage platform operating in Hong Kong, China and other international markets.
-
-> Let us analyze these two companies and find out which can provide more upside to investors right now.
-
-> NU continues to demonstrate why it remains one of the most compelling digital banking platforms globally. The company’s performance in Brazil stands out as a major strength, with a large customer base and extensive coverage of the adult population. Maintaining a high activity rate at this scale is no small achievement; it highlights deep customer engagement rather than superficial user growth. This combination of scale and engagement creates a powerful moat, allowing NU to expand product adoption continuously. The ability to grow while improving efficiency, as reflected in its declining efficiency ratio, reinforces the strength of its core business model.
-
-> Beyond Brazil, NU’s accelerating traction in Mexico and Colombia adds an important second growth engine. Both markets have already attracted millions of customers, showing that NU’s digital-first banking model travels well across geographies. These markets are still in relatively early stages, offering a long runway for customer acquisition and product cross-selling. The consistency in engagement metrics across regions suggests that NU is not simply exporting a product but is successfully replicating a scalable platform. This geographic diversification reduces overreliance on a single market and strengthens the company’s long-term growth profile.
-
-> Financially, NU’s rising revenues and expanding credit portfolio underline the quality of its growth. Rising ARPAC indicates that customers are not only joining the platform but also using it more actively across products. The credit portfolio’s expansion across cards, secured, and unsecured lending shows increasing maturity and diversification, which supports sustainable earnings growth. Importantly, this expansion has been accompanied by healthy asset quality metrics and disciplined risk management. Strong profitability, reflected in rising net income and a record return on equity, demonstrates NU’s ability to balance growth with financial discipline. Looking ahead, management’s vision of becoming an AI-first bank further strengthens the investment case, positioning NU to enhance efficiency, personalize customer experiences, and reinforce its competitive edge in digital banking.
-
-**Catalysts:** Earnings, Regulatory, Corporate, Equity
-
 ---
 
 ### IONQ
 
 #### Earnings
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## Earnings Analysis: IonQ, Inc. (IONQ)
 
@@ -477,19 +1030,19 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-06 |
-| Days Until | 59 |
-| EPS Estimate | $-0.24132 |
+| Days Until | 51 |
+| EPS Estimate | $-0.24719 |
 | Revenue Estimate | $49.7M |
-| Earnings Rule | Clear (>59d out) |
+| Earnings Rule | Clear (>51d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.23 | $-0.20 | 13.0% | +21.7% | +10.5% | Strong Bull |
+| Q1 2026 | $-0.47 | $1.93 | 508.5% | +21.7% | +10.5% | Strong Bull |
 | Q4 2025 | $-0.19 | $-0.17 | 10.5% | +3.6% | -8.5% | Strong Bull |
-| Q3 2025 | $-0.14 | $-0.14 | -2.9% | -1.8% | -0.0% | Bearish |
+| Q3 2025 | $-0.29 | $-0.70 | -139.3% | -1.8% | -0.0% | Bearish |
 | Q2 2025 | $-0.14 | $-0.16 | -13.0% | +9.3% | +14.7% | Strong Bull |
-| Q1 2025 | $-0.12 | $-0.34 | -185.8% | -16.8% | -24.4% | Strong Bear |
+| Q1 2025 | $-0.25 | $-0.93 | -272.0% | -16.8% | -24.4% | Strong Bear |
 | Q4 2024 | $-0.12 | $-0.23 | -85.2% | +34.4% | +62.7% | Strong Bull |
 | Q3 2024 | $-0.11 | $-0.21 | -89.8% | +4.6% | +7.5% | Strong Bull |
 | Q2 2024 | $-0.08 | $-0.23 | -172.5% | +4.8% | +2.5% | Strong Bull |
@@ -505,51 +1058,51 @@
 
 #### Technical Signals
 ## Technical Scan: IonQ, Inc. (IONQ)
-**Current Price: $35.73** | Date: 2026-03-06
+**Current Price: $32.84** | Date: 2026-03-16
 
 ### Trend Indicators
 | Indicator | Value | Price Position | Signal |
 | :--- | :--- | :--- | :--- |
-| SMA 20 | $34.80 | Above | Bullish |
-| SMA 50 | $41.60 | Below | Bearish |
-| SMA 200 | $47.63 | Below | Bearish |
-| EMA 9 | $36.18 | Below | Bearish |
-| EMA 21 | $36.64 | Below | Bearish |
+| SMA 20 | $34.77 | Below | Bearish |
+| SMA 50 | $40.03 | Below | Bearish |
+| SMA 200 | $47.37 | Below | Bearish |
+| EMA 9 | $34.29 | Below | Bearish |
+| EMA 21 | $35.42 | Below | Bearish |
 
 ### Momentum Indicators
 | Indicator | Value | Zone | Signal |
 | :--- | :--- | :--- | :--- |
-| RSI (14) | 46.1 | Bearish zone | Neutral-Bear |
-| MACD | -1.179 | Above signal | Bullish |
-| MACD Signal | -1.962 | Histogram: +0.783 | — |
-| Stochastic %K/%D | 47.4/52.2 | Neutral | Bearish |
+| RSI (14) | 39.7 | Bearish zone | Neutral-Bear |
+| MACD | -1.423 | Above signal | Bullish |
+| MACD Signal | -1.459 | Histogram: +0.037 | — |
+| Stochastic %K/%D | 9.9/19.4 | Oversold | Bearish |
 
 ### Volatility
 | Indicator | Value | Position | Signal |
 | :--- | :--- | :--- | :--- |
-| Bollinger Upper | $40.09 | 59% of band | Neutral |
-| Bollinger Lower | $29.52 | Width: $10.57 | — |
-| ATR (14) | $2.86 (8.0%) | High volatility | — |
+| Bollinger Upper | $40.00 | 31% of band | Neutral |
+| Bollinger Lower | $29.55 | Width: $10.45 | — |
+| ATR (14) | $2.82 (8.6%) | High volatility | — |
 
 ### Key Support/Resistance Levels
 | Level | Price | Type | Touches | Last Tested |
 | :--- | :--- | :--- | :--- | :--- |
-| Support | $34.77 (-2.7%) | Support | 1 | 2025-08-20 |
-| Support | $37.25 (+4.3%) | Support | 1 | 2025-08-01 |
-| Support | $38.00 (+6.4%) | Support | 1 | 2025-11-21 |
-| Support | $29.99 (-16.1%) | Support | 1 | 2026-02-05 |
-| Resistance | $27.83 (-22.1%) | Resistance | 1 | 2025-03-26 |
-| Support | $43.80 (+22.6%) | Support | 1 | 2026-01-02 |
-| Resistance | $46.82 (+31.0%) | Resistance | 1 | 2025-08-11 |
-| Resistance | $47.88 (+34.0%) | Resistance | 1 | 2025-07-08 |
+| Support | $34.77 (+5.9%) | Support | 1 | 2025-08-20 |
+| Support | $30.08 (-8.4%) | Support | 2 | 2026-02-23 |
+| Support | $37.25 (+13.4%) | Support | 1 | 2025-08-01 |
+| Support | $38.00 (+15.7%) | Support | 1 | 2025-11-21 |
+| Resistance | $41.90 (+27.6%) | Resistance | 1 | 2026-02-26 |
+| Support | $43.80 (+33.4%) | Support | 1 | 2026-01-02 |
+| Resistance | $46.82 (+42.6%) | Resistance | 1 | 2025-08-11 |
+| Support | $18.81 (-42.7%) | Support | 1 | 2025-04-07 |
 
 ### Signal Summary
 | Metric | Value |
 | :--- | :--- |
-| Overall Signal | **Neutral-Bearish** |
-| Score | -2 |
-| Bullish Factors | Above SMA 20, MACD bullish |
-| Bearish Factors | Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21 |
+| Overall Signal | **Bearish** |
+| Score | -4 |
+| Bullish Factors | MACD bullish |
+| Bearish Factors | Below SMA 20, Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21 |
 
 #### Short Interest
 ## Short Interest Analysis
@@ -557,20 +1110,20 @@
 ### Short Interest Summary
 | Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
 | :--- | :--- | :--- | :--- | :--- |
-| IONQ | 82.81M | 3.67 | 23.31% | +12.4% (increasing) |
+| IONQ | 85.89M | 3.77 | 23.69% | +8.3% (increasing) |
 
 ### Squeeze Risk Assessment
 | Ticker | Risk Rating | Score (/100) | Key Factors |
 | :--- | :--- | :--- | :--- |
-| IONQ | EXTREME | 75 | High short% (23.3%); Moderate DTC (3.7); Shorts increasing rapidly |
+| IONQ | HIGH | 65 | High short% (23.7%); Moderate DTC (3.8); Shorts slowly increasing |
 
 ### Context
 | Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
 | :--- | :--- | :--- | :--- | :--- |
-| IONQ | 360.09M | 366.64M | 20.91M | 3.7 |
+| IONQ | 360.09M | 366.64M | 21.35M | 3.8 |
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## News & Sentiment: IonQ, Inc. (IONQ)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -578,57 +1131,116 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-08 | MarketBeat | GW&K Investment Management LLC Invests $899,000 in IonQ, Inc... | Neutral | +0.00 | Earnings, Corporate |
-| 2026-03-08 | MarketBeat | Neuberger Berman Group LLC Sells 192,242 Shares of IonQ, Inc... | Positive | +0.30 | Earnings |
-| 2026-03-08 | Simply Wall St. | IonQ’s Quantum Security Deals Test Valuation After Strong Mu... | Positive | +0.80 | Regulatory |
-| 2026-03-07 | MarketBeat | MarketBeat Week in Review  03/02 - 03/06 | Neutral | +0.00 | Earnings |
-| 2026-03-07 | MarketBeat | 14,288 Shares in IonQ, Inc. $IONQ Acquired by Teachers Retir... | Positive | +0.30 | Earnings |
-| 2026-03-07 | MarketBeat | SPX Gestao de Recursos Ltda Makes New Investment in IonQ, In... | Neutral | +0.00 | Earnings |
-| 2026-03-07 | Naître et grand | How rising interest rates impact IonQ Inc. stock - Market Se... | Positive | +0.71 | Earnings |
-| 2026-03-07 | Naître et grand | Will IONQ.W stock outperform energy sector in 2026 - July 20... | Positive | +0.27 | Regulatory, Analyst |
-| 2026-03-07 | Motley Fool | 2 Top Quantum Computing Stocks to Buy in March | Positive | +0.20 | — |
-| 2026-03-07 | MarketBeat | MarketBeat Week in Review – 03/02 - 03/06 | Neutral | +0.00 | Earnings |
-| 2026-03-06 | Barrons.com | Why Earnings From Quantum Pure-Plays Like IonQ Have Wall Str... | Positive | +0.36 | Earnings |
-| 2026-03-06 | Exec Edge | Game on for HQ: Quantum Computing Powerhouse Set to Go Publi... | Neutral | +0.00 | — |
-| 2026-03-06 | PR Newswire | Quantum Threats Are Real. These Companies Are Building the F... | Negative | -0.42 | — |
-| 2026-03-06 | Zacks | Quantum Computing's Major Growth Catalysts Heading Into 2026 | Positive | +0.44 | — |
-| 2026-03-06 | Barrons.com | Earnings From Quantum Pure-Plays Like IonQ Have Wall Street ... | Positive | +0.74 | Earnings |
-| 2026-03-06 | The Motley Fool | 3 Quantum Computing Stocks That Could Make a Millionaire - T... | Negative | -0.44 | — |
-| 2026-03-06 | CoinCentral | Best Quantum Computing Stocks to Watch in 2026: IONQ, QUBT, ... | Positive | +0.64 | — |
-| 2026-03-06 | Simply Wall St. | IonQ Pushes Quantum Toward Real World Use As Market Lags Ana... | Negative | -0.36 | — |
-| 2026-03-05 | Barrons.com | Rigetti Computing Falls After Earnings. The Quantum Stock Fa... | Positive | +0.08 | Earnings |
-| 2026-03-05 | Barrons.com | Rigetti Computing Stock Falls After Earnings. The Quantum Pu... | Positive | +0.40 | Earnings |
-| 2026-03-05 | MarketBeat | IonQ (NYSE:IONQ) Stock Price Down 3% - Here's Why - MarketBe... | Neutral | +0.00 | Earnings |
-| 2026-03-05 | MarketBeat | 29,448 Shares in IonQ, Inc. $IONQ Acquired by Quantbot Techn... | Positive | +0.30 | Earnings |
-| 2026-03-05 | TipRanks | IonQ Director Granted Stock Award in Compensation Plan, SEC ... | Positive | +0.67 | Regulatory |
-| 2026-03-05 | TipRanks | IONQ vs. RGTI vs. QBTS: Quantum Computing Stock Comparison P... | Neutral | +0.00 | — |
-| 2026-03-05 | Simply Wall St. | IonQ Links SkyWater Deal And Romania Network In Full Stack Q... | Neutral | +0.00 | — |
-| 2026-03-04 | Zacks | D-Wave Quantum's Q4 Bookings Fall Y/Y: How Does the Year Ahe... | Neutral | +0.00 | — |
-| 2026-03-04 | Quiver Quantita | IonQ Stock (IONQ) Opinions on Q4 Earnings and Skywater Acqui... | Neutral | +0.00 | Earnings, Corporate |
-| 2026-03-04 | MarketBeat | Does IonQ's Standout Earnings Give It an Advantage Over D-Wa... | Positive | +0.25 | Earnings |
-| 2026-03-04 | techi.com | D-Wave and IonQ Stocks Surge as Quantum Computing Market Acc... | Neutral | +0.00 | — |
-| 2026-03-04 | The Motley Fool | 3 Red-Hot Growth Stocks to Buy in 2026 - The Motley Fool | Negative | -0.08 | — |
+| 2026-03-16 | MarketBeat | John Raymond Sells 2,800 Shares of IonQ (NYSE:IONQ) Stock - ... | Positive | +0.30 | Earnings |
+| 2026-03-16 | Yahoo Finance A | The Zacks Analyst Blog Highlights IonQ, D-Wave Quantum and R... | Neutral | +0.00 | — |
+| 2026-03-16 | The Motley Fool | Got $5,000? 2 Quantum Computing Stocks That Insiders Haven't... | Negative | -0.30 | — |
+| 2026-03-16 | MarketBeat | Algert Global LLC Has $11.84 Million Stake in IonQ, Inc. $IO... | Neutral | +0.00 | Earnings |
+| 2026-03-16 | AD HOC NEWS | IonQ's Strategic Pivot Fails to Impress Skeptical Market - A... | Negative | -0.30 | — |
+| 2026-03-16 | Simply Wall St. | IonQ Romania Quantum Deal Links Tech To Critical Infrastruct... | Negative | -0.32 | — |
+| 2026-03-15 | The Motley Fool | Better Quantum Computing Stock: Rigetti Computing vs. IonQ -... | Neutral | +0.00 | — |
+| 2026-03-15 | MarketBeat | Clear Street Group Inc. Makes New Investment in IonQ, Inc. $... | Positive | +0.38 | Earnings |
+| 2026-03-15 | MarketBeat | Aquatic Capital Management LLC Has $13.79 Million Stock Posi... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-03-14 | Investing.com | Raymond John w, IonQ director, sells $93k in IonQ stock - In... | Neutral | +0.00 | — |
+| 2026-03-14 | Quiver Quantita | $IONQ stock fell 8% this week. Here's what we see in our dat... | Neutral | +0.00 | — |
+| 2026-03-14 | The Motley Fool | 2 Millionaire-Maker Quantum Computing Stocks - The Motley Fo... | Negative | -0.44 | — |
+| 2026-03-14 | 24/7 Wall St. | D-Wave vs. IonQ Isn’t the Only Quantum Battle — Here’s the R... | Negative | -0.38 | — |
+| 2026-03-14 | MarketBeat | FORA Capital LLC Invests $1.89 Million in IonQ, Inc. $IONQ -... | Neutral | +0.00 | Earnings |
+| 2026-03-14 | TipRanks | IonQ Stock Slides Despite Big Quantum Partnership Push - Tip... | Neutral | +0.00 | — |
+| 2026-03-14 | MarketBeat | IonQ, Inc. $IONQ is Acme LLC's 2nd Largest Position - Market... | Neutral | +0.00 | Earnings |
+| 2026-03-14 | Motley Fool | 2 Millionaire-Maker Quantum Computing Stocks | Neutral | +0.00 | — |
+| 2026-03-13 | Barchart | IonQ Just Secured a Deal with the University of Cambridge. S... | Positive | +0.40 | Regulatory |
+| 2026-03-13 | Stock Titan | IonQ (IONQ) director and advisor sells 2,800 shares, holds 8... | Positive | +0.30 | — |
+| 2026-03-13 | Yahoo Finance | IonQ (IONQ) Announces Collaboration with Applied Research La... | Positive | +0.67 | Regulatory |
+| 2026-03-13 | Yahoo Finance | Is Trending Stock IonQ, Inc. (IONQ) a Buy Now? - Yahoo Finan... | Neutral | +0.00 | — |
+| 2026-03-13 | Stock Titan | IonQ (NYSE: IONQ) CFO sells shares to cover RSU tax bill - S... | Positive | +0.30 | — |
+| 2026-03-13 | AOL.com | IonQ Tripled Revenue but Its Stock Is Down 22% - AOL.com | Neutral | +0.00 | Earnings |
+| 2026-03-13 | MarketBeat | Van ECK Associates Corp Boosts Stake in IonQ, Inc. $IONQ - M... | Positive | +0.32 | Earnings |
+| 2026-03-13 | MarketBeat | Connor Clark & Lunn Investment Management Ltd. Cuts Stock Ho... | Negative | -0.30 | Earnings, Corporate |
+| 2026-03-13 | MarketBeat | Quadrature Capital Ltd Purchases New Holdings in IonQ, Inc. ... | Neutral | +0.00 | Earnings |
+| 2026-03-13 | TradingView | Quantum Computing Set to Scale in 2026: IONQ, QBTS, RGTI's O... | Neutral | +0.00 | — |
+| 2026-03-13 | TradingView | Should You Buy, Hold or Sell QUBT Stock Going Forward in 202... | Neutral | +0.00 | — |
+| 2026-03-12 | Yahoo Finance | IonQ Stock Falls in 2026 Tech Sell-Off: Should You Buy the D... | Neutral | +0.00 | — |
+| 2026-03-12 | Yahoo Finance | Stocks making big moves yesterday: Saia, Oracle, Atlas Energ... | Positive | +0.42 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 15 (50%) |
-| Neutral | 11 (37%) |
-| Negative | 4 (13%) |
-| Average Score | +0.172 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 180 |
+| Positive | 8 (27%) |
+| Neutral | 16 (53%) |
+| Negative | 6 (20%) |
+| Average Score | +0.035 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 189 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 15 | GW&K Investment Management LLC Invests $..; Neuberger Berman Group LLC Sells 192,242.. |
-| Regulatory | 3 | IonQ’s Quantum Security Deals Test Valua..; Will IONQ.W stock outperform energy sect.. |
-| Corporate | 2 | GW&K Investment Management LLC Invests $..; IonQ Stock (IONQ) Opinions on Q4 Earning.. |
-| Analyst | 1 | Will IONQ.W stock outperform energy sect.. |
+| Earnings | 10 | John Raymond Sells 2,800 Shares of IonQ ..; Algert Global LLC Has $11.84 Million Sta.. |
+| Corporate | 2 | Aquatic Capital Management LLC Has $13.7..; Connor Clark & Lunn Investment Managemen.. |
+| Regulatory | 2 | IonQ Just Secured a Deal with the Univer..; IonQ (IONQ) Announces Collaboration with.. |
 
 ### Deep Dive Articles
+
+#### IonQ Partners With Applied Research Lab To Advance Quantum Computing Security
+*Source: Benzinga | Date: 2026-03-10 | Sentiment: Positive (+0.97)*
+
+> IonQ, Inc.(NYSE:IONQ) said Tuesday it will collaborate with theApplied Research Laboratoryfor Intelligence and Securityto strengthen quantum computing security.
+
+> The effort centers on a program designed to evaluate how future quantum systems can adopt stronger cybersecurity standards.
+
+> • IonQ stock is showing downward bias.What’s the outlook for IONQ shares?
+
+> The initiative supports SEQCURE, a research program sponsored by the Secretary of the Air Force's Concepts, Development, and Management Office. The program examines security practices across commercial quantum platforms, Benzinga reported.
+
+> The SEQCURE project will study cybersecurity frameworks that protect emerging quantum infrastructure. Researchers will review current industry practices and determine how stronger access controls could apply to next-generation quantum computers.
+
+**Catalysts:** Regulatory, Corporate
+
+#### IonQ Tripled Revenue but Its Stock Is Down 22%
+*Source: 24/7 Wall St. | Date: 2026-03-10 | Sentiment: Negative (-0.37)*
+
+> IonQ (IONQ) is down 22.3% despite Q4 revenue of $61.9M (up 428%), 2025 revenue of $130M, and 2026 guidance of $225-245M; EBITDA loss expected at -$310M to -$330M, P/S of 101, SkyWater acquisition pending. IonQ became the first public quantum company to exceed $100M in annual revenue, but 2026 losses are widening to -$310M even as revenue scales, creating a disconnect between business performance and stock price.
+
+> Providing full-stack infrastructure for the artificial intelligence industry,IonQ(NYSE:IONQ) has delivered revenue growth that almost no one predicted at this pace, yet the stock sits 21% below where it started 2026, and that gap between business performance and price is what retail investors are debating right now.
+
+> Ultimately, the Q4 2025 numbers are hard to dismiss as quarterly revenue hit $61.9 million, a 429% year-over-year jump that beat consensus estimates by 53.7%. Full-year 2025 revenue reached $130 million, tripling 2024 and making IonQ the first public quantum company to exceed $100 million in annual GAAP revenue. Management is guiding for $225 million to $245 million in 2026 revenue, with CEO Niccolo de Masi calling it a “strategic and financial inflection point.”
+
+> The problem is what sits on the other side of that growth. The 2026 Adjusted EBITDA loss is expected to widen to between -$310 million and -$330 million. Operating cash flow in 2025 was -$283 million. The stock trades at a price-to-sales ratio of around 100-120, a valuation that prices in breakthroughs still years away.
+
+> Social sentiment on IonQ has whipsawed over the past two weeks. A post on r/wallstreetbets on February 25 drove sentiment to 84 (Very Bullish) after a user flagged IonQ’s inclusion in a $151 billion missile contract. That spike faded fast. By March 8-9, sentiment in r/stocks had fallen back to 22-28 (Bearish), with comment-to-upvote ratios suggesting genuine debate rather than consensus.
+
+**Catalysts:** Earnings, Corporate
+
+#### Can Rigetti's Technology Breakthroughs Accelerate Quantum Progress?
+*Source: Zacks | Date: 2026-03-09 | Sentiment: Positive (+0.99)*
+
+> Rigetti ComputingRGTI continues to make notable strides in improving the performance of its quantum hardware, particularly through advances in gate fidelity and system speed. The company recently achieved a two-qubit gate fidelity of up to 99.9% at a 28-nanosecond gate speed on a prototype platform using its proprietary adiabatic CZ scheme. Rigetti has also maintained 99.9% one-qubit gate fidelity, while reporting strong median two-qubit fidelities across several platforms, 99.7% on its 9-qubit system, 99.6% on the 36-qubit system and about 99% on its 108-qubit Cepheus-1 system.
+
+> These results reflect steady progress across materials, fabrication processes and system-level design. Importantly, improving fidelity while maintaining high-speed operations is critical for making quantum systems more reliable and useful for real-world applications.
+
+> At the same time, Rigetti is advancing its chiplet-based architecture, which the company views as a scalable pathway for building larger quantum systems. Unlike traditional monolithic chips, chiplet tiling allows multiple smaller chips to be interconnected, enabling higher qubit counts while improving fabrication yield and maintaining chip uniformity. Rigetti is also progressing toward the deployment of its 108-qubit chiplet-based quantum system, where recent testing identified tunable-coupler interactions that can emerge at higher qubit counts. The company implemented architectural refinements to improve system stability and control, strengthening confidence in the platform’s readiness for deployment.
+
+> Alongside these developments, Rigetti continues to collaborate with Riverlane on quantum error correction research, focusing on long-term scalability. Continued progress in fidelity, speed and error mitigation remains essential as the company works toward practical quantum advantage.
+
+> Quantum Computing Inc.QUBT highlighted several drivers that could support its growth in 2026. A key catalyst is the acquisition of Luminar Semiconductor, completed in February 2026, which is expected to start contributing revenues in the first quarter. The deal strengthens QUBT’s capabilities in semiconductor design, fabrication and packaging while adding an established customer base.
+
+**Catalysts:** Earnings, Regulatory, Corporate
+
+#### MarketBeat Week in Review - 03/02 - 03/06
+*Source: MarketBeat | Date: 2026-03-07 | Sentiment: Positive (+0.97)*
+
+> War, rising oil prices, and a negative jobs report were a powerful drag on stocks. All the major indexes were down for the week as uncertainty overtook investor confidence. It's uncomfortable to see stocks falling, but as a percentage, U.S. stocks are holding up well, and earnings season has been, on average, quite strong.
+
+> However, markets are likely to remain volatile until investors get more clarity around the length and the results of the conflict with Iran. Until then, markets are likely to move with the headlines, which ensures volatility will continue.
+
+> Next week, investors will get three different reads on inflation. The Consumer Price Index (CPI) and Producer Price Index (PPI) for February come out on Tuesday and Wednesday, respectively. The delayed Personal Consumption Expenditures (PCE) index from January will be released on Friday. A surprise in either direction will move stocks.
+
+> Amprius Technologies Inc. (NYSE: AMPX)had another strong quarter. Thomas Hughes has been bullish on AMPX stock for nearly a year, and in this week’s article, he made the case that thecompany’s strategy execution is paying offwith revenue and earnings entering a hypergrowth stage.
+
+> Hughes also wrote aboutIonQ Inc.'s (NYSE: IONQ)solid earnings report. The report shows that the long-term quantum computing thesis is in place. However, the company is a long way away from making a profit, whichmay mean the risk outweighs the reward, for now.
+
+**Catalysts:** Earnings
 
 #### Quantum Threats Are Real. These Companies Are Building the Fix
 *Source: PR Newswire | Date: 2026-03-06 | Sentiment: Positive (+0.66)*
@@ -645,74 +1257,14 @@
 
 **Catalysts:** Regulatory
 
-#### Quantum Computing's Major Growth Catalysts Heading Into 2026
-*Source: Zacks | Date: 2026-03-06 | Sentiment: Positive (+0.99)*
-
-> Quantum Computing Inc.QUBT highlighted several key growth drivers expected to support its expansion further in 2026. A major catalyst is the recent acquisition of Luminar Semiconductor, which closed in February 2026 and is expected to begin contributing revenues starting in the first quarter of 2026. The acquisition adds semiconductor design, fabrication and packaging capabilities along with an established customer base.
-
-> Another important growth driver is the expansion of QUBT’s foundry services business through its Fab 1 thin-film lithium niobate (“TFLN”) photonic chip fabrication facility, which recently began generating early revenues and is expected to see increasing customer engagements in 2026. In addition, the company plans to advance the commercialization of its quantum and photonic technologies, including photonic AI computing systems such as Neurawave, quantum authentication and secure networking solutions and sensing technologies like remote sensing and photonic vibrometers.
-
-> Growth opportunities in AI infrastructure were also highlighted, including collaborations such as the partnership with POET Technologies to develop high-speed optical engines for AI networks. Finally, management noted that the company’s strong capital position ($1.55 billion raised in 2025) provides the resources needed to fund acquisitions, product development and manufacturing expansion.
-
-> Rigetti’s RGTI roadmap and partnerships highlight its intent to be a serious contender in scalable, superconducting quantum computing. The company has laid out a multi-phase plan to progress from smaller systems toward 100+-qubit machines with high-fidelity gate performance and ultimately to much larger, fault-tolerant systems over the next few years. This push is reinforced by collaborations designed to strengthen both technology development and manufacturing scale.
-
-> For instance, Rigetti’s partnership with India’s Centre for Development of Advanced Computing (C-DAC) focuses on building hybrid quantum-classical systems for national research applications. On the commercial front, Rigetti is beginning to move beyond pure research and into early customer deployments that signal rising market traction. In September 2025, the company disclosed purchase orders worth roughly $5.7 million for two of its 9-qubit Novera systems.
-
-**Catalysts:** Earnings, Regulatory, Corporate
-
-#### D-Wave Quantum's Q4 Bookings Fall Y/Y: How Does the Year Ahead Look?
-*Source: Zacks | Date: 2026-03-04 | Sentiment: Positive (+0.99)*
-
-> D-Wave QuantumQBTS reported bookings of $13.4 million in the fourth quarter of 2025, down 27% compared to the prior-year period, which benefited from an eight-figure system sale. On a sequential basis, bookings jumped 471% from $2.4 million in the preceding third quarter, making it the second-highest quarterly bookings in the company's history.
-
-> The quarter-over-quarter increase was mainly due to the previously announced €10 million booking tied to a multi-year, 50% capacity commitment for an  Advantage2 annealing quantum computing system, intended to support the development of a state-of-the-art quantum computing and research facility in Lombardy, Italy.
-
-> D-Wave has entered fiscal 2026 on a solid note, with bookings to date already exceeding the company’s historical annual total. In January, it closed a $20 million agreement with Florida Atlantic University to purchase and install an Advantage2 annealing quantum computer at its Boca Raton campus. D-Wave also signed a two-year, $10 million enterprise Quantum Compute as a Service (QCaaS) agreement with a Fortune 100 company, marking one of the largest enterprise QCaaS deals identified to date in the quantum computing industry.
-
-> Given the time required for site preparation, installation and other key steps, which may take several months or quarters, D-Wave records system sales revenues under a percentage-of-completion approach. The €10 million booking in Italy will be recognized ratably over a five-year period following system installation, which is anticipated in the second half of this year. Management expects revenue growth to improve in the back half of 2026 compared to the first half.
-
-> IonQIONQ became the first public quantum company in history with more than $100 million in GAAP revenues in 2025. Recently, its subsidiary, ID Quantique (IDQ), earned the ISO 14001 Environmental Management System certification, affirming that the company has implemented rigorous practices across its operations to reduce waste, optimize energy efficiency and ensure compliance with various regulations. With this recognition, IonQ becomes the first pure-play quantum company to secure ISO 14001, ISO 9001 and ISO 27001 certifications, underscoring its commitment to delivering enterprise-grade quantum solutions that meet global standards for quality, security and responsible resource use.
-
-**Catalysts:** Earnings, Regulatory, Corporate
-
-#### Reflecting On Hardware & Infrastructure Stocks' Q4 Earnings: IonQ (NYSE:IONQ)
-*Source: StockStory | Date: 2026-03-03 | Sentiment: Positive (+0.83)*
-
-> Looking back on hardware & infrastructure stocks’ Q4 earnings, we examine this quarter’s best and worst performers, including IonQ (NYSE:IONQ) and its peers.
-
-> The Hardware & Infrastructure sector will be buoyed by demand related to AI adoption, cloud computing expansion, and the need for more efficient data storage and processing solutions. Companies with tech offerings such as servers, switches, and storage solutions are well-positioned in our new hybrid working and IT world. On the other hand, headwinds include ongoing supply chain disruptions, rising component costs, and intensifying competition from cloud-native and hyperscale providers reducing reliance on traditional hardware. Additionally, regulatory scrutiny over data sovereignty, cybersecurity standards, and environmental sustainability in hardware manufacturing could increase compliance costs.
-
-> The 8 hardware & infrastructure stocks we track reported a very strong Q4. As a group, revenues beat analysts’ consensus estimates by 10.7% while next quarter’s revenue guidance was in line.
-
-> In light of this news, share prices of the companies have held steady. On average, they are relatively unchanged since the latest earnings results.
-
-> Founded by quantum physics pioneers from the University of Maryland and Duke University in 2015, IonQ (NYSE:IONQ) develops quantum computers that process information using trapped ions to solve complex computational problems beyond the capabilities of traditional computers.
-
-**Catalysts:** Earnings, Regulatory, Equity
-
-#### IonQ Deepens Quantum Capabilities With Strategic M&A Push
-*Source: Zacks | Date: 2026-03-03 | Sentiment: Positive (+0.99)*
-
-> IonQIONQ is accelerating the strategy to build an enterprise-quality, full-stack platform through targeted mergers and acquisitions that expand its software, manufacturing and quantum-secure communications capabilities.
-
-> In January 2025, IonQ signed a definitive agreement to acquire Seed Innovations, enhancing its capabilities in machine learning, advanced software architecture and cloud migration. The transaction strengthens IonQ’s software foundation as it advances the world’s only enterprise-grade, full-stack quantum platform.
-
-> In the same month, IonQ also entered into a definitive agreement to acquireSkyWater TechnologySKYT for $35.00 per share in a cash-and-stock transaction, subject to a collar, valuing it at approximately $1.8 billion. The combination will create the first vertically integrated quantum platform company, uniting IonQ’s proprietary technology with SkyWater’s onshore R&D and manufacturing capabilities. The merged entity is positioned to accelerate innovation across aerospace and defense, pharmaceuticals, finance and cloud and enterprise computing.
-
-> The above-mentioned agreements join a growing portfolio of strategic quantum acquisitions, including Skyloom, Vector Atomic, Capella Space, Oxford Ionics, ID Quantique, Lightsynq and Qubitekk.
-
-> Quantum Computing Inc.or “QCi” QUBT recently completed the acquisition of Luminar Semiconductor, Inc., a wholly owned subsidiary ofLuminar Technologies, Inc.in an all-cash transaction valued at $110 million. The acquisition represents a significant milestone in QCi’s strategy to build a vertically integrated, product-driven photonics and quantum technology platform. Earlier, in 2022, QCi completed its previously announced merger agreement to acquire QPhoton, Inc., a quantum photonics innovator that developed a quantum photonic system (“QPS”). This deal enabled QCi to deliver a ready-to-run, full-stack QPS designed for real-world business applications and accessible to non-quantum experts.
-
-**Catalysts:** Regulatory, Corporate
-
 ---
 
 ### LUNR
 
 #### Earnings
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## Earnings Analysis: Intuitive Machines, Inc. (LUNR)
 
@@ -720,9 +1272,9 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-03-19 |
-| Days Until | 11 |
-| EPS Estimate | $-0.0512 |
-| Revenue Estimate | $53.4M |
+| Days Until | 3 |
+| EPS Estimate | $-0.0452 |
+| Revenue Estimate | $59.0M |
 | **Earnings Rule** | **WARNING: <14 days — avoid new entries** |
 
 ### Earnings History
@@ -748,51 +1300,51 @@
 
 #### Technical Signals
 ## Technical Scan: Intuitive Machines, Inc. (LUNR)
-**Current Price: $17.63** | Date: 2026-03-06
+**Current Price: $17.10** | Date: 2026-03-16
 
 ### Trend Indicators
 | Indicator | Value | Price Position | Signal |
 | :--- | :--- | :--- | :--- |
-| SMA 20 | $17.59 | Above | Bullish |
-| SMA 50 | $18.19 | Below | Bearish |
-| SMA 200 | $12.57 | Above | Bullish |
-| EMA 9 | $17.75 | Below | Bearish |
-| EMA 21 | $17.76 | Below | Bearish |
+| SMA 20 | $17.69 | Below | Bearish |
+| SMA 50 | $18.39 | Below | Bearish |
+| SMA 200 | $12.75 | Above | Bullish |
+| EMA 9 | $17.67 | Below | Bearish |
+| EMA 21 | $17.74 | Below | Bearish |
 
 ### Momentum Indicators
 | Indicator | Value | Zone | Signal |
 | :--- | :--- | :--- | :--- |
-| RSI (14) | 49.7 | Bearish zone | Neutral-Bear |
-| MACD | -0.002 | Above signal | Bullish |
-| MACD Signal | -0.034 | Histogram: +0.032 | — |
-| Stochastic %K/%D | 59.1/68.8 | Neutral | Bearish |
+| RSI (14) | 47.3 | Bearish zone | Neutral-Bear |
+| MACD | -0.035 | Below signal | Bearish |
+| MACD Signal | 0.003 | Histogram: -0.039 | — |
+| Stochastic %K/%D | 40.5/48.9 | Neutral | Bearish |
 
 ### Volatility
 | Indicator | Value | Position | Signal |
 | :--- | :--- | :--- | :--- |
-| Bollinger Upper | $19.62 | 51% of band | Neutral |
-| Bollinger Lower | $15.56 | Width: $4.06 | — |
-| ATR (14) | $1.89 (10.7%) | High volatility | — |
+| Bollinger Upper | $19.15 | 30% of band | Neutral |
+| Bollinger Lower | $16.23 | Width: $2.92 | — |
+| ATR (14) | $1.79 (10.4%) | High volatility | — |
 
 ### Key Support/Resistance Levels
 | Level | Price | Type | Touches | Last Tested |
 | :--- | :--- | :--- | :--- | :--- |
-| Resistance | $14.50 (-17.8%) | Resistance | 3 | 2026-02-05 |
-| Resistance | $13.70 (-22.3%) | Resistance | 1 | 2025-07-28 |
-| Resistance | $13.11 (-25.6%) | Resistance | 1 | 2025-05-27 |
-| Resistance | $23.32 (+32.2%) | Resistance | 1 | 2026-01-28 |
-| Resistance | $9.50 (-46.1%) | Resistance | 2 | 2025-06-23 |
-| Support | $8.24 (-53.2%) | Support | 2 | 2025-09-10 |
-| Support | $7.78 (-55.9%) | Support | 1 | 2025-11-21 |
-| Support | $6.14 (-65.2%) | Support | 1 | 2025-04-07 |
+| Resistance | $14.50 (-15.2%) | Resistance | 3 | 2026-02-05 |
+| Resistance | $13.70 (-19.9%) | Resistance | 1 | 2025-07-28 |
+| Resistance | $13.11 (-23.3%) | Resistance | 1 | 2025-05-27 |
+| Resistance | $23.32 (+36.3%) | Resistance | 1 | 2026-01-28 |
+| Support | $9.52 (-44.3%) | Support | 1 | 2025-06-23 |
+| Support | $8.24 (-51.8%) | Support | 2 | 2025-09-10 |
+| Support | $7.78 (-54.5%) | Support | 1 | 2025-11-21 |
+| Support | $6.14 (-64.1%) | Support | 1 | 2025-04-07 |
 
 ### Signal Summary
 | Metric | Value |
 | :--- | :--- |
-| Overall Signal | **Neutral-Bullish** |
-| Score | +0 |
-| Bullish Factors | Above SMA 20, Above SMA 200, MACD bullish |
-| Bearish Factors | Below SMA 50, Below EMA 9, Below EMA 21 |
+| Overall Signal | **Bearish** |
+| Score | -4 |
+| Bullish Factors | Above SMA 200 |
+| Bearish Factors | Below SMA 20, Below SMA 50, Below EMA 9, Below EMA 21, MACD bearish |
 
 #### Short Interest
 ## Short Interest Analysis
@@ -800,20 +1352,20 @@
 ### Short Interest Summary
 | Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
 | :--- | :--- | :--- | :--- | :--- |
-| LUNR | 27.55M | 2.47 | 20.20% | +0.9% (increasing) |
+| LUNR | 30.29M | 2.98 | 22.21% | +5.8% (increasing) |
 
 ### Squeeze Risk Assessment
 | Ticker | Risk Rating | Score (/100) | Key Factors |
 | :--- | :--- | :--- | :--- |
-| LUNR | HIGH | 55 | High short% (20.2%); Low DTC (2.5); Shorts slowly increasing |
+| LUNR | HIGH | 55 | High short% (22.2%); Low DTC (3.0); Shorts slowly increasing |
 
 ### Context
 | Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
 | :--- | :--- | :--- | :--- | :--- |
-| LUNR | 76.86M | 142.31M | 11.35M | 2.5 |
+| LUNR | 89.21M | 142.31M | 11.75M | 3.0 |
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## News & Sentiment: Intuitive Machines, Inc. (LUNR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -821,57 +1373,71 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-14 | MSN | Why Intuitive Machines stock is soaring today - MSN | Neutral | +0.00 | — |
+| 2026-03-12 | Yahoo Finance | Rocket Lab vs. Intuitive Machines: The New Space Race Stock ... | Neutral | +0.00 | — |
+| 2026-03-12 | MarketBeat | Intuitive Machines, Inc. (NASDAQ:LUNR) Receives Consensus Ra... | Neutral | +0.00 | Earnings |
+| 2026-03-12 | MarketBeat | Intuitive Machines (LUNR) to Release Earnings on Thursday - ... | Neutral | +0.00 | Earnings |
+| 2026-03-11 | PR Newswire | Autonomous Warfare Technologies Propel AI Defense Market Tow... | Negative | -0.18 | — |
+| 2026-03-10 | simplywall.st | The Bull Case For Intuitive Machines (LUNR) Could Change Fol... | Neutral | +0.00 | — |
 | 2026-03-07 | MarketBeat | Vanguard Group Inc. Buys 717,256 Shares of Intuitive Machine... | Positive | +0.30 | Earnings |
 | 2026-03-06 | MarketBeat | Intuitive Machines (NASDAQ:LUNR) Trading 4.6% Higher - Here'... | Neutral | +0.00 | Earnings |
 | 2026-03-06 | MarketBeat | Amova Asset Management Americas Inc. Boosts Stock Holdings i... | Positive | +0.59 | Earnings, Corporate |
 | 2026-03-05 | Benzinga | Roundhill Launches Space ETF Ahead of SpaceX IPO - One Holdi... | Neutral | +0.00 | Corporate |
 | 2026-03-05 | Benzinga | Intuitive Machines Stock Slides 8% Thursday: What's Driving ... | Neutral | +0.00 | — |
-| 2026-03-05 | Nasdaq | April 24th Options Now Available For Intuitive Machines (LUN... | Neutral | +0.00 | — |
+| 2026-03-05 | simplywall.st | Intuitive Machines Links Equity Raise And Defense Win To Gro... | Positive | +0.84 | — |
 | 2026-03-05 | MarketBeat | Intuitive Machines, Inc. $LUNR Shares Purchased by ARK Inves... | Positive | +0.30 | Earnings, Corporate |
 | 2026-03-04 | Insider Monkey | Intuitive Machines' (LUNR) $175M Equity Raise Lays Out the C... | Neutral | +0.00 | — |
 | 2026-03-04 | Seeking Alpha | Intuitive Machines: I See The Opportunity, But I’m Not Chasi... | Positive | +0.23 | — |
 | 2026-03-04 | simplywall.st | Assessing Intuitive Machines (LUNR) Valuation After New Spac... | Positive | +0.59 | — |
+| 2026-03-04 | MarketBeat | DNB Asset Management AS Takes Position in Intuitive Machines... | Positive | +0.36 | Earnings, Corporate |
 | 2026-03-04 | Simply Wall St. | Intuitive Machines Wins Missile Tracking Work And Funding As... | Positive | +0.57 | Earnings |
 | 2026-03-03 | Barrons.com | AST SpaceMobile Missed Wall Street Estimates. The Stock Is U... | Negative | -0.30 | Earnings |
 | 2026-03-03 | Benzinga | Intuitive Machines Stock Is Jumping: What's Happening Today? | Neutral | +0.00 | — |
 | 2026-03-03 | GlobeNewswire | Intuitive Machines Selected by L3Harris to Support SDA Proli... | Positive | +0.40 | — |
 | 2026-03-03 | Barrons.com | AST SpaceMobile Stock Falls After Larger-Than Expected Loss | Negative | -0.32 | — |
 | 2026-03-03 | Stock Titan | 18 missile-tracking craft: Intuitive Machines in L3Harris de... | Positive | +0.13 | Earnings |
-| 2026-03-03 | simplywall.st | Is Intuitive Machines’ US$175M Equity Raise Reshaping The In... | Neutral | +0.00 | — |
-| 2026-03-03 | Motley Fool | Got $1,000? 2 Stocks to Buy in March While They're On Sale | Neutral | +0.00 | — |
+| 2026-03-03 | The Motley Fool | Got $1,000? 2 Stocks to Buy in March While They're On Sale -... | Negative | -0.44 | — |
 | 2026-03-02 | Barrons.com | AST SpaceMobile Stock Rises Despite Larger-Than Expected Los... | Positive | +0.24 | — |
 | 2026-03-02 | Benzinga | Defense Stocks Hit Records As Trump Warns 'Big Wave' In Iran... | Neutral | +0.03 | — |
 | 2026-03-02 | MarketBeat | Quantbot Technologies LP Takes $4.70 Million Position in Int... | Neutral | +0.00 | Earnings |
 | 2026-03-01 | MarketBeat | Citigroup Inc. Buys 904,065 Shares of Intuitive Machines, In... | Positive | +0.30 | Earnings |
 | 2026-02-28 | 24/7 Wall St. | Intuitive Machines Bought an $800M Space Empire and Reddit I... | Neutral | +0.00 | Regulatory |
-| 2026-02-28 | simplywall.st | Intuitive Machines Equity Raise Fuels Lunar Network Ambition... | Neutral | +0.00 | Equity |
-| 2026-02-28 | Simply Wall St. | Intuitive Machines (LUNR) Is Down 6.1% After $175 Million Pr... | Neutral | +0.00 | — |
 | 2026-02-27 | PR Newswire | Mach 2 and Beyond: Aerospace Enters Its Biggest Spending Cyc... | Neutral | +0.00 | — |
-| 2026-02-27 | Insider Monkey | Intuitive Machines (LUNR) Jumps 11% as Analyst Firms up 'Buy... | Neutral | +0.00 | — |
-| 2026-02-27 | TIKR.com | Intuitive Machines Stock Plunges 16% After $175 Million Offe... | Negative | -0.27 | Equity |
-| 2026-02-26 | Benzinga | Intuitive Machines (LUNR) Stock Surges After Sharp Sell-Off:... | Neutral | +0.00 | — |
-| 2026-02-26 | Insider Monkey | Intuitive Machines (LUNR) Slashes 15.9% on $175-Million Shar... | Positive | +0.10 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 11 (37%) |
-| Neutral | 16 (53%) |
-| Negative | 3 (10%) |
-| Average Score | +0.096 |
-| Overall Sentiment | **Neutral** |
+| Positive | 12 (40%) |
+| Neutral | 14 (47%) |
+| Negative | 4 (13%) |
+| Average Score | +0.121 |
+| Overall Sentiment | **Bullish** |
 | Total Unique Headlines | 169 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 9 | Vanguard Group Inc. Buys 717,256 Shares ..; Intuitive Machines (NASDAQ:LUNR) Trading.. |
-| Corporate | 3 | Amova Asset Management Americas Inc. Boo..; Roundhill Launches Space ETF Ahead of Sp.. |
-| Equity | 2 | Intuitive Machines Equity Raise Fuels Lu..; Intuitive Machines Stock Plunges 16% Aft.. |
+| Earnings | 12 | Intuitive Machines, Inc. (NASDAQ:LUNR) R..; Intuitive Machines (LUNR) to Release Ear.. |
+| Corporate | 4 | Amova Asset Management Americas Inc. Boo..; Roundhill Launches Space ETF Ahead of Sp.. |
 | Regulatory | 1 | Intuitive Machines Bought an $800M Space.. |
 
 ### Deep Dive Articles
+
+#### Autonomous Warfare Technologies Propel AI Defense Market Toward $30 Billion
+*Source: PR Newswire | Date: 2026-03-11 | Sentiment: Positive (+0.99)*
+
+> Rising geopolitical tensions, next-generation autonomous weapons systems, and rapid AI integration across defense platforms are projected to drive the market past $29 billion by 2035
+
+> NEW YORK,March 11, 2026/PRNewswire/ --Market News UpdatesNews Commentary-The autonomous AI defense market is experiencing rapid growth as militaries increasingly integrate artificial intelligence, robotics, and machine learning into operational systems. Autonomous AI technologies enable defense platforms—such as drones, surveillance systems, and autonomous combat vehicles—to operate with minimal human intervention while enhancing decision-making speed, situational awareness, and mission efficiency. Governments are prioritizing these capabilities to address emerging security threats, reduce operational risk to personnel, and improve battlefield intelligence. As a result, autonomous systems are becoming a critical component of next-generation military modernization programs worldwide.  Leading Companies in military/defense industries of note include:VisionWave Holdings Inc.(NASDAQ: VWAV),AeroVironment, Inc.(NASDAQ: AVAV),Intuitive Machines, Inc.(NASDAQ: LUNR),Palantir Technologies Inc.(NASDAQ: PLTR),Kratos Defense & Security Solutions, Inc.(NASDAQ: KTOS).
+
+> Market valueprojectionsindicate strong long-term expansion. The global AI in defense market was valued at approximately $9.13 billion in 2025 and is projected to reach $29.48 billion by 2035, reflecting a compound annual growth rate (CAGR) of about 12.5% during the forecast period. This growth is driven by increased investments in AI-enabled surveillance, predictive analytics, and automated command systems that enhance operational effectiveness and threat detection capabilities. North America currently dominates the market due to significant defense spending and ongoing investments in advanced AI technologies by government agencies and defense contractors.
+
+> A closely related segment—the autonomous military weapons and defense systems market—demonstrates similar growth momentum. The market wasestimatedat $12.3 billion in 2024 and is expected to reach $36.5 billion by 2033, representing a CAGR of roughly 13.2%. Increasing geopolitical tensions, rapid advances in machine learning and sensor technologies, and the expanding use of unmanned platforms across air, land, and maritime domains are key factors driving adoption. As nations accelerate defense modernization efforts and invest in autonomous systems to improve precision and operational efficiency, the autonomous AI defense market is expected to remain one of the fastest-growing segments within the broader defense technology industry.
+
+> VisionWave (NASDAQ: VWAV) Activates RF Sensing Layer of Its AI-Driven Autonomous Defense Platform Following Phase One Closing of SaverOne (NASDAQ: SVRE) Strategic Transaction - establishes VisionWave's 19.99% ownership position in SaverOne-VisionWave Holdings Inc.($VWAV) ("VisionWave" or the "Company") today announced the completion of Phase One of its previously announced strategic transaction with SaverOne 2014 Ltd. (NASDAQ: SVRE). The Phase One closing occurred on March 5, 2026, establishing VisionWave's initial ownership position of approximately 19.99% in SaverOne pursuant to the companies' definitive agreement announced January 26, 2026. The agreement provides a framework for potential additional phases that may increase VisionWave's ownership in SaverOne to approximately 51%, subject to the achievement of technology integration and commercialization milestones.
+
+**Catalysts:** Earnings, Regulatory
 
 #### Roundhill Launches Space ETF Ahead of SpaceX IPO - One Holding Already Owns A Piece Of Musk's Rocket Company
 *Source: Benzinga | Date: 2026-03-05 | Sentiment: Positive (+0.97)*
@@ -933,29 +1499,14 @@
 
 **Catalysts:** Earnings, Corporate
 
-#### Intuitive Machines Selected by L3Harris to Support SDA Proliferated Warfighter Space Architecture Tranche 3 Tracking Layer
-*Source: GlobeNewswire | Date: 2026-03-03 | Sentiment: Positive (+0.97)*
-
-> HOUSTON, March  03, 2026  (GLOBE NEWSWIRE) -- Intuitive Machines, Inc. (Nasdaq: LUNR) (“Intuitive Machines” or the “Company”), a leading space technology, infrastructure, and services company, today announced Lanteris Space Systems, a wholly owned subsidiary of Intuitive Machines, was selected by L3Harris Technologies (NYSE: LHX) to support the development and production of spacecraft platforms for the Space Development Agency (“SDA”) Tranche 3 Tracking Layer of the Proliferated Warfighter Space Architecture.
-
-> Under this selection, Intuitive Machines will design, build and deliver 18 advanced spacecraft platforms to help enable the next generation of space-based missile tracking capabilities. This effort supports the SDA mission to deliver persistent, real-time tracking of advanced missile threats, including hypersonic and ballistic systems.
-
-> “This builds on a foundation of proven performance and mission trust earned throughprevious tracking layer selectionsthat we look forward to carrying forward with L3Harris and the Space Development Agency,” said Intuitive Machines CEO, Steve Altemus. “Intuitive Machines is focused on building spacecraft platforms and the systems needed to sustain missions persistently and at scale, as part of complex mission architectures, including the SDA Tranche 3 Tracking Layer program.”
-
-> The Tranche 3 Tracking Layer enhances the SDA ability to integrate higher performance sensing and on-orbit data processing, contributing to a resilient, layered space architecture that delivers broader global coverage and improved responsiveness for defense and allied users.
-
-> Intuitive Machines is a leading space infrastructure company that builds spacecraft, connects networks, and operates infrastructure-as-a-service for commercial, civil, and national security customers.
-
-**Catalysts:** Earnings, Regulatory, Corporate
-
 ---
 
 ### USAR
 
 #### Earnings
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## Earnings Analysis: USA Rare Earth, Inc. (USAR)
 
@@ -963,10 +1514,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-03-30 |
-| Days Until | 22 |
+| Days Until | 14 |
 | EPS Estimate | $-0.13667 |
 | Revenue Estimate | $0 |
-| Earnings Rule | Clear (>22d out) |
+| **Earnings Rule** | **WARNING: <14 days — avoid new entries** |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
@@ -986,51 +1537,51 @@
 
 #### Technical Signals
 ## Technical Scan: USA Rare Earth, Inc. (USAR)
-**Current Price: $17.45** | Date: 2026-03-06
+**Current Price: $19.10** | Date: 2026-03-16
 
 ### Trend Indicators
 | Indicator | Value | Price Position | Signal |
 | :--- | :--- | :--- | :--- |
-| SMA 20 | $19.71 | Below | Bearish |
-| SMA 50 | $19.20 | Below | Bearish |
-| SMA 200 | $16.63 | Above | Bullish |
-| EMA 9 | $19.07 | Below | Bearish |
-| EMA 21 | $19.61 | Below | Bearish |
+| SMA 20 | $19.27 | Below | Bearish |
+| SMA 50 | $19.99 | Below | Bearish |
+| SMA 200 | $16.95 | Above | Bullish |
+| EMA 9 | $19.52 | Below | Bearish |
+| EMA 21 | $19.66 | Below | Bearish |
 
 ### Momentum Indicators
 | Indicator | Value | Zone | Signal |
 | :--- | :--- | :--- | :--- |
-| RSI (14) | 42.5 | Bearish zone | Neutral-Bear |
-| MACD | -0.387 | Below signal | Bearish |
-| MACD Signal | -0.149 | Histogram: -0.239 | — |
-| Stochastic %K/%D | 14.9/38.6 | Oversold | Bearish |
+| RSI (14) | 47.8 | Bearish zone | Neutral-Bear |
+| MACD | -0.139 | Above signal | Bullish |
+| MACD Signal | -0.156 | Histogram: +0.017 | — |
+| Stochastic %K/%D | 45.8/54.4 | Neutral | Bearish |
 
 ### Volatility
 | Indicator | Value | Position | Signal |
 | :--- | :--- | :--- | :--- |
-| Bollinger Upper | $22.91 | 15% of band | Neutral |
-| Bollinger Lower | $16.52 | Width: $6.38 | — |
-| ATR (14) | $1.56 (9.0%) | High volatility | — |
+| Bollinger Upper | $21.35 | 46% of band | Neutral |
+| Bollinger Lower | $17.19 | Width: $4.16 | — |
+| ATR (14) | $1.61 (8.4%) | High volatility | — |
 
 ### Key Support/Resistance Levels
 | Level | Price | Type | Touches | Last Tested |
 | :--- | :--- | :--- | :--- | :--- |
-| Support | $16.82 (-3.6%) | Support | 1 | 2026-02-20 |
-| Resistance | $16.46 (-5.7%) | Resistance | 1 | 2025-07-16 |
-| Resistance | $18.55 (+6.3%) | Resistance | 1 | 2025-04-16 |
-| Resistance | $19.02 (+9.0%) | Resistance | 1 | 2025-12-12 |
-| Resistance | $19.68 (+12.8%) | Resistance | 1 | 2025-08-12 |
-| Resistance | $15.03 (-13.9%) | Resistance | 1 | 2025-06-12 |
-| Support | $13.33 (-23.6%) | Support | 1 | 2025-09-08 |
-| Support | $11.73 (-32.8%) | Support | 1 | 2025-12-31 |
+| Resistance | $19.02 (-0.4%) | Resistance | 1 | 2025-12-12 |
+| Resistance | $18.55 (-2.9%) | Resistance | 1 | 2025-04-16 |
+| Resistance | $19.68 (+3.1%) | Resistance | 1 | 2025-08-12 |
+| Support | $16.82 (-11.9%) | Support | 1 | 2026-02-20 |
+| Resistance | $16.46 (-13.8%) | Resistance | 1 | 2025-07-16 |
+| Resistance | $15.03 (-21.3%) | Resistance | 1 | 2025-06-12 |
+| Support | $13.33 (-30.2%) | Support | 1 | 2025-09-08 |
+| Support | $11.73 (-38.6%) | Support | 1 | 2025-12-31 |
 
 ### Signal Summary
 | Metric | Value |
 | :--- | :--- |
-| Overall Signal | **Bearish** |
-| Score | -4 |
-| Bullish Factors | Above SMA 200 |
-| Bearish Factors | Below SMA 20, Below SMA 50, Below EMA 9, Below EMA 21, MACD bearish |
+| Overall Signal | **Neutral-Bearish** |
+| Score | -2 |
+| Bullish Factors | Above SMA 200, MACD bullish |
+| Bearish Factors | Below SMA 20, Below SMA 50, Below EMA 9, Below EMA 21 |
 
 #### Short Interest
 ## Short Interest Analysis
@@ -1038,20 +1589,20 @@
 ### Short Interest Summary
 | Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
 | :--- | :--- | :--- | :--- | :--- |
-| USAR | 38.38M | 1.28 | 21.85% | +105.8% (increasing) |
+| USAR | 26.49M | 1.14 | 15.08% | -34.6% (decreasing) |
 
 ### Squeeze Risk Assessment
 | Ticker | Risk Rating | Score (/100) | Key Factors |
 | :--- | :--- | :--- | :--- |
-| USAR | HIGH | 65 | High short% (21.9%); Low DTC (1.3); Shorts increasing rapidly |
+| USAR | MEDIUM | 30 | Elevated short% (15.1%); Low DTC (1.1); Shorts covering rapidly |
 
 ### Context
 | Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
 | :--- | :--- | :--- | :--- | :--- |
-| USAR | 121.55M | 217.94M | 18.32M | 1.3 |
+| USAR | 121.55M | 217.94M | 18.77M | 1.1 |
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## News & Sentiment: USA Rare Earth, Inc. (USAR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -1059,384 +1610,139 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| Today | PR Newswire | The State of America's Rare Earth Supply Chain in 2026 - Oil... | Neutral | +0.00 | — |
+| 2026-03-15 | Simply Wall St. | USA Rare Earth Adds Semiconductor Expertise As Mine To Magne... | Neutral | +0.00 | — |
+| 2026-03-14 | IndexBox - Mark | USA Rare Earth (USAR) Stock Rises, Acquires Full Round Top C... | Positive | +0.60 | — |
+| 2026-03-14 | Motley Fool | Here's Why USA Rare Earth Shares Crushed The Market This Wee... | Negative | -0.15 | — |
+| 2026-03-13 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Stock Price Down 1.5% - Should ... | Neutral | +0.00 | Earnings |
+| 2026-03-13 | The Motley Fool | Is USA Rare Earth Stock a Millionaire Maker? - The Motley Fo... | Negative | -0.44 | — |
+| 2026-03-13 | 24/7 Wall St. | Reddit Loved USAR for a Week. Short Sellers Never Stopped Be... | Positive | +0.68 | Short |
+| 2026-03-13 | Motley Fool | Is USA Rare Earth Stock a Millionaire Maker? | Neutral | +0.00 | — |
+| 2026-03-13 | Zacks | MP Materials Trades at a Premium: Buy, Sell or Hold the Stoc... | Neutral | +0.00 | — |
+| 2026-03-12 | GlobeNewswire | USA Rare Earth Appoints Dr. Thomas Caulfield to Board of Dir... | Neutral | +0.00 | — |
+| 2026-03-12 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Trading Down 6.4% - What's Next... | Neutral | +0.00 | Earnings |
+| 2026-03-12 | Simply Wall St. | A Look At USA Rare Earth (USAR) Valuation After Recent Share... | Positive | +0.30 | — |
+| 2026-03-12 | Motley Fool | The Best 3 Industrial Stocks to Buy in March | Positive | +0.64 | — |
+| 2026-03-11 | Trefis | USA Rare Earth (+9.3%): Executive Hires Reiterate $3B+ Fundi... | Neutral | +0.00 | — |
+| 2026-03-11 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Up 3.1% - Here's Why - M... | Positive | +0.30 | Earnings |
+| 2026-03-10 | Insider Monkey | USA Rare Earth (USAR) Climbs 9.3% as 3 New Execs Join | Positive | +0.30 | — |
+| 2026-03-10 | Zacks | USAR Gains 62.7% in the Past Year: Buy, Sell or Hold the Sto... | Positive | +0.34 | — |
+| 2026-03-10 | TIKR.com | USA Rare Earth Stock Rallies As Federal Investment Fuels 70%... | Positive | +0.53 | — |
+| 2026-03-10 | simplywall.st | Is USA Rare Earth (USAR) Pricing Reflect Long Term Cash Flow... | Neutral | +0.00 | — |
+| 2026-03-10 | GuruFocus | USA Rare Earth Inc (USAR) Stock Price Up 6.25% on Mar 10 - G... | Neutral | +0.00 | — |
+| 2026-03-10 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Stock Price Up 9.3% - Time to B... | Neutral | +0.00 | Earnings |
+| 2026-03-10 | Simply Wall St. | USA Rare Earth Round Top Deal Reshapes Valuation And Risk Re... | Positive | +0.53 | — |
+| 2026-03-09 | TheStreet | USAR stock swings after strategic Texas rare earth deal | Neutral | +0.00 | — |
+| 2026-03-09 | GlobeNewswire | USA Rare Earth Expands Leadership Team Following Landmark Ag... | Positive | +0.60 | — |
+| 2026-03-09 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Up 7.2% - Time to Buy? -... | Positive | +0.30 | Earnings |
+| 2026-03-09 | Stock Titan | USA Rare Earth brings in new leaders as it targets $3B rare ... | Neutral | +0.00 | — |
+| 2026-03-07 | The Motley Fool | Is USA Rare Earth Stock a Once-in-a-Decade Rare Earth Opport... | Negative | -0.44 | — |
 | 2026-03-07 | Trefis | USA Rare Earth (-8.6%): Senate Scrutiny of $1.6B Funding Dea... | Neutral | +0.00 | — |
-| 2026-03-07 | Motley Fool | Is USA Rare Earth Stock a Once-in-a-Decade Rare Earth Opport... | Positive | +0.42 | — |
 | 2026-03-06 | Investor's Busi | Rare Earth Stocks: REalloys Lights Up As Iran War Stokes Dem... | Negative | -0.66 | — |
 | 2026-03-06 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Down 8.6% - What's Next?... | Positive | +0.30 | Earnings |
-| 2026-03-06 | Simply Wall St. | USA Rare Earth Secures Round Top Ownership As Market Values ... | Positive | +0.36 | Regulatory |
-| 2026-03-05 | Benzinga | What's Going On USA Rare Earth Shares On Thursday? | Positive | +0.30 | — |
-| 2026-03-05 | GuruFocus.com | USA Rare Earth Moves to Consolidate Round Top | Positive | +0.20 | — |
-| 2026-03-05 | GlobeNewswire | USA Rare Earth to Acquire Texas Mineral Resources Corporatio... | Neutral | +0.00 | — |
-| 2026-03-05 | Bloomberg | USA Rare Earth Poised to Buy Rest of Stake in Round Top Depo... | Positive | +0.42 | — |
-| 2026-03-05 | Seeking Alpha | USA Rare Earth to buy Texas Mineral Resources in $73M all-st... | Neutral | +0.00 | — |
-| 2026-03-05 | TradingView | USA Rare Earth, Texas Mineral Resources Agree to Stock Merge... | Positive | +0.71 | Corporate |
-| 2026-03-05 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Trading 1% Higher - Still a Buy... | Neutral | +0.00 | Earnings |
-| 2026-03-05 | TradingView | Texas Mineral Resources to Merge With USA Rare Earth; Holder... | Positive | +0.30 | — |
-| 2026-03-05 | Benzinga | What's Going On USA Rare Earth Shares On Thursday? - Benzing... | Positive | +0.30 | — |
-| 2026-03-04 | Zacks | Can the Stillwater Facility Anchor USA Rare Earth's Growth T... | Positive | +0.38 | — |
-| 2026-03-04 | Yahoo Finance | Is USA Rare Earth Stock a Millionaire Maker? - Yahoo Finance | Neutral | +0.00 | — |
-| 2026-03-04 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Down 2.6% - Time to Sell... | Positive | +0.30 | Earnings |
-| 2026-03-04 | Trefis | USA Rare Earth (+10%): Bullish Sector Report Cites Shifting ... | Neutral | +0.00 | Regulatory |
-| 2026-03-04 | Motley Fool | Why USA Rare Earth Stock Plummeted 15.7% Last Month But Has ... | Neutral | +0.00 | — |
-| 2026-03-04 | Motley Fool | Is USA Rare Earth Stock a Millionaire Maker? | Neutral | +0.00 | — |
-| 2026-03-04 | Simply Wall St. | USA Rare Earth Buys LCM As Magnet Chain And Policy Support C... | Positive | +0.40 | — |
-| 2026-03-03 | Insider Monkey | Jim Cramer on USA Rare Earth: "This Is a Totally Speculative... | Positive | +0.18 | — |
-| 2026-03-03 | PR Newswire | China's Rare Earth Dominance and the Strategic Failure of th... | Negative | -0.36 | — |
-| 2026-03-03 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Shares Down 6.9% - Time to Sell... | Positive | +0.30 | Earnings |
-| 2026-03-02 | Investor's Busi | Rare Earth Stocks Flash Buy Signals As Missiles Fly | Neutral | +0.00 | Earnings |
-| 2026-03-02 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Stock Price Up 10.4% - Time to ... | Neutral | +0.00 | Earnings |
-| 2026-03-02 | MarketBeat | USA Rare Earth (NASDAQ:USAR) Trading 8.7% Higher - What's Ne... | Neutral | +0.00 | Earnings |
-| 2026-03-01 | Seeking Alpha | USA Rare Earth: $4.1B Bet On Breaking China's Grip - But Exe... | Neutral | +0.00 | — |
-| 2026-02-28 | simplywall.st | Is It Time To Revisit USA Rare Earth (USAR) After Its Recent... | Positive | +0.30 | — |
-| 2026-02-27 | Zacks | MP Materials vs. USA Rare Earth: Which Rare-Earth Stock has ... | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 15 (50%) |
-| Neutral | 13 (43%) |
-| Negative | 2 (7%) |
-| Average Score | +0.138 |
+| Positive | 12 (40%) |
+| Neutral | 14 (47%) |
+| Negative | 4 (13%) |
+| Average Score | +0.123 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 185 |
+| Total Unique Headlines | 188 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 7 | USA Rare Earth (NASDAQ:USAR) Shares Down..; USA Rare Earth (NASDAQ:USAR) Trading 1% .. |
-| Regulatory | 2 | USA Rare Earth Secures Round Top Ownersh..; USA Rare Earth (+10%): Bullish Sector Re.. |
-| Corporate | 1 | USA Rare Earth, Texas Mineral Resources .. |
+| Earnings | 6 | USA Rare Earth (NASDAQ:USAR) Stock Price..; USA Rare Earth (NASDAQ:USAR) Trading Dow.. |
+| Short | 1 | Reddit Loved USAR for a Week. Short Sell.. |
 
 ### Deep Dive Articles
 
-#### What's Going On USA Rare Earth Shares On Thursday?
-*Source: Benzinga | Date: 2026-03-05 | Sentiment: Positive (+0.97)*
+#### The State of America's Rare Earth Supply Chain in 2026 - OilPrice.com Market Commentary
+*Source: PR Newswire | Date: Today | Sentiment: Positive (+0.94)*
 
-> USA Rare Earth(NASDAQ:USAR) shares closed down on Wednesday,reflecting a broaderdownturn across the market, particularly within the Materials sector. As of Thursday, the shares are seesawing, but are still down.
+> NEW YORK,March 16, 2026/PRNewswire/ -- REalloys (ALOY) built something that barely exists anywhere in the Western world — a rare earth supply chain that doesn't touch China at any step. Japan figured out decades ago why that matters.  Companies mentioned in this release include:REalloys Inc. (ALOY),MP Materials Corp.(NYSE: MP),USA Rare Earth(NASDAQ: USAR),Amprius Technologies, Inc.(NYSE: AMPX),Critical Metals Corp.(NASDAQ: CRML),Nouveau Monde Graphite Inc.(NYSE: NMG).
 
-> The stock’s dip comes as the company announces a significant acquisition, which could reshape its strategic positioning.
+> Japan'sresponseto China's rare earth processing monopoly was decisive. The Japanese government built strategic stockpiles of processed rare earth materials. On top of that, individual Japanese companies quietly built their own reserves — covering years of supply each. Combined, that has given Japan one of the deepestrare earth buffersin the world.
 
-> In a major strategic move, USA Rare Earth has entered into a definitive agreement to acquire all outstanding shares ofTexas Mineral Resources Corp.(TMRC) for 3,823,328 shares of USA Rare Earth common stock.
+> The United States, on the other hand, has stockpiled nothing. Neither has Europe. Both have been running entirely on just-in-time supply from China — a country that issues rare earth export licenses on a monthly basis. For decades, China has crashed prices whenever Western investment in rare earth processing gained momentum. That's the gap REalloys moved to fill.
 
-> The deal, valued at approximately $73 million based on USA Rare Earth’s closing stock price, underscores the company’s ambition to lead a globally integrated mine-to-magnet platform.
+> REalloys is not a mining company waiting for permits and feasibility studies. It's built around the part of the supply chain where the West is most exposed: converting raw materials into the finished metals, alloys, and magnets that go into defense systems, advanced manufacturing, and the machines that run today's modern economy.
 
-> The deal is expected to close no later than the third calendar quarter of 2026, subject to customary closing conditions.
+> Thanks to their recent partnership with the Saskatchewan Research Council, the company holds an exclusive offtake covering 80% of production from the SRC's Rare Earth Processing Facility — North America'sonly operational, fully non-Chinese rare earth processing plant.
 
-**Catalysts:** Regulatory, Corporate
+**Catalysts:** None
 
-#### USA Rare Earth to Acquire Texas Mineral Resources Corporation
-*Source: GlobeNewswire | Date: 2026-03-05 | Sentiment: Positive (+0.99)*
+#### USA Rare Earth Appoints Dr. Thomas Caulfield to Board of Directors
+*Source: GlobeNewswire | Date: 2026-03-12 | Sentiment: Positive (+0.98)*
 
-> Transaction Establishes USAR as Exclusive Operator of the Round Top Heavy Rare Earth and Critical Minerals Project
+> STILLWATER, Okla., March  12, 2026(GLOBE NEWSWIRE)-- USA Rare Earth, Inc. (Nasdaq: USAR) (“USAR”) today announced the appointment of Dr. Thomas Caulfield to its Board of Directors, effective March 9, 2026.
 
-> Round Top is North America’s Richest Known Deposit of Heavy Rare Earths and Critical Minerals
+> Dr. Caulfield currently serves as Executive Chairman of GlobalFoundries (Nasdaq: GFS) and brings decades of experience spanning engineering, executive management, and global operations at leading technology companies. Most recently, from 2018-2025, he was President and Chief Executive Officer of GlobalFoundries, where he led the company from a startup through its successful IPO and current profitable growth in a rapidly evolving semiconductor industry and external environment. He has deep experience in operations, process development, and the expansion and ramp-up of semiconductor manufacturing production. Dr. Caulfield also serves as a board member at Sandisk Corp.
 
-> STILLWATER, Okla., March  05, 2026  (GLOBE NEWSWIRE) --  USA Rare Earth, Inc. (Nasdaq: USAR) (“USAR”) and Texas Mineral Resources Corp. (OTCQB: TMRC) (“TMRC”) today announced a definitive agreement for USAR to acquire all of the outstanding shares of TMRC for 3,823,328 shares of USAR common stock.
+> “Tom is a proven leader who understands how to scale complex, industrial platforms and deliver strategic capacity at the intersection of technology, manufacturing, and national priorities,” said Michael Blitzer, Chairman of USA Rare Earth’s Board. “I’m delighted he has joined USA Rare Earth’s Board of Directors and look forward to working with him as we continue to build a leading global rare earth value chain, from mine to magnet.”
 
-> The acquisition secures outstanding minority interests, establishing USAR as the sole operator and 100% economic beneficiary of the Round Top Project. This strategic transaction streamlines USAR’s operations as it builds a global champion in critical minerals and technology. USAR is developing the leading globally integrated mine to magnet platform, which is a U.S.-anchored, non-China value chain essential for the modern defense, robotics, energy, semiconductor and advanced manufacturing industries.
+> Dr. Caulfield added, “USA Rare Earth is building a strategic platform at a pivotal moment for U.S. industrial resilience. As a recent shareholder, I’m excited to join the company’s board and support its essential mission: to close the rare earth element and critical mineral supply gap for essential industries.”
 
-> The implied total deal value is approximately $73 million, based on the closing price of USAR’s common stock on March 4, 2026, and provides TMRC stockholders with the benefits of USAR’s enhanced capital markets presence, liquidity and balance sheet.
-
-**Catalysts:** Regulatory, Corporate
-
-#### Can the Stillwater Facility Anchor USA Rare Earth's Growth Trajectory?
-*Source: Zacks | Date: 2026-03-04 | Sentiment: Positive (+0.98)*
-
-> USA Rare Earth, Inc.USAR is progressing with development of its Stillwater magnet manufacturing facility in Oklahoma as it moves closer to commercial production. The site will manufacture Neodymium Iron Boron (NdFeB) magnets for defense, aerospace, automotive and other fast-growing end markets. Once operational, Stillwater is expected to rank among the first large-scale NdFeB magnet production facilities in the United States, reinforcing domestic rare earth supply-chain capabilities.Throughout 2025, USAR concentrated on equipment installation, assembly of Line 1a and preparations for commissioning in early 2026. The company also expanded its workforce, recruiting and training engineers and technicians to support operations, with the goal of achieving commercial-scale output and securing long-term customer contracts.To support its growth plans, USAR boosted its balance sheet through PIPE financing and warrant exercises, lifting its cash position to more than $400 million as of November 2025. The capital is being deployed toward plant enhancements, expanded magnet finishing capabilities and completion of Line 1b, which is expected to raise total NdFeB magnet production capacity to approximately 1,200 metric tons.In November 2025, the company further advanced its vertical integration strategy with the acquisition of Less Common Metals, gaining access to essential metals and alloys for the Stillwater facility. These initiatives position USAR to increase production and expand capacity in the quarters ahead.
-
-> Among its major peers,Trilogy Metals Inc.TMQ continues to make steady progress at the Ambler mining district. Although Trilogy is not yet in production, it is taking a step ahead with Ambler Metals LLC, which is a joint venture with South32 Limited. In July 2025, Trilogy began a multi-year core re-boxing program to protect drill core for long-term future use.USAR’s other peer,NioCorp Developments Ltd.NB, is working to move its Elk Creek Project in Nebraska closer to production. In August 2025, NioCorp completed its first drilling program at the Elk Creek Project on schedule and within budget. In February 2026, NioCorp started construction of the main underground access for its Elk Creek Critical Minerals Project in southeast Nebraska,
-
-> Shares of USAR have gained 75.1% in the past year compared with the industry’s growth of 63.2%.
-
-> From a valuation standpoint, USAR is trading at a forward price-to-earnings ratio of negative 63.44X against the industry’s average of 16.47X. USA Rare Earth carries a Value Score of F.
-
-> The Zacks Consensus Estimate for USAR’s 2026 earnings has increased over the past 60 days.
+> Dr. Caulfield succeeds Ms. Tready A. Smith, after her five years of distinguished service on the board. The company appreciates her many years of leadership, guidance, and strategic insight. Following this transition, the company’s board continues to have eight members.
 
 **Catalysts:** Earnings, Regulatory, Corporate
 
-#### Jim Cramer on USA Rare Earth: "This Is a Totally Speculative Situation"
-*Source: Insider Monkey | Date: 2026-03-03 | Sentiment: Positive (+0.88)*
+#### USA Rare Earth (USAR) Climbs 9.3% as 3 New Execs Join
+*Source: Insider Monkey | Date: 2026-03-10 | Sentiment: Positive (+0.84)*
 
-> USA Rare Earth, Inc. (NASDAQ:USAR) is one of thestocks on Jim Cramer’s radar. During the lightning round, a caller asked about the stock, and Cramer remarked:
+> USA Rare Earth Inc. (NASDAQ:USAR) is one of the10 Stocks Investors Are Watching.
 
-> Okay, so I’m going to tell you this is a totally speculative situation. Now, in How to Make Money in Any Market, I say you can buy one of these, okay? Let that be your one. Do not betray me and buy two of them. That’ll be too dangerous.
-
-> USA Rare Earth, Inc. (NASDAQ:USAR) supplies rare earth elements and other critical minerals, including neodymium, dysprosium, terbium, gallium, beryllium, and lithium. Cramer was asked about the stock during the January 6 episode, and he responded, “See, I think that’s one of those years of magical investing stocks, and that year ended. I can’t bless it. Losing too much money.”
-
-> We recently mentioned the stock while discussing noteworthy manufacturing stocks. You can read ithere.
-
-> While we acknowledge the potential of USAR as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you're looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
-
-**Catalysts:** Short
-
-#### China's Rare Earth Dominance and the Strategic Failure of the West
-*Source: PR Newswire | Date: 2026-03-03 | Sentiment: Positive (+0.71)*
-
-> NEW YORK,March 3, 2026/PRNewswire/ --REalloys (ALOY)and a small number of other North American companies are doing what the rest of the Western world failed to do for three decades: They are breaking China's "kill switch" on the U.S. defense supply chain. Companies mentioned in this release include:REalloys Inc. (ALOY),Vale S.A.(NYSE: VALE),Energy Fuels Inc.(NYSE American: UUUU),MP Materials Corp.(NYSE: MP),Critical Metals Corp.(NASDAQ: CRML),USA Rare Earth Inc.(NASDAQ: USAR)
-
-> While the U.S. defense sector has long been reliant on international processing for these materials, REalloys has established itself as the only North American facility currently producing the specialized alloys essential for high-performance magnets used in advanced defense systems.
-
-> China's dominance isn't in the dirt. It's in the downstream conversion. And as the U.S. government injects$8.5 billionto reclaim the supply chain, the industry has realized a cold truth: factories don't run on rocks, they run on metals.
-
-> "China didn't win this by mining. It won by building the entire system—separation, refining, metals, magnets—all connected," saysREalloys CEO Lipi Sternheim. "Our competitors, no matter how well-funded, are at least three years away from production. We are already here."
-
-> By the time rare earths became strategically visible, the infrastructure that determined who could actually build was already concentrated in one place. Then it was weaponized, with Beijing placing restrictions on rare earth exports in order to control which defense and advanced manufacturing programs received supply.
-
-**Catalysts:** Regulatory, Corporate
-
----
-
-### OUST
-
-#### Earnings
-*Generated: 2026-03-08 17:18*
-
-*Generated: 2026-03-08 17:18*
-
-## Earnings Analysis: Ouster, Inc. (OUST)
-
-### Next Earnings
-| Metric | Value |
-| :--- | :--- |
-| Earnings Date | 2026-05-07 |
-| Days Until | 60 |
-| EPS Estimate | $-0.12 |
-| Revenue Estimate | $46.3M |
-| Earnings Rule | Clear (>60d out) |
-
-### Earnings History
-| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.13 | $0.07 | 149.3% | +7.3% | +0.1% | Strong Bull |
-| Q4 2025 | $-0.45 | $-0.37 | 17.8% | -6.5% | -10.4% | Strong Bear |
-| Q3 2025 | $-0.20 | $-0.26 | -28.8% | +11.7% | +51.7% | Strong Bull |
-| Q2 2025 | $-0.25 | $-0.31 | -21.7% | +22.8% | +29.9% | Strong Bull |
-| Q1 2025 | $-0.26 | $-0.37 | -42.4% | +31.9% | +19.1% | Strong Bull |
-| Q4 2024 | $-0.26 | $-0.45 | -69.2% | +1.5% | +10.5% | Bullish |
-| Q3 2024 | $-0.31 | $-0.50 | -59.4% | -27.7% | -27.9% | Strong Bear |
-| Q2 2024 | $-0.52 | $-0.51 | 2.4% | +19.8% | +12.7% | Strong Bull |
-
-### Revenue Trend
-| Quarter | Revenue | QoQ Growth% | YoY Growth% |
-| :--- | :--- | :--- | :--- |
-| Q3 2025 | $39.5M | +12.8% | +40.8% |
-| Q2 2025 | $35.0M | +7.4% | N/A |
-| Q1 2025 | $32.6M | +8.4% | N/A |
-| Q4 2024 | $30.1M | +7.2% | N/A |
-| Q3 2024 | $28.1M | N/A | N/A |
-
-#### Technical Signals
-## Technical Scan: Ouster, Inc. (OUST)
-**Current Price: $20.27** | Date: 2026-03-06
-
-### Trend Indicators
-| Indicator | Value | Price Position | Signal |
-| :--- | :--- | :--- | :--- |
-| SMA 20 | $19.61 | Above | Bullish |
-| SMA 50 | $22.21 | Below | Bearish |
-| SMA 200 | $24.63 | Below | Bearish |
-| EMA 9 | $20.45 | Below | Bearish |
-| EMA 21 | $20.40 | Below | Bearish |
-
-### Momentum Indicators
-| Indicator | Value | Zone | Signal |
-| :--- | :--- | :--- | :--- |
-| RSI (14) | 48.4 | Bearish zone | Neutral-Bear |
-| MACD | -0.283 | Above signal | Bullish |
-| MACD Signal | -0.726 | Histogram: +0.443 | — |
-| Stochastic %K/%D | 43.3/59.9 | Neutral | Bearish |
-
-### Volatility
-| Indicator | Value | Position | Signal |
-| :--- | :--- | :--- | :--- |
-| Bollinger Upper | $22.04 | 64% of band | Neutral |
-| Bollinger Lower | $17.17 | Width: $4.87 | — |
-| ATR (14) | $1.66 (8.2%) | High volatility | — |
-
-### Key Support/Resistance Levels
-| Level | Price | Type | Touches | Last Tested |
-| :--- | :--- | :--- | :--- | :--- |
-| Support | $20.74 (+2.3%) | Support | 1 | 2025-12-17 |
-| Support | $21.31 (+5.1%) | Support | 1 | 2025-08-01 |
-| Support | $18.52 (-8.6%) | Support | 1 | 2025-11-21 |
-| Support | $17.28 (-14.8%) | Support | 1 | 2026-02-05 |
-| Resistance | $26.18 (+29.2%) | Resistance | 2 | 2025-09-30 |
-| Resistance | $26.56 (+31.0%) | Resistance | 2 | 2025-12-11 |
-| Resistance | $12.03 (-40.7%) | Resistance | 1 | 2025-03-24 |
-| Resistance | $11.76 (-42.0%) | Resistance | 1 | 2025-05-12 |
-
-### Signal Summary
-| Metric | Value |
-| :--- | :--- |
-| Overall Signal | **Neutral-Bearish** |
-| Score | -2 |
-| Bullish Factors | Above SMA 20, MACD bullish |
-| Bearish Factors | Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21 |
-
-#### Short Interest
-## Short Interest Analysis
-
-### Short Interest Summary
-| Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
-| :--- | :--- | :--- | :--- | :--- |
-| OUST | 5.70M | 3.09 | 9.85% | -6.3% (decreasing) |
-
-### Squeeze Risk Assessment
-| Ticker | Risk Rating | Score (/100) | Key Factors |
-| :--- | :--- | :--- | :--- |
-| OUST | MEDIUM | 25 | Low short% (9.9%); Moderate DTC (3.1) |
-
-### Context
-| Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
-| :--- | :--- | :--- | :--- | :--- |
-| OUST | 60.33M | 60.01M | 1.83M | 3.1 |
-
-#### News & Sentiment
-*Generated: 2026-03-08 17:18*
-
-## News & Sentiment: Ouster, Inc. (OUST)
-*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
-
-### Headlines (Top 30, Deduplicated)
-| Date | Source | Headline | Sentiment | Score | Catalysts |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-06 | Yahoo Finance S | Assessing Ouster (OUST) Valuation After Earnings Upswing And... | Neutral | +0.00 | Earnings, Corporate |
-| 2026-03-06 | National Today | Ouster's 'Buy' Rating Reiterated at Rosenblatt Securities - ... | Positive | +0.30 | Regulatory |
-| 2026-03-06 | Simply Wall St. | Ouster StereoLabs Deal Recasts Company As AI Sensing Growth ... | Positive | +0.38 | — |
-| 2026-03-05 | Business Wire | Ouster Accelerates Software Adoption in 2025 with Record Boo... | Neutral | +0.00 | — |
-| 2026-03-05 | simplywall.st | Why Ouster (OUST) Is Up 13.0% After Profitable Q4, Higher 20... | Positive | +0.44 | Earnings, Equity |
-| 2026-03-05 | Business Wire | Ouster Announces Upcoming Investor Events - Business Wire | Neutral | +0.00 | — |
-| 2026-03-05 | MarketBeat | Ouster (NYSE:OUST) Trading Down 9.5% - Should You Sell? - Ma... | Neutral | +0.00 | Earnings |
-| 2026-03-05 | National Today | Ouster Stock Drops 9.5% - Should Investors Sell? - National ... | Neutral | +0.00 | — |
-| 2026-03-05 | National Today | Ouster Shares Surge on Positive Market Outlook - National To... | Positive | +0.70 | — |
-| 2026-03-04 | Business Wire | Ouster Announces Upcoming Investor Events | Neutral | +0.00 | — |
-| 2026-03-04 | Seeking Alpha | Ouster: Great Tech, Stock Fairly Priced (Downgrade) (NASDAQ:... | Positive | +0.62 | Analyst |
-| 2026-03-03 | Barrons.com | Ouster Stock Soars. Surprise Payments Helped. | Positive | +0.27 | — |
-| 2026-03-03 | Investor's Busi | Ouster, The 'Eyes' Of Physical AI, Delivers Q4 Earnings Surp... | Positive | +0.27 | Earnings |
-| 2026-03-03 | Benzinga | Ouster Climbs Following Fourth-Quarter Results | Neutral | +0.00 | — |
-| 2026-03-03 | Moby | Ouster, Inc. Q4 2025 Earnings Call Summary | Neutral | +0.00 | Earnings |
-| 2026-03-03 | GuruFocus.com | Ouster Inc (OUST) Q4 2025 Earnings Call Highlights: Record S... | Positive | +0.51 | Earnings |
-| 2026-03-03 | GuruFocus | Ouster (OUST) Maintains 'Buy' Rating by Rosenblatt - OUST St... | Neutral | +0.00 | — |
-| 2026-03-03 | simplywall.st | Assessing Ouster (OUST) Valuation After Strong Revenue Growt... | Positive | +0.79 | Earnings |
-| 2026-03-03 | MarketBeat | Ouster (NYSE:OUST) Shares Gap Up - What's Next? - MarketBeat | Positive | +0.30 | Earnings |
-| 2026-03-03 | MarketBeat | Rosenblatt Securities Reaffirms Buy Rating for Ouster (NYSE:... | Positive | +0.30 | Earnings, Regulatory |
-| 2026-03-03 | The Globe and M | Ouster (OUST) Q4 2025 Earnings Call Transcript - The Globe a... | Neutral | +0.00 | Earnings |
-| 2026-03-03 | Simply Wall St. | Ouster (OUST) Is Up 12.1% After Record Q4 Profit And StereoL... | Positive | +0.44 | Earnings |
-| 2026-03-02 | MarketBeat | Ouster Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
-| 2026-03-02 | Business Wire | Ouster Announces Results for Fourth Quarter and Full Year 20... | Neutral | +0.00 | — |
-| 2026-03-02 | Benzinga | Archer, Riot, Rigetti and More Stocks With Earnings This Wee... | Negative | -0.56 | Earnings |
-| 2026-03-02 | ChartMill | Ouster Inc (NASDAQ:OUST) Soars on Massive Q4 Earnings Beat a... | Positive | +0.27 | Earnings |
-| 2026-03-02 | MarketBeat | Handelsbanken Fonder AB Increases Stock Position in Ouster, ... | Neutral | +0.00 | Earnings |
-| 2026-03-02 | Benzinga | Ouster Q4 Earnings Summary & Key Takeaways - Benzinga | Neutral | +0.00 | Earnings |
-| 2026-03-02 | Motley Fool | Ouster (OUST) Q4 2025 Earnings Call Transcript | Neutral | +0.00 | Earnings |
-| 2026-03-01 | Simply Wall St. | Ouster StereoLabs Deal Builds Physical AI Platform And Growt... | Positive | +0.38 | — |
+> USA Rare Earth rallied for a second day on Tuesday, jumping 9.30 percent to finish at $20.45 apiece, as investors welcomed the appointment of three new key executives, including a new chief global policy officer (CGPO) to support the company’s government relations.
 
-### Sentiment Summary
-| Metric | Value |
-| :--- | :--- |
-| Articles Analyzed | 30 |
-| Positive | 14 (47%) |
-| Neutral | 15 (50%) |
-| Negative | 1 (3%) |
-| Average Score | +0.181 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 160 |
+> In an updated report, USA Rare Earth Inc. (NASDAQ:USAR) appointed Gregory Bowman as new CGPO and head of external relations, and he will be tasked to lead public policy, corporate affairs, government relations, and strategic communications.
 
-### Detected Catalysts
-| Category | Count | Headlines |
-| :--- | :--- | :--- |
-| Earnings | 17 | Assessing Ouster (OUST) Valuation After ..; Why Ouster (OUST) Is Up 13.0% After Prof.. |
-| Regulatory | 2 | Ouster's 'Buy' Rating Reiterated at Rose..; Rosenblatt Securities Reaffirms Buy Rati.. |
-| Corporate | 1 | Assessing Ouster (OUST) Valuation After .. |
-| Equity | 1 | Why Ouster (OUST) Is Up 13.0% After Prof.. |
-| Analyst | 1 | Ouster: Great Tech, Stock Fairly Priced .. |
+> Bowman brings decades of experience across national security policy, legislation, global strategy, and complex infrastructure programs, having served as chief corporate strategy officer at Siemens Government Technologies, and 25 years in senior leadership and legal roles in the US Army.
 
-### Deep Dive Articles
+> Meanwhile, USA Rare Earth Inc. (NASDAQ:USAR) also appointed Valerie Ford Jacob as its new chief legal officer, and will be tasked to oversee all legal, regulatory, compliance, and corporate policy matters.
 
-#### Ouster Climbs Following Fourth-Quarter Results
-*Source: Benzinga | Date: 2026-03-03 | Sentiment: Negative (-0.62)*
+**Catalysts:** Regulatory
 
-> Ouster, Inc.(NASDAQ:OUST) are trading higher Tuesday after the company reported fourth-quarter financial-results on Monday afterthe market closed.
+#### USAR Gains 62.7% in the Past Year: Buy, Sell or Hold the Stock?
+*Source: Zacks | Date: 2026-03-10 | Sentiment: Positive (+1.00)*
 
-> Ouster reported an adjusted loss of 24 cents per share, beating the consensus estimate of a 35 cent-loss. Meanwhile, the company reported adjusted revenue of $40.971 million, missing the consensus estimate of $41.100 million.
+> USA Rare Earth, Inc.USAR shares have surged 62.7% in the past year, outperforming both the industry and the S&P 500, which have returned 48.7% and 25.2%, respectively. In comparison, the company’s peers likeNioCorp Developments Ltd.NB andMP MaterialsMP have gained 166.9% and 151.1%, respectively, over the same time frame.
 
-> The company said fourth-quarter revenue included approximately $21 million in primarily one-time royalties related to long-term IP license contracts. Product revenue came in at $41 million, up 36% year over year and 4% sequentially. Ouster shipped more than 8,100 lidar sensors in the quarter, a new record.
+> Closing at $18.71 in the last trading session, the stock is trading below its 52-week high of $43.98 but higher than its 52-week low of $5.56. The stock is trading above its 200-day moving average but below the 50-day moving average, indicating a strong long-term trend despite some near-term softness.
 
-> The company ended the quarter with $211 million in cash, cash equivalents, restricted cash and short-term investments.
+> Let’s take a look at USAR’s fundamentals to better analyze how to play the stock.
 
-> "2025 was a year of exceptional execution for Ouster. Our strong revenue growth and gross margin performance are a testament to our disciplined focus as we pioneer the technologies driving the secular shift towards Physical AI, delivering record results," saidAngus Pacala, CEO of Ouster.
+> USA Rare Earth is advancing its Stillwater magnet manufacturing facility in Oklahoma closer to commercial production. The plant is designed to produce Neodymium Iron Boron (NdFeB) magnets, which are essential for defense, aviation, automotive and other high-growth applications. The Stillwater facility is anticipated to become one of the first large-scale magnet plants in the United States, supporting the country’s efforts to build a domestic rare earth supply chain.USA Rare Earth is installing key equipment, assembling Line 1a and completing final preparations at the Stillwater facility for commissioning in early 2026. It is worth noting that the company started hiring and training engineers and technicians to operate the facility. These efforts are expected to improve USAR’s ability to reach commercial-scale production and help it secure long-term customer contracts.USA Rare Earth also bolstered its balance sheet through PIPE financing and warrant exercises. It is worth noting that the company completed the $1.5 billion PIPE financing in January 2026. This funding is being used to make upgrades at the Stillwater plant, expand magnet finishing capabilities and complete Line 1b to increase total NdFeB magnet-producing capacity to roughly 1,200 metric tons.In March 2026, USA Rare Earth inked a deal to acquire Texas Mineral Resources Corp. in an all-stock deal worth about $73 million. This will give the company full ownership and operational control of the Round Top Project. USAR expects commercial production at Round Top to begin in 2028, with a target to process around 40,000 metric tons of rare earth and critical mineral feedstock per day by 2030.USAR completed the acquisition of Less Common Metals in November 2025, which will supply critical metal and alloy feedstock for the Stillwater plant. In December 2025, LCM partnered with Solvay and Arnold Magnetic Technologies Corp. (Arnold) to provide a stable and premium-quality source of rare-earth materials. With this addition and continued progress across its development initiatives, the company is well-positioned to expand capacity and scale production in the quarters ahead.Also, in January 2026, USA Rare Earth entered into a non-binding Letter of Intent (the LOI) with the U.S. Department of Commerce and announced collaboration with the U.S. Department of Energy (DOE). The Department of Commerce’s CHIPS Program has provided an LOI entailing $277 million in proposed federal funding and a $1.3 billion senior secured loan under the CHIPS Act, a total of $1.6 billion.However, since its inception, USA Rare Earth has remained in the exploration and research stages, incurring losses while yet to generate any revenues. Amid its project development phase, the company has been grappling with rising operational expenses, adversely impacting its margins and profitability. In third-quarter 2025, USAR’s selling, general and administrative expenses increased to $11.4 million from $0.8 million in the year-ago quarter due to a rise in legal & consulting costs, higher headcount & recruiting fees, and other costs.Research and development expenses rose to $4.45 million compared with $1.16 million reported in the year-ago quarter due to an increase in employee-related expenses. The lack of revenues and elevated expenses, partially offset by higher interest and dividend income from increased money market fund balances, resulted in a loss of 25 cents per share in the third quarter.USAR operates in the mineral exploration and mining markets, which include major industry players like NioCorp and MP Materials.
 
-**Catalysts:** Earnings, Regulatory, Corporate, Short
+> The Zacks Consensus Estimate for USAR’s bottom line for 2026 has increased in the past 60 days.
 
-#### Archer, Riot, Rigetti and More Stocks With Earnings This Week
-*Source: Benzinga | Date: 2026-03-02 | Sentiment: Positive (+0.30)*
+**Catalysts:** Earnings, Regulatory, Corporate, Shareholder, Analyst
 
-> The fourth-quarter earnings season continues this week with reports from several major retailers, tech firmsand software giants.
+#### USA Rare Earth Expands Leadership Team Following Landmark Agreement with U.S. Government
+*Source: GlobeNewswire | Date: 2026-03-09 | Sentiment: Positive (+0.98)*
 
-> Here's a look at the earnings schedule for the week ahead:
+> STILLWATER, Okla., March  09, 2026  (GLOBE NEWSWIRE) --  USA Rare Earth, Inc. (Nasdaq: USAR) (“USAR” or the “Company”) today announced the appointment of three senior executives:Valerie Ford Jacobas Chief Legal Officer,Gregory Bowmanas Chief Global Policy Officer and Head of External Relations, andJ.B. Loweas Vice President, Head of Investor Relations. Together, the executives will deepen engagement with policymakers, investors, and other stakeholders and support the Company’s efforts as it builds a global champion in critical minerals and technology.
 
-> Retail investors will be watchingAST SpaceMobile, Inc.(NASDAQ:ASTS) when it reports Q4 results after Monday's closing bell.
+> USA Rare Earth’s recent Letter of Intent with the U.S. government and associated $1.5 billion PIPE transaction are expected to accelerate the Company’s strategy by enabling access to more than $3 billion in public and private capital. This funding will support USAR as it develops the leading global, non-China rare earth value chain, from mine to magnet and beyond.
 
-> Wall Street isanticipating quarterly lossesof 16 cents per share on revenue of $41.11 million, according to estimates fromBenzinga Pro.
+> Under the Company’s proposed collaboration with the U.S. government, the Department of Commerce’s CHIPS Program would provide up to $1.6 billion in long-term, milestone-based funding to support expansion of USAR’s mine-to-magnet platform. In parallel, the U.S. Department of Energy’s National Energy Technology Laboratory has signed a Letter of Intent to work with USAR on advancing heavy rare earth separation technologies. These government collaborations are structured to align capital deployment with the phased addition of domestic production capacity.
 
-> The following companies are also set to report on Monday afternoon:
+> Valerie Ford Jacob – Chief Legal OfficerJacob will oversee all legal, regulatory, compliance, and corporate policy matters. She joins the Company from Freshfields US LLP, where she served as partner and co-head of both the Financial Institutions Group and Global Capital Markets over a period of 10 years. Previously, she was Chairperson and Senior Partner at Fried, Frank, Harris, Shriver & Jacobson LLP. Jacob holds a B.S. from Boston University and a J.D. from Cornell Law School. She is also a member of The Committee of 200 (C200), an invitation-only organization of leading women executives. She has been consistently recognized as a leading lawyer by numerous independent organizations.
 
-**Catalysts:** Earnings
+> Gregory Bowman – Chief Global Policy Officer & Head of External RelationsBowman will lead public policy, corporate affairs, government relations, and strategic communications. He brings decades of experience across national security policy, legislation, global strategy, and complex infrastructure programs. Most recently, he served in senior leadership roles at Siemens Government Technologies, including Chief Corporate Strategy Officer and Senior Vice President, National Security Solutions. Before Siemens, Bowman spent more than 25 years in senior leadership and legal roles in the U.S. Army. He holds a J.D. from the University of Virginia School of Law, a master’s degree from the U.S. Army Command and General Staff College, and an LL.M. from the Judge Advocate General’s Legal Center and School. He previously served on the U.S. Army Science Board and the U.S. Department of Defense Business Board, and currently serves on the Founding Council of PRISM, the Strategic Council of the Silverado Policy Accelerator, and the Board of Directors of Hope for the Warriors.
 
-#### Ouster (OUST) Establishes Physical AI Platform Through Strategic StereoLabs Acquisition
-*Source: Insider Monkey | Date: 2026-02-27 | Sentiment: Positive (+0.98)*
-
-> Ouster Inc. (NASDAQ:OUST) is one of thebest small cap tech stocks with high upside potential. On February 9, Ouster officially closed the acquisition of StereoLabs SAS to establish a unified sensing and perception platform for Physical AI. By integrating StereoLabs’ AI vision and 3D camera technology with Ouster’s high-performance digital lidar, the company now offers an end-to-end solution including AI compute, sensor fusion, and perception software.
-
-> This combination is designed to meet the growing industrial demand for synchronized lidar and vision data, simplifying development for customers in the robotics, industrial automation, and smart infrastructure sectors. The acquisition brings significant market reach and technical expertise to Ouster, adding StereoLabs’ base of over 10,000 customers and a developer community that has utilized more than 90,000 ZED cameras.
-
-> This merger targets emerging high-growth use cases, such as humanoid robotics and visual inspection, by providing machines with the tools to better sense and navigate the physical world. The transaction was completed earlier on February 4, for a mix of ~$35 million in cash and 1.8 million shares. Ouster Inc. (NASDAQ:OUST) will begin consolidating StereoLabs’ financial results starting in Q1 2026.
-
-> Ouster Inc. (NASDAQ:OUST) provides lidar sensors for the automotive, industrial, robotics, and smart infrastructure industries in the Americas, the Asia-Pacific, Europe, the Middle East, and Africa.
-
-> While we acknowledge the potential of OUST as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
-
-**Catalysts:** Regulatory, Corporate, Short
-
-#### Ouster, Inc. (OUST) Gains As Market Dips: What You Should Know
-*Source: Zacks | Date: 2026-02-19 | Sentiment: Positive (+0.74)*
-
-> Ouster, Inc. (OUST) closed at $19.08 in the latest trading session, marking a +2.64% move from the prior day. This change outpaced the S&P 500's 0.28% loss on the day. Elsewhere, the Dow lost 0.54%, while the tech-heavy Nasdaq lost 0.31%.
-
-> Prior to today's trading, shares of the company had lost 26.49% lagged the Computer and Technology sector's loss of 3.36% and the S&P 500's loss of 0.76%.
-
-> The upcoming earnings release of Ouster, Inc. will be of great interest to investors. The company's earnings report is expected on March 2, 2026. The company is expected to report EPS of -$0.39, up 18.75% from the prior-year quarter. Our most recent consensus estimate is calling for quarterly revenue of $40.85 million, up 35.76% from the year-ago period.
-
-> Looking at the full year, the Zacks Consensus Estimates suggest analysts are expecting earnings of -$1.53 per share and revenue of $148 million. These totals would mark changes of +26.44% and +33.21%, respectively, from last year.
-
-> Investors might also notice recent changes to analyst estimates for Ouster, Inc.  These latest adjustments often mirror the shifting dynamics of short-term business patterns.  As a result, upbeat changes in estimates indicate analysts' favorable outlook on the business health and profitability.
-
-**Catalysts:** Earnings, Regulatory, Short
-
-#### Why Ouster, Inc. (OUST) Dipped More Than Broader Market Today
-*Source: Zacks | Date: 2026-02-10 | Sentiment: Positive (+0.89)*
-
-> In the latest trading session, Ouster, Inc. (OUST) closed at $20.06, marking a -4.75% move from the previous day. This change lagged the S&P 500's 0.33% loss on the day. On the other hand, the Dow registered a gain of 0.1%, and the technology-centric Nasdaq decreased by 0.59%.
-
-> The company's stock has dropped by 22.91% in the past month, falling short of the Computer and Technology sector's loss of 1.09% and the S&P 500's loss of 0%.
-
-> Investors will be eagerly watching for the performance of Ouster, Inc. in its upcoming earnings disclosure. The company's earnings report is set to be unveiled on March 2, 2026. The company is expected to report EPS of -$0.39, up 18.75% from the prior-year quarter. Meanwhile, the Zacks Consensus Estimate for revenue is projecting net sales of $40.85 million, up 35.76% from the year-ago period.
-
-> Looking at the full year, the Zacks Consensus Estimates suggest analysts are expecting earnings of -$1.53 per share and revenue of $148 million. These totals would mark changes of +26.44% and +33.21%, respectively, from last year.
-
-> Investors should also note any recent changes to analyst estimates for Ouster, Inc.  Recent revisions tend to reflect the latest near-term business trends.  As a result, we can interpret positive estimate revisions as a good sign for the business outlook.
-
-**Catalysts:** Earnings, Regulatory, Short
+**Catalysts:** Regulatory
 
 ---
 
 ### APLD
 
 #### Earnings
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## Earnings Analysis: Applied Digital Corporation (APLD)
 
@@ -1444,15 +1750,15 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-04-09 |
-| Days Until | 32 |
+| Days Until | 24 |
 | EPS Estimate | $-0.21 |
 | Revenue Estimate | $78.5M |
-| Earnings Rule | Clear (>32d out) |
+| Earnings Rule | Clear (>24d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.12 | $-0.07 | 43.2% | +8.1% | +22.1% | Strong Bull |
+| Q1 2026 | $-0.21 | N/A | 100.0% | +8.1% | +22.1% | Strong Bull |
 | Q4 2025 | $-0.15 | $-0.03 | 80.7% | +16.0% | +25.1% | Strong Bull |
 | Q3 2025 | $-0.21 | $-0.03 | 85.9% | +31.0% | +47.5% | Strong Bull |
 | Q2 2025 | $-0.10 | $-0.08 | 21.9% | -35.9% | -25.0% | Strong Bear |
@@ -1472,51 +1778,51 @@
 
 #### Technical Signals
 ## Technical Scan: Applied Digital Corporation (APLD)
-**Current Price: $25.14** | Date: 2026-03-06
+**Current Price: $27.61** | Date: 2026-03-16
 
 ### Trend Indicators
 | Indicator | Value | Price Position | Signal |
 | :--- | :--- | :--- | :--- |
-| SMA 20 | $31.32 | Below | Bearish |
-| SMA 50 | $32.21 | Below | Bearish |
-| SMA 200 | $22.68 | Above | Bullish |
-| EMA 9 | $28.04 | Below | Bearish |
-| EMA 21 | $30.17 | Below | Bearish |
+| SMA 20 | $28.64 | Below | Bearish |
+| SMA 50 | $32.53 | Below | Bearish |
+| SMA 200 | $23.29 | Above | Bullish |
+| EMA 9 | $27.65 | Below | Bearish |
+| EMA 21 | $29.01 | Below | Bearish |
 
 ### Momentum Indicators
 | Indicator | Value | Zone | Signal |
 | :--- | :--- | :--- | :--- |
-| RSI (14) | 37.5 | Bearish zone | Neutral-Bear |
-| MACD | -1.914 | Below signal | Bearish |
-| MACD Signal | -1.346 | Histogram: -0.567 | — |
-| Stochastic %K/%D | 0.7/17.1 | Oversold | Bearish |
+| RSI (14) | 44.7 | Bearish zone | Neutral-Bear |
+| MACD | -1.519 | Above signal | Bullish |
+| MACD Signal | -1.573 | Histogram: +0.054 | — |
+| Stochastic %K/%D | 44.0/40.9 | Neutral | Bullish |
 
 ### Volatility
 | Indicator | Value | Position | Signal |
 | :--- | :--- | :--- | :--- |
-| Bollinger Upper | $39.29 | 11% of band | Neutral |
-| Bollinger Lower | $23.35 | Width: $15.94 | — |
-| ATR (14) | $2.47 (9.8%) | High volatility | — |
+| Bollinger Upper | $32.73 | 37% of band | Neutral |
+| Bollinger Lower | $24.54 | Width: $8.19 | — |
+| ATR (14) | $2.31 (8.4%) | High volatility | — |
 
 ### Key Support/Resistance Levels
 | Level | Price | Type | Touches | Last Tested |
 | :--- | :--- | :--- | :--- | :--- |
-| Support | $27.62 (+9.9%) | Support | 1 | 2026-02-05 |
-| Support | $21.93 (-12.8%) | Support | 1 | 2025-12-17 |
-| Support | $19.00 (-24.4%) | Support | 1 | 2025-11-21 |
-| Resistance | $15.42 (-38.7%) | Resistance | 1 | 2025-06-06 |
-| Resistance | $34.86 (+38.7%) | Resistance | 1 | 2025-12-09 |
-| Support | $13.16 (-47.7%) | Support | 1 | 2025-09-08 |
-| Resistance | $40.20 (+59.9%) | Resistance | 1 | 2025-10-16 |
-| Support | $9.02 (-64.1%) | Support | 1 | 2025-07-11 |
+| Support | $27.62 (+0.0%) | Support | 1 | 2026-02-05 |
+| Support | $21.93 (-20.6%) | Support | 1 | 2025-12-17 |
+| Resistance | $34.86 (+26.3%) | Resistance | 1 | 2025-12-09 |
+| Support | $19.00 (-31.2%) | Support | 1 | 2025-11-21 |
+| Resistance | $15.42 (-44.2%) | Resistance | 1 | 2025-06-06 |
+| Resistance | $40.20 (+45.6%) | Resistance | 1 | 2025-10-16 |
+| Support | $13.16 (-52.3%) | Support | 1 | 2025-09-08 |
+| Resistance | $42.27 (+53.1%) | Resistance | 1 | 2026-01-28 |
 
 ### Signal Summary
 | Metric | Value |
 | :--- | :--- |
-| Overall Signal | **Bearish** |
-| Score | -4 |
-| Bullish Factors | Above SMA 200 |
-| Bearish Factors | Below SMA 20, Below SMA 50, Below EMA 9, Below EMA 21, MACD bearish |
+| Overall Signal | **Neutral-Bearish** |
+| Score | -2 |
+| Bullish Factors | Above SMA 200, MACD bullish |
+| Bearish Factors | Below SMA 20, Below SMA 50, Below EMA 9, Below EMA 21 |
 
 #### Short Interest
 ## Short Interest Analysis
@@ -1524,20 +1830,20 @@
 ### Short Interest Summary
 | Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
 | :--- | :--- | :--- | :--- | :--- |
-| APLD | 80.34M | 2.46 | 31.25% | -6.9% (decreasing) |
+| APLD | 79.02M | 3.04 | 30.74% | -8.7% (decreasing) |
 
 ### Squeeze Risk Assessment
 | Ticker | Risk Rating | Score (/100) | Key Factors |
 | :--- | :--- | :--- | :--- |
-| APLD | HIGH | 60 | Very high short% (31.2%); Low DTC (2.5) |
+| APLD | HIGH | 70 | Very high short% (30.7%); Moderate DTC (3.0) |
 
 ### Context
 | Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
 | :--- | :--- | :--- | :--- | :--- |
-| APLD | 236.11M | 279.59M | 29.77M | 2.5 |
+| APLD | 236.11M | 279.59M | 28.77M | 3.0 |
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## News & Sentiment: Applied Digital Corporation (APLD)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -1545,140 +1851,141 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-08 | The Motley Fool | Why Applied Digital Stock Fell 19% Last Month - The Motley F... | Negative | -0.44 | — |
-| 2026-03-08 | The Motley Fool | Where Will Applied Digital Be in 5 Years - The Motley Fool | Negative | -0.44 | — |
-| 2026-03-08 | Motley Fool | Why Applied Digital Stock Fell 19% Last Month | Neutral | +0.00 | — |
-| 2026-03-07 | MarketBeat | 43,342 Shares in Applied Digital Corporation $APLD Bought by... | Positive | +0.30 | Earnings |
-| 2026-03-07 | Simply Wall St. | Applied Digital Ties AI Growth To Oracle Lease And Power Dea... | Positive | +0.38 | — |
-| 2026-03-06 | Insider Monkey | Applied Digital (APLD) Prices $2.15B Private Offering for No... | Neutral | +0.00 | Equity |
-| 2026-03-06 | Quiver Quantita | Applied Digital falls 10.5% as investors digest fresh mega-d... | Positive | +0.32 | — |
-| 2026-03-06 | simplywall.st | Applied Digital Raises US$2.15b For AI Campus And Power Expa... | Neutral | +0.00 | — |
-| 2026-03-06 | Motley Fool | This Small-Cap Manager Just Sold Its Entire $110 Million Sta... | Positive | +0.34 | Regulatory |
-| 2026-03-05 | TipRanks | Crypto Currents: Bitcoin tops $71,000 as ETF inflows return | Positive | +0.51 | — |
-| 2026-03-05 | Zacks | Can IREN's GPU Expansion Drive $3.7B AI Cloud ARR by 2026? | Neutral | +0.00 | — |
-| 2026-03-05 | Trefis | Applied Digital (+9.6%): Prices $2.15B Notes to Fund AI Data... | Neutral | +0.00 | — |
-| 2026-03-05 | Bitget | Applied Digital Stock Price Guide: APLD Trading & Investment... | Neutral | +0.00 | — |
-| 2026-03-05 | Simply Wall St. | A Look At Applied Digital (APLD) Valuation After Its $2.15b ... | Neutral | +0.00 | — |
-| 2026-03-05 | Motley Fool | Why Babcock & Wilcox Enterprises Stock Rocketed Nearly 46% H... | Neutral | +0.00 | — |
-| 2026-03-04 | Insider Monkey | Roth Capital and Citizens Stay Bullish on Applied Digital Co... | Neutral | +0.00 | — |
-| 2026-03-04 | Benzinga | Applied Digital Prices $2.15 Billion Debt Deal To Build Mass... | Negative | -0.36 | — |
-| 2026-03-04 | Benzinga | Babcock & Wilcox Rockets On $2.4 Billion AI Data Center Proj... | Neutral | +0.00 | — |
-| 2026-03-04 | GlobeNewswire | Applied Digital Announces Pricing of $2.15 Billion of Senior... | Positive | +0.40 | Regulatory |
-| 2026-03-04 | Business Wire | Babcock & Wilcox Reports Fourth Quarter and Full Year 2025 R... | Neutral | +0.00 | — |
-| 2026-03-04 | Business Wire | Babcock & Wilcox Receives Full Notice to Proceed on $2.4 Bil... | Neutral | +0.00 | — |
-| 2026-03-04 | Insider Monkey | Applied Digital Corporation (APLD) Expands HPC and AI Infras... | Positive | +0.10 | — |
-| 2026-03-04 | ChartMill | APLD Stock Price, Quote & Chart - APPLIED DIGITAL CORP (NASD... | Neutral | +0.00 | — |
-| 2026-03-04 | MarketBeat | Applied Digital (NASDAQ:APLD) Shares Up 9.6% - Should You Bu... | Positive | +0.30 | Earnings |
-| 2026-03-04 | MarketBeat | Applied Digital (OTCMKTS:APLD) Trading 9.2% Higher - Still a... | Neutral | +0.00 | Earnings |
-| 2026-03-04 | TipRanks | Applied Digital Guarantees Major Power Project for AI Growth... | Positive | +0.38 | — |
-| 2026-03-04 | TipRanks | Applied Digital Raises $2.15B to Expand AI Campus - TipRanks | Positive | +0.32 | — |
-| 2026-03-04 | Intellectia AI | Applied Digital's Subsidiary Prices $2.15B Senior Secured No... | Positive | +0.40 | Regulatory, Equity |
-| 2026-03-04 | MT Newswires | Exchange-Traded Funds, Equity Futures Higher Pre-Bell Wednes... | Neutral | +0.00 | — |
-| 2026-03-03 | GuruFocus.com | Applied Digital Seeks $2.15 Billion Junk Bond for Oracle Dat... | Neutral | +0.00 | — |
+| 2026-03-16 | MarketBeat | Applied Digital (NASDAQ:APLD) Shares Gap Up - Should You Buy... | Positive | +0.30 | Earnings |
+| 2026-03-16 | The Motley Fool | 1 Incredible AI Stock that Wall Street Thinks Can Soar 59% O... | Negative | -0.44 | — |
+| 2026-03-16 | StockStory | 3 Cash-Burning Stocks We Find Risky - StockStory | Negative | -0.20 | — |
+| 2026-03-16 | TipRanks | Why Applied Digital Stock Is Suddenly Taking Off - TipRanks | Neutral | +0.00 | — |
+| 2026-03-16 | StockStory | 3 Cash-Burning Stocks We Find Risky | Negative | -0.20 | — |
+| 2026-03-15 | The Globe and M | Prediction: Applied Digital Stock Could Surge if This Happen... | Neutral | +0.00 | — |
+| 2026-03-15 | Insider Monkey | 5 AI Stocks That Are Quietly Making Investors Rich - Insider... | Positive | +0.56 | — |
+| 2026-03-13 | Stock Traders D | (APLD) as a Liquidity Pulse for Institutional Tactics - Stoc... | Neutral | +0.00 | — |
+| 2026-03-13 | Motley Fool | Nvidia Just Dumped This AI Stock, but Here's Why That Might ... | Positive | +0.43 | — |
+| 2026-03-13 | Simply Wall St. | Applied Digital’s US$16b AI Leases Raise Questions On Execut... | Neutral | +0.00 | Equity |
+| 2026-03-12 | Schaeffer's Res | 15 Stocks With the Most Short Squeeze Potential | Neutral | +0.00 | Short |
+| 2026-03-12 | Blockspace | Bitcoin holds $70,000 floor with strong ETF inflows as bitco... | Positive | +0.51 | — |
+| 2026-03-12 | MarketBeat | Applied Digital (NASDAQ:APLD) Trading Down 3.6% - Time to Se... | Neutral | +0.00 | Earnings |
+| 2026-03-12 | The Globe and M | Could Applied Digital Stock Help You Retire a Millionaire? -... | Positive | +0.40 | — |
+| 2026-03-12 | Finviz | 15 Stocks With the Most Short Squeeze Potential - Finviz | Neutral | +0.00 | Short |
+| 2026-03-12 | MT Newswires | Babcock & Wilcox Shares Fall After Short Seller Questions $2... | Positive | +0.30 | Short |
+| 2026-03-11 | Yahoo Finance | 3 Reasons to Avoid APLD and 1 Stock to Buy Instead - Yahoo F... | Negative | -0.30 | — |
+| 2026-03-11 | simplywall.st | A Look At Applied Digital (APLD) Valuation After Its US$2.15... | Negative | -0.34 | — |
+| 2026-03-11 | The Motley Fool | Better AI Infrastructure Stock: IREN vs. Applied Digital - T... | Neutral | +0.00 | — |
+| 2026-03-11 | MarketBeat | Applied Digital (OTCMKTS:APLD) Trading 6% Higher - Here's Wh... | Neutral | +0.00 | Earnings |
+| 2026-03-10 | Zacks | APLD Rises 58% in 6 Months: Three Key Reasons to Hold the St... | Neutral | +0.00 | — |
+| 2026-03-10 | Yahoo Finance | How Investors Are Reacting To Applied Digital (APLD) Massive... | Negative | -0.56 | — |
+| 2026-03-10 | Seeking Alpha | Applied Digital: Gigawatt Ambitions Clouded By Related-Party... | Negative | -0.05 | — |
+| 2026-03-10 | Seeking Alpha | Applied Digital: The Bull Case Requires Near Perfection (Rat... | Positive | +0.57 | Analyst |
+| 2026-03-10 | Bitget | Applied Digital (APLD) Stock: AI Growth, Price, and UK Inves... | Positive | +0.38 | — |
+| 2026-03-10 | simplywall.st | Did Applied Digital’s US$2.15 Billion Polaris Forge 2 Debt F... | Negative | -0.36 | — |
+| 2026-03-10 | The Motley Fool | Why Micron Technology Stock Is Rising Today - The Motley Foo... | Negative | -0.44 | — |
+| 2026-03-10 | Motley Fool | Why Micron Technology Stock Is Rising Today | Neutral | +0.00 | — |
+| 2026-03-09 | POWER Magazine | Babcock & Wilcox Will Deliver 1.2 GW of Gas-Fired Capacity f... | Neutral | +0.00 | — |
+| 2026-03-09 | Blockspace | Bitcoin mining stocks open with mixed results as bitcoin rem... | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 11 (37%) |
-| Neutral | 16 (53%) |
-| Negative | 3 (10%) |
-| Average Score | +0.084 |
+| Positive | 8 (27%) |
+| Neutral | 13 (43%) |
+| Negative | 9 (30%) |
+| Average Score | +0.018 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 185 |
+| Total Unique Headlines | 189 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 3 | 43,342 Shares in Applied Digital Corpora..; Applied Digital (NASDAQ:APLD) Shares Up .. |
-| Regulatory | 3 | This Small-Cap Manager Just Sold Its Ent..; Applied Digital Announces Pricing of $2... |
-| Equity | 2 | Applied Digital (APLD) Prices $2.15B Pri..; Applied Digital's Subsidiary Prices $2.1.. |
+| Earnings | 3 | Applied Digital (NASDAQ:APLD) Shares Gap..; Applied Digital (NASDAQ:APLD) Trading Do.. |
+| Short | 3 | 15 Stocks With the Most Short Squeeze Po..; 15 Stocks With the Most Short Squeeze Po.. |
+| Equity | 1 | Applied Digital’s US$16b AI Leases Raise.. |
+| Analyst | 1 | Applied Digital: The Bull Case Requires .. |
 
 ### Deep Dive Articles
 
-#### Applied Digital (APLD) Prices $2.15B Private Offering for North Dakota AI Factory
-*Source: Insider Monkey | Date: 2026-03-06 | Sentiment: Positive (+0.96)*
+#### 15 Stocks With the Most Short Squeeze Potential
+*Source: Schaeffer's Research | Date: 2026-03-12 | Sentiment: Positive (+0.45)*
 
-> Applied Digital Corporation (NASDAQ:APLD) is one of thestocks that should double in 3 years. On March 4, Applied Digital Corporation announced that its subsidiary, APLD ComputeCo 2 LLC, priced a $2.15 billion private offering of 6.750% senior secured notes due 2031. These notes are being issued at a price of 98% and are intended for sale to qualified institutional buyers and non-US persons. The transaction is expected to close on or around March 10, contingent upon standard market and closing conditions.
+> The last thing investors are thinking about right now -- as Wall Street wrestles with surging oil prices -- is a short squeeze. But maybe that's what contrarians should be doing now, monitoring stocks to buy the dip on that could send bearish bettors packing.
 
-> The company intends to use the net proceeds from this offering to finance the development and construction of 200 megawatts of critical IT load at its Polaris Forge 2 AI Factory campus located in Harwood, North Dakota. Additionally, the funds will be used to satisfy project account requirements, including a Debt Service Reserve Account, and to cover related transaction fees and expenses. Applied Digital Corporation (NASDAQ:APLD) will also provide customary completion guarantees to ensure the project is finished on schedule.
+> This screen finds stocks where the shorts might be at a big loss and therefore likely to begin covering. Obviously, there are quite a few assumptions so these would be very rough estimates.
 
-> The notes will be fully and unconditionally guaranteed by several of APLD ComputeCo 2’s existing and future subsidiaries. These obligations are backed by first-priority liens on all assets of the issuer and its guarantors, as well as the equity interests held by the direct parent company, APLD FAR Holdings LLC. As these securities have not been registered under the Securities Act, they are subject to specific offering restrictions and may not be sold in the US without registration or an applicable exemption.
+> To estimate the return for the shorts, Rocky went back over the past year of short interest reports to find when the shorts were added. Then he used the average price over the prior two weeks and estimated the shorts were added at that average price. Below are stocks where significant shorts have been added and they could be at a big loss.
 
-> Applied Digital Corporation (NASDAQ:APLD) designs, develops, and operates digital infrastructure solutions for HPC and AI industries in North America. It operates through the Data Center Hosting Business and the HPC Hosting Business.
+> Bear in mind, this data is from the most recent reporting period (3/1).
 
-> While we acknowledge the potential of APLD as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+> Highlights on the list includecryptocurrency infrastructure stockApplied Digital (APLD),satellite stockAST SpaceMobile (ASTS), petroleum refinerPBF Energy (PBF).
 
-**Catalysts:** Regulatory, Equity, Short
+**Catalysts:** Regulatory, Short
 
-#### Can IREN's GPU Expansion Drive $3.7B AI Cloud ARR by 2026?
-*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+0.98)*
+#### APLD Rises 58% in 6 Months: Three Key Reasons to Hold the Stock Now
+*Source: Zacks | Date: 2026-03-10 | Sentiment: Positive (+1.00)*
 
-> IREN LimitedIREN recently announced plans to expand the capacity of its AI cloud infrastructure, where the company has agreed to purchase more than 50,000 NVIDIA B300 graphics processing units (GPUs). After this purchase, the company’s total GPU fleet is expected to reach 150,000 GPUs. IREN expects this capacity to support more than $3.7 billion in AI cloud annualized run-rate revenues (ARR) by the end of fiscal 2026.
+> Applied DigitalAPLD designs, builds and operates high-performance data centers for AI, cloud and blockchain workloads. The company has increasingly positioned itself as a hyperscale AI infrastructure provider, anchoring its growth strategy around long-term lease agreements with investment-grade tenants.Shares of APLD have appreciated 58% over the past six months, significantly outpacing the Zacks Finance Miscellaneous Services industry's decline of 29.7% and the broader Finance sector's drop of 1.6%. The stock has also outperformed key peers during the same period, withEquinixEQIX shares advancing 18.4% whileRiot PlatformsRIOT shares declining 6.2%. The outperformance is driven by APLD’s expanding hyperscaler partnerships, including its large-scale AI infrastructure deployments forCoreWeaveCRWV, along with the successful energization of its first 100-megawatt facility.
 
-> The additional GPUs will be deployed in phases during the second half of fiscal 2026. They will be installed in IREN’s existing air-cooled data centers in Mackenzie, British Columbia and Childress, Texas. Since these facilities already have power and infrastructure in place, IREN can add GPUs without building new data centers. In the second quarter of fiscal 2026, IREN reported around $2.3 billion of ARR under contract, which includes its large AI cloud agreement with Microsoft and about $0.4-$0.5 billion of ARR from the Prince George site. This shows that the company already has a strong base to start from.
+> APLD’s existing AI infrastructure is beginning to translate into revenue growth. The company has energized the first 100-megawatt building at its Polaris Forge 1 campus, marking the start of lease revenues tied to its long-term agreement with CoreWeave. This milestone represents the first phase of a larger 400-megawatt AI factory deployment for CoreWeave, positioning APLD to generate increasing lease revenues as additional buildings at the campus become operational. As capacity tied to CoreWeave ramps over the next several years, the project is expected to provide growing recurring revenue visibility for APLD’s infrastructure platform.Beyond Polaris Forge 1, APLD continues to expand its AI infrastructure footprint through Polaris Forge 2 and additional development opportunities. The company signed an approximately 15-year lease with a U.S.-based investment-grade hyperscaler for 200 megawatts of AI and high-performance computing capacity at Polaris Forge 2, with phased delivery beginning in 2026. Combined with the continued buildout supporting CoreWeave at Polaris Forge 1, these projects significantly expand APLD’s contracted pipeline. The company is in advanced discussions with a third investment-grade hyperscaler across three additional sites representing 900 megawatts of potential capacity. Each of APLD's campuses carries expansion potential of up to 2 gigawatts, and the company has outlined a credible path toward 5 gigawatts of total capacity by the early 2030s.The Zacks Consensus Estimate for APLD’s fiscal 2026 revenues is pegged at $340.24 million, up 57.88% year over year. The consensus mark for fiscal 2026 loss is pegged at 26 cents per share, improving by 10 cents over the past 30 days and reflecting an improvement from the loss of 80 cents reported a year ago.
 
-> IREN has also raised significant capital to support expansion of its AI cloud capacity. Over the past eight months, IREN raised about $9.3 billion through customer prepayments, convertible notes, GPU leasing and GPU financing. IREN has secured $3.6 billion in GPU financing from Goldman Sachs and JPMorgan during the second quarter and plans to raise around $3.5 billion in additional capital spending for the new GPU orders in the second half of 2026 to fund its AI cloud infrastructure expansion.
+> Applied Digital Corporation price-consensus-chart - Applied Digital Corporation Quote
 
-> Overall, the above-mentioned factors should support the company's plans to reach the $3.7 billion AI Cloud ARR target by the end of fiscal 2026. The Zacks Consensus Estimate for IREN's fiscal 2026 revenues is pegged at $984.53 billion, suggesting a year-over-year increase of 93.3%. The Zacks Consensus Estimate for IREN's fiscal 2027 revenues is pegged at $2.70 billion, indicating a year-over-year increase of 173.9%.
+> Energy availability and cost efficiency are the defining constraints in large-scale AI infrastructure development, and APLD has structured its strategy around both. The company's focus on North Dakota is deliberate, offering abundant low-cost power, a naturally cool climate and a supportive regulatory environment that together deliver attractive unit economics for hyperscalers committing to 15-year lease agreements. These structural advantages provide APLD with a cost-of-operations edge that competitors in higher-cost or more congested power markets are unlikely to replicate quickly.APLD is reinforcing its energy ecosystem through partnerships and investments that extend its first-mover advantage. Working with Babcock and Wilcox Enterprises to deploy modular power generation, APLD can bring new capacity online 3-4 years ahead of conventional procurement timelines, a critical edge as power delivery constraints slow expansion for most operators. APLD's investment in Corintis, a developer of advanced direct-to-chip liquid cooling technology, further positions the company to meet the rising energy and compute demands of next-generation AI workloads ahead of peers.
 
-> IREN faces intense competition fromApplied DigitalAPLD andTeraWulfWULF in the AI infrastructure space.
+> APLD shares are overvalued as suggested by the Value Score of F. The stock is trading at a forward price-to-sales (P/S) multiple of 15.74x, substantially above the sector average of 8.94x and the industry average of 2.68x. APLD shares are trading at a premium compared to peers Equinix and Riot Platforms. Equinix and Riot Platforms shares are trading at forward P/S multiples of 9x and 8.69x, respectively.
 
-**Catalysts:** Earnings, Regulatory
+**Catalysts:** Earnings, Regulatory, Equity, Analyst
 
-#### Roth Capital and Citizens Stay Bullish on Applied Digital Corporation (APLD)
-*Source: Insider Monkey | Date: 2026-03-04 | Sentiment: Positive (+0.94)*
+#### Can APLD's Multi-Gigawatt Pipeline Drive Further Upside for the Stock?
+*Source: Zacks | Date: 2026-03-09 | Sentiment: Positive (+0.99)*
 
-> Applied Digital Corporation (NASDAQ:APLD)is one of the15 AI Stocks With Explosive Growth Potential.
+> Applied DigitalCorporationAPLD is rapidly scaling its position in AI-focused infrastructure, and the company’s expanding multi-gigawatt data center pipeline could be a key driver of long-term growth. As hyperscalers race to secure large-scale compute capacity, APLD is advancing multiple high-performance computing campuses designed to support AI and cloud workloads.That buildout is translating into financial momentum. The first building at Polaris Forge 1 is operational at 100 megawatts, marking the initial phase of a broader 400-megawatt AI factory development. The ramp-up of this facility helped drive fiscal second-quarter 2026 revenues to $126.6 million, representing a 250% year-over-year increase.Beyond the initial deployment, the company’s contracted capacity base continues to expand. Applied Digital has secured hyperscale agreements totaling 600 megawatts across its Polaris Forge campuses, representing approximately $16 billion in prospective revenues over their 15-year contract terms. With additional buildings expected to come online through 2026 and 2027, recurring lease cash flows could scale meaningfully from current levels. Each campus carries the potential to scale to at least 2 gigawatts individually, with the company outlining a credible path toward 5 gigawatts of total capacity across five campuses. Advanced discussions across three additional sites representing 900 megawatts could accelerate that trajectory meaningfully.Supporting this expansion is a capital structure designed to fund large-scale infrastructure development. Institutional partnerships, including a $5 billion preferred equity facility with Macquarie Asset Management, provide funding flexibility while allowing the company to retain majority ownership of its campuses and reduce reliance on public capital markets.However, execution remains the central variable. Delivering projects on schedule while securing additional hyperscale tenants will likely determine how quickly the company can convert its development pipeline into revenue-generating assets.  The Zacks Consensus Estimate for APLD's fiscal 2026 revenues is pegged at $75.06 million, up 41.83% year over year. Continued progress in scaling its AI infrastructure platform could play a central role in determining whether Applied Digital’s multi-gigawatt pipeline translates into further upside for the stock.
 
-> Applied Digital Corporation (NASDAQ:APLD) is one of the best AI stocks with explosive growth potential. On February 18, Roth Capital reiterated its Buy rating on Applied Digital Corporation (NASDAQ:APLD) with a price target of $58. The research firm said it is “buying shares” after the stock fell in after-hours trading following news that NVIDIA Corporation (NASDAQ:NVDA) is selling its stake in Applied Digital Corporation (NASDAQ:APLD).
+> APLD's multi-gigawatt pipeline ambitions place it in direct competition withRiot PlatformsRIOT andEquinixEQIX for hyperscaler commitments. Redirecting its energy-intensive operational expertise toward high-density AI compute, Riot Platforms is emerging as a credible rival where power access and construction execution carry significant weight. Equinix approaches the opportunity from an entirely different angle, deploying its global colocation footprint and longstanding hyperscaler ties to accelerate AI-ready capacity. That combination of scale and relationships makes Equinix a formidable presence. Against both Riot Platforms and Equinix, APLD's cost-advantaged Dakota locations and deeply contracted pipeline remain its most distinctive competitive strengths.
 
-> Roth Capital’s analyst said many things have changed since the earlier NVIDIA-led financing. The company has signed 2 colocation leases, one with CoreWeave, Inc. (NASDAQ:CRWV) and another with a hyperscaler, with a third lease expected to come soon. According to Roth Capital, the recent stock drop is driven more by “headline risk than any fundamental change” in the company’s investment story.
+> Applied Digital shares have surged 48% in the past six months, outperforming the broader Zacks Finance sector and the Zacks Financial-Miscellaneous Services industry’s decline of 0.3% and 28%, respectively.
 
-> Earlier, on February 12, Citizens also reiterated its Market Outperform rating on Applied Digital Corporation (NASDAQ:APLD) with a $40 price target. The research firm pointed to its 400 megawatts (MW) of purpose-built capacity at its Polaris Forge 1 Campus, which is fully leased to CoreWeave, Inc. (NASDAQ:CRWV). The first 100MW became ready for service in November 2025. Another 150MW is scheduled to be ready by mid-2026, and the remaining 150MW is expected to come online in 2027.
+> Applied Digital stock is overvalued, with a forward 12-month price/sales of 14.65X compared with the broader sector’s 9.26X. APLD has a Value Score of F.
 
-> Citizens also pointed out that Applied Digital Corporation (NASDAQ:APLD) has signed a 200MW lease with an investment-grade hyperscaler. This agreement includes an option for an additional 800MW, which could allow the company to reach a total deployment of 1 gigawatt (GW).
+> The Zacks Consensus Estimate for fiscal 2026 loss is pegged at 26 cents per share, down by 10 cents over the past 30 days. Applied Digital reported a loss of 80 cents per share in the previous year.
 
-**Catalysts:** Analyst
+**Catalysts:** Earnings, Regulatory, Corporate, Analyst
 
-#### Applied Digital Prices $2.15 Billion Debt Deal To Build Massive AI Campus
-*Source: Benzinga | Date: 2026-03-04 | Sentiment: Positive (+0.90)*
+#### IREN Limited Rises 22% in 6 Months: Buy, Sell or Hold the Stock?
+*Source: Zacks | Date: 2026-03-09 | Sentiment: Positive (+0.97)*
 
-> Applied Digital Corp.(NASDAQ:APLD)shares rose on Wednesday after the company announced thepricing of a $2.15 billionsenior secured notes offering to fund its Polaris Forge 2 project.
+> IREN LimitedIREN shares have surged 21.6% over the past six months, outperforming the broader Zacks Finance sector and the Financial - Miscellaneous Services industry’s decline of 0.1% and 28%, respectively.
 
-> APLD ComputeCo 2 LLC, a subsidiary, priced 6.750% senior secured notes due 2031 at 98% of face value.
+> IREN’s focus on no longer being a pure-play crypto-mining company while evolving into an AI Cloud Service Provider seems to bode well for the company’s prospects. Currently, IREN has an opportunity to capitalize on the emerging AI space as the need for AI compute infrastructure, which is witnessing a CAGR of 23.8%, per a report by MarketsAndMarkets, is growing much faster than the crypto mining market.
 
-> Proceeds will support the development and construction of 200 megawatts of critical IT capacity at the Polaris Forge 2 campus in Harwood, North Dakota.
+> IREN is witnessing strong momentum in its artificial intelligence (AI) Cloud Business, which increased 136.9% on a sequential basis to $17.3 million in the second quarter of fiscal 2026, up from the prior quarter’s $7.3 million. Buoyed by this momentum, IREN is aiming to reach $3.7 billion in annualized run-rate revenues (ARR) by the end of 2026, mainly from its AI cloud business.
 
-> The company expects to close the offering by March 10, 2026, subject to customary conditions. The notes are secured by first-priority liens on most assets of APLD Compute 2 and its subsidiaries.
+> IREN has been riding on strong enterprise demand for its AI Cloud Business. But with the stock outperforming the industry and sector, the question arises: Does it still have room to run, or is it time for investors to consider taking profits? Let’s find out.
 
-> In aseparate announcement,Babcock & Wilcox Enterprises Inc.(NYSE:BW) said it has received full notice to proceed on a $2.4 billion power generation project for Base Electron, an independent power producer backed by Applied Digital. The project will deliver 1.2 gigawatts of new generation capacity intended to supply electricity to Applied Digital's AI Factory campuses.
+> IREN recently announced plans to expand the capacity of its AI cloud infrastructure, where the company has agreed to purchase more than 50,000 NVIDIA B300 graphics processing units (GPUs). After this purchase, the company’s total GPU fleet is expected to reach 150,000 GPUs. IREN expects this capacity to support more than $3.7 billion in AI cloud ARR by the end of fiscal 2026.
 
-**Catalysts:** Regulatory, Equity
+**Catalysts:** Earnings, Regulatory, Analyst
 
-#### Babcock & Wilcox Rockets On $2.4 Billion AI Data Center Project, Reports Q4 Results
-*Source: Benzinga | Date: 2026-03-04 | Sentiment: Positive (+0.92)*
+#### Oracle Leads Data Center Stocks as Applied Digital and CoreWeave Sink
+*Source: 24/7 Wall St. | Date: 2026-03-09 | Sentiment: Positive (+0.97)*
 
-> Babcock & Wilcox Enterprises Inc.(NYSE:BW) shares skyrocketed on Wednesday after the company said it received fullnotice to proceed on a $2.4 billiondesign-build agreement with Base Electron to deliver 1.2 gigawatts of new power generation capacity.
+> Last week saw Oracle (ORCL) shares gain while rival neoclouds CoreWeave (CRWV) and Applied Digital (APLD) lost ground. Expect shares to be under pressure on Monday, as the broader market looks poised for a major sell-off amidst surging oil prices. Oracle shares fell off at the end of Friday amidst Bloomberg reports teh company wouldn’t finish final stages of its Stargate Abilene project with OpenAI.
 
-> The generation will supportApplied Digital Corp’s(NASDAQ:APLD) AI Factory campuses under separate power supply agreements.
+> Last week offered a clear split in the data center and AI infrastructure trade.Oracleheld its ground and then some, rising on AI cloud momentum and an analyst upgrade. Meanwhile,CoreWeaveandApplied Digitalgot hit hard, dragged down by post-earnings fallout, legal overhang, and growing questions about the AI buildout.
 
-> The project includes four 300-megawatt natural gas-fired boilers and steam turbine generator systems designed to supply power to high-density AI data centers.
+> Let’s look at what happened in the neocloud space last week. Another sell-off might be coming tomorrow as oil is up 30% overnight and Dow and Nasdaq futures are off more than 2%. If that sell-off comes, it’s likely neocloud stocks will face another strong test at market open on Monday.
 
-> Base Electron, an independent power producer backed by Applied Digital, is developing generation assets that provide new dispatchable capacity to the grid and contracted customers.
+> Oracle gained 5.20% last week, climbing from $145.40 to $152.96 as investors warmed up to its AI infrastructure narrative ahead of a key earnings print.
 
-> Under the agreement, Babcock & Wilcox will handle engineering, procurement, and construction of the facility, with engineering and manufacturing already underway.
+> Oppenheimer upgraded the stock to Outperform with a $185 price target, citing “favorable risk/reward and immunity from AI disruption.” The company also picked up an enterprise software win, with Thermo Fisher adopting Oracle Cloud EPM for enterprise-wide planning, adding to a string of cloud customer announcements that have helped rebuild confidence after Oracle’s rough December earnings.
 
-**Catalysts:** None
+**Catalysts:** Earnings, Shareholder, Analyst
 
 ---
 
 ### TMC
 
 #### Earnings
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## Earnings Analysis: TMC the metals company Inc. (TMC)
 
@@ -1686,10 +1993,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-03-26 |
-| Days Until | 18 |
+| Days Until | 10 |
 | EPS Estimate | $-0.055 |
 | Revenue Estimate | $0 |
-| Earnings Rule | Clear (>18d out) |
+| **Earnings Rule** | **WARNING: <14 days — avoid new entries** |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
@@ -1714,50 +2021,51 @@
 
 #### Technical Signals
 ## Technical Scan: TMC the metals company Inc. (TMC)
-**Current Price: $5.73** | Date: 2026-03-06
+**Current Price: $5.97** | Date: 2026-03-16
 
 ### Trend Indicators
 | Indicator | Value | Price Position | Signal |
 | :--- | :--- | :--- | :--- |
-| SMA 20 | $6.19 | Below | Bearish |
-| SMA 50 | $6.84 | Below | Bearish |
-| SMA 200 | $6.40 | Below | Bearish |
-| EMA 9 | $6.09 | Below | Bearish |
-| EMA 21 | $6.30 | Below | Bearish |
+| SMA 20 | $6.14 | Below | Bearish |
+| SMA 50 | $6.77 | Below | Bearish |
+| SMA 200 | $6.45 | Below | Bearish |
+| EMA 9 | $6.13 | Below | Bearish |
+| EMA 21 | $6.25 | Below | Bearish |
 
 ### Momentum Indicators
 | Indicator | Value | Zone | Signal |
 | :--- | :--- | :--- | :--- |
-| RSI (14) | 40.4 | Bearish zone | Neutral-Bear |
-| MACD | -0.240 | Below signal | Bearish |
-| MACD Signal | -0.238 | Histogram: -0.002 | — |
-| Stochastic %K/%D | 16.8/31.9 | Oversold | Bearish |
+| RSI (14) | 44.3 | Bearish zone | Neutral-Bear |
+| MACD | -0.153 | Above signal | Bullish |
+| MACD Signal | -0.177 | Histogram: +0.025 | — |
+| Stochastic %K/%D | 38.1/46.0 | Neutral | Bearish |
 
 ### Volatility
 | Indicator | Value | Position | Signal |
 | :--- | :--- | :--- | :--- |
-| Bollinger Upper | $6.72 | 6% of band | Neutral |
-| Bollinger Lower | $5.66 | Width: $1.05 | — |
-| ATR (14) | $0.40 (6.9%) | High volatility | — |
+| Bollinger Upper | $6.62 | 32% of band | Neutral |
+| Bollinger Lower | $5.67 | Width: $0.95 | — |
+| ATR (14) | $0.39 (6.5%) | High volatility | — |
 
 ### Key Support/Resistance Levels
 | Level | Price | Type | Touches | Last Tested |
 | :--- | :--- | :--- | :--- | :--- |
-| Support | $5.58 (-2.6%) | Support | 1 | 2026-02-17 |
-| Support | $6.10 (+6.5%) | Support | 1 | 2025-12-31 |
-| Resistance | $5.16 (-9.9%) | Resistance | 1 | 2025-05-27 |
-| Support | $4.75 (-17.1%) | Support | 1 | 2025-11-17 |
-| Support | $4.37 (-23.7%) | Support | 1 | 2025-08-20 |
-| Resistance | $3.80 (-33.7%) | Resistance | 1 | 2025-04-24 |
-| Resistance | $8.13 (+41.9%) | Resistance | 3 | 2025-12-22 |
-| Resistance | $8.63 (+50.6%) | Resistance | 1 | 2025-07-24 |
+| Support | $6.10 (+2.2%) | Support | 1 | 2025-12-31 |
+| Support | $5.58 (-6.5%) | Support | 1 | 2026-02-17 |
+| Resistance | $6.67 (+11.7%) | Resistance | 1 | 2026-02-26 |
+| Resistance | $5.16 (-13.6%) | Resistance | 1 | 2025-05-27 |
+| Support | $4.75 (-20.4%) | Support | 1 | 2025-11-17 |
+| Support | $4.37 (-26.8%) | Support | 1 | 2025-08-20 |
+| Resistance | $8.13 (+36.2%) | Resistance | 3 | 2025-12-22 |
+| Resistance | $3.80 (-36.3%) | Resistance | 1 | 2025-04-24 |
 
 ### Signal Summary
 | Metric | Value |
 | :--- | :--- |
-| Overall Signal | **Strong Bearish** |
-| Score | -6 |
-| Bearish Factors | Below SMA 20, Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21, MACD bearish |
+| Overall Signal | **Bearish** |
+| Score | -4 |
+| Bullish Factors | MACD bullish |
+| Bearish Factors | Below SMA 20, Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21 |
 
 #### Short Interest
 ## Short Interest Analysis
@@ -1765,20 +2073,20 @@
 ### Short Interest Summary
 | Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
 | :--- | :--- | :--- | :--- | :--- |
-| TMC | 28.27M | 2.42 | 11.11% | +3.6% (increasing) |
+| TMC | 28.11M | 4.09 | 11.05% | +5.1% (increasing) |
 
 ### Squeeze Risk Assessment
 | Ticker | Risk Rating | Score (/100) | Key Factors |
 | :--- | :--- | :--- | :--- |
-| TMC | MEDIUM | 35 | Moderate short% (11.1%); Low DTC (2.4); Shorts slowly increasing |
+| TMC | MEDIUM | 45 | Moderate short% (11.1%); Moderate DTC (4.1); Shorts slowly increasing |
 
 ### Context
 | Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
 | :--- | :--- | :--- | :--- | :--- |
-| TMC | 220.62M | 413.49M | 8.36M | 2.4 |
+| TMC | 220.62M | 413.49M | 8.11M | 4.1 |
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## News & Sentiment: TMC the metals company Inc. (TMC)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -1786,36 +2094,36 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-16 | Stock Titan | Inside the smart-trailer tools Wabash is demoing at TMC 2026... | Neutral | +0.00 | — |
+| 2026-03-15 | Quiver Quantita | TMC the metals company Stock (TMC) Opinions on ISA Permittin... | Neutral | +0.00 | — |
+| 2026-03-14 | The Globe and M | Prediction: The Metals Company Stock Is a Buy Before March 2... | Neutral | +0.00 | — |
+| 2026-03-14 | Intellectia AI | TMC's Novel Deep-Sea Mining Opportunity - Intellectia AI | Positive | +0.62 | — |
+| 2026-03-13 | Yahoo Finance | Better Mining Stock: The Metals Company (TMC) vs. SSR Mining... | Positive | +0.44 | — |
+| 2026-03-13 | Intellectia AI | TMC Should I Buy - Intellectia AI | Neutral | +0.00 | — |
+| 2026-03-13 | 24/7 Wall St. | AMD vs. TSMC: Which Chip Stock Actually Delivers the Smarter... | Positive | +0.46 | — |
+| 2026-03-12 | ChartMill | TMC Stock Price, Quote & Chart - TMC THE METALS CO INC (NASD... | Neutral | +0.00 | — |
+| 2026-03-12 | Stocktwits | TMC Stock Pares Rally Premarket After US Ocean Agency Backs ... | Negative | -0.05 | — |
+| 2026-03-12 | Simply Wall St. | Why TMC the metals (TMC) Is Up 5.9% After NOAA Backs Deep-Se... | Negative | -0.05 | — |
+| 2026-03-11 | simplywall.st | NOAA Finding TMC’s Deep-Sea Mining Application Compliant Mig... | Neutral | +0.00 | — |
+| 2026-03-11 | The Motley Fool | TMC Is About to Dive Into Deep-Seabed Mining. Is the Stock a... | Negative | -0.44 | — |
+| 2026-03-10 | ACCESSWIRE | The Metals Royalty Company to Host Corporate Webinar on Marc... | Neutral | +0.00 | — |
+| 2026-03-10 | Trefis | TMC The Metals (+9.4%): Nickel Prices Surge on Supply Concer... | Neutral | +0.00 | — |
+| 2026-03-10 | Seeking Alpha | The Metals Company: Larger Applied-For Territory Warrants Re... | Neutral | +0.00 | — |
+| 2026-03-10 | Stock Titan | Metals Royalty outlines U.S. mineral strategy in pre-Nasdaq ... | Neutral | +0.00 | — |
+| 2026-03-10 | The Globe and M | TMC Secures Key NOAA Milestone for Deep-Sea Mining - The Glo... | Positive | +0.32 | Regulatory |
+| 2026-03-10 | MT Newswires | TMC to See Faster Production Path After NOAA Decision, Wedbu... | Neutral | +0.00 | — |
+| 2026-03-09 | Benzinga | The Metals Company Shares Rise After NOAA Finds Mining Appli... | Positive | +0.46 | Regulatory |
+| 2026-03-09 | GlobeNewswire | NOAA Determines TMC USA's Consolidated Deep-Seabed Mining Ap... | Positive | +0.20 | Regulatory |
+| 2026-03-09 | Stock Titan | Inside NOAA’s first 65,000 km² deep-sea nodule mining bid - ... | Neutral | +0.00 | — |
+| 2026-03-09 | Stocktwits | What’s Sending TMC Shares Higher Today? - Stocktwits | Positive | +0.30 | — |
+| 2026-03-09 | Seeking Alpha | TMC jumps as NOAA says deep-sea mining application in substa... | Positive | +0.20 | Regulatory |
 | 2026-03-08 | simplywall.st | TMC Consolidated U.S. Deep Sea Mining Bid Concentrates Regul... | Negative | -0.27 | Earnings |
 | 2026-03-08 | Simply Wall St. | Assessing TMC The Metals (TMC) Valuation After Strong 1-Year... | Positive | +0.40 | — |
 | 2026-03-08 | Simply Wall St. | TMC Files First Consolidated Deep Sea Mining Permits With Hi... | Neutral | +0.00 | — |
 | 2026-03-07 | MSN | TMC (TMC) Soars 28.8% as Key Investor Places $85-Million Bet... | Neutral | +0.00 | — |
 | 2026-03-06 | PR Newswire | U.S. Defense Manufacturers Face A Rare Earth Supply Squeeze ... | Positive | +0.13 | — |
-| 2026-03-06 | Nasdaq | The Metals Company (TMC) Could Set You Up for Life (Or Go to... | Neutral | +0.00 | — |
-| 2026-03-04 | simplywall.st | Will First U.S. Deep‑Seabed Mining Approval Reshape TMC’s (T... | Positive | +0.48 | Regulatory |
-| 2026-03-02 | 24/7 Wall St. | This Small-Cap Gem Could Be Your Ticket To Millionaire Statu... | Neutral | +0.00 | — |
-| 2026-03-02 | ACCESSWIRE | The Metals Royalty Company Inc. Announces Public Filing of R... | Positive | +0.30 | — |
-| 2026-03-01 | Motley Fool | Is TMC The Metals Company a Buy, Sell, or Hold in 2026? | Neutral | +0.00 | — |
-| 2026-02-27 | simplywall.st | Assessing The Metals Company (TMC) Valuation As Regulatory S... | Positive | +0.38 | — |
-| 2026-02-26 | Oilprice.com | Trumps Secret Weapon in the Rare Earth War | Negative | -0.73 | Regulatory |
-| 2026-02-25 | Yahoo Finance | TMC the metals (TMC) Is Up 8.3% After Fresh Government Backi... | Positive | +0.32 | — |
-| 2026-02-23 | Motley Fool | If You'd Invested $1,000 in The Metals Company 3 Years Ago, ... | Neutral | +0.00 | — |
-| 2026-02-18 | Yahoo Finance | 3 Things Every TMC The Metals Company Investor Needs to Know... | Neutral | +0.00 | — |
-| 2026-02-18 | Stocktwits | US Is Reportedly Weighing Critical Minerals Price Floor – MP... | Positive | +0.27 | — |
-| 2026-02-17 | 24/7 Wall St. | Grade My Speculative Portfolio: My 3 Top Picks  What Do You ... | Positive | +0.30 | — |
-| 2026-02-17 | Insider Monkey | Analyst Boosts TMC Target to $12.25, Cites First-Mover Advan... | Positive | +0.51 | — |
-| 2026-02-17 | Quiver Quantita | $TMC stock is down 4% today. Here's what we see in our data.... | Neutral | +0.00 | — |
-| 2026-02-17 | 24/7 Wall St. | Grade My Speculative Portfolio: My 3 Top Picks – What Do You... | Positive | +0.30 | — |
-| 2026-02-12 | The Motley Fool | This $7 Stock Could Be Your Ticket to Millionaire Status - T... | Negative | -0.44 | — |
-| 2026-02-12 | Nasdaq | Should You Invest $1,000 In TMC The Metals Company Right Now... | Neutral | +0.00 | — |
-| 2026-02-11 | Zacks | Rio Tinto Surges 36.7% in 3 Months: Should You Buy the Stock... | Neutral | +0.00 | — |
-| 2026-02-06 | Quiver Quantita | $TMC stock is up 13% today. Here's what we see in our data. ... | Neutral | +0.00 | — |
-| 2026-02-05 | Barchart | 3 Rare Earths Stocks to Buy as Trump Announces Project Vault | Neutral | +0.00 | — |
-| 2026-02-05 | Nasdaq | TMC The Metals Shares Cross Below 200 DMA - Nasdaq | Positive | +0.30 | — |
-| 2026-02-03 | Insider Monkey | TMC the metals company Inc. (TMC): A Bull Case Theory | Neutral | +0.00 | — |
-| 2026-02-02 | Barrons.com | Trump Wants a Critical Minerals Stockpile. What It Means for... | Negative | -0.32 | — |
-| 2026-01-29 | Benzinga | Rare Earth Stocks Get Rocked: Here Are The Facts | Neutral | +0.00 | — |
-| 2026-01-29 | Motley Fool | 3 Rare Earth Stocks to Watch in 2026 | Neutral | +0.00 | — |
+| 2026-03-06 | simplywall.st | Assessing TMC The Metals (TMC) Valuation After Cooling Momen... | Positive | +0.69 | — |
+| 2026-03-06 | MarketBeat | Quantbot Technologies LP Increases Stock Holdings in TMC the... | Neutral | +0.00 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
@@ -1824,17 +2132,62 @@
 | Positive | 11 (37%) |
 | Neutral | 15 (50%) |
 | Negative | 4 (13%) |
-| Average Score | +0.064 |
-| Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 167 |
+| Average Score | +0.114 |
+| Overall Sentiment | **Bullish** |
+| Total Unique Headlines | 170 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Regulatory | 2 | Will First U.S. Deep‑Seabed Mining Appro..; Trumps Secret Weapon in the Rare Earth W.. |
-| Earnings | 1 | TMC Consolidated U.S. Deep Sea Mining Bi.. |
+| Regulatory | 4 | TMC Secures Key NOAA Milestone for Deep-..; The Metals Company Shares Rise After NOA.. |
+| Earnings | 2 | TMC Consolidated U.S. Deep Sea Mining Bi..; Quantbot Technologies LP Increases Stock.. |
 
 ### Deep Dive Articles
+
+#### The Metals Royalty Company to Host Corporate Webinar on March 16, 2026 Ahead of Planned Nasdaq Direct Listing
+*Source: ACCESSWIRE | Date: 2026-03-10 | Sentiment: Positive (+0.93)*
+
+> Not Intended For Dissemination in Canada
+
+> LONDON, UK /ACCESS Newswire/ March 10, 2026 /The Metals Royalty Company Inc. ("TMCR" or the "Company"), a purpose-built financing platform dedicated to advancing U.S. critical mineral security and re-industrialization, today announced that it will host a corporate webinar on Monday, March 16, 2026, at 11:00 a.m. Eastern Time ahead of the Company's planned Nasdaq direct listing.
+
+> Brian Paes-Braga, Chief Executive Officer and Chairman, will provide a corporate overview and discuss the Company's strategic vision, recent milestones and growth opportunities. An interactive question-and-answer session will follow the formal presentation.
+
+> To participate in the webinar, interested parties are invited to register using the details below:
+
+> The Metals Royalty Company - Corporate Webinar
+
+**Catalysts:** Regulatory
+
+#### The Metals Company Shares Rise After NOAA Finds Mining Application In Substantial Compliance
+*Source: Benzinga | Date: 2026-03-09 | Sentiment: Positive (+0.94)*
+
+> The Metals Company Inc.(NASDAQ:TMC) shares are trading higher Monday after the National Oceanic and Atmospheric Administration (NOAA) determined the company’s seabed mining application is in substantial compliancewith federal requirements.
+
+> The determination relates to a consolidated application submitted by the company's subsidiary, The Metals Company USA LLC, for an exploration license and commercial recovery permit under the Deep Seabed Hard Mineral Resources Act.
+
+> The application covers approximately 65,000 square kilometers in the Clarion Clipperton Zone in the Pacific Ocean for the exploration and recovery of polymetallic nodules. The area includes an estimated resource of 619 million tonnes of wet nodules, with potential exploration upside of an additional 200 million tonnes.
+
+> "NOAA’s determination reflects the depth of work our team and partners have put into understanding this resource and how it can be responsibly developed," saidGerard Barron, Chairman and CEO of The Metals Company.
+
+> TMC Price Action:At the time of writing, The Metals Company shares are trading 1.57% higher at $5.83, according to data fromBenzinga Pro.
+
+**Catalysts:** Regulatory, Corporate, Equity
+
+#### NOAA Determines TMC USA's Consolidated Deep-Seabed Mining Application is in Substantial Compliance
+*Source: GlobeNewswire | Date: 2026-03-09 | Sentiment: Positive (+0.98)*
+
+> NEW YORK, March  09, 2026  (GLOBE NEWSWIRE) -- TMC the metals company Inc. (Nasdaq: TMC) (“TMC” or the “Company”), a leading developer of the world’s largest resource of critical metals essential to energy, defense, manufacturing and infrastructure, today announced that the National Oceanic and Atmospheric Administration (NOAA) has determined that the consolidated application submitted by the Company’s subsidiary, The Metals Company USA LLC (“TMC USA”), for an exploration license and commercial recovery permit under the Deep Seabed Hard Mineral Resources Act (DSHMRA) is in substantial compliance with the requirements of the Act and its implementing regulations.
+
+> Earlier this year, TMC USA submitteda consolidated applicationfor an exploration license and a commercial recovery permit for polymetallic nodules in international waters of the Clarion Clipperton Zone (CCZ) in the Pacific Ocean. The application was filed under NOAA’snew consolidated application and review processand represents the first submission of its kind. It covers a ~65,000 km2exploration and commercial recovery area in the CCZ, compared to a commercial recovery area of ~25,000 km2in TMC USA’s initial commercial recovery permit application from April 2025. Pursuant to DSHMRA and its implementing regulations, NOAA has determined that TMC USA’s consolidated application is in substantial compliance with the requirements of the U.S. regulations.
+
+> The consolidated application process provides a more efficient regulatory timeline by allowing exploration-phase environmental, geological and engineering data to be incorporated directly into the commercial recovery review process. Meanwhile, TMC USA's exploration ​license ​applications (TMC ​USA A & TMC USA B) ​are moving along as expected ​with public ​comment ​periods ​now completed.
+
+> Gerard Barron, Chairman and CEO of The Metals Company, said: “NOAA’s determination reflects the depth of work our team and partners have put into understanding this resource and how it can be responsibly developed. After more than a decade of environmental research, successful offshore trials and commercial-scale metallurgical processing, we believe polymetallic nodules can provide a new and lower-impact source of critical metals for the U.S. We welcome the streamlined consolidated review process and look forward to the next stages.”
+
+> TMC USA’s application is informed by more than a decade of environmental baseline studies, scientificresearchandoffshore engineeringconducted by the Company and its partners, building one of the most comprehensive datasets ever assembled on polymetallic nodules and their surrounding ecosystems.
+
+**Catalysts:** Earnings, Regulatory, Corporate, Equity
 
 #### U.S. Defense Manufacturers Face A Rare Earth Supply Squeeze - OilPrice.com Market Commentary
 *Source: PR Newswire | Date: 2026-03-06 | Sentiment: Positive (+0.34)*
@@ -1866,301 +2219,14 @@
 
 **Catalysts:** Earnings, Regulatory, Corporate
 
-#### Analyst Boosts TMC Target to $12.25, Cites First-Mover Advantage
-*Source: Insider Monkey | Date: 2026-02-17 | Sentiment: Positive (+0.99)*
-
-> We recently published an article titled11 Best Canadian Growth Stocks to Buy According to Hedge Funds.
-
-> On January 23, Alliance Global increased its price target on TMC the metals company Inc. (NASDAQ:TMC) to $12.25 from $6.50 while maintaining a Buy rating, reflecting growing confidence in the company’s regulatory and operational progress. The revision follows the announcement of a significant permitting milestone tied to its deep-sea mining initiatives, which the analyst characterized as a pivotal step toward commercial development. Alliance Global also pointed to evolving regulatory frameworks as a structural tailwind for the industry, suggesting that clearer oversight could accelerate project timelines and enhance investor visibility. Importantly, the firm believes TMC retains a first-mover advantage in the emerging deep-sea mining sector, positioning it to capitalize on early-stage supply opportunities in critical minerals essential for global electrification trends.
-
-> During its third-quarter 2025 earnings conference call, TMC the metals company Inc. (NASDAQ:TMC) outlined several operational and financial metrics that underscore its long-term development potential. The company reported approximately $165 million in liquidity, with the possibility of securing more than $400 million in additional proceeds through warrant exercises, reinforcing its near- to mid-term funding runway. Management highlighted an estimated in-situ resource value exceeding $23 billion and projected revenues of nearly $600 per dry ton of nodules during steady-state production anticipated between 2031 and 2043. Furthermore, the participation of TMC’s Hidden Gem vessel in Japanese nodule collection trials signals expanding international collaboration and potential commercial validation. Collectively, these updates suggest that the company is strengthening both its balance sheet and strategic partnerships as it advances toward large-scale production.
-
-> Founded in 2011 and headquartered in Vancouver, Canada, TMC the metals company Inc. (NASDAQ:TMC) is focused on the exploration and development of polymetallic nodules in the Clarion Clipperton Zone of the Pacific Ocean. An impressive EPS growth of 28.26% in the past 3 years ranks TMC 7th in the list of 11 best Canadian growth stocks to buy according to hedge funds.
-
-> While we acknowledge the potential of TMC as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
-
-**Catalysts:** Earnings, Regulatory, Corporate, Analyst, Short
-
-#### Rio Tinto Surges 36.7% in 3 Months: Should You Buy the Stock Now?
-*Source: Zacks | Date: 2026-02-11 | Sentiment: Positive (+1.00)*
-
-> Rio Tinto GroupRIO shares have climbed 36.7% in the past three months, outperforming the industry and the S&P 500, which have returned 23.3% and 2.4%, respectively. In comparison, the company’s peers likeBHP Group LimitedBHP andTMC the metals company Inc.TMC have gained 28.4% and 13.5%, respectively, over the same time frame.
-
-> Closing at $97.24 in the last trading session, the stock is trading close to its 52-week high of $98.60 and significantly higher than its 52-week low of $51.67. It is trading above both its 50-day and 200-day moving averages, indicating solid upward momentum and confidence in the company's long-term prospects.
-
-> Let’s take a look at RIO’s fundamentals to better analyze how to play the stock.
-
-> Rio Tinto is gaining from rising copper production, driven by strong operational performance across its assets. Per the production results, the company’s consolidated copper output increased 5% year over year in the fourth quarter of 2025.RIO is making steady progress across its growth pipeline. In December 2025, the company achieved its first copper production at the Johnson Camp mine in Arizona using its proprietary Nuton technology. This marks a significant milestone, as Nuton enables cleaner, faster and more efficient copper recovery at an industrial scale.The Johnson Camp deployment includes the design and delivery of a heap leach technology package, targeting approximately 30,000 tons of refined copper over a four-year demonstration period. RIO plans to use Nuton technology to produce copper at this site with the lowest carbon emissions in the US.Also, the company is actively collaborating with U.S. customers to strengthen the domestic copper supply. Its total copper production reached 883 kilotonne (kt) in 2025, up 11% on a year-over-year basis.In the fourth quarter, RIO’s iron ore operations in the Pilbara facility showed improvement, with shipments rising 7% from the previous year. The aluminum production also delivered encouraging results. RIO’s aluminum output rose 2% in the quarter, on a year-over-year basis, as refinery and smelter operations improved.Also, in January 2026, Rio Tinto and Aluminum Corporation of China Limited (Chalco) inked a deal to acquire Votorantim’s controlling stake in Brazilian aluminium company CBA through a joint venture.  The joint venture will be owned 33% by Rio Tinto and 67% by Chalco. The deal will help RIO to expand its green aluminium footprint and strengthen its supply chain.Several major growth projects of the company are progressing as well. In December 2025, RIO’s Rhodes Ridge joint venture approved a $191 million feasibility study to develop one of the world’s major undeveloped iron ore deposits in Western Australia, aiming for an initial annual production of 40-50 million tons. The study is expected to conclude in 2029. In October 2025, at the Simandou iron ore project in Guinea, the first ore was loaded and transported, marking the start of commissioning across the mine, rail and port infrastructure.Despite the overall solid performance, the company faced some challenges during the quarter. Weather-related disruptions earlier in 2025 affected iron ore volumes. Planned maintenance activities at some copper mining projects temporarily reduced output, while cost pressures from inflation and higher sustaining capital spending impacted margins.RIO operates in the mineral exploration and mining markets, which include major industry players like BHP Group and TMC.It is worth noting that Rio Tinto is scheduled to release fourth-quarter 2025 results on Feb. 19, 2026.
-
-> The Zacks Consensus Estimate for RIO’s bottom line for 2026 has increased 6.4% in the past 60 days.
-
-**Catalysts:** Earnings, Regulatory, Analyst
-
-#### TMC the metals company Inc. (TMC): A Bull Case Theory
-*Source: Insider Monkey | Date: 2026-02-03 | Sentiment: Positive (+0.92)*
-
-> We came across abullish thesison TMC the metals company Inc. on stocks subreddit by lehmanhoes. In this article, we will summarize the bulls’ thesis on TMC. TMC the metals company Inc.'s share was trading at $8.41 as of January 28th.
-
-> The Metals Company (TMC) is a deep-sea mining firm focused on harvesting polymetallic nodules from the Pacific Ocean, targeting a critical intersection of geopolitics and the global metals market. These nodules are rich in nickel, cobalt, copper, and manganese—metals essential for electric vehicles and renewable energy—offering a potential alternative to China’s dominance in strategic materials. TMC is the only company globally with the technical capability to mine the ocean floor at scale, positioning it uniquely to capitalize on a global undersea metals market estimated to be as high as $20 trillion.
-
-> The company’s strategic nodules holdings, combined with its technological moat, make it a one-stop source for metals the West currently relies on China to supply. Geopolitical tailwinds further bolster the thesis, as U.S.–China trade tensions and the strategic importance of critical minerals create a favorable backdrop for government support. TMC has already filed for U.S. permits and operates under the International Seabed Authority framework, putting it ahead of potential competitors if regulations are finalized or the U.S. pursues independent action.
-
-> Executive actions from the White House, along with authorities under the Defense Production Act and potential direct government equity stakes, could serve as near-term catalysts, potentially accelerating TMC’s path to production and re-rating the stock. Analysts, including Wedbush, Cantor, Alliance Global, and HC Wainwright, have given buy ratings, with upside potential into the $20s if government support materializes.
-
-> While this is a binary, event-driven investment with significant downside risk, the combination of unique assets, geopolitical relevance, and regulatory momentum makes TMC a high-risk, high-reward opportunity for investors seeking exposure to critical metals supply chain disruption and strategic U.S. resource independence.
-
-**Catalysts:** Regulatory, Equity
-
----
-
-### CIFR
-
-#### Earnings
-*Generated: 2026-03-08 17:18*
-
-*Generated: 2026-03-08 17:19*
-
-## Earnings Analysis: Cipher Digital Inc. (CIFR)
-
-### Next Earnings
-| Metric | Value |
-| :--- | :--- |
-| Earnings Date | 2026-05-05 |
-| Days Until | 58 |
-| EPS Estimate | $-0.11 |
-| Revenue Estimate | $35.5M |
-| Earnings Rule | Clear (>58d out) |
-
-### Earnings History
-| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $0.13 | $-0.14 | -207.7% | -3.0% | -14.1% | Bearish |
-| Q4 2025 | $0.11 | $0.10 | -6.2% | -1.1% | -13.7% | Bearish |
-| Q3 2025 | $0.06 | $0.08 | 33.3% | -2.5% | +9.2% | Bearish |
-| Q2 2025 | $0.04 | $0.02 | -46.7% | -0.7% | +12.8% | Bearish |
-| Q1 2025 | $0.05 | $0.14 | 200.0% | +1.8% | -8.5% | Bullish |
-| Q4 2024 | $-0.08 | $-0.26 | -225.0% | +6.5% | +41.0% | Strong Bull |
-| Q3 2024 | $0.06 | $-0.01 | -115.8% | -6.9% | +0.8% | Strong Bear |
-| Q2 2024 | N/A | $0.21 | 8184.0% | -0.4% | -2.1% | Bearish |
-
-### Revenue Trend
-| Quarter | Revenue | QoQ Growth% | YoY Growth% |
-| :--- | :--- | :--- | :--- |
-| Q4 2025 | $59.7M | -16.7% | +41.4% |
-| Q3 2025 | $71.7M | +64.6% | N/A |
-| Q2 2025 | $43.6M | -11.0% | N/A |
-| Q1 2025 | $49.0M | +16.0% | N/A |
-| Q4 2024 | $42.2M | N/A | N/A |
-
-#### Technical Signals
-## Technical Scan: Cipher Digital Inc. (CIFR)
-**Current Price: $13.62** | Date: 2026-03-06
-
-### Trend Indicators
-| Indicator | Value | Price Position | Signal |
-| :--- | :--- | :--- | :--- |
-| SMA 20 | $15.76 | Below | Bearish |
-| SMA 50 | $16.32 | Below | Bearish |
-| SMA 200 | $12.21 | Above | Bullish |
-| EMA 9 | $15.24 | Below | Bearish |
-| EMA 21 | $15.69 | Below | Bearish |
-
-### Momentum Indicators
-| Indicator | Value | Zone | Signal |
-| :--- | :--- | :--- | :--- |
-| RSI (14) | 40.4 | Bearish zone | Neutral-Bear |
-| MACD | -0.414 | Below signal | Bearish |
-| MACD Signal | -0.282 | Histogram: -0.132 | — |
-| Stochastic %K/%D | 1.9/27.7 | Oversold | Bearish |
-
-### Volatility
-| Indicator | Value | Position | Signal |
-| :--- | :--- | :--- | :--- |
-| Bollinger Upper | $17.57 | Below lower band | Oversold |
-| Bollinger Lower | $13.95 | Width: $3.62 | — |
-| ATR (14) | $1.53 (11.2%) | High volatility | — |
-
-### Key Support/Resistance Levels
-| Level | Price | Type | Touches | Last Tested |
-| :--- | :--- | :--- | :--- | :--- |
-| Support | $13.67 (+0.4%) | Support | 1 | 2025-12-16 |
-| Support | $13.09 (-3.9%) | Support | 1 | 2025-11-21 |
-| Support | $12.64 (-7.2%) | Support | 1 | 2026-02-05 |
-| Support | $15.04 (+10.4%) | Support | 1 | 2025-10-22 |
-| Resistance | $19.70 (+44.6%) | Resistance | 1 | 2026-01-16 |
-| Resistance | $7.10 (-47.9%) | Resistance | 1 | 2025-07-22 |
-| Resistance | $21.16 (+55.4%) | Resistance | 1 | 2025-11-28 |
-| Resistance | $22.00 (+61.5%) | Resistance | 1 | 2025-10-15 |
-
-### Signal Summary
-| Metric | Value |
-| :--- | :--- |
-| Overall Signal | **Bearish** |
-| Score | -3 |
-| Bullish Factors | Above SMA 200 |
-| Bearish Factors | Below SMA 20, Below SMA 50, Below EMA 9, Below EMA 21, MACD bearish |
-
-#### Short Interest
-## Short Interest Analysis
-
-### Short Interest Summary
-| Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
-| :--- | :--- | :--- | :--- | :--- |
-| CIFR | 63.38M | 1.79 | 20.54% | +18.6% (increasing) |
-
-### Squeeze Risk Assessment
-| Ticker | Risk Rating | Score (/100) | Key Factors |
-| :--- | :--- | :--- | :--- |
-| CIFR | HIGH | 65 | High short% (20.5%); Low DTC (1.8); Shorts increasing rapidly |
-
-### Context
-| Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
-| :--- | :--- | :--- | :--- | :--- |
-| CIFR | 330.03M | 405.12M | 30.19M | 1.8 |
-
-#### News & Sentiment
-*Generated: 2026-03-08 17:19*
-
-## News & Sentiment: Cipher Digital Inc. (CIFR)
-*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
-
-### Headlines (Top 30, Deduplicated)
-| Date | Source | Headline | Sentiment | Score | Catalysts |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-08 | MarketBeat | 239,015 Shares in Cipher Mining Inc. $CIFR Acquired by Regal... | Positive | +0.30 | Earnings |
-| 2026-03-08 | MarketBeat | Intech Investment Management LLC Has $1.02 Million Stake in ... | Neutral | +0.00 | Earnings, Corporate |
-| 2026-03-07 | The Globe and M | Analysts Offer Insights on Financial Companies: Franklin Res... | Neutral | +0.00 | — |
-| 2026-03-07 | MarketBeat | Cipher Mining (NASDAQ:CIFR) Director James Newsome Sells 45,... | Positive | +0.30 | Earnings |
-| 2026-03-07 | Investing.com | Newsome of Cipher Digital sells $710k in shares - Investing.... | Positive | +0.30 | — |
-| 2026-03-06 | Finviz | CIFR - Cipher Digital Inc Stock Price and Quote - Finviz | Neutral | +0.00 | — |
-| 2026-03-05 | Trefis | Cipher Digital Stock (+9.0%): AI Pivot Gains Traction at Mor... | Positive | +0.34 | — |
-| 2026-03-05 | StocksToTrade | Cipher Mining Faces Financial Storm as EPS Misses, Shares Di... | Positive | +0.08 | Earnings |
-| 2026-03-04 | simplywall.st | A Look At Cipher Digital (CIFR) Valuation As It Pivots From ... | Neutral | +0.00 | — |
-| 2026-03-04 | MarketBeat | Cipher Mining (NASDAQ:CIFR) Trading Up 8% - Here's What Happ... | Neutral | +0.00 | Earnings |
-| 2026-03-04 | National Today | Cipher Mining Shares Rise 8% - National Today | Positive | +0.30 | — |
-| 2026-03-04 | StocksToTrade | Cipher Mining Surges Amidst Strategic Moves and Financial Sh... | Neutral | +0.00 | — |
-| 2026-03-03 | GuruFocus.com | Applied Digital Seeks $2.15 Billion Junk Bond for Oracle Dat... | Neutral | +0.00 | — |
-| 2026-03-03 | simplywall.st | Will Cipher Digital's (CIFR) Pivot to HPC Leases and Big 202... | Negative | -0.40 | — |
-| 2026-03-03 | MarketBeat | Cipher Mining Inc. (NASDAQ:CIFR) Given Consensus Rating of "... | Neutral | +0.00 | Earnings |
-| 2026-03-02 | MarketBeat | London & Capital Asset Management Ltd Acquires New Position ... | Positive | +0.36 | Earnings, Corporate |
-| 2026-03-01 | MarketBeat | Cipher Mining Inc. $CIFR Shares Purchased by Harvest Portfol... | Positive | +0.30 | Earnings |
-| 2026-03-01 | MarketBeat | Cipher Mining (NASDAQ:CIFR) Rating Lowered to Strong Sell at... | Positive | +0.42 | Earnings |
-| 2026-03-01 | MarketBeat | Monashee Investment Management LLC Reduces Holdings in Ciphe... | Neutral | +0.00 | Earnings, Corporate |
-| 2026-02-28 | Insider Monkey | Clear Street Cuts PT on Cipher Digital (CIFR) to $32 From $3... | Positive | +0.10 | — |
-| 2026-02-28 | MarketBeat | Vanguard Group Inc. Buys 2,699,717 Shares of Cipher Mining I... | Positive | +0.30 | Earnings |
-| 2026-02-28 | Simply Wall St. | Cipher Digital Completes Pivot To Contracted AI And HPC Infr... | Neutral | +0.00 | — |
-| 2026-02-27 | Stock Titan | Cipher Digital (CIFR) awards 355,338 RSUs to Co-President Iw... | Positive | +0.46 | — |
-| 2026-02-26 | TipRanks | Canaan price target lowered to $2 from $2.50 at B. Riley | Negative | -0.13 | Analyst |
-| 2026-02-26 | Bloomberg | Bitcoin Miner Tied to Trump Family Pummeled by Crypto Crash | Negative | -0.40 | — |
-| 2026-02-26 | Seeking Alpha | Cipher Digital: Pivot Proven, Re-Rating Next (NASDAQ:CIFR) -... | Neutral | +0.00 | — |
-| 2026-02-26 | TIKR.com | CIFR Stock Is Up 12% After Momentum Builds: Can Shares Reach... | Positive | +0.32 | — |
-| 2026-02-25 | Zacks | Cipher Digital Q4 Loss Wider Than Expected, Revenues Down Se... | Negative | -0.32 | Earnings |
-| 2026-02-25 | Insider Monkey | Cipher Mining (CIFR) Pivot Toward Hyperscale Infrastructure ... | Negative | -0.32 | — |
-| 2026-02-25 | Insider Monkey | Cipher Mining (CIFR) Jumps 12.5% on Strong Revenues, Busines... | Positive | +0.51 | Earnings |
-
-### Sentiment Summary
-| Metric | Value |
-| :--- | :--- |
-| Articles Analyzed | 30 |
-| Positive | 14 (47%) |
-| Neutral | 11 (37%) |
-| Negative | 5 (17%) |
-| Average Score | +0.093 |
-| Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 182 |
-
-### Detected Catalysts
-| Category | Count | Headlines |
-| :--- | :--- | :--- |
-| Earnings | 13 | 239,015 Shares in Cipher Mining Inc. $CI..; Intech Investment Management LLC Has $1... |
-| Corporate | 3 | Intech Investment Management LLC Has $1...; London & Capital Asset Management Ltd Ac.. |
-| Analyst | 1 | Canaan price target lowered to $2 from $.. |
-
-### Deep Dive Articles
-
-#### Clear Street Cuts PT on Cipher Digital (CIFR) to $32 From $34 - Here's Why
-*Source: Insider Monkey | Date: 2026-02-28 | Sentiment: Positive (+0.96)*
-
-> Cipher Digital (NASDAQ:CIFR) is one ofthe best hot stocks under $20 to buy. On February 25, Clear Street cut the price target on Cipher Digital (NASDAQ:CIFR) to $32 from $34 and maintained a Buy rating on the shares. The firm told investors that it is remaining bullish on the stock coming out of the fiscal Q4 earnings as it sees a clear step-change in its earnings profile beginning in Q4, as lease revenue from Amazon and Fluidstack begins contributing in earnest. It believes that the inflection is underappreciated, especially given the quality of counterparties and the long-duration nature of the leases.
-
-> The rating update came after Cipher Digital (NASDAQ:CIFR) released its fiscal Q4 and full-year 2025 earnings on February 24, announcing that it rebranded from Cipher Mining to Cipher Digital, reflecting its pivot from bitcoin mining to HPC data center development. Fiscal Q4 2025 revenue came up to $60 million, with an adjusted net loss of $55 million. The company further reported that it secured 600 MW gross of total contracted HPC capacity to date across two leases, a 15-year 300 MW lease with AWS and a 10-year 300 MW lease with Fluidstack and Google. In addition, Cipher Digital (NASDAQ:CIFR) completed three bond offerings to finance HPC data center buildouts for aggregate proceeds of $3.73 billion.
-
-> Cipher Digital (NASDAQ:CIFR) develops and operates bitcoin mining data centers. The company specializes in industrial-scale Bitcoin mining and is dedicated to enhancing and fortifying the critical infrastructure of the Bitcoin network in the US.
-
-> While we acknowledge the potential of CIFR as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
-
-> READ NEXT:30 Stocks That Should Double in 3 Yearsand11 Hidden AI Stocks to Buy Right Now.
-
-**Catalysts:** Earnings, Regulatory, Equity, Analyst, Short
-
-#### Cipher Digital Q4 Loss Wider Than Expected, Revenues Down Sequentially
-*Source: Zacks | Date: 2026-02-25 | Sentiment: Negative (-0.66)*
-
-> Cipher DigitalCIFR reported a fourth-quarter 2025 loss of $1.92 per share, significantly wider than the 12-cent loss projected by the Zacks Consensus Estimate.Cipher Digital reported a GAAP loss of $1.85 per share, which represents a sharp year-over-year deterioration from earnings of 5 cents. On an adjusted basis, the company posted a loss of 14 cents per share, deteriorating sequentially from earnings of 10 cents.CIFR reported revenues of $59.7 million for the fourth quarter of 2025, marking a significant decrease of 16.7% from $71.7 million reported in the previous quarter. The sequential decline was primarily caused by reduced mining capacity following the decommissioning of Black Pearl and the divestiture of joint venture sites as part of the mining exit strategy. The figure missed the Zacks Consensus Estimate by 23.31%.Cipher Digital officially rebranded from Cipher Mining to Cipher Digital, reflecting a full pivot from bitcoin mining to high-performance computing (HPC) data center development.
-
-> Cipher Mining Inc. price-consensus-eps-surprise-chart - Cipher Mining Inc. Quote
-
-> In the fourth quarter of 2025, total costs and operating expenses rose sharply to $360.3 million, up from $109.3 million in the prior quarter.The company reported a net loss of $734.2 million in the fourth quarter, compared with a modest loss of $3.3 million in the previous quarter. A major driver of the quarterly loss was the $410.3 million change in fair value of warrant liability, a non-cash accounting adjustment.On an adjusted basis, Cipher Digital reported a loss of $54.5 million, marking a substantial quarter-over-quarter deterioration from $40.7 million in adjusted earnings.Cipher Digital reported an operating loss of $300.6 million in the fourth quarter, widening sharply from a $37.6 million loss in the prior quarter.Adjusted EBITDA reported a loss of $38.9 million in the fourth quarter, marking a sharp sequential deterioration of $40.8 million.
-
-> In the fourth quarter of 2025, the company completed the sale of its 49% ownership interests in the Alborz, Bear and Chief joint venture sites, marking a decisive step in exiting non-core mining assets.In parallel, Black Pearl was fully decommissioned from bitcoin mining operations in February 2026. The company has secured 600 MW of total contracted HPC capacity to date across two long-term leases, including a 15-year, 300 MW agreement with AWS and a 10-year, 300 MW lease with Fluidstack and Google.As part of the wind-down, the company recorded losses related to miners held for sale, asset impairments and disposal of mining equipment during the fourth quarter of 2025. Cipher Digital is strategically monetizing its bitcoin holdings, with approximately 1,166 BTC being managed down as part of its transition plan.In the fourth quarter of 2025, total operating hashrate declined to roughly 11.6 EH/s from 23.6 EH/s in the third quarter of 2025, reflecting the decommissioning of Black Pearl and divested joint venture sites.
-
-> As of Dec. 31, 2025, Cipher Digital had cash and cash equivalents of $628.3 million compared with $1.2 billion as of Sept. 30, 2025.As of Dec. 31, 2025, total assets expanded to $4.29 billion, up from $2.84 billion as of Sept. 30, 2025.The company reported $2.04 billion in restricted cash, including $1.76 billion classified as current and $275.1 million as noncurrent, largely tied to project-level financing.
-
-**Catalysts:** Earnings, Regulatory
-
-#### Cipher Mining (CIFR) Pivot Toward Hyperscale Infrastructure Follows $734M Q4 Net Loss
-*Source: Insider Monkey | Date: 2026-02-25 | Sentiment: Positive (+0.98)*
-
-> Cipher Mining Inc. (NASDAQ:CIFR) is one of thebest high volume stocks to invest in now. On February 24, Cipher Mining reported Q4 2025 revenue of $60 million, which was a decline attributed to a challenging Bitcoin mining environment and lower asset prices. The company posted a GAAP net loss of $734 million, primarily driven by non-cash items, including a $450 million mark-to-market loss on convertible notes and $141 million in impairments at its Black Pearl and Odessa facilities.
-
-> Despite these losses, the company maintains a strong liquidity position with $754 million in cash and Bitcoin as of year-end 2025. The quarter marked a strategic pivot toward digital infrastructure and hyperscale computing, supported by a successful $2 billion bond offering that was oversubscribed 6.5 times. This funding secures the remaining capital expenditures for the Black Pearl project and supports a 3.4-gigawatt development pipeline.
-
-> Cipher Mining Inc. (NASDAQ:CIFR) has already secured $9.3 billion in contracted revenue from data center leases, with expectations for significant annualized net operating income to begin in late 2026 as it transitions away from its legacy mining operations. Management expressed confidence in the Texas market, noting that West Texas is well-positioned to become a global hub for data centers.
-
-> Cipher Mining Inc. (NASDAQ:CIFR), together with its subsidiaries, develops and operates industrial-scale data centers in the US.
-
-> While we acknowledge the potential of CIFR as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
-
-**Catalysts:** Earnings, Regulatory, Corporate, Equity, Short
-
-#### Cipher Mining (CIFR) Jumps 12.5% on Strong Revenues, Business Transition
-*Source: Insider Monkey | Date: 2026-02-25 | Sentiment: Positive (+0.98)*
-
-> We recently published10 Stocks Winning the Market. Cipher Mining Inc. (NASDAQ:CIFR) was one of the best performers on Tuesday.
-
-> Cipher Mining saw its share prices jump by 12.48 percent on Tuesday to finish at $17.12 apiece as investors cheered the company’s strong bitcoin mining performance, while digesting its rebranding initiative to reflect its business transition.
-
-> In an updated report, Cipher Mining Inc. (NASDAQ:CIFR) said that it would change its name to Cipher Digital to reflect its strategic transition toward high-performance computing.
-
-> “Cipher is focused on sourcing and securing power, developing advanced data centers purpose-built for HPC workloads, and leasing capacity to the world’s leading technology companies. While bitcoin mining played a foundational role in building Cipher’s power origination expertise and large-scale development capabilities, the Company’s identity has evolved to focus on enabling next-generation compute at industrial scale,” Cipher Mining Inc. (NASDAQ:CIFR) said.
-
-> In line with the initiative, the company divested its 49 percent stake in three 40 MW joint venture sites, Alborz, Bear, and Chief, as well as select bitcoin mining machines previously deployed at Black Pearl.
-
-**Catalysts:** Regulatory
-
-#### Highly Shorted Stock Cipher Digital Soars Tuesday - Here's Why
-*Source: Benzinga | Date: 2026-02-24 | Sentiment: Positive (+0.92)*
-
-> Cipher Digital Inc.(NASDAQ:CIFR) on Tuesday reportedfourth-quarter and full-year 2025 resultsand unveiled a rebrand from Cipher Mining, signaling a strategic pivot toward high-performance computing and next-generation data center development.
-
-> The stock surged more than 10% following the release, with elevated short interest likely amplifying the move.
-
-> In the fourth quarter, adjusted EPS was a loss of 14 cents, compared to the analystestimate of a 10-cent loss. Revenue was $59.711 million, below the consensus estimate of $86.847 million.
-
-> “Building on a transformative 2025, the fourth quarter reflected continued momentum as we advanced our evolution into a leading HPC data center development company,” CEOTyler Pagesaid.
-
-> “During the quarter, we upsized our initial lease with Fluidstack and Google and signed our first HPC lease with Amazon. In addition, we successfully executed multiple high yield bond offerings to finance two of our existing HPC projects at Barber Lake and Black Pearl. In recognition of this successful shift in our business model and strategic priorities going forward, we are proud to now officially operate as Cipher Digital.”
-
-**Catalysts:** Earnings, Corporate, Equity, Short
-
 ---
 
 ### ARM
 
 #### Earnings
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:33*
 
 ## Earnings Analysis: Arm Holdings plc (ARM)
 
@@ -2168,10 +2234,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-06 |
-| Days Until | 59 |
+| Days Until | 51 |
 | EPS Estimate | $0.58181 |
 | Revenue Estimate | $1.47B |
-| Earnings Rule | Clear (>59d out) |
+| Earnings Rule | Clear (>51d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
@@ -2196,50 +2262,51 @@
 
 #### Technical Signals
 ## Technical Scan: Arm Holdings plc (ARM)
-**Current Price: $114.38** | Date: 2026-03-06
+**Current Price: $121.68** | Date: 2026-03-16
 
 ### Trend Indicators
 | Indicator | Value | Price Position | Signal |
 | :--- | :--- | :--- | :--- |
-| SMA 20 | $124.96 | Below | Bearish |
-| SMA 50 | $116.45 | Below | Bearish |
-| SMA 200 | $138.46 | Below | Bearish |
-| EMA 9 | $122.30 | Below | Bearish |
-| EMA 21 | $122.13 | Below | Bearish |
+| SMA 20 | $123.15 | Below | Bearish |
+| SMA 50 | $117.38 | Above | Bullish |
+| SMA 200 | $138.08 | Below | Bearish |
+| EMA 9 | $119.54 | Above | Bullish |
+| EMA 21 | $120.55 | Above | Bullish |
 
 ### Momentum Indicators
 | Indicator | Value | Zone | Signal |
 | :--- | :--- | :--- | :--- |
-| RSI (14) | 40.2 | Bearish zone | Neutral-Bear |
-| MACD | 1.008 | Below signal | Bearish |
-| MACD Signal | 2.357 | Histogram: -1.349 | — |
-| Stochastic %K/%D | 4.2/23.7 | Oversold | Bearish |
+| RSI (14) | 51.6 | Bullish zone | Neutral-Bull |
+| MACD | -0.453 | Below signal | Bearish |
+| MACD Signal | 0.473 | Histogram: -0.925 | — |
+| Stochastic %K/%D | 45.3/27.2 | Neutral | Bullish |
 
 ### Volatility
 | Indicator | Value | Position | Signal |
 | :--- | :--- | :--- | :--- |
-| Bollinger Upper | $132.19 | Below lower band | Oversold |
-| Bollinger Lower | $117.73 | Width: $14.46 | — |
-| ATR (14) | $5.79 (5.1%) | High volatility | — |
+| Bollinger Upper | $133.01 | 43% of band | Neutral |
+| Bollinger Lower | $113.30 | Width: $19.71 | — |
+| ATR (14) | $5.74 (4.7%) | High volatility | — |
 
 ### Key Support/Resistance Levels
 | Level | Price | Type | Touches | Last Tested |
 | :--- | :--- | :--- | :--- | :--- |
-| Resistance | $122.03 (+6.7%) | Resistance | 2 | 2026-01-05 |
-| Resistance | $124.33 (+8.7%) | Resistance | 2 | 2026-01-22 |
-| Resistance | $126.65 (+10.7%) | Resistance | 2 | 2025-08-20 |
-| Support | $102.01 (-10.8%) | Support | 1 | 2026-01-14 |
-| Support | $100.02 (-12.6%) | Support | 1 | 2026-02-05 |
-| Support | $137.62 (+20.3%) | Support | 1 | 2025-09-26 |
-| Support | $140.70 (+23.0%) | Support | 1 | 2025-07-14 |
-| Resistance | $144.25 (+26.1%) | Resistance | 1 | 2025-12-05 |
+| Support | $122.03 (+0.3%) | Support | 2 | 2026-01-05 |
+| Support | $124.33 (+2.2%) | Support | 2 | 2026-01-22 |
+| Support | $127.03 (+4.4%) | Support | 1 | 2025-08-20 |
+| Resistance | $134.25 (+10.3%) | Resistance | 1 | 2026-02-26 |
+| Support | $137.62 (+13.1%) | Support | 1 | 2025-09-26 |
+| Support | $140.70 (+15.6%) | Support | 1 | 2025-07-14 |
+| Support | $102.01 (-16.2%) | Support | 1 | 2026-01-14 |
+| Support | $100.02 (-17.8%) | Support | 1 | 2026-02-05 |
 
 ### Signal Summary
 | Metric | Value |
 | :--- | :--- |
-| Overall Signal | **Strong Bearish** |
-| Score | -5 |
-| Bearish Factors | Below SMA 20, Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21, MACD bearish |
+| Overall Signal | **Neutral-Bullish** |
+| Score | +0 |
+| Bullish Factors | Above SMA 50, Above EMA 9, Above EMA 21 |
+| Bearish Factors | Below SMA 20, Below SMA 200, MACD bearish |
 
 #### Short Interest
 ## Short Interest Analysis
@@ -2247,20 +2314,20 @@
 ### Short Interest Summary
 | Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
 | :--- | :--- | :--- | :--- | :--- |
-| ARM | 17.14M | 2.07 | 12.31% | -1.4% (decreasing) |
+| ARM | 14.83M | 2.22 | 10.65% | -3.4% (decreasing) |
 
 ### Squeeze Risk Assessment
 | Ticker | Risk Rating | Score (/100) | Key Factors |
 | :--- | :--- | :--- | :--- |
-| ARM | MEDIUM | 30 | Moderate short% (12.3%); Low DTC (2.1) |
+| ARM | MEDIUM | 30 | Moderate short% (10.7%); Low DTC (2.2) |
 
 ### Context
 | Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
 | :--- | :--- | :--- | :--- | :--- |
-| ARM | 136.80M | 1.06B | 5.99M | 2.1 |
+| ARM | 136.80M | 1.06B | 5.93M | 2.2 |
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:33*
 
 ## News & Sentiment: Arm Holdings plc (ARM)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -2268,56 +2335,71 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-16 | Yahoo Finance | Is Arm Holdings plc (ARM) A Good Stock To Buy Now? - Yahoo F... | Positive | +0.44 | — |
+| 2026-03-16 | Traders Union | Arm stock price forecast: Technical resistance at $123 as AR... | Neutral | +0.00 | — |
+| 2026-03-16 | Traders Union | What triggered Arm Holdings shares' latest price surge - Tra... | Positive | +0.30 | — |
+| 2026-03-16 | outlookbusiness | Ola Electric Plans ₹2,000-Cr Fundraise for Battery Arm, Stoc... | Positive | +0.34 | — |
+| 2026-03-14 | CNN | ARM Stock Quote Price and Forecast - CNN | Neutral | +0.00 | — |
+| 2026-03-14 | simplywall.st | Is Arm Holdings (ARM) Pricing Fair After Recent Share Price ... | Positive | +0.54 | — |
+| 2026-03-14 | The Motley Fool | Prediction: Arm Holdings Could Ride the Edge AI Boom for Yea... | Negative | -0.44 | — |
+| 2026-03-14 | Insider Monkey | Malaysia’s Anti-Graft Agency Investigating Deal Between Arm ... | Neutral | +0.00 | — |
+| 2026-03-13 | Reuters | Exclusive-SpaceX taps Gibson Dunn and Davis Polk & Wardwell ... | Positive | +0.66 | Corporate |
+| 2026-03-13 | Barchart | Stocks Erase Early Gains on Iran War Anxiety | Negative | -0.49 | — |
+| 2026-03-13 | Simply Wall St. | Arm Collaborations Extend Edge AI Role While Valuation Stays... | Positive | +0.18 | — |
+| 2026-03-13 | Simply Wall St. | Assessing Arm Holdings (ARM) Valuation After Recent Share Pr... | Positive | +0.30 | — |
+| 2026-03-12 | Barchart | Stocks Slump on Iran War and Credit Woes | Negative | -0.64 | — |
+| 2026-03-12 | Investing.com | SoftBank downgraded on OpenAI exposure and rising leverage | Neutral | +0.00 | Analyst |
+| 2026-03-12 | Barchart | Stocks Retreat Amid Rising Crude Prices and Credit Worries | Negative | -0.48 | — |
+| 2026-03-12 | Barchart | Stocks Fall as Oil Prices Continue to Climb | Neutral | +0.00 | — |
+| 2026-03-12 | 24/7 Wall St. | 3 AI Tech Stocks Worth Buying the Dip on With Triple-Digit U... | Positive | +0.23 | — |
+| 2026-03-11 | Insider Monkey | Jim Cramer on Arm Holdings: "I Think There's Just a Lot of G... | Positive | +0.44 | — |
+| 2026-03-10 | Barchart | Stocks End Slightly Lower as T-note Yields Rise | Negative | -0.23 | — |
+| 2026-03-10 | Barrons.com | Apple's Budget MacBook Is a Hit. What It Means For the Stock... | Neutral | +0.00 | — |
+| 2026-03-08 | MSN | ARM HOLDINGS PLC (ARM) - MSN | Neutral | +0.00 | — |
 | 2026-03-06 | Barchart | Stocks Retreat on Inflation Concerns and a Weak US Job Marke... | Negative | -0.27 | — |
 | 2026-03-06 | Insider Monkey | BofA Raises PT on Arm Holdings plc (ARM), Keeps a Hold Ratin... | Neutral | +0.00 | Earnings |
 | 2026-03-06 | TIKR.com | Here’s Why Arm Stock Could Return 187% After Declining 3% La... | Negative | -0.62 | — |
-| 2026-03-06 | Seeking Alpha | Arm Holdings: Best Business Model In Its Sector, But There A... | Positive | +0.38 | Regulatory |
 | 2026-03-05 | Morningstar Res | Analyst Report: Arm Holdings plc | Neutral | +0.00 | — |
 | 2026-03-05 | Barchart | Stocks Finish Lower as War Rages in the Middle East | Negative | -0.85 | — |
 | 2026-03-05 | Barchart | Stocks Fall as Crude Oil Surge Stokes Inflation Fears | Negative | -0.76 | — |
-| 2026-03-05 | Simply Wall St. | Is Arm Holdings (ARM) Quietly Redefining Its AI Moat Through... | Neutral | +0.00 | — |
-| 2026-03-05 | Simply Wall St. | Has Arm Holdings (ARM) Recent Volatility Created A Fresh Opp... | Positive | +0.73 | — |
 | 2026-03-04 | Barchart | Stocks Settle Higher as US Economic Resilience Overshadows I... | Negative | -0.32 | — |
 | 2026-03-04 | Insider Monkey | Arm Holdings plc (ARM) Enters a Multi-Year Partnerships With... | Neutral | +0.00 | — |
 | 2026-03-04 | Barchart | Stocks Rally as US Economic Strength Outweighs Iran War Conc... | Negative | -0.18 | — |
-| 2026-03-04 | Benzinga | Nvidia Leads Chip Stock Rebound, Billionaire Investor Buys 1... | Negative | -0.15 | — |
-| 2026-03-04 | Benzinga | Arm Holdings Under Probe By Malaysia's Anti-Graft Agency For... | Neutral | +0.00 | — |
-| 2026-03-04 | Reuters | Malaysia anti-graft agency probing government deal with chip... | Neutral | +0.00 | — |
-| 2026-03-04 | The Motley Fool | Why Arm Holdings Stock Surged 21% Higher in February - The M... | Negative | -0.44 | — |
-| 2026-03-04 | simplywall.st | Is Arm Holdings (ARM) Pricing Reflect Long Term Potential Af... | Positive | +0.30 | — |
-| 2026-03-04 | MarketBeat | American Century Companies Inc. Lowers Stock Position in ARM... | Negative | -0.13 | Earnings |
-| 2026-03-04 | MarketBeat | Mitsubishi UFJ Asset Management Co. Ltd. Decreases Stock Pos... | Positive | +0.36 | Earnings, Corporate |
-| 2026-03-03 | Motley Fool | Nvidia Dumped Its Stakes in Arm Holdings and Applied Digital... | Negative | -0.40 | — |
-| 2026-03-02 | Barchart | Stocks Recover as Iran War Pushes Energy and Defense Stocks ... | Negative | -0.32 | — |
-| 2026-03-02 | Barchart | Markets Rebound After Initial Selloff Triggered by Middle Ea... | Negative | -0.40 | — |
-| 2026-02-27 | Barchart | Stocks Settle Lower as Bank Shares Tumble and Tech Stocks Fa... | Neutral | +0.00 | — |
-| 2026-02-27 | Schaeffer's Res | Wall Street Eager to Move Past Rough February Performance | Positive | +0.36 | — |
-| 2026-02-27 | Zacks | ARM's Self-Reinforcing Ecosystem Strengthens Its Industry Do... | Positive | +0.59 | — |
-| 2026-02-27 | Benzinga | Why Nvidia's Record Profits Weren't Enough: Chip Stocks Tumb... | Positive | +0.44 | Earnings |
-| 2026-02-26 | Simply Wall St. | Assessing Arm Holdings (NasdaqGS:ARM) Valuation As AI Infere... | Neutral | +0.00 | — |
-| 2026-02-25 | Barchart | Stock Indexes Settle Higher on Strength in Tech | Positive | +0.49 | — |
-| 2026-02-25 | Schaeffer's Res | Time to Target This Chip Stock After "Buy" Signal Flashes | Neutral | +0.00 | — |
-| 2026-02-25 | TheStreet | Bank of America drops a surprising Nvidia warning before ear... | Negative | -0.08 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 8 (27%) |
-| Neutral | 9 (30%) |
-| Negative | 13 (43%) |
-| Average Score | -0.042 |
+| Positive | 9 (30%) |
+| Neutral | 10 (33%) |
+| Negative | 11 (37%) |
+| Average Score | -0.062 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 191 |
+| Total Unique Headlines | 195 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 5 | BofA Raises PT on Arm Holdings plc (ARM)..; American Century Companies Inc. Lowers S.. |
-| Regulatory | 1 | Arm Holdings: Best Business Model In Its.. |
-| Corporate | 1 | Mitsubishi UFJ Asset Management Co. Ltd... |
+| Corporate | 1 | Exclusive-SpaceX taps Gibson Dunn and Da.. |
+| Analyst | 1 | SoftBank downgraded on OpenAI exposure a.. |
+| Earnings | 1 | BofA Raises PT on Arm Holdings plc (ARM).. |
 
 ### Deep Dive Articles
+
+#### Jim Cramer on Arm Holdings: "I Think There's Just a Lot of Good Stuff Happening"
+*Source: Insider Monkey | Date: 2026-03-11 | Sentiment: Positive (+0.96)*
+
+> Arm Holdings plc (NASDAQ:ARM) is one of thestocks on which Jim Cramer expressed his thoughts. Answering a caller’s query about the stock, Cramer said:
+
+> No, Arm Holdings is in every device there is. I really hesitate to tell you to leave that one. I think there’s just a lot of good stuff happening at Arm, and Rene Haas is doing a terrific job.
+
+> Arm Holdings plc (NASDAQ:ARM) designs and licenses CPU architectures, system IP, and software used across automotive, computing, consumer, and IoT applications. A caller inquired about the stock during the episode aired on January 26, and Cramer replied:
+
+> Okay, Arm’s very interesting here because they did see the big shortage coming. Rene Haas got it right. I think you do buy the stock, and I think it’s a great call.
+
+> While we acknowledge the potential of ARM as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you're looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+
+**Catalysts:** Short
 
 #### BofA Raises PT on Arm Holdings plc (ARM), Keeps a Hold Rating
 *Source: Insider Monkey | Date: 2026-03-06 | Sentiment: Positive (+0.97)*
@@ -2379,29 +2461,14 @@
 
 **Catalysts:** Earnings
 
-#### Wall Street Eager to Move Past Rough February Performance
-*Source: Schaeffer's Research | Date: 2026-02-27 | Sentiment: Positive (+0.96)*
-
-> It was awhipsaw weekof price action for all three major indexes, as investors endured increased geopolitical tensions,AI sustainability pressure, and a lackluster earnings response from market-moving Nvidia (NVDA). The Dow Jones Industrial Average (DJI) is on track for itsfirst monthly loss since April, while the Nasdaq Composite (IXIC) and S&P 500 Index (SPX) are poised to usher in weekly and monthly deficits.
-
-> AI relief wasswift to start the week,withsoftware stockspushing the Nasdaqback above 23,000on Wednesday. Bute all of that good will promptly faded following Nvidia's report, with techturning souron Thursday. Friday made matters worse afterhotter-than-expectedinflation data trickled in, sealing a disappointing week and month.
-
-> Investors had their eyes trained on tech this week long before Nvidia. ChipmakerArm Holdings (ARM)flashed an intriguing buy signal, while IBM (IBM)enjoyed a bounceafter landing an analyst bull note and a $112 million contract with the Defense Commissary. Advanced Micro Devices (AMD) is also partnering up,penning an agreementto provide six gigawatt graphic processing units (GPUs) to Meta Platform's (META) AI growth efforts.
-
-> Even after the selloff,Dell Technologies (DELL)bucked the broader trend thanks to an impressive Q4 beat. Quantum computing stock IonQ (IONQ) alsomade some noiseafter an impressive quarterly report. We broke down Nvidia in depth on ourSubstack: The Contrarian Edge, as well as in ourpost-earnings recap.
-
-> Beyond the concentration on software, several high-profile stocks made noise this week. This includes adisappointing drug trial resultfrom Novo Nordisk (NVO), a steep pullback bydefense giantKratos Defense & Security Solutions (KTOS), and options traders swarmed crypto favoriteStrategy (MSTR). Also making noise in the digital asset sector wasCircle Internet Group (CRCL), which looks ripe for a short squeeze.
-
-**Catalysts:** Earnings, Regulatory, Short
-
 ---
 
 ### ACHR
 
 #### Earnings
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:33*
 
 ## Earnings Analysis: Archer Aviation Inc. (ACHR)
 
@@ -2409,15 +2476,15 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-11 |
-| Days Until | 64 |
+| Days Until | 56 |
 | EPS Estimate | $-0.24416 |
-| Revenue Estimate | $1.5M |
-| Earnings Rule | Clear (>64d out) |
+| Revenue Estimate | $1.7M |
+| Earnings Rule | Clear (>56d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.17 | $-0.14 | 18.1% | -10.6% | -16.8% | Strong Bear |
+| Q1 2026 | $-0.17 | $-0.14 | 18.1% | -10.6% | -13.3% | Strong Bear |
 | Q4 2025 | $-0.20 | $-0.12 | 42.3% | -7.9% | -10.4% | Strong Bear |
 | Q3 2025 | $-0.18 | $-0.26 | -44.3% | +7.4% | +3.2% | Strong Bull |
 | Q2 2025 | $-0.22 | $-0.12 | 47.4% | +22.9% | +25.4% | Strong Bull |
@@ -2429,57 +2496,57 @@
 ### Revenue Trend
 | Quarter | Revenue | QoQ Growth% | YoY Growth% |
 | :--- | :--- | :--- | :--- |
+| Q4 2025 | $300,000 | N/A | N/A |
 | Q3 2025 | $0 | N/A | N/A |
 | Q2 2025 | $0 | N/A | N/A |
 | Q1 2025 | $0 | N/A | N/A |
 | Q4 2024 | $0 | N/A | N/A |
-| Q3 2024 | $0 | N/A | N/A |
 
 #### Technical Signals
 ## Technical Scan: Archer Aviation Inc. (ACHR)
-**Current Price: $6.26** | Date: 2026-03-06
+**Current Price: $6.01** | Date: 2026-03-16
 
 ### Trend Indicators
 | Indicator | Value | Price Position | Signal |
 | :--- | :--- | :--- | :--- |
-| SMA 20 | $6.99 | Below | Bearish |
-| SMA 50 | $7.66 | Below | Bearish |
-| SMA 200 | $9.33 | Below | Bearish |
-| EMA 9 | $6.79 | Below | Bearish |
-| EMA 21 | $7.04 | Below | Bearish |
+| SMA 20 | $6.74 | Below | Bearish |
+| SMA 50 | $7.47 | Below | Bearish |
+| SMA 200 | $9.19 | Below | Bearish |
+| EMA 9 | $6.34 | Below | Bearish |
+| EMA 21 | $6.68 | Below | Bearish |
 
 ### Momentum Indicators
 | Indicator | Value | Zone | Signal |
 | :--- | :--- | :--- | :--- |
-| RSI (14) | 36.8 | Bearish zone | Neutral-Bear |
-| MACD | -0.270 | Below signal | Bearish |
-| MACD Signal | -0.238 | Histogram: -0.032 | — |
-| Stochastic %K/%D | 3.0/13.0 | Oversold | Bearish |
+| RSI (14) | 36.0 | Bearish zone | Neutral-Bear |
+| MACD | -0.357 | Below signal | Bearish |
+| MACD Signal | -0.302 | Histogram: -0.055 | — |
+| Stochastic %K/%D | 2.2/3.8 | Oversold | Bearish |
 
 ### Volatility
 | Indicator | Value | Position | Signal |
 | :--- | :--- | :--- | :--- |
-| Bollinger Upper | $7.62 | Below lower band | Oversold |
-| Bollinger Lower | $6.35 | Width: $1.27 | — |
-| ATR (14) | $0.46 (7.3%) | High volatility | — |
+| Bollinger Upper | $7.65 | 9% of band | Neutral |
+| Bollinger Lower | $5.84 | Width: $1.81 | — |
+| ATR (14) | $0.43 (7.2%) | High volatility | — |
 
 ### Key Support/Resistance Levels
 | Level | Price | Type | Touches | Last Tested |
 | :--- | :--- | :--- | :--- | :--- |
-| Support | $6.36 (+1.6%) | Support | 1 | 2026-02-05 |
-| Support | $6.55 (+4.6%) | Support | 1 | 2025-11-21 |
-| Support | $5.48 (-12.5%) | Support | 1 | 2025-04-07 |
-| Support | $7.40 (+18.2%) | Support | 1 | 2025-12-31 |
-| Support | $8.16 (+30.4%) | Support | 1 | 2025-09-05 |
-| Resistance | $9.12 (+45.7%) | Resistance | 2 | 2025-12-04 |
-| Resistance | $9.27 (+48.0%) | Resistance | 2 | 2026-01-15 |
-| Support | $9.49 (+51.6%) | Support | 1 | 2025-06-23 |
+| Support | $6.36 (+5.9%) | Support | 1 | 2026-02-05 |
+| Support | $5.48 (-8.7%) | Support | 1 | 2025-04-07 |
+| Support | $6.55 (+9.1%) | Support | 1 | 2025-11-21 |
+| Support | $7.40 (+23.2%) | Support | 1 | 2025-12-31 |
+| Resistance | $7.55 (+25.7%) | Resistance | 1 | 2026-03-02 |
+| Support | $8.16 (+36.0%) | Support | 1 | 2025-09-05 |
+| Resistance | $9.06 (+50.9%) | Resistance | 1 | 2025-12-04 |
+| Support | $9.27 (+54.3%) | Support | 2 | 2026-01-15 |
 
 ### Signal Summary
 | Metric | Value |
 | :--- | :--- |
 | Overall Signal | **Strong Bearish** |
-| Score | -5 |
+| Score | -6 |
 | Bearish Factors | Below SMA 20, Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21, MACD bearish |
 
 #### Short Interest
@@ -2488,20 +2555,20 @@
 ### Short Interest Summary
 | Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
 | :--- | :--- | :--- | :--- | :--- |
-| ACHR | 89.06M | 2.26 | 14.07% | +5.8% (increasing) |
+| ACHR | 82.92M | 2.46 | 13.10% | -8.7% (decreasing) |
 
 ### Squeeze Risk Assessment
 | Ticker | Risk Rating | Score (/100) | Key Factors |
 | :--- | :--- | :--- | :--- |
-| ACHR | MEDIUM | 35 | Moderate short% (14.1%); Low DTC (2.3); Shorts slowly increasing |
+| ACHR | MEDIUM | 30 | Moderate short% (13.1%); Low DTC (2.5) |
 
 ### Context
 | Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
 | :--- | :--- | :--- | :--- | :--- |
-| ACHR | 623.71M | 734.11M | 36.87M | 2.3 |
+| ACHR | 623.89M | 749.86M | 36.16M | 2.5 |
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:33*
 
 ## News & Sentiment: Archer Aviation Inc. (ACHR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -2509,211 +2576,210 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-08 | TipRanks | Archer Aviation (ACHR) Stock Falls 17% YTD as Filings Reveal... | Positive | +0.30 | — |
-| 2026-03-08 | MarketBeat | Cresset Asset Management LLC Sells 115,252 Shares of Archer ... | Positive | +0.57 | Earnings, Corporate |
-| 2026-03-08 | The Motley Fool | The Smartest Growth Stock to Buy With $1,000 Right Now - The... | Positive | +0.57 | — |
-| 2026-03-08 | TipRanks | ACHR and JOBY: Cathie Wood Bets Bigger on Air Taxi Stocks - ... | Neutral | +0.00 | — |
-| 2026-03-07 | MarketBeat | MarketBeat Week in Review  03/02 - 03/06 | Neutral | +0.00 | Earnings |
-| 2026-03-07 | MarketBeat | Kingsview Wealth Management LLC Has $1.01 Million Holdings i... | Positive | +0.49 | Earnings, Corporate |
-| 2026-03-07 | MarketBeat | Intellectus Partners LLC Lowers Holdings in Archer Aviation ... | Negative | -0.13 | Earnings |
-| 2026-03-07 | MarketBeat | Teachers Retirement System of The State of Kentucky Makes Ne... | Neutral | +0.00 | Earnings |
-| 2026-03-07 | TIKR.com | Archer Aviation Plunges 10.6% on Spending Ramp: Do Analysts ... | Neutral | +0.00 | — |
-| 2026-03-07 | MarketBeat | MarketBeat Week in Review – 03/02 - 03/06 | Neutral | +0.00 | Earnings |
-| 2026-03-06 | Insider Monkey | Is Archer Aviation (ACHR) One of the Stocks That Should Doub... | Neutral | +0.00 | — |
-| 2026-03-06 | Meyka | Pre-Market Top Loser: ACHR-WT Archer NYSE -$10.65 06 Mar 202... | Negative | -0.57 | — |
-| 2026-03-05 | Investor's Busi | Defense Stocks: Iran Expands Retaliation For U.S. Naval Atta... | Negative | -0.25 | — |
-| 2026-03-05 | GuruFocus.com | Cathie Wood Doubles Down on Air-Taxi Stocks with Multi-Milli... | Neutral | +0.00 | — |
-| 2026-03-05 | Yahoo Finance | Archer eVTOL Milestones Create Wide Gap Between Progress And... | Positive | +0.73 | — |
-| 2026-03-05 | MarketBeat | Archer Aviation (NYSE:ACHR) Shares Down 4.4% - Should You Se... | Positive | +0.30 | Earnings |
-| 2026-03-05 | Seeking Alpha | Archer Aviation: What We Learned From FY 2025 Results (NYSE:... | Neutral | +0.00 | — |
-| 2026-03-05 | MarketBeat | ARK Investment Management LLC Acquires 1,715,945 Shares of A... | Positive | +0.30 | Earnings, Corporate |
-| 2026-03-05 | Stocktwits | Why Is Archer Aviation Stock Falling After Hours? - Stocktwi... | Negative | -0.15 | — |
-| 2026-03-05 | MarketBeat | Quantbot Technologies LP Purchases New Shares in Archer Avia... | Positive | +0.30 | Earnings |
-| 2026-03-05 | MarketBeat | Amova Asset Management Americas Inc. Cuts Stock Position in ... | Positive | +0.08 | Earnings, Corporate |
-| 2026-03-05 | Investing.com | Archer Aviation files for resale of shares and announces ven... | Positive | +0.30 | — |
-| 2026-03-05 | TipRanks | ‘We Shall See,’ Says Top Investor About Archer Aviation Stoc... | Positive | +0.20 | — |
-| 2026-03-05 | TipRanks | Archer Aviation Files Prospectus, Plans Share Issuance to Ve... | Positive | +0.30 | — |
-| 2026-03-05 | TipRanks | Cathie Wood Invests $16.5M in Joby and Archer — Which eVTOL ... | Neutral | +0.00 | — |
-| 2026-03-05 | Blockonomi | Joby Aviation (JOBY) vs Archer Aviation (ACHR): Which eVTOL ... | Neutral | +0.00 | — |
-| 2026-03-04 | Investor's Busi | U.S. Sinks Iranian Navy, Israel Boosts Defense Budget. ARK S... | Positive | +0.42 | — |
-| 2026-03-04 | Investor's Busi | Iran Expands Strikes In Retaliation For U.S. Sinking Navy, O... | Negative | -0.27 | — |
-| 2026-03-04 | 24/7 Wall St. | Archer Aviations Stock Tailspin Is Your Signal to Buy | Neutral | +0.00 | — |
-| 2026-03-04 | GuruFocus.com | Cathie Wood Loads Up on Alibaba and Amazon -- Sells TSMC and... | Positive | +0.18 | — |
+| 2026-03-16 | The Motley Fool | Archer Aviation Just Slapped a Countersuit on Rival Joby. He... | Negative | -0.44 | — |
+| 2026-03-16 | MarketBeat | Granahan Investment Management LLC Has $28.17 Million Stock ... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-03-15 | Yahoo Finance | Is Archer Aviation Inc. (ACHR) A Good Stock To Buy Now? - Ya... | Positive | +0.44 | — |
+| 2026-03-15 | TipRanks | Archer Aviation (ACHR) Escalates Patent Dispute with Joby (J... | Positive | +0.08 | — |
+| 2026-03-15 | MarketBeat | Clear Street Group Inc. Takes $10.40 Million Position in Arc... | Positive | +0.38 | Earnings |
+| 2026-03-15 | MarketBeat | Aquatic Capital Management LLC Buys New Stake in Archer Avia... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-03-14 | TipRanks | Archer Aviation Stock Stumbles as Legal Risks Mount - TipRan... | Negative | -0.15 | — |
+| 2026-03-14 | Simply Wall St. | Archer Aviation Setbacks Test Execution And Valuation For eV... | Neutral | +0.00 | — |
+| 2026-03-13 | Barchart | As Joby Aviation and Archer Aviation Battle It Out in Court,... | Positive | +0.08 | — |
+| 2026-03-13 | Barchart | JPMorgan Says Sell This Flying Car Stock. Cathie Wood Keeps ... | Neutral | +0.00 | Earnings |
+| 2026-03-13 | MarketBeat | Archer Aviation (NYSE:ACHR) Stock Price Down 2% - Time to Se... | Neutral | +0.00 | Earnings |
+| 2026-03-13 | Stock Titan | Archer Aviation (ACHR) CTO earns 16,358 performance-based RS... | Positive | +0.30 | — |
+| 2026-03-12 | simplywall.st | Is Archer Aviation (ACHR) Pricing Reflect Future Potential A... | Negative | -0.15 | — |
+| 2026-03-12 | MarketBeat | Archer Aviation (NYSE:ACHR) Shares Down 4.1% - Time to Sell?... | Positive | +0.30 | Earnings |
+| 2026-03-12 | The Globe and M | How Is Archer Aviation Building the Future of Urban Air Mobi... | Neutral | +0.00 | — |
+| 2026-03-12 | TipRanks | Archer Escalates IP Battle Against Joby in eVTOL Market - Ti... | Negative | -0.38 | — |
+| 2026-03-12 | Motley Fool | The Best 3 Industrial Stocks to Buy in March | Positive | +0.64 | — |
+| 2026-03-11 | Barchart | As Archer Aviation Joins a DoT Pilot Program, Should You Buy... | Neutral | +0.00 | — |
+| 2026-03-11 | GuruFocus.com | Cantor Fitzgerald Thinks Archer Stock Could Double in 2026 | Neutral | +0.00 | — |
+| 2026-03-11 | The Motley Fool | How Buying Archer Aviation (ACHR) Stock Today Could 10X Your... | Negative | -0.25 | — |
+| 2026-03-11 | The Motley Fool | Is Archer Aviation Stock Going to $13? - The Motley Fool | Negative | -0.44 | — |
+| 2026-03-11 | The Motley Fool | Better eVTOL Stock: Archer vs Joby - The Motley Fool | Neutral | +0.00 | — |
+| 2026-03-11 | TipRanks | Archer Aviation (ACHR) Executives Report Stock Sales after R... | Neutral | +0.00 | — |
+| 2026-03-11 | Yahoo Finance | Air Taxi Stock Archer Aviation Draws $22.5 Million Instituti... | Neutral | +0.00 | — |
+| 2026-03-11 | The Globe and M | Cantor Fitzgerald Remains a Buy on Archer Aviation (ACHR) - ... | Neutral | +0.00 | — |
+| 2026-03-11 | MarketBeat | Archer Aviation (NYSE:ACHR) Shares Up 1.8% - Still a Buy? - ... | Positive | +0.30 | Earnings |
+| 2026-03-11 | TipRanks | Archer Aviation Gets Strong Buy Backing as Analysts See 108%... | Positive | +0.53 | — |
+| 2026-03-10 | Investor's Busi | FAA Names Partners For Air Taxi Pilot Projects, Coming This ... | Neutral | +0.00 | — |
+| 2026-03-10 | Benzinga | Joby, Archer, Beta Are Winners In Trump Admin's 'Future of F... | Positive | +0.48 | — |
+| 2026-03-10 | Benzinga | What's Going On With Joby Aviation Stock Tuesday? | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 14 (47%) |
-| Neutral | 11 (37%) |
-| Negative | 5 (17%) |
-| Average Score | +0.121 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 182 |
+| Positive | 10 (33%) |
+| Neutral | 14 (47%) |
+| Negative | 6 (20%) |
+| Average Score | +0.056 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 181 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 10 | Cresset Asset Management LLC Sells 115,2..; MarketBeat Week in Review  03/02 - 03/06 |
-| Corporate | 4 | Cresset Asset Management LLC Sells 115,2..; Kingsview Wealth Management LLC Has $1.0.. |
+| Earnings | 7 | Granahan Investment Management LLC Has $..; Clear Street Group Inc. Takes $10.40 Mil.. |
+| Corporate | 2 | Granahan Investment Management LLC Has $..; Aquatic Capital Management LLC Buys New .. |
 
 ### Deep Dive Articles
 
-#### Is Archer Aviation (ACHR) One of the Stocks That Should Double in 3 Years?
-*Source: Insider Monkey | Date: 2026-03-06 | Sentiment: Positive (+0.95)*
+#### Joby, Archer, Beta Are Winners In Trump Admin's 'Future of Flight'
+*Source: Benzinga | Date: 2026-03-10 | Sentiment: Positive (+0.87)*
 
-> Archer Aviation Inc. (NYSE:ACHR) is one of thestocks that should double in 3 years. On March 2, Archer Aviation reported its financial results for the last quarter of 2025. For the full-year 2025, Archer Aviation reported a net loss of $618.2 million and total operating expenses of $729.6 million, as the company increased investments in aircraft development, testing, certification, and production. For Q1 2026, Archer Aviation estimates an Adjusted EBITDA loss between $160 million and $180 million.
+> Joby Aviation Inc.(NYSE:JOBY),Archer Aviation Inc.(NYSE:ACHR) andBeta Technologies Inc.(NYSE:BETA) have emerged as early winners after the Trump administration's new "Future of Flight" initiative formally selected their aircraft for multi-state test deploymentsin the coming years.
 
-> The company achieved a significant regulatory milestone by receiving final FAA acceptance of 100% of its ‘Means of Compliance,’ becoming the first eVTOL manufacturer to reach this stage. This achievement allows Archer to finalize its remaining certification plans and move toward Type Inspection Authorization activities as early as 2026. Consequently, Archer remains on track to begin piloted vertical take-off and landing operations later this year as part of the White House’s eVTOL Integration Pilot Program. The company is also progressing with its commercial launch program in the UAE and targets its first passenger-carrying flights in 2026.
+> The programis officially titledthe Advanced Air Mobility and Electric Vertical Takeoff and Landing (eVTOL) Integration Pilot Program (eIPP) and is run by the U.S. Department of Transportation and Federal Aviation Administration.
 
-> Archer Aviation is growing its Midnight aircraft fleet, with the newest tail currently in its VTOL flight test campaign and several other aircraft in various stages of completion. Beyond commercial air taxi operations, the company expanded its defense opportunities through a partnership with Anduril to design an autonomous, hybrid-electric VTOL aircraft. This strategy includes the company’s first third-party powertrain sale to power the Omen autonomous air vehicle. Additionally, Archer Aviation Inc. (NYSE:ACHR) established a new UK engineering hub in Bristol to support uncrewed vehicle programs in collaboration with local partners.
+> It is designed to fast‑track electric air taxis and next‑generation aircraft into real-world service under PresidentDonald Trump's executive orders on advanced air mobility and drone dominance.
 
-> Archer Aviation Inc. (NYSE:ACHR), together with its subsidiaries, designs and develops aircraft and related technologies and services for commercial and defense sectors in the US and internationally. The company offers eVTOL aircraft for urban air taxi operations.
+> Announced Monday by Transportation SecretarySean Duffy, the initiative named eight pilot projects across the U.S., tying Joby Aviation, Archer Aviation and Beta Technologies to high‑visibility trials in major corridors such as the New York region and Texas' "Triangle" of Dallas, Austin, San Antonio and Houston.
 
-> While we acknowledge the potential of ACHR as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
-
-**Catalysts:** Regulatory, Short
-
-#### Uber Enters Into a New Deal With Joby on Electric Air Taxis
-*Source: Zacks | Date: 2026-03-03 | Sentiment: Positive (+0.93)*
-
-> UberTechnologiesUBER introduced Uber Air, powered byJoby AviationJOBY, a new offering that allows riders to book the latter’s all-electric air taxi directly through the former’s app. The service provides an early look at how customers will be able to integrate aerial mobility into their everyday travel. Joby plans to transport its first passengers later this year in Dubai, marking a significant milestone in the collaboration with Uber to expand multi-modal transportation options in cities worldwide.
-
-> Through the app, riders can access Uber Air powered by Joby by entering their destination in the “Where to?” field. If eligible, the air taxi option will appear alongside other ride choices. With a single selection, the app coordinates the entire journey, including Uber Black pickup and drop-off, creating a seamless door-to-door experience. Joby’s all-electric aircraft is designed to accommodate up to four passengers, offering spacious seating and large panoramic windows that provide expansive city views. Operated by a certified commercial pilot, the aircraft aims to deliver a modern and efficient way to travel above urban areas.
-
-> The aircraft is equipped with six tilting propellers that enable vertical takeoff and landing before transitioning into forward flight. It is capable of reaching speeds of up to 200 miles per hour and can travel up to 100 miles on a single charge.
-
-> Before launching commercial operations in the United States, the service must undergo rigorous testing and certification by the Federal Aviation Administration. Joby has completed more than 50,000 miles of flight testing across its fleet and has entered the final phase of the certification process, underscoring the progress toward passenger operations.
-
-> Uber’s leadership has emphasized that advanced air mobility has the potential to reshape urban transportation by enabling riders to book electric air taxis through a familiar, integrated platform that connects ground and aerial travel in a single, streamlined experience. Uber and Joby are no strangers, having collaborated on urban air mobility initiatives since 2019. In 2021, Joby acquired Uber’s Elevate division, which contributed significantly to the development of the sector through market selection frameworks, demand modeling and multi-modal operational planning.
-
-**Catalysts:** Regulatory, Equity
-
-#### Archer, Riot, Rigetti and More Stocks With Earnings This Week
-*Source: Benzinga | Date: 2026-03-02 | Sentiment: Positive (+0.30)*
-
-> The fourth-quarter earnings season continues this week with reports from several major retailers, tech firmsand software giants.
-
-> Here's a look at the earnings schedule for the week ahead:
-
-> Retail investors will be watchingAST SpaceMobile, Inc.(NASDAQ:ASTS) when it reports Q4 results after Monday's closing bell.
-
-> Wall Street isanticipating quarterly lossesof 16 cents per share on revenue of $41.11 million, according to estimates fromBenzinga Pro.
-
-> The following companies are also set to report on Monday afternoon:
-
-**Catalysts:** Earnings
-
-#### Archer Aviation Stock Rises Ahead Of Q4 Earnings: What You Need To Know
-*Source: Benzinga | Date: 2026-03-02 | Sentiment: Negative (-0.40)*
-
-> Archer Aviation Inc(NYSE:ACHR) is edging higher Monday morning after securing a partnership withElon Musk’s Starlink, marking the satellite provider’s first venture into urban air mobility. Here’s what investorsneed to know.
-
-> Starlink’s low-Earth-orbit satellite system will beintegratedinto Archer’s Midnight electric air taxi to deliver high-speed connectivity in dense urban environments. The Midnight aircraft seats four passengers, utilizes 12 redundant engines for airliner-level safety, and targets rapid 5 to 15 minute city crossings.
-
-> Archer says this technology will enhance passenger internet access, strengthen pilot-to-ground communications and lay the groundwork for Archer’s future autonomous flight capabilities.
-
-> The stock’s move higher Monday comes amid global uncertainty, as the U.S. and Israellaunched strikesagainst Iran over the weekend. Israel’s military executed a broad strike in central Tehran targeting government-linked sites. Furthermore, Iran’s Natanz nuclear facility was struck during the joint military operations.
-
-> Regional instabilitydeepenedafterQatar Energyhalted LNG production following military attacks on its operating facilities. Combined with Iran closing the Strait of Hormuz, investors remain highly concerned about a wider regional conflict.
+> Duffy touted that the pilot projects will "safely test futuristic aircraft that will RADICALLY CHANGE the way people and products move," in a social mediapostfeaturing The Jetsons' theme song.
 
 **Catalysts:** Regulatory
 
-#### Jim Cramer on Archer Aviation: "I'm Not as Into These Stocks as Others"
-*Source: Insider Monkey | Date: 2026-02-28 | Sentiment: Positive (+0.90)*
+#### What's Going On With Joby Aviation Stock Tuesday?
+*Source: Benzinga | Date: 2026-03-10 | Sentiment: Positive (+0.34)*
 
-> Archer Aviation Inc. (NYSE:ACHR) is one of thestocks Jim Cramer put under the microscope. A caller inquired about Cramer’s opinion on the stock, and he replied:
+> Joby Aviation Inc.(NYSE:JOBY) shares edged higher Tuesday, outperforming a muted broader market as the electric air taxi developer navigates a freshlegal disputewith rivalArcher Aviation Inc.(NYSE:ACHR) while advancing plans to launch commercial air taxi services.
 
-> No, I’m not as into these stocks as others. I just think that Archer and Joby, they are kind of that, remember that year of magical investing? That thing ended, so we don’t want to participate in that anymore.
+> Archer Aviation recently filed a countersuit accusing Joby of fraudulent conduct. The lawsuit alleges Joby misrepresented the origin of certain aircraft materials in order to evade U.S. tariffs. Archer claims the company concealed links to China in its supply chain, potentially avoiding regulatory scrutiny and import duties.
 
-> Archer Aviation Inc. (NYSE:ACHR) designs and develops electric vertical takeoff and landing aircraft. The company also offers aerial ride-sharing, maintenance, and repair services. During the October 10, 2025, episode, a caller sought Cramer’s advice regarding starting a small position in the stock, and the Mad Money host responded:
+> The latest filing escalates an ongoing dispute between the two electric vertical takeoff and landing (eVTOL) developers. Joby previously sued Archer over alleged trade secret theft.
 
-> No, we’re going to let that come down. We’re in a kind of speculative tsunami right now. I think you’ll be able to get that cheaper. Yeah, just consider it like a maiden claiming race, okay?
+> Despite the legal tension, Joby continues to expand its commercial roadmap.Cathie Wood'sARK Investrecently purchasedadditional shares of the company following Joby's partnership with the Federal Aviation Administration under the Department of Transportation's Advanced Air Mobility program.
 
-> While we acknowledge the potential of ACHR as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you're looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+> Joby was also selected for theWhite House-backedeVTOL Integration Pilot Program, which allows early operational testing and could accelerate the rollout of commercial air taxi services while supporting development of its autonomous Superpilot technology ahead of full FAA certification.
 
-**Catalysts:** Short
+**Catalysts:** Regulatory, Analyst
+
+#### Needham Lowers Archer Aviation Inc. (ACHR) Price Target to $9
+*Source: Insider Monkey | Date: 2026-03-10 | Sentiment: Positive (+0.49)*
+
+> Archer Aviation Inc. (NYSE:ACHR)is among the12 Low Price High Volume Stocks to Buy Right Now.
+
+> On March 3, Needham & Company lowered the firm’s price target on Archer Aviation Inc. (NYSE:ACHR) to $9 from $10 while maintaining a Buy rating following the company’s fourth-quarter results. The firm noted that several bullish scenarios remain visible for fiscal 2026, particularly as Archer begins flying the latest version of its Midnight aircraft. Analysts highlighted upcoming transition flights and participation in the government-supported eVTOL Integration Pilot Program as potential catalysts that could support investor sentiment despite operational challenges faced during 2025.
+
+> Archer Aviation Inc. (NYSE:ACHR) reported fourth-quarter results the previous day, ending the period with approximately $2.0 billion in total liquidity—its highest level to date. Management indicated that the capital provides sufficient runway to support commercialization efforts, manufacturing ramp-up, and adjacent strategic investments.
+
+> Archer Aviation Inc. (NYSE:ACHR) also noted that it is expanding its flight testing program and increasing production of its Midnight aircraft, which is currently undergoing a vertical take-off and landing flight test campaign ahead of full piloted transition flights. The company plans to begin piloted operations as part of the White House’s eVTOL Integration Pilot Program later this year and is targeting its first passenger-carrying flights in 2026.
+
+> Ranking seventh on the list of 12 low price high volume stocks to buy right now, Archer Aviation Inc. (NYSE:ACHR) was founded in 2018 and is headquartered in San Jose, California. The company is developing electric vertical take-off and landing (eVTOL) aircraft designed for urban air mobility and short-distance aerial transportation. Archer’s growing flight test program and commercialization roadmap position it to participate in the emerging advanced air mobility market.
+
+**Catalysts:** Corporate, Analyst, Short
+
+#### Joby Aviation and Archer Aviation's Air Battle Continues
+*Source: 24/7 Wall St. | Date: 2026-03-10 | Sentiment: Negative (-0.60)*
+
+> Archer Aviation (ACHR) is down 13.3% over the past week and Joby Aviation (JOBY) is down 23.94% year-to-date. Archer’s countersuit accuses Joby of defrauding the U.S. government by misclassifying Chinese aircraft materials and concealing foreign government ties while both compete for federal grants and commercial certification.
+
+> A legal war between the two leading publicly traded eVTOL companies escalated sharply this week, adding a new layer of regulatory and reputational risk to an already high-stakes sector race.
+
+> Archer Aviation filed a countersuit accusing rival Joby Aviation of defrauding the U.S. government and concealing ties to China. Archer alleged that Joby and its agents fraudulently misclassified thousands of pounds of Chinese-origin aircraft materials as consumer goods to avoid tariffs and foreign-influence scrutiny. Archer also alleged that Joby received grants and financial support from the Chinese government, creating a “profound, undisclosed foreign dependency,” while portraying itself as an American firm.
+
+> The countersuit is a response to Joby’s November lawsuit accusing Archer of stealing trade secrets through a former employee who allegedly took confidential information about business strategies, partnerships, and aircraft specifications. Joby attorney Alex Spiro dismissed the countersuit claims as “nonsense.”
+
+> The timing sharpens the stakes. The countersuit was filed the same day the U.S. Department of Transportation announced eight grant programs to accelerate air taxi development, three of which list both Joby and Archer as participants. Both companies are racing toward FAA type certification and commercial launch, with Joby Aviation (NYSE:JOBY) targeting early operations in 10 U.S. states in 2026 and Archer Aviation (NYSE:ACHR) having achieved 100% FAA acceptance of all means of compliance for its Midnight aircraft.
+
+**Catalysts:** Earnings, Regulatory
+
+#### Archer Aviation Files Countersuit Against Rival Joby Alleging China Ties, Fraud Amid FAA Partnership
+*Source: Benzinga | Date: 2026-03-10 | Sentiment: Positive (+0.64)*
+
+> Electric Vertical Takeoff and Landing (eVTOL) aircraft makerArcher Aviation Inc.(NYSE:ACHR) has filed a countersuit against rivalJoby Aviation Inc.(NYSE:JOBY), alleging the latter's ties to China amid atheft of trade secrets lawsuitfiled last November.
+
+> The countersuit, filed in California, accused Joby of hiding and then leveraging its ties to China to gain an advantage in the eVTOL sector, Reuters reported on Monday.
+
+> Archer has also accused Joby of defrauding the U.S. government and receiving grants from the Chinese government. The countersuit claims that Joby purposefully misrepresented "thousands of pounds of Chinese-origin aircraft materials as ​consumer goods," to "evade U.S. tariffs and foreign-influence ⁠oversight."
+
+> Archer Aviation and Joby didn't immediately respond toBenzinga's request for comment.
+
+> The news comes as Joby announced it was partnering with the Federal Aviation Administration via the eVTOL Integration Pilot Program (eIPP). The program would let thecompany begin operationsin 2026 in 10 states across the U.S. The partnership was also hailed by Joby CEOJoeBen Bevirtas a “defining moment for American innovation."
+
+**Catalysts:** Regulatory, Corporate
 
 ---
 
-### CLSK
+### TEM
 
 #### Earnings
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:34*
 
-## Earnings Analysis: CleanSpark, Inc. (CLSK)
+## Earnings Analysis: Tempus AI, Inc. (TEM)
 
 ### Next Earnings
 | Metric | Value |
 | :--- | :--- |
-| Earnings Date | 2026-05-07 |
-| Days Until | 60 |
-| EPS Estimate | $-0.305 |
-| Revenue Estimate | $151.3M |
-| Earnings Rule | Clear (>60d out) |
+| Earnings Date | 2026-05-05 |
+| Days Until | 50 |
+| EPS Estimate | $-0.19298 |
+| Revenue Estimate | $345.4M |
+| Earnings Rule | Clear (>50d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $0.21 | $-1.32 | -745.7% | +22.0% | +12.6% | Strong Bull |
-| Q4 2025 | $0.54 | $0.16 | -69.9% | +13.8% | +22.6% | Strong Bull |
-| Q3 2025 | $0.07 | $0.79 | 1028.3% | -6.1% | -7.2% | Strong Bear |
-| Q2 2025 | $-0.13 | $-0.49 | -268.0% | +6.0% | +7.8% | Strong Bull |
-| Q1 2025 | $-0.16 | $0.80 | 599.6% | +9.2% | +2.8% | Strong Bull |
-| Q4 2024 | $-0.16 | $0.28 | 275.8% | -3.9% | -6.6% | Strong Bear |
-| Q3 2024 | N/A | $-0.18 | N/A | -2.6% | +3.3% | Bearish |
-| Q2 2024 | $0.09 | $0.04 | -56.4% | -6.1% | -0.7% | Strong Bear |
+| Q1 2026 | $-0.05 | $-0.04 | 22.1% | -7.3% | -11.3% | Strong Bear |
+| Q4 2025 | $-0.18 | $-0.11 | 37.3% | -2.6% | -15.3% | Bearish |
+| Q3 2025 | $-0.25 | $-0.22 | 13.0% | -0.1% | +21.2% | Bearish |
+| Q2 2025 | $-0.27 | $-0.24 | 10.2% | +12.6% | +32.0% | Strong Bull |
+| Q1 2025 | $-0.15 | $-0.18 | -17.5% | -15.0% | -26.8% | Strong Bear |
+| Q4 2024 | $-0.28 | $-0.25 | 10.9% | -10.1% | +56.8% | Strong Bear |
+| Q3 2024 | $-1.79 | $-0.63 | 64.8% | -4.5% | +4.9% | Strong Bear |
 
 ### Revenue Trend
 | Quarter | Revenue | QoQ Growth% | YoY Growth% |
 | :--- | :--- | :--- | :--- |
-| Q4 2025 | $181.2M | -19.0% | +11.6% |
-| Q3 2025 | $223.7M | +12.6% | N/A |
-| Q2 2025 | $198.6M | +9.3% | N/A |
-| Q1 2025 | $181.7M | +12.0% | N/A |
-| Q4 2024 | $162.3M | N/A | N/A |
+| Q4 2025 | $367.2M | +9.9% | +83.0% |
+| Q3 2025 | $334.2M | +6.2% | N/A |
+| Q2 2025 | $314.6M | +23.0% | N/A |
+| Q1 2025 | $255.7M | +27.4% | N/A |
+| Q4 2024 | $200.7M | N/A | N/A |
 
 #### Technical Signals
-## Technical Scan: CleanSpark, Inc. (CLSK)
-**Current Price: $9.21** | Date: 2026-03-06
+## Technical Scan: Tempus AI, Inc. (TEM)
+**Current Price: $50.38** | Date: 2026-03-16
 
 ### Trend Indicators
 | Indicator | Value | Price Position | Signal |
 | :--- | :--- | :--- | :--- |
-| SMA 20 | $9.92 | Below | Bearish |
-| SMA 50 | $11.11 | Below | Bearish |
-| SMA 200 | $12.21 | Below | Bearish |
-| EMA 9 | $9.97 | Below | Bearish |
-| EMA 21 | $10.24 | Below | Bearish |
+| SMA 20 | $53.59 | Below | Bearish |
+| SMA 50 | $59.01 | Below | Bearish |
+| SMA 200 | $69.42 | Below | Bearish |
+| EMA 9 | $51.38 | Below | Bearish |
+| EMA 21 | $53.34 | Below | Bearish |
 
 ### Momentum Indicators
 | Indicator | Value | Zone | Signal |
 | :--- | :--- | :--- | :--- |
-| RSI (14) | 41.4 | Bearish zone | Neutral-Bear |
-| MACD | -0.364 | Above signal | Bullish |
-| MACD Signal | -0.428 | Histogram: +0.064 | — |
-| Stochastic %K/%D | 11.9/46.7 | Oversold | Bearish |
+| RSI (14) | 40.1 | Bearish zone | Neutral-Bear |
+| MACD | -2.305 | Above signal | Bullish |
+| MACD Signal | -2.320 | Histogram: +0.014 | — |
+| Stochastic %K/%D | 18.1/12.7 | Oversold | Bullish |
 
 ### Volatility
 | Indicator | Value | Position | Signal |
 | :--- | :--- | :--- | :--- |
-| Bollinger Upper | $10.80 | 10% of band | Neutral |
-| Bollinger Lower | $9.04 | Width: $1.76 | — |
-| ATR (14) | $0.83 (9.0%) | High volatility | — |
+| Bollinger Upper | $59.55 | 23% of band | Neutral |
+| Bollinger Lower | $47.62 | Width: $11.93 | — |
+| ATR (14) | $3.03 (6.0%) | High volatility | — |
 
 ### Key Support/Resistance Levels
 | Level | Price | Type | Touches | Last Tested |
 | :--- | :--- | :--- | :--- | :--- |
-| Support | $9.06 (-1.6%) | Support | 1 | 2025-11-21 |
-| Support | $8.92 (-3.2%) | Support | 3 | 2025-09-05 |
-| Support | $9.98 (+8.4%) | Support | 1 | 2025-12-31 |
-| Support | $8.41 (-8.7%) | Support | 2 | 2025-06-23 |
-| Support | $8.26 (-10.3%) | Support | 1 | 2026-02-05 |
-| Resistance | $11.04 (+19.9%) | Resistance | 1 | 2025-05-22 |
-| Support | $6.45 (-29.9%) | Support | 1 | 2025-04-07 |
-| Resistance | $13.66 (+48.3%) | Resistance | 1 | 2025-07-14 |
+| Support | $49.40 (-1.9%) | Support | 1 | 2026-02-12 |
+| Support | $52.55 (+4.3%) | Support | 1 | 2025-05-28 |
+| Support | $53.39 (+6.0%) | Support | 1 | 2025-08-01 |
+| Support | $55.77 (+10.7%) | Support | 1 | 2025-07-15 |
+| Support | $58.80 (+16.7%) | Support | 1 | 2025-12-31 |
+| Resistance | $62.00 (+23.1%) | Resistance | 1 | 2026-02-20 |
+| Support | $64.20 (+27.4%) | Support | 1 | 2025-11-18 |
+| Support | $36.22 (-28.1%) | Support | 1 | 2025-04-09 |
 
 ### Signal Summary
 | Metric | Value |
@@ -2729,20 +2795,1475 @@
 ### Short Interest Summary
 | Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
 | :--- | :--- | :--- | :--- | :--- |
-| CLSK | 85.48M | 2.51 | 46.84% | +3.7% (increasing) |
+| TEM | 23.99M | 4.10 | 17.99% | +11.4% (increasing) |
 
 ### Squeeze Risk Assessment
 | Ticker | Risk Rating | Score (/100) | Key Factors |
 | :--- | :--- | :--- | :--- |
-| CLSK | HIGH | 65 | Very high short% (46.8%); Low DTC (2.5); Shorts slowly increasing |
+| TEM | HIGH | 65 | Elevated short% (18.0%); Moderate DTC (4.1); Shorts increasing rapidly |
 
 ### Context
 | Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
 | :--- | :--- | :--- | :--- | :--- |
-| CLSK | 246.85M | 255.75M | 27.24M | 2.5 |
+| TEM | 112.86M | 173.73M | 5.43M | 4.1 |
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:34*
+
+## News & Sentiment: Tempus AI, Inc. (TEM)
+*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
+
+### Headlines (Top 30, Deduplicated)
+| Date | Source | Headline | Sentiment | Score | Catalysts |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-16 | MarketBeat | Tempus AI, Inc. $TEM Shares Bought by Bamco Inc. NY - Market... | Positive | +0.30 | Earnings |
+| 2026-03-16 | TradingView | Tempus AI Advances Clinical Applications and Healthcare Soft... | Neutral | +0.00 | — |
+| 2026-03-15 | thestreet.com | Cathie Wood buys $2 million of tumbling AI stock - thestreet... | Neutral | +0.00 | — |
+| 2026-03-15 | MarketBeat | Casdin Capital LLC Purchases Shares of 294,127 Tempus AI, In... | Positive | +0.30 | Earnings |
+| 2026-03-15 | MarketBeat | Clear Street Group Inc. Acquires Shares of 716,406 Tempus AI... | Positive | +0.59 | Earnings |
+| 2026-03-13 | simplywall.st | Assessing Tempus AI (TEM) Valuation As New Oncology Study Hi... | Neutral | +0.00 | — |
+| 2026-03-13 | MarketBeat | Tempus AI, Inc. $TEM Shares Acquired by Landscape Capital Ma... | Positive | +0.30 | Earnings, Corporate |
+| 2026-03-13 | MarketBeat | Tempus AI, Inc. $TEM Shares Acquired by BNP Paribas Financia... | Positive | +0.30 | Earnings |
+| 2026-03-12 | Zacks Investmen | Tempus AI Expands Clinical Validation of AI-Powered Cancer D... | Negative | -0.61 | — |
+| 2026-03-12 | GuruFocus | Tempus AI Inc (TEM) Shares Down 5.14% on Mar 12 - GuruFocus | Positive | +0.30 | — |
+| 2026-03-12 | MarketBeat | First Trust Advisors LP Has $47.63 Million Position in Tempu... | Positive | +0.51 | Earnings |
+| 2026-03-11 | Business Wire | Tempus Announces Study Highlighting the Role of Advanced Gen... | Positive | +0.25 | — |
+| 2026-03-11 | Benzinga | Why Tempus AI Stock Is Up Wednesday? - Tempus AI (NASDAQ:TEM... | Neutral | +0.00 | — |
+| 2026-03-11 | Stock Titan | Tempus cancer study: deeper test gives 1 in 8 new treatment ... | Negative | -0.66 | Equity |
+| 2026-03-10 | Zacks | Hims and Hers Expands Consumer-Focused Digital Health Platfo... | Positive | +0.10 | — |
+| 2026-03-09 | Zacks | Should You Buy, Hold or Sell Tempus AI Stock Heading Into 20... | Neutral | +0.00 | — |
+| 2026-03-09 | MarketBeat | HC Wainwright Forecasts Strong Price Appreciation for Tempus... | Positive | +0.77 | Earnings |
+| 2026-03-09 | GuruFocus | Tempus AI Inc (TEM) Stock Price Down 3.2% on Mar 9 - GuruFoc... | Neutral | +0.00 | — |
+| 2026-03-08 | Simply Wall St. | Assessing Tempus AI (TEM) Valuation After Expanded Merck Col... | Neutral | +0.00 | — |
+| 2026-03-08 | Simply Wall St. | Tempus AI Deepens Merck Collaboration As Pharma Demand And L... | Negative | -0.49 | — |
+| 2026-03-07 | Insider Monkey | Tempus AI, Inc. (TEM) Announces Strategic Deal with Merck to... | Neutral | +0.00 | — |
+| 2026-03-07 | simplywall.st | Is Tempus AI (TEM) Pricing Reflect Its AI Healthcare Ambitio... | Positive | +0.30 | — |
+| 2026-03-06 | simplywall.st | Tempus AI (TEM) Valuation Check As Merck Alliance Puts Its P... | Neutral | +0.00 | — |
+| 2026-03-05 | Zacks | TEM's Diagnostics Arm Expanding Rapidly: What's Driving the ... | Positive | +0.38 | — |
+| 2026-03-05 | MarketBeat | TD Asset Management Inc Takes Position in Tempus AI, Inc. $T... | Positive | +0.36 | Earnings, Corporate |
+| 2026-03-04 | Insider Monkey | Is Tempus AI, Inc. (TEM) A Good Stock To Buy Now? | Positive | +0.44 | — |
+| 2026-03-04 | Yahoo Finance | Is Tempus AI, Inc. (TEM) A Good Stock To Buy Now? - Yahoo Fi... | Positive | +0.44 | — |
+| 2026-03-04 | Stock Titan | Director David R. Epstein sells Tempus AI (TEM) shares under... | Positive | +0.30 | Earnings |
+| 2026-03-03 | Benzinga | AI-Powered Tempus Inks New Multi-Year Merck Deal | Neutral | +0.00 | — |
+| 2026-03-03 | PR Newswire | Hospital Networks Turn to AI-Enhanced Cardiac Imaging to Cut... | Positive | +0.20 | — |
+
+### Sentiment Summary
+| Metric | Value |
+| :--- | :--- |
+| Articles Analyzed | 30 |
+| Positive | 17 (57%) |
+| Neutral | 10 (33%) |
+| Negative | 3 (10%) |
+| Average Score | +0.145 |
+| Overall Sentiment | **Bullish** |
+| Total Unique Headlines | 185 |
+
+### Detected Catalysts
+| Category | Count | Headlines |
+| :--- | :--- | :--- |
+| Earnings | 9 | Tempus AI, Inc. $TEM Shares Bought by Ba..; Casdin Capital LLC Purchases Shares of 2.. |
+| Corporate | 2 | Tempus AI, Inc. $TEM Shares Acquired by ..; TD Asset Management Inc Takes Position i.. |
+| Equity | 1 | Tempus cancer study: deeper test gives 1.. |
+
+### Deep Dive Articles
+
+#### Hims and Hers Expands Consumer-Focused Digital Health Platform
+*Source: Zacks | Date: 2026-03-10 | Sentiment: Positive (+0.99)*
+
+> The renowned health and wellness platform,Hims & Hers Health, Inc.HIMS, is building a consumer-first digital health platform aimed at expanding access to personalized, ongoing care through a technology-driven model. Its platform integrates telehealth consultations, electronic medical records, digital prescriptions and pharmacy fulfillment, allowing patients to access treatment for a range of conditions including sexual health, dermatology, hair loss, hormone health, mental health and weight management. The subscription-based model enables continuous engagement between patients and providers while supporting personalized treatment plans and follow-up care through its mobile and web interfaces.
+
+> HIMS has recently expanded its ecosystem with new specialties and proactive health offerings. These include a new category in men’s health focused on low testosterone treatments, as well as a menopause and perimenopause specialty on the Hers platform aimed at addressing underserved women’s health needs. In addition, the launch of Labs allows customers to track key biomarkers and receive doctor-developed action plans, while the introduction of a multi-cancer early detection test expands access to preventative screening and earlier diagnosis.
+
+> Alongside product expansion, Hims & Hers is scaling its global footprint. The company has entered Canada following the acquisition of a local digital health platform, expanded its weight-loss program in the U.K. and announced plans to acquire Eucalyptus, which is expected to extend its presence into additional international markets and strengthen its global consumer health platform.
+
+> Tempus AI, Inc.TEM is advancing precision medicine by integrating artificial intelligence (AI) with large multimodal healthcare datasets to enable more personalized diagnostics and treatment decisions. Tempus AI leverages its platform of clinical, molecular and imaging data to develop intelligent diagnostics that help physicians match patients with more effective therapies. Recently, Tempus AI launched innovations such as the Paige Predict digital pathology solution and the HRD-RNA algorithm to improve biomarker identification, while also expanding collaborations with partners like Merck and leading health systems to accelerate AI-driven oncology research and screening initiatives.
+
+> Medifast, Inc.MED is repositioning itself as a metabolic health company through its science-based, coach-guided wellness platform centered on the OPTAVIA system. Medifast combines structured nutrition plans, clinically informed products and behavioral coaching to help individuals improve metabolic health rather than focusing solely on short-term weight loss. Recently, Medifast strengthened this strategy by enabling eligible OPTAVIA programs to be reimbursed through HSA and FSA plans, expanding access to its metabolic health solutions while continuing to develop new systems and products aimed at supporting long-term metabolic balance and sustainable lifestyle change.
+
+**Catalysts:** Corporate, Equity, Short
+
+#### Should You Buy, Hold or Sell Tempus AI Stock Heading Into 2026?
+*Source: Zacks | Date: 2026-03-09 | Sentiment: Positive (+1.00)*
+
+> Tempus AI’s TEM strategic focus for 2026 centers on expanding its AI-driven precision medicine platform by scaling the diagnostics business, growing data and AI capabilities and strengthening relationships with healthcare providers and pharmaceutical companies. These initiatives are supported by a strong commercial pipeline, with total contract value exceeding $1.1 billion. This provides significant visibility into future revenues and supports the company’s continued growth trajectory.
+
+> The company’s confidence in its growth outlook is supported by strong segmental performance in 2025. It delivered robust financial results, with total revenues increasing 83.4% year over year to $1.3 billion. The Diagnostics segment was the primary growth driver, generating $955.4 million in revenues, representing 111.5% year-over-year growth, supported by strong growth in Oncology and Hereditary testing volumes. At the same time, the Data and Applications segment continued to scale rapidly, generating $316.4 million in revenues, up 30.9% year over year, due to strong momentum in the Insights data licensing business.
+
+> Tempus peers such asInspire Medical SystemsINSP and10x GenomicsTXG are also expected to maintain growth momentum heading into 2026. While Inspire Medical Systems continues to benefit from rising adoption of its sleep apnea therapy devices, 10x Genomics is advancing growth through expanding demand for single-cell and spatial genomics technologies.
+
+> During the past year, TEM’s shares have increased 15.7%, reflecting a sharp reversal in sentiment across the Zacks Medical Info Systems industry, which declined 25.2%. Meanwhile, INSP stock price was down 64.9% over the same period. However, TXG has fared relatively better, posting a gain of 96.5%. The S&P 500 index is also up 23.2% over the same period.
+
+> Tempus expects strong growth in its oncology diagnostics segment, driven by the increasing adoption of genomic sequencing in cancer care. A key driver of this growth is the expansion of its comprehensive test portfolio, which includes xT - DNA tumor profiling, xR - RNA profiling, xF - liquid biopsy, xH - hematologic cancer testing and xE - whole exome sequencing. These tests are supported by Tempus’ integrated platform that combines molecular data with clinical information and AI-driven insights to provide more actionable results for physicians. Growth is also supported by rising physician adoption.
+
+**Catalysts:** Earnings
+
+#### Tempus AI, Inc. (TEM) Announces Strategic Deal with Merck to Fast-Track AI-Driven Precision Medicine
+*Source: Insider Monkey | Date: 2026-03-07 | Sentiment: Positive (+0.84)*
+
+> Tempus AI, Inc. (NASDAQ:TEM) is among theARK Invest Stock Portfolio: Top 10 Stock Picks for 2026. On March 3, the company announced a strategic partnership with Merck to fast-track the development of AI-driven precision medicine and support the pharma-maker’s oncology portfolio and other therapeutic offerings.
+
+> As part of the agreement, Merck will leverage Tempus AI, Inc. (NASDAQ:TEM)’s de-identified data and Lens Platform and Workspaces technologies to generate new discoveries and accelerate the development and effective use of candidate therapies on a large scale.
+
+> In other news, on February 25, JPMorgan analyst Casey Woodring slashed the stock’s price target to $60 from $80, with a Neutral rating, following the company’s Q4 earnings call a day prior.
+
+> According to TipRanks, the firm cited Tempus AI, Inc.’s (NASDAQ:TEM) ‘clouded visibility’ on data upside and a revision to its outlook for Ambry as the reason behind the adjustment.
+
+> As of the close of business on March 4, the stock is a Moderate Buy, with an average upside potential of 52.5%.
+
+**Catalysts:** Earnings, Equity, Analyst
+
+#### TEM's Diagnostics Arm Expanding Rapidly: What's Driving the Growth?
+*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+0.99)*
+
+> The Diagnostics segment ofTempus AITEM experienced strong growth in 2025, driven primarily by increasing adoption of precision oncology testing and its integration of artificial intelligence with genomic diagnostics. One of the fastest-growing areas within Diagnostics was Minimal Residual Disease (“MRD”) testing, demonstrating the rapid adoption of advanced monitoring technologies in cancer care. The strong performance of the diagnostics segment is also supported by Tempus’ extensive clinical network, which includes connections with more than 5,500 hospitals and over 8,500 regularly ordering oncologists.
+
+> Tempus’ multi-assay genomic testing platform has also contributed to the growth, which includes several advanced oncology tests such as xT, xR, xF, xH and xE. Another major factor contributing to the advancement of the diagnostics segment is Tempus’ focus on integrating artificial intelligence and multimodal data analysis into its diagnostic platform.
+
+> The company has developed innovative tools such as Paige Predict, an AI-driven technology that analyzes digitized pathology slides to predict genetic mutations even when sequencing results cannot be returned due to technical limitations. Tempus has also developed the Immune Profile Score, an analytical framework that integrates DNA sequencing, RNA sequencing and digital pathology data to refine traditional biomarkers such as tumor mutational burden.
+
+> The acquisition of Ambry Genetics also played an important role in strengthening the diagnostics segment. Ambry expanded Tempus’ capabilities in hereditary cancer testing and allowed it to broaden the overall sequencing portfolio.
+
+> IlluminaILMN is currently focusing on its core strengths in genomics. The primary growth driver remains the clinical market, where adoption of sequencing is expanding rapidly around the world. In multiomics, Illumina is building a comprehensive set of integrated solutions that extend its sequencing ecosystem, combining internally developed capabilities with selective acquisitions. It launched Illumina Protein Prep - an assay introducing superior performance for NGS-based proteomics discovery at scale.
+
+**Catalysts:** Regulatory, Corporate
+
+#### Is Tempus AI, Inc. (TEM) A Good Stock To Buy Now?
+*Source: Insider Monkey | Date: 2026-03-04 | Sentiment: Positive (+0.99)*
+
+> We came across abullish thesison Tempus AI, Inc. on R. Dennis’s Substack by OppCost. In this article, we will summarize the bulls’ thesis on TEM. Tempus AI, Inc.'s share was trading at $51.40 as of March 3rd. TEM’s trailing P/E was 39.30 respectively according to Yahoo Finance.
+
+> Tempus AI (TEM) represents a unique long-term growth opportunity at the intersection of oncology, data compounding, and artificial intelligence. The company is building the world’s largest library of clinical and molecular data, sequencing tumors and linking genomic information to longitudinal clinical records.
+
+> This creates a powerful data flywheel: as more oncologists use Tempus, the database expands, improving AI-driven insights, which in turn increases the value of the platform to pharmaceutical companies seeking to accelerate drug discovery.
+
+> Recognizing this compounding potential, we strategically sold 1,500 January 2027 $50 put contracts at $8.35, effectively setting a target entry price of $41.65, which provides a significant margin of safety relative to current valuations.
+
+> This approach allows us to capture the long-term upside of owning a dominant data-driven platform without being subject to short-term volatility. Tempus’ model is designed for decades of intrinsic value growth, with applications in pathology and cardiology poised to move from experimental to industry standard, positioning the company as a generational asset in healthcare AI.
+
+**Catalysts:** Regulatory, Short
+
+---
+
+### CLF
+
+#### Earnings
+*Generated: 2026-03-16 19:32*
+
+*Generated: 2026-03-16 19:34*
+
+## Earnings Analysis: Cleveland-Cliffs Inc. (CLF)
+
+### Next Earnings
+| Metric | Value |
+| :--- | :--- |
+| Earnings Date | 2026-04-29 |
+| Days Until | 44 |
+| EPS Estimate | $-0.375 |
+| Revenue Estimate | $4.82B |
+| Earnings Rule | Clear (>44d out) |
+
+### Earnings History
+| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Q1 2026 | $-0.62 | $-0.43 | 30.1% | -0.3% | -14.5% | Bearish |
+| Q4 2025 | $-0.45 | $-0.45 | 0.6% | -17.2% | -14.9% | Strong Bear |
+| Q3 2025 | $-0.67 | $-0.50 | 25.9% | +6.2% | +5.6% | Strong Bull |
+| Q2 2025 | $-0.79 | $-1.00 | -26.2% | -15.8% | -11.2% | Strong Bear |
+| Q1 2025 | $-0.67 | $-0.68 | -1.0% | -3.2% | -9.5% | Strong Bear |
+| Q4 2024 | $-0.30 | $-0.33 | -8.2% | -11.4% | -4.5% | Strong Bear |
+| Q3 2024 | N/A | $0.11 | 4945.9% | +4.4% | +0.3% | Strong Bull |
+| Q2 2024 | $0.22 | $-0.14 | -162.5% | -11.0% | -13.4% | Strong Bear |
+
+### Revenue Trend
+| Quarter | Revenue | QoQ Growth% | YoY Growth% |
+| :--- | :--- | :--- | :--- |
+| Q4 2025 | $4.31B | -8.9% | -0.3% |
+| Q3 2025 | $4.73B | -4.1% | N/A |
+| Q2 2025 | $4.93B | +6.6% | N/A |
+| Q1 2025 | $4.63B | +7.0% | N/A |
+| Q4 2024 | $4.33B | N/A | N/A |
+
+#### Technical Signals
+## Technical Scan: Cleveland-Cliffs Inc. (CLF)
+**Current Price: $8.51** | Date: 2026-03-16
+
+### Trend Indicators
+| Indicator | Value | Price Position | Signal |
+| :--- | :--- | :--- | :--- |
+| SMA 20 | $10.20 | Below | Bearish |
+| SMA 50 | $12.15 | Below | Bearish |
+| SMA 200 | $11.24 | Below | Bearish |
+| EMA 9 | $9.36 | Below | Bearish |
+| EMA 21 | $10.29 | Below | Bearish |
+
+### Momentum Indicators
+| Indicator | Value | Zone | Signal |
+| :--- | :--- | :--- | :--- |
+| RSI (14) | 27.1 | Oversold | Bullish |
+| MACD | -0.955 | Below signal | Bearish |
+| MACD Signal | -0.813 | Histogram: -0.142 | — |
+| Stochastic %K/%D | 3.6/2.4 | Oversold | Bullish |
+
+### Volatility
+| Indicator | Value | Position | Signal |
+| :--- | :--- | :--- | :--- |
+| Bollinger Upper | $11.94 | 2% of band | Neutral |
+| Bollinger Lower | $8.46 | Width: $3.48 | — |
+| ATR (14) | $0.60 (7.0%) | High volatility | — |
+
+### Key Support/Resistance Levels
+| Level | Price | Type | Touches | Last Tested |
+| :--- | :--- | :--- | :--- | :--- |
+| Resistance | $8.09 (-4.9%) | Resistance | 1 | 2025-06-10 |
+| Support | $9.24 (+8.6%) | Support | 2 | 2025-08-07 |
+| Support | $9.92 (+16.6%) | Support | 2 | 2026-02-13 |
+| Support | $6.72 (-21.0%) | Support | 1 | 2025-06-23 |
+| Support | $6.17 (-27.5%) | Support | 1 | 2025-04-04 |
+| Support | $5.63 (-33.8%) | Support | 1 | 2025-05-30 |
+| Resistance | $11.45 (+34.5%) | Resistance | 1 | 2026-03-02 |
+| Support | $11.68 (+37.3%) | Support | 1 | 2026-01-08 |
+
+### Signal Summary
+| Metric | Value |
+| :--- | :--- |
+| Overall Signal | **Strong Bearish** |
+| Score | -5 |
+| Bullish Factors | RSI oversold |
+| Bearish Factors | Below SMA 20, Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21, MACD bearish |
+
+#### Short Interest
+## Short Interest Analysis
+
+### Short Interest Summary
+| Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
+| :--- | :--- | :--- | :--- | :--- |
+| CLF | 73.52M | 3.70 | 15.93% | -4.3% (decreasing) |
+
+### Squeeze Risk Assessment
+| Ticker | Risk Rating | Score (/100) | Key Factors |
+| :--- | :--- | :--- | :--- |
+| CLF | HIGH | 50 | Elevated short% (15.9%); Moderate DTC (3.7) |
+
+### Context
+| Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
+| :--- | :--- | :--- | :--- | :--- |
+| CLF | 564.25M | 570.39M | 16.98M | 3.7 |
+
+#### News & Sentiment
+*Generated: 2026-03-16 19:34*
+
+## News & Sentiment: Cleveland-Cliffs Inc. (CLF)
+*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
+
+### Headlines (Top 30, Deduplicated)
+| Date | Source | Headline | Sentiment | Score | Catalysts |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-16 | MarketBeat | Cleveland-Cliffs' (CLF) "Sell" Rating Reiterated at Glj Rese... | Neutral | +0.00 | Earnings |
+| 2026-03-16 | Simply Wall St. | A Look At Cleveland Cliffs (CLF) Valuation After Recent Shar... | Negative | -0.15 | — |
+| 2026-03-15 | Simply Wall St. | Is Cleveland Cliffs (CLF) A Potential Opportunity After The ... | Positive | +0.61 | — |
+| 2026-03-14 | Trefis | CLF Stock Falls -26% In 9-Day Spree On Revenue Miss & Analys... | Negative | -0.15 | Earnings, Analyst |
+| 2026-03-14 | TechStock² | Why Cleveland-Cliffs Inc. Stock Sank Again: CLF Shares Lag S... | Negative | -0.05 | — |
+| 2026-03-14 | Stock Titan | CLF SEC Filings - Cleveland-Cliffs Inc 10-K, 10-Q, 8-K Forms... | Neutral | +0.00 | Regulatory |
+| 2026-03-13 | Bitget | Cleveland-Cliffs (CLF) Falls Further Than the Market: What I... | Neutral | +0.00 | — |
+| 2026-03-13 | timothysykes.co | Cleveland-Cliffs CEO’s Stock Sale Raises Concerns Among Inve... | Neutral | +0.00 | Corporate |
+| 2026-03-12 | Yahoo Finance | Cleveland-Cliffs (CLF) Declines More Than Market: Some Infor... | Neutral | +0.00 | — |
+| 2026-03-12 | MarketBeat | Barclays PLC Purchases 1,703,791 Shares of Cleveland-Cliffs ... | Positive | +0.30 | Earnings |
+| 2026-03-11 | Zacks | Why Is Cleveland-Cliffs (CLF) Down 22.3% Since Last Earnings... | Neutral | +0.00 | Earnings |
+| 2026-03-10 | Motley Fool | An Investor Just Bought $6 Million of This Stock That's Up 2... | Neutral | +0.00 | — |
+| 2026-03-10 | Motley Fool | This Fund Initiated a $5 Million Stake in Compass Amid Recor... | Neutral | +0.00 | Analyst |
+| 2026-03-09 | Schaeffer's Res | Surging Oil Prices, Dollar Drag Copper, Steel Stocks Lower | Negative | -0.48 | — |
+| 2026-03-08 | MarketBeat | Dimensional Fund Advisors LP Sells 2,994,777 Shares of Cleve... | Positive | +0.30 | Earnings |
+| 2026-03-07 | Trefis | Cleveland-Cliffs Stock (-8.0%): CEO Stock Sale After Revenue... | Negative | -0.15 | Earnings, Corporate |
+| 2026-03-07 | MarketBeat | Neo Ivy Capital Management Takes Position in Cleveland-Cliff... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-03-06 | MarketBeat | Cleveland-Cliffs (NYSE:CLF) Stock Price Down 8.4% - Here's W... | Neutral | +0.00 | Earnings |
+| 2026-03-05 | Zacks | Here is What to Know Beyond Why Cleveland-Cliffs Inc. (CLF) ... | Neutral | +0.00 | — |
+| 2026-03-03 | MarketBeat | South Dakota Investment Council Sells 201,228 Shares of Clev... | Positive | +0.30 | Earnings |
+| 2026-03-03 | MarketBeat | Contrarius Group Holdings Ltd Buys New Shares in Cleveland-C... | Positive | +0.30 | Earnings |
+| 2026-03-03 | GuruFocus | Cleveland-Cliffs Inc (CLF) Shares Up 4.69% on Mar 2 - GuruFo... | Positive | +0.30 | — |
+| 2026-03-01 | Insider Monkey | BofA Maintains a Neutral Rating on Cleveland-Cliffs Inc. (CL... | Neutral | +0.00 | — |
+| 2026-03-01 | Yahoo Finance | Is It Time To Reassess Cleveland Cliffs (CLF) After Its Rece... | Positive | +0.30 | — |
+| 2026-03-01 | Yahoo Finance | Cleveland Cliffs Board Shifts Oversight As Shares Flagged Un... | Positive | +0.30 | — |
+| 2026-03-01 | MarketBeat | Cleveland-Cliffs Inc. $CLF Shares Sold by Quantbot Technolog... | Positive | +0.30 | Earnings |
+| 2026-02-28 | simplywall.st | Does Cleveland-Cliffs’ (CLF) Board Refresh Hint At A Deeper ... | Neutral | +0.00 | — |
+| 2026-02-26 | Trefis | Cleveland-Cliffs Stock: Can 2026 Mark a Turnaround Year? - T... | Neutral | +0.00 | — |
+| 2026-02-26 | simplywall.st | Cleveland Cliffs (CLF) Valuation Check After Recent Share Pr... | Positive | +0.48 | — |
+| 2026-02-25 | Zacks | Is CMC's North America Steel Group Segment Set for Long-Term... | Positive | +0.38 | — |
+
+### Sentiment Summary
+| Metric | Value |
+| :--- | :--- |
+| Articles Analyzed | 30 |
+| Positive | 11 (37%) |
+| Neutral | 14 (47%) |
+| Negative | 5 (17%) |
+| Average Score | +0.095 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 182 |
+
+### Detected Catalysts
+| Category | Count | Headlines |
+| :--- | :--- | :--- |
+| Earnings | 11 | Cleveland-Cliffs' (CLF) "Sell" Rating Re..; CLF Stock Falls -26% In 9-Day Spree On R.. |
+| Corporate | 3 | Cleveland-Cliffs CEO’s Stock Sale Raises..; Cleveland-Cliffs Stock (-8.0%): CEO Stoc.. |
+| Analyst | 2 | CLF Stock Falls -26% In 9-Day Spree On R..; This Fund Initiated a $5 Million Stake i.. |
+| Regulatory | 1 | CLF SEC Filings - Cleveland-Cliffs Inc 1.. |
+
+### Deep Dive Articles
+
+#### Surging Oil Prices, Dollar Drag Copper, Steel Stocks Lower
+*Source: Schaeffer's Research | Date: 2026-03-09 | Sentiment: Positive (+0.17)*
+
+> Oil prices and a resurgent U.S. dollarare impacting a whole host of sectors, commodities chief among them. This hascopper minerFreeport-McMoRan Inc (NYSE:FCX)and steel stockCleveland-Cliffs Inc (NYSE:CLF)extending their recent losses today.
+
+> FCX is down 5.3% to trade at $56.19 this morning, on track for its third-straight loss of roughly 5% or more. The shares have taken a 19.6% haircut off their Feb. 25 all-time high of $69.75, though support is stepping up at their 80-day moving average.
+
+> CLF is 6% lower to trade at $9.24 at last glance, bringing its year-to-date deficit up to more than 31%. The shares are poised to close below $10 for the first time since August.
+
+> Options traders have been pursuing CLF puts lately. The equity's 10-day put/call volume ratio of 1.01 over at the International Securities Exchange (ISE), Chicago Board Options Exchange (CBOE), and NASDAQ OMX PHLX (PHLX) sits higher than all other annual readings.
+
+**Catalysts:** Regulatory
+
+#### Here is What to Know Beyond Why Cleveland-Cliffs Inc. (CLF) is a Trending Stock
+*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+0.97)*
+
+> Cleveland-Cliffs(CLF) has been one of the most searched-for stocks on Zacks.com lately. So, you might want to look at some of the facts that could shape the stock's performance in the near term.
+
+> Over the past month, shares of this mining company have returned -25.5%, compared to the Zacks S&P 500 composite's -0.2% change. During this period, the Zacks Steel - Producers industry, which Cleveland-Cliffs falls in, has lost 3.2%. The key question now is: What could be the stock's future direction?
+
+> While media releases or rumors about a substantial change in a company's business prospects usually make its stock 'trending' and lead to an immediate price change, there are always some fundamental facts that eventually dominate the buy-and-hold decision-making.
+
+> Rather than focusing on anything else, we at Zacks prioritize evaluating the change in a company's earnings projection. This is because we believe the fair value for its stock is determined by the present value of its future stream of earnings.
+
+> Our analysis is essentially based on how sell-side analysts covering the stock are revising their earnings estimates to take the latest business trends into account. When earnings estimates for a company go up, the fair value for its stock goes up as well. And when a stock's fair value is higher than its current market price, investors tend to buy the stock, resulting in its price moving upward. Because of this, empirical studies indicate a strong correlation between trends in earnings estimate revisions and short-term stock price movements.
+
+**Catalysts:** Earnings, Short
+
+#### BofA Maintains a Neutral Rating on Cleveland-Cliffs Inc. (CLF)
+*Source: Insider Monkey | Date: 2026-03-01 | Sentiment: Positive (+0.44)*
+
+> Cleveland-Cliffs Inc. (NYSE:CLF)is among the10 Best Steel Stocks to Buy Right Now.
+
+> On February 12, 2026, BofA lowered Cleveland-Cliffs Inc. (NYSE:CLF)'s price objective to $13 from $14.50 while maintaining a Neutral rating. The analyst noted a relatively stretched balance sheet and said a potential partnership with POSCO could significantly improve the company's financial and operational outlook.
+
+> On February 10, 2026, GLJ Research cut Cleveland-Cliffs Inc. (NYSE:CLF)' price target to $9.42 from $9.52 while maintaining a Sell rating. The firm modified its model following the fourth-quarter report to reflect decreased demand and described the company's results and outlook as disappointing.
+
+> On February 9, 2026, Citi elevated Cleveland-Cliffs Inc. (NYSE:CLF)' price objective from $11 to $13 while maintaining a Neutral rating.  The analyst stated that the stock plunged 15%-20% as first-quarter 2026 projections showed approximately $140 million in EBITDA, which was lower than the $321 million Bloomberg consensus. Citi cited persistent EBITDA-per-ton and free cash flow concerns.
+
+> Cleveland-Cliffs Inc. (NYSE:CLF) is a flat-rolled steel firm that provides iron ore pellets to the North American steel industry. It specializes in the manufacturing of metallic and coke, iron and steelmaking, rolling and finishing, and downstream tubular components, stamping, and tooling.
+
+**Catalysts:** Analyst
+
+#### Is CMC's North America Steel Group Segment Set for Long-Term Growth?
+*Source: Zacks | Date: 2026-02-25 | Sentiment: Positive (+0.99)*
+
+> Commercial Metals CompanyCMC has been gaining from robust demand in North America for each of its major product lines. In the North America Steel Group segment, the steel products metal margin increased by $132 per ton in the fiscal first quarter 2026 from the first quarter of fiscal 2025, achieving a rise for the second consecutive quarter. The segment’s steel products margin climbed to the highest level in three years.The segment posted adjusted EBITDA of $294 million in the fiscal first quarter of 2026, marking a year-over-year increase of 57.9%.While the company expects the North America Steel Group segment’s adjusted EBITDA to be lower sequentially in the second fiscal quarter due to normal seasonal volume trends and planned maintenance outages, the segment's long-term view remains strong.The segment gained from Transform, Advance, Grow (TAG) initiative efforts, with the scrap optimization initiatives launched in fiscal 2025, aiding metal margin expansion. The TAG program aims to drive consistency across all areas of the business. The program is designed to optimize logistics, reduce input consumption, lower costs and boost energy efficiency. This is expected to aid the North America Steel Group segment in the upcoming quarters. The segment will also gain from Arizona 2 Micro-Mill, which is now operational and aided in the company’s fiscal first-quarter performance.The company expects rebar consumption to be aided by strong public sector construction spending. The structural trends are expected to be durable, serving as a significant catalyst for long-term growth.
+
+> Cleveland-Cliffs Inc.CLF reported adjusted EBITDA of $37 million in 2025, marking a significant decline from $773 million in 2024. The company’s results bore the impacts of weak demand from the automotive sector and lower steel prices. Cleveland-Cliffs has, however, been executing significant cost-reduction initiatives. The company expects further cost reduction in 2026, which will aid Cleveland-Cliffs’ margins.Steel Dynamics, Inc.STLD reported record steel shipments in 2025. It registered an adjusted EBITDA of $505 million in the fourth quarter of 2025, marking a year-over-year increase of 36%. Adjusted EBITDA in 2025 was $2.15 billion, lower than $2.5 billion in 2024. Steel Dynamics is providing innovative alternative metal solutions to its customers, employing its expertise in operating highly efficient, low-cost melting, casting and rolling facilities.The company is developing a lower-carbon facility that offers an energy-efficient alternative to traditional production. This facility is expected to diversify and enhance Steel Dynamics' high-margin, value-added product portfolio.
+
+> Commercial Metals shares have gained 50.1% in the past year compared with the industry’s 60.6% growth. In comparison, the Zacks Basic Materials sector and the S&P 500 have returned 55% and 18.4%, respectively.
+
+> Commercial Metals is currently trading at a forward price/sales ratio of 0.90 compared with the industry's 1.69.
+
+> Cleveland-Cliffs is a cheaper option, trading at a forward price/sales ratio of 0.29, while Steel Dynamics is trading at a higher 1.36.
+
+**Catalysts:** Regulatory
+
+#### Vale vs. Cleveland-Cliffs: Which Stock is a Better Buy Now?
+*Source: Zacks | Date: 2026-02-25 | Sentiment: Positive (+0.93)*
+
+> Vale S.AVALE andCleveland-Cliffs Inc.CLF are major players in the global iron ore and steel supply chain. Vale is a leading iron ore producer and Cleveland-Cliffs is a top U.S. steelmaker and iron ore pellet supplier. Both companies are closely linked to steel demand, infrastructure spending and broader industrial trends.Headquartered in Brazil, Vale S.A is one of the world’s largest iron ore producers, the key steelmaking ingredient. It also produces nickel, copper and cobalt, as well as by-products, such as gold, silver, platinum group metals, and other precious metals.
+
+> Cleveland-Cliffs is a leading North America-based steel producer with a focus on value-added sheet products, particularly for the automotive industry. The company transitioned from an iron ore miner to a fully integrated steelmaker following its 2020 acquisitions of AK Steel and ArcelorMittal USA. CLF has a vertically integrated portfolio, spanning mining to manufacturing steel products, including stamping, tooling and tubing. It has the unique advantage as a steel producer of being fully or partially self-sufficient with its production of raw materials for steel manufacturing, which includes iron ore pellets, HBI, scrap, coking coal and coke.
+
+> The steel industry has faced significant challenges due to overcapacity and excess production of steel. Nevertheless, long-term growth in global steel demand is expected to be supported by urbanization and infrastructure development.
+
+> Vale reported revenues of $38 billion in 2025, 1% higher year over year. Higher sales volumes for copper, nickel and iron ore and increased copper prices were offset by lower iron ore and nickel prices. Adjusted earnings per share were $1.82, up 15% supported by ongoing cost discipline.
+
+> Vale continued to lower all-in costs by 3% in its iron business, 77% in the copper business and 27% in the nickel business in 2025, marking the second consecutive year of cost reduction.
+
+**Catalysts:** Earnings, Regulatory, Corporate
+
+---
+
+### NNE
+
+#### Earnings
+*Generated: 2026-03-16 19:32*
+
+*Generated: 2026-03-16 19:34*
+
+## Earnings Analysis: Nano Nuclear Energy Inc. (NNE)
+
+### Next Earnings
+| Metric | Value |
+| :--- | :--- |
+| Earnings Date | 2026-05-14 |
+| Days Until | 59 |
+| EPS Estimate | $-0.21 |
+| Revenue Estimate | $0 |
+| Earnings Rule | Clear (>59d out) |
+
+### Earnings History
+| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Q1 2026 | $-0.22 | $-0.13 | 40.9% | -0.6% | +0.8% | Bearish |
+| Q4 2025 | $-0.31 | $-0.19 | 38.2% | +9.3% | -5.8% | Strong Bull |
+| Q3 2025 | $-0.20 | $-0.19 | 6.6% | +2.0% | -17.3% | Bullish |
+| Q2 2025 | $-0.09 | $-0.57 | -533.3% | +4.5% | +5.8% | Strong Bull |
+| Q1 2025 | $-0.07 | $-0.09 | -28.6% | -3.7% | -14.2% | Strong Bear |
+| Q4 2024 | $-0.16 | $-0.08 | 50.0% | +0.3% | +21.8% | Bullish |
+
+### Revenue Trend
+| Quarter | Revenue | QoQ Growth% | YoY Growth% |
+| :--- | :--- | :--- | :--- |
+| Q4 2025 | $0 | N/A | N/A |
+| Q3 2025 | $0 | N/A | N/A |
+| Q2 2025 | $0 | N/A | N/A |
+| Q1 2025 | $0 | N/A | N/A |
+| Q4 2024 | $0 | N/A | N/A |
+
+#### Technical Signals
+## Technical Scan: Nano Nuclear Energy Inc. (NNE)
+**Current Price: $21.17** | Date: 2026-03-16
+
+### Trend Indicators
+| Indicator | Value | Price Position | Signal |
+| :--- | :--- | :--- | :--- |
+| SMA 20 | $25.05 | Below | Bearish |
+| SMA 50 | $28.64 | Below | Bearish |
+| SMA 200 | $34.41 | Below | Bearish |
+| EMA 9 | $23.71 | Below | Bearish |
+| EMA 21 | $25.16 | Below | Bearish |
+
+### Momentum Indicators
+| Indicator | Value | Zone | Signal |
+| :--- | :--- | :--- | :--- |
+| RSI (14) | 33.2 | Bearish zone | Neutral-Bear |
+| MACD | -1.547 | Below signal | Bearish |
+| MACD Signal | -1.347 | Histogram: -0.200 | — |
+| Stochastic %K/%D | 5.6/14.9 | Oversold | Bearish |
+
+### Volatility
+| Indicator | Value | Position | Signal |
+| :--- | :--- | :--- | :--- |
+| Bollinger Upper | $28.36 | Below lower band | Oversold |
+| Bollinger Lower | $21.75 | Width: $6.61 | — |
+| ATR (14) | $1.86 (8.8%) | High volatility | — |
+
+### Key Support/Resistance Levels
+| Level | Price | Type | Touches | Last Tested |
+| :--- | :--- | :--- | :--- | :--- |
+| Support | $23.51 (+11.0%) | Support | 2 | 2026-02-17 |
+| Support | $17.26 (-18.5%) | Support | 1 | 2025-04-21 |
+| Support | $27.69 (+30.8%) | Support | 2 | 2025-11-21 |
+| Resistance | $28.27 (+33.5%) | Resistance | 1 | 2026-03-02 |
+| Support | $31.51 (+48.8%) | Support | 1 | 2025-07-02 |
+| Support | $32.60 (+54.0%) | Support | 1 | 2025-07-22 |
+| Support | $36.97 (+74.6%) | Support | 2 | 2025-10-22 |
+| Resistance | $38.50 (+81.9%) | Resistance | 1 | 2026-01-21 |
+
+### Signal Summary
+| Metric | Value |
+| :--- | :--- |
+| Overall Signal | **Strong Bearish** |
+| Score | -5 |
+| Bearish Factors | Below SMA 20, Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21, MACD bearish |
+
+#### Short Interest
+## Short Interest Analysis
+
+### Short Interest Summary
+| Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
+| :--- | :--- | :--- | :--- | :--- |
+| NNE | 12.66M | 7.22 | 30.60% | +4.4% (increasing) |
+
+### Squeeze Risk Assessment
+| Ticker | Risk Rating | Score (/100) | Key Factors |
+| :--- | :--- | :--- | :--- |
+| NNE | EXTREME | 80 | Very high short% (30.6%); High DTC (7.2); Shorts slowly increasing |
+
+### Context
+| Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
+| :--- | :--- | :--- | :--- | :--- |
+| NNE | 40.04M | 52.08M | 1.87M | 7.2 |
+
+#### News & Sentiment
+*Generated: 2026-03-16 19:34*
+
+## News & Sentiment: Nano Nuclear Energy Inc. (NNE)
+*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
+
+### Headlines (Top 30, Deduplicated)
+| Date | Source | Headline | Sentiment | Score | Catalysts |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Today | GlobeNewswire | NANO Nuclear Energy Advances Development of Optimized HALEU ... | Positive | +0.62 | — |
+| 2026-03-16 | Stock Titan | Inside NANO Nuclear’s plan to move next‑gen reactor fuel saf... | Positive | +0.49 | — |
+| 2026-03-16 | Stock Titan | [EFFECT] Nano Nuclear Energy Inc. SEC Filing - Stock Titan | Positive | +0.27 | Regulatory |
+| 2026-03-13 | simplywall.st | A Look At Nano Nuclear Energy (NNE) Valuation As UAE Micro R... | Positive | +0.38 | — |
+| 2026-03-13 | Stock Titan | Nano Nuclear (NNE) registers 8.49M shares for resale by priv... | Positive | +0.30 | — |
+| 2026-03-13 | MarketBeat | Promising Nuclear Stocks To Keep An Eye On - March 13th - Ma... | Positive | +0.40 | Earnings |
+| 2026-03-11 | MarketBeat | Van ECK Associates Corp Boosts Stake in Nano Nuclear Energy ... | Positive | +0.53 | Earnings |
+| 2026-03-10 | simplywall.st | Could NANO Nuclear (NNE)ʼs UAE Microreactor JV Talks Reframe... | Positive | +0.27 | — |
+| 2026-03-09 | Zacks | Nuclear Energy Stocks Advance on Strong Clean Power Outlook | Positive | +0.80 | — |
+| 2026-03-08 | Insider Monkey | Nano Nuclear Energy (NNE) Enters Into Fresh Memorandum With ... | Positive | +0.53 | — |
+| 2026-03-07 | Yahoo Finance | A Look At NANO Nuclear Energy (NNE) Valuation After Recent S... | Positive | +0.13 | — |
+| 2026-03-07 | MarketBeat | Vanguard Group Inc. Acquires 516,129 Shares of Nano Nuclear ... | Positive | +0.51 | Earnings |
+| 2026-03-07 | simplywall.st | NANO Nuclear Eyes Gulf Growth With UAE MOU And Valuation Dis... | Positive | +0.38 | — |
+| 2026-03-06 | The Motley Fool | Is Nano Nuclear Energy Stock Going to $50? - The Motley Fool | Negative | -0.20 | — |
+| 2026-03-06 | The Globe and M | Is Nano Nuclear Energy Stock Going to $50? - The Globe and M... | Positive | +0.27 | — |
+| 2026-03-06 | MSN | Here is Why NANO Nuclear (NNE) Stock Skyrocketed Today - MSN | Neutral | +0.00 | — |
+| 2026-03-06 | Motley Fool | Is Nano Nuclear Energy Stock Going to $50? | Positive | +0.27 | — |
+| 2026-03-04 | MarketBeat | Seth Jason Berl Sells 3,664 Shares of Nano Nuclear Energy (N... | Positive | +0.51 | Earnings |
+| 2026-03-02 | MarketBeat | Ameresco Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
+| 2026-02-26 | Seeking Alpha | NANO Nuclear Energy: I Added More At These Price Levels (Ear... | Positive | +0.27 | Earnings |
+| 2026-02-24 | GlobeNewswire | NANO Nuclear Energy Signs Memorandum of Understanding with E... | Positive | +0.27 | — |
+| 2026-02-24 | The Motley Fool | Nano Nuclear Energy Stock Is Down 60%. Is It Finally Time to... | Negative | -0.20 | — |
+| 2026-02-24 | Stock Titan | UAE group, NANO Nuclear eye micro reactors for data centers ... | Neutral | +0.00 | — |
+| 2026-02-24 | Motley Fool | NuScale Power Has Tumbled From All-Time Highs in 2025. Here'... | Neutral | +0.00 | — |
+| 2026-02-22 | Yahoo Finance | Did Narrower-Than-Expected Losses and KRONOS Progress Just S... | Neutral | +0.03 | — |
+| 2026-02-22 | Stock Titan | NNE - Nano Nuclear Energy Inc. Latest Stock News & Market Up... | Positive | +0.27 | — |
+| 2026-02-21 | Motley Fool | Could This $14 Stock Be Your Ticket to Millionaire Status? | Neutral | +0.00 | — |
+| 2026-02-20 | Investing.com | NANO Nuclear Energy CEO on microreactors and the looming pow... | Negative | -0.54 | Corporate |
+| 2026-02-20 | GlobeNewswire | NANO Nuclear Expands its Nuclear Policy Leadership Expertise... | Positive | +0.10 | — |
+| 2026-02-20 | Zacks | OKLO's Licensing Approach Aims to Accelerate Reactor Rollout | Neutral | +0.00 | — |
+
+### Sentiment Summary
+| Metric | Value |
+| :--- | :--- |
+| Articles Analyzed | 30 |
+| Positive | 20 (67%) |
+| Neutral | 7 (23%) |
+| Negative | 3 (10%) |
+| Average Score | +0.222 |
+| Overall Sentiment | **Bullish** |
+| Total Unique Headlines | 182 |
+
+### Detected Catalysts
+| Category | Count | Headlines |
+| :--- | :--- | :--- |
+| Earnings | 6 | Promising Nuclear Stocks To Keep An Eye ..; Van ECK Associates Corp Boosts Stake in .. |
+| Regulatory | 1 | [EFFECT] Nano Nuclear Energy Inc. SEC Fi.. |
+| Corporate | 1 | NANO Nuclear Energy CEO on microreactors.. |
+
+### Deep Dive Articles
+
+#### NANO Nuclear Energy Advances Development of Optimized HALEU Transportation System with Global Nuclear Logistics Leader GNS
+*Source: GlobeNewswire | Date: Today | Sentiment: Positive (+0.99)*
+
+> Conceptual design milestone achieved for advanced, proprietary HALEU transport package supporting next-generation nuclear reactors
+
+> New York, N.Y., March  16, 2026(GLOBE NEWSWIRE)-- NANO Nuclear Energy Inc. (NASDAQ: NNE) (“NANO Nuclear” or “the Company”),a leading advanced nuclear micro modular reactor (MMR) and technology company focused on developing clean energy solutions, today announced significant progress in its initiative to develop a proprietary, optimized transportation solution for High-Assay Low-Enriched Uranium (HALEU) fuel.
+
+> The project leverages NANO Nuclear’s exclusively licensed nuclear fuel transportation basket design, developed with the technical support ofGNS Gesellschaft für Nuklear-Service mbH (GNS), one of the world’s foremost specialists in the treatment, packaging, and transportation of radioactive materials. GNS is globally recognized for its expertise in transport and storage cask design, licensing, and manufacturing, as well as advanced technologies for nuclear waste processing and facility decommissioning.
+
+> NANO Nuclear is undertaking these efforts through its subsidiary,Advanced Fuel Transportation, Inc., as part of its overall mission to develop commercially focused, vertically integrated capabilities across the nuclear energy supply chain, from parts of the front end fuel cycle, to transportation, to cutting edge microreactors like NANO Nuclear’sKRONOS MMRTMEnergy Systemunder development.
+
+> The progress announced today arises from a September 2024 agreement between NANO Nuclear and GNS to develop the HALEU transportation system solution. Together, the companies are advancing a robust, innovative, and regulatory-compliant HALEU transportation package, designed to support the rapidly growing demand for advanced nuclear fuels needed for next-generation reactor technologies.
+
+**Catalysts:** Earnings, Equity
+
+#### Nuclear Energy Stocks Advance on Strong Clean Power Outlook
+*Source: Zacks | Date: 2026-03-09 | Sentiment: Positive (+1.00)*
+
+> An updated edition of the January 15, 2026 article.Nuclear energy is increasingly being recognized as a critical solution to meet the world’s rising demand for clean electricity. As utilities continue transitioning toward low-carbon power sources, nuclear plants stand out for their ability to deliver dependable, carbon-free generation. Unlike solar and wind power, which are weather-dependent, nuclear energy provides consistent, around-the-clock output.The renewed momentum in the sector is reflected in the extension of operating licenses for existing reactors, ongoing development of Small Modular Reactors (SMRs), approvals for the construction of new nuclear facilities, and the restart of previously shut U.S. reactors. Investments from major technology companies to support SMR development further underscore the growing investor interest in nuclear energy stocks.In the United States, new policies aim to expand nuclear capacity from roughly 100 gigawatts (“GW”) in 2024 to about 400 GW by 2050. The nuclear energy sector is gaining momentum as it supports global decarbonization goals.Favorable regulations and ongoing R&D in advanced SMRs are strengthening its outlook. Meanwhile, rising demand for reliable 24/7 clean power from AI data centers, manufacturing reshoring and electric vehicles is creating new growth opportunities. Government initiatives to boost domestic uranium supply are further supporting the sector’s momentum.With this increasing importance, nuclear energy-related stocks, such asEntergy CorporationETR,Nano Nuclear Energy Inc.NNE andNexGen EnergyNXE, are becoming attractive investment options. Unlike other clean energy sources affected by intermittency, nuclear power plants provide a consistent and stable energy output, operating around the clock except during planned maintenance intervals.Compared with other clean energy sources, nuclear power requires significantly less land to generate the same amount of clean electricity. Additionally, while all traditional energy sources produce waste, nuclear energy stands apart for its highly regulated, secure and systematic approach to waste management and storage. Increasing adoption of electric vehicles, rising demand from the power grids and the development of large artificial intelligence-powered data centers are increasing the importance of nuclear power plants.Nuclear Energy stocks have huge potential and can offer significant growth opportunities for investors. Our Nuclear Energy Screen makes it easier for investors to locate high-potential stocks at any given time. Apart from the stocks mentioned above, investors can also explore stocks likeDenison Mines Corp. DNN andBHP Group LimitedBHP, as these companies ensure the supply of uranium for the smooth running of nuclear power plants.Ready to uncover more transformative thematic investment ideas? Explore 36 cutting-edge investment themes with Zacks Thematic Investing Screens and discover your next big opportunity.Entergy Corporation’s nuclear energy portfolio supports its long-term growth strategy and transition to cleaner energy. As of Dec. 31. 2025, the company’s major nuclear plants generated around 21% of its total power capacity. Entergy is actively pursuing license extensions and system upgrades at these facilities, targeting an additional 275 MW through uprates. These enhancements not only increase generation but also highlight Entergy’s ongoing commitment to delivering stable, carbon-free baseload electricity. The company has taken initiatives to add 40 MW at its River Bend nuclear plant in Louisiana.Entergy is advancing efforts to explore next-generation nuclear technologies to further lower emissions. The company has secured a permit in Mississippi for a potential new reactor site and is working to engage industrial customers and technology firms, particularly those in the AI and data sectors. These partnerships aim to collaboratively address the financial and regulatory challenges associated with developing next-generation nuclear projects.Entergy’s nuclear expansion is gaining momentum as electricity demand rises from AI-driven industries and large data centers. Supported by strong market demand and a forward-looking strategy, the company’s nuclear initiatives are well-positioned to enhance regional energy reliability and advance broader U.S. decarbonization goals.This Zacks Rank #2 (Buy) company intends to invest $43 billion during the 2026-2029 period to fund the company's generation fleet transition and grid modernization, and expand its zero-carbon generation portfolio.You can see the complete list of today’s Zacks #1 Rank (Strong Buy) stocks here.Nano Nuclear Energy Inc. is a microreactor developer, aiming to become the leading advanced nuclear microreactor developer in North America. The company is advancing KRONOS toward licensing and already has a pipeline of potential commercial customers and strategic partners in the United States and globally for its KRONOS MMRTM system.Uranium plays a vital role in the successful operation of nuclear power plants. The company continues to address the key bottlenecks within the nuclear fuel supply chain and is in discussion with different providers for securing a dependable uranium source for NANO Nuclear Energy’s future fuel requirements.Nano Nuclear Energy has completed the assembly of its proprietary Annular Linear Induction Pump technology prototype and expects to begin commercial sales efforts. The milestone demonstrates the company’s ability to advance its technology from initial design through construction and successful demonstration.This Zacks Rank #2 company has a growing pipeline of opportunities with potential AI data center, industrial and military-related customers for its KRONOS MM system.NexGen Energy is emerging as an important player in the global nuclear fuel supply chain, led by its flagship Rook I uranium project in Canada’s Athabasca Basin. As nuclear power gains renewed importance in the global energy transition, the company is well-positioned to benefit from rising uranium demand. Government support for nuclear generation to meet decarbonization goals and rising electricity consumption creates a favorable environment for uranium developers like NexGen Energy.NexGen Energy reached a key milestone in 2026 after securing final approval from the Canadian Nuclear Safety Commission to begin site preparation and construction of the Rook I project. Once operational around 2030, the project could produce up to 30 million pounds of uranium annually and will be ready to meet the demand from nuclear power plants.Zacks #2 Ranked NexGen Energy’s long-term outlook remains favorable as global interest in nuclear power rises and uranium supply tightens. Increasing electricity demand from AI technologies and large data centers is expected to boost nuclear expansion and uranium consumption. Backed by a high-quality resource base and a clear path to production, the company is well-positioned to become a leading uranium supplier and generate long-term investor value.
+
+> Want the latest recommendations from Zacks Investment Research? Today, you can download 7 Best Stocks for the Next 30 Days.Click to get this free report
+
+> This article originally published on Zacks Investment Research (zacks.com).
+
+**Catalysts:** Earnings, Regulatory, Corporate, Analyst
+
+#### Nano Nuclear Energy (NNE) Enters Into Fresh Memorandum With Emirati Firm
+*Source: Insider Monkey | Date: 2026-03-08 | Sentiment: Positive (+0.98)*
+
+> We recently published10 Best Performing Nuclear Energy Stocks According to Analysts.  Nano Nuclear Energy Inc (NASDAQ:NNE) is one of the best-performing nuclear energy stocks.
+
+> Nuclear power generation equipment designer Nano Nuclear Energy Inc (NASDAQ:NNE) announced on February 24th that it had entered into a memorandum with an Emirati investment firm to study the deployment of micro modular nuclear reactors in the UAE. The Emirati firm, EHC Investment, focuses on the region’s energy infrastructure and has prior experience in the gas industry. Through the deal, Nano Nuclear Energy Inc (NASDAQ:NNE) and EHC will enter into a joint venture after securing a commercial project or an order.
+
+> The announcement came soon after Nano Nuclear Energy Inc (NASDAQ:NNE) had reported its financial updates for the first quarter of 2026. As part of the release, the firm outlined that it had ended the quarter with $577 million in cash and equivalents. Nano Nuclear Energy Inc (NASDAQ:NNE) added that it had used $4 million in operating activities and $3.1 million in investing activities during the quarter. Additionally, the nuclear company also generated $381 million in net cash through financing activities in the quarter.
+
+> Nano Nuclear Energy Inc (NASDAQ:NNE) designs and develops batteries and nuclear power reactors. Its products include the LOKI and KRONOS MMR nuclear reactors.
+
+> While we acknowledge the potential of NNE as an investment, our conviction lies in the belief that some AI stocks hold greater promise for delivering higher returns and have limited downside risk. If you are looking for an extremely cheap AI stock that is also a major beneficiary of Trump tariffs and onshoring, see our free report on thebest short-term AI stock.
+
+**Catalysts:** Regulatory, Short
+
+#### NANO Nuclear Energy Signs Memorandum of Understanding with EHC Investment L.L.C to Advance Micro Modular Reactor Deployment in the UAE
+*Source: GlobeNewswire | Date: 2026-02-24 | Sentiment: Positive (+1.00)*
+
+> New York, N.Y., Feb.  24, 2026  (GLOBE NEWSWIRE) -- NANO Nuclear Energy Inc. (NASDAQ: NNE) (“NANO Nuclear” or “the Company”), a leading advanced nuclear micro modular reactor (MMR) and technology company focused on developing clean energy solutions, today announced that it has signed a Memorandum of Understanding (MOU) with EHC Investment L.L.C. (EHC), a diversified United Arab Emirates (UAE) investment holding company based in Abu Dhabi, to explore a joint venture aimed at deploying micro modular reactors, notably NANO Nuclear’sKRONOS MMR™Energy System, and necessary supply chains in the UAE.
+
+> Figure 1 - NANO Nuclear Energy Inc. Signs a Memorandum of Understanding (MOU) with EHC Investment L.L.C (EHC) to Support the Advancement of the KRONOS MMR™Energy System in the UAE and Select Markets within the Gulf region. Ali Al Gebely, Managing Director of EHC Investment and Jay Yu, Founder and Chairman of NANO Nuclear Energy.
+
+> It is anticipated that the parties will seek to enter into a formal joint venture following the successful securing of a first commercial project or order. NANO Nuclear and EHC will also explore the future potential for deploying KRONOS MMR™reactors in select markets across the wider Gulf region.
+
+> EHC is a holding company built on over 35 years of proven success with its leadership and 12 subsidiaries. Committed to long-term stability and growth, EHC is shaping a resilient portfolio to create lasting impact for shareholders and drive a brighter, more innovative future. An EHC subsidiary, EHC Energy, is a leading force in the UAE’s energy sector, delivering comprehensive solutions in gas contracting, distribution, trading, operations, and maintenance. With a legacy of over three decades, EHC Energy has played a pivotal role in advancing the UAE’s energy infrastructure, contributing significantly to the nation’s economic growth and urban development.
+
+> Figure 2 - NANO Nuclear Energy Inc. Signs a Memorandum of Understanding (MOU) with EHC Investment L.L.C (EHC) to Support the Advancement of the KRONOS MMR™Energy System in the UAE and Select Markets within the Gulf region. Ali Al Gebely, Managing Director of EHC Investment and James Walker, CEO of NANO Nuclear Energy.
+
+**Catalysts:** Regulatory, Corporate
+
+#### NANO Nuclear Expands its Nuclear Policy Leadership Expertise with the Appointment of U.S. Government Veteran Sarah Lennon as its International Nuclear Policy Advisor
+*Source: GlobeNewswire | Date: 2026-02-20 | Sentiment: Positive (+1.00)*
+
+> New York, N.Y., Feb.  20, 2026  (GLOBE NEWSWIRE) -- NANO Nuclear Energy Inc. (NASDAQ: NNE) (“NANO Nuclear” or “the Company”), a leading advanced nuclear micro modular reactor (MMR) and technology company focused on developing clean energy solutions, today announced the appointment of Sarah Lennon as its International Nuclear Policy Advisor.
+
+> Sarah is a seasoned national security and nuclear energy policy leader with three decades of distinguished service across the U.S. Government, bringing deep expertise in nuclear security, nonproliferation, international cooperation, and strategic planning.
+
+> “It is a pleasure to join the NANO Nuclear team,”said Sarah Lennon, International Nuclear Policy Advisor of NANO Nuclear.“Throughout my career at the U.S. Department of Energy, I have worked to support the advancement of nuclear technologies and the expansion of nuclear energy in the United States and abroad. At NANO Nuclear, I look forward to applying that experience to help navigate international policy and regulatory frameworks and support the evolution of the Company’s projects toward their construction, testing, regulatory licensing and eventual commercial deployment, contributing to a more sustainable and reliable baseload energy future.”
+
+> Prior to joining NANO Nuclear, Sarah served as Senior Policy Advisor for Strategic Planning in the Office of Enterprise Planning and Analysis at the Department of Energy’s (DOE) National Nuclear Security Administration (NNSA), where she provided senior-level guidance on enterprise-wide priorities and long-term strategy. Previously, she held a series of senior leadership roles within DOE’s Office of Nuclear Energy, including Director for Bilateral and Multilateral Cooperation and Acting Deputy Assistant Secretary for International Nuclear Energy Policy and Cooperation, advancing U.S. engagement on global nuclear energy and nonproliferation issues.
+
+> “We are thrilled to welcome a professional of Sarah’s caliber to the team,”saidJay Yu, Founder and Chairman of NANO Nuclear.“Her deep experience in nuclear policy and regulatory affairs, developed over her years of service at the DOE and NNSA, will be an invaluable asset as we engage with international stakeholders and advance our projects, notably our lead project the KRONOS MMR™modular microreactor energy system, in the United States and beyond. Sarah’s insights and leadership strengthen our policy strategy and support the responsible development of our proprietary technologies.”
+
+**Catalysts:** Earnings, Regulatory
+
+---
+
+### SOUN
+
+#### Earnings
+*Generated: 2026-03-16 19:32*
+
+*Generated: 2026-03-16 19:34*
+
+## Earnings Analysis: SoundHound AI, Inc. (SOUN)
+
+### Next Earnings
+| Metric | Value |
+| :--- | :--- |
+| Earnings Date | 2026-05-07 |
+| Days Until | 52 |
+| EPS Estimate | $-0.035 |
+| Revenue Estimate | $42.8M |
+| Earnings Rule | Clear (>52d out) |
+
+### Earnings History
+| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Q1 2026 | $-0.02 | $-0.02 | -9.1% | -4.2% | -7.9% | Strong Bear |
+| Q4 2025 | $-0.09 | $-0.27 | -194.5% | -0.6% | -14.1% | Bearish |
+| Q3 2025 | $-0.05 | $-0.03 | 42.9% | +26.4% | +54.3% | Strong Bull |
+| Q2 2025 | $-0.06 | $-0.06 | 5.3% | -7.8% | +13.0% | Strong Bear |
+| Q1 2025 | $-0.08 | $-0.05 | 37.5% | +17.5% | +3.7% | Strong Bull |
+| Q4 2024 | $-0.07 | $-0.04 | 42.9% | -17.1% | -13.9% | Strong Bear |
+| Q3 2024 | $-0.08 | $-0.04 | 52.9% | -6.5% | -5.0% | Strong Bear |
+| Q2 2024 | $-0.08 | $-0.07 | 15.2% | +7.2% | +7.6% | Strong Bull |
+
+### Revenue Trend
+| Quarter | Revenue | QoQ Growth% | YoY Growth% |
+| :--- | :--- | :--- | :--- |
+| Q4 2025 | $55.1M | +30.9% | +59.4% |
+| Q3 2025 | $42.0M | -1.5% | N/A |
+| Q2 2025 | $42.7M | +46.5% | N/A |
+| Q1 2025 | $29.1M | -15.7% | N/A |
+| Q4 2024 | $34.5M | N/A | N/A |
+
+#### Technical Signals
+## Technical Scan: SoundHound AI, Inc. (SOUN)
+**Current Price: $7.53** | Date: 2026-03-16
+
+### Trend Indicators
+| Indicator | Value | Price Position | Signal |
+| :--- | :--- | :--- | :--- |
+| SMA 20 | $8.03 | Below | Bearish |
+| SMA 50 | $9.06 | Below | Bearish |
+| SMA 200 | $12.20 | Below | Bearish |
+| EMA 9 | $7.79 | Below | Bearish |
+| EMA 21 | $8.09 | Below | Bearish |
+
+### Momentum Indicators
+| Indicator | Value | Zone | Signal |
+| :--- | :--- | :--- | :--- |
+| RSI (14) | 38.9 | Bearish zone | Neutral-Bear |
+| MACD | -0.362 | Below signal | Bearish |
+| MACD Signal | -0.343 | Histogram: -0.019 | — |
+| Stochastic %K/%D | 17.7/8.9 | Oversold | Bullish |
+
+### Volatility
+| Indicator | Value | Position | Signal |
+| :--- | :--- | :--- | :--- |
+| Bollinger Upper | $8.98 | 24% of band | Neutral |
+| Bollinger Lower | $7.08 | Width: $1.90 | — |
+| ATR (14) | $0.54 (7.2%) | High volatility | — |
+
+### Key Support/Resistance Levels
+| Level | Price | Type | Touches | Last Tested |
+| :--- | :--- | :--- | :--- | :--- |
+| Support | $7.04 (-6.5%) | Support | 1 | 2026-02-17 |
+| Support | $6.52 (-13.4%) | Support | 1 | 2025-04-07 |
+| Support | $9.01 (+19.6%) | Support | 1 | 2025-06-13 |
+| Resistance | $9.30 (+23.5%) | Resistance | 1 | 2026-02-27 |
+| Support | $9.71 (+28.9%) | Support | 1 | 2025-08-01 |
+| Support | $9.91 (+31.7%) | Support | 2 | 2025-12-31 |
+| Support | $10.35 (+37.4%) | Support | 1 | 2025-11-21 |
+| Support | $11.81 (+56.8%) | Support | 1 | 2025-08-22 |
+
+### Signal Summary
+| Metric | Value |
+| :--- | :--- |
+| Overall Signal | **Strong Bearish** |
+| Score | -6 |
+| Bearish Factors | Below SMA 20, Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21, MACD bearish |
+
+#### Short Interest
+## Short Interest Analysis
+
+### Short Interest Summary
+| Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
+| :--- | :--- | :--- | :--- | :--- |
+| SOUN | 127.51M | 4.66 | 32.96% | +3.3% (increasing) |
+
+### Squeeze Risk Assessment
+| Ticker | Risk Rating | Score (/100) | Key Factors |
+| :--- | :--- | :--- | :--- |
+| SOUN | EXTREME | 75 | Very high short% (33.0%); Moderate DTC (4.7); Shorts slowly increasing |
+
+### Context
+| Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
+| :--- | :--- | :--- | :--- | :--- |
+| SOUN | 381.94M | 390.28M | 25.73M | 4.7 |
+
+#### News & Sentiment
+*Generated: 2026-03-16 19:34*
+
+## News & Sentiment: SoundHound AI, Inc. (SOUN)
+*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
+
+### Headlines (Top 30, Deduplicated)
+| Date | Source | Headline | Sentiment | Score | Catalysts |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Today | GlobeNewswire | SoundHound AI Unveils World's First Multimodal Agentic+ AI C... | Neutral | +0.00 | — |
+| 2026-03-16 | Yahoo Finance | SoundHound AI, Inc. (SOUN) is Attracting Investor Attention:... | Positive | +0.48 | — |
+| 2026-03-16 | TechStock² | SoundHound AI Stock Rises on Nvidia GTC Reveal as Cramer War... | Negative | -0.34 | — |
+| 2026-03-16 | Simply Wall St. | SoundHound AI Expands Voice Platform Raises Questions On Cor... | Positive | +0.10 | — |
+| 2026-03-15 | MarketBeat | Clear Street Group Inc. Buys New Shares in SoundHound AI, In... | Positive | +0.59 | Earnings |
+| 2026-03-13 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Stock Price Down 2.3% - Should Y... | Neutral | +0.00 | Earnings |
+| 2026-03-13 | Seeking Alpha | SoundHound: Wading In After The Crash (Upgrade) (NASDAQ:SOUN... | Negative | -0.40 | Analyst |
+| 2026-03-13 | Seeking Alpha | SoundHound: Meltdown's A Gift - Voice AI SaaS Leader Is Chea... | Positive | +0.44 | — |
+| 2026-03-13 | TipRanks | SOUN Stock Plunged 60% from Its Peak — 3 Risks Every Investo... | Negative | -0.27 | — |
+| 2026-03-13 | TradingView | SoundHound vs. Amazon: Which AI Voice Assistant Stock Wins? ... | Positive | +0.66 | — |
+| 2026-03-13 | Insider Monkey | Jim Cramer on SoundHound AI: “This Is One of Those Companies... | Neutral | +0.00 | — |
+| 2026-03-13 | Zacks | Can SoundHound's Agentic AI Platform Power the Next Phase of... | Positive | +0.38 | — |
+| 2026-03-12 | The Motley Fool | SoundHound AI: Could the Stock 10X by 2030? - The Motley Foo... | Negative | -0.44 | — |
+| 2026-03-12 | TipRanks | Why SoundHound AI Stock (SOUN) Is Falling Today, 03/12/26? -... | Negative | -0.15 | — |
+| 2026-03-12 | The Motley Fool | Down 66% From Its High: Is SoundHound AI Finally a Screaming... | Negative | -0.67 | — |
+| 2026-03-12 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Shares Down 4.1% - Here's Why - ... | Positive | +0.30 | Earnings |
+| 2026-03-12 | Motley Fool | SoundHound AI: Could the Stock 10X by 2030? | Neutral | +0.00 | — |
+| 2026-03-12 | Simply Wall St. | SoundHound AI (SOUN) Valuation Check After Record 2025 Resul... | Positive | +0.51 | Earnings |
+| 2026-03-11 | The Motley Fool | Is SoundHound AI Stock Going to $15? - The Motley Fool | Negative | -0.44 | — |
+| 2026-03-11 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Stock Price Down 1.4% - Here's W... | Neutral | +0.00 | Earnings |
+| 2026-03-11 | Motley Fool | Is SoundHound AI Stock Going to $15? | Neutral | +0.00 | — |
+| 2026-03-11 | StockStory | 3 Software Stocks with Warning Signs | Negative | -0.34 | — |
+| 2026-03-10 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Stock Price Down 3.9% - Here's W... | Neutral | +0.00 | Earnings |
+| 2026-03-10 | TipRanks | Why SoundHound AI Stock (SOUN) Is Stuck despite Strong Reven... | Negative | -0.71 | Earnings |
+| 2026-03-09 | 24/7 Wall St. | GameStop (GME) Shares Up 20% While Other Meme Stocks Fall in... | Positive | +0.30 | — |
+| 2026-03-09 | The Motley Fool | Why SoundHound AI Stock Isn't Taking Off Despite Doubling It... | Negative | -0.44 | Earnings |
+| 2026-03-09 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Stock Price Up 1.9% - Time to Bu... | Neutral | +0.00 | Earnings |
+| 2026-03-09 | simplywall.st | SoundHound AI (SOUN) Is Down 6.4% After Record 2025 Results ... | Neutral | +0.00 | Equity |
+| 2026-03-06 | Yahoo Finance V | SoundHound CEO discusses AI use cases for cars, restaurants | Neutral | +0.00 | Corporate |
+| 2026-03-06 | Insider Monkey | SoundHound AI (SOUN) Reports 2025 Revenue of $168.9M, 100% Y... | Positive | +0.38 | Earnings |
+
+### Sentiment Summary
+| Metric | Value |
+| :--- | :--- |
+| Articles Analyzed | 30 |
+| Positive | 10 (33%) |
+| Neutral | 10 (33%) |
+| Negative | 10 (33%) |
+| Average Score | -0.003 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 188 |
+
+### Detected Catalysts
+| Category | Count | Headlines |
+| :--- | :--- | :--- |
+| Earnings | 10 | Clear Street Group Inc. Buys New Shares ..; SoundHound AI (NASDAQ:SOUN) Stock Price .. |
+| Analyst | 1 | SoundHound: Wading In After The Crash (U.. |
+| Equity | 1 | SoundHound AI (SOUN) Is Down 6.4% After .. |
+| Corporate | 1 | SoundHound CEO discusses AI use cases fo.. |
+
+### Deep Dive Articles
+
+#### SoundHound AI Unveils World's First Multimodal Agentic+ AI Completely on the Edge at NVIDIA GTC 2026
+*Source: GlobeNewswire | Date: Today | Sentiment: Positive (+0.91)*
+
+> Booth #1844 to feature live demos of the company’s groundbreaking multimodal, multilingual Agentic+ platform running entirely on-device – including context aware Vision AI
+
+> SANTA CLARA, Calif., March  16, 2026(GLOBE NEWSWIRE)-- SoundHound AI, Inc. (Nasdaq: SOUN), a global leader in voice and conversational AI, today announced its participation in NVIDIA GTC 2026. At Booth #1844, SoundHound will showcase the world’s first multimodal, multilingual, fully Agentic+ AI platform running entirely on the edge, opening up incredible new possibilities for OEMs.
+
+> While complex agentic AI requests have typically relied on cloud connectivity, SoundHound’s platform is capable of localizing the agentic stack within the vehicle’s architecture. This breakthrough allows the vehicle to move beyond simple voice commands to become a proactive partner that can see, hear, and reason locally – ensuring 100% uptime, fast responses, and enhanced user privacy.
+
+> What Attendees Can Expect at Booth #1844:
+
+> "NVIDIA GTC is the ultimate venue to showcase the next significant leap in agentic technology,"said Keyvan Mohajer, CEO and Co-Founder of SoundHound AI."For the very first time, our multimodal, multilingual agentic AI platform allows OEMs to turn on intelligent agents that can see, hear, and act – while maintaining user privacy along with the speed of edge computing."
+
+**Catalysts:** Corporate
+
+#### GameStop (GME) Shares Up 20% While Other Meme Stocks Fall in 2026
+*Source: 24/7 Wall St. | Date: 2026-03-09 | Sentiment: Positive (+0.96)*
+
+> GameStop (GME) stock is up more than 20% year-to-date in 2026, standing out as the winner among major meme stocks, fueled by short-squeeze speculation and buyout chatter surrounding CEO Ryan Cohen. In contrast, Opendoor Technologies (OPEN) stock is down 17% year-to-date, SoundHound AI (SOUN) stock is down 21%, and AMC Entertainment (AMC) stock is down 29%. Social sentiment surrounding GameStop has recently shifted bullish amid reports that Cohen may be eyeing a major acquisition involving a publicly traded consumer company.
+
+> On Monday, March 9,GameStop(NYSE:GME) is trending as one of today’s notable market movers. While the broader meme-stock universe is deep in the red for 2026, GME stock stands out with a year-to-date gain of 23%, powered by renewed short-squeeze speculation and growing buzz around a potential blockbuster acquisition (not currently confirmed) by CEO Ryan Cohen. The contrast with meme peers likeOpendoor Technologies(NASDAQ:OPEN),SoundHound AI(NASDAQ:SOUN), andAMC Entertainment(NYSE:AMC) couldn’t be sharper.
+
+> GME stock is trading at $24.64 as of today, up 22.72% year-to-date from $20.08 at year-end 2025. That’s a meaningful move in a market where most speculative names are getting crushed.
+
+> The catalyst isn’t a single event; it’s a convergence of narratives. Reports from late January and early February, including from CNBC and theWall Street Journal, indicated Cohen is eyeing a “very big” deal involving a publicly traded consumer company, with widespread speculation centering oneBay(NASDAQ:EBAY) as a potential target. That kind of M&A chatter has a way of lighting up retail investor communities, and this is no exception.
+
+> There’s also the compensation angle. Ryan Cohen’s compensation plan, reported in January 2026, could be worth up to $35 billion if GameStop hits certain milestones — an extraordinary figure that signals just how ambitious the transformation strategy really is. In other words, GameStop isn’t just coasting on nostalgia and Cohen is swinging for the fences.
+
+**Catalysts:** Corporate, Short
+
+#### SoundHound AI (SOUN) Reports 2025 Revenue of $168.9M, 100% YoY Growth
+*Source: Insider Monkey | Date: 2026-03-06 | Sentiment: Positive (+0.98)*
+
+> SoundHound AI Inc. (NASDAQ:SOUN) is one of thestocks that should double in 3 years. On February 26, SoundHound AI announced record financial results for 2025, with annual revenue reaching $168.9 million, which was a ~100% increase year-over-year. Q4 performance contributed $55.1 million in revenue, which was a 59% jump due to a record number of enterprise deal closures. While the company reported a GAAP net loss of $14.0 million for the full year, it achieved a GAAP net income of $40.1 million in Q4 due to non-cash gains from the fair value adjustment of acquisition-related liabilities.
+
+> The company extended its market lead in agentic AI through major partnerships in the automotive and restaurant sectors. Notable highlights include signing a new Japanese OEM with a seven-digit unit commitment, a multi-year renewal with a major American automaker, and the displacement of an incumbent voice assistant by an iconic Italian sports car manufacturer. In the restaurant and retail space, SoundHound expanded its AI solutions with brands like Panda Express, Jersey Mike’s, and IHOP, while also securing renewals with major athletic footwear suppliers and global financial services firms such as BNP Paribas.
+
+> Looking ahead, SoundHound AI Inc. (NASDAQ:SOUN) issued a strong growth forecast for 2026, expecting full-year revenue to fall between $225 million and $260 million as businesses increasingly turn to AI-native partners to replace legacy software and services.
+
+> SoundHound AI Inc. (NASDAQ:SOUN) provides independent voice AI solutions that enable businesses across the automotive, TV, IoT, and customer service industries to deliver conversational experiences to customers in the US, Korea, France, Japan, Germany, and internationally.
+
+> While we acknowledge the potential of SOUN as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+
+**Catalysts:** Earnings, Regulatory, Corporate, Short
+
+#### Owlet's Q4 Loss Narrower Than Expected, Revenues Rise Y/Y
+*Source: Zacks | Date: 2026-03-06 | Sentiment: Positive (+0.99)*
+
+> Owlet, Inc.OWLT reported a fourth-quarter fiscal 2025 loss per share that was narrower than the Zacks Consensus Estimate and improved year over year. Quarterly revenues topped the consensus mark and grew year over year.Although revenue growth remained robust, profitability continued to reflect ongoing investments and external cost pressures, including tariff impacts on product costs. Nevertheless, the company delivered improved operating performance compared with the prior-year period.Management highlighted that Owlet’s transition toward a comprehensive pediatric health and monitoring platform is gaining traction, supported by growth in connected devices, subscription adoption and expanding datasets that power its digital ecosystem. With more than 110,000 paying Owlet360 subscribers, the company believes its recurring revenue model is strengthening long-term growth visibility.Following the news, shares of OWLT declined 23.4% in the after-hours yesterday.
+
+> For the fourth quarter, the company reported adjusted loss per share of 3 cents, which was narrower than the Zacks Consensus Estimate of a loss of 13 cents by 76.9%. In the year-ago quarter, the company reported adjusted loss per share of 7 cents.
+
+> Owlet, Inc. price-consensus-eps-surprise-chart - Owlet, Inc. Quote
+
+> Quarterly revenues of $26.6 million topped the consensus mark of $25 million by 4.6%. and increased 29.6% year over year. The top-line growth was driven by strong demand for the Dream product suite and the continued expansion of the Owlet360 subscription service.
+
+> Gross profit totaled $12.6 million, up 14.5% from $11 million reported in the year-ago quarter. However, gross margin declined 596 basis points (bps) year over year to 47.6%, primarily reflecting tariff-related cost pressures, partially offset by favorable product mix, improved fixed cost absorption, and lower direct and fulfillment costs.Total operating expenses (including stock-based compensation) were $17.5 million, down from $18.4 million in the year-ago quarter. This improvement was largely backed by decreased legal expenditures, which helped offset higher headcount-related costs, including salaries, benefits and stock-based compensation.Operating loss improved to $4.9 million compared with an operating loss of $7.4 million in the fourth quarter of 2024. Adjusted EBITDA was $0.1 million, down from $0.5 million reported in the year-ago quarter.
+
+**Catalysts:** Earnings, Corporate
+
+#### ServiceNow Stock Climbs 16% in a Month: Hold Tight or Book Profits?
+*Source: Zacks | Date: 2026-03-06 | Sentiment: Positive (+1.00)*
+
+> ServiceNow’s NOW shares have rallied an impressive 16.3% over the past month, significantly outperforming both the Zacks Computers - IT Services industry and the broader S&P 500 index, which declined 1.6% and 1.7%, respectively.The stock has also outperformed other industry players, includingStemSTEM,SoundHound AISOUN andAccentureACN. Over the same time frame, shares of Stem, SoundHound AI and Accenture have declined by 2%, 6.6% and 9.6%, respectively. STEM, SOUN and ACN are involved in artificial intelligence-driven solutions, using AI technologies to improve business operations.
+
+> This strong rally has made investors wonder whether to book profits or keep holding. Here’s why holding NOW stock may still be the better move.
+
+> ServiceNow continues to expand its AI platform to accelerate enterprise automation and digital transformation. The company’s ServiceNow AI Platform integrates artificial intelligence, data and workflows into a unified cloud architecture that helps organizations streamline operations, reduce costs and modernize critical business processes. The platform supports multiple workflow categories, including technology workflows, core business workflows, CRM and industry workflows, and creator workflows, enabling enterprises to connect systems, automate processes and build low-code applications across departments within one platform.A key part of this expansion is embedding AI directly into enterprise workflows, enabling organizations to automate complex decision-making and operational tasks. ServiceNow emphasizes enterprise AI capabilities that move beyond simple AI assistants toward autonomous workflows and agentic AI, allowing businesses to orchestrate processes, improve productivity and deliver faster outcomes. The company’s growing AI portfolio — including products such as Now Assist, Workflow Data Fabric, RaptorDB Pro and CPQ solutions — is seeing strong adoption and helping enterprises deploy AI-driven automation across customer service, IT operations and other business functions.ServiceNow is also strengthening the ecosystem around its AI platform through strategic partnerships and acquisitions. Collaborations with technology leaders such as Microsoft, OpenAI and Anthropic aim to integrate advanced AI models, copilots and agents into enterprise workflows, improving interoperability and accelerating adoption of AI-powered solutions. At the same time, acquisitions such as Moveworks, along with planned acquisitions of Armis and Veza, are designed to enhance agentic AI capabilities, enterprise search, security visibility and identity governance. Together, these initiatives expand ServiceNow’s AI platform capabilities and position the company to exploit the growing demand for enterprise AI and workflow automation.
+
+> ServiceNow benefits from a large and expanding enterprise customer base, which continues to support the company’s long-term growth. As of the end of 2025, the company served more than 8,800 global customers, including over 85% of the Fortune 500, reflecting the strong adoption of its cloud-based platform among large enterprises. These organizations rely on the ServiceNow AI Platform to support digital transformation initiatives and automate workflows across critical business operations.The company is also seeing deeper engagement from large customers, which is driving higher contract values and recurring revenues. In the fourth quarter of 2025 alone, ServiceNow closed 244 deals worth more than $1 million in net new ACV, highlighting strong enterprise demand for its solutions. The number of customers generating more than $5 million in ACV reached 603, while the number of customers contributing more than $20 million annually grew by more than 30% year over year. These trends indicate increasing adoption of multiple products and broader platform deployments within existing enterprises.High customer retention and continued enterprise expansion further strengthen ServiceNow’s growth outlook. The company reported a 98% renewal rate, underscoring the mission-critical nature of its platform for enterprise customers.
+
+> The Zacks Consensus Estimate for NOW’s first-quarter 2026 reflects upward revision trends. The current-quarter earnings estimate of 95 cents per share increased by 3 cents over the past 60 days and suggests 17.28% growth over the figure reported in the year-ago quarter.NOW’s 2026 earnings outlook also remains strong. The Zacks Consensus Estimate for NOW’s 2026 earnings estimate is currently pegged at $4.13 per share, up 2.5% over the past 60 days and suggests 17.66% growth over the 2025 reported figure.
+
+**Catalysts:** Earnings, Regulatory, Corporate, Analyst
+
+---
+
+### OKLO
+
+#### Earnings
+*Generated: 2026-03-16 19:32*
+
+*Generated: 2026-03-16 19:34*
+
+## Earnings Analysis: Oklo Inc. (OKLO)
+
+### Next Earnings
+| Metric | Value |
+| :--- | :--- |
+| Earnings Date | 2026-03-17 |
+| Days Until | 1 |
+| EPS Estimate | $-0.1654 |
+| Revenue Estimate | $0 |
+| **Earnings Rule** | **WARNING: <14 days — avoid new entries** |
+
+### Earnings History
+| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Q4 2025 | $-0.13 | $-0.20 | -52.0% | +6.7% | -7.3% | Strong Bull |
+| Q3 2025 | $-0.11 | $-0.18 | -70.2% | +9.2% | -4.0% | Strong Bull |
+| Q2 2025 | $-0.10 | $-0.07 | 32.8% | +15.5% | +17.3% | Strong Bull |
+| Q1 2025 | $-0.07 | $-0.09 | -28.8% | -6.4% | -30.0% | Strong Bear |
+| Q4 2024 | $-0.07 | $-0.08 | -8.0% | -24.6% | +5.7% | Strong Bear |
+| Q3 2024 | $-0.06 | $-5.17 | -8000.9% | +2.6% | -6.7% | Bullish |
+
+### Revenue Trend
+| Quarter | Revenue | QoQ Growth% | YoY Growth% |
+| :--- | :--- | :--- | :--- |
+| Q3 2025 | $0 | N/A | N/A |
+| Q2 2025 | $0 | N/A | N/A |
+| Q1 2025 | $0 | N/A | N/A |
+| Q4 2024 | $0 | N/A | N/A |
+| Q3 2024 | $0 | N/A | N/A |
+
+#### Technical Signals
+## Technical Scan: Oklo Inc. (OKLO)
+**Current Price: $58.83** | Date: 2026-03-16
+
+### Trend Indicators
+| Indicator | Value | Price Position | Signal |
+| :--- | :--- | :--- | :--- |
+| SMA 20 | $63.48 | Below | Bearish |
+| SMA 50 | $75.90 | Below | Bearish |
+| SMA 200 | $85.94 | Below | Bearish |
+| EMA 9 | $60.87 | Below | Bearish |
+| EMA 21 | $64.25 | Below | Bearish |
+
+### Momentum Indicators
+| Indicator | Value | Zone | Signal |
+| :--- | :--- | :--- | :--- |
+| RSI (14) | 39.6 | Bearish zone | Neutral-Bear |
+| MACD | -4.159 | Above signal | Bullish |
+| MACD Signal | -4.414 | Histogram: +0.254 | — |
+| Stochastic %K/%D | 17.5/18.2 | Oversold | Bearish |
+
+### Volatility
+| Indicator | Value | Position | Signal |
+| :--- | :--- | :--- | :--- |
+| Bollinger Upper | $69.95 | 14% of band | Neutral |
+| Bollinger Lower | $57.01 | Width: $12.93 | — |
+| ATR (14) | $4.26 (7.2%) | High volatility | — |
+
+### Key Support/Resistance Levels
+| Level | Price | Type | Touches | Last Tested |
+| :--- | :--- | :--- | :--- | :--- |
+| Support | $61.34 (+4.3%) | Support | 2 | 2026-02-05 |
+| Support | $50.08 (-14.9%) | Support | 1 | 2025-07-02 |
+| Support | $70.86 (+20.4%) | Support | 1 | 2025-12-31 |
+| Resistance | $73.55 (+25.0%) | Resistance | 1 | 2025-06-16 |
+| Support | $79.01 (+34.3%) | Support | 1 | 2025-11-21 |
+| Resistance | $85.35 (+45.1%) | Resistance | 1 | 2025-08-06 |
+| Support | $17.42 (-70.4%) | Support | 1 | 2025-04-07 |
+| Resistance | $115.01 (+95.5%) | Resistance | 2 | 2026-01-09 |
+
+### Signal Summary
+| Metric | Value |
+| :--- | :--- |
+| Overall Signal | **Bearish** |
+| Score | -4 |
+| Bullish Factors | MACD bullish |
+| Bearish Factors | Below SMA 20, Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21 |
+
+#### Short Interest
+## Short Interest Analysis
+
+### Short Interest Summary
+| Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
+| :--- | :--- | :--- | :--- | :--- |
+| OKLO | 19.12M | 2.04 | 12.28% | +12.0% (increasing) |
+
+### Squeeze Risk Assessment
+| Ticker | Risk Rating | Score (/100) | Key Factors |
+| :--- | :--- | :--- | :--- |
+| OKLO | MEDIUM | 45 | Moderate short% (12.3%); Low DTC (2.0); Shorts increasing rapidly |
+
+### Context
+| Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
+| :--- | :--- | :--- | :--- | :--- |
+| OKLO | 127.83M | 156.25M | 10.28M | 2.0 |
+
+#### News & Sentiment
+*Generated: 2026-03-16 19:34*
+
+## News & Sentiment: Oklo Inc. (OKLO)
+*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
+
+### Headlines (Top 30, Deduplicated)
+| Date | Source | Headline | Sentiment | Score | Catalysts |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-16 | TechStock² | Oklo Stock Heads Into Q4 Earnings as Meta Deal Fuels Bulls, ... | Negative | -0.39 | Earnings |
+| 2026-03-16 | The Motley Fool | Better Nuclear Energy Stock: Oklo vs. Centrus Energy - The M... | Positive | +0.49 | — |
+| 2026-03-16 | Zacks Investmen | Here's How to Play OKLO Stock Before Q4 Earnings Release - Z... | Positive | +0.34 | Earnings |
+| 2026-03-16 | TradingView | Oklo stock price analysis ahead of earnings: buy, sell, or h... | Neutral | +0.00 | Earnings |
+| 2026-03-16 | Benzinga | Trump Adminstration-Backed Nuclear Stock Oklo Faces Key Earn... | Neutral | +0.00 | Earnings |
+| 2026-03-16 | TipRanks | Oklo Is About to Report Q4 Earnings. Here’s What to Expect f... | Positive | +0.27 | Earnings |
+| 2026-03-16 | Zacks | U.S. Stock Futures in Green on Cooler Oil Prices | Neutral | +0.00 | — |
+| 2026-03-16 | Zacks | Pre-Market Up on Cooler Oil Prices, Data | Neutral | +0.00 | — |
+| 2026-03-15 | The Motley Fool | Prediction: This $60 Nuclear Stock Will Outperform the S&P 5... | Negative | -0.44 | Analyst |
+| 2026-03-15 | IndexBox - Mark | Oklo Stock Performance 2026: Decline, Meta Deal, and Future ... | Positive | +0.48 | — |
+| 2026-03-15 | Seeking Alpha | Earnings week ahead: FDX, BABA, XPEV, MU, GIS, DOCU, OKLO, A... | Neutral | +0.00 | Earnings |
+| 2026-03-14 | The Motley Fool | These 2 Nuclear Stocks Could Turn $10,000 Into a Fortune - T... | Negative | -0.44 | — |
+| 2026-03-14 | Simply Wall St. | Centrus Energy (LEU) Is Up 11.0% After Oklo JV Talks to Buil... | Positive | +0.27 | — |
+| 2026-03-13 | Yahoo Finance | Should You Buy the Dip on Oklo Stock? - Yahoo Finance | Neutral | +0.00 | — |
+| 2026-03-13 | MarketBeat | Oklo (OKLO) Short Interest & Short Float - Updated Mar 2026 ... | Positive | +0.46 | Earnings, Short |
+| 2026-03-13 | The Motley Fool | Should You Buy the Dip on Oklo Stock? - The Motley Fool | Negative | -0.44 | — |
+| 2026-03-13 | The Motley Fool | Down 67% From Its 52-Week High, Is Oklo Stock a Steal of a D... | Negative | -0.73 | — |
+| 2026-03-13 | simplywall.st | Is Oklo’s Piketon HALEU Fuel Hub With Centrus Altering The I... | Neutral | +0.00 | — |
+| 2026-03-13 | Motley Fool | Should You Buy the Dip on Oklo Stock? | Neutral | +0.00 | — |
+| 2026-03-12 | POWER Magazine | Why Nuclear Power Is Most Viable Option for Data Centers | Neutral | +0.00 | — |
+| 2026-03-12 | The Columbus Di | Nuclear fuels partnership explored for Pike County operation... | Neutral | +0.00 | — |
+| 2026-03-12 | The Motley Fool | Better Nuclear Energy Stock: Oklo vs. Nuscale Power - The Mo... | Positive | +0.27 | — |
+| 2026-03-12 | Seeking Alpha | Oklo Q4 Earnings Preview: Fairly Valued, Earnings Still Far ... | Positive | +0.44 | Earnings |
+| 2026-03-12 | MarketBeat | Oklo (NYSE:OKLO) Trading Down 5% - Time to Sell? - MarketBea... | Neutral | +0.00 | Earnings |
+| 2026-03-12 | Zacks | Nuclear ETFs in Spotlight as Middle East Conflict Intensifie... | Negative | -0.65 | — |
+| 2026-03-12 | Simply Wall St. | Centrus Energy Oklo HALEU Hub Plans Put Valuation In Fresh F... | Positive | +0.53 | — |
+| 2026-03-11 | Yahoo Finance | Better Energy Stock: Plug Power vs. Oklo Inc. - Yahoo Financ... | Positive | +0.61 | — |
+| 2026-03-11 | The Motley Fool | Better Energy Stock: Plug Power vs. Oklo Inc. - The Motley F... | Positive | +0.27 | — |
+| 2026-03-11 | MarketBeat | Insider Selling: Oklo (NYSE:OKLO) Insider Sells 2,820 Shares... | Positive | +0.30 | Earnings |
+| 2026-03-11 | MarketBeat | Oklo (NYSE:OKLO) Shares Up 2.3% - What's Next? - MarketBeat | Positive | +0.30 | Earnings |
+
+### Sentiment Summary
+| Metric | Value |
+| :--- | :--- |
+| Articles Analyzed | 30 |
+| Positive | 13 (43%) |
+| Neutral | 11 (37%) |
+| Negative | 6 (20%) |
+| Average Score | +0.065 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 185 |
+
+### Detected Catalysts
+| Category | Count | Headlines |
+| :--- | :--- | :--- |
+| Earnings | 11 | Oklo Stock Heads Into Q4 Earnings as Met..; Here's How to Play OKLO Stock Before Q4 .. |
+| Analyst | 1 | Prediction: This $60 Nuclear Stock Will .. |
+| Short | 1 | Oklo (OKLO) Short Interest & Short Float.. |
+
+### Deep Dive Articles
+
+#### How OKLO and Centrus Aim to Fix the Nuclear Fuel Bottleneck
+*Source: Zacks | Date: 2026-03-10 | Sentiment: Positive (+1.00)*
+
+> Oklo Inc.OKLO andCentrus Energy Corp.LEU plan to pursue a joint venture focused on deconversion services for high-assay low-enriched uranium (HALEU), a critical fuel for advanced nuclear reactors. Deconversion converts enriched uranium into chemical forms such as oxide or metal that can be fabricated into reactor fuel. The collaboration is designed to strengthen the domestic nuclear fuel supply chain by pairing OKLO’s advanced reactor development with Centrus’ expertise in uranium enrichment and nuclear fuel services. By focusing on this key middle step in the fuel cycle, the companies aim to strengthen fuel availability and support the wider deployment of next-generation nuclear reactors in the United States.OKLO is developing fast fission power plants designed to deliver scalable, carbon-free energy. For such reactors to operate reliably, developers must secure dependable access to nuclear fuel at multiple stages of the production cycle. Company leadership has emphasized that building advanced reactors alone is not sufficient. Long-term success requires a robust infrastructure capable of supporting enrichment, deconversion and fuel fabrication. This partnership reflects that strategy by looking for ways to expand U.S. fuel-cycle capacity and build a more connected system for supplying fuel to advanced nuclear reactors.The companies plan to explore locating the facility at Centrus’ site in Piketon, OH, where enrichment operations are already underway. The proposed project would be positioned next to these operations and adjacent to OKLO’s planned 1.2-gigawatt power campus. Notably, the campus has gained momentum after a major agreement withMeta PlatformsMETA to support future data center power needs. Under the arrangement, META is helping fund early development work, and META’s long-term electricity demand is expected to anchor the project. The partnership with META also provides clearer demand visibility as OKLO advances construction plans.Co-locating enrichment and deconversion could reduce transportation needs and simplify the movement of HALEU between processing stages. The concept also has broader implications for the nuclear industry. A centralized deconversion hub could allow multiple advanced reactor developers to access specialized fuel services without building their own facilities, helping expand domestic nuclear fuel capacity and supporting the wider deployment of advanced reactors in the United States.
+
+> Shares of Oklo have surged more than 160% over the past year, breezing past the industry's growth.
+
+> OKLO currently has an average brokerage recommendation (ABR) of 2.00 on a scale of 1 to 5 (Strong Buy to Strong Sell), calculated based on the actual recommendations (Buy, Hold, Sell, etc.) made by 20 brokerage firms.
+
+> See how the Zacks Consensus Estimate for OKLO’s earnings has been revised over the past 90 days.
+
+> The company currently carries a Zacks Rank #4 (Sell).
+
+**Catalysts:** Earnings, Regulatory
+
+#### Oklo, Centrus Eye Nuclear Fuel Powerhouse In Ohio
+*Source: Benzinga | Date: 2026-03-09 | Sentiment: Positive (+0.97)*
+
+> Oklo Inc.(NYSE:OKLO) andCentrus Energy Corp.(NYSE:LEU) said Monday they are exploring ajoint venture focusedon deconversion services for high-assay low-enriched uranium (HALEU) and related fuel-cycle technologies.
+
+> The proposed collaboration would be located at Centrus’ Piketon site in Ohio, near Oklo’s planned 1.2-gigawatt power campus. The companies aim to integrate uranium enrichment and deconversion at a single site to improve efficiency, reduce costs, and expand domestic nuclear fuel capacity.
+
+> “Advanced nuclear energy development requires not only reactors but also reliable fuel-cycle capabilities that support those reactors,” said Oklo CEOJacob DeWitte.
+
+> Centrus CEOAmir Vexlersaid the initiative supports efforts to rebuild the U.S. nuclear fuel supply chain and meet growing demand for advanced reactor fuels.
+
+> The companies also plan to explore regulatory coordination and engagement with federal agencies as part of broader efforts to strengthen the U.S. nuclear fuel-cycle infrastructure.
+
+**Catalysts:** Corporate
+
+#### Oklo, Centrus Announce Planned Joint Venture to Advance Nuclear Fuel Services in Ohio
+*Source: PR Newswire | Date: 2026-03-09 | Sentiment: Positive (+0.99)*
+
+> Demonstrates companies' commitment to leading domestic fuel supply chain
+
+> PIKETON, Ohio,March 9, 2026/PRNewswire/ -- Oklo Inc. (NYSE: OKLO) ("Oklo"), an advanced nuclear technology company, and Centrus Energy Corp. (NYSE: LEU) ("Centrus"), a uranium enrichment and nuclear fuel services provider, announced today that the companies have agreed to pursue discussions regarding a joint venture focused on deconversion services for high-assay low-enriched uranium (HALEU) and the advancement of related fuel-cycle technologies and supply chains. Activities under this joint venture would occur at Centrus' Piketon site in Pike County, southern Ohio, co-located with Centrus' enrichment operations and adjacent to Oklo's planned 1.2 GW power campus.
+
+> After mined uranium is processed and enriched, it must be converted into a different chemical form such as uranium oxide or uranium metal—a step known as deconversion—before it can be fabricated into fuel to power advanced reactors. The potential joint venture would aim to enable an integrated and efficient coupling of uranium enrichment and deconversion to improve efficiency and costs through co-location, and expand domestic advanced nuclear fuel capacity to serve Oklo's needs and broader U.S. nuclear deployment.
+
+> "Advanced nuclear energy development requires not only reactors but also reliable fuel-cycle capabilities that support those reactors," says CEO and co-founder of Oklo Jacob DeWitte. "This framework supports deeper discussions with Centrus on potential pathways to expand deconversion capacity, strengthen domestic supply chains, and advance a more efficient fuel-cycle model that operates from the same location."
+
+> "Centrus is laying the groundwork to rebuild the U.S. nuclear fuel-cycle capacity, including the services needed to support advanced reactor fuels," says Centrus President and CEO Amir Vexler. "We look forward to exploring options to co-locate and scale deconversion services to improve efficiency and support growing demand."
+
+**Catalysts:** Corporate
+
+#### Oklo (OKLO) Sees Price Target Cut By Analysts
+*Source: Insider Monkey | Date: 2026-03-08 | Sentiment: Positive (+0.97)*
+
+> We recently published10 Best Performing Nuclear Energy Stocks According to Analysts. Oklo Inc. (NYSE:OKLO) is one of the best-performing nuclear energy stocks.
+
+> Nuclear reactor designer Oklo Inc. (NYSE:OKLO) is one of the hottest stocks in its space. While the shares have soared recently amidst the hype for nuclear power’s ability to power data centers, investment bank Barclays reduced the firm’s share price target on the 24th. It reduced Oklo Inc. (NYSE:OKLO)’s price target to $86 from $146 and kept an Overweight rating on the shares. The banking giant pointed out that the nuclear power company had entered 2026 with demand visibility. It added that clarity about costs and regulatory factors was important for Oklo Inc. (NYSE:OKLO). Along with the firm, the bank also nuclear power firm NuScale and outlined that it would need to secure funding.
+
+> Barclays’ coverage of Oklo Inc. (NYSE:OKLO) came after Goldman Sachs had reduced the price target to $91 from $106 and kept a Neutral rating on the stock. The investment bank discussed the uranium market and The February Global Reactor Tracker report.
+
+> Oklo Inc. (NYSE:OKLO) is designing and developing small fission reactors called Aurora Powerhouses. It is also working on technologies to recycle nuclear fuel.
+
+> While we acknowledge the potential of OKLO as an investment, our conviction lies in the belief that some AI stocks hold greater promise for delivering higher returns and have limited downside risk. If you are looking for an extremely cheap AI stock that is also a major beneficiary of Trump tariffs and onshoring, see our free report on thebest short-term AI stock.
+
+**Catalysts:** Regulatory, Analyst, Short
+
+#### The White House Portfolio Is Now Worth $9.7 Trillion - And It's Telling Investors Exactly What To Buy
+*Source: Benzinga | Date: 2026-02-26 | Sentiment: Positive (+0.80)*
+
+> Investors spend billions trying to predict the future.The White Housenow has a $9.7 trillion version of it. And the biggest winners are already familiar names:Nvidia Corp(NASDAQ:NVDA),Microsoft Corp(NASDAQ:MSFT),Oracle Corp(NYSE:ORCL), andTaiwan Semiconductor Manufacturing Co(NASDAQ:TSM).
+
+> Chart created using AI, White House data
+
+> Manufacturing and industry account for roughly 52% of total investment, driven by massive foreign inflows from the UAE, Japan, Qatar, and Saudi Arabia. Semiconductor and industrial leaders like TSMC,Micron Technology Inc(NASDAQ:MU), andCaterpillar Inc(NYSE:CAT) sit directly in that path.
+
+> Technology and AI represent the second-largest allocation at 29%, fueled by $500 billion commitments from Nvidia,SoftBank Group Corp(OTC:SFTBY),OpenAI, andOracle Corp(NYSE:ORCL), alongside $600 billion investments fromApple Inc(NASDAQ:AAPL) andMeta Platforms Inc(NASDAQ:META).
+
+> Much of this capital surge has beendriven by PresidentDonald Trump's renewed "America First" agenda, which has emphasized domestic manufacturing, semiconductor independence, andthe expansion of AI infrastructure.
+
+**Catalysts:** Regulatory
+
+---
+
+## Per-Ticker Watchlist Tool Outputs
+
+### SMCI
+
+#### News & Sentiment
+*Generated: 2026-03-16 19:32*
+
+*Generated: 2026-03-16 19:34*
+
+## News & Sentiment: Super Micro Computer, Inc. (SMCI)
+*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
+
+### Headlines (Top 30, Deduplicated)
+| Date | Source | Headline | Sentiment | Score | Catalysts |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-16 | StockStory | Hardware & Infrastructure Stocks Q4 In Review: Super Micro (... | Positive | +0.60 | — |
+| 2026-03-16 | Seeking Alpha | Super Micro Stock Looks Like A Real Gift On Upcoming Busines... | Positive | +0.85 | — |
+| 2026-03-16 | Rolling Out | Why Super Micro’s fierce Q2 beat is not calming investors - ... | Positive | +0.39 | Earnings |
+| 2026-03-15 | MarketBeat | Clear Street Group Inc. Purchases Shares of 3,079,500 Super ... | Positive | +0.83 | Earnings |
+| 2026-03-15 | MarketBeat | Elequin Capital LP Buys 57,279 Shares of Super Micro Compute... | Positive | +0.73 | Earnings |
+| 2026-03-15 | 24/7 Wall St. | Super Micro CEO: We’re at the Center of the AI Infrastructur... | Positive | +0.60 | Corporate |
+| 2026-03-14 | MarketBeat | Super Micro Computer, Inc. $SMCI Shares Acquired by Portolan... | Positive | +0.73 | Earnings, Corporate |
+| 2026-03-14 | TipRanks | Crypto Currents: SEC, CFTC sign MOU for Joint Harmonization ... | Positive | +0.44 | Regulatory |
+| 2026-03-13 | Yahoo Finance | Is It Time To Reassess Super Micro Computer (SMCI) After Rec... | Positive | +0.73 | — |
+| 2026-03-13 | TIKR.com | Super Micro Stock Has Dropped 35% From Its 2025 Peak. Here’s... | Positive | +0.60 | — |
+| 2026-03-13 | MarketBeat | Super Micro Computer, Inc. $SMCI Shares Sold by Quantitative... | Positive | +0.73 | Earnings, Corporate |
+| 2026-03-13 | MarketBeat | Private Advisor Group LLC Sells 20,208 Shares of Super Micro... | Positive | +0.73 | Earnings |
+| 2026-03-12 | simplywall.st | Super Micro Computer (SMCI) Valuation Check As New AI Infras... | Positive | +0.81 | — |
+| 2026-03-12 | Stock Titan | SMCI (NASDAQ: SMCI) VP amends insider filing to add 53 spous... | Positive | +0.30 | — |
+| 2026-03-12 | Yahoo Finance | What Makes Super Micro Computer (SMCI) Appear So Good - Yaho... | Positive | +0.82 | — |
+| 2026-03-12 | MarketBeat | Swiss National Bank Sells 64,700 Shares of Super Micro Compu... | Positive | +0.73 | Earnings |
+| 2026-03-12 | Zacks Investmen | Is Super Micro Computer a Buy, Sell or Hold at P/E Multiple ... | Positive | +0.60 | — |
+| 2026-03-12 | Zacks | Why Super Micro Computer (SMCI) Dipped More Than Broader Mar... | Positive | +0.60 | — |
+| 2026-03-12 | Zacks | Western Digital Surges 540% in a Year: Is the Stock Worth Bu... | Positive | +0.23 | — |
+| 2026-03-11 | Proactive | Dow Jones drops but Oracle lifts S&P and Nasdaq as Gulf ship... | Negative | -0.59 | — |
+| 2026-03-11 | Trefis | How Does Super Micro Computer Stock Stack Up Against Its Pee... | Positive | +0.60 | — |
+| 2026-03-11 | Benzinga | Super Micro Computer Is Rising Wednesday: What's Driving The... | Positive | +0.60 | — |
+| 2026-03-11 | simplywall.st | Does SK Telecom’s Modular AI Data Center Pact Reframe the Bu... | Positive | +0.60 | — |
+| 2026-03-11 | MarketBeat | Super Micro Computer, Inc. $SMCI Shares Purchased by Korea I... | Positive | +0.73 | Earnings |
+| 2026-03-11 | StockStory | 1 S&P 500 Stock for Long-Term Investors and 2 Facing Challen... | Positive | +0.08 | — |
+| 2026-03-10 | Insider Monkey | Super Micro Computer, Inc. (SMCI) Expands Support for Sovere... | Positive | +0.88 | — |
+| 2026-03-10 | Barchart | Super Micro Stock Plunges 49%: Buy the Dip or Stay Away? | Positive | +0.60 | — |
+| 2026-03-10 | Zacks | Vertiv Stock Surges After S&P 500 Inclusion Announcement | Neutral | +0.00 | — |
+| 2026-03-09 | Reuters | HPE projects revenue above estimates, focuses on higher-marg... | Neutral | +0.00 | Earnings |
+| 2026-03-09 | Zacks | Dell Technologies Climbs 16% YTD: Should You Buy the Stock? | Neutral | +0.00 | — |
+
+### Sentiment Summary
+| Metric | Value |
+| :--- | :--- |
+| Articles Analyzed | 30 |
+| Positive | 26 (87%) |
+| Neutral | 3 (10%) |
+| Negative | 1 (3%) |
+| Average Score | +0.517 |
+| Overall Sentiment | **Bullish** |
+| Total Unique Headlines | 185 |
+
+### Detected Catalysts
+| Category | Count | Headlines |
+| :--- | :--- | :--- |
+| Earnings | 9 | Why Super Micro’s fierce Q2 beat is not ..; Clear Street Group Inc. Purchases Shares.. |
+| Corporate | 3 | Super Micro CEO: We’re at the Center of ..; Super Micro Computer, Inc. $SMCI Shares .. |
+| Regulatory | 1 | Crypto Currents: SEC, CFTC sign MOU for .. |
+
+### Deep Dive Articles
+
+#### Super Micro Computer, Inc. (SMCI) Expands Support for Sovereign Artificial Intelligence Platforms
+*Source: Insider Monkey | Date: 2026-03-10 | Sentiment: Positive (+0.99)*
+
+> Super Micro Computer, Inc. (NASDAQ:SMCI) is one of the11 Best Affordable Growth Stocks to Buy Now.
+
+> On March 2, Super Micro Computer Inc. (NASDAQ:SMCI) expanded support for infrastructure solutions powering sovereign artificial intelligence platforms and Radio Access Networks.
+
+> The company has introduced three new systems tailored to meet the unique requirements of telecom networks in a scalable and cost-efficient way. ARS-111L-FR is a 1U system tailored for RAN workloads, featuring an NVIDIA Grace C1 CPU and compatibility with NVIDIA ConnectX Ethernet. It also unveiled ARS-221GL-NR, a high-performance 2U Grace Superchip system with up to 2 double-width NVIDIA GPUs for running demanding AI workloads in telecom networks.
+
+> ARS-111GL-NHR features a 1U GH200 Grace Hopper Superchip system, powerful and versatile enough for research as well as AI inference at the network edge. The expanded support for telecom networks comes amid heightened demand for sovereign AI platforms, which is presenting strategic opportunities for telecom operators. Backed by its innovative DCBBS, Super Micro Computer is well positioned to enable organizations rapidly deploy and expand AI data centers.
+
+> "As operators embed intelligence across their networks and advance sovereign AI strategies, Supermicro's flexible Data Center Building Block Solutions (DCBBS) and deep ecosystem collaborations enable rapid deployment of high-performance, energy-efficient solutions that help ensure data sovereignty and long-term scalability,” said Charles Liang, president and CEO of Supermicro.
+
+**Catalysts:** Corporate
+
+#### Vertiv Stock Surges After S&P 500 Inclusion Announcement
+*Source: Zacks | Date: 2026-03-10 | Sentiment: Positive (+0.99)*
+
+> Shares ofVertiv Holdings CoVRT jumped 9.3% on March 9 after it was announced that the data-center infrastructure company, which is part of the Zacks Computers - IT Services industry, will be added to the S&P 500 Index, effective March 23. The news sparked strong buying interest from investors, as inclusion in the widely tracked benchmark typically leads to increased demand from index funds and exchange-traded funds that replicate the S&P 500.
+
+> VRT’s entry into the benchmark index reflects the company’s growing importance in the global technology infrastructure ecosystem. The firm provides critical digital infrastructure technologies and services, including power management, thermal management and integrated solutions for data centers, communication networks and commercial environments. With the rapid expansion of cloud computing, artificial intelligence (AI) workloads and hyperscale data centers, demand for Vertiv’s products and services has been rising steadily.
+
+> The S&P 500 is widely considered the most important benchmark for U.S. equities, tracking the performance of 500 of the largest publicly traded companies in the United States. Joining the index marks a significant milestone for Vertiv, highlighting its rapid growth and strengthening its profile among global investors. On March 9, VRT’s stock price briefly hit $265, its highest ever recorded level.
+
+> This Zacks Rank #2 (Buy) stock has soared 218.1% in the last 12-month period against its sub-industry’s 19% decline. Two of VRT’s closest competitors,Super Micro Computer, Inc.SMCI andWipro LimitedWIT,have lost 21.6% and 26.4%, respectively in the same period. While SMCI carries a Zacks Rank #3 (Hold), WIT has a Zacks Rank #4 (Sell). You can seethe complete list of today’s Zacks #1 Rank (Strong Buy) stocks here.
+
+> Vertiv’s recent stock performance has been supported by strong investor enthusiasm for companies linked to the data-center and AI infrastructure boom. As technology giants continue to invest heavily in computing capacity to support generative AI and cloud services, the need for reliable power and cooling solutions has become increasingly critical. Vertiv’s portfolio of infrastructure solutions positions it well to benefit from this long-term trend.
+
+**Catalysts:** Corporate
+
+#### Dell Technologies Climbs 16% YTD: Should You Buy the Stock?
+*Source: Zacks | Date: 2026-03-09 | Sentiment: Positive (+1.00)*
+
+> Dell Technologies’ DELL stock has gained 16.4% year to date (YTD), outperforming the Zacks Computer – Micro Computers industry, the broader Zacks Computer and Technology sector and the S&P 500, which fell 4.9%, 4.1% and 1.8%, respectively.DELL performed significantly better than its industry competitors in both personal computing and enterprise infrastructure, includingSuper Micro ComputerSMCI,Apple Inc.AAPL andHewlett Packard EnterpriseHPE. Year to date, Super Micro Computer shares have gained 7%, while Apple and Hewlett Packard Enterprise stocks have declined 5.3% and 12%, respectively. Super Micro Computer mainly competes in AI-focused server hardware, Hewlett Packard Enterprise is a key rival in enterprise IT infrastructure, such as servers and storage, while Apple competes with Dell Technologies in the premium PC and laptop segment.
+
+> The recent rally in DELL’s stock might tempt investors to buy, but it is important to assess whether the company’s fundamentals can sustain long-term growth or if the rally is just temporary. Let’s explore.From a technical perspective, the stock is also trading above both its 50-day and 200-day moving averages, indicating solid upward momentum and price stability. This reflects a positive market sentiment and confidence in the company's financial health and long-term prospects.
+
+> Dell Technologies is benefiting significantly from the rapid expansion of AI infrastructure demand, which has become a key growth driver. In fiscal 2026, the company recorded over $64 billion in AI-optimized server orders and shipped more than $25 billion worth of AI infrastructure, ending the year with a record backlog of $43 billion. DELL also saw strong momentum during the fiscal fourth quarter alone, securing $34.1 billion in AI orders and shipping $9.5 billion in AI servers as customers expanded AI deployments.Demand for Dell Technologies’ AI infrastructure is broadening across customer segments, including enterprises, sovereign entities and next-generation cloud providers, with the company serving more than 4,000 AI customers globally. DELL’s ability to optimize AI systems for performance, deliver rapid deployment at scale and provide lifecycle services has strengthened its competitive position. Its integrated rack-scale systems and data center solutions allow customers to deploy AI clusters efficiently while managing total cost of ownership. These capabilities are helping the company capture opportunities as organizations scale AI workloads across industries.Looking ahead, the AI opportunity is expected to remain a major growth engine for Dell Technologies. Management expects AI server revenues to reach about $50 billion in fiscal 2027, representing more than 100% year-over-year growth. The strong backlog, expanding pipeline and rising enterprise adoption of AI workloads provide strong visibility into continued demand for the company’s AI infrastructure offerings.
+
+> Dell Technologies is supported by robust financial performance and strong cash flow generation, which strengthen its long-term growth strategy and shareholder value. In fiscal 2026, the company produced more than $11 billion in operating cash flow, reflecting its ability to efficiently convert revenue into cash. This healthy cash position allows Dell Technologies to continue investing in strategic areas like AI infrastructure and data center modernization.The company’s strong liquidity position enhances its financial flexibility. DELL ended fiscal 2026 with $13.3 billion in cash and investments, supported by an operating cash flow of $4.7 billion in the fiscal fourth quarter. This solid financial base allows the company to pursue innovation and infrastructure expansion while maintaining disciplined expense management.Apart from supporting business expansion, Dell Technologies’ strong cash generation enables consistent shareholder returns. In fiscal 2026, the company returned $7.5 billion to shareholders through dividends and share repurchases, including $2.2 billion in the fiscal fourth quarter. DELL also raised its dividend by 20% and increased its share repurchase authorization by $10 billion, reflecting confidence in its long-term growth prospects.
+
+> Dell Technologies shares are undervalued and appealing to investors, supported by a Value Score of A. The company is trading at a forward 12-month P/E of 11.39X, much lower than the industry average of 28.09X. This lower valuation suggests the stock appears discounted relative to its growth prospects and financial strength.
+
+**Catalysts:** Earnings, Regulatory, Corporate, Equity, Shareholder, Analyst
+
+#### MarketBeat Week in Review - 03/02 - 03/06
+*Source: MarketBeat | Date: 2026-03-07 | Sentiment: Positive (+0.97)*
+
+> War, rising oil prices, and a negative jobs report were a powerful drag on stocks. All the major indexes were down for the week as uncertainty overtook investor confidence. It's uncomfortable to see stocks falling, but as a percentage, U.S. stocks are holding up well, and earnings season has been, on average, quite strong.
+
+> However, markets are likely to remain volatile until investors get more clarity around the length and the results of the conflict with Iran. Until then, markets are likely to move with the headlines, which ensures volatility will continue.
+
+> Next week, investors will get three different reads on inflation. The Consumer Price Index (CPI) and Producer Price Index (PPI) for February come out on Tuesday and Wednesday, respectively. The delayed Personal Consumption Expenditures (PCE) index from January will be released on Friday. A surprise in either direction will move stocks.
+
+> Amprius Technologies Inc. (NYSE: AMPX)had another strong quarter. Thomas Hughes has been bullish on AMPX stock for nearly a year, and in this week’s article, he made the case that thecompany’s strategy execution is paying offwith revenue and earnings entering a hypergrowth stage.
+
+> Hughes also wrote aboutIonQ Inc.'s (NYSE: IONQ)solid earnings report. The report shows that the long-term quantum computing thesis is in place. However, the company is a long way away from making a profit, whichmay mean the risk outweighs the reward, for now.
+
+**Catalysts:** Earnings
+
+#### Dell's ISG Revenue Growth Strengthens: Will the Momentum Continue?
+*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+1.00)*
+
+> Dell TechnologiesDELL is witnessing strengthening momentum in its Infrastructure Solutions Group (ISG), which has emerged as the company’s key growth driver. The segment is benefiting from accelerating demand for AI infrastructure and ongoing enterprise data center modernization. The segment reported record revenues of $19.6 billion in the fourth quarter of fiscal 2026, up 73% year over year, while full-year revenues increased 40% to $60.8 billion, highlighting strong uptake of Dell’s server and storage portfolio.A key catalyst behind this momentum is Dell’s fast-growing AI server segment. Growing enterprise demand for AI infrastructure is accelerating the adoption of the company’s high-performance server solutions. Dell reported $9 billion in AI-optimized server revenues in the fourth quarter. For fiscal 2027, it expects AI revenues to reach approximately $50 billion, implying nearly 100% year-over-year growth. A record AI backlog of $43 billion and strong order momentum support clear revenue visibility ahead.Traditional servers and networking continue to play an important role in Dell’s business, supported by enterprise investments to upgrade infrastructure for higher computing workloads and AI adoption. At the same time, the company’s storage platforms — including PowerMax, PowerStore and PowerScale — are seeing steady demand as organizations modernize their systems and manage growing data volumes.These trends highlight ISG as DELL’s key growth driver. As enterprises expand AI deployments and modernize data centers, the segment is likely to support continued revenue growth. The Zacks Consensus Estimate projects year-over-year total revenue growth of 24.2% in fiscal 2027, supporting continued momentum.
+
+> Dell is a major player in the AI infrastructure market but faces stiff competition fromSuper Micro ComputerSMCI andHewlett Packard EnterpriseHPE.Super Micro Computer is strengthening its position in the AI infrastructure market through its vertically integrated design approach and rapid time-to-market capabilities. Its Data Center Building Block Solutions platform enables faster AI data center deployment while improving power efficiency and operational costs. Strong engineering expertise, modular system design and automated manufacturing further enhance scalability. Close collaboration with NVIDIA and AMD, along with expanding global manufacturing capacity, supports SMCI’s ability to deliver high-performance AI infrastructure at scale.Hewlett Packard Enterprise is strengthening its AI infrastructure position with an integrated portfolio spanning AI servers, networking, hybrid cloud and storage solutions. The company supports large-scale AI training and inference workloads with high-performance computing platforms and AI-optimized systems. HPE’s Juniper Networks integration enhances AI-native networking capabilities, while its GreenLake platform and AI factory architecture help enterprises deploy, manage and scale AI workloads efficiently across modern data center environments.
+
+> Shares of Dell have gained 16.8% year to date, outperforming the broader Zacks Computer & Technology sector and the Zacks Computer - Micro Computers industry’s decline of 3.4% and 2.7%, respectively.
+
+> From a valuation standpoint, its forward price-to-earnings ratio of 13.01 is significantly below the industry’s average of 28.92.
+
+> The Zacks Consensus Estimate for fiscal 2027 earnings is pegged at $11.72 per share, increasing 3.9% over the past 30 days. This suggests 13.79% year-over-year growth.
+
+**Catalysts:** Earnings, Regulatory, Analyst
+
+#### Earnings
+*Generated: 2026-03-16 19:34*
+
+## Earnings Analysis: Super Micro Computer, Inc. (SMCI)
+
+### Next Earnings
+| Metric | Value |
+| :--- | :--- |
+| Earnings Date | 2026-05-05 |
+| Days Until | 50 |
+| EPS Estimate | $0.62264 |
+| Revenue Estimate | $12.45B |
+| Earnings Rule | Clear (>50d out) |
+
+### Earnings History
+| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Q1 2026 | $0.49 | $0.69 | 41.4% | +13.8% | +12.3% | Strong Bull |
+| Q4 2025 | $0.27 | $0.26 | -5.0% | -11.3% | -18.1% | Strong Bear |
+| Q3 2025 | $0.44 | $0.41 | -6.6% | -18.3% | -18.9% | Strong Bear |
+| Q2 2025 | $0.30 | $0.31 | 3.8% | -1.4% | +18.1% | Bearish |
+| Q1 2025 | $0.59 | $0.60 | 1.9% | +12.2% | -14.1% | Strong Bull |
+| Q1 2025 | $0.75 | $0.74 | -1.9% | +12.2% | -14.1% | Strong Bull |
+| Q3 2024 | $0.81 | $0.63 | -23.2% | -20.1% | -8.0% | Strong Bear |
+| Q2 2024 | $0.56 | $0.67 | 19.4% | -14.0% | -4.6% | Strong Bear |
+
+### Revenue Trend
+| Quarter | Revenue | QoQ Growth% | YoY Growth% |
+| :--- | :--- | :--- | :--- |
+| Q4 2025 | $12.68B | +152.8% | +123.4% |
+| Q3 2025 | $5.02B | -12.8% | N/A |
+| Q2 2025 | $5.76B | +25.2% | N/A |
+| Q1 2025 | $4.60B | -19.0% | N/A |
+| Q4 2024 | $5.68B | N/A | N/A |
+
+---
+
+### CIFR
+
+#### News & Sentiment
+*Generated: 2026-03-16 19:32*
+
+*Generated: 2026-03-16 19:35*
+
+## News & Sentiment: Cipher Digital Inc. (CIFR)
+*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
+
+### Headlines (Top 30, Deduplicated)
+| Date | Source | Headline | Sentiment | Score | Catalysts |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-16 | MarketBeat | 80,000 Shares in Cipher Mining Inc. $CIFR Bought by Ionic Ca... | Positive | +0.30 | Earnings, Corporate |
+| 2026-03-16 | Benzinga | Cipher Digital Stock Moves Higher As Bitcoin Surges Past $74... | Neutral | +0.00 | — |
+| 2026-03-16 | TipRanks | Why Cipher Mining Stock Is Suddenly Losing Altitude - TipRan... | Negative | -0.38 | — |
+| 2026-03-15 | MarketBeat | Clearline Capital LP Purchases Shares of 1,220,530 Cipher Mi... | Positive | +0.30 | Earnings |
+| 2026-03-15 | MarketBeat | Cantor Fitzgerald L. P. Sells 617,979 Shares of Cipher Minin... | Positive | +0.30 | Earnings |
+| 2026-03-15 | National Today | Clearline Capital Buys Over 1.2 Million Shares of Cipher Min... | Positive | +0.30 | — |
+| 2026-03-14 | MarketBeat | FORA Capital LLC Purchases New Position in Cipher Mining Inc... | Neutral | +0.00 | Earnings |
+| 2026-03-14 | TipRanks | Crypto Currents: SEC, CFTC sign MOU for Joint Harmonization ... | Positive | +0.44 | Regulatory |
+| 2026-03-13 | GuruFocus.com | Crypto Stocks Jump As Bitcoin Finds Its Footing | Neutral | +0.00 | — |
+| 2026-03-13 | Blockspace | Cipher Digital undervalued on enterprise valuation per megaw... | Neutral | +0.00 | — |
+| 2026-03-13 | MarketBeat | Aurelius Capital Management LP Acquires Shares of 500,000 Ci... | Positive | +0.30 | Earnings, Corporate |
+| 2026-03-13 | MarketBeat | Cipher Mining (NASDAQ:CIFR) Shares Up 8.1% - Here's What Hap... | Positive | +0.30 | Earnings |
+| 2026-03-13 | MarketBeat | Van ECK Associates Corp Reduces Holdings in Cipher Mining In... | Neutral | +0.00 | Earnings |
+| 2026-03-13 | TechStock² | Cipher Digital Stock Price Falls After KBW Target Cut; CIFR ... | Negative | -0.27 | — |
+| 2026-03-13 | Simply Wall St. | Assessing Cipher Digital (CIFR) Valuation As It Shifts From ... | Neutral | +0.00 | — |
+| 2026-03-12 | simplywall.st | Cipher Digital (CIFR) Valuation Check As AI Infrastructure P... | Positive | +0.46 | Short |
+| 2026-03-12 | TipRanks | Why Cipher Mining Stock Is Suddenly Sliding - TipRanks | Neutral | +0.00 | — |
+| 2026-03-12 | Simply Wall St. | Cipher Digital (CIFR) Deepens AI Pivot: Do Long-Term HPC Lea... | Negative | -0.64 | — |
+| 2026-03-11 | Blockspace | Why Canaan bought Cipher Digitals JV assets in West Texas | Positive | +0.18 | — |
+| 2026-03-11 | Blockspace | The Last Bitcoin Mining Bull Market Ever? BTC Mining Expert ... | Negative | -0.10 | — |
+| 2026-03-11 | 24/7 Wall St. | Wall Street Cuts Cipher Mining (CIFR) and TeraWulf (WULF) Pr... | Negative | -0.30 | Analyst |
+| 2026-03-11 | MarketBeat | Cipher Mining Inc. $CIFR Shares Acquired by American Century... | Positive | +0.30 | Earnings |
+| 2026-03-11 | MarketBeat | Keefe, Bruyette & Woods Has Lowered Expectations for Cipher ... | Negative | -0.13 | Earnings |
+| 2026-03-11 | Bitget | Cipher Digital Inc. (CIFR) Rises Despite Market Downturn: Ke... | Neutral | +0.00 | — |
+| 2026-03-11 | Zacks | Cipher Digital Inc. (CIFR) Gains As Market Dips: What You Sh... | Positive | +0.34 | — |
+| 2026-03-10 | simplywall.st | Why Cipher Digital (CIFR) Is Down 9.2% After Surging Revenue... | Negative | -0.55 | Earnings |
+| 2026-03-10 | MarketBeat | Cipher Mining Inc. $CIFR Shares Bought by Private Advisor Gr... | Positive | +0.30 | Earnings |
+| 2026-03-09 | Zacks | Wall Street Analysts Think Cipher Digital Inc. (CIFR) Is a G... | Positive | +0.44 | — |
+| 2026-03-09 | AlphaStreet | Cipher Digital (CIFR) Stock Plunges 10% as Q4 Adjusted Loss ... | Negative | -0.49 | Earnings |
+| 2026-03-08 | MarketBeat | 239,015 Shares in Cipher Mining Inc. $CIFR Acquired by Regal... | Positive | +0.30 | Earnings |
+
+### Sentiment Summary
+| Metric | Value |
+| :--- | :--- |
+| Articles Analyzed | 30 |
+| Positive | 14 (47%) |
+| Neutral | 8 (27%) |
+| Negative | 8 (27%) |
+| Average Score | +0.055 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 183 |
+
+### Detected Catalysts
+| Category | Count | Headlines |
+| :--- | :--- | :--- |
+| Earnings | 13 | 80,000 Shares in Cipher Mining Inc. $CIF..; Clearline Capital LP Purchases Shares of.. |
+| Corporate | 2 | 80,000 Shares in Cipher Mining Inc. $CIF..; Aurelius Capital Management LP Acquires .. |
+| Regulatory | 1 | Crypto Currents: SEC, CFTC sign MOU for .. |
+| Short | 1 | Cipher Digital (CIFR) Valuation Check As.. |
+| Analyst | 1 | Wall Street Cuts Cipher Mining (CIFR) an.. |
+
+### Deep Dive Articles
+
+#### Wall Street Analysts Think Cipher Digital Inc. (CIFR) Is a Good Investment: Is It?
+*Source: Zacks | Date: 2026-03-09 | Sentiment: Positive (+0.97)*
+
+> Investors often turn to recommendations made by Wall Street analysts before making a Buy, Sell, or Hold decision about a stock. While media reports about rating changes by these brokerage-firm employed (or sell-side) analysts often affect a stock's price, do they really matter?
+
+> Let's take a look at what these Wall Street heavyweights have to say aboutCipher Digital Inc.(CIFR) before we discuss the reliability of brokerage recommendations and how to use them to your advantage.
+
+> Cipher Digital Inc. currently has an average brokerage recommendation (ABR) of 1.50, on a scale of 1 to 5 (Strong Buy to Strong Sell), calculated based on the actual recommendations (Buy, Hold, Sell, etc.) made by 16 brokerage firms. An ABR of 1.50 approximates between Strong Buy and Buy.
+
+> Of the 16 recommendations that derive the current ABR, 12 are Strong Buy and two are Buy. Strong Buy and Buy respectively account for 75% and 12.5% of all recommendations.
+
+> Check price target & stock forecast for Cipher Digital Inc. here>>>
+
+**Catalysts:** Analyst
+
+#### Clear Street Cuts PT on Cipher Digital (CIFR) to $32 From $34 - Here's Why
+*Source: Insider Monkey | Date: 2026-02-28 | Sentiment: Positive (+0.96)*
+
+> Cipher Digital (NASDAQ:CIFR) is one ofthe best hot stocks under $20 to buy. On February 25, Clear Street cut the price target on Cipher Digital (NASDAQ:CIFR) to $32 from $34 and maintained a Buy rating on the shares. The firm told investors that it is remaining bullish on the stock coming out of the fiscal Q4 earnings as it sees a clear step-change in its earnings profile beginning in Q4, as lease revenue from Amazon and Fluidstack begins contributing in earnest. It believes that the inflection is underappreciated, especially given the quality of counterparties and the long-duration nature of the leases.
+
+> The rating update came after Cipher Digital (NASDAQ:CIFR) released its fiscal Q4 and full-year 2025 earnings on February 24, announcing that it rebranded from Cipher Mining to Cipher Digital, reflecting its pivot from bitcoin mining to HPC data center development. Fiscal Q4 2025 revenue came up to $60 million, with an adjusted net loss of $55 million. The company further reported that it secured 600 MW gross of total contracted HPC capacity to date across two leases, a 15-year 300 MW lease with AWS and a 10-year 300 MW lease with Fluidstack and Google. In addition, Cipher Digital (NASDAQ:CIFR) completed three bond offerings to finance HPC data center buildouts for aggregate proceeds of $3.73 billion.
+
+> Cipher Digital (NASDAQ:CIFR) develops and operates bitcoin mining data centers. The company specializes in industrial-scale Bitcoin mining and is dedicated to enhancing and fortifying the critical infrastructure of the Bitcoin network in the US.
+
+> While we acknowledge the potential of CIFR as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+
+> READ NEXT:30 Stocks That Should Double in 3 Yearsand11 Hidden AI Stocks to Buy Right Now.
+
+**Catalysts:** Earnings, Regulatory, Equity, Analyst, Short
+
+#### Cipher Digital Q4 Loss Wider Than Expected, Revenues Down Sequentially
+*Source: Zacks | Date: 2026-02-25 | Sentiment: Negative (-0.66)*
+
+> Cipher DigitalCIFR reported a fourth-quarter 2025 loss of $1.92 per share, significantly wider than the 12-cent loss projected by the Zacks Consensus Estimate.Cipher Digital reported a GAAP loss of $1.85 per share, which represents a sharp year-over-year deterioration from earnings of 5 cents. On an adjusted basis, the company posted a loss of 14 cents per share, deteriorating sequentially from earnings of 10 cents.CIFR reported revenues of $59.7 million for the fourth quarter of 2025, marking a significant decrease of 16.7% from $71.7 million reported in the previous quarter. The sequential decline was primarily caused by reduced mining capacity following the decommissioning of Black Pearl and the divestiture of joint venture sites as part of the mining exit strategy. The figure missed the Zacks Consensus Estimate by 23.31%.Cipher Digital officially rebranded from Cipher Mining to Cipher Digital, reflecting a full pivot from bitcoin mining to high-performance computing (HPC) data center development.
+
+> Cipher Mining Inc. price-consensus-eps-surprise-chart - Cipher Mining Inc. Quote
+
+> In the fourth quarter of 2025, total costs and operating expenses rose sharply to $360.3 million, up from $109.3 million in the prior quarter.The company reported a net loss of $734.2 million in the fourth quarter, compared with a modest loss of $3.3 million in the previous quarter. A major driver of the quarterly loss was the $410.3 million change in fair value of warrant liability, a non-cash accounting adjustment.On an adjusted basis, Cipher Digital reported a loss of $54.5 million, marking a substantial quarter-over-quarter deterioration from $40.7 million in adjusted earnings.Cipher Digital reported an operating loss of $300.6 million in the fourth quarter, widening sharply from a $37.6 million loss in the prior quarter.Adjusted EBITDA reported a loss of $38.9 million in the fourth quarter, marking a sharp sequential deterioration of $40.8 million.
+
+> In the fourth quarter of 2025, the company completed the sale of its 49% ownership interests in the Alborz, Bear and Chief joint venture sites, marking a decisive step in exiting non-core mining assets.In parallel, Black Pearl was fully decommissioned from bitcoin mining operations in February 2026. The company has secured 600 MW of total contracted HPC capacity to date across two long-term leases, including a 15-year, 300 MW agreement with AWS and a 10-year, 300 MW lease with Fluidstack and Google.As part of the wind-down, the company recorded losses related to miners held for sale, asset impairments and disposal of mining equipment during the fourth quarter of 2025. Cipher Digital is strategically monetizing its bitcoin holdings, with approximately 1,166 BTC being managed down as part of its transition plan.In the fourth quarter of 2025, total operating hashrate declined to roughly 11.6 EH/s from 23.6 EH/s in the third quarter of 2025, reflecting the decommissioning of Black Pearl and divested joint venture sites.
+
+> As of Dec. 31, 2025, Cipher Digital had cash and cash equivalents of $628.3 million compared with $1.2 billion as of Sept. 30, 2025.As of Dec. 31, 2025, total assets expanded to $4.29 billion, up from $2.84 billion as of Sept. 30, 2025.The company reported $2.04 billion in restricted cash, including $1.76 billion classified as current and $275.1 million as noncurrent, largely tied to project-level financing.
+
+**Catalysts:** Earnings, Regulatory
+
+#### Cipher Mining (CIFR) Pivot Toward Hyperscale Infrastructure Follows $734M Q4 Net Loss
+*Source: Insider Monkey | Date: 2026-02-25 | Sentiment: Positive (+0.98)*
+
+> Cipher Mining Inc. (NASDAQ:CIFR) is one of thebest high volume stocks to invest in now. On February 24, Cipher Mining reported Q4 2025 revenue of $60 million, which was a decline attributed to a challenging Bitcoin mining environment and lower asset prices. The company posted a GAAP net loss of $734 million, primarily driven by non-cash items, including a $450 million mark-to-market loss on convertible notes and $141 million in impairments at its Black Pearl and Odessa facilities.
+
+> Despite these losses, the company maintains a strong liquidity position with $754 million in cash and Bitcoin as of year-end 2025. The quarter marked a strategic pivot toward digital infrastructure and hyperscale computing, supported by a successful $2 billion bond offering that was oversubscribed 6.5 times. This funding secures the remaining capital expenditures for the Black Pearl project and supports a 3.4-gigawatt development pipeline.
+
+> Cipher Mining Inc. (NASDAQ:CIFR) has already secured $9.3 billion in contracted revenue from data center leases, with expectations for significant annualized net operating income to begin in late 2026 as it transitions away from its legacy mining operations. Management expressed confidence in the Texas market, noting that West Texas is well-positioned to become a global hub for data centers.
+
+> Cipher Mining Inc. (NASDAQ:CIFR), together with its subsidiaries, develops and operates industrial-scale data centers in the US.
+
+> While we acknowledge the potential of CIFR as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+
+**Catalysts:** Earnings, Regulatory, Corporate, Equity, Short
+
+#### Cipher Mining (CIFR) Jumps 12.5% on Strong Revenues, Business Transition
+*Source: Insider Monkey | Date: 2026-02-25 | Sentiment: Positive (+0.98)*
+
+> We recently published10 Stocks Winning the Market. Cipher Mining Inc. (NASDAQ:CIFR) was one of the best performers on Tuesday.
+
+> Cipher Mining saw its share prices jump by 12.48 percent on Tuesday to finish at $17.12 apiece as investors cheered the company’s strong bitcoin mining performance, while digesting its rebranding initiative to reflect its business transition.
+
+> In an updated report, Cipher Mining Inc. (NASDAQ:CIFR) said that it would change its name to Cipher Digital to reflect its strategic transition toward high-performance computing.
+
+> “Cipher is focused on sourcing and securing power, developing advanced data centers purpose-built for HPC workloads, and leasing capacity to the world’s leading technology companies. While bitcoin mining played a foundational role in building Cipher’s power origination expertise and large-scale development capabilities, the Company’s identity has evolved to focus on enabling next-generation compute at industrial scale,” Cipher Mining Inc. (NASDAQ:CIFR) said.
+
+> In line with the initiative, the company divested its 49 percent stake in three 40 MW joint venture sites, Alborz, Bear, and Chief, as well as select bitcoin mining machines previously deployed at Black Pearl.
+
+**Catalysts:** Regulatory
+
+#### Earnings
+*Generated: 2026-03-16 19:34*
+
+## Earnings Analysis: Cipher Digital Inc. (CIFR)
+
+### Next Earnings
+| Metric | Value |
+| :--- | :--- |
+| Earnings Date | 2026-05-05 |
+| Days Until | 50 |
+| EPS Estimate | $-0.11 |
+| Revenue Estimate | $36.3M |
+| Earnings Rule | Clear (>50d out) |
+
+### Earnings History
+| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Q1 2026 | $0.13 | $-0.14 | -207.7% | -3.0% | -14.1% | Bearish |
+| Q4 2025 | $0.11 | $0.10 | -6.2% | -1.1% | -13.7% | Bearish |
+| Q3 2025 | $0.06 | $0.08 | 33.3% | -2.5% | +9.2% | Bearish |
+| Q2 2025 | $0.04 | $0.02 | -46.7% | -0.7% | +12.8% | Bearish |
+| Q1 2025 | $0.05 | $0.14 | 200.0% | +1.8% | -8.5% | Bullish |
+| Q4 2024 | $-0.08 | $-0.26 | -225.0% | +6.5% | +41.0% | Strong Bull |
+| Q3 2024 | $0.06 | $-0.01 | -115.8% | -6.9% | +0.8% | Strong Bear |
+| Q2 2024 | N/A | $0.21 | 8184.0% | -0.4% | -2.1% | Bearish |
+
+### Revenue Trend
+| Quarter | Revenue | QoQ Growth% | YoY Growth% |
+| :--- | :--- | :--- | :--- |
+| Q4 2025 | $59.7M | -16.7% | +41.4% |
+| Q3 2025 | $71.7M | +64.6% | N/A |
+| Q2 2025 | $43.6M | -11.0% | N/A |
+| Q1 2025 | $49.0M | +16.0% | N/A |
+| Q4 2024 | $42.2M | N/A | N/A |
+
+---
+
+### CLSK
+
+#### News & Sentiment
+*Generated: 2026-03-16 19:32*
+
+*Generated: 2026-03-16 19:35*
 
 ## News & Sentiment: CleanSpark, Inc. (CLSK)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -2750,55 +4271,54 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-16 | MarketBeat | Fort Point Capital Partners LLC Sells 354,087 Shares of Clea... | Positive | +0.30 | Earnings |
+| 2026-03-15 | MarketBeat | Azora Capital LP Acquires Shares of 1,055,201 Cleanspark, In... | Positive | +0.30 | Earnings |
+| 2026-03-14 | simplywall.st | CleanSpark (CLSK) Is Up 6.0% After Highlighting AI-Focused S... | Neutral | +0.00 | — |
+| 2026-03-13 | GuruFocus.com | Crypto Stocks Jump As Bitcoin Finds Its Footing | Neutral | +0.00 | — |
+| 2026-03-13 | Yahoo Finance | Brokers Suggest Investing in CleanSpark (CLSK): Read This Be... | Neutral | +0.00 | — |
+| 2026-03-13 | MarketBeat | Cleanspark (NASDAQ:CLSK) Shares Gap Up - Should You Buy? - M... | Positive | +0.30 | Earnings |
+| 2026-03-13 | simplywall.st | CleanSpark (CLSK) Valuation Check After Mixed Returns And Co... | Positive | +0.25 | — |
+| 2026-03-13 | MarketBeat | Aurelius Capital Management LP Invests $3.01 Million in Clea... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-03-13 | GuruFocus | Cleanspark Inc (CLSK) Trading 6.18% Higher on Mar 13 - GuruF... | Neutral | +0.00 | — |
+| 2026-03-13 | Simply Wall St. | CleanSpark’s Pivot Into AI Data Centers Might Change The Cas... | Neutral | +0.00 | — |
+| 2026-03-12 | Bitget | Investors Are Actively Looking Into Cleanspark, Inc. (CLSK):... | Positive | +0.32 | — |
+| 2026-03-12 | Yahoo Finance | Investors Heavily Search Cleanspark, Inc. (CLSK): Here is Wh... | Neutral | +0.00 | — |
+| 2026-03-12 | MarketBeat | Van ECK Associates Corp Trims Stock Holdings in Cleanspark, ... | Neutral | +0.00 | Earnings |
+| 2026-03-11 | Seeking Alpha | CleanSpark: 1.8 GW Of Power And An Asymmetric Buying Opportu... | Positive | +0.42 | — |
+| 2026-03-11 | MarketBeat | Magnetar Financial LLC Has $6.16 Million Position in Cleansp... | Neutral | +0.00 | Earnings |
+| 2026-03-11 | Zacks | Circle Internet Soars 110% in a Month: Should You Buy, Sell ... | Neutral | +0.00 | — |
+| 2026-03-10 | Bitget | CleanSpark (CLSK) Stock & Crypto: UK Investment Guide 2026 -... | Neutral | +0.00 | — |
 | 2026-03-07 | simplywall.st | Why CleanSpark (CLSK) Is Down 7.4% After Weak Q1 Loss And Te... | Negative | -0.64 | — |
 | 2026-03-07 | MarketBeat | Neo Ivy Capital Management Takes Position in Cleanspark, Inc... | Neutral | +0.00 | Earnings, Corporate |
 | 2026-03-06 | simplywall.st | CleanSpark (CLSK) Valuation Check After February 2026 Bitcoi... | Neutral | +0.00 | — |
+| 2026-03-06 | The Globe and M | CleanSpark Shareholders Back Board Slate and Auditor Selecti... | Neutral | +0.00 | — |
 | 2026-03-05 | Blockspace | CleanSpark finalizes second Texas acquisition, mines 568 bit... | Neutral | +0.00 | Regulatory, Corporate |
 | 2026-03-05 | PR Newswire | CleanSpark Releases February 2026 Operational Update | Neutral | +0.00 | — |
 | 2026-03-05 | Stock Titan | Bitcoin miner CleanSpark locks down 300 MW at second Texas c... | Neutral | +0.00 | Regulatory |
-| 2026-03-05 | MEXC | CleanSpark (CLSK) Stock: 300 MW Texas Expansion Despite Q1 E... | Neutral | +0.00 | Earnings, Short |
-| 2026-03-05 | National Today | Segall Bryant & Hamill LLC Acquires New Position in Cleanspa... | Neutral | +0.00 | — |
-| 2026-03-05 | MarketBeat | Quantbot Technologies LP Buys Shares of 122,894 Cleanspark, ... | Positive | +0.30 | Earnings |
 | 2026-03-05 | Trefis | Cleanspark Stock (+7.8%): Bitcoin Surges Past $72,000, Lifti... | Neutral | +0.00 | — |
-| 2026-03-05 | MEXC | CleanSpark (CLSK) Stock: Texas Campus Acquisition and Februa... | Neutral | +0.00 | Corporate |
-| 2026-03-05 | StocksToTrade | CleanSpark Faces Profit Dip Despite Revenue Climb​ - StocksT... | Positive | +0.44 | Earnings |
-| 2026-03-04 | GuruFocus | Cleanspark Inc (CLSK) Trading 6.32% Higher on Mar 4 - GuruFo... | Neutral | +0.00 | — |
+| 2026-03-05 | Stock Titan | CleanSpark (NASDAQ: CLSK) reports 68% turnout at 2026 shareh... | Neutral | +0.00 | — |
+| 2026-03-05 | MarketBeat | Quantbot Technologies LP Buys Shares of 122,894 Cleanspark, ... | Positive | +0.30 | Earnings |
+| 2026-03-05 | MarketBeat | Segall Bryant & Hamill LLC Acquires New Position in Cleanspa... | Neutral | +0.00 | Earnings |
 | 2026-03-04 | MarketBeat | Intrinsic Edge Capital Management LLC Sells 470,000 Shares o... | Positive | +0.30 | Earnings, Corporate |
 | 2026-03-04 | MarketBeat | Cleanspark, Inc. (NASDAQ:CLSK) Given Consensus Recommendatio... | Neutral | +0.00 | Earnings |
-| 2026-03-03 | Trefis | How Does Cleanspark Stock Compare With Peers? - Trefis | Neutral | +0.00 | — |
-| 2026-03-03 | Benzinga | Peering Into Cleanspark Inc's Recent Short Interest - Benzin... | Positive | +0.46 | Short |
-| 2026-03-02 | StockStory | Strategy (MSTR) Shares Skyrocket, What You Need To Know | Positive | +0.30 | — |
-| 2026-02-27 | simplywall.st | Why CleanSpark (CLSK) Is Up 6.3% After Emphasizing Its Pivot... | Neutral | +0.00 | — |
-| 2026-02-27 | MarketBeat | Vanguard Group Inc. Increases Position in Cleanspark, Inc. $... | Neutral | +0.00 | Earnings |
-| 2026-02-27 | MarketBeat | Cleanspark, Inc. $CLSK Stake Boosted by HighTower Advisors L... | Positive | +0.36 | Earnings |
-| 2026-02-27 | Simply Wall St. | A Look At CleanSpark (CLSK) Valuation After Wider Loss And A... | Negative | -0.32 | — |
-| 2026-02-26 | Blockspace | Bitcoin mining stocks slide as bitcoin fails to clear $70,00... | Negative | -0.05 | — |
-| 2026-02-26 | simplywall.st | CleanSpark (CLSK) Valuation Check After Wider Loss And AI Da... | Negative | -0.32 | — |
-| 2026-02-25 | Zacks | Cleanspark, Inc. (CLSK) is Attracting Investor Attention: He... | Positive | +0.48 | — |
-| 2026-02-24 | Benzinga | Tradr Targets Volatility With 2X Single-Stock ETFs On CleanS... | Neutral | +0.00 | — |
-| 2026-02-24 | MarketBeat | Cleanspark (NASDAQ:CLSK) Stock Price Up 7.6% - Should You Bu... | Neutral | +0.00 | Earnings |
-| 2026-02-23 | MarketBeat | 200,000 Shares in Cleanspark, Inc. $CLSK Bought by X Square ... | Positive | +0.30 | Earnings |
-| 2026-02-21 | MarketBeat | Cleanspark, Inc. $CLSK Holdings Lifted by Stevens Capital Ma... | Neutral | +0.00 | Earnings, Corporate |
-| 2026-02-20 | Zacks | Circle Stock Before Q4 Earnings Release: Should Investors St... | Neutral | +0.00 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
 | Positive | 8 (27%) |
-| Neutral | 18 (60%) |
-| Negative | 4 (13%) |
-| Average Score | +0.053 |
+| Neutral | 21 (70%) |
+| Negative | 1 (3%) |
+| Average Score | +0.061 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 175 |
+| Total Unique Headlines | 174 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 12 | Neo Ivy Capital Management Takes Positio..; CleanSpark (CLSK) Stock: 300 MW Texas Ex.. |
-| Corporate | 5 | Neo Ivy Capital Management Takes Positio..; CleanSpark finalizes second Texas acquis.. |
+| Earnings | 11 | Fort Point Capital Partners LLC Sells 35..; Azora Capital LP Acquires Shares of 1,05.. |
+| Corporate | 4 | Aurelius Capital Management LP Invests $..; Neo Ivy Capital Management Takes Positio.. |
 | Regulatory | 2 | CleanSpark finalizes second Texas acquis..; Bitcoin miner CleanSpark locks down 300 .. |
-| Short | 2 | CleanSpark (CLSK) Stock: 300 MW Texas Ex..; Peering Into Cleanspark Inc's Recent Sho.. |
 
 ### Deep Dive Articles
 
@@ -2877,1027 +4397,49 @@
 
 **Catalysts:** Earnings, Corporate
 
----
-
-### CLF
-
 #### Earnings
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:35*
 
-*Generated: 2026-03-08 17:19*
-
-## Earnings Analysis: Cleveland-Cliffs Inc. (CLF)
-
-### Next Earnings
-| Metric | Value |
-| :--- | :--- |
-| Earnings Date | 2026-04-29 |
-| Days Until | 52 |
-| EPS Estimate | $-0.375 |
-| Revenue Estimate | $4.82B |
-| Earnings Rule | Clear (>52d out) |
-
-### Earnings History
-| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.62 | $-0.43 | 30.1% | -0.3% | -14.5% | Bearish |
-| Q4 2025 | $-0.45 | $-0.45 | 0.6% | -17.2% | -14.9% | Strong Bear |
-| Q3 2025 | $-0.67 | $-0.50 | 25.9% | +6.2% | +5.6% | Strong Bull |
-| Q2 2025 | $-0.79 | $-1.00 | -26.2% | -15.8% | -11.2% | Strong Bear |
-| Q1 2025 | $-0.67 | $-0.68 | -1.0% | -3.2% | -9.5% | Strong Bear |
-| Q4 2024 | $-0.30 | $-0.33 | -8.2% | -11.4% | -4.5% | Strong Bear |
-| Q3 2024 | N/A | $0.11 | 4945.9% | +4.4% | +0.3% | Strong Bull |
-| Q2 2024 | $0.22 | $-0.14 | -162.5% | -11.0% | -13.4% | Strong Bear |
-
-### Revenue Trend
-| Quarter | Revenue | QoQ Growth% | YoY Growth% |
-| :--- | :--- | :--- | :--- |
-| Q4 2025 | $4.31B | -8.9% | -0.3% |
-| Q3 2025 | $4.73B | -4.1% | N/A |
-| Q2 2025 | $4.93B | +6.6% | N/A |
-| Q1 2025 | $4.63B | +7.0% | N/A |
-| Q4 2024 | $4.33B | N/A | N/A |
-
-#### Technical Signals
-## Technical Scan: Cleveland-Cliffs Inc. (CLF)
-**Current Price: $9.83** | Date: 2026-03-06
-
-### Trend Indicators
-| Indicator | Value | Price Position | Signal |
-| :--- | :--- | :--- | :--- |
-| SMA 20 | $11.13 | Below | Bearish |
-| SMA 50 | $12.70 | Below | Bearish |
-| SMA 200 | $11.17 | Below | Bearish |
-| EMA 9 | $10.71 | Below | Bearish |
-| EMA 21 | $11.31 | Below | Bearish |
-
-### Momentum Indicators
-| Indicator | Value | Zone | Signal |
-| :--- | :--- | :--- | :--- |
-| RSI (14) | 34.3 | Bearish zone | Neutral-Bear |
-| MACD | -0.669 | Below signal | Bearish |
-| MACD Signal | -0.668 | Histogram: -0.001 | — |
-| Stochastic %K/%D | 6.4/32.3 | Oversold | Bearish |
-
-### Volatility
-| Indicator | Value | Position | Signal |
-| :--- | :--- | :--- | :--- |
-| Bollinger Upper | $13.32 | 20% of band | Neutral |
-| Bollinger Lower | $8.95 | Width: $4.37 | — |
-| ATR (14) | $0.59 (6.0%) | High volatility | — |
-
-### Key Support/Resistance Levels
-| Level | Price | Type | Touches | Last Tested |
-| :--- | :--- | :--- | :--- | :--- |
-| Support | $9.92 (+0.9%) | Support | 2 | 2026-02-13 |
-| Resistance | $9.24 (-6.0%) | Resistance | 2 | 2025-08-07 |
-| Resistance | $8.09 (-17.7%) | Resistance | 1 | 2025-06-10 |
-| Support | $11.68 (+18.8%) | Support | 1 | 2026-01-08 |
-| Resistance | $11.96 (+21.7%) | Resistance | 1 | 2025-07-22 |
-| Support | $6.72 (-31.6%) | Support | 1 | 2025-06-23 |
-| Support | $6.17 (-37.2%) | Support | 1 | 2025-04-04 |
-| Resistance | $14.02 (+42.6%) | Resistance | 1 | 2025-12-24 |
-
-### Signal Summary
-| Metric | Value |
-| :--- | :--- |
-| Overall Signal | **Strong Bearish** |
-| Score | -6 |
-| Bearish Factors | Below SMA 20, Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21, MACD bearish |
-
-#### Short Interest
-## Short Interest Analysis
-
-### Short Interest Summary
-| Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
-| :--- | :--- | :--- | :--- | :--- |
-| CLF | 77.38M | 3.70 | 16.76% | -6.4% (decreasing) |
-
-### Squeeze Risk Assessment
-| Ticker | Risk Rating | Score (/100) | Key Factors |
-| :--- | :--- | :--- | :--- |
-| CLF | HIGH | 50 | Elevated short% (16.8%); Moderate DTC (3.7) |
-
-### Context
-| Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
-| :--- | :--- | :--- | :--- | :--- |
-| CLF | 564.25M | 570.39M | 16.69M | 3.7 |
-
-#### News & Sentiment
-*Generated: 2026-03-08 17:19*
-
-## News & Sentiment: Cleveland-Cliffs Inc. (CLF)
-*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
-
-### Headlines (Top 30, Deduplicated)
-| Date | Source | Headline | Sentiment | Score | Catalysts |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-08 | MarketBeat | Dimensional Fund Advisors LP Sells 2,994,777 Shares of Cleve... | Positive | +0.30 | Earnings |
-| 2026-03-07 | Trefis | Cleveland-Cliffs Stock (-8.0%): CEO Stock Sale After Revenue... | Negative | -0.15 | Earnings, Corporate |
-| 2026-03-07 | MarketBeat | Neo Ivy Capital Management Takes Position in Cleveland-Cliff... | Neutral | +0.00 | Earnings, Corporate |
-| 2026-03-06 | StocksToTrade | Cleveland-Cliffs Stock Plummets Amid Executive Stock Sale an... | Negative | -0.15 | Earnings |
-| 2026-03-06 | MarketBeat | Cleveland-Cliffs (NYSE:CLF) Stock Price Down 8.4% - Here's W... | Neutral | +0.00 | Earnings |
-| 2026-03-06 | timothysykes.co | CEO’s Stock Sale Sparks CLF’s Decline Amid Poor Financial Ou... | Negative | -0.48 | Corporate |
-| 2026-03-05 | Zacks | Here is What to Know Beyond Why Cleveland-Cliffs Inc. (CLF) ... | Neutral | +0.00 | — |
-| 2026-03-03 | MarketBeat | South Dakota Investment Council Sells 201,228 Shares of Clev... | Positive | +0.30 | Earnings |
-| 2026-03-03 | MarketBeat | Contrarius Group Holdings Ltd Buys New Shares in Cleveland-C... | Positive | +0.30 | Earnings |
-| 2026-03-02 | GuruFocus | Cleveland-Cliffs Inc (CLF) Shares Up 4.69% on Mar 2 - GuruFo... | Positive | +0.30 | — |
-| 2026-03-02 | Simply Wall St. | Cleveland Cliffs Board Shifts Oversight As Shares Flagged Un... | Positive | +0.30 | — |
-| 2026-03-01 | Insider Monkey | BofA Maintains a Neutral Rating on Cleveland-Cliffs Inc. (CL... | Neutral | +0.00 | — |
-| 2026-03-01 | Yahoo Finance | Is It Time To Reassess Cleveland Cliffs (CLF) After Its Rece... | Positive | +0.30 | — |
-| 2026-03-01 | MarketBeat | Cleveland-Cliffs Inc. $CLF Shares Sold by Quantbot Technolog... | Positive | +0.30 | Earnings |
-| 2026-03-01 | Simply Wall St. | A Look At Cleveland-Cliffs (CLF) Valuation After Recent Shar... | Negative | -0.15 | — |
-| 2026-02-28 | simplywall.st | Does Cleveland-Cliffs’ (CLF) Board Refresh Hint At A Deeper ... | Neutral | +0.00 | — |
-| 2026-02-27 | AD HOC NEWS | Cleveland-Cliffs Stock: Fresh Deal Rumors, Union Talks And A... | Positive | +0.32 | — |
-| 2026-02-26 | Trefis | Cleveland-Cliffs Stock: Can 2026 Mark a Turnaround Year? - T... | Neutral | +0.00 | — |
-| 2026-02-26 | simplywall.st | Cleveland Cliffs (CLF) Valuation Check After Recent Share Pr... | Positive | +0.48 | — |
-| 2026-02-25 | Zacks | Is CMC's North America Steel Group Segment Set for Long-Term... | Positive | +0.38 | — |
-| 2026-02-25 | Zacks | Vale vs. Cleveland-Cliffs: Which Stock is a Better Buy Now? | Positive | +0.44 | — |
-| 2026-02-24 | MarketBeat | Cleveland-Cliffs Inc. (NYSE:CLF) Given Consensus Recommendat... | Neutral | +0.00 | Earnings |
-| 2026-02-23 | Business Wire | Cleveland-Cliffs Inc. Appoints Ralph Michael as Lead Directo... | Neutral | +0.00 | — |
-| 2026-02-23 | Zacks | Can CRS's Brownfield Expansion Project Fuel Long-Term Growth... | Positive | +0.38 | — |
-| 2026-02-23 | Stock Titan | Ex-AK Steel chair who led sale becomes Cleveland-Cliffs lead... | Neutral | +0.00 | — |
-| 2026-02-23 | Simply Wall St. | How The Cleveland-Cliffs (CLF) Narrative Is Shifting On Tari... | Neutral | +0.00 | — |
-| 2026-02-23 | Simply Wall St. | How Investors May Respond To Cleveland-Cliffs (CLF) Wider 20... | Negative | -0.40 | Earnings, Shareholder |
-| 2026-02-21 | MarketBeat | Monaco Asset Management SAM Sells 105,000 Shares of Clevelan... | Positive | +0.57 | Earnings, Corporate |
-| 2026-02-19 | Zacks | Cleveland-Cliffs Inc. (CLF) is Attracting Investor Attention... | Positive | +0.48 | — |
-| 2026-02-18 | Zacks | Can Commercial Metals' TAG Program Drive Margin Expansion? | Neutral | +0.00 | — |
-
-### Sentiment Summary
-| Metric | Value |
-| :--- | :--- |
-| Articles Analyzed | 30 |
-| Positive | 14 (47%) |
-| Neutral | 11 (37%) |
-| Negative | 5 (17%) |
-| Average Score | +0.126 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 182 |
-
-### Detected Catalysts
-| Category | Count | Headlines |
-| :--- | :--- | :--- |
-| Earnings | 11 | Dimensional Fund Advisors LP Sells 2,994..; Cleveland-Cliffs Stock (-8.0%): CEO Stoc.. |
-| Corporate | 4 | Cleveland-Cliffs Stock (-8.0%): CEO Stoc..; Neo Ivy Capital Management Takes Positio.. |
-| Shareholder | 1 | How Investors May Respond To Cleveland-C.. |
-
-### Deep Dive Articles
-
-#### Here is What to Know Beyond Why Cleveland-Cliffs Inc. (CLF) is a Trending Stock
-*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+0.97)*
-
-> Cleveland-Cliffs(CLF) has been one of the most searched-for stocks on Zacks.com lately. So, you might want to look at some of the facts that could shape the stock's performance in the near term.
-
-> Over the past month, shares of this mining company have returned -25.5%, compared to the Zacks S&P 500 composite's -0.2% change. During this period, the Zacks Steel - Producers industry, which Cleveland-Cliffs falls in, has lost 3.2%. The key question now is: What could be the stock's future direction?
-
-> While media releases or rumors about a substantial change in a company's business prospects usually make its stock 'trending' and lead to an immediate price change, there are always some fundamental facts that eventually dominate the buy-and-hold decision-making.
-
-> Rather than focusing on anything else, we at Zacks prioritize evaluating the change in a company's earnings projection. This is because we believe the fair value for its stock is determined by the present value of its future stream of earnings.
-
-> Our analysis is essentially based on how sell-side analysts covering the stock are revising their earnings estimates to take the latest business trends into account. When earnings estimates for a company go up, the fair value for its stock goes up as well. And when a stock's fair value is higher than its current market price, investors tend to buy the stock, resulting in its price moving upward. Because of this, empirical studies indicate a strong correlation between trends in earnings estimate revisions and short-term stock price movements.
-
-**Catalysts:** Earnings, Short
-
-#### BofA Maintains a Neutral Rating on Cleveland-Cliffs Inc. (CLF)
-*Source: Insider Monkey | Date: 2026-03-01 | Sentiment: Positive (+0.44)*
-
-> Cleveland-Cliffs Inc. (NYSE:CLF)is among the10 Best Steel Stocks to Buy Right Now.
-
-> On February 12, 2026, BofA lowered Cleveland-Cliffs Inc. (NYSE:CLF)'s price objective to $13 from $14.50 while maintaining a Neutral rating. The analyst noted a relatively stretched balance sheet and said a potential partnership with POSCO could significantly improve the company's financial and operational outlook.
-
-> On February 10, 2026, GLJ Research cut Cleveland-Cliffs Inc. (NYSE:CLF)' price target to $9.42 from $9.52 while maintaining a Sell rating. The firm modified its model following the fourth-quarter report to reflect decreased demand and described the company's results and outlook as disappointing.
-
-> On February 9, 2026, Citi elevated Cleveland-Cliffs Inc. (NYSE:CLF)' price objective from $11 to $13 while maintaining a Neutral rating.  The analyst stated that the stock plunged 15%-20% as first-quarter 2026 projections showed approximately $140 million in EBITDA, which was lower than the $321 million Bloomberg consensus. Citi cited persistent EBITDA-per-ton and free cash flow concerns.
-
-> Cleveland-Cliffs Inc. (NYSE:CLF) is a flat-rolled steel firm that provides iron ore pellets to the North American steel industry. It specializes in the manufacturing of metallic and coke, iron and steelmaking, rolling and finishing, and downstream tubular components, stamping, and tooling.
-
-**Catalysts:** Analyst
-
-#### Is CMC's North America Steel Group Segment Set for Long-Term Growth?
-*Source: Zacks | Date: 2026-02-25 | Sentiment: Positive (+0.99)*
-
-> Commercial Metals CompanyCMC has been gaining from robust demand in North America for each of its major product lines. In the North America Steel Group segment, the steel products metal margin increased by $132 per ton in the fiscal first quarter 2026 from the first quarter of fiscal 2025, achieving a rise for the second consecutive quarter. The segment’s steel products margin climbed to the highest level in three years.The segment posted adjusted EBITDA of $294 million in the fiscal first quarter of 2026, marking a year-over-year increase of 57.9%.While the company expects the North America Steel Group segment’s adjusted EBITDA to be lower sequentially in the second fiscal quarter due to normal seasonal volume trends and planned maintenance outages, the segment's long-term view remains strong.The segment gained from Transform, Advance, Grow (TAG) initiative efforts, with the scrap optimization initiatives launched in fiscal 2025, aiding metal margin expansion. The TAG program aims to drive consistency across all areas of the business. The program is designed to optimize logistics, reduce input consumption, lower costs and boost energy efficiency. This is expected to aid the North America Steel Group segment in the upcoming quarters. The segment will also gain from Arizona 2 Micro-Mill, which is now operational and aided in the company’s fiscal first-quarter performance.The company expects rebar consumption to be aided by strong public sector construction spending. The structural trends are expected to be durable, serving as a significant catalyst for long-term growth.
-
-> Cleveland-Cliffs Inc.CLF reported adjusted EBITDA of $37 million in 2025, marking a significant decline from $773 million in 2024. The company’s results bore the impacts of weak demand from the automotive sector and lower steel prices. Cleveland-Cliffs has, however, been executing significant cost-reduction initiatives. The company expects further cost reduction in 2026, which will aid Cleveland-Cliffs’ margins.Steel Dynamics, Inc.STLD reported record steel shipments in 2025. It registered an adjusted EBITDA of $505 million in the fourth quarter of 2025, marking a year-over-year increase of 36%. Adjusted EBITDA in 2025 was $2.15 billion, lower than $2.5 billion in 2024. Steel Dynamics is providing innovative alternative metal solutions to its customers, employing its expertise in operating highly efficient, low-cost melting, casting and rolling facilities.The company is developing a lower-carbon facility that offers an energy-efficient alternative to traditional production. This facility is expected to diversify and enhance Steel Dynamics' high-margin, value-added product portfolio.
-
-> Commercial Metals shares have gained 50.1% in the past year compared with the industry’s 60.6% growth. In comparison, the Zacks Basic Materials sector and the S&P 500 have returned 55% and 18.4%, respectively.
-
-> Commercial Metals is currently trading at a forward price/sales ratio of 0.90 compared with the industry's 1.69.
-
-> Cleveland-Cliffs is a cheaper option, trading at a forward price/sales ratio of 0.29, while Steel Dynamics is trading at a higher 1.36.
-
-**Catalysts:** Regulatory
-
-#### Vale vs. Cleveland-Cliffs: Which Stock is a Better Buy Now?
-*Source: Zacks | Date: 2026-02-25 | Sentiment: Positive (+0.93)*
-
-> Vale S.AVALE andCleveland-Cliffs Inc.CLF are major players in the global iron ore and steel supply chain. Vale is a leading iron ore producer and Cleveland-Cliffs is a top U.S. steelmaker and iron ore pellet supplier. Both companies are closely linked to steel demand, infrastructure spending and broader industrial trends.Headquartered in Brazil, Vale S.A is one of the world’s largest iron ore producers, the key steelmaking ingredient. It also produces nickel, copper and cobalt, as well as by-products, such as gold, silver, platinum group metals, and other precious metals.
-
-> Cleveland-Cliffs is a leading North America-based steel producer with a focus on value-added sheet products, particularly for the automotive industry. The company transitioned from an iron ore miner to a fully integrated steelmaker following its 2020 acquisitions of AK Steel and ArcelorMittal USA. CLF has a vertically integrated portfolio, spanning mining to manufacturing steel products, including stamping, tooling and tubing. It has the unique advantage as a steel producer of being fully or partially self-sufficient with its production of raw materials for steel manufacturing, which includes iron ore pellets, HBI, scrap, coking coal and coke.
-
-> The steel industry has faced significant challenges due to overcapacity and excess production of steel. Nevertheless, long-term growth in global steel demand is expected to be supported by urbanization and infrastructure development.
-
-> Vale reported revenues of $38 billion in 2025, 1% higher year over year. Higher sales volumes for copper, nickel and iron ore and increased copper prices were offset by lower iron ore and nickel prices. Adjusted earnings per share were $1.82, up 15% supported by ongoing cost discipline.
-
-> Vale continued to lower all-in costs by 3% in its iron business, 77% in the copper business and 27% in the nickel business in 2025, marking the second consecutive year of cost reduction.
-
-**Catalysts:** Earnings, Regulatory, Corporate
-
-#### Can CRS's Brownfield Expansion Project Fuel Long-Term Growth?
-*Source: Zacks | Date: 2026-02-23 | Sentiment: Positive (+0.99)*
-
-> Carpenter Technology CorporationCRS is investing in a $400-million brownfield expansion project based in Athens. The project is aimed at adding high-purity primary and secondary melt capacity to the company’s existing downstream finishing assets, which will boost long-term growth.The company is aiming to expand its capacity with a vacuum induction melting furnace, a crucial piece of equipment to manufacture high-purity specialty alloys. The brownfield capacity expansion project is designed to add 9,000 additional tons, marking a 7% rise from Carpenter Technology’s 2019 shipments.The brownfield capacity expansion project was on schedule and budget as of the second quarter of fiscal 2026. Carpenter Technology is targeting commissioning to start in early fiscal 2028. The company expects the project to begin producing material for customers across various end-use markets immediately after commissioning, with production ramp-up continuing as it secures additional qualifications.While CRS projects its investment in brownfield capacity expansion to boost its earnings growth, it is not expected to have any material impact on the supply-demand imbalance.Carpenter Technology expects construction activities related to the brownfield capacity expansion project to broaden in the second half of fiscal 2026, accelerating the company’s capital spending. The company’s projected guidance for fiscal 2026’s capital expenditure of $300-$315 million includes $175-$185 million for the brownfield capacity expansion.
-
-> Commercial Metals Company’s CMC Transform, Advance, Grow Program focuses on driving higher through-the-cycle margins, earnings, cash flows and ROIC. Commercial Metals expects an annualized EBITDA benefit of $150 million in fiscal 2026 from the program.Launched in 2024, the TAG program aims to drive consistency across all areas of the business for Commercial Metals. The program is designed to optimize logistics, reduce input consumption, lower costs and boost energy efficiency.
-
-> Cleveland-Cliffs Inc.CLF is executing significant cost-reduction initiatives, with a goal of lowering steel unit costs by $150 per ton in three years. The company reduced overhead and fixed costs, along with optimizing its integrated footprint and improving efficiencies. Cleveland-Cliffs expects further cost reduction in 2026. Cleveland-Cliffs expects to gain from Stelco’s low-cost structure and asset optimization.
-
-> CRS shares have surged 95.4% over the past year compared with the industry’s growth of 98.1%. In comparison, the Zacks Basic Materials sector and the S&P 500 have returned 52.8% and 19.7%, respectively.
-
-> Carpenter Technology is currently trading at a forward price/sales ratio of 5.96 compared with the industry's 2.07.
-
-**Catalysts:** Earnings, Regulatory, Equity
-
----
-
-### NNE
-
-#### Earnings
-*Generated: 2026-03-08 17:18*
-
-*Generated: 2026-03-08 17:19*
-
-## Earnings Analysis: Nano Nuclear Energy Inc. (NNE)
-
-### Next Earnings
-| Metric | Value |
-| :--- | :--- |
-| Earnings Date | 2026-05-14 |
-| Days Until | 67 |
-| EPS Estimate | $-0.21 |
-| Revenue Estimate | $0 |
-| Earnings Rule | Clear (>67d out) |
-
-### Earnings History
-| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.30 | $-0.13 | 56.2% | -0.6% | +0.8% | Bearish |
-| Q4 2025 | $-0.49 | $-0.19 | 61.2% | +9.3% | -5.8% | Strong Bull |
-| Q3 2025 | $-0.20 | $-0.19 | 6.6% | +2.0% | -17.3% | Bullish |
-| Q2 2025 | $-0.09 | $-0.57 | -533.3% | +4.5% | +5.8% | Strong Bull |
-| Q1 2025 | $-0.07 | $-0.09 | -28.6% | -3.7% | -14.2% | Strong Bear |
-| Q4 2024 | $-0.16 | $-0.08 | 50.0% | +0.3% | +21.8% | Bullish |
-
-### Revenue Trend
-| Quarter | Revenue | QoQ Growth% | YoY Growth% |
-| :--- | :--- | :--- | :--- |
-| Q4 2025 | $0 | N/A | N/A |
-| Q3 2025 | $0 | N/A | N/A |
-| Q2 2025 | $0 | N/A | N/A |
-| Q1 2025 | $0 | N/A | N/A |
-| Q4 2024 | $0 | N/A | N/A |
-
-#### Technical Signals
-## Technical Scan: Nano Nuclear Energy Inc. (NNE)
-**Current Price: $23.54** | Date: 2026-03-06
-
-### Trend Indicators
-| Indicator | Value | Price Position | Signal |
-| :--- | :--- | :--- | :--- |
-| SMA 20 | $26.05 | Below | Bearish |
-| SMA 50 | $29.16 | Below | Bearish |
-| SMA 200 | $34.62 | Below | Bearish |
-| EMA 9 | $25.72 | Below | Bearish |
-| EMA 21 | $26.68 | Below | Bearish |
-
-### Momentum Indicators
-| Indicator | Value | Zone | Signal |
-| :--- | :--- | :--- | :--- |
-| RSI (14) | 38.0 | Bearish zone | Neutral-Bear |
-| MACD | -1.181 | Above signal | Bullish |
-| MACD Signal | -1.269 | Histogram: +0.088 | — |
-| Stochastic %K/%D | 2.9/36.1 | Oversold | Bearish |
-
-### Volatility
-| Indicator | Value | Position | Signal |
-| :--- | :--- | :--- | :--- |
-| Bollinger Upper | $28.93 | 7% of band | Neutral |
-| Bollinger Lower | $23.16 | Width: $5.78 | — |
-| ATR (14) | $2.02 (8.6%) | High volatility | — |
-
-### Key Support/Resistance Levels
-| Level | Price | Type | Touches | Last Tested |
-| :--- | :--- | :--- | :--- | :--- |
-| Support | $23.51 (-0.1%) | Support | 2 | 2026-02-17 |
-| Support | $27.69 (+17.6%) | Support | 2 | 2025-11-21 |
-| Support | $17.26 (-26.7%) | Support | 1 | 2025-04-21 |
-| Support | $31.51 (+33.9%) | Support | 1 | 2025-07-02 |
-| Support | $32.60 (+38.5%) | Support | 1 | 2025-07-22 |
-| Resistance | $33.30 (+41.5%) | Resistance | 1 | 2025-03-25 |
-| Resistance | $36.97 (+57.0%) | Resistance | 2 | 2025-10-22 |
-| Resistance | $38.50 (+63.6%) | Resistance | 1 | 2026-01-21 |
-
-### Signal Summary
-| Metric | Value |
-| :--- | :--- |
-| Overall Signal | **Bearish** |
-| Score | -4 |
-| Bullish Factors | MACD bullish |
-| Bearish Factors | Below SMA 20, Below SMA 50, Below SMA 200, Below EMA 9, Below EMA 21 |
-
-#### Short Interest
-## Short Interest Analysis
-
-### Short Interest Summary
-| Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
-| :--- | :--- | :--- | :--- | :--- |
-| NNE | 13.12M | 6.78 | 32.89% | +3.5% (increasing) |
-
-### Squeeze Risk Assessment
-| Ticker | Risk Rating | Score (/100) | Key Factors |
-| :--- | :--- | :--- | :--- |
-| NNE | EXTREME | 80 | Very high short% (32.9%); High DTC (6.8); Shorts slowly increasing |
-
-### Context
-| Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
-| :--- | :--- | :--- | :--- | :--- |
-| NNE | 40.04M | 52.08M | 1.89M | 6.8 |
-
-#### News & Sentiment
-*Generated: 2026-03-08 17:19*
-
-## News & Sentiment: Nano Nuclear Energy Inc. (NNE)
-*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
-
-### Headlines (Top 30, Deduplicated)
-| Date | Source | Headline | Sentiment | Score | Catalysts |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-08 | AOL.com | Where Will Centrus Energy (LEU) Stock Be in 10 Years? - AOL.... | Positive | +0.27 | — |
-| 2026-03-07 | simplywall.st | NANO Nuclear Eyes Gulf Growth With UAE MOU And Valuation Dis... | Positive | +0.38 | — |
-| 2026-03-07 | Simply Wall St. | A Look At NANO Nuclear Energy (NNE) Valuation After Recent S... | Positive | +0.13 | — |
-| 2026-03-06 | The Motley Fool | Is Nano Nuclear Energy Stock Going to $50? - The Motley Fool | Negative | -0.20 | — |
-| 2026-03-06 | The Globe and M | Is Nano Nuclear Energy Stock Going to $50? - The Globe and M... | Positive | +0.27 | — |
-| 2026-03-06 | AOL.com | Between Price Target Cuts and Poor Market Sentiment, NuScale... | Negative | -0.36 | Analyst |
-| 2026-03-06 | Motley Fool | Is Nano Nuclear Energy Stock Going to $50? | Positive | +0.27 | — |
-| 2026-03-05 | simplywall.st | Assessing NANO Nuclear Energy (NNE) Valuation After Gulf JV ... | Positive | +0.27 | — |
-| 2026-03-04 | MarketBeat | Seth Jason Berl Sells 3,664 Shares of Nano Nuclear Energy (N... | Positive | +0.51 | Earnings |
-| 2026-03-03 | simplywall.st | Does NANO Nuclear Energy (NNE)ʼs Gulf MMR Venture Hint at a ... | Positive | +0.27 | — |
-| 2026-03-02 | MarketBeat | Ameresco Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
-| 2026-03-02 | Zacks Investmen | Best Nuclear Energy Stocks to Buy March 2026 - Zacks Investm... | Positive | +0.74 | — |
-| 2026-02-26 | Seeking Alpha | NANO Nuclear Energy: I Added More At These Price Levels (Ear... | Positive | +0.27 | Earnings |
-| 2026-02-26 | simplywall.st | NANO Nuclear Energy (NNE) Valuation After New Gulf KRONOS MM... | Positive | +0.27 | — |
-| 2026-02-24 | GlobeNewswire | NANO Nuclear Energy Signs Memorandum of Understanding with E... | Positive | +0.27 | — |
-| 2026-02-24 | Stock Titan | UAE group, NANO Nuclear eye micro reactors for data centers ... | Neutral | +0.00 | — |
-| 2026-02-24 | Yahoo Finance | Nano Nuclear Energy Stock Is Down 60%. Is It Finally Time to... | Positive | +0.27 | — |
-| 2026-02-24 | Motley Fool | NuScale Power Has Tumbled From All-Time Highs in 2025. Here'... | Neutral | +0.00 | — |
-| 2026-02-22 | Stock Titan | NNE - Nano Nuclear Energy Inc. Latest Stock News & Market Up... | Positive | +0.27 | — |
-| 2026-02-22 | Yahoo Finance | Did Narrower-Than-Expected Losses and KRONOS Progress Just S... | Neutral | +0.03 | — |
-| 2026-02-21 | Motley Fool | Could This $14 Stock Be Your Ticket to Millionaire Status? | Neutral | +0.00 | — |
-| 2026-02-20 | Investing.com | NANO Nuclear Energy CEO on microreactors and the looming pow... | Negative | -0.54 | Corporate |
-| 2026-02-20 | GlobeNewswire | NANO Nuclear Expands its Nuclear Policy Leadership Expertise... | Positive | +0.10 | — |
-| 2026-02-20 | Zacks | OKLO's Licensing Approach Aims to Accelerate Reactor Rollout | Neutral | +0.00 | — |
-| 2026-02-20 | MarketBeat | Nano Nuclear Energy Inc. (NASDAQ:NNE) Given Average Rating o... | Positive | +0.27 | Earnings |
-| 2026-02-20 | MarketBeat | HC Wainwright Has Optimistic Outlook of NNE Q2 Earnings - Ma... | Positive | +0.32 | Earnings |
-| 2026-02-20 | MarketBeat | What is Northland Securities' Forecast for NNE Q2 Earnings? ... | Positive | +0.30 | Earnings, Regulatory |
-| 2026-02-20 | Motley Fool | Nano Nuclear Energy's President and Chairman Sold $30 Millio... | Positive | +0.48 | — |
-| 2026-02-19 | PR Newswire | Uranium Demand Continues to Rise as AI Power Demand Rewrites... | Negative | -0.25 | — |
-| 2026-02-18 | Moby | Nano Nuclear Energy Inc Q1 2026 Earnings Call Summary | Positive | +0.27 | Earnings |
-
-### Sentiment Summary
-| Metric | Value |
-| :--- | :--- |
-| Articles Analyzed | 30 |
-| Positive | 20 (67%) |
-| Neutral | 6 (20%) |
-| Negative | 4 (13%) |
-| Average Score | +0.164 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 184 |
-
-### Detected Catalysts
-| Category | Count | Headlines |
-| :--- | :--- | :--- |
-| Earnings | 7 | Seth Jason Berl Sells 3,664 Shares of Na..; Ameresco Q4 Earnings Call Highlights |
-| Analyst | 1 | Between Price Target Cuts and Poor Marke.. |
-| Corporate | 1 | NANO Nuclear Energy CEO on microreactors.. |
-| Regulatory | 1 | What is Northland Securities' Forecast f.. |
-
-### Deep Dive Articles
-
-#### NANO Nuclear Energy Signs Memorandum of Understanding with EHC Investment L.L.C to Advance Micro Modular Reactor Deployment in the UAE
-*Source: GlobeNewswire | Date: 2026-02-24 | Sentiment: Positive (+1.00)*
-
-> New York, N.Y., Feb.  24, 2026  (GLOBE NEWSWIRE) -- NANO Nuclear Energy Inc. (NASDAQ: NNE) (“NANO Nuclear” or “the Company”), a leading advanced nuclear micro modular reactor (MMR) and technology company focused on developing clean energy solutions, today announced that it has signed a Memorandum of Understanding (MOU) with EHC Investment L.L.C. (EHC), a diversified United Arab Emirates (UAE) investment holding company based in Abu Dhabi, to explore a joint venture aimed at deploying micro modular reactors, notably NANO Nuclear’sKRONOS MMR™Energy System, and necessary supply chains in the UAE.
-
-> Figure 1 - NANO Nuclear Energy Inc. Signs a Memorandum of Understanding (MOU) with EHC Investment L.L.C (EHC) to Support the Advancement of the KRONOS MMR™Energy System in the UAE and Select Markets within the Gulf region. Ali Al Gebely, Managing Director of EHC Investment and Jay Yu, Founder and Chairman of NANO Nuclear Energy.
-
-> It is anticipated that the parties will seek to enter into a formal joint venture following the successful securing of a first commercial project or order. NANO Nuclear and EHC will also explore the future potential for deploying KRONOS MMR™reactors in select markets across the wider Gulf region.
-
-> EHC is a holding company built on over 35 years of proven success with its leadership and 12 subsidiaries. Committed to long-term stability and growth, EHC is shaping a resilient portfolio to create lasting impact for shareholders and drive a brighter, more innovative future. An EHC subsidiary, EHC Energy, is a leading force in the UAE’s energy sector, delivering comprehensive solutions in gas contracting, distribution, trading, operations, and maintenance. With a legacy of over three decades, EHC Energy has played a pivotal role in advancing the UAE’s energy infrastructure, contributing significantly to the nation’s economic growth and urban development.
-
-> Figure 2 - NANO Nuclear Energy Inc. Signs a Memorandum of Understanding (MOU) with EHC Investment L.L.C (EHC) to Support the Advancement of the KRONOS MMR™Energy System in the UAE and Select Markets within the Gulf region. Ali Al Gebely, Managing Director of EHC Investment and James Walker, CEO of NANO Nuclear Energy.
-
-**Catalysts:** Regulatory, Corporate
-
-#### NANO Nuclear Expands its Nuclear Policy Leadership Expertise with the Appointment of U.S. Government Veteran Sarah Lennon as its International Nuclear Policy Advisor
-*Source: GlobeNewswire | Date: 2026-02-20 | Sentiment: Positive (+1.00)*
-
-> New York, N.Y., Feb.  20, 2026  (GLOBE NEWSWIRE) -- NANO Nuclear Energy Inc. (NASDAQ: NNE) (“NANO Nuclear” or “the Company”), a leading advanced nuclear micro modular reactor (MMR) and technology company focused on developing clean energy solutions, today announced the appointment of Sarah Lennon as its International Nuclear Policy Advisor.
-
-> Sarah is a seasoned national security and nuclear energy policy leader with three decades of distinguished service across the U.S. Government, bringing deep expertise in nuclear security, nonproliferation, international cooperation, and strategic planning.
-
-> “It is a pleasure to join the NANO Nuclear team,”said Sarah Lennon, International Nuclear Policy Advisor of NANO Nuclear.“Throughout my career at the U.S. Department of Energy, I have worked to support the advancement of nuclear technologies and the expansion of nuclear energy in the United States and abroad. At NANO Nuclear, I look forward to applying that experience to help navigate international policy and regulatory frameworks and support the evolution of the Company’s projects toward their construction, testing, regulatory licensing and eventual commercial deployment, contributing to a more sustainable and reliable baseload energy future.”
-
-> Prior to joining NANO Nuclear, Sarah served as Senior Policy Advisor for Strategic Planning in the Office of Enterprise Planning and Analysis at the Department of Energy’s (DOE) National Nuclear Security Administration (NNSA), where she provided senior-level guidance on enterprise-wide priorities and long-term strategy. Previously, she held a series of senior leadership roles within DOE’s Office of Nuclear Energy, including Director for Bilateral and Multilateral Cooperation and Acting Deputy Assistant Secretary for International Nuclear Energy Policy and Cooperation, advancing U.S. engagement on global nuclear energy and nonproliferation issues.
-
-> “We are thrilled to welcome a professional of Sarah’s caliber to the team,”saidJay Yu, Founder and Chairman of NANO Nuclear.“Her deep experience in nuclear policy and regulatory affairs, developed over her years of service at the DOE and NNSA, will be an invaluable asset as we engage with international stakeholders and advance our projects, notably our lead project the KRONOS MMR™modular microreactor energy system, in the United States and beyond. Sarah’s insights and leadership strengthen our policy strategy and support the responsible development of our proprietary technologies.”
-
-**Catalysts:** Earnings, Regulatory
-
-#### OKLO's Licensing Approach Aims to Accelerate Reactor Rollout
-*Source: Zacks | Date: 2026-02-20 | Sentiment: Positive (+0.99)*
-
-> Regulatory execution is becoming one of the biggest deciding factors in bringing advanced nuclear technologies to market. In this industry, licensing timelines often determine whether projects move forward or face delays. ForOklo Inc.OKLO, steady progress with the U.S. Nuclear Regulatory Commission (NRC) is key to its plan to deploy fast fission reactors at scale. By engaging early and following a structured regulatory process, the company aims to reduce uncertainty and offer clearer visibility on deployment timelines — an important edge in a capital-intensive, tightly regulated space.OKLO has chosen to follow a combined license pathway under Part 52, instead of the traditional two-step process used for older reactors. This single application covers both construction and operating approvals, aligning with OKLO’s strategy of designing, building, and operating its own plants. Filing a custom combined license application for an advanced fission reactor sets a regulatory benchmark that could be reused for future projects, potentially narrowing the scope of later reviews.This strategy enables OKLO to reuse major regulatory documents, including safety and design reports, which may help shorten review cycles for the upcoming sites. Progress at the Aurora-INL location supports that effort, with readiness activities completed and the license application currently under review. The company’s passive safety design features may also simplify the regulatory process. Taken together, these steps suggest building regulatory momentum and improved clarity on timelines.
-
-> NuScale PowerSMR has long been active in the U.S. regulatory system. NuScale worked closely with the NRC to secure design certification and later obtain standard design approval for its small modular reactor. NuScale continues to coordinate with regulators as projects move toward construction and operating approvals, viewing regulatory engagement as essential for commercial success and credibility.NANO Nuclear EnergyNNE, meanwhile, is progressing through earlier regulatory stages for its advanced microreactor concepts. NANO Nuclear engages the NRC through pre-application discussions, technical reports and fuel qualification efforts, and has brought in former regulators to guide its licensing strategy. For NANO Nuclear, consistent and early coordination is seen as key to lowering risk and supporting future construction permit filings.
-
-> Shares of Oklo have surged more than 70% over the past year, breezing past the industry's growth.
-
-> OKLO currently has an average brokerage recommendation (ABR) of 2.00 on a scale of 1 to 5 (Strong Buy to Strong Sell), calculated based on the actual recommendations (Buy, Hold, Sell, etc.) made by 20 brokerage firms.
-
-> See how the Zacks Consensus Estimate for OKLO’s earnings has been revised over the past 90 days.
-
-**Catalysts:** Earnings, Regulatory, Short
-
-#### Uranium Demand Continues to Rise as AI Power Demand Rewrites the Nuclear Playbook
-*Source: PR Newswire | Date: 2026-02-19 | Sentiment: Positive (+0.97)*
-
-> Issued on behalf of Eagle Energy Metals Corp.
-
-> VANCOUVER, BC,Feb. 19, 2026/PRNewswire/ -- U.S. data center electricity demand is projected to grow from 176 terawatt hours to as high as 580 terawatt hours by 2028, with AI-driven consumption outpacing available grid capacity in multiple regions[1]. Spot uranium prices rose 25% in January 2026, surpassing $100 per pound for the first time in two years (before correcting back down to a still-high $89), as institutional buyers accelerated physical accumulation of the fuel[2]. These dynamics are converging aroundSpring Valley Acquisition Corp. II(OTC: SVIIF),Oklo(NYSE: OKLO),Meta Platforms(NASDAQ: META),NANO Nuclear Energy(NASDAQ: NNE), andUcore Rare Metals(TSXV: UCU) (OTCQX: UURAF).
-
-> Next-generation nuclear designs, including small modular reactors and factory-built microreactors, are gaining traction as scalable baseload technologies capable of meeting always-on AI power requirements[3]. Meanwhile, U.S. domestic uranium concentrate production fell 44% in the third quarter of 2025, to roughly 330,000 pounds of U₃O₈ from just six operating facilities according to theU.S. Energy Information Association (EIA)[4]. With over 95% of utility purchases still sourced from abroad, also according to theEIA[5], the race to secure domestic supply has turned uranium deposits into strategic national assets.
-
-> Eagle Energy Metals(NASDAQ: SVIIF), a next-generation nuclear energy company, recently announced[6]that theSEChas declared effective the registration statement for its proposed business combination withSpring Valley Acquisition Corp. II(OTC: SVIIF)[7]. Shareholders will vote on the deal at an Extraordinary General Meeting scheduled for February 23, 2026.
-
-> Upon closing, which is subject to the satisfaction or waiver (as applicable) of applicable conditions, the combined company's stock and warrants will trade onNasdaqunder the ticker symbols NUCL and NUCLW, respectively. The transaction is being led by the same SPAC team that broughtNuScale Power(NYSE: SMR) public in 2022.
-
-**Catalysts:** Regulatory, Corporate
-
-#### Nano Nuclear Stock Climbs After Narrower Q1 Loss: Details
-*Source: Benzinga | Date: 2026-02-17 | Sentiment: Positive (+0.54)*
-
-> Nano Nuclear Energy, Inc.(NASDAQ:NNE) shares climbed in Tuesday's extended trading after the company released its fourth-quarter earnings report with a narrower-than-expectedloss per share.
-
-> Here's a look at the details in the report.
-
-> The Details:Nano Nuclear reported quarterly losses of 13 cents per share which beat the consensus estimate for losses of 29 cents per share.
-
-> The company expects estimatedcash expendituresof approximately $65 million over the next 12 months.
-
-> NNE Stock Price:According to data fromBenzinga Pro, Nano Nuclear stock rose 1.03% to $25.49 in Tuesday's extended trading.
-
-**Catalysts:** Earnings
-
----
-
-## Per-Ticker Watchlist Tool Outputs
-
-### SMCI
-
-#### News & Sentiment
-*Generated: 2026-03-08 17:18*
-
-*Generated: 2026-03-08 17:19*
-
-## News & Sentiment: Super Micro Computer, Inc. (SMCI)
-*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
-
-### Headlines (Top 30, Deduplicated)
-| Date | Source | Headline | Sentiment | Score | Catalysts |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-07 | MarketBeat | MarketBeat Week in Review  03/02 - 03/06 | Neutral | +0.00 | Earnings |
-| 2026-03-07 | MarketBeat | MarketBeat Week in Review – 03/02 - 03/06 | Neutral | +0.00 | Earnings |
-| 2026-03-07 | Motley Fool | Disciplined Growth Investors Trim InterDigital After Strong ... | Positive | +0.71 | — |
-| 2026-03-06 | Barchart | How Is Super Micro Computer's Stock Performance Compared to ... | Positive | +0.60 | — |
-| 2026-03-06 | TIKR.com | SMCI Revenue Jumped 123% Year-Over-Year: Here’s the 85% Upsi... | Neutral | +0.00 | Earnings |
-| 2026-03-06 | MarketBeat | Super Micro Computer (NASDAQ:SMCI) Trading Down 2.9% - Here'... | Positive | +0.60 | Earnings |
-| 2026-03-06 | MarketBeat | American Century Companies Inc. Acquires 416,932 Shares of S... | Positive | +0.73 | Earnings |
-| 2026-03-06 | FXEmpire | TSLA, PLTR and SMCI Forecast – Tech Stocks Under Pressure Ea... | Negative | -0.30 | — |
-| 2026-03-06 | Simply Wall St. | Super Micro Computer Targets Scalable AI Growth With Modular... | Positive | +0.76 | — |
-| 2026-03-05 | Barchart | As Supermicro Joins a Key AI Data Center Alliance, Should Yo... | Neutral | +0.00 | — |
-| 2026-03-05 | Zacks | Dell's ISG Revenue Growth Strengthens: Will the Momentum Con... | Positive | +0.68 | Earnings |
-| 2026-03-05 | Zacks | Vertiv Trades at a Premium Valuation: Should You Still Buy t... | Neutral | +0.00 | — |
-| 2026-03-05 | Zacks | Super Micro (SMCI) Down 3.3% Since Last Earnings Report: Can... | Positive | +0.60 | Earnings |
-| 2026-03-05 | The Motley Fool | Why Super Micro Computer Surged Double-Digits in February - ... | Positive | +0.25 | — |
-| 2026-03-05 | MarketBeat | Super Micro Computer (NASDAQ:SMCI) Stock Price Down 1.3% - H... | Positive | +0.60 | Earnings |
-| 2026-03-05 | National Today | Super Micro Computer Stock Price Drops 1.3% - National Today | Positive | +0.60 | — |
-| 2026-03-05 | Insider Monkey | Is Nebius Group N.V. (NBIS) A Good Stock To Buy Now? | Positive | +0.44 | — |
-| 2026-03-04 | MarketWatch | Tech stocks are roaring back on Wednesday | Neutral | +0.00 | — |
-| 2026-03-04 | Benzinga | Nvidia Leads Chip Stock Rebound, Billionaire Investor Buys 1... | Negative | -0.15 | — |
-| 2026-03-04 | MarketBeat | Advanced Micro Devices CEO Lisa Su Teases MI450 Ramp, 6GW Me... | Positive | +0.34 | Corporate |
-| 2026-03-04 | TipRanks | Super Micro Computer Stock (SMCI) Rises on Plan to ‘Bring Da... | Positive | +0.60 | — |
-| 2026-03-04 | Stocktwits | SMCI Stock Struggles To Break Out: Will A New AI Data Center... | Neutral | -0.03 | — |
-| 2026-03-03 | MarketBeat | Netlist Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
-| 2026-03-03 | Benzinga | Taiwan Semiconductor's AI Breakthroughs Don't Calm Wall Stre... | Negative | -0.24 | Earnings |
-| 2026-03-03 | Zacks | Super Micro Computer, Inc. (SMCI) is Attracting Investor Att... | Positive | +0.79 | — |
-| 2026-03-03 | Seeking Alpha | Unloved Super Micro Computer Is Due For A Rally (NASDAQ:SMCI... | Positive | +0.25 | — |
-| 2026-03-03 | simplywall.st | Super Micro Links AI Data Centers To Grid Flexibility And Ne... | Positive | +0.74 | — |
-| 2026-03-03 | MarketBeat | Super Micro Computer (NASDAQ:SMCI) Shares Down 3.6% - Here's... | Positive | +0.73 | Earnings |
-| 2026-03-03 | FXEmpire | Super Micro Computer (SMCI) Price Forecast: Breakdown Risk B... | Positive | +0.42 | — |
-| 2026-03-03 | GuruFocus | Super Micro (SMCI) Sees Moderate Bearish Sentiment in Option... | Positive | +0.60 | — |
-
-### Sentiment Summary
-| Metric | Value |
-| :--- | :--- |
-| Articles Analyzed | 30 |
-| Positive | 19 (63%) |
-| Neutral | 8 (27%) |
-| Negative | 3 (10%) |
-| Average Score | +0.344 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 184 |
-
-### Detected Catalysts
-| Category | Count | Headlines |
-| :--- | :--- | :--- |
-| Earnings | 11 | MarketBeat Week in Review  03/02 - 03/06; MarketBeat Week in Review – 03/02 - 03/0.. |
-| Corporate | 1 | Advanced Micro Devices CEO Lisa Su Tease.. |
-
-### Deep Dive Articles
-
-#### Dell's ISG Revenue Growth Strengthens: Will the Momentum Continue?
-*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+1.00)*
-
-> Dell TechnologiesDELL is witnessing strengthening momentum in its Infrastructure Solutions Group (ISG), which has emerged as the company’s key growth driver. The segment is benefiting from accelerating demand for AI infrastructure and ongoing enterprise data center modernization. The segment reported record revenues of $19.6 billion in the fourth quarter of fiscal 2026, up 73% year over year, while full-year revenues increased 40% to $60.8 billion, highlighting strong uptake of Dell’s server and storage portfolio.A key catalyst behind this momentum is Dell’s fast-growing AI server segment. Growing enterprise demand for AI infrastructure is accelerating the adoption of the company’s high-performance server solutions. Dell reported $9 billion in AI-optimized server revenues in the fourth quarter. For fiscal 2027, it expects AI revenues to reach approximately $50 billion, implying nearly 100% year-over-year growth. A record AI backlog of $43 billion and strong order momentum support clear revenue visibility ahead.Traditional servers and networking continue to play an important role in Dell’s business, supported by enterprise investments to upgrade infrastructure for higher computing workloads and AI adoption. At the same time, the company’s storage platforms — including PowerMax, PowerStore and PowerScale — are seeing steady demand as organizations modernize their systems and manage growing data volumes.These trends highlight ISG as DELL’s key growth driver. As enterprises expand AI deployments and modernize data centers, the segment is likely to support continued revenue growth. The Zacks Consensus Estimate projects year-over-year total revenue growth of 24.2% in fiscal 2027, supporting continued momentum.
-
-> Dell is a major player in the AI infrastructure market but faces stiff competition fromSuper Micro ComputerSMCI andHewlett Packard EnterpriseHPE.Super Micro Computer is strengthening its position in the AI infrastructure market through its vertically integrated design approach and rapid time-to-market capabilities. Its Data Center Building Block Solutions platform enables faster AI data center deployment while improving power efficiency and operational costs. Strong engineering expertise, modular system design and automated manufacturing further enhance scalability. Close collaboration with NVIDIA and AMD, along with expanding global manufacturing capacity, supports SMCI’s ability to deliver high-performance AI infrastructure at scale.Hewlett Packard Enterprise is strengthening its AI infrastructure position with an integrated portfolio spanning AI servers, networking, hybrid cloud and storage solutions. The company supports large-scale AI training and inference workloads with high-performance computing platforms and AI-optimized systems. HPE’s Juniper Networks integration enhances AI-native networking capabilities, while its GreenLake platform and AI factory architecture help enterprises deploy, manage and scale AI workloads efficiently across modern data center environments.
-
-> Shares of Dell have gained 16.8% year to date, outperforming the broader Zacks Computer & Technology sector and the Zacks Computer - Micro Computers industry’s decline of 3.4% and 2.7%, respectively.
-
-> From a valuation standpoint, its forward price-to-earnings ratio of 13.01 is significantly below the industry’s average of 28.92.
-
-> The Zacks Consensus Estimate for fiscal 2027 earnings is pegged at $11.72 per share, increasing 3.9% over the past 30 days. This suggests 13.79% year-over-year growth.
-
-**Catalysts:** Earnings, Regulatory, Analyst
-
-#### Vertiv Trades at a Premium Valuation: Should You Still Buy the Stock?
-*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+1.00)*
-
-> VertivVRT is currently overvalued, as suggested by a Value Score of F.In terms of the trailing 12-month Price/Book, Vertiv is currently trading at 24.39X compared with the broader Computer and Technology sector’s 10.26X.
-
-> However, VRT’s shares have surged 185.6% in the trailing 12-month period, outperforming the broader Zacks Computer and Technology sector’s increase of 26.8%. The Zacks Computers - IT Services industry declined 26.7% in the same time frame.The company has also outperformed its closest peers,Super Micro ComputerSMCI andHewlett-Packard EnterpriseHPE. Both Super Micro Computer and Hewlett-Packard Enterprise are expanding their capabilities in the AI infrastructure market. While Hewlett Packard Enterprise shares have rallied 14.1%, Super Micro Computer shares have plunged 16.1% over the trailing 12-month period.The outperformance of VRT stock can be attributed to its extensive product portfolio, which spans thermal systems, liquid cooling, UPS, switchgear, busbars, and modular solutions. In the trailing 12 months, organic orders grew approximately 81%, with a book-to-bill of 2.9 times for the fourth quarter of 2025, indicating a strong prospect.
-
-> Vertiv’s expanding portfolio has been noteworthy. In the fourth quarter of 2025, organic orders rose approximately 252% year over year, with the backlog increasing to $15.0 billion, up 109% compared with the fourth quarter of 2024 and up 57% sequentially from the third quarter of 2025. This growth is primarily driven by the rapid adoption of AI and the increasing need for data centers to support the digital transformation.Further expanding its portfolio, in February 2026, Vertiv announced a significant change in data center deployment by introducing a high-fidelity Digital Twin platform. This platform aims to speed up AI infrastructure builds using Vertiv OneCore modular solutions. The system combines power, cooling and infrastructure into factory-built blocks. This approach lowers deployment time by up to 50% and reduces total ownership costs by as much as 25%.As part of the launch,Hut 8HUT worked with Vertiv to integrate OneCore into certain AI data center projects. The collaboration between Vertiv and Hut 8 merges power-first infrastructure with modular deployment. The goal of the partnership with Hut 8 is to streamline AI data center construction and enable scalable, high-density computing environments for next-generation workloads.The global acceleration of AI adoption is driving significant demand for data center infrastructure. Vertiv is capitalizing on this trend, particularly in the Americas, which saw a 46% organic sales growth in the fourth quarter of 2025.
-
-> Vertiv’s strengthening efforts to support rapidly growing AI and high-density data center demand have been a major growth driver.Building on this momentum, the company recently announced a partnership with Generate Capital to provide Bring Your Own Power & Cooling solutions for data centers in the United States.This collaboration combines Vertiv’s power, cooling, and services infrastructure with Generate Capital’s financing and operational skills. The goal is to help data center operators deploy capacity more quickly in grid-constrained markets. This partnership allows for immediate on-site power solutions while keeping the option to switch to utility power in the future.
-
-> Vertiv is benefiting from its strong portfolio and rich partner base, which will continue to benefit the company’s top-line growth.For first-quarter 2026, revenues are expected to be between $2.5 billion and $2.7 billion. Organic net sales are expected to increase in the 18% to 26% range. The Zacks Consensus Estimate for Vertiv’s first-quarter 2026 revenues is pegged at $2.65 billion, suggesting growth of 30.08% year over year.VRT expects first-quarter 2026 non-GAAP earnings per share between 95 cents and $1.01. The Zacks Consensus Estimate for first-quarter 2026 earnings is currently pegged at $1 per share, which has increased by a couple of pennies over the past 30 days. The figure indicates a year-over-year increase of 56.25%.
-
-**Catalysts:** Earnings, Regulatory, Analyst
-
-#### Super Micro (SMCI) Down 3.3% Since Last Earnings Report: Can It Rebound?
-*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+0.99)*
-
-> It has been about a month since the last earnings report for Super Micro Computer (SMCI). Shares have lost about 3.3% in that time frame, underperforming the S&P 500.
-
-> But investors have to be wondering, will the recent negative trend continue leading up to its next earnings release, or is Super Micro due for a breakout? Before we dive into how investors and analysts have reacted as of late, let's take a quick look at the most recent earnings report in order to get a better handle on the important catalysts.
-
-> Super Micro Computer came out with second-quarter fiscal 2026 earnings of 69 cents per share, which beat the Zacks Consensus Estimate by 40.8%. The bottom line increased 16.9% year over year.
-
-> Super Micro Computer posted revenues of $12.68 billion for the second quarter of fiscal 2026, which beat the Zacks Consensus Estimate by 21.42%. The top line jumped 122.8% year over year.
-
-> Coming to SMCI’s customer verticals, revenues from OEM Appliance and Large Data Center (approximately 84% of total revenues) were $10.7 billion, up 151% year over year and 210% sequentially, driven by strong hyperscale AI deployments. Revenues from the Enterprise/Channel segment (around 16% of total revenues) totaled $2 billion, reflecting a 42% year-over-year increase and a 29% sequential rise.
-
-**Catalysts:** Earnings, Regulatory
-
-#### Nvidia Leads Chip Stock Rebound, Billionaire Investor Buys 1 Million Shares To Defy AI 'Bubble' Fears
-*Source: Benzinga | Date: 2026-03-04 | Sentiment: Negative (-0.95)*
-
-> Semiconductor stocks reboundedon Wednesday after several sessions of steep losses as investors reassessed geopolitical risks, tech-sector volatility, and fresh commentary from market figures.
-
-> Major semiconductor names includingNvidia Corp(NASDAQ:NVDA),Advanced Micro Devices, Inc(NASDAQ:AMD),Broadcom Inc(NASDAQ:AVGO),Taiwan Semiconductor Manufacturing Company Ltd(NYSE:TSM),Intel Corp(NASDAQ:INTC),Arm Holdings Plc(NASDAQ:ARM),Micron Technology, Inc(NASDAQ:MU),ON Semiconductor Corp(NASDAQ:ON),Super Micro Computer, Inc(NASDAQ:SMCI) recovered some ground after a selloff that began late last week.
-
-> The decline came despite Nvidia reporting strong earnings, as investors focused on concernsaround AI profitability, heavy capital spending, broader macroeconomic pressures, and escalating geopolitical tensions in the Middle East.
-
-> Reportsalso indicated that Iran explored backchannel discussions aimed at ending the conflict a day after the U.S. and Israel launched joint strikes.
-
-> CNBC’sJim Cramersaidinvestors should remain cautious and avoid panic selling amid sharp market swings driven by geopolitical tensions and tech-stock volatility.
-
-**Catalysts:** Earnings, Regulatory
-
-#### Taiwan Semiconductor's AI Breakthroughs Don't Calm Wall Street-Profits Are The Flashpoint
-*Source: Benzinga | Date: 2026-03-03 | Sentiment: Positive (+0.70)*
-
-> Taiwan Semiconductor Manufacturing Company Ltd(NYSE:TSM) stock extended its selloff on Tuesday in tandem with the broader semiconductor index,Invesco PHLX Semiconductor ETF(NASDAQ:SOXQ)
-
-> Investors pushed semiconductor and major tech stocks lower even afterNvidia Corp(NASDAQ:NVDA) posted strong earnings, as they weighed concerns about AI profitability, heavy capital spending, broader macro pressures, and rising Middle East geopolitical tensions.
-
-> While stock prices dipped, the industry is moving fast to make AI more affordable and efficient.
-
-> ASML Holding N.V.(NYSE:ASML) is expanding its reach by developing advanced “packaging” tools—essentially high-tech methods for stacking and connecting chips—to boost performance.
-
-> Taiwan Semiconductor is a leading user of ASML’s EUV technology.
-
-**Catalysts:** Earnings
-
-#### Earnings
-*Generated: 2026-03-08 17:19*
-
-## Earnings Analysis: Super Micro Computer, Inc. (SMCI)
-
-### Next Earnings
-| Metric | Value |
-| :--- | :--- |
-| Earnings Date | 2026-05-05 |
-| Days Until | 58 |
-| EPS Estimate | $0.62264 |
-| Revenue Estimate | $12.45B |
-| Earnings Rule | Clear (>58d out) |
-
-### Earnings History
-| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $0.49 | $0.69 | 41.4% | +13.8% | +12.3% | Strong Bull |
-| Q4 2025 | $0.27 | $0.26 | -5.0% | -11.3% | -18.1% | Strong Bear |
-| Q3 2025 | $0.44 | $0.41 | -6.6% | -18.3% | -18.9% | Strong Bear |
-| Q2 2025 | $0.30 | $0.31 | 3.8% | -1.4% | +18.1% | Bearish |
-| Q1 2025 | $0.59 | $0.60 | 1.9% | +12.2% | -14.1% | Strong Bull |
-| Q1 2025 | $0.75 | $0.74 | -1.9% | +12.2% | -14.1% | Strong Bull |
-| Q3 2024 | $0.81 | $0.63 | -23.2% | -20.1% | -8.0% | Strong Bear |
-| Q2 2024 | $0.56 | $0.67 | 19.4% | -14.0% | -4.6% | Strong Bear |
-
-### Revenue Trend
-| Quarter | Revenue | QoQ Growth% | YoY Growth% |
-| :--- | :--- | :--- | :--- |
-| Q4 2025 | $12.68B | +152.8% | +123.4% |
-| Q3 2025 | $5.02B | -12.8% | N/A |
-| Q2 2025 | $5.76B | +25.2% | N/A |
-| Q1 2025 | $4.60B | -19.0% | N/A |
-| Q4 2024 | $5.68B | N/A | N/A |
-
----
-
-### TEM
-
-#### News & Sentiment
-*Generated: 2026-03-08 17:18*
-
-*Generated: 2026-03-08 17:19*
-
-## News & Sentiment: Tempus AI, Inc. (TEM)
-*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
-
-### Headlines (Top 30, Deduplicated)
-| Date | Source | Headline | Sentiment | Score | Catalysts |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-08 | Simply Wall St. | Assessing Tempus AI (TEM) Valuation After Expanded Merck Col... | Neutral | +0.00 | — |
-| 2026-03-08 | Simply Wall St. | Tempus AI Deepens Merck Collaboration As Pharma Demand And L... | Negative | -0.49 | — |
-| 2026-03-07 | Insider Monkey | Tempus AI, Inc. (TEM) Announces Strategic Deal with Merck to... | Neutral | +0.00 | — |
-| 2026-03-07 | simplywall.st | Is Tempus AI (TEM) Pricing Reflect Its AI Healthcare Ambitio... | Positive | +0.30 | — |
-| 2026-03-06 | simplywall.st | Tempus AI (TEM) Valuation Check As Merck Alliance Puts Its P... | Neutral | +0.00 | — |
-| 2026-03-05 | Zacks | TEM's Diagnostics Arm Expanding Rapidly: What's Driving the ... | Positive | +0.38 | — |
-| 2026-03-05 | MarketBeat | TD Asset Management Inc Takes Position in Tempus AI, Inc. $T... | Positive | +0.36 | Earnings, Corporate |
-| 2026-03-05 | MarketBeat | Amova Asset Management Americas Inc. Has $279.47 Million Sta... | Positive | +0.36 | Earnings, Corporate |
-| 2026-03-05 | MarketBeat | ARK Investment Management LLC Has $579.16 Million Position i... | Neutral | +0.00 | Earnings, Corporate |
-| 2026-03-04 | Insider Monkey | Is Tempus AI, Inc. (TEM) A Good Stock To Buy Now? | Positive | +0.44 | — |
-| 2026-03-04 | Yahoo Finance | Is Tempus AI, Inc. (TEM) A Good Stock To Buy Now? - Yahoo Fi... | Positive | +0.44 | — |
-| 2026-03-03 | Benzinga | AI-Powered Tempus Inks New Multi-Year Merck Deal | Neutral | +0.00 | — |
-| 2026-03-03 | PR Newswire | Hospital Networks Turn to AI-Enhanced Cardiac Imaging to Cut... | Positive | +0.20 | — |
-| 2026-03-03 | Business Wire | Tempus Announces Strategic Collaboration Agreement with Merc... | Positive | +0.49 | — |
-| 2026-03-03 | Stock Titan | Inside Tempus and Merck’s AI push to find new cancer drug ta... | Negative | -0.66 | — |
-| 2026-03-03 | MarketBeat | 34,648 Shares in Tempus AI, Inc. $TEM Acquired by Intech Inv... | Positive | +0.30 | Earnings, Corporate |
-| 2026-03-03 | simplywall.st | Tempus AI (TEM) Is Down 6.9% After Raising 2026 Outlook And ... | Neutral | +0.00 | Equity |
-| 2026-03-03 | MarketBeat | Tempus AI, Inc. $TEM Shares Bought by Mitsubishi UFJ Asset M... | Positive | +0.57 | Earnings, Corporate |
-| 2026-03-03 | MarketBeat | Tempus AI (NASDAQ:TEM) Price Target Lowered to $70.00 at Mor... | Negative | -0.13 | Earnings, Analyst |
-| 2026-03-03 | Benzinga | AI-Powered Tempus Inks New Multi-Year Merck Deal - Tempus AI... | Neutral | +0.00 | — |
-| 2026-03-02 | MarketBeat | Quantbot Technologies LP Buys Shares of 50,089 Tempus AI, In... | Positive | +0.30 | Earnings |
-| 2026-03-01 | Benzinga | Consumer Tech News (Feb 23-27): US-Taiwan Trade Tensions Esc... | Negative | -0.25 | — |
-| 2026-03-01 | MarketBeat | Tempus AI, Inc. (NASDAQ:TEM) Given Consensus Recommendation ... | Neutral | +0.00 | Earnings |
-| 2026-02-28 | Quiver Quantita | $TEM stock fell 9% this week. Here's what we see in our data... | Neutral | +0.00 | — |
-| 2026-02-28 | MarketBeat | Tempus AI (NASDAQ:TEM) Downgraded by Wall Street Zen to Sell... | Neutral | +0.00 | Earnings, Analyst |
-| 2026-02-27 | MarketBeat | Dakota Wealth Management Has $1.06 Million Stock Holdings in... | Positive | +0.49 | Earnings, Corporate |
-| 2026-02-27 | Simply Wall St. | Why Tempus AI (TEM) Is Down 7.5% After 2025 Results, 2026 Ou... | Neutral | +0.00 | Equity |
-| 2026-02-26 | Zacks | TEM vs. ILMN: Which MedTech Stock Offers Greater Upside? | Positive | +0.36 | — |
-| 2026-02-26 | Business Wire | Tempus to Participate in the Morgan Stanley Technology, Medi... | Neutral | +0.00 | — |
-| 2026-02-26 | Stock Titan | Tempus AI CEO Eric Lefkofsky set for fireside chat at Morgan... | Neutral | +0.00 | Corporate |
-
-### Sentiment Summary
-| Metric | Value |
-| :--- | :--- |
-| Articles Analyzed | 30 |
-| Positive | 13 (43%) |
-| Neutral | 13 (43%) |
-| Negative | 4 (13%) |
-| Average Score | +0.115 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 186 |
-
-### Detected Catalysts
-| Category | Count | Headlines |
-| :--- | :--- | :--- |
-| Earnings | 10 | TD Asset Management Inc Takes Position i..; Amova Asset Management Americas Inc. Has.. |
-| Corporate | 7 | TD Asset Management Inc Takes Position i..; Amova Asset Management Americas Inc. Has.. |
-| Equity | 2 | Tempus AI (TEM) Is Down 6.9% After Raisi..; Why Tempus AI (TEM) Is Down 7.5% After 2.. |
-| Analyst | 2 | Tempus AI (NASDAQ:TEM) Price Target Lowe..; Tempus AI (NASDAQ:TEM) Downgraded by Wal.. |
-
-### Deep Dive Articles
-
-#### Tempus AI, Inc. (TEM) Announces Strategic Deal with Merck to Fast-Track AI-Driven Precision Medicine
-*Source: Insider Monkey | Date: 2026-03-07 | Sentiment: Positive (+0.84)*
-
-> Tempus AI, Inc. (NASDAQ:TEM) is among theARK Invest Stock Portfolio: Top 10 Stock Picks for 2026. On March 3, the company announced a strategic partnership with Merck to fast-track the development of AI-driven precision medicine and support the pharma-maker’s oncology portfolio and other therapeutic offerings.
-
-> As part of the agreement, Merck will leverage Tempus AI, Inc. (NASDAQ:TEM)’s de-identified data and Lens Platform and Workspaces technologies to generate new discoveries and accelerate the development and effective use of candidate therapies on a large scale.
-
-> In other news, on February 25, JPMorgan analyst Casey Woodring slashed the stock’s price target to $60 from $80, with a Neutral rating, following the company’s Q4 earnings call a day prior.
-
-> According to TipRanks, the firm cited Tempus AI, Inc.’s (NASDAQ:TEM) ‘clouded visibility’ on data upside and a revision to its outlook for Ambry as the reason behind the adjustment.
-
-> As of the close of business on March 4, the stock is a Moderate Buy, with an average upside potential of 52.5%.
-
-**Catalysts:** Earnings, Equity, Analyst
-
-#### TEM's Diagnostics Arm Expanding Rapidly: What's Driving the Growth?
-*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+0.99)*
-
-> The Diagnostics segment ofTempus AITEM experienced strong growth in 2025, driven primarily by increasing adoption of precision oncology testing and its integration of artificial intelligence with genomic diagnostics. One of the fastest-growing areas within Diagnostics was Minimal Residual Disease (“MRD”) testing, demonstrating the rapid adoption of advanced monitoring technologies in cancer care. The strong performance of the diagnostics segment is also supported by Tempus’ extensive clinical network, which includes connections with more than 5,500 hospitals and over 8,500 regularly ordering oncologists.
-
-> Tempus’ multi-assay genomic testing platform has also contributed to the growth, which includes several advanced oncology tests such as xT, xR, xF, xH and xE. Another major factor contributing to the advancement of the diagnostics segment is Tempus’ focus on integrating artificial intelligence and multimodal data analysis into its diagnostic platform.
-
-> The company has developed innovative tools such as Paige Predict, an AI-driven technology that analyzes digitized pathology slides to predict genetic mutations even when sequencing results cannot be returned due to technical limitations. Tempus has also developed the Immune Profile Score, an analytical framework that integrates DNA sequencing, RNA sequencing and digital pathology data to refine traditional biomarkers such as tumor mutational burden.
-
-> The acquisition of Ambry Genetics also played an important role in strengthening the diagnostics segment. Ambry expanded Tempus’ capabilities in hereditary cancer testing and allowed it to broaden the overall sequencing portfolio.
-
-> IlluminaILMN is currently focusing on its core strengths in genomics. The primary growth driver remains the clinical market, where adoption of sequencing is expanding rapidly around the world. In multiomics, Illumina is building a comprehensive set of integrated solutions that extend its sequencing ecosystem, combining internally developed capabilities with selective acquisitions. It launched Illumina Protein Prep - an assay introducing superior performance for NGS-based proteomics discovery at scale.
-
-**Catalysts:** Regulatory, Corporate
-
-#### Is Tempus AI, Inc. (TEM) A Good Stock To Buy Now?
-*Source: Insider Monkey | Date: 2026-03-04 | Sentiment: Positive (+0.99)*
-
-> We came across abullish thesison Tempus AI, Inc. on R. Dennis’s Substack by OppCost. In this article, we will summarize the bulls’ thesis on TEM. Tempus AI, Inc.'s share was trading at $51.40 as of March 3rd. TEM’s trailing P/E was 39.30 respectively according to Yahoo Finance.
-
-> Tempus AI (TEM) represents a unique long-term growth opportunity at the intersection of oncology, data compounding, and artificial intelligence. The company is building the world’s largest library of clinical and molecular data, sequencing tumors and linking genomic information to longitudinal clinical records.
-
-> This creates a powerful data flywheel: as more oncologists use Tempus, the database expands, improving AI-driven insights, which in turn increases the value of the platform to pharmaceutical companies seeking to accelerate drug discovery.
-
-> Recognizing this compounding potential, we strategically sold 1,500 January 2027 $50 put contracts at $8.35, effectively setting a target entry price of $41.65, which provides a significant margin of safety relative to current valuations.
-
-> This approach allows us to capture the long-term upside of owning a dominant data-driven platform without being subject to short-term volatility. Tempus’ model is designed for decades of intrinsic value growth, with applications in pathology and cardiology poised to move from experimental to industry standard, positioning the company as a generational asset in healthcare AI.
-
-**Catalysts:** Regulatory, Short
-
-#### AI-Powered Tempus Inks New Multi-Year Merck Deal
-*Source: Benzinga | Date: 2026-03-03 | Sentiment: Positive (+0.45)*
-
-> Tempus AI Inc.(NASDAQ:TEM) on Tuesday inked astrategic collaboration agreementwithMerck & Co. Inc.(NYSE:MRK) aimed at accelerating AI-driven precision medicine.
-
-> The stock’s decline comes as broader markets experienced significant sell-offs, with major indices like the S&P 500 and Nasdaq both trading lower today.
-
-> Tempus announced an expanded, multi-year collaboration with Merck to enhance the discovery and development ofprecision medicine biomarkers.
-
-> The partnership will leverage Tempus’ extensive library of de-identified multimodal data and its advanced Lens Platform, which utilizes one of the industry’s largest GPU infrastructures for complex analyses.
-
-> The collaboration is expected to support Merck’s oncology and potentially broader therapeutic portfolios, allowing for the identification of novel precision biomarkers and mechanisms of cancer cell resistance.
-
-**Catalysts:** None
-
-#### Hospital Networks Turn to AI-Enhanced Cardiac Imaging to Cut Costs and Improve Outcomes
-*Source: PR Newswire | Date: 2026-03-03 | Sentiment: Positive (+0.98)*
-
-> Issued on behalf of VentriPoint Diagnostics Ltd.
-
-> VANCOUVER, BC,March 3, 2026/PRNewswire/ --USANewsGroup.comNews Commentary —AI is making its way through the halls of our entire medical system, and the implementation is accelerating at a great pace. The AI medical imaging market is projected to hit nearly $20 billion by 2033, growing at a 34.7% CAGR[1]. Echocardiography alone is forecast to grow to $2.64 billion by 2030 as hospitals demand cardiac platforms that prove economic value alongside clinical accuracy[2]. Companies likeVentriPoint Diagnostics(TSXV: VPT) (OTCPK: VPTDF),Butterfly Network(NYSE: BFLY),Tempus AI(NASDAQ: TEM),RadNet(NASDAQ: RDNT), andGE HealthCare(NASDAQ: GEHC) are converting clinical validation into contracted hospital deployments.
-
-> Digital diagnostics platforms are projected to reach $7.67 billion by 2035 at an 18.12% CAGR as health systems shift from evaluating clinical capability to requiring department-level financial proof before adoption[3]. Portable ultrasound, valued at $2.79 billion in 2026, is pushing cardiac assessment beyond traditional imaging labs and into point-of-care settings where speed and cost efficiency determine which technologies earn long-term hospital contracts[4].
-
-> VentriPoint Diagnostics(TSXV: VPT) (OTCPK: VPTDF) recentlysigned a commercial agreementwithLG Consulting Solutionsto support deployment of its VMS+™ system across Northern California. Under the agreement,LG Consultingwill provide economic analysis, clinical implementation support, and health system business case development to assist hospitals and cardiac programs in adopting VentriPoint'sAI-enhanced echocardiography technology. The collaboration will focus on demonstrating the economic and clinical value of VMS+™ imaging and workflow integration across healthcare systems in the Sacramento and San Francisco regions.
-
-> As part of the agreement,LG Consulting Solutionsis purchasing a VMS+™ system for deployment as a demonstration platform to support hospital engagement, clinician training, and economic value assessments. The agreement also includes the potential for revenue sharing related to 3D echocardiography processing services.
-
-**Catalysts:** Earnings, Corporate
-
-#### Earnings
-*Generated: 2026-03-08 17:19*
-
-## Earnings Analysis: Tempus AI, Inc. (TEM)
-
-### Next Earnings
-| Metric | Value |
-| :--- | :--- |
-| Earnings Date | 2026-05-05 |
-| Days Until | 58 |
-| EPS Estimate | $-0.19298 |
-| Revenue Estimate | $345.4M |
-| Earnings Rule | Clear (>58d out) |
-
-### Earnings History
-| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.05 | $-0.04 | 22.1% | -7.3% | -11.3% | Strong Bear |
-| Q4 2025 | $-0.42 | $-0.46 | -8.9% | -2.6% | -15.3% | Bearish |
-| Q3 2025 | $-0.25 | $-0.22 | 13.0% | -0.1% | +21.2% | Bearish |
-| Q2 2025 | $-0.27 | $-0.24 | 10.2% | +12.6% | +32.0% | Strong Bull |
-| Q1 2025 | $-0.15 | $-0.18 | -17.5% | -15.0% | -26.8% | Strong Bear |
-| Q4 2024 | $-0.28 | $-0.25 | 10.9% | -10.1% | +56.8% | Strong Bear |
-| Q3 2024 | $-1.79 | $-0.63 | 64.8% | -4.5% | +4.9% | Strong Bear |
-
-### Revenue Trend
-| Quarter | Revenue | QoQ Growth% | YoY Growth% |
-| :--- | :--- | :--- | :--- |
-| Q4 2025 | $367.2M | +9.9% | +83.0% |
-| Q3 2025 | $334.2M | +6.2% | N/A |
-| Q2 2025 | $314.6M | +23.0% | N/A |
-| Q1 2025 | $255.7M | +27.4% | N/A |
-| Q4 2024 | $200.7M | N/A | N/A |
-
----
-
-### SOUN
-
-#### News & Sentiment
-*Generated: 2026-03-08 17:18*
-
-*Generated: 2026-03-08 17:20*
-
-## News & Sentiment: SoundHound AI, Inc. (SOUN)
-*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
-
-### Headlines (Top 30, Deduplicated)
-| Date | Source | Headline | Sentiment | Score | Catalysts |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-06 | Yahoo Finance V | SoundHound CEO discusses AI use cases for cars, restaurants | Neutral | +0.00 | Corporate |
-| 2026-03-06 | Insider Monkey | SoundHound AI (SOUN) Reports 2025 Revenue of $168.9M, 100% Y... | Positive | +0.38 | Earnings |
-| 2026-03-06 | Zacks | Owlet's Q4 Loss Narrower Than Expected, Revenues Rise Y/Y | Negative | -0.32 | Earnings |
-| 2026-03-06 | Zacks | ServiceNow Stock Climbs 16% in a Month: Hold Tight or Book P... | Positive | +0.44 | Earnings |
-| 2026-03-06 | Insider Monkey | H.C. Wainwright Lowered Its Price Target on SoundHound AI, I... | Negative | -0.13 | Analyst |
-| 2026-03-06 | Zacks | Should You Buy, Sell or Hold SoundHound Stock Post Q4 Earnin... | Neutral | +0.00 | Earnings |
-| 2026-03-06 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Stock Price Down 2.4% - Here's W... | Neutral | +0.00 | Earnings |
-| 2026-03-06 | Meyka | SOUN SoundHound AI NASDAQ $8.27 pre-market 06 Mar 2026: Stro... | Positive | +0.51 | Earnings |
-| 2026-03-06 | simplywall.st | SoundHound AI (SOUN) Valuation Check As Revenue Growth And 2... | Positive | +0.78 | Earnings |
-| 2026-03-06 | Simply Wall St. | SoundHound AI Targets Retail With Sales Assist And Bengaluru... | Neutral | +0.00 | — |
-| 2026-03-06 | Motley Fool | Agentic AI Is Rising Fast, and SoundHound AI Might Be Better... | Positive | +0.44 | — |
-| 2026-03-05 | Barchart | SoundHound Is One of the Most Short Stocks Right Now. Should... | Neutral | +0.00 | Short |
-| 2026-03-05 | Zacks | SoundHound's 59% Revenue Surge in 2025: What Does 2026 Hold? | Neutral | +0.00 | Earnings |
-| 2026-03-05 | Zacks | Buy 5 Computers IT Services Stocks to Boost Your Portfolio i... | Positive | +0.40 | — |
-| 2026-03-05 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Shares Up 1.3% - Should You Buy?... | Positive | +0.30 | Earnings |
-| 2026-03-05 | Motley Fool | This Popular Artificial Intelligence (AI) Stock Is Down 19% ... | Positive | +0.71 | — |
-| 2026-03-04 | StockStory | 3 Reasons SOUN is Risky and 1 Stock to Buy Instead | Negative | -0.20 | — |
-| 2026-03-04 | Insider Monkey | Analysts Split After SoundHound AI, Inc. (SOUN) Reports Q4 R... | Neutral | +0.00 | Shareholder |
-| 2026-03-04 | Zacks | WIX Beats Q4 Earnings Estimates on Revenue Momentum, Wins $2... | Positive | +0.57 | Earnings |
-| 2026-03-04 | TipRanks | Wainwright Cuts SOUN Stock Price Target after Q4 — Still See... | Negative | -0.30 | Analyst |
-| 2026-03-04 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Trading Down 4.1% - What's Next?... | Neutral | +0.00 | Earnings |
-| 2026-03-04 | The Motley Fool | 3 Red-Hot Growth Stocks to Buy in 2026 - The Motley Fool | Negative | -0.08 | — |
-| 2026-03-03 | Zacks | SoundHound AI, Inc. (SOUN) Is a Trending Stock: Facts to Kno... | Neutral | +0.00 | — |
-| 2026-03-03 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Trading Down 1.3% on Analyst Dow... | Neutral | +0.00 | Earnings, Analyst |
-| 2026-03-02 | TipRanks | SoundHound vs. C3.ai: Which AI Stock Offers Higher Upside Po... | Neutral | +0.00 | Earnings |
-| 2026-03-02 | Benzinga | What Analysts Are Saying About SoundHound AI Stock - Benzing... | Neutral | +0.00 | — |
-| 2026-03-01 | simplywall.st | Why SoundHound AI (SOUN) Is Up 10.0% After Record 2025 Resul... | Neutral | +0.00 | — |
-| 2026-02-27 | Benzinga | Burger King Tests AI Tracking Employee Courtesy: Will Extra ... | Positive | +0.74 | — |
-| 2026-02-27 | 24/7 Wall St. | SoundHound AI Stuns With 80% EPS Beat and Voice AI Expansion... | Neutral | +0.03 | Earnings |
-| 2026-02-27 | Zacks | SOUN Posts In-Line Earnings, Strong Revenue Growth in Q4, St... | Positive | +0.71 | Earnings |
-
-### Sentiment Summary
-| Metric | Value |
-| :--- | :--- |
-| Articles Analyzed | 30 |
-| Positive | 11 (37%) |
-| Neutral | 14 (47%) |
-| Negative | 5 (17%) |
-| Average Score | +0.166 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 177 |
-
-### Detected Catalysts
-| Category | Count | Headlines |
-| :--- | :--- | :--- |
-| Earnings | 15 | SoundHound AI (SOUN) Reports 2025 Revenu..; Owlet's Q4 Loss Narrower Than Expected, .. |
-| Analyst | 3 | H.C. Wainwright Lowered Its Price Target..; Wainwright Cuts SOUN Stock Price Target .. |
-| Corporate | 1 | SoundHound CEO discusses AI use cases fo.. |
-| Short | 1 | SoundHound Is One of the Most Short Stoc.. |
-| Shareholder | 1 | Analysts Split After SoundHound AI, Inc... |
-
-### Deep Dive Articles
-
-#### SoundHound AI (SOUN) Reports 2025 Revenue of $168.9M, 100% YoY Growth
-*Source: Insider Monkey | Date: 2026-03-06 | Sentiment: Positive (+0.98)*
-
-> SoundHound AI Inc. (NASDAQ:SOUN) is one of thestocks that should double in 3 years. On February 26, SoundHound AI announced record financial results for 2025, with annual revenue reaching $168.9 million, which was a ~100% increase year-over-year. Q4 performance contributed $55.1 million in revenue, which was a 59% jump due to a record number of enterprise deal closures. While the company reported a GAAP net loss of $14.0 million for the full year, it achieved a GAAP net income of $40.1 million in Q4 due to non-cash gains from the fair value adjustment of acquisition-related liabilities.
-
-> The company extended its market lead in agentic AI through major partnerships in the automotive and restaurant sectors. Notable highlights include signing a new Japanese OEM with a seven-digit unit commitment, a multi-year renewal with a major American automaker, and the displacement of an incumbent voice assistant by an iconic Italian sports car manufacturer. In the restaurant and retail space, SoundHound expanded its AI solutions with brands like Panda Express, Jersey Mike’s, and IHOP, while also securing renewals with major athletic footwear suppliers and global financial services firms such as BNP Paribas.
-
-> Looking ahead, SoundHound AI Inc. (NASDAQ:SOUN) issued a strong growth forecast for 2026, expecting full-year revenue to fall between $225 million and $260 million as businesses increasingly turn to AI-native partners to replace legacy software and services.
-
-> SoundHound AI Inc. (NASDAQ:SOUN) provides independent voice AI solutions that enable businesses across the automotive, TV, IoT, and customer service industries to deliver conversational experiences to customers in the US, Korea, France, Japan, Germany, and internationally.
-
-> While we acknowledge the potential of SOUN as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
-
-**Catalysts:** Earnings, Regulatory, Corporate, Short
-
-#### Owlet's Q4 Loss Narrower Than Expected, Revenues Rise Y/Y
-*Source: Zacks | Date: 2026-03-06 | Sentiment: Positive (+0.99)*
-
-> Owlet, Inc.OWLT reported a fourth-quarter fiscal 2025 loss per share that was narrower than the Zacks Consensus Estimate and improved year over year. Quarterly revenues topped the consensus mark and grew year over year.Although revenue growth remained robust, profitability continued to reflect ongoing investments and external cost pressures, including tariff impacts on product costs. Nevertheless, the company delivered improved operating performance compared with the prior-year period.Management highlighted that Owlet’s transition toward a comprehensive pediatric health and monitoring platform is gaining traction, supported by growth in connected devices, subscription adoption and expanding datasets that power its digital ecosystem. With more than 110,000 paying Owlet360 subscribers, the company believes its recurring revenue model is strengthening long-term growth visibility.Following the news, shares of OWLT declined 23.4% in the after-hours yesterday.
-
-> For the fourth quarter, the company reported adjusted loss per share of 3 cents, which was narrower than the Zacks Consensus Estimate of a loss of 13 cents by 76.9%. In the year-ago quarter, the company reported adjusted loss per share of 7 cents.
-
-> Owlet, Inc. price-consensus-eps-surprise-chart - Owlet, Inc. Quote
-
-> Quarterly revenues of $26.6 million topped the consensus mark of $25 million by 4.6%. and increased 29.6% year over year. The top-line growth was driven by strong demand for the Dream product suite and the continued expansion of the Owlet360 subscription service.
-
-> Gross profit totaled $12.6 million, up 14.5% from $11 million reported in the year-ago quarter. However, gross margin declined 596 basis points (bps) year over year to 47.6%, primarily reflecting tariff-related cost pressures, partially offset by favorable product mix, improved fixed cost absorption, and lower direct and fulfillment costs.Total operating expenses (including stock-based compensation) were $17.5 million, down from $18.4 million in the year-ago quarter. This improvement was largely backed by decreased legal expenditures, which helped offset higher headcount-related costs, including salaries, benefits and stock-based compensation.Operating loss improved to $4.9 million compared with an operating loss of $7.4 million in the fourth quarter of 2024. Adjusted EBITDA was $0.1 million, down from $0.5 million reported in the year-ago quarter.
-
-**Catalysts:** Earnings, Corporate
-
-#### ServiceNow Stock Climbs 16% in a Month: Hold Tight or Book Profits?
-*Source: Zacks | Date: 2026-03-06 | Sentiment: Positive (+1.00)*
-
-> ServiceNow’s NOW shares have rallied an impressive 16.3% over the past month, significantly outperforming both the Zacks Computers - IT Services industry and the broader S&P 500 index, which declined 1.6% and 1.7%, respectively.The stock has also outperformed other industry players, includingStemSTEM,SoundHound AISOUN andAccentureACN. Over the same time frame, shares of Stem, SoundHound AI and Accenture have declined by 2%, 6.6% and 9.6%, respectively. STEM, SOUN and ACN are involved in artificial intelligence-driven solutions, using AI technologies to improve business operations.
-
-> This strong rally has made investors wonder whether to book profits or keep holding. Here’s why holding NOW stock may still be the better move.
-
-> ServiceNow continues to expand its AI platform to accelerate enterprise automation and digital transformation. The company’s ServiceNow AI Platform integrates artificial intelligence, data and workflows into a unified cloud architecture that helps organizations streamline operations, reduce costs and modernize critical business processes. The platform supports multiple workflow categories, including technology workflows, core business workflows, CRM and industry workflows, and creator workflows, enabling enterprises to connect systems, automate processes and build low-code applications across departments within one platform.A key part of this expansion is embedding AI directly into enterprise workflows, enabling organizations to automate complex decision-making and operational tasks. ServiceNow emphasizes enterprise AI capabilities that move beyond simple AI assistants toward autonomous workflows and agentic AI, allowing businesses to orchestrate processes, improve productivity and deliver faster outcomes. The company’s growing AI portfolio — including products such as Now Assist, Workflow Data Fabric, RaptorDB Pro and CPQ solutions — is seeing strong adoption and helping enterprises deploy AI-driven automation across customer service, IT operations and other business functions.ServiceNow is also strengthening the ecosystem around its AI platform through strategic partnerships and acquisitions. Collaborations with technology leaders such as Microsoft, OpenAI and Anthropic aim to integrate advanced AI models, copilots and agents into enterprise workflows, improving interoperability and accelerating adoption of AI-powered solutions. At the same time, acquisitions such as Moveworks, along with planned acquisitions of Armis and Veza, are designed to enhance agentic AI capabilities, enterprise search, security visibility and identity governance. Together, these initiatives expand ServiceNow’s AI platform capabilities and position the company to exploit the growing demand for enterprise AI and workflow automation.
-
-> ServiceNow benefits from a large and expanding enterprise customer base, which continues to support the company’s long-term growth. As of the end of 2025, the company served more than 8,800 global customers, including over 85% of the Fortune 500, reflecting the strong adoption of its cloud-based platform among large enterprises. These organizations rely on the ServiceNow AI Platform to support digital transformation initiatives and automate workflows across critical business operations.The company is also seeing deeper engagement from large customers, which is driving higher contract values and recurring revenues. In the fourth quarter of 2025 alone, ServiceNow closed 244 deals worth more than $1 million in net new ACV, highlighting strong enterprise demand for its solutions. The number of customers generating more than $5 million in ACV reached 603, while the number of customers contributing more than $20 million annually grew by more than 30% year over year. These trends indicate increasing adoption of multiple products and broader platform deployments within existing enterprises.High customer retention and continued enterprise expansion further strengthen ServiceNow’s growth outlook. The company reported a 98% renewal rate, underscoring the mission-critical nature of its platform for enterprise customers.
-
-> The Zacks Consensus Estimate for NOW’s first-quarter 2026 reflects upward revision trends. The current-quarter earnings estimate of 95 cents per share increased by 3 cents over the past 60 days and suggests 17.28% growth over the figure reported in the year-ago quarter.NOW’s 2026 earnings outlook also remains strong. The Zacks Consensus Estimate for NOW’s 2026 earnings estimate is currently pegged at $4.13 per share, up 2.5% over the past 60 days and suggests 17.66% growth over the 2025 reported figure.
-
-**Catalysts:** Earnings, Regulatory, Corporate, Analyst
-
-#### H.C. Wainwright Lowered Its Price Target on SoundHound AI, Inc. (SOUN) to $20 and Maintains a Buy Rating
-*Source: Insider Monkey | Date: 2026-03-06 | Sentiment: Positive (+0.95)*
-
-> SoundHound AI, Inc. (NASDAQ:SOUN)is among the10 Fastest Growing NASDAQ Stocks to Buy.
-
-> On March 2, 2026, H.C. Wainwright lowered the firm’s price target on SoundHound AI, Inc. (NASDAQ:SOUN) to $20 from $26 and maintained a Buy rating on the shares. The firm said the company’s valuation may face near-term pressure despite the momentum seen in its Q4 report.
-
-> On February 27, 2026, Piper Sandler analyst James Fish lowered the firm’s price target on SoundHound AI, Inc. (NASDAQ:SOUN) to $9 from $11 and kept a Neutral rating on the shares. The analyst described the quarter as relatively mixed, with mostly in-line revenue, a profitability miss, and guidance that came in higher than expected. The firm also noted concerns around the required execution and potential M&A needed to bridge the gap, given the company’s current business run-rate.
-
-> On February 27, 2026, SoundHound AI, Inc. (NASDAQ:SOUN) reported Q4 EPS of (2c), in line with consensus estimates. The company reported Q4 revenue of $55.1M, above the $53.98M consensus estimate. SoundHound said that as traditional software faces disruption from artificial intelligence, businesses are increasingly partnering with AI-native companies. The company added that all key profit metrics improved and that it closed a record number of customer deals in the quarter as demand for enterprise-grade AI increased.
-
-> SoundHound AI, Inc. (NASDAQ:SOUN) develops independent voice artificial intelligence solutions that enable businesses across automotive, TV, IoT, and customer service industries to deliver conversational experiences to their customers in the United States and internationally.
-
-**Catalysts:** Earnings, Analyst
-
-#### Should You Buy, Sell or Hold SoundHound Stock Post Q4 Earnings?
-*Source: Zacks | Date: 2026-03-06 | Sentiment: Positive (+1.00)*
-
-> SoundHound AI, Inc.SOUN is gaining attention in the fast-growing voice and conversational AI market. The company delivered strong revenue growth in fourth-quarter 2025, but the stock has struggled in recent months as investors weigh profitability concerns against strong industry momentum.Shares of SoundHound have plunged 35.1% over the past three months, significantly underperforming the broader technology sector and the Zacks Computers – IT Services industry. As of March 5, 2026, the stock trades near $8.27, well below its 52-week high of $22.17. Since the Feb. 26 earnings release, the stock has slipped about 5.1%.The key question for investors now is whether SoundHound’s rapid growth and expanding market opportunity justify the risks tied to continued losses.
-
-> SoundHound delivered a strong fourth quarter, reflecting rising adoption of voice AI and conversational automation across industries. The company reported quarterly revenues of $55.1 million, up 59% year over year, while full-year 2025 revenue reached $168.9 million, representing nearly 99% growth.Profitability metrics also improved sequentially. Fourth-quarter non-GAAP gross margin reached 60.5%, and adjusted EBITDA loss narrowed to $7.4 million. Management highlighted that the company signed more than 100 customer deals during the quarter, marking its largest quarter for enterprise agreements.SoundHound’s technology adoption continues to expand across several industries, including automotive, restaurants, retail, telecommunications and financial services. The company also continues to scale its voice commerce ecosystem, enabling transactions such as ordering food, booking reservations and completing purchases through voice interfaces.Management believes these capabilities position SoundHound well in the emerging “agentic AI” market, where AI agents perform tasks autonomously across multiple platforms.
-
-> One of the biggest growth drivers for SoundHound is enterprise adoption of conversational AI solutions. Businesses increasingly use AI to automate customer service interactions, reduce labor costs and improve customer experience. The company’s AI agents are now handling billions of queries each month, reflecting significant adoption across industries. In many cases, SoundHound’s AI systems resolve the majority of customer interactions without human intervention, which can significantly lower operating costs for businesses. This efficiency improvement is helping drive demand across healthcare, banking, telecommunications and retail industries.
-
-> Automotive remains a key vertical for SoundHound. The company continues to sign new automotive manufacturers globally, including deals with OEMs in Asia and Europe.Voice commerce is another emerging growth opportunity. SoundHound’s platform allows users to order food, make reservations or purchase products directly through voice interactions inside cars, TVs and connected devices.Management believes this capability could create a flywheel effect, where consumer transactions drive additional revenue opportunities for both SoundHound and its partners.
-
-> SoundHound expects continued growth in 2026, projecting revenues between $225 million and $260 million for the year.The Zacks Consensus Estimate also reflect strong expansion, with revenue expected to grow about 37.8% in 2026.Meanwhile, the Zacks Consensus Estimate suggests that the company’s loss per share should improve compared with the prior year, indicating gradual progress toward profitability.If the company continues to scale its enterprise AI platform and voice commerce ecosystem, revenue growth could remain strong over the next several years.
-
-**Catalysts:** Earnings, Regulatory, Corporate
-
-#### Earnings
-*Generated: 2026-03-08 17:20*
-
-## Earnings Analysis: SoundHound AI, Inc. (SOUN)
+## Earnings Analysis: CleanSpark, Inc. (CLSK)
 
 ### Next Earnings
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-07 |
-| Days Until | 60 |
-| EPS Estimate | $-0.035 |
-| Revenue Estimate | $42.8M |
-| Earnings Rule | Clear (>60d out) |
+| Days Until | 52 |
+| EPS Estimate | $-0.305 |
+| Revenue Estimate | $151.3M |
+| Earnings Rule | Clear (>52d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.10 | $0.10 | 202.9% | -4.2% | -7.9% | Strong Bear |
-| Q4 2025 | $-0.09 | $-0.27 | -194.5% | -0.6% | -14.1% | Bearish |
-| Q3 2025 | $-0.05 | $-0.03 | 42.9% | +26.4% | +54.3% | Strong Bull |
-| Q2 2025 | $-0.06 | $-0.06 | 5.3% | -7.8% | +13.0% | Strong Bear |
-| Q1 2025 | $-0.08 | $-0.05 | 37.5% | +17.5% | +3.7% | Strong Bull |
-| Q4 2024 | $-0.07 | $-0.04 | 42.9% | -17.1% | -13.9% | Strong Bear |
-| Q3 2024 | $-0.08 | $-0.04 | 52.9% | -6.5% | -5.0% | Strong Bear |
-| Q2 2024 | $-0.08 | $-0.07 | 15.2% | +7.2% | +7.6% | Strong Bull |
+| Q1 2026 | $0.21 | $-1.32 | -745.7% | +22.0% | +12.6% | Strong Bull |
+| Q4 2025 | $0.54 | $0.16 | -69.9% | +13.8% | +22.6% | Strong Bull |
+| Q3 2025 | $0.07 | $0.79 | 1028.3% | -6.1% | -7.2% | Strong Bear |
+| Q2 2025 | $-0.13 | $-0.49 | -268.0% | +6.0% | +7.8% | Strong Bull |
+| Q1 2025 | $-0.16 | $0.80 | 599.6% | +9.2% | +2.8% | Strong Bull |
+| Q4 2024 | $-0.16 | $0.28 | 275.8% | -3.9% | -6.6% | Strong Bear |
+| Q3 2024 | N/A | $-0.18 | N/A | -2.6% | +3.3% | Bearish |
+| Q2 2024 | $0.09 | $0.04 | -56.4% | -6.1% | -0.7% | Strong Bear |
 
 ### Revenue Trend
 | Quarter | Revenue | QoQ Growth% | YoY Growth% |
 | :--- | :--- | :--- | :--- |
-| Q4 2025 | $55.1M | +30.9% | +59.4% |
-| Q3 2025 | $42.0M | -1.5% | N/A |
-| Q2 2025 | $42.7M | +46.5% | N/A |
-| Q1 2025 | $29.1M | -15.7% | N/A |
-| Q4 2024 | $34.5M | N/A | N/A |
+| Q4 2025 | $181.2M | -19.0% | +11.6% |
+| Q3 2025 | $223.7M | +12.6% | N/A |
+| Q2 2025 | $198.6M | +9.3% | N/A |
+| Q1 2025 | $181.7M | +12.0% | N/A |
+| Q4 2024 | $162.3M | N/A | N/A |
 
 ---
 
 ### AR
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:20*
+*Generated: 2026-03-16 19:35*
 
 ## News & Sentiment: Antero Resources Corporation (AR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -3905,54 +4447,54 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-07 | MarketBeat | Dimensional Fund Advisors LP Buys 1,922,977 Shares of Antero... | Positive | +0.30 | Earnings |
+| 2026-03-16 | MarketBeat | Barclays Forecasts Strong Price Appreciation for Antero Reso... | Positive | +0.77 | Earnings |
+| 2026-03-16 | MarketBeat | Delta Global Management LP Buys Shares of 77,247 Antero Reso... | Positive | +0.30 | Earnings, Corporate |
+| 2026-03-16 | MarketBeat | Brevan Howard Capital Management LP Reduces Stock Position i... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-03-15 | Insider Monkey | Barclays Lifts PT on Antero Resources Corporation (AR) to $4... | Neutral | +0.00 | — |
+| 2026-03-15 | MarketBeat | Cinctive Capital Management LP Has $11.39 Million Stock Posi... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-03-15 | MarketBeat | Antero Resources Corporation $AR Shares Bought by Capital Im... | Positive | +0.30 | Earnings |
+| 2026-03-15 | MarketBeat | Aventail Capital Group LP Sells 524,283 Shares of Antero Res... | Positive | +0.30 | Earnings |
+| 2026-03-14 | simplywall.st | A Look At Antero Resources (AR) Valuation After HG Energy De... | Positive | +0.27 | Analyst |
+| 2026-03-14 | 24/7 Wall St. | Up 271% in 3 Years — Is Antero Midstream Still the Energy St... | Positive | +0.27 | — |
+| 2026-03-14 | MarketBeat | Antero Resources Corporation $AR Shares Acquired by iSAM Fun... | Positive | +0.30 | Earnings |
+| 2026-03-13 | Yahoo Finance | Antero Resources (AR) Up 19.3% Since Last Earnings Report: C... | Neutral | +0.00 | Earnings |
+| 2026-03-13 | MarketBeat | Natixis Advisors LLC Sells 57,527 Shares of Antero Resources... | Positive | +0.30 | Earnings |
+| 2026-03-13 | Bitget | Antero Resources Rises 1.71% Amid Increased Institutional Pu... | Positive | +0.69 | — |
+| 2026-03-12 | simplywall.st | Will HG Energy Deal And Longer Inventory Life Change Antero ... | Positive | +0.27 | — |
+| 2026-03-12 | MarketBeat | Magnetar Financial LLC Decreases Holdings in Antero Resource... | Neutral | +0.00 | Earnings |
+| 2026-03-12 | Seeking Alpha | Antero Resources: C3+ NGL Prices Have Been Affected By The M... | Negative | -0.44 | Analyst |
+| 2026-03-12 | FinancialConten | Antero Resources (AR) Research Feature: The New Era of Appal... | Positive | +0.44 | — |
+| 2026-03-11 | Stock Titan | Antero Resources (NYSE: AR) leader granted PSUs, RSUs and ta... | Positive | +0.49 | — |
+| 2026-03-11 | MarketBeat | Insider Selling: Antero Resources (NYSE:AR) Insider Sells 15... | Positive | +0.30 | Earnings |
+| 2026-03-11 | MarketBeat | WINTON GROUP Ltd Raises Stock Holdings in Antero Resources C... | Neutral | +0.00 | Earnings |
+| 2026-03-11 | Stock Titan | Antero Resources (NYSE: AR) awards stock units to Krueger - ... | Positive | +0.46 | — |
+| 2026-03-11 | Zacks | Archrock Stock: Buy at a Premium or Wait for a Better Entry ... | Positive | +0.44 | — |
+| 2026-03-10 | simplywall.st | Is It Too Late To Consider Antero Resources (AR) After Stron... | Positive | +0.78 | — |
+| 2026-03-10 | MarketBeat | 171,601 Shares in Antero Resources Corporation $AR Bought by... | Positive | +0.30 | Earnings |
+| 2026-03-10 | The Globe and M | Antero Resources (AR) Gets a Buy from Siebert Williams Shank... | Neutral | +0.00 | — |
+| 2026-03-09 | Yahoo Finance | Is Antero Resources (AR) Still Attractively Priced After Str... | Positive | +0.88 | — |
+| 2026-03-09 | Simply Wall St. | Antero Resources Expands Dry Gas Focus With HG Energy Acquis... | Positive | +0.36 | Corporate |
+| 2026-03-08 | The Globe and M | Analysts Have Conflicting Sentiments on These Energy Compani... | Negative | -0.15 | — |
 | 2026-03-06 | Insider Monkey | Why Antero Resources Corporation (AR) Remains in the Spotlig... | Neutral | +0.00 | — |
 | 2026-03-06 | Zacks | EQT Stock Gains 31% in a Year: Here's What Investors Should ... | Positive | +0.34 | — |
-| 2026-03-06 | Zacks | Venture Global Inks LNG Supply Pact With Trafigura Group | Neutral | +0.00 | — |
-| 2026-03-06 | The Globe and M | Positive Report for Antero Resources (AR) from Benchmark Co.... | Positive | +0.56 | — |
-| 2026-03-06 | MarketBeat | GW&K Investment Management LLC Purchases 287,353 Shares of A... | Positive | +0.30 | Earnings, Corporate |
-| 2026-03-06 | Insider Monkey | Infinity Natural Resources (INR) Finalizes Transformational ... | Positive | +0.36 | Corporate |
-| 2026-03-06 | Simply Wall St. | Does Antero Resources’ (AR) Portfolio Repositioning Truly St... | Positive | +0.64 | — |
-| 2026-03-05 | Nasdaq | April 24th Options Now Available For Antero Resources (AR) -... | Neutral | +0.00 | — |
-| 2026-03-05 | Seeking Alpha | Antero Resources upgraded, Diamondback and others downgraded... | Neutral | +0.00 | Analyst |
-| 2026-03-04 | Zacks | Can Archrock Continue to Bank on Rising Clean Energy Demand? | Positive | +0.51 | — |
-| 2026-03-04 | Zacks | Flowserve and Bassett Furniture have been highlighted as Zac... | Neutral | +0.00 | — |
-| 2026-03-04 | MarketBeat | Quantbot Technologies LP Decreases Stock Position in Antero ... | Neutral | +0.00 | Earnings |
-| 2026-03-04 | simplywall.st | Antero Resources (AR) Is Up 11.1% After Utica Asset Sale And... | Neutral | +0.00 | — |
-| 2026-03-03 | Zacks | 3 Natural Gas Stocks to Gain on Mounting Clean Energy Demand | Positive | +0.85 | — |
-| 2026-03-03 | Zacks | CNX Gains From Technological Development & Strategic Capital... | Positive | +0.34 | — |
-| 2026-03-03 | simplywall.st | A Look At Antero Resources (AR) Valuation After Recent Share... | Positive | +0.66 | — |
-| 2026-03-03 | MarketBeat | Antero Resources Corporation (NYSE:AR) Receives Average Reco... | Neutral | +0.00 | Earnings |
-| 2026-03-02 | Zacks | Should Investors Buy Natural Gas While It Stays Below $3? | Positive | +0.36 | — |
-| 2026-02-28 | simplywall.st | Is Antero Resources (AR) Pricing In Its Strong Multi Year Sh... | Positive | +0.67 | — |
-| 2026-02-27 | MarketBeat | Antero Resources Corporation $AR is Gemsstock Ltd.'s 8th Lar... | Neutral | +0.00 | Earnings |
-| 2026-02-24 | Offshore Techno | NOG finalises $464.5m acquisition of Utica Shale assets | Positive | +0.18 | Corporate |
-| 2026-02-22 | MarketBeat | Envestnet Asset Management Inc. Buys 136,166 Shares of Anter... | Positive | +0.57 | Earnings, Corporate |
-| 2026-02-20 | MarketBeat | CenterBook Partners LP Invests $2.26 Million in Antero Resou... | Neutral | +0.00 | Earnings |
-| 2026-02-20 | MarketBeat | Pekin Hardy Strauss Inc. Has $5.83 Million Stock Holdings in... | Positive | +0.40 | Earnings |
-| 2026-02-18 | Insider Monkey | Jefferies Resumes Coverage of Antero Resources (AR) with Buy... | Neutral | +0.00 | — |
-| 2026-02-17 | MarketBeat | Antero Resources Corporation $AR Shares Bought by Colrain Ca... | Positive | +0.30 | Earnings |
-| 2026-02-16 | Yahoo Finance | Is Antero Resources (AR) Pricing Look Attractive After Recen... | Positive | +0.32 | — |
-| 2026-02-14 | The Globe and M | Analysts Offer Insights on Energy Companies: Antero Resource... | Positive | +0.27 | — |
-| 2026-02-13 | Morningstar Res | Analyst Report: Antero Resources Corporation | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 18 (60%) |
-| Neutral | 12 (40%) |
-| Negative | 0 (0%) |
-| Average Score | +0.264 |
+| Positive | 20 (67%) |
+| Neutral | 8 (27%) |
+| Negative | 2 (7%) |
+| Average Score | +0.265 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 171 |
+| Total Unique Headlines | 181 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 9 | Dimensional Fund Advisors LP Buys 1,922,..; GW&K Investment Management LLC Purchases.. |
-| Corporate | 4 | GW&K Investment Management LLC Purchases..; Infinity Natural Resources (INR) Finaliz.. |
-| Analyst | 1 | Antero Resources upgraded, Diamondback a.. |
+| Earnings | 13 | Barclays Forecasts Strong Price Apprecia..; Delta Global Management LP Buys Shares o.. |
+| Corporate | 4 | Delta Global Management LP Buys Shares o..; Brevan Howard Capital Management LP Redu.. |
+| Analyst | 2 | A Look At Antero Resources (AR) Valuatio..; Antero Resources: C3+ NGL Prices Have Be.. |
 
 ### Deep Dive Articles
 
@@ -4032,7 +4574,7 @@
 **Catalysts:** Earnings, Corporate
 
 #### Earnings
-*Generated: 2026-03-08 17:20*
+*Generated: 2026-03-16 19:35*
 
 ## Earnings Analysis: Antero Resources Corporation (AR)
 
@@ -4040,19 +4582,19 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-04-29 |
-| Days Until | 52 |
-| EPS Estimate | $0.93859 |
+| Days Until | 44 |
+| EPS Estimate | $0.98944 |
 | Revenue Estimate | $1.60B |
-| Earnings Rule | Clear (>52d out) |
+| Earnings Rule | Clear (>44d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $0.54 | $0.62 | 13.8% | -3.7% | -0.2% | Strong Bear |
+| Q1 2026 | $0.52 | $0.43 | -17.9% | -3.7% | -0.2% | Strong Bear |
 | Q4 2025 | $0.25 | $0.16 | -37.3% | -5.0% | +3.8% | Strong Bear |
 | Q3 2025 | $0.42 | $0.35 | -16.4% | +3.3% | -2.4% | Strong Bull |
 | Q2 2025 | $0.88 | $0.78 | -11.0% | -0.5% | +5.4% | Bearish |
-| Q1 2025 | $0.25 | $0.48 | 89.3% | +2.0% | +0.3% | Bullish |
+| Q1 2025 | $0.29 | $0.57 | 100.2% | +2.0% | +0.3% | Bullish |
 | Q4 2024 | $-0.04 | $-0.07 | -64.2% | -8.3% | +1.5% | Strong Bear |
 | Q3 2024 | $-0.16 | $-0.19 | -18.8% | -0.9% | -12.8% | Bearish |
 | Q2 2024 | $0.03 | $0.07 | 167.3% | +6.2% | +3.9% | Strong Bull |
@@ -4071,9 +4613,9 @@
 ### BBAI
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:20*
+*Generated: 2026-03-16 19:35*
 
 ## News & Sentiment: BigBear.ai, Inc. (BBAI)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -4081,54 +4623,101 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-08 | TipRanks | PLTR vs. BBAI: Which AI Defense Stock Is the Better Buy afte... | Positive | +0.53 | Earnings |
-| 2026-03-07 | MarketBeat | MarketBeat Week in Review  03/02 - 03/06 | Neutral | +0.00 | Earnings |
-| 2026-03-07 | Seeking Alpha | BigBear.ai: Q4 2025 Revenue Contraction And The Pivot To The... | Neutral | +0.00 | Earnings |
-| 2026-03-07 | MarketBeat | BigBear.ai (NYSE:BBAI) Stock Acquired Rep. Lisa C. McClain -... | Neutral | +0.00 | Earnings |
-| 2026-03-07 | MarketBeat | Citigroup Inc. Sells 236,591 Shares of BigBear.ai Holdings, ... | Positive | +0.30 | Earnings |
-| 2026-03-07 | MarketBeat | Rep. Lisa C. McClain Buys BigBear.ai Holdings, Inc. (NYSE:BB... | Positive | +0.30 | Earnings |
-| 2026-03-07 | GuruFocus | Insider Sell: Dorothy Hayes Sells 17,000 Shares of BigBear.a... | Positive | +0.30 | — |
-| 2026-03-07 | Meyka | BBAI stock $4.25 on 06 Mar 2026 NYSE: cash and M&A may suppo... | Positive | +0.40 | — |
+| 2026-03-16 | Zacks | SERV Expands to 20 Cities: Is Nationwide Robot Delivery Near... | Positive | +0.10 | — |
+| 2026-03-15 | MarketBeat | 269,267 Shares in BigBear.ai Holdings, Inc. $BBAI Bought by ... | Positive | +0.30 | Earnings |
+| 2026-03-14 | MSN | Here's Why BigBear.ai Holdings, Inc. (BBAI) Fell More Than B... | Neutral | +0.00 | — |
+| 2026-03-13 | TradingView | Why is BBAI stock tanking to $3.91 on huge volume? - Trading... | Positive | +0.32 | — |
+| 2026-03-13 | Zacks | Can BigBear.ai's Strategic Partnerships Expand Its Defense R... | Positive | +0.44 | — |
+| 2026-03-12 | Yahoo Finance | BigBear.ai (BBAI) Is Up 8.1% After Steep Impairment and New ... | Neutral | +0.00 | Earnings |
+| 2026-03-12 | MarketBeat | BigBear.ai (NYSE:BBAI) Shares Down 2.5% - Should You Sell? -... | Positive | +0.30 | Earnings |
+| 2026-03-11 | The Motley Fool | Can BigBear.ai Stock Make You a Millionaire? - The Motley Fo... | Negative | -0.44 | — |
+| 2026-03-11 | Yahoo Finance | A Look At BigBear.ai Holdings (BBAI) Valuation After Recent ... | Positive | +0.30 | — |
+| 2026-03-10 | Insider Monkey | Cantor Fitzgerald Lowers BigBear.ai Holdings, Inc. (BBAI) Pr... | Negative | -0.13 | Analyst |
+| 2026-03-09 | Insider Monkey | H.C. Wainwright Reiterates Buy Rating on BigBear.ai (BBAI) | Neutral | +0.00 | — |
+| 2026-03-09 | MarketBeat | BigBear.ai (NYSE:BBAI) Trading Down 1.2% - Here's What Happe... | Neutral | +0.00 | Earnings |
+| 2026-03-07 | MarketBeat | MarketBeat Week in Review - 03/02 - 03/06 | Neutral | +0.00 | Earnings |
 | 2026-03-07 | MarketBeat | MarketBeat Week in Review – 03/02 - 03/06 | Neutral | +0.00 | Earnings |
 | 2026-03-06 | Zacks | Should You Buy, Sell or Hold BigBear.ai Stock After Q4 Resul... | Neutral | +0.00 | — |
-| 2026-03-06 | StocksToTrade | BigBear.ai Makes Bold Moves Despite Market Challenges - Stoc... | Positive | +0.34 | — |
 | 2026-03-06 | Simply Wall St. | BigBear.ai’s Debt Reset And Middle East Push Reframe Growth ... | Positive | +0.32 | — |
 | 2026-03-05 | Zacks | Gorilla Technology Roars Past $100M Revenues With a $7B+ Pip... | Neutral | +0.00 | Earnings |
-| 2026-03-05 | Yahoo Finance | BigBear.ai Shares Tumble. Should Investors Buy the Dip or St... | Positive | +0.30 | — |
-| 2026-03-05 | Investing.com | Lisa McClain purchases BigBear.ai stocks through Charles Sch... | Neutral | +0.00 | — |
-| 2026-03-05 | MarketBeat | BigBear.ai (NYSE:BBAI) Stock Price Up 5.5% - Here's Why - Ma... | Neutral | +0.00 | Earnings |
-| 2026-03-05 | Seeking Alpha | BigBear.ai: Defense AI Potential Is Real, But Execution Rema... | Positive | +0.06 | — |
-| 2026-03-05 | Seeking Alpha | BigBear.Ai: Niche Defense & Border Control Leader Remains Ex... | Positive | +0.13 | — |
-| 2026-03-05 | Stocktwits | BBAI Stock Slides 8% – Analyst Flags Soft Sales Estimate, Re... | Positive | +0.30 | — |
-| 2026-03-05 | MarketBeat | HC Wainwright Estimates BigBear.ai's Q3 Earnings (NYSE:BBAI)... | Neutral | +0.00 | Earnings |
-| 2026-03-05 | StocksToTrade | BigBear.ai Rides Waves of Strategic Moves and Financial Pivo... | Neutral | +0.00 | — |
-| 2026-03-05 | timothysykes.co | BigBear.ai Stock Rises on Turnaround Hopes and Strategic Mov... | Positive | +0.42 | — |
 | 2026-03-04 | Insider Monkey | BigBear.ai (BBAI) Strengthens Balance Sheet with 90% Debt Re... | Positive | +0.13 | — |
 | 2026-03-04 | Zacks | BigBear.ai Revenues Slump in Q4: Temporary Dip or Deeper Iss... | Neutral | +0.00 | Earnings |
-| 2026-03-04 | Forbes | What's Happening With BBAI Stock? - Forbes | Neutral | +0.00 | — |
-| 2026-03-04 | MarketBeat | BigBear.ai Stock Is Down Big, But Smart Money Is Quietly Buy... | Positive | +0.55 | Earnings |
-| 2026-03-04 | Seeking Alpha | BigBear.ai: Big Expectations, Big Doubts (NYSE:BBAI) - Seeki... | Negative | -0.30 | — |
+| 2026-03-04 | MarketBeat | BigBear.ai Stock Is Down Big, But Smart Money Is Quietly Buy... | Positive | +0.55 | — |
 | 2026-03-04 | Trefis | BigBear.ai Stock (-7.3%): Q4 Revenue Misses Estimates, Down ... | Negative | -0.23 | Earnings |
-| 2026-03-04 | Meyka | Pre-Market 04 Mar 2026: BBAI BigBear.ai (NYSE) $3.80 after Q... | Negative | -0.15 | Earnings |
-| 2026-03-04 | MarketBeat | HC Wainwright Predicts BigBear.ai's Q1 Earnings (NYSE:BBAI) ... | Neutral | +0.00 | Earnings |
+| 2026-03-03 | Benzinga | BigBear.AI Stock Falls Tuesday: What's Happening? | Neutral | +0.00 | — |
+| 2026-03-03 | Moby | BigBear.ai Holdings, Inc. Q4 2025 Earnings Call Summary | Neutral | +0.00 | Earnings |
+| 2026-03-03 | GuruFocus.com | BigBear.ai Holdings Inc (BBAI) Q4 2025 Earnings Call Highlig... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-03-03 | TipRanks | BigBear.ai Stock (BBAI) Is Down 7% Today —What Spooked Inves... | Neutral | +0.00 | — |
+| 2026-03-03 | Benzinga | BigBear.AI Stock Falls Tuesday: What's Happening? - Benzinga | Neutral | +0.00 | — |
+| 2026-03-02 | Benzinga | Berkshire Hathaway, AST SpaceMobile, MongoDB, Credo Technolo... | Neutral | +0.00 | — |
+| 2026-03-02 | MarketBeat | BigBear.ai Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
+| 2026-03-02 | Zacks | BigBear.ai Holdings, Inc. (BBAI) Reports Q4 Loss, Lags Reven... | Negative | -0.59 | Earnings |
+| 2026-03-02 | Business Wire | BigBear.ai Announces Fourth Quarter 2025 Results; Releases 2... | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 14 (47%) |
-| Neutral | 13 (43%) |
-| Negative | 3 (10%) |
-| Average Score | +0.123 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 179 |
+| Positive | 9 (30%) |
+| Neutral | 17 (57%) |
+| Negative | 4 (13%) |
+| Average Score | +0.045 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 182 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 15 | PLTR vs. BBAI: Which AI Defense Stock Is..; MarketBeat Week in Review  03/02 - 03/06 |
+| Earnings | 13 | 269,267 Shares in BigBear.ai Holdings, I..; BigBear.ai (BBAI) Is Up 8.1% After Steep.. |
+| Analyst | 1 | Cantor Fitzgerald Lowers BigBear.ai Hold.. |
+| Corporate | 1 | BigBear.ai Holdings Inc (BBAI) Q4 2025 E.. |
 
 ### Deep Dive Articles
+
+#### Cantor Fitzgerald Lowers BigBear.ai Holdings, Inc. (BBAI) Price Target to $5
+*Source: Insider Monkey | Date: 2026-03-10 | Sentiment: Positive (+0.98)*
+
+> On March 3, Cantor Fitzgerald lowered the firm’s price target on BigBear.ai Holdings, Inc. (NYSE:BBAI) to $5 from $6 while maintaining a Neutral rating following the company’s fourth-quarter results. Despite reporting revenue of $27.3 million, representing a 37.7% year-over-year decline largely due to disruptions in certain U.S. Army contracts and broader federal program headwinds, analysts noted that the company still delivered a relatively solid quarter under challenging conditions. The firm also highlighted that fiscal 2026 revenue guidance of $135 million to $165 million implies approximately 17% growth at the midpoint, including an estimated $25 million contribution from the company’s Ask Sage acquisition.
+
+> The same day, H.C. Wainwright lowered its price target on BigBear.ai Holdings, Inc. (NYSE:BBAI) to $6 from $8 but maintained a Buy rating, citing improvements in the company’s balance sheet that provide greater flexibility to fund growth initiatives.
+
+> BigBear.ai Holdings, Inc. (NYSE:BBAI) reported fourth-quarter earnings per share of negative $0.01, outperforming consensus expectations of negative $0.06. While revenue missed estimates and adjusted EBITDA declined to negative $10.3 million due to lower margins and higher operating expenses, management emphasized that 2025 represented a transformational year. Chief Executive Officer Kevin McAleenan noted that the company significantly strengthened its financial position by reducing debt by more than 90%, expanding internationally, completing two strategic acquisitions, and raising approximately $693 million through at-the-market facilities and warrants. Management also highlighted supportive tailwinds from the U.S. government’s AI Acceleration Strategy, which could drive future demand for secure, mission-focused artificial intelligence solutions.
+
+> BigBear.ai Holdings, Inc. (NYSE:BBAI) focuses on delivering advanced analytics and data-driven decision intelligence solutions for enterprise and government customers. The company develops and deploys artificial intelligence and machine learning capabilities through an end-to-end data analytics platform designed to operationalize insights at scale.
+
+> While we acknowledge the potential of BBAI as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+
+**Catalysts:** Earnings, Regulatory, Corporate, Analyst, Short
+
+#### H.C. Wainwright Reiterates Buy Rating on BigBear.ai (BBAI)
+*Source: Insider Monkey | Date: 2026-03-09 | Sentiment: Positive (+0.97)*
+
+> BigBear.ai Holdings Inc. (NYSE:BBAI) is one of the11 most popular AI penny stocks to buy now. As of the close of play on March 6, consensus sentiment for BigBear.ai Holdings Inc. (NYSE:BBAI) remained moderately bullish. The stock received coverage from 3 analysts, with 1 Buy rating and 2 Hold calls. With no Sell rating, it has a projected median 1-year price target of $5.33. This results in an upside potential of more than 25% at the current level.
+
+> On March 3, H.C. Wainwright reduced the firm’s price target on BigBear.ai Holdings Inc. (NYSE:BBAI) to $6 from $8. The firm maintained its Buy rating on the shares, which offer an adjusted upside potential of more than 41% despite the downward revision.
+
+> Following the company’s fourth-quarter report, the firm noted that recent improvements to the balance sheet provide greater flexibility to fund future growth initiatives. Despite this positive development, the firm reduced its price target due to lower sales estimates.
+
+> BigBear.ai Holdings Inc. (NYSE:BBAI) delivers AI-enabled decision-intelligence solutions across various segments. These include national security, digital identity, healthcare & life sciences, and manufacturing & warehouse operations. It offers unique solutions with varying features, such as Data Conflation at Scale, Discrete Event Simulation, and Next-Gen Decision Support.
+
+> While we acknowledge the potential of BBAI as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+
+**Catalysts:** Regulatory, Analyst, Short
+
+#### MarketBeat Week in Review - 03/02 - 03/06
+*Source: MarketBeat | Date: 2026-03-07 | Sentiment: Positive (+0.97)*
+
+> War, rising oil prices, and a negative jobs report were a powerful drag on stocks. All the major indexes were down for the week as uncertainty overtook investor confidence. It's uncomfortable to see stocks falling, but as a percentage, U.S. stocks are holding up well, and earnings season has been, on average, quite strong.
+
+> However, markets are likely to remain volatile until investors get more clarity around the length and the results of the conflict with Iran. Until then, markets are likely to move with the headlines, which ensures volatility will continue.
+
+> Next week, investors will get three different reads on inflation. The Consumer Price Index (CPI) and Producer Price Index (PPI) for February come out on Tuesday and Wednesday, respectively. The delayed Personal Consumption Expenditures (PCE) index from January will be released on Friday. A surprise in either direction will move stocks.
+
+> Amprius Technologies Inc. (NYSE: AMPX)had another strong quarter. Thomas Hughes has been bullish on AMPX stock for nearly a year, and in this week’s article, he made the case that thecompany’s strategy execution is paying offwith revenue and earnings entering a hypergrowth stage.
+
+> Hughes also wrote aboutIonQ Inc.'s (NYSE: IONQ)solid earnings report. The report shows that the long-term quantum computing thesis is in place. However, the company is a long way away from making a profit, whichmay mean the risk outweighs the reward, for now.
+
+**Catalysts:** Earnings
 
 #### Should You Buy, Sell or Hold BigBear.ai Stock After Q4 Results?
 *Source: Zacks | Date: 2026-03-06 | Sentiment: Positive (+1.00)*
@@ -4160,53 +4749,8 @@
 
 **Catalysts:** Earnings, Shareholder
 
-#### BigBear.ai (BBAI) Strengthens Balance Sheet with 90% Debt Reduction and $462M in Cash
-*Source: Insider Monkey | Date: 2026-03-04 | Sentiment: Positive (+0.97)*
-
-> BigBear.ai Holdings Inc. (NYSE:BBAI) is one of thebest low cost stocks to buy under $5. On March 2, BigBear.ai Holdings announced that it concluded 2025 reporting $462 million in total cash and investments and a 90% reduction in total debt. This transformation was fueled by $693 million in proceeds from equity facilities and the strategic settlement of 2029 convertible notes. The company also expanded its market footprint through the major acquisition of Ask Sage in late 2025 and CargoSeer in early 2026, alongside a new expansion into the Middle East, positioning the firm for a projected 17% revenue growth in the coming year.
-
-> Financial results for Q4 2025 showed revenue of $27.3 million, a decrease from the previous year due to lower volumes in Army programs and the non-recurrence of high-margin contracts. While the company reported a net loss of $5.8 million for the quarter, which was an improvement over the $138.2 million loss in Q4 2024, the results were impacted by a $53.4 million impairment of long-lived assets and an adjusted EBITDA loss of $10.3 million.
-
-> BigBear.ai Holdings Inc. (NYSE:BBAI) now projects full-year 2026 revenue to fall between $135 and $165 million. The CEO emphasized that the focus on national security and trade aligns with the US Government’s AI Acceleration Strategy, providing a solid foundation for scalable growth. With a cleared balance sheet and specialized tech assets, the company aims to capitalize on the increasing demand for secure, flexible AI decision intelligence solutions among global partners and government operators.
-
-> BigBear.ai Holdings Inc. (NYSE:BBAI) provides AI-powered decision intelligence solutions. It offers national security, supply chain management, and digital identity and biometrics solutions.
-
-> While we acknowledge the potential of BBAI as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
-
-**Catalysts:** Earnings, Regulatory, Corporate, Short
-
-#### BigBear.ai Revenues Slump in Q4: Temporary Dip or Deeper Issue?
-*Source: Zacks | Date: 2026-03-04 | Sentiment: Positive (+0.99)*
-
-> BigBear.ai Holdings, Inc.BBAI reported a notable revenue decline in fourth-quarter 2025, raising questions about whether the slowdown reflects a temporary disruption or deeper structural challenges. The company posted quarterly revenues of $27.3 million, down sharply from $43.8 million in the prior-year period, largely due to reduced volume on certain U.S. Army programs. For 2025, revenues totaled $127.7 million compared with $158.2 million in 2024, reflecting the impact of shifting contract timing and government program dynamics.The revenue drop also weighed on profitability. Adjusted EBITDA for the quarter came in at a loss of roughly $10.3 million compared with positive adjusted EBITDA in the year-ago period of $2 million. Lower gross margin and increased investments in research, development and selling activities contributed to the weaker earnings performance.Despite the near-term softness, management argues that the decline may be cyclical rather than structural. BigBear.ai ended 2025 in what it describes as the strongest financial position in its history, supported by record cash and investments and a sharp reduction in debt. The company also completed two strategic acquisitions — Ask Sage, a generative AI platform for secure government deployments, and CargoSeer, an AI-based cargo inspection technology — both aimed at expanding its capabilities in national security and global trade.BigBear.ai expects growth to resume. Management projects 2026 revenues between $135 million and $165 million, implying roughly 17% growth at the midpoint. Demand drivers include rising defense AI spending, the U.S. government’s AI acceleration initiatives and expanding adoption of mission-focused AI platforms.While execution risks remain, the company’s strengthened balance sheet, expanding AI portfolio and improving demand environment suggest the recent revenue slump may prove temporary rather than structural.
-
-> Competition in defense and government AI platforms provides important context for BigBear.ai’s recent revenue slowdown. One major rival isPalantir TechnologiesPLTR, which also delivers AI-driven analytics and decision-intelligence software to defense and intelligence agencies. Palantir has achieved a stronger scale and more predictable growth in fourth-quarter 2025, supported by large government contracts and expanding AI deployments across the U.S. military and intelligence community.Another relevant competitor isC3.aiAI, an enterprise AI platform provider focused on government, defense and industrial clients. C3.ai develops AI applications that help government agencies integrate data and deploy machine-learning models for mission-critical operations. The company has also pursued large defense opportunities, including agreements with U.S. Department of Defense agencies to accelerate AI deployment across military programs.In this competitive landscape, Palantir and C3.ai highlight the challenge BigBear.ai faces. While Palantir benefits from scale and contract visibility, and C3.ai continues expanding enterprise AI capabilities, BigBear.ai must demonstrate consistent execution to convert its defense-AI pipeline into stable revenue growth.
-
-> Shares of BBAI have trended downward 23.7% in the past six months, underperforming the Zacks Computers - IT Services industry, the Zacks Computer and Technology sector and the S&P 500 Index, as shown below.
-
-> BBAI stock is currently trading at a discount compared with the industry peers, with a forward 12-month price-to-sales (P/S) ratio of 9.59, as evidenced by the chart below.
-
-> BBAI’s P/S Ratio (Forward 12-Month) vs. Industry
-
-**Catalysts:** Earnings, Regulatory, Corporate
-
-#### BigBear.AI Stock Falls Tuesday: What's Happening?
-*Source: Benzinga | Date: 2026-03-03 | Sentiment: Negative (-0.71)*
-
-> BigBear.Ai, Inc.(NYSE:BBAI) shares are trading lower Tuesday after the company reportedfourth-quarter financial results.
-
-> BigBear.AI reported a fourth-quarter loss of 1 cent per share, beating the consensus estimate of a 6-cent loss. Meanwhile, revenue totaled $27.30 million, missing estimates of $33.30 million and declining 38% from $43.8 million year-over-year, primarily due to lower volume on Army programs.
-
-> The company ended 2025 with total cash and investments of $462 million and said it settled the remaining $125 million of its 2029 convertible notes in January 2026.
-
-> "At the start of 2025, we set out to transform our financial foundations to establish a base from which to accelerate in 2026. We have delivered exactly that," CEOKevin McAleenansaid. "As of year-end 2025, BigBear.ai is in the strongest financial position in the company’s history."
-
-> Looking ahead, BigBear.AI projects full-year 2026 revenue between $135 million and $165 million, versus the consensus estimate of $164.29 million.
-
-**Catalysts:** Earnings, Corporate
-
 #### Earnings
-*Generated: 2026-03-08 17:20*
+*Generated: 2026-03-16 19:35*
 
 ## Earnings Analysis: BigBear.ai, Inc. (BBAI)
 
@@ -4214,176 +4758,113 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-04-30 |
-| Days Until | 53 |
+| Days Until | 45 |
 | Revenue Estimate | $33.6M |
-| Earnings Rule | Clear (>53d out) |
+| Earnings Rule | Clear (>45d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.06 | $-0.01 | 83.3% | -7.3% | +3.7% | Strong Bear |
+| Q1 2026 | $-0.06 | $-0.01 | 83.3% | -7.3% | +2.4% | Strong Bear |
 | Q4 2025 | $-0.07 | $0.01 | 113.6% | +6.1% | -2.5% | Strong Bull |
 | Q3 2025 | $-0.06 | $-0.71 | -1021.1% | -15.8% | -17.5% | Strong Bear |
 | Q2 2025 | $-0.06 | $-0.25 | -341.1% | +0.6% | -2.7% | Bullish |
 | Q1 2025 | $-0.05 | $-0.43 | -760.0% | -20.5% | -22.1% | Strong Bear |
 | Q4 2024 | $-0.07 | $-0.05 | 25.0% | -9.7% | +3.4% | Strong Bear |
 | Q3 2024 | $-0.06 | $-0.04 | 36.2% | -4.3% | -12.1% | Strong Bear |
-| Q2 2024 | $-0.06 | $-0.67 | -1016.7% | -13.9% | -14.5% | Strong Bear |
+| Q2 2024 | $-0.06 | $-0.04 | 32.4% | -13.9% | -14.5% | Strong Bear |
 
 ### Revenue Trend
 | Quarter | Revenue | QoQ Growth% | YoY Growth% |
 | :--- | :--- | :--- | :--- |
-| Q3 2025 | $33.1M | +2.1% | -20.1% |
+| Q4 2025 | $27.3M | -17.6% | -37.7% |
+| Q3 2025 | $33.1M | +2.1% | N/A |
 | Q2 2025 | $32.5M | -6.6% | N/A |
 | Q1 2025 | $34.8M | -20.7% | N/A |
-| Q4 2024 | $43.8M | +5.6% | N/A |
-| Q3 2024 | $41.5M | N/A | N/A |
+| Q4 2024 | $43.8M | N/A | N/A |
 
 ---
 
 ### NVDA
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:20*
+*Generated: 2026-03-16 19:35*
 
 ## News & Sentiment: NVIDIA Corporation (NVDA)
-*Sources: Finviz (100), Google News (96), yfinance (10) | Method: VADER | Deep Dives: 5*
+*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 1*
 
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Today | Benzinga | Celsius, Carnival Corp., MongoDB Are Among Top 10 Large Cap ... | Negative | -0.38 | — |
-| Today | Benzinga | Consumer Tech News (March 2-6): Major Chip Earnings, Trump R... | Neutral | +0.00 | Earnings |
-| Today | 24/7 Wall St. | Bond Yields Are Getting Slashed  These Dividend Stocks Are t... | Positive | +0.54 | Shareholder |
-| Today | Investor's Busi | Stock Market Rally Attempt Depends On Iran War, Oil's Next M... | Negative | -0.60 | — |
-| Today | Insider Monkey | NVIDIA Corporation (NVDA) Halts China-bound H200 Output, Reu... | Neutral | +0.00 | — |
-| Today | 24/7 Wall St. | 66-Year-Olds Claiming Social Security in 2026 Could Face Sho... | Positive | +0.15 | Regulatory |
-| Today | 24/7 Wall St. | Filing Your Taxes? Heres The Truth About Changes to Social S... | Positive | +0.57 | Regulatory |
-| Today | Investing.com | 5 big analyst AI moves: Buy Samsung pullback, Nvidia back as... | Positive | +0.20 | — |
-| Today | Benzinga | Chamath Palihapitiya Says AI Costs At Startup 8090 Could Hit... | Neutral | +0.00 | — |
-| 2026-03-08 | The Motley Fool | Can Nvidia Stock Double by 2030? - The Motley Fool | Negative | -0.44 | — |
-| 2026-03-08 | simplywall.st | Is Nvidia (NVDA) Still Priced Reasonably After Its 1 Year 57... | Positive | +0.68 | — |
-| 2026-03-08 | Seeking Alpha | AI Agents Ignite Nvidia's Next Growth Wave (NASDAQ:NVDA) - S... | Positive | +0.38 | — |
-| 2026-03-08 | MarketBeat | Puzo Michael J Has $20.90 Million Stock Holdings in NVIDIA C... | Neutral | +0.00 | Earnings |
-| 2026-03-08 | Seeking Alpha | Nvidia: AI GPU Leadership Supports The Generational Lead Pre... | Positive | +0.36 | — |
-| 2026-03-08 | MarketBeat | Y.D. More Investments Ltd Raises Position in NVIDIA Corporat... | Neutral | +0.00 | Earnings |
-| 2026-03-08 | MarketBeat | Somerville Kurt F Has $40.64 Million Stock Holdings in NVIDI... | Neutral | +0.00 | Earnings |
-| 2026-03-08 | MarketBeat | Pekin Hardy Strauss Inc. Grows Stock Holdings in NVIDIA Corp... | Positive | +0.40 | Earnings |
-| 2026-03-08 | MarketBeat | New Millennium Group LLC Grows Stake in NVIDIA Corporation $... | Neutral | +0.00 | Earnings |
-| 2026-03-08 | MarketBeat | NVIDIA Corporation $NVDA Shares Sold by Kidder Stephen W - M... | Positive | +0.30 | Earnings |
-| 2026-03-08 | MarketBeat | Northeast Financial Group Inc. Has $2.80 Million Stake in NV... | Neutral | +0.00 | Earnings |
-| 2026-03-08 | MarketBeat | NVIDIA Corporation $NVDA is Northern Financial Advisors Inc'... | Neutral | +0.00 | Earnings |
-| 2026-03-08 | MarketBeat | ICICI Prudential Asset Management Co Ltd Grows Stock Positio... | Positive | +0.36 | Earnings, Corporate |
-| 2026-03-08 | MarketBeat | Jupiter Asset Management Ltd. Sells 623,117 Shares of NVIDIA... | Positive | +0.57 | Earnings, Corporate |
-| 2026-03-08 | MarketBeat | Kovack Advisors Inc. Sells 14,210 Shares of NVIDIA Corporati... | Positive | +0.30 | Earnings |
-| 2026-03-08 | openpr.com | NVIDIA (NVDA) Stock Price Target Hits $360 While One Asset C... | Positive | +0.36 | Analyst |
-| 2026-03-08 | Motley Fool | Can Strategy Stock Beat the Market? | Neutral | +0.00 | Earnings |
-| 2026-03-08 | Motley Fool | Could This $13 Stock Be Your Ticket to Millionaire Status? | Neutral | +0.00 | — |
-| 2026-03-08 | Motley Fool | Top 2 Growth Stocks to Buy After Nvidia's Latest Sell-Off | Positive | +0.53 | — |
-| 2026-03-08 | Motley Fool | Why Okta's Shares Tumbled 14% Last Month | Positive | +0.30 | — |
-| 2026-03-08 | 24/7 Wall St. | Bond Yields Are Getting Slashed — These Dividend Stocks Are ... | Positive | +0.54 | Shareholder |
+| Today | Proactive | Nvidia CEO expected to deliver bullish AI outlook at GPU Tec... | Neutral | +0.00 | Corporate |
+| Today | CNBC TV | Nvidia's battle for inference tech | Negative | -0.38 | — |
+| Today | MarketWatch | Nvidia needs to offer more than just 'vision' to boost the A... | Positive | +0.61 | — |
+| Today | Yahoo Finance V | AI companies continue cross-investment as ROI questions loom | Negative | -0.23 | — |
+| Today | Yahoo Finance V | AI companies continues cross-investment as ROI questions loo... | Negative | -0.23 | — |
+| Today | Barrons.com | Nvidia Stock Is Historically Cheap | Neutral | +0.00 | — |
+| Today | GuruFocus.com | Foxconn's AI Boom Meets An Earnings Surprise | Positive | +0.27 | Earnings |
+| Today | MarketWatch | Nvidia will have a hard time quelling fears of a looming slo... | Negative | -0.57 | — |
+| Today | GuruFocus.com | Nvidia to Highlight AI Strategy at Developer Conference | Positive | +0.34 | — |
+| Today | MarketWatch | Nvidia's GTC could address one main source of market debate | Neutral | +0.00 | — |
+| Today | Proactive | Nebius shares pop on $27M AI infrastructure deal with Meta P... | Positive | +0.30 | — |
+| Today | Investor's Busi | Nvidia Rises As GTC Show Starts, Tech Partner Sees Strong AI... | Positive | +0.42 | — |
+| Today | Barrons.com | Huang: Nvidia's Servers Are the Most Expensive, but Also the... | Neutral | +0.00 | — |
+| Today | Proactive | S&P leads the pack as oil worries and tech gains collide | Negative | -0.18 | — |
+| Today | Yahoo Finance | Meta stock pops on planned layoffs, $27 billion Nebius cloud... | Neutral | +0.00 | — |
+| Today | Yahoo Finance V | Meta and Nebius AI deal, Micron's new chip plant, Dollar Tre... | Neutral | +0.00 | Earnings |
+| Today | Proactive | Week ahead: Investors face busy week as Fed and tech take ce... | Neutral | +0.00 | — |
+| Today | MarketWatch | Nvidia could announce an Intel partnership that boosts its a... | Positive | +0.32 | — |
+| Today | Barrons.com | Nvidia Stock Gains | Positive | +0.34 | — |
+| Today | PR Newswire | Qblox and Riverlane Announce Strategic Collaboration to Deli... | Negative | -0.10 | — |
+| Today | GuruFocus.com | Nvidia Stock Stalls Despite 800% Surge as Investors Await GT... | Positive | +0.10 | — |
+| Today | MarketWatch | Nvidia's stock price is 'entirely out of sync' with its grow... | Positive | +0.38 | — |
+| Today | MarketWatch | Stocks open higher as major indexes look to recover after lo... | Negative | -0.38 | — |
+| Today | Reuters Videos | Foxconn's profit lags estimates as it forecasts strong growt... | Positive | +0.74 | Earnings |
+| Today | GuruFocus.com | Foxconn Profit Drops 2% -- Apple and Nvidia Supplier Warns o... | Positive | +0.10 | Earnings |
+| Today | MarketWatch | What BofA expects from Nvidia's GTC | Neutral | +0.00 | — |
+| Today | TMX Newsfile | Gorilla Technology & Yotta Sign Landmark AI Infrastructure D... | Positive | +0.08 | — |
+| Today | Investor's Busi | Stock Market Today: Dow Rebounds As Oil Prices Fall From $10... | Neutral | +0.00 | — |
+| Today | Investing.com | Bernstein sees 20% upside in TSMC stock despite Middle East ... | Positive | +0.48 | — |
+| Today | GuruFocus.com | The Art of Valuation: Discovering NVIDIA Corp's Intrinsic Va... | Positive | +0.34 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 16 (53%) |
-| Neutral | 11 (37%) |
-| Negative | 3 (10%) |
-| Average Score | +0.171 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 202 |
+| Positive | 14 (47%) |
+| Neutral | 9 (30%) |
+| Negative | 7 (23%) |
+| Average Score | +0.092 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 203 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 13 | Consumer Tech News (March 2-6): Major Ch..; Puzo Michael J Has $20.90 Million Stock .. |
-| Shareholder | 2 | Bond Yields Are Getting Slashed  These D..; Bond Yields Are Getting Slashed — These .. |
-| Regulatory | 2 | 66-Year-Olds Claiming Social Security in..; Filing Your Taxes? Heres The Truth About.. |
-| Corporate | 2 | ICICI Prudential Asset Management Co Ltd..; Jupiter Asset Management Ltd. Sells 623,.. |
-| Analyst | 1 | NVIDIA (NVDA) Stock Price Target Hits $3.. |
+| Earnings | 4 | Foxconn's AI Boom Meets An Earnings Surp..; Meta and Nebius AI deal, Micron's new ch.. |
+| Corporate | 1 | Nvidia CEO expected to deliver bullish A.. |
 
 ### Deep Dive Articles
 
-#### Celsius, Carnival Corp., MongoDB Are Among Top 10 Large Cap Losers Last Week (March 2-March 6): Are the Others in Your Portfolio?
-*Source: Benzinga | Date: Today | Sentiment: Positive (+0.34)*
+#### Qblox and Riverlane Announce Strategic Collaboration to Deliver Integrated Quantum Error Correction Solution
+*Source: PR Newswire | Date: Today | Sentiment: Positive (+0.90)*
 
-> These ten large-cap stocks were theworst performers last week.
+> The combined platform offers a clear path to error-corrected computation at scale.Companies to discuss the solution at APS Global Physics Summit on Tuesday, 3/17.
 
-> These firms were hit by a mix of weak earnings, lowered guidance, deal pressure, rising yields, and geopolitical or AI-spending concerns.
+> DELFT, Netherlands and BOSTON,March 16, 2026/PRNewswire/ -- Today,Qblox, a leading provider of open-architecture quantum control electronics, andRiverlane, the quantum error correction (QEC) company, announced advancement of their strategic collaboration to bring real-time quantum error correction to the global quantum computing market. The collaboration pairs Riverlane's QEC technology, utilizing ultra-fast decoders capable of correcting millions of errors per second, with Qblox's high-performance control hardware, creating a platform for reliable, error-corrected quantum systems.
 
-> Lumentum Holdings Inc.(NASDAQ:LITE) lost 24.65% this week. The company is set to join S&P 500, effective March 23, 2026.
+> This collaboration addresses the challenge that inherently error-prone qubits create for commercial utility. Critically, it removes one of the industry's most persistent speed bottlenecks: the ability to decode and respond to quantum errors fast enough to prevent error accumulation. By combining both companies' complementary technologies, Riverlane and Qblox offer a single, integrated solution to tomorrow's fault-tolerant systems without the complexity of sourcing and integrating components independently.
 
-> Celsius Holdings, Inc.(NASDAQ:CELH) slumped 17.86% this week.
+> The deployment brings together Qblox's high-fidelity,ultra-low-latency and high-throughput control hardware required for real-time error correction with Riverlane's Deltaflow , now directly integrated with Qblox's control architecture to enable sub-microsecond feedback between detection and correction. This solution jointly pushes capacity to 300 physical qubits and 5 logical qubits, enabling up to 50,000 QuOps. Supported by Riverlane's Deltakit open-source SDK for teams building error-corrected workflows, the full stack represents a production-ready foundation for fault-tolerant quantum computing at scale. By offloading decoding to a specialized high-performance layer, the architecture frees primary system resources to focus on increasing qubit counts without sacrificing computational fidelity, creating a scalable foundation for long-term growth.
 
-> First Majestic Silver Corp.(NYSE:AG) decreased 17.69% this week. Shares of precious metal companies are traded lower amid a stronger dollar and rising yields as the market drops due to the ongoing conflict in the Middle East.
-
-**Catalysts:** Earnings
-
-#### Consumer Tech News (March 2-6): Major Chip Earnings, Trump Refuted Negotiations With Anthropic AI & More
-*Source: Benzinga | Date: Today | Sentiment: Positive (+0.90)*
-
-> The US Department of War has refuted any ongoing negotiations withAnthropic AIdespite the AI startup's plans to challenge the government's designation of it as anational security "supply chain risk."
-
-> John Moolenar(R-MI) urged the Treasury Secretary to exercise “heightened scrutiny” of “inbound investment push from China” and Chinese businesses wanting to expand market access in criticalmanufacturing sectors in the U.S.
-
-> TheDonald Trumpadministration is reportedly considering a new framework for exporting advanced artificial intelligence chips that could require foreigngovernments to invest in U.S. data centers.
-
-> Trumpadministration unveiled a voluntary agreement with major technology companies aimed at preventing artificial intelligence data centers from pushing electricitycosts higher for U.S. consumers.
-
-> Ahead of a meeting between PresidentDonald Trumpand Chinese PresidentXi Jinpingin April, the White House is reportedly considering whether to allow Chinese tech giantTencentHoldings Ltd.(OTC:TCEHY) to maintain its stakes inmajor video game companies.
+> "Real-time quantum error correction is fundamental to scaling quantum computing to commercially useful systems. The integration of Riverlane's Deltaflow technology into our commercial quantum data centre marked an important milestone on that journey." saidDr. Peter Leek, CSO and founder of Oxford Quantum Circuits (OQC)." Through our collaborations with partners such as Riverlane and Qblox, we are demonstrating how tightly integrated control and error-correction technologies can accelerate the path toward reliable, commercially viable quantum computers."
 
 **Catalysts:** Regulatory
 
-#### NVIDIA Corporation (NVDA) Halts China-bound H200 Output, Reuters Reports
-*Source: Insider Monkey | Date: Today | Sentiment: Positive (+0.99)*
-
-> NVIDIA Corporation (NASDAQ:NVDA)is one ofthe best stocks with huge upside potential to buy according to Reddit.
-
-> Reuters reported on March 5 that NVIDIA Corporation (NASDAQ:NVDA) has stopped production of its second-most advanced artificial intelligence chips, ​known as H200 chips, intended for ‌the Chinese market, according to a report by Financial Times. The report further stated that it has reallocated manufacturing capacity at ​chip contract maker TSMC away from ​making H200 chips to its next-generation ⁠Vera Rubin hardware. Reuters also reported that it could not immediately verify the report and that the two companies did not immediately respond to requests for comment.
-
-> In another development, Wedbush lifted the price target on NVIDIA Corporation (NASDAQ:NVDA) to $300 from $230 on March 3, maintaining an Outperform rating on the shares and telling investors that although the fiscal Q4 acceleration in data center sales was impressive given the law of large numbers, it would call out Q1 2027 sales guidance in particular as being the highlight of the call. Wedbush believes this outlook was well in excess of prior buy-side expectations.
-
-> NVIDIA Corporation (NASDAQ:NVDA) also announced on February 28 a commitment to build the world’s next generation of wireless networks on AI-native, open, secure, and trustworthy platforms, together with Booz Allen, BT Group, Cisco, Deutsche Telekom, Ericsson, MITRE, Nokia, OCUDU Ecosystem Foundation, ODC, SK Telecom, SoftBank Corp., and T-Mobile. It stated that the initiative reflects a shared commitment to ensure 6G infrastructure is open, intelligent, resilient, and accelerates innovation while safeguarding global trust.
-
-> NVIDIA Corporation (NASDAQ:NVDA) further stated that the 6G wireless networks would become the fabric for physical AI, enabling billions of autonomous machines, sensors, robots, and vehicles while considerably increasing demands for security and trust.
-
-**Catalysts:** Earnings, Regulatory, Analyst
-
-#### Chamath Palihapitiya Says AI Costs At Startup 8090 Could Hit $10 Million A Year: 'Our Costs Have More Than Tripled'
-*Source: Benzinga | Date: Today | Sentiment: Positive (+0.42)*
-
-> Venture capitalistChamath Palihapitiyasays his software startup, 8090, is facing rapidly rising artificial intelligence costs that could reach $10 million a year, pushing the company to reconsider some of the tools powering its development.
-
-> On Friday, Palihapitiya said during an episode of the All-In Podcast that the company's AI spending has climbed sharply in recent months.
-
-> "Our costs have more than tripled since November of 25," he said.
-
-> He added, "Between the inference cost that we pay AWS, which is ginormous, between our cost with Cursor, between Anthropic, we are just spending millions."
-
-> He pointed specifically to Cursor, a widely used AI coding tool, as one of the biggest drivers of expenses due to heavy token usage.
-
-**Catalysts:** None
-
-#### Jobs Crash, War Flares: Smart Money Hides In These Stocks
-*Source: Benzinga | Date: 2026-03-06 | Sentiment: Negative (-0.26)*
-
-> February's shocking jobs report, Iran war headlines and AI jitters are steering money into classic defensives like healthcare, energy majors, consumer staples giants and even cash‑rich AI leaders.
-
-> The U.S. economy lost 92,000 nonfarm jobs in February, withunemployment ticking upto 4.4%, underscoring a softer labor market just as markets confront a Middle East war and questions about an AI bubble.
-
-> The mix of weakening employment, rising geopolitical risk and the AI scare trade narratives is encouraging investors to rotate out of the most speculative growth and into companies with durable cash flows, pricing power and tangible assets.
-
-> In healthcare, multinational giantJohnson & Johnson(NYSE:JNJ) is frequently cited as a core defensive holding thanks to its diversified mix of pharmaceuticals and medical technologies that tend to be less sensitive to economic cycles.
-
-> On the utility side,NextEra Energy, Inc.(NYSE:NEE) combines regulated electric utility cash flows with long‑term growth from renewables, giving it both downside protection and a structural energy‑transition tailwind.
-
-**Catalysts:** None
-
 #### Earnings
-*Generated: 2026-03-08 17:20*
+*Generated: 2026-03-16 19:35*
 
 ## Earnings Analysis: NVIDIA Corporation (NVDA)
 
@@ -4391,10 +4872,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-20 |
-| Days Until | 73 |
-| EPS Estimate | $1.77936 |
-| Revenue Estimate | $78.43B |
-| Earnings Rule | Clear (>73d out) |
+| Days Until | 65 |
+| EPS Estimate | $1.77474 |
+| Revenue Estimate | $78.73B |
+| Earnings Rule | Clear (>65d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
@@ -4419,6 +4900,361 @@
 
 ---
 
+### OUST
+
+#### News & Sentiment
+*Generated: 2026-03-16 19:32*
+
+*Generated: 2026-03-16 19:35*
+
+## News & Sentiment: Ouster, Inc. (OUST)
+*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
+
+### Headlines (Top 30, Deduplicated)
+| Date | Source | Headline | Sentiment | Score | Catalysts |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-16 | MarketBeat | Algert Global LLC Boosts Stake in Ouster, Inc. $OUST - Marke... | Positive | +0.32 | Earnings |
+| 2026-03-12 | simplywall.st | Ouster (OUST) Is Up 10.6% After First Quarterly Profit, Ster... | Positive | +0.44 | Earnings, Equity |
+| 2026-03-12 | Stock Titan | [144] Ouster, Inc. SEC Filing - Stock Titan | Neutral | +0.00 | Regulatory |
+| 2026-03-12 | Stock Titan | ETrade Financial (NASDAQ: OUST) plans sale of 29,167 shares ... | Positive | +0.30 | — |
+| 2026-03-11 | Trefis | Ouster Stock (+8.9%): Insider Buy and Conference Fuel Post-E... | Neutral | +0.00 | Earnings |
+| 2026-03-11 | MSN | OUSTER, INC. (OUST) - MSN | Neutral | +0.00 | — |
+| 2026-03-11 | Stock Titan | OUST SEC Filings - Ouster Inc 10-K, 10-Q, 8-K Forms - Stock ... | Neutral | +0.00 | Regulatory |
+| 2026-03-11 | Cantech Letter | This investor loves robotics stock Ouster - Cantech Letter | Positive | +0.57 | — |
+| 2026-03-10 | 24/7 Wall St. | Robotics Stocks Soar Tuesday: Ouster Up 9% and Teradyne Jump... | Neutral | +0.00 | — |
+| 2026-03-10 | simplywall.st | Evaluating Ouster (OUST) After Strong Q4 Results And New Rev... | Positive | +0.51 | Earnings |
+| 2026-03-10 | MarketBeat | Ouster (NYSE:OUST) Director Acquires $136,175.00 in Stock - ... | Neutral | +0.00 | Earnings |
+| 2026-03-10 | MarketBeat | Ouster (NYSE:OUST) Trading 10.2% Higher After Insider Buying... | Neutral | +0.00 | Earnings |
+| 2026-03-10 | National Today | Ouster Shares Rise After Insider Buying - National Today | Positive | +0.30 | — |
+| 2026-03-10 | GuruFocus | Insider Buying: Virginia Boulet Acquires Shares of Ouster In... | Positive | +0.30 | — |
+| 2026-03-06 | Sahm | Why Ouster (OUST) Is Up 13.0% After Profitable Q4, Higher 20... | Positive | +0.44 | Earnings, Equity |
+| 2026-03-06 | Simply Wall St. | Ouster StereoLabs Deal Recasts Company As AI Sensing Growth ... | Positive | +0.38 | — |
+| 2026-03-06 | Simply Wall St. | Assessing Ouster (OUST) Valuation After Earnings Upswing And... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-03-05 | Business Wire | Ouster Accelerates Software Adoption in 2025 with Record Boo... | Neutral | +0.00 | — |
+| 2026-03-05 | Stock Titan | Ouster execs head to New York and California for March inves... | Neutral | +0.00 | — |
+| 2026-03-05 | Stock Titan | Lidar firm Ouster wins traffic deals across US cities and Eu... | Positive | +0.57 | — |
+| 2026-03-05 | MarketBeat | Ouster (NYSE:OUST) Trading Down 9.5% - Should You Sell? - Ma... | Neutral | +0.00 | Earnings |
+| 2026-03-05 | National Today | Ouster Stock Drops 9.5% - Should Investors Sell? - National ... | Neutral | +0.00 | — |
+| 2026-03-05 | National Today | Ouster Shares Surge on Positive Market Outlook - National To... | Positive | +0.70 | — |
+| 2026-03-04 | Business Wire | Ouster Announces Upcoming Investor Events | Neutral | +0.00 | — |
+| 2026-03-04 | Trefis | Ouster Stock (+7.3%): Strong Q1 Guidance and Surprise Profit... | Positive | +0.81 | Earnings |
+| 2026-03-04 | Seeking Alpha | Ouster: Great Tech, Stock Fairly Priced (Downgrade) (NASDAQ:... | Positive | +0.62 | Analyst |
+| 2026-03-04 | MarketBeat | Vanguard Group Inc. Has $127.68 Million Stake in Ouster, Inc... | Neutral | +0.00 | Earnings |
+| 2026-03-03 | Barrons.com | Ouster Stock Soars. Surprise Payments Helped. | Positive | +0.27 | — |
+| 2026-03-03 | Investor's Busi | Ouster, The 'Eyes' Of Physical AI, Delivers Q4 Earnings Surp... | Positive | +0.27 | Earnings |
+| 2026-03-03 | Benzinga | Ouster Climbs Following Fourth-Quarter Results | Neutral | +0.00 | — |
+
+### Sentiment Summary
+| Metric | Value |
+| :--- | :--- |
+| Articles Analyzed | 30 |
+| Positive | 15 (50%) |
+| Neutral | 15 (50%) |
+| Negative | 0 (0%) |
+| Average Score | +0.227 |
+| Overall Sentiment | **Bullish** |
+| Total Unique Headlines | 161 |
+
+### Detected Catalysts
+| Category | Count | Headlines |
+| :--- | :--- | :--- |
+| Earnings | 12 | Algert Global LLC Boosts Stake in Ouster..; Ouster (OUST) Is Up 10.6% After First Qu.. |
+| Equity | 2 | Ouster (OUST) Is Up 10.6% After First Qu..; Why Ouster (OUST) Is Up 13.0% After Prof.. |
+| Regulatory | 2 | [144] Ouster, Inc. SEC Filing - Stock Ti..; OUST SEC Filings - Ouster Inc 10-K, 10-Q.. |
+| Corporate | 1 | Assessing Ouster (OUST) Valuation After .. |
+| Analyst | 1 | Ouster: Great Tech, Stock Fairly Priced .. |
+
+### Deep Dive Articles
+
+#### Robotics Stocks Soar Tuesday: Ouster Up 9% and Teradyne Jumps 3%
+*Source: 24/7 Wall St. | Date: 2026-03-10 | Sentiment: Positive (+0.95)*
+
+> Ouster (OUST) stock is up 9% on Tuesday as robotics and lidar sector momentum builds in March. Teradyne (TER) stock is up 2.68% midday, with multiple Wall Street analysts having raised their price targets in January 2026, citing AI test demand and robotics optimism. Ouster and Teradyne stocks are both up roughly 190% over the past year, reflecting the market’s rapid repricing of automation and AI infrastructure plays.
+
+> Shares ofOuster(NASDAQ:OUST) are surging 8% to 9% in Tuesday morning trading, pushing above $22 intraday.Teradyne(NASDAQ:TER) stock is also climbing, up 3% and hovering near $306. The robotics and automation sector is clearly on the move today.
+
+> Ouster reported Q4 2025 earnings on March 2, and the numbers were striking. Revenue came in at $62.18 million against an estimate of $41.09 million, a surprise of more than 51%. Revenue was up 106.6% year over year, driven in part by approximately $21 million in one-time IP royalties that boosted results alongside a record 8,100 sensor shipments.
+
+> The company posted a GAAP gross margin of 60% and swung to a GAAP net income of $3.98 million, a swing of approximately $28 million from the prior year. CEO Angus Pacala summed it up plainly: “2025 was a year of exceptional execution.” That’s not just a talking point when you’re posting triple-digit revenue growth and your first profitable quarter.
+
+> Ouster also acquired Stereolabs, a camera and perception technology company, during Q4, expanding its capabilities beyond lidar into a broader sensor suite. For Q1 2026, Ouster guided to $45 million to $48 million in revenue, and the company laid out a long-term framework targeting 30% to 50% annual revenue growth. Analysts have taken notice, with a consensus price target of $39.67 against today’s price near $22, and six Buy ratings and zero Sells on the Street.
+
+**Catalysts:** Earnings, Regulatory, Corporate, Analyst
+
+#### Ouster Climbs Following Fourth-Quarter Results
+*Source: Benzinga | Date: 2026-03-03 | Sentiment: Negative (-0.62)*
+
+> Ouster, Inc.(NASDAQ:OUST) are trading higher Tuesday after the company reported fourth-quarter financial-results on Monday afterthe market closed.
+
+> Ouster reported an adjusted loss of 24 cents per share, beating the consensus estimate of a 35 cent-loss. Meanwhile, the company reported adjusted revenue of $40.971 million, missing the consensus estimate of $41.100 million.
+
+> The company said fourth-quarter revenue included approximately $21 million in primarily one-time royalties related to long-term IP license contracts. Product revenue came in at $41 million, up 36% year over year and 4% sequentially. Ouster shipped more than 8,100 lidar sensors in the quarter, a new record.
+
+> The company ended the quarter with $211 million in cash, cash equivalents, restricted cash and short-term investments.
+
+> "2025 was a year of exceptional execution for Ouster. Our strong revenue growth and gross margin performance are a testament to our disciplined focus as we pioneer the technologies driving the secular shift towards Physical AI, delivering record results," saidAngus Pacala, CEO of Ouster.
+
+**Catalysts:** Earnings, Regulatory, Corporate, Short
+
+#### Archer, Riot, Rigetti and More Stocks With Earnings This Week
+*Source: Benzinga | Date: 2026-03-02 | Sentiment: Positive (+0.30)*
+
+> The fourth-quarter earnings season continues this week with reports from several major retailers, tech firmsand software giants.
+
+> Here's a look at the earnings schedule for the week ahead:
+
+> Retail investors will be watchingAST SpaceMobile, Inc.(NASDAQ:ASTS) when it reports Q4 results after Monday's closing bell.
+
+> Wall Street isanticipating quarterly lossesof 16 cents per share on revenue of $41.11 million, according to estimates fromBenzinga Pro.
+
+> The following companies are also set to report on Monday afternoon:
+
+**Catalysts:** Earnings
+
+#### Ouster (OUST) Establishes Physical AI Platform Through Strategic StereoLabs Acquisition
+*Source: Insider Monkey | Date: 2026-02-27 | Sentiment: Positive (+0.98)*
+
+> Ouster Inc. (NASDAQ:OUST) is one of thebest small cap tech stocks with high upside potential. On February 9, Ouster officially closed the acquisition of StereoLabs SAS to establish a unified sensing and perception platform for Physical AI. By integrating StereoLabs’ AI vision and 3D camera technology with Ouster’s high-performance digital lidar, the company now offers an end-to-end solution including AI compute, sensor fusion, and perception software.
+
+> This combination is designed to meet the growing industrial demand for synchronized lidar and vision data, simplifying development for customers in the robotics, industrial automation, and smart infrastructure sectors. The acquisition brings significant market reach and technical expertise to Ouster, adding StereoLabs’ base of over 10,000 customers and a developer community that has utilized more than 90,000 ZED cameras.
+
+> This merger targets emerging high-growth use cases, such as humanoid robotics and visual inspection, by providing machines with the tools to better sense and navigate the physical world. The transaction was completed earlier on February 4, for a mix of ~$35 million in cash and 1.8 million shares. Ouster Inc. (NASDAQ:OUST) will begin consolidating StereoLabs’ financial results starting in Q1 2026.
+
+> Ouster Inc. (NASDAQ:OUST) provides lidar sensors for the automotive, industrial, robotics, and smart infrastructure industries in the Americas, the Asia-Pacific, Europe, the Middle East, and Africa.
+
+> While we acknowledge the potential of OUST as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+
+**Catalysts:** Regulatory, Corporate, Short
+
+#### Ouster, Inc. (OUST) Gains As Market Dips: What You Should Know
+*Source: Zacks | Date: 2026-02-19 | Sentiment: Positive (+0.74)*
+
+> Ouster, Inc. (OUST) closed at $19.08 in the latest trading session, marking a +2.64% move from the prior day. This change outpaced the S&P 500's 0.28% loss on the day. Elsewhere, the Dow lost 0.54%, while the tech-heavy Nasdaq lost 0.31%.
+
+> Prior to today's trading, shares of the company had lost 26.49% lagged the Computer and Technology sector's loss of 3.36% and the S&P 500's loss of 0.76%.
+
+> The upcoming earnings release of Ouster, Inc. will be of great interest to investors. The company's earnings report is expected on March 2, 2026. The company is expected to report EPS of -$0.39, up 18.75% from the prior-year quarter. Our most recent consensus estimate is calling for quarterly revenue of $40.85 million, up 35.76% from the year-ago period.
+
+> Looking at the full year, the Zacks Consensus Estimates suggest analysts are expecting earnings of -$1.53 per share and revenue of $148 million. These totals would mark changes of +26.44% and +33.21%, respectively, from last year.
+
+> Investors might also notice recent changes to analyst estimates for Ouster, Inc.  These latest adjustments often mirror the shifting dynamics of short-term business patterns.  As a result, upbeat changes in estimates indicate analysts' favorable outlook on the business health and profitability.
+
+**Catalysts:** Earnings, Regulatory, Short
+
+#### Earnings
+*Generated: 2026-03-16 19:35*
+
+## Earnings Analysis: Ouster, Inc. (OUST)
+
+### Next Earnings
+| Metric | Value |
+| :--- | :--- |
+| Earnings Date | 2026-05-07 |
+| Days Until | 52 |
+| EPS Estimate | $-0.12 |
+| Revenue Estimate | $46.3M |
+| Earnings Rule | Clear (>52d out) |
+
+### Earnings History
+| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Q1 2026 | $-0.13 | $0.07 | 149.3% | +7.3% | +1.5% | Strong Bull |
+| Q4 2025 | $-0.18 | $-0.16 | 10.8% | -6.5% | -10.4% | Strong Bear |
+| Q3 2025 | $-0.20 | $-0.26 | -28.8% | +11.7% | +51.7% | Strong Bull |
+| Q2 2025 | $-0.25 | $-0.31 | -21.7% | +22.8% | +29.9% | Strong Bull |
+| Q1 2025 | $-0.26 | $-0.37 | -42.4% | +31.9% | +19.1% | Strong Bull |
+| Q4 2024 | $-0.26 | $-0.45 | -69.2% | +1.5% | +10.5% | Bullish |
+| Q3 2024 | $-0.31 | $-0.50 | -59.4% | -27.7% | -27.9% | Strong Bear |
+| Q2 2024 | $-0.52 | $-0.51 | 2.4% | +19.8% | +12.7% | Strong Bull |
+
+### Revenue Trend
+| Quarter | Revenue | QoQ Growth% | YoY Growth% |
+| :--- | :--- | :--- | :--- |
+| Q4 2025 | $62.2M | +57.3% | +106.6% |
+| Q3 2025 | $39.5M | +12.8% | N/A |
+| Q2 2025 | $35.0M | +7.4% | N/A |
+| Q1 2025 | $32.6M | +8.4% | N/A |
+| Q4 2024 | $30.1M | N/A | N/A |
+
+---
+
+### RUN
+
+#### News & Sentiment
+*Generated: 2026-03-16 19:32*
+
+*Generated: 2026-03-16 19:35*
+
+## News & Sentiment: Sunrun Inc. (RUN)
+*Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
+
+### Headlines (Top 30, Deduplicated)
+| Date | Source | Headline | Sentiment | Score | Catalysts |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-14 | TipRanks | Sunrun price target lowered to $15 from $21 at Morgan Stanle... | Negative | -0.13 | Analyst |
+| 2026-03-13 | Zacks | Sunrun (RUN) Gains As Market Dips: What You Should Know | Positive | +0.34 | — |
+| 2026-03-13 | StockStory | 1 Unprofitable Stock for Long-Term Investors and 2 We Ignore | Negative | -0.36 | Earnings |
+| 2026-03-13 | Simply Wall St. | Evaluating Sunrun (RUN) After A Volatile Stretch And Mixed L... | Neutral | +0.00 | — |
+| 2026-03-12 | GlobeNewswire | Sunrun is the Number One Provider of Energy Independence for... | Positive | +0.34 | — |
+| 2026-03-12 | Bitget | Sunrun (RUN) Experiences a Steeper Decline Compared to the O... | Positive | +0.20 | — |
+| 2026-03-12 | Zacks | Sunrun (RUN) Suffers a Larger Drop Than the General Market: ... | Negative | -0.64 | — |
+| 2026-03-12 | StockStory | Lucid, GE Aerospace, AerSale, Sunrun, and Astronics Stocks T... | Neutral | +0.00 | — |
+| 2026-03-12 | Motley Fool | Solar Stock Down 30% in a Year, but a New $75 Million Bet Su... | Positive | +0.57 | — |
+| 2026-03-12 | Motley Fool | Why a $99 Million Exit From This Cybersecurity Stock Down 40... | Neutral | +0.00 | Regulatory |
+| 2026-03-11 | Trefis | Sunrun Stock (+7.2%): Sector Rallies on Gov’t Investment New... | Neutral | +0.00 | Regulatory |
+| 2026-03-11 | MarketBeat | Sunrun Inc. $RUN Shares Sold by Dimensional Fund Advisors LP... | Positive | +0.30 | Earnings |
+| 2026-03-10 | 24/7 Wall St. | Solar Shares Shine: SolarEdge Stock Heads 10% Higher, Enphas... | Positive | +0.51 | — |
+| 2026-03-10 | Insider Monkey | Why Goldman Sachs Sees Sunrun (RUN) Building on Its Strong 2... | Positive | +0.51 | — |
+| 2026-03-10 | MarketBeat | Sunrun Inc. (NASDAQ:RUN) Given Consensus Recommendation of "... | Neutral | +0.00 | Earnings |
+| 2026-03-09 | MarketBeat | Sunrun (NASDAQ:RUN) CRO Sells $13,014.60 in Stock - MarketBe... | Neutral | +0.00 | Earnings |
+| 2026-03-09 | MarketBeat | Sunrun (NASDAQ:RUN) CEO Mary Powell Sells 2,229 Shares - Mar... | Positive | +0.30 | Earnings, Corporate |
+| 2026-03-09 | MarketBeat | Sunrun (NASDAQ:RUN) CFO Danny Abajian Sells 1,412 Shares - M... | Positive | +0.30 | Earnings |
+| 2026-03-09 | MarketBeat | Sunrun (NASDAQ:RUN) Insider Jeanna Steele Sells 901 Shares -... | Positive | +0.30 | Earnings |
+| 2026-03-09 | Stock Titan | Sunrun (RUN) director sells 450 shares to cover RSU tax - St... | Positive | +0.30 | — |
+| 2026-03-09 | Business Wire | RUN Investors Have Opportunity to Join Sunrun Inc. Fraud Inv... | Positive | +0.05 | — |
+| 2026-03-08 | simplywall.st | Sunrun (RUN) Is Down 14.4% After Swinging To Profit And Expa... | Positive | +0.44 | Earnings |
+| 2026-03-08 | MarketBeat | Grantham Mayo Van Otterloo & Co. LLC Sells 4,391,430 Shares ... | Positive | +0.30 | Earnings |
+| 2026-03-06 | Insider Monkey | Sunrun Inc.'s (RUN) 2026 Cash Growth Outlook Appears Flat, S... | Positive | +0.38 | — |
+| 2026-03-06 | Zacks | Zacks Industry Outlook Highlights Sunrun, Canadian Solar and... | Positive | +0.27 | — |
+| 2026-03-06 | Insider Monkey | Sunrun Inc. (RUN) Reports Strong Revenue Growth but Faces Ca... | Positive | +0.33 | Earnings |
+| 2026-03-06 | Stock Titan | Insider sale notice: Sunrun (NASDAQ: RUN) after restricted s... | Negative | -0.38 | — |
+| 2026-03-06 | Stock Titan | Charles Schwab lists 13,010 Sunrun shares (NASDAQ: RUN) for ... | Negative | -0.10 | — |
+| 2026-03-05 | Zacks | 3 Solar Stocks to Watch Amid Policy and Tariff Headwinds | Neutral | +0.00 | — |
+| 2026-03-04 | Trefis | Sunrun Stock (-7.8%): Fresh Analyst Downgrade Cites Weak 202... | Negative | -0.15 | Earnings, Analyst |
+
+### Sentiment Summary
+| Metric | Value |
+| :--- | :--- |
+| Articles Analyzed | 30 |
+| Positive | 17 (57%) |
+| Neutral | 7 (23%) |
+| Negative | 6 (20%) |
+| Average Score | +0.132 |
+| Overall Sentiment | **Bullish** |
+| Total Unique Headlines | 180 |
+
+### Detected Catalysts
+| Category | Count | Headlines |
+| :--- | :--- | :--- |
+| Earnings | 11 | 1 Unprofitable Stock for Long-Term Inves..; Sunrun Inc. $RUN Shares Sold by Dimensio.. |
+| Analyst | 2 | Sunrun price target lowered to $15 from ..; Sunrun Stock (-7.8%): Fresh Analyst Down.. |
+| Regulatory | 2 | Why a $99 Million Exit From This Cyberse..; Sunrun Stock (+7.2%): Sector Rallies on .. |
+| Corporate | 1 | Sunrun (NASDAQ:RUN) CEO Mary Powell Sell.. |
+
+### Deep Dive Articles
+
+#### Sunrun is the Number One Provider of Energy Independence for Americans, Expanding the Nation's Largest Residential Distributed Power Plant
+*Source: GlobeNewswire | Date: 2026-03-12 | Sentiment: Positive (+0.97)*
+
+> New SEIA report shows the residential energy storage sector installed 3.1 GWh in 2025; Sunrun’s reported 1.5 GWh represents nearly half of that total, furthering its lead as America’s largest home storage provider and operator of distributed power plants
+
+> SAN FRANCISCO, March  12, 2026(GLOBE NEWSWIRE)-- Sunrun (Nasdaq: RUN), America’s largest provider of home battery storage, solar, and home-to-grid power plants, installed nearly half of all residential battery storage capacity deployed in the U.S. in 2025. According to the Solar Energy Industries Association’s (SEIA) inaugural U.S. Energy Storage Market Outlookreport, the residential energy storage sector added 3.1 gigawatt-hours of new capacity in 2025. Based on Sunrun’s own reported results of 1.5 gigawatt-hours installed during the same period, the company estimates this represents approximately 48% of the sector’s total.
+
+> Sunrun has now installed more than 237,000 storage and solar systems, representing approximately 4.0 gigawatt-hours of Networked Storage Capacity. That amount is equivalent to 44% of the 9 gigawatt-hours of residential energy storage installed across the U.S. since the industry’s inception, based on SEIA’scumulative data.
+
+> “Our deliberate and decisive pivot to provide Americans with energy independence is why Sunrun leads the residential energy storage sector,” said Sunrun CEO Mary Powell. “Sunrun’s battery fleet provides important resiliency benefits to our customers and immense support to the power grid, serving as the backbone of our nation-leading distributed power plant.”
+
+> Sunrun’s battery network dispatched nearly 18 gigawatt-hours of energy to support grids across America in 2025—enough to power 15 million homes for one hour—with a combined peak output of 425 megawatts. These dispatches supported grids during critical hours, helping avoid power outages while putting downward pressure on energy costs for all ratepayers.
+
+**Catalysts:** Regulatory, Corporate
+
+#### Solar Shares Shine: SolarEdge Stock Heads 10% Higher, Enphase Energy and SunRun Rally 6%
+*Source: 24/7 Wall St. | Date: 2026-03-10 | Sentiment: Positive (+0.98)*
+
+> SolarEdge (SEDG) stock surged to $38 after reporting $335.36M Q4 revenue, marking 96.4% YoY growth. Enphase Energy (ENPH) stock broke above $43 after posting Q4 EPS of $0.71 versus $0.58 estimate and 21% sequential U.S. sell-through growth. Sunrun (RUN) shares pierced the $12 level following the company’s report of $1.16B in Q4 revenue against a $601.77M estimate and a record 71% storage attachment rate. Treasury yields hitting 12-month lows near 3.97% improve solar financing economics for homeowners and installers, lifting all three solar-stock names on reduced borrowing costs.
+
+> SolarEdge Technologies(NASDAQ:SEDG) stock is surging 10% on Tuesday, rallying to $38 intraday. Solar-industry peersEnphase Energy(NASDAQ:ENPH) andSunrun(NASDAQ:RUN) are joining the party, with the shares of both moving 6% to 7% higher during the trading session.
+
+> The broad-based move looks like a sector-wide relief rally after weeks of pressure. Clean energy stocks have been struggling for catalysts in 2026, and today’s bounce across all three names suggests short covering and oversold conditions are doing a lot of the heavy lifting.
+
+> SEDG stock is the standout here, and for good reason. This is a genuine turnaround playing out in real time. TD Cowen upgraded the stock to Buy, citing turnaround progress, and the fundamentals are starting to back that up.
+
+> SolarEdge reported Q4 2025 earnings on February 18, with revenue of $335.36 million against a $328.94 million estimate. That represents 96.4% year-over-year revenue growth — not too shabby.
+
+**Catalysts:** Earnings, Regulatory, Analyst, Short
+
+#### Why Goldman Sachs Sees Sunrun (RUN) Building on Its Strong 2025 Finish
+*Source: Insider Monkey | Date: 2026-03-10 | Sentiment: Positive (+0.98)*
+
+> Sunrun Inc. (NASDAQ:RUN) is one of the10 Best Renewable Energy Stocks to Buy Now. On March 2, 2026, Goldman Sachs maintained its Buy rating on Sunrun and raised its price target to $24 from $21. The firm said Sunrun ended 2025 strongly, generated nearly $200 million of cash in the fourth quarter, exceeded its full-year guidance, and projected 2026 cash generation of $250 million to $450 million.
+
+> For context, Sunrun released its fourth-quarter and full-year 2025 results on February 26, 2026. Fourth-quarter revenue rose 124% year over year to $1.16 billion, while net income attributable to common stockholders reached $103.6 million. Cash Generation was $187 million in the quarter. Management said the results benefited from disciplined margin management, strong upfront net subscriber values, and balance-sheet improvements, including a paydown of recourse debt and higher unrestricted cash. The company also said growth in energy systems and product sales revenue was primarily driven by a transaction signed in the third quarter of 2025 to sell certain newly originated solar and storage systems to a third party.
+
+> Sunrun Inc. (NASDAQ:RUN) is a U.S. residential energy company focused on solar, battery storage, and home energy services.
+
+> While we acknowledge the potential of RUN as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+
+> READ NEXT:READ NEXT:30 Stocks That Should Double in 3 Yearsand11 Hidden AI Stocks to Buy Right Now.
+
+**Catalysts:** Earnings, Corporate, Analyst, Short
+
+#### Sunrun Inc.'s (RUN) 2026 Cash Growth Outlook Appears Flat, Says Mizuho
+*Source: Insider Monkey | Date: 2026-03-06 | Sentiment: Positive (+0.91)*
+
+> Sunrun Inc. (NASDAQ:RUN)is among the6 Cheap Solar Stocks to Buy Now.
+
+> On March 2, Maheep Mandloi from Mizuho trimmed the price target on Sunrun Inc. (NASDAQ:RUN) to $22 from $25 and maintained an Outperform rating. In a research note, the analyst said that the 2026 cash generation outlook appeared flat relative to the YoY growth forecasts.
+
+> Earlier, on February 26, Sunrun Inc. (NASDAQ:RUN) reported Q4 financial results for FY25, with EPS of $0.38 and revenue of $1.16 billion. Impressively, the company outperformed the analysts' $-0.04 EPS and $601.83 million revenue estimates. Since the surprise EPS, the stock has declined by nearly 35%.
+
+> The solid operational and financial performance in the fourth-quarter is a testament to the company’s growth trajectory, although subscriber additions came in flat relative to the year before. With Sunrun Inc. (NASDAQ:RUN) focusing on improving its storage attachment rate and accelerating cash generation, no wonder the company performed well. That said, SunRun reported cash generation of $377 million for the full year, with $187 million in Q4 alone.
+
+> For 2026, Sunrun Inc. (NASDAQ:RUN) has outlined bold plans, including enhancing its storage attachment rate and expanding its distributed power generation capacity. As stated by CEO Lynn Jurich,
+
+**Catalysts:** Earnings, Corporate, Analyst
+
+#### Zacks Industry Outlook Highlights Sunrun, Canadian Solar and Tigo Energy
+*Source: Zacks | Date: 2026-03-06 | Sentiment: Positive (+0.98)*
+
+> Chicago, IL – March 6, 2026 – Today, Zacks Equity Research discusses Sunrun RUN, Canadian Solar CSIQ and Tigo Energy, Inc. TYGO.
+
+> Link: https://www.zacks.com/commentary/2879133/3-solar-stocks-to-watch-amid-policy-and-tariff-headwinds
+
+> The U.S. solar demand remains strong as utilities, businesses and households increasingly adopt solar-plus-storage systems to support decarbonization, grid resilience and rising clean power needs. However, near-term challenges have intensified following the One Big Beautiful Bill Act, which scaled back Inflation Reduction Act tax credits and introduced new Foreign Entity of Concern requirements, adding policy uncertainty and procurement complexity.
+
+> Despite these headwinds, industry fundamentals remain resilient. A few prominent players in this industry that solar investors may like to watch areSunrun,Canadian SolarandTigo Energy, Inc.
+
+> The Zacks Solar industry can be fundamentally categorized into two groups of companies. While one is involved in designing and producing high-efficiency solar modules, panels and cells, the other is engaged in installing grids and, in some cases, entire solar power systems. The industry also includes a handful of companies that manufacture inverters for solar power systems, which convert solar power from modules into electricity required by electric grids. Per a report from the U.S. Energy Information Administration (“EIA”), solar’s share of U.S. electricity generation will be 8% in 2026 and 9% in 2027. It remains the nation's dominant form of new generating capacity.
+
+**Catalysts:** None
+
+#### Earnings
+*Generated: 2026-03-16 19:35*
+
+## Earnings Analysis: Sunrun Inc. (RUN)
+
+### Next Earnings
+| Metric | Value |
+| :--- | :--- |
+| Earnings Date | 2026-05-06 |
+| Days Until | 51 |
+| EPS Estimate | $-0.08531 |
+| Revenue Estimate | $623.9M |
+| Earnings Rule | Clear (>51d out) |
+
+### Earnings History
+| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Q1 2026 | $-0.06 | $0.38 | 699.6% | -35.1% | -42.3% | Strong Bear |
+| Q4 2025 | $0.12 | $0.06 | -48.7% | -16.1% | -7.6% | Strong Bear |
+| Q3 2025 | $-0.11 | $1.07 | 1030.4% | +32.3% | +20.5% | Strong Bull |
+| Q2 2025 | $-0.27 | $0.20 | 173.5% | +15.0% | +71.9% | Strong Bull |
+| Q1 2025 | $-0.19 | $1.41 | 837.3% | -8.3% | -13.1% | Strong Bear |
+| Q4 2024 | $-0.22 | $-0.37 | -68.2% | -11.8% | -5.9% | Strong Bear |
+| Q3 2024 | $-0.40 | $0.55 | 236.2% | +11.0% | +16.9% | Strong Bull |
+| Q2 2024 | $-0.57 | $-0.40 | 30.1% | +7.8% | +5.0% | Strong Bull |
+
+### Revenue Trend
+| Quarter | Revenue | QoQ Growth% | YoY Growth% |
+| :--- | :--- | :--- | :--- |
+| Q4 2025 | $1.16B | +59.9% | +123.5% |
+| Q3 2025 | $724.6M | +27.3% | N/A |
+| Q2 2025 | $569.3M | +12.9% | N/A |
+| Q1 2025 | $504.3M | -2.7% | N/A |
+| Q4 2024 | $518.5M | N/A | N/A |
+
+---
+
 ## Scouting Tickers (No Orders)
 
 None
@@ -4435,15 +5271,13 @@ No active velocity/bounce positions. (`velocity_positions`, `velocity_pending`, 
 
 | Metric | Value |
 | :--- | :--- |
-| Deployed (from portfolio_status.py) | $3,745.22 |
+| Deployed (from portfolio_status.py) | $3,993.89 |
 | Per-Stock Total Budget | $600.00 |
 | Active Pool | $300.00 per stock |
 | Reserve Pool | $300.00 per stock |
 | Active Bullets Max | 5 |
 | Reserve Bullets Max | 3 |
-| Active Bullet Full/Std | $60.00 |
-| Active Bullet Half | $30.00 |
-| Reserve Bullet Size | $100.00 |
+| Sizing Method | pool-distributed (equal impact) |
 | Velocity Pool Total | $1,000.00 |
 | Bounce Pool Total | $1,000.00 |
 
@@ -4451,11 +5285,11 @@ No active velocity/bounce positions. (`velocity_positions`, `velocity_pending`, 
 
 ## Cross-Check Summary
 
-- Total pending BUY orders in portfolio.json: **39** across **17** tickers (ACHR:1, APLD:1, AR:3, ARM:1, BBAI:3, CIFR:3, CLF:4, CLSK:2, LUNR:7, NNE:2, NU:1, NVDA:4, OUST:1, SMCI:1, SOUN:2, TEM:2, TMC:1)
-- Total pending BUY order rows written: **39**
-- Total pending SELL orders in portfolio.json: **2** across **2** tickers (APLD:1, NU:1)
-- Total pending SELL order rows written: **2**
-- Active positions with tool data: **13** (NU, IONQ, LUNR, USAR, OUST, APLD, TMC, CIFR, ARM, ACHR, CLSK, CLF, NNE)
-- Watchlist tickers with tool data: **6** (SMCI, TEM, SOUN, AR, BBAI, NVDA)
+- Total pending BUY orders in portfolio.json: **53** across **19** tickers (ACHR:1, APLD:1, AR:3, ARM:1, BBAI:3, CIFR:3, CLF:4, CLSK:4, LUNR:7, NNE:1, NU:1, NVDA:4, OKLO:3, OUST:4, RUN:7, SMCI:2, SOUN:1, TEM:1, TMC:2)
+- Total pending BUY order rows written: **53** (9 RECORDED)
+- Total pending SELL orders in portfolio.json: **11** across **9** tickers (APLD:1, ARM:1, CLF:1, CLSK:2, NNE:2, NU:1, SOUN:1, TEM:1, TMC:1)
+- Total pending SELL order rows written: **11**
+- Active positions with tool data: **13** (NU, IONQ, LUNR, USAR, APLD, TMC, ARM, ACHR, TEM, CLF, NNE, SOUN, OKLO)
+- Watchlist tickers with tool data: **8** (SMCI, CIFR, CLSK, AR, BBAI, NVDA, OUST, RUN)
 - Scouting tickers (no orders): **0**
 - Mismatch: **none**

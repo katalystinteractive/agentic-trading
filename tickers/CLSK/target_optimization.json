@@ -1,0 +1,309 @@
+{
+  "ticker": "CLSK",
+  "run_date": "2026-03-18",
+  "data_period": {
+    "start": "2025-02-10",
+    "end": "2026-03-17",
+    "trading_days": 276
+  },
+  "forward_looking_bias": "static",
+  "support_levels_used": [
+    {
+      "support_price": 9.86,
+      "buy_at": 10.05,
+      "hold_rate": 21.4,
+      "tier": "Half",
+      "shares": 3,
+      "source": "HVN+PA"
+    },
+    {
+      "support_price": 9.62,
+      "buy_at": 9.81,
+      "hold_rate": 23.8,
+      "tier": "Std",
+      "shares": 7,
+      "source": "PA"
+    },
+    {
+      "support_price": 9.4,
+      "buy_at": 9.74,
+      "hold_rate": 21.1,
+      "tier": "Half",
+      "shares": 3,
+      "source": "HVN+PA"
+    },
+    {
+      "support_price": 8.93,
+      "buy_at": 9.06,
+      "hold_rate": 45.5,
+      "tier": "Full",
+      "shares": 12,
+      "source": "HVN+PA"
+    },
+    {
+      "support_price": 8.62,
+      "buy_at": 8.91,
+      "hold_rate": 42.9,
+      "tier": "Full",
+      "shares": 7,
+      "source": "PA"
+    }
+  ],
+  "capital_config": {
+    "active_pool": 300,
+    "active_bullets_max": 5,
+    "levels_used": 5
+  },
+  "results": [
+    {
+      "target_pct": 2.0,
+      "cycles_completed": 51,
+      "cycles_per_month": 3.9,
+      "avg_cycle_days": 2.0,
+      "win_rate": 98.0,
+      "total_profit_simple": 96.82,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -29.12,
+      "longest_cycle_days": 31,
+      "timeout_cycles": 1,
+      "open_at_end": false,
+      "pool_exhausted": false
+    },
+    {
+      "target_pct": 2.5,
+      "cycles_completed": 48,
+      "cycles_per_month": 3.7,
+      "avg_cycle_days": 2.1,
+      "win_rate": 97.9,
+      "total_profit_simple": 124.19,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -29.12,
+      "longest_cycle_days": 31,
+      "timeout_cycles": 1,
+      "open_at_end": false,
+      "pool_exhausted": false
+    },
+    {
+      "target_pct": 3.0,
+      "cycles_completed": 43,
+      "cycles_per_month": 3.3,
+      "avg_cycle_days": 2.5,
+      "win_rate": 97.7,
+      "total_profit_simple": 135.66,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -29.12,
+      "longest_cycle_days": 31,
+      "timeout_cycles": 1,
+      "open_at_end": false,
+      "pool_exhausted": false
+    },
+    {
+      "target_pct": 3.5,
+      "cycles_completed": 41,
+      "cycles_per_month": 3.1,
+      "avg_cycle_days": 2.7,
+      "win_rate": 97.6,
+      "total_profit_simple": 158.71,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -29.12,
+      "longest_cycle_days": 31,
+      "timeout_cycles": 1,
+      "open_at_end": false,
+      "pool_exhausted": false
+    },
+    {
+      "target_pct": 4.0,
+      "cycles_completed": 41,
+      "cycles_per_month": 3.1,
+      "avg_cycle_days": 2.7,
+      "win_rate": 100.0,
+      "total_profit_simple": 255.96,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -25.32,
+      "longest_cycle_days": 20,
+      "timeout_cycles": 0,
+      "open_at_end": false,
+      "pool_exhausted": false
+    },
+    {
+      "target_pct": 4.5,
+      "cycles_completed": 36,
+      "cycles_per_month": 2.7,
+      "avg_cycle_days": 3.2,
+      "win_rate": 100.0,
+      "total_profit_simple": 268.37,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -25.32,
+      "longest_cycle_days": 20,
+      "timeout_cycles": 0,
+      "open_at_end": false,
+      "pool_exhausted": false
+    },
+    {
+      "target_pct": 5.0,
+      "cycles_completed": 35,
+      "cycles_per_month": 2.7,
+      "avg_cycle_days": 3.3,
+      "win_rate": 97.1,
+      "total_profit_simple": 232.97,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -29.5,
+      "longest_cycle_days": 31,
+      "timeout_cycles": 1,
+      "open_at_end": false,
+      "pool_exhausted": false
+    },
+    {
+      "target_pct": 5.5,
+      "cycles_completed": 34,
+      "cycles_per_month": 2.6,
+      "avg_cycle_days": 3.5,
+      "win_rate": 97.1,
+      "total_profit_simple": 254.43,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -29.5,
+      "longest_cycle_days": 31,
+      "timeout_cycles": 1,
+      "open_at_end": false,
+      "pool_exhausted": false
+    },
+    {
+      "target_pct": 6.0,
+      "cycles_completed": 27,
+      "cycles_per_month": 2.1,
+      "avg_cycle_days": 4.6,
+      "win_rate": 96.3,
+      "total_profit_simple": 210.06,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -29.5,
+      "longest_cycle_days": 31,
+      "timeout_cycles": 1,
+      "open_at_end": false,
+      "pool_exhausted": false
+    },
+    {
+      "target_pct": 6.5,
+      "cycles_completed": 24,
+      "cycles_per_month": 1.8,
+      "avg_cycle_days": 5.3,
+      "win_rate": 95.8,
+      "total_profit_simple": 201.59,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -29.5,
+      "longest_cycle_days": 31,
+      "timeout_cycles": 1,
+      "open_at_end": true,
+      "pool_exhausted": false
+    },
+    {
+      "target_pct": 7.0,
+      "cycles_completed": 23,
+      "cycles_per_month": 1.8,
+      "avg_cycle_days": 5.6,
+      "win_rate": 95.7,
+      "total_profit_simple": 227.19,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -29.5,
+      "longest_cycle_days": 31,
+      "timeout_cycles": 1,
+      "open_at_end": true,
+      "pool_exhausted": false
+    },
+    {
+      "target_pct": 7.5,
+      "cycles_completed": 23,
+      "cycles_per_month": 1.8,
+      "avg_cycle_days": 5.6,
+      "win_rate": 95.7,
+      "total_profit_simple": 246.44,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -29.5,
+      "longest_cycle_days": 31,
+      "timeout_cycles": 1,
+      "open_at_end": true,
+      "pool_exhausted": false
+    },
+    {
+      "target_pct": 8.0,
+      "cycles_completed": 20,
+      "cycles_per_month": 1.5,
+      "avg_cycle_days": 6.6,
+      "win_rate": 95.0,
+      "total_profit_simple": 236.25,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -29.5,
+      "longest_cycle_days": 31,
+      "timeout_cycles": 1,
+      "open_at_end": true,
+      "pool_exhausted": false
+    },
+    {
+      "target_pct": 8.5,
+      "cycles_completed": 20,
+      "cycles_per_month": 1.5,
+      "avg_cycle_days": 6.6,
+      "win_rate": 95.0,
+      "total_profit_simple": 253.68,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -29.5,
+      "longest_cycle_days": 31,
+      "timeout_cycles": 1,
+      "open_at_end": true,
+      "pool_exhausted": false
+    },
+    {
+      "target_pct": 9.0,
+      "cycles_completed": 20,
+      "cycles_per_month": 1.5,
+      "avg_cycle_days": 6.6,
+      "win_rate": 95.0,
+      "total_profit_simple": 271.08,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -29.5,
+      "longest_cycle_days": 31,
+      "timeout_cycles": 1,
+      "open_at_end": true,
+      "pool_exhausted": false
+    },
+    {
+      "target_pct": 9.5,
+      "cycles_completed": 20,
+      "cycles_per_month": 1.5,
+      "avg_cycle_days": 6.7,
+      "win_rate": 95.0,
+      "total_profit_simple": 300.86,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -22.72,
+      "longest_cycle_days": 31,
+      "timeout_cycles": 1,
+      "open_at_end": true,
+      "pool_exhausted": false
+    },
+    {
+      "target_pct": 10.0,
+      "cycles_completed": 20,
+      "cycles_per_month": 1.5,
+      "avg_cycle_days": 6.7,
+      "win_rate": 95.0,
+      "total_profit_simple": 319.23,
+      "total_profit_compound": null,
+      "max_drawdown_pct": -22.72,
+      "longest_cycle_days": 31,
+      "timeout_cycles": 1,
+      "open_at_end": true,
+      "pool_exhausted": false
+    }
+  ],
+  "optimal": {
+    "simple": {
+      "target_pct": 10.0,
+      "total_profit": 319.23
+    },
+    "compound": null
+  },
+  "open_position_at_end": {
+    "avg_cost": 9.8178,
+    "shares": 13,
+    "unrealized_pct": 2.98
+  }
+}

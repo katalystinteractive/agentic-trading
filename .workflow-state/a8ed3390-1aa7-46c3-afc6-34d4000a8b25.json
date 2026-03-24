@@ -1,0 +1,109 @@
+{
+  "run_id": "a8ed3390-1aa7-46c3-afc6-34d4000a8b25",
+  "workflow_name": "deep-dive-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-25T18:59:47.297912+00:00",
+  "completed_at": "2026-02-25T19:24:59.655126+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun deep dive for BBAI \u2014 new onboarding. Surgical candidate workflow ranked BBAI #2 with score 97, Onboard recommendation. Defense AI contractor, government/DoD contracts. Current price ~$3.90. Need full identity.md with persona, wick-adjusted bullet plan (5 active + 3 reserve), and portfolio.json pending orders. Ticker: BBAI. This is NEW onboarding, not existing position.",
+    "handoffs": {
+      "collect": "**Artifact:** `deep-dive-raw.md`\n**Ticker:** BBAI\n**Status:** NEW\n**Tools completed:** 8/8\n**Tool failures:** none\n\n**Key data points for the analyst:**\n- Price: $4.01 | Monthly swing: 55.6% | ATR: 8.9%\n- **EARNINGS WARNING:** Q4 2025 reports in 5 days (2026-03-02) \u2014 strategy rule: avoid new entries <14 days\n- Wick tool generated 7-bullet plan: 5 active ($3.88\u2192$3.50), 2 reserve ($2.93/$2.43); 1 level excluded ($3.97 buy price above market)\n- Technical: Strong Bearish (-6), all MAs above price, RSI 38.8, MACD negative \u2014 still in downtrend\n- Institutional: STRONG ACCUMULATION \u2014 10/10 top holders increased positions Q4 2025 (avg +56.2%); Blackrock +49.9%, UBS +145.7%\n- Short interest: 26.5% float short, increasing +12.4% \u2014 HIGH squeeze risk score 65/100, DTC 1.5\n- Legal overhang: Securities fraud investigation (Hunterbrook Report trigger)\n- Ask Sage acquisition ($250M, Dec 31 2025) \u2014 strategic catalyst; $376M backlog\n- Volume POC at $6.07 (+51% above current) \u2014 price is in thin air below all major volume nodes\n- Cycle: Bottom timing predominantly \"Late\" in recent months \u2014 Nov-Feb cycle lows all in late period\n\nReady for identity compilation.",
+      "compile": "**Artifact:** tickers/BBAI/identity.md\n**Ticker:** BBAI\n**Status:** NEW\n**Blocked:** no\n**Active bullets:** 5 (B1-B5, total ~$235) \u2014 ALL PAUSED until post-earnings 2026-03-02\n**Reserve bullets:** 3 (R1-R3, total ~$298) \u2014 ALL PAUSED until post-earnings 2026-03-02\n**Persona:** \"The Defense AI Contractor.\"\n**Portfolio.json updated:** yes (watchlist + 8 pending orders, all PAUSED)\n\n**Key synthesis decisions:**\n- **Convergences merged:** $3.55/$3.39 PA \u2192 B3 at $3.66 (buy-at within $0.01); $2.86/$2.80 PA \u2192 R1 at $2.94 (buy-at within $0.02)\n- **Excluded:** $3.97 HVN+PA (dead zone, buy-at $4.03 above current $4.01); $3.01 PA (Skip tier, 0% hold rate)\n- **Cycle:** Late (7/13 months, 5 consecutive Oct 25-Feb 26)\n- **Earnings gate:** Q4 2025 in 5 days \u2014 all 8 orders staged PAUSED per strategy rule. Resume + re-run earnings_analyzer.py post-event.\n- **Flagged risks:** 26.5% short interest (HIGH squeeze risk), securities fraud investigation, price 34% below volume POC ($6.07), Strong Bearish technical score (-6)\n- **Sector:** Defense AI \u2014 no overlap with existing portfolio sectors\n\nReady for bullet plan review.",
+      "review": "**Artifact:** deep-dive-review.md\n**Ticker:** BBAI\n**Verdict:** PASS\n**Checks passed:** 7/7\n**Issues found:** 0\n\nAll 8 bullets verified clean:\n- **Bullet math:** All shares calculations exact (floor division), all costs within tolerance. Active total $234.73, reserve total $298.01 \u2014 both within $300 cap.\n- **Tier classifications:** All match strategy.md thresholds. Noted: wick tool mis-classifies $2.62 PA as Half despite 50% hold (tool confidence penalty); identity correctly applies Full per strategy.md.\n- **Zone assignments:** Active floor $2.895. All 5 active raw supports above floor; all 3 reserve raw supports below floor. Zone derivation from raw support location (not buy-at price) confirmed consistent with tool output.\n- **Price accuracy:** All 8 buy-ats match raw wick data. No bullet at exact raw support. B3 convergence ($3.66/$3.65 \u2192 $3.66) and R1 convergence ($2.95/$2.93 \u2192 $2.94) both within $0.01 tolerance.\n- **Budget compliance:** Active $234.73 / $300, Reserve $298.01 / $300, 5 active + 3 reserve.\n- **Format:** All sections, persona pattern, table alignment, status label correct.\n- **Portfolio.json:** BBAI in watchlist, 8 PAUSED pending orders match bullet plan exactly, no positions entry.\n\nDeep dive review complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1
+  },
+  "phases": {
+    "collect": {
+      "phase_id": "collect",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-25T18:59:47.299211+00:00",
+      "completed_at": "2026-02-25T19:08:36.098053+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `deep-dive-raw.md`\n**Ticker:** BBAI\n**Status:** NEW\n**Tools completed:** 8/8\n**Tool failures:** none\n\n**Key data points for the analyst:**\n- Price: $4.01 | Monthly swing: 55.6% | ATR: 8.9%\n- **EARNINGS WARNING:** Q4 2025 reports in 5 days (2026-03-02) \u2014 strategy rule: avoid new entries <14 days\n- Wick tool generated 7-bullet plan: 5 active ($3.88\u2192$3.50), 2 reserve ($2.93/$2.43); 1 level excluded ($3.97 buy price above market)\n- Technical: Strong Bearish (-6), all MAs above price, RSI 38.8, MACD negative \u2014 still in downtrend\n- Institutional: STRONG ACCUMULATION \u2014 10/10 top holders increased positions Q4 2025 (avg +56.2%); Blackrock +49.9%, UBS +145.7%\n- Short interest: 26.5% float short, increasing +12.4% \u2014 HIGH squeeze risk score 65/100, DTC 1.5\n- Legal overhang: Securities fraud investigation (Hunterbrook Report trigger)\n- Ask Sage acquisition ($250M, Dec 31 2025) \u2014 strategic catalyst; $376M backlog\n- Volume POC at $6.07 (+51% above current) \u2014 price is in thin air below all major volume nodes\n- Cycle: Bottom timing predominantly \"Late\" in recent months \u2014 Nov-Feb cycle lows all in late period\n\nReady for identity compilation.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":496834,\"duration_api_ms\":468206,\"num_turns\":20,\"result\":\"`deep-dive-raw.md` confirmed written for BBAI.\\n\\n## HANDOFF\\n\\n**Artifact:** `deep-dive-raw.md`\\n**Ticker:** BBAI\\n**Status:** NEW\\n**Tools completed:** 8/8\\n**Tool failures:** none\\n\\n**Key data points for the analyst:**\\n- Price: $4.01 | Monthly swing: 55.6% | ATR: 8.9%\\n- **EARNINGS WARNING:** Q4 2025 reports in 5 days (2026-03-02) \u2014 strategy rule: avoid new entries <14 days\\n- Wick tool generated 7-bullet plan: 5 active ($3.88\u2192$3.50), 2 reserve ($2.93/$2.43); 1 level excluded ($3.97 buy price above market)\\n- Technical: Strong Bearish (-6), all MAs above price, RSI 38.8, MACD negative \u2014 still in downtrend\\n- Institutional: STRONG ACCUMULATION \u2014 10/10 top holders increased positions Q4 2025 (avg +56.2%); Blackrock +49.9%, UBS +145.7%\\n- Short interest: 26.5% float short, increasing +12.4% \u2014 HIGH squeeze risk score 65/100, DTC 1.5\\n- Legal overhang: Securities fraud investigation (Hunterbrook Report trigger)\\n- Ask Sage acquisition ($250M, Dec 31 2025) \u2014 strategic catalyst; $376M backlog\\n- Volume POC at $6.07 (+51% above current) \u2014 price is in thin air below all major volume nodes\\n- Cycle: Bottom timing predominantly \\\"Late\\\" in recent months \u2014 Nov-Feb cycle lows all in late period\\n\\nReady for identity compilation.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"4cd3f1d1-4a88-49ca-9c56-47d8019513be\",\"total_cost_usd\":1.53871325,\"usage\":{\"input_tokens\":22,\"cache_creation_input_tokens\":54439,\"cache_read_input_tokens\":893947,\"output_tokens\":28807,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":54439,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":22,\"outputTokens\":28807,\"cacheReadInputTokens\":893947,\"cacheCreationInputTokens\":54439,\"webSearchRequests\":0,\"costUSD\":1.50750225,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":13111,\"outputTokens\":535,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":12340,\"webSearchRequests\":0,\"costUSD\":0.031211000000000003,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"8c77d795-32af-46d3-90fe-58387259765a\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "deep-dive-raw.md": "/Users/kamenkamenov/agentic-trading/deep-dive-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 528.7964367866516,
+        "token_usage": {
+          "input_tokens": 22,
+          "output_tokens": 28807,
+          "cache_read_tokens": 893947,
+          "cache_write_tokens": 54439
+        },
+        "estimated_cost_usd": 0.904501,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "compile": {
+      "phase_id": "compile",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-25T19:08:36.100397+00:00",
+      "completed_at": "2026-02-25T19:12:51.925137+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** tickers/BBAI/identity.md\n**Ticker:** BBAI\n**Status:** NEW\n**Blocked:** no\n**Active bullets:** 5 (B1-B5, total ~$235) \u2014 ALL PAUSED until post-earnings 2026-03-02\n**Reserve bullets:** 3 (R1-R3, total ~$298) \u2014 ALL PAUSED until post-earnings 2026-03-02\n**Persona:** \"The Defense AI Contractor.\"\n**Portfolio.json updated:** yes (watchlist + 8 pending orders, all PAUSED)\n\n**Key synthesis decisions:**\n- **Convergences merged:** $3.55/$3.39 PA \u2192 B3 at $3.66 (buy-at within $0.01); $2.86/$2.80 PA \u2192 R1 at $2.94 (buy-at within $0.02)\n- **Excluded:** $3.97 HVN+PA (dead zone, buy-at $4.03 above current $4.01); $3.01 PA (Skip tier, 0% hold rate)\n- **Cycle:** Late (7/13 months, 5 consecutive Oct 25-Feb 26)\n- **Earnings gate:** Q4 2025 in 5 days \u2014 all 8 orders staged PAUSED per strategy rule. Resume + re-run earnings_analyzer.py post-event.\n- **Flagged risks:** 26.5% short interest (HIGH squeeze risk), securities fraud investigation, price 34% below volume POC ($6.07), Strong Bearish technical score (-6)\n- **Sector:** Defense AI \u2014 no overlap with existing portfolio sectors\n\nReady for bullet plan review.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":224389,\"duration_api_ms\":221746,\"num_turns\":14,\"result\":\"## Decision: CLEAN\\n\\n## HANDOFF\\n\\n**Artifact:** tickers/BBAI/identity.md\\n**Ticker:** BBAI\\n**Status:** NEW\\n**Blocked:** no\\n**Active bullets:** 5 (B1-B5, total ~$235) \u2014 ALL PAUSED until post-earnings 2026-03-02\\n**Reserve bullets:** 3 (R1-R3, total ~$298) \u2014 ALL PAUSED until post-earnings 2026-03-02\\n**Persona:** \\\"The Defense AI Contractor.\\\"\\n**Portfolio.json updated:** yes (watchlist + 8 pending orders, all PAUSED)\\n\\n**Key synthesis decisions:**\\n- **Convergences merged:** $3.55/$3.39 PA \u2192 B3 at $3.66 (buy-at within $0.01); $2.86/$2.80 PA \u2192 R1 at $2.94 (buy-at within $0.02)\\n- **Excluded:** $3.97 HVN+PA (dead zone, buy-at $4.03 above current $4.01); $3.01 PA (Skip tier, 0% hold rate)\\n- **Cycle:** Late (7/13 months, 5 consecutive Oct 25-Feb 26)\\n- **Earnings gate:** Q4 2025 in 5 days \u2014 all 8 orders staged PAUSED per strategy rule. Resume + re-run earnings_analyzer.py post-event.\\n- **Flagged risks:** 26.5% short interest (HIGH squeeze risk), securities fraud investigation, price 34% below volume POC ($6.07), Strong Bearish technical score (-6)\\n- **Sector:** Defense AI \u2014 no overlap with existing portfolio sectors\\n\\nReady for bullet plan review.\",\"stop_reason\":null,\"session_id\":\"a30d1e5b-5b02-47c7-9c15-7b213a71523f\",\"total_cost_usd\":0.9181,\"usage\":{\"input_tokens\":11,\"cache_creation_input_tokens\":52896,\"cache_read_input_tokens\":504782,\"output_tokens\":13349,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":52896,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-opus-4-6\":{\"inputTokens\":11,\"outputTokens\":13349,\"cacheReadInputTokens\":504782,\"cacheCreationInputTokens\":52896,\"webSearchRequests\":0,\"costUSD\":0.9167710000000001,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":919,\"outputTokens\":82,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.0013289999999999999,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"2656c78d-d6e1-47e9-8f0d-10dde2038b83\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "file_0": "tickers/BBAI/identity.md"
+      },
+      "metrics": {
+        "duration_seconds": 255.8234179019928,
+        "token_usage": {
+          "input_tokens": 11,
+          "output_tokens": 13349,
+          "cache_read_tokens": 504782,
+          "cache_write_tokens": 52896
+        },
+        "estimated_cost_usd": 0.550063,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 2,
+      "started_at": "2026-02-25T19:12:51.927130+00:00",
+      "completed_at": "2026-02-25T19:24:59.650667+00:00",
+      "error_message": "Claude CLI timed out after 480s",
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** deep-dive-review.md\n**Ticker:** BBAI\n**Verdict:** PASS\n**Checks passed:** 7/7\n**Issues found:** 0\n\nAll 8 bullets verified clean:\n- **Bullet math:** All shares calculations exact (floor division), all costs within tolerance. Active total $234.73, reserve total $298.01 \u2014 both within $300 cap.\n- **Tier classifications:** All match strategy.md thresholds. Noted: wick tool mis-classifies $2.62 PA as Half despite 50% hold (tool confidence penalty); identity correctly applies Full per strategy.md.\n- **Zone assignments:** Active floor $2.895. All 5 active raw supports above floor; all 3 reserve raw supports below floor. Zone derivation from raw support location (not buy-at price) confirmed consistent with tool output.\n- **Price accuracy:** All 8 buy-ats match raw wick data. No bullet at exact raw support. B3 convergence ($3.66/$3.65 \u2192 $3.66) and R1 convergence ($2.95/$2.93 \u2192 $2.94) both within $0.01 tolerance.\n- **Budget compliance:** Active $234.73 / $300, Reserve $298.01 / $300, 5 active + 3 reserve.\n- **Format:** All sections, persona pattern, table alignment, status label correct.\n- **Portfolio.json:** BBAI in watchlist, 8 PAUSED pending orders match bullet plan exactly, no positions entry.\n\nDeep dive review complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":215627,\"duration_api_ms\":214729,\"num_turns\":8,\"result\":\"## HANDOFF\\n\\n**Artifact:** deep-dive-review.md\\n**Ticker:** BBAI\\n**Verdict:** PASS\\n**Checks passed:** 7/7\\n**Issues found:** 0\\n\\nAll 8 bullets verified clean:\\n- **Bullet math:** All shares calculations exact (floor division), all costs within tolerance. Active total $234.73, reserve total $298.01 \u2014 both within $300 cap.\\n- **Tier classifications:** All match strategy.md thresholds. Noted: wick tool mis-classifies $2.62 PA as Half despite 50% hold (tool confidence penalty); identity correctly applies Full per strategy.md.\\n- **Zone assignments:** Active floor $2.895. All 5 active raw supports above floor; all 3 reserve raw supports below floor. Zone derivation from raw support location (not buy-at price) confirmed consistent with tool output.\\n- **Price accuracy:** All 8 buy-ats match raw wick data. No bullet at exact raw support. B3 convergence ($3.66/$3.65 \u2192 $3.66) and R1 convergence ($2.95/$2.93 \u2192 $2.94) both within $0.01 tolerance.\\n- **Budget compliance:** Active $234.73 / $300, Reserve $298.01 / $300, 5 active + 3 reserve.\\n- **Format:** All sections, persona pattern, table alignment, status label correct.\\n- **Portfolio.json:** BBAI in watchlist, 8 PAUSED pending orders match bullet plan exactly, no positions entry.\\n\\nDeep dive review complete.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"a1697d2e-2660-44f3-af97-7d0d0808d5f8\",\"total_cost_usd\":0.6863110000000001,\"usage\":{\"input_tokens\":7,\"cache_creation_input_tokens\":38076,\"cache_read_input_tokens\":245452,\"output_tokens\":13023,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":38076,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":7,\"outputTokens\":13023,\"cacheReadInputTokens\":245452,\"cacheCreationInputTokens\":38076,\"webSearchRequests\":0,\"costUSD\":0.6863110000000001,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"93ce1fb9-e060-4b79-b874-b6a8a8095027\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "deep-dive-review.md": "/Users/kamenkamenov/agentic-trading/deep-dive-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 247.67298793792725,
+        "token_usage": {
+          "input_tokens": 7,
+          "output_tokens": 13023,
+          "cache_read_tokens": 245452,
+          "cache_write_tokens": 38076
+        },
+        "estimated_cost_usd": 0.411787,
+        "model": "sonnet",
+        "attempts": 2
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-25T19:24:59.655292+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/deep-dive-workflow.yaml",
+    "workflowHash": "d10f6553d05e5484"
+  }
+}

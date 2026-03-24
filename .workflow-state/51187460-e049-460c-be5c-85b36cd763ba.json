@@ -1,0 +1,116 @@
+{
+  "run_id": "51187460-e049-460c-be5c-85b36cd763ba",
+  "workflow_name": "surgical-candidate-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-27T22:43:40.493601+00:00",
+  "completed_at": "2026-02-27T23:15:20.108505+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nScreen, filter, evaluate, and select new surgical mean-reversion candidates for the portfolio. Run the full 3-phase pipeline: screen \u2192 verify \u2192 critic. Use current portfolio.json for existing positions/watchlist context and strategy.md for entry criteria.",
+    "handoffs": {
+      "screen": "**Artifacts:** `screening_data.json`, `candidate_shortlist.md`, `candidate_shortlist.json`, `candidate-evaluation.md`, `candidate-evaluation.json`\n\n**Gate passers:** 71 tickers passed surgical gates\n\n**Top 7 scored:**\n- TEM (85) \u2014 AI\n- QBTS (83) \u2014 Quantum\n- RGTI (82) \u2014 Quantum\n- RDW (82) \u2014 Space\n- IREN (81) \u2014 Crypto\n- MP (78) \u2014 Materials\n- WOLF (77) \u2014 Tech\n\n**Recommendations:**\n- **Onboard (2):** TEM, QBTS\n- **Watch (3):** RGTI, RDW, WOLF\n- **Monitor (2):** IREN, MP\n\n**Key findings:**\n- TEM and QBTS are the clear leaders \u2014 both have broadly improving 90d recency, are within sector concentration limits, and have workable reserve structures\n- RGTI/RDW held back by entry timing (B1 distance) and recency concerns respectively \u2014 strong next-cycle candidates\n- IREN and MP hard-blocked by sector concentration (4x Crypto, 4x Materials) and each carry additional structural flags\n- WOLF has the best improving trend density and maximum sector diversity but zero reserves is a strategy non-compliance; financial distress adds qualitative risk Python cannot detect\n\nReady for verification.",
+      "verify": "**Artifacts:** `candidate-pre-verify.md`, `candidate-verification.md`, `candidate-verification.json`\n\n**Results:** 7 PASS, 0 FLAG, 0 FAIL\n\n**Score range after adjustment:** 78\u201387\n\n**Pre-verify:** 5 checks passed, 2 issues found (Flag coverage FAIL \u2014 confirmed parsing artifact, not actual evaluator misses; Duplicate buy price WARN \u2014 2 anomalies at TEM and RGTI, both assessed as level-clustering artifacts)\n\n**Key verification findings:**\n\n- **Flag Coverage FAIL** is a pre-verifier tool limitation. The evaluator's markdown structure did not parse correctly, causing false \"missed\" flags. Manual review confirmed every quality flag was substantively addressed in the prose.\n- **TEM (+2):** Healthcare AI vs defense/voice AI differentiation is technically specific and credible \u2014 not boilerplate sub-sector labeling.\n- **QBTS (+2):** Quantum annealing vs gate-based modality distinction is technically accurate; technology obsolescence risk adds qualitative depth.\n- **RGTI (0):** Active-reserve gap fully addressed; Watch correctly justified by B1 timing.\n- **RDW (+1):** Partial-entry guidance (upper 3 levels only, skip 2 deteriorating) is actionable tactical value.\n- **IREN (0):** BTC drawdown correlation correctly overrides IREN's HPC differentiation argument.\n- **MP (0):** Multi-dimensional rejection confirmed; regime-change thesis is credible qualitative addition.\n- **WOLF (+2):** Financial distress \u2192 mean-reversion assumption failure is the most important qualitative override in the cohort. Python cannot detect this.\n\nReady for final selection.",
+      "critic": "**Artifacts:** `candidate-pre-critic.md`, `candidate-final.md`\n\n**Top 3:**\n1. **QBTS** \u2014 93 \u2014 **Onboard** *(quantum annealing, distinct from IONQ; cleanest improving trend; immediate B1 entry; \u22122 for quantum sentiment correlation + active zone tier quality)*\n2. **TEM** \u2014 90 \u2014 **Onboard** *(healthcare AI, no portfolio analog; 3 levels at 100% 90d hold; 1.6% B1 entry; 0 qualitative \u2014 thesis airtight, risks captured mechanically)*\n3. **RGTI** \u2014 86 \u2014 **Watch** *(strong $14\u201315 cluster recency; full reserve structure; \u22122 for IONQ gate-based overlap + post-QBTS concentration constraint; entry trigger: $16.50\u201317.00 pullback)*\n\n**Re-ranking vs pre-critic:** WOLF dropped from #3 (89) to #4 (84) \u2014 compounded failure mode of zero reserves \u00d7 financial distress warrants \u22125 qualitative. RGTI advanced to #3 (86) despite the IONQ sub-sector overlap concern because it retains a full reserve structure, no strategy compliance gaps, and a clear testable entry trigger.\n\n**Key decision rationale:**\n- WOLF's zero reserves + financial distress = mean-reversion assumption may be broken (company-specific risk, not sector risk). The mechanical +10 modifier rewarded sample size and sector diversity, but the qualitative override is severe.\n- RGTI's Watch recommendation already implies deferred activation; the secondary concentration gate (Quantum \u2192 3x if both QBTS + RGTI are live) is the actionable constraint for next cycle.\n\nScreening complete. Review `candidate-final.md` for onboarding decisions."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1
+  },
+  "phases": {
+    "screen": {
+      "phase_id": "screen",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-27T22:43:40.505936+00:00",
+      "completed_at": "2026-02-27T22:54:02.548433+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifacts:** `screening_data.json`, `candidate_shortlist.md`, `candidate_shortlist.json`, `candidate-evaluation.md`, `candidate-evaluation.json`\n\n**Gate passers:** 71 tickers passed surgical gates\n\n**Top 7 scored:**\n- TEM (85) \u2014 AI\n- QBTS (83) \u2014 Quantum\n- RGTI (82) \u2014 Quantum\n- RDW (82) \u2014 Space\n- IREN (81) \u2014 Crypto\n- MP (78) \u2014 Materials\n- WOLF (77) \u2014 Tech\n\n**Recommendations:**\n- **Onboard (2):** TEM, QBTS\n- **Watch (3):** RGTI, RDW, WOLF\n- **Monitor (2):** IREN, MP\n\n**Key findings:**\n- TEM and QBTS are the clear leaders \u2014 both have broadly improving 90d recency, are within sector concentration limits, and have workable reserve structures\n- RGTI/RDW held back by entry timing (B1 distance) and recency concerns respectively \u2014 strong next-cycle candidates\n- IREN and MP hard-blocked by sector concentration (4x Crypto, 4x Materials) and each carry additional structural flags\n- WOLF has the best improving trend density and maximum sector diversity but zero reserves is a strategy non-compliance; financial distress adds qualitative risk Python cannot detect\n\nReady for verification.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":589371,\"duration_api_ms\":564577,\"num_turns\":21,\"result\":\"## HANDOFF\\n\\n**Artifacts:** `screening_data.json`, `candidate_shortlist.md`, `candidate_shortlist.json`, `candidate-evaluation.md`, `candidate-evaluation.json`\\n\\n**Gate passers:** 71 tickers passed surgical gates\\n\\n**Top 7 scored:**\\n- TEM (85) \u2014 AI\\n- QBTS (83) \u2014 Quantum\\n- RGTI (82) \u2014 Quantum\\n- RDW (82) \u2014 Space\\n- IREN (81) \u2014 Crypto\\n- MP (78) \u2014 Materials\\n- WOLF (77) \u2014 Tech\\n\\n**Recommendations:**\\n- **Onboard (2):** TEM, QBTS\\n- **Watch (3):** RGTI, RDW, WOLF\\n- **Monitor (2):** IREN, MP\\n\\n**Key findings:**\\n- TEM and QBTS are the clear leaders \u2014 both have broadly improving 90d recency, are within sector concentration limits, and have workable reserve structures\\n- RGTI/RDW held back by entry timing (B1 distance) and recency concerns respectively \u2014 strong next-cycle candidates\\n- IREN and MP hard-blocked by sector concentration (4x Crypto, 4x Materials) and each carry additional structural flags\\n- WOLF has the best improving trend density and maximum sector diversity but zero reserves is a strategy non-compliance; financial distress adds qualitative risk Python cannot detect\\n\\nReady for verification.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"7a8e6d52-a8e0-4952-b243-bb6d2ad14663\",\"total_cost_usd\":1.5262235000000004,\"usage\":{\"input_tokens\":21,\"cache_creation_input_tokens\":68712,\"cache_read_input_tokens\":988725,\"output_tokens\":23968,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":68712,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":21,\"outputTokens\":23968,\"cacheReadInputTokens\":988725,\"cacheCreationInputTokens\":68712,\"webSearchRequests\":0,\"costUSD\":1.5231175000000001,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":2291,\"outputTokens\":163,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.003106,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"348788b0-e2cf-46df-9fe8-064a8933b735\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "screening_data.json": "/Users/kamenkamenov/agentic-trading/screening_data.json",
+        "candidate_shortlist.md": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.md",
+        "candidate_shortlist.json": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.json",
+        "candidate-evaluation.md": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.md",
+        "candidate-evaluation.json": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.json"
+      },
+      "metrics": {
+        "duration_seconds": 622.0316090583801,
+        "token_usage": {
+          "input_tokens": 21,
+          "output_tokens": 23968,
+          "cache_read_tokens": 988725,
+          "cache_write_tokens": 68712
+        },
+        "estimated_cost_usd": 0.91387,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "verify": {
+      "phase_id": "verify",
+      "status": "completed",
+      "attempts": 2,
+      "started_at": "2026-02-27T22:54:02.556358+00:00",
+      "completed_at": "2026-02-27T23:08:56.846675+00:00",
+      "error_message": "Claude CLI timed out after 480s",
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** `candidate-pre-verify.md`, `candidate-verification.md`, `candidate-verification.json`\n\n**Results:** 7 PASS, 0 FLAG, 0 FAIL\n\n**Score range after adjustment:** 78\u201387\n\n**Pre-verify:** 5 checks passed, 2 issues found (Flag coverage FAIL \u2014 confirmed parsing artifact, not actual evaluator misses; Duplicate buy price WARN \u2014 2 anomalies at TEM and RGTI, both assessed as level-clustering artifacts)\n\n**Key verification findings:**\n\n- **Flag Coverage FAIL** is a pre-verifier tool limitation. The evaluator's markdown structure did not parse correctly, causing false \"missed\" flags. Manual review confirmed every quality flag was substantively addressed in the prose.\n- **TEM (+2):** Healthcare AI vs defense/voice AI differentiation is technically specific and credible \u2014 not boilerplate sub-sector labeling.\n- **QBTS (+2):** Quantum annealing vs gate-based modality distinction is technically accurate; technology obsolescence risk adds qualitative depth.\n- **RGTI (0):** Active-reserve gap fully addressed; Watch correctly justified by B1 timing.\n- **RDW (+1):** Partial-entry guidance (upper 3 levels only, skip 2 deteriorating) is actionable tactical value.\n- **IREN (0):** BTC drawdown correlation correctly overrides IREN's HPC differentiation argument.\n- **MP (0):** Multi-dimensional rejection confirmed; regime-change thesis is credible qualitative addition.\n- **WOLF (+2):** Financial distress \u2192 mean-reversion assumption failure is the most important qualitative override in the cohort. Python cannot detect this.\n\nReady for final selection.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":382370,\"duration_api_ms\":377745,\"num_turns\":13,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** `candidate-pre-verify.md`, `candidate-verification.md`, `candidate-verification.json`\\n\\n**Results:** 7 PASS, 0 FLAG, 0 FAIL\\n\\n**Score range after adjustment:** 78\u201387\\n\\n**Pre-verify:** 5 checks passed, 2 issues found (Flag coverage FAIL \u2014 confirmed parsing artifact, not actual evaluator misses; Duplicate buy price WARN \u2014 2 anomalies at TEM and RGTI, both assessed as level-clustering artifacts)\\n\\n**Key verification findings:**\\n\\n- **Flag Coverage FAIL** is a pre-verifier tool limitation. The evaluator's markdown structure did not parse correctly, causing false \\\"missed\\\" flags. Manual review confirmed every quality flag was substantively addressed in the prose.\\n- **TEM (+2):** Healthcare AI vs defense/voice AI differentiation is technically specific and credible \u2014 not boilerplate sub-sector labeling.\\n- **QBTS (+2):** Quantum annealing vs gate-based modality distinction is technically accurate; technology obsolescence risk adds qualitative depth.\\n- **RGTI (0):** Active-reserve gap fully addressed; Watch correctly justified by B1 timing.\\n- **RDW (+1):** Partial-entry guidance (upper 3 levels only, skip 2 deteriorating) is actionable tactical value.\\n- **IREN (0):** BTC drawdown correlation correctly overrides IREN's HPC differentiation argument.\\n- **MP (0):** Multi-dimensional rejection confirmed; regime-change thesis is credible qualitative addition.\\n- **WOLF (+2):** Financial distress \u2192 mean-reversion assumption failure is the most important qualitative override in the cohort. Python cannot detect this.\\n\\nReady for final selection.\",\"stop_reason\":null,\"session_id\":\"cafc1db5-18b5-49ad-8130-62db6e0871a6\",\"total_cost_usd\":0.9839910000000001,\"usage\":{\"input_tokens\":11,\"cache_creation_input_tokens\":48828,\"cache_read_input_tokens\":509214,\"output_tokens\":16915,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":48828,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":11,\"outputTokens\":16915,\"cacheReadInputTokens\":509214,\"cacheCreationInputTokens\":48828,\"webSearchRequests\":0,\"costUSD\":0.982712,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":839,\"outputTokens\":88,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.0012789999999999998,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"0e2a22c9-1c48-4653-9a4a-ea02d7f0890d\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-verify.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-verify.md",
+        "candidate-verification.md": "/Users/kamenkamenov/agentic-trading/candidate-verification.md",
+        "candidate-verification.json": "/Users/kamenkamenov/agentic-trading/candidate-verification.json"
+      },
+      "metrics": {
+        "duration_seconds": 414.2224769592285,
+        "token_usage": {
+          "input_tokens": 11,
+          "output_tokens": 16915,
+          "cache_read_tokens": 509214,
+          "cache_write_tokens": 48828
+        },
+        "estimated_cost_usd": 0.589627,
+        "model": "sonnet",
+        "attempts": 2
+      }
+    },
+    "critic": {
+      "phase_id": "critic",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-27T23:08:56.852402+00:00",
+      "completed_at": "2026-02-27T23:15:20.099125+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** `candidate-pre-critic.md`, `candidate-final.md`\n\n**Top 3:**\n1. **QBTS** \u2014 93 \u2014 **Onboard** *(quantum annealing, distinct from IONQ; cleanest improving trend; immediate B1 entry; \u22122 for quantum sentiment correlation + active zone tier quality)*\n2. **TEM** \u2014 90 \u2014 **Onboard** *(healthcare AI, no portfolio analog; 3 levels at 100% 90d hold; 1.6% B1 entry; 0 qualitative \u2014 thesis airtight, risks captured mechanically)*\n3. **RGTI** \u2014 86 \u2014 **Watch** *(strong $14\u201315 cluster recency; full reserve structure; \u22122 for IONQ gate-based overlap + post-QBTS concentration constraint; entry trigger: $16.50\u201317.00 pullback)*\n\n**Re-ranking vs pre-critic:** WOLF dropped from #3 (89) to #4 (84) \u2014 compounded failure mode of zero reserves \u00d7 financial distress warrants \u22125 qualitative. RGTI advanced to #3 (86) despite the IONQ sub-sector overlap concern because it retains a full reserve structure, no strategy compliance gaps, and a clear testable entry trigger.\n\n**Key decision rationale:**\n- WOLF's zero reserves + financial distress = mean-reversion assumption may be broken (company-specific risk, not sector risk). The mechanical +10 modifier rewarded sample size and sector diversity, but the qualitative override is severe.\n- RGTI's Watch recommendation already implies deferred activation; the secondary concentration gate (Quantum \u2192 3x if both QBTS + RGTI are live) is the actionable constraint for next cycle.\n\nScreening complete. Review `candidate-final.md` for onboarding decisions.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":351267,\"duration_api_ms\":347077,\"num_turns\":8,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** `candidate-pre-critic.md`, `candidate-final.md`\\n\\n**Top 3:**\\n1. **QBTS** \u2014 93 \u2014 **Onboard** *(quantum annealing, distinct from IONQ; cleanest improving trend; immediate B1 entry; \u22122 for quantum sentiment correlation + active zone tier quality)*\\n2. **TEM** \u2014 90 \u2014 **Onboard** *(healthcare AI, no portfolio analog; 3 levels at 100% 90d hold; 1.6% B1 entry; 0 qualitative \u2014 thesis airtight, risks captured mechanically)*\\n3. **RGTI** \u2014 86 \u2014 **Watch** *(strong $14\u201315 cluster recency; full reserve structure; \u22122 for IONQ gate-based overlap + post-QBTS concentration constraint; entry trigger: $16.50\u201317.00 pullback)*\\n\\n**Re-ranking vs pre-critic:** WOLF dropped from #3 (89) to #4 (84) \u2014 compounded failure mode of zero reserves \u00d7 financial distress warrants \u22125 qualitative. RGTI advanced to #3 (86) despite the IONQ sub-sector overlap concern because it retains a full reserve structure, no strategy compliance gaps, and a clear testable entry trigger.\\n\\n**Key decision rationale:**\\n- WOLF's zero reserves + financial distress = mean-reversion assumption may be broken (company-specific risk, not sector risk). The mechanical +10 modifier rewarded sample size and sector diversity, but the qualitative override is severe.\\n- RGTI's Watch recommendation already implies deferred activation; the secondary concentration gate (Quantum \u2192 3x if both QBTS + RGTI are live) is the actionable constraint for next cycle.\\n\\nScreening complete. Review `candidate-final.md` for onboarding decisions.\",\"stop_reason\":null,\"session_id\":\"d4f28acf-e596-4fd7-b1da-130028276de1\",\"total_cost_usd\":0.8570235,\"usage\":{\"input_tokens\":8,\"cache_creation_input_tokens\":49906,\"cache_read_input_tokens\":255020,\"output_tokens\":16668,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":49906,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":8,\"outputTokens\":16668,\"cacheReadInputTokens\":255020,\"cacheCreationInputTokens\":49906,\"webSearchRequests\":0,\"costUSD\":0.8561625,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":651,\"outputTokens\":42,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.000861,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"716f2bed-b945-444e-b134-bc3267d36d30\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-critic.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-critic.md",
+        "candidate-final.md": "/Users/kamenkamenov/agentic-trading/candidate-final.md"
+      },
+      "metrics": {
+        "duration_seconds": 383.241436958313,
+        "token_usage": {
+          "input_tokens": 8,
+          "output_tokens": 16668,
+          "cache_read_tokens": 255020,
+          "cache_write_tokens": 49906
+        },
+        "estimated_cost_usd": 0.513698,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-27T23:15:20.109812+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/surgical-candidate-workflow.yaml",
+    "workflowHash": "911887d0c859da61"
+  }
+}

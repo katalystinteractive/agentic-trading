@@ -55,6 +55,9 @@ Write `watchlist-fitness-report.md` with the following structure:
 Is the mean-reversion thesis intact or has the stock's character changed?
 Consider: swing reliability, level quality, recent price behavior.
 
+**Cycle Efficiency** (1-2 sentences)
+Does this ticker have validated cycle timing data? Tickers with 10+ cycles, 100% fill, and 1-2d median deep are proven fast cyclers. Tickers with no cycle data or slow cycles (median_deep > 15d) warrant caution. Note any HOLD-WAIT verdicts caused by insufficient cycle data (cycle_pts < 8).
+
 **Cycle Context** (1-2 sentences)
 Uses cycle_data — is OVERBOUGHT state momentum exhaustion or structural breakout?
 Is PULLBACK a buying opportunity or trend deterioration?

@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-18 09:22*
 
 ## Earnings Analysis: Archer Aviation Inc. (ACHR)
 
@@ -6,15 +6,15 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-11 |
-| Days Until | 64 |
+| Days Until | 54 |
 | EPS Estimate | $-0.24416 |
-| Revenue Estimate | $1.5M |
-| Earnings Rule | Clear (>64d out) |
+| Revenue Estimate | $1.7M |
+| Earnings Rule | Clear (>54d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.17 | $-0.14 | 18.1% | -10.6% | -16.8% | Strong Bear |
+| Q1 2026 | $-0.17 | $-0.14 | 18.1% | -10.6% | -13.3% | Strong Bear |
 | Q4 2025 | $-0.20 | $-0.12 | 42.3% | -7.9% | -10.4% | Strong Bear |
 | Q3 2025 | $-0.18 | $-0.26 | -44.3% | +7.4% | +3.2% | Strong Bull |
 | Q2 2025 | $-0.22 | $-0.12 | 47.4% | +22.9% | +25.4% | Strong Bull |
@@ -26,8 +26,8 @@
 ### Revenue Trend
 | Quarter | Revenue | QoQ Growth% | YoY Growth% |
 | :--- | :--- | :--- | :--- |
+| Q4 2025 | $300,000 | N/A | N/A |
 | Q3 2025 | $0 | N/A | N/A |
 | Q2 2025 | $0 | N/A | N/A |
 | Q1 2025 | $0 | N/A | N/A |
 | Q4 2024 | $0 | N/A | N/A |
-| Q3 2024 | $0 | N/A | N/A |

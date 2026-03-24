@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-09 21:38*
 
 ## Short Interest: Ouster, Inc. (OUST)
 
@@ -10,7 +10,7 @@
 | Short % Float | 9.85% |
 | Float Shares | 60.33M |
 | Shares Outstanding | 60.01M |
-| Avg Volume | 1.83M |
+| Avg Volume | 1.84M |
 | Change from Prior Month | -6.3% (decreasing) |
 
 ### Squeeze Risk

@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:33*
 
 ## News & Sentiment: Archer Aviation Inc. (ACHR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,127 +6,127 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-08 | TipRanks | Archer Aviation (ACHR) Stock Falls 17% YTD as Filings Reveal... | Positive | +0.30 | — |
-| 2026-03-08 | MarketBeat | Cresset Asset Management LLC Sells 115,252 Shares of Archer ... | Positive | +0.57 | Earnings, Corporate |
-| 2026-03-08 | The Motley Fool | The Smartest Growth Stock to Buy With $1,000 Right Now - The... | Positive | +0.57 | — |
-| 2026-03-08 | TipRanks | ACHR and JOBY: Cathie Wood Bets Bigger on Air Taxi Stocks - ... | Neutral | +0.00 | — |
-| 2026-03-07 | MarketBeat | MarketBeat Week in Review  03/02 - 03/06 | Neutral | +0.00 | Earnings |
-| 2026-03-07 | MarketBeat | Kingsview Wealth Management LLC Has $1.01 Million Holdings i... | Positive | +0.49 | Earnings, Corporate |
-| 2026-03-07 | MarketBeat | Intellectus Partners LLC Lowers Holdings in Archer Aviation ... | Negative | -0.13 | Earnings |
-| 2026-03-07 | MarketBeat | Teachers Retirement System of The State of Kentucky Makes Ne... | Neutral | +0.00 | Earnings |
-| 2026-03-07 | TIKR.com | Archer Aviation Plunges 10.6% on Spending Ramp: Do Analysts ... | Neutral | +0.00 | — |
-| 2026-03-07 | MarketBeat | MarketBeat Week in Review – 03/02 - 03/06 | Neutral | +0.00 | Earnings |
-| 2026-03-06 | Insider Monkey | Is Archer Aviation (ACHR) One of the Stocks That Should Doub... | Neutral | +0.00 | — |
-| 2026-03-06 | Meyka | Pre-Market Top Loser: ACHR-WT Archer NYSE -$10.65 06 Mar 202... | Negative | -0.57 | — |
-| 2026-03-05 | Investor's Busi | Defense Stocks: Iran Expands Retaliation For U.S. Naval Atta... | Negative | -0.25 | — |
-| 2026-03-05 | GuruFocus.com | Cathie Wood Doubles Down on Air-Taxi Stocks with Multi-Milli... | Neutral | +0.00 | — |
-| 2026-03-05 | Yahoo Finance | Archer eVTOL Milestones Create Wide Gap Between Progress And... | Positive | +0.73 | — |
-| 2026-03-05 | MarketBeat | Archer Aviation (NYSE:ACHR) Shares Down 4.4% - Should You Se... | Positive | +0.30 | Earnings |
-| 2026-03-05 | Seeking Alpha | Archer Aviation: What We Learned From FY 2025 Results (NYSE:... | Neutral | +0.00 | — |
-| 2026-03-05 | MarketBeat | ARK Investment Management LLC Acquires 1,715,945 Shares of A... | Positive | +0.30 | Earnings, Corporate |
-| 2026-03-05 | Stocktwits | Why Is Archer Aviation Stock Falling After Hours? - Stocktwi... | Negative | -0.15 | — |
-| 2026-03-05 | MarketBeat | Quantbot Technologies LP Purchases New Shares in Archer Avia... | Positive | +0.30 | Earnings |
-| 2026-03-05 | MarketBeat | Amova Asset Management Americas Inc. Cuts Stock Position in ... | Positive | +0.08 | Earnings, Corporate |
-| 2026-03-05 | Investing.com | Archer Aviation files for resale of shares and announces ven... | Positive | +0.30 | — |
-| 2026-03-05 | TipRanks | ‘We Shall See,’ Says Top Investor About Archer Aviation Stoc... | Positive | +0.20 | — |
-| 2026-03-05 | TipRanks | Archer Aviation Files Prospectus, Plans Share Issuance to Ve... | Positive | +0.30 | — |
-| 2026-03-05 | TipRanks | Cathie Wood Invests $16.5M in Joby and Archer — Which eVTOL ... | Neutral | +0.00 | — |
-| 2026-03-05 | Blockonomi | Joby Aviation (JOBY) vs Archer Aviation (ACHR): Which eVTOL ... | Neutral | +0.00 | — |
-| 2026-03-04 | Investor's Busi | U.S. Sinks Iranian Navy, Israel Boosts Defense Budget. ARK S... | Positive | +0.42 | — |
-| 2026-03-04 | Investor's Busi | Iran Expands Strikes In Retaliation For U.S. Sinking Navy, O... | Negative | -0.27 | — |
-| 2026-03-04 | 24/7 Wall St. | Archer Aviations Stock Tailspin Is Your Signal to Buy | Neutral | +0.00 | — |
-| 2026-03-04 | GuruFocus.com | Cathie Wood Loads Up on Alibaba and Amazon -- Sells TSMC and... | Positive | +0.18 | — |
+| 2026-03-16 | The Motley Fool | Archer Aviation Just Slapped a Countersuit on Rival Joby. He... | Negative | -0.44 | — |
+| 2026-03-16 | MarketBeat | Granahan Investment Management LLC Has $28.17 Million Stock ... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-03-15 | Yahoo Finance | Is Archer Aviation Inc. (ACHR) A Good Stock To Buy Now? - Ya... | Positive | +0.44 | — |
+| 2026-03-15 | TipRanks | Archer Aviation (ACHR) Escalates Patent Dispute with Joby (J... | Positive | +0.08 | — |
+| 2026-03-15 | MarketBeat | Clear Street Group Inc. Takes $10.40 Million Position in Arc... | Positive | +0.38 | Earnings |
+| 2026-03-15 | MarketBeat | Aquatic Capital Management LLC Buys New Stake in Archer Avia... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-03-14 | TipRanks | Archer Aviation Stock Stumbles as Legal Risks Mount - TipRan... | Negative | -0.15 | — |
+| 2026-03-14 | Simply Wall St. | Archer Aviation Setbacks Test Execution And Valuation For eV... | Neutral | +0.00 | — |
+| 2026-03-13 | Barchart | As Joby Aviation and Archer Aviation Battle It Out in Court,... | Positive | +0.08 | — |
+| 2026-03-13 | Barchart | JPMorgan Says Sell This Flying Car Stock. Cathie Wood Keeps ... | Neutral | +0.00 | Earnings |
+| 2026-03-13 | MarketBeat | Archer Aviation (NYSE:ACHR) Stock Price Down 2% - Time to Se... | Neutral | +0.00 | Earnings |
+| 2026-03-13 | Stock Titan | Archer Aviation (ACHR) CTO earns 16,358 performance-based RS... | Positive | +0.30 | — |
+| 2026-03-12 | simplywall.st | Is Archer Aviation (ACHR) Pricing Reflect Future Potential A... | Negative | -0.15 | — |
+| 2026-03-12 | MarketBeat | Archer Aviation (NYSE:ACHR) Shares Down 4.1% - Time to Sell?... | Positive | +0.30 | Earnings |
+| 2026-03-12 | The Globe and M | How Is Archer Aviation Building the Future of Urban Air Mobi... | Neutral | +0.00 | — |
+| 2026-03-12 | TipRanks | Archer Escalates IP Battle Against Joby in eVTOL Market - Ti... | Negative | -0.38 | — |
+| 2026-03-12 | Motley Fool | The Best 3 Industrial Stocks to Buy in March | Positive | +0.64 | — |
+| 2026-03-11 | Barchart | As Archer Aviation Joins a DoT Pilot Program, Should You Buy... | Neutral | +0.00 | — |
+| 2026-03-11 | GuruFocus.com | Cantor Fitzgerald Thinks Archer Stock Could Double in 2026 | Neutral | +0.00 | — |
+| 2026-03-11 | The Motley Fool | How Buying Archer Aviation (ACHR) Stock Today Could 10X Your... | Negative | -0.25 | — |
+| 2026-03-11 | The Motley Fool | Is Archer Aviation Stock Going to $13? - The Motley Fool | Negative | -0.44 | — |
+| 2026-03-11 | The Motley Fool | Better eVTOL Stock: Archer vs Joby - The Motley Fool | Neutral | +0.00 | — |
+| 2026-03-11 | TipRanks | Archer Aviation (ACHR) Executives Report Stock Sales after R... | Neutral | +0.00 | — |
+| 2026-03-11 | Yahoo Finance | Air Taxi Stock Archer Aviation Draws $22.5 Million Instituti... | Neutral | +0.00 | — |
+| 2026-03-11 | The Globe and M | Cantor Fitzgerald Remains a Buy on Archer Aviation (ACHR) - ... | Neutral | +0.00 | — |
+| 2026-03-11 | MarketBeat | Archer Aviation (NYSE:ACHR) Shares Up 1.8% - Still a Buy? - ... | Positive | +0.30 | Earnings |
+| 2026-03-11 | TipRanks | Archer Aviation Gets Strong Buy Backing as Analysts See 108%... | Positive | +0.53 | — |
+| 2026-03-10 | Investor's Busi | FAA Names Partners For Air Taxi Pilot Projects, Coming This ... | Neutral | +0.00 | — |
+| 2026-03-10 | Benzinga | Joby, Archer, Beta Are Winners In Trump Admin's 'Future of F... | Positive | +0.48 | — |
+| 2026-03-10 | Benzinga | What's Going On With Joby Aviation Stock Tuesday? | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 14 (47%) |
-| Neutral | 11 (37%) |
-| Negative | 5 (17%) |
-| Average Score | +0.121 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 182 |
+| Positive | 10 (33%) |
+| Neutral | 14 (47%) |
+| Negative | 6 (20%) |
+| Average Score | +0.056 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 181 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 10 | Cresset Asset Management LLC Sells 115,2..; MarketBeat Week in Review  03/02 - 03/06 |
-| Corporate | 4 | Cresset Asset Management LLC Sells 115,2..; Kingsview Wealth Management LLC Has $1.0.. |
+| Earnings | 7 | Granahan Investment Management LLC Has $..; Clear Street Group Inc. Takes $10.40 Mil.. |
+| Corporate | 2 | Granahan Investment Management LLC Has $..; Aquatic Capital Management LLC Buys New .. |
 
 ### Deep Dive Articles
 
-#### Is Archer Aviation (ACHR) One of the Stocks That Should Double in 3 Years?
-*Source: Insider Monkey | Date: 2026-03-06 | Sentiment: Positive (+0.95)*
+#### Joby, Archer, Beta Are Winners In Trump Admin's 'Future of Flight'
+*Source: Benzinga | Date: 2026-03-10 | Sentiment: Positive (+0.87)*
 
-> Archer Aviation Inc. (NYSE:ACHR) is one of thestocks that should double in 3 years. On March 2, Archer Aviation reported its financial results for the last quarter of 2025. For the full-year 2025, Archer Aviation reported a net loss of $618.2 million and total operating expenses of $729.6 million, as the company increased investments in aircraft development, testing, certification, and production. For Q1 2026, Archer Aviation estimates an Adjusted EBITDA loss between $160 million and $180 million.
+> Joby Aviation Inc.(NYSE:JOBY),Archer Aviation Inc.(NYSE:ACHR) andBeta Technologies Inc.(NYSE:BETA) have emerged as early winners after the Trump administration's new "Future of Flight" initiative formally selected their aircraft for multi-state test deploymentsin the coming years.
 
-> The company achieved a significant regulatory milestone by receiving final FAA acceptance of 100% of its ‘Means of Compliance,’ becoming the first eVTOL manufacturer to reach this stage. This achievement allows Archer to finalize its remaining certification plans and move toward Type Inspection Authorization activities as early as 2026. Consequently, Archer remains on track to begin piloted vertical take-off and landing operations later this year as part of the White House’s eVTOL Integration Pilot Program. The company is also progressing with its commercial launch program in the UAE and targets its first passenger-carrying flights in 2026.
+> The programis officially titledthe Advanced Air Mobility and Electric Vertical Takeoff and Landing (eVTOL) Integration Pilot Program (eIPP) and is run by the U.S. Department of Transportation and Federal Aviation Administration.
 
-> Archer Aviation is growing its Midnight aircraft fleet, with the newest tail currently in its VTOL flight test campaign and several other aircraft in various stages of completion. Beyond commercial air taxi operations, the company expanded its defense opportunities through a partnership with Anduril to design an autonomous, hybrid-electric VTOL aircraft. This strategy includes the company’s first third-party powertrain sale to power the Omen autonomous air vehicle. Additionally, Archer Aviation Inc. (NYSE:ACHR) established a new UK engineering hub in Bristol to support uncrewed vehicle programs in collaboration with local partners.
+> It is designed to fast‑track electric air taxis and next‑generation aircraft into real-world service under PresidentDonald Trump's executive orders on advanced air mobility and drone dominance.
 
-> Archer Aviation Inc. (NYSE:ACHR), together with its subsidiaries, designs and develops aircraft and related technologies and services for commercial and defense sectors in the US and internationally. The company offers eVTOL aircraft for urban air taxi operations.
+> Announced Monday by Transportation SecretarySean Duffy, the initiative named eight pilot projects across the U.S., tying Joby Aviation, Archer Aviation and Beta Technologies to high‑visibility trials in major corridors such as the New York region and Texas' "Triangle" of Dallas, Austin, San Antonio and Houston.
 
-> While we acknowledge the potential of ACHR as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you’re looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
-
-**Catalysts:** Regulatory, Short
-
-#### Uber Enters Into a New Deal With Joby on Electric Air Taxis
-*Source: Zacks | Date: 2026-03-03 | Sentiment: Positive (+0.93)*
-
-> UberTechnologiesUBER introduced Uber Air, powered byJoby AviationJOBY, a new offering that allows riders to book the latter’s all-electric air taxi directly through the former’s app. The service provides an early look at how customers will be able to integrate aerial mobility into their everyday travel. Joby plans to transport its first passengers later this year in Dubai, marking a significant milestone in the collaboration with Uber to expand multi-modal transportation options in cities worldwide.
-
-> Through the app, riders can access Uber Air powered by Joby by entering their destination in the “Where to?” field. If eligible, the air taxi option will appear alongside other ride choices. With a single selection, the app coordinates the entire journey, including Uber Black pickup and drop-off, creating a seamless door-to-door experience. Joby’s all-electric aircraft is designed to accommodate up to four passengers, offering spacious seating and large panoramic windows that provide expansive city views. Operated by a certified commercial pilot, the aircraft aims to deliver a modern and efficient way to travel above urban areas.
-
-> The aircraft is equipped with six tilting propellers that enable vertical takeoff and landing before transitioning into forward flight. It is capable of reaching speeds of up to 200 miles per hour and can travel up to 100 miles on a single charge.
-
-> Before launching commercial operations in the United States, the service must undergo rigorous testing and certification by the Federal Aviation Administration. Joby has completed more than 50,000 miles of flight testing across its fleet and has entered the final phase of the certification process, underscoring the progress toward passenger operations.
-
-> Uber’s leadership has emphasized that advanced air mobility has the potential to reshape urban transportation by enabling riders to book electric air taxis through a familiar, integrated platform that connects ground and aerial travel in a single, streamlined experience. Uber and Joby are no strangers, having collaborated on urban air mobility initiatives since 2019. In 2021, Joby acquired Uber’s Elevate division, which contributed significantly to the development of the sector through market selection frameworks, demand modeling and multi-modal operational planning.
-
-**Catalysts:** Regulatory, Equity
-
-#### Archer, Riot, Rigetti and More Stocks With Earnings This Week
-*Source: Benzinga | Date: 2026-03-02 | Sentiment: Positive (+0.30)*
-
-> The fourth-quarter earnings season continues this week with reports from several major retailers, tech firmsand software giants.
-
-> Here's a look at the earnings schedule for the week ahead:
-
-> Retail investors will be watchingAST SpaceMobile, Inc.(NASDAQ:ASTS) when it reports Q4 results after Monday's closing bell.
-
-> Wall Street isanticipating quarterly lossesof 16 cents per share on revenue of $41.11 million, according to estimates fromBenzinga Pro.
-
-> The following companies are also set to report on Monday afternoon:
-
-**Catalysts:** Earnings
-
-#### Archer Aviation Stock Rises Ahead Of Q4 Earnings: What You Need To Know
-*Source: Benzinga | Date: 2026-03-02 | Sentiment: Negative (-0.40)*
-
-> Archer Aviation Inc(NYSE:ACHR) is edging higher Monday morning after securing a partnership withElon Musk’s Starlink, marking the satellite provider’s first venture into urban air mobility. Here’s what investorsneed to know.
-
-> Starlink’s low-Earth-orbit satellite system will beintegratedinto Archer’s Midnight electric air taxi to deliver high-speed connectivity in dense urban environments. The Midnight aircraft seats four passengers, utilizes 12 redundant engines for airliner-level safety, and targets rapid 5 to 15 minute city crossings.
-
-> Archer says this technology will enhance passenger internet access, strengthen pilot-to-ground communications and lay the groundwork for Archer’s future autonomous flight capabilities.
-
-> The stock’s move higher Monday comes amid global uncertainty, as the U.S. and Israellaunched strikesagainst Iran over the weekend. Israel’s military executed a broad strike in central Tehran targeting government-linked sites. Furthermore, Iran’s Natanz nuclear facility was struck during the joint military operations.
-
-> Regional instabilitydeepenedafterQatar Energyhalted LNG production following military attacks on its operating facilities. Combined with Iran closing the Strait of Hormuz, investors remain highly concerned about a wider regional conflict.
+> Duffy touted that the pilot projects will "safely test futuristic aircraft that will RADICALLY CHANGE the way people and products move," in a social mediapostfeaturing The Jetsons' theme song.
 
 **Catalysts:** Regulatory
 
-#### Jim Cramer on Archer Aviation: "I'm Not as Into These Stocks as Others"
-*Source: Insider Monkey | Date: 2026-02-28 | Sentiment: Positive (+0.90)*
+#### What's Going On With Joby Aviation Stock Tuesday?
+*Source: Benzinga | Date: 2026-03-10 | Sentiment: Positive (+0.34)*
 
-> Archer Aviation Inc. (NYSE:ACHR) is one of thestocks Jim Cramer put under the microscope. A caller inquired about Cramer’s opinion on the stock, and he replied:
+> Joby Aviation Inc.(NYSE:JOBY) shares edged higher Tuesday, outperforming a muted broader market as the electric air taxi developer navigates a freshlegal disputewith rivalArcher Aviation Inc.(NYSE:ACHR) while advancing plans to launch commercial air taxi services.
 
-> No, I’m not as into these stocks as others. I just think that Archer and Joby, they are kind of that, remember that year of magical investing? That thing ended, so we don’t want to participate in that anymore.
+> Archer Aviation recently filed a countersuit accusing Joby of fraudulent conduct. The lawsuit alleges Joby misrepresented the origin of certain aircraft materials in order to evade U.S. tariffs. Archer claims the company concealed links to China in its supply chain, potentially avoiding regulatory scrutiny and import duties.
 
-> Archer Aviation Inc. (NYSE:ACHR) designs and develops electric vertical takeoff and landing aircraft. The company also offers aerial ride-sharing, maintenance, and repair services. During the October 10, 2025, episode, a caller sought Cramer’s advice regarding starting a small position in the stock, and the Mad Money host responded:
+> The latest filing escalates an ongoing dispute between the two electric vertical takeoff and landing (eVTOL) developers. Joby previously sued Archer over alleged trade secret theft.
 
-> No, we’re going to let that come down. We’re in a kind of speculative tsunami right now. I think you’ll be able to get that cheaper. Yeah, just consider it like a maiden claiming race, okay?
+> Despite the legal tension, Joby continues to expand its commercial roadmap.Cathie Wood'sARK Investrecently purchasedadditional shares of the company following Joby's partnership with the Federal Aviation Administration under the Department of Transportation's Advanced Air Mobility program.
 
-> While we acknowledge the potential of ACHR as an investment, we believe certain AI stocks offer greater upside potential and carry less downside risk. If you're looking for an extremely undervalued AI stock that also stands to benefit significantly from Trump-era tariffs and the onshoring trend, see our free report on thebest short-term AI stock.
+> Joby was also selected for theWhite House-backedeVTOL Integration Pilot Program, which allows early operational testing and could accelerate the rollout of commercial air taxi services while supporting development of its autonomous Superpilot technology ahead of full FAA certification.
 
-**Catalysts:** Short
+**Catalysts:** Regulatory, Analyst
+
+#### Needham Lowers Archer Aviation Inc. (ACHR) Price Target to $9
+*Source: Insider Monkey | Date: 2026-03-10 | Sentiment: Positive (+0.49)*
+
+> Archer Aviation Inc. (NYSE:ACHR)is among the12 Low Price High Volume Stocks to Buy Right Now.
+
+> On March 3, Needham & Company lowered the firm’s price target on Archer Aviation Inc. (NYSE:ACHR) to $9 from $10 while maintaining a Buy rating following the company’s fourth-quarter results. The firm noted that several bullish scenarios remain visible for fiscal 2026, particularly as Archer begins flying the latest version of its Midnight aircraft. Analysts highlighted upcoming transition flights and participation in the government-supported eVTOL Integration Pilot Program as potential catalysts that could support investor sentiment despite operational challenges faced during 2025.
+
+> Archer Aviation Inc. (NYSE:ACHR) reported fourth-quarter results the previous day, ending the period with approximately $2.0 billion in total liquidity—its highest level to date. Management indicated that the capital provides sufficient runway to support commercialization efforts, manufacturing ramp-up, and adjacent strategic investments.
+
+> Archer Aviation Inc. (NYSE:ACHR) also noted that it is expanding its flight testing program and increasing production of its Midnight aircraft, which is currently undergoing a vertical take-off and landing flight test campaign ahead of full piloted transition flights. The company plans to begin piloted operations as part of the White House’s eVTOL Integration Pilot Program later this year and is targeting its first passenger-carrying flights in 2026.
+
+> Ranking seventh on the list of 12 low price high volume stocks to buy right now, Archer Aviation Inc. (NYSE:ACHR) was founded in 2018 and is headquartered in San Jose, California. The company is developing electric vertical take-off and landing (eVTOL) aircraft designed for urban air mobility and short-distance aerial transportation. Archer’s growing flight test program and commercialization roadmap position it to participate in the emerging advanced air mobility market.
+
+**Catalysts:** Corporate, Analyst, Short
+
+#### Joby Aviation and Archer Aviation's Air Battle Continues
+*Source: 24/7 Wall St. | Date: 2026-03-10 | Sentiment: Negative (-0.60)*
+
+> Archer Aviation (ACHR) is down 13.3% over the past week and Joby Aviation (JOBY) is down 23.94% year-to-date. Archer’s countersuit accuses Joby of defrauding the U.S. government by misclassifying Chinese aircraft materials and concealing foreign government ties while both compete for federal grants and commercial certification.
+
+> A legal war between the two leading publicly traded eVTOL companies escalated sharply this week, adding a new layer of regulatory and reputational risk to an already high-stakes sector race.
+
+> Archer Aviation filed a countersuit accusing rival Joby Aviation of defrauding the U.S. government and concealing ties to China. Archer alleged that Joby and its agents fraudulently misclassified thousands of pounds of Chinese-origin aircraft materials as consumer goods to avoid tariffs and foreign-influence scrutiny. Archer also alleged that Joby received grants and financial support from the Chinese government, creating a “profound, undisclosed foreign dependency,” while portraying itself as an American firm.
+
+> The countersuit is a response to Joby’s November lawsuit accusing Archer of stealing trade secrets through a former employee who allegedly took confidential information about business strategies, partnerships, and aircraft specifications. Joby attorney Alex Spiro dismissed the countersuit claims as “nonsense.”
+
+> The timing sharpens the stakes. The countersuit was filed the same day the U.S. Department of Transportation announced eight grant programs to accelerate air taxi development, three of which list both Joby and Archer as participants. Both companies are racing toward FAA type certification and commercial launch, with Joby Aviation (NYSE:JOBY) targeting early operations in 10 U.S. states in 2026 and Archer Aviation (NYSE:ACHR) having achieved 100% FAA acceptance of all means of compliance for its Midnight aircraft.
+
+**Catalysts:** Earnings, Regulatory
+
+#### Archer Aviation Files Countersuit Against Rival Joby Alleging China Ties, Fraud Amid FAA Partnership
+*Source: Benzinga | Date: 2026-03-10 | Sentiment: Positive (+0.64)*
+
+> Electric Vertical Takeoff and Landing (eVTOL) aircraft makerArcher Aviation Inc.(NYSE:ACHR) has filed a countersuit against rivalJoby Aviation Inc.(NYSE:JOBY), alleging the latter's ties to China amid atheft of trade secrets lawsuitfiled last November.
+
+> The countersuit, filed in California, accused Joby of hiding and then leveraging its ties to China to gain an advantage in the eVTOL sector, Reuters reported on Monday.
+
+> Archer has also accused Joby of defrauding the U.S. government and receiving grants from the Chinese government. The countersuit claims that Joby purposefully misrepresented "thousands of pounds of Chinese-origin aircraft materials as ​consumer goods," to "evade U.S. tariffs and foreign-influence ⁠oversight."
+
+> Archer Aviation and Joby didn't immediately respond toBenzinga's request for comment.
+
+> The news comes as Joby announced it was partnering with the Federal Aviation Administration via the eVTOL Integration Pilot Program (eIPP). The program would let thecompany begin operationsin 2026 in 10 states across the U.S. The partnership was also hailed by Joby CEOJoeBen Bevirtas a “defining moment for American innovation."
+
+**Catalysts:** Regulatory, Corporate

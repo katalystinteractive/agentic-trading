@@ -1,0 +1,62 @@
+{
+  "ticker": "OUST",
+  "pullback_count": 7,
+  "avg_depth_pct": -36.3,
+  "median_depth_pct": -32.9,
+  "distribution": [
+    {
+      "depth_pct": -2,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -3,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -5,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -7,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -9,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -12,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -15,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -20,
+      "reach_pct": 100.0
+    }
+  ],
+  "bullet_fill_rates": [
+    {
+      "label": "B1",
+      "price": 20.89,
+      "depth_pct": -2.4,
+      "fill_rate_pct": 100.0
+    },
+    {
+      "label": "B2",
+      "price": 20.32,
+      "depth_pct": -5.0,
+      "fill_rate_pct": 100.0
+    },
+    {
+      "label": "B3",
+      "price": 18.98,
+      "depth_pct": -11.3,
+      "fill_rate_pct": 100.0
+    }
+  ],
+  "current_phase": "PULLBACK",
+  "last_updated": "2026-03-16"
+}

@@ -1,0 +1,111 @@
+{
+  "run_id": "43feac89-eeb7-4056-99de-2f2f1a78581d",
+  "workflow_name": "knowledge-consolidation-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-03-08T15:00:54.809001+00:00",
+  "completed_at": "2026-03-08T15:05:22.812753+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun periodic knowledge consolidation on the freshly resynced store (225 entries, 25 tickers). Extract stats, build belief evidence tables, classify contradictions, verify quality.",
+    "handoffs": {
+      "gather": "**Artifact:** knowledge-consolidation-raw.md\n**Tickers processed:** 25\n**Contradictions detected:** 2\n\nReady for belief revision and synthesis.",
+      "analyze": "**Artifacts:** `knowledge-consolidation-report.md`, `knowledge-consolidation-updates.json`\n\n**Contradictions classified:** 2 (T: 2 TEMPORARY, S: 0 STRUCTURAL)\n\nBoth contradictions (SEDG ID `91c5c8e2`, score 1.0; UAMY ID `44173c4f`, score 0.89) are **scoring artifacts**: the mechanical scorer applied \"BROKE = evidence against belief,\" but both lessons assert that their respective levels are unreliable. The breaks confirm the lessons \u2014 they do not contradict them. No supersessions warranted.\n\n**Knowledge cards:** 22 (all tickers with \u22653 entries)\n\n**Portfolio lessons:** 4\n1. Wick offset validated: 66-72% break rate across all approach tiers (n=2,664)\n2. Technology sector: 100% win rate (10/10 trades)\n3. Industrial sector: 100% win rate (5/5 trades)\n4. Approach count \u2260 reliability predictor \u2014 hold rate is the only valid signal\n\n**Updates:** 0 superseded, 0 new lessons, 2 annotations, 4 portfolio lessons\n\nReady for verification.",
+      "review": "**Artifact:** `knowledge-consolidation-review.md`\n**Verdict:** PASS\n**Checks passed:** 6/6 mechanical + qualitative assessment complete\n**Issues found:** 2 minor (0 critical)\n\nMinor issues:\n1. SMCI card \u2014 approach count in header (10) disagrees with lesson text (10/11 = 11 approaches); hold rate 90% vs 91%\n2. Lesson 3 (Industrial Sector) includes SOUN and BBAI which were already cited as Technology in Lesson 2 \u2014 slightly inflates the industrial sample count\n\nNeither issue warrants reclassification or changes to the report. Both TEMPORARY classifications are correctly applied. All mechanical checks pass."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-08T15:00:54.812708+00:00",
+      "completed_at": "2026-03-08T15:01:18.545572+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** knowledge-consolidation-raw.md\n**Tickers processed:** 25\n**Contradictions detected:** 2\n\nReady for belief revision and synthesis.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":19545,\"duration_api_ms\":6399,\"num_turns\":2,\"result\":\"`knowledge-consolidation-raw.md` was created successfully (39461 bytes).\\n\\n## HANDOFF\\n\\n**Artifact:** knowledge-consolidation-raw.md\\n**Tickers processed:** 25\\n**Contradictions detected:** 2\\n\\nReady for belief revision and synthesis.\\n\\n## Decision: CLEAN\",\"stop_reason\":\"end_turn\",\"session_id\":\"8cade66c-1e27-4c81-91fa-9f9559827372\",\"total_cost_usd\":0.12185199999999999,\"usage\":{\"input_tokens\":4,\"cache_creation_input_tokens\":16388,\"cache_read_input_tokens\":28964,\"output_tokens\":197,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":16388,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":4,\"outputTokens\":197,\"cacheReadInputTokens\":28964,\"cacheCreationInputTokens\":16388,\"webSearchRequests\":0,\"costUSD\":0.12185199999999999,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"aa8fa9fa-35ac-493e-8433-645c92a6472f\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "knowledge-consolidation-raw.md": "/Users/kamenkamenov/agentic-trading/knowledge-consolidation-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 23.729129791259766,
+        "token_usage": {
+          "input_tokens": 4,
+          "output_tokens": 197,
+          "cache_read_tokens": 28964,
+          "cache_write_tokens": 16388
+        },
+        "estimated_cost_usd": 0.073111,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-08T15:01:18.547854+00:00",
+      "completed_at": "2026-03-08T15:04:16.273263+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifacts:** `knowledge-consolidation-report.md`, `knowledge-consolidation-updates.json`\n\n**Contradictions classified:** 2 (T: 2 TEMPORARY, S: 0 STRUCTURAL)\n\nBoth contradictions (SEDG ID `91c5c8e2`, score 1.0; UAMY ID `44173c4f`, score 0.89) are **scoring artifacts**: the mechanical scorer applied \"BROKE = evidence against belief,\" but both lessons assert that their respective levels are unreliable. The breaks confirm the lessons \u2014 they do not contradict them. No supersessions warranted.\n\n**Knowledge cards:** 22 (all tickers with \u22653 entries)\n\n**Portfolio lessons:** 4\n1. Wick offset validated: 66-72% break rate across all approach tiers (n=2,664)\n2. Technology sector: 100% win rate (10/10 trades)\n3. Industrial sector: 100% win rate (5/5 trades)\n4. Approach count \u2260 reliability predictor \u2014 hold rate is the only valid signal\n\n**Updates:** 0 superseded, 0 new lessons, 2 annotations, 4 portfolio lessons\n\nReady for verification.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":174561,\"duration_api_ms\":174137,\"num_turns\":4,\"result\":\"## Decision: CLEAN\\n\\n## HANDOFF\\n\\n**Artifacts:** `knowledge-consolidation-report.md`, `knowledge-consolidation-updates.json`\\n\\n**Contradictions classified:** 2 (T: 2 TEMPORARY, S: 0 STRUCTURAL)\\n\\nBoth contradictions (SEDG ID `91c5c8e2`, score 1.0; UAMY ID `44173c4f`, score 0.89) are **scoring artifacts**: the mechanical scorer applied \\\"BROKE = evidence against belief,\\\" but both lessons assert that their respective levels are unreliable. The breaks confirm the lessons \u2014 they do not contradict them. No supersessions warranted.\\n\\n**Knowledge cards:** 22 (all tickers with \u22653 entries)\\n\\n**Portfolio lessons:** 4\\n1. Wick offset validated: 66-72% break rate across all approach tiers (n=2,664)\\n2. Technology sector: 100% win rate (10/10 trades)\\n3. Industrial sector: 100% win rate (5/5 trades)\\n4. Approach count \u2260 reliability predictor \u2014 hold rate is the only valid signal\\n\\n**Updates:** 0 superseded, 0 new lessons, 2 annotations, 4 portfolio lessons\\n\\nReady for verification.\",\"stop_reason\":\"end_turn\",\"session_id\":\"7d8c9fe0-9c84-4845-bf8d-9ee15f2c05e7\",\"total_cost_usd\":0.560519,\"usage\":{\"input_tokens\":6,\"cache_creation_input_tokens\":41612,\"cache_read_input_tokens\":125128,\"output_tokens\":9514,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":41612,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":6,\"outputTokens\":9514,\"cacheReadInputTokens\":125128,\"cacheCreationInputTokens\":41612,\"webSearchRequests\":0,\"costUSD\":0.560519,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"9caa1c8b-d898-47a9-a222-43b51ba521f3\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "knowledge-consolidation-report.md": "/Users/kamenkamenov/agentic-trading/knowledge-consolidation-report.md",
+        "knowledge-consolidation-updates.json": "/Users/kamenkamenov/agentic-trading/knowledge-consolidation-updates.json"
+      },
+      "metrics": {
+        "duration_seconds": 177.7227439880371,
+        "token_usage": {
+          "input_tokens": 6,
+          "output_tokens": 9514,
+          "cache_read_tokens": 125128,
+          "cache_write_tokens": 41612
+        },
+        "estimated_cost_usd": 0.336311,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-08T15:04:16.275074+00:00",
+      "completed_at": "2026-03-08T15:05:22.810692+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `knowledge-consolidation-review.md`\n**Verdict:** PASS\n**Checks passed:** 6/6 mechanical + qualitative assessment complete\n**Issues found:** 2 minor (0 critical)\n\nMinor issues:\n1. SMCI card \u2014 approach count in header (10) disagrees with lesson text (10/11 = 11 approaches); hold rate 90% vs 91%\n2. Lesson 3 (Industrial Sector) includes SOUN and BBAI which were already cited as Technology in Lesson 2 \u2014 slightly inflates the industrial sample count\n\nNeither issue warrants reclassification or changes to the report. Both TEMPORARY classifications are correctly applied. All mechanical checks pass.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":64208,\"duration_api_ms\":61625,\"num_turns\":5,\"result\":\"## HANDOFF\\n\\n**Artifact:** `knowledge-consolidation-review.md`\\n**Verdict:** PASS\\n**Checks passed:** 6/6 mechanical + qualitative assessment complete\\n**Issues found:** 2 minor (0 critical)\\n\\nMinor issues:\\n1. SMCI card \u2014 approach count in header (10) disagrees with lesson text (10/11 = 11 approaches); hold rate 90% vs 91%\\n2. Lesson 3 (Industrial Sector) includes SOUN and BBAI which were already cited as Technology in Lesson 2 \u2014 slightly inflates the industrial sample count\\n\\nNeither issue warrants reclassification or changes to the report. Both TEMPORARY classifications are correctly applied. All mechanical checks pass.\\n\\n## Decision: CLEAN\",\"stop_reason\":\"end_turn\",\"session_id\":\"43c3dd0b-fed6-4c87-b399-dc123906c7fd\",\"total_cost_usd\":0.2506025,\"usage\":{\"input_tokens\":6,\"cache_creation_input_tokens\":23740,\"cache_read_input_tokens\":87745,\"output_tokens\":2333,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":23740,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":6,\"outputTokens\":2333,\"cacheReadInputTokens\":87745,\"cacheCreationInputTokens\":23740,\"webSearchRequests\":0,\"costUSD\":0.2506025,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"5f64422a-542c-464b-943b-f9be75fa8834\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "knowledge-consolidation-pre-critic.md": "/Users/kamenkamenov/agentic-trading/knowledge-consolidation-pre-critic.md",
+        "knowledge-consolidation-review.md": "/Users/kamenkamenov/agentic-trading/knowledge-consolidation-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 66.53280520439148,
+        "token_usage": {
+          "input_tokens": 6,
+          "output_tokens": 2333,
+          "cache_read_tokens": 87745,
+          "cache_write_tokens": 23740
+        },
+        "estimated_cost_usd": 0.150362,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-03-08T15:05:22.812905+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/knowledge-consolidation-workflow.yaml",
+    "workflowHash": "b76211bb306117ab"
+  }
+}

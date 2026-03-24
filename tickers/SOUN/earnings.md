@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:20*
+*Generated: 2026-03-16 19:34*
 
 ## Earnings Analysis: SoundHound AI, Inc. (SOUN)
 
@@ -6,15 +6,15 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-07 |
-| Days Until | 60 |
+| Days Until | 52 |
 | EPS Estimate | $-0.035 |
 | Revenue Estimate | $42.8M |
-| Earnings Rule | Clear (>60d out) |
+| Earnings Rule | Clear (>52d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.10 | $0.10 | 202.9% | -4.2% | -7.9% | Strong Bear |
+| Q1 2026 | $-0.02 | $-0.02 | -9.1% | -4.2% | -7.9% | Strong Bear |
 | Q4 2025 | $-0.09 | $-0.27 | -194.5% | -0.6% | -14.1% | Bearish |
 | Q3 2025 | $-0.05 | $-0.03 | 42.9% | +26.4% | +54.3% | Strong Bull |
 | Q2 2025 | $-0.06 | $-0.06 | 5.3% | -7.8% | +13.0% | Strong Bear |

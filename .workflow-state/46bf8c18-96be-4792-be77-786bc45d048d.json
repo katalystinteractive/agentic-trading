@@ -1,0 +1,111 @@
+{
+  "run_id": "46bf8c18-96be-4792-be77-786bc45d048d",
+  "workflow_name": "news-sweep-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-26T20:16:46.910706+00:00",
+  "completed_at": "2026-02-26T20:26:32.981861+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nFull end-to-end news sweep run with quality improvements: deduplicated theme headlines, secondary catalyst in heatmap, broad-theme Core/Peripheral instruction, DRY get_top_catalyst() helper.",
+    "handoffs": {
+      "sweep": "**Artifact:** news-sweep-raw.md\n**Tickers swept:** 21 (8 active, 10 pending, 3 watch)\n**No news data:** none\n**Failures:** none\n\nReady for cross-ticker analysis.",
+      "analyze": "**Artifact:** news-sweep-report.md\n**Tickers analyzed:** 21\n**Risk flags:** 4 (C:1, D:1, E:2 \u2014 after imminence filtering)\n**Themes detected:** 6\n**Recommendations:** 9 items\n**Type E flags dropped:** 15 (no imminent earnings date found or earnings already reported)\n\n**Imminence decisions:**\n- BBAI: KEPT \u2014 \"Q4 Earnings Ahead\" headline dated today, options traders actively positioning\n- SOUN: KEPT \u2014 Listed in \"Thursday's earnings highlights\" dated today\n- IONQ, NU, SMCI, STIM: DROPPED \u2014 Earnings already reported (historical; \"Jumps on Earnings\", \"Drops After Hours\", \"Release on Tuesday\" = Feb 25 already past)\n- ACHR, APLD, AR, CIFR, CLF, CLSK, INTC, LUNR, NNE, UAMY, USAR: DROPPED \u2014 No explicit earnings date within 14 days found in headline content\n\nNews sweep report complete.",
+      "review": "**Artifact:** news-sweep-review.md\n**Verdict:** PASS\n**Mechanical checks:** 5/5 passed\n**Qualitative findings:** 0 critical, 3 minor (directional labeling on Short Catalyst and Analyst Catalyst themes; Regulatory theme ticker breadth)\n**Discrepancies found:** 27 total (0 critical, 27 minor \u2014 12 sentiment Top Catalyst format differences, 15 imminence-filtered Type E flags)\n\nKey qualitative findings:\n- All 6 theme narratives are substantively grounded in headline content \u2014 AI Infrastructure and Commodity themes are the strongest; Regulatory Catalyst is the broadest with some peripheral names having weaker direct headline support\n- All 9 recommendations are clean: no fabricated data, prices match heatmap/flag data exactly, all next steps are informational only\n- Executive summary is fully consistent with the heatmap distribution (8 Bullish / 13 Neutral confirmed), risk flags, and report body\n\nNews sweep review complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "sweep": {
+      "phase_id": "sweep",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-26T20:16:46.912918+00:00",
+      "completed_at": "2026-02-26T20:18:19.444532+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** news-sweep-raw.md\n**Tickers swept:** 21 (8 active, 10 pending, 3 watch)\n**No news data:** none\n**Failures:** none\n\nReady for cross-ticker analysis.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":59437,\"duration_api_ms\":10510,\"num_turns\":3,\"result\":\"`news-sweep-raw.md` exists and is 23,416 bytes (non-empty). All 21 tickers swept with 0 failures.\\n\\n## HANDOFF\\n\\n**Artifact:** news-sweep-raw.md\\n**Tickers swept:** 21 (8 active, 10 pending, 3 watch)\\n**No news data:** none\\n**Failures:** none\\n\\nReady for cross-ticker analysis.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"e9e3b125-a076-4d15-85bd-4416db04ca31\",\"total_cost_usd\":0.1139165,\"usage\":{\"input_tokens\":5,\"cache_creation_input_tokens\":10316,\"cache_read_input_tokens\":77131,\"output_tokens\":384,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":10316,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":5,\"outputTokens\":384,\"cacheReadInputTokens\":77131,\"cacheCreationInputTokens\":10316,\"webSearchRequests\":0,\"costUSD\":0.1126655,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":931,\"outputTokens\":64,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.001251,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"f272c22d-815c-4916-97b8-12bad524034c\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "news-sweep-raw.md": "/Users/kamenkamenov/agentic-trading/news-sweep-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 92.52980399131775,
+        "token_usage": {
+          "input_tokens": 5,
+          "output_tokens": 384,
+          "cache_read_tokens": 77131,
+          "cache_write_tokens": 10316
+        },
+        "estimated_cost_usd": 0.067599,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-26T20:18:19.447807+00:00",
+      "completed_at": "2026-02-26T20:22:58.391796+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** news-sweep-report.md\n**Tickers analyzed:** 21\n**Risk flags:** 4 (C:1, D:1, E:2 \u2014 after imminence filtering)\n**Themes detected:** 6\n**Recommendations:** 9 items\n**Type E flags dropped:** 15 (no imminent earnings date found or earnings already reported)\n\n**Imminence decisions:**\n- BBAI: KEPT \u2014 \"Q4 Earnings Ahead\" headline dated today, options traders actively positioning\n- SOUN: KEPT \u2014 Listed in \"Thursday's earnings highlights\" dated today\n- IONQ, NU, SMCI, STIM: DROPPED \u2014 Earnings already reported (historical; \"Jumps on Earnings\", \"Drops After Hours\", \"Release on Tuesday\" = Feb 25 already past)\n- ACHR, APLD, AR, CIFR, CLF, CLSK, INTC, LUNR, NNE, UAMY, USAR: DROPPED \u2014 No explicit earnings date within 14 days found in headline content\n\nNews sweep report complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":242830,\"duration_api_ms\":241163,\"num_turns\":8,\"result\":\"## HANDOFF\\n\\n**Artifact:** news-sweep-report.md\\n**Tickers analyzed:** 21\\n**Risk flags:** 4 (C:1, D:1, E:2 \u2014 after imminence filtering)\\n**Themes detected:** 6\\n**Recommendations:** 9 items\\n**Type E flags dropped:** 15 (no imminent earnings date found or earnings already reported)\\n\\n**Imminence decisions:**\\n- BBAI: KEPT \u2014 \\\"Q4 Earnings Ahead\\\" headline dated today, options traders actively positioning\\n- SOUN: KEPT \u2014 Listed in \\\"Thursday's earnings highlights\\\" dated today\\n- IONQ, NU, SMCI, STIM: DROPPED \u2014 Earnings already reported (historical; \\\"Jumps on Earnings\\\", \\\"Drops After Hours\\\", \\\"Release on Tuesday\\\" = Feb 25 already past)\\n- ACHR, APLD, AR, CIFR, CLF, CLSK, INTC, LUNR, NNE, UAMY, USAR: DROPPED \u2014 No explicit earnings date within 14 days found in headline content\\n\\nNews sweep report complete.\\n\\n## Decision: COMPLETE\",\"stop_reason\":null,\"session_id\":\"a9624856-05ad-4f5f-aaeb-e940bd502aa2\",\"total_cost_usd\":0.70961425,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":36629,\"cache_read_input_tokens\":276906,\"output_tokens\":13632,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":36629,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":9,\"outputTokens\":13632,\"cacheReadInputTokens\":276906,\"cacheCreationInputTokens\":36629,\"webSearchRequests\":0,\"costUSD\":0.70822925,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":1015,\"outputTokens\":74,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.001385,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"91263ee1-ee28-4bd5-932e-37ee0c528076\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "news-sweep-pre-analyst.md": "/Users/kamenkamenov/agentic-trading/news-sweep-pre-analyst.md",
+        "news-sweep-report.md": "/Users/kamenkamenov/agentic-trading/news-sweep-report.md"
+      },
+      "metrics": {
+        "duration_seconds": 278.9423038959503,
+        "token_usage": {
+          "input_tokens": 9,
+          "output_tokens": 13632,
+          "cache_read_tokens": 276906,
+          "cache_write_tokens": 36629
+        },
+        "estimated_cost_usd": 0.424938,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-26T20:22:58.394354+00:00",
+      "completed_at": "2026-02-26T20:26:32.979042+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** news-sweep-review.md\n**Verdict:** PASS\n**Mechanical checks:** 5/5 passed\n**Qualitative findings:** 0 critical, 3 minor (directional labeling on Short Catalyst and Analyst Catalyst themes; Regulatory theme ticker breadth)\n**Discrepancies found:** 27 total (0 critical, 27 minor \u2014 12 sentiment Top Catalyst format differences, 15 imminence-filtered Type E flags)\n\nKey qualitative findings:\n- All 6 theme narratives are substantively grounded in headline content \u2014 AI Infrastructure and Commodity themes are the strongest; Regulatory Catalyst is the broadest with some peripheral names having weaker direct headline support\n- All 9 recommendations are clean: no fabricated data, prices match heatmap/flag data exactly, all next steps are informational only\n- Executive summary is fully consistent with the heatmap distribution (8 Bullish / 13 Neutral confirmed), risk flags, and report body\n\nNews sweep review complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":182575,\"duration_api_ms\":181347,\"num_turns\":8,\"result\":\"## HANDOFF\\n\\n**Artifact:** news-sweep-review.md\\n**Verdict:** PASS\\n**Mechanical checks:** 5/5 passed\\n**Qualitative findings:** 0 critical, 3 minor (directional labeling on Short Catalyst and Analyst Catalyst themes; Regulatory theme ticker breadth)\\n**Discrepancies found:** 27 total (0 critical, 27 minor \u2014 12 sentiment Top Catalyst format differences, 15 imminence-filtered Type E flags)\\n\\nKey qualitative findings:\\n- All 6 theme narratives are substantively grounded in headline content \u2014 AI Infrastructure and Commodity themes are the strongest; Regulatory Catalyst is the broadest with some peripheral names having weaker direct headline support\\n- All 9 recommendations are clean: no fabricated data, prices match heatmap/flag data exactly, all next steps are informational only\\n- Executive summary is fully consistent with the heatmap distribution (8 Bullish / 13 Neutral confirmed), risk flags, and report body\\n\\nNews sweep review complete.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"4e4105d7-8b55-4ef0-8b21-4dd7e7d7c01b\",\"total_cost_usd\":0.54419925,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":29283,\"cache_read_input_tokens\":245307,\"output_tokens\":9491,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":29283,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":9,\"outputTokens\":9491,\"cacheReadInputTokens\":245307,\"cacheCreationInputTokens\":29283,\"webSearchRequests\":0,\"costUSD\":0.5429922500000001,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":837,\"outputTokens\":74,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.001207,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"709ba07a-dca5-4974-957f-3930c378d26c\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "news-sweep-pre-critic.md": "/Users/kamenkamenov/agentic-trading/news-sweep-pre-critic.md",
+        "news-sweep-review.md": "/Users/kamenkamenov/agentic-trading/news-sweep-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 214.58319401741028,
+        "token_usage": {
+          "input_tokens": 9,
+          "output_tokens": 9491,
+          "cache_read_tokens": 245307,
+          "cache_write_tokens": 29283
+        },
+        "estimated_cost_usd": 0.325795,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-26T20:26:32.982063+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/news-sweep-workflow.yaml",
+    "workflowHash": "263debb194e742bc"
+  }
+}

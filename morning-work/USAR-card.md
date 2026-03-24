@@ -1,18 +1,18 @@
-### USAR — HOLD — P/L -19.1%
-**State:** 15 shares @ $21.57, target $23.05 (32.1% away), held >60 days (pre-strategy) | Pool exhausted (3/5 bullets used pre-strategy)
-**Objective:** Dig Out — recover to breakeven ($21.57) then target ($23.05 VWAP) on rare earth strategic thesis; no new entries available.
-**Decision:** HOLD — recovery position; HIGH squeeze risk (21.85% float short, +105.8% surge, score 65/100) plus major catalysts (Texas Mineral Resources acquisition, Stillwater commissioning, $1.6B govt LOI) offset bearish technicals. Rule 8 (recovery + active squeeze/bullish relief).
+### USAR — HOLD — P/L -11.3%
+**State:** 15 shares @ $21.57, target $23.05 (20.5% away), held >60 days (pre-strategy), pool exhausted (3/5 bullets used pre-strategy)
+**Objective:** Dig Out — recover to breakeven ($21.57) then target ($23.05 VWAP) on government-backed rare earth thesis; no new entries available.
+**Decision:** HOLD — Recovery (pre-strategy) position; MACD now bullish (above signal) with shorts actively covering (-34.6%); not bearish across all indicators, default recovery hold applies. Rule 10. Earnings approaching in 14 days (2026-03-30) — no new entries without explicit exit-before-earnings plan.
 
 | Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |
 | Time Stop | EXCEEDED | >60 days (pre-strategy) |
-| Profit Target | BELOW | P/L -19.1%, Profit Zone: BELOW |
-| Earnings Gate | CLEAR | 22 days to event (2026-03-30) |
-| Momentum | Bearish | RSI 42.5 (neutral-bear zone), MACD -0.387 below signal, histogram -0.239 |
+| Profit Target | BELOW | P/L -11.3%, Profit Zone: N/A (recovery) |
+| Earnings Gate | APPROACHING | 14 days to event (2026-03-30) |
+| Momentum | Neutral | RSI 47.8, MACD above signal (histogram +0.017) |
 
-**Trades Executed:** None on record.
+**Trades Executed:** None recorded
 
-**Sell-Side Advisory (Recovery):** Pool exhausted — no new entries. Dig Out path: (1) Reclaim SMA 200 ($16.63) — price at $17.45 is just above it (critical support); (2) Reclaim EMA 9 ($19.07) and SMA 50 ($19.20); (3) PIPE floor resistance at $21.50; (4) Breakeven $21.57; (5) Target $23.05 (VWAP). Catalyst watch: Texas Mineral Resources acquisition (2026-03-05) adds feedstock supply chain; Stillwater Line 1a commissioning Q1 2026 — first US-scale NdFeB magnet plant milestone; $1.6B government LOI for Round Top mine; analyst consensus target $34.33 (Benchmark $45, Cantor $35, Roth $35). Squeeze setup meaningful — 21.85% float short, +105.8% increase, any positive catalyst could trigger covering. **Key risk:** if price breaks below SMA 200 ($16.63) on a closing basis, Dig Out exit should be considered — recovery thesis requires operational milestone delivery. Risk-Off macro (VIX 29.5, +48.5% 5D) is a headwind; manage timeline expectations.
+**Sell-Side Advisory (Recovery):** Pool exhausted — no new entries. Dig Out path: (1) Reclaim EMA 9 ($19.52) and SMA 20 ($19.27); (2) PIPE floor resistance at $21.50; (3) Breakeven $21.57; (4) Target $23.05 (VWAP). Catalyst watch: Stillwater Line 1a commissioning Q1 2026 is nearest operational milestone (prototype NdFeB magnets late Q1/early Q2); $1.6B government LOI for Round Top mine; analyst consensus $34.33 (Benchmark $45, Cantor/Roth $35, Canaccord $33). Shorts covering rapidly (-34.6%, DTC 1.1) — continued positive news flow could accelerate. **Key risk:** Earnings 2026-03-30 (EPS est -$0.14, pre-revenue stage); if price recovers toward $21.50 pre-earnings, consider whether to reduce through the event. **Floor:** SMA 200 at $16.95 — closing break warrants Dig Out exit consideration. Regime Neutral (VIX 24.19, -5.14% 5D, sector breadth 11/11).
 
 **Pending Orders:**
 No pending orders (pool exhausted).
@@ -32,16 +32,18 @@ No pending orders (pool exhausted).
 **Projected Sell Levels:**
 | Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| Current (hold) | 15 | $21.57 | $19.13 | -11.3% | $286.95 |
 | Breakeven | 15 | $21.57 | $21.57 | 0.0% | $323.55 |
-| Target Exit | 15 | $21.57 | $23.05 | +6.9% | $345.75 |
+| Target Exit (VWAP) | 15 | $21.57 | $23.05 | +6.9% | $345.75 |
+| Analyst Consensus | 15 | $21.57 | $34.33 | +59.2% | $514.95 |
 
-*No lower bullets to fill — pool exhausted. Hold current 15 shares to recovery.*
+*No lower bullets available — pool exhausted. Hold current 15 shares to recovery.*
 
-**Fill Alerts:** None (no pending orders).
+**Fill Alerts:** None (no pending orders)
 
 **News & Catalysts:**
-- **Acquisition (2026-03-05):** USAR to acquire Texas Mineral Resources Corporation — strategic feedstock supply chain expansion; sentiment +0.99 (GlobeNewswire).
-- **Stillwater Facility (2026-03-04):** Line 1a commissioning Q1 2026; prototype NdFeB magnets late Q1/early Q2 — near-term operational milestone that could trigger catalyst re-rating; Zacks positive (+0.98).
-- **Short Squeeze Setup:** 21.85% float short, +105.8% surge from prior period, DTC 1.28, score 65/100 HIGH — acquisition news and commissioning milestones could trigger covering; Jim Cramer flagged "totally speculative" (2026-03-03) — contrarian signal.
+- **2026-03-12:** Dr. Thomas Caulfield appointed to Board — semiconductor manufacturing expertise adds credibility to Stillwater magnet plant execution
+- **2026-03-10:** Three new executives joined; stock climbed 9.3% on leadership expansion; momentum from government landmark agreement continuing
+- **2026-03-09:** USA Rare Earth expands leadership following $1.6B government LOI — Stillwater NdFeB magnet plant commissioning underway (one of first large-scale US rare earth facilities)
 
-**Sector Context:** Critical minerals / rare earths — no dedicated sector ETF in portfolio. Regime: Risk-Off (0/3 indices above 50-SMA, VIX 29.5, sector breadth 2/11 positive). USAR is policy-driven (US rare earth independence) rather than sector-correlated; government contract flow and strategic necessity provide thesis floor despite macro headwind.
+**Sector Context:** Critical minerals / rare earths — policy-driven (US rare earth supply chain independence), not sector-ETF-correlated. Regime: Neutral (0/3 indices above 50-SMA, VIX 24.19, -5.14% 5D, sector breadth 11/11 positive).

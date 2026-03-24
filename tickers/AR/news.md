@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:20*
+*Generated: 2026-03-16 19:35*
 
 ## News & Sentiment: Antero Resources Corporation (AR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,54 +6,54 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-07 | MarketBeat | Dimensional Fund Advisors LP Buys 1,922,977 Shares of Antero... | Positive | +0.30 | Earnings |
+| 2026-03-16 | MarketBeat | Barclays Forecasts Strong Price Appreciation for Antero Reso... | Positive | +0.77 | Earnings |
+| 2026-03-16 | MarketBeat | Delta Global Management LP Buys Shares of 77,247 Antero Reso... | Positive | +0.30 | Earnings, Corporate |
+| 2026-03-16 | MarketBeat | Brevan Howard Capital Management LP Reduces Stock Position i... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-03-15 | Insider Monkey | Barclays Lifts PT on Antero Resources Corporation (AR) to $4... | Neutral | +0.00 | — |
+| 2026-03-15 | MarketBeat | Cinctive Capital Management LP Has $11.39 Million Stock Posi... | Neutral | +0.00 | Earnings, Corporate |
+| 2026-03-15 | MarketBeat | Antero Resources Corporation $AR Shares Bought by Capital Im... | Positive | +0.30 | Earnings |
+| 2026-03-15 | MarketBeat | Aventail Capital Group LP Sells 524,283 Shares of Antero Res... | Positive | +0.30 | Earnings |
+| 2026-03-14 | simplywall.st | A Look At Antero Resources (AR) Valuation After HG Energy De... | Positive | +0.27 | Analyst |
+| 2026-03-14 | 24/7 Wall St. | Up 271% in 3 Years — Is Antero Midstream Still the Energy St... | Positive | +0.27 | — |
+| 2026-03-14 | MarketBeat | Antero Resources Corporation $AR Shares Acquired by iSAM Fun... | Positive | +0.30 | Earnings |
+| 2026-03-13 | Yahoo Finance | Antero Resources (AR) Up 19.3% Since Last Earnings Report: C... | Neutral | +0.00 | Earnings |
+| 2026-03-13 | MarketBeat | Natixis Advisors LLC Sells 57,527 Shares of Antero Resources... | Positive | +0.30 | Earnings |
+| 2026-03-13 | Bitget | Antero Resources Rises 1.71% Amid Increased Institutional Pu... | Positive | +0.69 | — |
+| 2026-03-12 | simplywall.st | Will HG Energy Deal And Longer Inventory Life Change Antero ... | Positive | +0.27 | — |
+| 2026-03-12 | MarketBeat | Magnetar Financial LLC Decreases Holdings in Antero Resource... | Neutral | +0.00 | Earnings |
+| 2026-03-12 | Seeking Alpha | Antero Resources: C3+ NGL Prices Have Been Affected By The M... | Negative | -0.44 | Analyst |
+| 2026-03-12 | FinancialConten | Antero Resources (AR) Research Feature: The New Era of Appal... | Positive | +0.44 | — |
+| 2026-03-11 | Stock Titan | Antero Resources (NYSE: AR) leader granted PSUs, RSUs and ta... | Positive | +0.49 | — |
+| 2026-03-11 | MarketBeat | Insider Selling: Antero Resources (NYSE:AR) Insider Sells 15... | Positive | +0.30 | Earnings |
+| 2026-03-11 | MarketBeat | WINTON GROUP Ltd Raises Stock Holdings in Antero Resources C... | Neutral | +0.00 | Earnings |
+| 2026-03-11 | Stock Titan | Antero Resources (NYSE: AR) awards stock units to Krueger - ... | Positive | +0.46 | — |
+| 2026-03-11 | Zacks | Archrock Stock: Buy at a Premium or Wait for a Better Entry ... | Positive | +0.44 | — |
+| 2026-03-10 | simplywall.st | Is It Too Late To Consider Antero Resources (AR) After Stron... | Positive | +0.78 | — |
+| 2026-03-10 | MarketBeat | 171,601 Shares in Antero Resources Corporation $AR Bought by... | Positive | +0.30 | Earnings |
+| 2026-03-10 | The Globe and M | Antero Resources (AR) Gets a Buy from Siebert Williams Shank... | Neutral | +0.00 | — |
+| 2026-03-09 | Yahoo Finance | Is Antero Resources (AR) Still Attractively Priced After Str... | Positive | +0.88 | — |
+| 2026-03-09 | Simply Wall St. | Antero Resources Expands Dry Gas Focus With HG Energy Acquis... | Positive | +0.36 | Corporate |
+| 2026-03-08 | The Globe and M | Analysts Have Conflicting Sentiments on These Energy Compani... | Negative | -0.15 | — |
 | 2026-03-06 | Insider Monkey | Why Antero Resources Corporation (AR) Remains in the Spotlig... | Neutral | +0.00 | — |
 | 2026-03-06 | Zacks | EQT Stock Gains 31% in a Year: Here's What Investors Should ... | Positive | +0.34 | — |
-| 2026-03-06 | Zacks | Venture Global Inks LNG Supply Pact With Trafigura Group | Neutral | +0.00 | — |
-| 2026-03-06 | The Globe and M | Positive Report for Antero Resources (AR) from Benchmark Co.... | Positive | +0.56 | — |
-| 2026-03-06 | MarketBeat | GW&K Investment Management LLC Purchases 287,353 Shares of A... | Positive | +0.30 | Earnings, Corporate |
-| 2026-03-06 | Insider Monkey | Infinity Natural Resources (INR) Finalizes Transformational ... | Positive | +0.36 | Corporate |
-| 2026-03-06 | Simply Wall St. | Does Antero Resources’ (AR) Portfolio Repositioning Truly St... | Positive | +0.64 | — |
-| 2026-03-05 | Nasdaq | April 24th Options Now Available For Antero Resources (AR) -... | Neutral | +0.00 | — |
-| 2026-03-05 | Seeking Alpha | Antero Resources upgraded, Diamondback and others downgraded... | Neutral | +0.00 | Analyst |
-| 2026-03-04 | Zacks | Can Archrock Continue to Bank on Rising Clean Energy Demand? | Positive | +0.51 | — |
-| 2026-03-04 | Zacks | Flowserve and Bassett Furniture have been highlighted as Zac... | Neutral | +0.00 | — |
-| 2026-03-04 | MarketBeat | Quantbot Technologies LP Decreases Stock Position in Antero ... | Neutral | +0.00 | Earnings |
-| 2026-03-04 | simplywall.st | Antero Resources (AR) Is Up 11.1% After Utica Asset Sale And... | Neutral | +0.00 | — |
-| 2026-03-03 | Zacks | 3 Natural Gas Stocks to Gain on Mounting Clean Energy Demand | Positive | +0.85 | — |
-| 2026-03-03 | Zacks | CNX Gains From Technological Development & Strategic Capital... | Positive | +0.34 | — |
-| 2026-03-03 | simplywall.st | A Look At Antero Resources (AR) Valuation After Recent Share... | Positive | +0.66 | — |
-| 2026-03-03 | MarketBeat | Antero Resources Corporation (NYSE:AR) Receives Average Reco... | Neutral | +0.00 | Earnings |
-| 2026-03-02 | Zacks | Should Investors Buy Natural Gas While It Stays Below $3? | Positive | +0.36 | — |
-| 2026-02-28 | simplywall.st | Is Antero Resources (AR) Pricing In Its Strong Multi Year Sh... | Positive | +0.67 | — |
-| 2026-02-27 | MarketBeat | Antero Resources Corporation $AR is Gemsstock Ltd.'s 8th Lar... | Neutral | +0.00 | Earnings |
-| 2026-02-24 | Offshore Techno | NOG finalises $464.5m acquisition of Utica Shale assets | Positive | +0.18 | Corporate |
-| 2026-02-22 | MarketBeat | Envestnet Asset Management Inc. Buys 136,166 Shares of Anter... | Positive | +0.57 | Earnings, Corporate |
-| 2026-02-20 | MarketBeat | CenterBook Partners LP Invests $2.26 Million in Antero Resou... | Neutral | +0.00 | Earnings |
-| 2026-02-20 | MarketBeat | Pekin Hardy Strauss Inc. Has $5.83 Million Stock Holdings in... | Positive | +0.40 | Earnings |
-| 2026-02-18 | Insider Monkey | Jefferies Resumes Coverage of Antero Resources (AR) with Buy... | Neutral | +0.00 | — |
-| 2026-02-17 | MarketBeat | Antero Resources Corporation $AR Shares Bought by Colrain Ca... | Positive | +0.30 | Earnings |
-| 2026-02-16 | Yahoo Finance | Is Antero Resources (AR) Pricing Look Attractive After Recen... | Positive | +0.32 | — |
-| 2026-02-14 | The Globe and M | Analysts Offer Insights on Energy Companies: Antero Resource... | Positive | +0.27 | — |
-| 2026-02-13 | Morningstar Res | Analyst Report: Antero Resources Corporation | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 18 (60%) |
-| Neutral | 12 (40%) |
-| Negative | 0 (0%) |
-| Average Score | +0.264 |
+| Positive | 20 (67%) |
+| Neutral | 8 (27%) |
+| Negative | 2 (7%) |
+| Average Score | +0.265 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 171 |
+| Total Unique Headlines | 181 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 9 | Dimensional Fund Advisors LP Buys 1,922,..; GW&K Investment Management LLC Purchases.. |
-| Corporate | 4 | GW&K Investment Management LLC Purchases..; Infinity Natural Resources (INR) Finaliz.. |
-| Analyst | 1 | Antero Resources upgraded, Diamondback a.. |
+| Earnings | 13 | Barclays Forecasts Strong Price Apprecia..; Delta Global Management LP Buys Shares o.. |
+| Corporate | 4 | Delta Global Management LP Buys Shares o..; Brevan Howard Capital Management LP Redu.. |
+| Analyst | 2 | A Look At Antero Resources (AR) Valuatio..; Antero Resources: C3+ NGL Prices Have Be.. |
 
 ### Deep Dive Articles
 

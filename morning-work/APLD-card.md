@@ -1,14 +1,14 @@
-### APLD — MONITOR — P/L -13.5%
-**State:** 15 shares @ $29.06, target $38.00 (51.1% away), held 19 days
+### APLD — MONITOR — P/L -4.9%
+**State:** 15 shares @ $29.06, target $38.00 (37.5% away), held 27 days
 **Objective:** Hold fully-loaded 5-bullet position through current drawdown; reserve bullet at $21.93 remains active; await mean reversion to $38.00 target.
-**Decision:** MONITOR — time stop WITHIN (19 days), P/L -13.5% below profit zone, all 5 active bullets deployed, earnings CLEAR (32 days); standard tracking. (Rule 16)
+**Decision:** MONITOR — time stop WITHIN (27 days), P/L -4.9% below profit zone, all 5 active bullets deployed, earnings CLEAR (24 days); standard tracking (Rule 16).
 
 | Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |
-| Time Stop | WITHIN | 19 days held |
-| Profit Target | BELOW | P/L -13.5%, target $38.00 is 51.1% away |
-| Earnings Gate | CLEAR | 32 days to 2026-04-09 event |
-| Momentum | Bearish | RSI 37.5 (bearish zone), MACD -1.914 below signal -1.346, histogram -0.567 |
+| Time Stop | WITHIN | 27 days held (limit: 60) |
+| Profit Target | BELOW | P/L -4.9%, target $38.00 is 37.5% away |
+| Earnings Gate | CLEAR | 24 days to 2026-04-09 event |
+| Momentum | Neutral | RSI 44.7 (neutral zone), MACD -1.519 above signal -1.573, histogram +0.054 (bullish) |
 
 **Trades Executed:**
 - **2026-02-17:** Bullet 1 filled at $32.47 (3 shares). First entry on intraday dip to $32.39.
@@ -19,7 +19,7 @@
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | SELL | $38.00 | 15 | N/A | N/A | N/A | N/A | Target — $37.60-$38.76 HVN resistance zone |
-| BUY | $21.93 | 4 | 42.3% | ACTIVE | ACTIVE | ACTIVE | Reserve 2 — $20.55 PA, 33% hold, Std tier; Risk-Off active >15% below = ACTIVE |
+| BUY | $21.93 | 2 | 42.3% | ACTIVE | ACTIVE | ACTIVE | Reserve 2 — $20.55 PA, 33% hold, Std tier; wick-adjusted (resized 2026-03-13) |
 
 **Wick-Adjusted Buy Levels:**
 | Zone | Level | Buy At | Hold Rate | Tier | Shares |
@@ -27,27 +27,23 @@
 | Active | $25.25 | $25.39 | 67% | Full | 2 |
 | Active | $22.70 | $23.21 | 29% | Half | 1 |
 | Active | $21.88 | $22.68 | 33% | Std | 2 |
-| Active | $20.55 | $21.93 | 33% | Std | 2 |
+| Active | $20.55 | $21.93 | 33% | Std | 2 (pending reserve order) |
 | Active | $19.57 | $20.72 | 50% | Std | 2 |
 | Reserve | $10.80 | $11.14 | 50% | Full | 8 |
-| Reserve | $6.95 | $7.22 | 50% | Full | 13 |
-| Reserve | $5.75 | $5.97 | 83% | Full | 16 |
-
-*Wick plan generated at $27.27; current price $25.14 — Level 1 ($25.39) is just above current and may be tested shortly. All 5 active bullets already deployed.*
 
 **Projected Sell Levels:**
 | Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Current position | 15 | $29.06 | $38.00 | +30.7% | $570.00 |
-| + Reserve BUY fills @ $21.93 (4 shares) | 19 | $27.56 | $38.00 | +37.9% | $722.00 |
+| Current position | 15 | $29.06 | $38.00 | +30.8% | $570.00 |
+| + Reserve BUY fills @ $21.93 (2 shares) | 17 | $28.22 | $38.00 | +34.7% | $646.00 |
 
-*New avg if reserve fills: (15 × $29.06 + 4 × $21.93) / 19 = ($435.90 + $87.72) / 19 = $27.56. Monotonic check: lower buy ($21.93) → lower avg ($27.56 < $29.06). Pass.*
+*New avg if reserve fills: (15 × $29.06 + 2 × $21.93) / 17 = ($435.90 + $43.86) / 17 = $28.22. Monotonic check: lower buy ($21.93) → lower avg ($28.22 < $29.06) ✓*
 
-**Fill Alerts:** None — day low $25.07 above BUY alert threshold $22.37 ($21.93 + 2%); day high $28.41 below SELL alert threshold $37.24 ($38.00 − 2%).
+**Fill Alerts:** None — BUY day low $27.38 well above alert threshold $22.37 ($21.93 + 2%); SELL day high $29.06 below alert threshold $37.24 ($38.00 − 2%).
 
 **News & Catalysts:**
-- **$2.15B debt deal:** Applied Digital priced $2.15B Senior Secured Notes for North Dakota AI campus — major capital raise demonstrates execution momentum and hyperscaler confidence (2026-03-04).
-- **Analyst bullishness sustained:** Roth Capital (PT $58) and Citizens reiterated Buy ratings; Northland PT $56 — analyst community remains constructive despite NVIDIA stake exit (viewed as portfolio rebalancing, not APLD-specific).
-- **High short interest as squeeze catalyst:** 31.25% float short (80.34M shares, decreasing -6.9%), squeeze risk score 60/100 — elevated asymmetric upside potential if hyperscaler contract announced.
+- APLD featured in "15 Stocks With the Most Short Squeeze Potential" (Schaeffer's, 2026-03-12) — 30.7% short float, HIGH squeeze risk (score 70/100); decreasing short interest (-8.7%) may signal covering.
+- Zacks bullish: "APLD Rises 58% in 6 Months: Three Key Reasons to Hold" (2026-03-10) — multi-gigawatt AI lease pipeline cited; analysts PT $40-$58 (Craig-Hallum, Northland, Roth Capital).
+- Earnings history strongly bullish: last two reports +8-16% day-of, +22-25% 5-day; 2026-04-09 earnings CLEAR at 24 days with strong beat track record.
 
-**Sector Context:** AI Data Center / Technology infrastructure. Risk-Off regime (0/3 indices above 50-SMA, VIX 29.5 +48.5% 5D, 2/11 sectors positive). APLD below SMA 20 ($31.32) and SMA 50 ($32.21) but above SMA 200 ($22.68) — long-term structural floor intact. Bearish momentum (score -4) consistent with broad macro selloff, not APLD-specific deterioration.
+**Sector Context:** AI Data Center / Technology Infrastructure. Neutral regime (0/3 indices above 50-SMA, VIX 24.2 trending down -5.14% 5D). APLD above SMA 200 ($23.29) — long-term structural floor intact. Neutral-bearish momentum (-2 score) consistent with sector rotation; Oracle leading data center stocks while APLD lags due to residual NVIDIA stake-exit overhang.

@@ -1,8 +1,8 @@
-# Morning Briefing — 2026-03-08
+# Morning Briefing — 2026-03-16
 
 ## Executive Summary
 
-Regime is **Risk-Off** (VIX 29.49, 0/3 indices above 50-SMA, 2/11 sectors positive) with macro headwinds. Portfolio has 13 active positions ($3,745.22 deployed) with 1 positive (LUNR); total unrealized P/L $-395, driven primarily by IONQ (-$130), USAR (-$62), APLD (-$59).
+Regime is **Neutral** (VIX 24.19, 0/3 indices above 50-SMA, 11/11 sectors positive) with macro headwinds. Portfolio has 13 active positions ($3,993.89 deployed) with 3 positive (OKLO, SOUN, ARM); total unrealized P/L $-376, driven primarily by IONQ (-$173), NU (-$49), ACHR (-$46). **Earnings cluster is the key near-term risk**: OKLO in 1 day (Mar 17), LUNR in 3 days (Mar 19). **Most urgent**: LUNR, OKLO requires action.
 
 ---
 
@@ -10,7 +10,9 @@ Regime is **Risk-Off** (VIX 29.49, 0/3 indices above 50-SMA, 2/11 sectors positi
 
 | # | Ticker | Action | Urgency | Detail |
 | :--- | :--- | :--- | :--- | :--- |
-| — | — | No immediate actions required | — | — |
+| 1 | LUNR | REDUCE position | **HIGH** | REDUCE — see card for details |
+| 2 | OKLO | REDUCE position | **HIGH** | REDUCE — see card for details |
+| 3 | SOUN | Watch SELL fill | MEDIUM | SELL $7.76 NEAR. day high $7.65 is within 2% of order price (threshold $7.76 × 0.98 = $7.60). Order not yet filled. Verify with broker. All gates ACTIVE. |
 
 ---
 
@@ -18,91 +20,196 @@ Regime is **Risk-Off** (VIX 29.49, 0/3 indices above 50-SMA, 2/11 sectors positi
 
 | Metric | Value |
 | :--- | :--- |
-| Regime | **Risk-Off** |
-| VIX | 29.49 (5D% +48.49% — rising, cautious) |
+| Regime | **Neutral** |
+| VIX | 24.19 (5D% -5.14% — declining, favorable) |
 | Indices Above 50-SMA | 0/3 |
-| Sector Breadth | 2/11 positive |
-| Entry Gate Summary | 3 ACTIVE, 21 REVIEW (CLSK x2, NNE x2, OUST, TMC, ACHR, ARM, CIFR x2, CLF x4, LUNR x7), 15 PAUSE (AR x3, BBAI x3, NVDA x4, SMCI, SOUN x2, TEM x2) |
-| Reasoning | 0/3 indices above 50-SMA, VIX 29.5 (elevated) |
+| Sector Breadth | 11/11 positive |
+| Entry Gate Summary | 35 ACTIVE, 1 REVIEW (TMC), 8 PAUSE (LUNR x6, OKLO x2) |
+| Reasoning | 0/3 indices above 50-SMA, VIX 24.2 |
 
 ---
 
 ## Active Positions
 
-### CLSK — HOLD — P/L -9.4%
-**State:** 7 shares @ $10.17, target N/A (recovery/cycle 4 re-entry), held 3 days | Bullets Used: 3/5
-**Objective:** Dig Out — load remaining bullets at key support levels, recover to breakeven, then exit consistent with 3 prior profitable cycles (+6.9% to +7.9%).
-**Decision:** HOLD — recovery re-entry with active squeeze setup (46.84% short float, HIGH squeeze score 65/100) and MACD bullish crossover providing Dig Out rationale; 2 bullets remain to average down. Rule 8.
+### LUNR — REDUCE — P/L -2.7%
+**State:** 2 shares @ $17.59, target N/A (recovery), held 0 days
+**Objective:** Reduce exposure before earnings in 3 days; LUNR has 4/4 profitable cycles — protect re-entry and reload post-report.
+**Decision:** REDUCE — Recovery position, earnings GATED (<7 days), no specific earnings thesis, P/L > -10%. Sell 2 shares before 2026-03-19 Q4 report to avoid gap risk; reload at B2-B4 levels post-earnings. [Rule 4]
 
 | Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |
-| Time Stop | WITHIN | 3 days held |
-| Profit Target | N/A — no target set | P/L -9.4%, Profit Zone: N/A (recovery/re-entry cycle 4) |
-| Earnings Gate | CLEAR | 60 days to event (2026-05-07) |
-| Momentum | Neutral | RSI 41.4 (neutral-bear zone, not < 40), MACD above signal (histogram +0.064, bullish crossover) |
+| Time Stop | WITHIN | 0 days held (< 45) |
+| Profit Target | N/A — no target set | P/L -2.7%, Profit Zone: BELOW |
+| Earnings Gate | GATED | 3 days to event (2026-03-19) |
+| Momentum | Bearish | RSI 47.3, MACD -0.035 below signal (histogram -0.039) |
 
 **Trades Executed:**
-- **2026-03-02:** SELL 6 @ $10.425 (full exit, cycle 2 close). Profit: +7.9%.
-- **2026-03-03:** BUY 2 @ $10.05 (B1 re-entry, cycle 3).
-- **2026-03-04:** SELL 2 @ $10.74 (cycle 3 close). Profit: +6.9%. 3/3 cycles profitable.
-- **Current (cycle 4):** 7 shares @ $10.17 avg. Bullets used: 3/5.
+- **2026-03-05:** BUY 1 share @ $17.83 (B1). BUY 1 share @ $17.11 (B2). Total: 2 shares @ $17.47 avg.
+- **2026-03-06:** SELL 2 shares @ $18.91 (full exit). Profit: +8.2%. 4/4 cycles profitable.
+- **2026-03-06:** BUY 1 share @ $17.61 (B1 re-entry, Cycle 5).
+- **2026-03-16:** Re-entry recorded — 2 shares @ $17.59 avg (B1 active).
 
-**Sell-Side Advisory:** Recovery/Dig Out framework applies. Prior 3 cycles exited at +6.9% to +7.9%; target exit zone for cycle 4 is approximately $10.88–$10.98 (+7% on $10.17 avg). Short interest at 46.84% (increasing +3.7%) provides squeeze upside on any positive BTC or operational catalyst. Risk-Off regime (VIX 29.5) suppresses near-term upside — hold core, allow B3/B4 to fill and reduce avg cost before targeting exit. No profit-taking warranted until recovery to at least breakeven ($10.17).
+**Sell-Side Advisory (Recovery):** LUNR has delivered 4/4 profitable cycles (~6-8% avg gain). Earnings in 3 days (2026-03-19) create asymmetric risk — Q3 2025 showed -2.4% day-of then -10.5% over 5 days on a -162.8% EPS miss. Q4 2025 bounced +10% day-of but reversed -7% over 5 days. No bullish earnings thesis present. Recommended: sell 2 shares pre-earnings; pause all pending BUY orders through report; re-enter at B2 ($16.00) or B3 ($15.33) levels post-earnings if price pulls back. Recovery cycle thesis intact — this is risk management, not thesis abandonment.
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $9.11 | 6 | 0.0% | REVIEW | ACTIVE | REVIEW | B3 — $8.93 HVN+PA, 46% hold, Std tier, wick-adjusted |
-| BUY | $8.88 | 9 | 2.5% | REVIEW | ACTIVE | REVIEW | B4 — $8.62 PA, 38% hold, Std tier, wick-adjusted (updated 2026-03-02) |
-
-*Market Gate: Risk-Off regime, active position, both orders ≤15% below current → REVIEW*
+| BUY | $16.00 | 5 | 9.0% | ACTIVE | PAUSE | **PAUSE** | Bullet 2 — $15.70 PA, 50% hold, Std tier |
+| BUY | $15.33 | 7 | 12.8% | ACTIVE | PAUSE | **PAUSE** | Bullet 3 — $15.08 PA, 67% hold, Full tier |
+| BUY | $15.20 | 5 | 13.6% | ACTIVE | PAUSE | **PAUSE** | Bullet 4 — $14.32 PA, 60% hold, Full tier |
+| BUY | $10.06 | 9 | 42.8% | ACTIVE | PAUSE | **PAUSE** | Reserve 1 — $9.52 PA, 56% hold, Std tier |
+| BUY | $7.78 | 12 | 55.8% | ACTIVE | PAUSE | **PAUSE** | Reserve 2 — $7.48 PA, 56% hold, Full tier |
+| BUY | $6.64 | 15 | 62.3% | ACTIVE | PAUSE | **PAUSE** | Reserve 3 — $6.53 PA, 75% hold, structural floor |
 
 **Wick-Adjusted Buy Levels:**
 | Zone | Level | Buy At | Hold Rate | Tier | Shares |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Active | $8.93 | $9.11 | 46% | Std | 6 |
-| Active | $8.46 | $8.88 | 47% | Std | 9 |
-| Active | $8.25 | $8.40 | 58% | Full | 7 |
-
-*B4 placed at $8.88 (updated 2026-03-02) vs wick plan $8.96 — using actual order price.*
+| Active | $17.49 | $17.59 | 29% | Half | 2 |
+| Active | $15.70 | $16.00 | 50% | Std | 5 |
+| Active | $15.08 | $15.33 | 67% | Full | 7 |
+| Active | $14.32 | $15.20 | 60% | Full | 5 |
+| Reserve | $9.52 | $10.06 | 56% | Std | 9 |
+| Reserve | $7.48 | $7.78 | 56% | Full | 12 |
+| Reserve | $6.53 | $6.64 | 75% | Full | 15 |
 
 **Projected Sell Levels:**
 | Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Current only (breakeven) | 7 | $10.17 | $10.17 | 0% | $71.19 |
-| After B3 fills (breakeven) | 13 | $9.68 | $9.68 | 0% | $125.84 |
-| After B3+B4 fills (breakeven) | 22 | $9.35 | $9.35 | 0% | $205.70 |
+| Current (B1 only) | 2 | $17.59 | $17.59 (breakeven) | 0.0% | $35.18 |
+| If B2 fills @ $16.00 | 7 | $16.45 | $16.45 (breakeven) | 0.0% | $115.15 |
+| If B2+B3 fill @ $15.33 | 14 | $15.89 | $15.89 (breakeven) | 0.0% | $222.46 |
 
-*B3 avg: (7×$10.17 + 6×$9.11) / 13 = $125.85 / 13 = $9.68*
-*B3+B4 avg: (13×$9.68 + 9×$8.88) / 22 = $205.76 / 22 = $9.35*
-*Monotonic check: $10.17 → $9.68 → $9.35 ✓*
+*No target set (recovery position). Avg math: B2 fill → (2×17.59 + 5×16.00)/7 = $16.45. B3 fill → (7×16.45 + 7×15.33)/14 = $15.89. Monotonic check: lower buys → lower averages ✓*
 
-**Fill Alerts:** BUY $9.11 (B3) — **FLAG**: Day low $9.12 is within $0.01 of order price ($9.11 + 2% = $9.29, day low $9.12 ≤ $9.29). Near-fill or possible execution — verify with broker immediately.
+**Fill Alerts:** None — day low $16.82 did not reach any pending order + 2% threshold (nearest B2 trigger would be $16.32).
 
 **News & Catalysts:**
-- **February 2026 Operational Update** (2026-03-05, sentiment +0.98): Monthly production data released — positive operational momentum heading into Q2 earnings.
-- **300 MW Texas campus finalized**: Two Texas sites secured, significant hash rate capacity expansion — long-term bullish thesis intact.
-- **Short interest 46.84% (HIGH, score 65/100, +3.7% increasing)** + Tradr 2X leveraged ETF launched: Elevated squeeze optionality on any positive BTC or operational catalyst.
+- **Earnings 2026-03-19:** Q4 2025 report in 3 days. EPS estimate -$0.045, Revenue $59.0M. Mixed history — Q3 2025 miss of -162.8% led to +10% day-of then -7% reversal; Q3 2025 gap-down -10.5% over 5 days.
+- **Space ETF launch:** Roundhill launched Space ETF with LUNR as holding ahead of SpaceX IPO — passive demand tailwind (Benzinga, 2026-03-05).
+- **$175M equity raise:** Funds push toward recurring comms and in-space data processing — dilutive near-term, long-term revenue visibility positive (Insider Monkey, 2026-03-04).
 
-**Sector Context:** Bitcoin mining sector (BTC-correlated). Risk-Off regime (0/3 indices above 50-SMA, VIX 29.5, +48.5% over 5 days, 2/11 sectors positive) creates headwind for speculative mining names. BTC price action is primary sector driver. Entry gates remain at REVIEW until regime shifts to Neutral or Risk-On.
+**Sector Context:** Aerospace/Defense — sector breadth 11/11 positive on 2026-03-16. Market Neutral (0/3 indices above 50-SMA, VIX 24.2 declining -5.1% 5D). Short interest 22.2% float (HIGH squeeze risk, score 55/100, DTC 3.0) — sharp post-earnings moves in either direction are possible.
 
 ---
 
-### IONQ — HOLD — P/L -19.6%
-**State:** 15 shares @ $44.43, target N/A (recovery), held >60 days (pre-strategy) [1/5 bullets used]
-**Objective:** Recover cost basis via squeeze-driven price recovery; add bullets on wick-adjusted pullbacks to lower avg; breakeven at $44.43.
-**Decision:** HOLD — recovery position with EXTREME short squeeze setup (23.3% float short, +12.4% rapidly increasing) and bullish MACD crossover (+0.783 histogram); Dig Out rationale applies. (Rule 8)
+### OKLO — REDUCE — P/L +1.5%
+**State:** 1 share @ $58.04, target N/A (no target set), held 0 days
+**Objective:** Reduce pre-earnings exposure; position entered via surgical screen 2026-03-13 with Q4 earnings 1 day away (2026-03-17)
+**Decision:** REDUCE — Non-recovery (P/L > 0% overrides recovery label per pre-check), earnings GATED (1 day), P/L positive → sell before event. Rule 1.
 
 | Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |
-| Time Stop | EXCEEDED | >60 days (pre-strategy — non-ISO entry date) |
-| Profit Target | N/A | P/L -19.6%; no target set (recovery position) |
-| Earnings Gate | CLEAR | 59 days to event (2026-05-06) |
-| Momentum | Neutral | RSI 46.1 (neutral zone), MACD above signal (+0.783 histogram — bullish crossover) |
+| Time Stop | WITHIN | 0 days held |
+| Profit Target | BELOW | P/L +1.5%, Profit Zone: Below entry threshold |
+| Earnings Gate | GATED | 1 day to event (2026-03-17) |
+| Momentum | Bearish | RSI 39.6 (<40), MACD -4.159 above signal (bullish histogram +0.254) |
+
+**Trades Executed:**
+- Bought 1 share @ $58.04 (2026-03-13, surgical screen entry, score 95)
+
+**Sell-Side Advisory:** Not applicable — P/L +1.5%, below profit advisory threshold (>7% required). REDUCE is earnings-driven, not profit-taking.
+
+**Pending Orders:**
+| Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| BUY | $57.21 | 1 | 1.4% | ACTIVE | PAUSE | **PAUSE** | Bullet 2 — $53.95 HVN+PA, 20% hold, Std tier |
+| BUY | $51.10 | 1 | 12.0% | ACTIVE | PAUSE | **PAUSE** | Bullet 3 — $49.27 HVN+PA, 33% hold, Std tier |
+
+**Wick-Adjusted Buy Levels:**
+| Zone | Level | Buy At | Hold Rate | Tier | Shares |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Active | $56.47 | $58.04 | 67% | Full | 1 |
+| Active | $53.95 | $57.21 | 20% | Std | 1 |
+| Active | $49.27 | $51.10 | 33% | Std | 1 |
+| Active | $43.63 | $44.28 | 75% | Full | 3 |
+| Reserve | $35.69 | $38.02 | 67% | Std | 3 |
+| Reserve | $33.57 | $33.87 | 67% | Full | 3 |
+| Reserve | $24.44 | $24.46 | 60% | Full | 3 |
+
+**Projected Sell Levels:**
+| Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Current (REDUCE target) | 1 | $58.04 | $58.90 | +1.5% | $58.90 |
+| Breakeven | 1 | $58.04 | $58.04 | 0.0% | $58.04 |
+| Post-earnings: if B2 fills @ $57.21 | 2 | $57.63 | $63.39 (+10%) | +10.0% | $126.78 |
+| Post-earnings: if B2+B3 fill | 3 | $55.45 | $61.00 (+10%) | +10.0% | $183.00 |
+
+*Monotonic check: $57.21 buy → avg $57.63 ✓; $51.10 buy → avg $55.45 ✓ (lower buy = lower avg)*
+
+**Fill Alerts:**
+- **BUY $57.21 (Bullet 2) — NEAR FILL:** Day low $57.83 is within 2% of order price ($57.21 + 2% = $58.35). Price approached but did not breach order level. Verify with broker. Note: order is PAUSED due to earnings gate — do not activate until post-earnings.
+
+**News & Catalysts:**
+- **Nuclear fuel JV (Positive, Mar 9-10):** Oklo and Centrus announced a planned joint venture to advance nuclear fuel services in Ohio (HALEU enrichment facility) — material strategic catalyst with regulatory tailwinds.
+- **Analyst price target cut (Mar 8):** Analysts reduced price target; stock near $60 level flagged for watch.
+- **Q4 Earnings tomorrow (Mar 17):** EPS est. -$0.165, revenue $0. Historical reaction: +6.7% day-1 last quarter, +9.2% prior — both Strong Bull surprises despite missing EPS. Binary event; REDUCE pre-event per Rule 1.
+
+**Sector Context:** Nuclear / Clean Energy. Broad sector breadth 11/11 positive (2026-03-16). Short interest increasing rapidly (+12% recent change) at 12.3% float — moderate squeeze risk (score 45/100, DTC 2.0).
+
+---
+
+### CLF — HOLD — P/L -9.3%
+**State:** 47 shares @ $9.39, target N/A (recovery), held 13 days
+**Objective:** Dig Out — recover position toward breakeven ($9.39); all 5 bullets fully deployed; await oversold bounce with HIGH short squeeze catalyst (15.93% short, score 50)
+**Decision:** HOLD — deeply oversold (RSI 27.1, Stochastic 3.6/2.4) with HIGH short interest setting up bullish relief; recovery position with MACD still bearish but extreme oversold condition and squeeze risk warrants holding for bounce; all bullets used, no new entries (Rule 8)
+
+| Exit Criterion | Status | Detail |
+| :--- | :--- | :--- |
+| Time Stop | WITHIN | 13 days |
+| Profit Target | N/A — no target set | P/L -9.3%, recovery position |
+| Earnings Gate | CLEAR | 44 days to event (2026-04-29) |
+| Momentum | Bearish | RSI 27.1 (oversold), MACD -0.955 below signal (-0.813), histogram -0.142 |
+
+**Trades Executed:** none recorded in memory; 5 fills on record: $11.28, $9.97, $9.88, $9.53, $8.48 — all 5 bullets deployed (5/5)
+
+**Sell-Side Advisory:** Recovery position — no profit-taking threshold applies. Primary goal is breakeven recovery at $9.39. Active SELL order at $9.95 (+6.0% from avg) targets PA resistance with 33% hold rate — appropriate resistance exit. Headwinds: CEO stock sale, institutional "Sell" re-ratings, price below all SMAs. Short squeeze (15.93% short, DTC 3.7) is the primary recovery catalyst. If price fails to reclaim EMA 9 ($9.36) on any bounce, consider lowering SELL target to reduce risk.
+
+**Pending Orders:**
+| Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| SELL | $9.95 | 47 | N/A | N/A | N/A | N/A | PA resistance, 33% reject, +6.0% from $9.39 avg |
+| BUY | $9.41 | 10 | ⚠️ Above current ($8.52) | ACTIVE | ACTIVE | ACTIVE | Stale — 5.4% was calculated at $9.83; order now above current price; bullets 5/5 used — verify broker status |
+
+**Wick-Adjusted Buy Levels:**
+| Zone | Level | Buy At | Hold Rate | Tier | Shares |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Active | $9.04 | $9.53 | 71% | Full | 6 |
+| Active | $8.48 | $8.82 | 33% | Half | 3 |
+| Reserve | $8.25 | $8.48 | 71% | Full | 11 |
+| Reserve | $6.67 | $6.76 | 80% | Full | 14 |
+
+**Projected Sell Levels:**
+| Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Breakeven | 47 | $9.39 | $9.39 | 0.0% | $441.33 |
+| SELL Order (PA Resistance) | 47 | $9.39 | $9.95 | +6.0% | $467.65 |
+
+**Fill Alerts:** BUY $9.41 — FILLED? (day low $8.44 ≤ $9.60 threshold; order price $9.41 is above current price $8.52 — order would have executed; verify with broker. Note: 5/5 bullets already recorded — this may be a stale order superseded by fills 4–5)
+
+**News & Catalysts:**
+- CLF fell -26% over 9-day period on rating downgrades and earnings headwinds; BofA maintains Neutral rating (no upgrade catalyst near-term)
+- CEO stock sale flagged as negative signal; mixed institutional tone — one fund initiated $5M stake, partially offsetting selling pressure
+- Steel sector under macro/tariff pressure; CLF trading below all SMAs with ATR 7.0% high volatility; short squeeze (15.93% short) is primary recovery mechanism
+
+**Sector Context:** Materials/Steel sector. CLF below SMA 20 ($10.20), SMA 50 ($12.15), SMA 200 ($11.24) — deep structural downtrend. Portfolio-wide sector breadth 11/11 positive but CLF is a significant underperformer. VIX 24.2 with 5D% -5.14% (declining) provides slight macro tailwind for a bounce.
+
+---
+
+### IONQ — HOLD — P/L -26.0%
+**State:** 15 shares @ $44.43, target N/A (recovery), held >60 days (pre-strategy) [1/5 bullets used]
+**Objective:** Dig out from -26% underwater pre-strategy entry; reduce avg cost via disciplined bullet additions; breakeven at $44.43
+**Decision:** HOLD — recovery position with HIGH squeeze risk (23.7% short float, +8.3% increasing) and MACD bullish crossover; RSI 39.7 near threshold but not bearish across all indicators; Dig Out rationale applies (Rule 8)
+
+| Exit Criterion | Status | Detail |
+| :--- | :--- | :--- |
+| Time Stop | EXCEEDED | >60 days (pre-strategy entry) |
+| Profit Target | N/A | P/L -26.0%; no target set (recovery position) |
+| Earnings Gate | CLEAR | 51 days to 2026-05-06 |
+| Momentum | Bearish-leaning | RSI 39.7 (near bearish threshold), MACD above signal (+0.037 histogram — slight bullish crossover) |
 
 **Trades Executed:** None on record (pre-strategy entry; 1/5 bullets deployed)
 
-**Sell-Side Advisory:** Recovery position — -19.6% underwater. Breakeven at $44.43 (+24.4% from current $35.73). Squeeze thesis active: 23.3% float short with shorts increasing +12.4%, DTC 3.67 — forced covering could accelerate recovery. Price is above SMA20 ($34.80), which is a constructive near-term signal. Key recovery gate: $43.80 (former support). If price spikes toward $43–45 on squeeze or catalyst action, consider trimming to reduce avg cost and risk. Invalidation: break below SMA20 with MACD rollover and RSI <40 — reassess Dig Out plan at that point.
+**Sell-Side Advisory:** Recovery position — -26.0% underwater. Breakeven at $44.43 (+35% from current $32.87). Squeeze thesis active: 23.7% float short, shorts increasing +8.3%, DTC 3.8 — forced covering could accelerate recovery. MACD just turned positive (histogram +0.037), suggesting possible momentum base forming at/near support ($30.08 tested Feb 2026). Key recovery gates: $34.77 (SMA 20), $38.00 (short-report recovery zone), $40.03 (SMA 50). If price spikes toward $43–45 on squeeze or earnings catalyst, consider trimming to reduce risk. Invalidation: decisive break below $30.08 support with RSI deteriorating — reassess Dig Out plan at that point.
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
@@ -110,7 +217,7 @@ Regime is **Risk-Off** (VIX 29.49, 0/3 indices above 50-SMA, 2/11 sectors positi
 | — | — | — | — | — | — | — | No pending orders |
 
 **Wick-Adjusted Buy Levels:**
-*Note: Wick plan generated at reference price ~$31.70 (cached); current price $35.73. All active-zone levels are below current — deploy on pullback only. B1 slot accounts for 1 bullet already used.*
+*Wick plan cached at reference price ~$31.70; current price $32.87. Active-zone levels are at or below current — deploy on pullback only.*
 | Zone | Level | Buy At | Hold Rate | Tier | Shares |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | Active (B1 — used) | $30.85 | $31.63 | 40% | Std | 1 |
@@ -126,193 +233,154 @@ No target set (recovery position). Breakeven scenarios shown.
 
 | Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Current only | 15 | $44.43 | $44.43 | 0.0% | $666.45 |
-| + B2 fills ($30.42 × 1) | 16 | $43.55 | $43.55 | 0.0% | $696.80 |
-| + B3 fills ($29.06 × 2) | 18 | $41.94 | $41.94 | 0.0% | $754.92 |
+| Current only | 15 | $44.43 | $44.43 (breakeven) | 0.0% | $666.45 |
+| + B2 fills ($30.42 × 1) | 16 | $43.63 | $43.63 (breakeven) | 0.0% | $698.08 |
+| + B2+B3 fills ($29.06 × 2) | 18 | $41.97 | $41.97 (breakeven) | 0.0% | $755.46 |
 
-*Monotonic check: lower buy prices produce lower averages ✓ ($44.43 → $43.55 → $41.94)*
+*Monotonic check: lower buy prices → lower averages ✓ ($44.43 → $43.63 → $41.97)*
 
 **Fill Alerts:** None (no pending orders)
 
 **News & Catalysts:**
-- Quantum Computing's Major Growth Catalysts Heading Into 2026 (Zacks, today) — bullish sector narrative with government and commercial contract pipeline cited; supports recovery thesis
-- IonQ Deepens Quantum Capabilities With Strategic M&A Push (Zacks, 2026-03-03) — M&A activity signals growth ambition and potential re-rating catalyst
-- Q1 2026 earnings beat: EPS -$0.20 vs -$0.23 est (+13% surprise), +21.7% 1-day reaction — consistent positive earnings trajectory; next event 2026-05-06 (59 days, CLEAR)
+- **Quantum security partnership (2026-03-10, Benzinga +0.97):** IonQ partnered with Applied Research Lab to advance quantum computing security — positive catalyst for government/defense pipeline
+- **Revenue vs stock gap (2026-03-10, 24/7 Wall St. -0.37):** IonQ tripled revenue but stock down 22% — market pricing macro/valuation headwinds despite strong fundamentals; tension between operational strength and price action
+- **Quantum defense sector tailwind (2026-03-06, PR Newswire +0.66):** Quantum threats driving enterprise demand; IonQ positioned as infrastructure play for post-quantum security buildout
 
-**Sector Context:** Quantum Computing / Technology. Regime: Risk-Off (0/3 indices above 50-SMA, VIX 29.5, +48.5% 5D — sharply elevated). Sector breadth 2/11 positive. Macro headwind is significant; IONQ-specific catalysts (EXTREME short squeeze setup, M&A narrative, strong Q1 earnings beat) are the primary bull case. No new bullets warranted in Risk-Off regime unless price reaches wick-adjusted pullback levels below current.
+**Sector Context:** Quantum Computing / Technology. Regime: Neutral (0/3 indices above 50-SMA, VIX 24.2, 5D -5.14% — VIX declining, improving). Sector breadth 11/11 positive. VIX declining trend is a positive for high-beta names like IONQ. No new bullets until price reaches wick-adjusted pullback levels; market gate would be ACTIVE (CAUTION) given VIX 20-25 with declining trend.
 
 ---
 
-### NNE — HOLD — P/L -2.7%
-**State:** 6 shares @ $24.19, target N/A (recovery), held 3 days
-**Objective:** Dig out of -2.7% deficit via squeeze catalyst and mean-reversion at active support zone; build position with remaining bullets as price consolidates
-**Decision:** HOLD — recovery position with EXTREME squeeze risk (32.89% short, 6.8 DTC) and MACD bullish crossover provides active squeeze/relief thesis; RSI 38 is bearish but not bearish-across-all (Rule 8)
+### TEM — HOLD — P/L -1.0%
+**State:** 1 share @ $50.98, target N/A (recovery — no target set), held 7 days
+**Objective:** Rebuild position after successful +6.0% cycle close on 2026-03-06; accumulate at support during pullback with squeeze potential as catalyst
+**Decision:** HOLD — Recovery position with HIGH squeeze risk (65/100, 18% short float, +11.4% increasing), MACD bullish crossover, and oversold Stochastic (18.1/12.7); active bullish relief elements support dig-out thesis (Rule 8)
 
 | Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |
-| Time Stop | WITHIN | 3 days |
-| Profit Target | N/A | P/L -2.7%, recovery — no target set |
-| Earnings Gate | CLEAR | 67 days to event (2026-05-14) |
-| Momentum | Bearish/Mixed | RSI 38.0 (<40 bearish), MACD above signal (+0.088 histogram — bullish crossover) |
+| Time Stop | WITHIN | 7 days held |
+| Profit Target | N/A — no target set | P/L -1.0%, Profit Zone: N/A (recovery) |
+| Earnings Gate | CLEAR | 50 days to event (2026-05-05) |
+| Momentum | Neutral | RSI 40.1 (borderline), MACD above signal (+0.014 histogram), Stochastic oversold 18.1/12.7 |
 
-**Trades Executed:** None recorded
+**Trades Executed:**
+- 2026-03-02: BUY 1 @ $51.20 (Bullet 1, pre-market — prior cycle)
+- 2026-03-03: BUY 1 @ $49.64 (Bullet 2 — prior cycle)
+- 2026-03-06: SELL 2 @ $53.45 — full close, +6.0% from $50.42 avg
+- 2026-03-09: BUY 1 @ $50.98 (Bullet 1 re-entry, current position)
 
-**Sell-Side Advisory:** Recovery position — no profit-taking target. Dig Out thesis: short squeeze (score 80/100, 32.9% float short, 6.8 DTC) creates asymmetric upside on any positive catalyst. MACD bullish crossover from oversold RSI (38) suggests possible mean-reversion bounce. Watch for squeeze trigger above $26 resistance. Hold all shares unless squeeze thesis invalidated (short interest drops below 20% or price fails to recover $24.19 avg by day 45).
+**Sell-Side Advisory:** Recovery position — no profit target set. Current sell limit at $54.55 represents +7.0% from avg cost ($50.98), aligned with PA resistance and 25% historical reject rate. Merck strategic deal catalyst and institutional accumulation (Casdin Capital, TD Asset Management) could provide momentum. Watch for squeeze trigger given 18% short float with rapidly increasing short interest (+11.4%). If price breaks above $52.55 (PA resistance) with volume, consider trailing sell rather than waiting for $54.55.
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $24.03 | 2 | 0.0% | REVIEW | ACTIVE | REVIEW | Bullet 2 — $23.60 PA, 50% hold, Std tier, wick-adjusted |
-| BUY | $23.50 | 2 | 2.2% | REVIEW | ACTIVE | REVIEW | Bullet 3 — $22.89+$22.02 PA merged, 67% hold, Full tier, wick-adjusted |
+| SELL | $54.55 | 1 | N/A | N/A | N/A | N/A | PA resistance, 25% reject, +7.0% from avg |
+| BUY | $48.75 | 2 | 10.6% | ACTIVE | ACTIVE | ACTIVE | Bullets 2+3 converged — 46%/64% hold, Full tier, wick-adjusted |
+
+*BUY gate: Neutral regime + VIX 24.2 but 5D% = -5.14% (declining) → ACTIVE (not CAUTION). Earnings 50 days → ACTIVE.*
 
 **Wick-Adjusted Buy Levels:**
 | Zone | Level | Buy At | Hold Rate | Tier | Shares |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Active | $22.89 | $23.53 | 54% | Full | 2 |
-| Active | $22.02 | $23.45 | 71% | Full | 2 |
-| Active | $20.12 | $20.31 | 67% | Full | 2 |
-| Active | $18.81 | $19.28 | 67% | Full | 3 |
+| Active | $49.35 | $50.98 | 22% | Std | 1 (filled — B1) |
+| Active | $48.01 | $48.75 | 46% | Full | 1 |
+| Active | $47.00 | $48.75 | 64% | Full | 1 |
+| Active | $45.01 | $47.54 | 40% | Std | 1 |
+| Reserve | $43.25 | $43.53 | 75% | Full | 2 |
+| Reserve | $41.35 | $42.10 | 50% | Std | 2 |
 
 **Projected Sell Levels:**
 | Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Current (breakeven) | 6 | $24.19 | $24.19 | 0.0% | $145.14 |
-| After B2 fills @ $24.03 (breakeven) | 8 | $24.15 | $24.15 | 0.0% | $193.20 |
-| After B2+B3 fill @ $23.50 (breakeven) | 10 | $24.02 | $24.02 | 0.0% | $240.20 |
+| Current (B1 only) | 1 | $50.98 | $50.98 | 0.0% (breakeven) | $50.98 |
+| Current (B1 only) | 1 | $50.98 | $54.55 | +7.0% | $54.55 |
+| If B2+B3 fill @ $48.75 (3 shares) | 3 | $49.49 | $49.49 | 0.0% (breakeven) | $148.47 |
+| If B2+B3 fill @ $48.75 (3 shares) | 3 | $49.49 | $54.55 | +10.2% | $163.65 |
 
-*No target set (recovery). Avg: B2 = (6×24.19 + 2×24.03)/8 = $24.15; B3 = (8×24.15 + 2×23.50)/10 = $24.02. Monotonic check: $24.19 > $24.15 > $24.02 ✓*
+*Avg check: (1×$50.98 + 2×$48.75) / 3 = $148.48 / 3 = $49.49 ✓ Monotonic: lower buy → lower avg ✓*
 
-**Fill Alerts:**
-- **BUY $24.03** — ⚠️ LIKELY FILLED: Order price $24.03 is above current price $23.54; day low $23.45 confirms price was well below limit all day. Verify fill with broker immediately.
-- **BUY $23.50** — ⚠️ LIKELY FILLED: Day low $23.45 ≤ order price $23.50 — low crossed the limit. Verify with broker.
+**Fill Alerts:** None — Day Low $49.82 > BUY trigger $48.75+2% ($49.73); Day High $52.67 < SELL trigger $54.55−2% ($53.46)
 
 **News & Catalysts:**
-- NANO Nuclear signs MOU with EHC Investment to advance micro modular reactor deployment in UAE — international expansion catalyst (2026-02-24)
-- NANO Nuclear appoints US Government Veteran Sarah Lennon as International Nuclear Policy Advisor — regulatory credibility boost (2026-02-20)
-- Uranium demand rising as AI power demand rewrites the nuclear playbook — macro tailwind for micro reactor thesis (2026-02-19)
+- Strategic deal with Merck to fast-track AI-driven precision medicine announced (2026-03-07, +0.84 sentiment)
+- TEM Diagnostics arm expanding rapidly; +83% YoY revenue growth in Q4 2025; institutional buyers (Casdin Capital, TD Asset Management) accumulating
+- Overall news sentiment bullish (57% positive, avg +0.145); note: earnings history shows bearish post-earnings reactions despite beats — watch as 2026-05-05 approaches
 
-**Sector Context:** Nuclear/clean energy — 2/11 sectors positive in Risk-Off regime (VIX 29.5, +48% 5-day). Nuclear narrative remains constructive (AI power demand, reactor licensing momentum), but broad market selloff suppresses sector moves. Squeeze potential (score 80, EXTREME) is regime-independent and represents the primary upside catalyst regardless of macro.
+**Sector Context:** Healthcare/AI — 11/11 sectors positive; VIX 24.2 with 5D% -5.14% (easing); HIGH squeeze risk (18% short float, DTC 4.1) adds asymmetric upside; BUY gate ACTIVE at $48.75
 
 ---
 
-### OUST — HOLD — P/L -6.6%
-**State:** 5 shares @ $21.70, target N/A (recovery), held 3 days
-**Objective:** Hold recovery position; work down average cost using remaining bullets at wick-adjusted support zones.
-**Decision:** HOLD — recovery position with neutral momentum (MACD above signal); Rule 10 (recovery default hold). Regime is Risk-Off — no new entries without regime improvement.
+### TMC — HOLD — P/L -0.5%
+**State:** 9 shares @ $6.01, target N/A (recovery), held 3 days
+**Objective:** Recover to prior exit level (~$6.26) on NOAA compliance catalyst; add bullets at wick-adjusted levels if price pulls back
+**Decision:** HOLD — recovery position, 3 days in, neutral momentum with MACD bullish crossover; earnings approaching in 10 days — no new entries without explicit exit-before-earnings plan (Rule 10, earnings APPROACHING note)
 
 | Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |
 | Time Stop | WITHIN | 3 days held |
-| Profit Target | N/A — no target set | P/L -6.6%, recovery position |
-| Earnings Gate | CLEAR | 60 days to event (2026-05-07) |
-| Momentum | Neutral | RSI 48.4, MACD above signal (+0.443 histogram, bullish crossover), Stochastic bearish (43.3/59.9) |
+| Profit Target | N/A — no target set | P/L -0.5%, recovery position |
+| Earnings Gate | APPROACHING | 10 days to 2026-03-26 |
+| Momentum | Neutral | RSI 44.3, MACD above signal (+0.025 histogram, bullish crossover) |
 
-**Trades Executed:** Bullets Used 3/5; entered 2026-03-05. No detailed trade log in input — 3 bullets deployed since entry.
+**Trades Executed:** BUY 9 @ $6.01 (2026-03-13 re-entry, Fill #1)
 
-**Sell-Side Advisory:** Recovery position — profit-taking not applicable. Recovery path: price must reach $21.70 for breakeven. If active bullet at $17.60 fills (3 shares), avg cost drops to $20.16, reducing breakeven gap. Remaining capacity: 2 bullets available. If price deteriorates with RSI dropping below 40 and MACD bearish crossover, reassess recovery thesis.
-
-**Pending Orders:**
-| Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $20.32 | 1 | 0.0% | REVIEW | ACTIVE | REVIEW | Bullet 3 — $19.22 HVN+PA, 30% hold rate, Half tier, wick-adjusted |
-
-**Wick-Adjusted Buy Levels:**
-| Zone | Level | Buy At | Hold Rate | Tier | Shares |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| Active | $17.28 | $17.60 | 100% | Full | 3 |
-| Reserve | $9.22 | $9.31 | 83% | Full | 10 |
-| Reserve | $7.05 | $7.28 | 60% | Full | 13 |
-| Reserve | $6.79 | $7.17 | 67% | Full | 13 |
-
-*Note: 2 Active levels excluded — buy price at or above current price: $20.16, $19.22*
-
-**Projected Sell Levels:**
-| Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| Current (breakeven) | 5 | $21.70 | $21.70 | 0.0% | $108.50 |
-| Active bullet fills ($17.60 × 3 shares) | 8 | $20.16 | $20.16 | 0.0% | $161.28 |
-
-*No target set (recovery position) — scenarios show breakeven only. Monotonic check: lower buy ($17.60) → lower avg ($20.16 vs $21.70) ✓*
-
-**Fill Alerts:** ⚠️ BUY $20.32 (1 share) — day low $20.07 is below order price $20.32. **Likely filled — verify with broker immediately.**
-
-**News & Catalysts:**
-- StereoLabs acquisition (2026-02-27): Ouster establishing Physical AI Platform integrating stereo vision — strategic expansion of addressable market, bullish long-term thesis.
-- Q1 2026 earnings beat: EPS $0.07 vs -$0.13 estimate (+149.3% surprise), stock up 13% post-results — confirms improving fundamentals.
-- Rosenblatt Securities reiterates Buy rating; short interest declining -6.3% to 9.85% float (medium squeeze risk, DTC 3.1 days).
-
-**Sector Context:** LiDAR / Physical AI hardware (XLK adjacency). Broad market Risk-Off: 0/3 indices above 50-SMA, VIX 29.5 (+48.5% 5-day surge), sector breadth 2/11 positive. Macro headwinds conflict with stock-specific bullish MACD. BUY order combined gate = REVIEW — do not place additional entries until regime improves.
-
----
-
-### TMC — HOLD — P/L -4.5%
-**State:** 38 shares @ $6.00, target N/A (recovery), held 9 days
-**Objective:** Recover cost basis via deep-seabed mining regulatory thesis; accumulate remaining bullet on dip, then wait for mean-reversion to $6.00+ breakeven and $7.25 resistance.
-**Decision:** HOLD — Recovery position, non-GATED (18d to earnings), momentum neutral-bearish but RSI 40.4 (not confirmed <40), not cleanly bearish across all dimensions; default recovery hold. (Rule 10)
-
-| Exit Criterion | Status | Detail |
-| :--- | :--- | :--- |
-| Time Stop | WITHIN | 9 days held |
-| Profit Target | N/A — no target set | P/L -4.5%, recovery position |
-| Earnings Gate | CLEAR | 18 days to 2026-03-26 event |
-| Momentum | Neutral-Bearish | RSI 40.4 (borderline), MACD -0.240 below signal, histogram -0.002 |
-
-**Trades Executed:** None recorded in memory (knowledge note: Bullet 1 filled at $6.32, 9 shares, fee-adjusted avg — first position established)
-
-**Sell-Side Advisory:** Recovery position — no profit-taking target. Breakeven at current avg $6.00 (38 shares). If Bullet 3 fills ($5.63 × 10), avg drops to $5.92 on 48 shares — breakeven improves. Recovery thesis: U.S. deep-seabed mining regulatory approval in progress, Trump rare earth supply squeeze narrative, analyst target $12.25 (Insider Monkey, 2026-02-17, first-mover advantage). If regulatory momentum stalls or Risk-Off deepens further, reassess. Cycle early-bias (days 1-8 bottom window) — day 9 may represent monthly bottom area; watch for reversal signal before deploying remaining reserve bullets.
+**Sell-Side Advisory (Recovery):** Recovery thesis hinges on NOAA "Substantial Compliance" milestone (2026-03-09) catalyzing a move toward prior exit at $6.26 (+4.2% from avg). Prior successful trade: SELL 26 @ $6.26, +6.9% from $5.86 avg. SELL order placed at $6.39 (+6.3% from avg). Earnings 2026-03-26 carry risk — Q3 2025 was -9.1% 1-day on large EPS miss (-300% vs estimate). Consider exiting or reducing before earnings if SELL order does not fill. Avoid adding the $5.63 BUY until earnings clear unless you have an explicit hold-through plan.
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $5.63 | 10 | 1.7% | REVIEW | ACTIVE | REVIEW | Bullet 3 — $5.53 HVN+PA, 42% hold, Std tier, wick-adjusted; Risk-Off active ≤15% below → REVIEW |
+| SELL | $6.39 | 9 | N/A | N/A | N/A | N/A | HVN resistance, 40% reject, +6.3% from avg |
+| BUY | $5.63 | 10 | 11.9% | ACTIVE | REVIEW | REVIEW | Earnings 10 days — confirm before fill |
 
 **Wick-Adjusted Buy Levels:**
 | Zone | Level | Buy At | Hold Rate | Tier | Shares |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Active | $5.46 | $5.56 | 50% | Full | 10 |
-| Active | $5.31 | $5.58 | 23% | Std | 10 |
-| Active | $5.05 | $5.20 | 33% | Std | 11 |
-| Active | $4.90 | $5.29 | 14% | Half | 5 |
-| Active | $4.74 | $4.93 | 33% | Std | 12 |
-| Reserve | $4.06 | $4.37 | 33% | Std | 22 |
-| Reserve | $4.21 | $4.37 | 25% | Std | 22 |
-| Reserve | $1.60 | $1.66 | 50% | Std | 60 |
+| Active | $5.65 | $5.90 | 46% | Full | 11 |
+| Active | $5.79 | $5.90 | 54% | Std | 14 |
+| Active | $5.39 | $5.58 | 25% | Std | 11 |
+| Active | $5.24 | $5.54 | 46% | Full | 11 |
+| Active | $5.13 | $5.14 | 14% | Half | 5 |
+| Reserve | $4.74 | $4.93 | 33% | Std | 24 |
+| Reserve | $4.57 | $4.75 | 50% | Full | 25 |
+| Reserve | $1.60 | $1.66 | 50% | Std | 37 |
 
 **Projected Sell Levels:**
 | Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Current (breakeven) | 38 | $6.00 | $6.00 | 0.0% | $228.00 |
-| If B3 fills ($5.63 × 10) | 48 | $5.92 | $5.92 | 0.0% | $284.16 |
+| Current only (breakeven) | 9 | $6.01 | $6.01 | 0.0% | $54.09 |
+| Current only (prior exit) | 9 | $6.01 | $6.26 | +4.2% | $56.34 |
+| Current only (SELL order) | 9 | $6.01 | $6.39 | +6.3% | $57.51 |
+| +BUY $5.63 fills (breakeven) | 19 | $5.81 | $5.81 | 0.0% | $110.39 |
+| +BUY $5.63 fills (prior exit) | 19 | $5.81 | $6.26 | +7.7% | $118.94 |
 
-*B3 new avg: (38 × $6.00 + 10 × $5.63) / 48 = ($228.00 + $56.30) / 48 = $284.30 / 48 = $5.92. Monotonic check: lower buy ($5.63) → lower avg ($5.92 < $6.00) ✓*
-*No profit target set (recovery) — breakeven scenarios only*
+*Monotonic check: lower buy $5.63 → lower avg $5.81 < $6.01 ✓*
+*New avg = (9 × $6.01 + 10 × $5.63) / 19 = ($54.09 + $56.30) / 19 = $5.81*
 
-**Fill Alerts:** ⚠️ BUY $5.63 — Day Low $5.54 crossed order price ($5.54 ≤ $5.63). **LIKELY FILLED — verify with broker.**
+**Fill Alerts:** None — Day Low $5.86 > BUY trigger $5.74 ($5.63 × 1.02); Day High $6.17 < SELL trigger $6.26 ($6.39 × 0.98)
 
 **News & Catalysts:**
-- Analyst boosted TMC target to $12.25, citing first-mover advantage in deep-seabed mining (Insider Monkey, 2026-02-17)
-- U.S. deep-seabed mining regulatory approval news active; TMC positioned as Trump rare earth supply chain play (OilPrice.com, 2026-03-06)
-- Metals Royalty Company direct listing registration filed (ACCESSWIRE, 2026-03-02) — sector-adjacent note, not directly TMC
+- NOAA found TMC USA's deep-seabed mining application in "Substantial Compliance" (2026-03-09) — key regulatory milestone, strong positive catalyst (+0.98 sentiment)
+- U.S. defense manufacturers face rare earth supply squeeze — macro tailwind supporting deep-sea mining thesis
+- The Metals Royalty Company hosting corporate webinar 2026-03-16 ahead of planned Nasdaq Direct Listing
 
-**Sector Context:** Metals & Mining (XME) — 2/11 sectors positive in current Risk-Off regime (VIX 29.5, +48.5% 5D); broad sector under pressure. TMC's thesis is idiosyncratic (regulatory/geopolitical critical minerals), less correlated to macro metals moves.
+**Sector Context:** Metals/mining — regime Neutral (0/3 indices above 50-SMA, VIX 24.2 declining -5.1% over 5D); 11/11 sectors positive breadth suggests broad market stabilization; short interest 11.1% float, MEDIUM squeeze risk (score 45/100)
 
 ---
 
-### USAR — HOLD — P/L -19.1%
-**State:** 15 shares @ $21.57, target $23.05 (32.1% away), held >60 days (pre-strategy) | Pool exhausted (3/5 bullets used pre-strategy)
-**Objective:** Dig Out — recover to breakeven ($21.57) then target ($23.05 VWAP) on rare earth strategic thesis; no new entries available.
-**Decision:** HOLD — recovery position; HIGH squeeze risk (21.85% float short, +105.8% surge, score 65/100) plus major catalysts (Texas Mineral Resources acquisition, Stillwater commissioning, $1.6B govt LOI) offset bearish technicals. Rule 8 (recovery + active squeeze/bullish relief).
+### USAR — HOLD — P/L -11.3%
+**State:** 15 shares @ $21.57, target $23.05 (20.5% away), held >60 days (pre-strategy), pool exhausted (3/5 bullets used pre-strategy)
+**Objective:** Dig Out — recover to breakeven ($21.57) then target ($23.05 VWAP) on government-backed rare earth thesis; no new entries available.
+**Decision:** HOLD — Recovery (pre-strategy) position; MACD now bullish (above signal) with shorts actively covering (-34.6%); not bearish across all indicators, default recovery hold applies. Rule 10. Earnings approaching in 14 days (2026-03-30) — no new entries without explicit exit-before-earnings plan.
 
 | Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |
 | Time Stop | EXCEEDED | >60 days (pre-strategy) |
-| Profit Target | BELOW | P/L -19.1%, Profit Zone: BELOW |
-| Earnings Gate | CLEAR | 22 days to event (2026-03-30) |
-| Momentum | Bearish | RSI 42.5 (neutral-bear zone), MACD -0.387 below signal, histogram -0.239 |
+| Profit Target | BELOW | P/L -11.3%, Profit Zone: N/A (recovery) |
+| Earnings Gate | APPROACHING | 14 days to event (2026-03-30) |
+| Momentum | Neutral | RSI 47.8, MACD above signal (histogram +0.017) |
 
-**Trades Executed:** None on record.
+**Trades Executed:** None recorded
 
-**Sell-Side Advisory (Recovery):** Pool exhausted — no new entries. Dig Out path: (1) Reclaim SMA 200 ($16.63) — price at $17.45 is just above it (critical support); (2) Reclaim EMA 9 ($19.07) and SMA 50 ($19.20); (3) PIPE floor resistance at $21.50; (4) Breakeven $21.57; (5) Target $23.05 (VWAP). Catalyst watch: Texas Mineral Resources acquisition (2026-03-05) adds feedstock supply chain; Stillwater Line 1a commissioning Q1 2026 — first US-scale NdFeB magnet plant milestone; $1.6B government LOI for Round Top mine; analyst consensus target $34.33 (Benchmark $45, Cantor $35, Roth $35). Squeeze setup meaningful — 21.85% float short, +105.8% increase, any positive catalyst could trigger covering. **Key risk:** if price breaks below SMA 200 ($16.63) on a closing basis, Dig Out exit should be considered — recovery thesis requires operational milestone delivery. Risk-Off macro (VIX 29.5, +48.5% 5D) is a headwind; manage timeline expectations.
+**Sell-Side Advisory (Recovery):** Pool exhausted — no new entries. Dig Out path: (1) Reclaim EMA 9 ($19.52) and SMA 20 ($19.27); (2) PIPE floor resistance at $21.50; (3) Breakeven $21.57; (4) Target $23.05 (VWAP). Catalyst watch: Stillwater Line 1a commissioning Q1 2026 is nearest operational milestone (prototype NdFeB magnets late Q1/early Q2); $1.6B government LOI for Round Top mine; analyst consensus $34.33 (Benchmark $45, Cantor/Roth $35, Canaccord $33). Shorts covering rapidly (-34.6%, DTC 1.1) — continued positive news flow could accelerate. **Key risk:** Earnings 2026-03-30 (EPS est -$0.14, pre-revenue stage); if price recovers toward $21.50 pre-earnings, consider whether to reduce through the event. **Floor:** SMA 200 at $16.95 — closing break warrants Dig Out exit consideration. Regime Neutral (VIX 24.19, -5.14% 5D, sector breadth 11/11).
 
 **Pending Orders:**
 No pending orders (pool exhausted).
@@ -332,83 +400,86 @@ No pending orders (pool exhausted).
 **Projected Sell Levels:**
 | Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| Current (hold) | 15 | $21.57 | $19.13 | -11.3% | $286.95 |
 | Breakeven | 15 | $21.57 | $21.57 | 0.0% | $323.55 |
-| Target Exit | 15 | $21.57 | $23.05 | +6.9% | $345.75 |
+| Target Exit (VWAP) | 15 | $21.57 | $23.05 | +6.9% | $345.75 |
+| Analyst Consensus | 15 | $21.57 | $34.33 | +59.2% | $514.95 |
 
-*No lower bullets to fill — pool exhausted. Hold current 15 shares to recovery.*
+*No lower bullets available — pool exhausted. Hold current 15 shares to recovery.*
 
-**Fill Alerts:** None (no pending orders).
+**Fill Alerts:** None (no pending orders)
 
 **News & Catalysts:**
-- **Acquisition (2026-03-05):** USAR to acquire Texas Mineral Resources Corporation — strategic feedstock supply chain expansion; sentiment +0.99 (GlobeNewswire).
-- **Stillwater Facility (2026-03-04):** Line 1a commissioning Q1 2026; prototype NdFeB magnets late Q1/early Q2 — near-term operational milestone that could trigger catalyst re-rating; Zacks positive (+0.98).
-- **Short Squeeze Setup:** 21.85% float short, +105.8% surge from prior period, DTC 1.28, score 65/100 HIGH — acquisition news and commissioning milestones could trigger covering; Jim Cramer flagged "totally speculative" (2026-03-03) — contrarian signal.
+- **2026-03-12:** Dr. Thomas Caulfield appointed to Board — semiconductor manufacturing expertise adds credibility to Stillwater magnet plant execution
+- **2026-03-10:** Three new executives joined; stock climbed 9.3% on leadership expansion; momentum from government landmark agreement continuing
+- **2026-03-09:** USA Rare Earth expands leadership following $1.6B government LOI — Stillwater NdFeB magnet plant commissioning underway (one of first large-scale US rare earth facilities)
 
-**Sector Context:** Critical minerals / rare earths — no dedicated sector ETF in portfolio. Regime: Risk-Off (0/3 indices above 50-SMA, VIX 29.5, sector breadth 2/11 positive). USAR is policy-driven (US rare earth independence) rather than sector-correlated; government contract flow and strategic necessity provide thesis floor despite macro headwind.
+**Sector Context:** Critical minerals / rare earths — policy-driven (US rare earth supply chain independence), not sector-ETF-correlated. Regime: Neutral (0/3 indices above 50-SMA, VIX 24.19, -5.14% 5D, sector breadth 11/11 positive).
 
 ---
 
-### ACHR — MONITOR — P/L -7.7%
-**State:** 61 shares @ $6.78, target N/A (recovery), held 6 days
-**Objective:** Recover position via mean-reversion bounce on ARKX-sourced eVTOL holding; monitor for technical stabilization before deploying final B5 reserve bullet.
-**Decision:** MONITOR — Recovery position with bearish momentum across all indicators; hold current shares, B5 reserve on REVIEW (Risk-Off regime), watch for RSI recovery above 45 and MACD relief before adding. (Rule 9)
+### ACHR — MONITOR — P/L -8.9%
+**State:** 77 shares @ $6.61, target N/A (recovery), held 14 days
+**Objective:** Recover to breakeven ($6.61) and assess full exit; all 5 bullets used, no further averaging available
+**Decision:** MONITOR — recovery position with bearish momentum across all indicators; watch for mean-reversion setup or catalyst-driven bounce before acting (Rule 9, Dig Out exit consideration)
 
 | Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |
-| Time Stop | WITHIN | 6 days held |
-| Profit Target | N/A | P/L -7.7%, no target set (recovery) |
-| Earnings Gate | CLEAR | 64 days to event (2026-05-11) |
-| Momentum | Bearish | RSI 36.8 (<40), MACD -0.270 below signal (-0.238), histogram -0.032; all SMAs bearish |
+| Time Stop | WITHIN | 14 days |
+| Profit Target | N/A — no target set | P/L -8.9%, Recovery position |
+| Earnings Gate | CLEAR | 56 days to event (2026-05-11) |
+| Momentum | Bearish | RSI 36.0, MACD -0.357 below signal (-0.302) |
 
 **Trades Executed:**
-- 2026-03-02: BUY 4 shares @ $6.89 (Bullet 1, pre-market; limit was $6.96). Cost: $27.56.
-- 2026-03-02: SELL 4 shares @ $7.41 (full exit prior cycle). Revenue: $29.64. Profit: +$2.08 (+7.5%). Position closed.
-- 2026-03-02: Re-entry — 8 shares @ $7.00 (per position note); subsequent bullets brought position to 61 shares @ $6.78 avg. Bullets used: 4/5.
+- 2026-03-02: BUY 4 shares @ $6.89 (Bullet 1, pre-market)
+- 2026-03-02: SELL 4 shares @ $7.41 (full exit prior cycle, +7.5%)
+- Current position fills: $7.35 → $7.24 → $6.96 → $6.59 → $5.98 (5/5 bullets used)
 
-**Sell-Side Advisory (Recovery):**
-Recovery thesis intact: ACHR selected from ARKX ETF screener with 40.7% median monthly swing and 100% of months hitting 10%+. Prior cycle confirmed the pattern (+7.5% in one day). Current re-entry is 4 days old and underwater at -7.7%. With 4/5 bullets deployed and RSI in bearish zone (36.8), position is near max exposure. Watch for RSI recovery above 45 and MACD histogram turning positive before considering B5 activation. If price breaks below $5.85 (PA support) with no bounce, treat as Dig Out signal — consider partial reduction to preserve capital for a cleaner re-entry.
+**Sell-Side Advisory:** Recovery thesis rests on eVTOL regulatory tailwinds ("Future of Flight") and FAA partnership momentum. Breakeven requires +9.8% move to $6.61 from current $6.02. All bullets exhausted — no further averaging possible. Needham PT at $9 (+49% upside) provides fundamental anchor, but technicals are deeply bearish (all SMAs overhead, Stochastic at 2.2, RSI 36). If price stabilizes above $5.84 (Bollinger Lower) and RSI begins turning up from oversold, monitor for bounce signal. If price breaks below $5.84 with no catalyst, consider partial Dig Out exit to reduce exposure before recovery thesis is retested.
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $5.98 | 16 | 4.5% | REVIEW | ACTIVE | REVIEW | B5 reserve — $5.85 PA bounce level, 50% hold rate; Risk-Off limits new entries (active, ≤15% below) |
+| — | — | — | — | — | — | — | No pending orders |
 
 **Wick-Adjusted Buy Levels:**
 | Zone | Level | Buy At | Hold Rate | Tier | Shares |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| — | No bullet plan available | — | — | — | — |
+| — | — | — | — | — | — |
+*No bullet plan found — all 5 bullets used*
 
 **Projected Sell Levels:**
 | Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Current (breakeven) | 61 | $6.78 | $6.78 | 0.0% | $413.58 |
-| If B5 fills @ $5.98 (breakeven) | 77 | $6.61 | $6.61 | 0.0% | $508.97 |
+| Breakeven | 77 | $6.61 | $6.61 | 0.0% | $508.97 |
+| Partial recovery | 77 | $6.61 | $7.00 | +5.9% | $539.00 |
+| Prior cycle exit level | 77 | $6.61 | $7.35 | +11.2% | $565.95 |
+| Needham PT | 77 | $6.61 | $9.00 | +36.2% | $693.00 |
 
-*Monotonic check: lower buy ($5.98) → lower avg ($6.61 < $6.78) ✓*
-*Recovery position — no profit target set. Breakeven scenarios shown only.*
+*Recovery position — no profit target set. Breakeven and resistance recovery scenarios shown.*
 
-**Fill Alerts:** None (BUY $5.98 alert threshold $6.10; day low $6.22 > $6.10)
+**Fill Alerts:** None (no pending orders)
 
 **News & Catalysts:**
-- ARK Investment Management LLC acquired ACHR shares — institutional accumulation signal amid eVTOL sector dip.
-- Uber entered new deal with Joby Aviation on electric air taxis — positive sector catalyst validating eVTOL demand, indirect tailwind for ACHR (2026-03-03).
-- Jim Cramer skeptical: "I'm Not as Into These Stocks as Others" — retail sentiment headwind; short interest rising +5.8% to 14.1% float (DTC 2.3, medium squeeze risk 35/100).
+- Trump admin named Joby, Archer, Beta as winners in "Future of Flight" initiative (2026-03-10, positive regulatory tailwind)
+- Needham lowered PT to $9 — still 49% upside from current $6.02 (2026-03-10)
+- Archer filed countersuit vs Joby alleging China ties and fraud amid FAA partnership dispute (2026-03-10, corporate/legal event)
 
-**Sector Context:** eVTOL / Aviation (ARKX ETF holding). Regime: Risk-Off — 0/3 indices above 50-SMA, VIX 29.5 (+48.49% 5D), sector breadth 2/11 positive. Broad market weakness creates significant headwinds for speculative growth names.
+**Sector Context:** eVTOL / Advanced Air Mobility (ARKX ETF holding). Regime: Neutral — 0/3 indices above 50-SMA, VIX 24.2 declining (-5.14% over 5 days). Sector breadth 11/11 positive provides mild tailwind, but ACHR technicals remain strong bearish (score -6, below all SMAs/EMAs).
 
 ---
 
-### APLD — MONITOR — P/L -13.5%
-**State:** 15 shares @ $29.06, target $38.00 (51.1% away), held 19 days
+### APLD — MONITOR — P/L -4.9%
+**State:** 15 shares @ $29.06, target $38.00 (37.5% away), held 27 days
 **Objective:** Hold fully-loaded 5-bullet position through current drawdown; reserve bullet at $21.93 remains active; await mean reversion to $38.00 target.
-**Decision:** MONITOR — time stop WITHIN (19 days), P/L -13.5% below profit zone, all 5 active bullets deployed, earnings CLEAR (32 days); standard tracking. (Rule 16)
+**Decision:** MONITOR — time stop WITHIN (27 days), P/L -4.9% below profit zone, all 5 active bullets deployed, earnings CLEAR (24 days); standard tracking (Rule 16).
 
 | Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |
-| Time Stop | WITHIN | 19 days held |
-| Profit Target | BELOW | P/L -13.5%, target $38.00 is 51.1% away |
-| Earnings Gate | CLEAR | 32 days to 2026-04-09 event |
-| Momentum | Bearish | RSI 37.5 (bearish zone), MACD -1.914 below signal -1.346, histogram -0.567 |
+| Time Stop | WITHIN | 27 days held (limit: 60) |
+| Profit Target | BELOW | P/L -4.9%, target $38.00 is 37.5% away |
+| Earnings Gate | CLEAR | 24 days to 2026-04-09 event |
+| Momentum | Neutral | RSI 44.7 (neutral zone), MACD -1.519 above signal -1.573, histogram +0.054 (bullish) |
 
 **Trades Executed:**
 - **2026-02-17:** Bullet 1 filled at $32.47 (3 shares). First entry on intraday dip to $32.39.
@@ -419,7 +490,7 @@ Recovery thesis intact: ACHR selected from ARKX ETF screener with 40.7% median m
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | SELL | $38.00 | 15 | N/A | N/A | N/A | N/A | Target — $37.60-$38.76 HVN resistance zone |
-| BUY | $21.93 | 4 | 42.3% | ACTIVE | ACTIVE | ACTIVE | Reserve 2 — $20.55 PA, 33% hold, Std tier; Risk-Off active >15% below = ACTIVE |
+| BUY | $21.93 | 2 | 42.3% | ACTIVE | ACTIVE | ACTIVE | Reserve 2 — $20.55 PA, 33% hold, Std tier; wick-adjusted (resized 2026-03-13) |
 
 **Wick-Adjusted Buy Levels:**
 | Zone | Level | Buy At | Hold Rate | Tier | Shares |
@@ -427,285 +498,157 @@ Recovery thesis intact: ACHR selected from ARKX ETF screener with 40.7% median m
 | Active | $25.25 | $25.39 | 67% | Full | 2 |
 | Active | $22.70 | $23.21 | 29% | Half | 1 |
 | Active | $21.88 | $22.68 | 33% | Std | 2 |
-| Active | $20.55 | $21.93 | 33% | Std | 2 |
+| Active | $20.55 | $21.93 | 33% | Std | 2 (pending reserve order) |
 | Active | $19.57 | $20.72 | 50% | Std | 2 |
 | Reserve | $10.80 | $11.14 | 50% | Full | 8 |
-| Reserve | $6.95 | $7.22 | 50% | Full | 13 |
-| Reserve | $5.75 | $5.97 | 83% | Full | 16 |
-
-*Wick plan generated at $27.27; current price $25.14 — Level 1 ($25.39) is just above current and may be tested shortly. All 5 active bullets already deployed.*
 
 **Projected Sell Levels:**
 | Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Current position | 15 | $29.06 | $38.00 | +30.7% | $570.00 |
-| + Reserve BUY fills @ $21.93 (4 shares) | 19 | $27.56 | $38.00 | +37.9% | $722.00 |
+| Current position | 15 | $29.06 | $38.00 | +30.8% | $570.00 |
+| + Reserve BUY fills @ $21.93 (2 shares) | 17 | $28.22 | $38.00 | +34.7% | $646.00 |
 
-*New avg if reserve fills: (15 × $29.06 + 4 × $21.93) / 19 = ($435.90 + $87.72) / 19 = $27.56. Monotonic check: lower buy ($21.93) → lower avg ($27.56 < $29.06). Pass.*
+*New avg if reserve fills: (15 × $29.06 + 2 × $21.93) / 17 = ($435.90 + $43.86) / 17 = $28.22. Monotonic check: lower buy ($21.93) → lower avg ($28.22 < $29.06) ✓*
 
-**Fill Alerts:** None — day low $25.07 above BUY alert threshold $22.37 ($21.93 + 2%); day high $28.41 below SELL alert threshold $37.24 ($38.00 − 2%).
+**Fill Alerts:** None — BUY day low $27.38 well above alert threshold $22.37 ($21.93 + 2%); SELL day high $29.06 below alert threshold $37.24 ($38.00 − 2%).
 
 **News & Catalysts:**
-- **$2.15B debt deal:** Applied Digital priced $2.15B Senior Secured Notes for North Dakota AI campus — major capital raise demonstrates execution momentum and hyperscaler confidence (2026-03-04).
-- **Analyst bullishness sustained:** Roth Capital (PT $58) and Citizens reiterated Buy ratings; Northland PT $56 — analyst community remains constructive despite NVIDIA stake exit (viewed as portfolio rebalancing, not APLD-specific).
-- **High short interest as squeeze catalyst:** 31.25% float short (80.34M shares, decreasing -6.9%), squeeze risk score 60/100 — elevated asymmetric upside potential if hyperscaler contract announced.
+- APLD featured in "15 Stocks With the Most Short Squeeze Potential" (Schaeffer's, 2026-03-12) — 30.7% short float, HIGH squeeze risk (score 70/100); decreasing short interest (-8.7%) may signal covering.
+- Zacks bullish: "APLD Rises 58% in 6 Months: Three Key Reasons to Hold" (2026-03-10) — multi-gigawatt AI lease pipeline cited; analysts PT $40-$58 (Craig-Hallum, Northland, Roth Capital).
+- Earnings history strongly bullish: last two reports +8-16% day-of, +22-25% 5-day; 2026-04-09 earnings CLEAR at 24 days with strong beat track record.
 
-**Sector Context:** AI Data Center / Technology infrastructure. Risk-Off regime (0/3 indices above 50-SMA, VIX 29.5 +48.5% 5D, 2/11 sectors positive). APLD below SMA 20 ($31.32) and SMA 50 ($32.21) but above SMA 200 ($22.68) — long-term structural floor intact. Bearish momentum (score -4) consistent with broad macro selloff, not APLD-specific deterioration.
+**Sector Context:** AI Data Center / Technology Infrastructure. Neutral regime (0/3 indices above 50-SMA, VIX 24.2 trending down -5.14% 5D). APLD above SMA 200 ($23.29) — long-term structural floor intact. Neutral-bearish momentum (-2 score) consistent with sector rotation; Oracle leading data center stocks while APLD lags due to residual NVIDIA stake-exit overhang.
 
 ---
 
-### ARM — MONITOR — P/L -5.4%
-**State:** 4 shares @ $120.88, target N/A (recovery), held 6 days
-**Objective:** Monitor for Dig Out recovery — await bullish reversal signal before deploying final bullet; protect against further drawdown in Risk-Off regime
-**Decision:** MONITOR — Recovery position with bearish technicals across all indicators; no active squeeze or bullish relief present; Dig Out exit consideration if deterioration continues (Rule 9: recovery + bearish across all)
+### ARM — MONITOR — P/L +2.3%
+**State:** 5 shares @ $118.96, target N/A (no target set), held 14 days
+**Objective:** Mean-reversion accumulation play; hold through consolidation with pending lower bullet at $112.53; SELL order set at $127.17 HVN resistance (+4.5% above current)
+**Decision:** MONITOR — time stop WITHIN (14 days), P/L early-stage at +2.3%, standard tracking (Rule 16). Note: "no target (recovery)" flag overridden by pre-check — P/L > 0% treated as non-recovery.
 
 | Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |
-| Time Stop | WITHIN | 6 days |
-| Profit Target | N/A — no target set | P/L -5.4%, recovery position |
-| Earnings Gate | CLEAR | 59 days to event (2026-05-06) |
-| Momentum | Bearish | RSI 40.2, MACD below signal (histogram -1.349, bearish crossover) |
+| Time Stop | WITHIN | 14 days |
+| Profit Target | BELOW | P/L +2.3%, Profit Zone: Below (< 7%) |
+| Earnings Gate | CLEAR | 51 days to event (2026-05-06) |
+| Momentum | Neutral | RSI 51.6, MACD below signal (histogram -0.925) |
 
 **Trades Executed:**
-- 2026-03-02: BUY 1 share @ $123.55 (Bullet 1 — pre-market; limit was $127.03). 1 share @ $123.55 avg.
-- 2026-03-02: BUY 1 share @ $122.00 (Bullet 2 — $119.62 HVN+PA level). 2 shares @ $122.78 avg.
-- Bullets 3–4 filled (not shown in memory extract); 4 shares total @ $120.88 avg confirmed.
+- 2026-03-02: BUY 1 @ $123.55 (Bullet 1, pre-market; limit was $127.03)
+- 2026-03-02: BUY 1 @ $122.00 (Bullet 2 — $119.62 HVN+PA level)
+- BUY 1 @ $111.28 (Bullet 3, per knowledge store — active zone fill). Now 5 shares @ $118.96 avg.
 
-**Sell-Side Advisory:** Recovery position — no profit target set. Breakeven at $120.88 (+5.7% from current $114.38). ARM is below all SMAs (20/50/200) and EMA 9/21, with MACD firmly negative — no bullish relief visible. If Bullet 5 fills at $112.53, new avg improves to $119.21 (breakeven at +4.2% from that fill price). Dig Out consideration: if price sustains below $112.53 with no stabilization signal in Risk-Off regime, reassess recovery thesis and consider partial exit to limit exposure.
+**Sell-Side Advisory:** Not applicable — P/L +2.3% below 7% threshold.
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $112.53 | 1 | 1.6% | REVIEW | ACTIVE | REVIEW | Bullet 5 — $110.90 HVN+PA, 43% hold, Full^ tier; Risk-Off: active pos ≤15% below = REVIEW |
+| SELL | $127.17 | 5 | N/A | N/A | N/A | N/A | HVN+PA resistance, 40% reject, +6.9% from avg |
+| BUY | $112.53 | 1 | 11.5% | ACTIVE | ACTIVE | ACTIVE | Bullet 5 — $110.90 HVN+PA, 43% hold, Full^ tier, wick-adjusted |
 
 **Wick-Adjusted Buy Levels:**
 | Zone | Level | Buy At | Hold Rate | Tier | Shares |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Active | $110.90 | $112.53 | 43% | Full^ | 1 |
+| Active | $110.90 | $112.53 | 43% | Std | 1 |
+| Active | $107.99 | $109.25 | 43% | Half | 1 |
+| Reserve | $105.08 | $108.38 | 33% | Std | 1 |
+| Reserve | $100.02 | $102.01 | 50% | Std | 1 |
+| Reserve | $97.33 | $98.96 | 80% | Full | 1 |
 
 **Projected Sell Levels:**
 | Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Current — Breakeven | 4 | $120.88 | $120.88 | 0.0% | $483.52 |
-| If B5 fills @ $112.53 — Breakeven | 5 | $119.21 | $119.21 | 0.0% | $596.05 |
+| Current | 5 | $118.96 | $127.17 | +6.9% | $635.85 |
+| If B5 fills ($112.53) | 6 | $117.89 | $127.17 | +7.9% | $763.02 |
 
-*Monotonic check: lower buy ($112.53) → lower avg ($119.21 vs $120.88). Pass.*
+*Monotonic check: lower buy $112.53 → lower avg $117.89 < $118.96 ✓*
 
-**Fill Alerts:** BUY $112.53 NEAR FILL — Day low $113.51 is within 0.9% of order price (alert threshold: order + 2% = $114.78; $113.51 ≤ $114.78). Verify with broker — may have filled intraday.
+**Fill Alerts:** None (SELL $127.17: day high $121.93 < $124.63 alert threshold; BUY $112.53: day low $118.38 > $114.78 alert threshold)
 
 **News & Catalysts:**
-- BofA raises price target on ARM, maintains Hold rating (2026-03-06) — mild positive analyst signal amid market weakness
-- ARM enters multi-year partnership with Tensor (2026-03-04) — corporate growth catalyst
-- Malaysia anti-graft agency probing ARM for $279M deal (2026-03-04) — regulatory overhang; negative sentiment risk
+- BofA raised price target on ARM, maintains Hold rating (2026-03-06) — mild positive analyst signal
+- ARM enters multi-year partnership with Tensor (2026-03-04) — positive corporate growth catalyst
+- Malaysia anti-graft agency probing ARM for $279M deal (2026-03-04) — regulatory overhang, headline risk to monitor
 
-**Sector Context:** Semiconductors — SOXX/SMH; sector broadly under pressure in Risk-Off regime (0/3 indices above 50-SMA, VIX 29.5, 2/11 sectors positive); ARM trading below SMA20/50/200 and both EMAs
+**Sector Context:** Semiconductors/AI infrastructure. Neutral-Bullish technical signal — above SMA50, EMA9, EMA21 but below SMA20 and SMA200. MACD bearish drag. Short interest decreasing (-3.4%), medium squeeze risk (30/100). Regime Neutral (0/3 indices above 50-SMA, VIX 24.2 falling -5.14% over 5 days). Earnings 51 days out (May 6) with strong beat history.
 
 ---
 
-### CIFR — MONITOR — P/L -6.8%
-**State:** 11 shares @ $14.62, target N/A (recovery), held 3 days
-**Objective:** Dig out from cycle-5 drawdown. 4/4 prior cycles profitable ($15.95–$16.08 exit range). Await technical stabilization before adding or exiting.
-**Decision:** MONITOR — Recovery position with bearish technicals across all indicators (below all short-term SMAs/EMAs, MACD bearish, RSI in bearish zone at 40.4). Rule 9: recovery + bearish across all → MONITOR with Dig Out exit consideration. High short interest (20.5% float, +18.6%) maintains squeeze upside, but no active squeeze catalyst visible today.
+### NNE — MONITOR — P/L -10.9%
+**State:** 10 shares @ $23.87, target N/A (recovery), held 11 days
+**Objective:** Hold recovery position through extreme squeeze setup; await technical inflection or execute SELL tranches at $25.44 (+6.6%) and $26.02 (+9.0%) on catalyst-driven recovery
+**Decision:** MONITOR — recovery position with bearish technicals across all indicators (RSI 33.2, MACD bearish, all SMAs below); no active squeeze yet despite extreme short setup (30.6% float short, DTC 7.2, EXTREME score 80/100); watch for squeeze ignition or further deterioration (Rule 9)
 
 | Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |
-| Time Stop | WITHIN | 3 days held |
-| Profit Target | N/A — no target set | P/L -6.8%, recovery cycle |
-| Earnings Gate | CLEAR | 58 days to event (2026-05-05) |
-| Momentum | Bearish | RSI 40.4 (bearish zone), MACD -0.414 below signal -0.282 (histogram -0.132); stochastic 1.9/27.7 oversold |
+| Time Stop | WITHIN | 11 days held |
+| Profit Target | N/A — no target set | P/L -10.9%, Profit Zone: N/A (recovery) |
+| Earnings Gate | CLEAR | 59 days to event (2026-05-14) |
+| Momentum | Bearish | RSI 33.2 (<40), MACD -1.547 below signal -1.347 (histogram -0.200); price below all SMAs and EMAs; Stochastic 5.6/14.9 oversold |
 
-**Trades Executed:**
-- 2026-03-02: SELL 4 @ $15.95 — Cycle 4 partial exit. Revenue: $63.80. Profit: +$4.20 (+7.0%). Position closed.
-- 2026-03-03: BUY 2 @ $14.98 (B1 re-entry); BUY 4 @ $14.87 (B2). Total: 6 shares @ $14.91 avg.
-- 2026-03-04: SELL 6 @ $16.08 — Cycle 4 full exit. Revenue: $96.48. Profit: +$7.04 (+7.8%). 4/4 cycles profitable.
-- 2026-03-05: Cycle-5 re-entry. 11 shares @ $14.62 avg (Bullets 1–3 used, 3/5).
+**Trades Executed:** 5 fills recorded — $25.04, $24.03, $23.50, $23.40, $23.40 → 10 shares @ $23.87 avg. Bullets fully loaded (5/5).
 
-**Sell-Side Advisory:** Recovery cycle — no formal profit target set. Prior 4 cycles exited at $15.95–$16.08 (~7–8% above avg cost). With current avg $14.62, a cycle-consistent exit would be ~$15.65–$15.75. Watch for RSI reclaiming 50 and MACD bullish crossover as confirmation before expecting a bounce. If price fails to hold above $13.09 support (next key level per technicals) and volume increases to the downside, Dig Out consideration: reduce position to manage drawdown. Squeeze potential (20.5% short float, rapidly increasing) could accelerate any bounce but requires a positive catalyst.
+**Sell-Side Advisory:** Recovery position — always shown. Two SELL tranches already placed: T1 @ $25.44 (+6.6%) and T2 @ $26.02 (+9.0%) — these are the Dig Out exits. Thesis: extreme short interest (30.6% float, EXTREME squeeze risk, DTC 7.2) combined with bullish nuclear catalysts (UAE MOU, HALEU transport partnership, clean power demand) provides squeeze-driven recovery path. Shorts are slowly increasing (+4.4%) — squeeze has not triggered yet. If price deteriorates below $20.12 support with no catalyst ignition, evaluate whether recovery thesis remains valid or consider Dig Out on next relief rally. No new buys — 5/5 bullets used.
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $14.07 | 4 | 0.0% | REVIEW | ACTIVE | REVIEW | B3 — $13.45 PA, 44% hold, Full^ tier (added 2026-03-02); current price $13.62 is BELOW order price — verify fill with broker |
-| BUY | $12.86 | 8 | 8.6% | REVIEW | ACTIVE | REVIEW | B4 — $12.41 PA, 50% hold, Full tier, wick-adjusted |
-| BUY | $5.38 | 18 | 61.8% | ACTIVE | ACTIVE | ACTIVE | R1 — $5.27 PA, 57% hold, Full tier, wick-adjusted |
+| SELL | $25.44 | 5 | N/A | N/A | N/A | N/A | Tranche 1 — HVN+PA resistance, +6.6% from $23.87 avg |
+| SELL | $26.02 | 5 | N/A | N/A | N/A | N/A | Tranche 2 — HVN resistance, 33% reject, +9.0% from $23.87 avg |
 
 **Wick-Adjusted Buy Levels:**
 | Zone | Level | Buy At | Hold Rate | Tier | Shares |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Active (excluded — buy price above current) | $13.45 | $14.07 | 44% | Full^ | 4 |
-| Active | $12.41 | $12.86 | 50% | Full | 8 |
-| Reserve | $5.27 | $5.38 | 57% | Full | 18 |
-| Reserve | $4.55 | $4.59 | 75% | Full | 21 |
-| Reserve | $2.87 | $3.02 | 50% | Full | 33 |
+| Active | $22.89 | $23.53 | 54% | Full | 2 |
+| Active | $22.02 | $23.45 | 71% | Full | 2 |
+| Active | $20.12 | $20.31 | 67% | Full | 2 |
+| Active | $18.81 | $19.28 | 67% | Full | 3 |
+
+*5/5 bullets used — position fully loaded. Levels shown for reference only; no new buys until a bullet is freed.*
 
 **Projected Sell Levels:**
 | Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Current — Breakeven | 11 | $14.62 | $14.62 | 0.0% | $160.82 |
-| After B4 fills — Breakeven | 19 | $13.88 | $13.88 | 0.0% | $263.72 |
-| After B4 + R1 fill — Breakeven | 37 | $9.74 | $9.74 | 0.0% | $360.38 |
+| Current (hold) | 10 | $23.87 | $21.27 | -10.9% | — |
+| Tranche 1 exits | 5 | $23.87 | $25.44 | +6.6% | $127.20 |
+| Tranche 2 exits | 5 | $23.87 | $26.02 | +9.0% | $130.10 |
+| Full exit (blended) | 10 | $23.87 | $25.73 | +7.8% | $257.30 |
 
-*Avg cost math: (11×$14.62 + 8×$12.86)/19 = $263.70/19 = $13.88; ($263.70 + 18×$5.38)/37 = $360.54/37 = $9.74. Monotonic check: lower buy → lower avg ✓*
-*No profit target set — recovery position. Cycle-consistent exits historically ~$15.65–$15.75.*
+*No target set (recovery position). Breakeven: $23.87.*
 
-**Fill Alerts:** **B3 $14.07 BUY — FLAGGED.** Day low $13.54 ≤ order price + 2% ($14.35). Additionally, current price $13.62 is already below order price $14.07 — this limit buy likely executed today. Verify fill with broker before placing additional orders.
+**Fill Alerts:** None — Day high $22.96 is below both SELL thresholds ($25.44 × 98% = $24.93; $26.02 × 98% = $25.50). No BUY orders pending.
 
 **News & Catalysts:**
-- CIFR pivoting to hyperscale AI infrastructure following $734M Q4 net loss; Q4 revenue beat expectations, stock jumped +12.5% on business transformation announcement (2026-02-25)
-- Clear Street cut PT from $34 to $32 — still constructive; Canaan PT lowered to $2 (diverging analyst views on mining sector)
-- Short interest HIGH: 20.5% float short (+18.6% increase), squeeze risk score 65/100 (DTC 1.8 days) — elevated short base provides squeeze upside if catalyst emerges
+- NANO Nuclear advances HALEU Transportation System with global nuclear logistics leader GNS (today, +0.99 sentiment)
+- NNE enters MOU with UAE firm EHC Investment to advance Micro Modular Reactor deployment in UAE (2026-03-08)
+- Nuclear energy stocks advance on strong clean power outlook; sector-wide positive tone (Zacks, 2026-03-09)
 
-**Sector Context:** Crypto mining / digital infrastructure (BLOK ETF holding). Sector breadth 2/11 positive — broad market weakness in Risk-Off regime (VIX 29.5, +48.5% 5-day move). Speculative names facing headwinds; CIFR's AI/hyperscale pivot may partially decouple from pure crypto exposure longer-term.
+**Sector Context:** Nuclear/small modular reactors (SMR). Sector breadth 11/11 positive — broad market tailwind. VIX 24.2, declining (-5.14% 5D) — improving risk environment. Short interest extreme (30.6% float, EXTREME squeeze risk score 80/100, DTC 7.2) is the primary asymmetric upside factor; catalyst-driven covering could compress the loss rapidly.
 
 ---
 
-### CLF — MONITOR — P/L -4.2%
-**State:** 21 shares @ $10.26, target N/A (recovery), held 5 days
-**Objective:** Dig out from -4.2% underwater via bullet plan; leverage Early-Month Bottomer cycle (9/13 months bottom Days 1-8) for recovery entry timing.
-**Decision:** MONITOR — Recovery position with bearish momentum across all indicators (RSI 34.3, MACD bearish, all SMAs/EMAs bearish); Rule 9 (recovery + bearish across all) — watch for cycle-driven reversal, consider Dig Out exit if bearish momentum persists without cycle support.
+### NU — MONITOR — P/L -10.3%
+**State:** 30 shares @ $15.85, target $18.50 (30.1% away), held 31 days
+**Objective:** Hold for mean reversion toward $18.50 target; position fully loaded (6/5 bullets used including Reserve 1); awaiting recovery in bearish technical environment
+**Decision:** MONITOR — time stop WITHIN (31 days), P/L -10.3% BELOW profit zone, earnings CLEAR (59 days); no exit criteria triggered; bearish technicals noted but no forced action (Rule 16)
 
 | Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |
-| Time Stop | WITHIN | 5 days |
-| Profit Target | N/A — no target set | P/L -4.2%, Profit Zone: N/A (recovery) |
-| Earnings Gate | CLEAR | 52 days to event (2026-04-29) |
-| Momentum | Bearish | RSI 34.3, MACD -0.669 (below signal), Stochastic 6.4 — oversold; all SMAs/EMAs bearish |
-
-**Trades Executed:** None logged (position initiated 2026-03-03; no fills in memory)
-
-**Sell-Side Advisory:** Recovery position — no profit target set. Thesis hinges on CLF's "Early-Month Bottomer" cycle (9/13 months bottom Days 1-8); currently Day 5. RSI 34.3 is in oversold territory, consistent with a cycle low setup. However, Risk-Off regime (VIX 29.5, +48% 5D, 0/3 indices above 50-SMA) is a macro headwind. Short interest at 16.76% float (DTC 3.7) creates squeeze optionality if sentiment shifts. If price fails to hold $9.04 support zone and no cycle reversal materializes by Day 8, consider exit review. Fill alert on B1/B2 today warrants broker verification — if both filled, avg cost is now ~$10.12 on 37 shares.
-
-**Pending Orders:**
-| Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $9.97 | 10 | 0.0% | REVIEW | ACTIVE | REVIEW | Bullet 1 — $9.90 PA, 54% hold rate, Full tier |
-| BUY | $9.88 | 6 | 0.9% | REVIEW | ACTIVE | REVIEW | Bullet 2 — $9.27 PA, 54% hold rate, Full tier |
-| BUY | $9.41 | 10 | 5.6% | REVIEW | ACTIVE | REVIEW | Bullet 3 — $9.04 PA, 67% hold rate, Full tier |
-| BUY | $8.48 | 11 | 14.9% | REVIEW | ACTIVE | REVIEW | Bullet 4 — $8.25 PA, 71% hold rate, Full tier |
-
-**Wick-Adjusted Buy Levels:**
-| Zone | Level | Buy At | Hold Rate | Tier | Shares |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| Active | $9.04 | $9.53 | 71% | Full | 6 |
-| Active | $8.48 | $8.82 | 33% | Half | 3 |
-| Reserve | $8.25 | $8.48 | 71% | Full | 11 |
-| Reserve | $6.67 | $6.76 | 80% | Full | 14 |
-*Note: 2 active levels excluded — buy price at or above current price ($9.58, $9.27)*
-
-**Projected Sell Levels:**
-*Recovery position — no target set. Breakeven (BE) shown per scenario. Monotonic check: lower fills → lower avgs ✓*
-
-| Scenario | Shares | Avg Cost | Breakeven | P/L % at $9.83 |
-| :--- | :--- | :--- | :--- | :--- |
-| Current only | 21 | $10.26 | $10.26 | -4.2% |
-| + B1 fills ($9.97 × 10) | 31 | $10.17 | $10.17 | -3.3% |
-| + B2 fills ($9.88 × 6) | 37 | $10.12 | $10.12 | -2.9% |
-| + B3 fills ($9.41 × 10) | 47 | $9.97 | $9.97 | -1.4% |
-| + B4 fills ($8.48 × 11) | 58 | $9.69 | $9.69 | +1.4% |
-
-**Fill Alerts:**
-- **B1 $9.97 — LIKELY FILLED**: Day low $9.72 ≤ $9.97 × 1.02 ($10.17) — price crossed $9.97 intraday. Verify with broker.
-- **B2 $9.88 — LIKELY FILLED**: Day low $9.72 ≤ $9.88 × 1.02 ($10.08) — price crossed $9.88 intraday. Verify with broker.
-
-**News & Catalysts:**
-- Zacks trending (2026-03-05): CLF highlighted for short interest and earnings thesis — 16.76% short float noted as potential squeeze catalyst if demand sentiment reverses.
-- BofA maintains Neutral (2026-03-01): No upgrade catalyst yet; consistent with macro/steel sector caution.
-- Vale vs CLF comparison (2026-02-25): Tariff environment cited as double-edged — domestic steel protection vs. input cost margin compression.
-
-**Sector Context:** CLF is Materials/Steel (XLB/XME). Risk-Off regime, sector breadth 2/11 positive — Materials under broad macro pressure. VIX +48% in 5 days signals elevated market stress; unfavorable short-term backdrop for recovery thesis. Steel sector particularly exposed to tariff uncertainty and slowing capex demand.
-
----
-
-### LUNR — MONITOR — P/L +0.1%
-**State:** 1 share @ $17.61, target N/A (no target set), held 2 days
-**Objective:** Track early cycle 5 re-entry; allow wick-adjusted bullets to fill on pullback; earnings in 11 days requires exit-before-earnings plan before adding.
-**Decision:** MONITOR — Time stop WITHIN (2 days), P/L +0.1% (BELOW 7%), earnings APPROACHING (11 days to 2026-03-19); no new entries without explicit exit-before-earnings plan. (Rule 16)
-
-| Exit Criterion | Status | Detail |
-| :--- | :--- | :--- |
-| Time Stop | WITHIN | 2 days held |
-| Profit Target | BELOW | P/L +0.1%, no explicit target set |
-| Earnings Gate | APPROACHING | 11 days to event (2026-03-19) |
-| Momentum | Neutral | RSI 49.7, MACD above signal (histogram +0.032, bullish crossover) |
-
-**Trades Executed:**
-- 2026-03-05: BUY 1 @ $17.83 (B1), BUY 1 @ $17.11 (B2) — 2 shares @ $17.47 avg
-- 2026-03-06: SELL 2 @ $18.91 (full exit, +8.2%) — 4/4 cycles profitable
-- 2026-03-06: BUY 1 @ $17.61 (B1 re-entry, cycle 5 begins)
-
-**Sell-Side Advisory:** Not applicable — P/L +0.1% (below 7% threshold).
-
-**Pending Orders:**
-| Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $17.16 | 1 | 2.7% | REVIEW | REVIEW | REVIEW | Bullet 2 — $16.41 PA, 30% hold, Skip tier (manual override) |
-| BUY | $16.68 | 1 | 5.4% | REVIEW | REVIEW | REVIEW | Bullet 3 — $15.94 HVN+PA, 33% hold, Skip tier (manual override) |
-| BUY | $15.33 | 6 | 13.0% | REVIEW | REVIEW | REVIEW | Bullet 3 — $15.08 PA, 67% hold, Full tier |
-| BUY | $15.20 | 3 | 13.8% | REVIEW | REVIEW | REVIEW | Bullet 4 — $14.32 PA, 60% hold, Full tier |
-| BUY | $10.06 | 9 | 42.9% | ACTIVE | REVIEW | REVIEW | Reserve 1 — $9.52 PA, 56% hold, Std tier |
-| BUY | $7.78 | 12 | 55.9% | ACTIVE | REVIEW | REVIEW | Reserve 2 — $7.48 PA, 56% hold, Full tier |
-| BUY | $6.64 | 15 | 62.3% | ACTIVE | REVIEW | REVIEW | Reserve 3 — $6.53 PA, 75% hold, Full tier, structural floor |
-
-**Wick-Adjusted Buy Levels:**
-| Zone | Level | Buy At | Hold Rate | Tier | Shares |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| Active | $17.11 | $17.61 | 38% | Half | 1 |
-| Active | $15.08 | $15.33 | 67% | Full | 3 |
-| Active | $14.32 | $15.20 | 60% | Full | 3 |
-| Reserve | $9.87 | $10.15 | 56% | Full | 9 |
-| Reserve | $9.52 | $10.06 | 56% | Std | 9 |
-| Reserve | $6.53 | $6.64 | 75% | Full | 15 |
-
-**Projected Sell Levels:**
-No target set — cycle 5, day 2. Showing running avg as lower bullets fill:
-| Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| Current only | 1 | $17.61 | $18.76 (+6.5%) | +6.5% | $18.76 |
-| Current only | 1 | $17.61 | $19.02 (+8.0%) | +8.0% | $19.02 |
-| + B2 fills ($17.16, 1sh) | 2 | $17.39 | $18.43 (+6.0%) | +6.0% | $36.86 |
-| + B3 fills ($16.68, 1sh) | 3 | $17.15 | $18.18 (+6.0%) | +6.0% | $54.54 |
-| + $15.33 fills (6sh) | 9 | $15.94 | $16.90 (+6.0%) | +6.0% | $152.10 |
-
-*Avg math: B2 → (17.61+17.16)/2=$17.39. +B3@16.68 → (34.78+16.68)/3=$17.15. +6sh@15.33 → (51.45+91.98)/9=$15.94. Monotonic check: lower buys → lower averages ✓*
-*Exit prices reference prior cycle pattern (+6.5-8.2%) and resistance at ~$20.31 / $23.32.*
-
-**Fill Alerts:** **FLAG — BUY @ $17.16:** Day low $17.20 ≤ $17.50 ($17.16 + 2%). Order came within 2% of fill — verify with broker.
-
-**News & Catalysts:**
-- LUNR selected by L3Harris to support SDA Proliferated Warfighter Space Architecture Tranche 3 (2026-03-03) — defense contract expansion, positive catalyst
-- $175M equity raise to fund recurring comms and in-space data processing (2026-03-04) — dilutive short-term, signals strategic confidence
-- Roundhill Space ETF launched with LUNR as holding; SpaceX IPO speculation driving sector interest (2026-03-05) — sector tailwind
-
-**Sector Context:** Space / Aerospace & Defense. Risk-Off regime (0/3 indices above 50-SMA, VIX 29.5, +48.5% 5D, 2/11 sectors positive). All 7 orders at REVIEW — earnings 11 days away compounds risk-off pressure on new entries. Short interest elevated at 20.2% float (HIGH squeeze risk, score 55/100, DTC 2.5) — sharp moves likely in either direction into earnings.
-
----
-
-### NU — MONITOR — P/L -8.0%
-**State:** 30 shares @ $15.85, target $18.50 (26.9% away), held 23 days
-**Objective:** Fully loaded position (6/5 bullets used); hold through bearish momentum and Risk-Off regime, await mean reversion toward $18.50 target.
-**Decision:** MONITOR — standard tracking, rule 16 (WITHIN time stop at 23/60 days; earnings CLEAR at 67 days). Bearish momentum noted but no action trigger — P/L below profit zone, no time pressure.
-
-| Exit Criterion | Status | Detail |
-| :--- | :--- | :--- |
-| Time Stop | WITHIN | 23 days held (limit: 60) |
-| Profit Target | BELOW | P/L -8.0%; Profit Zone: not reached |
-| Earnings Gate | CLEAR | 67 days to 2026-05-14 |
-| Momentum | Bearish | RSI 31.7 (< 40), MACD -0.697 below signal -0.483 (histogram -0.214) |
+| Time Stop | WITHIN | 31 days |
+| Profit Target | BELOW | P/L -10.3%, Profit Zone: None |
+| Earnings Gate | CLEAR | 59 days to event (2026-05-14) |
+| Momentum | Bearish | RSI 34.1 (< 40), MACD -0.782 below signal -0.684 (histogram -0.097) |
 
 **Trades Executed:**
 - **2026-02-27:** Reserve 1 filled @ $14.88 — 6 shares; now 24 shares @ $16.08 avg; bullets used: 4
 - **2026-03-02:** Bullet 5 filled @ $14.67 (pre-market; limit $14.70) — 4 shares; now 28 shares @ $15.88 avg; bullets used: 5
 - **2026-03-02:** R1 filled — 6 shares @ $14.70/$14.60 (limit $14.70); now 34 shares @ $15.66 avg; bullets used: 5 active + R1
 
-**Sell-Side Advisory:** Not applicable — P/L -8.0% is below the 7% threshold.
-
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| SELL | $18.50 | 34 | N/A | N/A | N/A | N/A | Target exit (placed when position was 34 shares) |
-| BUY | $13.03 | 7 | 29.6% | ACTIVE | ACTIVE | ACTIVE | Reserve 2 — $12.52 PA, 33% hold rate, Std tier; placed 2026-03-02 |
-
-*Market Gate (Risk-Off): Active position 29.6% below current (> 15%) → ACTIVE.*
+| SELL | $18.50 | 34 | N/A | N/A | N/A | N/A | Target exit — order is for 34 shares but only 30 held; verify with broker |
+| BUY | $13.03 | 6 | 29.6% | ACTIVE | ACTIVE | ACTIVE | Reserve 2 — $12.52 PA, 33% hold rate, Std tier, wick-adjusted (placed 2026-03-02, resized 2026-03-13) |
 
 **Wick-Adjusted Buy Levels:**
 | Zone | Level | Buy At | Hold Rate | Tier | Shares |
@@ -715,223 +658,336 @@ No target set — cycle 5, day 2. Showing running avg as lower bullets fill:
 | Reserve | $11.22 | $11.46 | 83% | Full | 8 |
 | Reserve | $9.75 | $9.78 | 100% | Full | 10 |
 
-*Note: 1 Active level excluded — buy price ($14.92) at or above current price ($14.58). All standard bullets used (6/5).*
-
 **Projected Sell Levels:**
 | Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | Current position | 30 | $15.85 | $18.50 | +16.7% | $555.00 |
-| If Reserve 2 fills ($13.03 × 7) | 37 | $15.32 | $18.50 | +20.8% | $684.50 |
+| If Reserve 2 fills ($13.03 × 6) | 36 | $15.38 | $18.50 | +20.3% | $666.00 |
 
-*Reserve 2 avg calc: (30 × $15.85 + 7 × $13.03) / 37 = ($475.50 + $91.21) / 37 = $566.71 / 37 = $15.32*
-*Monotonic check: buy $13.03 < avg $15.85 → new avg $15.32 < $15.85 ✓*
+*Reserve 2 avg calc: (30 × $15.85 + 6 × $13.03) / 36 = ($475.50 + $78.18) / 36 = $553.68 / 36 = $15.38*
+*Monotonic check: buy $13.03 < avg $15.85 → new avg $15.38 < $15.85 ✓*
 
-**Fill Alerts:** None
-- BUY $13.03: day low $14.23 > alert threshold $13.29 — no fill
-- SELL $18.50: day high $14.73 < alert threshold $18.13 — no fill
+**Fill Alerts:** None — BUY $13.03 (day low $14.06 vs. threshold $13.29, no trigger); SELL $18.50 (day high $14.37 vs. threshold $18.13, no trigger).
 
 **News & Catalysts:**
-- UBS lowered price target to $17.2 (today) — PT still above current $14.58; analyst maintains coverage despite trim.
-- Zacks (2026-03-03): "NU is an Incredible Growth Stock: 3 Reasons Why" — bullish growth thesis, sentiment +1.00.
-- Insider Monkey (2026-02-28): "Nu Holdings Ltd. (NU): A Bull Case Theory" — earnings, regulatory, equity catalysts cited; sentiment +0.99.
+- Morgan Stanley raised NU price target to $21 (2026-03-10) — bullish analyst revision despite current drawdown
+- UBS lowered NU price target to $17.20 (2026-03-08) — near-term caution; still 21% above current $14.22
+- Q3 2025 revenue $2.73B (+30.2% YoY); next earnings May 14 (59 days) — strong growth thesis intact, well clear of catalyst risk
 
-**Sector Context:** EM Fintech / Financials — Risk-Off regime (0/3 indices above 50-SMA, VIX 29.5 +48.5% over 5 days, 2/11 sectors positive). Broad selling pressure; no sector ETF tailwind. Reserve 2 BUY gates ACTIVE — order can remain in place.
+**Sector Context:** EM Fintech / Financials; Neutral regime (0/3 indices above 50-SMA, VIX 24.2 declining -5.14% 5D); 11/11 sectors positive breadth; declining VIX may support gradual recovery toward $18.50 target
+
+---
+
+### SOUN — MONITOR — P/L +3.1%
+**State:** 15 shares @ $7.36, target N/A (recovery label; treated as non-recovery — P/L > 0%), held 4 days
+**Objective:** Hold for mean-reversion exit via pending SELL $7.76; watch for oversold bounce given extreme short interest
+**Decision:** MONITOR — WITHIN time stop (4 days), P/L +3.1% below profit zone, CLEAR earnings; standard tracking (rule 16)
+
+| Exit Criterion | Status | Detail |
+| :--- | :--- | :--- |
+| Time Stop | WITHIN | 4 days held |
+| Profit Target | BELOW | P/L +3.1%, no target set (recovery label); Profit Zone: <7% |
+| Earnings Gate | CLEAR | 52 days to event (2026-05-07) |
+| Momentum | BEARISH | RSI 38.9, MACD -0.362 below signal (-0.343) |
+
+**Trades Executed:**
+- Prior cycle: BUY 7 @ $7.71 (2026-02-23), SELL 7 @ $8.235 (2026-02-24) — +6.8% profit, position closed
+- Current position: Fill 1 @ $7.48, Fill 2 @ $7.26 (15 shares total, avg $7.36)
+
+**Pending Orders:**
+| Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| SELL | $7.76 | 15 | N/A | N/A | N/A | N/A | HVN resistance, +5.4% from $7.36 avg |
+
+**Wick-Adjusted Buy Levels:**
+| Zone | Level | Buy At | Hold Rate | Tier | Shares |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Active | $6.95 | $7.28 | 80% | Full | 41 |
+
+*Note: 1 level excluded — buy price at or above current price ($7.21 excluded)*
+
+**Projected Sell Levels:**
+| Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Current (no new fills) | 15 | $7.36 | $7.76 | +5.4% | $116.40 |
+| If B3 fills @ $7.28 (41 sh) | 56 | $7.30 | $7.76 | +6.3% | $434.56 |
+
+*Monotonic check: lower buy $7.28 → lower avg $7.30 < $7.36 ✓*
+
+**Fill Alerts:** SELL $7.76 — day high $7.65 is within 2% of order price (threshold $7.76 × 0.98 = $7.60). Order not yet filled. Verify with broker.
+
+**News & Catalysts:**
+- SOUN unveiled World's First Multimodal Agentic+ AI on the Edge at NVIDIA GTC 2026 (positive catalyst today)
+- 2025 full-year revenue $168.9M, 100% YoY growth; Q4 revenue $55.1M +30.9% QoQ (strong fundamental)
+- Extreme short interest: 33% of float short, squeeze score 75/100 (EXTREME) — upside volatility risk if short squeeze triggers
+
+**Sector Context:** AI/voice tech. Sector breadth 11/11 positive. Regime: Neutral (0/3 indices above 50-SMA, VIX 24.2 declining -5.14% 5D). Stochastic oversold (17.7%K) supports near-term relief bounce potential despite bearish trend indicators (below all SMAs/EMAs, strong bearish signal score -6).
 
 ---
 
 ## Cross-Ticker Intelligence
 
 **Sector Concentration:**
-- eVTOL (ARKX): $414 (31%) — ACHR
-- Metals & Mining (XME): $228 (17%) — TMC
-- CLF is Materials (XLB): $215 (16%) — CLF
-- Crypto mining (BLOK): $161 (12%) — CIFR
-- Nuclear (VIX): $145 (11%) — NNE
-- LiDAR (XLK): $108 (8%) — OUST
-- Bitcoin mining (BTC): $71 (5%) — CLSK
+- Quantum Computing (VIX): $666 (38%) — IONQ
+- eVTOL (ARKX): $509 (29%) — ACHR
+- Critical minerals (US): $324 (19%) — USAR
+- Nuclear (SMR): $239 (14%) — NNE
 
-**Capital Rotation:** No EXIT/REDUCE verdicts — no rotation needed.
+**Earnings Cluster (within 7 days):**
+- OKLO: 1 day (Mar 17)
+- LUNR: 3 days (Mar 19)
+
+**Capital Rotation:**
+- LUNR: REDUCE verdict — capital freed on exit
+- OKLO: REDUCE verdict — capital freed on exit
+- Redeployment candidates (ACTIVE gates): AR, BBAI, CIFR, CLSK, NVDA, OUST, RUN, SMCI
 
 ---
 
 ## Watchlist
 
-### AR — WATCHLIST — PAUSE
+### AR — WATCHLIST — ACTIVE
 
-**State:** 3 pending BUY orders, nearest $35.00 (B1 — Std tier, wick-adjusted)
+**State:** 3 pending BUY orders, nearest $35.00 (~14.9% below current ~$41)
 **Objective:** Mean-reversion entry at HVN/PA support levels; Early-Month Bottomer cycle (Days 1-8)
 
 | Entry Gate | Status | Detail |
 | :--- | :--- | :--- |
-| Market Gate | PAUSE | Risk-Off regime — 0/3 indices above 50-SMA, VIX 29.5 (+48.5% 5D), sector breadth 2/11 |
-| Earnings Gate | ACTIVE | 52 days to earnings (2026-04-29) — clear |
-| Overall | **PAUSE** | Market gate dominates; watchlist tickers always PAUSE in Risk-Off |
+| Market Gate | ACTIVE | Neutral regime — 0/3 indices above 50-SMA, VIX 24.19, VIX 5D% −5.14% (trending down — no CAUTION) |
+| Earnings Gate | ACTIVE | 44 days to earnings (2026-04-29) — clear |
+| Overall | **ACTIVE** | Both gates clear; orders eligible to fill |
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $35.00 | 1 | 0.0% | PAUSE | ACTIVE | **PAUSE** | B1 — $34.61 HVN+PA, 30% hold rate (6/20), Std tier, wick-adjusted (merged w/ $34.15 HVN) |
-| BUY | $32.68 | 3 | 6.6% | PAUSE | ACTIVE | **PAUSE** | B2 — $31.36 HVN+PA, 50% hold rate (5/10), Full tier, wick-adjusted |
-| BUY | $31.16 | 3 | 11.0% | PAUSE | ACTIVE | **PAUSE** | B3 — $29.72 PA, 67% hold rate (4/6), Full tier, wick-adjusted |
+| BUY | $35.00 | 1 | ~14.9% | ACTIVE | ACTIVE | **ACTIVE** | B1 — $34.61 HVN+PA, 30% hold rate (6/20), Std tier, wick-adjusted (merged w/ $34.15 HVN) |
+| BUY | $32.68 | 3 | ~20.6% | ACTIVE | ACTIVE | **ACTIVE** | B2 — $31.36 HVN+PA, 50% hold rate (5/10), Full tier, wick-adjusted |
+| BUY | $31.16 | 3 | ~24.2% | ACTIVE | ACTIVE | **ACTIVE** | B3 — $29.72 PA, 67% hold rate (4/6), Full tier, wick-adjusted |
 
-**Fill Alerts:** None — Day Low $38.64 is well above all order prices ($35.00 / $32.68 / $31.16)
+**Fill Alerts:** None — Day Low $40.50 is well above all order prices ($35.00 / $32.68 / $31.16)
 
 **News & Catalysts:**
-- **Sentiment:** Bullish — 60% positive across 30 articles (avg score +0.264), 0% negative, 171 unique headlines
-- **Institutional buying:** Dimensional Fund Advisors LP (+1,922 shares), GW&K Investment Management purchases noted
-- **Analyst upgrade:** Antero Resources upgraded; peer EQT +31% YoY (sector strength)
-- **Sector tailwinds:** Venture Global/Trafigura LNG supply pact; clean energy demand rising; Archrock banking on clean energy demand
-- **Earnings history:** EPS beats do not translate to positive reactions — Q1 2026 beat +13.8% yet -3.7% day-1; Q4 2025 miss -37.3%, -5.0% day-1. Revenue growing: Q4 2025 $1.28B (+11.7% YoY)
-- **Next earnings:** 2026-04-29 (52 days), EPS est $0.94, Revenue est $1.60B — well clear of gate
-- **Status:** WATCHING / PATIENCE MODE — Early-Month Bottomer, day range $38.64–$39.95
+- **Sentiment:** Bullish — 67% positive across 30 articles (avg score +0.265), 7% negative, 181 unique headlines
+- **Institutional activity:** Delta Global Management LP buying shares; Brevan Howard Capital Management reducing (mixed)
+- **Analyst coverage:** Barclays forecasts strong price appreciation; valuation analysis bullish; C3+ NGL prices highlighted as tailwind
+- **Sector tailwinds:** Venture Global/Trafigura LNG supply pact; Archrock banking on rising clean energy demand; peer EQT +31% YoY
+- **Earnings history:** Recent misses — Q1 2026 EPS miss −17.9% (−3.7% day-1), Q4 2025 miss −37.3% (−5.0% day-1). Revenue growing Q4 2025 $1.28B (+11.7% YoY)
+- **Next earnings:** 2026-04-29 (44 days), EPS est $0.989, Revenue est $1.60B — well clear of gate
+- **Status:** WATCHING / PATIENCE MODE — Early-Month Bottomer; day range $40.50–$41.78; all bullets 14–24% below current price
 
 ---
 
-### BBAI — WATCHLIST — PAUSE
+### BBAI — WATCHLIST — ACTIVE
 **State:** 3 pending BUY orders, nearest $3.82 (0.0% below current)
-**Objective:** Mean-reversion entry at wick-adjusted support levels; activate when regime recovers from Risk-Off
+**Objective:** Enter at wick-adjusted support levels below current price; mean reversion to $5.07–$6.62 resistance range
 
 | Entry Gate | Status | Detail |
 | :--- | :--- | :--- |
-| Market Gate | PAUSE | Risk-Off — 0/3 indices above 50-SMA, VIX 29.5 (+48.5% 5D) |
-| Earnings Gate | ACTIVE | 53 days to earnings (2026-04-30) — clear (>14d) |
-| Overall | PAUSE | Market Gate dominates; watchlist tickers always PAUSE in Risk-Off |
+| Market Gate | ACTIVE | Neutral regime; VIX 24.19 but VIX 5D% -5.14% (trending down — no CAUTION trigger) |
+| Earnings Gate | ACTIVE | 45 days to earnings (2026-04-30) — clear window (>14d) |
+| Overall | ACTIVE | Both gates clear |
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $3.82 | 15 | 0.0% | PAUSE | ACTIVE | PAUSE | Bullet 1 — $3.75 HVN+PA, 33% hold, Full tier |
-| BUY | $3.71 | 16 | 2.9% | PAUSE | ACTIVE | PAUSE | Bullet 2 — $3.65 PA, 57% hold, Full tier |
-| BUY | $3.66 | 16 | 4.2% | PAUSE | ACTIVE | PAUSE | Bullet 3 — $3.55 PA, 33% hold, Full tier |
+| BUY | $3.82 | 22 | 0.0% | ACTIVE | ACTIVE | ACTIVE | Bullet 1 — $3.75 HVN+PA, 33% hold rate, Full^ tier, wick-adjusted (resized 2026-03-13) |
+| BUY | $3.71 | 24 | 2.9% | ACTIVE | ACTIVE | ACTIVE | Bullet 2 — $3.65 PA, 67% hold rate, Full tier, wick-adjusted (resized 2026-03-13) |
+| BUY | $3.66 | 22 | 4.2% | ACTIVE | ACTIVE | ACTIVE | Bullet 3 — $3.39 PA, 33% hold rate, Std tier, wick-adjusted (resized 2026-03-13) |
 
-**Fill Alerts:** None (Day Low $3.97 — all orders below day range)
+**Fill Alerts:** None (day low $3.90 did not reach any order price)
 
 **News & Catalysts:**
-- **Sentiment:** Bullish (+0.123 avg score); 47% positive, 43% neutral, 10% negative across 30 articles
-- **Q4 2025 results (reported ~2026-03-02):** Revenue slump flagged — Q3 2025 $33.1M (+2.1% QoQ, -20.1% YoY); YoY decline is the key overhang; debate between "temporary dip vs. deeper issue"
-- **Balance sheet positive:** 90% debt reduction and $462M cash (Insider Monkey, 2026-03-04) — structural improvement offsets revenue softness
-- **Recent EPS beats:** Q4 2025 +113.6% surprise (+$0.01 vs -$0.07 est, stock +6.1%); Q1 2026 +83.3% surprise but stock -7.3% day-of
-- **Next earnings:** 2026-04-30 (53 days), revenue estimate $33.6M — no near-term event risk
-- **Cycle:** Late-month bottomer (7/13 months Days 21-31); 5 consecutive Late months Oct 25–Feb 26; 51.3% monthly swing profile
+- **Overall Sentiment:** Neutral (+0.045 avg score; 30% positive, 13% negative, 182 unique headlines)
+- **Cantor Fitzgerald** (2026-03-10): Lowered PT to $5 — still above current price (~$4.01); H.C. Wainwright reiterated Buy
+- **Q4 2025 earnings** (reported 2026-03-02): EPS +113.6% surprise ($0.01 vs -$0.07 est), +6.1% day-of reaction; revenue $27.3M (-17.6% QoQ, -37.7% YoY) — top-line weakness remains an overhang
+- **Balance sheet:** 90% debt reduction, $462M cash — structural improvement
+- **Cycle:** Late-dominant (5 consecutive months bottoming Days 21–31, Oct 25–Feb 26); Day 16 of March — late-cycle bottom window approaching; 51.3% monthly swing, 100% months hit 10%+
 - **Key levels:** Resistance $5.07 (Feb 2026 high), $6.62 (Jan 2026 high), POC $6.07 (+51% above current)
+- **Knowledge:** 1 prior trade — same-day round trip, sell 31 @ $4.00, +5.8% from $3.78 avg
 
 ---
 
-### NVDA — WATCHLIST — PAUSE FILL ALERT
-**State:** 4 pending BUY orders (NOT PLACED), nearest $174.60 (0.0% below — price at level)
-**Objective:** Accumulate via wick-adjusted bullet plan at HVN/PA support levels; PAUSED pending regime improvement
+### CIFR — WATCHLIST — ACTIVE
+**State:** 3 pending BUY orders, nearest $14.07 (0.0% below current)
+**Objective:** Re-entry after 4/4 profitable cycles. B3 at $14.07 effectively at current price; B4 at $12.86 building position on pullback; R1 at $5.38 deep reserve.
 
 | Entry Gate | Status | Detail |
 | :--- | :--- | :--- |
-| Market Gate | PAUSE | Risk-Off — 0/3 indices above 50-SMA, VIX 29.49 (+48.49% 5D), 2/11 sectors positive |
-| Earnings Gate | ACTIVE | 73 days to earnings (2026-05-20) — clear |
-| Overall | PAUSE | Risk-Off forces PAUSE; do not place orders |
+| Market Gate | ACTIVE | Neutral regime, VIX 24.2 but 5D% = -5.14% (trending down, CAUTION not triggered) |
+| Earnings Gate | ACTIVE | 50 days to earnings (2026-05-05), >14d threshold |
+| Overall | ACTIVE | Both gates clear |
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $174.60 | 1 | 0.0% | PAUSE | ACTIVE | PAUSE | B1 — $173.61 HVN+PA, 38% hold, Std tier — NEAR-FILL (Day Low $176.82 <= $178.09) |
-| BUY | $169.54 | 1 | 2.9% | PAUSE | ACTIVE | PAUSE | B2 — $161.14 PA, 100% hold (9/9), Full tier |
-| BUY | $168.40 | 1 | 3.6% | PAUSE | ACTIVE | PAUSE | B3 — $157.32 PA, 71% hold (5/7), Full tier [D] |
-| BUY | $146.74 | 1 | 16.0% | PAUSE | ACTIVE | PAUSE | R1 — $141.99 HVN+PA, 50% hold (2/4), Full tier [D] |
+| BUY | $14.07 | 4 | 0.0% | ACTIVE | ACTIVE | ACTIVE | B3 — $13.45 PA, 44% hold, Full^ tier, wick-adjusted |
+| BUY | $12.86 | 22 | 8.6% | ACTIVE | ACTIVE | ACTIVE | B4 — $13.02 PA, 71% hold, Full tier, wick-adjusted |
+| BUY | $5.38 | 18 | 61.8% | ACTIVE | ACTIVE | ACTIVE | R1 — $5.27 PA, 57% hold, Full tier, wick-adjusted |
 
-**Fill Alerts:** B1 ($174.60) NEAR-FILL — Day Low $176.82 is within 2% of order price ($174.60 × 1.02 = $178.09). Orders are NOT PLACED; monitor for entry signal if regime shifts.
+**Fill Alerts:** None (day low $14.67 did not reach any order price)
 
 **News & Catalysts:**
-- **Sentiment:** Bullish (avg +0.171; 53% positive, 37% neutral, 10% negative; 30 articles, 202 unique headlines)
-- **Earnings:** Next 2026-05-20 (73 days); EPS est $1.78, revenue est $78.43B. Beat-and-sell pattern: Q1 2026 +5.3% beat → -5.5% day; Q4 2025 +3.5% beat → -3.2% day
-- **Revenue:** Q1 2026 $68.13B (+73.2% YoY, +19.5% QoQ) — strong fundamental momentum
-- **Regulatory headwind:** NVDA halting China-bound H200 output (Reuters) — export restriction impact
-- **Analyst:** Price target increase noted (bullish signal)
-- **AI demand:** Chamath commentary on AI startup costs tripling — demand driver, but margin pressure on end-users
-- **Macro:** Broad Risk-Off (VIX +48.49% in 5 days) is the primary risk driver — fundamentals remain strong but macro forces all orders to PAUSE
+- **Sentiment:** Neutral (+0.055 avg score, 47% positive / 27% negative across 30 articles)
+- **Business pivot:** CIFR transitioning toward hyperscale infrastructure — $734M Q4 net loss (non-cash/restructuring), stock jumped +12.5% on Feb 25 pivot announcement
+- **Earnings miss:** Q4 EPS -$0.14 vs +$0.13 est (-207.7% surprise); revenue -16.7% QoQ but +41.4% YoY. 5-day reaction: -14.1%
+- **Analyst cut:** Clear Street cut PT to $32 from $34 (still ~2x current price — long-term bull thesis intact); Zacks coverage positive
+- **Institutional buying:** Clearline Capital and Aurelius Capital acquired shares recently
+- **Crypto regulatory:** SEC/CFTC MOU signed — improving regulatory clarity for sector
+- **Cycle context:** 4/4 profitable cycles (+5.9%, +7.2%, +7.0%, +7.8%). B3 at $14.07 is at current price — immediate fill risk on any intraday dip.
 
 ---
 
-### SMCI — WATCHLIST — PAUSE
-**State:** 1 pending BUY order, nearest $28.78 (~11.2% below current ~$32.39)
-**Objective:** Re-entry after cycle 2 close (+7.2% on 2026-03-04). B5 placed at reserve zone ($27.22/$28.34 PA, wick-adjusted). 2/2 cycles profitable.
+### CLSK — WATCHLIST — ACTIVE FILL ALERT
+**State:** 4 pending BUY orders, nearest $9.66 (5.7% below)
+**Objective:** Re-entry after 3-cycle close (+7.6%, +7.9%, +6.9%). Add at support levels as price pulls back from current ~$10.24 area.
 
 | Entry Gate | Status | Detail |
 | :--- | :--- | :--- |
-| Market Gate | PAUSE | Risk-Off — 0/3 indices above 50-SMA, VIX 29.5 (+48.5% 5D), sector breadth 2/11 |
-| Earnings Gate | ACTIVE | 58 days to earnings (2026-05-05) — clear (>14d) |
-| Overall | PAUSE | Market gate dominates |
+| Market Gate | ACTIVE | Neutral regime, VIX 24.19 but VIX 5D% = -5.14% (declining — CAUTION threshold not triggered) |
+| Earnings Gate | ACTIVE | 52 days to earnings (>14d, clear) |
+| Overall | ACTIVE | Both gates clear |
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $28.78 | 2 | ~11.2% | PAUSE | ACTIVE | PAUSE | Bullet 5 — $27.22/$28.34 PA, 90%/64% hold, Full tier, wick-adjusted |
+| BUY | $9.66 | 4 | 5.7% | ACTIVE | ACTIVE | ACTIVE | Bullet 1 — $9.40 HVN+PA, 25% hold, Half tier — **NEAR-FILL** (day low $9.80 ≤ $9.85 threshold) |
+| BUY | $9.09 | 8 | 11.2% | ACTIVE | ACTIVE | ACTIVE | Bullet 2 — $8.93 HVN+PA, 50% hold, Full tier |
+| BUY | $8.91 | 8 | 13.0% | ACTIVE | ACTIVE | ACTIVE | Bullet 3 — $8.62 PA, 43% hold, Full^ tier |
+| BUY | $8.40 | 10 | 18.0% | ACTIVE | ACTIVE | ACTIVE | Bullet 4 — $8.25 PA, 58% hold, Full tier |
 
-**Fill Alerts:** None (Day Low $31.12 well above $29.36 threshold)
+**Fill Alerts:** ⚠️ Bullet 1 @ $9.66 — day low $9.80 is within 2% of order price (threshold $9.85). Near-fill — verify with broker.
 
 **News & Catalysts:**
-- **Sentiment:** Bullish — 63% positive, avg score +0.344 (30 articles analyzed, 184 total headlines)
-- Earnings history: Q1 2026 beat +41.4% → +13.8% 1-day; Q4 2025 miss → -11.3% 1-day — volatile reactor
-- Next earnings 2026-05-05: EPS est $0.62, revenue est $12.45B — 58 days out, no near-term risk
-- "SMCI Down 3.3% Since Last Earnings Report: Can It Rebound?" — Zacks rebound watch narrative (2026-03-05)
-- AI server sector: Dell ISG growth + Nvidia chip rebound tailwinds; AI bubble fears creating sector-wide pressure
-- **Cycle status:** RE-ENTRY MODE — 2/2 profitable cycles. Position closed 2026-03-04. B5 $28.78 is sole active order.
+- **Operational Update (2026-03-05, +0.98):** February 2026 update positive — Texas acquisition finalized, 300 MW capacity locked down. Bitcoin mining expansion continuing.
+- **Leveraged ETFs (2026-02-19/24):** Tradr launched 2× single-stock ETFs on CLSK — elevated institutional interest and volatility expectations.
+- **Sentiment:** 30 articles, 70% neutral, 27% positive, 3% negative. Average score +0.061 — quiet but constructive.
+- **Earnings (2026-05-07, 52 days):** EPS est -$0.305, rev est $151.3M. Prior two quarters were Strong Bull price reactions despite EPS misses (+22.0% 1-day Q1 2026, +13.8% Q4 2025) — historically buys the dip post-report.
 
 ---
 
-### SOUN — WATCHLIST — PAUSE
-**State:** 2 pending BUY orders, nearest $7.48 (0.0% below current)
-**Objective:** Accumulate on pullbacks into HVN/PA support levels; exit on monthly swing recovery
+### NVDA — WATCHLIST — ACTIVE
+**State:** 4 pending BUY orders (NOT PLACED), nearest $174.60 (~4.8% below day low $182.87)
+**Objective:** Enter on pullback to active zone ($173–175 HVN/PA support); reserve levels at $169, $168, $147
 
 | Entry Gate | Status | Detail |
 | :--- | :--- | :--- |
-| Market Gate | PAUSE | Risk-Off: 0/3 indices above 50-SMA, VIX 29.5 (+48.5% 5D) |
-| Earnings Gate | ACTIVE | 60 days to earnings (2026-05-07) — clear (>14d) |
-| Overall | PAUSE | Market Gate dominates; watchlist tickers always PAUSE in Risk-Off |
+| Market Gate | ACTIVE | Neutral regime; VIX 24.19 but 5D% = -5.14% (declining — not trending up) |
+| Earnings Gate | ACTIVE | 65 days to earnings (2026-05-20), clear runway |
+| Overall | ACTIVE | Both gates clear |
+
+**Pending Orders:**
+| Type | Price | Shares | % Below Day Low | Market Gate | Earnings Gate | Combined | Note |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| BUY | $174.60 | 1 | ~4.8% | ACTIVE | ACTIVE | **ACTIVE** | B1 — $173.61 HVN+PA, 38% hold, Std tier. NOT PLACED |
+| BUY | $169.54 | 1 | ~7.7% | ACTIVE | ACTIVE | **ACTIVE** | B2 — $161.14 PA, 100% hold (9/9), Full tier. NOT PLACED |
+| BUY | $168.40 | 1 | ~8.4% | ACTIVE | ACTIVE | **ACTIVE** | B3 — $157.32 PA, 71% hold (5/7), Full tier. NOT PLACED [D] |
+| BUY | $146.74 | 1 | ~19.7% | ACTIVE | ACTIVE | **ACTIVE** | R1 — $141.99 HVN+PA, 50% hold (2/4), Full tier. NOT PLACED [D] |
+
+**Fill Alerts:** None — day low $182.87 is above all order prices; orders also not placed at broker.
+
+**News & Catalysts:**
+- **Sentiment:** Neutral (+0.092 avg; 47% positive, 30% neutral, 23% negative; 30 articles, 203 unique headlines)
+- **Catalyst:** CEO expected to deliver bullish AI outlook (Corporate — positive)
+- **Earnings noise:** 4 headlines around AI ecosystem (Foxconn, Meta/Nebius deal, Micron) — indirect support for NVDA AI demand narrative
+- **Earnings:** Next 2026-05-20 (65d); EPS est $1.77, revenue est $78.73B. Beat-and-sell pattern persists: Q1 2026 +5.3% beat → -5.5% day; Q4 2025 +3.5% beat → -3.2% 1-day
+- **Revenue:** Q1 2026 $68.13B (+73.2% YoY, +19.5% QoQ) — fundamental momentum intact
+- **No adverse catalysts** — no regulatory, product, or competitive negative flags detected
+
+---
+
+### OUST — WATCHLIST — ACTIVE FILL ALERT
+**State:** 4 pending BUY orders, nearest $20.89 (~2.7% below current ~$21.47)
+**Objective:** Enter on pullback into active zone levels; Half-tier sizing at HVN+PA supports
+
+| Entry Gate | Status | Detail |
+| :--- | :--- | :--- |
+| Market Gate | ACTIVE | Neutral regime, VIX 24.2 but VIX 5D% −5.14% (trending down — no CAUTION trigger) |
+| Earnings Gate | ACTIVE | 52 days to earnings (2026-05-07), clear window |
+| Overall | ACTIVE | Both gates clear |
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $7.48 | 7 | 0.0% | PAUSE | ACTIVE | PAUSE | B1 — $7.48 HVN+PA, 50% hold, Full tier, wick-adjusted |
-| BUY | $7.26 | 8 | 2.9% | PAUSE | ACTIVE | PAUSE | B2 — $6.95 PA, 75% hold, Full tier, wick-adjusted |
+| BUY | $20.89 | 6 | ~2.7% | ACTIVE | ACTIVE | ACTIVE | Bullet 1 — $20.16 HVN+PA, 36% hold, Half tier; **NEAR-FILL** (day low $20.98, within 2%) |
+| BUY | $20.32 | 4 | ~5.4% | ACTIVE | ACTIVE | ACTIVE | Bullet 2 — $19.22 HVN+PA, 30% hold, Half tier |
+| BUY | $20.32 | 1 | ~5.4% | ACTIVE | ACTIVE | ACTIVE | Bullet 3 partial — $19.22 HVN+PA, 30% hold, Half tier |
+| BUY | $18.98 | 4 | ~11.6% | ACTIVE | ACTIVE | ACTIVE | Bullet 3 — $18.28 HVN+PA, 25% hold, Half tier |
 
-**Fill Alerts:** None (Day Low $8.00 — both orders well below intraday range)
+**Fill Alerts:** NEAR-FILL — Bullet 1 ($20.89 × 6 shares): day low $20.98 is within 2% of order price. Not yet filled (price stayed above $20.89), but very close. Verify with broker; continued weakness could trigger.
 
 **News & Catalysts:**
-- **Q4 2025 / Full-year 2025:** Revenue $168.9M, +100% YoY — strong top-line growth
-- **EPS miss:** Q4 2025 EPS -$0.27 vs est -$0.09 (-194.5% surprise); 5-day reaction -14.1% (bearish)
-- **Analyst:** H.C. Wainwright maintained Buy, cut PT to $20; analysts split post-earnings
-- **Short interest:** Flagged as one of the most shorted stocks — squeeze potential but elevated downside risk
-- **Sentiment:** Bullish overall (+0.166 avg score, 37% positive / 47% neutral / 17% negative; 177 unique headlines)
-- **Next earnings:** 2026-05-07 (60 days out), EPS est -$0.035, Rev est $42.8M
-- **Macro:** Risk-Off regime suppresses speculative AI/growth names; hold all BUYs until regime clears
+- **Sentiment:** Bullish (+0.227 avg, 50% positive, 0% negative across 30 articles)
+- **StereoLabs Acquisition (Feb 27):** OUST establishing Physical AI Platform via strategic acquisition — expanding into robotics/AI perception, major thesis catalyst
+- **Q1 2026 Earnings beat (Mar 3–10):** EPS $0.07 vs −$0.13 estimate (+149.3% surprise); stock up 10.6%–13% post-print. Strong Bull reaction confirms improving fundamentals
+- **Robotics sector rally (Mar 10):** OUST up 9% on broad robotics/AI momentum
+- **Revenue trend strong:** Q4 2025 $62.2M (+57.3% QoQ, +106.6% YoY)
+- **Analyst:** "Great Tech, Stock Fairly Priced" — positive on technology, neutral on valuation
+- **Institutional:** Algert Global LLC boosted stake — accumulation signal
+- **Next earnings:** 2026-05-07, 52 days out — window is clear
 
 ---
 
-### TEM — WATCHLIST — PAUSE FILL ALERT
-**State:** 2 pending BUY orders, nearest $50.98 (0.0% below)
-**Objective:** Enter on pullback into active zone ($47–$51); await Risk-Off regime clearance before activating orders
+### RUN — WATCHLIST — ACTIVE
+**State:** 7 pending BUY orders, nearest $11.05 (0.0% below per portfolio data; day range $12.55–$13.20)
+**Objective:** Enter residential solar mean-reversion cycle; bullets staggered from active zone ($10.69–$11.05) through reserve levels ($5.45–$7.87)
 
 | Entry Gate | Status | Detail |
 | :--- | :--- | :--- |
-| Market Gate | PAUSE | Risk-Off: 0/3 indices above 50-SMA, VIX 29.5 (+48.5% 5D) |
-| Earnings Gate | ACTIVE | 58 days to earnings (2026-05-05) — clear |
-| Overall | PAUSE | Market Gate dominates |
+| Market Gate | ACTIVE | Neutral regime; VIX 24.2 but VIX 5D% = -5.14% (declining) — CAUTION condition not met |
+| Earnings Gate | ACTIVE | 51 days to earnings 2026-05-06 (>14d clear) |
+| Overall | ACTIVE | Both gates clear |
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $50.98 | 1 | 0.0% | PAUSE | ACTIVE | PAUSE | **Near-fill** — Day Low $51.57 within 2% of order |
-| BUY | $48.75 | 2 | 4.4% | PAUSE | ACTIVE | PAUSE | — |
+| BUY | $11.05 | 5 | 0.0% | ACTIVE | ACTIVE | ACTIVE | Bullet 2 — $10.65 HVN+PA, 20% hold, Std^ tier, wick-adjusted |
+| BUY | $10.69 | 2 | 3.3% | ACTIVE | ACTIVE | ACTIVE | Bullet 3 — $10.19 HVN+PA, 22% hold, Half tier, wick-adjusted |
+| BUY | $10.10 | 5 | 8.6% | ACTIVE | ACTIVE | ACTIVE | Bullet 4 — $9.85 PA, 50% hold, Std tier, wick-adjusted |
+| BUY | $10.05 | 5 | 9.0% | ACTIVE | ACTIVE | ACTIVE | Bullet 5 — $9.60 PA, 50% hold, Full tier, wick-adjusted |
+| BUY | $7.87 | 12 | 28.8% | ACTIVE | ACTIVE | ACTIVE | Reserve 1 — $7.80 PA, 60% hold, Std tier, wick-adjusted |
+| BUY | $6.11 | 16 | 44.7% | ACTIVE | ACTIVE | ACTIVE | Reserve 2 — $5.75 PA, 50% hold, Std tier, wick-adjusted |
+| BUY | $5.45 | 18 | 50.7% | ACTIVE | ACTIVE | ACTIVE | Reserve 3 — $5.38 PA, 100% hold, Full tier, structural floor |
 
-**Fill Alerts:** B1 ($50.98) near-fill — Day Low $51.57 is within 2% above order price ($50.98 + 2% = $52.00). Regime is PAUSE; do not act until Risk-Off clears. Verify with broker whether fill occurred.
+**Fill Alerts:** None — day low $12.55 is above all order prices
 
 **News & Catalysts:**
-- **Sentiment:** Bullish (43% positive, 13% negative, avg score +0.115 across 30 articles)
-- **Merck deal:** Multi-year AI partnership for precision medicine announced 2026-03-03/07 — enterprise validation for Tempus platform (+0.84 sentiment)
-- **Diagnostics expansion:** Diagnostics arm growing rapidly per Zacks (2026-03-05); positive regulatory backdrop
-- **AI cardiac imaging:** Hospital networks adopting AI-enhanced cardiac imaging — expanding TAM
-- **Analyst headwinds:** Price target lowered + downgrade from Wall Street; near-term overhang; stock down ~7.5% on analyst action
-- **Earnings pattern risk:** Recent quarters bearish post-earnings despite beats — Q1 2026 EPS beat (+22.1% surprise) but stock fell -7.3% day-of, -11.3% over 5 days; Q4 2025 missed, -15.3% over 5 days
-- **Revenue growth:** Strong — $367.2M Q4 2025 (+83% YoY, +9.9% QoQ); next earnings 2026-05-05 (58d, clear)
-- **Institutional interest:** TD Asset Management and Amova Asset Management taking positions
-- **Prior trades:** 3 trades; top was SELL 2 @ $53.45 (+6.0% from $50.42 avg)
+- **Sentiment:** Bullish (57% positive, avg score +0.132, 30 articles analyzed)
+- **Sector rally:** Solar names surged 6–10% on Mar 10 (RUN +7.2%) on regulatory/policy tailwind
+- **Goldman Sachs bullish:** Sees RUN building on strong 2025 finish; Zacks industry outlook positive
+- **Mizuho cautious:** 2026 cash growth outlook appears flat — guides caution on forward multiples
+- **Analyst headwind:** Price target lowered to $15; separate -7.8% reaction on fresh downgrade
+- **CEO insider selling:** Mary Powell sold shares — minor bearish signal
+- **Earnings risk:** Q1 2026 beat EPS by 700% yet stock fell -35.1%; Q4 miss → -16.1% — market consistently punishes RUN at earnings regardless of beat/miss. Next earnings May 6 (51d, clear)
+- **Revenue strong:** Q4 2025 revenue +123.5% YoY — growth story intact despite margin/cash concerns
+
+---
+
+### SMCI — WATCHLIST — ACTIVE
+**State:** 2 pending BUY orders, nearest $29.95 (0.0% below)
+**Objective:** Re-entry after 2/2 profitable cycles (+6.7%, +7.2%). B1 at $28.96 HVN+PA support; B2 at $27.35 PA support.
+
+| Entry Gate | Status | Detail |
+| :--- | :--- | :--- |
+| Market Gate | ACTIVE | Neutral regime, VIX 24.2 but 5D% = -5.14% (declining — CAUTION condition not met) |
+| Earnings Gate | ACTIVE | 50 days to earnings (2026-05-05) — clear |
+| Overall | ACTIVE | Both gates clear |
+
+**Pending Orders:**
+| Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| BUY | $29.95 | 4 | 0.0% | ACTIVE | ACTIVE | ACTIVE | B1 — $28.96 HVN+PA, 44% hold, Full^ tier, wick-adjusted |
+| BUY | $28.78 | 6 | 3.9% | ACTIVE | ACTIVE | ACTIVE | B2 — $27.35 PA, 100% hold, Full tier, wick-adjusted |
+
+**Fill Alerts:** None (day low $30.92 > both order prices + 2% threshold)
+
+**News & Catalysts:**
+- **Sentiment:** Strongly bullish — 87% positive across 30 articles, avg score +0.517
+- **Q2 Beat:** Fierce Q2 EPS beat cited widely; Q1 2026 actual $0.69 vs $0.49 est (+41.4%), +13.8% 1-day reaction
+- **Sovereign AI:** SMCI expanding Sovereign AI platform support (Mar 10) — positive corporate catalyst
+- **CEO:** "We're at the Center of AI" — positive positioning narrative
+- **Next earnings:** 2026-05-05, EPS est $0.62, Revenue est $12.45B — 50 days out, no near-term risk
+- **Sector tailwind:** AI infrastructure peers (Dell +16% YTD, Vertiv S&P 500 inclusion) providing lift
+- **Caution:** Q4 2025 miss (-5% surprise, -11.3% day reaction) — execution inconsistency worth watching
 
 ---
 
@@ -943,7 +999,9 @@ No active velocity/bounce positions.
 
 ## Fill Alerts
 
-No fill alerts.
+| Ticker | Order | Price | Status | Gate | Action |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| SOUN | SELL | $7.76 | NEAR | ACTIVE | ACTIVE — watch for fill. |
 
 ---
 
@@ -951,18 +1009,15 @@ No fill alerts.
 
 | Category | Amount |
 | :--- | :--- |
-| Deployed | $3,745.22 |
+| Deployed | $3,993.89 |
 | Velocity Pool | $1,000.00 |
 | Bounce Pool | $1,000.00 |
-| Total | $5,745.22 |
+| Total | $5,993.89 |
 
 **Sector Deployment:**
 | Sector | Deployed | % | Tickers |
 | :--- | :--- | :--- | :--- |
-| eVTOL (ARKX) | $414 | 31% | ACHR |
-| Metals & Mining (XME) | $228 | 17% | TMC |
-| CLF is Materials (XLB) | $215 | 16% | CLF |
-| Crypto mining (BLOK) | $161 | 12% | CIFR |
-| Nuclear (VIX) | $145 | 11% | NNE |
-| LiDAR (XLK) | $108 | 8% | OUST |
-| Bitcoin mining (BTC) | $71 | 5% | CLSK |
+| Quantum Computing (VIX) | $666 | 38% | IONQ |
+| eVTOL (ARKX) | $509 | 29% | ACHR |
+| Critical minerals (US) | $324 | 19% | USAR |
+| Nuclear (SMR) | $239 | 14% | NNE |

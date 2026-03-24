@@ -1,0 +1,25 @@
+{
+  "cooldowns": [
+    {
+      "ticker": "ARM",
+      "sold_date": "2026-03-17",
+      "reeval_date": "2026-03-20",
+      "cooldown_days": 3,
+      "note": "Sold 5 @ $125.88 (+5.8% from $118.96 avg). Manually lowered sell target. Default 3d cooldown. 100% immediate fill rate, 9 cycles observed."
+    },
+    {
+      "ticker": "LUNR",
+      "sold_date": "2026-03-17",
+      "reeval_date": "2026-03-20",
+      "cooldown_days": 3,
+      "note": "Sold 1 @ $18.54 + 1 @ $18.72 (+6.4% from $17.59 avg). Default 3d cooldown. 100% immediate fill rate, 17 cycles observed."
+    },
+    {
+      "ticker": "SOUN",
+      "sold_date": "2026-03-17",
+      "reeval_date": "2026-03-20",
+      "cooldown_days": 3,
+      "note": "Sold 15 @ $7.76 (+5.4% from $7.36 avg). Default 3d cooldown. 100% immediate fill rate, 7 cycles observed."
+    }
+  ]
+}

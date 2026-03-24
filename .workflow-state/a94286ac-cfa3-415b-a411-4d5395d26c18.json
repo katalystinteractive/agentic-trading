@@ -1,0 +1,308 @@
+{
+  "run_id": "a94286ac-cfa3-415b-a411-4d5395d26c18",
+  "workflow_name": "morning-briefing-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-03-05T19:51:57.035236+00:00",
+  "completed_at": "2026-03-05T20:01:55.263644+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun the daily morning briefing. Today is 2026-03-05. Multiple fills recorded today: BBAI (15 @ 3.81, 16 @ 3.75), LUNR (1 @ 17.83, 1 @ 17.11), CLSK (2 @ 10.05, 3 @ 9.66), CIFR (3 @ 15.04, 4 @ 14.87), NNE (2 @ 25.04). OUST filled earlier today (already in portfolio). Check all active positions, pending orders, exit targets, and market context.",
+    "handoffs": {
+      "gather": "**morning_gatherer.py:**\n- Active positions: 15 (NU, IONQ, LUNR, USAR, OUST, APLD, TMC, CIFR, ARM, ACHR, TEM, CLSK, CLF, BBAI, NNE)\n- Watchlist tickers with orders: 4 (SMCI, SOUN, AR, NVDA)\n- Tool errors: 0\n- BUY orders: 38 \u2713 (matches portfolio.json)\n- SELL orders: 2 \u2713 (matches portfolio.json)\n- Output: `morning-tools-raw.md` (340.1 KB)\n\n**morning_compiler.py:**\n- Active positions compiled: 15 \u2713\n- Watchlist tickers compiled: 4 \u2713\n- Coverage: COMPLETE\n- Missing files (non-blocking): institutional.md for several tickers, identity.md/memory.md for OUST/ARM/TEM, wick_analysis.md for TEM\n- Full output: `morning-briefing-raw.md` (576.5 KB)\n- Condensed: `morning-briefing-condensed.md` (131.9 KB, 77% reduction, avg 6.9 KB/ticker)\n\nReady for morning analysis.",
+      "analyze": "Fan-out: 19/19 succeeded, 0 failed.\nManifest: morning-work/manifest.json\nSucceeded: NU, IONQ, LUNR, USAR, OUST, APLD, TMC, CIFR, ARM, ACHR, TEM, CLSK, CLF, BBAI, NNE, SMCI, SOUN, AR, NVDA",
+      "compile": "Morning briefing assembled successfully.\n\n**morning_assembler.py results:**\n- Active positions: 15 (CIFR, CLF, CLSK, IONQ, NNE, USAR, ACHR, APLD, ARM, BBAI, LUNR, NU, OUST, TEM, TMC)\n- Watchlist tickers: 4 (AR, NVDA, SMCI, SOUN)\n- Scouting: 0\n- Fill alerts: 0 (3 near-fill warnings for BBAI B3, OUST, NVDA B1 \u2014 need broker verification)\n- Gate counts: ACTIVE 7, REVIEW 21, PAUSE 10\n- Verdicts: 6 HOLD, 9 MONITOR\n- Output: `morning-briefing.md` (62.8 KB, 1012 lines)\n- Failed: none",
+      "review": "**morning_verifier.py results \u2014 2026-03-05**\n\nChecks passed: **6/9**\nIssues found: **60 total (19 critical, 41 minor)**\n\n**Failed checks:**\n\n**Check 1 \u2014 P/L Math (15 critical, 3 minor):**\nP/L % is wrong for all 15 active positions. The briefing shows stale/pre-fill averages rather than today's updated averages. All tickers affected: CIFR, CLF, CLSK, IONQ, NNE, USAR, ACHR, APLD, ARM, BBAI, LUNR, NU, OUST, TEM, TMC. Distance-to-target also off for USAR, APLD, NU.\n\n**Check 3 \u2014 Verdict Assignment (1 critical):**\nCLF assigned HOLD but rule 16 (WITHIN time stop) requires MONITOR.\n\n**Check 6 \u2014 Entry Gate Logic (3 critical, 38 minor):**\n- Critical gate mismatches: CLF BUY $8.48 should be ACTIVE (shows REVIEW), CLSK BUY $8.88 should be REVIEW (shows ACTIVE), NU BUY $13.03 should be REVIEW (shows ACTIVE).\n- Minor: \"% Below Current\" values are wrong across nearly all tickers \u2014 briefing is computing distance from wrong price base (likely old avg vs current price), showing positive % when orders are below current price.\n\n**Root cause hypothesis:** The morning analyst computed P/L and entry-gate distances using pre-fill average prices rather than post-fill averages for today's new positions (BBAI, LUNR, CLSK, CIFR, NNE, OUST).\n\nReview file written to: `morning-briefing-review.md`"
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-05T19:51:57.037530+00:00",
+      "completed_at": "2026-03-05T19:54:35.818239+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**morning_gatherer.py:**\n- Active positions: 15 (NU, IONQ, LUNR, USAR, OUST, APLD, TMC, CIFR, ARM, ACHR, TEM, CLSK, CLF, BBAI, NNE)\n- Watchlist tickers with orders: 4 (SMCI, SOUN, AR, NVDA)\n- Tool errors: 0\n- BUY orders: 38 \u2713 (matches portfolio.json)\n- SELL orders: 2 \u2713 (matches portfolio.json)\n- Output: `morning-tools-raw.md` (340.1 KB)\n\n**morning_compiler.py:**\n- Active positions compiled: 15 \u2713\n- Watchlist tickers compiled: 4 \u2713\n- Coverage: COMPLETE\n- Missing files (non-blocking): institutional.md for several tickers, identity.md/memory.md for OUST/ARM/TEM, wick_analysis.md for TEM\n- Full output: `morning-briefing-raw.md` (576.5 KB)\n- Condensed: `morning-briefing-condensed.md` (131.9 KB, 77% reduction, avg 6.9 KB/ticker)\n\nReady for morning analysis.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":152768,\"duration_api_ms\":15079,\"num_turns\":4,\"result\":\"Both scripts completed successfully.\\n\\n## HANDOFF\\n\\n**morning_gatherer.py:**\\n- Active positions: 15 (NU, IONQ, LUNR, USAR, OUST, APLD, TMC, CIFR, ARM, ACHR, TEM, CLSK, CLF, BBAI, NNE)\\n- Watchlist tickers with orders: 4 (SMCI, SOUN, AR, NVDA)\\n- Tool errors: 0\\n- BUY orders: 38 \u2713 (matches portfolio.json)\\n- SELL orders: 2 \u2713 (matches portfolio.json)\\n- Output: `morning-tools-raw.md` (340.1 KB)\\n\\n**morning_compiler.py:**\\n- Active positions compiled: 15 \u2713\\n- Watchlist tickers compiled: 4 \u2713\\n- Coverage: COMPLETE\\n- Missing files (non-blocking): institutional.md for several tickers, identity.md/memory.md for OUST/ARM/TEM, wick_analysis.md for TEM\\n- Full output: `morning-briefing-raw.md` (576.5 KB)\\n- Condensed: `morning-briefing-condensed.md` (131.9 KB, 77% reduction, avg 6.9 KB/ticker)\\n\\nReady for morning analysis.\\n\\n## Decision: COMPLETE\",\"stop_reason\":\"end_turn\",\"session_id\":\"6ff39495-3bbe-43db-a524-0804307129a0\",\"total_cost_usd\":0.15879175,\"usage\":{\"input_tokens\":6,\"cache_creation_input_tokens\":18763,\"cache_read_input_tokens\":49886,\"output_tokens\":662,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":18763,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":6,\"outputTokens\":662,\"cacheReadInputTokens\":49886,\"cacheCreationInputTokens\":18763,\"webSearchRequests\":0,\"costUSD\":0.15879175,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"9a220729-1f1b-4df1-adc4-2132517c0f6b\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "file_0": "identity.md/memory.md"
+      },
+      "metrics": {
+        "duration_seconds": 158.77705717086792,
+        "token_usage": {
+          "input_tokens": 6,
+          "output_tokens": 662,
+          "cache_read_tokens": 49886,
+          "cache_write_tokens": 18763
+        },
+        "estimated_cost_usd": 0.095275,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-05T19:54:35.820711+00:00",
+      "completed_at": "2026-03-05T20:01:11.938084+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "Fan-out: 19/19 succeeded, 0 failed.\nManifest: morning-work/manifest.json\nSucceeded: NU, IONQ, LUNR, USAR, OUST, APLD, TMC, CIFR, ARM, ACHR, TEM, CLSK, CLF, BBAI, NNE, SMCI, SOUN, AR, NVDA",
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {},
+      "metrics": {
+        "duration_seconds": 219.55937504768372,
+        "token_usage": {
+          "input_tokens": 171,
+          "output_tokens": 133617,
+          "cache_read_tokens": 3177856,
+          "cache_write_tokens": 470134
+        },
+        "estimated_cost_usd": 4.721127,
+        "model": "sonnet",
+        "attempts": 19
+      },
+      "fan_out_items": {
+        "NU": {
+          "item_id": "NU",
+          "status": "completed",
+          "started_at": "2026-03-05T19:54:35.906905+00:00",
+          "completed_at": "2026-03-05T19:56:33.796400+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "IONQ": {
+          "item_id": "IONQ",
+          "status": "completed",
+          "started_at": "2026-03-05T19:54:35.927968+00:00",
+          "completed_at": "2026-03-05T19:56:59.251141+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "LUNR": {
+          "item_id": "LUNR",
+          "status": "completed",
+          "started_at": "2026-03-05T19:54:35.932262+00:00",
+          "completed_at": "2026-03-05T19:58:02.156405+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "USAR": {
+          "item_id": "USAR",
+          "status": "completed",
+          "started_at": "2026-03-05T19:54:35.937601+00:00",
+          "completed_at": "2026-03-05T19:57:18.784344+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "OUST": {
+          "item_id": "OUST",
+          "status": "completed",
+          "started_at": "2026-03-05T19:54:35.945101+00:00",
+          "completed_at": "2026-03-05T19:56:15.657273+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "APLD": {
+          "item_id": "APLD",
+          "status": "completed",
+          "started_at": "2026-03-05T19:54:35.950468+00:00",
+          "completed_at": "2026-03-05T19:56:56.057993+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "TMC": {
+          "item_id": "TMC",
+          "status": "completed",
+          "started_at": "2026-03-05T19:54:35.963694+00:00",
+          "completed_at": "2026-03-05T19:57:19.599079+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "CIFR": {
+          "item_id": "CIFR",
+          "status": "completed",
+          "started_at": "2026-03-05T19:54:36.001268+00:00",
+          "completed_at": "2026-03-05T19:57:36.197871+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "ARM": {
+          "item_id": "ARM",
+          "status": "completed",
+          "started_at": "2026-03-05T19:56:15.665188+00:00",
+          "completed_at": "2026-03-05T19:59:27.518844+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "ACHR": {
+          "item_id": "ACHR",
+          "status": "completed",
+          "started_at": "2026-03-05T19:56:33.800057+00:00",
+          "completed_at": "2026-03-05T19:58:47.899033+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "TEM": {
+          "item_id": "TEM",
+          "status": "completed",
+          "started_at": "2026-03-05T19:56:56.063435+00:00",
+          "completed_at": "2026-03-05T19:59:38.071479+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "CLSK": {
+          "item_id": "CLSK",
+          "status": "completed",
+          "started_at": "2026-03-05T19:56:59.254420+00:00",
+          "completed_at": "2026-03-05T20:00:38.814543+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "CLF": {
+          "item_id": "CLF",
+          "status": "completed",
+          "started_at": "2026-03-05T19:57:18.786945+00:00",
+          "completed_at": "2026-03-05T20:00:49.134610+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "BBAI": {
+          "item_id": "BBAI",
+          "status": "completed",
+          "started_at": "2026-03-05T19:57:19.602559+00:00",
+          "completed_at": "2026-03-05T20:00:42.838293+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "NNE": {
+          "item_id": "NNE",
+          "status": "completed",
+          "started_at": "2026-03-05T19:57:36.200181+00:00",
+          "completed_at": "2026-03-05T20:00:44.163500+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "SMCI": {
+          "item_id": "SMCI",
+          "status": "completed",
+          "started_at": "2026-03-05T19:58:02.158593+00:00",
+          "completed_at": "2026-03-05T19:59:08.886984+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "SOUN": {
+          "item_id": "SOUN",
+          "status": "completed",
+          "started_at": "2026-03-05T19:58:47.901100+00:00",
+          "completed_at": "2026-03-05T19:59:53.963789+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "AR": {
+          "item_id": "AR",
+          "status": "completed",
+          "started_at": "2026-03-05T19:59:08.889119+00:00",
+          "completed_at": "2026-03-05T20:00:09.785150+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        },
+        "NVDA": {
+          "item_id": "NVDA",
+          "status": "completed",
+          "started_at": "2026-03-05T19:59:27.522560+00:00",
+          "completed_at": "2026-03-05T20:01:11.934712+00:00",
+          "attempts": 1,
+          "decision": "COMPLETE",
+          "error_message": null
+        }
+      }
+    },
+    "compile": {
+      "phase_id": "compile",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-05T20:01:11.941235+00:00",
+      "completed_at": "2026-03-05T20:01:25.626437+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "Morning briefing assembled successfully.\n\n**morning_assembler.py results:**\n- Active positions: 15 (CIFR, CLF, CLSK, IONQ, NNE, USAR, ACHR, APLD, ARM, BBAI, LUNR, NU, OUST, TEM, TMC)\n- Watchlist tickers: 4 (AR, NVDA, SMCI, SOUN)\n- Scouting: 0\n- Fill alerts: 0 (3 near-fill warnings for BBAI B3, OUST, NVDA B1 \u2014 need broker verification)\n- Gate counts: ACTIVE 7, REVIEW 21, PAUSE 10\n- Verdicts: 6 HOLD, 9 MONITOR\n- Output: `morning-briefing.md` (62.8 KB, 1012 lines)\n- Failed: none",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":11769,\"duration_api_ms\":10037,\"num_turns\":3,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\nMorning briefing assembled successfully.\\n\\n**morning_assembler.py results:**\\n- Active positions: 15 (CIFR, CLF, CLSK, IONQ, NNE, USAR, ACHR, APLD, ARM, BBAI, LUNR, NU, OUST, TEM, TMC)\\n- Watchlist tickers: 4 (AR, NVDA, SMCI, SOUN)\\n- Scouting: 0\\n- Fill alerts: 0 (3 near-fill warnings for BBAI B3, OUST, NVDA B1 \u2014 need broker verification)\\n- Gate counts: ACTIVE 7, REVIEW 21, PAUSE 10\\n- Verdicts: 6 HOLD, 9 MONITOR\\n- Output: `morning-briefing.md` (62.8 KB, 1012 lines)\\n- Failed: none\",\"stop_reason\":\"end_turn\",\"session_id\":\"fce29ef0-2d41-44d4-a9cb-a439345d564c\",\"total_cost_usd\":0.14078625,\"usage\":{\"input_tokens\":5,\"cache_creation_input_tokens\":18129,\"cache_read_input_tokens\":31960,\"output_tokens\":459,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":18129,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":5,\"outputTokens\":459,\"cacheReadInputTokens\":31960,\"cacheCreationInputTokens\":18129,\"webSearchRequests\":0,\"costUSD\":0.14078625,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"6708bfa0-3a2f-49ac-b8b8-44c9061f8522\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "morning-briefing.md": "/Users/kamenkamenov/agentic-trading/morning-briefing.md"
+      },
+      "metrics": {
+        "duration_seconds": 13.681270837783813,
+        "token_usage": {
+          "input_tokens": 5,
+          "output_tokens": 459,
+          "cache_read_tokens": 31960,
+          "cache_write_tokens": 18129
+        },
+        "estimated_cost_usd": 0.084472,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-05T20:01:25.628798+00:00",
+      "completed_at": "2026-03-05T20:01:55.261230+00:00",
+      "error_message": null,
+      "decision": "ISSUES",
+      "handoff": "**morning_verifier.py results \u2014 2026-03-05**\n\nChecks passed: **6/9**\nIssues found: **60 total (19 critical, 41 minor)**\n\n**Failed checks:**\n\n**Check 1 \u2014 P/L Math (15 critical, 3 minor):**\nP/L % is wrong for all 15 active positions. The briefing shows stale/pre-fill averages rather than today's updated averages. All tickers affected: CIFR, CLF, CLSK, IONQ, NNE, USAR, ACHR, APLD, ARM, BBAI, LUNR, NU, OUST, TEM, TMC. Distance-to-target also off for USAR, APLD, NU.\n\n**Check 3 \u2014 Verdict Assignment (1 critical):**\nCLF assigned HOLD but rule 16 (WITHIN time stop) requires MONITOR.\n\n**Check 6 \u2014 Entry Gate Logic (3 critical, 38 minor):**\n- Critical gate mismatches: CLF BUY $8.48 should be ACTIVE (shows REVIEW), CLSK BUY $8.88 should be REVIEW (shows ACTIVE), NU BUY $13.03 should be REVIEW (shows ACTIVE).\n- Minor: \"% Below Current\" values are wrong across nearly all tickers \u2014 briefing is computing distance from wrong price base (likely old avg vs current price), showing positive % when orders are below current price.\n\n**Root cause hypothesis:** The morning analyst computed P/L and entry-gate distances using pre-fill average prices rather than post-fill averages for today's new positions (BBAI, LUNR, CLSK, CIFR, NNE, OUST).\n\nReview file written to: `morning-briefing-review.md`",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":27957,\"duration_api_ms\":26197,\"num_turns\":5,\"result\":\"## Decision: ISSUES\\n\\n## HANDOFF\\n\\n**morning_verifier.py results \u2014 2026-03-05**\\n\\nChecks passed: **6/9**\\nIssues found: **60 total (19 critical, 41 minor)**\\n\\n**Failed checks:**\\n\\n**Check 1 \u2014 P/L Math (15 critical, 3 minor):**\\nP/L % is wrong for all 15 active positions. The briefing shows stale/pre-fill averages rather than today's updated averages. All tickers affected: CIFR, CLF, CLSK, IONQ, NNE, USAR, ACHR, APLD, ARM, BBAI, LUNR, NU, OUST, TEM, TMC. Distance-to-target also off for USAR, APLD, NU.\\n\\n**Check 3 \u2014 Verdict Assignment (1 critical):**\\nCLF assigned HOLD but rule 16 (WITHIN time stop) requires MONITOR.\\n\\n**Check 6 \u2014 Entry Gate Logic (3 critical, 38 minor):**\\n- Critical gate mismatches: CLF BUY $8.48 should be ACTIVE (shows REVIEW), CLSK BUY $8.88 should be REVIEW (shows ACTIVE), NU BUY $13.03 should be REVIEW (shows ACTIVE).\\n- Minor: \\\"% Below Current\\\" values are wrong across nearly all tickers \u2014 briefing is computing distance from wrong price base (likely old avg vs current price), showing positive % when orders are below current price.\\n\\n**Root cause hypothesis:** The morning analyst computed P/L and entry-gate distances using pre-fill average prices rather than post-fill averages for today's new positions (BBAI, LUNR, CLSK, CIFR, NNE, OUST).\\n\\nReview file written to: `morning-briefing-review.md`\",\"stop_reason\":\"end_turn\",\"session_id\":\"e43e4fd1-5bb5-4f1a-af53-3e6c2c32c22a\",\"total_cost_usd\":0.191076,\"usage\":{\"input_tokens\":7,\"cache_creation_input_tokens\":21796,\"cache_read_input_tokens\":69232,\"output_tokens\":808,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":21796,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":7,\"outputTokens\":808,\"cacheReadInputTokens\":69232,\"cacheCreationInputTokens\":21796,\"webSearchRequests\":0,\"costUSD\":0.191076,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"871d7f59-45c5-4a5c-a046-5514ebdd26e9\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "morning-briefing-review.md": "/Users/kamenkamenov/agentic-trading/morning-briefing-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 29.631190061569214,
+        "token_usage": {
+          "input_tokens": 7,
+          "output_tokens": 808,
+          "cache_read_tokens": 69232,
+          "cache_write_tokens": 21796
+        },
+        "estimated_cost_usd": 0.114646,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-03-05T20:01:55.263880+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/morning-briefing-workflow.yaml",
+    "workflowHash": "f6f5758e201da901"
+  }
+}

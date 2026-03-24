@@ -1,0 +1,340 @@
+{
+  "as_of": "2026-03-23",
+  "tickers_analyzed": 26,
+  "tickers_with_cycles": 13,
+  "active_pool": 300,
+  "recommendations": [
+    {
+      "ticker": "CIFR",
+      "type": "sell_target",
+      "current_value": 6.0,
+      "proposed_value": 12.0,
+      "basis": "Capture 56%, 6 cycles, median peak $17.05",
+      "approved": false
+    },
+    {
+      "ticker": "CLSK",
+      "type": "sell_target",
+      "current_value": 6.0,
+      "proposed_value": 12.0,
+      "basis": "Capture 64%, 4 cycles, median peak $10.85",
+      "approved": false
+    },
+    {
+      "ticker": "CLSK",
+      "type": "sizing_mode",
+      "current_value": "spread",
+      "proposed_value": "compact",
+      "basis": "Median deployment 14%, 4 cycles",
+      "approved": false
+    },
+    {
+      "ticker": "LUNR",
+      "type": "sell_target",
+      "current_value": 6.0,
+      "proposed_value": 12.0,
+      "basis": "Capture 51%, 7 cycles, median peak $19.51",
+      "approved": false
+    },
+    {
+      "ticker": "LUNR",
+      "type": "sizing_mode",
+      "current_value": "spread",
+      "proposed_value": "compact",
+      "basis": "Median deployment 12%, 7 cycles",
+      "approved": false
+    }
+  ],
+  "kpis": {
+    "ACHR": {
+      "completed_cycles": 1,
+      "deployment_depth_pct": 9.2,
+      "capture_ratio_pct": 100.0,
+      "reserve_breach_pct": 0.0,
+      "median_cycle_days": 0,
+      "max_drawdown_pct": -1.3,
+      "unknown_zone_trades": 1,
+      "open_cycle": true,
+      "status": "insufficient_data"
+    },
+    "APLD": {
+      "completed_cycles": 0,
+      "deployment_depth_pct": null,
+      "capture_ratio_pct": null,
+      "reserve_breach_pct": null,
+      "median_cycle_days": null,
+      "max_drawdown_pct": null,
+      "unknown_zone_trades": 0,
+      "open_cycle": true,
+      "status": "open_only"
+    },
+    "AR": {
+      "completed_cycles": 0,
+      "deployment_depth_pct": null,
+      "capture_ratio_pct": null,
+      "reserve_breach_pct": null,
+      "median_cycle_days": null,
+      "max_drawdown_pct": null,
+      "unknown_zone_trades": 0,
+      "open_cycle": true,
+      "status": "open_only"
+    },
+    "ARM": {
+      "completed_cycles": 2,
+      "deployment_depth_pct": 84.4,
+      "capture_ratio_pct": 18.1,
+      "reserve_breach_pct": 0.0,
+      "median_cycle_days": 7,
+      "max_drawdown_pct": -4.7,
+      "unknown_zone_trades": 2,
+      "open_cycle": false,
+      "status": "insufficient_data"
+    },
+    "BBAI": {
+      "completed_cycles": 1,
+      "deployment_depth_pct": 39.1,
+      "capture_ratio_pct": 34.3,
+      "reserve_breach_pct": 0.0,
+      "median_cycle_days": 0,
+      "max_drawdown_pct": -1.4,
+      "unknown_zone_trades": 2,
+      "open_cycle": true,
+      "status": "insufficient_data"
+    },
+    "CIFR": {
+      "completed_cycles": 6,
+      "deployment_depth_pct": 32.2,
+      "capture_ratio_pct": 55.6,
+      "reserve_breach_pct": 0.0,
+      "median_cycle_days": 0,
+      "max_drawdown_pct": -4.1,
+      "unknown_zone_trades": 6,
+      "open_cycle": false,
+      "status": "sell_target_advisory"
+    },
+    "CLF": {
+      "completed_cycles": 0,
+      "deployment_depth_pct": null,
+      "capture_ratio_pct": null,
+      "reserve_breach_pct": null,
+      "median_cycle_days": null,
+      "max_drawdown_pct": null,
+      "unknown_zone_trades": 0,
+      "open_cycle": true,
+      "status": "open_only"
+    },
+    "CLSK": {
+      "completed_cycles": 4,
+      "deployment_depth_pct": 14.5,
+      "capture_ratio_pct": 64.3,
+      "reserve_breach_pct": 0.0,
+      "median_cycle_days": 2,
+      "max_drawdown_pct": -4.2,
+      "unknown_zone_trades": 3,
+      "open_cycle": true,
+      "status": "sell_target_advisory"
+    },
+    "INTC": {
+      "completed_cycles": 0,
+      "deployment_depth_pct": null,
+      "capture_ratio_pct": null,
+      "reserve_breach_pct": null,
+      "median_cycle_days": null,
+      "max_drawdown_pct": null,
+      "unknown_zone_trades": 0,
+      "open_cycle": false,
+      "status": "no_history"
+    },
+    "IONQ": {
+      "completed_cycles": 0,
+      "deployment_depth_pct": null,
+      "capture_ratio_pct": null,
+      "reserve_breach_pct": null,
+      "median_cycle_days": null,
+      "max_drawdown_pct": null,
+      "unknown_zone_trades": 0,
+      "open_cycle": false,
+      "status": "no_history"
+    },
+    "LUNR": {
+      "completed_cycles": 7,
+      "deployment_depth_pct": 11.7,
+      "capture_ratio_pct": 51.3,
+      "reserve_breach_pct": 0.0,
+      "median_cycle_days": 1,
+      "max_drawdown_pct": -3.8,
+      "unknown_zone_trades": 10,
+      "open_cycle": false,
+      "status": "sell_target_advisory"
+    },
+    "NNE": {
+      "completed_cycles": 0,
+      "deployment_depth_pct": null,
+      "capture_ratio_pct": null,
+      "reserve_breach_pct": null,
+      "median_cycle_days": null,
+      "max_drawdown_pct": null,
+      "unknown_zone_trades": 0,
+      "open_cycle": true,
+      "status": "open_only"
+    },
+    "NU": {
+      "completed_cycles": 0,
+      "deployment_depth_pct": null,
+      "capture_ratio_pct": null,
+      "reserve_breach_pct": null,
+      "median_cycle_days": null,
+      "max_drawdown_pct": null,
+      "unknown_zone_trades": 0,
+      "open_cycle": true,
+      "status": "open_only"
+    },
+    "NVDA": {
+      "completed_cycles": 0,
+      "deployment_depth_pct": null,
+      "capture_ratio_pct": null,
+      "reserve_breach_pct": null,
+      "median_cycle_days": null,
+      "max_drawdown_pct": null,
+      "unknown_zone_trades": 0,
+      "open_cycle": false,
+      "status": "no_history"
+    },
+    "OKLO": {
+      "completed_cycles": 1,
+      "deployment_depth_pct": 19.3,
+      "capture_ratio_pct": 100.0,
+      "reserve_breach_pct": 0.0,
+      "median_cycle_days": 1,
+      "max_drawdown_pct": -0.4,
+      "unknown_zone_trades": 0,
+      "open_cycle": true,
+      "status": "insufficient_data"
+    },
+    "OUST": {
+      "completed_cycles": 1,
+      "deployment_depth_pct": 36.2,
+      "capture_ratio_pct": 42.5,
+      "reserve_breach_pct": 0.0,
+      "median_cycle_days": 5,
+      "max_drawdown_pct": -10.4,
+      "unknown_zone_trades": 0,
+      "open_cycle": true,
+      "status": "insufficient_data"
+    },
+    "RDW": {
+      "completed_cycles": 0,
+      "deployment_depth_pct": null,
+      "capture_ratio_pct": null,
+      "reserve_breach_pct": null,
+      "median_cycle_days": null,
+      "max_drawdown_pct": null,
+      "unknown_zone_trades": 0,
+      "open_cycle": false,
+      "status": "no_history"
+    },
+    "RGTI": {
+      "completed_cycles": 0,
+      "deployment_depth_pct": null,
+      "capture_ratio_pct": null,
+      "reserve_breach_pct": null,
+      "median_cycle_days": null,
+      "max_drawdown_pct": null,
+      "unknown_zone_trades": 0,
+      "open_cycle": false,
+      "status": "no_history"
+    },
+    "RUN": {
+      "completed_cycles": 2,
+      "deployment_depth_pct": 46.7,
+      "capture_ratio_pct": 32.4,
+      "reserve_breach_pct": 0.0,
+      "median_cycle_days": 2,
+      "max_drawdown_pct": -1.8,
+      "unknown_zone_trades": 0,
+      "open_cycle": false,
+      "status": "insufficient_data"
+    },
+    "SMCI": {
+      "completed_cycles": 3,
+      "deployment_depth_pct": 51.0,
+      "capture_ratio_pct": 95.0,
+      "reserve_breach_pct": 0.0,
+      "median_cycle_days": 2,
+      "max_drawdown_pct": -3.6,
+      "unknown_zone_trades": 5,
+      "open_cycle": false,
+      "status": "no_change"
+    },
+    "SOUN": {
+      "completed_cycles": 2,
+      "deployment_depth_pct": 17.7,
+      "capture_ratio_pct": 63.2,
+      "reserve_breach_pct": 0.0,
+      "median_cycle_days": 3,
+      "max_drawdown_pct": -3.7,
+      "unknown_zone_trades": 1,
+      "open_cycle": false,
+      "status": "insufficient_data"
+    },
+    "STIM": {
+      "completed_cycles": 0,
+      "deployment_depth_pct": null,
+      "capture_ratio_pct": null,
+      "reserve_breach_pct": null,
+      "median_cycle_days": null,
+      "max_drawdown_pct": null,
+      "unknown_zone_trades": 0,
+      "open_cycle": true,
+      "status": "open_only"
+    },
+    "TEM": {
+      "completed_cycles": 1,
+      "deployment_depth_pct": 33.6,
+      "capture_ratio_pct": 94.3,
+      "reserve_breach_pct": 0.0,
+      "median_cycle_days": 4,
+      "max_drawdown_pct": -3.3,
+      "unknown_zone_trades": 2,
+      "open_cycle": true,
+      "status": "insufficient_data"
+    },
+    "TMC": {
+      "completed_cycles": 0,
+      "deployment_depth_pct": null,
+      "capture_ratio_pct": null,
+      "reserve_breach_pct": null,
+      "median_cycle_days": null,
+      "max_drawdown_pct": null,
+      "unknown_zone_trades": 0,
+      "open_cycle": true,
+      "status": "open_only"
+    },
+    "UAMY": {
+      "completed_cycles": 1,
+      "deployment_depth_pct": 0.0,
+      "capture_ratio_pct": null,
+      "reserve_breach_pct": 0.0,
+      "median_cycle_days": 0,
+      "max_drawdown_pct": null,
+      "unknown_zone_trades": 0,
+      "open_cycle": false,
+      "status": "insufficient_data"
+    },
+    "USAR": {
+      "completed_cycles": 0,
+      "deployment_depth_pct": null,
+      "capture_ratio_pct": null,
+      "reserve_breach_pct": null,
+      "median_cycle_days": null,
+      "max_drawdown_pct": null,
+      "unknown_zone_trades": 0,
+      "open_cycle": false,
+      "status": "no_history"
+    }
+  },
+  "frequency": {
+    "consecutive_no_change": 3,
+    "recommendation": "daily"
+  }
+}

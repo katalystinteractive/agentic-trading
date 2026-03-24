@@ -1,0 +1,111 @@
+{
+  "run_id": "e91d3a2c-0592-425d-becc-5f5142b1df72",
+  "workflow_name": "news-sweep-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-26T19:38:28.071655+00:00",
+  "completed_at": "2026-02-26T19:49:24.036376+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nFull end-to-end news sweep run after mechanizing Phases 2 & 3. Phase 1 collects news via news_sweep_collector.py, Phase 2 runs news_sweep_pre_analyst.py then LLM qualitative analysis, Phase 3 runs news_sweep_pre_critic.py then LLM qualitative review.",
+    "handoffs": {
+      "sweep": "**Artifact:** news-sweep-raw.md\n**Tickers swept:** 21 (8 active, 10 pending, 3 watch)\n**No news data:** none\n**Failures:** none\n\nReady for cross-ticker analysis.",
+      "analyze": "**Artifact:** news-sweep-report.md\n**Tickers analyzed:** 21\n**Risk flags:** 5 (C:1, D:1, E:3 \u2014 after imminence filtering)\n**Themes detected:** 6\n**Recommendations:** 10 items\n**Type E flags dropped:** 13 (no imminent earnings date found \u2014 APLD, AR, CIFR, CLF, CLSK, INTC, IONQ, LUNR, NNE, NU, SMCI, STIM, USAR)\n\n**Imminence rationale for kept flags:**\n- **ACHR** \u2014 \"Earnings on Deck\" headline (today) = imminent per \"next up\" convention\n- **BBAI** \u2014 \"Q4 Earnings Ahead \u2014 Options Traders Brace\" (2026-02-26) = same-day imminent signal with options market pricing event risk\n- **SOUN** \u2014 \"SoundHound AI Edges Higher Ahead Of Earnings\" (today) = explicit \"ahead of earnings\" language\n\n**Dropped as historical/past-tense:** IONQ (\"Stock Jumps 19% on Earnings\"), NU (\"Stock Drops 6% After Hours\"), SMCI (\"Stock Jumps on Revenue Strength\") \u2014 all past-tense results already released.\n\n**Dropped as no date/generic:** APLD, AR, CIFR, CLF, CLSK, INTC, LUNR, NNE, STIM, USAR \u2014 earnings catalyst headlines were institutional filings, stock price coverage, or analyst mentions with no explicit date or imminence language.\n\nNews sweep report complete.",
+      "review": "**Artifact:** news-sweep-review.md\n**Verdict:** PASS\n**Mechanical checks:** 5/5 passed\n**Qualitative findings:** 3 minor issues, 0 critical\n**Discrepancies found:** 15 (all minor \u2014 catalyst label differences), 13 conflict notes (all minor \u2014 documented imminence filtering)\n\n**Summary of qualitative findings:**\n- **Regulatory theme** (Minor): Ticker list of 10 overstates the reach of confirmed policy-tailwind headlines \u2014 only 5 named tickers (TMC, USAR, ACHR, LUNR, NNE) have supporting evidence; BBAI's two regulatory-tagged headlines are adverse (legal trouble), not tailwinds\n- **Analyst theme** (Minor): USAR \"re-rating upside\" claim lacks an USAR-specific analyst headline; the only tagged analyst headline for USAR is a broad international equities article\n- **Short Catalyst theme** (Minor): BBAI's evidence is one indirect Palantir-focused article rather than an explicit BBAI short-squeeze headline\n\nAll recommendations are clean \u2014 no fabricated data, all pending order counts confirmed against raw portfolio context, SMCI math verified (92.7%, 7.9% to target). Executive summary is fully consistent with heatmap distribution and risk flags.\n\nNews sweep review complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "sweep": {
+      "phase_id": "sweep",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-26T19:38:28.076878+00:00",
+      "completed_at": "2026-02-26T19:40:05.033939+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** news-sweep-raw.md\n**Tickers swept:** 21 (8 active, 10 pending, 3 watch)\n**No news data:** none\n**Failures:** none\n\nReady for cross-ticker analysis.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":62035,\"duration_api_ms\":6562,\"num_turns\":2,\"result\":\"`news-sweep-raw.md` written \u2014 22.9 KB, all 21 tickers swept with 0 failures.\\n\\n## HANDOFF\\n\\n**Artifact:** news-sweep-raw.md\\n**Tickers swept:** 21 (8 active, 10 pending, 3 watch)\\n**No news data:** none\\n**Failures:** none\\n\\nReady for cross-ticker analysis.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"acc3748d-c2a4-4143-a9fc-614ec75f45a5\",\"total_cost_usd\":0.1219,\"usage\":{\"input_tokens\":4,\"cache_creation_input_tokens\":15014,\"cache_read_input_tokens\":43117,\"output_tokens\":230,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":15014,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":4,\"outputTokens\":230,\"cacheReadInputTokens\":43117,\"cacheCreationInputTokens\":15014,\"webSearchRequests\":0,\"costUSD\":0.121166,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":574,\"outputTokens\":32,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.000734,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"3de031b9-4213-4e72-9c00-dcc3ec313b26\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "news-sweep-raw.md": "/Users/kamenkamenov/agentic-trading/news-sweep-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 96.95443296432495,
+        "token_usage": {
+          "input_tokens": 4,
+          "output_tokens": 230,
+          "cache_read_tokens": 43117,
+          "cache_write_tokens": 15014
+        },
+        "estimated_cost_usd": 0.0727,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-26T19:40:05.037229+00:00",
+      "completed_at": "2026-02-26T19:45:16.881297+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** news-sweep-report.md\n**Tickers analyzed:** 21\n**Risk flags:** 5 (C:1, D:1, E:3 \u2014 after imminence filtering)\n**Themes detected:** 6\n**Recommendations:** 10 items\n**Type E flags dropped:** 13 (no imminent earnings date found \u2014 APLD, AR, CIFR, CLF, CLSK, INTC, IONQ, LUNR, NNE, NU, SMCI, STIM, USAR)\n\n**Imminence rationale for kept flags:**\n- **ACHR** \u2014 \"Earnings on Deck\" headline (today) = imminent per \"next up\" convention\n- **BBAI** \u2014 \"Q4 Earnings Ahead \u2014 Options Traders Brace\" (2026-02-26) = same-day imminent signal with options market pricing event risk\n- **SOUN** \u2014 \"SoundHound AI Edges Higher Ahead Of Earnings\" (today) = explicit \"ahead of earnings\" language\n\n**Dropped as historical/past-tense:** IONQ (\"Stock Jumps 19% on Earnings\"), NU (\"Stock Drops 6% After Hours\"), SMCI (\"Stock Jumps on Revenue Strength\") \u2014 all past-tense results already released.\n\n**Dropped as no date/generic:** APLD, AR, CIFR, CLF, CLSK, INTC, LUNR, NNE, STIM, USAR \u2014 earnings catalyst headlines were institutional filings, stock price coverage, or analyst mentions with no explicit date or imminence language.\n\nNews sweep report complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":279802,\"duration_api_ms\":278338,\"num_turns\":8,\"result\":\"## HANDOFF\\n\\n**Artifact:** news-sweep-report.md\\n**Tickers analyzed:** 21\\n**Risk flags:** 5 (C:1, D:1, E:3 \u2014 after imminence filtering)\\n**Themes detected:** 6\\n**Recommendations:** 10 items\\n**Type E flags dropped:** 13 (no imminent earnings date found \u2014 APLD, AR, CIFR, CLF, CLSK, INTC, IONQ, LUNR, NNE, NU, SMCI, STIM, USAR)\\n\\n**Imminence rationale for kept flags:**\\n- **ACHR** \u2014 \\\"Earnings on Deck\\\" headline (today) = imminent per \\\"next up\\\" convention\\n- **BBAI** \u2014 \\\"Q4 Earnings Ahead \u2014 Options Traders Brace\\\" (2026-02-26) = same-day imminent signal with options market pricing event risk\\n- **SOUN** \u2014 \\\"SoundHound AI Edges Higher Ahead Of Earnings\\\" (today) = explicit \\\"ahead of earnings\\\" language\\n\\n**Dropped as historical/past-tense:** IONQ (\\\"Stock Jumps 19% on Earnings\\\"), NU (\\\"Stock Drops 6% After Hours\\\"), SMCI (\\\"Stock Jumps on Revenue Strength\\\") \u2014 all past-tense results already released.\\n\\n**Dropped as no date/generic:** APLD, AR, CIFR, CLF, CLSK, INTC, LUNR, NNE, STIM, USAR \u2014 earnings catalyst headlines were institutional filings, stock price coverage, or analyst mentions with no explicit date or imminence language.\\n\\nNews sweep report complete.\\n\\n## Decision: COMPLETE\",\"stop_reason\":null,\"session_id\":\"bacd7277-35bf-4920-8b06-5f972a1c48f4\",\"total_cost_usd\":0.7809904999999999,\"usage\":{\"input_tokens\":10,\"cache_creation_input_tokens\":36932,\"cache_read_input_tokens\":321653,\"output_tokens\":15471,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":36932,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":10,\"outputTokens\":15471,\"cacheReadInputTokens\":321653,\"cacheCreationInputTokens\":36932,\"webSearchRequests\":0,\"costUSD\":0.7784765,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":1894,\"outputTokens\":124,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.0025139999999999997,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"e117b812-bf39-4a6b-850b-f5de27f5ef8f\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "news-sweep-pre-analyst.md": "/Users/kamenkamenov/agentic-trading/news-sweep-pre-analyst.md",
+        "news-sweep-report.md": "/Users/kamenkamenov/agentic-trading/news-sweep-report.md"
+      },
+      "metrics": {
+        "duration_seconds": 311.84080171585083,
+        "token_usage": {
+          "input_tokens": 10,
+          "output_tokens": 15471,
+          "cache_read_tokens": 321653,
+          "cache_write_tokens": 36932
+        },
+        "estimated_cost_usd": 0.467086,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-26T19:45:16.884337+00:00",
+      "completed_at": "2026-02-26T19:49:24.031459+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** news-sweep-review.md\n**Verdict:** PASS\n**Mechanical checks:** 5/5 passed\n**Qualitative findings:** 3 minor issues, 0 critical\n**Discrepancies found:** 15 (all minor \u2014 catalyst label differences), 13 conflict notes (all minor \u2014 documented imminence filtering)\n\n**Summary of qualitative findings:**\n- **Regulatory theme** (Minor): Ticker list of 10 overstates the reach of confirmed policy-tailwind headlines \u2014 only 5 named tickers (TMC, USAR, ACHR, LUNR, NNE) have supporting evidence; BBAI's two regulatory-tagged headlines are adverse (legal trouble), not tailwinds\n- **Analyst theme** (Minor): USAR \"re-rating upside\" claim lacks an USAR-specific analyst headline; the only tagged analyst headline for USAR is a broad international equities article\n- **Short Catalyst theme** (Minor): BBAI's evidence is one indirect Palantir-focused article rather than an explicit BBAI short-squeeze headline\n\nAll recommendations are clean \u2014 no fabricated data, all pending order counts confirmed against raw portfolio context, SMCI math verified (92.7%, 7.9% to target). Executive summary is fully consistent with heatmap distribution and risk flags.\n\nNews sweep review complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":215049,\"duration_api_ms\":213105,\"num_turns\":6,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifact:** news-sweep-review.md\\n**Verdict:** PASS\\n**Mechanical checks:** 5/5 passed\\n**Qualitative findings:** 3 minor issues, 0 critical\\n**Discrepancies found:** 15 (all minor \u2014 catalyst label differences), 13 conflict notes (all minor \u2014 documented imminence filtering)\\n\\n**Summary of qualitative findings:**\\n- **Regulatory theme** (Minor): Ticker list of 10 overstates the reach of confirmed policy-tailwind headlines \u2014 only 5 named tickers (TMC, USAR, ACHR, LUNR, NNE) have supporting evidence; BBAI's two regulatory-tagged headlines are adverse (legal trouble), not tailwinds\\n- **Analyst theme** (Minor): USAR \\\"re-rating upside\\\" claim lacks an USAR-specific analyst headline; the only tagged analyst headline for USAR is a broad international equities article\\n- **Short Catalyst theme** (Minor): BBAI's evidence is one indirect Palantir-focused article rather than an explicit BBAI short-squeeze headline\\n\\nAll recommendations are clean \u2014 no fabricated data, all pending order counts confirmed against raw portfolio context, SMCI math verified (92.7%, 7.9% to target). Executive summary is fully consistent with heatmap distribution and risk flags.\\n\\nNews sweep review complete.\",\"stop_reason\":null,\"session_id\":\"ed7d2c49-9fbf-4758-ac2a-e95de7bbc214\",\"total_cost_usd\":0.587221,\"usage\":{\"input_tokens\":7,\"cache_creation_input_tokens\":38766,\"cache_read_input_tokens\":164813,\"output_tokens\":10470,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":38766,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":7,\"outputTokens\":10470,\"cacheReadInputTokens\":164813,\"cacheCreationInputTokens\":38766,\"webSearchRequests\":0,\"costUSD\":0.586479,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":472,\"outputTokens\":54,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.000742,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"7b298992-db3e-422c-89dc-da435ff14425\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "news-sweep-pre-critic.md": "/Users/kamenkamenov/agentic-trading/news-sweep-pre-critic.md",
+        "news-sweep-review.md": "/Users/kamenkamenov/agentic-trading/news-sweep-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 247.1437282562256,
+        "token_usage": {
+          "input_tokens": 7,
+          "output_tokens": 10470,
+          "cache_read_tokens": 164813,
+          "cache_write_tokens": 38766
+        },
+        "estimated_cost_usd": 0.351887,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-26T19:49:24.036557+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/news-sweep-workflow.yaml",
+    "workflowHash": "263debb194e742bc"
+  }
+}

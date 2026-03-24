@@ -1,21 +1,21 @@
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-18 09:22*
 
 ## Short Interest: Archer Aviation Inc. (ACHR)
 
 ### Key Metrics
 | Metric | Value |
 | :--- | :--- |
-| Shares Short | 89.06M |
-| Short Ratio (DTC) | 2.26 |
-| Short % Float | 14.07% |
-| Float Shares | 623.71M |
-| Shares Outstanding | 734.11M |
-| Avg Volume | 36.87M |
-| Change from Prior Month | +5.8% (increasing) |
+| Shares Short | 82.92M |
+| Short Ratio (DTC) | 2.46 |
+| Short % Float | 13.10% |
+| Float Shares | 623.89M |
+| Shares Outstanding | 749.86M |
+| Avg Volume | 35.79M |
+| Change from Prior Month | -8.7% (decreasing) |
 
 ### Squeeze Risk
 | Metric | Value |
 | :--- | :--- |
 | Risk Rating | MEDIUM |
-| Score | 35/100 |
-| Key Factors | Moderate short% (14.1%); Low DTC (2.3); Shorts slowly increasing |
+| Score | 30/100 |
+| Key Factors | Moderate short% (13.1%); Low DTC (2.5) |

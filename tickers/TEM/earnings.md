@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-18 09:22*
 
 ## Earnings Analysis: Tempus AI, Inc. (TEM)
 
@@ -6,16 +6,16 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-05 |
-| Days Until | 58 |
+| Days Until | 48 |
 | EPS Estimate | $-0.19298 |
 | Revenue Estimate | $345.4M |
-| Earnings Rule | Clear (>58d out) |
+| Earnings Rule | Clear (>48d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | Q1 2026 | $-0.05 | $-0.04 | 22.1% | -7.3% | -11.3% | Strong Bear |
-| Q4 2025 | $-0.42 | $-0.46 | -8.9% | -2.6% | -15.3% | Bearish |
+| Q4 2025 | $-0.18 | $-0.11 | 37.3% | -2.6% | -15.3% | Bearish |
 | Q3 2025 | $-0.25 | $-0.22 | 13.0% | -0.1% | +21.2% | Bearish |
 | Q2 2025 | $-0.27 | $-0.24 | 10.2% | +12.6% | +32.0% | Strong Bull |
 | Q1 2025 | $-0.15 | $-0.18 | -17.5% | -15.0% | -26.8% | Strong Bear |

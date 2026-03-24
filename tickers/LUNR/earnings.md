@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## Earnings Analysis: Intuitive Machines, Inc. (LUNR)
 
@@ -6,9 +6,9 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-03-19 |
-| Days Until | 11 |
-| EPS Estimate | $-0.0512 |
-| Revenue Estimate | $53.4M |
+| Days Until | 3 |
+| EPS Estimate | $-0.0452 |
+| Revenue Estimate | $59.0M |
 | **Earnings Rule** | **WARNING: <14 days — avoid new entries** |
 
 ### Earnings History

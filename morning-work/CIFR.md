@@ -3,169 +3,72 @@
 ## Global Context
 | Metric | Value |
 | :--- | :--- |
-| Date | 2026-03-08 |
-| Regime | Risk-Off |
-| Regime Detail | 0/3 indices above 50-SMA, VIX 29.5 (elevated) |
-| VIX | 29.49 |
-| VIX 5D% | +48.49% |
+| Date | 2026-03-16 |
+| Regime | Neutral |
+| Regime Detail | 0/3 indices above 50-SMA, VIX 24.2 |
+| VIX | 24.19 |
+| VIX 5D% | -5.14% |
 | Indices Above 50-SMA | 0/3 |
-| Sector Breadth | 2/11 positive |
+| Sector Breadth | 11/11 positive |
+| Data Freshness | 2026-03-16 close |
+| Trading Day | Yes |
 
 ## Portfolio Summary
 | Ticker | Shares | Avg Cost | P/L % |
 | :--- | :--- | :--- | :--- |
-| NU | 30 | $15.85 | -8.0% |
+| NU | 30 | $15.85 | -10.3% |
 | STIM | 0 | $0.00 | +inf% |
-| IONQ | 15 | $44.43 | -19.6% |
-| LUNR | 1 | $17.61 | +0.1% |
-| USAR | 15 | $21.57 | -19.1% |
-| OUST | 5 | $21.70 | -6.6% |
+| IONQ | 15 | $44.43 | -26.0% |
+| LUNR | 2 | $17.59 | -2.7% |
+| USAR | 15 | $21.57 | -11.3% |
+| OUST | 0 | $0.00 | +inf% |
 | INTC | 0 | $0.00 | +inf% |
-| APLD | 15 | $29.06 | -13.5% |
+| APLD | 15 | $29.06 | -4.9% |
 | SMCI | 0 | $0.00 | +inf% |
-| TMC | 38 | $6.00 | -4.5% |
-| CIFR | 11 | $14.62 | -6.8% |
-| ARM | 4 | $120.88 | -5.4% |
-| ACHR | 61 | $6.78 | -7.7% |
-| TEM | 0 | $0.00 | +inf% |
-| CLSK | 7 | $10.17 | -9.4% |
-| CLF | 21 | $10.26 | -4.2% |
+| TMC | 9 | $6.01 | -0.5% |
+| CIFR | 0 | $0.00 | +inf% |
+| ARM | 5 | $118.96 | +2.3% |
+| ACHR | 77 | $6.61 | -9.0% |
+| TEM | 1 | $50.98 | -1.0% |
+| CLSK | 0 | $0.00 | +inf% |
+| CLF | 47 | $9.39 | -9.2% |
 | BBAI | 0 | $0.00 | +inf% |
-| NNE | 6 | $24.19 | -2.7% |
+| NNE | 10 | $23.87 | -10.9% |
+| RUN | 0 | $0.00 | +inf% |
+| SOUN | 15 | $7.36 | +3.1% |
+| OKLO | 1 | $58.04 | +1.5% |
 
 ## Capital
 | Metric | Value |
 | :--- | :--- |
-| Deployed | $3,745.22 |
+| Deployed | $3,993.89 |
 | Velocity Pool | $1,000.00 |
 | Bounce Pool | $1,000.00 |
 
 ## Position Data
-| Field | Value |
-| :--- | :--- |
-| Shares | 11 |
-| Avg Cost | $14.62 |
-| Current Price | $13.62 |
-| P/L % | -6.8% |
-| Entry Date | 2026-03-05 |
-| Days Held | 3 |
-| Time Stop Status | WITHIN |
-| Bullets Used | 3/5 |
-| Target Exit | No target (recovery) |
-| Note | — |
+No active position (watchlist)
 
 ## Day Range
 | Metric | Value |
 | :--- | :--- |
-| Day Low | $13.54 |
-| Day High | $14.76 |
+| Day Low | $14.67 |
+| Day High | $15.31 |
+
+## Recorded Fills
+No recorded fills
 
 ## Pending Orders
-| Type | Order Price | Shares | % Below Current | Days to Earnings | Notes |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $14.07 | 4 | 0.0% | 58 | Bullet 3 — $13.45 PA, 44% hold, Full^ tier, wick-adjusted (added 2026-03-02) |
-| BUY | $12.86 | 8 | 8.6% | 58 | Bullet 4 — $12.41 PA, 50% hold, Full tier, wick-adjusted |
-| BUY | $5.38 | 18 | 61.8% | 58 | Reserve 1 — $5.27 PA, 57% hold, Full tier, wick-adjusted |
+| Type | Order Price | Shares | % Below Current | Days to Earnings | Status | Notes |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| BUY | $14.07 | 4 | 0.0% | 50 |  | Bullet 3 — $13.45 PA, 44% hold, Full^ tier, wick-adjusted (added 2026-03-02) |
+| BUY | $12.86 | 22 | 8.6% | 50 |  | Bullet 4 — $13.02 PA, 71% hold, Full tier, wick-adjusted (resized 2026-03-13) |
+| BUY | $5.38 | 18 | 61.8% | 50 |  | Reserve 1 — $5.27 PA, 57% hold, Full tier, wick-adjusted |
 
 ## Tool Outputs
-#### Earnings
-*Generated: 2026-03-08 17:18*
-
-*Generated: 2026-03-08 17:19*
-
-## Earnings Analysis: Cipher Digital Inc. (CIFR)
-
-### Next Earnings
-| Metric | Value |
-| :--- | :--- |
-| Earnings Date | 2026-05-05 |
-| Days Until | 58 |
-| EPS Estimate | $-0.11 |
-| Revenue Estimate | $35.5M |
-| Earnings Rule | Clear (>58d out) |
-
-### Earnings History
-| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $0.13 | $-0.14 | -207.7% | -3.0% | -14.1% | Bearish |
-| Q4 2025 | $0.11 | $0.10 | -6.2% | -1.1% | -13.7% | Bearish |
-| ... | *[trimmed — see morning-briefing-raw.md]* | | | | | |
-
-### Revenue Trend
-| Quarter | Revenue | QoQ Growth% | YoY Growth% |
-| :--- | :--- | :--- | :--- |
-| Q4 2025 | $59.7M | -16.7% | +41.4% |
-| Q3 2025 | $71.7M | +64.6% | N/A |
-| ... | *[trimmed — see morning-briefing-raw.md]* | | | | | |
-
-#### Technical Signals
-## Technical Scan: Cipher Digital Inc. (CIFR)
-**Current Price: $13.62** | Date: 2026-03-06
-
-### Trend Indicators
-| Indicator | Value | Price Position | Signal |
-| :--- | :--- | :--- | :--- |
-| SMA 20 | $15.76 | Below | Bearish |
-| SMA 50 | $16.32 | Below | Bearish |
-| SMA 200 | $12.21 | Above | Bullish |
-| EMA 9 | $15.24 | Below | Bearish |
-| EMA 21 | $15.69 | Below | Bearish |
-
-### Momentum Indicators
-| Indicator | Value | Zone | Signal |
-| :--- | :--- | :--- | :--- |
-| RSI (14) | 40.4 | Bearish zone | Neutral-Bear |
-| MACD | -0.414 | Below signal | Bearish |
-| MACD Signal | -0.282 | Histogram: -0.132 | — |
-| Stochastic %K/%D | 1.9/27.7 | Oversold | Bearish |
-
-### Volatility
-| Indicator | Value | Position | Signal |
-| :--- | :--- | :--- | :--- |
-| Bollinger Upper | $17.57 | Below lower band | Oversold |
-| Bollinger Lower | $13.95 | Width: $3.62 | — |
-| ATR (14) | $1.53 (11.2%) | High volatility | — |
-
-### Key Support/Resistance Levels
-| Level | Price | Type | Touches | Last Tested |
-| :--- | :--- | :--- | :--- | :--- |
-| Support | $13.67 (+0.4%) | Support | 1 | 2025-12-16 |
-| Support | $13.09 (-3.9%) | Support | 1 | 2025-11-21 |
-| Support | $12.64 (-7.2%) | Support | 1 | 2026-02-05 |
-| Support | $15.04 (+10.4%) | Support | 1 | 2025-10-22 |
-| Resistance | $19.70 (+44.6%) | Resistance | 1 | 2026-01-16 |
-| Resistance | $7.10 (-47.9%) | Resistance | 1 | 2025-07-22 |
-| Resistance | $21.16 (+55.4%) | Resistance | 1 | 2025-11-28 |
-| Resistance | $22.00 (+61.5%) | Resistance | 1 | 2025-10-15 |
-
-### Signal Summary
-| Metric | Value |
-| :--- | :--- |
-| Overall Signal | **Bearish** |
-| Score | -3 |
-| Bullish Factors | Above SMA 200 |
-| Bearish Factors | Below SMA 20, Below SMA 50, Below EMA 9, Below EMA 21, MACD bearish |
-
-#### Short Interest
-## Short Interest Analysis
-
-### Short Interest Summary
-| Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
-| :--- | :--- | :--- | :--- | :--- |
-| CIFR | 63.38M | 1.79 | 20.54% | +18.6% (increasing) |
-
-### Squeeze Risk Assessment
-| Ticker | Risk Rating | Score (/100) | Key Factors |
-| :--- | :--- | :--- | :--- |
-| CIFR | HIGH | 65 | High short% (20.5%); Low DTC (1.8); Shorts increasing rapidly |
-
-### Context
-| Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
-| :--- | :--- | :--- | :--- | :--- |
-| CIFR | 330.03M | 405.12M | 30.19M | 1.8 |
-
 #### News & Sentiment
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:32*
+
+*Generated: 2026-03-16 19:35*
 
 ## News & Sentiment: Cipher Digital Inc. (CIFR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -178,20 +81,26 @@
 | :--- | :--- |
 | Articles Analyzed | 30 |
 | Positive | 14 (47%) |
-| Neutral | 11 (37%) |
-| Negative | 5 (17%) |
-| Average Score | +0.093 |
+| Neutral | 8 (27%) |
+| Negative | 8 (27%) |
+| Average Score | +0.055 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 182 |
+| Total Unique Headlines | 183 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 13 | 239,015 Shares in Cipher Mining Inc. $CI..; Intech Investment Management LLC Has $1... |
-| Corporate | 3 | Intech Investment Management LLC Has $1...; London & Capital Asset Management Ltd Ac.. |
-| Analyst | 1 | Canaan price target lowered to $2 from $.. |
+| Earnings | 13 | 80,000 Shares in Cipher Mining Inc. $CIF..; Clearline Capital LP Purchases Shares of.. |
+| Corporate | 2 | 80,000 Shares in Cipher Mining Inc. $CIF..; Aurelius Capital Management LP Acquires .. |
+| Regulatory | 1 | Crypto Currents: SEC, CFTC sign MOU for .. |
+| Short | 1 | Cipher Digital (CIFR) Valuation Check As.. |
+| Analyst | 1 | Wall Street Cuts Cipher Mining (CIFR) an.. |
 
 ### Deep Dive Articles
+
+#### Wall Street Analysts Think Cipher Digital Inc. (CIFR) Is a Good Investment: Is It?
+*Source: Zacks | Date: 2026-03-09 | Sentiment: Positive (+0.97)*
+**Catalysts:** Analyst
 
 #### Clear Street Cuts PT on Cipher Digital (CIFR) to $32 From $34 - Here's Why
 *Source: Insider Monkey | Date: 2026-02-28 | Sentiment: Positive (+0.96)*
@@ -209,24 +118,39 @@
 *Source: Insider Monkey | Date: 2026-02-25 | Sentiment: Positive (+0.98)*
 **Catalysts:** Regulatory
 
-#### Highly Shorted Stock Cipher Digital Soars Tuesday - Here's Why
-*Source: Benzinga | Date: 2026-02-24 | Sentiment: Positive (+0.92)*
-**Catalysts:** Earnings, Corporate, Equity, Short
+#### Earnings
+*Generated: 2026-03-16 19:34*
+
+## Earnings Analysis: Cipher Digital Inc. (CIFR)
+
+### Next Earnings
+| Metric | Value |
+| :--- | :--- |
+| Earnings Date | 2026-05-05 |
+| Days Until | 50 |
+| EPS Estimate | $-0.11 |
+| Revenue Estimate | $36.3M |
+| Earnings Rule | Clear (>50d out) |
+
+### Earnings History
+| Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Q1 2026 | $0.13 | $-0.14 | -207.7% | -3.0% | -14.1% | Bearish |
+| Q4 2025 | $0.11 | $0.10 | -6.2% | -1.1% | -13.7% | Bearish |
+| ... | *[trimmed — see morning-briefing-raw.md]* | | | | | |
+
+### Revenue Trend
+| Quarter | Revenue | QoQ Growth% | YoY Growth% |
+| :--- | :--- | :--- | :--- |
+| Q4 2025 | $59.7M | -16.7% | +41.4% |
+| Q3 2025 | $71.7M | +64.6% | N/A |
+| ... | *[trimmed — see morning-briefing-raw.md]* | | | | | |
 
 ---
-
-**Position Snapshot:** 11 shares @ $14.62, current $13.62, P/L -6.8% ($-11.00)
 
 **Identity:** *   **Cycle:** TBD — monitor for monthly pattern emergence.
 *   Resistance: TBD (track recent highs).
 *   **Status:** **RE-ENTRY MODE — Position closed 2026-03-04 (+7.8%, cycle 4). 4/4 cycles profitable (+5.9%, +7.2%, +7.0%, +7.8%). B3 $14.07 placed, B4 $12.86, R1 $5.38 pending.**
-
-**Recent Trades:**
-- **2026-03-02:** SELL 4 shares @ $15.95 (full exit). Revenue: $63.80. **Profit: +$4.20 (+7.0%).** Position closed.
-- **2026-03-03:** BUY 2 shares @ $14.98 (B1 re-entry). Cost: $29.96. BUY 4 shares @ $14.87 (B2). Cost: $59.48. Total: 6 shares @ $14.91 avg.
-- **2026-03-04:** SELL 6 shares @ $16.08 (full exit). Revenue: $96.48. **Profit: +$7.04 (+7.8%).** Position closed. 4/4 cycles profitable.
-**Latest Observations:**
-- **2026-02-19:** Originally selected as bounce candidate from ETF-sourced screener (BLOK ETF holding). Converted to surgical strategy after monthly swing analysis revealed 67.8% median swing with 100% of months hitting 10%+.
 
 #### Wick Bullet Plan
 **Current Price: $13.62**
@@ -242,6 +166,6 @@
 *Note: 1 Active level(s) excluded — buy price at or above current price: $13.45*
 *Bullet plan is a suggestion — adjust based on cycle timing and position.*
 
-**Knowledge:** 3 trades. Top: SELL 6 shares @ $16.08 (full exit). Revenue: $96.48. **Profit: +$7.04 (+7.8%).**... (0.72)
+**Knowledge:** 3 trades. Top: SELL 6 shares @ $16.08 (full exit). Revenue: $96.48. **Profit: +$7.04 (+7.8%).**... (0.65)
 
 ---

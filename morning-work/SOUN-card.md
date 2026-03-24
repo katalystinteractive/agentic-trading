@@ -1,26 +1,44 @@
-### SOUN — WATCHLIST — PAUSE
-**State:** 2 pending BUY orders, nearest $7.48 (0.0% below current)
-**Objective:** Accumulate on pullbacks into HVN/PA support levels; exit on monthly swing recovery
+### SOUN — MONITOR — P/L +3.1%
+**State:** 15 shares @ $7.36, target N/A (recovery label; treated as non-recovery — P/L > 0%), held 4 days
+**Objective:** Hold for mean-reversion exit via pending SELL $7.76; watch for oversold bounce given extreme short interest
+**Decision:** MONITOR — WITHIN time stop (4 days), P/L +3.1% below profit zone, CLEAR earnings; standard tracking (rule 16)
 
-| Entry Gate | Status | Detail |
+| Exit Criterion | Status | Detail |
 | :--- | :--- | :--- |
-| Market Gate | PAUSE | Risk-Off: 0/3 indices above 50-SMA, VIX 29.5 (+48.5% 5D) |
-| Earnings Gate | ACTIVE | 60 days to earnings (2026-05-07) — clear (>14d) |
-| Overall | PAUSE | Market Gate dominates; watchlist tickers always PAUSE in Risk-Off |
+| Time Stop | WITHIN | 4 days held |
+| Profit Target | BELOW | P/L +3.1%, no target set (recovery label); Profit Zone: <7% |
+| Earnings Gate | CLEAR | 52 days to event (2026-05-07) |
+| Momentum | BEARISH | RSI 38.9, MACD -0.362 below signal (-0.343) |
+
+**Trades Executed:**
+- Prior cycle: BUY 7 @ $7.71 (2026-02-23), SELL 7 @ $8.235 (2026-02-24) — +6.8% profit, position closed
+- Current position: Fill 1 @ $7.48, Fill 2 @ $7.26 (15 shares total, avg $7.36)
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $7.48 | 7 | 0.0% | PAUSE | ACTIVE | PAUSE | B1 — $7.48 HVN+PA, 50% hold, Full tier, wick-adjusted |
-| BUY | $7.26 | 8 | 2.9% | PAUSE | ACTIVE | PAUSE | B2 — $6.95 PA, 75% hold, Full tier, wick-adjusted |
+| SELL | $7.76 | 15 | N/A | N/A | N/A | N/A | HVN resistance, +5.4% from $7.36 avg |
 
-**Fill Alerts:** None (Day Low $8.00 — both orders well below intraday range)
+**Wick-Adjusted Buy Levels:**
+| Zone | Level | Buy At | Hold Rate | Tier | Shares |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Active | $6.95 | $7.28 | 80% | Full | 41 |
+
+*Note: 1 level excluded — buy price at or above current price ($7.21 excluded)*
+
+**Projected Sell Levels:**
+| Scenario | Shares | Avg Cost | Exit Price | P/L % | Proceeds |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Current (no new fills) | 15 | $7.36 | $7.76 | +5.4% | $116.40 |
+| If B3 fills @ $7.28 (41 sh) | 56 | $7.30 | $7.76 | +6.3% | $434.56 |
+
+*Monotonic check: lower buy $7.28 → lower avg $7.30 < $7.36 ✓*
+
+**Fill Alerts:** SELL $7.76 — day high $7.65 is within 2% of order price (threshold $7.76 × 0.98 = $7.60). Order not yet filled. Verify with broker.
 
 **News & Catalysts:**
-- **Q4 2025 / Full-year 2025:** Revenue $168.9M, +100% YoY — strong top-line growth
-- **EPS miss:** Q4 2025 EPS -$0.27 vs est -$0.09 (-194.5% surprise); 5-day reaction -14.1% (bearish)
-- **Analyst:** H.C. Wainwright maintained Buy, cut PT to $20; analysts split post-earnings
-- **Short interest:** Flagged as one of the most shorted stocks — squeeze potential but elevated downside risk
-- **Sentiment:** Bullish overall (+0.166 avg score, 37% positive / 47% neutral / 17% negative; 177 unique headlines)
-- **Next earnings:** 2026-05-07 (60 days out), EPS est -$0.035, Rev est $42.8M
-- **Macro:** Risk-Off regime suppresses speculative AI/growth names; hold all BUYs until regime clears
+- SOUN unveiled World's First Multimodal Agentic+ AI on the Edge at NVIDIA GTC 2026 (positive catalyst today)
+- 2025 full-year revenue $168.9M, 100% YoY growth; Q4 revenue $55.1M +30.9% QoQ (strong fundamental)
+- Extreme short interest: 33% of float short, squeeze score 75/100 (EXTREME) — upside volatility risk if short squeeze triggers
+
+**Sector Context:** AI/voice tech. Sector breadth 11/11 positive. Regime: Neutral (0/3 indices above 50-SMA, VIX 24.2 declining -5.14% 5D). Stochastic oversold (17.7%K) supports near-term relief bounce potential despite bearish trend indicators (below all SMAs/EMAs, strong bearish signal score -6).

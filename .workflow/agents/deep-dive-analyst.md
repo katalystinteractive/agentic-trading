@@ -9,7 +9,7 @@ capabilities:
   file_read: true
   file_write: true
   file_search: true
-  shell_commands: ["python3:tools/deep_dive_pre_analyst.py"]
+  shell_commands: ["python3:*"]
   web_access: false
 model: opus
 color: blue

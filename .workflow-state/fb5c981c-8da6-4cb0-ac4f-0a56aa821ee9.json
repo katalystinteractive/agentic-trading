@@ -1,0 +1,111 @@
+{
+  "run_id": "fb5c981c-8da6-4cb0-ac4f-0a56aa821ee9",
+  "workflow_name": "watchlist-fitness-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-03-16T21:24:18.819122+00:00",
+  "completed_at": "2026-03-16T21:39:30.973440+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun watchlist fitness review on all watchlist tickers with updated cycle efficiency scoring. Evaluate whether each ticker still fits the mean-reversion strategy.",
+    "handoffs": {
+      "gather": "**Artifacts:** `watchlist-fitness.md`, `watchlist-fitness.json`\n**Script:** `watchlist_fitness.py` completed\n**Tickers analyzed:** 26\n**Errors:** 0\n\nBoth output files written successfully:\n- `watchlist-fitness.md` (730 lines, 23K) \u2014 human-readable fitness analysis\n- `watchlist-fitness.json` (1,678 lines, 41K) \u2014 structured fitness data\n\nReady for fitness analysis phase.",
+      "analyze": "**Artifact:** `watchlist-fitness-report.md`\n**Tickers analyzed:** 26\n**Verdict breakdown:** 7 ENGAGE (BBAI, CIFR, CLSK, OUST, RGTI, RUN, SMCI), 8 ADD (APLD, ARM, LUNR, NU, OKLO, SOUN, TEM, TMC), 1 RESTRUCTURE (AR), 7 HOLD-WAIT (ACHR, CLF, INTC, NNE, RKT, STIM, UAMY), 1 REVIEW (NVDA), 2 RECOVERY (IONQ, USAR)\n**Overrides applied:** 0\n\nKey findings per the analysis:\n- **Proven fast cyclers** (\u226510 cycles, 100% fill, 1d median): OUST (100/100), LUNR (96), CLSK (95), TMC (95), SMCI (93), RGTI (91, early-stage at 6 cycles), AR (RESTRUCTURE \u2014 waiting for levels to reset)\n- **Priority housekeeping**: CLF (3 orphaned orders, OVERSOLD at 3rd pctile), NNE (all orders above price, needs full rebuild), ACHR (1 orphaned, low hold rate)\n- **Cycle timing backlog**: 13 tickers have no cycle data \u2014 SOUN (80% hold rate), CIFR, BBAI, APLD are highest-priority candidates for `cycle_timing_analyzer.py`\n- **Watch list**: NVDA consistency slipping to 84.6% (floor: 80%), RUN hold rate only 20% (lowest ENGAGE on watchlist), UAMY extended +74% above 200-SMA",
+      "review": "**Artifacts:** `watchlist-fitness-pre-critic.md`, `watchlist-fitness-review.md`\n**Verdict:** ISSUES\n**Checks passed:** 5/6\n**Issues found:** 1 mechanical (script bug), 3 qualitative (soft concerns)\n\n**Mechanical FAIL \u2014 Check 1 (script limitation, not analyst error):**\n`_rederive_base_verdict()` in `watchlist_fitness_pre_critic.py` does not model the ENGAGE\u2192HOLD-WAIT cycle gate path. INTC, RKT, STIM, UAMY all have `cycle_pts=0` and no grace period (new watchlist tickers), correctly receiving HOLD-WAIT per strategy rules. The script needs a third derivation path: if `derived=ENGAGE` AND `cycle_pts < 8` AND no grace period \u2192 HOLD-WAIT is valid.\n\n**Qualitative soft concerns:**\n1. **RUN (ENGAGE)**: 20% hold rate is the weakest support reliability on any ENGAGE ticker. 4 early-stage cycles. Needs the shortest monitoring leash \u2014 one more cycle without improvement \u2192 REVIEW.\n2. **STIM (HOLD-WAIT)**: -48% from 200-SMA signals chronic downtrend, not cyclical pullback. Analyst assessment was adequate but could have pushed harder toward REVIEW. Flag at next run if cycle data still absent.\n3. **ARM (ADD)**: Only ADD ticker not in pullback (59th pctile, RSI 51.6, +3.7% above 50-SMA). Analyst missed noting the timing contrast vs. peers. ARM should be last in capital deployment queue behind SOUN/NU/OKLO/TEM.\n\n**No verdict changes required.** All 26 tickers correctly classified. Cycle timing backlog (13/26 tickers with zero cycle data) and AI/tech sector concentration (~6 tickers) are the primary portfolio-level risk factors.\n\nWatchlist fitness verification complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-16T21:24:18.822391+00:00",
+      "completed_at": "2026-03-16T21:24:37.160595+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifacts:** `watchlist-fitness.md`, `watchlist-fitness.json`\n**Script:** `watchlist_fitness.py` completed\n**Tickers analyzed:** 26\n**Errors:** 0\n\nBoth output files written successfully:\n- `watchlist-fitness.md` (730 lines, 23K) \u2014 human-readable fitness analysis\n- `watchlist-fitness.json` (1,678 lines, 41K) \u2014 structured fitness data\n\nReady for fitness analysis phase.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":14440,\"duration_api_ms\":7557,\"num_turns\":3,\"result\":\"## Decision: CLEAN\\n\\n## HANDOFF\\n\\n**Artifacts:** `watchlist-fitness.md`, `watchlist-fitness.json`\\n**Script:** `watchlist_fitness.py` completed\\n**Tickers analyzed:** 26\\n**Errors:** 0\\n\\nBoth output files written successfully:\\n- `watchlist-fitness.md` (730 lines, 23K) \u2014 human-readable fitness analysis\\n- `watchlist-fitness.json` (1,678 lines, 41K) \u2014 structured fitness data\\n\\nReady for fitness analysis phase.\",\"stop_reason\":\"end_turn\",\"session_id\":\"a92af9db-8e53-4b37-bc8c-86a8f5f630e8\",\"total_cost_usd\":0.04469755,\"usage\":{\"input_tokens\":26,\"cache_creation_input_tokens\":25905,\"cache_read_input_tokens\":92353,\"output_tokens\":611,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":25905,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-haiku-4-5-20251001\":{\"inputTokens\":26,\"outputTokens\":611,\"cacheReadInputTokens\":92353,\"cacheCreationInputTokens\":25905,\"webSearchRequests\":0,\"costUSD\":0.04469755,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"45204b69-f156-4407-a158-3351a9159106\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "watchlist-fitness.md": "/Users/kamenkamenov/agentic-trading/watchlist-fitness.md",
+        "watchlist-fitness.json": "/Users/kamenkamenov/agentic-trading/watchlist-fitness.json"
+      },
+      "metrics": {
+        "duration_seconds": 18.334882736206055,
+        "token_usage": {
+          "input_tokens": 26,
+          "output_tokens": 611,
+          "cache_read_tokens": 92353,
+          "cache_write_tokens": 25905
+        },
+        "estimated_cost_usd": 0.134093,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-16T21:24:37.162980+00:00",
+      "completed_at": "2026-03-16T21:33:36.773234+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** `watchlist-fitness-report.md`\n**Tickers analyzed:** 26\n**Verdict breakdown:** 7 ENGAGE (BBAI, CIFR, CLSK, OUST, RGTI, RUN, SMCI), 8 ADD (APLD, ARM, LUNR, NU, OKLO, SOUN, TEM, TMC), 1 RESTRUCTURE (AR), 7 HOLD-WAIT (ACHR, CLF, INTC, NNE, RKT, STIM, UAMY), 1 REVIEW (NVDA), 2 RECOVERY (IONQ, USAR)\n**Overrides applied:** 0\n\nKey findings per the analysis:\n- **Proven fast cyclers** (\u226510 cycles, 100% fill, 1d median): OUST (100/100), LUNR (96), CLSK (95), TMC (95), SMCI (93), RGTI (91, early-stage at 6 cycles), AR (RESTRUCTURE \u2014 waiting for levels to reset)\n- **Priority housekeeping**: CLF (3 orphaned orders, OVERSOLD at 3rd pctile), NNE (all orders above price, needs full rebuild), ACHR (1 orphaned, low hold rate)\n- **Cycle timing backlog**: 13 tickers have no cycle data \u2014 SOUN (80% hold rate), CIFR, BBAI, APLD are highest-priority candidates for `cycle_timing_analyzer.py`\n- **Watch list**: NVDA consistency slipping to 84.6% (floor: 80%), RUN hold rate only 20% (lowest ENGAGE on watchlist), UAMY extended +74% above 200-SMA",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":536617,\"duration_api_ms\":534199,\"num_turns\":7,\"result\":\"`watchlist-fitness-report.md` written successfully.\\n\\n## HANDOFF\\n\\n**Artifact:** `watchlist-fitness-report.md`\\n**Tickers analyzed:** 26\\n**Verdict breakdown:** 7 ENGAGE (BBAI, CIFR, CLSK, OUST, RGTI, RUN, SMCI), 8 ADD (APLD, ARM, LUNR, NU, OKLO, SOUN, TEM, TMC), 1 RESTRUCTURE (AR), 7 HOLD-WAIT (ACHR, CLF, INTC, NNE, RKT, STIM, UAMY), 1 REVIEW (NVDA), 2 RECOVERY (IONQ, USAR)\\n**Overrides applied:** 0\\n\\nKey findings per the analysis:\\n- **Proven fast cyclers** (\u226510 cycles, 100% fill, 1d median): OUST (100/100), LUNR (96), CLSK (95), TMC (95), SMCI (93), RGTI (91, early-stage at 6 cycles), AR (RESTRUCTURE \u2014 waiting for levels to reset)\\n- **Priority housekeeping**: CLF (3 orphaned orders, OVERSOLD at 3rd pctile), NNE (all orders above price, needs full rebuild), ACHR (1 orphaned, low hold rate)\\n- **Cycle timing backlog**: 13 tickers have no cycle data \u2014 SOUN (80% hold rate), CIFR, BBAI, APLD are highest-priority candidates for `cycle_timing_analyzer.py`\\n- **Watch list**: NVDA consistency slipping to 84.6% (floor: 80%), RUN hold rate only 20% (lowest ENGAGE on watchlist), UAMY extended +74% above 200-SMA\\n\\n## Decision: COMPLETE\",\"stop_reason\":\"end_turn\",\"session_id\":\"02346a3c-62b8-4ec8-a3f1-f08cd620910c\",\"total_cost_usd\":0.8780424,\"usage\":{\"input_tokens\":12018,\"cache_creation_input_tokens\":65210,\"cache_read_input_tokens\":234353,\"output_tokens\":35143,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":65210,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":12018,\"outputTokens\":35143,\"cacheReadInputTokens\":234353,\"cacheCreationInputTokens\":65210,\"webSearchRequests\":0,\"costUSD\":0.8780424,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"f97d19b6-fa13-458a-951a-c943b0e5ddd1\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "watchlist-fitness-report.md": "/Users/kamenkamenov/agentic-trading/watchlist-fitness-report.md"
+      },
+      "metrics": {
+        "duration_seconds": 539.6083629131317,
+        "token_usage": {
+          "input_tokens": 12018,
+          "output_tokens": 35143,
+          "cache_read_tokens": 234353,
+          "cache_write_tokens": 65210
+        },
+        "estimated_cost_usd": 0.878042,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-16T21:33:36.778816+00:00",
+      "completed_at": "2026-03-16T21:39:30.967399+00:00",
+      "error_message": null,
+      "decision": "ISSUES",
+      "handoff": "**Artifacts:** `watchlist-fitness-pre-critic.md`, `watchlist-fitness-review.md`\n**Verdict:** ISSUES\n**Checks passed:** 5/6\n**Issues found:** 1 mechanical (script bug), 3 qualitative (soft concerns)\n\n**Mechanical FAIL \u2014 Check 1 (script limitation, not analyst error):**\n`_rederive_base_verdict()` in `watchlist_fitness_pre_critic.py` does not model the ENGAGE\u2192HOLD-WAIT cycle gate path. INTC, RKT, STIM, UAMY all have `cycle_pts=0` and no grace period (new watchlist tickers), correctly receiving HOLD-WAIT per strategy rules. The script needs a third derivation path: if `derived=ENGAGE` AND `cycle_pts < 8` AND no grace period \u2192 HOLD-WAIT is valid.\n\n**Qualitative soft concerns:**\n1. **RUN (ENGAGE)**: 20% hold rate is the weakest support reliability on any ENGAGE ticker. 4 early-stage cycles. Needs the shortest monitoring leash \u2014 one more cycle without improvement \u2192 REVIEW.\n2. **STIM (HOLD-WAIT)**: -48% from 200-SMA signals chronic downtrend, not cyclical pullback. Analyst assessment was adequate but could have pushed harder toward REVIEW. Flag at next run if cycle data still absent.\n3. **ARM (ADD)**: Only ADD ticker not in pullback (59th pctile, RSI 51.6, +3.7% above 50-SMA). Analyst missed noting the timing contrast vs. peers. ARM should be last in capital deployment queue behind SOUN/NU/OKLO/TEM.\n\n**No verdict changes required.** All 26 tickers correctly classified. Cycle timing backlog (13/26 tickers with zero cycle data) and AI/tech sector concentration (~6 tickers) are the primary portfolio-level risk factors.\n\nWatchlist fitness verification complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":351638,\"duration_api_ms\":339914,\"num_turns\":22,\"result\":\"---\\n\\n## HANDOFF\\n\\n**Artifacts:** `watchlist-fitness-pre-critic.md`, `watchlist-fitness-review.md`\\n**Verdict:** ISSUES\\n**Checks passed:** 5/6\\n**Issues found:** 1 mechanical (script bug), 3 qualitative (soft concerns)\\n\\n**Mechanical FAIL \u2014 Check 1 (script limitation, not analyst error):**\\n`_rederive_base_verdict()` in `watchlist_fitness_pre_critic.py` does not model the ENGAGE\u2192HOLD-WAIT cycle gate path. INTC, RKT, STIM, UAMY all have `cycle_pts=0` and no grace period (new watchlist tickers), correctly receiving HOLD-WAIT per strategy rules. The script needs a third derivation path: if `derived=ENGAGE` AND `cycle_pts < 8` AND no grace period \u2192 HOLD-WAIT is valid.\\n\\n**Qualitative soft concerns:**\\n1. **RUN (ENGAGE)**: 20% hold rate is the weakest support reliability on any ENGAGE ticker. 4 early-stage cycles. Needs the shortest monitoring leash \u2014 one more cycle without improvement \u2192 REVIEW.\\n2. **STIM (HOLD-WAIT)**: -48% from 200-SMA signals chronic downtrend, not cyclical pullback. Analyst assessment was adequate but could have pushed harder toward REVIEW. Flag at next run if cycle data still absent.\\n3. **ARM (ADD)**: Only ADD ticker not in pullback (59th pctile, RSI 51.6, +3.7% above 50-SMA). Analyst missed noting the timing contrast vs. peers. ARM should be last in capital deployment queue behind SOUN/NU/OKLO/TEM.\\n\\n**No verdict changes required.** All 26 tickers correctly classified. Cycle timing backlog (13/26 tickers with zero cycle data) and AI/tech sector concentration (~6 tickers) are the primary portfolio-level risk factors.\\n\\nWatchlist fitness verification complete.\\n\\n## Decision: ISSUES\",\"stop_reason\":\"end_turn\",\"session_id\":\"117cc6d2-b5bc-4f76-9e91-e005c0a0b067\",\"total_cost_usd\":0.64377,\"usage\":{\"input_tokens\":23,\"cache_creation_input_tokens\":48094,\"cache_read_input_tokens\":724145,\"output_tokens\":16407,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":48094,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":23,\"outputTokens\":16407,\"cacheReadInputTokens\":724145,\"cacheCreationInputTokens\":48094,\"webSearchRequests\":0,\"costUSD\":0.64377,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"98e50ad6-60f4-4889-b3f4-7b668517db0b\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "watchlist-fitness-pre-critic.md": "/Users/kamenkamenov/agentic-trading/watchlist-fitness-pre-critic.md",
+        "watchlist-fitness-review.md": "/Users/kamenkamenov/agentic-trading/watchlist-fitness-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 354.18554186820984,
+        "token_usage": {
+          "input_tokens": 23,
+          "output_tokens": 16407,
+          "cache_read_tokens": 724145,
+          "cache_write_tokens": 48094
+        },
+        "estimated_cost_usd": 0.64377,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-03-16T21:39:30.973649+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/watchlist-fitness-workflow.yaml",
+    "workflowHash": "19cddaa6a7fec874"
+  }
+}

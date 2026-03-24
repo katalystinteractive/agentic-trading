@@ -1,0 +1,111 @@
+{
+  "run_id": "73cdcb2a-7066-4833-b417-387e4fd7fab0",
+  "workflow_name": "morning-briefing-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-02-22T19:30:47.118046+00:00",
+  "completed_at": "2026-02-22T20:00:10.391063+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun the unified morning briefing workflow v2.2.0. Phase 1 runs gatherer+compiler. Phase 2 analyzes condensed data (105KB, single file read). Phase 3 verifies.",
+    "handoffs": {
+      "gather": "**Morning Gatherer:**\n- Active: 9 positions (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n- Watchlist: 7 tickers with pending orders (AR, CLF, ACHR, SOUN, SMCI, LUNR, NNE)\n- Scouting: 3 (VALE, SEDG, RKT)\n- Tool errors: 0\n- BUY orders: 43 (json: 43) \u2713\n- SELL orders: 6 (json: 6) \u2713\n- Output: `morning-tools-raw.md` (273.5 KB)\n\n**Morning Compiler:**\n- All 9 active positions compiled\n- All 7 watchlist tickers compiled\n- Cached files: identity x16, memory x9, wick_analysis x16, institutional x2\n- Missing institutional files: NU, UAMY, USAR, INTC, APLD, CIFR, CLSK (expected \u2014 not all tickers have institutional data)\n- Coverage: **COMPLETE**\n- Output: `morning-briefing-raw.md` (464.7 KB) \u2192 `morning-briefing-condensed.md` (105.0 KB, 77% reduction)\n\nReady for morning analysis.",
+      "analyze": "**Artifact:** morning-briefing.md\n**Regime:** Risk-On\n**Active positions reviewed:** 9\n**Verdicts:** 0 EXIT, 1 REDUCE, 5 HOLD, 3 MONITOR\n**Watchlist tickers gated:** 2 (SOUN PAUSE, ACHR REVIEW)\n**Entry gate summary:** 32 ACTIVE, 0 CAUTION, 3 REVIEW, 8 PAUSE\n**Capital rotation:** ~$105 from NU REDUCE\n\nMorning briefing complete.",
+      "review": "**Artifact:** `morning-briefing-review.md`\n**Verdict:** PASS\n**Checks passed:** 9/9 (3 with minor notes)\n**Issues found:** 5 minor, 0 critical\n\n**What was verified:**\n- All P/L math, deployed values, and projected sell scenarios \u2014 all correct within tolerance\n- Day counts for all 9 positions \u2014 correct, pre-strategy positions properly labeled\n- All 9 verdicts \u2014 correct (NU REDUCE, IONQ/UAMY/USAR/INTC HOLD, CIFR HOLD, STIM/APLD/CLSK MONITOR)\n- Earnings gate dates and gate statuses \u2014 all verified against raw data\n- Regime: Risk-On (2/3 above 50-SMA, VIX 19.09) \u2014 correct\n- Entry gate logic: 32 ACTIVE / 0 CAUTION / 3 REVIEW / 8 PAUSE \u2014 count verified by counting all 43 BUY orders\n- Data consistency: shares, avg costs, RSI/MACD values, trades executed \u2014 all match condensed and portfolio.json\n- Coverage: all 9 positions, all 43 BUY orders, all 6 SELL orders, all 7 watchlist tickers, scouting section, fill alerts \u2014 all present\n\n**Minor notes only:** Rule citation references (UAMY/USAR/INTC use wrong rule numbers in reasoning text), and two borderline momentum labels (CIFR/CLSK labeled Neutral vs arguable Bearish) \u2014 neither affects any verdict."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T19:30:47.118821+00:00",
+      "completed_at": "2026-02-22T19:33:35.538877+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Morning Gatherer:**\n- Active: 9 positions (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\n- Watchlist: 7 tickers with pending orders (AR, CLF, ACHR, SOUN, SMCI, LUNR, NNE)\n- Scouting: 3 (VALE, SEDG, RKT)\n- Tool errors: 0\n- BUY orders: 43 (json: 43) \u2713\n- SELL orders: 6 (json: 6) \u2713\n- Output: `morning-tools-raw.md` (273.5 KB)\n\n**Morning Compiler:**\n- All 9 active positions compiled\n- All 7 watchlist tickers compiled\n- Cached files: identity x16, memory x9, wick_analysis x16, institutional x2\n- Missing institutional files: NU, UAMY, USAR, INTC, APLD, CIFR, CLSK (expected \u2014 not all tickers have institutional data)\n- Coverage: **COMPLETE**\n- Output: `morning-briefing-raw.md` (464.7 KB) \u2192 `morning-briefing-condensed.md` (105.0 KB, 77% reduction)\n\nReady for morning analysis.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":136818,\"duration_api_ms\":11535,\"num_turns\":3,\"result\":\"## HANDOFF\\n\\n**Morning Gatherer:**\\n- Active: 9 positions (NU, STIM, IONQ, UAMY, USAR, INTC, APLD, CIFR, CLSK)\\n- Watchlist: 7 tickers with pending orders (AR, CLF, ACHR, SOUN, SMCI, LUNR, NNE)\\n- Scouting: 3 (VALE, SEDG, RKT)\\n- Tool errors: 0\\n- BUY orders: 43 (json: 43) \u2713\\n- SELL orders: 6 (json: 6) \u2713\\n- Output: `morning-tools-raw.md` (273.5 KB)\\n\\n**Morning Compiler:**\\n- All 9 active positions compiled\\n- All 7 watchlist tickers compiled\\n- Cached files: identity x16, memory x9, wick_analysis x16, institutional x2\\n- Missing institutional files: NU, UAMY, USAR, INTC, APLD, CIFR, CLSK (expected \u2014 not all tickers have institutional data)\\n- Coverage: **COMPLETE**\\n- Output: `morning-briefing-raw.md` (464.7 KB) \u2192 `morning-briefing-condensed.md` (105.0 KB, 77% reduction)\\n\\nReady for morning analysis.\\n\\n## Decision: COMPLETE\",\"stop_reason\":null,\"session_id\":\"ddff19c3-ee00-4cd1-b7d8-fae1fd596fe8\",\"total_cost_usd\":0.117626,\"usage\":{\"input_tokens\":5,\"cache_creation_input_tokens\":9986,\"cache_read_input_tokens\":75275,\"output_tokens\":622,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":9986,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":5,\"outputTokens\":622,\"cacheReadInputTokens\":75275,\"cacheCreationInputTokens\":9986,\"webSearchRequests\":0,\"costUSD\":0.115625,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":1571,\"outputTokens\":86,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.002001,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"f76e86c1-3b61-4170-b1a0-c4da3f083aa5\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "morning-tools-raw.md": "/Users/kamenkamenov/agentic-trading/morning-tools-raw.md",
+        "morning-briefing-raw.md": "/Users/kamenkamenov/agentic-trading/morning-briefing-raw.md",
+        "morning-briefing-condensed.md": "/Users/kamenkamenov/agentic-trading/morning-briefing-condensed.md"
+      },
+      "metrics": {
+        "duration_seconds": 168.41875195503235,
+        "token_usage": {
+          "input_tokens": 5,
+          "output_tokens": 622,
+          "cache_read_tokens": 75275,
+          "cache_write_tokens": 9986
+        },
+        "estimated_cost_usd": 0.069375,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T19:33:35.540334+00:00",
+      "completed_at": "2026-02-22T19:49:10.303305+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** morning-briefing.md\n**Regime:** Risk-On\n**Active positions reviewed:** 9\n**Verdicts:** 0 EXIT, 1 REDUCE, 5 HOLD, 3 MONITOR\n**Watchlist tickers gated:** 2 (SOUN PAUSE, ACHR REVIEW)\n**Entry gate summary:** 32 ACTIVE, 0 CAUTION, 3 REVIEW, 8 PAUSE\n**Capital rotation:** ~$105 from NU REDUCE\n\nMorning briefing complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":902900,\"duration_api_ms\":899630,\"num_turns\":13,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifact:** morning-briefing.md\\n**Regime:** Risk-On\\n**Active positions reviewed:** 9\\n**Verdicts:** 0 EXIT, 1 REDUCE, 5 HOLD, 3 MONITOR\\n**Watchlist tickers gated:** 2 (SOUN PAUSE, ACHR REVIEW)\\n**Entry gate summary:** 32 ACTIVE, 0 CAUTION, 3 REVIEW, 8 PAUSE\\n**Capital rotation:** ~$105 from NU REDUCE\\n\\nMorning briefing complete.\",\"stop_reason\":null,\"session_id\":\"c487ea71-e577-4ef3-8020-c07b3d838a3f\",\"total_cost_usd\":2.68854125,\"usage\":{\"input_tokens\":15,\"cache_creation_input_tokens\":124693,\"cache_read_input_tokens\":1076294,\"output_tokens\":54817,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":124693,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-opus-4-6\":{\"inputTokens\":15,\"outputTokens\":54817,\"cacheReadInputTokens\":1076294,\"cacheCreationInputTokens\":124693,\"webSearchRequests\":0,\"costUSD\":2.68797825,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":403,\"outputTokens\":32,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.0005629999999999999,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"f01651e9-5516-4f31-a0c9-acd5c546e186\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "morning-briefing.md": "/Users/kamenkamenov/agentic-trading/morning-briefing.md"
+      },
+      "metrics": {
+        "duration_seconds": 934.7620830535889,
+        "token_usage": {
+          "input_tokens": 15,
+          "output_tokens": 54817,
+          "cache_read_tokens": 1076294,
+          "cache_write_tokens": 124693
+        },
+        "estimated_cost_usd": 1.612787,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-22T19:49:10.304893+00:00",
+      "completed_at": "2026-02-22T20:00:10.389458+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `morning-briefing-review.md`\n**Verdict:** PASS\n**Checks passed:** 9/9 (3 with minor notes)\n**Issues found:** 5 minor, 0 critical\n\n**What was verified:**\n- All P/L math, deployed values, and projected sell scenarios \u2014 all correct within tolerance\n- Day counts for all 9 positions \u2014 correct, pre-strategy positions properly labeled\n- All 9 verdicts \u2014 correct (NU REDUCE, IONQ/UAMY/USAR/INTC HOLD, CIFR HOLD, STIM/APLD/CLSK MONITOR)\n- Earnings gate dates and gate statuses \u2014 all verified against raw data\n- Regime: Risk-On (2/3 above 50-SMA, VIX 19.09) \u2014 correct\n- Entry gate logic: 32 ACTIVE / 0 CAUTION / 3 REVIEW / 8 PAUSE \u2014 count verified by counting all 43 BUY orders\n- Data consistency: shares, avg costs, RSI/MACD values, trades executed \u2014 all match condensed and portfolio.json\n- Coverage: all 9 positions, all 43 BUY orders, all 6 SELL orders, all 7 watchlist tickers, scouting section, fill alerts \u2014 all present\n\n**Minor notes only:** Rule citation references (UAMY/USAR/INTC use wrong rule numbers in reasoning text), and two borderline momentum labels (CIFR/CLSK labeled Neutral vs arguable Bearish) \u2014 neither affects any verdict.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":627882,\"duration_api_ms\":626390,\"num_turns\":13,\"result\":\"## HANDOFF\\n\\n**Artifact:** `morning-briefing-review.md`\\n**Verdict:** PASS\\n**Checks passed:** 9/9 (3 with minor notes)\\n**Issues found:** 5 minor, 0 critical\\n\\n**What was verified:**\\n- All P/L math, deployed values, and projected sell scenarios \u2014 all correct within tolerance\\n- Day counts for all 9 positions \u2014 correct, pre-strategy positions properly labeled\\n- All 9 verdicts \u2014 correct (NU REDUCE, IONQ/UAMY/USAR/INTC HOLD, CIFR HOLD, STIM/APLD/CLSK MONITOR)\\n- Earnings gate dates and gate statuses \u2014 all verified against raw data\\n- Regime: Risk-On (2/3 above 50-SMA, VIX 19.09) \u2014 correct\\n- Entry gate logic: 32 ACTIVE / 0 CAUTION / 3 REVIEW / 8 PAUSE \u2014 count verified by counting all 43 BUY orders\\n- Data consistency: shares, avg costs, RSI/MACD values, trades executed \u2014 all match condensed and portfolio.json\\n- Coverage: all 9 positions, all 43 BUY orders, all 6 SELL orders, all 7 watchlist tickers, scouting section, fill alerts \u2014 all present\\n\\n**Minor notes only:** Rule citation references (UAMY/USAR/INTC use wrong rule numbers in reasoning text), and two borderline momentum labels (CIFR/CLSK labeled Neutral vs arguable Bearish) \u2014 neither affects any verdict.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"b3f0cabd-9f47-4f12-951c-21b051bd2f62\",\"total_cost_usd\":2.006385,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":121208,\"cache_read_input_tokens\":442180,\"output_tokens\":41108,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":121208,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":9,\"outputTokens\":41108,\"cacheReadInputTokens\":442180,\"cacheCreationInputTokens\":121208,\"webSearchRequests\":0,\"costUSD\":2.006385,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"f086d11f-abc7-4bf9-a33d-09bfa19adcb5\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "morning-briefing-review.md": "/Users/kamenkamenov/agentic-trading/morning-briefing-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 660.0830080509186,
+        "token_usage": {
+          "input_tokens": 9,
+          "output_tokens": 41108,
+          "cache_read_tokens": 442180,
+          "cache_write_tokens": 121208
+        },
+        "estimated_cost_usd": 1.203831,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-22T20:00:10.391190+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/morning-briefing-workflow.yaml",
+    "workflowHash": "9f8e9fe8034f430d"
+  }
+}

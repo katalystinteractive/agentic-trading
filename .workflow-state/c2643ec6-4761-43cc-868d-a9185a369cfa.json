@@ -1,0 +1,109 @@
+{
+  "run_id": "c2643ec6-4761-43cc-868d-a9185a369cfa",
+  "workflow_name": "deep-dive-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-03-16T18:44:23.079924+00:00",
+  "completed_at": "2026-03-16T18:50:56.201540+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun deep dive / wick-adjusted analysis for CIFR. Refresh wick offset data, update identity.md with wick-adjusted buy levels, and generate a fresh bullet plan. CIFR was just sold (11 @ $15.28, +4.5%) and is in cooldown with RE-ENTER verdict. Existing ticker \u2014 update identity.md only. Ticker: CIFR.",
+    "handoffs": {
+      "collect": "**Artifact:** deep-dive-raw.md  \n**Ticker:** CIFR  \n**Status:** EXISTING  \n**Tools completed:** 8/8  \n**Tool failures:** none\n\nReady for identity compilation.",
+      "compile": "**Artifact:** tickers/CIFR/identity.md\n**Ticker:** CIFR\n**Status:** EXISTING\n**Blocked:** no\n**Active bullets:** 4 (B1-B4, total ~$289)\n**Reserve bullets:** 3 (R1-R3, total ~$298)\n**Persona:** \"The Digital Infrastructure Pivot.\"\n**Portfolio.json updated:** no (existing ticker)\n\nKey changes from previous identity:\n- Persona updated: rebranded from \"The Bitcoin Miner\" to \"The Digital Infrastructure Pivot\" reflecting Cipher Digital rebrand and HPC/AI pivot\n- Cycle determined: **Early** (9/13 months bottom days 1-8)\n- Wick table refreshed (2026-03-16): levels shifted \u2014 $14.91 Skip-tier dropped, $14.28 HVN+PA replaces $14.26 PA as first active, new $13.66 HVN+PA and $13.02 PA levels added\n- Bullet plan restructured: 4 active bullets (was B1-B4 with different prices), 3 reserve bullets (was 1)\n- Convergence warning: B3 ($13.09) and B4 ($13.03) nearly identical buy-at prices from different PA sources\n- 59% dead zone gap between active and reserve zones flagged\n- Resistance levels populated from HVN data\n- Short interest (20.85%), institutional flow (STRONG ACCUMULATION), earnings (CLEAR) noted\n- Status updated to cycle 5 (5/5 profitable)\n\nReady for bullet plan review.",
+      "review": "**Artifact:** deep-dive-review.md\n**Ticker:** CIFR\n**Verdict:** PASS\n**Checks passed:** 8/8 (Portfolio.json = N/A for existing ticker)\n**Issues found:** 0\n\n**Summary of verification:**\n- All 7 bullet entries (B1-B4, R1-R3) match pre-analyst exactly \u2014 shares, costs, prices, tiers all transcribed correctly\n- Active pool $288.70 \u2264 $300; reserve pool $298.45 \u2264 $300; bullet counts within max (4 active, 3 reserve)\n- All tier classifications verified against raw wick data: $14.28 (50%\u2192Full), $13.66 (40%\u2192Std), $13.02 (71%\u2192Full), $12.41 (60%\u2192Full), $5.27 (67%\u2192Full), $3.17 (33%\u2192Std), $2.87 (50%\u2192Full)\n- Zone assignments correct: active floor $11.46, all active levels \u2265 $12.41, all reserve \u2264 $5.42\n- Projected averages arithmetic verified B2 through R3\n- Format compliant; convergence and dead-zone warnings properly flagged\n\nDeep dive review complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1
+  },
+  "phases": {
+    "collect": {
+      "phase_id": "collect",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-16T18:44:23.080794+00:00",
+      "completed_at": "2026-03-16T18:44:51.309007+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** deep-dive-raw.md  \n**Ticker:** CIFR  \n**Status:** EXISTING  \n**Tools completed:** 8/8  \n**Tool failures:** none\n\nReady for identity compilation.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":24537,\"duration_api_ms\":10974,\"num_turns\":3,\"result\":\"**Artifact:** deep-dive-raw.md  \\n**Ticker:** CIFR  \\n**Status:** EXISTING  \\n**Tools completed:** 8/8  \\n**Tool failures:** none\\n\\n## HANDOFF\\n\\n**Artifact:** deep-dive-raw.md  \\n**Ticker:** CIFR  \\n**Status:** EXISTING  \\n**Tools completed:** 8/8  \\n**Tool failures:** none\\n\\nReady for identity compilation.\\n\\n## Decision: CLEAN\",\"stop_reason\":\"end_turn\",\"session_id\":\"99f879e6-30f4-4bac-aa9e-3a89d0bebc6e\",\"total_cost_usd\":0.09112785,\"usage\":{\"input_tokens\":5,\"cache_creation_input_tokens\":18575,\"cache_read_input_tokens\":55622,\"output_tokens\":318,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":18575,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":5,\"outputTokens\":318,\"cacheReadInputTokens\":55622,\"cacheCreationInputTokens\":18575,\"webSearchRequests\":0,\"costUSD\":0.09112785,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"e8e5f812-1656-47e5-983b-bca11c7080c0\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "deep-dive-raw.md": "/Users/kamenkamenov/agentic-trading/deep-dive-raw.md"
+      },
+      "metrics": {
+        "duration_seconds": 28.22556495666504,
+        "token_usage": {
+          "input_tokens": 5,
+          "output_tokens": 318,
+          "cache_read_tokens": 55622,
+          "cache_write_tokens": 18575
+        },
+        "estimated_cost_usd": 0.091128,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "compile": {
+      "phase_id": "compile",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-16T18:44:51.311158+00:00",
+      "completed_at": "2026-03-16T18:46:37.825437+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** tickers/CIFR/identity.md\n**Ticker:** CIFR\n**Status:** EXISTING\n**Blocked:** no\n**Active bullets:** 4 (B1-B4, total ~$289)\n**Reserve bullets:** 3 (R1-R3, total ~$298)\n**Persona:** \"The Digital Infrastructure Pivot.\"\n**Portfolio.json updated:** no (existing ticker)\n\nKey changes from previous identity:\n- Persona updated: rebranded from \"The Bitcoin Miner\" to \"The Digital Infrastructure Pivot\" reflecting Cipher Digital rebrand and HPC/AI pivot\n- Cycle determined: **Early** (9/13 months bottom days 1-8)\n- Wick table refreshed (2026-03-16): levels shifted \u2014 $14.91 Skip-tier dropped, $14.28 HVN+PA replaces $14.26 PA as first active, new $13.66 HVN+PA and $13.02 PA levels added\n- Bullet plan restructured: 4 active bullets (was B1-B4 with different prices), 3 reserve bullets (was 1)\n- Convergence warning: B3 ($13.09) and B4 ($13.03) nearly identical buy-at prices from different PA sources\n- 59% dead zone gap between active and reserve zones flagged\n- Resistance levels populated from HVN data\n- Short interest (20.85%), institutional flow (STRONG ACCUMULATION), earnings (CLEAR) noted\n- Status updated to cycle 5 (5/5 profitable)\n\nReady for bullet plan review.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":104177,\"duration_api_ms\":91278,\"num_turns\":9,\"result\":\"Identity updated. This is an EXISTING ticker, so memory.md and portfolio.json are not modified.\\n\\n## HANDOFF\\n\\n**Artifact:** tickers/CIFR/identity.md\\n**Ticker:** CIFR\\n**Status:** EXISTING\\n**Blocked:** no\\n**Active bullets:** 4 (B1-B4, total ~$289)\\n**Reserve bullets:** 3 (R1-R3, total ~$298)\\n**Persona:** \\\"The Digital Infrastructure Pivot.\\\"\\n**Portfolio.json updated:** no (existing ticker)\\n\\nKey changes from previous identity:\\n- Persona updated: rebranded from \\\"The Bitcoin Miner\\\" to \\\"The Digital Infrastructure Pivot\\\" reflecting Cipher Digital rebrand and HPC/AI pivot\\n- Cycle determined: **Early** (9/13 months bottom days 1-8)\\n- Wick table refreshed (2026-03-16): levels shifted \u2014 $14.91 Skip-tier dropped, $14.28 HVN+PA replaces $14.26 PA as first active, new $13.66 HVN+PA and $13.02 PA levels added\\n- Bullet plan restructured: 4 active bullets (was B1-B4 with different prices), 3 reserve bullets (was 1)\\n- Convergence warning: B3 ($13.09) and B4 ($13.03) nearly identical buy-at prices from different PA sources\\n- 59% dead zone gap between active and reserve zones flagged\\n- Resistance levels populated from HVN data\\n- Short interest (20.85%), institutional flow (STRONG ACCUMULATION), earnings (CLEAR) noted\\n- Status updated to cycle 5 (5/5 profitable)\\n\\nReady for bullet plan review.\\n\\n## Decision: CLEAN\",\"stop_reason\":\"end_turn\",\"session_id\":\"e462d812-f801-46cc-97e2-cdb2d7f8cf68\",\"total_cost_usd\":0.6920875000000001,\"usage\":{\"input_tokens\":19425,\"cache_creation_input_tokens\":66742,\"cache_read_input_tokens\":152900,\"output_tokens\":4055,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":66742,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-opus-4-6\":{\"inputTokens\":19425,\"outputTokens\":4055,\"cacheReadInputTokens\":152900,\"cacheCreationInputTokens\":66742,\"webSearchRequests\":0,\"costUSD\":0.6920875000000001,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"da52459b-fdf9-4146-880b-c9e6effb66eb\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "file_0": "tickers/CIFR/identity.md"
+      },
+      "metrics": {
+        "duration_seconds": 106.5120677947998,
+        "token_usage": {
+          "input_tokens": 19425,
+          "output_tokens": 4055,
+          "cache_read_tokens": 152900,
+          "cache_write_tokens": 66742
+        },
+        "estimated_cost_usd": 0.415252,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-16T18:46:37.829859+00:00",
+      "completed_at": "2026-03-16T18:50:56.195475+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifact:** deep-dive-review.md\n**Ticker:** CIFR\n**Verdict:** PASS\n**Checks passed:** 8/8 (Portfolio.json = N/A for existing ticker)\n**Issues found:** 0\n\n**Summary of verification:**\n- All 7 bullet entries (B1-B4, R1-R3) match pre-analyst exactly \u2014 shares, costs, prices, tiers all transcribed correctly\n- Active pool $288.70 \u2264 $300; reserve pool $298.45 \u2264 $300; bullet counts within max (4 active, 3 reserve)\n- All tier classifications verified against raw wick data: $14.28 (50%\u2192Full), $13.66 (40%\u2192Std), $13.02 (71%\u2192Full), $12.41 (60%\u2192Full), $5.27 (67%\u2192Full), $3.17 (33%\u2192Std), $2.87 (50%\u2192Full)\n- Zone assignments correct: active floor $11.46, all active levels \u2265 $12.41, all reserve \u2264 $5.42\n- Projected averages arithmetic verified B2 through R3\n- Format compliant; convergence and dead-zone warnings properly flagged\n\nDeep dive review complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":255746,\"duration_api_ms\":253337,\"num_turns\":10,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifact:** deep-dive-review.md\\n**Ticker:** CIFR\\n**Verdict:** PASS\\n**Checks passed:** 8/8 (Portfolio.json = N/A for existing ticker)\\n**Issues found:** 0\\n\\n**Summary of verification:**\\n- All 7 bullet entries (B1-B4, R1-R3) match pre-analyst exactly \u2014 shares, costs, prices, tiers all transcribed correctly\\n- Active pool $288.70 \u2264 $300; reserve pool $298.45 \u2264 $300; bullet counts within max (4 active, 3 reserve)\\n- All tier classifications verified against raw wick data: $14.28 (50%\u2192Full), $13.66 (40%\u2192Std), $13.02 (71%\u2192Full), $12.41 (60%\u2192Full), $5.27 (67%\u2192Full), $3.17 (33%\u2192Std), $2.87 (50%\u2192Full)\\n- Zone assignments correct: active floor $11.46, all active levels \u2265 $12.41, all reserve \u2264 $5.42\\n- Projected averages arithmetic verified B2 through R3\\n- Format compliant; convergence and dead-zone warnings properly flagged\\n\\nDeep dive review complete.\",\"stop_reason\":\"end_turn\",\"session_id\":\"c3959674-130d-414b-bf99-5900093f5c01\",\"total_cost_usd\":0.54221115,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":62229,\"cache_read_input_tokens\":341768,\"output_tokens\":13753,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":62229,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":9,\"outputTokens\":13753,\"cacheReadInputTokens\":341768,\"cacheCreationInputTokens\":62229,\"webSearchRequests\":0,\"costUSD\":0.54221115,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"0f1c3187-9b05-4c90-bb2a-572b9bbe630d\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "deep-dive-review.md": "/Users/kamenkamenov/agentic-trading/deep-dive-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 258.363135099411,
+        "token_usage": {
+          "input_tokens": 9,
+          "output_tokens": 13753,
+          "cache_read_tokens": 341768,
+          "cache_write_tokens": 62229
+        },
+        "estimated_cost_usd": 0.542211,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-03-16T18:50:56.201732+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/deep-dive-workflow.yaml",
+    "workflowHash": "d10f6553d05e5484"
+  }
+}

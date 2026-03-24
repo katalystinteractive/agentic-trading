@@ -1,0 +1,107 @@
+{
+  "run_id": "151b3209-1bd0-48e7-bae3-2bf5e231247c",
+  "workflow_name": "surgical-candidate-workflow",
+  "task_guid": null,
+  "status": "failed",
+  "current_phase": null,
+  "started_at": "2026-02-21T13:21:12.863015+00:00",
+  "completed_at": "2026-02-21T14:06:12.862545+00:00",
+  "error_message": "Workflow timed out after 45 minutes",
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nScreen, verify, and select surgical mean-reversion candidates for 2026-02-21",
+    "handoffs": {
+      "screen": "**Artifacts:** screening_data.md, candidate-evaluation.md\n**Gate passers:** 76 tickers passed surgical gates\n**Top 10 selected:** NNE (80), IREN (75), TMC (74), NTLA (71), BBAI (70), DNA (69), RDW (66), HUT (65), RGTI (63), QBTS (59)\n\nReady for verification.",
+      "verify": "**Artifact:** `candidate-verification.md`\n**Results:** 7 PASS, 3 FLAG, 0 FAIL\n**Score range after adjustment:** 55 (QBTS) \u2013 80 (NNE)\n\n**Key findings:**\n\n| Ticker | Finding | Impact |\n| :--- | :--- | :--- |\n| **NTLA** | Monthly swing undercounted \u2014 wick analysis = 52.1%, not 44.2% \u2192 should be 10/10 | +1, score \u2192 72 |\n| **DNA** | B1 level ($8.86\u2192$9.14) shows **0% hold rate in last 8 consecutive approaches** (Nov '25\u2013Feb '26); both historical holds are >6 months old | -5, score \u2192 64, FLAG |\n| **QBTS** | B1 proximity inflated (7.1% gap scored 13/15 via excluded level); 62% dead zone between R2 ($14.40) and R3 ($5.27) unacknowledged | -4, score \u2192 55, FLAG |\n| **IREN** | Active-to-reserve dead zone understated: 5 consecutive Skip levels across 50%+ gap between active floor and first reserve | No score change \u2014 partially captured in 9/15 reserve depth; FLAG for monitor |\n| **All others** | Arithmetic and data confirmed; tier counts, buy prices, costs all verified \u2713 | \u2014 |\n\n**Notable systematic issue:** Gate-screening table and wick analyzer report different swing values for the same ticker (consistent pattern across NNE, IREN, TMC, NTLA). Only NTLA crosses a scoring tier boundary; the rest have no scoring impact.\n\nReady for final selection."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1
+  },
+  "phases": {
+    "screen": {
+      "phase_id": "screen",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-21T13:21:12.865184+00:00",
+      "completed_at": "2026-02-21T13:28:57.382987+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifacts:** screening_data.md, candidate-evaluation.md\n**Gate passers:** 76 tickers passed surgical gates\n**Top 10 selected:** NNE (80), IREN (75), TMC (74), NTLA (71), BBAI (70), DNA (69), RDW (66), HUT (65), RGTI (63), QBTS (59)\n\nReady for verification.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":432491,\"duration_api_ms\":461851,\"num_turns\":17,\"result\":\"Screening and evaluation complete. Here's the summary:\\n\\n**76 tickers** passed all surgical gates. The top 20 received deep wick analysis (18/20 succeeded \u2014 RXRX and UPST returned no support levels). All 20 were scored on the 100-point scale across 6 criteria.\\n\\n**Top 10 Selected:**\\n\\n| Rank | Ticker | Score | Sector |\\n| :--- | :--- | :--- | :--- |\\n| 1 | NNE | 80 | Nuclear |\\n| 2 | IREN | 75 | Crypto |\\n| 3 | TMC | 74 | Materials |\\n| 4 | NTLA | 71 | Biotech |\\n| 5 | BBAI | 70 | AI |\\n| 6 | DNA | 69 | Biotech |\\n| 7 | RDW | 66 | Space |\\n| 8 | HUT | 65 | Crypto |\\n| 9 | RGTI | 63 | Quantum |\\n| 10 | QBTS | 59 | Quantum |\\n\\nNotable: 3 candidates scored near zero (HIMS 25, RXRX 24, UPST 11) due to failed wick analysis or no qualifying support levels.\\n\\n## Decision: CLEAN\\n\\n## HANDOFF\\n\\n**Artifacts:** screening_data.md, candidate-evaluation.md\\n**Gate passers:** 76 tickers passed surgical gates\\n**Top 10 selected:** NNE (80), IREN (75), TMC (74), NTLA (71), BBAI (70), DNA (69), RDW (66), HUT (65), RGTI (63), QBTS (59)\\n\\nReady for verification.\",\"stop_reason\":null,\"session_id\":\"561b5d2c-927e-499d-a7c1-1336916d23a5\",\"total_cost_usd\":1.55447035,\"usage\":{\"input_tokens\":17,\"cache_creation_input_tokens\":73249,\"cache_read_input_tokens\":600722,\"output_tokens\":22066,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":73249,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-opus-4-6\":{\"inputTokens\":17,\"outputTokens\":22066,\"cacheReadInputTokens\":600722,\"cacheCreationInputTokens\":73249,\"webSearchRequests\":0,\"costUSD\":1.30990225,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":1545,\"outputTokens\":13946,\"cacheReadInputTokens\":410831,\"cacheCreationInputTokens\":105768,\"webSearchRequests\":0,\"costUSD\":0.2445681,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"d64f1fba-3d91-4917-a0d5-dabe6c19a3d7\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "screening_data.md": "/Users/kamenkamenov/agentic-trading/screening_data.md",
+        "candidate-evaluation.md": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.md"
+      },
+      "metrics": {
+        "duration_seconds": 464.50893902778625,
+        "token_usage": {
+          "input_tokens": 17,
+          "output_tokens": 22066,
+          "cache_read_tokens": 600722,
+          "cache_write_tokens": 73249
+        },
+        "estimated_cost_usd": 0.785941,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "verify": {
+      "phase_id": "verify",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-21T13:28:57.391222+00:00",
+      "completed_at": "2026-02-21T13:39:22.511250+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `candidate-verification.md`\n**Results:** 7 PASS, 3 FLAG, 0 FAIL\n**Score range after adjustment:** 55 (QBTS) \u2013 80 (NNE)\n\n**Key findings:**\n\n| Ticker | Finding | Impact |\n| :--- | :--- | :--- |\n| **NTLA** | Monthly swing undercounted \u2014 wick analysis = 52.1%, not 44.2% \u2192 should be 10/10 | +1, score \u2192 72 |\n| **DNA** | B1 level ($8.86\u2192$9.14) shows **0% hold rate in last 8 consecutive approaches** (Nov '25\u2013Feb '26); both historical holds are >6 months old | -5, score \u2192 64, FLAG |\n| **QBTS** | B1 proximity inflated (7.1% gap scored 13/15 via excluded level); 62% dead zone between R2 ($14.40) and R3 ($5.27) unacknowledged | -4, score \u2192 55, FLAG |\n| **IREN** | Active-to-reserve dead zone understated: 5 consecutive Skip levels across 50%+ gap between active floor and first reserve | No score change \u2014 partially captured in 9/15 reserve depth; FLAG for monitor |\n| **All others** | Arithmetic and data confirmed; tier counts, buy prices, costs all verified \u2713 | \u2014 |\n\n**Notable systematic issue:** Gate-screening table and wick analyzer report different swing values for the same ticker (consistent pattern across NNE, IREN, TMC, NTLA). Only NTLA crosses a scoring tier boundary; the rest have no scoring impact.\n\nReady for final selection.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":592988,\"duration_api_ms\":585848,\"num_turns\":26,\"result\":\"## HANDOFF\\n\\n**Artifact:** `candidate-verification.md`\\n**Results:** 7 PASS, 3 FLAG, 0 FAIL\\n**Score range after adjustment:** 55 (QBTS) \u2013 80 (NNE)\\n\\n**Key findings:**\\n\\n| Ticker | Finding | Impact |\\n| :--- | :--- | :--- |\\n| **NTLA** | Monthly swing undercounted \u2014 wick analysis = 52.1%, not 44.2% \u2192 should be 10/10 | +1, score \u2192 72 |\\n| **DNA** | B1 level ($8.86\u2192$9.14) shows **0% hold rate in last 8 consecutive approaches** (Nov '25\u2013Feb '26); both historical holds are >6 months old | -5, score \u2192 64, FLAG |\\n| **QBTS** | B1 proximity inflated (7.1% gap scored 13/15 via excluded level); 62% dead zone between R2 ($14.40) and R3 ($5.27) unacknowledged | -4, score \u2192 55, FLAG |\\n| **IREN** | Active-to-reserve dead zone understated: 5 consecutive Skip levels across 50%+ gap between active floor and first reserve | No score change \u2014 partially captured in 9/15 reserve depth; FLAG for monitor |\\n| **All others** | Arithmetic and data confirmed; tier counts, buy prices, costs all verified \u2713 | \u2014 |\\n\\n**Notable systematic issue:** Gate-screening table and wick analyzer report different swing values for the same ticker (consistent pattern across NNE, IREN, TMC, NTLA). Only NTLA crosses a scoring tier boundary; the rest have no scoring impact.\\n\\nReady for final selection.\\n\\n## Decision: CLEAN\",\"stop_reason\":null,\"session_id\":\"ceb8fa83-ee30-4271-baff-02eb7b39f042\",\"total_cost_usd\":1.8792579999999997,\"usage\":{\"input_tokens\":4473,\"cache_creation_input_tokens\":96652,\"cache_read_input_tokens\":889034,\"output_tokens\":32220,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":96652,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":4473,\"outputTokens\":32220,\"cacheReadInputTokens\":889034,\"cacheCreationInputTokens\":96652,\"webSearchRequests\":0,\"costUSD\":1.8764569999999998,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":1861,\"outputTokens\":188,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.002801,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"f53610a9-bba7-4e08-81d9-616b327305b9\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-verification.md": "/Users/kamenkamenov/agentic-trading/candidate-verification.md"
+      },
+      "metrics": {
+        "duration_seconds": 625.1079423427582,
+        "token_usage": {
+          "input_tokens": 4473,
+          "output_tokens": 32220,
+          "cache_read_tokens": 889034,
+          "cache_write_tokens": 96652
+        },
+        "estimated_cost_usd": 1.125874,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "critic": {
+      "phase_id": "critic",
+      "status": "retrying",
+      "attempts": 3,
+      "started_at": "2026-02-21T13:39:22.521712+00:00",
+      "completed_at": null,
+      "error_message": "Claude CLI timed out after 600s",
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {},
+      "metrics": {
+        "duration_seconds": 0.0,
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "estimated_cost_usd": 0.0,
+        "model": "sonnet",
+        "attempts": 2
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-21T14:06:12.866446+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/surgical-candidate-workflow.yaml",
+    "workflowHash": "6504e3a4704c0ae6"
+  }
+}

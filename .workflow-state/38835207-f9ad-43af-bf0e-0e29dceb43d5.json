@@ -1,0 +1,116 @@
+{
+  "run_id": "38835207-f9ad-43af-bf0e-0e29dceb43d5",
+  "workflow_name": "surgical-candidate-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-03-16T20:32:05.006552+00:00",
+  "completed_at": "2026-03-16T20:51:59.912988+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nRun full surgical candidate screening pipeline: screener \u2192 evaluator \u2192 verifier \u2192 critic. Find new candidates for the watchlist using the updated cycle efficiency scoring.",
+    "handoffs": {
+      "screen": "**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\n\n**Gate passers:** 71 tickers passed surgical gates (148 screened, 25 portfolio excluded)\n\n**Top 7 scored:**\n- RGTI: 75 | QBTS: 75 | RDW: 72 | IREN: 67 | OPEN: 67 | HUT: 66 | NTLA: 66\n\n**Recommendations:**\n- **Watch (2):** RGTI, RDW\n- **Monitor (5):** QBTS, IREN, OPEN, HUT, NTLA\n- **Onboard (0)**\n\n**Key findings:**\n- All 7 candidates score 0/20 on Cycle Efficiency \u2014 no existing cycle_timing.json data for any new candidate (expected for first-run tickers)\n- RGTI is the clear primary candidate: maximal tier quality, improving recency at all tested levels, 62% swing, 2x Quantum (within limits)\n- RDW is secondary: unique Space sector, strong swing, but lower active zone is crumbling (0% recent hold at $7.55 and $7.76)\n- IREN + HUT blocked by 4x Crypto concentration; HUT actually has the strongest recency improvement trend but portfolio rules prevent onboarding\n- OPEN and NTLA fail on support quality; OPEN has 74% dead zone and no anchor levels; NTLA is event-driven biotech, wrong strategy fit\n\nReady for verification.",
+      "verify": "**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\n\n**Results:** 5 PASS, 2 FLAG, 0 FAIL\n\n**Score range after adjustment:** 65 (OPEN) \u2013 75 (RGTI, QBTS)\n\n**Pre-verify:** 7 checks passed, 4 issues found (2 FAIL: flag coverage naming mismatches + NVDA sector label; 2 WARN: duplicate buy price, active zone proximity)\n\n**Adjustments made:**\n- OPEN: -2 (duplicate buy price at $1.12 unaddressed; B1 discrepancy unexplained)\n- HUT: +2 (exceptional reserve cascade analysis; recency trajectory depth)\n- NTLA: +2 (binary-event risk thesis \u2014 qualitative insight mechanical scoring cannot capture)\n- RGTI, QBTS, RDW, IREN: 0 (recommendations well-supported; minor gaps don't change conclusions)\n\n**Key findings:**\n- Pre-verifier \"flag coverage FAIL\" is largely a naming-convention artifact \u2014 evaluator covers the substance under different labels\n- No candidate was incorrectly recommended for a higher tier\n- QBTS and OPEN flagged for minor gaps (17.5% entry gap unmentioned; duplicate buy price missed) \u2014 both Monitor recommendations remain correct\n- HUT and NTLA demonstrate the highest qualitative reasoning depth in the report\n\nReady for final selection.",
+      "critic": "**Artifacts:** candidate-pre-critic.md, candidate-final.md\n\n**Top 3:**\n1. RGTI \u2014 85 \u2014 Watch\n2. QBTS \u2014 76 \u2014 Monitor\n3. RDW \u2014 69 \u2014 Watch\n\nScreening complete. Review candidate-final.md for onboarding decisions.\n\n---\n\n**Key adversarial findings that changed rankings:**\n\n- **QBTS demoted -7 (83\u219276):** The mechanical tool missed a critical joint-addition scenario \u2014 the pre-critic ranked QBTS #1 and RGTI #2, but onboarding both creates 3x Quantum (IONQ+RGTI+QBTS) at the hard sector limit. Each scores 0 portfolio fit penalty individually, but together they breach concentration rules. Combined with the 54% dead zone and 17.5% entry gap, QBTS is unambiguously a contingency option, not a primary addition.\n\n- **HUT demoted -5 (74\u219269):** Hard-blocked by 4x Crypto with no near-term exit path. Mechanical modifier rewarded sample size and entry timing (+6), but those points don't translate to actionability when APLD+CIFR+CLSK would all need to exit first. Drops out of top 3.\n\n- **RGTI elevated +2 (83\u219285):** Thesis is airtight under adversarial scrutiny. All three adversarial challenges are acknowledged known risks with calibrated mitigations. Improving recency across all recently-tested levels is the strongest support profile in the batch.\n\n- **RDW -3 (72\u219269), takes #3:** Lower active zone is broken (not crumbling \u2014 7 recent visits, 0 holds at $7.55/$7.76). Government spending risk is acute given March 2026 policy environment. But upper zone is credible and Space sector uniqueness is real. Watch with B1-only initial entry is viable. Ranks above HUT because it is actually actionable."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1
+  },
+  "phases": {
+    "screen": {
+      "phase_id": "screen",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-16T20:32:05.010632+00:00",
+      "completed_at": "2026-03-16T20:39:09.162619+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\n\n**Gate passers:** 71 tickers passed surgical gates (148 screened, 25 portfolio excluded)\n\n**Top 7 scored:**\n- RGTI: 75 | QBTS: 75 | RDW: 72 | IREN: 67 | OPEN: 67 | HUT: 66 | NTLA: 66\n\n**Recommendations:**\n- **Watch (2):** RGTI, RDW\n- **Monitor (5):** QBTS, IREN, OPEN, HUT, NTLA\n- **Onboard (0)**\n\n**Key findings:**\n- All 7 candidates score 0/20 on Cycle Efficiency \u2014 no existing cycle_timing.json data for any new candidate (expected for first-run tickers)\n- RGTI is the clear primary candidate: maximal tier quality, improving recency at all tested levels, 62% swing, 2x Quantum (within limits)\n- RDW is secondary: unique Space sector, strong swing, but lower active zone is crumbling (0% recent hold at $7.55 and $7.76)\n- IREN + HUT blocked by 4x Crypto concentration; HUT actually has the strongest recency improvement trend but portfolio rules prevent onboarding\n- OPEN and NTLA fail on support quality; OPEN has 74% dead zone and no anchor levels; NTLA is event-driven biotech, wrong strategy fit\n\nReady for verification.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":420197,\"duration_api_ms\":400280,\"num_turns\":13,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\\n\\n**Gate passers:** 71 tickers passed surgical gates (148 screened, 25 portfolio excluded)\\n\\n**Top 7 scored:**\\n- RGTI: 75 | QBTS: 75 | RDW: 72 | IREN: 67 | OPEN: 67 | HUT: 66 | NTLA: 66\\n\\n**Recommendations:**\\n- **Watch (2):** RGTI, RDW\\n- **Monitor (5):** QBTS, IREN, OPEN, HUT, NTLA\\n- **Onboard (0)**\\n\\n**Key findings:**\\n- All 7 candidates score 0/20 on Cycle Efficiency \u2014 no existing cycle_timing.json data for any new candidate (expected for first-run tickers)\\n- RGTI is the clear primary candidate: maximal tier quality, improving recency at all tested levels, 62% swing, 2x Quantum (within limits)\\n- RDW is secondary: unique Space sector, strong swing, but lower active zone is crumbling (0% recent hold at $7.55 and $7.76)\\n- IREN + HUT blocked by 4x Crypto concentration; HUT actually has the strongest recency improvement trend but portfolio rules prevent onboarding\\n- OPEN and NTLA fail on support quality; OPEN has 74% dead zone and no anchor levels; NTLA is event-driven biotech, wrong strategy fit\\n\\nReady for verification.\",\"stop_reason\":\"end_turn\",\"session_id\":\"b37d0eff-b823-4a57-8312-f70965ee8080\",\"total_cost_usd\":0.7904590499999999,\"usage\":{\"input_tokens\":6751,\"cache_creation_input_tokens\":75313,\"cache_read_input_tokens\":644041,\"output_tokens\":19638,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":75313,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":6751,\"outputTokens\":19638,\"cacheReadInputTokens\":644041,\"cacheCreationInputTokens\":75313,\"webSearchRequests\":0,\"costUSD\":0.7904590499999999,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"ab734c80-f6a2-4982-b3a8-9902e0737fe2\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "screening_data.json": "/Users/kamenkamenov/agentic-trading/screening_data.json",
+        "candidate_shortlist.md": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.md",
+        "candidate_shortlist.json": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.json",
+        "candidate-evaluation.md": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.md",
+        "candidate-evaluation.json": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.json"
+      },
+      "metrics": {
+        "duration_seconds": 424.14460611343384,
+        "token_usage": {
+          "input_tokens": 6751,
+          "output_tokens": 19638,
+          "cache_read_tokens": 644041,
+          "cache_write_tokens": 75313
+        },
+        "estimated_cost_usd": 0.790459,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "verify": {
+      "phase_id": "verify",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-16T20:39:09.168293+00:00",
+      "completed_at": "2026-03-16T20:46:14.536185+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\n\n**Results:** 5 PASS, 2 FLAG, 0 FAIL\n\n**Score range after adjustment:** 65 (OPEN) \u2013 75 (RGTI, QBTS)\n\n**Pre-verify:** 7 checks passed, 4 issues found (2 FAIL: flag coverage naming mismatches + NVDA sector label; 2 WARN: duplicate buy price, active zone proximity)\n\n**Adjustments made:**\n- OPEN: -2 (duplicate buy price at $1.12 unaddressed; B1 discrepancy unexplained)\n- HUT: +2 (exceptional reserve cascade analysis; recency trajectory depth)\n- NTLA: +2 (binary-event risk thesis \u2014 qualitative insight mechanical scoring cannot capture)\n- RGTI, QBTS, RDW, IREN: 0 (recommendations well-supported; minor gaps don't change conclusions)\n\n**Key findings:**\n- Pre-verifier \"flag coverage FAIL\" is largely a naming-convention artifact \u2014 evaluator covers the substance under different labels\n- No candidate was incorrectly recommended for a higher tier\n- QBTS and OPEN flagged for minor gaps (17.5% entry gap unmentioned; duplicate buy price missed) \u2014 both Monitor recommendations remain correct\n- HUT and NTLA demonstrate the highest qualitative reasoning depth in the report\n\nReady for final selection.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":423037,\"duration_api_ms\":394779,\"num_turns\":10,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\\n\\n**Results:** 5 PASS, 2 FLAG, 0 FAIL\\n\\n**Score range after adjustment:** 65 (OPEN) \u2013 75 (RGTI, QBTS)\\n\\n**Pre-verify:** 7 checks passed, 4 issues found (2 FAIL: flag coverage naming mismatches + NVDA sector label; 2 WARN: duplicate buy price, active zone proximity)\\n\\n**Adjustments made:**\\n- OPEN: -2 (duplicate buy price at $1.12 unaddressed; B1 discrepancy unexplained)\\n- HUT: +2 (exceptional reserve cascade analysis; recency trajectory depth)\\n- NTLA: +2 (binary-event risk thesis \u2014 qualitative insight mechanical scoring cannot capture)\\n- RGTI, QBTS, RDW, IREN: 0 (recommendations well-supported; minor gaps don't change conclusions)\\n\\n**Key findings:**\\n- Pre-verifier \\\"flag coverage FAIL\\\" is largely a naming-convention artifact \u2014 evaluator covers the substance under different labels\\n- No candidate was incorrectly recommended for a higher tier\\n- QBTS and OPEN flagged for minor gaps (17.5% entry gap unmentioned; duplicate buy price missed) \u2014 both Monitor recommendations remain correct\\n- HUT and NTLA demonstrate the highest qualitative reasoning depth in the report\\n\\nReady for final selection.\",\"stop_reason\":\"end_turn\",\"session_id\":\"bf5f12dc-f481-459b-83fb-9663287b7565\",\"total_cost_usd\":0.52009695,\"usage\":{\"input_tokens\":10,\"cache_creation_input_tokens\":46525,\"cache_read_input_tokens\":296444,\"output_tokens\":17111,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":46525,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":10,\"outputTokens\":17111,\"cacheReadInputTokens\":296444,\"cacheCreationInputTokens\":46525,\"webSearchRequests\":0,\"costUSD\":0.52009695,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"7d0f7490-a4b9-4889-8de7-52e4c26696fb\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-verify.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-verify.md",
+        "candidate-verification.md": "/Users/kamenkamenov/agentic-trading/candidate-verification.md",
+        "candidate-verification.json": "/Users/kamenkamenov/agentic-trading/candidate-verification.json"
+      },
+      "metrics": {
+        "duration_seconds": 425.36287474632263,
+        "token_usage": {
+          "input_tokens": 10,
+          "output_tokens": 17111,
+          "cache_read_tokens": 296444,
+          "cache_write_tokens": 46525
+        },
+        "estimated_cost_usd": 0.520097,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "critic": {
+      "phase_id": "critic",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-16T20:46:14.541341+00:00",
+      "completed_at": "2026-03-16T20:51:59.910529+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** candidate-pre-critic.md, candidate-final.md\n\n**Top 3:**\n1. RGTI \u2014 85 \u2014 Watch\n2. QBTS \u2014 76 \u2014 Monitor\n3. RDW \u2014 69 \u2014 Watch\n\nScreening complete. Review candidate-final.md for onboarding decisions.\n\n---\n\n**Key adversarial findings that changed rankings:**\n\n- **QBTS demoted -7 (83\u219276):** The mechanical tool missed a critical joint-addition scenario \u2014 the pre-critic ranked QBTS #1 and RGTI #2, but onboarding both creates 3x Quantum (IONQ+RGTI+QBTS) at the hard sector limit. Each scores 0 portfolio fit penalty individually, but together they breach concentration rules. Combined with the 54% dead zone and 17.5% entry gap, QBTS is unambiguously a contingency option, not a primary addition.\n\n- **HUT demoted -5 (74\u219269):** Hard-blocked by 4x Crypto with no near-term exit path. Mechanical modifier rewarded sample size and entry timing (+6), but those points don't translate to actionability when APLD+CIFR+CLSK would all need to exit first. Drops out of top 3.\n\n- **RGTI elevated +2 (83\u219285):** Thesis is airtight under adversarial scrutiny. All three adversarial challenges are acknowledged known risks with calibrated mitigations. Improving recency across all recently-tested levels is the strongest support profile in the batch.\n\n- **RDW -3 (72\u219269), takes #3:** Lower active zone is broken (not crumbling \u2014 7 recent visits, 0 holds at $7.55/$7.76). Government spending risk is acute given March 2026 policy environment. But upper zone is credible and Space sector uniqueness is real. Watch with B1-only initial entry is viable. Ranks above HUT because it is actually actionable.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":342731,\"duration_api_ms\":338873,\"num_turns\":8,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** candidate-pre-critic.md, candidate-final.md\\n\\n**Top 3:**\\n1. RGTI \u2014 85 \u2014 Watch\\n2. QBTS \u2014 76 \u2014 Monitor\\n3. RDW \u2014 69 \u2014 Watch\\n\\nScreening complete. Review candidate-final.md for onboarding decisions.\\n\\n---\\n\\n**Key adversarial findings that changed rankings:**\\n\\n- **QBTS demoted -7 (83\u219276):** The mechanical tool missed a critical joint-addition scenario \u2014 the pre-critic ranked QBTS #1 and RGTI #2, but onboarding both creates 3x Quantum (IONQ+RGTI+QBTS) at the hard sector limit. Each scores 0 portfolio fit penalty individually, but together they breach concentration rules. Combined with the 54% dead zone and 17.5% entry gap, QBTS is unambiguously a contingency option, not a primary addition.\\n\\n- **HUT demoted -5 (74\u219269):** Hard-blocked by 4x Crypto with no near-term exit path. Mechanical modifier rewarded sample size and entry timing (+6), but those points don't translate to actionability when APLD+CIFR+CLSK would all need to exit first. Drops out of top 3.\\n\\n- **RGTI elevated +2 (83\u219285):** Thesis is airtight under adversarial scrutiny. All three adversarial challenges are acknowledged known risks with calibrated mitigations. Improving recency across all recently-tested levels is the strongest support profile in the batch.\\n\\n- **RDW -3 (72\u219269), takes #3:** Lower active zone is broken (not crumbling \u2014 7 recent visits, 0 holds at $7.55/$7.76). Government spending risk is acute given March 2026 policy environment. But upper zone is credible and Space sector uniqueness is real. Watch with B1-only initial entry is viable. Ranks above HUT because it is actually actionable.\",\"stop_reason\":\"end_turn\",\"session_id\":\"4eb8bc3b-e607-4579-a6e8-7d6e1d878057\",\"total_cost_usd\":0.4796487,\"usage\":{\"input_tokens\":8,\"cache_creation_input_tokens\":49826,\"cache_read_input_tokens\":215324,\"output_tokens\":15212,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":49826,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":8,\"outputTokens\":15212,\"cacheReadInputTokens\":215324,\"cacheCreationInputTokens\":49826,\"webSearchRequests\":0,\"costUSD\":0.4796487,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"0f36f2fc-c8f9-4bb5-9093-c43e76d6bbda\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-critic.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-critic.md",
+        "candidate-final.md": "/Users/kamenkamenov/agentic-trading/candidate-final.md"
+      },
+      "metrics": {
+        "duration_seconds": 345.36470198631287,
+        "token_usage": {
+          "input_tokens": 8,
+          "output_tokens": 15212,
+          "cache_read_tokens": 215324,
+          "cache_write_tokens": 49826
+        },
+        "estimated_cost_usd": 0.479649,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-03-16T20:51:59.913133+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/surgical-candidate-workflow.yaml",
+    "workflowHash": "911887d0c859da61"
+  }
+}

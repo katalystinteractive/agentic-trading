@@ -1,0 +1,429 @@
+{
+  "ticker": "NPT",
+  "current_price": 7.71,
+  "last_date": "2026-03-23",
+  "resistance_levels": [
+    {
+      "price": 7.71,
+      "approaches": 4,
+      "historical_approaches": 3,
+      "rejected": 2,
+      "broke": 2,
+      "reject_rate": 50.0,
+      "source": "HVN"
+    },
+    {
+      "price": 8.0,
+      "approaches": 4,
+      "historical_approaches": 3,
+      "rejected": 2,
+      "broke": 2,
+      "reject_rate": 50.0,
+      "source": "PA"
+    },
+    {
+      "price": 9.18,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 2,
+      "broke": 1,
+      "reject_rate": 66.7,
+      "source": "HVN"
+    },
+    {
+      "price": 10.64,
+      "approaches": 2,
+      "historical_approaches": 2,
+      "rejected": 1,
+      "broke": 1,
+      "reject_rate": 50.0,
+      "source": "HVN"
+    },
+    {
+      "price": 12.11,
+      "approaches": 2,
+      "historical_approaches": 2,
+      "rejected": 1,
+      "broke": 1,
+      "reject_rate": 50.0,
+      "source": "HVN"
+    },
+    {
+      "price": 13.58,
+      "approaches": 2,
+      "historical_approaches": 2,
+      "rejected": 1,
+      "broke": 1,
+      "reject_rate": 50.0,
+      "source": "HVN"
+    },
+    {
+      "price": 20.49,
+      "approaches": 2,
+      "historical_approaches": 2,
+      "rejected": 1,
+      "broke": 1,
+      "reject_rate": 50.0,
+      "source": "PA"
+    }
+  ],
+  "support_levels_used": [
+    {
+      "price": 3.14,
+      "source": "PA"
+    },
+    {
+      "price": 3.43,
+      "source": "PA"
+    },
+    {
+      "price": 3.54,
+      "source": "PA"
+    },
+    {
+      "price": 4.0,
+      "source": "PA"
+    },
+    {
+      "price": 4.44,
+      "source": "PA"
+    },
+    {
+      "price": 4.7,
+      "source": "PA"
+    },
+    {
+      "price": 4.87,
+      "source": "PA"
+    },
+    {
+      "price": 5.12,
+      "source": "PA"
+    },
+    {
+      "price": 5.33,
+      "source": "PA"
+    },
+    {
+      "price": 5.56,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 5.85,
+      "source": "PA"
+    },
+    {
+      "price": 6.06,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 6.57,
+      "source": "HVN"
+    },
+    {
+      "price": 7.09,
+      "source": "HVN"
+    }
+  ],
+  "current_cycle": {
+    "resistance_date": "2026-03-23",
+    "resistance_price": 8.0,
+    "days_elapsed": 0,
+    "status": "IN PROGRESS"
+  },
+  "cycles": [
+    {
+      "resistance_date": "2025-10-27",
+      "resistance_price": 7.71,
+      "first_touch_date": "2025-10-28",
+      "first_touch_price": 5.85,
+      "days_first": 1,
+      "deep_touch_date": "2025-10-28",
+      "deep_touch_price": 5.85,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": 2.8,
+        "3": 14.6,
+        "5": 0.2,
+        "10": -34.5
+      }
+    },
+    {
+      "resistance_date": "2025-10-27",
+      "resistance_price": 8.0,
+      "first_touch_date": "2025-10-28",
+      "first_touch_price": 5.85,
+      "days_first": 1,
+      "deep_touch_date": "2025-10-28",
+      "deep_touch_price": 5.85,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": 2.8,
+        "3": 14.6,
+        "5": 0.2,
+        "10": -34.5
+      }
+    },
+    {
+      "resistance_date": "2025-10-31",
+      "resistance_price": 7.71,
+      "first_touch_date": "2025-11-03",
+      "first_touch_price": 6.06,
+      "days_first": 1,
+      "deep_touch_date": "2025-11-03",
+      "deep_touch_price": 6.06,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": 7.8,
+        "3": -23.1,
+        "5": -27.9,
+        "10": -39.0
+      }
+    },
+    {
+      "resistance_date": "2025-10-31",
+      "resistance_price": 8.0,
+      "first_touch_date": "2025-11-03",
+      "first_touch_price": 6.06,
+      "days_first": 1,
+      "deep_touch_date": "2025-11-03",
+      "deep_touch_price": 6.06,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": 7.8,
+        "3": -23.1,
+        "5": -27.9,
+        "10": -39.0
+      }
+    },
+    {
+      "resistance_date": "2026-01-15",
+      "resistance_price": 7.71,
+      "first_touch_date": "2026-01-16",
+      "first_touch_price": 6.06,
+      "days_first": 1,
+      "deep_touch_date": "2026-01-16",
+      "deep_touch_price": 6.06,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -10.1,
+        "3": -3.0,
+        "5": -11.0,
+        "10": 7.5
+      }
+    },
+    {
+      "resistance_date": "2026-01-15",
+      "resistance_price": 8.0,
+      "first_touch_date": "2026-01-16",
+      "first_touch_price": 6.06,
+      "days_first": 1,
+      "deep_touch_date": "2026-01-16",
+      "deep_touch_price": 6.06,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -10.1,
+        "3": -3.0,
+        "5": -11.0,
+        "10": 7.5
+      }
+    },
+    {
+      "resistance_date": "2026-01-30",
+      "resistance_price": 7.71,
+      "first_touch_date": "2026-02-02",
+      "first_touch_price": 6.06,
+      "days_first": 1,
+      "deep_touch_date": "2026-02-02",
+      "deep_touch_price": 6.06,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -16.7,
+        "3": 2.3,
+        "5": -8.3,
+        "10": -13.7
+      }
+    },
+    {
+      "resistance_date": "2026-01-30",
+      "resistance_price": 8.0,
+      "first_touch_date": "2026-02-02",
+      "first_touch_price": 6.06,
+      "days_first": 1,
+      "deep_touch_date": "2026-02-02",
+      "deep_touch_price": 6.06,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -16.7,
+        "3": 2.3,
+        "5": -8.3,
+        "10": -13.7
+      }
+    },
+    {
+      "resistance_date": "2026-02-03",
+      "resistance_price": 7.71,
+      "first_touch_date": "2026-02-04",
+      "first_touch_price": 5.33,
+      "days_first": 1,
+      "deep_touch_date": "2026-02-04",
+      "deep_touch_price": 5.33,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -2.8,
+        "3": -12.9,
+        "5": -8.1,
+        "10": -27.8
+      }
+    },
+    {
+      "resistance_date": "2026-02-03",
+      "resistance_price": 8.0,
+      "first_touch_date": "2026-02-04",
+      "first_touch_price": 5.33,
+      "days_first": 1,
+      "deep_touch_date": "2026-02-04",
+      "deep_touch_price": 5.33,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -2.8,
+        "3": -12.9,
+        "5": -8.1,
+        "10": -27.8
+      }
+    },
+    {
+      "resistance_date": "2026-02-03",
+      "resistance_price": 9.18,
+      "first_touch_date": "2026-02-04",
+      "first_touch_price": 5.33,
+      "days_first": 1,
+      "deep_touch_date": "2026-02-04",
+      "deep_touch_price": 5.33,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -2.8,
+        "3": -12.9,
+        "5": -8.1,
+        "10": -27.8
+      }
+    },
+    {
+      "resistance_date": "2026-02-03",
+      "resistance_price": 10.64,
+      "first_touch_date": "2026-02-04",
+      "first_touch_price": 5.33,
+      "days_first": 1,
+      "deep_touch_date": "2026-02-04",
+      "deep_touch_price": 5.33,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -2.8,
+        "3": -12.9,
+        "5": -8.1,
+        "10": -27.8
+      }
+    },
+    {
+      "resistance_date": "2026-02-03",
+      "resistance_price": 12.11,
+      "first_touch_date": "2026-02-04",
+      "first_touch_price": 5.33,
+      "days_first": 1,
+      "deep_touch_date": "2026-02-04",
+      "deep_touch_price": 5.33,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -2.8,
+        "3": -12.9,
+        "5": -8.1,
+        "10": -27.8
+      }
+    },
+    {
+      "resistance_date": "2026-02-03",
+      "resistance_price": 13.58,
+      "first_touch_date": "2026-02-04",
+      "first_touch_price": 5.33,
+      "days_first": 1,
+      "deep_touch_date": "2026-02-04",
+      "deep_touch_price": 5.33,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -2.8,
+        "3": -12.9,
+        "5": -8.1,
+        "10": -27.8
+      }
+    },
+    {
+      "resistance_date": "2026-02-05",
+      "resistance_price": 7.71,
+      "first_touch_date": "2026-02-06",
+      "first_touch_price": 6.06,
+      "days_first": 1,
+      "deep_touch_date": "2026-02-06",
+      "deep_touch_price": 6.06,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -6.6,
+        "3": -1.3,
+        "5": -11.0,
+        "10": -18.0
+      }
+    },
+    {
+      "resistance_date": "2026-02-05",
+      "resistance_price": 8.0,
+      "first_touch_date": "2026-02-06",
+      "first_touch_price": 6.06,
+      "days_first": 1,
+      "deep_touch_date": "2026-02-06",
+      "deep_touch_price": 6.06,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -6.6,
+        "3": -1.3,
+        "5": -11.0,
+        "10": -18.0
+      }
+    },
+    {
+      "resistance_date": "2026-02-05",
+      "resistance_price": 9.18,
+      "first_touch_date": "2026-02-06",
+      "first_touch_price": 6.06,
+      "days_first": 1,
+      "deep_touch_date": "2026-02-06",
+      "deep_touch_price": 6.06,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -6.6,
+        "3": -1.3,
+        "5": -11.0,
+        "10": -18.0
+      }
+    }
+  ],
+  "statistics": {
+    "total_cycles": 17,
+    "median_first": 1,
+    "min_first": 1,
+    "max_first": 1,
+    "median_deep": 1,
+    "min_deep": 1,
+    "max_deep": 1,
+    "immediate_fill_pct": 100.0
+  },
+  "post_resistance_decay": {
+    "1": -4.7,
+    "3": -2.1,
+    "5": -9.7,
+    "10": -22.9
+  },
+  "recommendation": {
+    "cooldown_days": 3,
+    "confidence": "NORMAL",
+    "immediate_reentry_viable": true
+  }
+}

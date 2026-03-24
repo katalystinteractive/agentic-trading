@@ -1,99 +1,75 @@
 {
-  "generated": "2026-03-05T07:45:00",
+  "generated": "2026-03-23T22:25:00",
   "candidates": [
     {
       "rank": 1,
-      "ticker": "OUST",
-      "sector": "Tech",
-      "price": 22.38,
-      "score": 95,
-      "key_flags": [
-        "OUST $20.89: cost $20.89 vs budget $30",
-        "OUST $20.32: cost $20.32 vs budget $30"
-      ],
-      "recommendation": "Onboard",
-      "qualitative_summary": "LiDAR sensor company with zero portfolio overlap, 10-13 approaches at each active level, and B1 entry within 0.3% of current price. Ideal entry timing with 100% hold reserve floor at $17.28."
+      "ticker": "NUAI",
+      "sector": "Technology",
+      "price": 4.96,
+      "score": 92,
+      "key_flags": ["NUAI $1.46: cost $1.46 vs expected $119.72", "NUAI $0.88: cost $0.88 vs expected $126.72", "NUAI $0.37: cost $0.37 vs expected $53.28", "Active-reserve gap: 65%", "KPI gates failed: Active Levels (hold >= 30%), Anchor Level (hold >= 50%), Dead Zone, Price Range, Strong Levels (hold >= 50%)"],
+      "recommendation": "Monitor",
+      "qualitative_summary": "Dead zone is disqualifying — reserves at $1.46/$0.88/$0.37 are functionally $0 and cannot rescue active zone failure. Sub-$5 price adds micro-cap spread risk despite improving active recency."
     },
     {
       "rank": 2,
-      "ticker": "IREN",
-      "sector": "Crypto",
-      "price": 43.84,
-      "score": 84,
-      "key_flags": [
-        "IREN $39.65: cost $39.65 vs budget $60",
-        "IREN $39.61: cost $39.61 vs budget $60",
-        "IREN $36.94: cost $36.94 vs budget $60",
-        "IREN $36.52: cost $36.52 vs budget $60",
-        "Recency deterioration: 2 levels",
-        "Sector concentration: 4x Crypto",
-        "Active-reserve gap: 54%"
-      ],
+      "ticker": "ASTX",
+      "sector": "Unknown",
+      "price": 43.99,
+      "score": 86,
+      "key_flags": ["ASTX $27.2: cost $27.20 vs expected $81.60", "ASTX $25.5: cost $25.50 vs expected $76.50", "ASTX $24.4: cost $24.40 vs expected $122.00", "Active-reserve gap: 25%", "KPI gates failed: Active Levels (hold >= 30%), Price Range, Strong Levels (hold >= 50%)"],
       "recommendation": "Monitor",
-      "qualitative_summary": "Bitcoin miner identical in sub-sector to APLD/CIFR/CLSK; adding IREN would push Crypto to 4x and create a 54% dead zone with no practical reserve rescue. Do not onboard until one Crypto position closes."
+      "qualitative_summary": "Best improving recency profile in the batch with $35.40 anchor at 100% recent hold, but $44 price yields only 1-2 shares per $80 bullet — functionally thin for $300 pool strategy."
     },
     {
       "rank": 3,
-      "ticker": "QBTS",
-      "sector": "Quantum",
-      "price": 18.91,
-      "score": 83,
-      "key_flags": [
-        "QBTS $16.17: cost $16.17 vs budget $30"
-      ],
-      "recommendation": "Onboard",
-      "qualitative_summary": "D-Wave quantum annealing provides genuine sub-sector differentiation from IONQ's trapped-ion approach; all 4 active levels showing improving recency with 11% active-reserve gap and B1 within 1.9% of current price."
+      "ticker": "BMNZ",
+      "sector": "Unknown",
+      "price": 18.24,
+      "score": 86,
+      "key_flags": ["KPI gates failed: Strong Levels (hold >= 50%)"],
+      "recommendation": "Watch",
+      "qualitative_summary": "Cleanest structural candidate in the batch: 17 cycles at 100% fill, solid $15.71 anchor at 62% hold, improving floor. Only gap is zero reserve depth and unconfirmed sector identity."
     },
     {
       "rank": 4,
-      "ticker": "HUT",
-      "sector": "Crypto",
-      "price": 54.21,
-      "score": 81,
-      "key_flags": [
-        "HUT $52.75: cost $52.75 vs budget $30",
-        "HUT $45.26: cost $45.26 vs budget $30",
-        "Sector concentration: 4x Crypto",
-        "Active-reserve gap: 26%"
-      ],
+      "ticker": "VELO",
+      "sector": "Technology",
+      "price": 13.21,
+      "score": 85,
+      "key_flags": ["VELO $6.78: cost $6.78 vs expected $115.26", "VELO $4.59: cost $4.59 vs expected $110.16", "VELO $2.87: cost $2.87 vs expected $71.75", "Active-reserve gap: 39%", "KPI gates failed: Active Levels (hold >= 30%), Anchor Level (hold >= 50%), Dead Zone, Strong Levels (hold >= 50%)"],
       "recommendation": "Monitor",
-      "qualitative_summary": "Mechanically strong with improving recency and excellent reserves, but the same Crypto sector block as IREN applies; HUT8 is a BTC miner identical in business model to existing APLD/CIFR/CLSK positions."
+      "qualitative_summary": "Excellent cycle efficiency but dead zone and no active anchor make reserves impractical; Technology sector overlap adds concentration risk to an already-crowded portfolio allocation."
     },
     {
       "rank": 5,
-      "ticker": "RGTI",
-      "sector": "Quantum",
-      "price": 17.76,
-      "score": 79,
-      "key_flags": [
-        "RGTI $15.96: cost $15.96 vs budget $30"
-      ],
+      "ticker": "CRWU",
+      "sector": "Unknown",
+      "price": 5.15,
+      "score": 85,
+      "key_flags": ["Recency deterioration: 1 levels"],
       "recommendation": "Watch",
-      "qualitative_summary": "Strongest recency improvement in the screen with multiple levels at 100% recent hold, but B1 is 8.6% away and onboarding alongside QBTS would push Quantum to 3x concentration."
+      "qualitative_summary": "Only KPI-clean candidate with 20/20 tier quality and strong $4.49 anchor at 71% hold; $4.20 bottom level effectively broken (0% recent hold) and zero reserves limit immediate onboarding."
     },
     {
       "rank": 6,
-      "ticker": "NTLA",
-      "sector": "Biotech",
-      "price": 13.82,
-      "score": 79,
-      "key_flags": [
-        "Active-reserve gap: 26%"
-      ],
-      "recommendation": "Watch",
-      "qualitative_summary": "CRISPR gene editing adds genuine diversification but the active zone is choppy with two deteriorating levels and binary FDA event risk that can gap through the 26% dead zone in a single session."
+      "ticker": "RGTZ",
+      "sector": "Unknown",
+      "price": 22.69,
+      "score": 83,
+      "key_flags": ["Active-reserve gap: 31%", "KPI gates failed: Active Levels (hold >= 30%), Anchor Level (hold >= 50%), Dead Zone, Strong Levels (hold >= 50%)"],
+      "recommendation": "Monitor",
+      "qualitative_summary": "Exceptional 18-cycle efficiency but active levels break through more often than they hold (17%/14% recent); near-full $586 budget deployment on structurally weak support."
     },
     {
       "rank": 7,
-      "ticker": "RDW",
-      "sector": "Space",
-      "price": 9.28,
-      "score": 78,
-      "key_flags": [
-        "Recency deterioration: 3 levels"
-      ],
+      "ticker": "IREX",
+      "sector": "Unknown",
+      "price": 27.36,
+      "score": 82,
+      "key_flags": ["KPI gates failed: Strong Levels (hold >= 50%)"],
       "recommendation": "Watch",
-      "qualitative_summary": "Three consecutive active levels dropped to 0% recent hold rate from 29-54% historical averages, indicating structural support breakdown; thin reserve layer (0 levels at 40%+ hold) provides no safety net."
+      "qualitative_summary": "Outstanding $22.78 anchor at 80% hold (stable in recent 90 days) is the best single support level in the batch; limited by 5 cycles at KPI minimum and zero reserves."
     }
   ]
 }

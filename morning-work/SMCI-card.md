@@ -1,24 +1,26 @@
-### SMCI — WATCHLIST — PAUSE
-**State:** 1 pending BUY order, nearest $28.78 (~11.2% below current ~$32.39)
-**Objective:** Re-entry after cycle 2 close (+7.2% on 2026-03-04). B5 placed at reserve zone ($27.22/$28.34 PA, wick-adjusted). 2/2 cycles profitable.
+### SMCI — WATCHLIST — ACTIVE
+**State:** 2 pending BUY orders, nearest $29.95 (0.0% below)
+**Objective:** Re-entry after 2/2 profitable cycles (+6.7%, +7.2%). B1 at $28.96 HVN+PA support; B2 at $27.35 PA support.
 
 | Entry Gate | Status | Detail |
 | :--- | :--- | :--- |
-| Market Gate | PAUSE | Risk-Off — 0/3 indices above 50-SMA, VIX 29.5 (+48.5% 5D), sector breadth 2/11 |
-| Earnings Gate | ACTIVE | 58 days to earnings (2026-05-05) — clear (>14d) |
-| Overall | PAUSE | Market gate dominates |
+| Market Gate | ACTIVE | Neutral regime, VIX 24.2 but 5D% = -5.14% (declining — CAUTION condition not met) |
+| Earnings Gate | ACTIVE | 50 days to earnings (2026-05-05) — clear |
+| Overall | ACTIVE | Both gates clear |
 
 **Pending Orders:**
 | Type | Price | Shares | % Below Current | Market Gate | Earnings Gate | Combined | Note |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BUY | $28.78 | 2 | ~11.2% | PAUSE | ACTIVE | PAUSE | Bullet 5 — $27.22/$28.34 PA, 90%/64% hold, Full tier, wick-adjusted |
+| BUY | $29.95 | 4 | 0.0% | ACTIVE | ACTIVE | ACTIVE | B1 — $28.96 HVN+PA, 44% hold, Full^ tier, wick-adjusted |
+| BUY | $28.78 | 6 | 3.9% | ACTIVE | ACTIVE | ACTIVE | B2 — $27.35 PA, 100% hold, Full tier, wick-adjusted |
 
-**Fill Alerts:** None (Day Low $31.12 well above $29.36 threshold)
+**Fill Alerts:** None (day low $30.92 > both order prices + 2% threshold)
 
 **News & Catalysts:**
-- **Sentiment:** Bullish — 63% positive, avg score +0.344 (30 articles analyzed, 184 total headlines)
-- Earnings history: Q1 2026 beat +41.4% → +13.8% 1-day; Q4 2025 miss → -11.3% 1-day — volatile reactor
-- Next earnings 2026-05-05: EPS est $0.62, revenue est $12.45B — 58 days out, no near-term risk
-- "SMCI Down 3.3% Since Last Earnings Report: Can It Rebound?" — Zacks rebound watch narrative (2026-03-05)
-- AI server sector: Dell ISG growth + Nvidia chip rebound tailwinds; AI bubble fears creating sector-wide pressure
-- **Cycle status:** RE-ENTRY MODE — 2/2 profitable cycles. Position closed 2026-03-04. B5 $28.78 is sole active order.
+- **Sentiment:** Strongly bullish — 87% positive across 30 articles, avg score +0.517
+- **Q2 Beat:** Fierce Q2 EPS beat cited widely; Q1 2026 actual $0.69 vs $0.49 est (+41.4%), +13.8% 1-day reaction
+- **Sovereign AI:** SMCI expanding Sovereign AI platform support (Mar 10) — positive corporate catalyst
+- **CEO:** "We're at the Center of AI" — positive positioning narrative
+- **Next earnings:** 2026-05-05, EPS est $0.62, Revenue est $12.45B — 50 days out, no near-term risk
+- **Sector tailwind:** AI infrastructure peers (Dell +16% YTD, Vertiv S&P 500 inclusion) providing lift
+- **Caution:** Q4 2025 miss (-5% surprise, -11.3% day reaction) — execution inconsistency worth watching

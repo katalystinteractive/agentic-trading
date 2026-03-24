@@ -3,40 +3,45 @@
 ## Global Context
 | Metric | Value |
 | :--- | :--- |
-| Date | 2026-03-08 |
-| Regime | Risk-Off |
-| Regime Detail | 0/3 indices above 50-SMA, VIX 29.5 (elevated) |
-| VIX | 29.49 |
-| VIX 5D% | +48.49% |
+| Date | 2026-03-16 |
+| Regime | Neutral |
+| Regime Detail | 0/3 indices above 50-SMA, VIX 24.2 |
+| VIX | 24.19 |
+| VIX 5D% | -5.14% |
 | Indices Above 50-SMA | 0/3 |
-| Sector Breadth | 2/11 positive |
+| Sector Breadth | 11/11 positive |
+| Data Freshness | 2026-03-16 close |
+| Trading Day | Yes |
 
 ## Portfolio Summary
 | Ticker | Shares | Avg Cost | P/L % |
 | :--- | :--- | :--- | :--- |
-| NU | 30 | $15.85 | -8.0% |
+| NU | 30 | $15.85 | -10.3% |
 | STIM | 0 | $0.00 | +inf% |
-| IONQ | 15 | $44.43 | -19.6% |
-| LUNR | 1 | $17.61 | +0.1% |
-| USAR | 15 | $21.57 | -19.1% |
-| OUST | 5 | $21.70 | -6.6% |
+| IONQ | 15 | $44.43 | -26.0% |
+| LUNR | 2 | $17.59 | -2.7% |
+| USAR | 15 | $21.57 | -11.3% |
+| OUST | 0 | $0.00 | +inf% |
 | INTC | 0 | $0.00 | +inf% |
-| APLD | 15 | $29.06 | -13.5% |
+| APLD | 15 | $29.06 | -4.9% |
 | SMCI | 0 | $0.00 | +inf% |
-| TMC | 38 | $6.00 | -4.5% |
-| CIFR | 11 | $14.62 | -6.8% |
-| ARM | 4 | $120.88 | -5.4% |
-| ACHR | 61 | $6.78 | -7.7% |
-| TEM | 0 | $0.00 | +inf% |
-| CLSK | 7 | $10.17 | -9.4% |
-| CLF | 21 | $10.26 | -4.2% |
+| TMC | 9 | $6.01 | -0.5% |
+| CIFR | 0 | $0.00 | +inf% |
+| ARM | 5 | $118.96 | +2.3% |
+| ACHR | 77 | $6.61 | -9.0% |
+| TEM | 1 | $50.98 | -1.0% |
+| CLSK | 0 | $0.00 | +inf% |
+| CLF | 47 | $9.39 | -9.2% |
 | BBAI | 0 | $0.00 | +inf% |
-| NNE | 6 | $24.19 | -2.7% |
+| NNE | 10 | $23.87 | -10.9% |
+| RUN | 0 | $0.00 | +inf% |
+| SOUN | 15 | $7.36 | +3.1% |
+| OKLO | 1 | $58.04 | +1.5% |
 
 ## Capital
 | Metric | Value |
 | :--- | :--- |
-| Deployed | $3,745.22 |
+| Deployed | $3,993.89 |
 | Velocity Pool | $1,000.00 |
 | Bounce Pool | $1,000.00 |
 
@@ -45,8 +50,8 @@
 | :--- | :--- |
 | Shares | 15 |
 | Avg Cost | $21.57 |
-| Current Price | $17.45 |
-| P/L % | -19.1% |
+| Current Price | $19.13 |
+| P/L % | -11.3% |
 | Entry Date | pre-2026-02-12 |
 | Days Held | >60 days (pre-strategy) |
 | Time Stop Status | EXCEEDED (pre-strategy) |
@@ -57,17 +62,20 @@
 ## Day Range
 | Metric | Value |
 | :--- | :--- |
-| Day Low | $17.44 |
-| Day High | $19.29 |
+| Day Low | $18.83 |
+| Day High | $20.58 |
+
+## Recorded Fills
+No recorded fills
 
 ## Pending Orders
 No pending orders
 
 ## Tool Outputs
 #### Earnings
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:32*
 
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## Earnings Analysis: USA Rare Earth, Inc. (USAR)
 
@@ -75,10 +83,10 @@ No pending orders
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-03-30 |
-| Days Until | 22 |
+| Days Until | 14 |
 | EPS Estimate | $-0.13667 |
 | Revenue Estimate | $0 |
-| Earnings Rule | Clear (>22d out) |
+| **Earnings Rule** | **WARNING: <14 days — avoid new entries** |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
@@ -96,51 +104,51 @@ No pending orders
 
 #### Technical Signals
 ## Technical Scan: USA Rare Earth, Inc. (USAR)
-**Current Price: $17.45** | Date: 2026-03-06
+**Current Price: $19.10** | Date: 2026-03-16
 
 ### Trend Indicators
 | Indicator | Value | Price Position | Signal |
 | :--- | :--- | :--- | :--- |
-| SMA 20 | $19.71 | Below | Bearish |
-| SMA 50 | $19.20 | Below | Bearish |
-| SMA 200 | $16.63 | Above | Bullish |
-| EMA 9 | $19.07 | Below | Bearish |
-| EMA 21 | $19.61 | Below | Bearish |
+| SMA 20 | $19.27 | Below | Bearish |
+| SMA 50 | $19.99 | Below | Bearish |
+| SMA 200 | $16.95 | Above | Bullish |
+| EMA 9 | $19.52 | Below | Bearish |
+| EMA 21 | $19.66 | Below | Bearish |
 
 ### Momentum Indicators
 | Indicator | Value | Zone | Signal |
 | :--- | :--- | :--- | :--- |
-| RSI (14) | 42.5 | Bearish zone | Neutral-Bear |
-| MACD | -0.387 | Below signal | Bearish |
-| MACD Signal | -0.149 | Histogram: -0.239 | — |
-| Stochastic %K/%D | 14.9/38.6 | Oversold | Bearish |
+| RSI (14) | 47.8 | Bearish zone | Neutral-Bear |
+| MACD | -0.139 | Above signal | Bullish |
+| MACD Signal | -0.156 | Histogram: +0.017 | — |
+| Stochastic %K/%D | 45.8/54.4 | Neutral | Bearish |
 
 ### Volatility
 | Indicator | Value | Position | Signal |
 | :--- | :--- | :--- | :--- |
-| Bollinger Upper | $22.91 | 15% of band | Neutral |
-| Bollinger Lower | $16.52 | Width: $6.38 | — |
-| ATR (14) | $1.56 (9.0%) | High volatility | — |
+| Bollinger Upper | $21.35 | 46% of band | Neutral |
+| Bollinger Lower | $17.19 | Width: $4.16 | — |
+| ATR (14) | $1.61 (8.4%) | High volatility | — |
 
 ### Key Support/Resistance Levels
 | Level | Price | Type | Touches | Last Tested |
 | :--- | :--- | :--- | :--- | :--- |
-| Support | $16.82 (-3.6%) | Support | 1 | 2026-02-20 |
-| Resistance | $16.46 (-5.7%) | Resistance | 1 | 2025-07-16 |
-| Resistance | $18.55 (+6.3%) | Resistance | 1 | 2025-04-16 |
-| Resistance | $19.02 (+9.0%) | Resistance | 1 | 2025-12-12 |
-| Resistance | $19.68 (+12.8%) | Resistance | 1 | 2025-08-12 |
-| Resistance | $15.03 (-13.9%) | Resistance | 1 | 2025-06-12 |
-| Support | $13.33 (-23.6%) | Support | 1 | 2025-09-08 |
-| Support | $11.73 (-32.8%) | Support | 1 | 2025-12-31 |
+| Resistance | $19.02 (-0.4%) | Resistance | 1 | 2025-12-12 |
+| Resistance | $18.55 (-2.9%) | Resistance | 1 | 2025-04-16 |
+| Resistance | $19.68 (+3.1%) | Resistance | 1 | 2025-08-12 |
+| Support | $16.82 (-11.9%) | Support | 1 | 2026-02-20 |
+| Resistance | $16.46 (-13.8%) | Resistance | 1 | 2025-07-16 |
+| Resistance | $15.03 (-21.3%) | Resistance | 1 | 2025-06-12 |
+| Support | $13.33 (-30.2%) | Support | 1 | 2025-09-08 |
+| Support | $11.73 (-38.6%) | Support | 1 | 2025-12-31 |
 
 ### Signal Summary
 | Metric | Value |
 | :--- | :--- |
-| Overall Signal | **Bearish** |
-| Score | -4 |
-| Bullish Factors | Above SMA 200 |
-| Bearish Factors | Below SMA 20, Below SMA 50, Below EMA 9, Below EMA 21, MACD bearish |
+| Overall Signal | **Neutral-Bearish** |
+| Score | -2 |
+| Bullish Factors | Above SMA 200, MACD bullish |
+| Bearish Factors | Below SMA 20, Below SMA 50, Below EMA 9, Below EMA 21 |
 
 #### Short Interest
 ## Short Interest Analysis
@@ -148,20 +156,20 @@ No pending orders
 ### Short Interest Summary
 | Ticker | Shares Short | Short Ratio | Short % Float | Change from Prior |
 | :--- | :--- | :--- | :--- | :--- |
-| USAR | 38.38M | 1.28 | 21.85% | +105.8% (increasing) |
+| USAR | 26.49M | 1.14 | 15.08% | -34.6% (decreasing) |
 
 ### Squeeze Risk Assessment
 | Ticker | Risk Rating | Score (/100) | Key Factors |
 | :--- | :--- | :--- | :--- |
-| USAR | HIGH | 65 | High short% (21.9%); Low DTC (1.3); Shorts increasing rapidly |
+| USAR | MEDIUM | 30 | Elevated short% (15.1%); Low DTC (1.1); Shorts covering rapidly |
 
 ### Context
 | Ticker | Float | Shares Outstanding | Avg Volume | Days to Cover |
 | :--- | :--- | :--- | :--- | :--- |
-| USAR | 121.55M | 217.94M | 18.32M | 1.3 |
+| USAR | 121.55M | 217.94M | 18.77M | 1.1 |
 
 #### News & Sentiment
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-16 19:33*
 
 ## News & Sentiment: USA Rare Earth, Inc. (USAR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -173,45 +181,44 @@ No pending orders
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 15 (50%) |
-| Neutral | 13 (43%) |
-| Negative | 2 (7%) |
-| Average Score | +0.138 |
+| Positive | 12 (40%) |
+| Neutral | 14 (47%) |
+| Negative | 4 (13%) |
+| Average Score | +0.123 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 185 |
+| Total Unique Headlines | 188 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 7 | USA Rare Earth (NASDAQ:USAR) Shares Down..; USA Rare Earth (NASDAQ:USAR) Trading 1% .. |
-| Regulatory | 2 | USA Rare Earth Secures Round Top Ownersh..; USA Rare Earth (+10%): Bullish Sector Re.. |
-| Corporate | 1 | USA Rare Earth, Texas Mineral Resources .. |
+| Earnings | 6 | USA Rare Earth (NASDAQ:USAR) Stock Price..; USA Rare Earth (NASDAQ:USAR) Trading Dow.. |
+| Short | 1 | Reddit Loved USAR for a Week. Short Sell.. |
 
 ### Deep Dive Articles
 
-#### What's Going On USA Rare Earth Shares On Thursday?
-*Source: Benzinga | Date: 2026-03-05 | Sentiment: Positive (+0.97)*
-**Catalysts:** Regulatory, Corporate
+#### The State of America's Rare Earth Supply Chain in 2026 - OilPrice.com Market Commentary
+*Source: PR Newswire | Date: Today | Sentiment: Positive (+0.94)*
+**Catalysts:** None
 
-#### USA Rare Earth to Acquire Texas Mineral Resources Corporation
-*Source: GlobeNewswire | Date: 2026-03-05 | Sentiment: Positive (+0.99)*
-**Catalysts:** Regulatory, Corporate
-
-#### Can the Stillwater Facility Anchor USA Rare Earth's Growth Trajectory?
-*Source: Zacks | Date: 2026-03-04 | Sentiment: Positive (+0.98)*
+#### USA Rare Earth Appoints Dr. Thomas Caulfield to Board of Directors
+*Source: GlobeNewswire | Date: 2026-03-12 | Sentiment: Positive (+0.98)*
 **Catalysts:** Earnings, Regulatory, Corporate
 
-#### Jim Cramer on USA Rare Earth: "This Is a Totally Speculative Situation"
-*Source: Insider Monkey | Date: 2026-03-03 | Sentiment: Positive (+0.88)*
-**Catalysts:** Short
+#### USA Rare Earth (USAR) Climbs 9.3% as 3 New Execs Join
+*Source: Insider Monkey | Date: 2026-03-10 | Sentiment: Positive (+0.84)*
+**Catalysts:** Regulatory
 
-#### China's Rare Earth Dominance and the Strategic Failure of the West
-*Source: PR Newswire | Date: 2026-03-03 | Sentiment: Positive (+0.71)*
-**Catalysts:** Regulatory, Corporate
+#### USAR Gains 62.7% in the Past Year: Buy, Sell or Hold the Stock?
+*Source: Zacks | Date: 2026-03-10 | Sentiment: Positive (+1.00)*
+**Catalysts:** Earnings, Regulatory, Corporate, Shareholder, Analyst
+
+#### USA Rare Earth Expands Leadership Team Following Landmark Agreement with U.S. Government
+*Source: GlobeNewswire | Date: 2026-03-09 | Sentiment: Positive (+0.98)*
+**Catalysts:** Regulatory
 
 ---
 
-**Position Snapshot:** 15 shares @ $21.57, current $17.45, P/L -19.1% ($-61.80)
+**Position Snapshot:** 15 shares @ $21.57, current $19.13, P/L -11.3% ($-36.60)
 
 **Identity:** *   **Cycle:** Unknown — policy-driven, not a classic mean reversion candidate. Monitor for pattern emergence.
 *   Resistance: $21.50 (PIPE floor), $23.05 (VWAP), $25.76 (volume node), $28.37 (volume node), $32.07 (Jan 26 high).
@@ -238,6 +245,6 @@ No pending orders
 | 6 | Reserve | $8.00 | $8.13 | 50% | Full | 12 | $97.56 |
 *Bullet plan is a suggestion — adjust based on cycle timing and position.*
 
-**Knowledge:** 1 observation. Top: Price $18.20 (-15.4% from avg $21.52). Day range $18.19-$19.33. Key developments... (0.52)
+**Knowledge:** 1 observation. Top: Price $18.20 (-15.4% from avg $21.52). Day range $18.19-$19.33. Key developments... (0.47)
 
 ---

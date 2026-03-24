@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 21:06*
 
 ## News & Sentiment: Cipher Digital Inc. (CIFR)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,56 +6,73 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2026-03-16 | MarketBeat | 80,000 Shares in Cipher Mining Inc. $CIFR Bought by Ionic Ca... | Positive | +0.30 | Earnings, Corporate |
+| 2026-03-16 | Benzinga | Cipher Digital Stock Moves Higher As Bitcoin Surges Past $74... | Neutral | +0.00 | — |
+| 2026-03-16 | TipRanks | Why Cipher Mining Stock Is Suddenly Losing Altitude - TipRan... | Negative | -0.38 | — |
+| 2026-03-16 | Benzinga | 10 Information Technology Stocks With Whale Alerts In Today'... | Neutral | +0.00 | — |
+| 2026-03-16 | Insider Monkey | Cipher Digital (CIFR) Reaffirms Focus on AI Infrastructure | Neutral | +0.00 | — |
+| 2026-03-15 | MarketBeat | Clearline Capital LP Purchases Shares of 1,220,530 Cipher Mi... | Positive | +0.30 | Earnings |
+| 2026-03-15 | MarketBeat | Cantor Fitzgerald L. P. Sells 617,979 Shares of Cipher Minin... | Positive | +0.30 | Earnings |
+| 2026-03-15 | National Today | Clearline Capital Buys Over 1.2 Million Shares of Cipher Min... | Positive | +0.30 | — |
+| 2026-03-14 | MarketBeat | FORA Capital LLC Purchases New Position in Cipher Mining Inc... | Neutral | +0.00 | Earnings |
+| 2026-03-14 | TipRanks | Crypto Currents: SEC, CFTC sign MOU for Joint Harmonization ... | Positive | +0.44 | Regulatory |
+| 2026-03-13 | GuruFocus.com | Crypto Stocks Jump As Bitcoin Finds Its Footing | Neutral | +0.00 | — |
+| 2026-03-13 | Blockspace | Cipher Digital undervalued on enterprise valuation per megaw... | Neutral | +0.00 | — |
+| 2026-03-13 | MarketBeat | Aurelius Capital Management LP Acquires Shares of 500,000 Ci... | Positive | +0.30 | Earnings, Corporate |
+| 2026-03-13 | MarketBeat | Cipher Mining (NASDAQ:CIFR) Shares Up 8.1% - Here's What Hap... | Positive | +0.30 | Earnings |
+| 2026-03-13 | MarketBeat | Van ECK Associates Corp Reduces Holdings in Cipher Mining In... | Neutral | +0.00 | Earnings |
+| 2026-03-13 | TechStock² | Cipher Digital Stock Price Falls After KBW Target Cut; CIFR ... | Negative | -0.27 | — |
+| 2026-03-13 | Simply Wall St. | Assessing Cipher Digital (CIFR) Valuation As It Shifts From ... | Neutral | +0.00 | — |
+| 2026-03-12 | simplywall.st | Cipher Digital (CIFR) Valuation Check As AI Infrastructure P... | Positive | +0.46 | Short |
+| 2026-03-12 | TipRanks | Why Cipher Mining Stock Is Suddenly Sliding - TipRanks | Neutral | +0.00 | — |
+| 2026-03-12 | Simply Wall St. | Cipher Digital (CIFR) Deepens AI Pivot: Do Long-Term HPC Lea... | Negative | -0.64 | — |
+| 2026-03-11 | Blockspace | Why Canaan bought Cipher Digitals JV assets in West Texas | Positive | +0.18 | — |
+| 2026-03-11 | Blockspace | The Last Bitcoin Mining Bull Market Ever? BTC Mining Expert ... | Negative | -0.10 | — |
+| 2026-03-11 | 24/7 Wall St. | Wall Street Cuts Cipher Mining (CIFR) and TeraWulf (WULF) Pr... | Negative | -0.30 | Analyst |
+| 2026-03-11 | Yahoo Finance | Cipher Digital Inc. (CIFR) Gains As Market Dips: What You Sh... | Positive | +0.34 | — |
+| 2026-03-11 | MarketBeat | Cipher Mining Inc. $CIFR Shares Acquired by American Century... | Positive | +0.30 | Earnings |
+| 2026-03-11 | MarketBeat | Keefe, Bruyette & Woods Has Lowered Expectations for Cipher ... | Negative | -0.13 | Earnings |
+| 2026-03-10 | simplywall.st | Why Cipher Digital (CIFR) Is Down 9.2% After Surging Revenue... | Negative | -0.55 | Earnings |
+| 2026-03-09 | Zacks | Wall Street Analysts Think Cipher Digital Inc. (CIFR) Is a G... | Positive | +0.44 | — |
 | 2026-03-08 | MarketBeat | 239,015 Shares in Cipher Mining Inc. $CIFR Acquired by Regal... | Positive | +0.30 | Earnings |
-| 2026-03-08 | MarketBeat | Intech Investment Management LLC Has $1.02 Million Stake in ... | Neutral | +0.00 | Earnings, Corporate |
-| 2026-03-07 | The Globe and M | Analysts Offer Insights on Financial Companies: Franklin Res... | Neutral | +0.00 | — |
-| 2026-03-07 | MarketBeat | Cipher Mining (NASDAQ:CIFR) Director James Newsome Sells 45,... | Positive | +0.30 | Earnings |
-| 2026-03-07 | Investing.com | Newsome of Cipher Digital sells $710k in shares - Investing.... | Positive | +0.30 | — |
-| 2026-03-06 | Finviz | CIFR - Cipher Digital Inc Stock Price and Quote - Finviz | Neutral | +0.00 | — |
 | 2026-03-05 | Trefis | Cipher Digital Stock (+9.0%): AI Pivot Gains Traction at Mor... | Positive | +0.34 | — |
-| 2026-03-05 | StocksToTrade | Cipher Mining Faces Financial Storm as EPS Misses, Shares Di... | Positive | +0.08 | Earnings |
-| 2026-03-04 | simplywall.st | A Look At Cipher Digital (CIFR) Valuation As It Pivots From ... | Neutral | +0.00 | — |
-| 2026-03-04 | MarketBeat | Cipher Mining (NASDAQ:CIFR) Trading Up 8% - Here's What Happ... | Neutral | +0.00 | Earnings |
-| 2026-03-04 | National Today | Cipher Mining Shares Rise 8% - National Today | Positive | +0.30 | — |
-| 2026-03-04 | StocksToTrade | Cipher Mining Surges Amidst Strategic Moves and Financial Sh... | Neutral | +0.00 | — |
-| 2026-03-03 | GuruFocus.com | Applied Digital Seeks $2.15 Billion Junk Bond for Oracle Dat... | Neutral | +0.00 | — |
-| 2026-03-03 | simplywall.st | Will Cipher Digital's (CIFR) Pivot to HPC Leases and Big 202... | Negative | -0.40 | — |
-| 2026-03-03 | MarketBeat | Cipher Mining Inc. (NASDAQ:CIFR) Given Consensus Rating of "... | Neutral | +0.00 | Earnings |
-| 2026-03-02 | MarketBeat | London & Capital Asset Management Ltd Acquires New Position ... | Positive | +0.36 | Earnings, Corporate |
-| 2026-03-01 | MarketBeat | Cipher Mining Inc. $CIFR Shares Purchased by Harvest Portfol... | Positive | +0.30 | Earnings |
-| 2026-03-01 | MarketBeat | Cipher Mining (NASDAQ:CIFR) Rating Lowered to Strong Sell at... | Positive | +0.42 | Earnings |
-| 2026-03-01 | MarketBeat | Monashee Investment Management LLC Reduces Holdings in Ciphe... | Neutral | +0.00 | Earnings, Corporate |
-| 2026-02-28 | Insider Monkey | Clear Street Cuts PT on Cipher Digital (CIFR) to $32 From $3... | Positive | +0.10 | — |
-| 2026-02-28 | MarketBeat | Vanguard Group Inc. Buys 2,699,717 Shares of Cipher Mining I... | Positive | +0.30 | Earnings |
-| 2026-02-28 | Simply Wall St. | Cipher Digital Completes Pivot To Contracted AI And HPC Infr... | Neutral | +0.00 | — |
-| 2026-02-27 | Stock Titan | Cipher Digital (CIFR) awards 355,338 RSUs to Co-President Iw... | Positive | +0.46 | — |
-| 2026-02-26 | TipRanks | Canaan price target lowered to $2 from $2.50 at B. Riley | Negative | -0.13 | Analyst |
-| 2026-02-26 | Bloomberg | Bitcoin Miner Tied to Trump Family Pummeled by Crypto Crash | Negative | -0.40 | — |
-| 2026-02-26 | Seeking Alpha | Cipher Digital: Pivot Proven, Re-Rating Next (NASDAQ:CIFR) -... | Neutral | +0.00 | — |
-| 2026-02-26 | TIKR.com | CIFR Stock Is Up 12% After Momentum Builds: Can Shares Reach... | Positive | +0.32 | — |
-| 2026-02-25 | Zacks | Cipher Digital Q4 Loss Wider Than Expected, Revenues Down Se... | Negative | -0.32 | Earnings |
-| 2026-02-25 | Insider Monkey | Cipher Mining (CIFR) Pivot Toward Hyperscale Infrastructure ... | Negative | -0.32 | — |
-| 2026-02-25 | Insider Monkey | Cipher Mining (CIFR) Jumps 12.5% on Strong Revenues, Busines... | Positive | +0.51 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
 | Positive | 14 (47%) |
-| Neutral | 11 (37%) |
-| Negative | 5 (17%) |
-| Average Score | +0.093 |
+| Neutral | 9 (30%) |
+| Negative | 7 (23%) |
+| Average Score | +0.073 |
 | Overall Sentiment | **Neutral** |
-| Total Unique Headlines | 182 |
+| Total Unique Headlines | 183 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 13 | 239,015 Shares in Cipher Mining Inc. $CI..; Intech Investment Management LLC Has $1... |
-| Corporate | 3 | Intech Investment Management LLC Has $1...; London & Capital Asset Management Ltd Ac.. |
-| Analyst | 1 | Canaan price target lowered to $2 from $.. |
+| Earnings | 11 | 80,000 Shares in Cipher Mining Inc. $CIF..; Clearline Capital LP Purchases Shares of.. |
+| Corporate | 2 | 80,000 Shares in Cipher Mining Inc. $CIF..; Aurelius Capital Management LP Acquires .. |
+| Regulatory | 1 | Crypto Currents: SEC, CFTC sign MOU for .. |
+| Short | 1 | Cipher Digital (CIFR) Valuation Check As.. |
+| Analyst | 1 | Wall Street Cuts Cipher Mining (CIFR) an.. |
 
 ### Deep Dive Articles
+
+#### Wall Street Analysts Think Cipher Digital Inc. (CIFR) Is a Good Investment: Is It?
+*Source: Zacks | Date: 2026-03-09 | Sentiment: Positive (+0.97)*
+
+> Investors often turn to recommendations made by Wall Street analysts before making a Buy, Sell, or Hold decision about a stock. While media reports about rating changes by these brokerage-firm employed (or sell-side) analysts often affect a stock's price, do they really matter?
+
+> Let's take a look at what these Wall Street heavyweights have to say aboutCipher Digital Inc.(CIFR) before we discuss the reliability of brokerage recommendations and how to use them to your advantage.
+
+> Cipher Digital Inc. currently has an average brokerage recommendation (ABR) of 1.50, on a scale of 1 to 5 (Strong Buy to Strong Sell), calculated based on the actual recommendations (Buy, Hold, Sell, etc.) made by 16 brokerage firms. An ABR of 1.50 approximates between Strong Buy and Buy.
+
+> Of the 16 recommendations that derive the current ABR, 12 are Strong Buy and two are Buy. Strong Buy and Buy respectively account for 75% and 12.5% of all recommendations.
+
+> Check price target & stock forecast for Cipher Digital Inc. here>>>
+
+**Catalysts:** Analyst
 
 #### Clear Street Cuts PT on Cipher Digital (CIFR) to $32 From $34 - Here's Why
 *Source: Insider Monkey | Date: 2026-02-28 | Sentiment: Positive (+0.96)*
@@ -116,18 +133,3 @@
 > In line with the initiative, the company divested its 49 percent stake in three 40 MW joint venture sites, Alborz, Bear, and Chief, as well as select bitcoin mining machines previously deployed at Black Pearl.
 
 **Catalysts:** Regulatory
-
-#### Highly Shorted Stock Cipher Digital Soars Tuesday - Here's Why
-*Source: Benzinga | Date: 2026-02-24 | Sentiment: Positive (+0.92)*
-
-> Cipher Digital Inc.(NASDAQ:CIFR) on Tuesday reportedfourth-quarter and full-year 2025 resultsand unveiled a rebrand from Cipher Mining, signaling a strategic pivot toward high-performance computing and next-generation data center development.
-
-> The stock surged more than 10% following the release, with elevated short interest likely amplifying the move.
-
-> In the fourth quarter, adjusted EPS was a loss of 14 cents, compared to the analystestimate of a 10-cent loss. Revenue was $59.711 million, below the consensus estimate of $86.847 million.
-
-> “Building on a transformative 2025, the fourth quarter reflected continued momentum as we advanced our evolution into a leading HPC data center development company,” CEOTyler Pagesaid.
-
-> “During the quarter, we upsized our initial lease with Fluidstack and Google and signed our first HPC lease with Amazon. In addition, we successfully executed multiple high yield bond offerings to finance two of our existing HPC projects at Barber Lake and Black Pearl. In recognition of this successful shift in our business model and strategic priorities going forward, we are proud to now officially operate as Cipher Digital.”
-
-**Catalysts:** Earnings, Corporate, Equity, Short

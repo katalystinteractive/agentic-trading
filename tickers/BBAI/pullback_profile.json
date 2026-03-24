@@ -1,0 +1,62 @@
+{
+  "ticker": "BBAI",
+  "pullback_count": 6,
+  "avg_depth_pct": -34.8,
+  "median_depth_pct": -35.2,
+  "distribution": [
+    {
+      "depth_pct": -2,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -3,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -5,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -7,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -9,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -12,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -15,
+      "reach_pct": 100.0
+    },
+    {
+      "depth_pct": -20,
+      "reach_pct": 100.0
+    }
+  ],
+  "bullet_fill_rates": [
+    {
+      "label": "B1",
+      "price": 3.82,
+      "depth_pct": -2.9,
+      "fill_rate_pct": 100.0
+    },
+    {
+      "label": "B2",
+      "price": 3.71,
+      "depth_pct": -5.7,
+      "fill_rate_pct": 100.0
+    },
+    {
+      "label": "B3",
+      "price": 3.66,
+      "depth_pct": -7.0,
+      "fill_rate_pct": 100.0
+    }
+  ],
+  "current_phase": "SUPPORT",
+  "last_updated": "2026-03-16"
+}

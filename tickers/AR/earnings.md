@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:20*
+*Generated: 2026-03-16 19:35*
 
 ## Earnings Analysis: Antero Resources Corporation (AR)
 
@@ -6,19 +6,19 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-04-29 |
-| Days Until | 52 |
-| EPS Estimate | $0.93859 |
+| Days Until | 44 |
+| EPS Estimate | $0.98944 |
 | Revenue Estimate | $1.60B |
-| Earnings Rule | Clear (>52d out) |
+| Earnings Rule | Clear (>44d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $0.54 | $0.62 | 13.8% | -3.7% | -0.2% | Strong Bear |
+| Q1 2026 | $0.52 | $0.43 | -17.9% | -3.7% | -0.2% | Strong Bear |
 | Q4 2025 | $0.25 | $0.16 | -37.3% | -5.0% | +3.8% | Strong Bear |
 | Q3 2025 | $0.42 | $0.35 | -16.4% | +3.3% | -2.4% | Strong Bull |
 | Q2 2025 | $0.88 | $0.78 | -11.0% | -0.5% | +5.4% | Bearish |
-| Q1 2025 | $0.25 | $0.48 | 89.3% | +2.0% | +0.3% | Bullish |
+| Q1 2025 | $0.29 | $0.57 | 100.2% | +2.0% | +0.3% | Bullish |
 | Q4 2024 | $-0.04 | $-0.07 | -64.2% | -8.3% | +1.5% | Strong Bear |
 | Q3 2024 | $-0.16 | $-0.19 | -18.8% | -0.9% | -12.8% | Bearish |
 | Q2 2024 | $0.03 | $0.07 | 167.3% | +6.2% | +3.9% | Strong Bull |

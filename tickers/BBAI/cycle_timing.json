@@ -1,0 +1,380 @@
+{
+  "ticker": "BBAI",
+  "current_price": 3.95,
+  "last_date": "2026-03-16",
+  "resistance_levels": [
+    {
+      "price": 3.95,
+      "approaches": 5,
+      "historical_approaches": 4,
+      "rejected": 3,
+      "broke": 2,
+      "reject_rate": 60.0,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 4.15,
+      "approaches": 3,
+      "historical_approaches": 2,
+      "rejected": 1,
+      "broke": 2,
+      "reject_rate": 33.3,
+      "source": "PA"
+    },
+    {
+      "price": 4.28,
+      "approaches": 3,
+      "historical_approaches": 2,
+      "rejected": 1,
+      "broke": 2,
+      "reject_rate": 33.3,
+      "source": "PA"
+    },
+    {
+      "price": 4.48,
+      "approaches": 6,
+      "historical_approaches": 6,
+      "rejected": 3,
+      "broke": 3,
+      "reject_rate": 50.0,
+      "source": "PA"
+    },
+    {
+      "price": 4.59,
+      "approaches": 6,
+      "historical_approaches": 6,
+      "rejected": 4,
+      "broke": 2,
+      "reject_rate": 66.7,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 5.0,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 1,
+      "broke": 2,
+      "reject_rate": 33.3,
+      "source": "PA"
+    },
+    {
+      "price": 5.34,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 1,
+      "broke": 2,
+      "reject_rate": 33.3,
+      "source": "PA"
+    },
+    {
+      "price": 5.48,
+      "approaches": 2,
+      "historical_approaches": 2,
+      "rejected": 0,
+      "broke": 2,
+      "reject_rate": 0.0,
+      "source": "PA"
+    },
+    {
+      "price": 5.72,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 0,
+      "broke": 3,
+      "reject_rate": 0.0,
+      "source": "PA"
+    },
+    {
+      "price": 5.87,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 0,
+      "broke": 3,
+      "reject_rate": 0.0,
+      "source": "HVN"
+    },
+    {
+      "price": 6.11,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 0,
+      "broke": 3,
+      "reject_rate": 0.0,
+      "source": "PA"
+    },
+    {
+      "price": 6.3,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 0,
+      "broke": 3,
+      "reject_rate": 0.0,
+      "source": "PA"
+    },
+    {
+      "price": 6.51,
+      "approaches": 4,
+      "historical_approaches": 4,
+      "rejected": 1,
+      "broke": 3,
+      "reject_rate": 25.0,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 6.74,
+      "approaches": 8,
+      "historical_approaches": 8,
+      "rejected": 4,
+      "broke": 4,
+      "reject_rate": 50.0,
+      "source": "PA"
+    },
+    {
+      "price": 7.16,
+      "approaches": 6,
+      "historical_approaches": 6,
+      "rejected": 2,
+      "broke": 4,
+      "reject_rate": 33.3,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 7.4,
+      "approaches": 5,
+      "historical_approaches": 5,
+      "rejected": 2,
+      "broke": 3,
+      "reject_rate": 40.0,
+      "source": "PA"
+    },
+    {
+      "price": 7.8,
+      "approaches": 7,
+      "historical_approaches": 7,
+      "rejected": 3,
+      "broke": 4,
+      "reject_rate": 42.9,
+      "source": "HVN+PA"
+    },
+    {
+      "price": 8.14,
+      "approaches": 5,
+      "historical_approaches": 5,
+      "rejected": 2,
+      "broke": 3,
+      "reject_rate": 40.0,
+      "source": "PA"
+    },
+    {
+      "price": 8.59,
+      "approaches": 5,
+      "historical_approaches": 5,
+      "rejected": 3,
+      "broke": 2,
+      "reject_rate": 60.0,
+      "source": "PA"
+    },
+    {
+      "price": 8.8,
+      "approaches": 5,
+      "historical_approaches": 5,
+      "rejected": 3,
+      "broke": 2,
+      "reject_rate": 60.0,
+      "source": "PA"
+    },
+    {
+      "price": 9.45,
+      "approaches": 3,
+      "historical_approaches": 3,
+      "rejected": 2,
+      "broke": 1,
+      "reject_rate": 66.7,
+      "source": "PA"
+    },
+    {
+      "price": 9.7,
+      "approaches": 2,
+      "historical_approaches": 2,
+      "rejected": 1,
+      "broke": 1,
+      "reject_rate": 50.0,
+      "source": "PA"
+    }
+  ],
+  "support_levels_used": [
+    {
+      "price": 2.41,
+      "source": "PA"
+    },
+    {
+      "price": 2.62,
+      "source": "PA"
+    },
+    {
+      "price": 2.8,
+      "source": "PA"
+    },
+    {
+      "price": 2.86,
+      "source": "PA"
+    },
+    {
+      "price": 3.01,
+      "source": "PA"
+    },
+    {
+      "price": 3.22,
+      "source": "PA"
+    },
+    {
+      "price": 3.32,
+      "source": "PA"
+    },
+    {
+      "price": 3.39,
+      "source": "PA"
+    }
+  ],
+  "current_cycle": {
+    "resistance_date": "2026-03-16",
+    "resistance_price": 4.15,
+    "days_elapsed": 0,
+    "status": "IN PROGRESS"
+  },
+  "cycles": [
+    {
+      "resistance_date": "2025-03-06",
+      "resistance_price": 4.28,
+      "first_touch_date": "2025-03-07",
+      "first_touch_price": 3.39,
+      "days_first": 1,
+      "deep_touch_date": "2025-03-07",
+      "deep_touch_price": 3.39,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -20.5,
+        "3": -24.3,
+        "5": -22.1,
+        "10": -28.6
+      }
+    },
+    {
+      "resistance_date": "2025-03-06",
+      "resistance_price": 4.48,
+      "first_touch_date": "2025-03-07",
+      "first_touch_price": 3.39,
+      "days_first": 1,
+      "deep_touch_date": "2025-03-07",
+      "deep_touch_price": 3.39,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -20.5,
+        "3": -24.3,
+        "5": -22.1,
+        "10": -28.6
+      }
+    },
+    {
+      "resistance_date": "2025-03-06",
+      "resistance_price": 4.59,
+      "first_touch_date": "2025-03-07",
+      "first_touch_price": 3.39,
+      "days_first": 1,
+      "deep_touch_date": "2025-03-07",
+      "deep_touch_price": 3.39,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -20.5,
+        "3": -24.3,
+        "5": -22.1,
+        "10": -28.6
+      }
+    },
+    {
+      "resistance_date": "2025-03-17",
+      "resistance_price": 3.95,
+      "first_touch_date": "2025-03-18",
+      "first_touch_price": 3.01,
+      "days_first": 1,
+      "deep_touch_date": "2025-03-18",
+      "deep_touch_price": 3.01,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -14.9,
+        "3": -14.0,
+        "5": 1.4,
+        "10": -18.1
+      }
+    },
+    {
+      "resistance_date": "2025-03-25",
+      "resistance_price": 3.95,
+      "first_touch_date": "2025-03-26",
+      "first_touch_price": 3.39,
+      "days_first": 1,
+      "deep_touch_date": "2025-03-26",
+      "deep_touch_price": 3.39,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -9.1,
+        "3": -13.4,
+        "5": -16.0,
+        "10": -24.2
+      }
+    },
+    {
+      "resistance_date": "2025-03-25",
+      "resistance_price": 4.15,
+      "first_touch_date": "2025-03-26",
+      "first_touch_price": 3.39,
+      "days_first": 1,
+      "deep_touch_date": "2025-03-26",
+      "deep_touch_price": 3.39,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -9.1,
+        "3": -13.4,
+        "5": -16.0,
+        "10": -24.2
+      }
+    },
+    {
+      "resistance_date": "2025-04-29",
+      "resistance_price": 3.95,
+      "first_touch_date": "2025-04-30",
+      "first_touch_price": 3.39,
+      "days_first": 1,
+      "deep_touch_date": "2025-04-30",
+      "deep_touch_price": 3.39,
+      "days_deep": 1,
+      "post_resistance_decay": {
+        "1": -4.7,
+        "3": -6.1,
+        "5": -13.7,
+        "10": -0.6
+      }
+    }
+  ],
+  "statistics": {
+    "total_cycles": 7,
+    "median_first": 1,
+    "min_first": 1,
+    "max_first": 1,
+    "median_deep": 1,
+    "min_deep": 1,
+    "max_deep": 1,
+    "immediate_fill_pct": 100.0
+  },
+  "post_resistance_decay": {
+    "1": -12.0,
+    "3": -13.7,
+    "5": -14.8,
+    "10": -21.1
+  },
+  "recommendation": {
+    "cooldown_days": 3,
+    "confidence": "NORMAL",
+    "immediate_reentry_viable": true
+  }
+}

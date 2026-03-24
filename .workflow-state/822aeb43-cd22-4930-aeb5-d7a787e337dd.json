@@ -1,0 +1,107 @@
+{
+  "run_id": "822aeb43-cd22-4930-aeb5-d7a787e337dd",
+  "workflow_name": "surgical-candidate-workflow",
+  "task_guid": null,
+  "status": "cancelled",
+  "current_phase": null,
+  "started_at": "2026-02-24T18:14:58.350626+00:00",
+  "completed_at": "2026-02-24T18:46:55.882885+00:00",
+  "error_message": "Workflow was cancelled",
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nEvaluate DNA (Ginkgo Bioworks) as a surgical mean-reversion candidate. Run the full screening, verification, and critic pipeline on this single ticker. Check monthly swing %, hold rate consistency, support structure quality, volume profile, institutional ownership, short interest, and earnings timing. Determine if DNA meets our surgical strategy criteria (10%+ monthly swing, reliable wick support levels, good bullet plan potential).",
+    "handoffs": {
+      "screen": "**Artifacts:** screening_data.md, candidate-evaluation.md\n**Gate passers:** 75 tickers passed surgical gates\n**Top 10 selected:**\n\n| Rank | Ticker | Score | Sector |\n| :--- | :--- | :--- | :--- |\n| 1 | TMC | 75 | Mining/Materials |\n| 2 | IREN | 73 | Crypto Mining |\n| 3 | RGTI | 70 | Quantum Computing |\n| 4 | TEM | 69 | AI/Healthcare |\n| 5 | BBAI | 66 | AI/Defense |\n| 6 | DNA | 65 | Biotech |\n| 7 | RDW | 62 | Space |\n| 8 | NTLA | 61 | Biotech |\n| 9 | QBTS | 57 | Quantum Computing |\n| 10 | HUT | 56 | Crypto Mining |\n\n**DNA Assessment:** Ranked 6th with 65/100. Strongest attribute is perfect sector diversity (biotech is new to portfolio, 15/15). Weakest attribute is bullet tier quality (8/25) \u2014 4 of 5 active bullets are Half tier with hold rates under 30%. Has viable reserve depth with two Full-tier levels at $6.65 and $6.49.\n\nReady for verification.",
+      "verify": "**Artifact:** candidate-verification.md\n**Results:** 7 PASS, 3 FLAG, 0 FAIL\n**Score range after adjustment:** 56\u201375\n\nReady for final selection."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1
+  },
+  "phases": {
+    "screen": {
+      "phase_id": "screen",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-24T18:14:58.355989+00:00",
+      "completed_at": "2026-02-24T18:23:54.491891+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifacts:** screening_data.md, candidate-evaluation.md\n**Gate passers:** 75 tickers passed surgical gates\n**Top 10 selected:**\n\n| Rank | Ticker | Score | Sector |\n| :--- | :--- | :--- | :--- |\n| 1 | TMC | 75 | Mining/Materials |\n| 2 | IREN | 73 | Crypto Mining |\n| 3 | RGTI | 70 | Quantum Computing |\n| 4 | TEM | 69 | AI/Healthcare |\n| 5 | BBAI | 66 | AI/Defense |\n| 6 | DNA | 65 | Biotech |\n| 7 | RDW | 62 | Space |\n| 8 | NTLA | 61 | Biotech |\n| 9 | QBTS | 57 | Quantum Computing |\n| 10 | HUT | 56 | Crypto Mining |\n\n**DNA Assessment:** Ranked 6th with 65/100. Strongest attribute is perfect sector diversity (biotech is new to portfolio, 15/15). Weakest attribute is bullet tier quality (8/25) \u2014 4 of 5 active bullets are Half tier with hold rates under 30%. Has viable reserve depth with two Full-tier levels at $6.65 and $6.49.\n\nReady for verification.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":501244,\"duration_api_ms\":484829,\"num_turns\":30,\"result\":\"The screening phase is complete. All work has been finished:\\n\\n## Decision: CLEAN\\n\\n## HANDOFF\\n\\n**Artifacts:** screening_data.md, candidate-evaluation.md\\n**Gate passers:** 75 tickers passed surgical gates\\n**Top 10 selected:**\\n\\n| Rank | Ticker | Score | Sector |\\n| :--- | :--- | :--- | :--- |\\n| 1 | TMC | 75 | Mining/Materials |\\n| 2 | IREN | 73 | Crypto Mining |\\n| 3 | RGTI | 70 | Quantum Computing |\\n| 4 | TEM | 69 | AI/Healthcare |\\n| 5 | BBAI | 66 | AI/Defense |\\n| 6 | DNA | 65 | Biotech |\\n| 7 | RDW | 62 | Space |\\n| 8 | NTLA | 61 | Biotech |\\n| 9 | QBTS | 57 | Quantum Computing |\\n| 10 | HUT | 56 | Crypto Mining |\\n\\n**DNA Assessment:** Ranked 6th with 65/100. Strongest attribute is perfect sector diversity (biotech is new to portfolio, 15/15). Weakest attribute is bullet tier quality (8/25) \u2014 4 of 5 active bullets are Half tier with hold rates under 30%. Has viable reserve depth with two Full-tier levels at $6.65 and $6.49.\\n\\nReady for verification.\",\"stop_reason\":null,\"session_id\":\"12649fa0-cfa3-44fc-a3d3-dcddc48f39a5\",\"total_cost_usd\":2.5669452500000003,\"usage\":{\"input_tokens\":23,\"cache_creation_input_tokens\":156744,\"cache_read_input_tokens\":1457229,\"output_tokens\":26120,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":156744,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-opus-4-6\":{\"inputTokens\":26,\"outputTokens\":29051,\"cacheReadInputTokens\":1620710,\"cacheCreationInputTokens\":164625,\"webSearchRequests\":0,\"costUSD\":2.5656662500000005,\"contextWindow\":200000,\"maxOutputTokens\":32000},\"claude-haiku-4-5-20251001\":{\"inputTokens\":1119,\"outputTokens\":32,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.001279,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"afc831e4-a78d-432f-b089-e95e0ce05ee9\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "screening_data.md": "/Users/kamenkamenov/agentic-trading/screening_data.md",
+        "candidate-evaluation.md": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.md"
+      },
+      "metrics": {
+        "duration_seconds": 536.1303770542145,
+        "token_usage": {
+          "input_tokens": 23,
+          "output_tokens": 26120,
+          "cache_read_tokens": 1457229,
+          "cache_write_tokens": 156744
+        },
+        "estimated_cost_usd": 1.416828,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "verify": {
+      "phase_id": "verify",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-02-24T18:23:54.495555+00:00",
+      "completed_at": "2026-02-24T18:34:00.952310+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** candidate-verification.md\n**Results:** 7 PASS, 3 FLAG, 0 FAIL\n**Score range after adjustment:** 56\u201375\n\nReady for final selection.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":574466,\"duration_api_ms\":573021,\"num_turns\":13,\"result\":\"`candidate-verification.md` written. Here is the full verification summary:\\n\\n---\\n\\n## Verification Results: 7 PASS, 3 FLAG, 0 FAIL\\n\\n| Ticker | Original | Adjustment | Adjusted | Verdict |\\n| :--- | :--- | :--- | :--- | :--- |\\n| TMC | 75 | 0 | 75 | PASS |\\n| IREN | 73 | 0 | 73 | PASS |\\n| RGTI | 70 | 0 | 70 | FLAG |\\n| TEM | 69 | 0 | 69 | FLAG |\\n| BBAI | 66 | 0 | 66 | PASS |\\n| **DNA** | **65** | **0** | **65** | **FLAG** |\\n| RDW | 62 | 0 | 62 | PASS |\\n| NTLA | 61 | 0 | 61 | PASS |\\n| QBTS | 57 | 0 | 57 | PASS |\\n| HUT | 56 | 0 | 56 | PASS |\\n\\n---\\n\\n### DNA Verification: CLEAN DATA, FLAG FOR SWING DISCREPANCY\\n\\nAll 7 of DNA's support levels were verified against the raw wick analysis \u2014 every hold rate, Buy At price, and tier classification matched exactly. No fabricated data. Bullet math checks out ($154 active, $197 reserve, both within $300).\\n\\nTwo items flagged:\\n1. **Swing metric discrepancy** \u2014 Gate screener computed 60.4%, but wick analysis says 48.6%. DNA is the only top-10 ticker where wick analysis is materially *lower* than the gate figure. If the gate figure is canonical, the Swing score should be 10/10 and total score should be **67**, not 65.\\n2. **Near upper trading range** \u2014 Current price $8.93 sits just above the $8.86 level that has broken downward 12 of 13 times. No explicit 13-month high was documented, but the stock is in the zone where it most frequently sells off.\\n\\nNo blocking disqualifiers. DNA's structural weakness (4 of 5 active bullets are Half tier, only $154 of $300 active capacity deployed) is accurately scored. The 15/15 sector diversity bonus is legitimate and verified.\\n\\n## Decision: CLEAN\\n\\n## HANDOFF\\n\\n**Artifact:** candidate-verification.md\\n**Results:** 7 PASS, 3 FLAG, 0 FAIL\\n**Score range after adjustment:** 56\u201375\\n\\nReady for final selection.\",\"stop_reason\":null,\"session_id\":\"22aa5cc1-c87e-4b1d-a450-ad9f5d728767\",\"total_cost_usd\":1.4075747499999998,\"usage\":{\"input_tokens\":10,\"cache_creation_input_tokens\":66843,\"cache_read_input_tokens\":379962,\"output_tokens\":31991,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":66843,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":10,\"outputTokens\":31991,\"cacheReadInputTokens\":379962,\"cacheCreationInputTokens\":66843,\"webSearchRequests\":0,\"costUSD\":1.4075747499999998,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"uuid\":\"239b1172-8ac5-4639-aade-2366c5156cf7\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-verification.md": "/Users/kamenkamenov/agentic-trading/candidate-verification.md"
+      },
+      "metrics": {
+        "duration_seconds": 606.4549279212952,
+        "token_usage": {
+          "input_tokens": 10,
+          "output_tokens": 31991,
+          "cache_read_tokens": 379962,
+          "cache_write_tokens": 66843
+        },
+        "estimated_cost_usd": 0.844545,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "critic": {
+      "phase_id": "critic",
+      "status": "retrying",
+      "attempts": 2,
+      "started_at": "2026-02-24T18:34:00.957855+00:00",
+      "completed_at": null,
+      "error_message": "Claude CLI timed out after 600s",
+      "decision": null,
+      "handoff": null,
+      "output": "",
+      "output_truncated": false,
+      "artifacts": {},
+      "metrics": {
+        "duration_seconds": 0.0,
+        "token_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "estimated_cost_usd": 0.0,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-02-24T18:46:55.883907+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/surgical-candidate-workflow.yaml",
+    "workflowHash": "6504e3a4704c0ae6"
+  }
+}

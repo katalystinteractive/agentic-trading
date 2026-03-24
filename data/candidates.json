@@ -1,0 +1,45 @@
+{
+  "candidates": [
+    {
+      "ticker": "RDW",
+      "sector": "Space",
+      "added": "2026-03-22",
+      "source": "manual",
+      "median_swing": null,
+      "price": null
+    },
+    {
+      "ticker": "NTLA",
+      "sector": "Biotech",
+      "added": "2026-03-22",
+      "source": "manual",
+      "median_swing": null,
+      "price": null
+    },
+    {
+      "ticker": "HUT",
+      "sector": "Crypto",
+      "added": "2026-03-22",
+      "source": "manual",
+      "median_swing": null,
+      "price": null
+    },
+    {
+      "ticker": "OPEN",
+      "sector": "Tech",
+      "added": "2026-03-23",
+      "source": "manual",
+      "median_swing": null,
+      "price": null
+    },
+    {
+      "ticker": "BEAM",
+      "sector": "Biotech",
+      "added": "2026-03-23",
+      "source": "manual",
+      "median_swing": null,
+      "price": null
+    }
+  ],
+  "last_updated": "2026-03-23T22:45:39"
+}

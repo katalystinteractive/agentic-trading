@@ -1,0 +1,119 @@
+{
+  "run_id": "d4a35c5d-cc5d-4f2d-a2ed-1a68e438c702",
+  "workflow_name": "surgical-candidate-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-03-23T20:22:52.749607+00:00",
+  "completed_at": "2026-03-23T20:39:35.129479+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: python\n- **Language**: python\n\n## Context\n\nEvaluate new candidates from EXPANDED universe screening (2026-03-23). Universe: 11,890 tickers screened, 1,337 passed surgical gates. Run with --universe --expanded flags for full coverage. Focus on top candidates not already in portfolio/watchlist.",
+    "handoffs": {
+      "screen": "**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\n\n**Gate passers:** 1,337 tickers passed surgical gates (screened 11,890 universe)\n\n**Top 7 scored:**\n- NUAI: 92\n- ASTX: 86\n- BMNZ: 86\n- VELO: 85\n- CRWU: 85\n- RGTZ: 83\n- IREX: 82\n\n**Recommendations:** 0 Onboard | 3 Watch (BMNZ, CRWU, IREX) | 4 Monitor (NUAI, ASTX, VELO, RGTZ)\n\n**Key findings:**\n\n- **No Onboard candidates.** Every candidate has at least one structural blocker.\n- **BMNZ** is the cleanest overall \u2014 17 cycles, 100% fill, solid $15.71 anchor at 62% hold, passes most KPIs. Blocked only by zero reserves and unconfirmed sector identity (must verify before onboarding to avoid hidden concentration).\n- **CRWU** is the only KPI-clean candidate (all gates pass) with 20/20 tier quality and strong $4.49 anchor. Blocked by $4.20 level effectively broken (0% recent hold) and zero reserves.\n- **IREX** has the best individual support level in the batch ($22.78 at 80% hold, stable) \u2014 a genuine anchor. Blocked by only 5 cycles and zero reserves.\n- **NUAI** leads scoring at 92 due to perfect cycle efficiency and B1 proximity, but the 65% dead zone makes reserves functionally worthless. Sub-$5 price also violates strategy range.\n- **ASTX** has the best improving recency trajectory but is entirely the wrong price tier ($44 \u2192 1-2 shares per bullet).\n- **VELO** and **RGTZ** have excellent cycle data but weak support structures and dead zones that make reserve deployment impractical.\n\nReady for verification.",
+      "verify": "**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\n\n**Results:** 7 PASS, 0 FLAG, 0 FAIL\n\n**Score range after adjustment:** 82\u201392 (no adjustments made \u2014 all 0)\n\n**Pre-verify:** 7 checks passed, 2 issues found (1 FAIL: flag coverage \u2014 all 6 instances are false positives, evaluator addressed each substantively in prose; 1 WARN: active zone proximity for 5 tickers at 15.5\u201318.3% \u2014 within strategy's 20% active radius cap, measurement artifacts)\n\n**Key verification findings:**\n- Flag coverage FAIL is entirely false positives (6/6): evaluator addressed every flagged issue using different terminology than the pattern-matcher expected. In two cases (CRWU's $4.20 deterioration, RGTZ's dead zone) the evaluator exceeded the mechanical flag with quantified analysis.\n- All 7 recommendations are well-supported: 3 Watch (BMNZ, CRWU, IREX), 4 Monitor (NUAI, ASTX, VELO, RGTZ). No Onboard \u2014 every candidate has at least one structural blocker.\n- Strongest qualitative contributions: RGTZ's n=1 statistical worthlessness observation; VELO's specific portfolio overlap identification (ARM/NVDA/SMCI/INTC); IREX's 20-25% failure probability framing for the $22.78 anchor.\n- No score adjustments warranted: evaluator reasoning is sound, consistent, and data-derived throughout.\n\nReady for final selection.",
+      "critic": "**Artifacts:** candidate-pre-critic.md, candidate-final.md\n\n**Top 3:**\n1. BMNZ \u2014 100 \u2014 Watch\n2. IREX \u2014 97 \u2014 Watch\n3. NUAI \u2014 97 \u2014 Monitor\n\n**Key adversarial findings:**\n\n- **NUAI demoted -10 (107 \u2192 97, #1 \u2192 #3, Monitor):** Pre-critic inflated to #1 via capped +15 modifier on perfect cycle efficiency and B1 proximity. Both are genuine mechanical signals applied to a stock with a hard strategy violation ($4.96, below $5.00 minimum) and 5 KPI failures. The 65% dead zone renders reserve scores (10/10 mechanically) meaningless \u2014 reserves cost $1.46/$0.88/$0.37. Impressive cycle data, wrong vehicle.\n\n- **ASTX demoted -10 (101 \u2192 91):** Best recency profile in the batch ($35.40 at 100% recent hold) applied to a $44 stock that yields 1-2 shares per bullet. Price range violation is structural, not timing. Monitor retained.\n\n- **VELO demoted -8 (100 \u2192 92):** Pre-critic assigned +5 portfolio fit (Technology = \"new sector\"). This misses real sub-sector overlap \u2014 VELO is a Tech stock entering a portfolio already holding ARM/NVDA/SMCI/INTC at semiconductor concentration limits. In a Tech drawdown all five move together. No active anchor further disqualifies.\n\n- **RGTZ demoted -10 (98 \u2192 88):** 18 cycles / 100% fill earning +5 cycle modifier is mechanically correct but perversely applied. Fast cycles + 17%/14% recent hold = the stock breaks through support rather than bouncing from it. $586/$600 budget on weakest support in batch, with n=1 statistically worthless reserve.\n\n- **BMNZ promoted +5 (95 \u2192 100, #5 \u2192 #1):** Cleanest structure in the batch \u2014 17 cycles / 100% fill, stable $15.71 anchor at 62% hold, improving floor at $14.72, within strategy range. Sector confirmation is the only blocker \u2014 specifically clearable. After clearance, most deployable candidate.\n\n- **IREX promoted +5 (92 \u2192 97, #7 \u2192 #2):** $22.78 anchor at 80% hold is the best individual support level in the batch. Upper zone softening is watchable. Five cycles is thin but with 100% fill record; cycles accumulate naturally. Anchor quality justifies Watch status.\n\n- **Contingency:** If BMNZ sector confirms as concentrated, substitute CRWU (Watch, 88) as #3.\n\nScreening complete. Review candidate-final.md for onboarding decisions."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1,
+    "head_before_screen": "7cf6e3b23a20e73d6b680d02ddfaff30bb8142bf",
+    "head_before_verify": "7cf6e3b23a20e73d6b680d02ddfaff30bb8142bf",
+    "head_before_critic": "7cf6e3b23a20e73d6b680d02ddfaff30bb8142bf"
+  },
+  "phases": {
+    "screen": {
+      "phase_id": "screen",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-23T20:22:52.754143+00:00",
+      "completed_at": "2026-03-23T20:29:10.725953+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\n\n**Gate passers:** 1,337 tickers passed surgical gates (screened 11,890 universe)\n\n**Top 7 scored:**\n- NUAI: 92\n- ASTX: 86\n- BMNZ: 86\n- VELO: 85\n- CRWU: 85\n- RGTZ: 83\n- IREX: 82\n\n**Recommendations:** 0 Onboard | 3 Watch (BMNZ, CRWU, IREX) | 4 Monitor (NUAI, ASTX, VELO, RGTZ)\n\n**Key findings:**\n\n- **No Onboard candidates.** Every candidate has at least one structural blocker.\n- **BMNZ** is the cleanest overall \u2014 17 cycles, 100% fill, solid $15.71 anchor at 62% hold, passes most KPIs. Blocked only by zero reserves and unconfirmed sector identity (must verify before onboarding to avoid hidden concentration).\n- **CRWU** is the only KPI-clean candidate (all gates pass) with 20/20 tier quality and strong $4.49 anchor. Blocked by $4.20 level effectively broken (0% recent hold) and zero reserves.\n- **IREX** has the best individual support level in the batch ($22.78 at 80% hold, stable) \u2014 a genuine anchor. Blocked by only 5 cycles and zero reserves.\n- **NUAI** leads scoring at 92 due to perfect cycle efficiency and B1 proximity, but the 65% dead zone makes reserves functionally worthless. Sub-$5 price also violates strategy range.\n- **ASTX** has the best improving recency trajectory but is entirely the wrong price tier ($44 \u2192 1-2 shares per bullet).\n- **VELO** and **RGTZ** have excellent cycle data but weak support structures and dead zones that make reserve deployment impractical.\n\nReady for verification.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":374715,\"duration_api_ms\":334500,\"num_turns\":15,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\\n\\n**Gate passers:** 1,337 tickers passed surgical gates (screened 11,890 universe)\\n\\n**Top 7 scored:**\\n- NUAI: 92\\n- ASTX: 86\\n- BMNZ: 86\\n- VELO: 85\\n- CRWU: 85\\n- RGTZ: 83\\n- IREX: 82\\n\\n**Recommendations:** 0 Onboard | 3 Watch (BMNZ, CRWU, IREX) | 4 Monitor (NUAI, ASTX, VELO, RGTZ)\\n\\n**Key findings:**\\n\\n- **No Onboard candidates.** Every candidate has at least one structural blocker.\\n- **BMNZ** is the cleanest overall \u2014 17 cycles, 100% fill, solid $15.71 anchor at 62% hold, passes most KPIs. Blocked only by zero reserves and unconfirmed sector identity (must verify before onboarding to avoid hidden concentration).\\n- **CRWU** is the only KPI-clean candidate (all gates pass) with 20/20 tier quality and strong $4.49 anchor. Blocked by $4.20 level effectively broken (0% recent hold) and zero reserves.\\n- **IREX** has the best individual support level in the batch ($22.78 at 80% hold, stable) \u2014 a genuine anchor. Blocked by only 5 cycles and zero reserves.\\n- **NUAI** leads scoring at 92 due to perfect cycle efficiency and B1 proximity, but the 65% dead zone makes reserves functionally worthless. Sub-$5 price also violates strategy range.\\n- **ASTX** has the best improving recency trajectory but is entirely the wrong price tier ($44 \u2192 1-2 shares per bullet).\\n- **VELO** and **RGTZ** have excellent cycle data but weak support structures and dead zones that make reserve deployment impractical.\\n\\nReady for verification.\",\"stop_reason\":\"end_turn\",\"session_id\":\"69a99712-becb-49a9-8e7e-036c6382cc26\",\"total_cost_usd\":0.6900383999999999,\"usage\":{\"input_tokens\":17,\"cache_creation_input_tokens\":62012,\"cache_read_input_tokens\":624458,\"output_tokens\":18007,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":62012,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":17,\"outputTokens\":18007,\"cacheReadInputTokens\":624458,\"cacheCreationInputTokens\":62012,\"webSearchRequests\":0,\"costUSD\":0.6900383999999999,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"814deaca-820b-4ee4-9463-50444a15a4f4\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "screening_data.json": "/Users/kamenkamenov/agentic-trading/screening_data.json",
+        "candidate_shortlist.md": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.md",
+        "candidate_shortlist.json": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.json",
+        "candidate-evaluation.md": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.md",
+        "candidate-evaluation.json": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.json"
+      },
+      "metrics": {
+        "duration_seconds": 377.4799380302429,
+        "token_usage": {
+          "input_tokens": 17,
+          "output_tokens": 18007,
+          "cache_read_tokens": 624458,
+          "cache_write_tokens": 62012
+        },
+        "estimated_cost_usd": 0.690038,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "verify": {
+      "phase_id": "verify",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-23T20:29:11.071392+00:00",
+      "completed_at": "2026-03-23T20:33:50.646870+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\n\n**Results:** 7 PASS, 0 FLAG, 0 FAIL\n\n**Score range after adjustment:** 82\u201392 (no adjustments made \u2014 all 0)\n\n**Pre-verify:** 7 checks passed, 2 issues found (1 FAIL: flag coverage \u2014 all 6 instances are false positives, evaluator addressed each substantively in prose; 1 WARN: active zone proximity for 5 tickers at 15.5\u201318.3% \u2014 within strategy's 20% active radius cap, measurement artifacts)\n\n**Key verification findings:**\n- Flag coverage FAIL is entirely false positives (6/6): evaluator addressed every flagged issue using different terminology than the pattern-matcher expected. In two cases (CRWU's $4.20 deterioration, RGTZ's dead zone) the evaluator exceeded the mechanical flag with quantified analysis.\n- All 7 recommendations are well-supported: 3 Watch (BMNZ, CRWU, IREX), 4 Monitor (NUAI, ASTX, VELO, RGTZ). No Onboard \u2014 every candidate has at least one structural blocker.\n- Strongest qualitative contributions: RGTZ's n=1 statistical worthlessness observation; VELO's specific portfolio overlap identification (ARM/NVDA/SMCI/INTC); IREX's 20-25% failure probability framing for the $22.78 anchor.\n- No score adjustments warranted: evaluator reasoning is sound, consistent, and data-derived throughout.\n\nReady for final selection.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":276925,\"duration_api_ms\":250307,\"num_turns\":12,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\\n\\n**Results:** 7 PASS, 0 FLAG, 0 FAIL\\n\\n**Score range after adjustment:** 82\u201392 (no adjustments made \u2014 all 0)\\n\\n**Pre-verify:** 7 checks passed, 2 issues found (1 FAIL: flag coverage \u2014 all 6 instances are false positives, evaluator addressed each substantively in prose; 1 WARN: active zone proximity for 5 tickers at 15.5\u201318.3% \u2014 within strategy's 20% active radius cap, measurement artifacts)\\n\\n**Key verification findings:**\\n- Flag coverage FAIL is entirely false positives (6/6): evaluator addressed every flagged issue using different terminology than the pattern-matcher expected. In two cases (CRWU's $4.20 deterioration, RGTZ's dead zone) the evaluator exceeded the mechanical flag with quantified analysis.\\n- All 7 recommendations are well-supported: 3 Watch (BMNZ, CRWU, IREX), 4 Monitor (NUAI, ASTX, VELO, RGTZ). No Onboard \u2014 every candidate has at least one structural blocker.\\n- Strongest qualitative contributions: RGTZ's n=1 statistical worthlessness observation; VELO's specific portfolio overlap identification (ARM/NVDA/SMCI/INTC); IREX's 20-25% failure probability framing for the $22.78 anchor.\\n- No score adjustments warranted: evaluator reasoning is sound, consistent, and data-derived throughout.\\n\\nReady for final selection.\",\"stop_reason\":\"end_turn\",\"session_id\":\"d179bd24-73c8-4496-a531-c4dc24fd0b01\",\"total_cost_usd\":0.47910795,\"usage\":{\"input_tokens\":10,\"cache_creation_input_tokens\":48927,\"cache_read_input_tokens\":319039,\"output_tokens\":13326,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":48927,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":10,\"outputTokens\":13326,\"cacheReadInputTokens\":319039,\"cacheCreationInputTokens\":48927,\"webSearchRequests\":0,\"costUSD\":0.47910795,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"f584f5a3-abb3-4a66-912a-515a6d06d503\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-verify.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-verify.md",
+        "candidate-verification.md": "/Users/kamenkamenov/agentic-trading/candidate-verification.md",
+        "candidate-verification.json": "/Users/kamenkamenov/agentic-trading/candidate-verification.json"
+      },
+      "metrics": {
+        "duration_seconds": 279.1873769760132,
+        "token_usage": {
+          "input_tokens": 10,
+          "output_tokens": 13326,
+          "cache_read_tokens": 319039,
+          "cache_write_tokens": 48927
+        },
+        "estimated_cost_usd": 0.479108,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "critic": {
+      "phase_id": "critic",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-23T20:33:50.997773+00:00",
+      "completed_at": "2026-03-23T20:39:34.838025+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** candidate-pre-critic.md, candidate-final.md\n\n**Top 3:**\n1. BMNZ \u2014 100 \u2014 Watch\n2. IREX \u2014 97 \u2014 Watch\n3. NUAI \u2014 97 \u2014 Monitor\n\n**Key adversarial findings:**\n\n- **NUAI demoted -10 (107 \u2192 97, #1 \u2192 #3, Monitor):** Pre-critic inflated to #1 via capped +15 modifier on perfect cycle efficiency and B1 proximity. Both are genuine mechanical signals applied to a stock with a hard strategy violation ($4.96, below $5.00 minimum) and 5 KPI failures. The 65% dead zone renders reserve scores (10/10 mechanically) meaningless \u2014 reserves cost $1.46/$0.88/$0.37. Impressive cycle data, wrong vehicle.\n\n- **ASTX demoted -10 (101 \u2192 91):** Best recency profile in the batch ($35.40 at 100% recent hold) applied to a $44 stock that yields 1-2 shares per bullet. Price range violation is structural, not timing. Monitor retained.\n\n- **VELO demoted -8 (100 \u2192 92):** Pre-critic assigned +5 portfolio fit (Technology = \"new sector\"). This misses real sub-sector overlap \u2014 VELO is a Tech stock entering a portfolio already holding ARM/NVDA/SMCI/INTC at semiconductor concentration limits. In a Tech drawdown all five move together. No active anchor further disqualifies.\n\n- **RGTZ demoted -10 (98 \u2192 88):** 18 cycles / 100% fill earning +5 cycle modifier is mechanically correct but perversely applied. Fast cycles + 17%/14% recent hold = the stock breaks through support rather than bouncing from it. $586/$600 budget on weakest support in batch, with n=1 statistically worthless reserve.\n\n- **BMNZ promoted +5 (95 \u2192 100, #5 \u2192 #1):** Cleanest structure in the batch \u2014 17 cycles / 100% fill, stable $15.71 anchor at 62% hold, improving floor at $14.72, within strategy range. Sector confirmation is the only blocker \u2014 specifically clearable. After clearance, most deployable candidate.\n\n- **IREX promoted +5 (92 \u2192 97, #7 \u2192 #2):** $22.78 anchor at 80% hold is the best individual support level in the batch. Upper zone softening is watchable. Five cycles is thin but with 100% fill record; cycles accumulate naturally. Anchor quality justifies Watch status.\n\n- **Contingency:** If BMNZ sector confirms as concentrated, substitute CRWU (Watch, 88) as #3.\n\nScreening complete. Review candidate-final.md for onboarding decisions.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":341212,\"duration_api_ms\":336787,\"num_turns\":8,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** candidate-pre-critic.md, candidate-final.md\\n\\n**Top 3:**\\n1. BMNZ \u2014 100 \u2014 Watch\\n2. IREX \u2014 97 \u2014 Watch\\n3. NUAI \u2014 97 \u2014 Monitor\\n\\n**Key adversarial findings:**\\n\\n- **NUAI demoted -10 (107 \u2192 97, #1 \u2192 #3, Monitor):** Pre-critic inflated to #1 via capped +15 modifier on perfect cycle efficiency and B1 proximity. Both are genuine mechanical signals applied to a stock with a hard strategy violation ($4.96, below $5.00 minimum) and 5 KPI failures. The 65% dead zone renders reserve scores (10/10 mechanically) meaningless \u2014 reserves cost $1.46/$0.88/$0.37. Impressive cycle data, wrong vehicle.\\n\\n- **ASTX demoted -10 (101 \u2192 91):** Best recency profile in the batch ($35.40 at 100% recent hold) applied to a $44 stock that yields 1-2 shares per bullet. Price range violation is structural, not timing. Monitor retained.\\n\\n- **VELO demoted -8 (100 \u2192 92):** Pre-critic assigned +5 portfolio fit (Technology = \\\"new sector\\\"). This misses real sub-sector overlap \u2014 VELO is a Tech stock entering a portfolio already holding ARM/NVDA/SMCI/INTC at semiconductor concentration limits. In a Tech drawdown all five move together. No active anchor further disqualifies.\\n\\n- **RGTZ demoted -10 (98 \u2192 88):** 18 cycles / 100% fill earning +5 cycle modifier is mechanically correct but perversely applied. Fast cycles + 17%/14% recent hold = the stock breaks through support rather than bouncing from it. $586/$600 budget on weakest support in batch, with n=1 statistically worthless reserve.\\n\\n- **BMNZ promoted +5 (95 \u2192 100, #5 \u2192 #1):** Cleanest structure in the batch \u2014 17 cycles / 100% fill, stable $15.71 anchor at 62% hold, improving floor at $14.72, within strategy range. Sector confirmation is the only blocker \u2014 specifically clearable. After clearance, most deployable candidate.\\n\\n- **IREX promoted +5 (92 \u2192 97, #7 \u2192 #2):** $22.78 anchor at 80% hold is the best individual support level in the batch. Upper zone softening is watchable. Five cycles is thin but with 100% fill record; cycles accumulate naturally. Anchor quality justifies Watch status.\\n\\n- **Contingency:** If BMNZ sector confirms as concentrated, substitute CRWU (Watch, 88) as #3.\\n\\nScreening complete. Review candidate-final.md for onboarding decisions.\",\"stop_reason\":\"end_turn\",\"session_id\":\"6207a910-e39d-4f75-bbff-8c0c7a8a9387\",\"total_cost_usd\":0.49873845,\"usage\":{\"input_tokens\":8,\"cache_creation_input_tokens\":53305,\"cache_read_input_tokens\":233169,\"output_tokens\":15258,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":53305,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":8,\"outputTokens\":15258,\"cacheReadInputTokens\":233169,\"cacheCreationInputTokens\":53305,\"webSearchRequests\":0,\"costUSD\":0.49873845,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"72a37b65-c901-43ee-8801-a6749393fcf7\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-critic.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-critic.md",
+        "candidate-final.md": "/Users/kamenkamenov/agentic-trading/candidate-final.md"
+      },
+      "metrics": {
+        "duration_seconds": 343.51118183135986,
+        "token_usage": {
+          "input_tokens": 8,
+          "output_tokens": 15258,
+          "cache_read_tokens": 233169,
+          "cache_write_tokens": 53305
+        },
+        "estimated_cost_usd": 0.498738,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-03-23T20:39:35.129656+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/surgical-candidate-workflow.yaml",
+    "workflowHash": "911887d0c859da61"
+  }
+}

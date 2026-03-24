@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:18*
+*Generated: 2026-03-18 09:22*
 
 ## Earnings Analysis: IonQ, Inc. (IONQ)
 
@@ -6,15 +6,15 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-06 |
-| Days Until | 59 |
-| EPS Estimate | $-0.24132 |
+| Days Until | 49 |
+| EPS Estimate | $-0.24719 |
 | Revenue Estimate | $49.7M |
-| Earnings Rule | Clear (>59d out) |
+| Earnings Rule | Clear (>49d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Q1 2026 | $-0.23 | $-0.20 | 13.0% | +21.7% | +10.5% | Strong Bull |
+| Q1 2026 | $-0.47 | $1.93 | 508.5% | +21.7% | +10.5% | Strong Bull |
 | Q4 2025 | $-0.19 | $-0.17 | 10.5% | +3.6% | -8.5% | Strong Bull |
 | Q3 2025 | $-0.14 | $-0.14 | -2.9% | -1.8% | -0.0% | Bearish |
 | Q2 2025 | $-0.14 | $-0.16 | -13.0% | +9.3% | +14.7% | Strong Bull |

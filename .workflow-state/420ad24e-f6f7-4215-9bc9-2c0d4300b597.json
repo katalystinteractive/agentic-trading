@@ -1,0 +1,116 @@
+{
+  "run_id": "420ad24e-f6f7-4215-9bc9-2c0d4300b597",
+  "workflow_name": "surgical-candidate-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-03-04T20:59:21.779701+00:00",
+  "completed_at": "2026-03-04T21:15:56.491377+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nScreen for new surgical mean-reversion candidates. After screening, check if VALE, SEDG, and RKT appear in the top results (excluding tickers already in the current watchlist). Current watchlist: NU, STIM, IONQ, USAR, INTC, APLD, SMCI, TMC, CIFR, ARM, ACHR, TEM, CLSK, CLF, LUNR, SOUN, AR, NNE, BBAI, NVDA, VALE, SEDG, RKT.",
+    "handoffs": {
+      "screen": "**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\n\n**Gate passers:** 70 tickers passed surgical gates (from 151 screened, excluding 24 portfolio tickers)\n\n**Top 7 scored:** OUST(95), IREN(84), QBTS(83), HUT(81), RGTI(79), NTLA(79), RDW(78)\n\n**Recommendations:**\n- **Onboard (1):** OUST \u2014 Tech sector, near-perfect score, improving lower supports, 13% reserve gap, maximal sector diversity\n- **Watch (2):** QBTS \u2014 improving recency across all active levels; RGTI \u2014 best reserve structure in shortlist. Both blocked only by 2x Quantum concentration with IONQ\n- **Monitor (4):** IREN (4x Crypto + 54% dead zone), HUT (4x Crypto + $54 price sizing mismatch), NTLA (binary FDA risk, 0% hold at $11.02), RDW (3-level support collapse to 0% recent hold)\n\n**VALE / SEDG / RKT status:** All three are already in the current watchlist \u2014 correctly excluded by the screener at Stage 1. None appear in top 20 candidates.\n\nReady for verification.",
+      "verify": "**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\n\n**Results:** 6 PASS, 1 FLAG, 0 FAIL\n\n**Score range after adjustment:** 77 (RGTI) \u2192 95 (OUST)\n\n**Pre-verify:** 5 checks passed, 2 issues found (FAIL: NVDA sector \"Unknown\" \u2014 no top-7 impact; WARN: RGTI duplicate buy price $14.78 \u2014 evaluator did not address)\n\n**Key adjustments:**\n- **RGTI: -2** (79 \u2192 77) \u2014 Duplicate buy price at $14.78 shared by two different supports ($14.12 Full tier + $14.70 Std tier) creates combined ~$118 exposure at a single fill level. The pre-verifier explicitly flagged this as the sole qualitative focus area; the evaluator did not address it. Recommendation (Watch) remains defensible; verdict is FLAG, not FAIL.\n\n**Notable qualitative findings surfaced:**\n- NTLA evaluator's binary-event-risk argument (\"root cause is event-driven, not mean-reversion\") is the strongest qualitative contribution in the batch \u2014 correctly disqualifies NTLA in a way mechanical scoring cannot.\n- RDW evaluator correctly identified that Bullets & Tier score (20/25) masks a complete recent support collapse \u2014 a genuine scoring blind spot.\n- NVDA portfolio sector misclassification (Unknown vs Semi) is informational; correcting it would push Semi to 3x but affects no top-7 candidate's score.\n\nReady for final selection (critic phase).",
+      "critic": "**Artifacts:** candidate-pre-critic.md, candidate-final.md\n\n**Top 3:**\n1. OUST \u2014 107 \u2014 **Onboard** (Tech sector new addition; 10-13 sample depths across all active levels; 0.3% B1 distance; +2 qualitative for compounding strengths)\n2. QBTS \u2014 90 \u2014 **Watch** (improving recency real but thin sample fragility + D-Wave commercial risk underplayed; -3 qualitative; blocked by 2x Quantum with IONQ in recovery)\n3. HUT \u2014 83 \u2014 **Monitor** (structural bullet sizing failure at two active levels + 4x Crypto hard block compound; -4 qualitative; blocked until price <$40 AND Crypto concentration reduces)\n\n**Key adversarial findings:**\n- QBTS's \"architectural differentiation\" from IONQ is portfolio-irrelevant \u2014 both trade on quantum sentiment narratives\n- HUT's Half-tier bullet mismatch ($52.75/$45.26 vs $30 budget) is a strategy execution failure, not a budget overage\n- RGTI's duplicate $14.78 buy price (unresolved from verification) drops it to #4 at 81, tied with IREN (also 81) \u2014 both remain off the top 3\n- NTLA's binary event risk argument remains the strongest qualitative insight in the batch; correctly disqualifies it as a mean-reversion candidate\n\nScreening complete. Review candidate-final.md for onboarding decisions."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 1
+  },
+  "phases": {
+    "screen": {
+      "phase_id": "screen",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-04T20:59:21.785225+00:00",
+      "completed_at": "2026-03-04T21:05:50.677143+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\n\n**Gate passers:** 70 tickers passed surgical gates (from 151 screened, excluding 24 portfolio tickers)\n\n**Top 7 scored:** OUST(95), IREN(84), QBTS(83), HUT(81), RGTI(79), NTLA(79), RDW(78)\n\n**Recommendations:**\n- **Onboard (1):** OUST \u2014 Tech sector, near-perfect score, improving lower supports, 13% reserve gap, maximal sector diversity\n- **Watch (2):** QBTS \u2014 improving recency across all active levels; RGTI \u2014 best reserve structure in shortlist. Both blocked only by 2x Quantum concentration with IONQ\n- **Monitor (4):** IREN (4x Crypto + 54% dead zone), HUT (4x Crypto + $54 price sizing mismatch), NTLA (binary FDA risk, 0% hold at $11.02), RDW (3-level support collapse to 0% recent hold)\n\n**VALE / SEDG / RKT status:** All three are already in the current watchlist \u2014 correctly excluded by the screener at Stage 1. None appear in top 20 candidates.\n\nReady for verification.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":385067,\"duration_api_ms\":360741,\"num_turns\":14,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** screening_data.json, candidate_shortlist.md, candidate_shortlist.json, candidate-evaluation.md, candidate-evaluation.json\\n\\n**Gate passers:** 70 tickers passed surgical gates (from 151 screened, excluding 24 portfolio tickers)\\n\\n**Top 7 scored:** OUST(95), IREN(84), QBTS(83), HUT(81), RGTI(79), NTLA(79), RDW(78)\\n\\n**Recommendations:**\\n- **Onboard (1):** OUST \u2014 Tech sector, near-perfect score, improving lower supports, 13% reserve gap, maximal sector diversity\\n- **Watch (2):** QBTS \u2014 improving recency across all active levels; RGTI \u2014 best reserve structure in shortlist. Both blocked only by 2x Quantum concentration with IONQ\\n- **Monitor (4):** IREN (4x Crypto + 54% dead zone), HUT (4x Crypto + $54 price sizing mismatch), NTLA (binary FDA risk, 0% hold at $11.02), RDW (3-level support collapse to 0% recent hold)\\n\\n**VALE / SEDG / RKT status:** All three are already in the current watchlist \u2014 correctly excluded by the screener at Stage 1. None appear in top 20 candidates.\\n\\nReady for verification.\",\"stop_reason\":null,\"session_id\":\"884e3765-fee4-40b4-9798-99a5e19e5657\",\"total_cost_usd\":1.2025822499999999,\"usage\":{\"input_tokens\":6326,\"cache_creation_input_tokens\":64813,\"cache_read_input_tokens\":693092,\"output_tokens\":16773,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":64813,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":6326,\"outputTokens\":16773,\"cacheReadInputTokens\":693092,\"cacheCreationInputTokens\":64813,\"webSearchRequests\":0,\"costUSD\":1.2025822499999999,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"61692bb6-358f-44e3-8320-70410176300c\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "screening_data.json": "/Users/kamenkamenov/agentic-trading/screening_data.json",
+        "candidate_shortlist.md": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.md",
+        "candidate_shortlist.json": "/Users/kamenkamenov/agentic-trading/candidate_shortlist.json",
+        "candidate-evaluation.md": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.md",
+        "candidate-evaluation.json": "/Users/kamenkamenov/agentic-trading/candidate-evaluation.json"
+      },
+      "metrics": {
+        "duration_seconds": 388.8880500793457,
+        "token_usage": {
+          "input_tokens": 6326,
+          "output_tokens": 16773,
+          "cache_read_tokens": 693092,
+          "cache_write_tokens": 64813
+        },
+        "estimated_cost_usd": 0.721549,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "verify": {
+      "phase_id": "verify",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-04T21:05:50.679639+00:00",
+      "completed_at": "2026-03-04T21:11:00.828469+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\n\n**Results:** 6 PASS, 1 FLAG, 0 FAIL\n\n**Score range after adjustment:** 77 (RGTI) \u2192 95 (OUST)\n\n**Pre-verify:** 5 checks passed, 2 issues found (FAIL: NVDA sector \"Unknown\" \u2014 no top-7 impact; WARN: RGTI duplicate buy price $14.78 \u2014 evaluator did not address)\n\n**Key adjustments:**\n- **RGTI: -2** (79 \u2192 77) \u2014 Duplicate buy price at $14.78 shared by two different supports ($14.12 Full tier + $14.70 Std tier) creates combined ~$118 exposure at a single fill level. The pre-verifier explicitly flagged this as the sole qualitative focus area; the evaluator did not address it. Recommendation (Watch) remains defensible; verdict is FLAG, not FAIL.\n\n**Notable qualitative findings surfaced:**\n- NTLA evaluator's binary-event-risk argument (\"root cause is event-driven, not mean-reversion\") is the strongest qualitative contribution in the batch \u2014 correctly disqualifies NTLA in a way mechanical scoring cannot.\n- RDW evaluator correctly identified that Bullets & Tier score (20/25) masks a complete recent support collapse \u2014 a genuine scoring blind spot.\n- NVDA portfolio sector misclassification (Unknown vs Semi) is informational; correcting it would push Semi to 3x but affects no top-7 candidate's score.\n\nReady for final selection (critic phase).",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":307569,\"duration_api_ms\":302454,\"num_turns\":11,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** candidate-pre-verify.md, candidate-verification.md, candidate-verification.json\\n\\n**Results:** 6 PASS, 1 FLAG, 0 FAIL\\n\\n**Score range after adjustment:** 77 (RGTI) \u2192 95 (OUST)\\n\\n**Pre-verify:** 5 checks passed, 2 issues found (FAIL: NVDA sector \\\"Unknown\\\" \u2014 no top-7 impact; WARN: RGTI duplicate buy price $14.78 \u2014 evaluator did not address)\\n\\n**Key adjustments:**\\n- **RGTI: -2** (79 \u2192 77) \u2014 Duplicate buy price at $14.78 shared by two different supports ($14.12 Full tier + $14.70 Std tier) creates combined ~$118 exposure at a single fill level. The pre-verifier explicitly flagged this as the sole qualitative focus area; the evaluator did not address it. Recommendation (Watch) remains defensible; verdict is FLAG, not FAIL.\\n\\n**Notable qualitative findings surfaced:**\\n- NTLA evaluator's binary-event-risk argument (\\\"root cause is event-driven, not mean-reversion\\\") is the strongest qualitative contribution in the batch \u2014 correctly disqualifies NTLA in a way mechanical scoring cannot.\\n- RDW evaluator correctly identified that Bullets & Tier score (20/25) masks a complete recent support collapse \u2014 a genuine scoring blind spot.\\n- NVDA portfolio sector misclassification (Unknown vs Semi) is informational; correcting it would push Semi to 3x but affects no top-7 candidate's score.\\n\\nReady for final selection (critic phase).\",\"stop_reason\":null,\"session_id\":\"772a25ac-4e81-4b2c-b232-173b929ad3b8\",\"total_cost_usd\":0.8687190000000001,\"usage\":{\"input_tokens\":11,\"cache_creation_input_tokens\":50794,\"cache_read_input_tokens\":442403,\"output_tokens\":13200,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":50794,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":11,\"outputTokens\":13200,\"cacheReadInputTokens\":442403,\"cacheCreationInputTokens\":50794,\"webSearchRequests\":0,\"costUSD\":0.8687190000000001,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"e1ea8042-cfde-4568-b3ae-d900f8027561\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-verify.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-verify.md",
+        "candidate-verification.md": "/Users/kamenkamenov/agentic-trading/candidate-verification.md",
+        "candidate-verification.json": "/Users/kamenkamenov/agentic-trading/candidate-verification.json"
+      },
+      "metrics": {
+        "duration_seconds": 310.14702916145325,
+        "token_usage": {
+          "input_tokens": 11,
+          "output_tokens": 13200,
+          "cache_read_tokens": 442403,
+          "cache_write_tokens": 50794
+        },
+        "estimated_cost_usd": 0.521231,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "critic": {
+      "phase_id": "critic",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-04T21:11:00.831665+00:00",
+      "completed_at": "2026-03-04T21:15:56.485542+00:00",
+      "error_message": null,
+      "decision": "COMPLETE",
+      "handoff": "**Artifacts:** candidate-pre-critic.md, candidate-final.md\n\n**Top 3:**\n1. OUST \u2014 107 \u2014 **Onboard** (Tech sector new addition; 10-13 sample depths across all active levels; 0.3% B1 distance; +2 qualitative for compounding strengths)\n2. QBTS \u2014 90 \u2014 **Watch** (improving recency real but thin sample fragility + D-Wave commercial risk underplayed; -3 qualitative; blocked by 2x Quantum with IONQ in recovery)\n3. HUT \u2014 83 \u2014 **Monitor** (structural bullet sizing failure at two active levels + 4x Crypto hard block compound; -4 qualitative; blocked until price <$40 AND Crypto concentration reduces)\n\n**Key adversarial findings:**\n- QBTS's \"architectural differentiation\" from IONQ is portfolio-irrelevant \u2014 both trade on quantum sentiment narratives\n- HUT's Half-tier bullet mismatch ($52.75/$45.26 vs $30 budget) is a strategy execution failure, not a budget overage\n- RGTI's duplicate $14.78 buy price (unresolved from verification) drops it to #4 at 81, tied with IREN (also 81) \u2014 both remain off the top 3\n- NTLA's binary event risk argument remains the strongest qualitative insight in the batch; correctly disqualifies it as a mean-reversion candidate\n\nScreening complete. Review candidate-final.md for onboarding decisions.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":293316,\"duration_api_ms\":288712,\"num_turns\":8,\"result\":\"## Decision: COMPLETE\\n\\n## HANDOFF\\n\\n**Artifacts:** candidate-pre-critic.md, candidate-final.md\\n\\n**Top 3:**\\n1. OUST \u2014 107 \u2014 **Onboard** (Tech sector new addition; 10-13 sample depths across all active levels; 0.3% B1 distance; +2 qualitative for compounding strengths)\\n2. QBTS \u2014 90 \u2014 **Watch** (improving recency real but thin sample fragility + D-Wave commercial risk underplayed; -3 qualitative; blocked by 2x Quantum with IONQ in recovery)\\n3. HUT \u2014 83 \u2014 **Monitor** (structural bullet sizing failure at two active levels + 4x Crypto hard block compound; -4 qualitative; blocked until price <$40 AND Crypto concentration reduces)\\n\\n**Key adversarial findings:**\\n- QBTS's \\\"architectural differentiation\\\" from IONQ is portfolio-irrelevant \u2014 both trade on quantum sentiment narratives\\n- HUT's Half-tier bullet mismatch ($52.75/$45.26 vs $30 budget) is a strategy execution failure, not a budget overage\\n- RGTI's duplicate $14.78 buy price (unresolved from verification) drops it to #4 at 81, tied with IREN (also 81) \u2014 both remain off the top 3\\n- NTLA's binary event risk argument remains the strongest qualitative insight in the batch; correctly disqualifies it as a mean-reversion candidate\\n\\nScreening complete. Review candidate-final.md for onboarding decisions.\",\"stop_reason\":null,\"session_id\":\"21d86126-21d8-42ca-b298-659a905e480f\",\"total_cost_usd\":0.7389812499999999,\"usage\":{\"input_tokens\":8,\"cache_creation_input_tokens\":46135,\"cache_read_input_tokens\":255695,\"output_tokens\":12910,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":46135,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":8,\"outputTokens\":12910,\"cacheReadInputTokens\":255695,\"cacheCreationInputTokens\":46135,\"webSearchRequests\":0,\"costUSD\":0.7389812499999999,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"fc80fe68-5a53-4fa3-b403-365fa600d77d\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "candidate-pre-critic.md": "/Users/kamenkamenov/agentic-trading/candidate-pre-critic.md",
+        "candidate-final.md": "/Users/kamenkamenov/agentic-trading/candidate-final.md"
+      },
+      "metrics": {
+        "duration_seconds": 295.65118288993835,
+        "token_usage": {
+          "input_tokens": 8,
+          "output_tokens": 12910,
+          "cache_read_tokens": 255695,
+          "cache_write_tokens": 46135
+        },
+        "estimated_cost_usd": 0.443389,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-03-04T21:15:56.491643+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/surgical-candidate-workflow.yaml",
+    "workflowHash": "911887d0c859da61"
+  }
+}

@@ -707,7 +707,10 @@ def analyze_stock_data(ticker, hist=None):
         r["trend"] = trend
 
         # Zone promotion: fresh Buffer levels → Active (recency + pullback validated)
-        if r["zone"] == "Buffer" and not dormant:
+        # Skip promotion if the level was forced into Buffer by the radius cap —
+        # it would have been Active under the uncapped radius, so promotion defeats the cap.
+        capped = active_radius >= ACTIVE_RADIUS_CAP and gap_pct > active_radius
+        if r["zone"] == "Buffer" and not dormant and not capped:
             # Require at least one recent approach to be a genuine pullback
             recent_pullback = False
             for e in r["events"]:

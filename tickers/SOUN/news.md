@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:20*
+*Generated: 2026-03-16 19:34*
 
 ## News & Sentiment: SoundHound AI, Inc. (SOUN)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,58 +6,87 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
+| Today | GlobeNewswire | SoundHound AI Unveils World's First Multimodal Agentic+ AI C... | Neutral | +0.00 | — |
+| 2026-03-16 | Yahoo Finance | SoundHound AI, Inc. (SOUN) is Attracting Investor Attention:... | Positive | +0.48 | — |
+| 2026-03-16 | TechStock² | SoundHound AI Stock Rises on Nvidia GTC Reveal as Cramer War... | Negative | -0.34 | — |
+| 2026-03-16 | Simply Wall St. | SoundHound AI Expands Voice Platform Raises Questions On Cor... | Positive | +0.10 | — |
+| 2026-03-15 | MarketBeat | Clear Street Group Inc. Buys New Shares in SoundHound AI, In... | Positive | +0.59 | Earnings |
+| 2026-03-13 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Stock Price Down 2.3% - Should Y... | Neutral | +0.00 | Earnings |
+| 2026-03-13 | Seeking Alpha | SoundHound: Wading In After The Crash (Upgrade) (NASDAQ:SOUN... | Negative | -0.40 | Analyst |
+| 2026-03-13 | Seeking Alpha | SoundHound: Meltdown's A Gift - Voice AI SaaS Leader Is Chea... | Positive | +0.44 | — |
+| 2026-03-13 | TipRanks | SOUN Stock Plunged 60% from Its Peak — 3 Risks Every Investo... | Negative | -0.27 | — |
+| 2026-03-13 | TradingView | SoundHound vs. Amazon: Which AI Voice Assistant Stock Wins? ... | Positive | +0.66 | — |
+| 2026-03-13 | Insider Monkey | Jim Cramer on SoundHound AI: “This Is One of Those Companies... | Neutral | +0.00 | — |
+| 2026-03-13 | Zacks | Can SoundHound's Agentic AI Platform Power the Next Phase of... | Positive | +0.38 | — |
+| 2026-03-12 | The Motley Fool | SoundHound AI: Could the Stock 10X by 2030? - The Motley Foo... | Negative | -0.44 | — |
+| 2026-03-12 | TipRanks | Why SoundHound AI Stock (SOUN) Is Falling Today, 03/12/26? -... | Negative | -0.15 | — |
+| 2026-03-12 | The Motley Fool | Down 66% From Its High: Is SoundHound AI Finally a Screaming... | Negative | -0.67 | — |
+| 2026-03-12 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Shares Down 4.1% - Here's Why - ... | Positive | +0.30 | Earnings |
+| 2026-03-12 | Motley Fool | SoundHound AI: Could the Stock 10X by 2030? | Neutral | +0.00 | — |
+| 2026-03-12 | Simply Wall St. | SoundHound AI (SOUN) Valuation Check After Record 2025 Resul... | Positive | +0.51 | Earnings |
+| 2026-03-11 | The Motley Fool | Is SoundHound AI Stock Going to $15? - The Motley Fool | Negative | -0.44 | — |
+| 2026-03-11 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Stock Price Down 1.4% - Here's W... | Neutral | +0.00 | Earnings |
+| 2026-03-11 | Motley Fool | Is SoundHound AI Stock Going to $15? | Neutral | +0.00 | — |
+| 2026-03-11 | StockStory | 3 Software Stocks with Warning Signs | Negative | -0.34 | — |
+| 2026-03-10 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Stock Price Down 3.9% - Here's W... | Neutral | +0.00 | Earnings |
+| 2026-03-10 | TipRanks | Why SoundHound AI Stock (SOUN) Is Stuck despite Strong Reven... | Negative | -0.71 | Earnings |
+| 2026-03-09 | 24/7 Wall St. | GameStop (GME) Shares Up 20% While Other Meme Stocks Fall in... | Positive | +0.30 | — |
+| 2026-03-09 | The Motley Fool | Why SoundHound AI Stock Isn't Taking Off Despite Doubling It... | Negative | -0.44 | Earnings |
+| 2026-03-09 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Stock Price Up 1.9% - Time to Bu... | Neutral | +0.00 | Earnings |
+| 2026-03-09 | simplywall.st | SoundHound AI (SOUN) Is Down 6.4% After Record 2025 Results ... | Neutral | +0.00 | Equity |
 | 2026-03-06 | Yahoo Finance V | SoundHound CEO discusses AI use cases for cars, restaurants | Neutral | +0.00 | Corporate |
 | 2026-03-06 | Insider Monkey | SoundHound AI (SOUN) Reports 2025 Revenue of $168.9M, 100% Y... | Positive | +0.38 | Earnings |
-| 2026-03-06 | Zacks | Owlet's Q4 Loss Narrower Than Expected, Revenues Rise Y/Y | Negative | -0.32 | Earnings |
-| 2026-03-06 | Zacks | ServiceNow Stock Climbs 16% in a Month: Hold Tight or Book P... | Positive | +0.44 | Earnings |
-| 2026-03-06 | Insider Monkey | H.C. Wainwright Lowered Its Price Target on SoundHound AI, I... | Negative | -0.13 | Analyst |
-| 2026-03-06 | Zacks | Should You Buy, Sell or Hold SoundHound Stock Post Q4 Earnin... | Neutral | +0.00 | Earnings |
-| 2026-03-06 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Stock Price Down 2.4% - Here's W... | Neutral | +0.00 | Earnings |
-| 2026-03-06 | Meyka | SOUN SoundHound AI NASDAQ $8.27 pre-market 06 Mar 2026: Stro... | Positive | +0.51 | Earnings |
-| 2026-03-06 | simplywall.st | SoundHound AI (SOUN) Valuation Check As Revenue Growth And 2... | Positive | +0.78 | Earnings |
-| 2026-03-06 | Simply Wall St. | SoundHound AI Targets Retail With Sales Assist And Bengaluru... | Neutral | +0.00 | — |
-| 2026-03-06 | Motley Fool | Agentic AI Is Rising Fast, and SoundHound AI Might Be Better... | Positive | +0.44 | — |
-| 2026-03-05 | Barchart | SoundHound Is One of the Most Short Stocks Right Now. Should... | Neutral | +0.00 | Short |
-| 2026-03-05 | Zacks | SoundHound's 59% Revenue Surge in 2025: What Does 2026 Hold? | Neutral | +0.00 | Earnings |
-| 2026-03-05 | Zacks | Buy 5 Computers IT Services Stocks to Boost Your Portfolio i... | Positive | +0.40 | — |
-| 2026-03-05 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Shares Up 1.3% - Should You Buy?... | Positive | +0.30 | Earnings |
-| 2026-03-05 | Motley Fool | This Popular Artificial Intelligence (AI) Stock Is Down 19% ... | Positive | +0.71 | — |
-| 2026-03-04 | StockStory | 3 Reasons SOUN is Risky and 1 Stock to Buy Instead | Negative | -0.20 | — |
-| 2026-03-04 | Insider Monkey | Analysts Split After SoundHound AI, Inc. (SOUN) Reports Q4 R... | Neutral | +0.00 | Shareholder |
-| 2026-03-04 | Zacks | WIX Beats Q4 Earnings Estimates on Revenue Momentum, Wins $2... | Positive | +0.57 | Earnings |
-| 2026-03-04 | TipRanks | Wainwright Cuts SOUN Stock Price Target after Q4 — Still See... | Negative | -0.30 | Analyst |
-| 2026-03-04 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Trading Down 4.1% - What's Next?... | Neutral | +0.00 | Earnings |
-| 2026-03-04 | The Motley Fool | 3 Red-Hot Growth Stocks to Buy in 2026 - The Motley Fool | Negative | -0.08 | — |
-| 2026-03-03 | Zacks | SoundHound AI, Inc. (SOUN) Is a Trending Stock: Facts to Kno... | Neutral | +0.00 | — |
-| 2026-03-03 | MarketBeat | SoundHound AI (NASDAQ:SOUN) Trading Down 1.3% on Analyst Dow... | Neutral | +0.00 | Earnings, Analyst |
-| 2026-03-02 | TipRanks | SoundHound vs. C3.ai: Which AI Stock Offers Higher Upside Po... | Neutral | +0.00 | Earnings |
-| 2026-03-02 | Benzinga | What Analysts Are Saying About SoundHound AI Stock - Benzing... | Neutral | +0.00 | — |
-| 2026-03-01 | simplywall.st | Why SoundHound AI (SOUN) Is Up 10.0% After Record 2025 Resul... | Neutral | +0.00 | — |
-| 2026-02-27 | Benzinga | Burger King Tests AI Tracking Employee Courtesy: Will Extra ... | Positive | +0.74 | — |
-| 2026-02-27 | 24/7 Wall St. | SoundHound AI Stuns With 80% EPS Beat and Voice AI Expansion... | Neutral | +0.03 | Earnings |
-| 2026-02-27 | Zacks | SOUN Posts In-Line Earnings, Strong Revenue Growth in Q4, St... | Positive | +0.71 | Earnings |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 11 (37%) |
-| Neutral | 14 (47%) |
-| Negative | 5 (17%) |
-| Average Score | +0.166 |
-| Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 177 |
+| Positive | 10 (33%) |
+| Neutral | 10 (33%) |
+| Negative | 10 (33%) |
+| Average Score | -0.003 |
+| Overall Sentiment | **Neutral** |
+| Total Unique Headlines | 188 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 15 | SoundHound AI (SOUN) Reports 2025 Revenu..; Owlet's Q4 Loss Narrower Than Expected, .. |
-| Analyst | 3 | H.C. Wainwright Lowered Its Price Target..; Wainwright Cuts SOUN Stock Price Target .. |
+| Earnings | 10 | Clear Street Group Inc. Buys New Shares ..; SoundHound AI (NASDAQ:SOUN) Stock Price .. |
+| Analyst | 1 | SoundHound: Wading In After The Crash (U.. |
+| Equity | 1 | SoundHound AI (SOUN) Is Down 6.4% After .. |
 | Corporate | 1 | SoundHound CEO discusses AI use cases fo.. |
-| Short | 1 | SoundHound Is One of the Most Short Stoc.. |
-| Shareholder | 1 | Analysts Split After SoundHound AI, Inc... |
 
 ### Deep Dive Articles
+
+#### SoundHound AI Unveils World's First Multimodal Agentic+ AI Completely on the Edge at NVIDIA GTC 2026
+*Source: GlobeNewswire | Date: Today | Sentiment: Positive (+0.91)*
+
+> Booth #1844 to feature live demos of the company’s groundbreaking multimodal, multilingual Agentic+ platform running entirely on-device – including context aware Vision AI
+
+> SANTA CLARA, Calif., March  16, 2026(GLOBE NEWSWIRE)-- SoundHound AI, Inc. (Nasdaq: SOUN), a global leader in voice and conversational AI, today announced its participation in NVIDIA GTC 2026. At Booth #1844, SoundHound will showcase the world’s first multimodal, multilingual, fully Agentic+ AI platform running entirely on the edge, opening up incredible new possibilities for OEMs.
+
+> While complex agentic AI requests have typically relied on cloud connectivity, SoundHound’s platform is capable of localizing the agentic stack within the vehicle’s architecture. This breakthrough allows the vehicle to move beyond simple voice commands to become a proactive partner that can see, hear, and reason locally – ensuring 100% uptime, fast responses, and enhanced user privacy.
+
+> What Attendees Can Expect at Booth #1844:
+
+> "NVIDIA GTC is the ultimate venue to showcase the next significant leap in agentic technology,"said Keyvan Mohajer, CEO and Co-Founder of SoundHound AI."For the very first time, our multimodal, multilingual agentic AI platform allows OEMs to turn on intelligent agents that can see, hear, and act – while maintaining user privacy along with the speed of edge computing."
+
+**Catalysts:** Corporate
+
+#### GameStop (GME) Shares Up 20% While Other Meme Stocks Fall in 2026
+*Source: 24/7 Wall St. | Date: 2026-03-09 | Sentiment: Positive (+0.96)*
+
+> GameStop (GME) stock is up more than 20% year-to-date in 2026, standing out as the winner among major meme stocks, fueled by short-squeeze speculation and buyout chatter surrounding CEO Ryan Cohen. In contrast, Opendoor Technologies (OPEN) stock is down 17% year-to-date, SoundHound AI (SOUN) stock is down 21%, and AMC Entertainment (AMC) stock is down 29%. Social sentiment surrounding GameStop has recently shifted bullish amid reports that Cohen may be eyeing a major acquisition involving a publicly traded consumer company.
+
+> On Monday, March 9,GameStop(NYSE:GME) is trending as one of today’s notable market movers. While the broader meme-stock universe is deep in the red for 2026, GME stock stands out with a year-to-date gain of 23%, powered by renewed short-squeeze speculation and growing buzz around a potential blockbuster acquisition (not currently confirmed) by CEO Ryan Cohen. The contrast with meme peers likeOpendoor Technologies(NASDAQ:OPEN),SoundHound AI(NASDAQ:SOUN), andAMC Entertainment(NYSE:AMC) couldn’t be sharper.
+
+> GME stock is trading at $24.64 as of today, up 22.72% year-to-date from $20.08 at year-end 2025. That’s a meaningful move in a market where most speculative names are getting crushed.
+
+> The catalyst isn’t a single event; it’s a convergence of narratives. Reports from late January and early February, including from CNBC and theWall Street Journal, indicated Cohen is eyeing a “very big” deal involving a publicly traded consumer company, with widespread speculation centering oneBay(NASDAQ:EBAY) as a potential target. That kind of M&A chatter has a way of lighting up retail investor communities, and this is no exception.
+
+> There’s also the compensation angle. Ryan Cohen’s compensation plan, reported in January 2026, could be worth up to $35 billion if GameStop hits certain milestones — an extraordinary figure that signals just how ambitious the transformation strategy really is. In other words, GameStop isn’t just coasting on nostalgia and Cohen is swinging for the fences.
+
+**Catalysts:** Corporate, Short
 
 #### SoundHound AI (SOUN) Reports 2025 Revenue of $168.9M, 100% YoY Growth
 *Source: Insider Monkey | Date: 2026-03-06 | Sentiment: Positive (+0.98)*
@@ -103,33 +132,3 @@
 > The Zacks Consensus Estimate for NOW’s first-quarter 2026 reflects upward revision trends. The current-quarter earnings estimate of 95 cents per share increased by 3 cents over the past 60 days and suggests 17.28% growth over the figure reported in the year-ago quarter.NOW’s 2026 earnings outlook also remains strong. The Zacks Consensus Estimate for NOW’s 2026 earnings estimate is currently pegged at $4.13 per share, up 2.5% over the past 60 days and suggests 17.66% growth over the 2025 reported figure.
 
 **Catalysts:** Earnings, Regulatory, Corporate, Analyst
-
-#### H.C. Wainwright Lowered Its Price Target on SoundHound AI, Inc. (SOUN) to $20 and Maintains a Buy Rating
-*Source: Insider Monkey | Date: 2026-03-06 | Sentiment: Positive (+0.95)*
-
-> SoundHound AI, Inc. (NASDAQ:SOUN)is among the10 Fastest Growing NASDAQ Stocks to Buy.
-
-> On March 2, 2026, H.C. Wainwright lowered the firm’s price target on SoundHound AI, Inc. (NASDAQ:SOUN) to $20 from $26 and maintained a Buy rating on the shares. The firm said the company’s valuation may face near-term pressure despite the momentum seen in its Q4 report.
-
-> On February 27, 2026, Piper Sandler analyst James Fish lowered the firm’s price target on SoundHound AI, Inc. (NASDAQ:SOUN) to $9 from $11 and kept a Neutral rating on the shares. The analyst described the quarter as relatively mixed, with mostly in-line revenue, a profitability miss, and guidance that came in higher than expected. The firm also noted concerns around the required execution and potential M&A needed to bridge the gap, given the company’s current business run-rate.
-
-> On February 27, 2026, SoundHound AI, Inc. (NASDAQ:SOUN) reported Q4 EPS of (2c), in line with consensus estimates. The company reported Q4 revenue of $55.1M, above the $53.98M consensus estimate. SoundHound said that as traditional software faces disruption from artificial intelligence, businesses are increasingly partnering with AI-native companies. The company added that all key profit metrics improved and that it closed a record number of customer deals in the quarter as demand for enterprise-grade AI increased.
-
-> SoundHound AI, Inc. (NASDAQ:SOUN) develops independent voice artificial intelligence solutions that enable businesses across automotive, TV, IoT, and customer service industries to deliver conversational experiences to their customers in the United States and internationally.
-
-**Catalysts:** Earnings, Analyst
-
-#### Should You Buy, Sell or Hold SoundHound Stock Post Q4 Earnings?
-*Source: Zacks | Date: 2026-03-06 | Sentiment: Positive (+1.00)*
-
-> SoundHound AI, Inc.SOUN is gaining attention in the fast-growing voice and conversational AI market. The company delivered strong revenue growth in fourth-quarter 2025, but the stock has struggled in recent months as investors weigh profitability concerns against strong industry momentum.Shares of SoundHound have plunged 35.1% over the past three months, significantly underperforming the broader technology sector and the Zacks Computers – IT Services industry. As of March 5, 2026, the stock trades near $8.27, well below its 52-week high of $22.17. Since the Feb. 26 earnings release, the stock has slipped about 5.1%.The key question for investors now is whether SoundHound’s rapid growth and expanding market opportunity justify the risks tied to continued losses.
-
-> SoundHound delivered a strong fourth quarter, reflecting rising adoption of voice AI and conversational automation across industries. The company reported quarterly revenues of $55.1 million, up 59% year over year, while full-year 2025 revenue reached $168.9 million, representing nearly 99% growth.Profitability metrics also improved sequentially. Fourth-quarter non-GAAP gross margin reached 60.5%, and adjusted EBITDA loss narrowed to $7.4 million. Management highlighted that the company signed more than 100 customer deals during the quarter, marking its largest quarter for enterprise agreements.SoundHound’s technology adoption continues to expand across several industries, including automotive, restaurants, retail, telecommunications and financial services. The company also continues to scale its voice commerce ecosystem, enabling transactions such as ordering food, booking reservations and completing purchases through voice interfaces.Management believes these capabilities position SoundHound well in the emerging “agentic AI” market, where AI agents perform tasks autonomously across multiple platforms.
-
-> One of the biggest growth drivers for SoundHound is enterprise adoption of conversational AI solutions. Businesses increasingly use AI to automate customer service interactions, reduce labor costs and improve customer experience. The company’s AI agents are now handling billions of queries each month, reflecting significant adoption across industries. In many cases, SoundHound’s AI systems resolve the majority of customer interactions without human intervention, which can significantly lower operating costs for businesses. This efficiency improvement is helping drive demand across healthcare, banking, telecommunications and retail industries.
-
-> Automotive remains a key vertical for SoundHound. The company continues to sign new automotive manufacturers globally, including deals with OEMs in Asia and Europe.Voice commerce is another emerging growth opportunity. SoundHound’s platform allows users to order food, make reservations or purchase products directly through voice interactions inside cars, TVs and connected devices.Management believes this capability could create a flywheel effect, where consumer transactions drive additional revenue opportunities for both SoundHound and its partners.
-
-> SoundHound expects continued growth in 2026, projecting revenues between $225 million and $260 million for the year.The Zacks Consensus Estimate also reflect strong expansion, with revenue expected to grow about 37.8% in 2026.Meanwhile, the Zacks Consensus Estimate suggests that the company’s loss per share should improve compared with the prior year, indicating gradual progress toward profitability.If the company continues to scale its enterprise AI platform and voice commerce ecosystem, revenue growth could remain strong over the next several years.
-
-**Catalysts:** Earnings, Regulatory, Corporate

@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:33*
 
 ## Earnings Analysis: Arm Holdings plc (ARM)
 
@@ -6,10 +6,10 @@
 | Metric | Value |
 | :--- | :--- |
 | Earnings Date | 2026-05-06 |
-| Days Until | 59 |
+| Days Until | 51 |
 | EPS Estimate | $0.58181 |
 | Revenue Estimate | $1.47B |
-| Earnings Rule | Clear (>59d out) |
+| Earnings Rule | Clear (>51d out) |
 
 ### Earnings History
 | Quarter | EPS Est | EPS Actual | Surprise% | 1-Day% | 5-Day% | Reaction |

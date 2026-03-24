@@ -1,4 +1,4 @@
-*Generated: 2026-03-08 17:19*
+*Generated: 2026-03-16 19:34*
 
 ## News & Sentiment: Super Micro Computer, Inc. (SMCI)
 *Sources: Finviz (100), Google News (100), yfinance (10) | Method: VADER | Deep Dives: 5*
@@ -6,55 +6,116 @@
 ### Headlines (Top 30, Deduplicated)
 | Date | Source | Headline | Sentiment | Score | Catalysts |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-03-07 | MarketBeat | MarketBeat Week in Review  03/02 - 03/06 | Neutral | +0.00 | Earnings |
-| 2026-03-07 | MarketBeat | MarketBeat Week in Review – 03/02 - 03/06 | Neutral | +0.00 | Earnings |
-| 2026-03-07 | Motley Fool | Disciplined Growth Investors Trim InterDigital After Strong ... | Positive | +0.71 | — |
-| 2026-03-06 | Barchart | How Is Super Micro Computer's Stock Performance Compared to ... | Positive | +0.60 | — |
-| 2026-03-06 | TIKR.com | SMCI Revenue Jumped 123% Year-Over-Year: Here’s the 85% Upsi... | Neutral | +0.00 | Earnings |
-| 2026-03-06 | MarketBeat | Super Micro Computer (NASDAQ:SMCI) Trading Down 2.9% - Here'... | Positive | +0.60 | Earnings |
-| 2026-03-06 | MarketBeat | American Century Companies Inc. Acquires 416,932 Shares of S... | Positive | +0.73 | Earnings |
-| 2026-03-06 | FXEmpire | TSLA, PLTR and SMCI Forecast – Tech Stocks Under Pressure Ea... | Negative | -0.30 | — |
-| 2026-03-06 | Simply Wall St. | Super Micro Computer Targets Scalable AI Growth With Modular... | Positive | +0.76 | — |
-| 2026-03-05 | Barchart | As Supermicro Joins a Key AI Data Center Alliance, Should Yo... | Neutral | +0.00 | — |
-| 2026-03-05 | Zacks | Dell's ISG Revenue Growth Strengthens: Will the Momentum Con... | Positive | +0.68 | Earnings |
-| 2026-03-05 | Zacks | Vertiv Trades at a Premium Valuation: Should You Still Buy t... | Neutral | +0.00 | — |
-| 2026-03-05 | Zacks | Super Micro (SMCI) Down 3.3% Since Last Earnings Report: Can... | Positive | +0.60 | Earnings |
-| 2026-03-05 | The Motley Fool | Why Super Micro Computer Surged Double-Digits in February - ... | Positive | +0.25 | — |
-| 2026-03-05 | MarketBeat | Super Micro Computer (NASDAQ:SMCI) Stock Price Down 1.3% - H... | Positive | +0.60 | Earnings |
-| 2026-03-05 | National Today | Super Micro Computer Stock Price Drops 1.3% - National Today | Positive | +0.60 | — |
-| 2026-03-05 | Insider Monkey | Is Nebius Group N.V. (NBIS) A Good Stock To Buy Now? | Positive | +0.44 | — |
-| 2026-03-04 | MarketWatch | Tech stocks are roaring back on Wednesday | Neutral | +0.00 | — |
-| 2026-03-04 | Benzinga | Nvidia Leads Chip Stock Rebound, Billionaire Investor Buys 1... | Negative | -0.15 | — |
-| 2026-03-04 | MarketBeat | Advanced Micro Devices CEO Lisa Su Teases MI450 Ramp, 6GW Me... | Positive | +0.34 | Corporate |
-| 2026-03-04 | TipRanks | Super Micro Computer Stock (SMCI) Rises on Plan to ‘Bring Da... | Positive | +0.60 | — |
-| 2026-03-04 | Stocktwits | SMCI Stock Struggles To Break Out: Will A New AI Data Center... | Neutral | -0.03 | — |
-| 2026-03-03 | MarketBeat | Netlist Q4 Earnings Call Highlights | Neutral | +0.00 | Earnings |
-| 2026-03-03 | Benzinga | Taiwan Semiconductor's AI Breakthroughs Don't Calm Wall Stre... | Negative | -0.24 | Earnings |
-| 2026-03-03 | Zacks | Super Micro Computer, Inc. (SMCI) is Attracting Investor Att... | Positive | +0.79 | — |
-| 2026-03-03 | Seeking Alpha | Unloved Super Micro Computer Is Due For A Rally (NASDAQ:SMCI... | Positive | +0.25 | — |
-| 2026-03-03 | simplywall.st | Super Micro Links AI Data Centers To Grid Flexibility And Ne... | Positive | +0.74 | — |
-| 2026-03-03 | MarketBeat | Super Micro Computer (NASDAQ:SMCI) Shares Down 3.6% - Here's... | Positive | +0.73 | Earnings |
-| 2026-03-03 | FXEmpire | Super Micro Computer (SMCI) Price Forecast: Breakdown Risk B... | Positive | +0.42 | — |
-| 2026-03-03 | GuruFocus | Super Micro (SMCI) Sees Moderate Bearish Sentiment in Option... | Positive | +0.60 | — |
+| 2026-03-16 | StockStory | Hardware & Infrastructure Stocks Q4 In Review: Super Micro (... | Positive | +0.60 | — |
+| 2026-03-16 | Seeking Alpha | Super Micro Stock Looks Like A Real Gift On Upcoming Busines... | Positive | +0.85 | — |
+| 2026-03-16 | Rolling Out | Why Super Micro’s fierce Q2 beat is not calming investors - ... | Positive | +0.39 | Earnings |
+| 2026-03-15 | MarketBeat | Clear Street Group Inc. Purchases Shares of 3,079,500 Super ... | Positive | +0.83 | Earnings |
+| 2026-03-15 | MarketBeat | Elequin Capital LP Buys 57,279 Shares of Super Micro Compute... | Positive | +0.73 | Earnings |
+| 2026-03-15 | 24/7 Wall St. | Super Micro CEO: We’re at the Center of the AI Infrastructur... | Positive | +0.60 | Corporate |
+| 2026-03-14 | MarketBeat | Super Micro Computer, Inc. $SMCI Shares Acquired by Portolan... | Positive | +0.73 | Earnings, Corporate |
+| 2026-03-14 | TipRanks | Crypto Currents: SEC, CFTC sign MOU for Joint Harmonization ... | Positive | +0.44 | Regulatory |
+| 2026-03-13 | Yahoo Finance | Is It Time To Reassess Super Micro Computer (SMCI) After Rec... | Positive | +0.73 | — |
+| 2026-03-13 | TIKR.com | Super Micro Stock Has Dropped 35% From Its 2025 Peak. Here’s... | Positive | +0.60 | — |
+| 2026-03-13 | MarketBeat | Super Micro Computer, Inc. $SMCI Shares Sold by Quantitative... | Positive | +0.73 | Earnings, Corporate |
+| 2026-03-13 | MarketBeat | Private Advisor Group LLC Sells 20,208 Shares of Super Micro... | Positive | +0.73 | Earnings |
+| 2026-03-12 | simplywall.st | Super Micro Computer (SMCI) Valuation Check As New AI Infras... | Positive | +0.81 | — |
+| 2026-03-12 | Stock Titan | SMCI (NASDAQ: SMCI) VP amends insider filing to add 53 spous... | Positive | +0.30 | — |
+| 2026-03-12 | Yahoo Finance | What Makes Super Micro Computer (SMCI) Appear So Good - Yaho... | Positive | +0.82 | — |
+| 2026-03-12 | MarketBeat | Swiss National Bank Sells 64,700 Shares of Super Micro Compu... | Positive | +0.73 | Earnings |
+| 2026-03-12 | Zacks Investmen | Is Super Micro Computer a Buy, Sell or Hold at P/E Multiple ... | Positive | +0.60 | — |
+| 2026-03-12 | Zacks | Why Super Micro Computer (SMCI) Dipped More Than Broader Mar... | Positive | +0.60 | — |
+| 2026-03-12 | Zacks | Western Digital Surges 540% in a Year: Is the Stock Worth Bu... | Positive | +0.23 | — |
+| 2026-03-11 | Proactive | Dow Jones drops but Oracle lifts S&P and Nasdaq as Gulf ship... | Negative | -0.59 | — |
+| 2026-03-11 | Trefis | How Does Super Micro Computer Stock Stack Up Against Its Pee... | Positive | +0.60 | — |
+| 2026-03-11 | Benzinga | Super Micro Computer Is Rising Wednesday: What's Driving The... | Positive | +0.60 | — |
+| 2026-03-11 | simplywall.st | Does SK Telecom’s Modular AI Data Center Pact Reframe the Bu... | Positive | +0.60 | — |
+| 2026-03-11 | MarketBeat | Super Micro Computer, Inc. $SMCI Shares Purchased by Korea I... | Positive | +0.73 | Earnings |
+| 2026-03-11 | StockStory | 1 S&P 500 Stock for Long-Term Investors and 2 Facing Challen... | Positive | +0.08 | — |
+| 2026-03-10 | Insider Monkey | Super Micro Computer, Inc. (SMCI) Expands Support for Sovere... | Positive | +0.88 | — |
+| 2026-03-10 | Barchart | Super Micro Stock Plunges 49%: Buy the Dip or Stay Away? | Positive | +0.60 | — |
+| 2026-03-10 | Zacks | Vertiv Stock Surges After S&P 500 Inclusion Announcement | Neutral | +0.00 | — |
+| 2026-03-09 | Reuters | HPE projects revenue above estimates, focuses on higher-marg... | Neutral | +0.00 | Earnings |
+| 2026-03-09 | Zacks | Dell Technologies Climbs 16% YTD: Should You Buy the Stock? | Neutral | +0.00 | — |
 
 ### Sentiment Summary
 | Metric | Value |
 | :--- | :--- |
 | Articles Analyzed | 30 |
-| Positive | 19 (63%) |
-| Neutral | 8 (27%) |
-| Negative | 3 (10%) |
-| Average Score | +0.344 |
+| Positive | 26 (87%) |
+| Neutral | 3 (10%) |
+| Negative | 1 (3%) |
+| Average Score | +0.517 |
 | Overall Sentiment | **Bullish** |
-| Total Unique Headlines | 184 |
+| Total Unique Headlines | 185 |
 
 ### Detected Catalysts
 | Category | Count | Headlines |
 | :--- | :--- | :--- |
-| Earnings | 11 | MarketBeat Week in Review  03/02 - 03/06; MarketBeat Week in Review – 03/02 - 03/0.. |
-| Corporate | 1 | Advanced Micro Devices CEO Lisa Su Tease.. |
+| Earnings | 9 | Why Super Micro’s fierce Q2 beat is not ..; Clear Street Group Inc. Purchases Shares.. |
+| Corporate | 3 | Super Micro CEO: We’re at the Center of ..; Super Micro Computer, Inc. $SMCI Shares .. |
+| Regulatory | 1 | Crypto Currents: SEC, CFTC sign MOU for .. |
 
 ### Deep Dive Articles
+
+#### Super Micro Computer, Inc. (SMCI) Expands Support for Sovereign Artificial Intelligence Platforms
+*Source: Insider Monkey | Date: 2026-03-10 | Sentiment: Positive (+0.99)*
+
+> Super Micro Computer, Inc. (NASDAQ:SMCI) is one of the11 Best Affordable Growth Stocks to Buy Now.
+
+> On March 2, Super Micro Computer Inc. (NASDAQ:SMCI) expanded support for infrastructure solutions powering sovereign artificial intelligence platforms and Radio Access Networks.
+
+> The company has introduced three new systems tailored to meet the unique requirements of telecom networks in a scalable and cost-efficient way. ARS-111L-FR is a 1U system tailored for RAN workloads, featuring an NVIDIA Grace C1 CPU and compatibility with NVIDIA ConnectX Ethernet. It also unveiled ARS-221GL-NR, a high-performance 2U Grace Superchip system with up to 2 double-width NVIDIA GPUs for running demanding AI workloads in telecom networks.
+
+> ARS-111GL-NHR features a 1U GH200 Grace Hopper Superchip system, powerful and versatile enough for research as well as AI inference at the network edge. The expanded support for telecom networks comes amid heightened demand for sovereign AI platforms, which is presenting strategic opportunities for telecom operators. Backed by its innovative DCBBS, Super Micro Computer is well positioned to enable organizations rapidly deploy and expand AI data centers.
+
+> "As operators embed intelligence across their networks and advance sovereign AI strategies, Supermicro's flexible Data Center Building Block Solutions (DCBBS) and deep ecosystem collaborations enable rapid deployment of high-performance, energy-efficient solutions that help ensure data sovereignty and long-term scalability,” said Charles Liang, president and CEO of Supermicro.
+
+**Catalysts:** Corporate
+
+#### Vertiv Stock Surges After S&P 500 Inclusion Announcement
+*Source: Zacks | Date: 2026-03-10 | Sentiment: Positive (+0.99)*
+
+> Shares ofVertiv Holdings CoVRT jumped 9.3% on March 9 after it was announced that the data-center infrastructure company, which is part of the Zacks Computers - IT Services industry, will be added to the S&P 500 Index, effective March 23. The news sparked strong buying interest from investors, as inclusion in the widely tracked benchmark typically leads to increased demand from index funds and exchange-traded funds that replicate the S&P 500.
+
+> VRT’s entry into the benchmark index reflects the company’s growing importance in the global technology infrastructure ecosystem. The firm provides critical digital infrastructure technologies and services, including power management, thermal management and integrated solutions for data centers, communication networks and commercial environments. With the rapid expansion of cloud computing, artificial intelligence (AI) workloads and hyperscale data centers, demand for Vertiv’s products and services has been rising steadily.
+
+> The S&P 500 is widely considered the most important benchmark for U.S. equities, tracking the performance of 500 of the largest publicly traded companies in the United States. Joining the index marks a significant milestone for Vertiv, highlighting its rapid growth and strengthening its profile among global investors. On March 9, VRT’s stock price briefly hit $265, its highest ever recorded level.
+
+> This Zacks Rank #2 (Buy) stock has soared 218.1% in the last 12-month period against its sub-industry’s 19% decline. Two of VRT’s closest competitors,Super Micro Computer, Inc.SMCI andWipro LimitedWIT,have lost 21.6% and 26.4%, respectively in the same period. While SMCI carries a Zacks Rank #3 (Hold), WIT has a Zacks Rank #4 (Sell). You can seethe complete list of today’s Zacks #1 Rank (Strong Buy) stocks here.
+
+> Vertiv’s recent stock performance has been supported by strong investor enthusiasm for companies linked to the data-center and AI infrastructure boom. As technology giants continue to invest heavily in computing capacity to support generative AI and cloud services, the need for reliable power and cooling solutions has become increasingly critical. Vertiv’s portfolio of infrastructure solutions positions it well to benefit from this long-term trend.
+
+**Catalysts:** Corporate
+
+#### Dell Technologies Climbs 16% YTD: Should You Buy the Stock?
+*Source: Zacks | Date: 2026-03-09 | Sentiment: Positive (+1.00)*
+
+> Dell Technologies’ DELL stock has gained 16.4% year to date (YTD), outperforming the Zacks Computer – Micro Computers industry, the broader Zacks Computer and Technology sector and the S&P 500, which fell 4.9%, 4.1% and 1.8%, respectively.DELL performed significantly better than its industry competitors in both personal computing and enterprise infrastructure, includingSuper Micro ComputerSMCI,Apple Inc.AAPL andHewlett Packard EnterpriseHPE. Year to date, Super Micro Computer shares have gained 7%, while Apple and Hewlett Packard Enterprise stocks have declined 5.3% and 12%, respectively. Super Micro Computer mainly competes in AI-focused server hardware, Hewlett Packard Enterprise is a key rival in enterprise IT infrastructure, such as servers and storage, while Apple competes with Dell Technologies in the premium PC and laptop segment.
+
+> The recent rally in DELL’s stock might tempt investors to buy, but it is important to assess whether the company’s fundamentals can sustain long-term growth or if the rally is just temporary. Let’s explore.From a technical perspective, the stock is also trading above both its 50-day and 200-day moving averages, indicating solid upward momentum and price stability. This reflects a positive market sentiment and confidence in the company's financial health and long-term prospects.
+
+> Dell Technologies is benefiting significantly from the rapid expansion of AI infrastructure demand, which has become a key growth driver. In fiscal 2026, the company recorded over $64 billion in AI-optimized server orders and shipped more than $25 billion worth of AI infrastructure, ending the year with a record backlog of $43 billion. DELL also saw strong momentum during the fiscal fourth quarter alone, securing $34.1 billion in AI orders and shipping $9.5 billion in AI servers as customers expanded AI deployments.Demand for Dell Technologies’ AI infrastructure is broadening across customer segments, including enterprises, sovereign entities and next-generation cloud providers, with the company serving more than 4,000 AI customers globally. DELL’s ability to optimize AI systems for performance, deliver rapid deployment at scale and provide lifecycle services has strengthened its competitive position. Its integrated rack-scale systems and data center solutions allow customers to deploy AI clusters efficiently while managing total cost of ownership. These capabilities are helping the company capture opportunities as organizations scale AI workloads across industries.Looking ahead, the AI opportunity is expected to remain a major growth engine for Dell Technologies. Management expects AI server revenues to reach about $50 billion in fiscal 2027, representing more than 100% year-over-year growth. The strong backlog, expanding pipeline and rising enterprise adoption of AI workloads provide strong visibility into continued demand for the company’s AI infrastructure offerings.
+
+> Dell Technologies is supported by robust financial performance and strong cash flow generation, which strengthen its long-term growth strategy and shareholder value. In fiscal 2026, the company produced more than $11 billion in operating cash flow, reflecting its ability to efficiently convert revenue into cash. This healthy cash position allows Dell Technologies to continue investing in strategic areas like AI infrastructure and data center modernization.The company’s strong liquidity position enhances its financial flexibility. DELL ended fiscal 2026 with $13.3 billion in cash and investments, supported by an operating cash flow of $4.7 billion in the fiscal fourth quarter. This solid financial base allows the company to pursue innovation and infrastructure expansion while maintaining disciplined expense management.Apart from supporting business expansion, Dell Technologies’ strong cash generation enables consistent shareholder returns. In fiscal 2026, the company returned $7.5 billion to shareholders through dividends and share repurchases, including $2.2 billion in the fiscal fourth quarter. DELL also raised its dividend by 20% and increased its share repurchase authorization by $10 billion, reflecting confidence in its long-term growth prospects.
+
+> Dell Technologies shares are undervalued and appealing to investors, supported by a Value Score of A. The company is trading at a forward 12-month P/E of 11.39X, much lower than the industry average of 28.09X. This lower valuation suggests the stock appears discounted relative to its growth prospects and financial strength.
+
+**Catalysts:** Earnings, Regulatory, Corporate, Equity, Shareholder, Analyst
+
+#### MarketBeat Week in Review - 03/02 - 03/06
+*Source: MarketBeat | Date: 2026-03-07 | Sentiment: Positive (+0.97)*
+
+> War, rising oil prices, and a negative jobs report were a powerful drag on stocks. All the major indexes were down for the week as uncertainty overtook investor confidence. It's uncomfortable to see stocks falling, but as a percentage, U.S. stocks are holding up well, and earnings season has been, on average, quite strong.
+
+> However, markets are likely to remain volatile until investors get more clarity around the length and the results of the conflict with Iran. Until then, markets are likely to move with the headlines, which ensures volatility will continue.
+
+> Next week, investors will get three different reads on inflation. The Consumer Price Index (CPI) and Producer Price Index (PPI) for February come out on Tuesday and Wednesday, respectively. The delayed Personal Consumption Expenditures (PCE) index from January will be released on Friday. A surprise in either direction will move stocks.
+
+> Amprius Technologies Inc. (NYSE: AMPX)had another strong quarter. Thomas Hughes has been bullish on AMPX stock for nearly a year, and in this week’s article, he made the case that thecompany’s strategy execution is paying offwith revenue and earnings entering a hypergrowth stage.
+
+> Hughes also wrote aboutIonQ Inc.'s (NYSE: IONQ)solid earnings report. The report shows that the long-term quantum computing thesis is in place. However, the company is a long way away from making a profit, whichmay mean the risk outweighs the reward, for now.
+
+**Catalysts:** Earnings
 
 #### Dell's ISG Revenue Growth Strengthens: Will the Momentum Continue?
 *Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+1.00)*
@@ -70,63 +131,3 @@
 > The Zacks Consensus Estimate for fiscal 2027 earnings is pegged at $11.72 per share, increasing 3.9% over the past 30 days. This suggests 13.79% year-over-year growth.
 
 **Catalysts:** Earnings, Regulatory, Analyst
-
-#### Vertiv Trades at a Premium Valuation: Should You Still Buy the Stock?
-*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+1.00)*
-
-> VertivVRT is currently overvalued, as suggested by a Value Score of F.In terms of the trailing 12-month Price/Book, Vertiv is currently trading at 24.39X compared with the broader Computer and Technology sector’s 10.26X.
-
-> However, VRT’s shares have surged 185.6% in the trailing 12-month period, outperforming the broader Zacks Computer and Technology sector’s increase of 26.8%. The Zacks Computers - IT Services industry declined 26.7% in the same time frame.The company has also outperformed its closest peers,Super Micro ComputerSMCI andHewlett-Packard EnterpriseHPE. Both Super Micro Computer and Hewlett-Packard Enterprise are expanding their capabilities in the AI infrastructure market. While Hewlett Packard Enterprise shares have rallied 14.1%, Super Micro Computer shares have plunged 16.1% over the trailing 12-month period.The outperformance of VRT stock can be attributed to its extensive product portfolio, which spans thermal systems, liquid cooling, UPS, switchgear, busbars, and modular solutions. In the trailing 12 months, organic orders grew approximately 81%, with a book-to-bill of 2.9 times for the fourth quarter of 2025, indicating a strong prospect.
-
-> Vertiv’s expanding portfolio has been noteworthy. In the fourth quarter of 2025, organic orders rose approximately 252% year over year, with the backlog increasing to $15.0 billion, up 109% compared with the fourth quarter of 2024 and up 57% sequentially from the third quarter of 2025. This growth is primarily driven by the rapid adoption of AI and the increasing need for data centers to support the digital transformation.Further expanding its portfolio, in February 2026, Vertiv announced a significant change in data center deployment by introducing a high-fidelity Digital Twin platform. This platform aims to speed up AI infrastructure builds using Vertiv OneCore modular solutions. The system combines power, cooling and infrastructure into factory-built blocks. This approach lowers deployment time by up to 50% and reduces total ownership costs by as much as 25%.As part of the launch,Hut 8HUT worked with Vertiv to integrate OneCore into certain AI data center projects. The collaboration between Vertiv and Hut 8 merges power-first infrastructure with modular deployment. The goal of the partnership with Hut 8 is to streamline AI data center construction and enable scalable, high-density computing environments for next-generation workloads.The global acceleration of AI adoption is driving significant demand for data center infrastructure. Vertiv is capitalizing on this trend, particularly in the Americas, which saw a 46% organic sales growth in the fourth quarter of 2025.
-
-> Vertiv’s strengthening efforts to support rapidly growing AI and high-density data center demand have been a major growth driver.Building on this momentum, the company recently announced a partnership with Generate Capital to provide Bring Your Own Power & Cooling solutions for data centers in the United States.This collaboration combines Vertiv’s power, cooling, and services infrastructure with Generate Capital’s financing and operational skills. The goal is to help data center operators deploy capacity more quickly in grid-constrained markets. This partnership allows for immediate on-site power solutions while keeping the option to switch to utility power in the future.
-
-> Vertiv is benefiting from its strong portfolio and rich partner base, which will continue to benefit the company’s top-line growth.For first-quarter 2026, revenues are expected to be between $2.5 billion and $2.7 billion. Organic net sales are expected to increase in the 18% to 26% range. The Zacks Consensus Estimate for Vertiv’s first-quarter 2026 revenues is pegged at $2.65 billion, suggesting growth of 30.08% year over year.VRT expects first-quarter 2026 non-GAAP earnings per share between 95 cents and $1.01. The Zacks Consensus Estimate for first-quarter 2026 earnings is currently pegged at $1 per share, which has increased by a couple of pennies over the past 30 days. The figure indicates a year-over-year increase of 56.25%.
-
-**Catalysts:** Earnings, Regulatory, Analyst
-
-#### Super Micro (SMCI) Down 3.3% Since Last Earnings Report: Can It Rebound?
-*Source: Zacks | Date: 2026-03-05 | Sentiment: Positive (+0.99)*
-
-> It has been about a month since the last earnings report for Super Micro Computer (SMCI). Shares have lost about 3.3% in that time frame, underperforming the S&P 500.
-
-> But investors have to be wondering, will the recent negative trend continue leading up to its next earnings release, or is Super Micro due for a breakout? Before we dive into how investors and analysts have reacted as of late, let's take a quick look at the most recent earnings report in order to get a better handle on the important catalysts.
-
-> Super Micro Computer came out with second-quarter fiscal 2026 earnings of 69 cents per share, which beat the Zacks Consensus Estimate by 40.8%. The bottom line increased 16.9% year over year.
-
-> Super Micro Computer posted revenues of $12.68 billion for the second quarter of fiscal 2026, which beat the Zacks Consensus Estimate by 21.42%. The top line jumped 122.8% year over year.
-
-> Coming to SMCI’s customer verticals, revenues from OEM Appliance and Large Data Center (approximately 84% of total revenues) were $10.7 billion, up 151% year over year and 210% sequentially, driven by strong hyperscale AI deployments. Revenues from the Enterprise/Channel segment (around 16% of total revenues) totaled $2 billion, reflecting a 42% year-over-year increase and a 29% sequential rise.
-
-**Catalysts:** Earnings, Regulatory
-
-#### Nvidia Leads Chip Stock Rebound, Billionaire Investor Buys 1 Million Shares To Defy AI 'Bubble' Fears
-*Source: Benzinga | Date: 2026-03-04 | Sentiment: Negative (-0.95)*
-
-> Semiconductor stocks reboundedon Wednesday after several sessions of steep losses as investors reassessed geopolitical risks, tech-sector volatility, and fresh commentary from market figures.
-
-> Major semiconductor names includingNvidia Corp(NASDAQ:NVDA),Advanced Micro Devices, Inc(NASDAQ:AMD),Broadcom Inc(NASDAQ:AVGO),Taiwan Semiconductor Manufacturing Company Ltd(NYSE:TSM),Intel Corp(NASDAQ:INTC),Arm Holdings Plc(NASDAQ:ARM),Micron Technology, Inc(NASDAQ:MU),ON Semiconductor Corp(NASDAQ:ON),Super Micro Computer, Inc(NASDAQ:SMCI) recovered some ground after a selloff that began late last week.
-
-> The decline came despite Nvidia reporting strong earnings, as investors focused on concernsaround AI profitability, heavy capital spending, broader macroeconomic pressures, and escalating geopolitical tensions in the Middle East.
-
-> Reportsalso indicated that Iran explored backchannel discussions aimed at ending the conflict a day after the U.S. and Israel launched joint strikes.
-
-> CNBC’sJim Cramersaidinvestors should remain cautious and avoid panic selling amid sharp market swings driven by geopolitical tensions and tech-stock volatility.
-
-**Catalysts:** Earnings, Regulatory
-
-#### Taiwan Semiconductor's AI Breakthroughs Don't Calm Wall Street-Profits Are The Flashpoint
-*Source: Benzinga | Date: 2026-03-03 | Sentiment: Positive (+0.70)*
-
-> Taiwan Semiconductor Manufacturing Company Ltd(NYSE:TSM) stock extended its selloff on Tuesday in tandem with the broader semiconductor index,Invesco PHLX Semiconductor ETF(NASDAQ:SOXQ)
-
-> Investors pushed semiconductor and major tech stocks lower even afterNvidia Corp(NASDAQ:NVDA) posted strong earnings, as they weighed concerns about AI profitability, heavy capital spending, broader macro pressures, and rising Middle East geopolitical tensions.
-
-> While stock prices dipped, the industry is moving fast to make AI more affordable and efficient.
-
-> ASML Holding N.V.(NYSE:ASML) is expanding its reach by developing advanced “packaging” tools—essentially high-tech methods for stacking and connecting chips—to boost performance.
-
-> Taiwan Semiconductor is a leading user of ASML’s EUV technology.
-
-**Catalysts:** Earnings

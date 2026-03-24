@@ -1,0 +1,305 @@
+{
+  "date": "2026-03-17",
+  "candidates": [
+    {
+      "ticker": "RGTI",
+      "score": 91,
+      "verdict": "UPLIFT-READY",
+      "data_as_of": "2026-03-17",
+      "stability": "STABLE",
+      "swing_20d": 25.9,
+      "exit_reachable": true,
+      "risk_overall": "LOW",
+      "metrics": {
+        "current_price": 16.219999313354492,
+        "low_20d": 15.255000114440918,
+        "high_20d": 19.209999084472656,
+        "median_20d": 16.949999809265137,
+        "high_20d_p75": 17.779499530792236,
+        "swing_20d": 25.9,
+        "median_40d": 17.100000381469727,
+        "convergence": 0.9,
+        "sma200": 22.241049976348876,
+        "sma200_dist": -27.1,
+        "sma20_slope": 0.6
+      },
+      "position": {
+        "shares": 0,
+        "avg_cost": 0,
+        "current_price": 16.219999313354492
+      },
+      "dormant_orders": [
+        {
+          "price": 13.78,
+          "shares": 4,
+          "cost": 55.12,
+          "distance_pct": -15.0,
+          "note": "Bullet 4 \u2014 $13.33 HVN (merged $13.61 PA), 60% hold, Full tier, wick-adjusted (2026-03-16)"
+        }
+      ],
+      "active_orders": [
+        {
+          "price": 15.56,
+          "shares": 4,
+          "cost": 62.24,
+          "distance_pct": -4.1,
+          "note": "Bullet 1 \u2014 $15.26 PA, 38% hold, Full^ tier, wick-adjusted (2026-03-16)"
+        },
+        {
+          "price": 15.17,
+          "shares": 4,
+          "cost": 60.68,
+          "distance_pct": -6.5,
+          "note": "Bullet 2 \u2014 $14.70 HVN+PA, 29% hold, Std^ tier, wick-adjusted (2026-03-16)"
+        },
+        {
+          "price": 14.78,
+          "shares": 4,
+          "cost": 59.12,
+          "distance_pct": -8.9,
+          "note": "Bullet 3 \u2014 $14.12 PA, 56% hold, Full tier, wick-adjusted (2026-03-16)"
+        }
+      ],
+      "freed_capital": 55.12,
+      "scenarios": [
+        {
+          "support_price": 13.61,
+          "buy_at": 13.82,
+          "hold_rate": 50.0,
+          "tier": "Full",
+          "shares": 1,
+          "cost": 13.82,
+          "new_avg": 13.82,
+          "exit_6pct": 14.65,
+          "reachable": true,
+          "range_class": "near-range",
+          "source": "PA"
+        },
+        {
+          "support_price": 13.3346,
+          "buy_at": 13.78,
+          "hold_rate": 60.0,
+          "tier": "Full",
+          "shares": 2,
+          "cost": 27.56,
+          "new_avg": 13.79,
+          "exit_6pct": 14.62,
+          "reachable": true,
+          "range_class": "near-range",
+          "source": "HVN"
+        }
+      ],
+      "sell_recs": [
+        {
+          "price": 14.69,
+          "shares": 2,
+          "basis": "PA resistance, 80% reject, near Standard (6.0%)"
+        },
+        {
+          "price": 15.025,
+          "shares": 1,
+          "basis": "HVN+PA resistance, 75% reject, near Aggressive (7.5%)"
+        }
+      ],
+      "risk_components": {
+        "stability": {
+          "rating": "LOW",
+          "detail": "0.9% convergence"
+        },
+        "overextension": {
+          "rating": "LOW",
+          "detail": "0.6 ATR below median"
+        },
+        "volume": {
+          "rating": "MODERATE",
+          "detail": "86% of prior 20d"
+        },
+        "sma200": {
+          "rating": "HIGH",
+          "detail": "-27.1%"
+        },
+        "consolidation": {
+          "rating": "LOW",
+          "detail": "slope +0.6%/10d"
+        }
+      }
+    },
+    {
+      "ticker": "OKLO",
+      "score": 71,
+      "verdict": "UPLIFT-POSSIBLE",
+      "data_as_of": "2026-03-17",
+      "stability": "STABLE",
+      "swing_20d": 24.2,
+      "exit_reachable": true,
+      "risk_overall": "HIGH",
+      "metrics": {
+        "current_price": 60.529998779296875,
+        "low_20d": 56.470001220703125,
+        "high_20d": 70.1500015258789,
+        "median_20d": 63.02000045776367,
+        "high_20d_p75": 66.55249977111816,
+        "swing_20d": 24.2,
+        "median_40d": 66.2750015258789,
+        "convergence": 4.9,
+        "sma200": 85.98174983978271,
+        "sma200_dist": -29.6,
+        "sma20_slope": -5.8
+      },
+      "position": {
+        "shares": 0,
+        "avg_cost": 0,
+        "current_price": 60.529998779296875
+      },
+      "dormant_orders": [
+        {
+          "price": 51.1,
+          "shares": 1,
+          "cost": 51.1,
+          "distance_pct": -15.6,
+          "note": "Bullet 3 \u2014 $49.27 HVN+PA, 33% hold, Std tier, wick-adjusted (2026-03-13)"
+        }
+      ],
+      "active_orders": [
+        {
+          "price": 57.21,
+          "shares": 1,
+          "cost": 57.21,
+          "distance_pct": -5.5,
+          "note": "Bullet 2 \u2014 $53.95 HVN+PA, 20% hold, Std tier, wick-adjusted (2026-03-13)"
+        }
+      ],
+      "freed_capital": 51.1,
+      "scenarios": [
+        {
+          "support_price": 58.6202,
+          "buy_at": 61.01,
+          "hold_rate": 37.5,
+          "tier": "Std",
+          "shares": 1,
+          "cost": 61.01,
+          "new_avg": 61.01,
+          "exit_6pct": 64.67,
+          "reachable": true,
+          "range_class": "in-range",
+          "source": "HVN+PA"
+        },
+        {
+          "support_price": 56.47,
+          "buy_at": 58.04,
+          "hold_rate": 66.7,
+          "tier": "Full",
+          "shares": 1,
+          "cost": 58.04,
+          "new_avg": 59.52,
+          "exit_6pct": 63.09,
+          "reachable": true,
+          "range_class": "in-range",
+          "source": "PA"
+        },
+        {
+          "support_price": 49.271,
+          "buy_at": 51.1,
+          "hold_rate": 40.0,
+          "tier": "Full",
+          "shares": 1,
+          "cost": 51.1,
+          "new_avg": 56.71,
+          "exit_6pct": 60.11,
+          "reachable": true,
+          "range_class": "near-range",
+          "source": "HVN+PA"
+        }
+      ],
+      "sell_recs": [
+        {
+          "price": 61.47,
+          "shares": 3,
+          "basis": "HVN+PA resistance, 67% reject, near Aggressive (7.5%)"
+        }
+      ],
+      "risk_components": {
+        "stability": {
+          "rating": "LOW",
+          "detail": "4.9% convergence"
+        },
+        "overextension": {
+          "rating": "LOW",
+          "detail": "0.6 ATR below median"
+        },
+        "volume": {
+          "rating": "HIGH",
+          "detail": "65% of prior 20d"
+        },
+        "sma200": {
+          "rating": "HIGH",
+          "detail": "-29.6%"
+        },
+        "consolidation": {
+          "rating": "HIGH",
+          "detail": "slope -5.8%/10d"
+        }
+      }
+    },
+    {
+      "ticker": "NU",
+      "skip": "underwater (-10.1%) \u2014 use Range Reset instead"
+    },
+    {
+      "ticker": "AR",
+      "skip": "no dormant orders (all within 15% of price)"
+    },
+    {
+      "ticker": "APLD",
+      "skip": "underwater (-5.3%) \u2014 use Range Reset instead"
+    },
+    {
+      "ticker": "CLF",
+      "skip": "underwater (-9.6%) \u2014 use Range Reset instead"
+    },
+    {
+      "ticker": "CIFR",
+      "skip": "no dormant orders (all within 15% of price)"
+    },
+    {
+      "ticker": "CLSK",
+      "skip": "no dormant orders (all within 15% of price)"
+    },
+    {
+      "ticker": "SMCI",
+      "skip": "swing 15.4% < 20.0% minimum"
+    },
+    {
+      "ticker": "LUNR",
+      "skip": "no dormant orders (all within 15% of price)"
+    },
+    {
+      "ticker": "NVDA",
+      "skip": "swing 13.2% < 20.0% minimum"
+    },
+    {
+      "ticker": "ARM",
+      "skip": "no dormant orders (all within 15% of price)"
+    },
+    {
+      "ticker": "TMC",
+      "skip": "no dormant orders (all within 15% of price)"
+    },
+    {
+      "ticker": "TEM",
+      "skip": "underwater (-0.3%) \u2014 use Range Reset instead"
+    },
+    {
+      "ticker": "OUST",
+      "skip": "no dormant orders (all within 15% of price)"
+    },
+    {
+      "ticker": "RUN",
+      "skip": "no dormant orders (all within 15% of price)"
+    },
+    {
+      "ticker": "BBAI",
+      "skip": "no dormant orders (all within 15% of price)"
+    }
+  ]
+}

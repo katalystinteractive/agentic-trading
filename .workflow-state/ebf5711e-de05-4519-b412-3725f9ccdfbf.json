@@ -1,0 +1,113 @@
+{
+  "run_id": "ebf5711e-de05-4519-b412-3725f9ccdfbf",
+  "workflow_name": "cycle-timing-workflow",
+  "task_guid": null,
+  "status": "completed",
+  "current_phase": null,
+  "started_at": "2026-03-11T21:32:05.025869+00:00",
+  "completed_at": "2026-03-11T21:40:14.013653+00:00",
+  "error_message": null,
+  "context": {
+    "task_context": "# Project: agentic-trading\n\n- **Path**: /Users/kamenkamenov/agentic-trading\n- **Type**: unknown\n- **Language**: unknown\n\n## Context\n\nTickers: TMC SMCI OUST RUN",
+    "handoffs": {
+      "gather": "**Artifact:** cycle-timing-raw.md\n\n**Per-ticker JSON files:**\n- tickers/OUST/cycle_timing.json\n- tickers/RUN/cycle_timing.json\n- tickers/SMCI/cycle_timing.json\n- tickers/TMC/cycle_timing.json\n\n**Tickers analyzed:** 4\n\nCycle timing data gathering complete.",
+      "analyze": "**Artifact:** `cycle-timing-report.md`\n**Tickers analyzed:** 4 (OUST, RUN, SMCI, TMC)\n**Overrides applied:** 1\n\n| Ticker | Mechanical Cooldown | Effective Cooldown | Override Reason |\n| :--- | :--- | :--- | :--- |\n| OUST | 3d | 3d | None |\n| RUN | 3d | 3d | None |\n| SMCI | 3d | 3d | None |\n| TMC | 3d | **5d** | Negative post-resistance decay at +5d/+10d (-5.2%/-5.8%) + speculative sector in risk-off regime |\n\nKey qualitative observations carried into the report:\n- **SMCI**: The $34.15\u2192$30.16 pattern has been mechanical for 9 consecutive cycles (Dec 2025\u2013Mar 2026); the SEC compliance binary is the regime-changer to watch.\n- **RUN**: 4-cycle sample is thin; the May 2025 -40% outlier cycle is a live tail-risk given IRA policy uncertainty.\n- **OUST**: Strongest combination of sample size (12 cycles) and positive long-term recovery (+12.4% at +10d) \u2014 the highest-conviction re-entry in this batch.\n- **TMC**: Only ticker with negative median recovery at 5d and 10d; adjusted to 5d cooldown.",
+      "review": "**Artifacts:** `cycle-timing-pre-critic.md`, `cycle-timing-review.md`\n**Verdict:** PASS\n**Checks passed:** 5/5\n**Issues found:** 0 mechanical, 3 qualitative (advisory)\n\n**Qualitative findings:**\n1. **OUST** \u2014 \"Highest-conviction\" label overstated; the two most recent completed cycles (Jan 2026) both show -9.9% at +10d, directly contradicting the positive historical median. Recommendation unchanged.\n2. **TMC** \u2014 Correlated same-date cycles (4 of 10 share Aug 4, 2025 date with identical decay values) reduce effective independent sample to ~5 events; override conclusion holds regardless. Missing catalyst-override clause for ISA/executive-order scenario.\n3. **SMCI** \u2014 \"9 consecutive cycles\" should be 8 (Dec\u2013Mar cluster); Cycle 3 (Apr 2025) is not consecutive with the Dec cluster. Minor precision error only.\n4. **Cross-ticker structural note** \u2014 All 4 tickers receive the mechanical floor (3d) because all have median_deep = 1d. The analyst's qualitative judgment is the only differentiation mechanism; the TMC override was the correct and only available intervention.\n\nCycle timing verification complete."
+    },
+    "fix_loop_count": 0,
+    "max_fix_iterations": 0
+  },
+  "phases": {
+    "gather": {
+      "phase_id": "gather",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-11T21:32:05.038051+00:00",
+      "completed_at": "2026-03-11T21:32:40.723933+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** cycle-timing-raw.md\n\n**Per-ticker JSON files:**\n- tickers/OUST/cycle_timing.json\n- tickers/RUN/cycle_timing.json\n- tickers/SMCI/cycle_timing.json\n- tickers/TMC/cycle_timing.json\n\n**Tickers analyzed:** 4\n\nCycle timing data gathering complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":28008,\"duration_api_ms\":10064,\"num_turns\":4,\"result\":\"## Decision: CLEAN\\n\\n## HANDOFF\\n\\n**Artifact:** cycle-timing-raw.md\\n\\n**Per-ticker JSON files:**\\n- tickers/OUST/cycle_timing.json\\n- tickers/RUN/cycle_timing.json\\n- tickers/SMCI/cycle_timing.json\\n- tickers/TMC/cycle_timing.json\\n\\n**Tickers analyzed:** 4\\n\\nCycle timing data gathering complete.\",\"stop_reason\":\"end_turn\",\"session_id\":\"3915a238-7a6d-430c-8106-2704432b2492\",\"total_cost_usd\":0.050085500000000005,\"usage\":{\"input_tokens\":26,\"cache_creation_input_tokens\":29734,\"cache_read_input_tokens\":88020,\"output_tokens\":818,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":29734,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-haiku-4-5-20251001\":{\"inputTokens\":26,\"outputTokens\":818,\"cacheReadInputTokens\":88020,\"cacheCreationInputTokens\":29734,\"webSearchRequests\":0,\"costUSD\":0.050085500000000005,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"2332d972-f62c-4a0d-9312-23b31948b3ba\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "file_0": "tickers/OUST/cycle_timing.js",
+        "file_1": "tickers/RUN/cycle_timing.js",
+        "file_2": "tickers/SMCI/cycle_timing.js",
+        "file_3": "tickers/TMC/cycle_timing.js"
+      },
+      "metrics": {
+        "duration_seconds": 35.67868494987488,
+        "token_usage": {
+          "input_tokens": 26,
+          "output_tokens": 818,
+          "cache_read_tokens": 88020,
+          "cache_write_tokens": 29734
+        },
+        "estimated_cost_usd": 0.150257,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "analyze": {
+      "phase_id": "analyze",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-11T21:32:40.731509+00:00",
+      "completed_at": "2026-03-11T21:36:27.183819+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifact:** `cycle-timing-report.md`\n**Tickers analyzed:** 4 (OUST, RUN, SMCI, TMC)\n**Overrides applied:** 1\n\n| Ticker | Mechanical Cooldown | Effective Cooldown | Override Reason |\n| :--- | :--- | :--- | :--- |\n| OUST | 3d | 3d | None |\n| RUN | 3d | 3d | None |\n| SMCI | 3d | 3d | None |\n| TMC | 3d | **5d** | Negative post-resistance decay at +5d/+10d (-5.2%/-5.8%) + speculative sector in risk-off regime |\n\nKey qualitative observations carried into the report:\n- **SMCI**: The $34.15\u2192$30.16 pattern has been mechanical for 9 consecutive cycles (Dec 2025\u2013Mar 2026); the SEC compliance binary is the regime-changer to watch.\n- **RUN**: 4-cycle sample is thin; the May 2025 -40% outlier cycle is a live tail-risk given IRA policy uncertainty.\n- **OUST**: Strongest combination of sample size (12 cycles) and positive long-term recovery (+12.4% at +10d) \u2014 the highest-conviction re-entry in this batch.\n- **TMC**: Only ticker with negative median recovery at 5d and 10d; adjusted to 5d cooldown.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":221706,\"duration_api_ms\":217955,\"num_turns\":10,\"result\":\"`cycle-timing-report.md` written.\\n\\n## HANDOFF\\n\\n**Artifact:** `cycle-timing-report.md`\\n**Tickers analyzed:** 4 (OUST, RUN, SMCI, TMC)\\n**Overrides applied:** 1\\n\\n| Ticker | Mechanical Cooldown | Effective Cooldown | Override Reason |\\n| :--- | :--- | :--- | :--- |\\n| OUST | 3d | 3d | None |\\n| RUN | 3d | 3d | None |\\n| SMCI | 3d | 3d | None |\\n| TMC | 3d | **5d** | Negative post-resistance decay at +5d/+10d (-5.2%/-5.8%) + speculative sector in risk-off regime |\\n\\nKey qualitative observations carried into the report:\\n- **SMCI**: The $34.15\u2192$30.16 pattern has been mechanical for 9 consecutive cycles (Dec 2025\u2013Mar 2026); the SEC compliance binary is the regime-changer to watch.\\n- **RUN**: 4-cycle sample is thin; the May 2025 -40% outlier cycle is a live tail-risk given IRA policy uncertainty.\\n- **OUST**: Strongest combination of sample size (12 cycles) and positive long-term recovery (+12.4% at +10d) \u2014 the highest-conviction re-entry in this batch.\\n- **TMC**: Only ticker with negative median recovery at 5d and 10d; adjusted to 5d cooldown.\\n\\n## Decision: CLEAN\",\"stop_reason\":\"end_turn\",\"session_id\":\"d6d53888-9cb6-4438-88bf-b36190b9f7f0\",\"total_cost_usd\":0.47373989999999994,\"usage\":{\"input_tokens\":8,\"cache_creation_input_tokens\":54310,\"cache_read_input_tokens\":243828,\"output_tokens\":13127,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":54310,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":8,\"outputTokens\":13127,\"cacheReadInputTokens\":243828,\"cacheCreationInputTokens\":54310,\"webSearchRequests\":0,\"costUSD\":0.47373989999999994,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"156dcef3-c33d-4210-bcd9-0e6ebc292097\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "cycle-timing-report.md": "/Users/kamenkamenov/agentic-trading/cycle-timing-report.md"
+      },
+      "metrics": {
+        "duration_seconds": 226.42134809494019,
+        "token_usage": {
+          "input_tokens": 8,
+          "output_tokens": 13127,
+          "cache_read_tokens": 243828,
+          "cache_write_tokens": 54310
+        },
+        "estimated_cost_usd": 0.47374,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    },
+    "review": {
+      "phase_id": "review",
+      "status": "completed",
+      "attempts": 1,
+      "started_at": "2026-03-11T21:36:27.222194+00:00",
+      "completed_at": "2026-03-11T21:40:14.005557+00:00",
+      "error_message": null,
+      "decision": "CLEAN",
+      "handoff": "**Artifacts:** `cycle-timing-pre-critic.md`, `cycle-timing-review.md`\n**Verdict:** PASS\n**Checks passed:** 5/5\n**Issues found:** 0 mechanical, 3 qualitative (advisory)\n\n**Qualitative findings:**\n1. **OUST** \u2014 \"Highest-conviction\" label overstated; the two most recent completed cycles (Jan 2026) both show -9.9% at +10d, directly contradicting the positive historical median. Recommendation unchanged.\n2. **TMC** \u2014 Correlated same-date cycles (4 of 10 share Aug 4, 2025 date with identical decay values) reduce effective independent sample to ~5 events; override conclusion holds regardless. Missing catalyst-override clause for ISA/executive-order scenario.\n3. **SMCI** \u2014 \"9 consecutive cycles\" should be 8 (Dec\u2013Mar cluster); Cycle 3 (Apr 2025) is not consecutive with the Dec cluster. Minor precision error only.\n4. **Cross-ticker structural note** \u2014 All 4 tickers receive the mechanical floor (3d) because all have median_deep = 1d. The analyst's qualitative judgment is the only differentiation mechanism; the TMC override was the correct and only available intervention.\n\nCycle timing verification complete.",
+      "output": "{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":207568,\"duration_api_ms\":203112,\"num_turns\":11,\"result\":\"## HANDOFF\\n\\n**Artifacts:** `cycle-timing-pre-critic.md`, `cycle-timing-review.md`\\n**Verdict:** PASS\\n**Checks passed:** 5/5\\n**Issues found:** 0 mechanical, 3 qualitative (advisory)\\n\\n**Qualitative findings:**\\n1. **OUST** \u2014 \\\"Highest-conviction\\\" label overstated; the two most recent completed cycles (Jan 2026) both show -9.9% at +10d, directly contradicting the positive historical median. Recommendation unchanged.\\n2. **TMC** \u2014 Correlated same-date cycles (4 of 10 share Aug 4, 2025 date with identical decay values) reduce effective independent sample to ~5 events; override conclusion holds regardless. Missing catalyst-override clause for ISA/executive-order scenario.\\n3. **SMCI** \u2014 \\\"9 consecutive cycles\\\" should be 8 (Dec\u2013Mar cluster); Cycle 3 (Apr 2025) is not consecutive with the Dec cluster. Minor precision error only.\\n4. **Cross-ticker structural note** \u2014 All 4 tickers receive the mechanical floor (3d) because all have median_deep = 1d. The analyst's qualitative judgment is the only differentiation mechanism; the TMC override was the correct and only available intervention.\\n\\nCycle timing verification complete.\\n\\n## Decision: CLEAN\",\"stop_reason\":\"end_turn\",\"session_id\":\"ad438eb0-eada-437c-9724-0b219568038a\",\"total_cost_usd\":0.43239330000000004,\"usage\":{\"input_tokens\":9,\"cache_creation_input_tokens\":52270,\"cache_read_input_tokens\":251246,\"output_tokens\":10732,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":52270,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-sonnet-4-6\":{\"inputTokens\":9,\"outputTokens\":10732,\"cacheReadInputTokens\":251246,\"cacheCreationInputTokens\":52270,\"webSearchRequests\":0,\"costUSD\":0.43239330000000004,\"contextWindow\":200000,\"maxOutputTokens\":32000}},\"permission_denials\":[],\"fast_mode_state\":\"off\",\"uuid\":\"7ad5793e-33da-445e-990c-a22d446384c0\"}\n",
+      "output_truncated": false,
+      "artifacts": {
+        "cycle-timing-pre-critic.md": "/Users/kamenkamenov/agentic-trading/cycle-timing-pre-critic.md",
+        "cycle-timing-review.md": "/Users/kamenkamenov/agentic-trading/cycle-timing-review.md"
+      },
+      "metrics": {
+        "duration_seconds": 226.75141215324402,
+        "token_usage": {
+          "input_tokens": 9,
+          "output_tokens": 10732,
+          "cache_read_tokens": 251246,
+          "cache_write_tokens": 52270
+        },
+        "estimated_cost_usd": 0.432393,
+        "model": "sonnet",
+        "attempts": 1
+      }
+    }
+  },
+  "_metadata": {
+    "savedAt": "2026-03-11T21:40:14.013862+00:00",
+    "version": "1.0",
+    "workflowPath": "/Users/kamenkamenov/agentic-trading/workflows/cycle-timing-workflow.yaml",
+    "workflowHash": "832eba0577503b7a"
+  }
+}
