@@ -739,10 +739,11 @@ def build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses):
 
     # Scoring Summary — Top 7
     lines.append(f"## Scoring Summary — Top {len(shortlist)}")
-    lines.append("| # | Ticker | Sector | Price | Swing% | Bullets (0-20) | B1 Prox (0-10) "
-                 "| Coverage (0-15) | Reserve (0-10) | Swing (0-10) | Sector (0-15) | Cycle (0-20) | Total | Flags |")
+    lines.append("| # | Ticker | Sector | Price | Swing% | Bullets (0-15) | B1 (0-5) "
+                 "| Coverage (0-15) | Reserve (0-5) | Swing (0-10) | Sector (0-10) "
+                 "| Cycle (0-20) | HoldQ (0-20) | Total | Flags |")
     lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- "
-                 "| :--- | :--- | :--- | :--- | :--- | :--- |")
+                 "| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     for i, r in enumerate(shortlist, 1):
         p = r["passer"]
         s = r["scores"]
@@ -751,14 +752,15 @@ def build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses):
             lines.append(
                 f"| {i} | {r['ticker']} | {p.get('sector', '?')} | ${p['price']:.2f} "
                 f"| {p['median_swing']}% | — | — | — | — | — "
-                f"| {s.get('sector_diversity', '—')} | — | {r['total_score']} | {flag_str} |"
+                f"| {s.get('sector_diversity', '—')} | — | — | {r['total_score']} | {flag_str} |"
             )
         else:
             lines.append(
                 f"| {i} | {r['ticker']} | {p.get('sector', '?')} | ${p['price']:.2f} "
                 f"| {p['median_swing']}% | {s['bullets_tier']} | {s['b1_proximity']} "
                 f"| {s['zone_coverage']} | {s['reserve_depth']} | {s['swing']} "
-                f"| {s['sector_diversity']} | {s['cycle_efficiency']} | {r['total_score']} | {flag_str} |"
+                f"| {s['sector_diversity']} | {s['cycle_efficiency']} "
+                f"| {s['hold_quality']} | {r['total_score']} | {flag_str} |"
             )
     lines.append("")
 

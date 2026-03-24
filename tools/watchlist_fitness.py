@@ -555,7 +555,7 @@ def _format_ticker_md(result):
     lines.append(f"| Swing ({_fmt(sc['swing']['value'])}%) | {sc['swing']['points']} | {sc['swing']['max']} |")
     lines.append(f"| Consistency ({_fmt(sc['consistency']['value'])}%) | {sc['consistency']['points']} | {sc['consistency']['max']} |")
     lines.append(f"| Level Quality ({sc['level_quality']['count']} Active Half+) | {sc['level_quality']['points']} | {sc['level_quality']['max']} |")
-    lines.append(f"| Hold Rate ({_fmt(sc['hold_rate']['best'])}%) | {sc['hold_rate']['points']} | {sc['hold_rate']['max']} |")
+    lines.append(f"| Hold Rate Quality | {sc['hold_rate']['points']} | {sc['hold_rate']['max']} |")
     lines.append(f"| Order Hygiene ({sc['order_hygiene']['orphaned']} orphaned) | {sc['order_hygiene']['points']} | {sc['order_hygiene']['max']} |")
     lines.append(f"| Cycle Efficiency ({sc['cycle_efficiency']['reason']}) | {sc['cycle_efficiency']['points']} | {sc['cycle_efficiency']['max']} |")
     lines.append(f"| **Total** | **{result['fitness_score']}** | **100** |")
