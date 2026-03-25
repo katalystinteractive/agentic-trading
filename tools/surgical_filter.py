@@ -38,18 +38,20 @@ COVERAGE_GOOD_MIN = 8.0
 COVERAGE_GOOD_MAX = 25.0
 
 # Max points per criterion (must sum to 100)
-MAX_BULLETS_TIER = 15
+MAX_BULLETS_TIER = 10
 MAX_B1_PROXIMITY = 5
-MAX_ZONE_COVERAGE = 15
+MAX_ZONE_COVERAGE = 10
 MAX_RESERVE_DEPTH = 5
 MAX_SWING = 10
 MAX_SECTOR_DIVERSITY = 10
 MAX_CYCLE_EFFICIENCY = 20
-MAX_HOLD_QUALITY = 20
+MAX_HOLD_QUALITY = 15
+MAX_TOUCH_FREQUENCY = 15
 
 assert (MAX_BULLETS_TIER + MAX_B1_PROXIMITY + MAX_ZONE_COVERAGE +
         MAX_RESERVE_DEPTH + MAX_SWING + MAX_SECTOR_DIVERSITY +
-        MAX_CYCLE_EFFICIENCY + MAX_HOLD_QUALITY) == 100, "Scoring constants must sum to 100"
+        MAX_CYCLE_EFFICIENCY + MAX_HOLD_QUALITY +
+        MAX_TOUCH_FREQUENCY) == 100, "Scoring constants must sum to 100"
 
 # Criterion 4: Reserve thresholds
 RESERVE_MIN_HOLD = 30.0
@@ -258,15 +260,15 @@ def score_zone_coverage(wick_data):
     spread_pct = (max(buy_prices) - min(buy_prices)) / current * 100
 
     if spread_pct < 3:
-        spread_score = 3  # clustering
+        spread_score = 2  # clustering
     elif spread_pct < COVERAGE_GOOD_MIN:
-        spread_score = 8
+        spread_score = 5
     elif spread_pct <= COVERAGE_GOOD_MAX:
-        spread_score = 15  # good spread
+        spread_score = 10  # good spread
     else:
-        spread_score = 10  # overspread
+        spread_score = 7  # overspread
 
-    count_bonus = min(5, len(active))
+    count_bonus = min(3, len(active))
     return min(MAX_ZONE_COVERAGE, spread_score + count_bonus)
 
 
@@ -313,7 +315,7 @@ def score_swing(passer):
 
 
 def score_hold_quality(wick_data):
-    """Criterion 8: Hold Rate Quality (0-20).
+    """Criterion 8: Hold Rate Quality (0-15).
     Rewards tickers with multiple reliable support levels (decayed hold rate).
     Uses decayed_hold_rate for recency weighting.
     """
@@ -327,22 +329,41 @@ def score_hold_quality(wick_data):
     has_floor = any(b.get("decayed_hold_rate", b.get("hold_rate", 0)) >= 60
                     for b in active)
 
-    # Scoring: 0-4 reliable levels -> 0-12 pts, floor bonus +8
+    # Scoring: 0-4 reliable levels -> 0-9 pts, floor bonus +6
     if reliable >= 4:
-        pts = 12
-    elif reliable >= 3:
         pts = 9
+    elif reliable >= 3:
+        pts = 7
     elif reliable >= 2:
-        pts = 6
+        pts = 5
     elif reliable >= 1:
-        pts = 3
+        pts = 2
     else:
         pts = 0
 
     if has_floor:
-        pts += 8
+        pts += 6
 
     return min(pts, MAX_HOLD_QUALITY)
+
+
+def score_touch_frequency(wick_data):
+    """Criterion 9: Touch Frequency (0-15).
+    Rewards tickers where price frequently approaches active support levels.
+    Higher frequency = more trading opportunities per month.
+    """
+    levels = wick_data.get("levels", [])
+    active = [lv for lv in levels if lv.get("zone") == "Active"]
+    max_freq = max((lv.get("monthly_touch_freq", 0) for lv in active), default=0)
+    if max_freq >= 3.0:
+        return MAX_TOUCH_FREQUENCY      # 15
+    if max_freq >= 2.0:
+        return 12
+    if max_freq >= 1.0:
+        return 8
+    if max_freq >= 0.5:
+        return 4
+    return 0
 
 
 def score_cycle_efficiency(cycle_timing):
@@ -727,7 +748,7 @@ def filter_and_score(data):
                 "daily_range_score": daily_range_score,
                 "strategy_type": strategy_type,
                 "effective_score": effective_score,
-                "scores": {"sector_diversity": sector_score, "swing": swing_score, "cycle_efficiency": cycle_score},
+                "scores": {"sector_diversity": sector_score, "swing": swing_score, "cycle_efficiency": cycle_score, "touch_frequency": 0},
                 "wick_failed": True,
                 "verification": None,
                 "stress_metrics": None,
@@ -748,6 +769,7 @@ def filter_and_score(data):
                 ticker, passer.get("sector", "Unknown"), portfolio_ctx),
             "cycle_efficiency": score_cycle_efficiency(cycle_timing),
             "hold_quality": score_hold_quality(wick),
+            "touch_frequency": score_touch_frequency(wick),
         }
         total = sum(scores.values())
 
@@ -824,11 +846,11 @@ def build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses):
 
     # Scoring Summary — Top 7
     lines.append(f"## Scoring Summary — Top {len(shortlist)}")
-    lines.append("| # | Ticker | Strategy | Sector | Price | Swing% | Bullets (0-15) | B1 (0-5) "
-                 "| Coverage (0-15) | Reserve (0-5) | Swing (0-10) | Sector (0-10) "
-                 "| Cycle (0-20) | HoldQ (0-20) | DR Score | Effective | Flags |")
+    lines.append("| # | Ticker | Strategy | Sector | Price | Swing% | Bullets (0-10) | B1 (0-5) "
+                 "| Coverage (0-10) | Reserve (0-5) | Swing (0-10) | Sector (0-10) "
+                 "| Cycle (0-20) | HoldQ (0-15) | Touch (0-15) | DR Score | Effective | Flags |")
     lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- "
-                 "| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+                 "| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     for i, r in enumerate(shortlist, 1):
         p = r["passer"]
         s = r["scores"]
@@ -840,7 +862,7 @@ def build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses):
             lines.append(
                 f"| {i} | {r['ticker']} | {st} | {p.get('sector', '?')} | ${p['price']:.2f} "
                 f"| {p['median_swing']}% | — | — | — | — | — "
-                f"| {s.get('sector_diversity', '—')} | — | — | {dr} | {eff} | {flag_str} |"
+                f"| {s.get('sector_diversity', '—')} | — | — | — | {dr} | {eff} | {flag_str} |"
             )
         else:
             lines.append(
@@ -848,7 +870,7 @@ def build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses):
                 f"| {p['median_swing']}% | {s['bullets_tier']} | {s['b1_proximity']} "
                 f"| {s['zone_coverage']} | {s['reserve_depth']} | {s['swing']} "
                 f"| {s['sector_diversity']} | {s['cycle_efficiency']} "
-                f"| {s['hold_quality']} | {dr} | {eff} | {flag_str} |"
+                f"| {s['hold_quality']} | {s['touch_frequency']} | {dr} | {eff} | {flag_str} |"
             )
     lines.append("")
 
@@ -906,6 +928,7 @@ def build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses):
         lines.append(f"| Sector Diversity | {s['sector_diversity']} | {MAX_SECTOR_DIVERSITY} | Diminishing returns by sector count |")
         lines.append(f"| Cycle Efficiency | {s['cycle_efficiency']} | {MAX_CYCLE_EFFICIENCY} | Cycle speed, fill rate, consistency |")
         lines.append(f"| Hold Rate Quality | {s['hold_quality']} | {MAX_HOLD_QUALITY} | Reliable levels + floor bonus |")
+        lines.append(f"| Touch Frequency | {s['touch_frequency']} | {MAX_TOUCH_FREQUENCY} | Max monthly approach rate across active levels |")
         lines.append(f"| **Total** | **{r['total_score']}** | **100** | |")
         lines.append("")
 

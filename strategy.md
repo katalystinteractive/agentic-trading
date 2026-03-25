@@ -200,14 +200,25 @@ Sell targets are graduated based on cycle performance data:
 
 ### Cycler Trait Scoring
 
-The strongest predictor of profitable cycling is hold rate quality at support levels:
+The strongest predictors of profitable cycling are touch frequency and hold rate quality:
 
-**Surgical Filter (20/100 pts):**
-- Reliable levels (decayed HR >=50%): 0->0, 1->3, 2->6, 3->9, 4+->12 pts
-- Floor level bonus (decayed HR >=60%): +8 pts
+**Surgical Filter scoring (100 pts):**
+Bullets/Tier=10, B1 Proximity=5, Zone Coverage=10, Reserve Depth=5, Swing=10, Sector Diversity=10, Cycle Efficiency=20, Hold Quality=15, Touch Frequency=15.
+
+**Hold Quality (15/100 pts):**
+- Reliable levels (decayed HR >=50%): 0->0, 1->2, 2->5, 3->7, 4+->9 pts
+- Floor level bonus (decayed HR >=60%): +6 pts
 - Uses decayed_hold_rate (90-day half-life) for recency weighting
 
-**Watchlist Fitness (10/100 pts):**
+**Touch Frequency (15/100 pts):**
+- Max monthly approach rate across active-zone levels
+- >=3.0/mo -> 15 pts, >=2.0/mo -> 12, >=1.0/mo -> 8, >=0.5/mo -> 4, <0.5 -> 0
+- Backtested: LUNR (4.0/mo, 6 cycles) ranks #10→top, CLSK (3.0/mo) → #1. TMC (0.3/mo, stuck) correctly demoted.
+
+**Watchlist Fitness scoring (100 pts):**
+Swing=15, Consistency=15, Level Count=10, Hold Rate=10, Order Hygiene=20, Cycle Efficiency=20, Touch Frequency=10.
+
+**Watchlist Hold Rate (10/100 pts):**
 - Reliable levels: 0->0, 1->2, 2->4, 3+->6 pts
 - Floor bonus: +4 pts
 

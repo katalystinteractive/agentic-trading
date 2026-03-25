@@ -35,14 +35,15 @@ from shared_utils import load_cycle_timing
 # ---------------------------------------------------------------------------
 SWING_POINTS = 15
 CONSISTENCY_POINTS = 15
-LEVEL_COUNT_POINTS = 15
+LEVEL_COUNT_POINTS = 10
 HOLD_RATE_POINTS = 10
-ORDER_HYGIENE_POINTS = 25
+ORDER_HYGIENE_POINTS = 20
 CYCLE_EFFICIENCY_POINTS = 20
+TOUCH_FREQUENCY_POINTS = 10
 
 assert (SWING_POINTS + CONSISTENCY_POINTS + LEVEL_COUNT_POINTS +
         HOLD_RATE_POINTS + ORDER_HYGIENE_POINTS +
-        CYCLE_EFFICIENCY_POINTS) == 100, "Scoring constants must sum to 100"
+        CYCLE_EFFICIENCY_POINTS + TOUCH_FREQUENCY_POINTS) == 100, "Scoring constants must sum to 100"
 
 COMPRESSION_THRESHOLD = 0.65
 COMPRESSION_PENALTY = 3
@@ -171,7 +172,7 @@ def _count_active_half_plus(levels):
 
 
 def _score_level_count(active_half_plus_count):
-    return min(active_half_plus_count * 4, LEVEL_COUNT_POINTS)
+    return min(active_half_plus_count * 3, LEVEL_COUNT_POINTS)
 
 
 def _score_hold_rate(levels):
@@ -211,6 +212,22 @@ def _score_order_hygiene(orphaned_count, all_active_above_price, has_non_paused_
     if has_non_paused_orders and all_active_above_price:
         pts -= 5
     return max(pts, 0)
+
+
+def _score_touch_frequency(data):
+    """Score based on max monthly touch frequency across active levels (0-10)."""
+    levels = data.get("levels", [])
+    active = [lv for lv in levels if lv.get("zone") == "Active"]
+    max_freq = max((lv.get("monthly_touch_freq", 0) for lv in active), default=0)
+    if max_freq >= 3.0:
+        return TOUCH_FREQUENCY_POINTS, max_freq   # 10
+    if max_freq >= 2.0:
+        return 8, max_freq
+    if max_freq >= 1.0:
+        return 5, max_freq
+    if max_freq >= 0.5:
+        return 3, max_freq
+    return 0, max_freq
 
 
 def _score_cycle_efficiency(ticker):
@@ -490,7 +507,8 @@ def _process_ticker(ticker, data, hist, portfolio):
         order_info["all_above_price"],
         order_info["has_non_paused_orders"],
     )
-    total = swing_pts + consistency_pts + level_pts + hr_pts + hygiene_pts + cycle_pts
+    touch_freq_pts, max_freq = _score_touch_frequency(data)
+    total = swing_pts + consistency_pts + level_pts + hr_pts + hygiene_pts + cycle_pts + touch_freq_pts
 
     score_components = {
         "swing": {"value": swing, "recent": recent_swing, "ratio": round(compression_ratio, 2), "points": swing_pts, "max": SWING_POINTS},
@@ -499,6 +517,7 @@ def _process_ticker(ticker, data, hist, portfolio):
         "hold_rate": {"points": hr_pts, "max": HOLD_RATE_POINTS},
         "order_hygiene": {"orphaned": order_info["orphaned"], "points": hygiene_pts, "max": ORDER_HYGIENE_POINTS},
         "cycle_efficiency": {"reason": cycle_reason, "points": cycle_pts, "max": CYCLE_EFFICIENCY_POINTS},
+        "touch_frequency": {"max_freq": round(max_freq, 1), "points": touch_freq_pts, "max": TOUCH_FREQUENCY_POINTS},
     }
 
     # Cycle data
@@ -558,6 +577,7 @@ def _format_ticker_md(result):
     lines.append(f"| Hold Rate Quality | {sc['hold_rate']['points']} | {sc['hold_rate']['max']} |")
     lines.append(f"| Order Hygiene ({sc['order_hygiene']['orphaned']} orphaned) | {sc['order_hygiene']['points']} | {sc['order_hygiene']['max']} |")
     lines.append(f"| Cycle Efficiency ({sc['cycle_efficiency']['reason']}) | {sc['cycle_efficiency']['points']} | {sc['cycle_efficiency']['max']} |")
+    lines.append(f"| Touch Frequency ({sc['touch_frequency']['max_freq']}/mo) | {sc['touch_frequency']['points']} | {sc['touch_frequency']['max']} |")
     lines.append(f"| **Total** | **{result['fitness_score']}** | **100** |")
     lines.append("")
 

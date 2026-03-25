@@ -229,27 +229,27 @@ class TestScoreHoldQuality:
 
     def test_one_reliable(self):
         wick = self._wick([self._level(50), self._level(30)])
-        assert score_hold_quality(wick) == 3  # 1 reliable, no floor
+        assert score_hold_quality(wick) == 2  # 1 reliable, no floor
 
     def test_two_reliable(self):
         wick = self._wick([self._level(50), self._level(55)])
-        assert score_hold_quality(wick) == 6  # 2 reliable, no floor
+        assert score_hold_quality(wick) == 5  # 2 reliable, no floor
 
     def test_three_reliable(self):
         wick = self._wick([self._level(50), self._level(55), self._level(52)])
-        assert score_hold_quality(wick) == 9
+        assert score_hold_quality(wick) == 7
 
     def test_four_reliable(self):
         wick = self._wick([self._level(50), self._level(55), self._level(52), self._level(51)])
-        assert score_hold_quality(wick) == 12
+        assert score_hold_quality(wick) == 9
 
     def test_floor_bonus(self):
         wick = self._wick([self._level(60)])
-        assert score_hold_quality(wick) == 3 + 8  # 1 reliable + floor
+        assert score_hold_quality(wick) == 2 + 6  # 1 reliable + floor
 
     def test_max_score(self):
         wick = self._wick([self._level(70), self._level(65), self._level(60), self._level(55)])
-        assert score_hold_quality(wick) == 20  # 12 + 8 = 20 = MAX
+        assert score_hold_quality(wick) == 15  # 9 + 6 = 15 = MAX
 
     def test_empty_active(self):
         wick = self._wick([])
@@ -258,15 +258,57 @@ class TestScoreHoldQuality:
     def test_fallback_to_hold_rate(self):
         """When decayed_hold_rate missing, falls back to hold_rate."""
         wick = self._wick([{"hold_rate": 55}])
-        assert score_hold_quality(wick) == 3  # 1 reliable, no floor
+        assert score_hold_quality(wick) == 2  # 1 reliable, no floor
 
     def test_floor_at_boundary(self):
         wick = self._wick([self._level(59)])  # below 60% floor threshold
-        assert score_hold_quality(wick) == 3  # reliable but no floor bonus
+        assert score_hold_quality(wick) == 2  # reliable but no floor bonus
 
     def test_reliable_at_boundary(self):
         wick = self._wick([self._level(49)])  # below 50% reliable threshold
         assert score_hold_quality(wick) == 0
+
+
+# ---------------------------------------------------------------------------
+# Touch frequency scoring (surgical_filter)
+# ---------------------------------------------------------------------------
+
+from surgical_filter import score_touch_frequency, MAX_TOUCH_FREQUENCY
+
+
+class TestScoreTouchFrequency:
+    """Test score_touch_frequency from surgical_filter."""
+
+    def _wick(self, active_freqs):
+        """Build minimal wick_data with active levels having given frequencies."""
+        levels = [{"zone": "Active", "monthly_touch_freq": f} for f in active_freqs]
+        return {"levels": levels, "bullet_plan": {"active": [], "reserve": []}}
+
+    def test_high_frequency(self):
+        assert score_touch_frequency(self._wick([3.0, 1.0])) == MAX_TOUCH_FREQUENCY  # 15
+
+    def test_medium_frequency(self):
+        assert score_touch_frequency(self._wick([2.0])) == 12
+
+    def test_moderate_frequency(self):
+        assert score_touch_frequency(self._wick([1.0, 0.5])) == 8
+
+    def test_low_frequency(self):
+        assert score_touch_frequency(self._wick([0.5])) == 4
+
+    def test_zero_frequency(self):
+        assert score_touch_frequency(self._wick([0.0, 0.3])) == 0
+
+    def test_no_active_levels(self):
+        assert score_touch_frequency({"levels": [], "bullet_plan": {"active": [], "reserve": []}}) == 0
+
+    def test_only_buffer_levels(self):
+        wick = {"levels": [{"zone": "Buffer", "monthly_touch_freq": 5.0}],
+                "bullet_plan": {"active": [], "reserve": []}}
+        assert score_touch_frequency(wick) == 0  # Buffer levels ignored
+
+    def test_max_constant(self):
+        assert MAX_TOUCH_FREQUENCY == 15
 
 
 # ---------------------------------------------------------------------------
