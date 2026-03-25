@@ -266,15 +266,14 @@ For tickers with no viable support levels but good daily oscillation (like AR):
 The daily analyzer shows a "Daily Dip Watchlist" — tickers eligible for manual intraday dip-buy plays.
 
 **Execution (manual, not automated):**
-1. Watch first hour (9:30-10:30) for >1% dip from open
-2. If dip occurs: buy at the dip price
-3. Set limit sell at entry +2-3%
-4. If sell doesn't fill by 3:30 PM: hold as A1 (6% target) or cut at breakeven
-5. Separate budget: $100-150 per ticker, independent from $300/$300 support pools
+1. Run `python3 tools/dip_signal_checker.py` at ~10:30 AM ET for two-step confirmation
+2. If CONFIRMED or MIXED: buy **top 5 dippers only** (biggest dip-from-open first)
+3. Budget: $100 per ticker, independent from $300/$300 support pools
+4. Sell at entry +3%. Stop at entry -3%. Cut at EOD if neither hit (1-day max hold)
+5. Each same-day round trip = 1 PDT day trade (3/5-day limit at <$25K)
 
 **Eligibility:** Daily range >=3% median AND +2% recovery rate >=60%
 **Order note format:** "Dip Buy — daily-range" (triggers same-day exit advisory on fill)
-**PDT:** Each same-day round trip counts as 1 day trade (3/5-day limit at <$25K)
 **Key pattern:** Daily low occurs afternoon (60-85% of days). First-hour dip + rest-of-day recovery is the tradeable pattern.
 
 ### Dip Signal Checker (Two-Step Confirmation)
@@ -286,12 +285,21 @@ Run `python3 tools/dip_signal_checker.py` at ~10:30 AM ET for buy/no-buy confirm
 
 | First Hour | Second Hour | Signal | Action |
 | :--- | :--- | :--- | :--- |
-| 70%+ dipping | 70%+ bouncing | CONFIRMED | Buy dipped tickers that are bouncing |
-| 70%+ dipping | <50% bouncing | STAY OUT | Selloff continuing — don't buy |
-| <50% dipping | — | NO DIP | No play today — tickers are up |
-| Mixed | Mixed | MIXED | Use judgment |
+| 50%+ dipping | 50%+ bouncing | CONFIRMED | Buy top 5 dipped+bouncing tickers |
+| 50%+ dipping | <30% bouncing | STAY OUT | Selloff continuing — don't buy |
+| <30% dipping | — | NO DIP | No play today — tickers are up |
+| Mixed | Mixed | MIXED | Use judgment, top 5 only |
 
-**Buy criteria:** Dipped >1% from open + bouncing in second hour + current price still below open.
+**Optimized parameters** (backtested 2025-12-25 to 2026-03-21):
+- Breadth threshold: 50% (was 70%) — catches more genuine dip days
+- Target: +3% sell limit
+- Stop: -3% stop loss (was -5%) — tighter stop reduces losers
+- Max hold: 1 day — cut at EOD if neither target nor stop hit
+- Top 5 only — concentration in best opportunities outperforms spreading across all
+
+**Backtest results:** 70% win rate, +$52.85/month average, 1.92 profit factor. $100/ticker budget.
+
+**Buy criteria:** Dipped >1% from open + bouncing in second hour + current price still below open. Sorted by largest dip (most opportunity).
 **Risk-Off override:** If market regime is Risk-Off (VIX > 25), daily dip watchlist shows warning. Consider skipping entirely.
 
 ### Position Reporting Order

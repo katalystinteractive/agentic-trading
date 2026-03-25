@@ -179,12 +179,12 @@ def print_signal(results, phase, now_et):
     print(f"**Breadth:** {dipped_count}/{total} tickers dipped >1% in first hour")
     print(f"**Bounce:** {bouncing_count}/{total} recovering in second hour")
 
-    # Determine signal
-    if dipped_count >= total * 0.7 and bouncing_count >= total * 0.7:
-        signal = "CONFIRMED — BUY THE DIP"
-    elif dipped_count >= total * 0.7 and bouncing_count < total * 0.5:
+    # Determine signal (50% thresholds — optimized from backtesting)
+    if dipped_count >= total * 0.5 and bouncing_count >= total * 0.5:
+        signal = "CONFIRMED — BUY THE DIP (top 5 dippers)"
+    elif dipped_count >= total * 0.5 and bouncing_count < total * 0.3:
         signal = "STAY OUT — selling continuing, dips not recovering"
-    elif dipped_count < total * 0.5:
+    elif dipped_count < total * 0.3:
         signal = "NO DIP — tickers are up, no dip play today"
     else:
         signal = "MIXED — use judgment, not all tickers aligned"
@@ -205,19 +205,23 @@ def print_signal(results, phase, now_et):
         # Filter: dipped + bouncing + still below open
         buys = [r for r in results if r["dipped"] and r["bouncing"] and r["below_open"]]
         buys.sort(key=lambda x: x["dip_from_open"], reverse=True)  # biggest dip first
+        top_buys = buys[:5]  # top 5 only (optimized from backtesting)
 
-        if buys:
-            print("### Buy Recommendations")
-            print("*Tickers that dipped >1% AND are bouncing. Entry at current price.*\n")
-            print("| Ticker | Open | 1st-Hr Low | Current | Dip% | Bounce | Sell +2% | Sell +3% |")
-            print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
-            for r in buys:
-                sell_2 = round(r["current"] * 1.02, 2)
+        if top_buys:
+            print("### Buy Recommendations (Top 5)")
+            print("*$100/ticker. Sell at +3%. Stop at -3%. Cut at EOD if neither hit.*\n")
+            print("| # | Ticker | Open | 1st-Hr Low | Current | Dip% | Bounce | Sell +3% | Stop -3% |")
+            print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+            for i, r in enumerate(top_buys, 1):
                 sell_3 = round(r["current"] * 1.03, 2)
-                print(f"| {r['ticker']} | ${r['open']:.2f} | ${r['fh_low']:.2f} "
+                stop_3 = round(r["current"] * 0.97, 2)
+                print(f"| {i} | {r['ticker']} | ${r['open']:.2f} | ${r['fh_low']:.2f} "
                       f"| ${r['current']:.2f} | -{r['dip_from_open']:.1f}% "
-                      f"| +{r['sh_move']:.1f}% | ${sell_2:.2f} | ${sell_3:.2f} |")
-            print(f"\n*{len(buys)} tickers recommended. PDT: each = 1 day trade.*")
+                      f"| +{r['sh_move']:.1f}% | ${sell_3:.2f} | ${stop_3:.2f} |")
+            skipped = len(buys) - len(top_buys)
+            if skipped > 0:
+                print(f"\n*{skipped} more qualified but not in top 5.*")
+            print(f"\n*Rules: sell at +3%, stop at -3%, cut at EOD. PDT: each = 1 day trade.*")
         else:
             print("*No tickers meet all criteria (dipped + bouncing + below open).*")
 

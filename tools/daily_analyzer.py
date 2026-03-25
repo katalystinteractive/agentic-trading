@@ -362,15 +362,16 @@ def print_daily_fluctuation_watchlist(regime="Neutral"):
         print("**WARNING: Risk-Off regime — dips are likely to keep dipping. Daily plays are HIGH RISK today.**")
         print("*Consider skipping daily dip plays entirely or using half-size positions.*\n")
     else:
-        print("*Watch first hour for >1% dip from open. Buy the dip, sell at +2-3%. Separate budget ($100-150/ticker).*")
-        print("*If sell not filled by 3:30 PM: hold as A1 (6% target) or cut at breakeven.*\n")
+        print("*Optimized rules: $100/ticker, top 5 dippers only, sell +3%, stop -3%, cut at EOD.*")
+        print("*Wait for 10:30 AM confirmation before buying. Run dip_signal_checker.py at ~10:30.*\n")
 
-    print("| Ticker | Open | Buy (-1%) | Sell +2% | Sell +3% | Range | Dip Days | +2% Win | +3% Win |")
-    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    print("| Ticker | Open | Buy (-1%) | Sell +3% | Stop -3% | Range | Dip Days | +3% Win |")
+    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     for tk, today_open, buy, s2, s3, rng, dip_d, rec2, rec3 in rows:
-        print(f"| {tk} | ${today_open:.2f} | ${buy:.2f} | ${s2:.2f} | ${s3:.2f} | {rng:.1f}% | {dip_d}% | {rec2}% | {rec3}% |")
+        stop = round(buy * 0.97, 2)
+        print(f"| {tk} | ${today_open:.2f} | ${buy:.2f} | ${s3:.2f} | ${stop:.2f} | {rng:.1f}% | {dip_d}% | {rec3}% |")
 
-    print(f"\n*{len(rows)} eligible tickers. PDT: each same-day round trip = 1 day trade (3/5-day limit).*")
+    print(f"\n*{len(rows)} eligible tickers. Top 5 at signal. PDT: each = 1 day trade.*")
     print("*Run `python3 tools/dip_signal_checker.py` at ~10:30 AM ET for buy/no-buy confirmation.*")
 
 

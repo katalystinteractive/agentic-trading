@@ -27,11 +27,12 @@ PORTFOLIO_PATH = _ROOT / "portfolio.json"
 DEFAULT_BUDGET = 100        # $ per ticker per trade
 DIP_THRESHOLD = 1.0         # % dip from open to qualify
 BOUNCE_THRESHOLD = 0.3      # % bounce in 2nd hour to confirm
-BREADTH_RATIO = 0.7         # 70% of tickers must dip for signal
-BOUNCE_RATIO = 0.7          # 70% must bounce for confirmation
+BREADTH_RATIO = 0.5         # 50% of tickers must dip for signal (was 70%)
+BOUNCE_RATIO = 0.5          # 50% must bounce for confirmation (was 70%)
 SELL_TARGET_PCT = 3.0       # +3% from entry
-MAX_HOLD_DAYS = 3           # cut after 3 days if target not hit
-STOP_LOSS_PCT = -5.0        # cut losses at -5%
+MAX_HOLD_DAYS = 1           # cut at EOD if target not hit (was 3)
+STOP_LOSS_PCT = -3.0        # cut losses at -3% (was -5%)
+MAX_TICKERS_PER_SIGNAL = 5  # only buy top 5 dippers (was unlimited)
 
 
 def _load_watchlist():
@@ -251,6 +252,9 @@ def simulate(hist, tickers, budget=DEFAULT_BUDGET, interval="5m"):
             # Don't buy if already holding this ticker
             held_tickers = {p["ticker"] for p in open_positions}
             buys = [b for b in buys if b["ticker"] not in held_tickers]
+            # Sort by largest dip (most opportunity) and take top N
+            buys.sort(key=lambda x: x["dip_from_open"], reverse=True)
+            buys = buys[:MAX_TICKERS_PER_SIGNAL]
 
             for b in buys:
                 shares = max(1, int(budget / b["current"]))
