@@ -263,13 +263,19 @@ For tickers with no viable support levels but good daily oscillation (like AR):
 
 ### Daily Fluctuation Bullets
 
-Tickers with `days_above_3pct >= 60` show daily fluctuation entry recommendations in both the bullet recommender (after the Level Map) and the daily analyzer ("Daily Fluctuation Bullets" section).
+The daily analyzer shows a "Daily Dip Watchlist" — tickers eligible for manual intraday dip-buy plays.
 
-- **Entry:** Previous close minus optimal dip (computed via `_find_optimal_combo()` from 3-month data)
-- **Exit:** Same-day sell at +2-3% from fill price (optimal target varies by ticker)
-- **Order note format:** "Dip Buy — close-X%, daily-range" (triggers same-day exit advisory on fill)
-- **PDT:** Each same-day round trip counts as 1 day trade (3/5-day limit at <$25K)
-- **Shown for:** Both pure daily-range tickers (AR) AND hybrid tickers (STIM, LUNR, CIFR)
+**Execution (manual, not automated):**
+1. Watch first hour (9:30-10:30) for >1% dip from open
+2. If dip occurs: buy at the dip price
+3. Set limit sell at entry +2-3%
+4. If sell doesn't fill by 3:30 PM: hold as A1 (6% target) or cut at breakeven
+5. Separate budget: $100-150 per ticker, independent from $300/$300 support pools
+
+**Eligibility:** Daily range >=3% median AND +2% recovery rate >=60%
+**Order note format:** "Dip Buy — daily-range" (triggers same-day exit advisory on fill)
+**PDT:** Each same-day round trip counts as 1 day trade (3/5-day limit at <$25K)
+**Key pattern:** Daily low occurs afternoon (60-85% of days). First-hour dip + rest-of-day recovery is the tradeable pattern.
 
 ### Position Reporting Order
 When reporting on active positions, always present information in this sequence:

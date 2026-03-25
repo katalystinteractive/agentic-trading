@@ -268,16 +268,17 @@ def print_pdt_status():
         print(f"\n*PDT Status: {same_day_count} same-day exit(s) pending — track against 3/5-day limit*")
 
 
-def print_daily_fluctuation_bullets():
-    """Show daily range entry recommendations — fetches fresh data directly."""
-    from daily_range_analyzer import analyze_daily_range
+def print_daily_fluctuation_watchlist():
+    """Show daily dip watchlist — which tickers to watch for first-hour dips today."""
+    import yfinance as yf
+    import numpy as np
 
     data = _load()
     positions = data.get("positions", {})
     pending = data.get("pending_orders", {})
     watchlist = data.get("watchlist", [])
 
-    # All tickers we're tracking: positions + watchlist with pending buys
+    # All tickers we're tracking
     candidates = set()
     for tk, pos in positions.items():
         if pos.get("shares", 0) > 0:
@@ -289,37 +290,75 @@ def print_daily_fluctuation_bullets():
     if not candidates:
         return
 
-    # Sequential fetch — yfinance is not thread-safe for concurrent single-ticker downloads
-    results = {}
-    for tk in sorted(candidates):
-        try:
-            dr = analyze_daily_range(tk)
-            if dr.get("viable"):
-                results[tk] = dr
-        except Exception:
-            pass
-
-    if not results:
+    # Batch fetch 1-month daily data for all candidates
+    try:
+        tickers_list = sorted(candidates)
+        hist = yf.download(tickers_list, period="1mo", interval="1d", progress=False)
+    except Exception:
         return
 
-    print("\n## Daily Fluctuation Bullets")
-    print("*Entry at previous close minus optimal dip. Same-day exit at target %.*\n")
-    print("| Ticker | Entry | Dip | Target | Exit | Fill% | Win% | Profit/sh |")
-    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    if hist.empty:
+        return
 
-    for tk in sorted(results):
-        dr = results[tk]
-        opt = dr.get("optimal") or {}
-        fill = opt.get("fill_rate", "—")
-        win = opt.get("win_rate", "—")
-        profit = round(dr["exit_price"] - dr["entry_price"], 2)
-        fill_str = f"{fill}%" if fill != "—" else "—"
-        win_str = f"{win}%" if win != "—" else "—"
-        print(f"| {tk} | ${dr['entry_price']:.2f} | -{dr['med_dip_pct']:.1f}% "
-              f"| +{dr['target_pct']:.0f}% | ${dr['exit_price']:.2f} "
-              f"| {fill_str} | {win_str} | ${profit:.2f} |")
+    rows = []
+    for tk in sorted(candidates):
+        try:
+            if len(tickers_list) > 1:
+                o = hist["Open"][tk].dropna()
+                h = hist["High"][tk].dropna()
+                l = hist["Low"][tk].dropna()
+                c = hist["Close"][tk].dropna()
+            else:
+                o = hist["Open"].dropna()
+                h = hist["High"].dropna()
+                l = hist["Low"].dropna()
+                c = hist["Close"].dropna()
 
-    print(f"\n*{len(results)} viable of {len(candidates)} checked. PDT: same-day round trip = 1 day trade.*")
+            if len(o) < 10:
+                continue
+
+            ov = o.values
+            hv = h.values
+            lv = l.values
+            cv = c.values
+
+            # Daily range
+            daily_range = (hv - lv) / lv * 100
+            med_range = float(np.median(daily_range))
+
+            # First-hour dip proxy: open-to-low as % of open
+            open_to_low = (ov - lv) / ov * 100
+            med_dip = float(np.median(open_to_low))
+            dip_days = sum(1 for d in open_to_low if d > 1.0)
+            dip_pct = round(dip_days / len(open_to_low) * 100)
+
+            # Recovery: low-to-high as % of low (how much it recovers from daily low)
+            low_to_high = (hv - lv) / lv * 100
+            recovery_2 = round(sum(1 for r in low_to_high if r >= 2) / len(low_to_high) * 100)
+            recovery_3 = round(sum(1 for r in low_to_high if r >= 3) / len(low_to_high) * 100)
+
+            last_close = float(cv[-1])
+
+            # Only show tickers with decent daily range and recovery
+            if med_range < 3.0 or recovery_2 < 60:
+                continue
+
+            rows.append((tk, last_close, med_range, med_dip, dip_pct, recovery_2, recovery_3))
+        except Exception:
+            continue
+
+    if not rows:
+        return
+
+    print("\n## Daily Dip Watchlist")
+    print("*Manual play: watch first hour (9:30-10:30) for >1% dip from open. Buy the dip, sell at +2-3%.*")
+    print("*Separate budget ($100-150/ticker). If sell doesn't fill by 3:30, hold as A1 or cut at breakeven.*\n")
+    print("| Ticker | Close | Range | Dip from Open | Days >1% Dip | +2% Recovery | +3% Recovery |")
+    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    for tk, close, rng, dip, dip_d, rec2, rec3 in rows:
+        print(f"| {tk} | ${close:.2f} | {rng:.1f}% | {dip:.1f}% | {dip_d}% | {rec2}% | {rec3}% |")
+
+    print(f"\n*{len(rows)} eligible tickers. PDT: each same-day round trip = 1 day trade (3/5-day limit).*")
 
 
 # ---------------------------------------------------------------------------
@@ -1030,7 +1069,7 @@ def main():
     print_pdt_status()
 
     # Daily Fluctuation Bullets
-    print_daily_fluctuation_bullets()
+    print_daily_fluctuation_watchlist()
 
     # Part 3: Performance Analysis (before deployment so profiles are fresh)
     if not args.no_deploy and not args.no_perf:
