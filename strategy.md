@@ -226,6 +226,24 @@ No hard per-sector cap. Scoring uses diminishing-returns curve:
 A strong cycler-profile candidate (20/20 hold quality) overcomes even the heaviest
 sector penalty (2/10) with a total score of up to 92/100.
 
+### Touch Frequency
+
+Each support level now shows `monthly_touch_freq` — average times per month the price tests the level (recent_approaches / 3). Interpretation:
+- >2/mo: highly tradable (multiple fill opportunities per month)
+- ~1/mo: monthly cycle
+- <0.5/mo: dormant
+
+For same-day exits, touch frequency matters more than hold rate — a level tested 8x/month at 3% recovery generates 24%/month, vs 1x/month at 6% = 6%/month.
+
+### Dual Exit Strategy
+
+Upper-zone fills (A1, A2) are eligible for same-day 3% exits. Deeper fills (A3+, Buffer, Reserve) use patient 6%+ targets.
+
+- **Same-day exit**: SELL at fill_price * 1.03 (3% from the specific fill, not avg cost)
+- **Patient exit**: resistance-informed target from sell_target_calculator (6-10% from avg cost)
+- **Advisory only**: the system recommends same-day exits, user places manually
+- **PDT awareness**: same-day buy+sell counts as a day trade (3 per 5-day window at <$25K)
+
 ### Position Reporting Order
 When reporting on active positions, always present information in this sequence:
 1.  **Trades Executed:** List each individual fill (date, price, shares) from the agent's `memory.md` trade log.

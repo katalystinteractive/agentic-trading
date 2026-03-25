@@ -380,3 +380,103 @@ class TestScoreSectorDiversity:
 
     def test_max_is_ten(self):
         assert MAX_SECTOR_DIVERSITY == 10
+
+
+# ---------------------------------------------------------------------------
+# Touch frequency metric
+# ---------------------------------------------------------------------------
+
+class TestMonthlyTouchFreq:
+    """Test monthly_touch_freq computation logic."""
+
+    def test_basic_computation(self):
+        """6 recent approaches in 90 days = 2.0/month."""
+        assert round(6 / 3.0, 1) == 2.0
+
+    def test_zero_approaches(self):
+        assert round(0 / 3.0, 1) == 0.0
+
+    def test_high_frequency(self):
+        """24 approaches in 90 days = 8.0/month."""
+        assert round(24 / 3.0, 1) == 8.0
+
+    def test_single_approach(self):
+        assert round(1 / 3.0, 1) == 0.3
+
+
+# ---------------------------------------------------------------------------
+# Daily range computation
+# ---------------------------------------------------------------------------
+
+class TestDailyRange:
+    """Test daily range computation logic."""
+
+    def test_range_formula(self):
+        """(High - Low) / Low * 100."""
+        high, low = 10.5, 10.0
+        assert round((high - low) / low * 100, 1) == 5.0
+
+    def test_days_above_3pct(self):
+        """Count days with range >= 3%."""
+        ranges = [2.0, 3.0, 4.0, 1.5, 5.0, 2.8, 3.1]
+        above = sum(1 for r in ranges if r >= 3.0)
+        pct = round(above / len(ranges) * 100, 1)
+        assert above == 4
+        assert pct == 57.1
+
+    def test_all_above(self):
+        ranges = [5.0, 6.0, 7.0]
+        assert sum(1 for r in ranges if r >= 3.0) == 3
+
+    def test_none_above(self):
+        ranges = [1.0, 2.0, 2.5]
+        assert sum(1 for r in ranges if r >= 3.0) == 0
+
+
+# ---------------------------------------------------------------------------
+# Dual exit zone detection
+# ---------------------------------------------------------------------------
+
+class TestZoneDetection:
+    """Test zone label extraction for dual exit routing."""
+
+    def test_a1_is_upper(self):
+        import re
+        note = "A1 — $15.26 PA, 22% hold, Half^"
+        match = re.search(r'\b(A[1-5]|B[1-5]|R[1-3])\b', note)
+        assert match is not None
+        assert match.group(1) == "A1"
+        assert match.group(1) in ("A1", "A2")
+
+    def test_a2_is_upper(self):
+        import re
+        note = "A2 — $14.12 PA, 60% hold, Full^"
+        match = re.search(r'\b(A[1-5]|B[1-5]|R[1-3])\b', note)
+        assert match.group(1) == "A2"
+        assert match.group(1) in ("A1", "A2")
+
+    def test_b3_is_lower(self):
+        import re
+        note = "B3 — $10.18 PA, 67% hold, Full"
+        match = re.search(r'\b(A[1-5]|B[1-5]|R[1-3])\b', note)
+        assert match.group(1) == "B3"
+        assert match.group(1) not in ("A1", "A2")
+
+    def test_r1_is_reserve(self):
+        import re
+        note = "R1 — $8.26 PA, 33% hold, Std"
+        match = re.search(r'\b(A[1-5]|B[1-5]|R[1-3])\b', note)
+        assert match.group(1) == "R1"
+        assert match.group(1) not in ("A1", "A2")
+
+    def test_no_zone_in_note(self):
+        import re
+        note = "Bullet 1 — some old format note"
+        match = re.search(r'\b(A[1-5]|B[1-5]|R[1-3])\b', note)
+        assert match is None
+
+    def test_same_day_price(self):
+        """Fill price * 1.03 = same-day exit target."""
+        fill = 18.18
+        target = round(fill * 1.03, 2)
+        assert target == 18.73

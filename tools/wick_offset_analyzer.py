@@ -559,6 +559,7 @@ def _compute_bullet_plan(level_results, current_price, cap=None):
             "cost": round(sized["cost"], 2),
             "dormant": r.get("dormant", False),
             "zone_promoted": r.get("zone_promoted", False),
+            "monthly_touch_freq": round(float(r.get("monthly_touch_freq", 0)), 1),
         }
 
     active = [_bullet_entry(r, s, "Active") for r, s in zip(active_bullets, active_sized)]
@@ -656,6 +657,11 @@ def analyze_stock_data(ticker, hist=None):
         active_radius = monthly_swing / 2 if monthly_swing else 15.0
     active_radius = min(active_radius, ACTIVE_RADIUS_CAP)
 
+    # Daily range metrics
+    daily_ranges = ((hist["High"] - hist["Low"]) / hist["Low"] * 100).values
+    median_daily_range = float(np.median(daily_ranges[-21:])) if len(daily_ranges) >= 21 else None
+    days_above_3pct = round(sum(1 for d in daily_ranges[-63:] if d >= 3.0) / min(63, len(daily_ranges)) * 100, 1) if len(daily_ranges) > 0 else None
+
     # Add zone/tier classification and recency metrics to each level result
     for r in level_results:
         lvl_price = r["level"]["price"]
@@ -706,6 +712,7 @@ def analyze_stock_data(ticker, hist=None):
         r["recent_hold_pct"] = recent_hold_pct
         r["recent_held"] = recent_held_count
         r["trend"] = trend
+        r["monthly_touch_freq"] = round(recent_approaches / 3.0, 1)
 
         # Zone promotion: fresh Buffer levels → Active (recency + pullback validated)
         # Skip promotion if the level was forced into Buffer by the radius cap —
@@ -741,6 +748,8 @@ def analyze_stock_data(ticker, hist=None):
         "active_radius": round(float(active_radius), 1),
         "recent_swing": round(float(recent_swing), 1) if recent_swing is not None else None,
         "recent_active_radius": round(float(active_radius), 1),
+        "median_daily_range": round(float(median_daily_range), 1) if median_daily_range is not None else None,
+        "days_above_3pct": days_above_3pct,
         "levels": [
             {
                 "support_price": round(float(r["level"]["price"]), 4),
@@ -766,6 +775,7 @@ def analyze_stock_data(ticker, hist=None):
                 "zone_baseline": r.get("zone_baseline", False),
                 "recent_hold_pct": round(float(r["recent_hold_pct"]), 1) if r.get("recent_hold_pct") is not None else None,
                 "recent_held": r.get("recent_held", 0),
+                "monthly_touch_freq": round(float(r.get("monthly_touch_freq", 0)), 1),
                 "trend": r.get("trend", "—"),
                 "events": [
                     {
@@ -807,8 +817,8 @@ def _format_stock_report(ticker, data):
 
     # Summary table
     lines.append("### Support Levels & Buy Recommendations")
-    lines.append("| Support | Source | Approaches | Held | Hold Rate | Median Offset | Buy At | Zone | Tier | Decayed | Trend | Fresh |")
-    lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    lines.append("| Support | Source | Approaches | Held | Freq/mo | Hold Rate | Median Offset | Buy At | Zone | Tier | Decayed | Trend | Fresh |")
+    lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     for lvl in data["levels"]:
         if lvl["recommended_buy"] is not None and lvl["recommended_buy"] >= data["current_price"]:
             buy_str = f"{fmt_dollar(lvl['recommended_buy'])} ↑above"
@@ -846,7 +856,7 @@ def _format_stock_report(ticker, data):
         lines.append(
             f"| {fmt_dollar(lvl['support_price'])} | {lvl['source']} "
             f"| {lvl['total_approaches']} | {lvl['held']} "
-            f"| {lvl['hold_rate']:.0f}% | {offset_str} "
+            f"| {lvl.get('monthly_touch_freq', 0):.1f} | {lvl['hold_rate']:.0f}% | {offset_str} "
             f"| {buy_str} | {lvl['zone']} | {eff_tier} "
             f"| {decayed_str} | {trend_str} | {fresh_str} |"
         )

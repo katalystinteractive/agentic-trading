@@ -181,6 +181,65 @@ def print_position_age_monitor(prices, regime="Neutral"):
         print(f"| {marker}{ticker}{marker} | {display}d | {marker}{status}{marker} | ${avg:.2f} | {pnl:+.1f}% | {note} |")
 
 
+def print_exit_strategy_summary():
+    """Show exit strategy recommendation per active position based on daily range."""
+    try:
+        sd = json.load(open(_ROOT / "screening_data.json"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return
+
+    data = _load()
+    positions = data.get("positions", {})
+    passer_map = {p["ticker"]: p for p in sd.get("passers", [])}
+
+    # Backward compat: skip if screening_data doesn't have daily range fields yet
+    if not any(p.get("median_daily_range") for p in passer_map.values()):
+        return
+
+    rows = []
+    for ticker, pos in sorted(positions.items()):
+        if pos.get("shares", 0) <= 0:
+            continue
+        p = passer_map.get(ticker)
+        if not p:
+            continue
+        days_3 = p.get("days_above_3pct", 0)
+        daily_rng = p.get("median_daily_range", 0)
+        exit_type = "Same-Day 3%" if days_3 >= 60 else "Patient 6%+"
+        rows.append((ticker, daily_rng, days_3, exit_type))
+
+    if not rows:
+        return
+
+    print("\n## Exit Strategy by Ticker")
+    print("| Ticker | Daily Range | Days>=3% | Exit Type |")
+    print("| :--- | :--- | :--- | :--- |")
+    for ticker, rng, days, etype in rows:
+        print(f"| {ticker} | {rng:.1f}% | {days:.0f}% | {etype} |")
+
+
+def print_unfilled_same_day_exits():
+    """Surface same-day exit orders that didn't fill."""
+    data = _load()
+    pending = data.get("pending_orders", {})
+
+    unfilled = []
+    for ticker, orders in pending.items():
+        for o in orders:
+            if o.get("type") == "SELL" and "same-day-exit" in o.get("note", "").lower():
+                unfilled.append((ticker, o["price"], o["shares"]))
+
+    if not unfilled:
+        return
+
+    print("\n## Unfilled Same-Day Exits")
+    print("*These same-day exit orders are still pending.*\n")
+    print("| Ticker | Price | Shares | Action |")
+    print("| :--- | :--- | :--- | :--- |")
+    for ticker, price, shares in unfilled:
+        print(f"| {ticker} | ${price:.2f} | {shares} | Cancel or Hold? |")
+
+
 # ---------------------------------------------------------------------------
 # Part 1 — Process fills and sells
 # ---------------------------------------------------------------------------
@@ -878,6 +937,12 @@ def main():
 
     # Catastrophic Drawdown Alerts
     paused_tickers = print_catastrophic_alerts(live_prices)
+
+    # Exit Strategy Summary
+    print_exit_strategy_summary()
+
+    # Unfilled Same-Day Exits
+    print_unfilled_same_day_exits()
 
     # Part 3: Performance Analysis (before deployment so profiles are fresh)
     if not args.no_deploy and not args.no_perf:

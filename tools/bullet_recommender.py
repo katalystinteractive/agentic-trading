@@ -633,15 +633,15 @@ def _print_recommend(ctx):
 
     # --- Level Map (unified table) ---
     print("### Level Map")
-    print("| # | Support | Buy At | Held | Tier | Trend | Shares | ~Cost | Status |")
-    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    print("| # | Support | Buy At | Held | Freq | Tier | Trend | Shares | ~Cost | Status |")
+    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
     # SELL target rows first
     for sell_order in pending_sells:
         sell_shares = sell_order.get("shares", "—")
         sell_cost = round(sell_shares * sell_order["price"], 2) if isinstance(sell_shares, (int, float)) else "—"
         sell_placed = "Limit Order" if sell_order.get("placed", True) else "Pending"
-        print(f"| SELL | — | {_fmt_dollar(sell_order['price'])} | — | — | — "
+        print(f"| SELL | — | {_fmt_dollar(sell_order['price'])} | — | — | — | — "
               f"| {sell_shares} | {_fmt_dollar(sell_cost)} | {sell_placed} |")
 
     # Build covered lookup: level id -> list of cover entries
@@ -694,6 +694,7 @@ def _print_recommend(ctx):
         held = lvl.get("held", 0)
         approaches = lvl.get("total_approaches", 0)
         hold_str = f"{held}/{approaches} ({lvl['hold_rate']:.0f}%)"
+        freq_str = f"{lvl.get('monthly_touch_freq', 0):.1f}"
 
         # Geographic zone label
         level_label = zone_labels[lvl_idx]
@@ -727,13 +728,13 @@ def _print_recommend(ctx):
                 ord_shares = order.get("shares")
                 if ord_shares and ord_shares != ref_shares:
                     shares_str = f"{ref_shares} (order has {ord_shares})"
-                print(f"| {row_label} | {support_str} | {_fmt_dollar(order['price'])} | {hold_str} | {tier_display} "
+                print(f"| {row_label} | {support_str} | {_fmt_dollar(order['price'])} | {hold_str} | {freq_str} | {tier_display} "
                       f"| {trend_str} | {shares_str} | {cost_str} | {status_str}{zone_tag} |")
         elif lid in filled_lookup:
-            print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
+            print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {freq_str} | {tier_display} "
                   f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | Filled{zone_tag} |")
         elif lid == rec_level_id:
-            print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
+            print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {freq_str} | {tier_display} "
                   f"| {trend_str} | {recommendation['shares']} | ~{_fmt_dollar(recommendation['cost'])} | **>> Next**{zone_tag} |")
         else:
             # Uncovered level — Available, — , or reference-only (Buffer)
@@ -747,7 +748,7 @@ def _print_recommend(ctx):
             status_str = "Available" if has_capacity else "—"
             if zone_tag:
                 status_str = f"{status_str}{zone_tag}" if status_str != "—" else f"—{zone_tag}"
-            print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {tier_display} "
+            print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {freq_str} | {tier_display} "
                   f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | {status_str} |")
 
     if has_capped or has_promotion or has_demotion or has_promoted_zone or has_baseline_zone:

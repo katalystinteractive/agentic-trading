@@ -299,6 +299,12 @@ def cmd_fill(data, args):
         matched_note = ""
         print(f"*Warning: no matching pending order found for {ticker} @ {_fmt_dollar(price)}.*")
 
+    # Detect zone label for dual exit routing
+    import re as _re
+    _zone_match = _re.search(r'\b(A[1-5]|B[1-5]|R[1-3])\b', matched_note)
+    zone_label = _zone_match.group(1) if _zone_match else None
+    is_upper_zone = zone_label in ("A1", "A2") if zone_label else False
+
     # Increment bullets_used
     pos_note = pos.get("note", "")
     pos["bullets_used"] = _increment_bullets_used(old_bullets, pos_note, zone)
@@ -347,6 +353,11 @@ def cmd_fill(data, args):
         analyze_ticker(ticker, data)
     except Exception as e:
         print(f"(Sell target error: {e})")
+
+    # Same-day 3% exit advisory for upper-zone fills
+    if is_upper_zone and zone != "reserve":
+        same_day_price = round(price * 1.03, 2)
+        print(f"\n*Same-day exit eligible: SELL @ ${same_day_price:.2f} (+3% from ${price:.2f} fill)*")
 
     # Auto-store fill event in knowledge store
     try:

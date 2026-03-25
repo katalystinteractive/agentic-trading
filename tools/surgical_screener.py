@@ -108,6 +108,11 @@ def batch_swing_screen():
             recent_swing = float(np.median(swings[-4:])) if len(swings) >= 4 else median_swing
             compression_ratio = round(recent_swing / median_swing, 2) if median_swing > 0 else 1.0
 
+            # Daily range metrics
+            daily_ranges = ((high - low) / low * 100).values
+            median_daily_range = float(np.median(daily_ranges[-21:])) if len(daily_ranges) >= 21 else float(np.median(daily_ranges))
+            days_above_3pct = round(sum(1 for d in daily_ranges[-63:] if d >= 3.0) / min(63, len(daily_ranges)) * 100, 1) if len(daily_ranges) > 0 else 0
+
             # Swing gate
             if median_swing < MIN_SWING_PCT:
                 gate_stats["swing"] += 1
@@ -125,6 +130,8 @@ def batch_swing_screen():
                 "median_swing": round(median_swing, 1),
                 "recent_swing": round(recent_swing, 1),
                 "compression_ratio": compression_ratio,
+                "median_daily_range": round(median_daily_range, 1),
+                "days_above_3pct": days_above_3pct,
                 "consistency": consistency,
                 "price": round(price, 2),
                 "avg_vol": avg_vol,
