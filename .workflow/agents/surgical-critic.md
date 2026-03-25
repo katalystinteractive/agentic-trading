@@ -86,6 +86,12 @@ For each candidate in the pre-critic's ranked list, apply adversarial reasoning:
 - Challenge candidates with high total scores but zero cycle efficiency. A 75-point candidate with no cycle history has unproven cycling ability.
 - Compare cycle_efficiency modifier against surgical_filter cycle_efficiency score — they should be directionally consistent.
 
+**Daily Range Strategy Challenge (for candidates with strategy_type "daily_range"):**
+- Challenge: "Is this intraday oscillation pattern mechanically tradable with limit orders, or does it require active screen-watching?"
+- PDT risk: same-day buy+sell = day trade. Count existing same-day-exit positions — 3/5-day limit at <$25K accounts
+- Range compression: compare last 2 weeks' daily range vs 3 months. Is the pattern decaying?
+- Recovery reliability: does the dip actually recover, or does price just gap down and stay down?
+
 **Adversarial Elimination:**
 - Find concrete reasons NOT to onboard each candidate
 - A strong candidate survives adversarial testing; a weak one doesn't
