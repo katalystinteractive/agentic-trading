@@ -131,19 +131,10 @@ def simulate(hist, tickers, budget=DEFAULT_BUDGET, interval="5m"):
                 still_open.append(pos)
                 continue
 
-            # Check exit conditions
-            if day_high >= target:
-                # Target hit — sell at target
-                pnl_pct = SELL_TARGET_PCT
-                pnl_dollars = pos["shares"] * entry * SELL_TARGET_PCT / 100
-                trades.append({
-                    "ticker": tk, "entry_date": pos["entry_date"], "exit_date": d,
-                    "entry_price": round(entry, 2), "exit_price": round(target, 2),
-                    "shares": pos["shares"], "pnl_pct": round(pnl_pct, 2),
-                    "pnl_dollars": round(pnl_dollars, 2), "exit_reason": "TARGET",
-                    "days_held": days_held,
-                })
-            elif day_low <= stop:
+            # Check exit conditions — when both target and stop could trigger
+            # on the same day, check stop first (conservative: assume adverse move
+            # happens before favorable move to avoid optimistic bias)
+            if day_low <= stop:
                 # Stop loss hit
                 pnl_pct = STOP_LOSS_PCT
                 pnl_dollars = pos["shares"] * entry * STOP_LOSS_PCT / 100
@@ -152,6 +143,17 @@ def simulate(hist, tickers, budget=DEFAULT_BUDGET, interval="5m"):
                     "entry_price": round(entry, 2), "exit_price": round(stop, 2),
                     "shares": pos["shares"], "pnl_pct": round(pnl_pct, 2),
                     "pnl_dollars": round(pnl_dollars, 2), "exit_reason": "STOP_LOSS",
+                    "days_held": days_held,
+                })
+            elif day_high >= target:
+                # Target hit — sell at target
+                pnl_pct = SELL_TARGET_PCT
+                pnl_dollars = pos["shares"] * entry * SELL_TARGET_PCT / 100
+                trades.append({
+                    "ticker": tk, "entry_date": pos["entry_date"], "exit_date": d,
+                    "entry_price": round(entry, 2), "exit_price": round(target, 2),
+                    "shares": pos["shares"], "pnl_pct": round(pnl_pct, 2),
+                    "pnl_dollars": round(pnl_dollars, 2), "exit_reason": "TARGET",
                     "days_held": days_held,
                 })
             elif days_held >= MAX_HOLD_DAYS:
@@ -246,9 +248,9 @@ def simulate(hist, tickers, budget=DEFAULT_BUDGET, interval="5m"):
         else:
             signal = "MIXED"
 
-        # --- Execute entries on CONFIRMED signal ---
+        # --- Execute entries on CONFIRMED or MIXED signal ---
         day_entries = 0
-        if signal == "CONFIRMED":
+        if signal in ("CONFIRMED", "MIXED"):
             buys = [t for t in ticker_stats if t["dipped"] and t["bouncing"] and t["below_open"]]
             # Don't buy if already holding this ticker
             held_tickers = {p["ticker"] for p in open_positions}
