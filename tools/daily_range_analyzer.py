@@ -81,7 +81,9 @@ def analyze_daily_range(ticker):
     exit_price = round(entry_price * (1 + target_pct / 100), 2) if target_pct else None
 
     # Optimal combo: best fill_rate × win_rate × profit combination
-    low_to_high = ((hist["High"] - hist["Low"]) / hist["Low"] * 100).values
+    # Align arrays: close_to_low starts from row 1 (shift drops row 0),
+    # so low_to_high must also start from row 1
+    low_to_high = ((hist["High"] - hist["Low"]) / hist["Low"] * 100).values[1:]
     optimal = _find_optimal_combo(close_to_low, low_to_high, last_close)
 
     # Use optimal if available, override simple formula
@@ -129,9 +131,12 @@ def print_daily_range(result):
     print("| Entry | Price | Target | Win Rate |")
     print("| :--- | :--- | :--- | :--- |")
     if r["viable"]:
+        # Use optimal's win_rate if available, otherwise fall back to simple rates
+        opt = r.get("optimal")
+        win_rate = opt["win_rate"] if opt else (r['win_rate_2pct'] if r['target_pct'] == 2 else r['win_rate_3pct'])
         print(f"| Dip Buy (-{r['med_dip_pct']:.1f}%) | ${r['entry_price']:.2f} "
               f"| ${r['exit_price']:.2f} (+{r['target_pct']:.0f}%) "
-              f"| {r['win_rate_2pct'] if r['target_pct'] == 2 else r['win_rate_3pct']}% |")
+              f"| {win_rate}% |")
     else:
         print(f"| — | — | — | Not viable (2% win rate: {r.get('win_rate_2pct', 0)}%) |")
 

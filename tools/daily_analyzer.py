@@ -315,13 +315,15 @@ def print_daily_fluctuation_bullets():
     for tk in sorted(results):
         dr = results[tk]
         if dr.get("viable"):
-            opt = dr.get("optimal", {})
-            fill = opt.get("fill_rate", "—") if opt else "—"
-            win = opt.get("win_rate", dr.get("win_rate_2pct", 0)) if opt else "—"
+            opt = dr.get("optimal") or {}
+            fill = opt.get("fill_rate", "—")
+            win = opt.get("win_rate", "—")
             profit = round(dr["exit_price"] - dr["entry_price"], 2)
+            fill_str = f"{fill}%" if fill != "—" else "—"
+            win_str = f"{win}%" if win != "—" else "—"
             print(f"| {tk} | ${dr['entry_price']:.2f} | -{dr['med_dip_pct']:.1f}% "
                   f"| +{dr['target_pct']:.0f}% | ${dr['exit_price']:.2f} "
-                  f"| {fill}% | {win}% | ${profit:.2f} |")
+                  f"| {fill_str} | {win_str} | ${profit:.2f} |")
         else:
             print(f"| {tk} | — | — | — | — | — | Not viable | — |")
 
