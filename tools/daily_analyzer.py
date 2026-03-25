@@ -182,31 +182,46 @@ def print_position_age_monitor(prices, regime="Neutral"):
 
 
 def print_exit_strategy_summary():
-    """Show exit strategy recommendation per active position based on daily range."""
-    try:
-        sd = json.load(open(_ROOT / "screening_data.json"))
-    except (FileNotFoundError, json.JSONDecodeError):
-        return
+    """Show exit strategy recommendation per active position — fetches fresh data."""
+    import yfinance as yf
+    import numpy as np
 
     data = _load()
     positions = data.get("positions", {})
-    passer_map = {p["ticker"]: p for p in sd.get("passers", [])}
 
-    # Backward compat: skip if screening_data doesn't have daily range fields yet
-    if not any(p.get("median_daily_range") for p in passer_map.values()):
+    active_tickers = [tk for tk, pos in positions.items() if pos.get("shares", 0) > 0]
+    if not active_tickers:
+        return
+
+    try:
+        hist = yf.download(active_tickers, period="3mo", interval="1d", progress=False)
+    except Exception:
+        return
+
+    if hist.empty:
         return
 
     rows = []
-    for ticker, pos in sorted(positions.items()):
-        if pos.get("shares", 0) <= 0:
+    for tk in sorted(active_tickers):
+        try:
+            if len(active_tickers) > 1:
+                h = hist["High"][tk].dropna()
+                l = hist["Low"][tk].dropna()
+            else:
+                h = hist["High"].dropna()
+                l = hist["Low"].dropna()
+
+            if len(h) < 10:
+                continue
+
+            daily_ranges = ((h - l) / l * 100).values
+            med_range = float(np.median(daily_ranges[-21:]))
+            days_3 = round(sum(1 for r in daily_ranges[-63:] if r >= 3.0) / min(63, len(daily_ranges)) * 100, 1)
+
+            exit_type = "Same-Day 3%" if days_3 >= 60 else "Patient 6%+"
+            rows.append((tk, med_range, days_3, exit_type))
+        except Exception:
             continue
-        p = passer_map.get(ticker)
-        if not p:
-            continue
-        days_3 = p.get("days_above_3pct", 0)
-        daily_rng = p.get("median_daily_range", 0)
-        exit_type = "Same-Day 3%" if days_3 >= 60 else "Patient 6%+"
-        rows.append((ticker, daily_rng, days_3, exit_type))
 
     if not rows:
         return
@@ -254,15 +269,15 @@ def print_pdt_status():
 
 
 def print_daily_fluctuation_bullets():
-    """Show daily range entry recommendations for all qualifying tickers."""
-    from concurrent.futures import ThreadPoolExecutor, as_completed
+    """Show daily range entry recommendations — fetches fresh data directly."""
+    from daily_range_analyzer import analyze_daily_range
 
     data = _load()
     positions = data.get("positions", {})
     pending = data.get("pending_orders", {})
     watchlist = data.get("watchlist", [])
 
-    # Tickers to check: active positions + watchlist with pending buys
+    # All tickers we're tracking: positions + watchlist with pending buys
     candidates = set()
     for tk, pos in positions.items():
         if pos.get("shares", 0) > 0:
@@ -274,35 +289,15 @@ def print_daily_fluctuation_bullets():
     if not candidates:
         return
 
-    # Check viability from screening_data.json
-    try:
-        sd = json.load(open(_ROOT / "screening_data.json"))
-    except (FileNotFoundError, json.JSONDecodeError):
-        return
-
-    passer_map = {p["ticker"]: p for p in sd.get("passers", [])}
-
-    # Backward compat: skip if no daily range fields
-    if not any(p.get("days_above_3pct") for p in passer_map.values()):
-        return
-
-    viable = [tk for tk in sorted(candidates) if passer_map.get(tk, {}).get("days_above_3pct", 0) >= 60]
-
-    if not viable:
-        return
-
-    # Parallel fetch daily range recommendations
-    from daily_range_analyzer import analyze_daily_range
-
+    # Sequential fetch — yfinance is not thread-safe for concurrent single-ticker downloads
     results = {}
-    with ThreadPoolExecutor(max_workers=6) as executor:
-        futures = {executor.submit(analyze_daily_range, tk): tk for tk in viable}
-        for future in as_completed(futures):
-            tk = futures[future]
-            try:
-                results[tk] = future.result()
-            except Exception:
-                pass
+    for tk in sorted(candidates):
+        try:
+            dr = analyze_daily_range(tk)
+            if dr.get("viable"):
+                results[tk] = dr
+        except Exception:
+            pass
 
     if not results:
         return
@@ -314,20 +309,17 @@ def print_daily_fluctuation_bullets():
 
     for tk in sorted(results):
         dr = results[tk]
-        if dr.get("viable"):
-            opt = dr.get("optimal") or {}
-            fill = opt.get("fill_rate", "—")
-            win = opt.get("win_rate", "—")
-            profit = round(dr["exit_price"] - dr["entry_price"], 2)
-            fill_str = f"{fill}%" if fill != "—" else "—"
-            win_str = f"{win}%" if win != "—" else "—"
-            print(f"| {tk} | ${dr['entry_price']:.2f} | -{dr['med_dip_pct']:.1f}% "
-                  f"| +{dr['target_pct']:.0f}% | ${dr['exit_price']:.2f} "
-                  f"| {fill_str} | {win_str} | ${profit:.2f} |")
-        else:
-            print(f"| {tk} | — | — | — | — | — | Not viable | — |")
+        opt = dr.get("optimal") or {}
+        fill = opt.get("fill_rate", "—")
+        win = opt.get("win_rate", "—")
+        profit = round(dr["exit_price"] - dr["entry_price"], 2)
+        fill_str = f"{fill}%" if fill != "—" else "—"
+        win_str = f"{win}%" if win != "—" else "—"
+        print(f"| {tk} | ${dr['entry_price']:.2f} | -{dr['med_dip_pct']:.1f}% "
+              f"| +{dr['target_pct']:.0f}% | ${dr['exit_price']:.2f} "
+              f"| {fill_str} | {win_str} | ${profit:.2f} |")
 
-    print(f"\n*{len(viable)} tickers checked. PDT: same-day round trip = 1 day trade.*")
+    print(f"\n*{len(results)} viable of {len(candidates)} checked. PDT: same-day round trip = 1 day trade.*")
 
 
 # ---------------------------------------------------------------------------
