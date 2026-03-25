@@ -268,7 +268,7 @@ def print_pdt_status():
         print(f"\n*PDT Status: {same_day_count} same-day exit(s) pending — track against 3/5-day limit*")
 
 
-def print_daily_fluctuation_watchlist():
+def print_daily_fluctuation_watchlist(regime="Neutral"):
     """Show daily dip watchlist with today's actionable prices."""
     import yfinance as yf
     import numpy as np
@@ -357,8 +357,14 @@ def print_daily_fluctuation_watchlist():
         return
 
     print("\n## Daily Dip Watchlist")
-    print("*Watch first hour for >1% dip from open. Buy the dip, sell at +2-3%. Separate budget ($100-150/ticker).*")
-    print("*If sell not filled by 3:30 PM: hold as A1 (6% target) or cut at breakeven.*\n")
+
+    if regime == "Risk-Off":
+        print("**WARNING: Risk-Off regime — dips are likely to keep dipping. Daily plays are HIGH RISK today.**")
+        print("*Consider skipping daily dip plays entirely or using half-size positions.*\n")
+    else:
+        print("*Watch first hour for >1% dip from open. Buy the dip, sell at +2-3%. Separate budget ($100-150/ticker).*")
+        print("*If sell not filled by 3:30 PM: hold as A1 (6% target) or cut at breakeven.*\n")
+
     print("| Ticker | Open | Buy (-1%) | Sell +2% | Sell +3% | Range | Dip Days | +2% Win | +3% Win |")
     print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     for tk, today_open, buy, s2, s3, rng, dip_d, rec2, rec3 in rows:
@@ -1074,8 +1080,8 @@ def main():
     # PDT Status
     print_pdt_status()
 
-    # Daily Fluctuation Bullets
-    print_daily_fluctuation_watchlist()
+    # Daily Dip Watchlist
+    print_daily_fluctuation_watchlist(regime=regime)
 
     # Part 3: Performance Analysis (before deployment so profiles are fresh)
     if not args.no_deploy and not args.no_perf:
