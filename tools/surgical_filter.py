@@ -247,7 +247,7 @@ def score_b1_proximity(wick_data):
 
 
 def score_zone_coverage(wick_data):
-    """Criterion 3: Active Zone Coverage (0-15).
+    """Criterion 3: Active Zone Coverage (0-10).
     Returns 0 if no active bullets.
     """
     active = wick_data["bullet_plan"]["active"]
@@ -260,27 +260,27 @@ def score_zone_coverage(wick_data):
     spread_pct = (max(buy_prices) - min(buy_prices)) / current * 100
 
     if spread_pct < 3:
-        spread_score = 2  # clustering
+        spread_score = 1  # clustering
     elif spread_pct < COVERAGE_GOOD_MIN:
-        spread_score = 5
+        spread_score = 4
     elif spread_pct <= COVERAGE_GOOD_MAX:
-        spread_score = 10  # good spread
+        spread_score = 7  # good spread
     else:
-        spread_score = 7  # overspread
+        spread_score = 5  # overspread
 
     count_bonus = min(3, len(active))
     return min(MAX_ZONE_COVERAGE, spread_score + count_bonus)
 
 
 def score_reserve_depth(wick_data):
-    """Criterion 4: Reserve Depth (0-10)."""
+    """Criterion 4: Reserve Depth (0-5)."""
     reserves = wick_data["bullet_plan"]["reserve"]
     viable = [r for r in reserves if r["hold_rate"] >= RESERVE_MIN_HOLD]
 
     if not viable:
         return 0
 
-    # Base score: 1st viable = 7, 2nd = 5, 3rd = 3 (max 15)
+    # Base score: 1st viable = 7, 2nd = 5, 3rd = 3 (clamped to MAX_RESERVE_DEPTH)
     pts_per = [7, 5, 3]
     base = sum(pts_per[i] for i in range(min(len(viable), 3)))
 

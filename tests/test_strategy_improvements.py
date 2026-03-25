@@ -312,6 +312,49 @@ class TestScoreTouchFrequency:
 
 
 # ---------------------------------------------------------------------------
+# Touch frequency scoring (watchlist_fitness)
+# ---------------------------------------------------------------------------
+
+from watchlist_fitness import _score_touch_frequency, TOUCH_FREQUENCY_POINTS
+
+
+class TestWatchlistTouchFrequency:
+    """Test _score_touch_frequency from watchlist_fitness (0-10 scale)."""
+
+    def _data(self, active_freqs):
+        return {"levels": [{"zone": "Active", "monthly_touch_freq": f} for f in active_freqs]}
+
+    def test_high_frequency(self):
+        pts, freq = _score_touch_frequency(self._data([3.0]))
+        assert pts == TOUCH_FREQUENCY_POINTS  # 10
+        assert freq == 3.0
+
+    def test_medium_frequency(self):
+        pts, _ = _score_touch_frequency(self._data([2.0]))
+        assert pts == 8
+
+    def test_moderate_frequency(self):
+        pts, _ = _score_touch_frequency(self._data([1.0]))
+        assert pts == 5
+
+    def test_low_frequency(self):
+        pts, _ = _score_touch_frequency(self._data([0.5]))
+        assert pts == 3
+
+    def test_zero_frequency(self):
+        pts, _ = _score_touch_frequency(self._data([0.3]))
+        assert pts == 0
+
+    def test_no_active_levels(self):
+        pts, freq = _score_touch_frequency({"levels": []})
+        assert pts == 0
+        assert freq == 0
+
+    def test_max_constant(self):
+        assert TOUCH_FREQUENCY_POINTS == 10
+
+
+# ---------------------------------------------------------------------------
 # Hold rate quality scoring (watchlist_fitness)
 # ---------------------------------------------------------------------------
 
