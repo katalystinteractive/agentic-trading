@@ -212,7 +212,7 @@ def print_exit_strategy_summary():
         return
 
     print("\n## Exit Strategy by Ticker")
-    print("| Ticker | Daily Range | Days>=3% | Exit Type |")
+    print("| Ticker | Daily Range | Pct>=3% | Exit Type |")
     print("| :--- | :--- | :--- | :--- |")
     for ticker, rng, days, etype in rows:
         print(f"| {ticker} | {rng:.1f}% | {days:.0f}% | {etype} |")

@@ -659,7 +659,7 @@ def analyze_stock_data(ticker, hist=None):
 
     # Daily range metrics
     daily_ranges = ((hist["High"] - hist["Low"]) / hist["Low"] * 100).values
-    median_daily_range = float(np.median(daily_ranges[-21:])) if len(daily_ranges) >= 21 else None
+    median_daily_range = float(np.median(daily_ranges[-21:])) if len(daily_ranges) >= 21 else (float(np.median(daily_ranges)) if len(daily_ranges) > 0 else None)
     days_above_3pct = round(sum(1 for d in daily_ranges[-63:] if d >= 3.0) / min(63, len(daily_ranges)) * 100, 1) if len(daily_ranges) > 0 else None
 
     # Add zone/tier classification and recency metrics to each level result
