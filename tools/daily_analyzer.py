@@ -269,7 +269,7 @@ def print_pdt_status():
 
 
 def print_daily_fluctuation_watchlist():
-    """Show daily dip watchlist — which tickers to watch for first-hour dips today."""
+    """Show daily dip watchlist with today's actionable prices."""
     import yfinance as yf
     import numpy as np
 
@@ -332,18 +332,24 @@ def print_daily_fluctuation_watchlist():
             dip_days = sum(1 for d in open_to_low if d > 1.0)
             dip_pct = round(dip_days / len(open_to_low) * 100)
 
-            # Recovery: low-to-high as % of low (how much it recovers from daily low)
+            # Recovery: low-to-high as % of low
             low_to_high = (hv - lv) / lv * 100
             recovery_2 = round(sum(1 for r in low_to_high if r >= 2) / len(low_to_high) * 100)
             recovery_3 = round(sum(1 for r in low_to_high if r >= 3) / len(low_to_high) * 100)
 
-            last_close = float(cv[-1])
+            # Today's open (last row = today if market open, yesterday if closed)
+            today_open = float(ov[-1])
+
+            # Actionable prices
+            buy_at = round(today_open * (1 - 0.01), 2)  # open - 1%
+            sell_2 = round(buy_at * 1.02, 2)
+            sell_3 = round(buy_at * 1.03, 2)
 
             # Only show tickers with decent daily range and recovery
             if med_range < 3.0 or recovery_2 < 60:
                 continue
 
-            rows.append((tk, last_close, med_range, med_dip, dip_pct, recovery_2, recovery_3))
+            rows.append((tk, today_open, buy_at, sell_2, sell_3, med_range, dip_pct, recovery_2, recovery_3))
         except Exception:
             continue
 
@@ -351,12 +357,12 @@ def print_daily_fluctuation_watchlist():
         return
 
     print("\n## Daily Dip Watchlist")
-    print("*Manual play: watch first hour (9:30-10:30) for >1% dip from open. Buy the dip, sell at +2-3%.*")
-    print("*Separate budget ($100-150/ticker). If sell doesn't fill by 3:30, hold as A1 or cut at breakeven.*\n")
-    print("| Ticker | Close | Range | Dip from Open | Days >1% Dip | +2% Recovery | +3% Recovery |")
-    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
-    for tk, close, rng, dip, dip_d, rec2, rec3 in rows:
-        print(f"| {tk} | ${close:.2f} | {rng:.1f}% | {dip:.1f}% | {dip_d}% | {rec2}% | {rec3}% |")
+    print("*Watch first hour for >1% dip from open. Buy the dip, sell at +2-3%. Separate budget ($100-150/ticker).*")
+    print("*If sell not filled by 3:30 PM: hold as A1 (6% target) or cut at breakeven.*\n")
+    print("| Ticker | Open | Buy (-1%) | Sell +2% | Sell +3% | Range | Dip Days | +2% Win | +3% Win |")
+    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    for tk, today_open, buy, s2, s3, rng, dip_d, rec2, rec3 in rows:
+        print(f"| {tk} | ${today_open:.2f} | ${buy:.2f} | ${s2:.2f} | ${s3:.2f} | {rng:.1f}% | {dip_d}% | {rec2}% | {rec3}% |")
 
     print(f"\n*{len(rows)} eligible tickers. PDT: each same-day round trip = 1 day trade (3/5-day limit).*")
 
