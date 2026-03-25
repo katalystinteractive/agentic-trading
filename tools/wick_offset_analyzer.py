@@ -57,7 +57,7 @@ def load_capital_config():
 
 # Pool sizing constants
 POOL_TIER_MULT = {"Full": 1.0, "Std": 1.0, "Half": 0.5}
-POOL_MAX_FRACTION = 0.40  # per-bullet cap: 40% of pool
+POOL_MAX_FRACTION = 0.60  # per-bullet cap: 60% of pool (raised for frequency weighting)
 ACTIVE_RADIUS_CAP = 20.0  # max active zone radius (%)
 
 
@@ -130,10 +130,13 @@ def compute_pool_sizing(levels, pool_budget, pool_name="active"):
         price = lv["recommended_buy"]
         tier = lv.get("effective_tier", lv.get("tier", "Full"))
         mult = POOL_TIER_MULT.get(tier, 1.0)
-        weight = price * mult
+        freq = lv.get("monthly_touch_freq", 1.0)
+        freq_boost = max(1.0, freq)  # floor at 1.0 — no penalty for low freq
+        weight = price * mult * freq_boost
         result.append({
             "recommended_buy": price,
             "hold_rate": lv.get("hold_rate", 0),
+            "monthly_touch_freq": freq,
             "_weight": weight, "_tier_mult": mult,
         })
 
@@ -174,13 +177,13 @@ def compute_pool_sizing(levels, pool_budget, pool_name="active"):
         r["cost"] = cost
         r["dollar_alloc"] = round(r["_dollar_alloc"], 2)
 
-    # Residual redistribution: leftover dollars → extra shares to highest hold_rate levels
+    # Residual redistribution: leftover dollars → extra shares to highest frequency levels
     total_spent = sum(r["cost"] for r in result)
     leftover = pool_budget - total_spent
     if leftover > 0:
-        by_hold = sorted(range(len(result)),
-                         key=lambda i: result[i].get("hold_rate", 0), reverse=True)
-        for i in by_hold:
+        by_freq = sorted(range(len(result)),
+                         key=lambda i: result[i].get("monthly_touch_freq", 0), reverse=True)
+        for i in by_freq:
             price = result[i]["recommended_buy"]
             if leftover >= price:
                 extra = int(leftover / price)
@@ -516,6 +519,7 @@ def _compute_bullet_plan(level_results, current_price, cap=None):
             "effective_tier": r["effective_tier"],
             "tier": r.get("tier", r["effective_tier"]),
             "hold_rate": r["hold_rate"],
+            "monthly_touch_freq": r.get("monthly_touch_freq", 0),
         }
 
     # Concentrated sizing: fresh levels get full pool, dormant get 1-share minimum

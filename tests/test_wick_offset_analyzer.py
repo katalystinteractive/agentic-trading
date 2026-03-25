@@ -302,11 +302,12 @@ class TestPoolSizing:
     """Tests for compute_pool_sizing() — equal-impact pool distribution."""
 
     @staticmethod
-    def _make_level(price, tier="Full", hold_rate=60.0):
-        return {"recommended_buy": price, "effective_tier": tier, "tier": tier, "hold_rate": hold_rate}
+    def _make_level(price, tier="Full", hold_rate=60.0, freq=1.0):
+        return {"recommended_buy": price, "effective_tier": tier, "tier": tier,
+                "hold_rate": hold_rate, "monthly_touch_freq": freq}
 
     def test_equal_shares_same_tier(self):
-        """Same-price, same-tier levels get equal shares (no cap interference)."""
+        """Same-price, same-tier, same-freq levels get equal shares."""
         levels = [self._make_level(10.0), self._make_level(10.0), self._make_level(10.0)]
         result = compute_pool_sizing(levels, 300, "active")
         shares = [r["shares"] for r in result]
@@ -322,15 +323,16 @@ class TestPoolSizing:
     def test_cap_limits_expensive_level(self):
         levels = [self._make_level(5.0), self._make_level(50.0)]
         result = compute_pool_sizing(levels, 300, "active")
-        assert result[1]["cost"] <= 300 * 0.40 + 50
+        assert result[1]["cost"] <= 300 * 0.60 + 50  # 60% cap
 
     def test_cap_redistributes_to_uncapped(self):
         levels = [self._make_level(2.0), self._make_level(100.0)]
         result = compute_pool_sizing(levels, 300, "active")
         assert result[0]["cost"] > 100  # cheap level gets redistributed budget
 
-    def test_residual_goes_to_highest_hold_rate(self):
-        levels = [self._make_level(7.0, hold_rate=80.0), self._make_level(7.0, hold_rate=30.0)]
+    def test_residual_goes_to_highest_frequency(self):
+        """Residual shares go to highest monthly_touch_freq level."""
+        levels = [self._make_level(7.0, freq=3.0), self._make_level(7.0, freq=1.0)]
         result = compute_pool_sizing(levels, 300, "active")
         assert result[0]["shares"] >= result[1]["shares"]
 
@@ -367,16 +369,17 @@ class TestPoolSizing:
         assert [r["recommended_buy"] for r in result] == [15.0, 5.0, 10.0]
 
     def test_equal_impact_different_prices(self):
-        """3 Full-tier levels at $5/$10/$15: uncapped levels get equal shares.
-        $15 hits 40% cap ($120 → 8 shares), $5/$10 share the rest equally (~12 shares each)."""
+        """3 Full-tier levels at $5/$10/$15 with same freq: proportional to price weight.
+        At 60% cap, none are capped (max allocation = $150 < $180 cap)."""
         levels = [self._make_level(5.0), self._make_level(10.0), self._make_level(15.0)]
         result = compute_pool_sizing(levels, 300, "active")
         shares = [r["shares"] for r in result]
-        # $5 and $10 are uncapped → equal shares
+        # Weight proportional to price: $5=16.7%, $10=33.3%, $15=50%
+        # All same freq=1.0, so dollar allocation follows price weight
+        # Each level gets ~equal dollar amount (by design: weight = price)
+        # shares[0] = $50/$5 = 10, shares[1] = $100/$10 = 10, shares[2] = $150/$15 = 10
         assert abs(shares[0] - shares[1]) <= 1
-        # $15 is capped at POOL_MAX_FRACTION of pool
-        expected_capped = int(300 * POOL_MAX_FRACTION / 15.0)
-        assert shares[2] == expected_capped
+        assert abs(shares[1] - shares[2]) <= 1
         # Total cost should use most of the budget
         total = sum(r["cost"] for r in result)
         assert total <= 300
@@ -386,7 +389,7 @@ class TestPoolSizing:
         """compute_pool_sizing() should not leak input keys beyond the documented output."""
         levels = [self._make_level(10.0, hold_rate=60.0)]
         result = compute_pool_sizing(levels, 300, "active")
-        expected_keys = {"recommended_buy", "hold_rate", "shares", "cost", "dollar_alloc"}
+        expected_keys = {"recommended_buy", "hold_rate", "monthly_touch_freq", "shares", "cost", "dollar_alloc"}
         assert set(result[0].keys()) == expected_keys
 
     def test_all_capped_distributes_via_residual(self):
@@ -400,6 +403,28 @@ class TestPoolSizing:
         assert total >= 250  # at least 5 shares total at $50 each
         for r in result:
             assert r["shares"] >= 2  # floor($120/$50) = 2
+
+    def test_higher_freq_gets_more_shares(self):
+        """Same price/tier, higher frequency gets more shares."""
+        levels = [self._make_level(10.0, freq=2.0), self._make_level(10.0, freq=1.0)]
+        result = compute_pool_sizing(levels, 300, "active")
+        assert result[0]["shares"] > result[1]["shares"]
+
+    def test_freq_floor_at_one(self):
+        """Low frequency (0.3) floored to 1.0 for weight — equal allocation before residual."""
+        levels = [self._make_level(10.0, freq=0.3), self._make_level(10.0, freq=1.0)]
+        result = compute_pool_sizing(levels, 300, "active")
+        # Weights are equal (both floored to 1.0), but residual goes to freq=1.0
+        # So freq=1.0 level gets slightly more (residual preference)
+        assert result[0]["shares"] >= 10  # floor-weighted level gets substantial allocation
+        assert result[1]["shares"] >= result[0]["shares"]  # higher freq gets residual
+
+    def test_freq_zero_treated_as_one(self):
+        """Zero frequency (no data) floored to 1.0 — baseline weight, residual to higher freq."""
+        levels = [self._make_level(10.0, freq=0), self._make_level(10.0, freq=1.0)]
+        result = compute_pool_sizing(levels, 300, "active")
+        assert result[0]["shares"] >= 10  # still gets substantial allocation
+        assert result[1]["shares"] >= result[0]["shares"]  # higher freq gets residual
 
 
 class TestSizingDescription:
@@ -418,7 +443,7 @@ class TestSizingDescription:
         desc = sizing_description(cap=custom)
         assert desc["active_pool"] == 300
         assert desc["reserve_pool"] == 300
-        assert desc["max_fraction_pct"] == 40
+        assert desc["max_fraction_pct"] == 60
         assert desc["tier_weights"]["Half"] == 0.5
 
     def test_one_liner_contains_pool_amounts(self):
