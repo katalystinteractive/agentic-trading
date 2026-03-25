@@ -1,10 +1,10 @@
 """Dip Strategy Simulator — backtest the daily fluctuation strategy on historical data.
 
 Replays historical intraday data day by day using the two-step confirmation:
-1. First hour breadth: 70%+ tickers dipping >1% from open?
-2. Second hour bounce: 70%+ recovering?
-3. If confirmed: buy dipped+bouncing tickers at ~10:30 AM price
-4. Sell at +3% same day, or hold up to 3 days, then cut at market close
+1. First hour breadth: 50%+ tickers dipping >1% from open?
+2. Second hour bounce: 50%+ recovering?
+3. If confirmed: buy top 5 dipped+bouncing tickers at ~10:30 AM price
+4. Sell at +3%, stop at -3%, or cut at EOD (1-day max hold)
 
 Usage:
     python3 tools/dip_strategy_simulator.py                          # last 3 months
@@ -218,11 +218,12 @@ def simulate(hist, tickers, budget=DEFAULT_BUDGET, interval="5m"):
                 bouncing = sh_move > BOUNCE_THRESHOLD
                 below_open = current_price < today_open
 
+                dip_from_open = round((today_open - current_price) / today_open * 100, 1)
                 ticker_stats.append({
                     "ticker": tk, "open": today_open, "fh_move": fh_move,
                     "sh_move": sh_move, "current": current_price,
                     "dipped": dipped, "bouncing": bouncing, "below_open": below_open,
-                    "fh_low": fh_low,
+                    "fh_low": fh_low, "dip_from_open": dip_from_open,
                 })
             except Exception:
                 continue
@@ -238,9 +239,9 @@ def simulate(hist, tickers, budget=DEFAULT_BUDGET, interval="5m"):
 
         if dipped_count >= total * BREADTH_RATIO and bouncing_count >= total * BOUNCE_RATIO:
             signal = "CONFIRMED"
-        elif dipped_count >= total * BREADTH_RATIO and bouncing_count < total * 0.5:
+        elif dipped_count >= total * BREADTH_RATIO and bouncing_count < total * 0.3:
             signal = "STAY_OUT"
-        elif dipped_count < total * 0.5:
+        elif dipped_count < total * 0.3:
             signal = "NO_DIP"
         else:
             signal = "MIXED"

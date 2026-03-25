@@ -342,14 +342,13 @@ def print_daily_fluctuation_watchlist(regime="Neutral"):
 
             # Actionable prices
             buy_at = round(today_open * (1 - 0.01), 2)  # open - 1%
-            sell_2 = round(buy_at * 1.02, 2)
             sell_3 = round(buy_at * 1.03, 2)
 
             # Only show tickers with decent daily range and recovery
             if med_range < 3.0 or recovery_2 < 60:
                 continue
 
-            rows.append((tk, today_open, buy_at, sell_2, sell_3, med_range, dip_pct, recovery_2, recovery_3))
+            rows.append((tk, today_open, buy_at, sell_3, med_range, dip_pct, recovery_2, recovery_3))
         except Exception:
             continue
 
@@ -367,7 +366,7 @@ def print_daily_fluctuation_watchlist(regime="Neutral"):
 
     print("| Ticker | Open | Buy (-1%) | Sell +3% | Stop -3% | Range | Dip Days | +3% Win |")
     print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
-    for tk, today_open, buy, s2, s3, rng, dip_d, rec2, rec3 in rows:
+    for tk, today_open, buy, s3, rng, dip_d, rec2, rec3 in rows:
         stop = round(buy * 0.97, 2)
         print(f"| {tk} | ${today_open:.2f} | ${buy:.2f} | ${s3:.2f} | ${stop:.2f} | {rng:.1f}% | {dip_d}% | {rec3}% |")
 
