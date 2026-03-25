@@ -372,6 +372,67 @@ def score_sector_diversity(ticker, sector, portfolio_ctx):
         return MAX_SECTOR_DIVERSITY - 8    # 2 — 17th+, heavy but not zero
 
 
+def score_daily_range(passer):
+    """Daily Range Viability Score (0-90, sector added by caller to reach 0-100).
+    Parallel to support-level scoring for tickers with intraday oscillation.
+    """
+    dr = passer.get("median_daily_range", 0)
+    days_3 = passer.get("days_above_3pct", 0)
+    recovery = passer.get("dip_recovery_ratio", 0)
+    ltc = passer.get("median_low_to_close", 0)
+    swing = passer.get("median_swing", 0)
+
+    # Criterion 1: Range Magnitude (0-25)
+    if dr >= 6:
+        mag = 25
+    elif dr >= 4:
+        mag = 20
+    elif dr >= 3:
+        mag = 15
+    elif dr >= 2:
+        mag = 10
+    else:
+        mag = 0
+
+    # Criterion 2: Range Consistency (0-25)
+    if days_3 >= 90:
+        con = 25
+    elif days_3 >= 80:
+        con = 20
+    elif days_3 >= 70:
+        con = 15
+    elif days_3 >= 60:
+        con = 10
+    else:
+        con = 0
+
+    # Criterion 3: Dip-Recovery Pattern (0-25)
+    if recovery >= 70:
+        rec = 25
+    elif recovery >= 55:
+        rec = 18
+    elif recovery >= 40:
+        rec = 12
+    elif recovery >= 25:
+        rec = 6
+    else:
+        rec = 0
+    if ltc >= 3:
+        rec = min(25, rec + 5)
+
+    # Criterion 4: Swing (0-15)
+    if swing >= 20:
+        swg = 15
+    elif swing >= 15:
+        swg = 10
+    elif swing >= 10:
+        swg = 5
+    else:
+        swg = 0
+
+    return mag + con + rec + swg  # 0-90, sector added by caller
+
+
 # ---------------------------------------------------------------------------
 # Mechanical Verification
 # ---------------------------------------------------------------------------
@@ -650,15 +711,24 @@ def filter_and_score(data):
         if ticker not in data.get("wick_analyses", {}):
             sector_score = score_sector_diversity(
                 ticker, passer.get("sector", "Unknown"), portfolio_ctx)
+            support_total = min(40, sector_score)
+            # Daily range score can rescue wick-failed tickers
+            dr_base = score_daily_range(passer)
+            daily_range_score = dr_base + sector_score
+            strategy_type = "daily_range" if daily_range_score > support_total else "support"
+            effective_score = max(support_total, daily_range_score)
             results.append({
                 "ticker": ticker,
                 "passer": passer,
-                "total_score": min(40, sector_score),
+                "total_score": support_total,
+                "daily_range_score": daily_range_score,
+                "strategy_type": strategy_type,
+                "effective_score": effective_score,
                 "scores": {"sector_diversity": sector_score},
                 "wick_failed": True,
                 "verification": None,
                 "stress_metrics": None,
-                "flags": ["Wick analysis failed — capped at 40"],
+                "flags": ["Wick analysis failed"] if strategy_type == "daily_range" else ["Wick analysis failed — capped at 40"],
                 "kpi_pass_all": False,
                 "kpi_gates": [],
             })
@@ -677,6 +747,13 @@ def filter_and_score(data):
             "hold_quality": score_hold_quality(wick),
         }
         total = sum(scores.values())
+
+        # Parallel daily range score
+        dr_base = score_daily_range(passer)
+        dr_sector = score_sector_diversity(ticker, passer.get("sector", "Unknown"), portfolio_ctx)
+        daily_range_score = dr_base + dr_sector
+        strategy_type = "daily_range" if daily_range_score > total else "support"
+        effective_score = max(total, daily_range_score)
 
         verification = verify_candidate(ticker, wick, capital_config)
         stress = compute_stress_metrics(ticker, wick, passer, portfolio_ctx, capital_config)
@@ -708,6 +785,9 @@ def filter_and_score(data):
             "ticker": ticker,
             "passer": passer,
             "total_score": total,
+            "daily_range_score": daily_range_score,
+            "strategy_type": strategy_type,
+            "effective_score": effective_score,
             "scores": scores,
             "wick_failed": False,
             "verification": verification,
@@ -717,7 +797,7 @@ def filter_and_score(data):
             "kpi_gates": kpi_gates,
         })
 
-    results.sort(key=lambda r: r["total_score"], reverse=True)
+    results.sort(key=lambda r: r["effective_score"], reverse=True)
     return results[:SHORTLIST_SIZE], results
 
 

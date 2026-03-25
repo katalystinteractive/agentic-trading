@@ -244,6 +244,23 @@ Upper-zone fills (A1, A2) are eligible for same-day 3% exits. Deeper fills (A3+,
 - **Advisory only**: the system recommends same-day exits, user places manually
 - **PDT awareness**: same-day buy+sell counts as a day trade (3 per 5-day window at <$25K)
 
+### Daily Range Strategy (Parallel Scoring)
+
+For tickers with no viable support levels but good daily oscillation (like AR):
+
+**Parallel scoring:** Each candidate gets scored on BOTH the 100-point support scale AND a 100-point daily range scale. The higher score determines `strategy_type` ("support" or "daily_range") and `effective_score` for ranking.
+
+**Daily Range Score (0-100):**
+- Range Magnitude (0-25): median daily range (>=6% = 25, >=3% = 15)
+- Range Consistency (0-25): % of days with >=3% range (>=90% = 25)
+- Dip-Recovery Pattern (0-25): % of dip days where price recovers (>=70% = 25)
+- Swing (0-15): monthly swing (>=20% = 15)
+- Sector Diversity (0-10): same diminishing-returns curve
+
+**Entry method:** `daily_range_analyzer.py` computes entry at `close * (1 - median_dip%)`, exit at +2% or +3% based on win rate data.
+
+**Candidate evaluation:** Strategy-aware — `Onboard-DR` recommendation for daily range candidates (vs `Onboard` for support).
+
 ### Position Reporting Order
 When reporting on active positions, always present information in this sequence:
 1.  **Trades Executed:** List each individual fill (date, price, shares) from the agent's `memory.md` trade log.

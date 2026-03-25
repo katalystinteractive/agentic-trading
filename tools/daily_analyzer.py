@@ -240,6 +240,19 @@ def print_unfilled_same_day_exits():
         print(f"| {ticker} | ${price:.2f} | {shares} | Cancel or Hold? |")
 
 
+def print_pdt_status():
+    """Show pattern day trade count from same-day-exit pending sells."""
+    data = _load()
+    pending = data.get("pending_orders", {})
+    same_day_count = sum(
+        1 for orders in pending.values()
+        for o in orders
+        if o.get("type") == "SELL" and "same-day-exit" in o.get("note", "").lower()
+    )
+    if same_day_count > 0:
+        print(f"\n*PDT Status: {same_day_count} same-day exit(s) pending — track against 3/5-day limit*")
+
+
 # ---------------------------------------------------------------------------
 # Part 1 — Process fills and sells
 # ---------------------------------------------------------------------------
@@ -943,6 +956,9 @@ def main():
 
     # Unfilled Same-Day Exits
     print_unfilled_same_day_exits()
+
+    # PDT Status
+    print_pdt_status()
 
     # Part 3: Performance Analysis (before deployment so profiles are fresh)
     if not args.no_deploy and not args.no_perf:

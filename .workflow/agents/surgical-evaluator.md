@@ -99,9 +99,16 @@ For each of the top 7 candidates in the shortlist, answer the "Qualitative Quest
 - Add qualitative risks Python cannot detect (sector headwinds, governance, etc.)
 
 **Recommendation:**
-- **Onboard** — meets all criteria, proceed with bullet placement
+- **Onboard** — meets all criteria, proceed with bullet placement (support strategy)
+- **Onboard-DR** — meets daily range criteria, proceed with dip-buy placement (daily range strategy)
 - **Watch** — strong candidate but entry timing is poor or needs more data
 - **Monitor** — interesting but has a specific blocker
+
+**Strategy-Aware Assessment:**
+If the shortlist shows `strategy_type: "daily_range"` for a candidate:
+- Replace "Pattern Quality" with **Daily Range Assessment**: Is the dip-recovery pattern consistent? Does the stock oscillate reliably or erratically?
+- Replace "Reserve Viability" with **Risk Management**: What is the maximum observed open-to-low dip? Is there gap-down risk from earnings/news?
+- Use **Onboard-DR** instead of **Onboard** to make the strategy type explicit
 
 ### Step 5: Write Output
 

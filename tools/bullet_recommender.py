@@ -270,6 +270,15 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
     # --- Step 2: Filter levels ---
     valid_levels = filter_valid_levels(data["levels"], current_price)
     if not valid_levels:
+        # Fallback: try daily range oscillation analysis
+        try:
+            from daily_range_analyzer import analyze_daily_range, print_daily_range
+            dr = analyze_daily_range(ticker)
+            if dr.get("viable"):
+                print_daily_range(dr)
+                return
+        except Exception:
+            pass
         _print_no_levels(ticker, current_price, data)
         return
 

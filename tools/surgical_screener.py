@@ -65,11 +65,13 @@ def batch_swing_screen():
                 close = data["Close"][ticker].dropna()
                 high = data["High"][ticker].dropna()
                 low = data["Low"][ticker].dropna()
+                open_prices = data["Open"][ticker].dropna()
                 volume = data["Volume"][ticker].dropna()
             else:
                 close = data["Close"].dropna()
                 high = data["High"].dropna()
                 low = data["Low"].dropna()
+                open_prices = data["Open"].dropna()
                 volume = data["Volume"].dropna()
 
             if len(close) < 60:
@@ -113,6 +115,14 @@ def batch_swing_screen():
             median_daily_range = float(np.median(daily_ranges[-21:])) if len(daily_ranges) >= 21 else float(np.median(daily_ranges))
             days_above_3pct = round(sum(1 for d in daily_ranges[-63:] if d >= 3.0) / min(63, len(daily_ranges)) * 100, 1) if len(daily_ranges) > 0 else 0
 
+            # Dip-recovery metrics (for daily range strategy)
+            open_to_low_pct = ((open_prices - low) / open_prices * 100).values
+            low_to_close_pct = ((close - low) / low * 100).values
+            median_open_to_low = round(float(np.median(open_to_low_pct[-21:])), 2) if len(open_to_low_pct) >= 21 else round(float(np.median(open_to_low_pct)), 2)
+            median_low_to_close = round(float(np.median(low_to_close_pct[-21:])), 2) if len(low_to_close_pct) >= 21 else round(float(np.median(low_to_close_pct)), 2)
+            dip_days = [(otl, ltc) for otl, ltc in zip(open_to_low_pct[-63:], low_to_close_pct[-63:]) if otl > 1.0]
+            dip_recovery_ratio = round(sum(1 for _, ltc in dip_days if ltc > 1.5) / max(len(dip_days), 1) * 100, 1)
+
             # Swing gate
             if median_swing < MIN_SWING_PCT:
                 gate_stats["swing"] += 1
@@ -132,6 +142,9 @@ def batch_swing_screen():
                 "compression_ratio": compression_ratio,
                 "median_daily_range": round(median_daily_range, 1),
                 "days_above_3pct": days_above_3pct,
+                "median_open_to_low": median_open_to_low,
+                "median_low_to_close": median_low_to_close,
+                "dip_recovery_ratio": dip_recovery_ratio,
                 "consistency": consistency,
                 "price": round(price, 2),
                 "avg_vol": avg_vol,

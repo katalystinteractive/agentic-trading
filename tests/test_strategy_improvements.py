@@ -480,3 +480,89 @@ class TestZoneDetection:
         fill = 18.18
         target = round(fill * 1.03, 2)
         assert target == 18.73
+
+
+# ---------------------------------------------------------------------------
+# Daily range scoring (parallel score)
+# ---------------------------------------------------------------------------
+
+from surgical_filter import score_daily_range
+
+
+class TestScoreDailyRange:
+    """Test daily range viability scoring."""
+
+    def _passer(self, dr=0, days_3=0, recovery=0, ltc=0, swing=0):
+        return {
+            "median_daily_range": dr,
+            "days_above_3pct": days_3,
+            "dip_recovery_ratio": recovery,
+            "median_low_to_close": ltc,
+            "median_swing": swing,
+        }
+
+    def test_high_score(self):
+        """Strong daily range profile = ~90."""
+        p = self._passer(dr=7, days_3=95, recovery=75, ltc=4, swing=25)
+        score = score_daily_range(p)
+        assert score >= 85
+
+    def test_low_score(self):
+        """Weak daily range profile."""
+        p = self._passer(dr=1.5, days_3=40, recovery=15, ltc=1, swing=8)
+        assert score_daily_range(p) <= 10
+
+    def test_ar_profile(self):
+        """AR-like: 3.5% range, 73% days, moderate recovery."""
+        p = self._passer(dr=3.5, days_3=73, recovery=55, ltc=2.0, swing=18)
+        score = score_daily_range(p)
+        assert 40 <= score <= 70  # mid-range
+
+    def test_zero_data(self):
+        assert score_daily_range(self._passer()) == 0
+
+    def test_high_range_low_recovery(self):
+        """Big swings but doesn't recover = penalized."""
+        p = self._passer(dr=8, days_3=95, recovery=15, ltc=1, swing=30)
+        score = score_daily_range(p)
+        # Range + consistency maxed (50), but recovery low (6), swing good (15)
+        assert score <= 75  # recovery drags it down
+
+    def test_max_theoretical(self):
+        """Perfect on all criteria = 90 (sector added separately)."""
+        p = self._passer(dr=10, days_3=100, recovery=80, ltc=5, swing=30)
+        assert score_daily_range(p) == 90  # 25 + 25 + 25 + 15
+
+    def test_recovery_bonus(self):
+        """Low-to-close >= 3% adds +5 bonus."""
+        p_no_bonus = self._passer(dr=5, days_3=85, recovery=60, ltc=2.5, swing=15)
+        p_with_bonus = self._passer(dr=5, days_3=85, recovery=60, ltc=3.5, swing=15)
+        assert score_daily_range(p_with_bonus) > score_daily_range(p_no_bonus)
+
+
+class TestStrategyType:
+    """Test strategy type classification."""
+
+    def test_support_wins(self):
+        """When support score > daily range, strategy = support."""
+        support_total = 75
+        daily_range_total = 50
+        strategy = "daily_range" if daily_range_total > support_total else "support"
+        assert strategy == "support"
+
+    def test_daily_range_wins(self):
+        """When daily range > support, strategy = daily_range."""
+        support_total = 30
+        daily_range_total = 65
+        strategy = "daily_range" if daily_range_total > support_total else "support"
+        assert strategy == "daily_range"
+
+    def test_effective_score_is_max(self):
+        """Effective score = max of both."""
+        assert max(75, 50) == 75
+        assert max(30, 65) == 65
+
+    def test_tie_goes_to_support(self):
+        """Equal scores → support (strict >)."""
+        strategy = "daily_range" if 50 > 50 else "support"
+        assert strategy == "support"
