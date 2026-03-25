@@ -23,15 +23,16 @@ def analyze_daily_range(ticker):
     if hist.empty or len(hist) < 21:
         return {"ticker": ticker, "viable": False, "error": "Insufficient data"}
 
-    open_to_low = ((hist["Open"] - hist["Low"]) / hist["Open"] * 100).values
+    # Use close-to-low for entry computation (consistent reference price)
+    close_shifted = hist["Close"].shift(1)  # previous day's close
+    close_to_low = ((close_shifted - hist["Low"]) / close_shifted * 100).dropna().values
     low_to_close = ((hist["Close"] - hist["Low"]) / hist["Low"] * 100).values
-    low_to_high = ((hist["High"] - hist["Low"]) / hist["Low"] * 100).values
     daily_range = ((hist["High"] - hist["Low"]) / hist["Low"] * 100).values
 
     last_close = float(hist["Close"].iloc[-1])
     last_date = hist.index[-1].strftime("%Y-%m-%d")
 
-    med_dip = float(np.median(open_to_low[-21:]))
+    med_dip = float(np.median(close_to_low[-21:])) if len(close_to_low) >= 21 else float(np.median(close_to_low))
     med_recovery = float(np.median(low_to_close[-21:]))
     med_range = float(np.median(daily_range[-21:]))
 

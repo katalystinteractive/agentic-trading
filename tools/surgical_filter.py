@@ -711,7 +711,10 @@ def filter_and_score(data):
         if ticker not in data.get("wick_analyses", {}):
             sector_score = score_sector_diversity(
                 ticker, passer.get("sector", "Unknown"), portfolio_ctx)
-            support_total = min(40, sector_score)
+            swing_score = score_swing(passer)
+            cycle_score = score_cycle_efficiency(cycle_timing)
+            # Support-dependent criteria (bullets, b1, coverage, reserve, hold) = 0
+            support_total = sector_score + swing_score + cycle_score  # max 40
             # Daily range score can rescue wick-failed tickers
             dr_base = score_daily_range(passer)
             daily_range_score = dr_base + sector_score
@@ -748,10 +751,9 @@ def filter_and_score(data):
         }
         total = sum(scores.values())
 
-        # Parallel daily range score
+        # Parallel daily range score (reuse sector score from support scoring)
         dr_base = score_daily_range(passer)
-        dr_sector = score_sector_diversity(ticker, passer.get("sector", "Unknown"), portfolio_ctx)
-        daily_range_score = dr_base + dr_sector
+        daily_range_score = dr_base + scores["sector_diversity"]
         strategy_type = "daily_range" if daily_range_score > total else "support"
         effective_score = max(total, daily_range_score)
 

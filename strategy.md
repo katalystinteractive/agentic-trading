@@ -251,10 +251,10 @@ For tickers with no viable support levels but good daily oscillation (like AR):
 **Parallel scoring:** Each candidate gets scored on BOTH the 100-point support scale AND a 100-point daily range scale. The higher score determines `strategy_type` ("support" or "daily_range") and `effective_score` for ranking.
 
 **Daily Range Score (0-100):**
-- Range Magnitude (0-25): median daily range (>=6% = 25, >=3% = 15)
-- Range Consistency (0-25): % of days with >=3% range (>=90% = 25)
-- Dip-Recovery Pattern (0-25): % of dip days where price recovers (>=70% = 25)
-- Swing (0-15): monthly swing (>=20% = 15)
+- Range Magnitude (0-25): median daily range (>=6%=25, >=4%=20, >=3%=15, >=2%=10)
+- Range Consistency (0-25): % of days with >=3% range (>=90%=25, >=80%=20, >=70%=15, >=60%=10)
+- Dip-Recovery Pattern (0-25): % of dip days where price recovers (>=70%=25, >=55%=18, >=40%=12, >=25%=6; +5 bonus if low-to-close >=3%)
+- Swing (0-15): monthly swing (>=20%=15, >=15%=10, >=10%=5)
 - Sector Diversity (0-10): same diminishing-returns curve
 
 **Entry method:** `daily_range_analyzer.py` computes entry at `close * (1 - median_dip%)`, exit at +2% or +3% based on win rate data.
