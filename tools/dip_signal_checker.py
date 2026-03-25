@@ -21,11 +21,15 @@ import pytz
 
 _ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
+ET = pytz.timezone("US/Eastern")
 
-# UTC equivalents for ET market hours (EDT = UTC-4)
-# 9:30 ET = 13:30 UTC, 10:30 ET = 14:30 UTC, 11:00 ET = 15:00 UTC
-FH_END_UTC = 14.5     # 10:30 ET in fractional UTC hours
-SH_END_UTC = 15.0     # 11:00 ET
+
+def _market_time_to_utc_hour(et_hour, et_minute=0):
+    """Convert ET time to UTC fractional hour for today, handling EDT/EST automatically."""
+    now_et = datetime.now(ET)
+    market_time = now_et.replace(hour=et_hour, minute=et_minute, second=0, microsecond=0)
+    market_utc = market_time.astimezone(pytz.utc)
+    return market_utc.hour + market_utc.minute / 60
 
 
 def _get_market_phase():
@@ -70,11 +74,20 @@ def _load_candidates():
 def check_signal(tickers):
     """Fetch intraday data and compute dip signal."""
     import yfinance as yf
-    import numpy as np
 
     hist = yf.download(tickers, period="1d", interval="5m", progress=False)
     if hist.empty:
         return None, "No intraday data available."
+
+    # Normalize index to UTC (yfinance may return ET or UTC depending on version)
+    if hist.index.tz is None:
+        hist.index = hist.index.tz_localize("UTC")
+    else:
+        hist.index = hist.index.tz_convert("UTC")
+
+    # Compute UTC hour thresholds dynamically (handles EDT/EST)
+    fh_end_utc = _market_time_to_utc_hour(10, 30)  # 10:30 ET → UTC
+    sh_end_utc = _market_time_to_utc_hour(11, 0)   # 11:00 ET → UTC
 
     multi = len(tickers) > 1
     results = []
@@ -98,7 +111,7 @@ def check_signal(tickers):
             today_open = float(o.iloc[0])
 
             # First hour: bars where UTC hour < 14.5 (before 10:30 ET)
-            fh_mask = o.index.hour + o.index.minute / 60 < FH_END_UTC
+            fh_mask = o.index.hour + o.index.minute / 60 < fh_end_utc
             first_hour = c[fh_mask]
             fh_low_series = l[fh_mask]
 
@@ -110,8 +123,8 @@ def check_signal(tickers):
             fh_move = (fh_close - today_open) / today_open * 100
 
             # Second hour: bars between 14:30 and 15:00 UTC (10:30-11:00 ET)
-            sh_mask = (c.index.hour + c.index.minute / 60 >= FH_END_UTC) & \
-                      (c.index.hour + c.index.minute / 60 < SH_END_UTC)
+            sh_mask = (c.index.hour + c.index.minute / 60 >= fh_end_utc) & \
+                      (c.index.hour + c.index.minute / 60 < sh_end_utc)
             second_hour = c[sh_mask]
 
             if len(second_hour) > 0:
