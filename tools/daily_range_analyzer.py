@@ -1,7 +1,7 @@
 """Daily Range Analyzer — entry/exit for oscillation tickers.
 
 For tickers with no viable support levels but good daily range.
-Computes entry at open minus median dip, exit at +2% or +3%.
+Computes entry at previous close minus median dip, exit at +2% or +3%.
 
 Usage:
     python3 tools/daily_range_analyzer.py AR
@@ -82,7 +82,7 @@ def print_daily_range(result):
     print("| :--- | :--- |")
     print(f"| Last Close | ${r['last_close']:.2f} |")
     print(f"| Median Daily Range | {r['med_daily_range']:.1f}% |")
-    print(f"| Median Dip (Open to Low) | {r['med_dip_pct']:.1f}% |")
+    print(f"| Median Dip (Close to Low) | {r['med_dip_pct']:.1f}% |")
     print(f"| Median Recovery (Low to Close) | {r['med_recovery_pct']:.1f}% |")
     print()
 

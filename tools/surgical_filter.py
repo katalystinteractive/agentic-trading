@@ -727,7 +727,7 @@ def filter_and_score(data):
                 "daily_range_score": daily_range_score,
                 "strategy_type": strategy_type,
                 "effective_score": effective_score,
-                "scores": {"sector_diversity": sector_score},
+                "scores": {"sector_diversity": sector_score, "swing": swing_score, "cycle_efficiency": cycle_score},
                 "wick_failed": True,
                 "verification": None,
                 "stress_metrics": None,
