@@ -371,6 +371,7 @@ def print_daily_fluctuation_watchlist(regime="Neutral"):
         print(f"| {tk} | ${today_open:.2f} | ${buy:.2f} | ${s2:.2f} | ${s3:.2f} | {rng:.1f}% | {dip_d}% | {rec2}% | {rec3}% |")
 
     print(f"\n*{len(rows)} eligible tickers. PDT: each same-day round trip = 1 day trade (3/5-day limit).*")
+    print("*Run `python3 tools/dip_signal_checker.py` at ~10:30 AM ET for buy/no-buy confirmation.*")
 
 
 # ---------------------------------------------------------------------------

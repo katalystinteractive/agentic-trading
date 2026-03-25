@@ -277,6 +277,23 @@ The daily analyzer shows a "Daily Dip Watchlist" — tickers eligible for manual
 **PDT:** Each same-day round trip counts as 1 day trade (3/5-day limit at <$25K)
 **Key pattern:** Daily low occurs afternoon (60-85% of days). First-hour dip + rest-of-day recovery is the tradeable pattern.
 
+### Dip Signal Checker (Two-Step Confirmation)
+
+Run `python3 tools/dip_signal_checker.py` at ~10:30 AM ET for buy/no-buy confirmation.
+
+**Step 1 — First hour (9:30-10:30):** Watch breadth. How many tickers dipped >1% from open?
+**Step 2 — Second hour (10:30-11:00):** Confirm bounce. How many are recovering?
+
+| First Hour | Second Hour | Signal | Action |
+| :--- | :--- | :--- | :--- |
+| 70%+ dipping | 70%+ bouncing | CONFIRMED | Buy dipped tickers that are bouncing |
+| 70%+ dipping | <50% bouncing | STAY OUT | Selloff continuing — don't buy |
+| <50% dipping | — | NO DIP | No play today — tickers are up |
+| Mixed | Mixed | MIXED | Use judgment |
+
+**Buy criteria:** Dipped >1% from open + bouncing in second hour + current price still below open.
+**Risk-Off override:** If market regime is Risk-Off (VIX > 25), daily dip watchlist shows warning. Consider skipping entirely.
+
 ### Position Reporting Order
 When reporting on active positions, always present information in this sequence:
 1.  **Trades Executed:** List each individual fill (date, price, shares) from the agent's `memory.md` trade log.
