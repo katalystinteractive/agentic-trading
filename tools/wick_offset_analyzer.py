@@ -122,6 +122,7 @@ def compute_pool_sizing(levels, pool_budget, pool_name="active"):
         return []
     if pool_budget <= 0:
         return [{"recommended_buy": lv["recommended_buy"], "hold_rate": lv.get("hold_rate", 0),
+                 "monthly_touch_freq": lv.get("monthly_touch_freq", 0),
                  "shares": 1, "cost": lv["recommended_buy"],
                  "dollar_alloc": lv["recommended_buy"]} for lv in levels]
 

@@ -393,11 +393,11 @@ class TestPoolSizing:
         assert set(result[0].keys()) == expected_keys
 
     def test_all_capped_distributes_via_residual(self):
-        """When all levels exceed 40% cap, residual redistribution handles the overflow."""
+        """Two expensive levels: each gets proportional allocation (60% cap = $180 each max).
+        With equal weight (same price/tier/freq), each gets $150, no cap triggered."""
         levels = [self._make_level(50.0), self._make_level(50.0)]
         result = compute_pool_sizing(levels, 300, "active")
-        # Each capped at 40% = $120, total capped = $240.
-        # Residual: $300 - $240 = $60 → 1 extra share to highest hold_rate (tied, first wins)
+        # Equal weight → each gets $150 (< $180 cap), 3 shares each
         total = sum(r["cost"] for r in result)
         assert total <= 300
         assert total >= 250  # at least 5 shares total at $50 each
