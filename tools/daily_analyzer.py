@@ -253,6 +253,81 @@ def print_pdt_status():
         print(f"\n*PDT Status: {same_day_count} same-day exit(s) pending — track against 3/5-day limit*")
 
 
+def print_daily_fluctuation_bullets():
+    """Show daily range entry recommendations for all qualifying tickers."""
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    data = _load()
+    positions = data.get("positions", {})
+    pending = data.get("pending_orders", {})
+    watchlist = data.get("watchlist", [])
+
+    # Tickers to check: active positions + watchlist with pending buys
+    candidates = set()
+    for tk, pos in positions.items():
+        if pos.get("shares", 0) > 0:
+            candidates.add(tk)
+    for tk in watchlist:
+        if any(o.get("type") == "BUY" for o in pending.get(tk, [])):
+            candidates.add(tk)
+
+    if not candidates:
+        return
+
+    # Check viability from screening_data.json
+    try:
+        sd = json.load(open(_ROOT / "screening_data.json"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return
+
+    passer_map = {p["ticker"]: p for p in sd.get("passers", [])}
+
+    # Backward compat: skip if no daily range fields
+    if not any(p.get("days_above_3pct") for p in passer_map.values()):
+        return
+
+    viable = [tk for tk in sorted(candidates) if passer_map.get(tk, {}).get("days_above_3pct", 0) >= 60]
+
+    if not viable:
+        return
+
+    # Parallel fetch daily range recommendations
+    from daily_range_analyzer import analyze_daily_range
+
+    results = {}
+    with ThreadPoolExecutor(max_workers=6) as executor:
+        futures = {executor.submit(analyze_daily_range, tk): tk for tk in viable}
+        for future in as_completed(futures):
+            tk = futures[future]
+            try:
+                results[tk] = future.result()
+            except Exception:
+                pass
+
+    if not results:
+        return
+
+    print("\n## Daily Fluctuation Bullets")
+    print("*Entry at previous close minus optimal dip. Same-day exit at target %.*\n")
+    print("| Ticker | Entry | Dip | Target | Exit | Fill% | Win% | Profit/sh |")
+    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+
+    for tk in sorted(results):
+        dr = results[tk]
+        if dr.get("viable"):
+            opt = dr.get("optimal", {})
+            fill = opt.get("fill_rate", "—") if opt else "—"
+            win = opt.get("win_rate", dr.get("win_rate_2pct", 0)) if opt else "—"
+            profit = round(dr["exit_price"] - dr["entry_price"], 2)
+            print(f"| {tk} | ${dr['entry_price']:.2f} | -{dr['med_dip_pct']:.1f}% "
+                  f"| +{dr['target_pct']:.0f}% | ${dr['exit_price']:.2f} "
+                  f"| {fill}% | {win}% | ${profit:.2f} |")
+        else:
+            print(f"| {tk} | — | — | — | — | — | Not viable | — |")
+
+    print(f"\n*{len(viable)} tickers checked. PDT: same-day round trip = 1 day trade.*")
+
+
 # ---------------------------------------------------------------------------
 # Part 1 — Process fills and sells
 # ---------------------------------------------------------------------------
@@ -959,6 +1034,9 @@ def main():
 
     # PDT Status
     print_pdt_status()
+
+    # Daily Fluctuation Bullets
+    print_daily_fluctuation_bullets()
 
     # Part 3: Performance Analysis (before deployment so profiles are fresh)
     if not args.no_deploy and not args.no_perf:

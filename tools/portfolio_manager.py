@@ -304,6 +304,7 @@ def cmd_fill(data, args):
     _zone_match = _re.search(r'\b(A[1-5]|B[1-5]|R[1-3])\b', matched_note)
     zone_label = _zone_match.group(1) if _zone_match else None
     is_upper_zone = zone_label in ("A1", "A2") if zone_label else False
+    is_daily_range = "dip-buy" in matched_note.lower() or "daily-range" in matched_note.lower()
 
     # Increment bullets_used
     pos_note = pos.get("note", "")
@@ -354,8 +355,8 @@ def cmd_fill(data, args):
     except Exception as e:
         print(f"(Sell target error: {e})")
 
-    # Same-day 3% exit advisory for upper-zone fills
-    if is_upper_zone and zone != "reserve":
+    # Same-day 3% exit advisory for upper-zone or daily-range fills
+    if (is_upper_zone or is_daily_range) and zone != "reserve":
         same_day_price = round(price * 1.03, 2)
         print(f"\n*Same-day exit eligible: SELL @ ${same_day_price:.2f} (+3% from ${price:.2f} fill)*")
 

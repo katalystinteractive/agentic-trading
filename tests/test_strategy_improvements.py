@@ -566,3 +566,67 @@ class TestStrategyType:
         """Equal scores → support (strict >)."""
         strategy = "daily_range" if 50 > 50 else "support"
         assert strategy == "support"
+
+
+# ---------------------------------------------------------------------------
+# Optimal combo and daily range zone detection
+# ---------------------------------------------------------------------------
+
+from daily_range_analyzer import _find_optimal_combo
+
+
+class TestFindOptimalCombo:
+    """Test _find_optimal_combo for daily fluctuation entry selection."""
+
+    def test_ar_profile(self):
+        """AR-like: shallow dip, moderate range → optimal around +2-2.5%."""
+        import numpy as np
+        # Simulate 60 days: 1.5% median dip, 3.5% range
+        np.random.seed(42)
+        close_to_low = np.random.uniform(0.5, 2.5, 60)
+        low_to_high = np.random.uniform(2.0, 5.0, 60)
+        result = _find_optimal_combo(close_to_low, low_to_high, 43.0)
+        assert result is not None
+        assert result["target_pct"] >= 1.5
+        assert result["fill_rate"] >= 50
+        assert result["win_rate"] >= 60
+
+    def test_stim_profile(self):
+        """STIM-like: deep dip, wide range → optimal at +3%."""
+        import numpy as np
+        np.random.seed(42)
+        close_to_low = np.random.uniform(2.0, 7.0, 60)
+        low_to_high = np.random.uniform(5.0, 15.0, 60)
+        result = _find_optimal_combo(close_to_low, low_to_high, 1.46)
+        assert result is not None
+        assert result["target_pct"] >= 2.5
+        assert result["win_rate"] >= 60
+
+    def test_no_viable(self):
+        """Low range, no viable combo → returns None."""
+        import numpy as np
+        close_to_low = np.array([0.1, 0.2, 0.3, 0.1, 0.2] * 12)
+        low_to_high = np.array([0.5, 0.6, 0.4, 0.3, 0.5] * 12)
+        result = _find_optimal_combo(close_to_low, low_to_high, 10.0)
+        assert result is None
+
+
+class TestDailyRangeZoneDetection:
+    """Test zone detection for daily-range order notes."""
+
+    def test_dip_buy_detected(self):
+        import re
+        note = "Dip Buy — close-0.5%, daily-range"
+        is_daily_range = "dip-buy" in note.lower() or "daily-range" in note.lower()
+        assert is_daily_range is True
+
+    def test_standard_note_not_detected(self):
+        import re
+        note = "A1 — $15.26 PA, 22% hold, Half^"
+        is_daily_range = "dip-buy" in note.lower() or "daily-range" in note.lower()
+        assert is_daily_range is False
+
+    def test_empty_note(self):
+        note = ""
+        is_daily_range = "dip-buy" in note.lower() or "daily-range" in note.lower()
+        assert is_daily_range is False

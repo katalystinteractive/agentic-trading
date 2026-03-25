@@ -813,6 +813,19 @@ def _print_recommend(ctx):
             print(f"- {note}")
         print()
 
+    # Daily fluctuation supplement — shown for all qualifying tickers
+    if data.get("days_above_3pct", 0) >= 60:
+        try:
+            from daily_range_analyzer import analyze_daily_range, print_daily_range
+            dr = analyze_daily_range(ticker)
+            if dr.get("viable"):
+                print()
+                print("### Daily Fluctuation Entry")
+                print("*Supplement to support-level bullets — daily oscillation play*\n")
+                print_daily_range(dr)
+        except Exception:
+            pass
+
     # Legend (always printed)
     _print_legend(active_radius, cap)
 

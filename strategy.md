@@ -261,6 +261,16 @@ For tickers with no viable support levels but good daily oscillation (like AR):
 
 **Candidate evaluation:** Strategy-aware — `Onboard-DR` recommendation for daily range candidates (vs `Onboard` for support).
 
+### Daily Fluctuation Bullets
+
+Tickers with `days_above_3pct >= 60` show daily fluctuation entry recommendations in both the bullet recommender (after the Level Map) and the daily analyzer ("Daily Fluctuation Bullets" section).
+
+- **Entry:** Previous close minus optimal dip (computed via `_find_optimal_combo()` from 3-month data)
+- **Exit:** Same-day sell at +2-3% from fill price (optimal target varies by ticker)
+- **Order note format:** "Dip Buy — close-X%, daily-range" (triggers same-day exit advisory on fill)
+- **PDT:** Each same-day round trip counts as 1 day trade (3/5-day limit at <$25K)
+- **Shown for:** Both pure daily-range tickers (AR) AND hybrid tickers (STIM, LUNR, CIFR)
+
 ### Position Reporting Order
 When reporting on active positions, always present information in this sequence:
 1.  **Trades Executed:** List each individual fill (date, price, shares) from the agent's `memory.md` trade log.

@@ -14,6 +14,34 @@ from pathlib import Path
 _ROOT = Path(__file__).resolve().parent.parent
 
 
+def _find_optimal_combo(close_to_low, low_to_high, last_close):
+    """Find entry dip + target that maximizes fill_rate x win_rate x profit."""
+    import numpy as np
+    best = None
+    for dip in [0.5, 1.0, 1.5, 2.0, 2.5, 3.0]:
+        fill_indices = [i for i in range(len(close_to_low)) if close_to_low[i] >= dip]
+        fill_rate = len(fill_indices) / max(len(close_to_low), 1) * 100
+        if fill_rate < 50:
+            continue
+        for target in [1.5, 2.0, 2.5, 3.0]:
+            wins = sum(1 for i in fill_indices if i < len(low_to_high) and low_to_high[i] >= target)
+            win_rate = wins / len(fill_indices) * 100 if fill_indices else 0
+            if win_rate < 60:
+                continue
+            entry = last_close * (1 - dip / 100)
+            profit = entry * target / 100
+            score = fill_rate * win_rate * profit / 10000
+            if best is None or score > best["score"]:
+                best = {
+                    "dip_pct": dip, "target_pct": target,
+                    "fill_rate": round(fill_rate), "win_rate": round(win_rate),
+                    "entry_price": round(entry, 2),
+                    "exit_price": round(entry * (1 + target / 100), 2),
+                    "score": score,
+                }
+    return best
+
+
 def analyze_daily_range(ticker):
     """Compute daily range metrics and entry/exit recommendation."""
     import yfinance as yf
@@ -52,6 +80,17 @@ def analyze_daily_range(ticker):
 
     exit_price = round(entry_price * (1 + target_pct / 100), 2) if target_pct else None
 
+    # Optimal combo: best fill_rate × win_rate × profit combination
+    low_to_high = ((hist["High"] - hist["Low"]) / hist["Low"] * 100).values
+    optimal = _find_optimal_combo(close_to_low, low_to_high, last_close)
+
+    # Use optimal if available, override simple formula
+    if optimal:
+        entry_price = optimal["entry_price"]
+        target_pct = optimal["target_pct"]
+        exit_price = optimal["exit_price"]
+        med_dip = optimal["dip_pct"]
+
     return {
         "ticker": ticker,
         "last_close": last_close,
@@ -65,6 +104,7 @@ def analyze_daily_range(ticker):
         "win_rate_2pct": win_2pct,
         "win_rate_3pct": win_3pct,
         "viable": target_pct is not None,
+        "optimal": optimal,
     }
 
 
