@@ -1,25 +1,24 @@
 {
-  "generated": "2026-03-23T22:45:39",
+  "generated": "2026-03-25T22:15:53",
   "shortlist": [
     {
-      "ticker": "OPEN",
-      "total_score": 82,
+      "ticker": "WOLF",
+      "total_score": 67,
       "scores": {
-        "bullets_tier": 12,
-        "b1_proximity": 10,
+        "bullets_tier": 13,
+        "b1_proximity": 5,
         "zone_coverage": 15,
-        "reserve_depth": 10,
+        "reserve_depth": 0,
         "swing": 10,
-        "sector_diversity": 10,
-        "cycle_efficiency": 15
+        "sector_diversity": 8,
+        "cycle_efficiency": 13,
+        "hold_quality": 3
       },
       "wick_failed": false,
       "flags": [
-        "OPEN $1.12: cost $1.12 vs expected $113.12",
-        "OPEN $1.12: cost $1.12 vs expected $112.00",
-        "OPEN $0.74: cost $0.74 vs expected $74.74",
-        "Active-reserve gap: 74%",
-        "KPI gates failed: Active Levels (hold >= 30%), Anchor Level (hold >= 50%), Dead Zone, Strong Levels (hold >= 50%)"
+        "WOLF $17.66: cost $123.62 vs expected $70.64",
+        "WOLF $15.83: cost $63.32 vs expected $110.81",
+        "KPI gates failed: Active Levels (hold >= 30%), Cycle Data (>= 5 cycles), Strong Levels (hold >= 50%)"
       ],
       "verification": {
         "tier_check": true,
@@ -29,79 +28,62 @@
         "recency_flags": [],
         "recency_detail": [
           {
-            "support_price": 4.86,
-            "overall_hold_pct": 22.2,
-            "recent_hold_pct": 16.7,
+            "support_price": 16.88,
+            "overall_hold_pct": 28.6,
+            "recent_hold_pct": 36.4,
+            "recent_events": 11,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 16.11,
+            "overall_hold_pct": 44.4,
+            "recent_hold_pct": 33.3,
             "recent_events": 6,
             "trend": "Deteriorating"
           },
           {
-            "support_price": 4.58,
-            "overall_hold_pct": 42.9,
-            "recent_hold_pct": 75.0,
-            "recent_events": 4,
-            "trend": "Improving"
-          },
-          {
-            "support_price": 4.21,
-            "overall_hold_pct": 33.3,
-            "recent_hold_pct": 100.0,
-            "recent_events": 1,
-            "trend": "Improving"
-          },
-          {
-            "support_price": 1.12,
-            "overall_hold_pct": 75.0,
-            "recent_hold_pct": null,
-            "recent_events": 0,
-            "trend": "No recent data"
-          },
-          {
-            "support_price": 1.07,
-            "overall_hold_pct": 75.0,
-            "recent_hold_pct": null,
-            "recent_events": 0,
-            "trend": "No recent data"
-          },
-          {
-            "support_price": 0.72,
+            "support_price": 15.34,
             "overall_hold_pct": 50.0,
-            "recent_hold_pct": null,
-            "recent_events": 0,
-            "trend": "No recent data"
+            "recent_hold_pct": 50.0,
+            "recent_events": 4,
+            "trend": "Stable"
           }
         ],
         "issues": [
-          "OPEN $1.12: cost $1.12 vs expected $113.12",
-          "OPEN $1.12: cost $1.12 vs expected $112.00",
-          "OPEN $0.74: cost $0.74 vs expected $74.74"
+          "WOLF $17.66: cost $123.62 vs expected $70.64",
+          "WOLF $15.83: cost $63.32 vs expected $110.81"
         ]
       },
       "stress_metrics": {
-        "min_active_approaches": 3,
+        "min_active_approaches": 6,
         "all_active_above_3": true,
-        "b1_distance_pct": 1.2,
+        "b1_distance_pct": 4.5,
         "sector_count_after": 2,
         "sector_exceeds_limit": false,
-        "active_total_cost": 298.87,
-        "reserve_total_cost": 2.98,
-        "all_in_cost": 301.85,
+        "active_total_cost": 287.98,
+        "reserve_total_cost": 0,
+        "all_in_cost": 287.98,
         "cap_total": 600,
         "budget_feasible": true,
-        "reserve_count_40pct": 3,
-        "active_reserve_gap_pct": 73.7
+        "reserve_count_40pct": 0,
+        "active_reserve_gap_pct": null
       },
       "passer": {
-        "ticker": "OPEN",
-        "median_swing": 46.6,
-        "recent_swing": 47.1,
-        "compression_ratio": 1.01,
+        "ticker": "WOLF",
+        "median_swing": 57.6,
+        "recent_swing": 48.0,
+        "compression_ratio": 0.83,
+        "median_daily_range": 8.4,
+        "days_above_3pct": 100.0,
+        "median_open_to_low": 3.87,
+        "median_low_to_close": 4.17,
+        "dip_recovery_ratio": 70.0,
         "consistency": 100.0,
-        "price": 5.21,
-        "avg_vol": 42739699.95,
+        "price": 18.5,
+        "avg_vol": 1629321.75,
         "sector": "Tech",
         "cycle_timing": {
-          "total_cycles": 5,
+          "total_cycles": 3,
           "median_deep": 1,
           "median_first": 1,
           "max_deep": 2,
@@ -113,7 +95,7 @@
         {
           "name": "Monthly Swing",
           "threshold": ">= 35.0%",
-          "actual": "46.6%",
+          "actual": "57.6%",
           "passed": true
         },
         {
@@ -125,25 +107,145 @@
         {
           "name": "Anchor Level (hold >= 50%)",
           "threshold": ">= 1",
+          "actual": "1",
+          "passed": true
+        },
+        {
+          "name": "Dead Zone",
+          "threshold": "< 30.0%",
+          "actual": "N/A",
+          "passed": true
+        },
+        {
+          "name": "Price Range",
+          "threshold": "$5.0-$30.0",
+          "actual": "$18.50",
+          "passed": true
+        },
+        {
+          "name": "Cycle Data (>= 5 cycles)",
+          "threshold": ">= 5",
+          "actual": "3",
+          "passed": false
+        },
+        {
+          "name": "Fill Consistency (>= 85%)",
+          "threshold": ">= 85.0%",
+          "actual": "100%",
+          "passed": true
+        },
+        {
+          "name": "Strong Levels (hold >= 50%)",
+          "threshold": ">= 2",
+          "actual": "1",
+          "passed": false
+        },
+        {
+          "name": "Swing Compression",
+          "threshold": ">= 0.65",
+          "actual": "0.83",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "ticker": "HIMS",
+      "total_score": 35,
+      "scores": {
+        "bullets_tier": 0,
+        "b1_proximity": 0,
+        "zone_coverage": 0,
+        "reserve_depth": 0,
+        "swing": 10,
+        "sector_diversity": 10,
+        "cycle_efficiency": 15,
+        "hold_quality": 0
+      },
+      "wick_failed": false,
+      "flags": [
+        "KPI gates failed: Active Levels (hold >= 30%), Anchor Level (hold >= 50%), Strong Levels (hold >= 50%)"
+      ],
+      "verification": {
+        "tier_check": true,
+        "bullet_math_check": true,
+        "pool_check": true,
+        "sample_size_flags": [],
+        "recency_flags": [],
+        "recency_detail": [],
+        "issues": []
+      },
+      "stress_metrics": {
+        "min_active_approaches": 0,
+        "all_active_above_3": false,
+        "b1_distance_pct": null,
+        "sector_count_after": 1,
+        "sector_exceeds_limit": false,
+        "active_total_cost": 0,
+        "reserve_total_cost": 0,
+        "all_in_cost": 0,
+        "cap_total": 600,
+        "budget_feasible": true,
+        "reserve_count_40pct": 0,
+        "active_reserve_gap_pct": null
+      },
+      "passer": {
+        "ticker": "HIMS",
+        "median_swing": 56.4,
+        "recent_swing": 41.3,
+        "compression_ratio": 0.73,
+        "median_daily_range": 8.0,
+        "days_above_3pct": 95.2,
+        "median_open_to_low": 4.56,
+        "median_low_to_close": 4.1,
+        "dip_recovery_ratio": 67.2,
+        "consistency": 100.0,
+        "price": 20.84,
+        "avg_vol": 46524922.7,
+        "sector": "Health",
+        "cycle_timing": {
+          "total_cycles": 6,
+          "median_deep": 1,
+          "median_first": 1,
+          "max_deep": 1,
+          "immediate_fill_pct": 100.0
+        }
+      },
+      "kpi_pass_all": false,
+      "kpi_gates": [
+        {
+          "name": "Monthly Swing",
+          "threshold": ">= 35.0%",
+          "actual": "56.4%",
+          "passed": true
+        },
+        {
+          "name": "Active Levels (hold >= 30%)",
+          "threshold": ">= 3",
+          "actual": "0",
+          "passed": false
+        },
+        {
+          "name": "Anchor Level (hold >= 50%)",
+          "threshold": ">= 1",
           "actual": "0",
           "passed": false
         },
         {
           "name": "Dead Zone",
           "threshold": "< 30.0%",
-          "actual": "73.7%",
-          "passed": false
+          "actual": "N/A",
+          "passed": true
         },
         {
           "name": "Price Range",
           "threshold": "$5.0-$30.0",
-          "actual": "$5.21",
+          "actual": "$20.84",
           "passed": true
         },
         {
           "name": "Cycle Data (>= 5 cycles)",
           "threshold": ">= 5",
-          "actual": "5",
+          "actual": "6",
           "passed": true
         },
         {
@@ -154,38 +256,40 @@
         },
         {
           "name": "Strong Levels (hold >= 50%)",
-          "threshold": ">= 3",
+          "threshold": ">= 2",
           "actual": "0",
           "passed": false
         },
         {
           "name": "Swing Compression",
           "threshold": ">= 0.65",
-          "actual": "1.01",
+          "actual": "0.73",
           "passed": true
         }
       ]
     },
     {
-      "ticker": "HUT",
-      "total_score": 81,
+      "ticker": "QBTS",
+      "total_score": 78,
       "scores": {
-        "bullets_tier": 19,
-        "b1_proximity": 10,
-        "zone_coverage": 15,
-        "reserve_depth": 10,
+        "bullets_tier": 12,
+        "b1_proximity": 4,
+        "zone_coverage": 10,
+        "reserve_depth": 5,
         "swing": 10,
-        "sector_diversity": 2,
-        "cycle_efficiency": 15
+        "sector_diversity": 8,
+        "cycle_efficiency": 15,
+        "hold_quality": 14
       },
       "wick_failed": false,
       "flags": [
-        "HUT $32.84: cost $32.84 vs expected $98.52",
-        "HUT $18.94: cost $18.94 vs expected $132.58",
-        "HUT $10.8: cost $10.80 vs expected $64.80",
-        "Sector concentration: 4x Crypto",
-        "Active-reserve gap: 26%",
-        "KPI gates failed: Anchor Level (hold >= 50%), Price Range, Strong Levels (hold >= 50%)"
+        "QBTS $14.95: cost $284.05 vs expected $149.50",
+        "QBTS $14.4: cost $14.40 vs expected $144.00",
+        "QBTS $6.68: cost $6.68 vs expected $106.88",
+        "QBTS $6.05: cost $6.05 vs expected $96.80",
+        "QBTS $5.77: cost $5.77 vs expected $92.32",
+        "Active-reserve gap: 54%",
+        "KPI gates failed: Active Levels (hold >= 30%), Dead Zone"
       ],
       "verification": {
         "tier_check": true,
@@ -195,93 +299,79 @@
         "recency_flags": [],
         "recency_detail": [
           {
-            "support_price": 51.42,
-            "overall_hold_pct": 25.0,
-            "recent_hold_pct": 22.2,
-            "recent_events": 9,
-            "trend": "Stable"
-          },
-          {
-            "support_price": 46.94,
-            "overall_hold_pct": 22.2,
-            "recent_hold_pct": 40.0,
-            "recent_events": 5,
-            "trend": "Improving"
-          },
-          {
-            "support_price": 48.43,
-            "overall_hold_pct": 36.4,
-            "recent_hold_pct": 50.0,
-            "recent_events": 8,
-            "trend": "Improving"
-          },
-          {
-            "support_price": 43.94,
-            "overall_hold_pct": 33.3,
-            "recent_hold_pct": 75.0,
-            "recent_events": 4,
-            "trend": "Improving"
-          },
-          {
-            "support_price": 42.45,
-            "overall_hold_pct": 30.0,
+            "support_price": 14.32,
+            "overall_hold_pct": 57.1,
             "recent_hold_pct": 100.0,
-            "recent_events": 3,
+            "recent_events": 1,
             "trend": "Improving"
           },
           {
-            "support_price": 31.67,
-            "overall_hold_pct": 80.0,
-            "recent_hold_pct": null,
-            "recent_events": 0,
-            "trend": "No recent data"
-          },
-          {
-            "support_price": 18.68,
-            "overall_hold_pct": 75.0,
-            "recent_hold_pct": null,
-            "recent_events": 0,
-            "trend": "No recent data"
-          },
-          {
-            "support_price": 10.54,
+            "support_price": 13.57,
             "overall_hold_pct": 66.7,
             "recent_hold_pct": null,
             "recent_events": 0,
             "trend": "No recent data"
+          },
+          {
+            "support_price": 6.47,
+            "overall_hold_pct": 42.9,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          },
+          {
+            "support_price": 5.97,
+            "overall_hold_pct": 40.0,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          },
+          {
+            "support_price": 5.7,
+            "overall_hold_pct": 60.0,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
           }
         ],
         "issues": [
-          "HUT $32.84: cost $32.84 vs expected $98.52",
-          "HUT $18.94: cost $18.94 vs expected $132.58",
-          "HUT $10.8: cost $10.80 vs expected $64.80"
+          "QBTS $14.95: cost $284.05 vs expected $149.50",
+          "QBTS $14.4: cost $14.40 vs expected $144.00",
+          "QBTS $6.68: cost $6.68 vs expected $106.88",
+          "QBTS $6.05: cost $6.05 vs expected $96.80",
+          "QBTS $5.77: cost $5.77 vs expected $92.32"
         ]
       },
       "stress_metrics": {
-        "min_active_approaches": 9,
+        "min_active_approaches": 3,
         "all_active_above_3": true,
-        "b1_distance_pct": 0.4,
-        "sector_count_after": 4,
-        "sector_exceeds_limit": true,
-        "active_total_cost": 289.97,
-        "reserve_total_cost": 62.58,
-        "all_in_cost": 352.55,
+        "b1_distance_pct": 7.7,
+        "sector_count_after": 3,
+        "sector_exceeds_limit": false,
+        "active_total_cost": 298.54,
+        "reserve_total_cost": 18.5,
+        "all_in_cost": 317.04,
         "cap_total": 600,
         "budget_feasible": true,
         "reserve_count_40pct": 3,
-        "active_reserve_gap_pct": 25.6
+        "active_reserve_gap_pct": 53.6
       },
       "passer": {
-        "ticker": "HUT",
-        "median_swing": 57.0,
-        "recent_swing": 49.4,
-        "compression_ratio": 0.87,
+        "ticker": "QBTS",
+        "median_swing": 55.3,
+        "recent_swing": 53.6,
+        "compression_ratio": 0.97,
+        "median_daily_range": 6.3,
+        "days_above_3pct": 100.0,
+        "median_open_to_low": 3.64,
+        "median_low_to_close": 3.27,
+        "dip_recovery_ratio": 80.4,
         "consistency": 100.0,
-        "price": 52.94,
-        "avg_vol": 4349425.85,
-        "sector": "Crypto",
+        "price": 16.19,
+        "avg_vol": 23400757.7,
+        "sector": "Quantum",
         "cycle_timing": {
-          "total_cycles": 8,
+          "total_cycles": 9,
           "median_deep": 1,
           "median_first": 1,
           "max_deep": 1,
@@ -293,177 +383,8 @@
         {
           "name": "Monthly Swing",
           "threshold": ">= 35.0%",
-          "actual": "57.0%",
+          "actual": "55.3%",
           "passed": true
-        },
-        {
-          "name": "Active Levels (hold >= 30%)",
-          "threshold": ">= 3",
-          "actual": "3",
-          "passed": true
-        },
-        {
-          "name": "Anchor Level (hold >= 50%)",
-          "threshold": ">= 1",
-          "actual": "0",
-          "passed": false
-        },
-        {
-          "name": "Dead Zone",
-          "threshold": "< 30.0%",
-          "actual": "25.6%",
-          "passed": true
-        },
-        {
-          "name": "Price Range",
-          "threshold": "$5.0-$30.0",
-          "actual": "$52.94",
-          "passed": false
-        },
-        {
-          "name": "Cycle Data (>= 5 cycles)",
-          "threshold": ">= 5",
-          "actual": "8",
-          "passed": true
-        },
-        {
-          "name": "Fill Consistency (>= 85%)",
-          "threshold": ">= 85.0%",
-          "actual": "100%",
-          "passed": true
-        },
-        {
-          "name": "Strong Levels (hold >= 50%)",
-          "threshold": ">= 3",
-          "actual": "0",
-          "passed": false
-        },
-        {
-          "name": "Swing Compression",
-          "threshold": ">= 0.65",
-          "actual": "0.87",
-          "passed": true
-        }
-      ]
-    },
-    {
-      "ticker": "BEAM",
-      "total_score": 81,
-      "scores": {
-        "bullets_tier": 13,
-        "b1_proximity": 10,
-        "zone_coverage": 15,
-        "reserve_depth": 10,
-        "swing": 10,
-        "sector_diversity": 10,
-        "cycle_efficiency": 13
-      },
-      "wick_failed": false,
-      "flags": [
-        "BEAM $24.3: cost $145.80 vs expected $97.20",
-        "BEAM $23.3: cost $23.30 vs expected $46.60",
-        "BEAM $22.05: cost $22.05 vs expected $44.10",
-        "BEAM $16.11: cost $16.11 vs expected $112.77",
-        "BEAM $15.6: cost $15.60 vs expected $187.20",
-        "Active-reserve gap: 27%",
-        "KPI gates failed: Monthly Swing, Active Levels (hold >= 30%), Cycle Data (>= 5 cycles), Strong Levels (hold >= 50%)"
-      ],
-      "verification": {
-        "tier_check": true,
-        "bullet_math_check": false,
-        "pool_check": true,
-        "sample_size_flags": [],
-        "recency_flags": [],
-        "recency_detail": [
-          {
-            "support_price": 24.28,
-            "overall_hold_pct": 41.7,
-            "recent_hold_pct": 100.0,
-            "recent_events": 2,
-            "trend": "Improving"
-          },
-          {
-            "support_price": 23.0,
-            "overall_hold_pct": 53.8,
-            "recent_hold_pct": 100.0,
-            "recent_events": 4,
-            "trend": "Improving"
-          },
-          {
-            "support_price": 21.74,
-            "overall_hold_pct": 11.1,
-            "recent_hold_pct": null,
-            "recent_events": 0,
-            "trend": "No recent data"
-          },
-          {
-            "support_price": 21.11,
-            "overall_hold_pct": 22.2,
-            "recent_hold_pct": null,
-            "recent_events": 0,
-            "trend": "No recent data"
-          },
-          {
-            "support_price": 16.02,
-            "overall_hold_pct": 33.3,
-            "recent_hold_pct": null,
-            "recent_events": 0,
-            "trend": "No recent data"
-          },
-          {
-            "support_price": 15.35,
-            "overall_hold_pct": 71.4,
-            "recent_hold_pct": null,
-            "recent_events": 0,
-            "trend": "No recent data"
-          }
-        ],
-        "issues": [
-          "BEAM $24.3: cost $145.80 vs expected $97.20",
-          "BEAM $23.3: cost $23.30 vs expected $46.60",
-          "BEAM $22.05: cost $22.05 vs expected $44.10",
-          "BEAM $16.11: cost $16.11 vs expected $112.77",
-          "BEAM $15.6: cost $15.60 vs expected $187.20"
-        ]
-      },
-      "stress_metrics": {
-        "min_active_approaches": 9,
-        "all_active_above_3": true,
-        "b1_distance_pct": 2.4,
-        "sector_count_after": 2,
-        "sector_exceeds_limit": false,
-        "active_total_cost": 289.43,
-        "reserve_total_cost": 31.71,
-        "all_in_cost": 321.14,
-        "cap_total": 600,
-        "budget_feasible": true,
-        "reserve_count_40pct": 1,
-        "active_reserve_gap_pct": 26.9
-      },
-      "passer": {
-        "ticker": "BEAM",
-        "median_swing": 34.2,
-        "recent_swing": 32.6,
-        "compression_ratio": 0.95,
-        "consistency": 100.0,
-        "price": 25.17,
-        "avg_vol": 2066401.75,
-        "sector": "Biotech",
-        "cycle_timing": {
-          "total_cycles": 4,
-          "median_deep": 1,
-          "median_first": 1,
-          "max_deep": 1,
-          "immediate_fill_pct": 100.0
-        }
-      },
-      "kpi_pass_all": false,
-      "kpi_gates": [
-        {
-          "name": "Monthly Swing",
-          "threshold": ">= 35.0%",
-          "actual": "34.2%",
-          "passed": false
         },
         {
           "name": "Active Levels (hold >= 30%)",
@@ -474,26 +395,26 @@
         {
           "name": "Anchor Level (hold >= 50%)",
           "threshold": ">= 1",
-          "actual": "1",
+          "actual": "2",
           "passed": true
         },
         {
           "name": "Dead Zone",
           "threshold": "< 30.0%",
-          "actual": "26.9%",
-          "passed": true
+          "actual": "53.6%",
+          "passed": false
         },
         {
           "name": "Price Range",
           "threshold": "$5.0-$30.0",
-          "actual": "$25.17",
+          "actual": "$16.19",
           "passed": true
         },
         {
           "name": "Cycle Data (>= 5 cycles)",
           "threshold": ">= 5",
-          "actual": "4",
-          "passed": false
+          "actual": "9",
+          "passed": true
         },
         {
           "name": "Fill Consistency (>= 85%)",
@@ -503,32 +424,36 @@
         },
         {
           "name": "Strong Levels (hold >= 50%)",
-          "threshold": ">= 3",
-          "actual": "1",
-          "passed": false
+          "threshold": ">= 2",
+          "actual": "2",
+          "passed": true
         },
         {
           "name": "Swing Compression",
           "threshold": ">= 0.65",
-          "actual": "0.95",
+          "actual": "0.97",
           "passed": true
         }
       ]
     },
     {
       "ticker": "NTLA",
-      "total_score": 78,
+      "total_score": 72,
       "scores": {
-        "bullets_tier": 7,
-        "b1_proximity": 10,
-        "zone_coverage": 11,
-        "reserve_depth": 10,
+        "bullets_tier": 9,
+        "b1_proximity": 5,
+        "zone_coverage": 15,
+        "reserve_depth": 5,
         "swing": 10,
-        "sector_diversity": 10,
-        "cycle_efficiency": 20
+        "sector_diversity": 8,
+        "cycle_efficiency": 20,
+        "hold_quality": 0
       },
       "wick_failed": false,
       "flags": [
+        "NTLA $13.02: cost $130.20 vs expected $78.12",
+        "NTLA $11.8: cost $47.20 vs expected $70.80",
+        "NTLA $11.63: cost $46.52 vs expected $69.78",
         "NTLA $8.03: cost $8.03 vs expected $120.45",
         "NTLA $6.95: cost $6.95 vs expected $90.35",
         "NTLA $6.83: cost $6.83 vs expected $88.79",
@@ -542,6 +467,13 @@
         "sample_size_flags": [],
         "recency_flags": [],
         "recency_detail": [
+          {
+            "support_price": 12.82,
+            "overall_hold_pct": 16.7,
+            "recent_hold_pct": 16.7,
+            "recent_events": 6,
+            "trend": "Stable"
+          },
           {
             "support_price": 12.48,
             "overall_hold_pct": 33.3,
@@ -586,6 +518,9 @@
           }
         ],
         "issues": [
+          "NTLA $13.02: cost $130.20 vs expected $78.12",
+          "NTLA $11.8: cost $47.20 vs expected $70.80",
+          "NTLA $11.63: cost $46.52 vs expected $69.78",
           "NTLA $8.03: cost $8.03 vs expected $120.45",
           "NTLA $6.95: cost $6.95 vs expected $90.35",
           "NTLA $6.83: cost $6.83 vs expected $88.79"
@@ -594,12 +529,12 @@
       "stress_metrics": {
         "min_active_approaches": 7,
         "all_active_above_3": true,
-        "b1_distance_pct": 3.7,
+        "b1_distance_pct": 1.8,
         "sector_count_after": 2,
         "sector_exceeds_limit": false,
-        "active_total_cost": 288.4,
+        "active_total_cost": 299.61,
         "reserve_total_cost": 21.81,
-        "all_in_cost": 310.21,
+        "all_in_cost": 321.42,
         "cap_total": 600,
         "budget_feasible": true,
         "reserve_count_40pct": 2,
@@ -610,9 +545,14 @@
         "median_swing": 44.2,
         "recent_swing": 51.5,
         "compression_ratio": 1.16,
+        "median_daily_range": 6.0,
+        "days_above_3pct": 93.7,
+        "median_open_to_low": 2.16,
+        "median_low_to_close": 1.67,
+        "dip_recovery_ratio": 70.0,
         "consistency": 100.0,
-        "price": 13.11,
-        "avg_vol": 4260011.6,
+        "price": 13.26,
+        "avg_vol": 4334059.35,
         "sector": "Biotech",
         "cycle_timing": {
           "total_cycles": 11,
@@ -651,7 +591,7 @@
         {
           "name": "Price Range",
           "threshold": "$5.0-$30.0",
-          "actual": "$13.11",
+          "actual": "$13.26",
           "passed": true
         },
         {
@@ -668,7 +608,7 @@
         },
         {
           "name": "Strong Levels (hold >= 50%)",
-          "threshold": ">= 3",
+          "threshold": ">= 2",
           "actual": "0",
           "passed": false
         },
@@ -682,25 +622,29 @@
     },
     {
       "ticker": "IREN",
-      "total_score": 75,
+      "total_score": 86,
       "scores": {
-        "bullets_tier": 17,
-        "b1_proximity": 8,
+        "bullets_tier": 15,
+        "b1_proximity": 5,
         "zone_coverage": 15,
-        "reserve_depth": 10,
+        "reserve_depth": 5,
         "swing": 10,
-        "sector_diversity": 2,
-        "cycle_efficiency": 13
+        "sector_diversity": 6,
+        "cycle_efficiency": 13,
+        "hold_quality": 17
       },
       "wick_failed": false,
       "flags": [
-        "IREN $16.77: cost $16.77 vs expected $117.39",
-        "IREN $9.96: cost $9.96 vs expected $109.56",
-        "IREN $6.83: cost $6.83 vs expected $68.30",
+        "IREN $39.58: cost $39.58 vs expected $79.16",
+        "IREN $39.13: cost $156.52 vs expected $78.26",
+        "IREN $36.08: cost $36.08 vs expected $72.16",
+        "IREN $34.49: cost $34.49 vs expected $68.98",
+        "IREN $16.77: cost $16.77 vs expected $150.93",
+        "IREN $9.96: cost $9.96 vs expected $89.64",
+        "IREN $6.83: cost $6.83 vs expected $54.64",
         "Recency deterioration: 1 levels",
-        "Sector concentration: 4x Crypto",
-        "Active-reserve gap: 54%",
-        "KPI gates failed: Dead Zone, Price Range, Cycle Data (>= 5 cycles), Strong Levels (hold >= 50%)"
+        "Active-reserve gap: 51%",
+        "KPI gates failed: Dead Zone, Price Range, Cycle Data (>= 5 cycles)"
       ],
       "verification": {
         "tier_check": true,
@@ -733,6 +677,13 @@
             "trend": "Improving"
           },
           {
+            "support_price": 33.34,
+            "overall_hold_pct": 50.0,
+            "recent_hold_pct": 100.0,
+            "recent_events": 1,
+            "trend": "Improving"
+          },
+          {
             "support_price": 16.25,
             "overall_hold_pct": 50.0,
             "recent_hold_pct": null,
@@ -755,33 +706,42 @@
           }
         ],
         "issues": [
-          "IREN $16.77: cost $16.77 vs expected $117.39",
-          "IREN $9.96: cost $9.96 vs expected $109.56",
-          "IREN $6.83: cost $6.83 vs expected $68.30"
+          "IREN $39.58: cost $39.58 vs expected $79.16",
+          "IREN $39.13: cost $156.52 vs expected $78.26",
+          "IREN $36.08: cost $36.08 vs expected $72.16",
+          "IREN $34.49: cost $34.49 vs expected $68.98",
+          "IREN $16.77: cost $16.77 vs expected $150.93",
+          "IREN $9.96: cost $9.96 vs expected $89.64",
+          "IREN $6.83: cost $6.83 vs expected $54.64"
         ]
       },
       "stress_metrics": {
-        "min_active_approaches": 6,
+        "min_active_approaches": 4,
         "all_active_above_3": true,
-        "b1_distance_pct": 6.1,
+        "b1_distance_pct": 4.5,
         "sector_count_after": 4,
-        "sector_exceeds_limit": true,
-        "active_total_cost": 265.66,
+        "sector_exceeds_limit": false,
+        "active_total_cost": 266.67,
         "reserve_total_cost": 33.56,
-        "all_in_cost": 299.22,
+        "all_in_cost": 300.23,
         "cap_total": 600,
         "budget_feasible": true,
         "reserve_count_40pct": 3,
-        "active_reserve_gap_pct": 53.5
+        "active_reserve_gap_pct": 51.4
       },
       "passer": {
         "ticker": "IREN",
         "median_swing": 60.9,
         "recent_swing": 59.8,
         "compression_ratio": 0.98,
+        "median_daily_range": 7.7,
+        "days_above_3pct": 100.0,
+        "median_open_to_low": 3.03,
+        "median_low_to_close": 3.52,
+        "dip_recovery_ratio": 73.6,
         "consistency": 100.0,
-        "price": 42.16,
-        "avg_vol": 34055460.7,
+        "price": 41.43,
+        "avg_vol": 33541165.0,
         "sector": "Crypto",
         "cycle_timing": {
           "total_cycles": 4,
@@ -802,25 +762,25 @@
         {
           "name": "Active Levels (hold >= 30%)",
           "threshold": ">= 3",
-          "actual": "3",
+          "actual": "4",
           "passed": true
         },
         {
           "name": "Anchor Level (hold >= 50%)",
           "threshold": ">= 1",
-          "actual": "2",
+          "actual": "3",
           "passed": true
         },
         {
           "name": "Dead Zone",
           "threshold": "< 30.0%",
-          "actual": "53.5%",
+          "actual": "51.4%",
           "passed": false
         },
         {
           "name": "Price Range",
           "threshold": "$5.0-$30.0",
-          "actual": "$42.16",
+          "actual": "$41.43",
           "passed": false
         },
         {
@@ -837,9 +797,9 @@
         },
         {
           "name": "Strong Levels (hold >= 50%)",
-          "threshold": ">= 3",
-          "actual": "2",
-          "passed": false
+          "threshold": ">= 2",
+          "actual": "3",
+          "passed": true
         },
         {
           "name": "Swing Compression",
@@ -850,85 +810,117 @@
       ]
     },
     {
-      "ticker": "AFRM",
-      "total_score": 74,
+      "ticker": "HUT",
+      "total_score": 67,
       "scores": {
-        "bullets_tier": 19,
-        "b1_proximity": 10,
+        "bullets_tier": 11,
+        "b1_proximity": 5,
         "zone_coverage": 15,
-        "reserve_depth": 0,
+        "reserve_depth": 5,
         "swing": 10,
-        "sector_diversity": 5,
-        "cycle_efficiency": 15
+        "sector_diversity": 6,
+        "cycle_efficiency": 15,
+        "hold_quality": 0
       },
       "wick_failed": false,
       "flags": [
-        "Sample size weak: 1 levels <3 approaches",
-        "KPI gates failed: Monthly Swing, Price Range"
+        "HUT $32.84: cost $32.84 vs expected $164.20",
+        "HUT $18.94: cost $18.94 vs expected $75.76",
+        "HUT $10.97: cost $10.97 vs expected $54.85",
+        "Active-reserve gap: 33%",
+        "KPI gates failed: Active Levels (hold >= 30%), Anchor Level (hold >= 50%), Dead Zone, Price Range, Strong Levels (hold >= 50%)"
       ],
       "verification": {
         "tier_check": true,
-        "bullet_math_check": true,
+        "bullet_math_check": false,
         "pool_check": true,
-        "sample_size_flags": [
-          "$39.12: only 2 approaches"
-        ],
+        "sample_size_flags": [],
         "recency_flags": [],
         "recency_detail": [
           {
-            "support_price": 44.48,
-            "overall_hold_pct": 62.5,
-            "recent_hold_pct": 66.7,
-            "recent_events": 3,
+            "support_price": 54.41,
+            "overall_hold_pct": 16.7,
+            "recent_hold_pct": 20.0,
+            "recent_events": 5,
             "trend": "Stable"
           },
           {
-            "support_price": 43.24,
-            "overall_hold_pct": 37.5,
+            "support_price": 51.42,
+            "overall_hold_pct": 25.0,
+            "recent_hold_pct": 25.0,
+            "recent_events": 8,
+            "trend": "Stable"
+          },
+          {
+            "support_price": 46.94,
+            "overall_hold_pct": 22.2,
+            "recent_hold_pct": 40.0,
+            "recent_events": 5,
+            "trend": "Improving"
+          },
+          {
+            "support_price": 48.43,
+            "overall_hold_pct": 36.4,
             "recent_hold_pct": 50.0,
-            "recent_events": 2,
+            "recent_events": 8,
             "trend": "Improving"
           },
           {
-            "support_price": 41.59,
-            "overall_hold_pct": 55.6,
-            "recent_hold_pct": 100.0,
-            "recent_events": 2,
-            "trend": "Improving"
+            "support_price": 31.67,
+            "overall_hold_pct": 80.0,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
           },
           {
-            "support_price": 39.12,
-            "overall_hold_pct": 50.0,
+            "support_price": 18.68,
+            "overall_hold_pct": 75.0,
+            "recent_hold_pct": null,
+            "recent_events": 0,
+            "trend": "No recent data"
+          },
+          {
+            "support_price": 10.86,
+            "overall_hold_pct": 66.7,
             "recent_hold_pct": null,
             "recent_events": 0,
             "trend": "No recent data"
           }
         ],
-        "issues": []
+        "issues": [
+          "HUT $32.84: cost $32.84 vs expected $164.20",
+          "HUT $18.94: cost $18.94 vs expected $75.76",
+          "HUT $10.97: cost $10.97 vs expected $54.85"
+        ]
       },
       "stress_metrics": {
-        "min_active_approaches": 2,
-        "all_active_above_3": false,
-        "b1_distance_pct": 0.3,
-        "sector_count_after": 3,
+        "min_active_approaches": 6,
+        "all_active_above_3": true,
+        "b1_distance_pct": 1.5,
+        "sector_count_after": 4,
         "sector_exceeds_limit": false,
-        "active_total_cost": 268.51,
-        "reserve_total_cost": 0,
-        "all_in_cost": 268.51,
+        "active_total_cost": 255.4,
+        "reserve_total_cost": 62.75,
+        "all_in_cost": 318.15,
         "cap_total": 600,
         "budget_feasible": true,
-        "reserve_count_40pct": 0,
-        "active_reserve_gap_pct": null
+        "reserve_count_40pct": 3,
+        "active_reserve_gap_pct": 33.3
       },
       "passer": {
-        "ticker": "AFRM",
-        "median_swing": 34.3,
-        "recent_swing": 36.3,
-        "compression_ratio": 1.06,
+        "ticker": "HUT",
+        "median_swing": 57.0,
+        "recent_swing": 49.4,
+        "compression_ratio": 0.87,
+        "median_daily_range": 7.5,
+        "days_above_3pct": 100.0,
+        "median_open_to_low": 3.03,
+        "median_low_to_close": 2.54,
+        "dip_recovery_ratio": 74.0,
         "consistency": 100.0,
-        "price": 46.16,
-        "avg_vol": 6364889.15,
-        "sector": "Fintech",
+        "price": 55.62,
+        "avg_vol": 4073049.0,
+        "sector": "Crypto",
         "cycle_timing": {
           "total_cycles": 8,
           "median_deep": 1,
@@ -942,31 +934,31 @@
         {
           "name": "Monthly Swing",
           "threshold": ">= 35.0%",
-          "actual": "34.3%",
-          "passed": false
+          "actual": "57.0%",
+          "passed": true
         },
         {
           "name": "Active Levels (hold >= 30%)",
           "threshold": ">= 3",
-          "actual": "4",
-          "passed": true
+          "actual": "1",
+          "passed": false
         },
         {
           "name": "Anchor Level (hold >= 50%)",
           "threshold": ">= 1",
-          "actual": "3",
-          "passed": true
+          "actual": "0",
+          "passed": false
         },
         {
           "name": "Dead Zone",
           "threshold": "< 30.0%",
-          "actual": "N/A",
-          "passed": true
+          "actual": "33.3%",
+          "passed": false
         },
         {
           "name": "Price Range",
           "threshold": "$5.0-$30.0",
-          "actual": "$46.16",
+          "actual": "$55.62",
           "passed": false
         },
         {
@@ -983,108 +975,82 @@
         },
         {
           "name": "Strong Levels (hold >= 50%)",
-          "threshold": ">= 3",
-          "actual": "3",
-          "passed": true
+          "threshold": ">= 2",
+          "actual": "0",
+          "passed": false
         },
         {
           "name": "Swing Compression",
           "threshold": ">= 0.65",
-          "actual": "1.06",
+          "actual": "0.87",
           "passed": true
         }
       ]
     },
     {
-      "ticker": "NVAX",
-      "total_score": 73,
+      "ticker": "DNA",
+      "total_score": 56,
       "scores": {
         "bullets_tier": 6,
-        "b1_proximity": 10,
-        "zone_coverage": 15,
-        "reserve_depth": 7,
+        "b1_proximity": 2,
+        "zone_coverage": 4,
+        "reserve_depth": 0,
         "swing": 10,
-        "sector_diversity": 10,
-        "cycle_efficiency": 15
+        "sector_diversity": 8,
+        "cycle_efficiency": 15,
+        "hold_quality": 11
       },
       "wick_failed": false,
       "flags": [
-        "NVAX $5.97: cost $5.97 vs expected $298.50",
-        "Active-reserve gap: 26%",
-        "KPI gates failed: Active Levels (hold >= 30%), Anchor Level (hold >= 50%), Strong Levels (hold >= 50%)"
+        "KPI gates failed: Active Levels (hold >= 30%), Strong Levels (hold >= 50%)"
       ],
       "verification": {
         "tier_check": true,
-        "bullet_math_check": false,
+        "bullet_math_check": true,
         "pool_check": true,
         "sample_size_flags": [],
         "recency_flags": [],
         "recency_detail": [
           {
-            "support_price": 9.04,
-            "overall_hold_pct": 20.0,
-            "recent_hold_pct": 33.3,
-            "recent_events": 3,
+            "support_price": 6.26,
+            "overall_hold_pct": 71.4,
+            "recent_hold_pct": 100.0,
+            "recent_events": 1,
             "trend": "Improving"
-          },
-          {
-            "support_price": 8.47,
-            "overall_hold_pct": 20.0,
-            "recent_hold_pct": 33.3,
-            "recent_events": 6,
-            "trend": "Improving"
-          },
-          {
-            "support_price": 8.08,
-            "overall_hold_pct": 13.3,
-            "recent_hold_pct": 25.0,
-            "recent_events": 4,
-            "trend": "Improving"
-          },
-          {
-            "support_price": 7.88,
-            "overall_hold_pct": 15.4,
-            "recent_hold_pct": 25.0,
-            "recent_events": 4,
-            "trend": "Improving"
-          },
-          {
-            "support_price": 5.7,
-            "overall_hold_pct": 40.0,
-            "recent_hold_pct": null,
-            "recent_events": 0,
-            "trend": "No recent data"
           }
         ],
-        "issues": [
-          "NVAX $5.97: cost $5.97 vs expected $298.50"
-        ]
+        "issues": []
       },
       "stress_metrics": {
-        "min_active_approaches": 5,
+        "min_active_approaches": 7,
         "all_active_above_3": true,
-        "b1_distance_pct": 3.5,
+        "b1_distance_pct": 12.8,
         "sector_count_after": 2,
         "sector_exceeds_limit": false,
-        "active_total_cost": 296.91,
-        "reserve_total_cost": 5.97,
-        "all_in_cost": 302.88000000000005,
+        "active_total_cost": 295.32,
+        "reserve_total_cost": 0,
+        "all_in_cost": 295.32,
         "cap_total": 600,
         "budget_feasible": true,
-        "reserve_count_40pct": 1,
-        "active_reserve_gap_pct": 26.5
+        "reserve_count_40pct": 0,
+        "active_reserve_gap_pct": null
       },
       "passer": {
-        "ticker": "NVAX",
-        "median_swing": 35.8,
-        "recent_swing": 43.2,
-        "compression_ratio": 1.21,
+        "ticker": "DNA",
+        "median_swing": 55.4,
+        "recent_swing": 44.3,
+        "compression_ratio": 0.8,
+        "median_daily_range": 7.4,
+        "days_above_3pct": 95.2,
+        "median_open_to_low": 2.56,
+        "median_low_to_close": 3.24,
+        "dip_recovery_ratio": 62.5,
         "consistency": 100.0,
-        "price": 9.72,
-        "avg_vol": 5607178.3,
+        "price": 7.36,
+        "avg_vol": 1341547.0,
         "sector": "Biotech",
         "cycle_timing": {
-          "total_cycles": 7,
+          "total_cycles": 5,
           "median_deep": 1,
           "median_first": 1,
           "max_deep": 1,
@@ -1096,37 +1062,37 @@
         {
           "name": "Monthly Swing",
           "threshold": ">= 35.0%",
-          "actual": "35.8%",
+          "actual": "55.4%",
           "passed": true
         },
         {
           "name": "Active Levels (hold >= 30%)",
           "threshold": ">= 3",
-          "actual": "0",
+          "actual": "1",
           "passed": false
         },
         {
           "name": "Anchor Level (hold >= 50%)",
           "threshold": ">= 1",
-          "actual": "0",
-          "passed": false
+          "actual": "1",
+          "passed": true
         },
         {
           "name": "Dead Zone",
           "threshold": "< 30.0%",
-          "actual": "26.5%",
+          "actual": "N/A",
           "passed": true
         },
         {
           "name": "Price Range",
           "threshold": "$5.0-$30.0",
-          "actual": "$9.72",
+          "actual": "$7.36",
           "passed": true
         },
         {
           "name": "Cycle Data (>= 5 cycles)",
           "threshold": ">= 5",
-          "actual": "7",
+          "actual": "5",
           "passed": true
         },
         {
@@ -1137,14 +1103,14 @@
         },
         {
           "name": "Strong Levels (hold >= 50%)",
-          "threshold": ">= 3",
-          "actual": "0",
+          "threshold": ">= 2",
+          "actual": "1",
           "passed": false
         },
         {
           "name": "Swing Compression",
           "threshold": ">= 0.65",
-          "actual": "1.21",
+          "actual": "0.80",
           "passed": true
         }
       ]
@@ -1152,103 +1118,103 @@
   ],
   "all_scored": [
     {
-      "ticker": "OPEN",
-      "total_score": 82,
-      "wick_failed": false
-    },
-    {
-      "ticker": "HUT",
-      "total_score": 81,
-      "wick_failed": false
-    },
-    {
-      "ticker": "BEAM",
-      "total_score": 81,
-      "wick_failed": false
-    },
-    {
-      "ticker": "NTLA",
-      "total_score": 78,
-      "wick_failed": false
-    },
-    {
-      "ticker": "IREN",
-      "total_score": 75,
-      "wick_failed": false
-    },
-    {
-      "ticker": "AFRM",
-      "total_score": 74,
-      "wick_failed": false
-    },
-    {
-      "ticker": "NVAX",
-      "total_score": 73,
-      "wick_failed": false
-    },
-    {
-      "ticker": "JOBY",
-      "total_score": 73,
-      "wick_failed": false
-    },
-    {
-      "ticker": "RIOT",
-      "total_score": 71,
-      "wick_failed": false
-    },
-    {
-      "ticker": "QBTS",
-      "total_score": 69,
-      "wick_failed": false
-    },
-    {
-      "ticker": "LCID",
-      "total_score": 69,
-      "wick_failed": false
-    },
-    {
-      "ticker": "QS",
+      "ticker": "WOLF",
       "total_score": 67,
       "wick_failed": false
     },
     {
-      "ticker": "MARA",
-      "total_score": 64,
+      "ticker": "HIMS",
+      "total_score": 35,
       "wick_failed": false
     },
     {
-      "ticker": "MP",
-      "total_score": 64,
+      "ticker": "QBTS",
+      "total_score": 78,
       "wick_failed": false
     },
     {
-      "ticker": "WOLF",
-      "total_score": 52,
+      "ticker": "NTLA",
+      "total_score": 72,
+      "wick_failed": false
+    },
+    {
+      "ticker": "IREN",
+      "total_score": 86,
+      "wick_failed": false
+    },
+    {
+      "ticker": "HUT",
+      "total_score": 67,
       "wick_failed": false
     },
     {
       "ticker": "DNA",
-      "total_score": 52,
+      "total_score": 56,
+      "wick_failed": false
+    },
+    {
+      "ticker": "RIOT",
+      "total_score": 85,
+      "wick_failed": false
+    },
+    {
+      "ticker": "OPEN",
+      "total_score": 75,
+      "wick_failed": false
+    },
+    {
+      "ticker": "MP",
+      "total_score": 62,
       "wick_failed": false
     },
     {
       "ticker": "SMR",
-      "total_score": 50,
+      "total_score": 70,
+      "wick_failed": false
+    },
+    {
+      "ticker": "BEAM",
+      "total_score": 65,
+      "wick_failed": false
+    },
+    {
+      "ticker": "MARA",
+      "total_score": 58,
+      "wick_failed": false
+    },
+    {
+      "ticker": "JOBY",
+      "total_score": 88,
+      "wick_failed": false
+    },
+    {
+      "ticker": "NVAX",
+      "total_score": 61,
+      "wick_failed": false
+    },
+    {
+      "ticker": "AFRM",
+      "total_score": 61,
       "wick_failed": false
     },
     {
       "ticker": "RXRX",
-      "total_score": 49,
-      "wick_failed": false
+      "total_score": 18,
+      "wick_failed": true
     },
     {
       "ticker": "UPST",
-      "total_score": 46,
+      "total_score": 33,
       "wick_failed": false
     },
     {
-      "ticker": "HIMS",
-      "total_score": 40,
+      "ticker": "QS",
+      "total_score": 65,
+      "wick_failed": false
+    },
+    {
+      "ticker": "LCID",
+      "total_score": 62,
       "wick_failed": false
     }
   ]
