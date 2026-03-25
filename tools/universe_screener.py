@@ -35,7 +35,7 @@ _PARTIAL_PATH = _ROOT / "data" / "universe_screen_partial.json"
 MIN_SWING_PCT = 10.0
 MIN_CONSISTENCY_PCT = 80.0
 MIN_PRICE = 3.0
-MAX_PRICE = 60.0
+MAX_PRICE = 9999.0  # effectively no cap — strategy alignment matters, not price
 MIN_AVG_VOL = 500_000
 
 CHUNK_SIZE = 500
