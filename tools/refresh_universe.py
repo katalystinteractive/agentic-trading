@@ -51,6 +51,7 @@ def _fetch_nasdaq_ftp():
         # nasdaqlisted.txt columns: Symbol|Name|Category|TestIssue|FinStatus|RoundLot|ETF|NextShares
         # otherlisted.txt columns: ACTSymbol|Name|Exchange|CQS|ETF|RoundLot|TestIssue|NASDAQSymbol
         test_col = 3 if is_nasdaq else 6
+        etf_col = 6 if is_nasdaq else 4
 
         for line in text.strip().split("\n")[1:]:  # skip header
             if "|" not in line:
@@ -61,6 +62,9 @@ def _fetch_nasdaq_ftp():
             if not symbol or not symbol.isalpha() or len(symbol) > 5:
                 continue
             if len(parts) > test_col and parts[test_col].strip() == "Y":
+                continue
+            # Filter out ETFs — we only trade equities
+            if len(parts) > etf_col and parts[etf_col].strip() == "Y":
                 continue
             tickers.add(symbol)
 
