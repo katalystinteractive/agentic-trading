@@ -162,12 +162,27 @@ def run_simulation(price_data, regime_data, cfg):
     cached_levels = {}       # ticker -> {date, levels, bullet_plan}
 
     # Initialize capital pools
+    cumulative_profit = defaultdict(float)  # per-ticker accumulated P/L for compounding
     for tk in tickers:
         stock_capital[tk] = StockCapital(
             active_remaining=cfg.active_pool,
             reserve_remaining=cfg.reserve_pool,
         )
         pending_orders[tk] = []
+
+    def _reset_capital(ticker, pnl_dollars=0):
+        """Reset capital pools for a ticker after position close.
+        If compounding, profits grow the pool; losses shrink it."""
+        if cfg.compound:
+            cumulative_profit[ticker] += pnl_dollars
+            bonus = max(0, cumulative_profit[ticker])  # never go below base pool
+            stock_capital[ticker].active_remaining = cfg.active_pool + bonus / 2
+            stock_capital[ticker].reserve_remaining = cfg.reserve_pool + bonus / 2
+        else:
+            stock_capital[ticker].active_remaining = cfg.active_pool
+            stock_capital[ticker].reserve_remaining = cfg.reserve_pool
+        stock_capital[ticker].active_bullets = 0
+        stock_capital[ticker].reserve_bullets = 0
 
     # Determine recompute schedule
     recompute_interval = {"daily": 1, "weekly": 5, "monthly": 21}.get(cfg.recompute_levels, 5)
@@ -221,11 +236,7 @@ def run_simulation(price_data, regime_data, cfg):
                     "exit_reason": "CATASTROPHIC_EXIT", "days_held": days_held,
                     "avg_cost": round(pos.avg_cost, 2), "regime": regime,
                 })
-                # Return capital
-                stock_capital[tk].active_remaining = cfg.active_pool
-                stock_capital[tk].reserve_remaining = cfg.reserve_pool
-                stock_capital[tk].active_bullets = 0
-                stock_capital[tk].reserve_bullets = 0
+                _reset_capital(tk, pnl_dollars)
                 del positions[tk]
                 pending_orders[tk] = []
                 continue
@@ -250,10 +261,7 @@ def run_simulation(price_data, regime_data, cfg):
                     "pnl_pct": round(pnl_pct, 2), "duration_days": days_held,
                     "bullets_used": pos.bullets_used, "zones": pos.zones_used,
                 })
-                stock_capital[tk].active_remaining = cfg.active_pool
-                stock_capital[tk].reserve_remaining = cfg.reserve_pool
-                stock_capital[tk].active_bullets = 0
-                stock_capital[tk].reserve_bullets = 0
+                _reset_capital(tk, pnl_dollars)
                 del positions[tk]
                 pending_orders[tk] = []
                 continue
@@ -284,10 +292,7 @@ def run_simulation(price_data, regime_data, cfg):
                     "pnl_pct": round(pnl_pct, 2), "duration_days": days_held,
                     "bullets_used": pos.bullets_used, "zones": pos.zones_used,
                 })
-                stock_capital[tk].active_remaining = cfg.active_pool
-                stock_capital[tk].reserve_remaining = cfg.reserve_pool
-                stock_capital[tk].active_bullets = 0
-                stock_capital[tk].reserve_bullets = 0
+                _reset_capital(tk, pnl_dollars)
                 del positions[tk]
                 pending_orders[tk] = []
                 continue
@@ -392,10 +397,7 @@ def run_simulation(price_data, regime_data, cfg):
                                     "bullets_used": pos.bullets_used,
                                     "zones": pos.zones_used,
                                 })
-                                stock_capital[tk].active_remaining = cfg.active_pool
-                                stock_capital[tk].reserve_remaining = cfg.reserve_pool
-                                stock_capital[tk].active_bullets = 0
-                                stock_capital[tk].reserve_bullets = 0
+                                _reset_capital(tk, sde_dollars)
                                 del positions[tk]
                                 break
                         except Exception:
@@ -428,9 +430,20 @@ def run_simulation(price_data, regime_data, cfg):
                 continue
 
             try:
+                # Use current pool balance for compounding, static config otherwise
+                if cfg.compound:
+                    cap = stock_capital[tk]
+                    live_capital = {
+                        "active_pool": cap.active_remaining,
+                        "reserve_pool": cap.reserve_remaining,
+                        "active_bullets_max": cfg.active_bullets_max,
+                        "reserve_bullets_max": cfg.reserve_bullets_max,
+                    }
+                else:
+                    live_capital = capital_config
                 wick_result, err = analyze_stock_data(
                     tk, hist=hist_slice, config=wick_config,
-                    capital_config=capital_config)
+                    capital_config=live_capital)
                 if wick_result is None:
                     continue
 
@@ -606,6 +619,7 @@ def main():
     p.add_argument("--same-day-exit", action="store_true", default=True)
     p.add_argument("--same-day-exit-pct", type=float, default=3.0)
     p.add_argument("--min-hold-rate", type=int, default=15)
+    p.add_argument("--compound", action="store_true", help="Reinvest profits into pools")
     p.add_argument("--start", type=str, default="")
     p.add_argument("--end", type=str, default="")
     args = p.parse_args()

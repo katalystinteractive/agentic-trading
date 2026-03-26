@@ -148,6 +148,7 @@ def simulate(hist, tickers, config=None, budget=None, interval=None, vix_history
     equity_curve = []     # daily cumulative P/L
     pdt_log = []          # PDT violation tracking
     cumulative_pnl = 0.0
+    dip_pool = cfg.budget * cfg.max_tickers_per_signal * 2  # total pool for dip strategy
 
     for day_idx, d in enumerate(dates):
         day_data = hist[hist.index.date == d]
@@ -207,6 +208,8 @@ def simulate(hist, tickers, config=None, budget=None, interval=None, vix_history
                     "pnl_dollars": round(pnl_dollars, 2), "exit_reason": "STOP_LOSS",
                     "days_held": days_held,
                 })
+                if cfg.compound:
+                    dip_pool += pos["shares"] * stop  # return capital (reduced by loss)
             elif day_high >= target:
                 # Target hit — sell at target
                 pnl_pct = cfg.sell_target_pct
@@ -218,6 +221,8 @@ def simulate(hist, tickers, config=None, budget=None, interval=None, vix_history
                     "pnl_dollars": round(pnl_dollars, 2), "exit_reason": "TARGET",
                     "days_held": days_held,
                 })
+                if cfg.compound:
+                    dip_pool += pos["shares"] * target  # return capital + profit
             elif days_held >= cfg.max_hold_days:
                 # Max hold — cut at close
                 pnl_pct = round((day_close - entry) / entry * 100, 2)
@@ -229,6 +234,8 @@ def simulate(hist, tickers, config=None, budget=None, interval=None, vix_history
                     "pnl_dollars": pnl_dollars, "exit_reason": "MAX_HOLD",
                     "days_held": days_held,
                 })
+                if cfg.compound:
+                    dip_pool += pos["shares"] * day_close  # return at close price
             else:
                 still_open.append(pos)
 
@@ -343,16 +350,23 @@ def simulate(hist, tickers, config=None, budget=None, interval=None, vix_history
                 buys.sort(key=lambda x: x["dip_from_open"], reverse=True)
             buys = buys[:cfg.max_tickers_per_signal]
 
-            effective_budget = cfg.budget
+            # Per-trade budget: if compounding, derive from current pool size
+            if cfg.compound:
+                effective_budget = max(1, dip_pool / (cfg.max_tickers_per_signal * 2))
+            else:
+                effective_budget = cfg.budget
             if day_regime == "Risk-Off" and cfg.risk_off_action == "half":
-                effective_budget = cfg.budget / 2
+                effective_budget = effective_budget / 2
 
             for b in buys:
                 if day_capital_used + effective_budget > cfg.total_daily_cap:
                     break
+                if cfg.compound and dip_pool < effective_budget:
+                    break  # not enough in pool
                 # Apply entry slippage (buy slightly higher)
                 entry_price = b["current"] * (1 + cfg.entry_slippage_pct / 100)
                 shares = max(1, int(effective_budget / entry_price))
+                cost = shares * entry_price
                 open_positions.append({
                     "ticker": b["ticker"],
                     "entry_date": d,
@@ -360,7 +374,9 @@ def simulate(hist, tickers, config=None, budget=None, interval=None, vix_history
                     "shares": shares,
                 })
                 day_entries += 1
-                day_capital_used += shares * entry_price
+                day_capital_used += cost
+                if cfg.compound:
+                    dip_pool -= cost  # capital leaves the pool
 
         day_exits = sum(1 for t in trades if t["exit_date"] == d)
         day_pnl = sum(t["pnl_dollars"] for t in trades if t["exit_date"] == d)

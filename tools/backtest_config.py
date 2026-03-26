@@ -73,6 +73,9 @@ class DipSimConfig:
     csv_output: bool = False
     json_output: bool = False
 
+    # Compounding
+    compound: bool = False              # reinvest profits into budget for next trade
+
     # Sweep
     sweep: bool = False
     sweep_params: str = ""              # e.g. "dip_threshold=0.5:0.5:3.0,sell_target_pct=1:1:5"
@@ -158,6 +161,9 @@ class SurgicalSimConfig:
     # Regime behavior
     riskoff_suppress_upgrades: bool = True
     conservative_exit_order: bool = True
+
+    # Compounding
+    compound: bool = False              # reinvest profits into pools after each sell
 
     # Period
     start: str = ""
@@ -357,6 +363,9 @@ def build_dip_argparse():
     p.add_argument("--output-dir", default="dip-sim-results", dest="output_dir")
     p.add_argument("--csv", action="store_true", dest="csv_output")
     p.add_argument("--json", action="store_true", dest="json_output")
+
+    # Compounding
+    p.add_argument("--compound", action="store_true", help="Reinvest profits into budget")
 
     # Sweep
     p.add_argument("--sweep", action="store_true")
