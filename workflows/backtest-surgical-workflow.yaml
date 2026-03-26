@@ -1,0 +1,56 @@
+name: backtest-surgical-workflow
+description: >
+  Backtesting simulator for the Surgical Mean-Reversion strategy.
+  Phase 1 downloads ticker OHLCV, VIX, index data. Phase 2 runs the daily
+  replay engine with wick analysis (no look-ahead bias). Phase 3 generates
+  reports with risk-adjusted metrics, zone/regime analysis, equity curves.
+
+version: "1.0.0"
+
+phases:
+  - id: collect
+    name: Data Collection
+    description: Download ticker OHLCV, VIX, indices via yfinance
+    agent: backtest-surgical-collector
+    artifacts:
+      - data/backtest/latest/price_data.pkl
+      - data/backtest/latest/regime_data.json
+      - data/backtest/latest/config.json
+    timeout_minutes: 10
+
+  - id: simulate
+    name: Simulation Engine
+    description: Run daily replay with wick analysis, regime gates, fill/exit logic
+    agent: backtest-surgical-engine
+    depends_on:
+      - collect
+    requires:
+      - data/backtest/latest/price_data.pkl
+      - data/backtest/latest/regime_data.json
+      - data/backtest/latest/config.json
+    artifacts:
+      - data/backtest/latest/trades.json
+      - data/backtest/latest/cycles.json
+      - data/backtest/latest/equity_curve.json
+    timeout_minutes: 60
+
+  - id: report
+    name: Report Generation
+    description: Compute metrics, generate report with zone/regime/ticker analysis
+    agent: backtest-surgical-reporter
+    depends_on:
+      - simulate
+    requires:
+      - data/backtest/latest/trades.json
+      - data/backtest/latest/cycles.json
+      - data/backtest/latest/equity_curve.json
+      - data/backtest/latest/config.json
+    artifacts:
+      - data/backtest/latest/report.md
+      - data/backtest/latest/summary.json
+    timeout_minutes: 10
+
+settings:
+  max_fix_iterations: 0
+  require_approval: false
+  timeout_minutes: 120
