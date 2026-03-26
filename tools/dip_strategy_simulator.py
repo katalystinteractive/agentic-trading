@@ -6,33 +6,37 @@ Replays historical intraday data day by day using the two-step confirmation:
 3. If confirmed: buy top 5 dipped+bouncing tickers at ~10:30 AM price
 4. Sell at +3%, stop at -3%, or cut at EOD (1-day max hold)
 
+All parameters tunable via CLI flags or DipSimConfig from backtest_config.py.
+
 Usage:
-    python3 tools/dip_strategy_simulator.py                          # last 3 months
-    python3 tools/dip_strategy_simulator.py --start 2026-01-01       # from date to now
-    python3 tools/dip_strategy_simulator.py --start 2026-01-01 --end 2026-03-01
-    python3 tools/dip_strategy_simulator.py --interval 30m           # 30-min bars (longer history)
-    python3 tools/dip_strategy_simulator.py --budget 150             # $150 per ticker per trade
+    python3 tools/dip_strategy_simulator.py                          # defaults
+    python3 tools/dip_strategy_simulator.py --interval 30m           # 6-month backtest
+    python3 tools/dip_strategy_simulator.py --sell-target 4 --stop-loss -2  # tune exits
+    python3 tools/dip_strategy_simulator.py --vix-threshold 20       # filter Risk-Off days
+    python3 tools/dip_strategy_simulator.py --sweep --sweep-params "sell_target_pct=2:1:5"
 """
 import sys
 import json
-import argparse
 from datetime import datetime, timedelta, date
 from pathlib import Path
 from collections import defaultdict
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from backtest_config import DipSimConfig, build_dip_argparse, args_to_dip_config, parse_sweep_spec, apply_sweep_overrides
+
 _ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
 
-# Strategy parameters
-DEFAULT_BUDGET = 100        # $ per ticker per trade
-DIP_THRESHOLD = 1.0         # % dip from open to qualify
-BOUNCE_THRESHOLD = 0.3      # % bounce in 2nd hour to confirm
-BREADTH_RATIO = 0.5         # 50% of tickers must dip for signal (was 70%)
-BOUNCE_RATIO = 0.5          # 50% must bounce for confirmation (was 70%)
-SELL_TARGET_PCT = 3.0       # +3% from entry
-MAX_HOLD_DAYS = 1           # cut at EOD if target not hit (was 3)
-STOP_LOSS_PCT = -3.0        # cut losses at -3% (was -5%)
-MAX_TICKERS_PER_SIGNAL = 5  # only buy top 5 dippers (was unlimited)
+# Legacy constants kept for reference — actual values come from DipSimConfig
+DEFAULT_BUDGET = 100
+DIP_THRESHOLD = 1.0
+BOUNCE_THRESHOLD = 0.3
+BREADTH_RATIO = 0.5
+BOUNCE_RATIO = 0.5
+SELL_TARGET_PCT = 3.0
+MAX_HOLD_DAYS = 1
+STOP_LOSS_PCT = -3.0
+MAX_TICKERS_PER_SIGNAL = 5
 
 
 def _load_watchlist():
@@ -40,6 +44,33 @@ def _load_watchlist():
     with open(PORTFOLIO_PATH) as f:
         data = json.load(f)
     return sorted(data.get("watchlist", []))
+
+
+def _fetch_vix_history(start, end):
+    """Fetch daily VIX closes for regime filtering."""
+    import yfinance as yf
+    try:
+        kwargs = {"progress": False}
+        if start and end:
+            kwargs.update(start=start, end=end)
+        elif start:
+            kwargs["start"] = start
+        else:
+            kwargs["period"] = "6mo"
+        vix = yf.download("^VIX", **kwargs)
+        if vix.empty:
+            return None
+        close = vix["Close"]
+        if hasattr(close, "columns"):
+            close = close.iloc[:, 0]
+        result = {}
+        for dt, val in close.items():
+            result[str(dt.date())] = round(float(val), 2)
+        print(f"  VIX data: {len(result)} days")
+        return result
+    except Exception as e:
+        print(f"  *VIX fetch failed: {e} — proceeding without regime filter*")
+        return None
 
 
 def _fetch_intraday(tickers, start, end, interval="5m"):
@@ -82,17 +113,41 @@ def _get_utc_offset(sample_date):
     return -offset_hours  # positive: hours to ADD to ET to get UTC
 
 
-def simulate(hist, tickers, budget=DEFAULT_BUDGET, interval="5m"):
-    """Run the daily dip simulation on historical data."""
+def simulate(hist, tickers, config=None, budget=None, interval=None, vix_history=None):
+    """Run the daily dip simulation on historical data.
+
+    Args:
+        hist: DataFrame with intraday OHLCV data (UTC-normalized)
+        tickers: list of ticker symbols
+        config: DipSimConfig (preferred). If None, uses defaults.
+        budget: legacy parameter (overridden by config.budget if config provided)
+        interval: legacy parameter (overridden by config.interval if config provided)
+        vix_history: optional dict {date_str: vix_close} for regime filtering
+
+    Returns:
+        (trades, daily_log, equity_curve, pdt_log)
+    """
     import numpy as np
+
+    if config is None:
+        config = DipSimConfig()
+    if budget is not None and config.budget == 100.0:
+        config.budget = budget
+    if interval is not None and config.interval == "5m":
+        config.interval = interval
+
+    cfg = config  # shorthand
 
     multi = len(tickers) > 1
     dates = sorted(set(hist.index.date))
-    bars_per_hour = 12 if interval == "5m" else (2 if interval == "30m" else 1)
+    bars_per_hour = 12 if cfg.interval == "5m" else (2 if cfg.interval == "30m" else 1)
 
     trades = []           # completed trades
     open_positions = []   # currently held positions
     daily_log = []        # per-day summary
+    equity_curve = []     # daily cumulative P/L
+    pdt_log = []          # PDT violation tracking
+    cumulative_pnl = 0.0
 
     for day_idx, d in enumerate(dates):
         day_data = hist[hist.index.date == d]
@@ -101,17 +156,24 @@ def simulate(hist, tickers, budget=DEFAULT_BUDGET, interval="5m"):
 
         # Determine UTC offset for this day
         utc_offset = _get_utc_offset(d)
-        fh_end_utc = 10.5 + utc_offset    # 10:30 ET in UTC
-        sh_end_utc = 11.0 + utc_offset    # 11:00 ET in UTC
-        market_close_utc = 16.0 + utc_offset  # 4:00 PM ET in UTC
+        fh_end_utc = cfg.fh_end_et + utc_offset
+        sh_end_utc = cfg.sh_end_et + utc_offset
+        market_close_utc = 16.0 + utc_offset
+
+        # VIX regime check
+        day_regime = "Neutral"
+        if vix_history:
+            day_vix = vix_history.get(str(d))
+            if day_vix is not None and day_vix >= cfg.vix_risk_off:
+                day_regime = "Risk-Off"
 
         # --- Check existing positions for exit ---
         still_open = []
         for pos in open_positions:
             tk = pos["ticker"]
             entry = pos["entry_price"]
-            target = entry * (1 + SELL_TARGET_PCT / 100)
-            stop = entry * (1 + STOP_LOSS_PCT / 100)
+            target = entry * (1 + cfg.sell_target_pct / 100)
+            stop = entry * (1 + cfg.stop_loss_pct / 100)
             days_held = (d - pos["entry_date"]).days
 
             try:
@@ -136,8 +198,8 @@ def simulate(hist, tickers, budget=DEFAULT_BUDGET, interval="5m"):
             # happens before favorable move to avoid optimistic bias)
             if day_low <= stop:
                 # Stop loss hit
-                pnl_pct = STOP_LOSS_PCT
-                pnl_dollars = pos["shares"] * entry * STOP_LOSS_PCT / 100
+                pnl_pct = cfg.stop_loss_pct
+                pnl_dollars = pos["shares"] * entry * cfg.stop_loss_pct / 100
                 trades.append({
                     "ticker": tk, "entry_date": pos["entry_date"], "exit_date": d,
                     "entry_price": round(entry, 2), "exit_price": round(stop, 2),
@@ -147,8 +209,8 @@ def simulate(hist, tickers, budget=DEFAULT_BUDGET, interval="5m"):
                 })
             elif day_high >= target:
                 # Target hit — sell at target
-                pnl_pct = SELL_TARGET_PCT
-                pnl_dollars = pos["shares"] * entry * SELL_TARGET_PCT / 100
+                pnl_pct = cfg.sell_target_pct
+                pnl_dollars = pos["shares"] * entry * cfg.sell_target_pct / 100
                 trades.append({
                     "ticker": tk, "entry_date": pos["entry_date"], "exit_date": d,
                     "entry_price": round(entry, 2), "exit_price": round(target, 2),
@@ -156,7 +218,7 @@ def simulate(hist, tickers, budget=DEFAULT_BUDGET, interval="5m"):
                     "pnl_dollars": round(pnl_dollars, 2), "exit_reason": "TARGET",
                     "days_held": days_held,
                 })
-            elif days_held >= MAX_HOLD_DAYS:
+            elif days_held >= cfg.max_hold_days:
                 # Max hold — cut at close
                 pnl_pct = round((day_close - entry) / entry * 100, 2)
                 pnl_dollars = round(pos["shares"] * (day_close - entry), 2)
@@ -216,8 +278,8 @@ def simulate(hist, tickers, budget=DEFAULT_BUDGET, interval="5m"):
                 confirmation_bars = tk_c[tk_c.index.hour + tk_c.index.minute / 60 <= sh_end_utc]
                 current_price = float(confirmation_bars.iloc[-1]) if len(confirmation_bars) > 0 else fh_close
 
-                dipped = fh_move < -DIP_THRESHOLD
-                bouncing = sh_move > BOUNCE_THRESHOLD
+                dipped = fh_move < -cfg.dip_threshold
+                bouncing = sh_move > cfg.bounce_threshold
                 below_open = current_price < today_open
 
                 dip_from_open = round((today_open - current_price) / today_open * 100, 1)
@@ -239,9 +301,9 @@ def simulate(hist, tickers, budget=DEFAULT_BUDGET, interval="5m"):
         dipped_count = sum(1 for t in ticker_stats if t["dipped"])
         bouncing_count = sum(1 for t in ticker_stats if t["bouncing"])
 
-        if dipped_count >= total * BREADTH_RATIO and bouncing_count >= total * BOUNCE_RATIO:
+        if dipped_count >= total * cfg.breadth_ratio and bouncing_count >= total * cfg.bounce_ratio:
             signal = "CONFIRMED"
-        elif dipped_count >= total * BREADTH_RATIO and bouncing_count < total * 0.3:
+        elif dipped_count >= total * cfg.breadth_ratio and bouncing_count < total * 0.3:
             signal = "STAY_OUT"
         elif dipped_count < total * 0.3:
             signal = "NO_DIP"
@@ -250,30 +312,68 @@ def simulate(hist, tickers, budget=DEFAULT_BUDGET, interval="5m"):
 
         # --- Execute entries on CONFIRMED or MIXED signal ---
         day_entries = 0
+        day_capital_used = 0.0
+        skip_reason = None
+
+        # Regime gate
+        if day_regime == "Risk-Off" and signal in ("CONFIRMED", "MIXED"):
+            if cfg.risk_off_action == "skip":
+                signal = "RISK_OFF_SKIP"
+                skip_reason = "Risk-Off regime (VIX >= {:.0f})".format(cfg.vix_risk_off)
+
+        # PDT gate
+        if signal in ("CONFIRMED", "MIXED") and cfg.account_size < 25000:
+            recent_day_trades = sum(1 for t in trades
+                                   if t["entry_date"] == t["exit_date"]
+                                   and (d - t["exit_date"]).days <= cfg.pdt_window)
+            if recent_day_trades >= cfg.pdt_limit:
+                pdt_log.append({"date": str(d), "trades_in_window": recent_day_trades,
+                                "action": "SKIPPED — PDT limit reached"})
+                signal = "PDT_BLOCKED"
+
         if signal in ("CONFIRMED", "MIXED"):
             buys = [t for t in ticker_stats if t["dipped"] and t["bouncing"] and t["below_open"]]
             # Don't buy if already holding this ticker
             held_tickers = {p["ticker"] for p in open_positions}
             buys = [b for b in buys if b["ticker"] not in held_tickers]
-            # Sort by largest dip (most opportunity) and take top N
-            buys.sort(key=lambda x: x["dip_from_open"], reverse=True)
-            buys = buys[:MAX_TICKERS_PER_SIGNAL]
+            # Ranking: by dip (default) or by recovery strength
+            if cfg.rank_method == "recovery":
+                buys.sort(key=lambda x: x["sh_move"], reverse=True)
+            else:
+                buys.sort(key=lambda x: x["dip_from_open"], reverse=True)
+            buys = buys[:cfg.max_tickers_per_signal]
+
+            effective_budget = cfg.budget
+            if day_regime == "Risk-Off" and cfg.risk_off_action == "half":
+                effective_budget = cfg.budget / 2
 
             for b in buys:
-                shares = max(1, int(budget / b["current"]))
+                if day_capital_used + effective_budget > cfg.total_daily_cap:
+                    break
+                # Apply entry slippage (buy slightly higher)
+                entry_price = b["current"] * (1 + cfg.entry_slippage_pct / 100)
+                shares = max(1, int(effective_budget / entry_price))
                 open_positions.append({
                     "ticker": b["ticker"],
                     "entry_date": d,
-                    "entry_price": b["current"],
+                    "entry_price": entry_price,
                     "shares": shares,
                 })
                 day_entries += 1
+                day_capital_used += shares * entry_price
 
         day_exits = sum(1 for t in trades if t["exit_date"] == d)
+        day_pnl = sum(t["pnl_dollars"] for t in trades if t["exit_date"] == d)
+        cumulative_pnl += day_pnl
         daily_log.append({
             "date": d, "signal": signal, "entries": day_entries, "exits": day_exits,
             "dipped": dipped_count, "bouncing": bouncing_count, "total": total,
-            "open_positions": len(open_positions),
+            "open_positions": len(open_positions), "regime": day_regime,
+        })
+        equity_curve.append({
+            "date": str(d), "cumulative_pnl": round(cumulative_pnl, 2),
+            "day_pnl": round(day_pnl, 2), "positions": len(open_positions),
+            "regime": day_regime,
         })
 
     # Force-close any remaining positions at last day's close
@@ -301,7 +401,7 @@ def simulate(hist, tickers, budget=DEFAULT_BUDGET, interval="5m"):
             "days_held": (last_date - pos["entry_date"]).days,
         })
 
-    return trades, daily_log
+    return trades, daily_log, equity_curve, pdt_log
 
 
 def print_results(trades, daily_log, budget):
@@ -421,34 +521,98 @@ def print_results(trades, daily_log, budget):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Dip Strategy Simulator")
-    parser.add_argument("--start", type=str, help="Start date (YYYY-MM-DD)")
-    parser.add_argument("--end", type=str, help="End date (YYYY-MM-DD)")
-    parser.add_argument("--interval", type=str, default="5m",
-                        choices=["5m", "15m", "30m", "1h"],
-                        help="Bar interval (default: 5m, max ~60 days)")
-    parser.add_argument("--budget", type=float, default=DEFAULT_BUDGET,
-                        help=f"Budget per ticker per trade (default: ${DEFAULT_BUDGET})")
-    parser.add_argument("--tickers", nargs="*", type=str.upper,
-                        help="Specific tickers (default: watchlist)")
+    parser = build_dip_argparse()
     args = parser.parse_args()
+    cfg = args_to_dip_config(args)
 
-    tickers = args.tickers or _load_watchlist()
+    tickers = cfg.tickers or _load_watchlist()
     if not tickers:
         print("*No tickers to simulate.*")
         return
 
-    print(f"## Dip Strategy Simulation")
-    print(f"*Budget: ${args.budget}/ticker | Target: +{SELL_TARGET_PCT}% | "
-          f"Stop: {STOP_LOSS_PCT}% | Max hold: {MAX_HOLD_DAYS}d*")
-    print(f"*Tickers: {len(tickers)} | Interval: {args.interval}*\n")
+    # Fetch VIX history for regime filtering
+    vix_history = None
+    if cfg.vix_risk_off < 9999:
+        vix_history = _fetch_vix_history(cfg.start, cfg.end)
 
-    hist = _fetch_intraday(tickers, args.start, args.end, args.interval)
+    print(f"## Dip Strategy Simulation")
+    print(f"*Budget: ${cfg.budget}/ticker | Target: +{cfg.sell_target_pct}% | "
+          f"Stop: {cfg.stop_loss_pct}% | Max hold: {cfg.max_hold_days}d*")
+    non_defaults = []
+    if cfg.dip_threshold != 1.0:
+        non_defaults.append(f"dip>{cfg.dip_threshold}%")
+    if cfg.breadth_ratio != 0.5:
+        non_defaults.append(f"breadth={cfg.breadth_ratio:.0%}")
+    if cfg.vix_risk_off < 9999:
+        non_defaults.append(f"VIX>{cfg.vix_risk_off}={cfg.risk_off_action}")
+    if cfg.entry_slippage_pct > 0:
+        non_defaults.append(f"slippage={cfg.entry_slippage_pct}%")
+    nd_str = f" | Overrides: {', '.join(non_defaults)}" if non_defaults else ""
+    print(f"*Tickers: {len(tickers)} | Interval: {cfg.interval}{nd_str}*\n")
+
+    hist = _fetch_intraday(tickers, cfg.start, cfg.end, cfg.interval)
     if hist is None:
         return
 
-    trades, daily_log = simulate(hist, tickers, budget=args.budget, interval=args.interval)
-    print_results(trades, daily_log, args.budget)
+    # Sweep mode
+    if cfg.sweep and cfg.sweep_params:
+        combos = parse_sweep_spec(cfg.sweep_params)
+        print(f"## Parameter Sweep: {len(combos)} combinations\n")
+        sweep_results = []
+        for i, overrides in enumerate(combos, 1):
+            variant = apply_sweep_overrides(cfg, overrides)
+            t, dl, ec, pl = simulate(hist, tickers, config=variant, vix_history=vix_history)
+            if t:
+                import numpy as np
+                wins = sum(1 for x in t if x["pnl_pct"] > 0)
+                total_pnl = sum(x["pnl_dollars"] for x in t)
+                win_rate = wins / len(t) * 100
+                avg_pnl = np.mean([x["pnl_pct"] for x in t])
+                win_sum = sum(x["pnl_dollars"] for x in t if x["pnl_dollars"] > 0)
+                loss_sum = abs(sum(x["pnl_dollars"] for x in t if x["pnl_dollars"] < 0))
+                pf = win_sum / loss_sum if loss_sum > 0 else float("inf")
+                sweep_results.append({
+                    "overrides": overrides, "trades": len(t), "wins": wins,
+                    "win_rate": round(win_rate, 1), "total_pnl": round(total_pnl, 2),
+                    "avg_pnl": round(avg_pnl, 2), "profit_factor": round(pf, 2),
+                })
+            print(f"  [{i}/{len(combos)}] {overrides} → {len(t)} trades, ${sum(x['pnl_dollars'] for x in t):.2f}")
+
+        # Print sweep summary
+        sweep_results.sort(key=lambda x: x["total_pnl"], reverse=True)
+        print(f"\n## Sweep Results (sorted by P/L)")
+        print(f"| # | Overrides | Trades | Win% | P/L$ | PF |")
+        print(f"| :--- | :--- | :--- | :--- | :--- | :--- |")
+        for i, r in enumerate(sweep_results, 1):
+            ov = ", ".join(f"{k}={v}" for k, v in r["overrides"].items())
+            print(f"| {i} | {ov} | {r['trades']} | {r['win_rate']}% | ${r['total_pnl']:.2f} | {r['profit_factor']} |")
+        return
+
+    # Single run
+    trades, daily_log, equity_curve, pdt_log = simulate(
+        hist, tickers, config=cfg, vix_history=vix_history)
+    print_results(trades, daily_log, cfg.budget)
+
+    # Equity curve summary
+    if equity_curve:
+        max_dd = min((e["cumulative_pnl"] for e in equity_curve), default=0)
+        peak = max((e["cumulative_pnl"] for e in equity_curve), default=0)
+        print(f"\n## Equity Curve")
+        print(f"| Metric | Value |")
+        print(f"| :--- | :--- |")
+        print(f"| Final P/L | ${equity_curve[-1]['cumulative_pnl']:.2f} |")
+        print(f"| Peak P/L | ${peak:.2f} |")
+        print(f"| Max Drawdown | ${max_dd:.2f} |")
+        riskoff_days = sum(1 for e in equity_curve if e["regime"] == "Risk-Off")
+        print(f"| Risk-Off days | {riskoff_days}/{len(equity_curve)} |")
+
+    # PDT log
+    if pdt_log:
+        print(f"\n## PDT Violations")
+        print(f"| Date | Trades in Window | Action |")
+        print(f"| :--- | :--- | :--- |")
+        for p in pdt_log:
+            print(f"| {p['date']} | {p['trades_in_window']} | {p['action']} |")
 
 
 if __name__ == "__main__":
