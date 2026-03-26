@@ -61,6 +61,25 @@ POOL_MAX_FRACTION = 0.60  # per-bullet cap: 60% of pool (raised for frequency we
 ACTIVE_RADIUS_CAP = 20.0  # max active zone radius (%)
 
 
+class WickConfig:
+    """Tunable parameters for wick analysis — used by backtesting simulator.
+
+    All defaults match current hardcoded values. Existing callers pass no config
+    and get identical behavior. Simulator passes custom config for parameter sweeps.
+    """
+    def __init__(self, **kwargs):
+        self.tier_full = kwargs.get("tier_full", 50)
+        self.tier_std = kwargs.get("tier_std", 30)
+        self.tier_half = kwargs.get("tier_half", 15)
+        self.confidence_min_approaches = kwargs.get("confidence_min_approaches", 3)
+        self.decay_half_life = kwargs.get("decay_half_life", 90)
+        self.hvn_bins = kwargs.get("hvn_bins", 40)
+        self.pa_min_touches = kwargs.get("pa_min_touches", 3)
+        self.approach_proximity_pct = kwargs.get("approach_proximity_pct", 8.0)
+
+_DEFAULT_WICK_CONFIG = WickConfig()
+
+
 def sizing_description(cap=None):
     """Return human-readable sizing strings derived from actual constants.
 
@@ -240,7 +259,7 @@ def compute_swing_consistency(hist, threshold=10.0):
     return round(above / len(swings) * 100, 1)
 
 
-def classify_level(hold_rate, gap_pct, active_radius, approaches=0):
+def classify_level(hold_rate, gap_pct, active_radius, approaches=0, config=None):
     """Classify a support level into Zone (Active/Buffer/Reserve) and Tier.
 
     Zone: Active if gap_pct <= active_radius, Buffer if <= 2× active_radius, else Reserve.
@@ -248,22 +267,23 @@ def classify_level(hold_rate, gap_pct, active_radius, approaches=0):
     Tier (hold_rate is 0-100%): Full (50%+), Std (30-49%), Half (15-29%), Skip (<15%).
     Confidence gate: Full/Std require 3+ approaches; fewer approaches cap at Half.
     """
+    c = config or _DEFAULT_WICK_CONFIG
     if gap_pct <= active_radius:
         zone = "Active"
     elif gap_pct <= 2 * active_radius:
         zone = "Buffer"
     else:
         zone = "Reserve"
-    if hold_rate >= 50:
+    if hold_rate >= c.tier_full:
         tier = "Full"
-    elif hold_rate >= 30:
+    elif hold_rate >= c.tier_std:
         tier = "Std"
-    elif hold_rate >= 15:
+    elif hold_rate >= c.tier_half:
         tier = "Half"
     else:
         tier = "Skip"
     # Confidence gate: cap at Half if insufficient sample size
-    if tier in ("Full", "Std") and approaches < 3:
+    if tier in ("Full", "Std") and approaches < c.confidence_min_approaches:
         tier = "Half"
     return zone, tier
 
@@ -285,8 +305,11 @@ def compute_effective_tier(raw_tier, decayed_tier):
     return effective, promoted
 
 
-def find_hvn_floors(hist, n_bins=40):
+def find_hvn_floors(hist, n_bins=None, config=None):
     """Build volume profile, return HVN floor prices with their volume."""
+    c = config or _DEFAULT_WICK_CONFIG
+    if n_bins is None:
+        n_bins = c.hvn_bins
     lows = hist["Low"].values
     highs = hist["High"].values
     volumes = hist["Volume"].values
@@ -321,8 +344,10 @@ def find_hvn_floors(hist, n_bins=40):
     return floors
 
 
-def find_price_action_supports(hist, current_price):
-    """Find support levels from clustered daily lows (3+ touches within 2%)."""
+def find_price_action_supports(hist, current_price, config=None):
+    """Find support levels from clustered daily lows (min_touches within 2%)."""
+    c = config or _DEFAULT_WICK_CONFIG
+    min_touches = c.pa_min_touches
     all_lows = np.sort(hist["Low"].values)
     # Only consider lows below current price
     all_lows = all_lows[all_lows < current_price]
@@ -337,7 +362,7 @@ def find_price_action_supports(hist, current_price):
         if cluster_med > 0 and (all_lows[i] - cluster_med) / cluster_med < 0.02:
             current_cluster.append(all_lows[i])
         else:
-            if len(current_cluster) >= 3:
+            if len(current_cluster) >= min_touches:
                 clusters.append({
                     "price": round(float(min(current_cluster)), 4),
                     "touches": len(current_cluster),
@@ -345,7 +370,7 @@ def find_price_action_supports(hist, current_price):
                 })
             current_cluster = [all_lows[i]]
 
-    if len(current_cluster) >= 3:
+    if len(current_cluster) >= min_touches:
         clusters.append({
             "price": round(float(min(current_cluster)), 4),
             "touches": len(current_cluster),
@@ -383,13 +408,16 @@ def merge_levels(hvn_floors, pa_supports, current_price):
     return all_levels
 
 
-def find_approach_events(hist, level, proximity_pct=8.0):
+def find_approach_events(hist, level, proximity_pct=None, config=None):
     """Find distinct approach events to a support level.
 
     An approach starts when the daily low enters the proximity zone
     (within proximity_pct above the level) and ends when it moves away.
     Returns one event per approach with the minimum wick low observed.
     """
+    c = config or _DEFAULT_WICK_CONFIG
+    if proximity_pct is None:
+        proximity_pct = c.approach_proximity_pct
     events = []
     in_approach = False
     approach_min_low = None
@@ -580,13 +608,16 @@ def _compute_bullet_plan(level_results, current_price, cap=None):
     }
 
 
-def analyze_stock_data(ticker, hist=None):
+def analyze_stock_data(ticker, hist=None, config=None, capital_config=None):
     """Full per-stock, per-level analysis. Returns (data_dict, error_str) tuple.
 
     Returns (dict, None) on success, (None, "reason") on failure.
     NEVER prints — pure data function for batch callers.
     If hist is provided, skips internal fetch_history() call (saves one yfinance round-trip).
+    If config (WickConfig) is provided, overrides default thresholds (tier, bins, touches, etc.).
+    If capital_config is provided, overrides load_capital_config() (for simulator use).
     """
+    c = config or _DEFAULT_WICK_CONFIG
     if hist is None:
         try:
             hist = fetch_history(ticker, months=13)
@@ -599,8 +630,8 @@ def analyze_stock_data(ticker, hist=None):
     last_date = hist.index[-1].strftime("%Y-%m-%d")
 
     # Find support levels
-    hvn_floors = find_hvn_floors(hist)
-    pa_supports = find_price_action_supports(hist, current_price)
+    hvn_floors = find_hvn_floors(hist, config=c)
+    pa_supports = find_price_action_supports(hist, current_price, config=c)
     levels = merge_levels(hvn_floors, pa_supports, current_price)
 
     if not levels:
@@ -610,12 +641,12 @@ def analyze_stock_data(ticker, hist=None):
     reference_date = hist.index[-1].to_pydatetime().replace(tzinfo=None)
     cutoff_90d = (reference_date - datetime.timedelta(days=90)).strftime("%Y-%m-%d")
     LN2 = math.log(2)
-    HALF_LIFE = 90
+    HALF_LIFE = c.decay_half_life
 
     # Analyze approaches at each level
     level_results = []
     for lvl in levels:
-        events = find_approach_events(hist, lvl["price"])
+        events = find_approach_events(hist, lvl["price"], config=c)
         if not events:
             continue
 
@@ -671,14 +702,14 @@ def analyze_stock_data(ticker, hist=None):
     for r in level_results:
         lvl_price = r["level"]["price"]
         gap_pct = ((current_price - lvl_price) / current_price) * 100
-        zone, tier = classify_level(r["hold_rate"], gap_pct, active_radius, r["total_approaches"])
+        zone, tier = classify_level(r["hold_rate"], gap_pct, active_radius, r["total_approaches"], config=c)
         r["zone"] = zone
         r["tier"] = tier
         r["gap_pct"] = gap_pct
 
         # Decayed tier is the effective tier — recent behavior determines sizing
         # Promotion floor: never promote more than one tier above raw
-        _, decayed_tier = classify_level(r["decayed_hold_rate"], gap_pct, active_radius, r["total_approaches"])
+        _, decayed_tier = classify_level(r["decayed_hold_rate"], gap_pct, active_radius, r["total_approaches"], config=c)
         effective_tier, promoted = compute_effective_tier(tier, decayed_tier)
         r["decayed_tier"] = decayed_tier
         r["effective_tier"] = effective_tier
@@ -795,7 +826,7 @@ def analyze_stock_data(ticker, hist=None):
             }
             for r in level_results
         ],
-        "bullet_plan": _compute_bullet_plan(level_results, current_price, load_capital_config()),
+        "bullet_plan": _compute_bullet_plan(level_results, current_price, capital_config or load_capital_config()),
     }
 
     return data, None
