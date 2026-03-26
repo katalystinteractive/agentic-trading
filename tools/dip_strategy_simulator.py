@@ -520,10 +520,70 @@ def print_results(trades, daily_log, budget):
     print(f"| *Buy & Hold comparison requires daily close data — run with --compare flag* | | | |")
 
 
+def _run_workflow_mode(cfg):
+    """Workflow mode: read sim-data.json, run simulation, write JSON outputs."""
+    out_dir = Path(cfg.output_dir)
+    sim_data_path = out_dir / "sim-data.json"
+
+    if not sim_data_path.exists():
+        print(f"*Error: {sim_data_path} not found — run data collector first*")
+        sys.exit(1)
+
+    with open(sim_data_path) as f:
+        sim_data = json.load(f)
+
+    # Override config from sim-data
+    saved_cfg = sim_data.get("config", {})
+    cfg = DipSimConfig.from_dict(saved_cfg)
+
+    tickers = sim_data.get("tickers_eligible", [])
+    if not tickers:
+        print("*No eligible tickers in sim-data.json*")
+        sys.exit(1)
+
+    vix_history = sim_data.get("vix_history")
+
+    print(f"Workflow mode: {len(tickers)} tickers, interval={cfg.interval}")
+    hist = _fetch_intraday(tickers, cfg.start, cfg.end, cfg.interval)
+    if hist is None:
+        sys.exit(1)
+
+    trades, daily_log, equity_curve, pdt_log = simulate(
+        hist, tickers, config=cfg, vix_history=vix_history)
+
+    # Serialize dates in trades/daily_log
+    def _serialize(obj):
+        if isinstance(obj, date):
+            return str(obj)
+        return obj
+
+    trades_out = [{k: _serialize(v) for k, v in t.items()} for t in trades]
+    log_out = [{k: _serialize(v) for k, v in d.items()} for d in daily_log]
+
+    # Write outputs
+    with open(out_dir / "trades-raw.json", "w") as f:
+        json.dump(trades_out, f, indent=2)
+    with open(out_dir / "daily-log.json", "w") as f:
+        json.dump(log_out, f, indent=2)
+    with open(out_dir / "equity-curve-raw.json", "w") as f:
+        json.dump(equity_curve, f, indent=2)
+    with open(out_dir / "pdt-log.json", "w") as f:
+        json.dump(pdt_log, f, indent=2)
+
+    print(f"Wrote {len(trades)} trades to {out_dir}/")
+    print(f"Signals: {sum(1 for d in daily_log if d.get('signal') == 'CONFIRMED')} CONFIRMED, "
+          f"{sum(1 for d in daily_log if d.get('signal') == 'MIXED')} MIXED")
+
+
 def main():
     parser = build_dip_argparse()
     args = parser.parse_args()
     cfg = args_to_dip_config(args)
+
+    # Workflow mode: read config from sim-data.json, write JSON outputs
+    if cfg.workflow_mode:
+        _run_workflow_mode(cfg)
+        return
 
     tickers = cfg.tickers or _load_watchlist()
     if not tickers:

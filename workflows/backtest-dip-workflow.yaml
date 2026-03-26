@@ -1,0 +1,54 @@
+name: backtest-dip-workflow
+description: >
+  Backtest the daily dip/fluctuation strategy with full parameter tuning.
+  Phase 1 collects intraday data, VIX history, earnings dates, and eligibility
+  screening. Phase 2 runs the simulation engine with all enhancements.
+  Phase 3 analyzes results and generates reports.
+
+version: "1.0.0"
+
+phases:
+  - id: collect
+    name: Data Collection & Eligibility
+    description: Fetch intraday data, VIX history, earnings dates, pre-screen eligibility
+    agent: dip-sim-gatherer
+    artifacts:
+      - dip-sim-results/sim-data.json
+    timeout_minutes: 10
+
+  - id: simulate
+    name: Simulation Engine
+    description: Run enhanced dip strategy simulation with VIX regime, PDT, slippage
+    agent: dip-sim-runner
+    depends_on:
+      - collect
+    requires:
+      - dip-sim-results/sim-data.json
+    artifacts:
+      - dip-sim-results/trades-raw.json
+      - dip-sim-results/daily-log.json
+      - dip-sim-results/equity-curve-raw.json
+      - dip-sim-results/pdt-log.json
+    timeout_minutes: 15
+
+  - id: analyze
+    name: Analysis & Reporting
+    description: Compute risk metrics, regime splits, generate report
+    agent: dip-sim-analyst
+    depends_on:
+      - simulate
+    requires:
+      - dip-sim-results/sim-data.json
+      - dip-sim-results/trades-raw.json
+      - dip-sim-results/daily-log.json
+      - dip-sim-results/equity-curve-raw.json
+      - dip-sim-results/pdt-log.json
+    artifacts:
+      - dip-sim-results/sim-report.md
+      - dip-sim-results/sim-report.json
+    timeout_minutes: 10
+
+settings:
+  max_fix_iterations: 0
+  require_approval: false
+  timeout_minutes: 45
