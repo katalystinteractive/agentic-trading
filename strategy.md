@@ -86,6 +86,23 @@ pending order must pass BOTH the earnings gate (ticker-level) AND the market
 context gate (portfolio-level) to remain active. If either gate says PAUSE,
 the order is paused.
 
+### Earnings Entry Gate (Data-Backed)
+
+Enforced in bullet_recommender.py, daily_analyzer.py, and morning briefing agents.
+Based on analysis of 57 earnings events across 19 watchlist tickers:
+
+| Phase | Window | Rule | Evidence |
+| :--- | :--- | :--- | :--- |
+| **Pre-earnings** | 7 days before | BLOCK all new orders | 72% of events have >5% moves in this window |
+| **Earnings day** | Day 0 | BLOCK | Binary event |
+| **Post-settling** | 3 days after | BLOCK all new orders | 76% of events settle by Day 3 |
+| **Falling knife** | Day 4-10 after | BLOCK if >5% below pre-earnings close | Prevents buying into sustained post-earnings decline |
+
+Total blackout: 11 trading days (7 before + earnings day + 3 after).
+After Day 3, the gate auto-clears UNLESS the stock is >5% below its pre-earnings close (falling knife check).
+
+Tool: `python3 tools/earnings_gate.py TICKER` — returns BLOCKED, FALLING_KNIFE, APPROACHING, or CLEAR.
+
 **Sector context:** When leading/lagging sectors diverge from portfolio
 exposure, note the mismatch. Pending orders in lagging sectors during
 Risk-Off carry elevated risk.

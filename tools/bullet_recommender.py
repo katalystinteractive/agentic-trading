@@ -229,6 +229,17 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
     warnings = []
     reasoning = []
 
+    # --- Earnings Gate Check ---
+    try:
+        from earnings_gate import check_earnings_gate, format_gate_warning
+        gate = check_earnings_gate(ticker)
+        if gate["blocked"]:
+            warnings.append(format_gate_warning(gate))
+        elif gate["status"] == "APPROACHING":
+            warnings.append(format_gate_warning(gate))
+    except Exception:
+        pass  # earnings gate is advisory, don't crash on import failure
+
     # --- Step 1: Determine position case ---
     if ticker in positions:
         pos = positions[ticker]
@@ -474,6 +485,12 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
         recommendation = _find_recommendation(pool, budget, label)
         if recommendation is not None:
             break
+
+    # Earnings gate: suppress recommendation if blocked
+    earnings_blocked = any("EARNINGS GATE" in w or "FALLING KNIFE" in w for w in warnings)
+    if earnings_blocked and recommendation is not None:
+        reasoning.append("Recommendation suppressed — earnings blackout active.")
+        recommendation = None
 
     # Check if fully deployed: no recommendation possible AND either no slots or no uncovered levels
     fully_deployed = (recommendation is None

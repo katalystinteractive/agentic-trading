@@ -364,13 +364,29 @@ def print_daily_fluctuation_watchlist(regime="Neutral"):
         print("*Optimized rules: $100/ticker, top 5 dippers only, sell +3%, stop -3%, cut at EOD.*")
         print("*Wait for 10:30 AM confirmation before buying. Run dip_signal_checker.py at ~10:30.*\n")
 
+    # Earnings gate check
+    gated_tickers = set()
+    try:
+        from earnings_gate import check_earnings_gate
+        for tk, *_ in rows:
+            gate = check_earnings_gate(tk)
+            if gate["blocked"]:
+                gated_tickers.add(tk)
+    except Exception:
+        pass
+
     print("| Ticker | Open | Buy (-1%) | Sell +3% | Stop -3% | Range | Dip Days | +3% Win |")
     print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    shown = 0
     for tk, today_open, buy, s3, rng, dip_d, rec2, rec3 in rows:
-        stop = round(buy * 0.97, 2)
-        print(f"| {tk} | ${today_open:.2f} | ${buy:.2f} | ${s3:.2f} | ${stop:.2f} | {rng:.1f}% | {dip_d}% | {rec3}% |")
+        if tk in gated_tickers:
+            print(f"| ~~{tk}~~ | — | — | — | — | — | — | EARNINGS GATE |")
+        else:
+            stop = round(buy * 0.97, 2)
+            print(f"| {tk} | ${today_open:.2f} | ${buy:.2f} | ${s3:.2f} | ${stop:.2f} | {rng:.1f}% | {dip_d}% | {rec3}% |")
+            shown += 1
 
-    print(f"\n*{len(rows)} eligible tickers. Top 5 at signal. PDT: each = 1 day trade.*")
+    print(f"\n*{shown} eligible tickers ({len(gated_tickers)} earnings-gated). Top 5 at signal. PDT: each = 1 day trade.*")
     print("*Run `python3 tools/dip_signal_checker.py` at ~10:30 AM ET for buy/no-buy confirmation.*")
 
 
@@ -694,7 +710,20 @@ def print_deployment_recs(tickers, paused=None):
         print("*All tickers have active placed orders — no deployment needed.*")
         return
 
+    # Pre-check earnings gates
+    earnings_gated = {}
+    try:
+        from earnings_gate import check_earnings_gate
+        for tk in tickers:
+            gate = check_earnings_gate(tk)
+            if gate["blocked"]:
+                earnings_gated[tk] = gate["reason"]
+    except Exception:
+        pass
+
     print(f"## Part 4 — Deployment Recommendations ({len(tickers)} tickers)")
+    if earnings_gated:
+        print(f"\n*Earnings gate active for: {", ".join(earnings_gated.keys())}*")
     print()
 
     for ticker in tickers:
