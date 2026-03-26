@@ -723,7 +723,8 @@ def print_deployment_recs(tickers, paused=None):
 
     print(f"## Part 4 — Deployment Recommendations ({len(tickers)} tickers)")
     if earnings_gated:
-        print(f"\n*Earnings gate active for: {", ".join(earnings_gated.keys())}*")
+        gated_str = ", ".join(earnings_gated.keys())
+        print(f"\n*Earnings gate active for: {gated_str}*")
     print()
 
     for ticker in tickers:
