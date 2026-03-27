@@ -355,10 +355,10 @@ def cmd_fill(data, args):
     except Exception as e:
         print(f"(Sell target error: {e})")
 
-    # Same-day 3% exit advisory for upper-zone or daily-range fills
+    # Same-day 4% exit advisory for upper-zone or daily-range fills
     if (is_upper_zone or is_daily_range) and zone != "reserve":
-        same_day_price = round(price * 1.03, 2)
-        print(f"\n*Same-day exit eligible: SELL @ ${same_day_price:.2f} (+3% from ${price:.2f} fill)*")
+        same_day_price = round(price * 1.04, 2)
+        print(f"\n*Same-day exit eligible: SELL @ ${same_day_price:.2f} (+4% from ${price:.2f} fill)*")
 
     # Auto-store fill event in knowledge store
     try:

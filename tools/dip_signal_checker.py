@@ -209,19 +209,19 @@ def print_signal(results, phase, now_et):
 
         if top_buys:
             print("### Buy Recommendations (Top 5)")
-            print("*$100/ticker. Sell at +3%. Stop at -3%. Cut at EOD if neither hit.*\n")
-            print("| # | Ticker | Open | 1st-Hr Low | Current | Dip% | Bounce | Sell +3% | Stop -3% |")
+            print("*$100/ticker. Sell at +4%. Stop at -3%. Cut at EOD if neither hit.*\n")
+            print("| # | Ticker | Open | 1st-Hr Low | Current | Dip% | Bounce | Sell +4% | Stop -3% |")
             print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
             for i, r in enumerate(top_buys, 1):
-                sell_3 = round(r["current"] * 1.03, 2)
+                sell_4 = round(r["current"] * 1.04, 2)
                 stop_3 = round(r["current"] * 0.97, 2)
                 print(f"| {i} | {r['ticker']} | ${r['open']:.2f} | ${r['fh_low']:.2f} "
                       f"| ${r['current']:.2f} | -{r['dip_from_open']:.1f}% "
-                      f"| +{r['sh_move']:.1f}% | ${sell_3:.2f} | ${stop_3:.2f} |")
+                      f"| +{r['sh_move']:.1f}% | ${sell_4:.2f} | ${stop_3:.2f} |")
             skipped = len(buys) - len(top_buys)
             if skipped > 0:
                 print(f"\n*{skipped} more qualified but not in top 5.*")
-            print(f"\n*Rules: sell at +3%, stop at -3%, cut at EOD. PDT: each = 1 day trade.*")
+            print(f"\n*Rules: sell at +4%, stop at -3%, cut at EOD. PDT: each = 1 day trade.*")
         else:
             print("*No tickers meet all criteria (dipped + bouncing + below open).*")
 

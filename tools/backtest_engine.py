@@ -617,7 +617,7 @@ def main():
     p.add_argument("--recompute-levels", default="weekly",
                    choices=["daily", "weekly", "monthly"])
     p.add_argument("--same-day-exit", action="store_true", default=True)
-    p.add_argument("--same-day-exit-pct", type=float, default=3.0)
+    p.add_argument("--same-day-exit-pct", type=float, default=4.0)
     p.add_argument("--min-hold-rate", type=int, default=15)
     p.add_argument("--compound", action="store_true", help="Reinvest profits into pools")
     p.add_argument("--start", type=str, default="")

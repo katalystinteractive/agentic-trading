@@ -261,13 +261,14 @@ Each support level now shows `monthly_touch_freq` — average times per month th
 - ~1/mo: monthly cycle
 - <0.5/mo: dormant
 
-For same-day exits, touch frequency matters more than hold rate — a level tested 8x/month at 3% recovery generates 24%/month, vs 1x/month at 6% = 6%/month.
+For same-day exits, touch frequency matters more than hold rate — a level tested 8x/month at 4% recovery generates 32%/month, vs 1x/month at 6% = 6%/month.
 
 ### Dual Exit Strategy
 
-Upper-zone fills (A1, A2) are eligible for same-day 3% exits. Deeper fills (A3+, Buffer, Reserve) use patient 6%+ targets.
+Upper-zone fills (A1, A2) are eligible for same-day 4% exits. Deeper fills (A3+, Buffer, Reserve) use patient 6%+ targets.
 
-- **Same-day exit**: SELL at fill_price * 1.03 (3% from the specific fill, not avg cost)
+- **Same-day exit**: SELL at fill_price * 1.04 (4% from the specific fill, not avg cost)
+- **Data-backed**: Sweep of 2-6% SDE targets across 18 tickers over 10 months shows 4% is optimal risk-adjusted (Sharpe 13.3, PF 47.5, +26% P/L over 3%)
 - **Patient exit**: resistance-informed target from sell_target_calculator (6-10% from avg cost)
 - **Advisory only**: the system recommends same-day exits, user places manually
 - **PDT awareness**: same-day buy+sell counts as a day trade (3 per 5-day window at <$25K)
@@ -297,7 +298,7 @@ The daily analyzer shows a "Daily Dip Watchlist" — tickers eligible for manual
 1. Run `python3 tools/dip_signal_checker.py` at ~10:30 AM ET for two-step confirmation
 2. If CONFIRMED or MIXED: buy **top 5 dippers only** (biggest dip-from-open first)
 3. Budget: $100 per ticker, independent from $300/$300 support pools
-4. Sell at entry +3%. Stop at entry -3%. Cut at EOD if neither hit (1-day max hold)
+4. Sell at entry +4%. Stop at entry -3%. Cut at EOD if neither hit (1-day max hold)
 5. Each same-day round trip = 1 PDT day trade (3/5-day limit at <$25K)
 
 **Eligibility:** Daily range >=3% median AND +2% recovery rate >=60%
@@ -320,7 +321,7 @@ Run `python3 tools/dip_signal_checker.py` at ~10:30 AM ET for buy/no-buy confirm
 
 **Optimized parameters** (backtested 2025-12-25 to 2026-03-21):
 - Breadth threshold: 50% (was 70%) — catches more genuine dip days
-- Target: +3% sell limit
+- Target: +4% sell limit
 - Stop: -3% stop loss (was -5%) — tighter stop reduces losers
 - Max hold: 1 day — cut at EOD if neither target nor stop hit
 - Top 5 only — concentration in best opportunities outperforms spreading across all

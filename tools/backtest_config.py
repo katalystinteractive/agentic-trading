@@ -28,7 +28,7 @@ class DipSimConfig:
     bounce_ratio: float = 0.5           # fraction that must bounce
 
     # Exit thresholds
-    sell_target_pct: float = 3.0        # +% target
+    sell_target_pct: float = 4.0        # +% target (optimized from 3% via backtest sweep)
     stop_loss_pct: float = -3.0         # -% stop
     max_hold_days: int = 1              # EOD cut
 
@@ -153,7 +153,7 @@ class SurgicalSimConfig:
 
     # Same-day exit
     same_day_exit: bool = True
-    same_day_exit_pct: float = 3.0
+    same_day_exit_pct: float = 4.0
 
     # Earnings
     earnings_gate: bool = False
@@ -319,7 +319,7 @@ def build_dip_argparse():
     p.add_argument("--bounce-ratio", type=float, default=0.5, dest="bounce_ratio")
 
     # Exit
-    p.add_argument("--sell-target", type=float, default=3.0, dest="sell_target_pct")
+    p.add_argument("--sell-target", type=float, default=4.0, dest="sell_target_pct")
     p.add_argument("--stop-loss", type=float, default=-3.0, dest="stop_loss_pct")
     p.add_argument("--max-hold", type=int, default=1, dest="max_hold_days")
 
