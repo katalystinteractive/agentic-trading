@@ -35,7 +35,7 @@ This will:
 3. Select top 30 by tradability (swing × volume)
 4. Run 10-month backtest on each (~3 min/ticker, ~90 min total)
 5. Rank by simulated P/L
-6. Apply gate thresholds (P/L>$0, Win>90%, Sharpe>2, Conv>40%, 0 catastrophic)
+6. Apply gate thresholds (P/L>$0, Win>90%, Sharpe>2, 0 catastrophic)
 
 ### Step 2: Verify Output
 

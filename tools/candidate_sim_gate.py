@@ -133,12 +133,14 @@ def simulate_candidate(ticker, months=10):
 
 
 # Gate thresholds
+# Conversion gate removed (2026-03-27): verified redundant — penalizes high-price
+# stocks (TSLA $706 P/L at 35% conv, ARM $480 at 35% conv). All tickers it caught
+# are either strong performers wrongly rejected or already caught by other gates.
 GATE_THRESHOLDS = {
     "min_pnl": 0,           # must be profitable
     "min_win_rate": 90,      # >90% win rate
     "max_catastrophic": 0,   # zero catastrophic stops
     "min_sharpe": 2.0,       # risk-adjusted return
-    "min_conversion": 40,    # at least 40% of buys cycle
 }
 
 
@@ -153,9 +155,6 @@ def apply_gate(result):
         failures.append(f"{result['catastrophic']} catastrophic stop(s)")
     if result["sharpe"] < GATE_THRESHOLDS["min_sharpe"]:
         failures.append(f"Sharpe {result['sharpe']} < {GATE_THRESHOLDS['min_sharpe']}")
-    if result["conversion"] < GATE_THRESHOLDS["min_conversion"]:
-        failures.append(f"Conversion {result['conversion']}% < {GATE_THRESHOLDS['min_conversion']}%")
-
     passed = len(failures) == 0
     result["passed"] = passed
     result["failures"] = failures

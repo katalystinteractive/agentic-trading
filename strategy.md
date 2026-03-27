@@ -307,7 +307,6 @@ For tickers with no viable support levels but good daily oscillation (like AR):
 | P/L | > $0 | Must be profitable over simulation period |
 | Win Rate | > 90% | Strategy baseline is 98.6% |
 | Sharpe Ratio | > 2.0 | Risk-adjusted return must be meaningful |
-| Conversion | > 40% | At least 40% of buys must complete a cycle |
 | Catastrophic Stops | 0 | Zero tolerance — even 1 wipes gains |
 
 The old scoring-based workflow (`surgical-candidate-workflow`) is retained for reference but the simulation-ranked workflow is the primary selection mechanism.

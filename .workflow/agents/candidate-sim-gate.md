@@ -66,7 +66,6 @@ Add a brief assessment to `data/backtest/candidate-gate/gate-results.md`:
 | P/L | > $0 | Must be profitable over 10 months |
 | Win Rate | > 90% | Strategy baseline is 98.6% — 90% is minimum |
 | Sharpe Ratio | > 2.0 | Risk-adjusted return must be meaningful |
-| Conversion | > 40% | At least 40% of buys must complete a cycle |
 | Catastrophic Stops | 0 | Zero tolerance — even 1 wipes gains |
 
 ## What You Do NOT Do
