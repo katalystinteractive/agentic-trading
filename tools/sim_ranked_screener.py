@@ -28,6 +28,25 @@ CACHE_PATH = _ROOT / "data" / "universe_screen_cache.json"
 RESULTS_DIR = _ROOT / "data" / "backtest" / "sim-ranked"
 
 
+def _fresh_swing(ticker):
+    """Compute fresh median monthly swing from live yfinance data."""
+    import yfinance as yf
+    import numpy as np
+    try:
+        hist = yf.Ticker(ticker).history(period="13mo")
+        if hist.empty or len(hist) < 60:
+            return None
+        monthly = hist.resample("ME").agg({"High": "max", "Low": "min"}).dropna()
+        if len(monthly) > 1:
+            monthly = monthly.iloc[:-1]
+        if len(monthly) < 3:
+            return None
+        swings = ((monthly["High"] - monthly["Low"]) / monthly["Low"] * 100).values
+        return float(np.median(swings))
+    except Exception:
+        return None
+
+
 def load_passers(min_swing=25, min_vol=1_000_000):
     """Load universe passers with tightened gates."""
     with open(CACHE_PATH) as f:
@@ -35,7 +54,7 @@ def load_passers(min_swing=25, min_vol=1_000_000):
 
     passers = cache.get("passers", [])
 
-    # Apply tightened gates
+    # Apply tightened gates from CACHE (initial filter)
     filtered = [
         p for p in passers
         if p.get("median_swing", 0) >= min_swing
@@ -102,7 +121,24 @@ def main():
     print(f"*Passers: {len(passers)} total, {len(candidates)} after excluding watchlist*")
     print(f"*Simulating top {min(args.top, len(candidates))} by tradability over {args.months} months*\n")
 
-    to_simulate = candidates[:args.top]
+    to_simulate_raw = candidates[:args.top]
+
+    # FRESH VALIDATION: re-check swing from live data before simulating.
+    # Cache can be stale — real money is on the line.
+    print(f"Validating swing from fresh data...")
+    to_simulate = []
+    for passer in to_simulate_raw:
+        tk = passer["ticker"]
+        fresh = _fresh_swing(tk)
+        if fresh is None:
+            print(f"  {tk}: skipped (no fresh data)")
+            continue
+        if fresh < args.min_swing:
+            print(f"  {tk}: REJECTED (fresh swing {fresh:.1f}% < {args.min_swing}%, cache had {passer['median_swing']:.1f}%)")
+            continue
+        passer["fresh_swing"] = round(fresh, 1)
+        to_simulate.append(passer)
+    print(f"  {len(to_simulate)}/{len(to_simulate_raw)} passed fresh validation\n")
 
     # Run simulations sequentially (wick analysis is not thread-safe with yfinance)
     results = []
