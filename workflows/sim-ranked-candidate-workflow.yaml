@@ -1,0 +1,48 @@
+name: sim-ranked-candidate-workflow
+description: >
+  Simulation-first candidate selection. Replaces scoring-based ranking
+  (100-point system has zero correlation with actual P/L, ρ=-0.093).
+
+  Phase 1: Screen universe with tightened gates (swing >25%, vol >1M),
+  select top 30 by tradability, run 10-month backtest on each.
+
+  Phase 2: LLM critic reviews simulation-proven candidates for qualitative
+  factors (sector overlap, earnings timing, thesis coherence).
+
+version: "1.0.0"
+
+phases:
+  - id: simulate
+    name: Simulation Screening
+    description: >
+      Run sim_ranked_screener.py to backtest top 30 universe passers.
+      Each ticker gets an individual 10-month backtest. Ranked by
+      simulated P/L. Gate: P/L>$0, Win>90%, Sharpe>2, Conv>40%,
+      zero catastrophic stops.
+    agent: sim-ranked-screener
+    artifacts:
+      - data/backtest/sim-ranked/sim-ranked-results.json
+      - data/backtest/sim-ranked/sim-ranked-results.md
+    timeout_minutes: 120
+
+  - id: review
+    name: Qualitative Review
+    description: >
+      LLM reviews simulation-proven candidates for qualitative factors:
+      sector concentration vs current portfolio, earnings timing,
+      fundamental thesis, and practical considerations (liquidity,
+      borrow availability for hedging).
+    agent: sim-ranked-reviewer
+    depends_on:
+      - simulate
+    requires:
+      - data/backtest/sim-ranked/sim-ranked-results.json
+      - data/backtest/sim-ranked/sim-ranked-results.md
+    artifacts:
+      - data/backtest/sim-ranked/final-recommendations.md
+    timeout_minutes: 15
+
+settings:
+  max_fix_iterations: 0
+  require_approval: false
+  timeout_minutes: 150

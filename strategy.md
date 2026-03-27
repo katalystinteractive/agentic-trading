@@ -290,9 +290,17 @@ For tickers with no viable support levels but good daily oscillation (like AR):
 
 **Candidate evaluation:** Strategy-aware — `Onboard-DR` recommendation for daily range candidates (vs `Onboard` for support).
 
-### Simulation Gate (Phase 4 of Candidate Workflow)
+### Simulation-First Candidate Selection
 
-Before onboarding, every candidate runs through a 10-month historical backtest via `candidate_sim_gate.py`. Only candidates that pass ALL thresholds get recommended:
+**Critical finding (2026-03-27):** The 100-point scoring system (bullets, coverage, hold quality, touch frequency) has **zero correlation** with simulation P/L (Spearman ρ=-0.093, p=0.70). Top-5 overlap between screener and simulation: 1/5. UPST ranked #20 by screener but #4 by simulation.
+
+**New workflow** (`sim-ranked-candidate-workflow`):
+
+1. **Gate** — universe passers with tightened gates (swing >25%, vol >1M) → ~500 tickers
+2. **Select** — top 30 by tradability (swing × volume) — NOT by scoring
+3. **Simulate** — 10-month backtest on each individually (~3 min/ticker)
+4. **Gate** — P/L > $0, Win > 90%, Sharpe > 2, Conv > 40%, Zero catastrophic
+5. **Review** — LLM qualitative check on passers (sector overlap, earnings, thesis)
 
 | Metric | Threshold | Rationale |
 | :--- | :--- | :--- |
@@ -302,7 +310,7 @@ Before onboarding, every candidate runs through a 10-month historical backtest v
 | Conversion | > 40% | At least 40% of buys must complete a cycle |
 | Catastrophic Stops | 0 | Zero tolerance — even 1 wipes gains |
 
-This gate catches tickers like AR (31% conversion, zero support) and STIM-type catastrophic risk that NO pre-deployment metric can predict. The simulation is the only reliable predictor — tested against 23 tickers with ground truth performance data.
+The old scoring-based workflow (`surgical-candidate-workflow`) is retained for reference but the simulation-ranked workflow is the primary selection mechanism.
 
 ### Daily Fluctuation Bullets
 
