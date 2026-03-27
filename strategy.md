@@ -290,6 +290,20 @@ For tickers with no viable support levels but good daily oscillation (like AR):
 
 **Candidate evaluation:** Strategy-aware — `Onboard-DR` recommendation for daily range candidates (vs `Onboard` for support).
 
+### Simulation Gate (Phase 4 of Candidate Workflow)
+
+Before onboarding, every candidate runs through a 10-month historical backtest via `candidate_sim_gate.py`. Only candidates that pass ALL thresholds get recommended:
+
+| Metric | Threshold | Rationale |
+| :--- | :--- | :--- |
+| P/L | > $0 | Must be profitable over simulation period |
+| Win Rate | > 90% | Strategy baseline is 98.6% |
+| Sharpe Ratio | > 2.0 | Risk-adjusted return must be meaningful |
+| Conversion | > 40% | At least 40% of buys must complete a cycle |
+| Catastrophic Stops | 0 | Zero tolerance — even 1 wipes gains |
+
+This gate catches tickers like AR (31% conversion, zero support) and STIM-type catastrophic risk that NO pre-deployment metric can predict. The simulation is the only reliable predictor — tested against 23 tickers with ground truth performance data.
+
 ### Daily Fluctuation Bullets
 
 The daily analyzer shows a "Daily Dip Watchlist" — tickers eligible for manual intraday dip-buy plays.

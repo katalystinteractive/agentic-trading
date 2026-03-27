@@ -62,9 +62,25 @@ phases:
     artifacts:
       - candidate-pre-critic.md
       - candidate-final.md
-    timeout_minutes: 10
+    timeout_minutes: 20
+
+  - id: simulate
+    name: Simulation Gate
+    description: >
+      Run backtest simulation on each candidate ticker individually.
+      Only candidates with positive P/L, >90% win rate, Sharpe >2,
+      conversion >40%, and zero catastrophic stops pass the gate.
+    agent: candidate-sim-gate
+    depends_on:
+      - critic
+    requires:
+      - candidate-final.md
+    artifacts:
+      - data/backtest/candidate-gate/gate-results.json
+      - data/backtest/candidate-gate/gate-results.md
+    timeout_minutes: 30
 
 settings:
   max_fix_iterations: 1
   require_approval: false
-  timeout_minutes: 120
+  timeout_minutes: 150
