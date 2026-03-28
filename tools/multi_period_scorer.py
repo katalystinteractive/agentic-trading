@@ -25,14 +25,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 _ROOT = Path(__file__).resolve().parent.parent
 RESULTS_DIR = _ROOT / "data" / "backtest" / "multi-period"
 
-# Composite weights
-W_12MO = 0.20
-W_6MO = 0.30
-W_3MO = 0.30
-W_1MO = 0.20
-
 # Periods to simulate (months)
 PERIODS = [12, 6, 3, 1]
+
+# Significance threshold: minimum cycles for a period to be statistically meaningful
+SIGNIFICANCE_THRESHOLD = 5
 
 
 def _load_watchlist():
@@ -56,48 +53,79 @@ def _simulate_ticker(ticker, months):
 def compute_composite(results_by_period):
     """Compute composite $/month score from multi-period results.
 
+    Weights are determined by CYCLE COUNT (statistical significance), not fixed
+    percentages. A period with 30 cycles gets more weight than one with 2 cycles.
+    This is data-driven: more data = more confidence = more weight.
+
+    Formula:
+        weight_i = min(cycles_i, SIGNIFICANCE_THRESHOLD) / SIGNIFICANCE_THRESHOLD
+        composite = sum(weight_i * rate_i) / sum(weight_i)
+
+    Special handling:
+        - 1-month with zero cycles during Risk-Off: excluded (weight=0), not penalized
+        - 1-month with cycles during Risk-Off: BONUS weight (resilience signal)
+        - Minimum 1 period must have weight > 0
+
     Args:
         results_by_period: {12: result, 6: result, 3: result, 1: result}
 
     Returns:
         composite_score ($/month), details dict
     """
-    rates = {}
+    import numpy as np
+
+    # Step 1: compute monthly rate and cycle count per period
+    period_data = {}
     for months, result in results_by_period.items():
         pnl = result.get("pnl", 0)
-        rates[months] = pnl / months if months > 0 else pnl
+        cycles = result.get("cycles", 0)
+        rate = pnl / months if months > 0 else pnl  # $/month
+        period_data[months] = {"rate": rate, "cycles": cycles}
 
-    # Regime adjustment: if 1mo has zero cycles, use 3mo monthly rate
-    r1 = rates.get(1, 0)
-    r3 = rates.get(3, 0)
-    cycles_1mo = results_by_period.get(1, {}).get("cycles", 0)
+    # Step 2: compute significance-based weight per period
+    # weight = min(cycles, threshold) / threshold → 0.0 to 1.0
+    weights = {}
+    for months, pd in period_data.items():
+        sig = min(pd["cycles"], SIGNIFICANCE_THRESHOLD) / SIGNIFICANCE_THRESHOLD
+        weights[months] = sig
+
+    # Step 3: handle 1-month regime adjustment
+    cycles_1mo = period_data.get(1, {}).get("cycles", 0)
+    rate_1mo = period_data.get(1, {}).get("rate", 0)
     regime_adjusted = False
-    if r1 == 0 and cycles_1mo == 0 and r3 > 0:
-        r1 = r3 / 3
+
+    if cycles_1mo == 0:
+        # Zero cycles in 1 month — likely Risk-Off stall
+        # Don't penalize: set weight to 0 (exclude from composite)
+        weights[1] = 0
         regime_adjusted = True
+    elif cycles_1mo >= 3:
+        # Cycled 3+ times during a single month — resilience bonus
+        # Boost weight to 1.0 regardless of threshold
+        weights[1] = 1.0
 
-    composite = (
-        W_12MO * rates.get(12, 0) / 10 * 10 +   # normalize: 12mo P/L / 10 = monthly rate
-        W_6MO * rates.get(6, 0) +
-        W_3MO * rates.get(3, 0) +
-        W_1MO * r1
-    )
+    # Step 4: compute weighted composite
+    total_weight = sum(weights.values())
+    if total_weight == 0:
+        total_weight = 1  # safety: at least 1 period
 
-    # Correct: rates are already $/month for 6mo, 3mo, 1mo
-    # But 12mo P/L is total, so rate = P/L / 10
-    r12 = rates.get(12, 0)
-    r6 = rates.get(6, 0)
+    composite = sum(
+        weights[m] * period_data[m]["rate"]
+        for m in period_data
+    ) / total_weight
 
-    composite = W_12MO * r12 + W_6MO * r6 + W_3MO * (r3 / 3) + W_1MO * r1
+    # Step 5: build details
+    details = {}
+    for months in sorted(period_data.keys()):
+        pd = period_data[months]
+        details[f"r{months}"] = round(pd["rate"], 1)
+        details[f"w{months}"] = round(weights[months], 2)
+        details[f"c{months}"] = pd["cycles"]
 
-    return round(composite, 1), {
-        "r12": round(r12, 1),
-        "r6": round(r6, 1),
-        "r3": round(r3 / 3, 1),
-        "r1": round(r1, 1),
-        "regime_adjusted": regime_adjusted,
-        "cycles_1mo": cycles_1mo,
-    }
+    details["regime_adjusted"] = regime_adjusted
+    details["total_weight"] = round(total_weight, 2)
+
+    return round(composite, 1), details
 
 
 def allocate_capital(composites, total_budget):
@@ -140,7 +168,7 @@ def main():
 
     print(f"## Multi-Period Composite Scorer\n")
     print(f"*{len(tickers)} tickers | Periods: 12mo, 6mo, 3mo, 1mo*")
-    print(f"*Weights: 12mo={W_12MO:.0%}, 6mo={W_6MO:.0%}, 3mo={W_3MO:.0%}, 1mo={W_1MO:.0%}*")
+    print(f"*Weights: per-ticker, based on cycle count (significance threshold: {SIGNIFICANCE_THRESHOLD} cycles)*")
     print(f"*Total budget: ${total_budget:,.0f} | Proportional allocation*\n")
 
     # Run simulations for all periods
@@ -172,15 +200,20 @@ def main():
 
     # Output
     print("## Composite Rankings & Capital Allocation\n")
-    print("| # | Ticker | 12mo$/mo | 6mo$/mo | 3mo$/mo | 1mo$/mo | Composite | Pool | Active | Reserve |")
+    print("*Weights are per-ticker based on cycle count (statistical significance)*")
+    print(f"*Significance threshold: {SIGNIFICANCE_THRESHOLD} cycles = full weight*\n")
+    print("| # | Ticker | 12mo (w) | 6mo (w) | 3mo (w) | 1mo (w) | Composite | Pool | Active | Reserve |")
     print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     for i, (tk, comp) in enumerate(ranked, 1):
         d = details[tk]
         a = alloc[tk]
-        adj = " (adj)" if d["regime_adjusted"] else ""
-        print(f"| {i} | **{tk}** | ${d['r12']} | ${d['r6']} | ${d['r3']} | "
-              f"${d['r1']}{adj} | **${comp}** | ${a['total_pool']} | "
-              f"${a['active_pool']} | ${a['reserve_pool']} |")
+        adj = "*" if d.get("regime_adjusted") else ""
+        r12 = f"${d.get('r12',0)} ({d.get('w12',0):.0%})"
+        r6 = f"${d.get('r6',0)} ({d.get('w6',0):.0%})"
+        r3 = f"${d.get('r3',0)} ({d.get('w3',0):.0%})"
+        r1 = f"${d.get('r1',0)}{adj} ({d.get('w1',0):.0%})"
+        print(f"| {i} | **{tk}** | {r12} | {r6} | {r3} | {r1} | **${comp}** | "
+              f"${a['total_pool']} | ${a['active_pool']} | ${a['reserve_pool']} |")
 
     print(f"\n*Total allocated: ${sum(a['total_pool'] for a in alloc.values()):,}*")
 
