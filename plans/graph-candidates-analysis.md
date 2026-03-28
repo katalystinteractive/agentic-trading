@@ -198,27 +198,55 @@ The simulation ranking stays authoritative. The graph doesn't re-rank — it ann
 
 ---
 
-## 5. Honest Assessment
+## 5. Honest Assessment (Post-Verification)
 
-| Gap | Real Problem? | Graph Solves It? | Data Exists? | Effort |
+The initial analysis claimed 6 gaps were "real and graph-addressable." Verification against the actual code found:
+
+| Gap | Real? | Already Covered? | Would Change Outcomes? | Verified Verdict |
 | :--- | :--- | :--- | :--- | :--- |
-| 1. Regime resilience | YES | YES — needs backtest engine output change | Partially (regime computed but P/L not broken out) | MEDIUM |
-| 2. Capital availability | YES | YES — pure computation on existing data | YES | LOW |
-| 3. Wick viability | YES | YES — checks support level quality | Partially (screening_data.json) | MEDIUM |
-| 4. Cycle confidence | YES | YES — threshold on existing metric | YES (simulation output has cycle count) | LOW |
-| 5. Earnings clearance | YES | YES — extends existing earnings gate | YES | LOW |
-| 6. Sizing viability | YES | YES — arithmetic on price/pool | YES | LOW |
-| 7. Active sector overlap | MARGINAL | MARGINAL | YES | LOW |
-| 8. Correlation | ALREADY DONE | N/A | N/A | N/A |
-| 9. Seasonal P/L | SPECULATIVE | SPECULATIVE | NO (monthly breakdown doesn't exist) | HIGH |
-| 10. Microstructure | SPECULATIVE | NO (data problem, not graph problem) | NO | HIGH |
+| 1. Regime resilience | YES — data exists in backtest but not aggregated | NO | **LOW** — descriptive context, user would still onboard proven P/L | REAL but low practical impact |
+| 2. Capital availability | YES — not checked in workflow | NO | **VERY LOW** — user already knows capital constraints manually | REAL but moot — UX improvement only |
+| 3. Wick viability | YES for sim-ranked | PARTIAL — `surgical_filter.py` gates 2-4 check this, but NOT applied to sim-ranked workflow | **HIGH** — prevents wasted onboarding of undeployable candidates | **REAL + HIGH VALUE** |
+| 4. Cycle confidence | YES — cycle count in output | YES — `surgical_filter.py` Gate 6 has KPI_MIN_CYCLES=5, but NOT applied to sim-ranked | **LOW** — Win>90% + Sharpe>2 already filters noise harder than cycle count | REAL but redundant with existing gates |
+| 5. Earnings clearance | YES — no cycle-vs-earnings comparison | NO | **LOW** — limit orders don't fill immediately, so blackout timing is irrelevant for patience-based strategy | REAL but edge case |
+| 6. Sizing viability | YES — sim-ranked doesn't check | NO | **MEDIUM** — caught downstream by bullet_recommender, but real constraint for high-price stocks | REAL but caught at next step |
+| 7. Active sector overlap | MARGINAL | PARTIAL | MARGINAL | Not worth building |
+| 8. Correlation | N/A | YES — in post_sim_validator | N/A | Already done |
+| 9. Seasonal P/L | SPECULATIVE | NO | NO data exists | Not worth building |
+| 10. Microstructure | SPECULATIVE | NO | NO data exists | Not worth building |
 
-**Bottom line**: Gaps 2, 4, 5, 6 are **quick wins** — LOW effort, data already exists, graph just computes and annotates. Gap 1 (regime resilience) and Gap 3 (wick viability) are **medium effort** but high value. Gaps 9-10 are not worth pursuing now.
+### Key Finding
+
+**Only 1 gap would genuinely change evaluation outcomes: Gap 3 (Wick Viability).**
+
+A candidate can pass simulation with $1,200 P/L but have zero usable support levels because:
+- Support levels eroded (decayed hold rate below threshold)
+- No levels in the active zone at current price
+- Too few levels for the bullet strategy (need 3+ active)
+
+The sim-ranked workflow runs backtests on historical data where levels existed. It doesn't check if those levels still exist TODAY. The surgical-candidate-workflow DOES check this (via `surgical_filter.py` gates 2-4), but the sim-ranked workflow bypasses those gates entirely.
+
+**This is a real deployability blocker** — you'd onboard a candidate, run bullet_recommender, and get "No eligible support levels" or "1 level with 18% hold rate." Wasted time and effort.
+
+### What About the Other 5?
+
+- **Regime resilience**: Nice context ("earned P/L mostly in Risk-On") but wouldn't change onboarding decision when simulation proves profitability
+- **Capital availability**: User knows their capital. Adding a number to the report doesn't change behavior
+- **Cycle confidence**: A candidate with 2 cycles but Win>90% and Sharpe>2 is more statistically filtered than one with 25 cycles at 60% win rate. The existing gates are harder
+- **Earnings clearance**: With limit orders at wick-adjusted prices, fills happen when price dips to the level, not on a schedule. Earnings proximity doesn't matter if the order hasn't filled yet
+- **Sizing viability**: A $150 stock failing bullet_recommender is caught at the next step, not at screening. And the simulation already proved P/L at that price — the question is whether YOUR pool can replicate it, which is a manual capital decision
 
 ---
 
-## 6. Conclusion
+## 6. Revised Conclusion
 
-The candidate workflow CAN benefit from the graph, but not by replacing evaluation — by **contextualizing simulation results** with operational reality checks. The 6 real gaps represent the difference between "this candidate was profitable in a backtest" and "this candidate is deployable in today's market with our capital, our levels, and our risk window."
+The candidate workflow has **one genuine gap that the graph can fill**: wick viability for sim-ranked candidates.
 
-The graph is the right tool because these checks involve multiple data dependencies (portfolio state, earnings dates, regime, wick analysis, pool sizing) that the graph already knows how to wire and reason about.
+The fix is simpler than a full graph integration:
+- Run `surgical_filter.py` gates 2-4 (active levels ≥ 3, anchor level ≥ 50% hold, dead zone < 30%) on sim-ranked passers
+- This is ~20 lines of code in `post_sim_validator.py` or a new Phase 2.5 step
+- No graph node needed — just apply the existing surgical_filter gates to sim-ranked results
+
+**The graph is NOT the right tool for this.** The surgical_filter gates already exist as Python functions. Wrapping them in graph nodes adds complexity without adding capability. The right fix is: call the existing functions on the sim-ranked passers.
+
+The other 5 gaps are either already handled by harder gates, caught at the next step, or provide context that doesn't change decisions. Building graph nodes for them would be the same mistake as the 8 upgrade proposals — architecturally elegant, practically useless.
