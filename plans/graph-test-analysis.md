@@ -172,7 +172,7 @@ Graph construction — correct node types, correct edges, correct reason_fns.
 | C3 | No verdict for watchlist-only | AR (shares=0) | AR:verdict exists but returns REVIEW (no price context) | Watchlist doesn't get false verdicts |
 | C4 | Entry gate per pending order | AR has 2 BUY orders | AR:order_0:entry_gate and AR:order_1:entry_gate exist | Per-order gates created |
 | C5 | Sell target pool-independent | Check CLSK:sell_target depends_on | Contains avg_cost, does NOT contain pool | Analysis Section 10.3 |
-| C6 | Verdict calls compute_verdict | CLSK with Bearish momentum | Verdict = ("MONITOR", "R16", "...") | Wraps existing function correctly |
+| C6 | Verdict calls compute_verdict | CLSK with Bearish momentum, P/L -3.7%, 5d held, CLEAR earnings, Neutral regime | Verdict[0] = "MONITOR", Verdict[1] = "R16" | Wraps existing function correctly |
 | C7 | Catastrophic threshold | IONQ at -38.1% | catastrophic = "HARD_STOP" | Correct severity |
 | C8 | Momentum classification | CLSK RSI 35, MACD below | momentum = "Bearish" | Wraps classify_momentum correctly |
 | C9 | Missing price → REVIEW | CLSK price=None | verdict = ("REVIEW", "?", "No price data") | Graceful degradation |
@@ -316,7 +316,7 @@ tests/test_graph.py
 ├── TestDesignConstraints (H1-H3)      — architectural properties
 ```
 
-**Total: ~83 test cases across 8 test classes.**
+**Total: ~93 test cases across 8 test classes.**
 
 ---
 
