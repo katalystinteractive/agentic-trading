@@ -20,7 +20,7 @@ import re
 import argparse
 import subprocess
 from pathlib import Path
-from datetime import date
+from datetime import date, datetime
 
 _ROOT = Path(__file__).resolve().parent.parent
 TOOLS_DIR = Path(__file__).resolve().parent
@@ -31,6 +31,7 @@ CANDIDATES_JSON_PATH = _ROOT / "data" / "candidates.json"
 UNIVERSE_CACHE_PATH = _ROOT / "data" / "universe_screen_cache.json"
 REMOVAL_SCORE_THRESHOLD = 50
 CANDIDATE_SCORE_THRESHOLD = 80
+GRAPH_STATE_PATH = _ROOT / "data" / "graph_state.json"
 
 sys.path.insert(0, str(TOOLS_DIR))
 from portfolio_manager import _load, cmd_fill, cmd_sell, parse_bullets_used
@@ -167,7 +168,7 @@ def print_position_verdicts(live_prices, regime, vix, vix_5d_pct):
     positions = data.get("positions", {})
     active = {tk: p for tk, p in positions.items() if p.get("shares", 0) > 0}
     if not active:
-        return
+        return {}
 
     # Batch fetch technical data
     tech = _fetch_technical_data(list(active.keys()))
@@ -176,11 +177,15 @@ def print_position_verdicts(live_prices, regime, vix, vix_5d_pct):
     print("| Ticker | P/L% | Time | Earnings | Momentum | Verdict | Rule |")
     print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
+    verdicts_data = {}
     for tk in sorted(active.keys()):
         pos = active[tk]
         price = live_prices.get(tk)
         if not price:
             print(f"| {tk} | ? | ? | ? | ? | REVIEW | No price data |")
+            verdicts_data[tk] = {"verdict": "REVIEW", "rule": "No price data",
+                                 "pl_pct": 0, "time_status": "?",
+                                 "earnings_gate": "?", "momentum": "?"}
             continue
 
         avg_cost = pos.get("avg_cost", 0)
@@ -207,12 +212,18 @@ def print_position_verdicts(live_prices, regime, vix, vix_5d_pct):
             avg_cost, price, pos.get("entry_date", ""), pos.get("note", ""),
             eg_status, momentum, regime)
 
+        verdicts_data[tk] = {"verdict": verdict, "rule": rule, "pl_pct": pl_pct,
+                             "time_status": time_status, "earnings_gate": eg_status,
+                             "momentum": momentum}
+
         # Format
         pl_str = f"{pl_pct:+.1f}%"
         time_str = f"{day_str} {time_status}" if not is_pre else f"pre {time_status}"
         v_style = f"**{verdict}**" if verdict in ("EXIT", "REDUCE", "REVIEW") else verdict
 
         print(f"| {tk} | {pl_str} | {time_str} | {eg_status} | {momentum} | {v_style} | {rule} |")
+
+    return verdicts_data
 
 
 def print_entry_gates(regime, vix, vix_5d_pct, live_prices):
@@ -261,14 +272,19 @@ def print_entry_gates(regime, vix, vix_5d_pct, live_prices):
             has_orders = True
 
     if not has_orders:
-        return
+        return {}
 
     print("\n## Entry Gates\n")
     print("| Ticker | Order | Price | Market | Earnings | Combined |")
     print("| :--- | :--- | :--- | :--- | :--- | :--- |")
+    gates_data = {}
     for tk, label, price, mg, eg, cg in rows:
         cg_style = f"**{cg}**" if cg in ("PAUSE", "REVIEW") else cg
         print(f"| {tk} | {label} | ${price:.2f} | {mg} | {eg} | {cg_style} |")
+        key = f"{tk}:{label}:{price:.2f}"
+        gates_data[key] = {"market": mg, "earnings": eg, "combined": cg}
+
+    return gates_data
 
 
 def print_sell_projections():
@@ -343,8 +359,11 @@ def print_catastrophic_alerts(prices):
                 severity = "WARNING"
             alerts.append((ticker, avg, price, drawdown, severity))
 
+    alerts_dict = {t: {"avg_cost": a, "price": p, "drawdown": d, "severity": s}
+                   for t, a, p, d, s in alerts}
+
     if not alerts:
-        return set()
+        return set(), {}
 
     print("\n## Catastrophic Drawdown Alerts")
     print("| Ticker | Avg Cost | Price | Drawdown | Severity | Action |")
@@ -357,7 +376,8 @@ def print_catastrophic_alerts(prices):
         }[sev]
         print(f"| **{ticker}** | ${avg:.2f} | ${price:.2f} | {dd:.1f}% | **{sev}** | {action} |")
 
-    return {t for t, _, _, _, s in alerts if s in ("HARD STOP", "EXIT REVIEW")}
+    paused = {t for t, _, _, _, s in alerts if s in ("HARD STOP", "EXIT REVIEW")}
+    return paused, alerts_dict
 
 
 def print_position_age_monitor(prices, regime="Neutral"):
@@ -386,12 +406,15 @@ def print_position_age_monitor(prices, regime="Neutral"):
             note = "Plan exit strategy"
         rows.append((ticker, display, status, avg, pnl, note))
 
+    age_data = {tk: {"days": d, "status": s, "avg_cost": a, "pnl_pct": p}
+                for tk, d, s, a, p, _ in rows}
+
     if not rows:
-        return
+        return age_data
 
     flagged = [r for r in rows if r[2] in ("EXCEEDED", "APPROACHING")]
     if not flagged and regime != "Risk-Off":
-        return
+        return age_data
 
     print("\n## Position Age Monitor")
     if regime == "Risk-Off":
@@ -401,6 +424,8 @@ def print_position_age_monitor(prices, regime="Neutral"):
     for ticker, display, status, avg, pnl, note in rows:
         marker = "**" if status in ("EXCEEDED", "APPROACHING") else ""
         print(f"| {marker}{ticker}{marker} | {display}d | {marker}{status}{marker} | ${avg:.2f} | {pnl:+.1f}% | {note} |")
+
+    return age_data
 
 
 def print_exit_strategy_summary():
@@ -1223,34 +1248,296 @@ def _persist_candidates(tickers):
 
 
 # ---------------------------------------------------------------------------
-# Part 7 — Broker Reconciliation
+# Part 7 — Broker Reconciliation (direct import for structured data)
 # ---------------------------------------------------------------------------
 
-def run_broker_reconciliation():
-    """Run broker_reconciliation.py for Part 7."""
+def run_broker_reconciliation_direct():
+    """Run broker reconciliation in-process, returning structured recon data."""
+    try:
+        from broker_reconciliation import (
+            reconcile_ticker, _load_portfolio, _load_profiles,
+            _load_trade_history_buys, _get_bullet_ctx,
+            format_ticker_report, format_action_summary
+        )
+        from wick_offset_analyzer import load_capital_config
+    except ImportError as e:
+        print("## Part 7 — Broker Reconciliation\n")
+        print(f"*Error importing broker_reconciliation: {e}*\n")
+        return []
+
+    try:
+        portfolio = _load_portfolio()
+        profiles = _load_profiles()
+        trade_buys = _load_trade_history_buys()
+    except Exception as e:
+        print("## Part 7 — Broker Reconciliation\n")
+        print(f"*Error loading data: {e}*\n")
+        return []
+
+    positions = portfolio.get("positions", {})
+    pending = portfolio.get("pending_orders", {})
+    ticker_set = set()
+    for tk, pos in positions.items():
+        if pos.get("shares", 0) > 0:
+            ticker_set.add(tk)
+    for tk, orders in pending.items():
+        if any(_is_active_buy(o) for o in orders):
+            ticker_set.add(tk)
+    tickers = sorted(ticker_set)
+
+    if not tickers:
+        print("*No active positions or placed BUY orders to reconcile.*")
+        return []
+
+    print(f"## Part 7 — Broker Reconciliation ({len(tickers)} tickers)\n")
+
+    all_recons = []
+    for tk in tickers:
+        pos = positions.get(tk)
+        orders = pending.get(tk, [])
+        try:
+            cap = load_capital_config(tk)
+            bullet_ctx = _get_bullet_ctx(tk, portfolio, cap)
+        except Exception:
+            bullet_ctx = None
+        recon = reconcile_ticker(tk, pos, orders, bullet_ctx,
+                                 trade_buys.get(tk, []), profiles)
+        all_recons.append(recon)
+        print(format_ticker_report(recon))
+
+    print(format_action_summary(all_recons))
+    return all_recons
+
+
+def _run_broker_reconciliation_subprocess():
+    """Fallback: run broker_reconciliation.py as subprocess (no structured data)."""
     try:
         result = subprocess.run(
             [sys.executable, str(TOOLS_DIR / "broker_reconciliation.py")],
             capture_output=True, text=True, timeout=300,
         )
         if result.returncode != 0:
-            print("## Part 7 — Broker Reconciliation")
-            print()
+            print("## Part 7 — Broker Reconciliation\n")
             print(f"*Error: broker_reconciliation.py failed: {result.stderr.strip() or 'unknown'}*")
             return
     except subprocess.TimeoutExpired:
-        print("## Part 7 — Broker Reconciliation")
-        print()
+        print("## Part 7 — Broker Reconciliation\n")
         print("*Error: broker_reconciliation.py timed out (300s)*")
         return
     except Exception as e:
-        print("## Part 7 — Broker Reconciliation")
-        print()
+        print("## Part 7 — Broker Reconciliation\n")
         print(f"*Error: {e}*")
         return
-
     if result.stdout.strip():
         print(result.stdout.strip())
+        print()
+
+
+# ---------------------------------------------------------------------------
+# Graph State — build, persist, diff, dashboard
+# ---------------------------------------------------------------------------
+
+def _build_graph_state(regime, vix, vix_5d_pct, alerts_data, verdicts_data,
+                       gates_data, age_data, pools_data, all_recons):
+    """Assemble current run's decision state for persistence and diffing."""
+    return {
+        "run_date": date.today().isoformat(),
+        "run_ts": datetime.now().isoformat(timespec="seconds"),
+        "regime": {"label": regime, "vix": vix, "vix_5d_pct": vix_5d_pct},
+        "catastrophic": alerts_data or {},
+        "verdicts": verdicts_data or {},
+        "gates": gates_data or {},
+        "age": age_data or {},
+        "pools": pools_data or {},
+        "recon_actions": [
+            {"side": a["side"], "ticker": a["ticker"], "action": a["action"],
+             "broker_price": a.get("broker_price", 0),
+             "broker_shares": a.get("broker_shares", 0),
+             "rec_price": a.get("rec_price", 0),
+             "rec_shares": a.get("rec_shares", 0),
+             "reason": a["reason"], "display": a.get("display", "")}
+            for r in (all_recons or []) for a in r.get("actions", [])
+            if isinstance(a, dict)
+        ],
+    }
+
+
+def _load_prev_state():
+    """Load previous graph state for diffing. Returns {} on first run."""
+    if not GRAPH_STATE_PATH.exists():
+        return {}
+    try:
+        with open(GRAPH_STATE_PATH) as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+
+def _write_graph_state(state):
+    """Persist current graph state for next run's diff."""
+    try:
+        with open(GRAPH_STATE_PATH, "w") as f:
+            json.dump(state, f, indent=2, default=str)
+    except OSError:
+        pass
+
+
+def _compute_state_diff(prev, curr):
+    """Compare previous and current graph state. Returns list of change dicts.
+
+    Each change: {field, ticker, prev_value, curr_value, reason}
+    All reasons are computed from the data — no LLM generation.
+    """
+    changes = []
+
+    # Regime change
+    prev_regime = prev.get("regime", {}).get("label")
+    curr_regime = curr.get("regime", {}).get("label")
+    if prev_regime and curr_regime and prev_regime != curr_regime:
+        prev_vix = prev.get("regime", {}).get("vix")
+        curr_vix = curr.get("regime", {}).get("vix")
+        vix_str = ""
+        if prev_vix and curr_vix:
+            vix_str = f" (VIX {prev_vix:.1f} → {curr_vix:.1f})"
+        changes.append({"field": "Regime", "ticker": "---",
+                        "prev_value": prev_regime, "curr_value": curr_regime,
+                        "reason": f"Regime shifted{vix_str}"})
+
+    # Verdict flips
+    prev_v = prev.get("verdicts", {})
+    curr_v = curr.get("verdicts", {})
+    for tk, cv in curr_v.items():
+        pv = prev_v.get(tk, {})
+        if pv.get("verdict") and pv["verdict"] != cv.get("verdict"):
+            changes.append({"field": "Verdict", "ticker": tk,
+                            "prev_value": pv["verdict"], "curr_value": cv["verdict"],
+                            "reason": f"{cv.get('rule', '?')}: P/L {cv.get('pl_pct', 0):+.1f}%"})
+
+    # Gate changes
+    prev_g = prev.get("gates", {})
+    curr_g = curr.get("gates", {})
+    for key, cg in curr_g.items():
+        pg = prev_g.get(key, {})
+        if pg.get("combined") and pg["combined"] != cg.get("combined"):
+            tk = key.split(":")[0]
+            changes.append({"field": "Gate", "ticker": tk,
+                            "prev_value": pg["combined"], "curr_value": cg["combined"],
+                            "reason": f"Order {key}"})
+
+    # New catastrophic alerts
+    prev_c = prev.get("catastrophic", {})
+    curr_c = curr.get("catastrophic", {})
+    for tk, cc in curr_c.items():
+        if tk not in prev_c:
+            changes.append({"field": "Alert", "ticker": tk,
+                            "prev_value": "---", "curr_value": cc.get("severity", "?"),
+                            "reason": f"Drawdown {cc.get('drawdown', 0):.1f}%"})
+
+    # Resolved alerts
+    for tk in prev_c:
+        if tk not in curr_c:
+            changes.append({"field": "Alert", "ticker": tk,
+                            "prev_value": prev_c[tk].get("severity", "?"),
+                            "curr_value": "Resolved",
+                            "reason": "No longer below threshold"})
+
+    return changes
+
+
+def print_action_dashboard(recon_actions, alerts_data, changes, verdicts_data):
+    """Print prioritized action dashboard at top of report.
+
+    Every item and reason is Python-computed. No LLM generation.
+    """
+    urgent = []
+    place = []
+    adjust = []
+    cancel = []
+    review = []
+
+    # Categorize catastrophic alerts
+    for tk, data in (alerts_data or {}).items():
+        sev = data.get("severity", "")
+        if sev in ("HARD STOP", "EXIT REVIEW"):
+            action_str = ("Pause all pending BUYs" if sev == "HARD STOP"
+                          else "Recommend exit regardless of time stop")
+            urgent.append((tk, sev, f"{data['drawdown']:.1f}%", action_str))
+
+    # Categorize recon actions
+    for a in (recon_actions or []):
+        action = a.get("action", "")
+        if action == "PLACE":
+            place.append(a)
+        elif "ADJUST" in action:
+            adjust.append(a)
+        elif "CANCEL" in action:
+            cancel.append(a)
+
+    # Verdicts needing human decision
+    for tk, vd in (verdicts_data or {}).items():
+        if vd.get("verdict") == "REVIEW":
+            review.append((tk, vd.get("rule", "?"),
+                           f"P/L {vd.get('pl_pct', 0):+.1f}%, {vd.get('time_status', '?')}, "
+                           f"earnings {vd.get('earnings_gate', '?')}"))
+
+    has_content = urgent or place or adjust or cancel or changes or review
+
+    print("\n## ACTION DASHBOARD\n")
+
+    if not has_content:
+        print("*All clear — no actions needed.*\n")
+        return
+
+    if urgent:
+        print("### URGENT\n")
+        print("| Ticker | Severity | Drawdown | Action |")
+        print("| :--- | :--- | :--- | :--- |")
+        for tk, sev, dd, act in urgent:
+            print(f"| **{tk}** | **{sev}** | {dd} | {act} |")
+        print()
+
+    if place:
+        print("### PLACE These Orders\n")
+        print("| Side | Ticker | Price | Shares | Reason |")
+        print("| :--- | :--- | :--- | :--- | :--- |")
+        for a in place:
+            print(f"| {a['side']} | {a['ticker']} | ${a['rec_price']:.2f} | "
+                  f"{a['rec_shares']} | {a['reason']} |")
+        print()
+
+    if adjust:
+        print("### ADJUST These Orders\n")
+        print("| Side | Ticker | Current | Recommended | Reason |")
+        print("| :--- | :--- | :--- | :--- | :--- |")
+        for a in adjust:
+            curr = f"${a['broker_price']:.2f}/{a['broker_shares']}sh"
+            rec = f"${a['rec_price']:.2f}/{a['rec_shares']}sh"
+            print(f"| {a['side']} | {a['ticker']} | {curr} | {rec} | {a['reason']} |")
+        print()
+
+    if cancel:
+        print("### CANCEL These Orders\n")
+        print("| Side | Ticker | Price | Reason |")
+        print("| :--- | :--- | :--- | :--- |")
+        for a in cancel:
+            print(f"| {a['side']} | {a['ticker']} | ${a['broker_price']:.2f} | {a['reason']} |")
+        print()
+
+    if changes:
+        print("### CHANGED Since Last Run\n")
+        print("| Ticker | What | Previous | Current | Reason |")
+        print("| :--- | :--- | :--- | :--- | :--- |")
+        for c in changes:
+            print(f"| {c['ticker']} | {c['field']} | {c['prev_value']} | "
+                  f"{c['curr_value']} | {c['reason']} |")
+        print()
+
+    if review:
+        print("### REVIEW (Human Decision Needed)\n")
+        print("| Ticker | Rule | Situation |")
+        print("| :--- | :--- | :--- |")
+        for tk, rule, situation in review:
+            print(f"| {tk} | {rule} | {situation} |")
         print()
 
 
@@ -1300,84 +1587,130 @@ def main():
     sells, sell_parse_err = parse_specs(args.sells)
     parse_errors = fill_parse_err + sell_parse_err
 
+    # Load previous graph state for diffing
+    prev_state = _load_prev_state()
+
     # Part 0: Market Regime (returns regime, vix, vix_5d_pct for downstream gates)
     regime, vix, vix_5d_pct = print_market_regime()
 
-    # Part 1: Process transactions
+    # Part 1: Process transactions (prints directly — before buffering)
     if fills or sells or parse_errors:
         print("## Part 1 — Processing Transactions")
         print()
         process_transactions(fills, sells, parse_errors)
 
-    # Part 2: Consolidated orders
-    print_consolidated_orders()
-    print_tier_summary()
+    # --- Buffered data-collection phase ---
+    # All monitoring sections print to buffer while we capture return values.
+    # Dashboard prints first, then buffer flushes.
+    import io
+    detail_buf = io.StringIO()
+    _real_stdout = sys.stdout
+    sys.stdout = detail_buf
 
-    # Fetch live prices once for monitoring sections
-    data = _load()
-    active_tickers = [t for t, p in data.get("positions", {}).items() if p.get("shares", 0) > 0]
-    live_prices = _fetch_position_prices(active_tickers)
-
-    # Position Age Monitor
-    print_position_age_monitor(live_prices, regime=regime)
-
-    # Pool Allocation (if simulation-backed allocations exist)
     try:
-        from shared_utils import get_ticker_pool, _MULTI_PERIOD_PATH
-        if _MULTI_PERIOD_PATH.exists():
-            all_tickers = sorted(set(
-                list(data.get("positions", {}).keys()) +
-                list(data.get("pending_orders", {}).keys())
-            ))
-            all_pools = {tk: get_ticker_pool(tk) for tk in all_tickers}
-            pools = {tk: p for tk, p in all_pools.items()
-                     if p["source"] == "multi-period-scorer"}
-            if pools:
-                print("\n## Pool Allocations (simulation-backed)\n")
-                print("| Ticker | Composite | Active | Reserve | Total | Source |")
-                print("| :--- | :--- | :--- | :--- | :--- | :--- |")
-                for tk in sorted(pools.keys(), key=lambda t: pools[t].get("composite") or 0, reverse=True):
-                    p = pools[tk]
-                    comp = f"${p['composite']:.1f}/mo" if p.get("composite") is not None else "—"
-                    print(f"| {tk} | {comp} | ${p['active_pool']} | ${p['reserve_pool']} | ${p['total_pool']} | {p['source']} |")
-                default_tickers = [tk for tk in all_tickers if tk not in pools]
-                if default_tickers:
-                    print(f"\n*{len(default_tickers)} tickers using default $300/$300: {', '.join(default_tickers)}*")
-    except Exception:
-        pass
+        # Part 2: Consolidated orders
+        print_consolidated_orders()
+        print_tier_summary()
 
-    # Catastrophic Drawdown Alerts
-    paused_tickers = print_catastrophic_alerts(live_prices)
+        # Fetch live prices once for monitoring sections
+        data = _load()
+        active_tickers = [t for t, p in data.get("positions", {}).items()
+                          if p.get("shares", 0) > 0]
+        live_prices = _fetch_position_prices(active_tickers)
 
-    # Position Verdicts (deterministic — replaces LLM verdict logic)
-    try:
-        print_position_verdicts(live_prices, regime, vix, vix_5d_pct)
-    except Exception as e:
-        print(f"\n*Position verdicts unavailable: {e}*\n")
+        # Position Age Monitor
+        age_data = print_position_age_monitor(live_prices, regime=regime)
+        if age_data is None:
+            age_data = {}
 
-    # Entry Gates (deterministic — combined market + earnings per order)
-    try:
-        print_entry_gates(regime, vix, vix_5d_pct, live_prices)
-    except Exception as e:
-        print(f"\n*Entry gates unavailable: {e}*\n")
+        # Pool Allocations
+        pools_data = {}
+        try:
+            from shared_utils import get_ticker_pool, _MULTI_PERIOD_PATH
+            if _MULTI_PERIOD_PATH.exists():
+                all_tickers = sorted(set(
+                    list(data.get("positions", {}).keys()) +
+                    list(data.get("pending_orders", {}).keys())
+                ))
+                all_pools = {tk: get_ticker_pool(tk) for tk in all_tickers}
+                pools = {tk: p for tk, p in all_pools.items()
+                         if p["source"] == "multi-period-scorer"}
+                pools_data = {tk: {"active": p["active_pool"], "reserve": p["reserve_pool"],
+                                   "total": p["total_pool"], "source": p["source"]}
+                              for tk, p in pools.items()}
+                if pools:
+                    print("\n## Pool Allocations (simulation-backed)\n")
+                    print("| Ticker | Composite | Active | Reserve | Total | Source |")
+                    print("| :--- | :--- | :--- | :--- | :--- | :--- |")
+                    for tk in sorted(pools.keys(), key=lambda t: pools[t].get("composite") or 0, reverse=True):
+                        p = pools[tk]
+                        comp = f"${p['composite']:.1f}/mo" if p.get("composite") is not None else "—"
+                        print(f"| {tk} | {comp} | ${p['active_pool']} | ${p['reserve_pool']} | ${p['total_pool']} | {p['source']} |")
+                    default_tickers = [tk for tk in all_tickers if tk not in pools]
+                    if default_tickers:
+                        print(f"\n*{len(default_tickers)} tickers using default $300/$300: {', '.join(default_tickers)}*")
+        except Exception:
+            pass
 
-    # Sell Projections (what-if scenarios for pending fills)
-    try:
-        print_sell_projections()
-    except Exception as e:
-        print(f"\n*Sell projections unavailable: {e}*\n")
+        # Catastrophic Drawdown Alerts
+        paused_tickers, alerts_data = print_catastrophic_alerts(live_prices)
 
-    # Exit Strategy Summary
-    print_exit_strategy_summary()
+        # Position Verdicts
+        verdicts_data = {}
+        try:
+            verdicts_data = print_position_verdicts(live_prices, regime, vix, vix_5d_pct) or {}
+        except Exception as e:
+            print(f"\n*Position verdicts unavailable: {e}*\n")
 
-    # Unfilled Same-Day Exits
-    print_unfilled_same_day_exits()
+        # Entry Gates
+        gates_data = {}
+        try:
+            gates_data = print_entry_gates(regime, vix, vix_5d_pct, live_prices) or {}
+        except Exception as e:
+            print(f"\n*Entry gates unavailable: {e}*\n")
 
-    # PDT Status
-    print_pdt_status()
+        # Sell Projections
+        try:
+            print_sell_projections()
+        except Exception as e:
+            print(f"\n*Sell projections unavailable: {e}*\n")
 
-    # Daily Dip Watchlist
-    print_daily_fluctuation_watchlist(regime=regime)
+        # Exit Strategy Summary
+        print_exit_strategy_summary()
+
+        # Unfilled Same-Day Exits
+        print_unfilled_same_day_exits()
+
+        # PDT Status
+        print_pdt_status()
+
+        # Daily Dip Watchlist
+        print_daily_fluctuation_watchlist(regime=regime)
+
+        # Broker Reconciliation (in buffer for dashboard access)
+        all_recons = []
+        if not args.no_recon:
+            all_recons = run_broker_reconciliation_direct()
+
+    finally:
+        sys.stdout = _real_stdout
+    # --- End buffered section ---
+
+    # Build current state and compute diff
+    curr_state = _build_graph_state(regime, vix, vix_5d_pct, alerts_data,
+                                     verdicts_data, gates_data, age_data,
+                                     pools_data, all_recons)
+    changes = _compute_state_diff(prev_state, curr_state)
+
+    # Extract recon actions for dashboard
+    recon_actions = [a for r in all_recons for a in r.get("actions", [])
+                     if isinstance(a, dict)]
+
+    # ACTION DASHBOARD — first thing user sees after regime + transactions
+    print_action_dashboard(recon_actions, alerts_data, changes, verdicts_data)
+
+    # Flush buffered detail output
+    print(detail_buf.getvalue(), end="")
 
     # Part 3: Performance Analysis (before deployment so profiles are fresh)
     if not args.no_deploy and not args.no_perf:
@@ -1402,9 +1735,8 @@ def main():
     if not args.no_deploy and not args.no_fitness and not args.no_screen:
         run_candidate_screening(wide_screen=args.wide_screen)
 
-    # Part 7: Broker Reconciliation (independent of --no-deploy)
-    if not args.no_recon:
-        run_broker_reconciliation()
+    # Persist graph state for next run's diff
+    _write_graph_state(curr_state)
 
 
 if __name__ == "__main__":
