@@ -1309,30 +1309,6 @@ def run_broker_reconciliation_direct():
     return all_recons
 
 
-def _run_broker_reconciliation_subprocess():
-    """Fallback: run broker_reconciliation.py as subprocess (no structured data)."""
-    try:
-        result = subprocess.run(
-            [sys.executable, str(TOOLS_DIR / "broker_reconciliation.py")],
-            capture_output=True, text=True, timeout=300,
-        )
-        if result.returncode != 0:
-            print("## Part 7 — Broker Reconciliation\n")
-            print(f"*Error: broker_reconciliation.py failed: {result.stderr.strip() or 'unknown'}*")
-            return
-    except subprocess.TimeoutExpired:
-        print("## Part 7 — Broker Reconciliation\n")
-        print("*Error: broker_reconciliation.py timed out (300s)*")
-        return
-    except Exception as e:
-        print("## Part 7 — Broker Reconciliation\n")
-        print(f"*Error: {e}*")
-        return
-    if result.stdout.strip():
-        print(result.stdout.strip())
-        print()
-
-
 # ---------------------------------------------------------------------------
 # Graph State — build, persist, diff, dashboard
 # ---------------------------------------------------------------------------
@@ -1607,6 +1583,16 @@ def main():
     _real_stdout = sys.stdout
     sys.stdout = detail_buf
 
+    # Defaults — safe if early exception prevents these from being set
+    age_data = {}
+    pools_data = {}
+    alerts_data = {}
+    paused_tickers = set()
+    verdicts_data = {}
+    gates_data = {}
+    all_recons = []
+    live_prices = {}
+
     try:
         # Part 2: Consolidated orders
         print_consolidated_orders()
@@ -1619,9 +1605,7 @@ def main():
         live_prices = _fetch_position_prices(active_tickers)
 
         # Position Age Monitor
-        age_data = print_position_age_monitor(live_prices, regime=regime)
-        if age_data is None:
-            age_data = {}
+        age_data = print_position_age_monitor(live_prices, regime=regime) or {}
 
         # Pool Allocations
         pools_data = {}

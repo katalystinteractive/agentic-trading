@@ -214,7 +214,7 @@ def _compute_buy_reason(action, broker_price, broker_shares, rec_price, rec_shar
 
     # Share count change reason
     if broker_shares != rec_shares:
-        pool_str = f" (pool ${pool_active}+${pool_reserve}=${pool_active + pool_reserve})" if pool_active else ""
+        pool_str = f" (pool ${pool_active}+${pool_reserve}=${pool_active + pool_reserve})" if pool_active is not None else ""
         parts.append(f"Pool sizing: {broker_shares}→{rec_shares} shares{pool_str}")
 
     return ". ".join(parts) if parts else "OK"
