@@ -583,7 +583,7 @@ def main():
     profiles = _load_profiles()
     trade_buys = _load_trade_history_buys()
 
-    cap = load_capital_config()
+    # cap loaded per-ticker in loop below (simulation-backed pools)
 
     # Determine tickers
     if len(sys.argv) > 1:
@@ -614,7 +614,8 @@ def main():
         orders = portfolio.get("pending_orders", {}).get(ticker, [])
         ticker_trade_buys = trade_buys.get(ticker, [])
 
-        bullet_ctx = _get_bullet_ctx(ticker, portfolio, cap)
+        ticker_cap = load_capital_config(ticker)  # per-ticker simulation-backed pool
+        bullet_ctx = _get_bullet_ctx(ticker, portfolio, ticker_cap)
         recon = reconcile_ticker(ticker, pos, orders, bullet_ctx,
                                  ticker_trade_buys, profiles)
         all_recons.append(recon)
