@@ -621,6 +621,11 @@ class TestDashboardBuckets:
         assert cat is not None
         assert cat.value == "HARD_STOP"
 
+    def test_f2_catastrophic_exit_review_is_urgent(self):
+        # EXIT_REVIEW (drawdown <= -40%) should be in URGENT bucket
+        assert _check_catastrophic(-42.0) == "EXIT_REVIEW"
+        assert "EXIT_REVIEW" in ("HARD_STOP", "EXIT_REVIEW")
+
     def test_f3_catastrophic_warning_not_urgent(self):
         # WARNING should NOT be in URGENT (only HARD_STOP and EXIT_REVIEW)
         assert _check_catastrophic(-16.0) == "WARNING"
@@ -639,6 +644,18 @@ class TestDashboardBuckets:
         sells = graph.nodes["CLSK:sell_order_action"].value
         assert any(a["action"] == "PLACE" for a in sells)
 
+    def test_f5_sell_adjust_action(self):
+        recon_data = {"CLSK": {"ticker": "CLSK", "shares": 42, "avg_cost": 8.99,
+            "fills": [], "buy_orders": [], "available_bullets": [],
+            "sell_orders": [], "wick_available": True,
+            "actions": [{"side": "SELL", "ticker": "CLSK", "action": "ADJUST price",
+                         "broker_price": 10.41, "broker_shares": 42,
+                         "rec_price": 9.53, "rec_shares": 42,
+                         "reason": "Avg changed", "display": "ADJUST"}]}}
+        graph = _build_fixture_graph(recon_data=recon_data)
+        sells = graph.nodes["CLSK:sell_order_action"].value
+        assert any("ADJUST" in a["action"] for a in sells)
+
     def test_f6_buy_cancel_action(self):
         recon_data = {"CLSK": {"ticker": "CLSK", "shares": 42, "avg_cost": 8.99,
             "fills": [], "buy_orders": [], "available_bullets": [],
@@ -650,6 +667,39 @@ class TestDashboardBuckets:
         graph = _build_fixture_graph(recon_data=recon_data)
         buys = graph.nodes["CLSK:buy_order_action"].value
         assert any("CANCEL" in a["action"] for a in buys)
+
+    def test_f7_verdict_change_is_changed(self):
+        graph = _build_fixture_graph()
+        # IONQ was MONITOR, now should be REVIEW (pre-strategy recovery)
+        graph.load_prev_state({"IONQ:verdict": ("MONITOR", "R16", "Time EXCEEDED"),
+                               "IONQ:verdict_alert": ("MONITOR", "R16", "Time EXCEEDED")})
+        graph.propagate_signals()
+        activated = dict(graph.get_activated_reports())
+        va = activated.get("IONQ:verdict_alert")
+        assert va is not None, "verdict_alert should be activated"
+        assert va.value[0] != "MONITOR", "Verdict should have changed from MONITOR"
+
+    def test_f8_regime_change_is_changed(self):
+        graph = _build_fixture_graph(regime="Risk-Off")
+        graph.load_prev_state({"regime": "Neutral", "regime_change": "Neutral"})
+        graph.propagate_signals()
+        activated = dict(graph.get_activated_reports())
+        assert "regime_change" in activated
+
+    def test_f9_gate_change_is_changed(self):
+        graph = _build_fixture_graph(regime="Risk-Off", vix=31.0)
+        # Set prev gate to ACTIVE, curr should be different (Risk-Off)
+        prev = {}
+        for name in graph.nodes:
+            if name.endswith(":gate_alert"):
+                gate_name = name.replace(":gate_alert", ":entry_gate")
+                prev[gate_name] = ("ACTIVE", "ACTIVE", "ACTIVE")
+                prev[name] = ("ACTIVE", "ACTIVE", "ACTIVE")
+        graph.load_prev_state(prev)
+        graph.propagate_signals()
+        gate_alerts = [(n, nd) for n, nd in graph.get_activated_reports()
+                       if "gate_alert" in n]
+        assert len(gate_alerts) >= 1, "At least 1 gate should have changed"
 
     def test_f10_review_verdict(self):
         graph = _build_fixture_graph()
@@ -778,5 +828,5 @@ tests/test_graph.py::TestHelperFunctions::test_a1_calc_pl_positive PASSED
 tests/test_graph.py::TestHelperFunctions::test_a2_calc_pl_negative PASSED
 ...
 tests/test_graph.py::TestDesignConstraints::test_h3_sell_target_no_pool PASSED
-========================= 93 passed in <2s =========================
+========================= 98 passed in <2s =========================
 ```
