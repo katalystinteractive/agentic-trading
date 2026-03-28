@@ -167,18 +167,52 @@ Add `{tk}:dip_kpis` leaf node (reads from multi-period results) and `{tk}:dip_vi
 
 ---
 
-## 8. Honest Assessment
+## 8. Honest Assessment (Post-Verification)
 
-| Claim | Real? | Evidence |
-| :--- | :--- | :--- |
-| Daily OHLCV can compute dip metrics | YES | open-to-low, low-to-close are standard bar computations |
-| Side-channel adds ~30 lines | YES | DailyDipTracking dataclass + arithmetic in existing loop |
-| Results comparable to standalone dip sim | MOSTLY | Daily metrics match. Breadth/intraday timing differ. |
-| Regime breakdown is new and valuable | YES | Surgical sim already has regime per day. Just split dip stats by it. |
-| Replaces hardcoded 60% threshold | YES | Simulation-backed win rate replaces arbitrary threshold |
-| Multi-period (12/6/3/1mo) works for dip | YES | Same data, same loop, same window — dip metrics computed at each window |
-| Graph integration is natural | YES | dip_kpis from multi-period-results.json → graph leaf → dip_viable node |
+Verification found the core idea is sound but the analysis understated several issues:
 
-**The main risk**: The daily OHLCV dip-buy entry (at open - 1%) is an approximation of the real entry (at ~10:30 AM after breadth confirmation). Over many trades the averages converge, but individual-day results will differ. The simulation tells you "this ticker's dips are generally profitable" — the intraday signal checker tells you "today's specific dip is confirmed."
+| Claim | Initial | Verified | Issue |
+| :--- | :--- | :--- | :--- |
+| Daily OHLCV has Open available | YES | YES, but not currently accessed | backtest_engine reads High/Low/Close but not Open. 1 line to add. |
+| Side-channel adds ~30 lines | ~30 | **~40-45** | Dip P/L tracking needs state management, not just arithmetic |
+| Total across all files ~75 lines | ~75 | **~100-120** | Return tuple refactoring in candidate_sim_gate + multi_period_scorer plumbing |
+| Zero impact on surgical logic | YES | YES | True side-channel, confirmed |
+| Results comparable to standalone dip sim | MOSTLY | MOSTLY | Per-ticker viability matches. Breadth/signal timing cannot be replicated. |
+| Recovery formula matches daily_analyzer | YES | **SUBTLE DIFF** | daily_analyzer uses High (low-to-high), analysis proposed Close (low-to-close). Must use High to match. |
+| Regime breakdown feasible | YES | YES, needs trade-level tagging | Regime exists per day in backtest loop. Dip metrics must be tagged per-regime. |
 
-**Conclusion**: YES, extending the surgical simulation to track dip KPIs as a side-channel is feasible, low-risk (~75 lines total), and provides simulation-backed evidence for the daily dip per-ticker decision that currently relies on hardcoded thresholds. One simulation run, two strategy outputs.
+### Issues Found During Verification
+
+**1. Recovery formula mismatch**: daily_analyzer.py uses `(high - low) / low` (low-to-high recovery). The proposed formula uses `(close - low) / low` (low-to-close). These are different — high shows the BEST intraday recovery, close shows what actually held. Must decide which to use and be consistent. Recommendation: use High (matches existing daily_analyzer threshold gate).
+
+**2. Order-of-operations ambiguity**: With daily OHLCV only, we don't know if the low happened before or after the high. The dip P/L computation must assume an order: check stop first (conservative), then check target, then close at EOD. This is the same assumption the surgical sim uses and is acknowledged as a simplification.
+
+**3. Return tuple breaking change**: `run_simulation()` currently returns a 3-tuple `(trades, cycles, equity_curve)`. Adding `dip_kpis` makes it a 4-tuple. All callers must update: `candidate_sim_gate.py`, `backtest_reporter.py`, and the workflow agents. Not just 2 files.
+
+**4. daily_range_analyzer.py already does similar work**: This module computes recovery rates, fill rates, and per-target win rates from daily OHLCV. Could the surgical sim call `daily_range_analyzer.analyze_daily_range()` per ticker instead of reimplementing the dip logic? This would avoid formula duplication. Need to check if analyze_daily_range accepts a hist DataFrame or only fetches from yfinance.
+
+**5. Dip viable node spec missing**: The analysis mentions `{tk}:dip_viable` graph node but doesn't specify the computation. Proposal: `dip_viable = "YES" if dip_win_rate > 50% AND current_regime_win_rate > 40% else "CAUTION" if dip_win_rate > 40% else "NO"`.
+
+### Risks
+
+**Low risk**: Side-channel arithmetic is simple, regime data is available, no surgical logic affected.
+
+**Medium risk**: Return tuple refactoring touches 3-4 files. If done incorrectly, breaks the surgical simulation workflow.
+
+**Low risk**: Formula choice (High vs Close) affects threshold comparison but not the architecture.
+
+---
+
+## 9. Conclusion (Revised)
+
+YES, the merge is feasible and valuable. The core idea is correct: one simulation run can produce both surgical and dip KPIs from the same daily OHLCV data.
+
+**Corrections from verification:**
+- Line count: ~100-120 lines, not 75
+- Files touched: 5 (backtest_engine, candidate_sim_gate, multi_period_scorer, graph_builder, daily_analyzer), not 4
+- Recovery formula must use High (match existing daily_analyzer), not Close
+- Return tuple change is a breaking change requiring careful plumbing
+
+**What's real**: Simulation-backed dip win rate per ticker, per regime, replacing hardcoded 60% threshold. This is the same upgrade path that proved valuable for the surgical strategy.
+
+**What's approximate**: The daily OHLCV dip-buy entry is a proxy for the real 10:30 AM confirmed entry. Over many trades the averages converge, but this is inherently an approximation.
