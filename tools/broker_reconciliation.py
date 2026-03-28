@@ -214,7 +214,8 @@ def _compute_buy_reason(action, broker_price, broker_shares, rec_price, rec_shar
 
     # Share count change reason
     if broker_shares != rec_shares:
-        pool_str = f" (pool ${pool_active}+${pool_reserve}=${pool_active + pool_reserve})" if pool_active is not None else ""
+        pool_str = (f" (pool ${pool_active}+${pool_reserve}=${pool_active + pool_reserve})"
+                    if pool_active is not None and pool_reserve is not None else "")
         parts.append(f"Pool sizing: {broker_shares}→{rec_shares} shares{pool_str}")
 
     return ". ".join(parts) if parts else "OK"
@@ -290,13 +291,13 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
         zone_labels = _build_zone_labels_from_ctx(bullet_ctx)
         sizing_lookup = bullet_ctx.get("sizing_lookup", {})
 
-    # --- Pool info for reason strings ---
-    pool_active = 0
-    pool_reserve = 0
+    # --- Pool info for reason strings (None = no pool data available) ---
+    pool_active = None
+    pool_reserve = None
     if bullet_ctx:
         cap = bullet_ctx.get("cap") or {}
-        pool_active = cap.get("active_pool", 0)
-        pool_reserve = cap.get("reserve_pool", 0)
+        pool_active = cap.get("active_pool")
+        pool_reserve = cap.get("reserve_pool")
 
     # --- BUY orders ---
     buy_orders = []
