@@ -1,637 +1,454 @@
 {
   "run_date": "2026-03-28",
-  "run_ts": "2026-03-28T18:43:59",
-  "regime": {
-    "label": "Risk-Off",
-    "vix": 31.049999237060547,
-    "vix_5d_pct": 18.7
-  },
-  "catastrophic": {
+  "run_ts": "2026-03-28T22:29:21",
+  "regime": "Risk-Off",
+  "vix": 31.049999237060547,
+  "vix_5d_pct": 18.7,
+  "tickers": {
     "ACHR": {
       "avg_cost": 6.53,
-      "price": 5.09,
-      "drawdown": -22.1,
-      "severity": "WARNING"
-    },
-    "APLD": {
-      "avg_cost": 28.7,
-      "price": 23.76,
-      "drawdown": -17.2,
-      "severity": "WARNING"
-    },
-    "BBAI": {
-      "avg_cost": 3.72,
-      "price": 3.14,
-      "drawdown": -15.6,
-      "severity": "WARNING"
-    },
-    "IONQ": {
-      "avg_cost": 44.43,
-      "price": 27.51,
-      "drawdown": -38.1,
-      "severity": "HARD STOP"
-    },
-    "TMC": {
-      "avg_cost": 5.14,
-      "price": 4.27,
-      "drawdown": -16.9,
-      "severity": "WARNING"
-    },
-    "USAR": {
-      "avg_cost": 21.57,
-      "price": 15.42,
-      "drawdown": -28.5,
-      "severity": "HARD STOP"
-    }
-  },
-  "verdicts": {
-    "ACHR": {
-      "verdict": "MONITOR",
-      "rule": "R16",
+      "shares": 92,
       "pl_pct": -22.1,
-      "time_status": "WITHIN",
+      "verdict": [
+        "MONITOR",
+        "R16",
+        "Time WITHIN (26d) \u2014 on track"
+      ],
+      "catastrophic": "WARNING",
+      "momentum": "Bearish",
       "earnings_gate": "CLEAR",
-      "momentum": "Bearish"
+      "time_status": "WITHIN",
+      "pool": {
+        "active_pool": 325,
+        "reserve_pool": 325,
+        "total_pool": 650,
+        "source": "multi-period-scorer",
+        "composite": 18.9
+      },
+      "sell_target": [
+        6.92,
+        "standard 6.0%"
+      ]
     },
     "APLD": {
-      "verdict": "MONITOR",
-      "rule": "R16",
-      "pl_pct": -17.2,
-      "time_status": "WITHIN",
-      "earnings_gate": "APPROACHING",
-      "momentum": "Bearish"
-    },
-    "BBAI": {
-      "verdict": "MONITOR",
-      "rule": "R16",
-      "pl_pct": -15.6,
-      "time_status": "WITHIN",
-      "earnings_gate": "CLEAR",
-      "momentum": "Bearish"
-    },
-    "CLF": {
-      "verdict": "MONITOR",
-      "rule": "R16",
-      "pl_pct": -8.0,
-      "time_status": "WITHIN",
-      "earnings_gate": "CLEAR",
-      "momentum": "Bearish"
-    },
-    "CLSK": {
-      "verdict": "MONITOR",
-      "rule": "R16",
-      "pl_pct": -11.8,
-      "time_status": "WITHIN",
-      "earnings_gate": "CLEAR",
-      "momentum": "Bearish"
-    },
-    "IONQ": {
-      "verdict": "REVIEW",
-      "rule": "R8-10",
-      "pl_pct": -38.1,
-      "time_status": "EXCEEDED",
-      "earnings_gate": "CLEAR",
-      "momentum": "Bearish"
-    },
-    "NNE": {
-      "verdict": "MONITOR",
-      "rule": "R16",
-      "pl_pct": -12.5,
-      "time_status": "WITHIN",
-      "earnings_gate": "CLEAR",
-      "momentum": "Bearish"
-    },
-    "NU": {
-      "verdict": "MONITOR",
-      "rule": "R16",
-      "pl_pct": -14.2,
-      "time_status": "WITHIN",
-      "earnings_gate": "CLEAR",
-      "momentum": "Bearish"
-    },
-    "OKLO": {
-      "verdict": "MONITOR",
-      "rule": "R16",
-      "pl_pct": -8.9,
-      "time_status": "WITHIN",
-      "earnings_gate": "CLEAR",
-      "momentum": "Bearish"
-    },
-    "OUST": {
-      "verdict": "MONITOR",
-      "rule": "R16",
-      "pl_pct": -14.5,
-      "time_status": "WITHIN",
-      "earnings_gate": "CLEAR",
-      "momentum": "Bearish"
-    },
-    "TEM": {
-      "verdict": "MONITOR",
-      "rule": "R16",
-      "pl_pct": -11.4,
-      "time_status": "WITHIN",
-      "earnings_gate": "CLEAR",
-      "momentum": "Bearish"
-    },
-    "TMC": {
-      "verdict": "MONITOR",
-      "rule": "R16",
-      "pl_pct": -16.9,
-      "time_status": "WITHIN",
-      "earnings_gate": "CLEAR",
-      "momentum": "Bearish"
-    },
-    "USAR": {
-      "verdict": "REVIEW",
-      "rule": "R3",
-      "pl_pct": -28.5,
-      "time_status": "EXCEEDED",
-      "earnings_gate": "BLOCKED",
-      "momentum": "Bearish"
-    }
-  },
-  "gates": {
-    "APLD:A2:24.64": {
-      "market": "REVIEW",
-      "earnings": "REVIEW",
-      "combined": "REVIEW"
-    },
-    "AR:?:35.00": {
-      "market": "?",
-      "earnings": "?",
-      "combined": "?"
-    },
-    "AR:?:32.68": {
-      "market": "?",
-      "earnings": "?",
-      "combined": "?"
-    },
-    "BBAI:A2:3.33": {
-      "market": "REVIEW",
-      "earnings": "ACTIVE",
-      "combined": "REVIEW"
-    },
-    "NU:A2:13.03": {
-      "market": "REVIEW",
-      "earnings": "ACTIVE",
-      "combined": "REVIEW"
-    },
-    "OKLO:?:51.10": {
-      "market": "REVIEW",
-      "earnings": "ACTIVE",
-      "combined": "REVIEW"
-    },
-    "OUST:?:18.98": {
-      "market": "REVIEW",
-      "earnings": "ACTIVE",
-      "combined": "REVIEW"
-    }
-  },
-  "age": {
-    "ACHR": {
-      "days": "26",
-      "status": "WITHIN",
-      "avg_cost": 6.53,
-      "pnl_pct": -22.1
-    },
-    "APLD": {
-      "days": "39",
-      "status": "WITHIN",
       "avg_cost": 28.7,
-      "pnl_pct": -17.2
-    },
-    "BBAI": {
-      "days": "9",
-      "status": "WITHIN",
-      "avg_cost": 3.72,
-      "pnl_pct": -15.6
-    },
-    "CLF": {
-      "days": "25",
-      "status": "WITHIN",
-      "avg_cost": 8.82,
-      "pnl_pct": -8.0
-    },
-    "CLSK": {
-      "days": "5",
-      "status": "WITHIN",
-      "avg_cost": 9.82,
-      "pnl_pct": -11.8
-    },
-    "IONQ": {
-      "days": ">60d (pre-strategy)",
-      "status": "EXCEEDED",
-      "avg_cost": 44.43,
-      "pnl_pct": -38.1
-    },
-    "NNE": {
-      "days": "23",
-      "status": "WITHIN",
-      "avg_cost": 23.18,
-      "pnl_pct": -12.5
-    },
-    "NU": {
-      "days": "43",
-      "status": "WITHIN",
-      "avg_cost": 15.85,
-      "pnl_pct": -14.2
-    },
-    "OKLO": {
-      "days": "9",
-      "status": "WITHIN",
-      "avg_cost": 55.11,
-      "pnl_pct": -8.9
-    },
-    "OUST": {
-      "days": "9",
-      "status": "WITHIN",
-      "avg_cost": 20.66,
-      "pnl_pct": -14.5
-    },
-    "TEM": {
-      "days": "19",
-      "status": "WITHIN",
-      "avg_cost": 48.09,
-      "pnl_pct": -11.4
-    },
-    "TMC": {
-      "days": "15",
-      "status": "WITHIN",
-      "avg_cost": 5.14,
-      "pnl_pct": -16.9
-    },
-    "USAR": {
-      "days": ">60d (pre-strategy)",
-      "status": "EXCEEDED",
-      "avg_cost": 21.57,
-      "pnl_pct": -28.5
-    }
-  },
-  "pools": {
-    "ACHR": {
-      "active": 325,
-      "reserve": 325,
-      "total": 650,
-      "source": "multi-period-scorer"
-    },
-    "APLD": {
-      "active": 315,
-      "reserve": 315,
-      "total": 630,
-      "source": "multi-period-scorer"
+      "shares": 17,
+      "pl_pct": -17.2,
+      "verdict": [
+        "MONITOR",
+        "R16",
+        "Time WITHIN (39d) \u2014 on track"
+      ],
+      "catastrophic": "WARNING",
+      "momentum": "Bearish",
+      "earnings_gate": "APPROACHING",
+      "time_status": "WITHIN",
+      "pool": {
+        "active_pool": 315,
+        "reserve_pool": 315,
+        "total_pool": 630,
+        "source": "multi-period-scorer",
+        "composite": 18.3
+      },
+      "sell_target": [
+        38.0,
+        "target_exit"
+      ]
     },
     "AR": {
-      "active": 206,
-      "reserve": 207,
-      "total": 413,
-      "source": "multi-period-scorer"
-    },
-    "ARM": {
-      "active": 50,
-      "reserve": 50,
-      "total": 100,
-      "source": "multi-period-scorer"
+      "avg_cost": 0,
+      "shares": 0,
+      "pl_pct": null,
+      "verdict": [
+        "MONITOR",
+        "R16",
+        "Time WITHIN (5d) \u2014 on track"
+      ],
+      "catastrophic": null,
+      "momentum": "Bullish",
+      "earnings_gate": "CLEAR",
+      "time_status": "WITHIN",
+      "pool": {
+        "active_pool": 206,
+        "reserve_pool": 207,
+        "total_pool": 413,
+        "source": "multi-period-scorer",
+        "composite": 12.0
+      },
+      "sell_target": [
+        0,
+        "no avg cost"
+      ]
     },
     "BBAI": {
-      "active": 363,
-      "reserve": 363,
-      "total": 726,
-      "source": "multi-period-scorer"
+      "avg_cost": 3.72,
+      "shares": 100,
+      "pl_pct": -15.6,
+      "verdict": [
+        "MONITOR",
+        "R16",
+        "Time WITHIN (9d) \u2014 on track"
+      ],
+      "catastrophic": "WARNING",
+      "momentum": "Bearish",
+      "earnings_gate": "CLEAR",
+      "time_status": "WITHIN",
+      "pool": {
+        "active_pool": 363,
+        "reserve_pool": 363,
+        "total_pool": 726,
+        "source": "multi-period-scorer",
+        "composite": 21.1
+      },
+      "sell_target": [
+        3.94,
+        "standard 6.0%"
+      ]
     },
     "CIFR": {
-      "active": 370,
-      "reserve": 370,
-      "total": 740,
-      "source": "multi-period-scorer"
+      "avg_cost": 14.57,
+      "shares": 14,
+      "pl_pct": -5.7,
+      "verdict": [
+        "MONITOR",
+        "R16",
+        "Time WITHIN (2d) \u2014 on track"
+      ],
+      "catastrophic": null,
+      "momentum": "Neutral",
+      "earnings_gate": "CLEAR",
+      "time_status": "WITHIN",
+      "pool": {
+        "active_pool": 370,
+        "reserve_pool": 370,
+        "total_pool": 740,
+        "source": "multi-period-scorer",
+        "composite": 21.5
+      },
+      "sell_target": [
+        16.32,
+        "optimized 12.0%"
+      ]
     },
     "CLF": {
-      "active": 235,
-      "reserve": 236,
-      "total": 471,
-      "source": "multi-period-scorer"
+      "avg_cost": 8.82,
+      "shares": 80,
+      "pl_pct": -8.0,
+      "verdict": [
+        "MONITOR",
+        "R16",
+        "Time WITHIN (25d) \u2014 on track"
+      ],
+      "catastrophic": null,
+      "momentum": "Bearish",
+      "earnings_gate": "CLEAR",
+      "time_status": "WITHIN",
+      "pool": {
+        "active_pool": 235,
+        "reserve_pool": 236,
+        "total_pool": 471,
+        "source": "multi-period-scorer",
+        "composite": 13.7
+      },
+      "sell_target": [
+        9.35,
+        "standard 6.0%"
+      ]
     },
     "CLSK": {
-      "active": 321,
-      "reserve": 322,
-      "total": 643,
-      "source": "multi-period-scorer"
+      "avg_cost": 8.99,
+      "shares": 42,
+      "pl_pct": -3.7,
+      "verdict": [
+        "MONITOR",
+        "R16",
+        "Time WITHIN (5d) \u2014 on track"
+      ],
+      "catastrophic": null,
+      "momentum": "Bearish",
+      "earnings_gate": "CLEAR",
+      "time_status": "WITHIN",
+      "pool": {
+        "active_pool": 321,
+        "reserve_pool": 322,
+        "total_pool": 643,
+        "source": "multi-period-scorer",
+        "composite": 18.7
+      },
+      "sell_target": [
+        10.07,
+        "optimized 12.0%"
+      ]
     },
     "IONQ": {
-      "active": 318,
-      "reserve": 319,
-      "total": 637,
-      "source": "multi-period-scorer"
-    },
-    "LUNR": {
-      "active": 373,
-      "reserve": 374,
-      "total": 747,
-      "source": "multi-period-scorer"
+      "avg_cost": 44.43,
+      "shares": 15,
+      "pl_pct": -38.1,
+      "verdict": [
+        "REVIEW",
+        "R8-10",
+        "Recovery position (-38.1%) \u2014 needs momentum/thesis analysis"
+      ],
+      "catastrophic": "HARD_STOP",
+      "momentum": "Bearish",
+      "earnings_gate": "CLEAR",
+      "time_status": "EXCEEDED",
+      "pool": {
+        "active_pool": 318,
+        "reserve_pool": 319,
+        "total_pool": 637,
+        "source": "multi-period-scorer",
+        "composite": 18.5
+      },
+      "sell_target": [
+        47.1,
+        "standard 6.0%"
+      ]
     },
     "NNE": {
-      "active": 407,
-      "reserve": 408,
-      "total": 815,
-      "source": "multi-period-scorer"
+      "avg_cost": 23.18,
+      "shares": 14,
+      "pl_pct": -12.5,
+      "verdict": [
+        "MONITOR",
+        "R16",
+        "Time WITHIN (23d) \u2014 on track"
+      ],
+      "catastrophic": null,
+      "momentum": "Bearish",
+      "earnings_gate": "CLEAR",
+      "time_status": "WITHIN",
+      "pool": {
+        "active_pool": 407,
+        "reserve_pool": 408,
+        "total_pool": 815,
+        "source": "multi-period-scorer",
+        "composite": 23.7
+      },
+      "sell_target": [
+        24.57,
+        "standard 6.0%"
+      ]
     },
     "NU": {
-      "active": 320,
-      "reserve": 320,
-      "total": 640,
-      "source": "multi-period-scorer"
-    },
-    "NVDA": {
-      "active": 377,
-      "reserve": 377,
-      "total": 754,
-      "source": "multi-period-scorer"
+      "avg_cost": 15.85,
+      "shares": 30,
+      "pl_pct": -14.2,
+      "verdict": [
+        "MONITOR",
+        "R16",
+        "Time WITHIN (43d) \u2014 on track"
+      ],
+      "catastrophic": null,
+      "momentum": "Bearish",
+      "earnings_gate": "CLEAR",
+      "time_status": "WITHIN",
+      "pool": {
+        "active_pool": 320,
+        "reserve_pool": 320,
+        "total_pool": 640,
+        "source": "multi-period-scorer",
+        "composite": 18.6
+      },
+      "sell_target": [
+        16.75,
+        "target_exit"
+      ]
     },
     "OKLO": {
-      "active": 373,
-      "reserve": 374,
-      "total": 747,
-      "source": "multi-period-scorer"
+      "avg_cost": 55.11,
+      "shares": 5,
+      "pl_pct": -8.9,
+      "verdict": [
+        "MONITOR",
+        "R16",
+        "Time WITHIN (9d) \u2014 on track"
+      ],
+      "catastrophic": null,
+      "momentum": "Bearish",
+      "earnings_gate": "CLEAR",
+      "time_status": "WITHIN",
+      "pool": {
+        "active_pool": 373,
+        "reserve_pool": 374,
+        "total_pool": 747,
+        "source": "multi-period-scorer",
+        "composite": 21.7
+      },
+      "sell_target": [
+        58.42,
+        "standard 6.0%"
+      ]
     },
     "OUST": {
-      "active": 232,
-      "reserve": 233,
-      "total": 465,
-      "source": "multi-period-scorer"
+      "avg_cost": 20.66,
+      "shares": 10,
+      "pl_pct": -14.5,
+      "verdict": [
+        "MONITOR",
+        "R16",
+        "Time WITHIN (9d) \u2014 on track"
+      ],
+      "catastrophic": null,
+      "momentum": "Bearish",
+      "earnings_gate": "CLEAR",
+      "time_status": "WITHIN",
+      "pool": {
+        "active_pool": 232,
+        "reserve_pool": 233,
+        "total_pool": 465,
+        "source": "multi-period-scorer",
+        "composite": 13.5
+      },
+      "sell_target": [
+        21.9,
+        "standard 6.0%"
+      ]
     },
     "RDW": {
-      "active": 347,
-      "reserve": 348,
-      "total": 695,
-      "source": "multi-period-scorer"
+      "avg_cost": 8.52,
+      "shares": 24,
+      "pl_pct": -4.2,
+      "verdict": [
+        "MONITOR",
+        "R16",
+        "Time WITHIN (1d) \u2014 on track"
+      ],
+      "catastrophic": null,
+      "momentum": "Bearish",
+      "earnings_gate": "CLEAR",
+      "time_status": "WITHIN",
+      "pool": {
+        "active_pool": 347,
+        "reserve_pool": 348,
+        "total_pool": 695,
+        "source": "multi-period-scorer",
+        "composite": 20.2
+      },
+      "sell_target": [
+        9.03,
+        "standard 6.0%"
+      ]
     },
     "RGTI": {
-      "active": 272,
-      "reserve": 272,
-      "total": 544,
-      "source": "multi-period-scorer"
-    },
-    "RUN": {
-      "active": 223,
-      "reserve": 224,
-      "total": 447,
-      "source": "multi-period-scorer"
-    },
-    "SOUN": {
-      "active": 313,
-      "reserve": 313,
-      "total": 626,
-      "source": "multi-period-scorer"
+      "avg_cost": 14.28,
+      "shares": 20,
+      "pl_pct": -6.7,
+      "verdict": [
+        "MONITOR",
+        "R16",
+        "Time WITHIN (2d) \u2014 on track"
+      ],
+      "catastrophic": null,
+      "momentum": "Bearish",
+      "earnings_gate": "CLEAR",
+      "time_status": "WITHIN",
+      "pool": {
+        "active_pool": 272,
+        "reserve_pool": 272,
+        "total_pool": 544,
+        "source": "multi-period-scorer",
+        "composite": 15.8
+      },
+      "sell_target": [
+        15.14,
+        "standard 6.0%"
+      ]
     },
     "TEM": {
-      "active": 232,
-      "reserve": 233,
-      "total": 465,
-      "source": "multi-period-scorer"
+      "avg_cost": 48.09,
+      "shares": 6,
+      "pl_pct": -11.4,
+      "verdict": [
+        "MONITOR",
+        "R16",
+        "Time WITHIN (19d) \u2014 on track"
+      ],
+      "catastrophic": null,
+      "momentum": "Bearish",
+      "earnings_gate": "CLEAR",
+      "time_status": "WITHIN",
+      "pool": {
+        "active_pool": 232,
+        "reserve_pool": 233,
+        "total_pool": 465,
+        "source": "multi-period-scorer",
+        "composite": 13.5
+      },
+      "sell_target": [
+        50.98,
+        "standard 6.0%"
+      ]
     },
     "TMC": {
-      "active": 352,
-      "reserve": 353,
-      "total": 705,
-      "source": "multi-period-scorer"
+      "avg_cost": 5.14,
+      "shares": 90,
+      "pl_pct": -16.9,
+      "verdict": [
+        "MONITOR",
+        "R16",
+        "Time WITHIN (15d) \u2014 on track"
+      ],
+      "catastrophic": "WARNING",
+      "momentum": "Bearish",
+      "earnings_gate": "CLEAR",
+      "time_status": "WITHIN",
+      "pool": {
+        "active_pool": 352,
+        "reserve_pool": 353,
+        "total_pool": 705,
+        "source": "multi-period-scorer",
+        "composite": 20.5
+      },
+      "sell_target": [
+        5.45,
+        "standard 6.0%"
+      ]
     },
     "USAR": {
-      "active": 304,
-      "reserve": 305,
-      "total": 609,
-      "source": "multi-period-scorer"
+      "avg_cost": 21.57,
+      "shares": 15,
+      "pl_pct": -28.5,
+      "verdict": [
+        "REVIEW",
+        "R3",
+        "Recovery + GATED \u2014 needs thesis evaluation (P/L -28.5%)"
+      ],
+      "catastrophic": "HARD_STOP",
+      "momentum": "Bearish",
+      "earnings_gate": "BLOCKED",
+      "time_status": "EXCEEDED",
+      "pool": {
+        "active_pool": 304,
+        "reserve_pool": 305,
+        "total_pool": 609,
+        "source": "multi-period-scorer",
+        "composite": 17.7
+      },
+      "sell_target": [
+        23.05,
+        "target_exit"
+      ]
     }
   },
-  "recon_actions": [
-    {
-      "side": "SELL",
-      "ticker": "ACHR",
-      "action": "PLACE",
-      "broker_price": 0,
-      "broker_shares": 0,
-      "rec_price": 6.92,
-      "rec_shares": 92,
-      "reason": "No sell order exists. Avg $6.53 \u00d7 standard 6.0% = $6.92 \u00d7 92 shares",
-      "display": "SELL ACHR: PLACE @ $6.92 x 92 (standard 6.0%)"
+  "orders": {
+    "AR:order_0": {
+      "gate": [
+        "PAUSE",
+        "ACTIVE",
+        "PAUSE"
+      ],
+      "price": 35.0,
+      "label": "?"
     },
-    {
-      "side": "BUY",
-      "ticker": "APLD",
-      "action": "CANCEL (orphaned)",
-      "broker_price": 24.64,
-      "broker_shares": 2,
-      "rec_price": 0,
-      "rec_shares": 0,
-      "reason": "Wick refresh moved support levels \u2014 $24.64 no longer matches any level",
-      "display": "BUY APLD: CANCEL (orphaned) @ $24.64"
-    },
-    {
-      "side": "SELL",
-      "ticker": "APLD",
-      "action": "ADJUST price",
-      "broker_price": 31.19,
-      "broker_shares": 17,
-      "rec_price": 38.0,
-      "rec_shares": 17,
-      "reason": "Avg cost now $28.70 \u2192 target_exit = $38.00 (was $31.19)",
-      "display": "SELL APLD: ADJUST price $31.19 \u2192 $38.00 x 17 (target_exit)"
-    },
-    {
-      "side": "BUY",
-      "ticker": "AR",
-      "action": "ADJUST price",
-      "broker_price": 32.68,
-      "broker_shares": 3,
-      "rec_price": 32.16,
-      "rec_shares": 3,
-      "reason": "Wick refresh: buy-at for $30.94 PA moved $32.68\u2192$32.16",
-      "display": "BUY AR @ $32.68: ADJUST price \u2192 $32.16 x 3 ($30.94 PA, 83% hold, Full)"
-    },
-    {
-      "side": "BUY",
-      "ticker": "AR",
-      "action": "CANCEL (orphaned)",
-      "broker_price": 35.0,
-      "broker_shares": 1,
-      "rec_price": 0,
-      "rec_shares": 0,
-      "reason": "Wick refresh moved support levels \u2014 $35.00 no longer matches any level",
-      "display": "BUY AR: CANCEL (orphaned) @ $35.00"
-    },
-    {
-      "side": "BUY",
-      "ticker": "BBAI",
-      "action": "CANCEL (orphaned)",
-      "broker_price": 3.33,
-      "broker_shares": 1,
-      "rec_price": 0,
-      "rec_shares": 0,
-      "reason": "Wick refresh moved support levels \u2014 $3.33 no longer matches any level",
-      "display": "BUY BBAI: CANCEL (orphaned) @ $3.33"
-    },
-    {
-      "side": "SELL",
-      "ticker": "BBAI",
-      "action": "PLACE",
-      "broker_price": 0,
-      "broker_shares": 0,
-      "rec_price": 3.94,
-      "rec_shares": 100,
-      "reason": "No sell order exists. Avg $3.72 \u00d7 standard 6.0% = $3.94 \u00d7 100 shares",
-      "display": "SELL BBAI: PLACE @ $3.94 x 100 (standard 6.0%)"
-    },
-    {
-      "side": "SELL",
-      "ticker": "CLF",
-      "action": "ADJUST price+shares",
-      "broker_price": 9.95,
-      "broker_shares": 47,
-      "rec_price": 9.35,
-      "rec_shares": 80,
-      "reason": "Avg cost now $8.82 \u2192 standard 6.0% = $9.35 (was $9.95). Position now 80 shares (sell had 47)",
-      "display": "SELL CLF: ADJUST price+shares $9.95/47sh \u2192 $9.35/80sh (standard 6.0%)"
-    },
-    {
-      "side": "SELL",
-      "ticker": "CLSK",
-      "action": "PLACE",
-      "broker_price": 0,
-      "broker_shares": 0,
-      "rec_price": 11.0,
-      "rec_shares": 8,
-      "reason": "No sell order exists. Avg $9.82 \u00d7 optimized 12.0% = $11.00 \u00d7 8 shares",
-      "display": "SELL CLSK: PLACE @ $11.00 x 8 (optimized 12.0%)"
-    },
-    {
-      "side": "SELL",
-      "ticker": "IONQ",
-      "action": "PLACE",
-      "broker_price": 0,
-      "broker_shares": 0,
-      "rec_price": 47.1,
-      "rec_shares": 15,
-      "reason": "No sell order exists. Avg $44.43 \u00d7 standard 6.0% = $47.10 \u00d7 15 shares",
-      "display": "SELL IONQ: PLACE @ $47.10 x 15 (standard 6.0%)"
-    },
-    {
-      "side": "SELL",
-      "ticker": "NNE",
-      "action": "ADJUST price",
-      "broker_price": 25.44,
-      "broker_shares": 5,
-      "rec_price": 24.57,
-      "rec_shares": 14,
-      "reason": "Avg cost now $23.18 \u2192 standard 6.0% = $24.57 (was $25.44). Position now 14 shares (sell had 5)",
-      "display": "SELL NNE: ADJUST price $25.44 \u2192 $24.57 x 5 (standard 6.0%)"
-    },
-    {
-      "side": "SELL",
-      "ticker": "NNE",
-      "action": "ADJUST price",
-      "broker_price": 26.02,
-      "broker_shares": 5,
-      "rec_price": 24.57,
-      "rec_shares": 14,
-      "reason": "Avg cost now $23.18 \u2192 standard 6.0% = $24.57 (was $26.02). Position now 14 shares (sell had 5)",
-      "display": "SELL NNE: ADJUST price $26.02 \u2192 $24.57 x 5 (standard 6.0%)"
-    },
-    {
-      "side": "SELL",
-      "ticker": "NNE",
-      "action": "REVIEW",
-      "broker_price": 0,
-      "broker_shares": 10,
-      "rec_price": 24.57,
-      "rec_shares": 14,
-      "reason": "Total sell shares (10) != position (14) \u2014 review tranche sizing",
-      "display": "SELL NNE: total SELL shares (10) != position (14) \u2014 review tranche sizing"
-    },
-    {
-      "side": "BUY",
-      "ticker": "NU",
-      "action": "ADJUST price",
-      "broker_price": 13.03,
-      "broker_shares": 9,
-      "rec_price": 13.3,
-      "rec_shares": 9,
-      "reason": "Wick refresh: buy-at for $12.53 PA moved $13.03\u2192$13.30",
-      "display": "BUY NU @ $13.03: ADJUST price \u2192 $13.30 x 9 ($12.53 PA, 50% hold, Full)"
-    },
-    {
-      "side": "SELL",
-      "ticker": "NU",
-      "action": "ADJUST price",
-      "broker_price": 17.14,
-      "broker_shares": 15,
-      "rec_price": 16.75,
-      "rec_shares": 30,
-      "reason": "Avg cost now $15.85 \u2192 target_exit = $16.75 (was $17.14). Position now 30 shares (sell had 15)",
-      "display": "SELL NU: ADJUST price $17.14 \u2192 $16.75 x 15 (target_exit)"
-    },
-    {
-      "side": "BUY",
-      "ticker": "OKLO",
-      "action": "ADJUST price",
-      "broker_price": 51.1,
-      "broker_shares": 1,
-      "rec_price": 49.18,
-      "rec_shares": 1,
-      "reason": "Wick refresh: buy-at for $46.01 PA moved $51.10\u2192$49.18",
-      "display": "BUY OKLO @ $51.10: ADJUST price \u2192 $49.18 x 1 ($46.01 PA, 50% hold, Half)"
-    },
-    {
-      "side": "SELL",
-      "ticker": "OKLO",
-      "action": "PLACE",
-      "broker_price": 0,
-      "broker_shares": 0,
-      "rec_price": 58.42,
-      "rec_shares": 5,
-      "reason": "No sell order exists. Avg $55.11 \u00d7 standard 6.0% = $58.42 \u00d7 5 shares",
-      "display": "SELL OKLO: PLACE @ $58.42 x 5 (standard 6.0%)"
-    },
-    {
-      "side": "BUY",
-      "ticker": "OUST",
-      "action": "CANCEL (orphaned)",
-      "broker_price": 18.98,
-      "broker_shares": 5,
-      "rec_price": 0,
-      "rec_shares": 0,
-      "reason": "Wick refresh moved support levels \u2014 $18.98 no longer matches any level",
-      "display": "BUY OUST: CANCEL (orphaned) @ $18.98"
-    },
-    {
-      "side": "SELL",
-      "ticker": "TEM",
-      "action": "ADJUST price+shares",
-      "broker_price": 54.55,
-      "broker_shares": 1,
-      "rec_price": 50.98,
-      "rec_shares": 6,
-      "reason": "Avg cost now $48.09 \u2192 standard 6.0% = $50.98 (was $54.55). Position now 6 shares (sell had 1)",
-      "display": "SELL TEM: ADJUST price+shares $54.55/1sh \u2192 $50.98/6sh (standard 6.0%)"
-    },
-    {
-      "side": "SELL",
-      "ticker": "TMC",
-      "action": "ADJUST price+shares",
-      "broker_price": 6.39,
-      "broker_shares": 9,
-      "rec_price": 5.45,
-      "rec_shares": 90,
-      "reason": "Avg cost now $5.14 \u2192 standard 6.0% = $5.45 (was $6.39). Position now 90 shares (sell had 9)",
-      "display": "SELL TMC: ADJUST price+shares $6.39/9sh \u2192 $5.45/90sh (standard 6.0%)"
-    },
-    {
-      "side": "SELL",
-      "ticker": "USAR",
-      "action": "PLACE",
-      "broker_price": 0,
-      "broker_shares": 0,
-      "rec_price": 23.05,
-      "rec_shares": 15,
-      "reason": "No sell order exists. Avg $21.57 \u00d7 target_exit = $23.05 \u00d7 15 shares",
-      "display": "SELL USAR: PLACE @ $23.05 x 15 (target_exit)"
+    "AR:order_1": {
+      "gate": [
+        "PAUSE",
+        "ACTIVE",
+        "PAUSE"
+      ],
+      "price": 32.68,
+      "label": "?"
     }
-  ]
+  }
 }

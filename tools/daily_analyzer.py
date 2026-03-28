@@ -1271,50 +1271,60 @@ def _persist_candidates(tickers):
 
 
 # ---------------------------------------------------------------------------
-# Part 7 — Broker Reconciliation (direct import for structured data)
+# Graph-driven infrastructure (replaces manual state/diff/dashboard)
 # ---------------------------------------------------------------------------
 
-def run_broker_reconciliation_direct():
-    """Run broker reconciliation in-process, returning structured recon data."""
+def _extract_label_from_note(note):
+    """Parse A1/B2/R3 from order note. Returns '?' if not found."""
+    m = re.search(r'\b(A[1-5]|B[1-5]|R[1-3])\b', note or "")
+    return m.group() if m else "?"
+
+
+def _get_active_tickers(portfolio):
+    """Return sorted list of tickers with positions or active BUY orders."""
+    positions = portfolio.get("positions", {})
+    pending = portfolio.get("pending_orders", {})
+    tickers = set()
+    for tk, pos in positions.items():
+        if pos.get("shares", 0) > 0:
+            tickers.add(tk)
+    for tk, orders in pending.items():
+        if any(_is_active_buy(o) for o in orders):
+            tickers.add(tk)
+    return sorted(tickers)
+
+
+def _batch_earnings(tickers):
+    """Call check_earnings_gate() per ticker. Returns {ticker: gate_dict}."""
+    from earnings_gate import check_earnings_gate
+    result = {}
+    for tk in tickers:
+        try:
+            result[tk] = check_earnings_gate(tk)
+        except Exception:
+            result[tk] = {"status": "CLEAR"}
+    return result
+
+
+def _run_recon_for_graph(portfolio, tickers):
+    """Run reconciliation per ticker, returning {ticker: recon_dict} without printing."""
     try:
         from broker_reconciliation import (
-            reconcile_ticker, _load_portfolio, _load_profiles,
-            _load_trade_history_buys, _get_bullet_ctx,
-            format_ticker_report, format_action_summary
+            reconcile_ticker, _load_profiles, _load_trade_history_buys, _get_bullet_ctx
         )
         from wick_offset_analyzer import load_capital_config
-    except ImportError as e:
-        print("## Part 7 — Broker Reconciliation\n")
-        print(f"*Error importing broker_reconciliation: {e}*\n")
-        return []
+    except ImportError:
+        return {}
 
     try:
-        portfolio = _load_portfolio()
         profiles = _load_profiles()
         trade_buys = _load_trade_history_buys()
-    except Exception as e:
-        print("## Part 7 — Broker Reconciliation\n")
-        print(f"*Error loading data: {e}*\n")
-        return []
+    except Exception:
+        return {}
 
     positions = portfolio.get("positions", {})
     pending = portfolio.get("pending_orders", {})
-    ticker_set = set()
-    for tk, pos in positions.items():
-        if pos.get("shares", 0) > 0:
-            ticker_set.add(tk)
-    for tk, orders in pending.items():
-        if any(_is_active_buy(o) for o in orders):
-            ticker_set.add(tk)
-    tickers = sorted(ticker_set)
-
-    if not tickers:
-        print("*No active positions or placed BUY orders to reconcile.*")
-        return []
-
-    print(f"## Part 7 — Broker Reconciliation ({len(tickers)} tickers)\n")
-
-    all_recons = []
+    result = {}
     for tk in tickers:
         pos = positions.get(tk)
         orders = pending.get(tk, [])
@@ -1325,44 +1335,12 @@ def run_broker_reconciliation_direct():
             bullet_ctx = None
         recon = reconcile_ticker(tk, pos, orders, bullet_ctx,
                                  trade_buys.get(tk, []), profiles)
-        all_recons.append(recon)
-        print(format_ticker_report(recon))
-
-    print(format_action_summary(all_recons))
-    return all_recons
+        result[tk] = recon
+    return result
 
 
-# ---------------------------------------------------------------------------
-# Graph State — build, persist, diff, dashboard
-# ---------------------------------------------------------------------------
-
-def _build_graph_state(regime, vix, vix_5d_pct, alerts_data, verdicts_data,
-                       gates_data, age_data, pools_data, all_recons):
-    """Assemble current run's decision state for persistence and diffing."""
-    return {
-        "run_date": date.today().isoformat(),
-        "run_ts": datetime.now().isoformat(timespec="seconds"),
-        "regime": {"label": regime, "vix": vix, "vix_5d_pct": vix_5d_pct},
-        "catastrophic": alerts_data or {},
-        "verdicts": verdicts_data or {},
-        "gates": gates_data or {},
-        "age": age_data or {},
-        "pools": pools_data or {},
-        "recon_actions": [
-            {"side": a["side"], "ticker": a["ticker"], "action": a["action"],
-             "broker_price": a.get("broker_price", 0),
-             "broker_shares": a.get("broker_shares", 0),
-             "rec_price": a.get("rec_price", 0),
-             "rec_shares": a.get("rec_shares", 0),
-             "reason": a["reason"], "display": a.get("display", "")}
-            for r in (all_recons or []) for a in r.get("actions", [])
-            if isinstance(a, dict)
-        ],
-    }
-
-
-def _load_prev_state():
-    """Load previous graph state for diffing. Returns {} on first run."""
+def _load_graph_state():
+    """Load previous graph state. Returns {} on first run."""
     if not GRAPH_STATE_PATH.exists():
         return {}
     try:
@@ -1373,7 +1351,7 @@ def _load_prev_state():
 
 
 def _write_graph_state(state):
-    """Persist current graph state for next run's diff."""
+    """Persist graph state for next run's diff."""
     try:
         with open(GRAPH_STATE_PATH, "w") as f:
             json.dump(state, f, indent=2, default=str)
@@ -1381,105 +1359,75 @@ def _write_graph_state(state):
         pass
 
 
-def _compute_state_diff(prev, curr):
-    """Compare previous and current graph state. Returns list of change dicts.
+def print_action_dashboard_from_signals(signals, graph):
+    """Print prioritized action dashboard from graph signals.
 
-    Each change: {field, ticker, prev_value, curr_value, reason}
-    All reasons are computed from the data — no LLM generation.
-    """
-    changes = []
-
-    # Regime change
-    prev_regime = prev.get("regime", {}).get("label")
-    curr_regime = curr.get("regime", {}).get("label")
-    if prev_regime and curr_regime and prev_regime != curr_regime:
-        prev_vix = prev.get("regime", {}).get("vix")
-        curr_vix = curr.get("regime", {}).get("vix")
-        vix_str = ""
-        if prev_vix and curr_vix:
-            vix_str = f" (VIX {prev_vix:.1f} → {curr_vix:.1f})"
-        changes.append({"field": "Regime", "ticker": "---",
-                        "prev_value": prev_regime, "curr_value": curr_regime,
-                        "reason": f"Regime shifted{vix_str}"})
-
-    # Verdict flips
-    prev_v = prev.get("verdicts", {})
-    curr_v = curr.get("verdicts", {})
-    for tk, cv in curr_v.items():
-        pv = prev_v.get(tk, {})
-        if pv.get("verdict") and pv["verdict"] != cv.get("verdict"):
-            changes.append({"field": "Verdict", "ticker": tk,
-                            "prev_value": pv["verdict"], "curr_value": cv["verdict"],
-                            "reason": f"{cv.get('rule', '?')}: P/L {cv.get('pl_pct', 0):+.1f}%"})
-
-    # Gate changes
-    prev_g = prev.get("gates", {})
-    curr_g = curr.get("gates", {})
-    for key, cg in curr_g.items():
-        pg = prev_g.get(key, {})
-        if pg.get("combined") and pg["combined"] != cg.get("combined"):
-            tk = key.split(":")[0]
-            changes.append({"field": "Gate", "ticker": tk,
-                            "prev_value": pg["combined"], "curr_value": cg["combined"],
-                            "reason": f"Order {key}"})
-
-    # New catastrophic alerts
-    prev_c = prev.get("catastrophic", {})
-    curr_c = curr.get("catastrophic", {})
-    for tk, cc in curr_c.items():
-        if tk not in prev_c:
-            changes.append({"field": "Alert", "ticker": tk,
-                            "prev_value": "---", "curr_value": cc.get("severity", "?"),
-                            "reason": f"Drawdown {cc.get('drawdown', 0):.1f}%"})
-
-    # Resolved alerts
-    for tk in prev_c:
-        if tk not in curr_c:
-            changes.append({"field": "Alert", "ticker": tk,
-                            "prev_value": prev_c[tk].get("severity", "?"),
-                            "curr_value": "Resolved",
-                            "reason": "No longer below threshold"})
-
-    return changes
-
-
-def print_action_dashboard(recon_actions, alerts_data, changes, verdicts_data):
-    """Print prioritized action dashboard at top of report.
-
-    Every item and reason is Python-computed. No LLM generation.
+    Groups activated report node signals into 6 buckets:
+    URGENT, PLACE, ADJUST, CANCEL, CHANGED, REVIEW
+    Each row uses signal.flat_reason() — composable chain from leaf to report.
     """
     urgent = []
     place = []
     adjust = []
     cancel = []
+    changed = []
     review = []
 
-    # Categorize catastrophic alerts
-    for tk, data in (alerts_data or {}).items():
-        sev = data.get("severity", "")
-        if sev in ("HARD STOP", "EXIT REVIEW"):
-            action_str = ("Pause all pending BUYs" if sev == "HARD STOP"
-                          else "Recommend exit regardless of time stop")
-            urgent.append((tk, sev, f"{data['drawdown']:.1f}%", action_str))
+    for name, node in graph.get_activated_reports():
+        val = node.value
+        reason = ""
+        if node.signals:
+            reason = node.signals[0].flat_reason()
 
-    # Categorize recon actions
-    for a in (recon_actions or []):
-        action = a.get("action", "")
-        if action == "PLACE":
-            place.append(a)
-        elif "ADJUST" in action:
-            adjust.append(a)
-        elif "CANCEL" in action:
-            cancel.append(a)
+        # Categorize by report node type
+        if ":catastrophic_alert" in name:
+            if val in ("HARD_STOP", "EXIT_REVIEW"):
+                tk = name.split(":")[0]
+                # Get drawdown from the drawdown node
+                dd_node = graph.nodes.get(f"{tk}:drawdown")
+                dd = dd_node.value if dd_node else "?"
+                action_str = ("Pause all pending BUYs" if val == "HARD_STOP"
+                              else "Recommend exit regardless of time stop")
+                urgent.append((tk, val, f"{dd:.1f}%" if isinstance(dd, (int, float)) else "?", action_str, reason))
 
-    # Verdicts needing human decision
-    for tk, vd in (verdicts_data or {}).items():
-        if vd.get("verdict") == "REVIEW":
-            review.append((tk, vd.get("rule", "?"),
-                           f"P/L {vd.get('pl_pct', 0):+.1f}%, {vd.get('time_status', '?')}, "
-                           f"earnings {vd.get('earnings_gate', '?')}"))
+        elif ":sell_order_action" in name or ":buy_order_action" in name:
+            if isinstance(val, list):
+                for a in val:
+                    if not isinstance(a, dict):
+                        continue
+                    action = a.get("action", "")
+                    if action == "PLACE":
+                        place.append(a)
+                    elif "ADJUST" in action:
+                        adjust.append(a)
+                    elif "CANCEL" in action:
+                        cancel.append(a)
 
-    has_content = urgent or place or adjust or cancel or changes or review
+        elif name == "regime_change":
+            if reason:
+                changed.append(("---", "Regime", str(node.prev_value or "?"),
+                                str(val), reason))
+
+        elif ":verdict_alert" in name:
+            if isinstance(val, tuple) and isinstance(node.prev_value, tuple):
+                if val[0] != node.prev_value[0]:
+                    tk = name.split(":")[0]
+                    changed.append((tk, "Verdict", node.prev_value[0],
+                                    val[0], reason))
+
+        elif ":gate_alert" in name:
+            if isinstance(val, tuple) and isinstance(node.prev_value, tuple):
+                if val[2] != node.prev_value[2]:
+                    tk = name.split(":")[0]
+                    changed.append((tk, "Gate", node.prev_value[2],
+                                    val[2], reason))
+
+        elif ":review" in name:
+            if val and isinstance(val, tuple):
+                tk = name.split(":")[0]
+                review.append((tk, val[1], f"P/L {val[0]}, {val[2]}"))
+
+    has_content = urgent or place or adjust or cancel or changed or review
 
     print("\n## ACTION DASHBOARD\n")
 
@@ -1489,17 +1437,17 @@ def print_action_dashboard(recon_actions, alerts_data, changes, verdicts_data):
 
     if urgent:
         print("### URGENT\n")
-        print("| Ticker | Severity | Drawdown | Action |")
-        print("| :--- | :--- | :--- | :--- |")
-        for tk, sev, dd, act in urgent:
-            print(f"| **{tk}** | **{sev}** | {dd} | {act} |")
+        print("| Ticker | Severity | Drawdown | Action | Reason |")
+        print("| :--- | :--- | :--- | :--- | :--- |")
+        for tk, sev, dd, act, reason in urgent:
+            print(f"| **{tk}** | **{sev}** | {dd} | {act} | {reason} |")
         print()
 
     if place:
         print("### PLACE These Orders\n")
         print("| Side | Ticker | Price | Shares | Reason |")
         print("| :--- | :--- | :--- | :--- | :--- |")
-        for a in place:
+        for a in sorted(place, key=lambda x: x.get("ticker", "")):
             print(f"| {a['side']} | {a['ticker']} | ${a['rec_price']:.2f} | "
                   f"{a['rec_shares']} | {a['reason']} |")
         print()
@@ -1508,7 +1456,7 @@ def print_action_dashboard(recon_actions, alerts_data, changes, verdicts_data):
         print("### ADJUST These Orders\n")
         print("| Side | Ticker | Current | Recommended | Reason |")
         print("| :--- | :--- | :--- | :--- | :--- |")
-        for a in adjust:
+        for a in sorted(adjust, key=lambda x: x.get("ticker", "")):
             curr = f"${a['broker_price']:.2f}/{a['broker_shares']}sh"
             rec = f"${a['rec_price']:.2f}/{a['rec_shares']}sh"
             print(f"| {a['side']} | {a['ticker']} | {curr} | {rec} | {a['reason']} |")
@@ -1518,17 +1466,16 @@ def print_action_dashboard(recon_actions, alerts_data, changes, verdicts_data):
         print("### CANCEL These Orders\n")
         print("| Side | Ticker | Price | Reason |")
         print("| :--- | :--- | :--- | :--- |")
-        for a in cancel:
+        for a in sorted(cancel, key=lambda x: x.get("ticker", "")):
             print(f"| {a['side']} | {a['ticker']} | ${a['broker_price']:.2f} | {a['reason']} |")
         print()
 
-    if changes:
+    if changed:
         print("### CHANGED Since Last Run\n")
         print("| Ticker | What | Previous | Current | Reason |")
         print("| :--- | :--- | :--- | :--- | :--- |")
-        for c in changes:
-            print(f"| {c['ticker']} | {c['field']} | {c['prev_value']} | "
-                  f"{c['curr_value']} | {c['reason']} |")
+        for tk, field, prev, curr, reason in changed:
+            print(f"| {tk} | {field} | {prev} | {curr} | {reason} |")
         print()
 
     if review:
@@ -1538,6 +1485,176 @@ def print_action_dashboard(recon_actions, alerts_data, changes, verdicts_data):
         for tk, rule, situation in review:
             print(f"| {tk} | {rule} | {situation} |")
         print()
+
+
+def print_detail_sections(graph, regime):
+    """Print all detail sections reading values from graph nodes.
+
+    Output format is IDENTICAL to the pre-graph tables.
+    """
+    from broker_reconciliation import format_ticker_report, format_action_summary
+
+    # Part 2: Consolidated orders + tier summary (unchanged — reads portfolio directly)
+    print_consolidated_orders()
+    print_tier_summary()
+
+    # Position Age Monitor — read from graph nodes
+    active_positions = sorted(
+        name.split(":")[0] for name in graph.nodes
+        if name.endswith(":shares") and graph.nodes[name].value and graph.nodes[name].value > 0)
+
+    if active_positions:
+        age_rows = []
+        for tk in active_positions:
+            dh = graph.nodes.get(f"{tk}:days_held")
+            ts = graph.nodes.get(f"{tk}:time_status")
+            avg_node = graph.nodes.get(f"{tk}:avg_cost")
+            pl_node = graph.nodes.get(f"{tk}:pl_pct")
+            if dh and dh.value:
+                days, display, is_pre = dh.value
+                status = ts.value if ts else "?"
+                avg = avg_node.value if avg_node else 0
+                pnl = pl_node.value if pl_node else 0
+                note = ""
+                if is_pre:
+                    note = "Pre-strategy"
+                age_rows.append((tk, display, status, avg, pnl or 0, note))
+
+        flagged = [r for r in age_rows if r[2] in ("EXCEEDED", "APPROACHING")]
+        if flagged or regime == "Risk-Off":
+            print("\n## Position Age Monitor")
+            if regime == "Risk-Off":
+                print("*Risk-Off: time stops extended +14 days (APPROACHING >=59d, EXCEEDED >74d)*\n")
+            print("| Ticker | Age | Status | Avg Cost | P/L% | Note |")
+            print("| :--- | :--- | :--- | :--- | :--- | :--- |")
+            for ticker, display, status, avg, pnl, note in age_rows:
+                marker = "**" if status in ("EXCEEDED", "APPROACHING") else ""
+                print(f"| {marker}{ticker}{marker} | {display}d | {marker}{status}{marker} | ${avg:.2f} | {pnl:+.1f}% | {note} |")
+
+    # Pool Allocations — read from graph nodes
+    pool_rows = []
+    for tk in sorted(graph.nodes):
+        if tk.endswith(":pool"):
+            ticker = tk.split(":")[0]
+            pool = graph.nodes[tk].value
+            if isinstance(pool, dict) and pool.get("source") == "multi-period-scorer":
+                pool_rows.append((ticker, pool))
+    if pool_rows:
+        print("\n## Pool Allocations (simulation-backed)\n")
+        print("| Ticker | Composite | Active | Reserve | Total | Source |")
+        print("| :--- | :--- | :--- | :--- | :--- | :--- |")
+        for tk, p in sorted(pool_rows, key=lambda x: x[1].get("composite") or 0, reverse=True):
+            comp = f"${p.get('composite', 0):.1f}/mo" if p.get("composite") is not None else "—"
+            print(f"| {tk} | {comp} | ${p.get('active_pool', 300)} | ${p.get('reserve_pool', 300)} | ${p.get('total_pool', 600)} | {p['source']} |")
+
+    # Catastrophic Drawdown Alerts — read from graph nodes
+    alerts = []
+    for tk in active_positions:
+        cat = graph.nodes.get(f"{tk}:catastrophic")
+        if cat and cat.value:
+            avg = graph.nodes.get(f"{tk}:avg_cost")
+            price = graph.nodes.get(f"{tk}:price")
+            dd = graph.nodes.get(f"{tk}:drawdown")
+            alerts.append((tk,
+                           avg.value if avg else 0,
+                           price.value if price else 0,
+                           dd.value if dd else 0,
+                           cat.value))
+    if alerts:
+        print("\n## Catastrophic Drawdown Alerts")
+        print("| Ticker | Avg Cost | Price | Drawdown | Severity | Action |")
+        print("| :--- | :--- | :--- | :--- | :--- | :--- |")
+        for ticker, avg, price, dd, sev in alerts:
+            action = {
+                "WARNING": "Check news before any action",
+                "HARD_STOP": "Pause all pending BUYs — do NOT average down",
+                "EXIT_REVIEW": "Recommend exit regardless of time stop",
+            }.get(sev, "Review")
+            print(f"| **{ticker}** | ${avg:.2f} | ${price:.2f} | {dd:.1f}% | **{sev}** | {action} |")
+
+    # Position Verdicts — read from graph nodes
+    verdict_rows = []
+    for tk in active_positions:
+        v = graph.nodes.get(f"{tk}:verdict")
+        eg = graph.nodes.get(f"{tk}:earnings_gate")
+        mom = graph.nodes.get(f"{tk}:momentum")
+        pl = graph.nodes.get(f"{tk}:pl_pct")
+        dh = graph.nodes.get(f"{tk}:days_held")
+        ts = graph.nodes.get(f"{tk}:time_status")
+        if v and v.value and isinstance(v.value, tuple):
+            verdict, rule, detail = v.value
+            pl_pct = pl.value if pl else 0
+            days_held_val = dh.value if dh else (None, "?", False)
+            time_status = ts.value if ts else "?"
+            is_pre = days_held_val[2] if days_held_val else False
+            day_str = days_held_val[1] if days_held_val else "?"
+            time_str = f"{day_str} {time_status}" if not is_pre else f"pre {time_status}"
+            eg_status = eg.value if eg else "?"
+            momentum = mom.value if mom else "?"
+            pl_str = f"{pl_pct:+.1f}%" if isinstance(pl_pct, (int, float)) else "?"
+            v_style = f"**{verdict}**" if verdict in ("EXIT", "REDUCE", "REVIEW") else verdict
+            verdict_rows.append((tk, pl_str, time_str, eg_status, momentum, v_style, rule))
+
+    if verdict_rows:
+        print("\n## Position Verdicts\n")
+        print("| Ticker | P/L% | Time | Earnings | Momentum | Verdict | Rule |")
+        print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+        for row in verdict_rows:
+            print(f"| {row[0]} | {row[1]} | {row[2]} | {row[3]} | {row[4]} | {row[5]} | {row[6]} |")
+
+    # Entry Gates — read from graph nodes
+    gate_rows = []
+    for name, node in sorted(graph.nodes.items()):
+        if ":order_" in name and name.endswith(":entry_gate"):
+            parts = name.split(":")
+            tk = parts[0]
+            if isinstance(node.value, tuple) and len(node.value) == 3:
+                mg, eg, cg = node.value
+                # Find the order price from the compute closure
+                idx = int(parts[1].replace("order_", ""))
+                pending = graph.nodes.get("live_prices")  # won't work, need portfolio
+                # Get order info from portfolio
+                portfolio_data = _load()
+                orders = portfolio_data.get("pending_orders", {}).get(tk, [])
+                active_buys = [o for o in orders if o.get("type") == "BUY"
+                               and o.get("placed") and not o.get("filled")]
+                if idx < len(active_buys):
+                    order = active_buys[idx]
+                    label = _extract_label_from_note(order.get("note", ""))
+                    gate_rows.append((tk, label, order["price"], mg, eg, cg))
+
+    if gate_rows:
+        print("\n## Entry Gates\n")
+        print("| Ticker | Order | Price | Market | Earnings | Combined |")
+        print("| :--- | :--- | :--- | :--- | :--- | :--- |")
+        for tk, label, price, mg, eg, cg in gate_rows:
+            cg_style = f"**{cg}**" if cg in ("PAUSE", "REVIEW") else cg
+            print(f"| {tk} | {label} | ${price:.2f} | {mg} | {eg} | {cg_style} |")
+
+    # Sell Projections, Exit Strategy, Same-Day Exits, PDT, Dip Watchlist — UNCHANGED
+    try:
+        print_sell_projections()
+    except Exception as e:
+        print(f"\n*Sell projections unavailable: {e}*\n")
+    print_exit_strategy_summary()
+    print_unfilled_same_day_exits()
+    print_pdt_status()
+    print_daily_fluctuation_watchlist(regime=regime)
+
+    # Broker Reconciliation — read from graph nodes
+    recon_tickers = sorted(
+        name.split(":")[0] for name in graph.nodes
+        if name.endswith(":recon") and graph.nodes[name].value)
+    if recon_tickers:
+        print(f"\n## Part 7 — Broker Reconciliation ({len(recon_tickers)} tickers)\n")
+        all_recons = []
+        for tk in recon_tickers:
+            recon = graph.nodes[f"{tk}:recon"].value
+            if recon:
+                all_recons.append(recon)
+                print(format_ticker_report(recon))
+        if all_recons:
+            print(format_action_summary(all_recons))
 
 
 # ---------------------------------------------------------------------------
@@ -1586,140 +1703,48 @@ def main():
     sells, sell_parse_err = parse_specs(args.sells)
     parse_errors = fill_parse_err + sell_parse_err
 
-    # Load previous graph state for diffing
-    prev_state = _load_prev_state()
-
-    # Part 0: Market Regime (returns regime, vix, vix_5d_pct for downstream gates)
+    # Part 0: Market Regime (prints immediately — before graph)
     regime, vix, vix_5d_pct = print_market_regime()
 
-    # Part 1: Process transactions (prints directly — before buffering)
+    # Part 1: Process transactions (prints immediately — before graph)
     if fills or sells or parse_errors:
         print("## Part 1 — Processing Transactions")
         print()
         process_transactions(fills, sells, parse_errors)
 
-    # --- Buffered data-collection phase ---
-    # All monitoring sections print to buffer while we capture return values.
-    # Dashboard prints first, then buffer flushes.
-    import io
-    detail_buf = io.StringIO()
-    _real_stdout = sys.stdout
-    sys.stdout = detail_buf
+    # Phase A: Fetch all leaf data (batch where possible)
+    portfolio = _load()
+    active_tickers = _get_active_tickers(portfolio)
+    live_prices = _fetch_position_prices(active_tickers)
+    tech_data = _fetch_technical_data(active_tickers)
+    earnings_data = _batch_earnings(active_tickers)
 
-    # Defaults — safe if early exception prevents these from being set
-    age_data = {}
-    pools_data = {}
-    alerts_data = {}
-    paused_tickers = set()
-    verdicts_data = {}
-    gates_data = {}
-    all_recons = []
-    live_prices = {}
+    # Phase A2: Pre-compute reconciliation (expensive — wick fetches happen here)
+    recon_data = {}
+    if not args.no_recon:
+        recon_data = _run_recon_for_graph(portfolio, active_tickers)
+
+    # Phase B: Build graph, load prev state, resolve, propagate signals
+    from graph_builder import build_daily_graph, get_state_for_persistence
+    prev_state = _load_graph_state()
+    graph = build_daily_graph(portfolio, live_prices, regime, vix, vix_5d_pct,
+                              tech_data, earnings_data, recon_data)
+    graph.load_prev_state(prev_state)
 
     try:
-        # Part 2: Consolidated orders
+        graph.resolve()
+        signals = graph.propagate_signals()
+    except Exception as e:
+        print(f"\n*Graph resolve failed: {e}. Running in status-only mode.*\n")
         print_consolidated_orders()
         print_tier_summary()
+        return
 
-        # Fetch live prices once for monitoring sections
-        data = _load()
-        active_tickers = [t for t, p in data.get("positions", {}).items()
-                          if p.get("shares", 0) > 0]
-        live_prices = _fetch_position_prices(active_tickers)
+    # Phase C: Dashboard FIRST (from signals), then detail sections (from graph.nodes)
+    print_action_dashboard_from_signals(signals, graph)
+    print_detail_sections(graph, regime)
 
-        # Position Age Monitor
-        age_data = print_position_age_monitor(live_prices, regime=regime) or {}
-
-        # Pool Allocations
-        pools_data = {}
-        try:
-            from shared_utils import get_ticker_pool, _MULTI_PERIOD_PATH
-            if _MULTI_PERIOD_PATH.exists():
-                all_tickers = sorted(set(
-                    list(data.get("positions", {}).keys()) +
-                    list(data.get("pending_orders", {}).keys())
-                ))
-                all_pools = {tk: get_ticker_pool(tk) for tk in all_tickers}
-                pools = {tk: p for tk, p in all_pools.items()
-                         if p["source"] == "multi-period-scorer"}
-                pools_data = {tk: {"active": p["active_pool"], "reserve": p["reserve_pool"],
-                                   "total": p["total_pool"], "source": p["source"]}
-                              for tk, p in pools.items()}
-                if pools:
-                    print("\n## Pool Allocations (simulation-backed)\n")
-                    print("| Ticker | Composite | Active | Reserve | Total | Source |")
-                    print("| :--- | :--- | :--- | :--- | :--- | :--- |")
-                    for tk in sorted(pools.keys(), key=lambda t: pools[t].get("composite") or 0, reverse=True):
-                        p = pools[tk]
-                        comp = f"${p['composite']:.1f}/mo" if p.get("composite") is not None else "—"
-                        print(f"| {tk} | {comp} | ${p['active_pool']} | ${p['reserve_pool']} | ${p['total_pool']} | {p['source']} |")
-                    default_tickers = [tk for tk in all_tickers if tk not in pools]
-                    if default_tickers:
-                        print(f"\n*{len(default_tickers)} tickers using default $300/$300: {', '.join(default_tickers)}*")
-        except Exception:
-            pass
-
-        # Catastrophic Drawdown Alerts
-        paused_tickers, alerts_data = print_catastrophic_alerts(live_prices)
-
-        # Position Verdicts
-        verdicts_data = {}
-        try:
-            verdicts_data = print_position_verdicts(live_prices, regime, vix, vix_5d_pct) or {}
-        except Exception as e:
-            print(f"\n*Position verdicts unavailable: {e}*\n")
-
-        # Entry Gates
-        gates_data = {}
-        try:
-            gates_data = print_entry_gates(regime, vix, vix_5d_pct, live_prices) or {}
-        except Exception as e:
-            print(f"\n*Entry gates unavailable: {e}*\n")
-
-        # Sell Projections
-        try:
-            print_sell_projections()
-        except Exception as e:
-            print(f"\n*Sell projections unavailable: {e}*\n")
-
-        # Exit Strategy Summary
-        print_exit_strategy_summary()
-
-        # Unfilled Same-Day Exits
-        print_unfilled_same_day_exits()
-
-        # PDT Status
-        print_pdt_status()
-
-        # Daily Dip Watchlist
-        print_daily_fluctuation_watchlist(regime=regime)
-
-        # Broker Reconciliation (in buffer for dashboard access)
-        all_recons = []
-        if not args.no_recon:
-            all_recons = run_broker_reconciliation_direct()
-
-    finally:
-        sys.stdout = _real_stdout
-    # --- End buffered section ---
-
-    # Build current state and compute diff
-    curr_state = _build_graph_state(regime, vix, vix_5d_pct, alerts_data,
-                                     verdicts_data, gates_data, age_data,
-                                     pools_data, all_recons)
-    changes = _compute_state_diff(prev_state, curr_state)
-
-    # Extract recon actions for dashboard
-    recon_actions = [a for r in all_recons for a in r.get("actions", [])
-                     if isinstance(a, dict)]
-
-    # ACTION DASHBOARD — first thing user sees after regime + transactions
-    print_action_dashboard(recon_actions, alerts_data, changes, verdicts_data)
-
-    # Flush buffered detail output
-    print(detail_buf.getvalue(), end="")
-
-    # Part 3: Performance Analysis (before deployment so profiles are fresh)
+    # Parts 3-6: Subprocesses (unchanged, outside graph)
     if not args.no_deploy and not args.no_perf:
         if regime != "Risk-Off":
             run_ticker_perf_analysis()
@@ -1727,23 +1752,28 @@ def main():
             print("## Part 3 — Ticker Performance Analysis\n")
             print("*Suppressed: Risk-Off regime — sell target upgrades paused*\n")
 
-    # Part 4: Deployment recommendations
     if not args.no_deploy:
         if regime == "Risk-Off":
             print("*CAUTION: Risk-Off regime — consider half-sizing or pausing watchlist entries*\n")
         deploy_tickers = find_deployment_tickers()
-        print_deployment_recs(deploy_tickers, paused=paused_tickers)
+        # Get paused tickers from graph catastrophic nodes
+        paused = set()
+        for tk in active_tickers:
+            cat = graph.nodes.get(f"{tk}:catastrophic")
+            if cat and cat.value in ("HARD_STOP", "EXIT_REVIEW"):
+                paused.add(tk)
+        print_deployment_recs(deploy_tickers, paused=paused)
 
-    # Part 5: Watchlist Fitness Check
     if not args.no_deploy and not args.no_fitness:
         run_watchlist_fitness()
 
-    # Part 6: New Candidate Screening
     if not args.no_deploy and not args.no_fitness and not args.no_screen:
         run_candidate_screening(wide_screen=args.wide_screen)
 
-    # Persist graph state for next run's diff
-    _write_graph_state(curr_state)
+    # Phase D: Persist canonical state
+    state = get_state_for_persistence(graph, active_tickers,
+                                       portfolio.get("pending_orders", {}))
+    _write_graph_state(state)
 
 
 if __name__ == "__main__":
