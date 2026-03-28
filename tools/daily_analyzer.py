@@ -63,12 +63,25 @@ def _fetch_position_prices(tickers):
 
 
 def print_market_regime():
-    """Part 0: Fetch and display market regime."""
+    """Part 0: Fetch and display market regime. Returns (regime, vix, vix_5d_pct)."""
+    vix_5d_pct = None
     try:
         from shared_regime import fetch_regime_detail
         detail = fetch_regime_detail()
         regime = detail["regime"]
         vix = detail["vix"]
+        # Compute VIX 5-day change for entry gate CAUTION rule
+        try:
+            import yfinance as yf
+            vix_hist = yf.download("^VIX", period="10d", progress=False)
+            if not vix_hist.empty:
+                vc = vix_hist["Close"]
+                if hasattr(vc, "columns"):
+                    vc = vc.iloc[:, 0]
+                if len(vc) >= 5:
+                    vix_5d_pct = round((float(vc.iloc[-1]) - float(vc.iloc[-5])) / float(vc.iloc[-5]) * 100, 1)
+        except Exception:
+            pass
     except Exception as e:
         print(f"*Warning: Market regime fetch failed ({e}), defaulting to Neutral*\n")
         regime = "Neutral"
@@ -86,7 +99,215 @@ def print_market_regime():
     elif regime == "Risk-On":
         print("\n*Risk-On: standard rules, full deployment*")
     print()
-    return regime
+    return regime, vix, vix_5d_pct
+
+
+# ---------------------------------------------------------------------------
+# Batch technical data + Verdict / Gate / Projection sections
+# ---------------------------------------------------------------------------
+
+def _fetch_technical_data(tickers):
+    """Batch fetch 3-month daily data and compute RSI/MACD per ticker.
+    Returns: {ticker: {rsi: float, macd_vs_signal: str, histogram: float}}
+    """
+    import yfinance as yf
+    try:
+        from technical_scanner import calc_rsi, calc_macd
+    except ImportError:
+        return {}
+
+    if not tickers:
+        return {}
+
+    result = {}
+    try:
+        hist = yf.download(tickers, period="3mo", interval="1d", progress=False)
+        if hist.empty:
+            return {}
+        multi = len(tickers) > 1
+        for tk in tickers:
+            try:
+                if multi:
+                    close = hist["Close"][tk].dropna()
+                else:
+                    close = hist["Close"].dropna()
+                    if hasattr(close, "columns"):
+                        close = close.iloc[:, 0]
+                if len(close) < 35:
+                    result[tk] = {"rsi": None, "macd_vs_signal": None, "histogram": None}
+                    continue
+
+                rsi_series = calc_rsi(close)
+                rsi_val = float(rsi_series.iloc[-1]) if len(rsi_series) > 0 else None
+
+                macd_line, signal_line, hist_series = calc_macd(close)
+                if len(macd_line) > 0 and len(signal_line) > 0:
+                    macd_vs = "above" if float(macd_line.iloc[-1]) > float(signal_line.iloc[-1]) else "below"
+                    hist_val = float(hist_series.iloc[-1]) if len(hist_series) > 0 else None
+                else:
+                    macd_vs = None
+                    hist_val = None
+
+                result[tk] = {"rsi": round(rsi_val, 1) if rsi_val else None,
+                             "macd_vs_signal": macd_vs, "histogram": round(hist_val, 3) if hist_val else None}
+            except Exception:
+                result[tk] = {"rsi": None, "macd_vs_signal": None, "histogram": None}
+    except Exception:
+        pass
+    return result
+
+
+def print_position_verdicts(live_prices, regime, vix, vix_5d_pct):
+    """Print per-position verdict table using deterministic rules."""
+    from shared_utils import classify_momentum, compute_verdict, compute_days_held, is_recovery_position
+    from earnings_gate import check_earnings_gate
+
+    data = _load()
+    positions = data.get("positions", {})
+    active = {tk: p for tk, p in positions.items() if p.get("shares", 0) > 0}
+    if not active:
+        return
+
+    # Batch fetch technical data
+    tech = _fetch_technical_data(list(active.keys()))
+
+    print("\n## Position Verdicts\n")
+    print("| Ticker | P/L% | Time | Earnings | Momentum | Verdict | Rule |")
+    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+
+    for tk in sorted(active.keys()):
+        pos = active[tk]
+        price = live_prices.get(tk)
+        if not price:
+            print(f"| {tk} | ? | ? | ? | ? | REVIEW | No price data |")
+            continue
+
+        avg_cost = pos.get("avg_cost", 0)
+        pl_pct = round((price - avg_cost) / avg_cost * 100, 1) if avg_cost > 0 else 0
+
+        # Time stop
+        days, day_str, is_pre = compute_days_held(pos.get("entry_date", ""), None)
+        from shared_utils import compute_time_stop
+        time_status = compute_time_stop(days, is_pre, regime)
+
+        # Earnings gate
+        try:
+            gate = check_earnings_gate(tk)
+            eg_status = gate["status"]
+        except Exception:
+            eg_status = "CLEAR"
+
+        # Momentum
+        td = tech.get(tk, {})
+        momentum = classify_momentum(td.get("rsi"), td.get("macd_vs_signal"), td.get("histogram"))
+
+        # Verdict
+        verdict, rule, detail = compute_verdict(
+            avg_cost, price, pos.get("entry_date", ""), pos.get("note", ""),
+            eg_status, momentum, regime)
+
+        # Format
+        pl_str = f"{pl_pct:+.1f}%"
+        time_str = f"{day_str} {time_status}" if not is_pre else f"pre {time_status}"
+        v_style = f"**{verdict}**" if verdict in ("EXIT", "REDUCE", "REVIEW") else verdict
+
+        print(f"| {tk} | {pl_str} | {time_str} | {eg_status} | {momentum} | {v_style} | {rule} |")
+
+
+def print_entry_gates(regime, vix, vix_5d_pct, live_prices):
+    """Print per-order entry gate table (market + earnings combined)."""
+    from shared_utils import compute_entry_gate
+    from earnings_gate import check_earnings_gate
+
+    data = _load()
+    pending = data.get("pending_orders", {})
+    positions = data.get("positions", {})
+    watchlist = set(data.get("watchlist", []))
+
+    has_orders = False
+    rows = []
+
+    for tk, orders in sorted(pending.items()):
+        active_buys = [o for o in orders if o.get("type") == "BUY"
+                       and o.get("placed") and not o.get("filled")]
+        if not active_buys:
+            continue
+
+        is_wl = tk not in positions or positions[tk].get("shares", 0) == 0
+        current = live_prices.get(tk)
+
+        try:
+            gate = check_earnings_gate(tk)
+            eg_status = gate["status"]
+        except Exception:
+            eg_status = "CLEAR"
+
+        for order in active_buys:
+            o_price = order.get("price", 0)
+            note = order.get("note", "")
+            # Extract label (A1, A2, B1, etc.) from note
+            import re
+            label_match = re.search(r'\b(A[1-5]|B[1-5]|R[1-3])\b', note)
+            label = label_match.group() if label_match else "?"
+
+            if current and current > 0:
+                market_gate, earn_gate, combined = compute_entry_gate(
+                    regime, vix, vix_5d_pct, eg_status, o_price, current, is_wl)
+            else:
+                market_gate, earn_gate, combined = "?", "?", "?"
+
+            rows.append((tk, label, o_price, market_gate, earn_gate, combined))
+            has_orders = True
+
+    if not has_orders:
+        return
+
+    print("\n## Entry Gates\n")
+    print("| Ticker | Order | Price | Market | Earnings | Combined |")
+    print("| :--- | :--- | :--- | :--- | :--- | :--- |")
+    for tk, label, price, mg, eg, cg in rows:
+        cg_style = f"**{cg}**" if cg in ("PAUSE", "REVIEW") else cg
+        print(f"| {tk} | {label} | ${price:.2f} | {mg} | {eg} | {cg_style} |")
+
+
+def print_sell_projections():
+    """Print what-if sell scenario tables for positions with pending buys."""
+    from shared_utils import compute_sell_scenarios, is_active_buy
+
+    data = _load()
+    positions = data.get("positions", {})
+    pending = data.get("pending_orders", {})
+
+    shown = False
+    for tk in sorted(positions.keys()):
+        pos = positions[tk]
+        shares = pos.get("shares", 0)
+        avg_cost = pos.get("avg_cost", 0)
+        if shares <= 0 or avg_cost <= 0:
+            continue
+
+        # Get pending BUY orders
+        tk_orders = pending.get(tk, [])
+        active_buys = [{"price": o["price"], "shares": o.get("shares", 1)}
+                       for o in tk_orders if is_active_buy(o)]
+        if not active_buys:
+            continue
+
+        scenarios = compute_sell_scenarios(shares, avg_cost, active_buys)
+        if len(scenarios) <= 1:
+            continue
+
+        if not shown:
+            print("\n## Sell Projections\n")
+            shown = True
+
+        print(f"### {tk} ({shares} sh @ ${avg_cost:.2f})")
+        print("| Scenario | Shares | Avg Cost | Sell 6% | P/L$ |")
+        print("| :--- | :--- | :--- | :--- | :--- |")
+        for s in scenarios:
+            print(f"| {s['scenario']} | {s['total_shares']} | ${s['new_avg']:.2f} "
+                  f"| ${s['sell_price']:.2f} | ${s['pl_dollars']:.2f} |")
+        print()
 
 
 # ---------------------------------------------------------------------------
@@ -1078,8 +1299,8 @@ def main():
     sells, sell_parse_err = parse_specs(args.sells)
     parse_errors = fill_parse_err + sell_parse_err
 
-    # Part 0: Market Regime
-    regime = print_market_regime()
+    # Part 0: Market Regime (returns regime, vix, vix_5d_pct for downstream gates)
+    regime, vix, vix_5d_pct = print_market_regime()
 
     # Part 1: Process transactions
     if fills or sells or parse_errors:
@@ -1101,6 +1322,24 @@ def main():
 
     # Catastrophic Drawdown Alerts
     paused_tickers = print_catastrophic_alerts(live_prices)
+
+    # Position Verdicts (deterministic — replaces LLM verdict logic)
+    try:
+        print_position_verdicts(live_prices, regime, vix, vix_5d_pct)
+    except Exception as e:
+        print(f"\n*Position verdicts unavailable: {e}*\n")
+
+    # Entry Gates (deterministic — combined market + earnings per order)
+    try:
+        print_entry_gates(regime, vix, vix_5d_pct, live_prices)
+    except Exception as e:
+        print(f"\n*Entry gates unavailable: {e}*\n")
+
+    # Sell Projections (what-if scenarios for pending fills)
+    try:
+        print_sell_projections()
+    except Exception as e:
+        print(f"\n*Sell projections unavailable: {e}*\n")
 
     # Exit Strategy Summary
     print_exit_strategy_summary()
