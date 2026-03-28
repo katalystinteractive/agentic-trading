@@ -25,22 +25,21 @@ phases:
       - data/backtest/sim-ranked/sim-ranked-results.md
     timeout_minutes: 120
 
-  - id: review
-    name: Qualitative Review
+  - id: validate
+    name: Portfolio Validation
     description: >
-      LLM reviews simulation-proven candidates for qualitative factors:
-      sector concentration vs current portfolio, earnings timing,
-      fundamental thesis, and practical considerations (liquidity,
-      borrow availability for hedging).
-    agent: sim-ranked-reviewer
+      Mechanical portfolio-level checks on simulation-proven candidates:
+      sector concentration, earnings blackout, price correlation with
+      existing watchlist, and liquidity. Python-only — no LLM re-ranking.
+      Reports flags for human decision.
+    agent: post-sim-validator
     depends_on:
       - simulate
     requires:
       - data/backtest/sim-ranked/sim-ranked-results.json
-      - data/backtest/sim-ranked/sim-ranked-results.md
     artifacts:
-      - data/backtest/sim-ranked/final-recommendations.md
-    timeout_minutes: 15
+      - data/backtest/sim-ranked/validation-report.json
+    timeout_minutes: 10
 
 settings:
   max_fix_iterations: 0
