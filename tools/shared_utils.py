@@ -90,13 +90,28 @@ def load_cycle_timing(ticker, project_root=None):
     stats = ct.get("statistics")
     if not stats:
         return None
-    return {
+    result = {
         "total_cycles": stats.get("total_cycles", 0),
         "median_deep": stats.get("median_deep"),
         "median_first": stats.get("median_first"),
         "max_deep": stats.get("max_deep"),
         "immediate_fill_pct": stats.get("immediate_fill_pct", 0),
+        "stale": False,
     }
+
+    # Freshness check: flag if data is > 14 days old
+    last_date = ct.get("last_date")
+    if last_date:
+        try:
+            from datetime import datetime, date
+            ct_date = datetime.strptime(last_date[:10], "%Y-%m-%d").date()
+            age = (date.today() - ct_date).days
+            if age > 14:
+                result["stale"] = True
+        except (ValueError, TypeError):
+            pass
+
+    return result
 
 
 def score_cycle_efficiency(cycle_timing, max_points=20):

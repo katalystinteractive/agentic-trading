@@ -1129,6 +1129,19 @@ def main():
                 print(f"*Error: wick analysis failed for {ticker}: {err}*")
                 continue
 
+            # Wick data freshness check
+            last_date = data.get("last_date", "")
+            if last_date:
+                try:
+                    from datetime import datetime, date
+                    wick_date = datetime.strptime(last_date, "%Y-%m-%d").date()
+                    age = (date.today() - wick_date).days
+                    if age > 7:
+                        print(f"\n> *WARNING: Wick data is {age} days old ({last_date}). "
+                              f"Re-run `python3 tools/wick_offset_analyzer.py {ticker}` for fresh levels.*")
+                except (ValueError, TypeError):
+                    pass
+
             any_success = True
             if args.mode == "recommend":
                 run_recommend(ticker, args.type_filter, data, portfolio, cap)

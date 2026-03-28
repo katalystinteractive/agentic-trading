@@ -41,7 +41,7 @@ MIN_AVG_VOL = 500_000
 CHUNK_SIZE = 500
 CHUNK_PAUSE = 3.0  # seconds between chunks
 MAX_RETRIES = 3
-CACHE_VALIDITY_DAYS = 7
+CACHE_VALIDITY_DAYS = 3  # reduced from 7 — swing data can drift 30%+ in a week
 
 
 def _load_universe():

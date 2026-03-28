@@ -211,18 +211,35 @@ def get_sector(ticker):
     if ticker in FINE_SECTOR_MAP:
         return FINE_SECTOR_MAP[ticker]
 
-    # Check persistent cache
+    # Check persistent cache (with 30-day expiration)
     cache = _load_cache()
-    if ticker in cache:
-        return cache[ticker]
+    cached_entry = cache.get(ticker)
+    if cached_entry:
+        # Support both old format (plain string) and new format (dict with timestamp)
+        if isinstance(cached_entry, dict):
+            from datetime import datetime
+            cached_date = cached_entry.get("date", "")
+            if cached_date:
+                try:
+                    age = (datetime.now() - datetime.fromisoformat(cached_date)).days
+                    if age <= 30:
+                        return cached_entry["sector"]
+                    # Stale — fall through to yfinance refresh
+                except (ValueError, TypeError):
+                    return cached_entry["sector"]
+            else:
+                return cached_entry["sector"]
+        else:
+            return cached_entry  # old format, no expiration check
 
     # yfinance fallback
     try:
         import yfinance as yf
+        from datetime import datetime
         info = yf.Ticker(ticker).info
         sector = info.get("sector", "Unknown")
         if sector and sector != "Unknown":
-            cache[ticker] = sector
+            cache[ticker] = {"sector": sector, "date": datetime.now().isoformat()[:10]}
             _save_cache(cache)
         return sector
     except Exception:
