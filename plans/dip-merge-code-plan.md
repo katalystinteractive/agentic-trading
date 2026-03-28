@@ -227,6 +227,31 @@ alloc[tk] = {
 }
 ```
 
+**Resulting multi-period-results.json structure** (showing new fields):
+```json
+{
+  "generated": "2026-03-29T...",
+  "allocations": {
+    "CLSK": {
+      "active_pool": 321,
+      "reserve_pool": 322,
+      "total_pool": 643,
+      "weight": 15.5,
+      "composite": 18.7,
+      "dip_kpis": {
+        "dip_win_rate": 68.4,
+        "dip_pnl_weighted": 127.45,
+        "by_regime": {
+          "Risk-On": {"win_rate": 78.0, "pnl": 95.00, "trades": 45},
+          "Neutral": {"win_rate": 65.0, "pnl": 28.50, "trades": 30},
+          "Risk-Off": {"win_rate": 42.0, "pnl": 3.95, "trades": 20}
+        }
+      }
+    }
+  }
+}
+```
+
 ---
 
 ## Phase 4: Add graph nodes in `graph_builder.py` (~15 lines)
@@ -235,10 +260,16 @@ alloc[tk] = {
 
 **Location**: Inside the per-ticker loop, after `{tk}:pool` node (line ~268)
 
+`get_ticker_pool()` returns pool allocation data but NOT dip_kpis. The dip_kpis live in `multi-period-results.json` under `allocations[tk]["dip_kpis"]`. We load them directly from the multi-period data, NOT through get_ticker_pool.
+
 ```python
-# Dip KPIs from multi-period simulation (if available)
-pool_data = get_ticker_pool(tk)  # already called for pool node
-dip_kpis_data = pool_data.get("dip_kpis") if isinstance(pool_data, dict) else None
+# Load dip KPIs from multi-period-results.json (separate from pool)
+from shared_utils import _load_mp_data
+mp_data = _load_mp_data()  # mtime-cached, same call as get_ticker_pool uses internally
+dip_kpis_data = None
+if mp_data:
+    alloc = mp_data.get("allocations", {}).get(tk, {})
+    dip_kpis_data = alloc.get("dip_kpis")
 
 graph.add_node(f"{tk}:dip_kpis",
     compute=lambda _, d=dip_kpis_data: d,
@@ -246,6 +277,8 @@ graph.add_node(f"{tk}:dip_kpis",
         f"Dip win rate {old.get('dip_win_rate', 0)}→{new.get('dip_win_rate', 0)}%"
         if old and new and isinstance(old, dict) and isinstance(new, dict) else ""))
 ```
+
+**Note**: `_load_mp_data()` is already imported and mtime-cached in shared_utils. One file read, shared across all tickers. Call it once before the per-ticker loop and pass the result.
 
 ### 4.2 Add `{tk}:dip_viable` computed node
 
@@ -392,15 +425,23 @@ state["tickers"][tk] = {
 
 All callers must update:
 1. `candidate_sim_gate.py` line 82 — updated in Phase 2
-2. `backtest_reporter.py` — check if it calls run_simulation directly. If so, update.
-3. Workflow agents — they call candidate_sim_gate, not run_simulation directly. No change needed.
+2. `backtest_engine.py` line 639 (`if __name__ == "__main__"`) — self-test unpack must accept 4-tuple
+3. `backtest_reporter.py` — verified: does NOT call run_simulation directly (reads from JSON files). No change needed.
+4. Workflow agents — they call candidate_sim_gate, not run_simulation directly. No change needed.
 
 ### Fallback when no dip data
 
 - `dip_kpis = None` when simulation didn't produce dip data
 - `dip_viable = "UNKNOWN"` when no simulation data available
-- Hardcoded `recovery_rate ≥ 60%` still applies as fallback gate
-- Graph node returns None gracefully via `_stub()`
+- Hardcoded `recovery_rate ≥ 60%` still applies as fallback gate when `graph=None`
+- Graph node returns None gracefully via `_stub()` (already defined in graph_builder.py line 105-111)
+
+### Existing graph state migration
+
+Old `graph_state.json` files won't have `dip_viable` field. When loaded:
+- `graph.load_prev_state()` sets `prev_value=None` for new nodes (existing behavior)
+- `dip_viable` will show as "new" on first run after upgrade (expected, not a false alert)
+- No migration script needed
 
 ---
 
