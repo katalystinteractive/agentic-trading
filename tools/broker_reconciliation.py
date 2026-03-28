@@ -191,6 +191,58 @@ def _compute_sell_action(broker_price, broker_shares, rec_price, rec_shares):
 
 
 # ---------------------------------------------------------------------------
+# Reason computation — deterministic explanation for every action
+# ---------------------------------------------------------------------------
+
+def _compute_buy_reason(action, broker_price, broker_shares, rec_price, rec_shares,
+                        support_price=0, source="", hold_rate=None, effective_tier="",
+                        pool_active=0, pool_reserve=0):
+    """Compute a deterministic reason string for a BUY action.
+
+    Every action must trace back to: wick refresh, pool resize, or orphaned level.
+    """
+    if "orphaned" in action.lower():
+        return f"Wick refresh moved support levels — ${broker_price:.2f} no longer matches any level"
+    if "duplicate" in action.lower():
+        return f"Duplicate order at ${broker_price:.2f} — already covered by another order"
+
+    parts = []
+    # Price change reason
+    if rec_price > 0 and abs(broker_price - rec_price) / rec_price > MATCH_TOLERANCE:
+        level_str = f"${support_price:.2f} {source}" if support_price else "level"
+        parts.append(f"Wick refresh: buy-at for {level_str} moved ${broker_price:.2f}→${rec_price:.2f}")
+
+    # Share count change reason
+    if broker_shares != rec_shares:
+        pool_str = f" (pool ${pool_active}+${pool_reserve}=${pool_active + pool_reserve})" if pool_active else ""
+        parts.append(f"Pool sizing: {broker_shares}→{rec_shares} shares{pool_str}")
+
+    return ". ".join(parts) if parts else "OK"
+
+
+def _compute_sell_reason(action, broker_price, broker_shares, rec_price, rec_shares,
+                         avg_cost, basis, old_avg_cost=0):
+    """Compute a deterministic reason string for a SELL action.
+
+    Sells are driven by: avg cost change (from fills), position size change (from fills),
+    target source (optimized/target_exit/standard %). Pool size NEVER affects sells.
+    """
+    if action == "PLACE":
+        return f"No sell order exists. Avg ${avg_cost:.2f} × {basis} = ${rec_price:.2f} × {rec_shares} shares"
+
+    parts = []
+    # Price change reason
+    if rec_price > 0 and abs(broker_price - rec_price) / rec_price > MATCH_TOLERANCE:
+        parts.append(f"Avg cost now ${avg_cost:.2f} → {basis} = ${rec_price:.2f} (was ${broker_price:.2f})")
+
+    # Share count change reason
+    if broker_shares != rec_shares:
+        parts.append(f"Position now {rec_shares} shares (sell had {broker_shares})")
+
+    return ". ".join(parts) if parts else "OK"
+
+
+# ---------------------------------------------------------------------------
 # Zone label computation
 # ---------------------------------------------------------------------------
 
@@ -238,6 +290,14 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
         zone_labels = _build_zone_labels_from_ctx(bullet_ctx)
         sizing_lookup = bullet_ctx.get("sizing_lookup", {})
 
+    # --- Pool info for reason strings ---
+    pool_active = 0
+    pool_reserve = 0
+    if bullet_ctx:
+        cap = bullet_ctx.get("cap") or {}
+        pool_active = cap.get("active_pool", 0)
+        pool_reserve = cap.get("reserve_pool", 0)
+
     # --- BUY orders ---
     buy_orders = []
     actions = []
@@ -263,6 +323,14 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
                 rec_price, rec_shares,
                 drift_status, cl.get("duplicate", False),
             )
+            reason = _compute_buy_reason(
+                action, order["price"], order.get("shares", 0),
+                rec_price, rec_shares,
+                support_price=support, source=source,
+                hold_rate=lvl.get("hold_rate"),
+                effective_tier=lvl.get("effective_tier", lvl.get("tier", "")),
+                pool_active=pool_active, pool_reserve=pool_reserve,
+            )
             buy_orders.append({
                 "zone_label": zone_label,
                 "broker_price": order["price"],
@@ -270,21 +338,30 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
                 "rec_price": rec_price,
                 "rec_shares": rec_shares,
                 "action": action,
+                "reason": reason,
             })
             if action != "OK":
-                actions.append(
-                    _format_buy_action(ticker, action, order["price"],
-                                       order.get("shares", 0), rec_price, rec_shares,
-                                       source=lvl.get("source", ""),
-                                       hold_rate=lvl.get("hold_rate"),
-                                       effective_tier=lvl.get("effective_tier", lvl.get("tier", "")),
-                                       support_price=lvl.get("support_price", 0))
-                )
+                actions.append({
+                    "side": "BUY", "ticker": ticker, "action": action,
+                    "broker_price": order["price"],
+                    "broker_shares": order.get("shares", 0),
+                    "rec_price": rec_price, "rec_shares": rec_shares,
+                    "reason": reason,
+                    "display": _format_buy_action(
+                        ticker, action, order["price"],
+                        order.get("shares", 0), rec_price, rec_shares,
+                        source=lvl.get("source", ""),
+                        hold_rate=lvl.get("hold_rate"),
+                        effective_tier=lvl.get("effective_tier", lvl.get("tier", "")),
+                        support_price=lvl.get("support_price", 0)),
+                })
 
         # Orphaned orders
         for o in bullet_ctx.get("orphaned_orders", []):
             if "filled" in o or not o.get("placed", False):
                 continue
+            reason = _compute_buy_reason(
+                "CANCEL (orphaned)", o["price"], o.get("shares", 0), 0, 0)
             buy_orders.append({
                 "zone_label": "?",
                 "broker_price": o["price"],
@@ -292,11 +369,18 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
                 "rec_price": 0,
                 "rec_shares": 0,
                 "action": "CANCEL (orphaned)",
+                "reason": reason,
             })
-            actions.append(
-                _format_buy_action(ticker, "CANCEL (orphaned)", o["price"],
-                                   o.get("shares", 0), 0, 0)
-            )
+            actions.append({
+                "side": "BUY", "ticker": ticker, "action": "CANCEL (orphaned)",
+                "broker_price": o["price"],
+                "broker_shares": o.get("shares", 0),
+                "rec_price": 0, "rec_shares": 0,
+                "reason": reason,
+                "display": _format_buy_action(
+                    ticker, "CANCEL (orphaned)", o["price"],
+                    o.get("shares", 0), 0, 0),
+            })
     else:
         # No wick data — show active BUY orders with ? action
         for o in orders:
@@ -308,6 +392,7 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
                     "rec_price": 0,
                     "rec_shares": 0,
                     "action": "? (no wick data)",
+                    "reason": "No wick analysis available — cannot verify",
                 })
 
     # --- Available bullets ---
@@ -367,6 +452,10 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
                         rec_sell_price, shares,
                     )
 
+                reason = _compute_sell_reason(
+                    action, broker_price, broker_shares,
+                    rec_sell_price, shares, avg_cost, rec_sell_basis)
+
                 sell_orders.append({
                     "broker_price": broker_price,
                     "broker_shares": broker_shares,
@@ -374,27 +463,38 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
                     "rec_shares": shares,
                     "action": action,
                     "basis": rec_sell_basis,
+                    "reason": reason,
                 })
                 if action not in ("OK", "OK (price)"):
                     if action in (_ACTION_ADJUST_BOTH, "ADJUST shares"):
-                        actions.append(
-                            f"SELL {ticker}: {action} ${broker_price:.2f}/{broker_shares}sh "
-                            f"→ ${rec_sell_price:.2f}/{shares}sh ({rec_sell_basis})"
-                        )
+                        display = (f"SELL {ticker}: {action} ${broker_price:.2f}/{broker_shares}sh "
+                                   f"→ ${rec_sell_price:.2f}/{shares}sh ({rec_sell_basis})")
                     else:
-                        actions.append(
-                            f"SELL {ticker}: {action} ${broker_price:.2f} "
-                            f"→ ${rec_sell_price:.2f} x {broker_shares} ({rec_sell_basis})"
-                        )
+                        display = (f"SELL {ticker}: {action} ${broker_price:.2f} "
+                                   f"→ ${rec_sell_price:.2f} x {broker_shares} ({rec_sell_basis})")
+                    actions.append({
+                        "side": "SELL", "ticker": ticker, "action": action,
+                        "broker_price": broker_price,
+                        "broker_shares": broker_shares,
+                        "rec_price": rec_sell_price, "rec_shares": shares,
+                        "reason": reason,
+                        "display": display,
+                    })
 
             # Aggregate shares mismatch note for multi-tranche
             if is_multi_tranche and not shares_covered:
-                actions.append(
-                    f"SELL {ticker}: total SELL shares ({total_sell_shares}) != "
-                    f"position ({shares}) — review tranche sizing"
-                )
+                actions.append({
+                    "side": "SELL", "ticker": ticker, "action": "REVIEW",
+                    "broker_price": 0, "broker_shares": total_sell_shares,
+                    "rec_price": rec_sell_price, "rec_shares": shares,
+                    "reason": f"Total sell shares ({total_sell_shares}) != position ({shares}) — review tranche sizing",
+                    "display": (f"SELL {ticker}: total SELL shares ({total_sell_shares}) != "
+                                f"position ({shares}) — review tranche sizing"),
+                })
         else:
             # No SELL order exists
+            reason = _compute_sell_reason(
+                "PLACE", 0, 0, rec_sell_price, shares, avg_cost, rec_sell_basis)
             sell_orders.append({
                 "broker_price": 0,
                 "broker_shares": 0,
@@ -402,10 +502,15 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
                 "rec_shares": shares,
                 "action": "PLACE",
                 "basis": rec_sell_basis,
+                "reason": reason,
             })
-            actions.append(
-                f"SELL {ticker}: PLACE @ ${rec_sell_price:.2f} x {shares} ({rec_sell_basis})"
-            )
+            actions.append({
+                "side": "SELL", "ticker": ticker, "action": "PLACE",
+                "broker_price": 0, "broker_shares": 0,
+                "rec_price": rec_sell_price, "rec_shares": shares,
+                "reason": reason,
+                "display": f"SELL {ticker}: PLACE @ ${rec_sell_price:.2f} x {shares} ({rec_sell_basis})",
+            })
 
     return {
         "ticker": ticker,
@@ -544,30 +649,35 @@ def format_ticker_report(recon):
 
 
 def format_action_summary(all_recons):
-    """Format consolidated action summary across all tickers."""
+    """Format consolidated action summary across all tickers.
+
+    Each action is a dict with 'display' and 'reason' keys.
+    Output includes the reason for every non-OK action.
+    """
     lines = []
     lines.append("## Action Items")
     lines.append("")
 
+    total_checked = 0
     total_actions = 0
     for recon in all_recons:
+        has_items = recon["buy_orders"] or recon["sell_orders"]
+        if has_items:
+            total_checked += len(recon["buy_orders"]) + len(recon["sell_orders"])
         for action in recon["actions"]:
-            lines.append(f"- {action}")
+            if isinstance(action, dict):
+                lines.append(f"- {action['display']}")
+                lines.append(f"  - *Why: {action['reason']}*")
+            else:
+                # Fallback for any plain string actions
+                lines.append(f"- {action}")
             total_actions += 1
-        # Also report OK tickers
-        if not recon["actions"]:
-            # Check if anything was checked
-            has_items = recon["buy_orders"] or recon["sell_orders"]
-            if has_items:
-                lines.append(f"- {recon['ticker']}: OK")
-                total_actions += 1
 
     if total_actions == 0:
         lines.append("*No active orders to reconcile.*")
     else:
         lines.append("")
-        non_ok = sum(len(r["actions"]) for r in all_recons)
-        lines.append(f"*{total_actions} item(s) checked, {non_ok} action(s) needed. "
+        lines.append(f"*{total_checked} item(s) checked, {total_actions} action(s) needed. "
                       f"Review and confirm changes at broker.*")
 
     lines.append("")
