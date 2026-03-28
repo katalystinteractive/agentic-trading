@@ -130,7 +130,23 @@ L4. Executive summary, L5. Sector context line
 
 ## Key Architectural Insight
 
-The morning verifier (morning_verifier.py) already contains Python implementations
-of verdict logic, momentum classification, and entry gates. The fix is NOT writing
-new logic — it's MOVING existing verified logic upstream from post-hoc checking to
-pre-computation in morning_splitter.py. The code exists; it just runs too late.
+The morning verifier (morning_verifier.py) contains Python implementations of
+verdict logic, momentum classification, and entry gates — but as VERIFICATION
+functions that parse briefing card text. They cannot be directly extracted.
+
+The correct approach: extract the BUSINESS LOGIC (thresholds, rules, classifications)
+into shared_utils.py functions, then have daily_analyzer.py call them directly.
+The daily analyzer is the user's primary tool — NOT the morning workflow.
+
+### What daily_analyzer.py already covers partially:
+- Catastrophic alerts (3 of 16 verdict rules)
+- Position age APPROACHING/EXCEEDED (2 more rules)
+- Earnings gate at ticker level (but not per-order, no market gate)
+- Exit strategy table (volatility-based, not momentum)
+
+### What must be ADDED to daily_analyzer.py:
+- C2: 16-rule verdict per position (extract rules to shared_utils.py)
+- C3: Momentum from RSI/MACD (needs technical_scanner.py call)
+- C4: Combined entry gate per order (market + earnings)
+- C1: Projected sell scenarios for pending fills
+- M11: Recovery classification (deterministic from portfolio.json)
