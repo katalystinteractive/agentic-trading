@@ -148,8 +148,9 @@ def _fetch_technical_data(tickers):
                     macd_vs = None
                     hist_val = None
 
-                result[tk] = {"rsi": round(rsi_val, 1) if rsi_val else None,
-                             "macd_vs_signal": macd_vs, "histogram": round(hist_val, 3) if hist_val else None}
+                result[tk] = {"rsi": round(rsi_val, 1) if rsi_val is not None else None,
+                             "macd_vs_signal": macd_vs,
+                             "histogram": round(hist_val, 3) if hist_val is not None else None}
             except Exception:
                 result[tk] = {"rsi": None, "macd_vs_signal": None, "histogram": None}
     except Exception:

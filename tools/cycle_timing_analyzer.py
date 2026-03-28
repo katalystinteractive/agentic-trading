@@ -506,14 +506,18 @@ def analyze_ticker(ticker):
     }
 
     # Deterministic cooldown overrides (M3 — replaces LLM judgment)
+    # Multiple overrides stack: each extends from the CURRENT cooldown, not the original
     if cooldown_days is not None:
+        overrides = []
+        current_cooldown = cooldown_days
+
         try:
             from earnings_gate import check_earnings_gate
             eg = check_earnings_gate(ticker)
             dte = eg.get("days_to_earnings")
             if dte is not None and 0 < dte <= 3:
-                result["recommendation"]["cooldown_days"] = int(cooldown_days * 1.5)
-                result["recommendation"]["override"] = f"Extended 50%: earnings in {dte}d"
+                current_cooldown = int(current_cooldown * 1.5)
+                overrides.append(f"earnings in {dte}d (+50%)")
         except Exception:
             pass
 
@@ -521,10 +525,14 @@ def analyze_ticker(ticker):
             from shared_regime import fetch_regime_detail
             detail = fetch_regime_detail()
             if detail.get("vix") and detail["vix"] > 30:
-                result["recommendation"]["cooldown_days"] = int(cooldown_days * 1.5)
-                result["recommendation"]["override"] = f"Extended 50%: VIX {detail['vix']:.0f} > 30"
+                current_cooldown = int(current_cooldown * 1.5)
+                overrides.append(f"VIX {detail['vix']:.0f} > 30 (+50%)")
         except Exception:
             pass
+
+        if overrides:
+            result["recommendation"]["cooldown_days"] = current_cooldown
+            result["recommendation"]["override"] = "Extended: " + ", ".join(overrides)
 
     return ticker, result, None
 

@@ -539,20 +539,34 @@ def main():
                     against_items_data = belief.get("evidence_against", [])
                     for_items_data = belief.get("evidence_for", [])
 
-                    # Rule 1: 3+ independent breaks across 3+ weeks → STRUCTURAL
+                    # Rule 1: 3+ independent breaks across 3+ distinct calendar weeks → STRUCTURAL
                     if len(against_items_data) >= 3:
                         dates = [e.get("date", "") for e in against_items_data if e.get("date")]
-                        if len(set(d[:7] for d in dates)) >= 3:  # 3+ different weeks
+                        # Use ISO week (YYYY-WW) for true weekly grouping
+                        weeks = set()
+                        for d in dates:
+                            try:
+                                from datetime import datetime as _dt
+                                dt = _dt.strptime(d[:10], "%Y-%m-%d")
+                                weeks.add(dt.strftime("%Y-W%W"))
+                            except (ValueError, TypeError):
+                                pass
+                        if len(weeks) >= 3:
                             auto_class = "STRUCTURAL"
 
                     # Rule 2: all evidence_against < 30 days AND evidence_for > 6 months → TEMPORARY
+                    # Guard: only apply if there are dated against-items (avoid vacuous truth)
                     if auto_class is None and against_items_data and for_items_data:
                         from datetime import datetime, timedelta
                         now = datetime.now()
-                        all_against_recent = all(
-                            e.get("date") and (now - datetime.strptime(e["date"][:10], "%Y-%m-%d")).days < 30
-                            for e in against_items_data if e.get("date")
-                        )
+                        dated_against = [e for e in against_items_data if e.get("date")]
+                        if not dated_against:
+                            all_against_recent = False  # no dated evidence = can't classify
+                        else:
+                            all_against_recent = all(
+                                (now - datetime.strptime(e["date"][:10], "%Y-%m-%d")).days < 30
+                                for e in dated_against
+                            )
                         any_for_old = any(
                             e.get("date") and (now - datetime.strptime(e["date"][:10], "%Y-%m-%d")).days > 180
                             for e in for_items_data if e.get("date")
