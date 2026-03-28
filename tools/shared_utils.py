@@ -207,3 +207,271 @@ def compute_time_stop(days_held, is_pre_strategy, regime="Neutral"):
     if days_held >= approaching:
         return "APPROACHING"
     return "WITHIN"
+
+
+# ---------------------------------------------------------------------------
+# Momentum classification (from morning_verifier.py:364-395)
+# ---------------------------------------------------------------------------
+
+def classify_momentum(rsi, macd_vs_signal, histogram):
+    """Deterministic momentum classification from RSI + MACD.
+
+    Args:
+        rsi: RSI value (float) or None
+        macd_vs_signal: "above" or "below" or None
+        histogram: MACD histogram value (float) or None
+
+    Returns: 'Bullish' | 'Bearish' | 'Neutral' | 'SKIPPED'
+    """
+    if rsi is None or macd_vs_signal is None:
+        return "SKIPPED"
+
+    # Bearish: RSI < 40 unconditionally, or bearish MACD confluence
+    if rsi < 40:
+        return "Bearish"
+    if macd_vs_signal == "below" and histogram is not None and histogram < 0 and rsi <= 50:
+        return "Bearish"
+
+    # Bullish: RSI > 50 AND MACD above signal
+    if rsi > 50 and macd_vs_signal == "above":
+        return "Bullish"
+
+    # Conflicting: RSI > 50 but MACD bearish
+    if rsi > 50 and macd_vs_signal == "below":
+        return "SKIPPED"
+
+    return "Neutral"
+
+
+# ---------------------------------------------------------------------------
+# Recovery position classification (from exit_review_pre_analyst.py:375-396)
+# ---------------------------------------------------------------------------
+
+RECOVERY_KEYWORDS = ["recovery", "pre-strategy", "underwater", "pre-"]
+
+
+def is_recovery_position(note, entry_date=None, pl_pct=None):
+    """Deterministic recovery classification from portfolio.json fields.
+
+    Args:
+        note: position note string from portfolio.json
+        entry_date: entry_date string (if starts with 'pre-' → recovery)
+        pl_pct: current P/L % (if > 0, reclassify as NOT recovery)
+
+    Returns: bool
+    """
+    if pl_pct is not None and pl_pct > 0:
+        return False  # profitable = not recovery regardless of note
+
+    note_lower = (note or "").lower()
+    for kw in RECOVERY_KEYWORDS:
+        if kw in note_lower:
+            return True
+
+    if entry_date and str(entry_date).startswith("pre-"):
+        return True
+
+    return False
+
+
+# ---------------------------------------------------------------------------
+# Verdict engine — 13 mechanizable rules + 3 REVIEW (from morning_verifier.py:755-932)
+# ---------------------------------------------------------------------------
+
+def compute_verdict(avg_cost, current_price, entry_date, note,
+                    earnings_gate_status, momentum_label, regime,
+                    as_of_date=None):
+    """First-match-wins verdict engine for active positions.
+
+    Args:
+        avg_cost: position average cost
+        current_price: live price
+        entry_date: entry date string from portfolio.json
+        note: position note string
+        earnings_gate_status: from earnings_gate.py — 'CLEAR', 'APPROACHING', 'BLOCKED', 'FALLING_KNIFE'
+        momentum_label: from classify_momentum() — 'Bullish', 'Bearish', 'Neutral', 'SKIPPED'
+        regime: from shared_regime — 'Risk-On', 'Neutral', 'Risk-Off'
+        as_of_date: reference date (default: today)
+
+    Returns: (verdict, rule, detail)
+        verdict: 'EXIT' | 'REDUCE' | 'HOLD' | 'MONITOR' | 'REVIEW'
+        rule: rule identifier (e.g., 'R1', 'R11')
+        detail: human-readable explanation
+    """
+    from datetime import date as date_type
+
+    if as_of_date is None:
+        as_of_date = date_type.today()
+
+    # Compute P/L %
+    pl_pct = (current_price - avg_cost) / avg_cost * 100 if avg_cost > 0 else 0
+
+    # Compute time stop
+    days_held, _, is_pre = compute_days_held(str(entry_date), as_of_date)
+    time_status = compute_time_stop(days_held, is_pre, regime)
+
+    # Compute recovery
+    recovery = is_recovery_position(note, str(entry_date), pl_pct)
+
+    # Earnings gate
+    is_gated = earnings_gate_status in ("BLOCKED", "FALLING_KNIFE")
+    is_approaching = earnings_gate_status == "APPROACHING"
+
+    # Momentum
+    bearish = momentum_label == "Bearish"
+
+    # --- RULES (first match wins) ---
+
+    # Rules 1-5: GATED positions
+    if is_gated:
+        if not recovery and pl_pct > 0:
+            return ("REDUCE", "R1", f"GATED + profitable ({pl_pct:+.1f}%) → take profit before event")
+        if not recovery and pl_pct <= 0:
+            return ("HOLD", "R2", f"GATED + underwater ({pl_pct:+.1f}%) → hold through event")
+        # Recovery + GATED: rules 3-5 (Rule 3 needs thesis = REVIEW)
+        if recovery:
+            return ("REVIEW", "R3", f"Recovery + GATED — needs thesis evaluation (P/L {pl_pct:+.1f}%)")
+
+    # Rules 6-6a: Profit targets
+    if pl_pct >= 12:
+        return ("REDUCE", "R6a", f"P/L {pl_pct:+.1f}% ≥ 12% — take partial profit")
+    if 10 <= pl_pct < 12:
+        return ("HOLD", "R6", f"P/L {pl_pct:+.1f}% at target (10-12%) — hold for full target")
+    if 7 <= pl_pct < 10:
+        return ("HOLD", "R7", f"P/L {pl_pct:+.1f}% approaching target (7-10%)")
+
+    # Rules 8-10: Recovery positions (non-GATED)
+    if recovery and not is_gated:
+        return ("REVIEW", "R8-10", f"Recovery position ({pl_pct:+.1f}%) — needs momentum/thesis analysis")
+
+    # Rules 11-16: Time stop + momentum
+    if time_status == "EXCEEDED":
+        if bearish and not is_approaching:
+            return ("EXIT", "R11", f"Time EXCEEDED + bearish momentum + earnings CLEAR")
+        if is_approaching:
+            return ("REDUCE", "R13", f"Time EXCEEDED + earnings APPROACHING — reduce before event")
+        if not bearish:
+            return ("HOLD", "R14", f"Time EXCEEDED but momentum not bearish ({momentum_label})")
+
+    if time_status == "APPROACHING":
+        return ("MONITOR", "R15", f"Time APPROACHING ({days_held}d) — monitor for exit trigger")
+
+    # Rule 16: Time WITHIN
+    return ("MONITOR", "R16", f"Time WITHIN ({days_held}d) — on track")
+
+
+# ---------------------------------------------------------------------------
+# Entry gate logic (from morning_verifier.py:1085-1191)
+# ---------------------------------------------------------------------------
+
+GATE_PRIORITY = {"ACTIVE": 0, "CAUTION": 1, "REVIEW": 2, "PAUSE": 3}
+
+
+def compute_entry_gate(regime, vix, vix_5d_pct, earnings_gate_status,
+                       order_price, current_price, is_watchlist=False):
+    """Combined market + earnings gate per pending order.
+
+    Args:
+        regime: from shared_regime — 'Risk-On', 'Neutral', 'Risk-Off'
+        vix: current VIX value (float) or None
+        vix_5d_pct: 5-day VIX change % (float) or None
+        earnings_gate_status: from earnings_gate.py
+        order_price: limit order price
+        current_price: live price
+        is_watchlist: True if ticker is watchlist-only (no position)
+
+    Returns: (market_gate, earnings_gate, combined_gate)
+    """
+    # Market gate
+    if regime == "Risk-On":
+        market_gate = "ACTIVE"
+    elif regime == "Risk-Off":
+        if is_watchlist:
+            market_gate = "PAUSE"
+        else:
+            # Active position: REVIEW unless order is deep (>15% below)
+            pct_below = (current_price - order_price) / current_price * 100
+            market_gate = "ACTIVE" if pct_below > 15 else "REVIEW"
+    else:  # Neutral
+        if vix is not None and 20 <= vix <= 25 and vix_5d_pct is not None and vix_5d_pct > 0:
+            market_gate = "CAUTION"
+        else:
+            market_gate = "ACTIVE"
+
+    # Earnings gate mapping
+    eg_map = {
+        "CLEAR": "ACTIVE",
+        "APPROACHING": "REVIEW",
+        "BLOCKED": "PAUSE",
+        "FALLING_KNIFE": "PAUSE",
+    }
+    earnings_mapped = eg_map.get(earnings_gate_status, "ACTIVE")
+
+    # Combined = worst of both
+    m_pri = GATE_PRIORITY.get(market_gate, 0)
+    e_pri = GATE_PRIORITY.get(earnings_mapped, 0)
+    if m_pri >= e_pri:
+        combined = market_gate
+    else:
+        combined = earnings_mapped
+
+    return market_gate, earnings_mapped, combined
+
+
+# ---------------------------------------------------------------------------
+# Projected sell scenarios
+# ---------------------------------------------------------------------------
+
+def compute_sell_scenarios(shares, avg_cost, pending_buys, sell_target_pct=6.0):
+    """What-if table: current position + each pending fill scenario.
+
+    Args:
+        shares: current position shares (int)
+        avg_cost: current average cost (float)
+        pending_buys: list of {price: float, shares: int} from portfolio.json
+        sell_target_pct: exit target % (default 6.0)
+
+    Returns: list of dicts, one per scenario:
+        {scenario, total_shares, new_avg, sell_price, pl_pct, pl_dollars}
+    """
+    scenarios = []
+
+    # Current position
+    if shares > 0:
+        sell_price = round(avg_cost * (1 + sell_target_pct / 100), 2)
+        pl_dollars = round(shares * (sell_price - avg_cost), 2)
+        scenarios.append({
+            "scenario": "Current",
+            "total_shares": shares,
+            "new_avg": round(avg_cost, 2),
+            "sell_price": sell_price,
+            "pl_pct": round(sell_target_pct, 1),
+            "pl_dollars": pl_dollars,
+        })
+
+    # What-if for each pending fill (cumulative)
+    running_shares = shares
+    running_cost = shares * avg_cost
+
+    for i, order in enumerate(pending_buys, 1):
+        o_price = order.get("price", 0)
+        o_shares = order.get("shares", 0)
+        if o_price <= 0 or o_shares <= 0:
+            continue
+
+        running_shares += o_shares
+        running_cost += o_shares * o_price
+        new_avg = running_cost / running_shares
+        sell_price = round(new_avg * (1 + sell_target_pct / 100), 2)
+        pl_dollars = round(running_shares * (sell_price - new_avg), 2)
+
+        scenarios.append({
+            "scenario": f"+Fill #{i} (${o_price:.2f}×{o_shares})",
+            "total_shares": running_shares,
+            "new_avg": round(new_avg, 2),
+            "sell_price": sell_price,
+            "pl_pct": round(sell_target_pct, 1),
+            "pl_dollars": pl_dollars,
+        })
+
+    return scenarios
