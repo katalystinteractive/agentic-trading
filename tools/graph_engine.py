@@ -302,3 +302,132 @@ def _format_value(v: Any) -> str:
     if isinstance(v, dict):
         return json.dumps(v, default=str)[:80]
     return str(v)
+
+
+# ---------------------------------------------------------------------------
+# Self-test — run with: python3 tools/graph_engine.py
+# ---------------------------------------------------------------------------
+
+if __name__ == "__main__":
+    print("=" * 60)
+    print("Graph Engine Self-Test")
+    print("=" * 60)
+    passed = 0
+    failed = 0
+
+    def check(name, condition, detail=""):
+        global passed, failed
+        if condition:
+            print(f"  PASS: {name}")
+            passed += 1
+        else:
+            print(f"  FAIL: {name} — {detail}")
+            failed += 1
+
+    # --- Test 1: Leaf → Computed → Report resolution ---
+    print("\n1. Basic 3-node resolution (price → sell_price → action)")
+    g = DependencyGraph()
+    g.add_node("price", compute=lambda _: 8.82)
+    g.add_node("sell_price",
+               compute=lambda i: round(i["price"] * 1.06, 2),
+               depends_on=["price"])
+    g.add_node("action",
+               compute=lambda i: "ADJUST" if i["sell_price"] != 10.41 else "OK",
+               depends_on=["sell_price"],
+               is_report=True)
+    result = g.resolve()
+    check("price = 8.82", result["price"] == 8.82, f"got {result['price']}")
+    check("sell_price = 9.35", result["sell_price"] == 9.35, f"got {result['sell_price']}")
+    check("action = ADJUST", result["action"] == "ADJUST", f"got {result['action']}")
+
+    # --- Test 2: Signal propagation with composable reasons ---
+    print("\n2. Signal propagation (fill → avg → sell → order)")
+    g2 = DependencyGraph()
+    g2.add_node("fill_event", compute=lambda _: {"price": 7.79, "shares": 23},
+                reason_fn=lambda old, new, _: f"New fill at ${new['price']}")
+    g2.add_node("avg_cost", compute=lambda _: 8.82,
+                depends_on=["fill_event"],
+                reason_fn=lambda old, new, _: f"Avg ${old}→${new}")
+    g2.add_node("sell_price", compute=lambda i: round(i["avg_cost"] * 1.06, 2),
+                depends_on=["avg_cost"],
+                reason_fn=lambda old, new, _: f"Sell ${old}→${new}")
+    g2.add_node("sell_order", compute=lambda _: "ADJUST",
+                depends_on=["sell_price"],
+                is_report=True,
+                reason_fn=lambda old, new, _: f"Order needs {new}")
+
+    g2.load_prev_state({
+        "fill_event": {"price": 8.55, "shares": 10},
+        "avg_cost": 9.82,
+        "sell_price": 10.41,
+        "sell_order": "OK",
+    })
+    g2.resolve()
+    signals = g2.propagate_signals()
+    check("1 signal reached report", len(signals) == 1, f"got {len(signals)}")
+
+    if signals:
+        chain = signals[0].flat_reason()
+        print(f"    Reason chain: {chain}")
+        check("chain has 'New fill'", "New fill" in chain, chain)
+        check("chain has 'Avg'", "Avg" in chain, chain)
+        check("chain has 'Sell'", "Sell" in chain, chain)
+        check("chain has 'Order needs'", "Order needs" in chain, chain)
+
+    # --- Test 3: No change = silence ---
+    print("\n3. No change = no signal")
+    g3 = DependencyGraph()
+    g3.add_node("regime", compute=lambda _: "Risk-Off")
+    g3.add_node("gate", compute=lambda i: "PAUSE",
+                depends_on=["regime"], is_report=True)
+    g3.load_prev_state({"regime": "Risk-Off", "gate": "PAUSE"})
+    g3.resolve()
+    signals3 = g3.propagate_signals()
+    check("0 signals when nothing changed", len(signals3) == 0, f"got {len(signals3)}")
+
+    # --- Test 4: Regime flip cascades ---
+    print("\n4. Regime flip → gate flip (cascade)")
+    g4 = DependencyGraph()
+    g4.add_node("regime", compute=lambda _: "Risk-Off",
+                reason_fn=lambda old, new, _: f"Regime {old}→{new}")
+    g4.add_node("gate", compute=lambda i: "PAUSE" if i["regime"] == "Risk-Off" else "ACTIVE",
+                depends_on=["regime"], is_report=True,
+                reason_fn=lambda old, new, _: f"Gate {old}→{new}")
+    g4.load_prev_state({"regime": "Neutral", "gate": "ACTIVE"})
+    g4.resolve()
+    signals4 = g4.propagate_signals()
+    check("1 signal on regime flip", len(signals4) == 1, f"got {len(signals4)}")
+    if signals4:
+        chain4 = signals4[0].flat_reason()
+        print(f"    Reason: {chain4}")
+        check("reason has both regime + gate", "Regime" in chain4 and "Gate" in chain4, chain4)
+
+    # --- Test 5: Circular dependency ---
+    print("\n5. Circular dependency detection")
+    g5 = DependencyGraph()
+    g5.add_node("a", depends_on=["b"])
+    g5.add_node("b", depends_on=["a"])
+    try:
+        g5.resolve()
+        check("circular detected", False, "no exception raised")
+    except ValueError as e:
+        check("circular detected", "Circular" in str(e), str(e))
+
+    # --- Test 6: State export ---
+    print("\n6. State export for persistence")
+    state = g2.get_state()
+    check("state has fill_event", "fill_event" in state)
+    check("state has sell_price", "sell_price" in state)
+    check("state has sell_order", "sell_order" in state)
+
+    # --- Test 7: Graph summary ---
+    print("\n7. Graph summary")
+    print(g2.summary())
+
+    # --- Final ---
+    print("\n" + "=" * 60)
+    total = passed + failed
+    print(f"Results: {passed}/{total} passed, {failed} failed")
+    if failed == 0:
+        print("ALL TESTS PASSED")
+    print("=" * 60)
