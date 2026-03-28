@@ -30,6 +30,28 @@ _DEFAULT_ACTIVE = 300
 _DEFAULT_RESERVE = 300
 
 
+_mp_cache = {"data": None, "mtime": 0}  # file-level cache for multi-period data
+
+
+def _load_mp_data():
+    """Load multi-period data with file-modification-time caching.
+    Returns the parsed JSON dict or None if file doesn't exist.
+    """
+    try:
+        if not _MULTI_PERIOD_PATH.exists():
+            return None
+        mtime = _MULTI_PERIOD_PATH.stat().st_mtime
+        if _mp_cache["data"] is not None and _mp_cache["mtime"] == mtime:
+            return _mp_cache["data"]
+        with open(_MULTI_PERIOD_PATH) as f:
+            data = json.load(f)
+        _mp_cache["data"] = data
+        _mp_cache["mtime"] = mtime
+        return data
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
 def get_ticker_pool(ticker):
     """Get the allocated pool size for a ticker.
 
@@ -43,22 +65,18 @@ def get_ticker_pool(ticker):
 
     Returns: {active_pool: float, reserve_pool: float, source: str}
     """
-    # Try simulation-backed allocation first
-    try:
-        if _MULTI_PERIOD_PATH.exists():
-            with open(_MULTI_PERIOD_PATH) as f:
-                mp_data = json.load(f)
-            alloc = mp_data.get("allocations", {}).get(ticker)
-            if alloc:
-                return {
-                    "active_pool": alloc.get("active_pool", _DEFAULT_ACTIVE),
-                    "reserve_pool": alloc.get("reserve_pool", _DEFAULT_RESERVE),
-                    "total_pool": alloc.get("total_pool", _DEFAULT_ACTIVE + _DEFAULT_RESERVE),
-                    "source": "multi-period-scorer",
-                    "composite": mp_data.get("composites", {}).get(ticker, 0),
-                }
-    except (json.JSONDecodeError, KeyError, TypeError):
-        pass
+    # Try simulation-backed allocation first (cached read)
+    mp_data = _load_mp_data()
+    if mp_data is not None:
+        alloc = mp_data.get("allocations", {}).get(ticker)
+        if alloc:
+            return {
+                "active_pool": alloc.get("active_pool", _DEFAULT_ACTIVE),
+                "reserve_pool": alloc.get("reserve_pool", _DEFAULT_RESERVE),
+                "total_pool": alloc.get("total_pool", _DEFAULT_ACTIVE + _DEFAULT_RESERVE),
+                "source": "multi-period-scorer",
+                "composite": mp_data.get("composites", {}).get(ticker),
+            }
 
     # Fallback to portfolio.json static defaults
     try:
@@ -83,7 +101,7 @@ def get_ticker_pool(ticker):
 
 
 def get_all_ticker_pools(tickers):
-    """Get pool allocations for multiple tickers.
+    """Get pool allocations for multiple tickers. Single file read.
     Returns: {ticker: pool_dict}
     """
     return {tk: get_ticker_pool(tk) for tk in tickers}

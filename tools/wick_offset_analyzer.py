@@ -50,20 +50,23 @@ def load_capital_config(ticker=None):
     multi-period-results.json first, falls back to portfolio.json.
     If ticker is None, uses portfolio.json static defaults.
     """
-    if ticker:
+    if ticker is not None:
         try:
             from shared_utils import get_ticker_pool
             pool = get_ticker_pool(ticker)
-            portfolio = _load_portfolio()
-            cap = portfolio.get("capital", {})
+            try:
+                portfolio = _load_portfolio()
+                cap = portfolio.get("capital", {})
+            except (FileNotFoundError, json.JSONDecodeError):
+                cap = {}
             return {
                 "active_pool": pool["active_pool"],
                 "reserve_pool": pool["reserve_pool"],
                 "active_bullets_max": cap.get("active_bullets_max", 5),
                 "reserve_bullets_max": cap.get("reserve_bullets_max", 3),
             }
-        except Exception:
-            pass
+        except ImportError:
+            pass  # shared_utils not available — fall through to static
 
     # Fallback: static defaults from portfolio.json
     portfolio = _load_portfolio()

@@ -1099,9 +1099,8 @@ def main():
                         help="Output structured JSON instead of markdown")
     args = parser.parse_args()
 
-    # Load portfolio once; capital config is per-ticker (simulation-backed pools)
+    # Load portfolio once; capital config loaded per-ticker in each path
     portfolio = _load_portfolio()
-    cap = load_capital_config()  # default for batch/JSON mode
 
     if args.json_output:
         if args.mode == "audit":
