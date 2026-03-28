@@ -1109,11 +1109,12 @@ def main():
             sys.exit(1)
         results = []
         for ticker in args.tickers:
-            data, err = analyze_stock_data(ticker)
+            ticker_cap_json = load_capital_config(ticker)  # per-ticker pool
+            data, err = analyze_stock_data(ticker, capital_config=ticker_cap_json)
             if data is None:
                 continue
             with contextlib.redirect_stdout(io.StringIO()):
-                ctx = run_recommend(ticker, args.type_filter, data, portfolio, cap)
+                ctx = run_recommend(ticker, args.type_filter, data, portfolio, ticker_cap_json)
             if ctx is not None:
                 results.append(_ctx_to_json(ctx))
         print(json.dumps(results, indent=2))
@@ -1126,8 +1127,8 @@ def main():
             # Per-ticker pool allocation (simulation-backed if available)
             ticker_cap = load_capital_config(ticker)
 
-            # Run wick analysis
-            data, err = analyze_stock_data(ticker)
+            # Run wick analysis with per-ticker pool for correct bullet sizing
+            data, err = analyze_stock_data(ticker, capital_config=ticker_cap)
             if data is None:
                 print(f"*Error: wick analysis failed for {ticker}: {err}*")
                 continue
