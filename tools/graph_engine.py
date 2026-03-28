@@ -64,6 +64,25 @@ class Signal:
         if self.reason:
             parts.append(self.reason)
 
+    def node_path(self) -> list[str]:
+        """Collect the pulse path: list of node names from leaf to report."""
+        path = []
+        self._collect_node_path(path)
+        return path
+
+    def _collect_node_path(self, path: list[str]) -> None:
+        for child in self.child_signals:
+            child._collect_node_path(path)
+        if self.source_node and self.source_node not in path:
+            path.append(self.source_node)
+
+    def node_path_str(self) -> str:
+        """Format pulse path as [node → node → node]."""
+        path = self.node_path()
+        if not path:
+            return ""
+        return "[" + " → ".join(path) + "]"
+
 
 class Node:
     """A single node in the dependency graph.

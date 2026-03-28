@@ -1376,8 +1376,10 @@ def print_action_dashboard_from_signals(signals, graph):
     for name, node in graph.get_activated_reports():
         val = node.value
         reason = ""
+        node_path = ""
         if node.signals:
             reason = node.signals[0].flat_reason()
+            node_path = node.signals[0].node_path_str()
 
         # Categorize by report node type
         if ":catastrophic_alert" in name:
@@ -1388,13 +1390,18 @@ def print_action_dashboard_from_signals(signals, graph):
                 dd = dd_node.value if dd_node else "?"
                 action_str = ("Pause all pending BUYs" if val == "HARD_STOP"
                               else "Recommend exit regardless of time stop")
-                urgent.append((tk, val, f"{dd:.1f}%" if isinstance(dd, (int, float)) else "?", action_str, reason))
+                full_reason = f"{node_path} {reason}" if node_path else reason
+                urgent.append((tk, val, f"{dd:.1f}%" if isinstance(dd, (int, float)) else "?", action_str, full_reason))
 
         elif ":sell_order_action" in name or ":buy_order_action" in name:
             if isinstance(val, list):
                 for a in val:
                     if not isinstance(a, dict):
                         continue
+                    # Prepend node path to action reason
+                    if node_path and "node_path" not in a:
+                        a = dict(a)  # don't mutate original
+                        a["reason"] = f"{node_path} {a.get('reason', '')}"
                     action = a.get("action", "")
                     if action == "PLACE":
                         place.append(a)
@@ -1405,22 +1412,25 @@ def print_action_dashboard_from_signals(signals, graph):
 
         elif name == "regime_change":
             if reason:
+                full_reason = f"{node_path} {reason}" if node_path else reason
                 changed.append(("---", "Regime", str(node.prev_value or "?"),
-                                str(val), reason))
+                                str(val), full_reason))
 
         elif ":verdict_alert" in name:
             if isinstance(val, tuple) and isinstance(node.prev_value, tuple):
                 if val[0] != node.prev_value[0]:
                     tk = name.split(":")[0]
+                    full_reason = f"{node_path} {reason}" if node_path else reason
                     changed.append((tk, "Verdict", node.prev_value[0],
-                                    val[0], reason))
+                                    val[0], full_reason))
 
         elif ":gate_alert" in name:
             if isinstance(val, tuple) and isinstance(node.prev_value, tuple):
                 if val[2] != node.prev_value[2]:
                     tk = name.split(":")[0]
+                    full_reason = f"{node_path} {reason}" if node_path else reason
                     changed.append((tk, "Gate", node.prev_value[2],
-                                    val[2], reason))
+                                    val[2], full_reason))
 
         elif ":review" in name:
             if val and isinstance(val, tuple):
