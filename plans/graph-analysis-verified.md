@@ -298,7 +298,7 @@ multi_period_results CHANGED (CLSK pool $300→$643)
       "earnings_gate": "CLEAR",
       "time_status": "WITHIN",
       "pool": {"active": 321, "reserve": 322, "source": "multi-period-scorer"},
-      "sell_target": {"price": 10.07, "basis": "optimized 12.0%"},
+      "sell_target": [10.07, "optimized 12.0%"],
       "orders": {
         "A1:8.40": {"gate": "REVIEW", "action": "OK"},
         "SELL:10.07": {"action": "PLACE"}
@@ -364,6 +364,128 @@ Adding a new dependency must not require touching propagation, persistence, or d
 ---
 
 ## 11. Integration Pattern
+
+### 11.0 Module Architecture
+
+```
+tools/graph_engine.py          — Generic engine (reusable, no trading knowledge)
+├─ DependencyGraph class
+│  ├─ add_node(name, compute, depends_on, reason_fn, is_report)
+│  ├─ resolve()                — topological sort + compute all nodes
+│  ├─ propagate_signals()      — diff prev state, emit Signal objects
+│  ├─ load_prev_state(dict)
+│  └─ get_state() → dict
+└─ Signal class
+   ├─ source_node, old_value, new_value, reason, child_signals
+   └─ flat_reason() → "A → B → C" composable reason chain
+
+tools/graph_builder.py         — Trading-specific graph declaration (NEW file)
+├─ build_daily_graph(portfolio, live_prices, regime, ...) → DependencyGraph
+│  (declares all market + per-ticker nodes and edges)
+└─ All reason_fn callbacks live here
+
+tools/daily_analyzer.py        — Orchestrator (MODIFIED)
+├─ main()
+│  ├─ Phase A: Fetch leaf data
+│  ├─ Phase B: build_daily_graph() + resolve() + propagate_signals()
+│  ├─ Phase C: print_action_dashboard_from_signals() + detail sections
+│  └─ Phase D: write_graph_state()
+└─ print_* detail functions     — RETAINED, refactored to read from graph.nodes
+
+tools/shared_utils.py, broker_reconciliation.py, etc.
+└─ UNCHANGED — called by graph nodes as regular functions
+```
+
+### 11.0.1 What Gets Deleted
+
+These functions in daily_analyzer.py are **REMOVED** (replaced by graph engine):
+- `_build_graph_state()` → replaced by `graph.get_state()`
+- `_compute_state_diff()` → replaced by `graph.propagate_signals()`
+- `_load_prev_state()` → replaced by `graph.load_prev_state()`
+- `_write_graph_state()` → replaced by `json.dump(graph.get_state(), ...)`
+- `print_action_dashboard()` → replaced by `print_action_dashboard_from_signals()`
+- stdout buffering (`io.StringIO` / `detail_buf`) → no longer needed (graph collects data without printing)
+
+These functions in broker_reconciliation.py are **RETAINED**:
+- `_compute_buy_reason()` / `_compute_sell_reason()` — still used for standalone `python3 tools/broker_reconciliation.py` output. Not called by the graph dashboard.
+
+These computation functions are **RETAINED and called by graph nodes**:
+- `compute_verdict()`, `classify_momentum()`, `compute_entry_gate()`, `reconcile_ticker()`, `compute_recommended_sell()`, `check_earnings_gate()`, `calc_rsi()`, `calc_macd()`
+
+### 11.0.2 Migration Strategy
+
+**Phase 1** — Build `graph_builder.py` (new file, no changes to daily_analyzer.py):
+- Declares all nodes and edges
+- Can be tested standalone with snapshot data: `python3 tools/graph_builder.py --test`
+- Old daily_analyzer.py runs unchanged on main
+
+**Phase 2** — Integrate graph into daily_analyzer.py:
+- main() calls `build_daily_graph()` + `resolve()` + `propagate_signals()`
+- Dashboard prints from signals instead of manual state-diff
+- Old functions deleted (11.0.1 list)
+- Single commit switchover — no parallel code paths
+
+**Phase 3** — Validate (3 runs):
+- Compare dashboard output to previous runs
+- Verify graph_state.json schema matches Section 9
+- Verify every action item has a multi-level reason chain
+
+### 11.0.3 Dashboard Printing from Signals
+
+`print_action_dashboard_from_signals(signals, graph)` groups activated report node signals into buckets:
+
+| Bucket | Source Nodes | Activates When | Sort |
+| :--- | :--- | :--- | :--- |
+| URGENT | `{tk}:catastrophic_alert` | severity is HARD_STOP or EXIT_REVIEW | by severity desc |
+| PLACE | `{tk}:sell_order_action`, `{tk}:buy_order_action` | action == "PLACE" | by ticker alpha |
+| ADJUST | `{tk}:sell_order_action`, `{tk}:buy_order_action` | "ADJUST" in action | by ticker alpha |
+| CANCEL | `{tk}:buy_order_action` | "CANCEL" in action | by ticker alpha |
+| CHANGED | `regime_change`, `{tk}:verdict_alert`, `{tk}:gate_alert` | any signal present | regime first, then by ticker |
+| REVIEW | `{tk}:review` | verdict == "REVIEW" | by ticker alpha |
+
+Each bucket prints a markdown table. The **Reason** column uses `signal.flat_reason()` — the composable chain from leaf to report. Empty buckets are omitted. If ALL empty: `"*All clear — no actions needed.*"`
+
+### 11.0.4 Detail Sections After Dashboard
+
+The existing print_* functions are **retained** for detail sections. They are refactored to read from graph node values instead of separate dicts:
+
+```python
+# Before (current code):
+print_position_verdicts(live_prices, regime, vix, vix_5d_pct)
+
+# After (graph-integrated):
+print_position_verdicts_from_graph(graph)
+# Reads graph.nodes[f"{tk}:verdict"].value for each ticker
+# Output format IDENTICAL to today's table
+```
+
+This means:
+- Dashboard prints FIRST (from signals — only changed items)
+- Detail sections print AFTER (from graph.nodes — ALL items, same tables as today)
+- Parts 3-6 subprocesses print LAST (unchanged)
+
+### 11.0.5 Error Recovery
+
+If `graph.resolve()` raises an exception:
+1. Catch in main(), print: `"*Graph resolve failed: {error}. Running in status-only mode.*"`
+2. Fall back to basic portfolio status (positions + prices, no verdicts/gates/recon)
+3. Do NOT write graph_state.json (preserve previous state for next run)
+4. Parts 3-6 subprocesses still run (independent of graph)
+5. Return exit code 1
+
+### 11.0.6 Order Matching Algorithm (Cross-Run Diff)
+
+Orders are matched across runs to avoid false "changed" signals when array indices shift.
+
+**Match keys:**
+- SELL orders: matched by ticker (at most 1 active SELL per ticker)
+- BUY orders: matched by `(ticker, label)` where label is A1/A2/B1/etc. from order note
+
+**If no label** (legacy orders): fall back to price ± 1% tolerance.
+
+**Unmatched orders:**
+- In prev_state but not curr → "Order removed" signal
+- In curr_state but not prev → "New order" signal (context, not action)
 
 ### 11.1 How main() Uses the Graph
 
