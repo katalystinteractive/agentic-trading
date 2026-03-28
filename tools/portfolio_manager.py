@@ -225,6 +225,7 @@ def cmd_fill(data, args):
     ticker = args.ticker.upper()
     price = args.price
     shares = args.shares
+    fill_date = getattr(args, "trade_date", None) or TODAY
 
     if shares <= 0:
         print(f"*Error: shares must be positive (got {shares}).*")
@@ -240,7 +241,7 @@ def cmd_fill(data, args):
             "shares": 0,
             "avg_cost": 0,
             "bullets_used": 0,
-            "entry_date": TODAY,
+            "entry_date": fill_date,
             "target_exit": None,
             "fill_prices": [],
             "note": "",
@@ -312,7 +313,7 @@ def cmd_fill(data, args):
 
     # Set entry_date if first fill (shares were 0)
     if old_shares == 0:
-        pos["entry_date"] = TODAY
+        pos["entry_date"] = fill_date
 
     _save(data)
 
@@ -320,7 +321,7 @@ def cmd_fill(data, args):
         _record_trade({
             "ticker": ticker,
             "side": "BUY",
-            "date": TODAY,
+            "date": fill_date,
             "shares": shares,
             "price": round(price, 2),
             "avg_cost_before": round(old_avg, 2),
@@ -375,6 +376,7 @@ def cmd_sell(data, args):
     ticker = args.ticker.upper()
     price = args.price
     shares = args.shares
+    sell_date = getattr(args, "trade_date", None) or TODAY
 
     if shares <= 0:
         print(f"*Error: shares must be positive (got {shares}).*")
@@ -401,7 +403,7 @@ def cmd_sell(data, args):
         # Full close
         pct_change = round((price - old_avg) / old_avg * 100, 1) if old_avg > 0 else 0
         sign = "+" if pct_change >= 0 else ""
-        close_note = (f"Position closed {TODAY} — sold {shares} @ ${price:.2f} "
+        close_note = (f"Position closed {sell_date} — sold {shares} @ ${price:.2f} "
                       f"({sign}{pct_change}% from ${old_avg:.2f} avg).")
 
         old_note = pos.get("note", "")
@@ -437,7 +439,7 @@ def cmd_sell(data, args):
             _record_trade({
                 "ticker": ticker,
                 "side": "SELL",
-                "date": TODAY,
+                "date": sell_date,
                 "shares": shares,
                 "price": round(price, 2),
                 "avg_cost_before": round(old_avg, 2),
@@ -493,7 +495,7 @@ def cmd_sell(data, args):
             _record_trade({
                 "ticker": ticker,
                 "side": "SELL",
-                "date": TODAY,
+                "date": sell_date,
                 "shares": shares,
                 "price": round(price, 2),
                 "avg_cost_before": round(old_avg, 2),

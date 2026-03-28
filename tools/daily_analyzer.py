@@ -7,6 +7,7 @@ new candidates, and reconciles broker state.
 
 Usage:
     python3 tools/daily_analyzer.py --fills "CIFR:14.18:8" --sells "LUNR:18.89:2"
+    python3 tools/daily_analyzer.py --fills "CIFR:14.18:8:2026-03-26" --sells "LUNR:18.89:2:2026-03-27"
     python3 tools/daily_analyzer.py                   # full flow: Parts 1-7 (~7-14 min)
     python3 tools/daily_analyzer.py --no-deploy       # Parts 1-2, 7 only (quick)
     python3 tools/daily_analyzer.py --no-perf         # Parts 1-2, 4-7 (skip perf analysis)
@@ -642,9 +643,18 @@ def print_daily_fluctuation_watchlist(regime="Neutral"):
 # ---------------------------------------------------------------------------
 
 def parse_specs(spec_string):
-    """Parse 'TICKER:PRICE:SHARES,...' → (list of tuples, parse_error_count)."""
+    """Parse 'TICKER:PRICE:SHARES[:DATE],...' → (list of tuples, parse_error_count).
+
+    Each item is TICKER:PRICE:SHARES or TICKER:PRICE:SHARES:YYYY-MM-DD.
+    If date is omitted, defaults to last trading day.
+    Returns list of (ticker, price, shares, trade_date_str).
+    """
     if not spec_string:
         return [], 0
+
+    from trading_calendar import last_trading_day
+    default_date = last_trading_day().isoformat()
+
     results = []
     errors = 0
     for item in spec_string.split(","):
@@ -652,8 +662,8 @@ def parse_specs(spec_string):
         if not item:
             continue
         parts = item.split(":")
-        if len(parts) != 3:
-            print(f"*Error: bad spec '{item}' — expected TICKER:PRICE:SHARES*")
+        if len(parts) not in (3, 4):
+            print(f"*Error: bad spec '{item}' — expected TICKER:PRICE:SHARES or TICKER:PRICE:SHARES:DATE*")
             errors += 1
             continue
         ticker = parts[0].strip().upper()
@@ -668,7 +678,18 @@ def parse_specs(spec_string):
             print(f"*Error: bad spec '{item}' — shares must be positive*")
             errors += 1
             continue
-        results.append((ticker, price, shares))
+        trade_date = default_date
+        if len(parts) == 4:
+            d = parts[3].strip()
+            # Validate date format YYYY-MM-DD
+            import re as _re
+            if _re.match(r'^\d{4}-\d{2}-\d{2}$', d):
+                trade_date = d
+            else:
+                print(f"*Error: bad date '{d}' in '{item}' — expected YYYY-MM-DD*")
+                errors += 1
+                continue
+        results.append((ticker, price, shares, trade_date))
     return results, errors
 
 
@@ -684,8 +705,9 @@ def process_transactions(fills, sells, parse_errors=0):
     _orig_analyze = sell_target_calculator.analyze_ticker
     sell_target_calculator.analyze_ticker = lambda *a, **kw: None
 
-    for ticker, price, shares in fills:
-        args = argparse.Namespace(ticker=ticker, price=price, shares=shares)
+    for ticker, price, shares, trade_date in fills:
+        args = argparse.Namespace(ticker=ticker, price=price, shares=shares,
+                                  trade_date=trade_date)
         try:
             data = _load()
             cmd_fill(data, args)
@@ -703,8 +725,9 @@ def process_transactions(fills, sells, parse_errors=0):
     # Restore sell_target_calculator
     sell_target_calculator.analyze_ticker = _orig_analyze
 
-    for ticker, price, shares in sells:
-        args = argparse.Namespace(ticker=ticker, price=price, shares=shares)
+    for ticker, price, shares, trade_date in sells:
+        args = argparse.Namespace(ticker=ticker, price=price, shares=shares,
+                                  trade_date=trade_date)
         try:
             data = _load()
             cmd_sell(data, args)
