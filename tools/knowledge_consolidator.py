@@ -534,15 +534,47 @@ def main():
                 section.append(f"| Contradiction Score | {belief['contradiction_score']} |")
 
                 if belief["needs_llm_review"]:
-                    section.append("")
-                    section.append("*LLM: Classify — TEMPORARY or STRUCTURAL. "
-                                   "Cite ≥2 specific data points from the table above.*")
+                    # Deterministic classification rules (before LLM)
+                    auto_class = None
+                    against_items_data = belief.get("evidence_against", [])
+                    for_items_data = belief.get("evidence_for", [])
+
+                    # Rule 1: 3+ independent breaks across 3+ weeks → STRUCTURAL
+                    if len(against_items_data) >= 3:
+                        dates = [e.get("date", "") for e in against_items_data if e.get("date")]
+                        if len(set(d[:7] for d in dates)) >= 3:  # 3+ different weeks
+                            auto_class = "STRUCTURAL"
+
+                    # Rule 2: all evidence_against < 30 days AND evidence_for > 6 months → TEMPORARY
+                    if auto_class is None and against_items_data and for_items_data:
+                        from datetime import datetime, timedelta
+                        now = datetime.now()
+                        all_against_recent = all(
+                            e.get("date") and (now - datetime.strptime(e["date"][:10], "%Y-%m-%d")).days < 30
+                            for e in against_items_data if e.get("date")
+                        )
+                        any_for_old = any(
+                            e.get("date") and (now - datetime.strptime(e["date"][:10], "%Y-%m-%d")).days > 180
+                            for e in for_items_data if e.get("date")
+                        )
+                        if all_against_recent and any_for_old:
+                            auto_class = "TEMPORARY"
+
+                    if auto_class:
+                        section.append("")
+                        section.append(f"*Auto-classified: **{auto_class}** (deterministic rule)*")
+                    else:
+                        section.append("")
+                        section.append("*LLM: Classify — TEMPORARY or STRUCTURAL. "
+                                       "Cite ≥2 specific data points from the table above.*")
+
                     contradictions.append({
                         "ticker": ticker,
                         "belief": belief["belief"],
                         "entry_id": belief["entry_id"],
                         "score": belief["contradiction_score"],
                         "key_against": against_items[0] if against_items else "N/A",
+                        "auto_class": auto_class,
                     })
 
         section.append("")

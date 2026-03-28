@@ -465,6 +465,25 @@ def _process_ticker(ticker, data, hist, portfolio):
     # Verdict
     verdict, verdict_note = _compute_verdict(ticker, data, portfolio, order_info, swing, consistency, cycle_pts=cycle_pts, recent_swing=recent_swing)
 
+    # Deterministic override rules (M4 — replaces LLM judgment)
+    if verdict == "ENGAGE":
+        try:
+            from technical_scanner import calc_rsi
+            import yfinance as yf
+            h = yf.Ticker(ticker).history(period="3mo")
+            if not h.empty and len(h) > 50:
+                rsi_vals = calc_rsi(h["Close"])
+                rsi = float(rsi_vals.iloc[-1]) if len(rsi_vals) > 0 else None
+                sma50 = float(h["Close"].rolling(50).mean().iloc[-1])
+                close = float(h["Close"].iloc[-1])
+                pct_above_sma = (close - sma50) / sma50 * 100 if sma50 > 0 else 0
+                if rsi and rsi > 75 and pct_above_sma > 12:
+                    verdict = "WAIT"
+                    verdict_note = (f"Auto-override: overbought (RSI {rsi:.0f} > 75, "
+                                   f"{pct_above_sma:.0f}% above 50-SMA). Wait for pullback.")
+        except Exception:
+            pass  # override is advisory, don't crash on failure
+
     # Shared order_info dict for JSON output
     def _order_info_json():
         return {

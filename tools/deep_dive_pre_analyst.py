@@ -828,6 +828,55 @@ def build_blocked_output(header, portfolio_data, failure_text):
 
 
 # ---------------------------------------------------------------------------
+# Monthly Cycle Timing (C7 — deterministic, replaces LLM)
+# ---------------------------------------------------------------------------
+
+def compute_monthly_cycle(wick_events):
+    """Classify monthly bottom timing from wick approach dates.
+
+    Groups approach dates by day-of-month, finds the mode (most frequent
+    bottom day), classifies as Early (1-8), Mid (9-18), or Late (19-31).
+
+    Args:
+        wick_events: list of dicts with 'date' key (from wick analysis levels)
+
+    Returns: (classification: str, peak_day: int, distribution: dict)
+        classification: 'Early' | 'Mid' | 'Late' | 'Unknown'
+    """
+    from collections import Counter
+
+    dates = []
+    for event in wick_events:
+        d = event.get("date", "")
+        if d and len(d) >= 10:
+            try:
+                day = int(d[8:10])
+                dates.append(day)
+            except (ValueError, IndexError):
+                pass
+
+    if len(dates) < 5:
+        return "Unknown", 0, {}
+
+    counts = Counter(dates)
+    # Group into thirds
+    early = sum(counts.get(d, 0) for d in range(1, 9))
+    mid = sum(counts.get(d, 0) for d in range(9, 19))
+    late = sum(counts.get(d, 0) for d in range(19, 32))
+
+    peak_day = counts.most_common(1)[0][0]
+
+    if early >= mid and early >= late:
+        classification = "Early"
+    elif late >= early and late >= mid:
+        classification = "Late"
+    else:
+        classification = "Mid"
+
+    return classification, peak_day, {"early": early, "mid": mid, "late": late}
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 

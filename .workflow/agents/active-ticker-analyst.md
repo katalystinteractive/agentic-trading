@@ -216,3 +216,6 @@ Card written for {TICKER}: {VERDICT}
 - Do NOT give EXIT to recovery positions
 - Do NOT label REDUCE when no shares sold (hold + pause orders = HOLD)
 - Do NOT skip any exit criteria
+- Do NOT fabricate news events, analyst price targets, or institutional actions not present in the input data
+- Do NOT generate specific sell prices — use only tool-computed targets from the input file
+- News claims MUST be quoted from the input file, not generated from memory
