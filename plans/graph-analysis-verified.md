@@ -351,6 +351,14 @@ Parts 3-6 (perf analysis, deployment, fitness, screening) are slow subprocesses 
 
 On first run, `prev_state = {}`. Every node has `prev_value = None`. The CHANGED section shows "No previous state — first run." No false alerts.
 
+### 10.6 Graph is a Wiring Layer, Not a Rewrite
+
+The graph WRAPS existing Python functions — it does NOT replace them. `compute_verdict()`, `classify_momentum()`, `compute_entry_gate()`, `reconcile_ticker()`, `compute_recommended_sell()` stay exactly as they are. Graph nodes call these functions. No computation logic is duplicated or reimplemented inside the graph. If a function changes, the graph automatically uses the updated version.
+
+### 10.7 Single-Edge Extensibility
+
+Adding a new data source or dependency must require declaring ONE node and ONE edge — not modifying multiple files. If adding a new node requires touching main(), _build_graph_state(), _compute_state_diff(), and print_action_dashboard(), the graph has failed its purpose. The graph engine handles propagation, persistence, and dashboard rendering from the declared structure alone.
+
 ---
 
 ## 11. What the Graph Engine Must Support
@@ -365,7 +373,9 @@ Based on this analysis, the graph engine needs:
 6. **State diffing** — compare previous run, surface changes as signals
 7. **Report node activation** — only "hot" nodes surface in dashboard
 8. **Lifecycle handling** — new tickers, closed positions, removed orders
-9. **~638 nodes, ~27 tickers** — must resolve in <5 seconds (all fast except yfinance)
+9. **~692 nodes, ~27 tickers** — must resolve in <5 seconds (all fast except yfinance)
+10. **Wrap, don't rewrite** — graph nodes call existing functions, no logic duplication
+11. **Single-edge extensibility** — new dependency = one node + one edge declaration
 
 ---
 
