@@ -102,6 +102,36 @@ def _format_action_reason(actions, child_signals):
     return " → ".join(p for p in parts if p)
 
 
+def _check_dip_viable(dip_kpis, regime, catastrophic, verdict):
+    """Determine if ticker is viable for daily dip strategy.
+
+    Combines simulation evidence + current ticker state from graph.
+    Returns: YES / CAUTION / NO / BLOCKED / UNKNOWN
+    """
+    # Block if main strategy says stop buying
+    if catastrophic in ("HARD_STOP", "EXIT_REVIEW"):
+        return "BLOCKED"
+    if isinstance(verdict, tuple) and verdict[0] in ("EXIT", "REDUCE"):
+        return "BLOCKED"
+
+    # No simulation data — fall back to unknown
+    if not dip_kpis or not isinstance(dip_kpis, dict):
+        return "UNKNOWN"
+
+    win_rate = dip_kpis.get("dip_win_rate", 0)
+
+    # Check regime-specific performance
+    regime_data = dip_kpis.get("by_regime", {}).get(regime, {})
+    regime_win = regime_data.get("win_rate", win_rate)  # fallback to overall
+
+    if win_rate >= 50 and regime_win >= 40:
+        return "YES"
+    elif win_rate >= 40:
+        return "CAUTION"
+    else:
+        return "NO"
+
+
 class _StubNode:
     """Stub for missing graph nodes — returns None for .value."""
     value = None
@@ -148,6 +178,14 @@ def build_daily_graph(portfolio, live_prices, regime, vix, vix_5d_pct,
             profiles = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         profiles = {}
+
+    # Load multi-period results for dip KPIs (mtime-cached, one read)
+    try:
+        from shared_utils import _load_mp_data
+        mp_data = _load_mp_data() or {}
+    except Exception:
+        mp_data = {}
+    mp_allocations = mp_data.get("allocations", {})
 
     # Determine active tickers: positions with shares > 0 OR watchlist with pending buys
     active_tickers = set()
@@ -267,7 +305,23 @@ def build_daily_graph(portfolio, live_prices, regime, vix, vix_5d_pct,
                 if old and new and isinstance(old, dict) and isinstance(new, dict)
                 and old.get('active_pool') != new.get('active_pool') else ""))
 
-        # 14. sell_target (priority: optimized > target_exit > 6%)
+        # 15. dip_kpis — from multi-period simulation (if available)
+        tk_dip_kpis = mp_allocations.get(tk, {}).get("dip_kpis")
+        graph.add_node(f"{tk}:dip_kpis",
+            compute=lambda _, d=tk_dip_kpis: d,
+            reason_fn=lambda old, new, _: (
+                f"Dip win rate {old.get('dip_win_rate', 0)}→{new.get('dip_win_rate', 0)}%"
+                if old and new and isinstance(old, dict) and isinstance(new, dict) else ""))
+
+        # 16. dip_viable — combines simulation evidence + current ticker state
+        graph.add_node(f"{tk}:dip_viable",
+            compute=lambda i, t=tk: _check_dip_viable(
+                i.get(f"{t}:dip_kpis"), i.get("regime"),
+                i.get(f"{t}:catastrophic"), i.get(f"{t}:verdict")),
+            depends_on=[f"{tk}:dip_kpis", "regime", f"{tk}:catastrophic", f"{tk}:verdict"],
+            reason_fn=lambda old, new, _: f"Dip viability {old}→{new}" if old != new else "")
+
+        # 17. sell_target (priority: optimized > target_exit > 6%)
         #     NOTE: depends on avg_cost, NOT pool (analysis Section 10.3)
         graph.add_node(f"{tk}:sell_target",
             compute=lambda i, t=tk, p=pos, pr=profiles: compute_recommended_sell(
@@ -394,6 +448,7 @@ def get_state_for_persistence(graph, active_tickers, pending_orders):
             "time_status": n.get(f"{tk}:time_status", _stub()).value,
             "pool": n.get(f"{tk}:pool", _stub()).value,
             "sell_target": n.get(f"{tk}:sell_target", _stub()).value,
+            "dip_viable": n.get(f"{tk}:dip_viable", _stub()).value,
         }
         # Per-order gate state
         for idx, order in enumerate(pending_orders.get(tk, [])):

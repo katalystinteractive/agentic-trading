@@ -555,7 +555,8 @@ class TestPersistenceSchema:
     def test_e2_per_ticker_keys(self):
         state = self._get_state()
         expected = {"avg_cost", "shares", "pl_pct", "verdict", "catastrophic",
-                    "momentum", "earnings_gate", "time_status", "pool", "sell_target"}
+                    "momentum", "earnings_gate", "time_status", "pool", "sell_target",
+                    "dip_viable"}
         actual = set(state["tickers"]["CLSK"].keys())
         assert expected == actual, f"Missing: {expected - actual}"
 

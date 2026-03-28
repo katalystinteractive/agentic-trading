@@ -516,7 +516,7 @@ def print_pdt_status():
         print(f"\n*PDT Status: {same_day_count} same-day exit(s) pending — track against 3/5-day limit*")
 
 
-def print_daily_fluctuation_watchlist(regime="Neutral"):
+def print_daily_fluctuation_watchlist(regime="Neutral", graph=None):
     """Show daily dip watchlist with today's actionable prices."""
     import yfinance as yf
     import numpy as np
@@ -537,6 +537,8 @@ def print_daily_fluctuation_watchlist(regime="Neutral"):
 
     if not candidates:
         return
+
+    blocked_dip = []  # tickers blocked by graph (catastrophic/verdict)
 
     # Batch fetch 1-month daily data for all candidates
     try:
@@ -596,7 +598,19 @@ def print_daily_fluctuation_watchlist(regime="Neutral"):
             if med_range < 3.0 or recovery_2 < 60:
                 continue
 
-            rows.append((tk, today_open, buy_at, sell_3, med_range, dip_pct, recovery_2, recovery_3))
+            # Graph-based dip viability (when simulation data available)
+            dip_status = None
+            if graph is not None:
+                dip_node = graph.nodes.get(f"{tk}:dip_viable")
+                if dip_node and dip_node.value:
+                    dip_status = dip_node.value
+                    if dip_status == "BLOCKED":
+                        blocked_dip.append(tk)
+                        continue
+                    elif dip_status == "NO":
+                        continue
+
+            rows.append((tk, today_open, buy_at, sell_3, med_range, dip_pct, recovery_2, recovery_3, dip_status))
         except Exception:
             continue
 
@@ -626,7 +640,9 @@ def print_daily_fluctuation_watchlist(regime="Neutral"):
     print("| Ticker | Open | Buy (-1%) | Sell +4% | Stop -3% | Range | Dip Days | +3% Win |")
     print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     shown = 0
-    for tk, today_open, buy, s3, rng, dip_d, rec2, rec3 in rows:
+    for row in rows:
+        tk, today_open, buy, s3, rng, dip_d, rec2, rec3 = row[:8]
+        dip_status = row[8] if len(row) > 8 else None
         if tk in gated_tickers:
             print(f"| ~~{tk}~~ | — | — | — | — | — | — | EARNINGS GATE |")
         else:
@@ -1649,7 +1665,7 @@ def print_detail_sections(graph, regime):
     print_exit_strategy_summary()
     print_unfilled_same_day_exits()
     print_pdt_status()
-    print_daily_fluctuation_watchlist(regime=regime)
+    print_daily_fluctuation_watchlist(regime=regime, graph=graph)
 
     # Broker Reconciliation — read from graph nodes
     recon_tickers = sorted(

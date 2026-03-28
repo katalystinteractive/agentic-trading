@@ -267,6 +267,32 @@ def main():
     # Allocate capital
     alloc = allocate_capital(composites, total_budget)
 
+    # Compute composite dip KPIs per ticker (weighted across periods)
+    for tk in tickers:
+        dip_composite = None
+        weighted_win = 0
+        weighted_pnl = 0
+        total_w = 0
+        for months in PERIODS:
+            result = all_results.get(tk, {}).get(months, {})
+            dk = result.get("dip_kpis")
+            if dk and dk.get("dip_trades", 0) > 0:
+                w = details.get(tk, {}).get(f"w{months}", 0)
+                if w > 0:
+                    weighted_win += dk["dip_win_rate_pct"] * w
+                    weighted_pnl += dk["dip_pnl"] * w
+                    total_w += w
+        if total_w > 0:
+            # Use 12-month regime breakdown as the most representative
+            regime_data_12 = all_results.get(tk, {}).get(12, {}).get("dip_kpis", {})
+            dip_composite = {
+                "dip_win_rate": round(weighted_win / total_w, 1),
+                "dip_pnl_weighted": round(weighted_pnl / total_w, 2),
+                "by_regime": regime_data_12.get("by_regime", {}) if regime_data_12 else {},
+            }
+        if tk in alloc:
+            alloc[tk]["dip_kpis"] = dip_composite
+
     # Sort by composite
     ranked = sorted(composites.items(), key=lambda x: x[1], reverse=True)
 

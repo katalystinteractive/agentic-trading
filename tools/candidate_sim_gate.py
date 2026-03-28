@@ -79,7 +79,7 @@ def simulate_candidate(ticker, months=10):
 
     # Phase 2: Simulate
     price_data, regime_data, config_meta = load_collected_data(str(out_dir))
-    trades, cycles, equity_curve = run_simulation(price_data, regime_data, cfg)
+    trades, cycles, equity_curve, dip_metrics = run_simulation(price_data, regime_data, cfg)
     save_results(trades, cycles, equity_curve, str(out_dir))
 
     # Compute gate metrics
@@ -117,6 +117,24 @@ def simulate_candidate(ticker, months=10):
     # Avg hold
     avg_hold = float(np.mean([t.get("days_held", 0) for t in real_sells]))
 
+    # Aggregate dip side-channel metrics
+    dip_kpis = None
+    if dip_metrics:
+        dm = dip_metrics.get(ticker)
+        if dm and dm.days > 0:
+            dip_kpis = {
+                "dip_frequency_pct": round(dm.dip_days / dm.days * 100, 1),
+                "recovery_rate_pct": round(dm.recovery_days / dm.dip_days * 100, 1) if dm.dip_days > 0 else 0,
+                "dip_win_rate_pct": round(dm.dip_wins / dm.dip_trades * 100, 1) if dm.dip_trades > 0 else 0,
+                "dip_pnl": round(dm.dip_pnl, 2),
+                "dip_trades": dm.dip_trades,
+                "by_regime": {
+                    r: {"win_rate": round(v["wins"] / v["trades"] * 100, 1) if v["trades"] > 0 else 0,
+                        "pnl": round(v["pnl"], 2), "trades": v["trades"]}
+                    for r, v in dm.by_regime.items() if v["days"] > 0
+                },
+            }
+
     return {
         "ticker": ticker,
         "pnl": round(total_pnl, 2),
@@ -129,6 +147,7 @@ def simulate_candidate(ticker, months=10):
         "sells": len(real_sells),
         "sde_rate": round(sde_rate, 1),
         "avg_hold": round(avg_hold, 1),
+        "dip_kpis": dip_kpis,
     }
 
 

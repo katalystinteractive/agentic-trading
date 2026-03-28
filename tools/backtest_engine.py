@@ -62,6 +62,24 @@ class StockCapital:
     reserve_bullets: int = 0
 
 
+@dataclass
+class DailyDipMetrics:
+    """Side-channel: tracks daily dip viability per ticker during surgical sim."""
+    days: int = 0
+    dip_days: int = 0
+    recovery_days: int = 0
+    dip_trades: int = 0
+    dip_wins: int = 0
+    dip_losses: int = 0
+    dip_cuts: int = 0
+    dip_pnl: float = 0.0
+    by_regime: dict = field(default_factory=lambda: {
+        "Risk-On": {"days": 0, "dip_days": 0, "wins": 0, "trades": 0, "pnl": 0.0},
+        "Neutral": {"days": 0, "dip_days": 0, "wins": 0, "trades": 0, "pnl": 0.0},
+        "Risk-Off": {"days": 0, "dip_days": 0, "wins": 0, "trades": 0, "pnl": 0.0},
+    })
+
+
 def load_collected_data(data_dir):
     """Load Phase 1 output."""
     p = Path(data_dir)
@@ -116,7 +134,7 @@ def _compute_sell_target(cfg, completed_cycles_for_ticker):
 def run_simulation(price_data, regime_data, cfg):
     """Execute the surgical mean-reversion backtest.
 
-    Returns: (trades, cycles, equity_curve)
+    Returns: (trades, cycles, equity_curve, dip_metrics)
     """
     from wick_offset_analyzer import analyze_stock_data, WickConfig, ACTIVE_RADIUS_CAP, POOL_MAX_FRACTION
     import wick_offset_analyzer as woa
@@ -187,6 +205,9 @@ def run_simulation(price_data, regime_data, cfg):
     # Determine recompute schedule
     recompute_interval = {"daily": 1, "weekly": 5, "monthly": 21}.get(cfg.recompute_levels, 5)
     days_since_recompute = {tk: recompute_interval for tk in tickers}  # force initial compute
+
+    # Dip side-channel — tracks daily dip viability per ticker (no impact on surgical logic)
+    dip_metrics = {tk: DailyDipMetrics() for tk in tickers}
 
     # --- DAILY REPLAY ---
     for day_idx, d in enumerate(sim_dates):
@@ -304,18 +325,62 @@ def run_simulation(price_data, regime_data, cfg):
             tk_data = price_data[tk]
             try:
                 if d in tk_data["Low"].index:
+                    day_open = float(tk_data["Open"].loc[d])
+                    day_high = float(tk_data["High"].loc[d])
                     day_low = float(tk_data["Low"].loc[d])
                     day_close = float(tk_data["Close"].loc[d])
                 elif hasattr(tk_data["Low"].index[0], "date"):
                     mask = tk_data["Low"].index.date == d
                     if not mask.any():
                         continue
+                    day_open = float(tk_data["Open"][mask].iloc[0])
+                    day_high = float(tk_data["High"][mask].iloc[0])
                     day_low = float(tk_data["Low"][mask].iloc[0])
                     day_close = float(tk_data["Close"][mask].iloc[0])
                 else:
                     continue
             except (KeyError, IndexError):
                 continue
+
+            # --- Dip side-channel (no impact on surgical logic) ---
+            dm = dip_metrics[tk]
+            dm.days += 1
+            regime_bucket = dm.by_regime.get(regime, dm.by_regime["Neutral"])
+            regime_bucket["days"] += 1
+
+            if day_open > 0:
+                dip_pct = (day_open - day_low) / day_open * 100
+                recovery_pct = (day_high - day_low) / day_low * 100 if day_low > 0 else 0
+
+                if dip_pct >= 1.0:
+                    dm.dip_days += 1
+                    regime_bucket["dip_days"] += 1
+
+                    # Theoretical dip-buy: enter at open - 1%
+                    dip_entry = day_open * 0.99
+                    dip_target = dip_entry * 1.04
+                    dip_stop = dip_entry * 0.97
+                    dm.dip_trades += 1
+                    regime_bucket["trades"] += 1
+
+                    # Stop checked first (conservative — same assumption as surgical sim)
+                    if day_low <= dip_stop:
+                        dm.dip_losses += 1
+                        dm.dip_pnl += dip_stop - dip_entry
+                        regime_bucket["pnl"] += dip_stop - dip_entry
+                    elif day_high >= dip_target:
+                        dm.dip_wins += 1
+                        dm.dip_pnl += dip_target - dip_entry
+                        regime_bucket["wins"] += 1
+                        regime_bucket["pnl"] += dip_target - dip_entry
+                    else:
+                        dm.dip_cuts += 1
+                        dm.dip_pnl += day_close - dip_entry
+                        regime_bucket["pnl"] += day_close - dip_entry
+
+                    if recovery_pct >= 3.0:
+                        dm.recovery_days += 1
+            # --- End dip side-channel ---
 
             filled = []
             for i, order in enumerate(pending_orders.get(tk, [])):
@@ -577,7 +642,7 @@ def run_simulation(price_data, regime_data, cfg):
     print(f"\nSimulation complete: {len(buy_trades)} buys, {len(sell_trades)} sells, "
           f"{len(all_cycles)} cycles")
 
-    return trades, all_cycles, equity_curve
+    return trades, all_cycles, equity_curve, dip_metrics
 
 
 def save_results(trades, cycles, equity_curve, output_dir):
@@ -636,8 +701,27 @@ def main():
             setattr(cfg, k, v)
     cfg.output_dir = args.data_dir
 
-    trades, cycles, equity_curve = run_simulation(price_data, regime_data, cfg)
+    trades, cycles, equity_curve, dip_metrics = run_simulation(price_data, regime_data, cfg)
     save_results(trades, cycles, equity_curve, args.data_dir)
+
+    # Save dip side-channel results
+    dip_out = {}
+    for tk, dm in dip_metrics.items():
+        if dm.days == 0:
+            continue
+        dip_out[tk] = {
+            "days": dm.days,
+            "dip_frequency_pct": round(dm.dip_days / dm.days * 100, 1),
+            "recovery_rate_pct": round(dm.recovery_days / dm.dip_days * 100, 1) if dm.dip_days > 0 else 0,
+            "dip_win_rate_pct": round(dm.dip_wins / dm.dip_trades * 100, 1) if dm.dip_trades > 0 else 0,
+            "dip_pnl": round(dm.dip_pnl, 2),
+            "dip_trades": dm.dip_trades,
+            "by_regime": {r: v for r, v in dm.by_regime.items() if v["days"] > 0},
+        }
+    dip_path = Path(args.data_dir) / "dip_kpis.json"
+    with open(dip_path, "w") as f:
+        json.dump(dip_out, f, indent=2, default=str)
+    print(f"Dip KPIs written to {dip_path} ({len(dip_out)} tickers)")
 
 
 if __name__ == "__main__":
