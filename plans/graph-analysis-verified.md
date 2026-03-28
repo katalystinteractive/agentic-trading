@@ -270,8 +270,8 @@ multi_period_results CHANGED (CLSK pool $300→$643)
 | Per-ticker decisions | 16 × 2 = 32 | verdict, catastrophic (positions only) |
 | Per-order decisions | 54 × 1 = 54 | entry_gate |
 | Per-ticker recon | 27 × 1 = 27 | recon |
-| Report nodes | 27 × 4 + 1 = 109 | sell_order_action, buy_order_action, verdict_alert, catastrophic_alert, regime_change |
-| **TOTAL** | **~692** | Dynamic, scales with ticker count |
+| Report nodes | 27×2 + 27 + 16 + 1 = 98 | sell_order_action (27), buy_order_action (27), verdict_alert (27 — all tickers), catastrophic_alert (16 — positions only), regime_change (1) |
+| **TOTAL** | **~681** | Dynamic, scales with ticker count |
 
 ---
 
@@ -292,8 +292,7 @@ multi_period_results CHANGED (CLSK pool $300→$643)
       "shares": 42,
       "price": 8.66,
       "pl_pct": -3.7,
-      "verdict": "MONITOR",
-      "verdict_rule": "R16",
+      "verdict": ["MONITOR", "R16", "within time, bearish"],
       "catastrophic": null,
       "momentum": "Bearish",
       "earnings_gate": "CLEAR",
@@ -357,7 +356,10 @@ The graph WRAPS existing Python functions — it does NOT replace them. `compute
 
 ### 10.7 Single-Edge Extensibility
 
-Adding a new data source or dependency must require declaring ONE node and ONE edge — not modifying multiple files. If adding a new node requires touching main(), _build_graph_state(), _compute_state_diff(), and print_action_dashboard(), the graph has failed its purpose. The graph engine handles propagation, persistence, and dashboard rendering from the declared structure alone.
+Adding a new dependency must not require touching propagation, persistence, or dashboard code. Specifically:
+- **New computed/decision node**: ONE change — add node declaration in `build_daily_graph()`
+- **New leaf data source**: TWO changes — add fetch in Phase A + add leaf node in `build_daily_graph()`
+- **ZERO changes needed** in: signal propagation, state persistence, state diffing, or dashboard rendering. The graph engine handles all of these from the declared structure.
 
 ---
 
@@ -405,6 +407,9 @@ def build_daily_graph(portfolio, live_prices, regime, vix, vix_5d_pct, tech_data
     graph.add_node("live_prices", compute=lambda _: live_prices)
 
     # Per-ticker nodes
+    # NOTE: Default parameter binding (p=pos, t=tk) is REQUIRED in lambdas.
+    # Without it, Python's late-binding closures would capture the LAST loop
+    # value for all tickers. This is a well-known Python gotcha.
     for tk in active_tickers:
         pos = portfolio["positions"].get(tk, {})
         graph.add_node(f"{tk}:avg_cost", compute=lambda _, p=pos: p.get("avg_cost", 0))
@@ -423,9 +428,11 @@ def build_daily_graph(portfolio, live_prices, regime, vix, vix_5d_pct, tech_data
     return graph
 ```
 
-### 11.3 Order Node Naming
+### 11.3 Order Node Naming and Cross-Run Matching
 
-Order nodes use **array index** for stable identity, not price: `{tk}:order_{idx}:entry_gate`. Price is mutable (wick refresh can change recommended price). Array index within `pending_orders[ticker]` is stable within a run. Cross-run stability comes from matching by (ticker, index) pair in the persisted state.
+Order nodes use **array index** for stable identity within a run: `{tk}:order_{idx}:entry_gate`. Price is mutable (wick refresh can change recommended price), so it's not used in the key.
+
+**Cross-run matching**: When diffing against previous state, orders are matched by **(ticker, order_price, order_label)** — not by array index alone. If an order is added between runs, shifting indices, the diff engine matches on price+label to find the same logical order. Unmatched orders in prev_state are "removed," unmatched in curr_state are "new." This avoids false "changed" signals from index shifts.
 
 ### 11.4 Reconciliation Mapping
 
@@ -434,7 +441,8 @@ Order nodes use **array index** for stable identity, not price: `{tk}:order_{idx
 ```python
 graph.add_node(f"{tk}:recon",
     compute=lambda inputs, t=tk: reconcile_ticker(t, pos, orders, bullet_ctx, trade_buys, profiles),
-    depends_on=[f"{tk}:avg_cost", f"{tk}:pool", f"{tk}:wick_data"])
+    depends_on=[f"{tk}:avg_cost", f"{tk}:pool", f"{tk}:wick_data",
+                "trade_history", "ticker_profiles"])
 ```
 
 Report nodes extract from the recon dict:
@@ -485,13 +493,25 @@ A single ticker failing does NOT block other tickers. The graph resolves all nod
 
 ### 11.7 Signal Reasons Replace Manual Reason Functions
 
-The graph's Signal.flat_reason() replaces `_compute_buy_reason()` and `_compute_sell_reason()` in broker_reconciliation.py. Those functions are no longer called for dashboard rendering. Instead:
+The graph's Signal.flat_reason() replaces `_compute_buy_reason()` and `_compute_sell_reason()` for dashboard rendering. The existing functions are **retained** in broker_reconciliation.py for standalone use (when running `python3 tools/broker_reconciliation.py` directly), but the dashboard uses graph signal chains instead.
 
-- Each node declares a `reason_fn` that describes what THIS node changed
-- Signals accumulate through the chain: leaf reason → intermediate reason → report reason
-- `flat_reason()` concatenates them: "Fill at $7.79 → avg $9.82→$8.82 → sell $10.41→$9.35 → broker needs ADJUST"
+Each node declares a `reason_fn(old_value, new_value, child_signals) -> str` that describes what THIS node changed. The reason_fn must return a **concise, human-readable fragment** that will be joined with " → " in the chain. Examples:
 
-The existing `_compute_*_reason()` functions stay in broker_reconciliation.py for its standalone output (when run outside the graph), but the dashboard uses signal chains.
+```python
+# Leaf node — describes what changed in the data source
+reason_fn=lambda old, new, _: f"Fill at ${new['price']} on {new['date']}"
+
+# Computed node — describes the effect of the change
+reason_fn=lambda old, new, _: f"Avg ${old:.2f}→${new:.2f}"
+
+# Decision node — describes the decision change
+reason_fn=lambda old, new, _: f"Sell target ${old[0]:.2f}→${new[0]:.2f} ({new[1]})"
+
+# Report node — describes the required action
+reason_fn=lambda old, new, _: f"Broker has ${old:.2f}, should be ${new:.2f}"
+```
+
+Signal.flat_reason() walks the chain depth-first and joins: `"Fill at $7.79 on 3/23 → Avg $9.82→$8.82 → Sell target $10.41→$9.35 (6%) → Broker has $10.41, should be $9.35"`
 
 ### 11.8 Performance Budget
 
@@ -502,7 +522,7 @@ Graph resolve time budget (27 tickers):
 | Load portfolio + prev state | <0.1s | File reads |
 | Batch live prices | ~2s | 1 yfinance call for all tickers |
 | Batch technical data | ~3s | 1 yfinance call (3mo) for all tickers |
-| Per-ticker earnings gate | ~5s | 27 sequential yfinance calls (cached in-session) |
+| Per-ticker earnings gate | ~8s | 27 tickers × up to 3 yfinance calls each (earnings dates + pre-close + current price) |
 | Regime (indices + VIX) | ~2s | 4 yfinance calls |
 | Node resolution (692 nodes) | <0.5s | Pure Python computation |
 | Signal propagation | <0.1s | Dict comparisons |
@@ -560,7 +580,7 @@ Based on this analysis, the graph engine needs:
 6. **State diffing via signals** — load_prev_state() + propagate_signals() replaces manual diff code
 7. **Report node activation** — only "hot" nodes surface in dashboard
 8. **Lifecycle handling** — new tickers, closed positions, removed orders
-9. **~692 nodes, ~27 tickers** — graph phase ~13s, recon phase ~30s additional
+9. **~681 nodes, ~27 tickers** — graph phase ~16s, recon phase ~30s additional
 10. **Wrap, don't rewrite** — graph nodes call existing functions, no logic duplication
 11. **Single-edge extensibility** — new dependency = one node + one edge declaration
 12. **Graceful degradation** — per-ticker failures don't block other tickers
