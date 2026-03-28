@@ -43,8 +43,29 @@ def load_tickers_from_portfolio():
     return sorted(tickers)
 
 
-def load_capital_config():
-    """Load bullet sizing config from portfolio.json capital section."""
+def load_capital_config(ticker=None):
+    """Load bullet sizing config. Uses simulation-backed pool if available.
+
+    If ticker is provided, uses get_ticker_pool() which checks
+    multi-period-results.json first, falls back to portfolio.json.
+    If ticker is None, uses portfolio.json static defaults.
+    """
+    if ticker:
+        try:
+            from shared_utils import get_ticker_pool
+            pool = get_ticker_pool(ticker)
+            portfolio = _load_portfolio()
+            cap = portfolio.get("capital", {})
+            return {
+                "active_pool": pool["active_pool"],
+                "reserve_pool": pool["reserve_pool"],
+                "active_bullets_max": cap.get("active_bullets_max", 5),
+                "reserve_bullets_max": cap.get("reserve_bullets_max", 3),
+            }
+        except Exception:
+            pass
+
+    # Fallback: static defaults from portfolio.json
     portfolio = _load_portfolio()
     cap = portfolio.get("capital", {})
     return {

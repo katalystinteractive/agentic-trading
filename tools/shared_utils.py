@@ -17,6 +17,78 @@ def load_json(path):
         return json.load(f)
 
 
+# ---------------------------------------------------------------------------
+# Pool allocation gatekeeper — SINGLE source of truth for pool sizes
+# ---------------------------------------------------------------------------
+
+_ROOT = Path(__file__).resolve().parent.parent
+_MULTI_PERIOD_PATH = _ROOT / "data" / "backtest" / "multi-period" / "multi-period-results.json"
+_PORTFOLIO_PATH = _ROOT / "portfolio.json"
+
+# Default fallback pools (from portfolio.json capital section)
+_DEFAULT_ACTIVE = 300
+_DEFAULT_RESERVE = 300
+
+
+def get_ticker_pool(ticker):
+    """Get the allocated pool size for a ticker.
+
+    Priority:
+    1. multi-period-results.json (simulation-backed allocation)
+    2. portfolio.json capital section (static default)
+
+    This function is the ONLY way to look up pool sizes.
+    multi-period-results.json is written ONLY by multi_period_scorer.py.
+    No agent can modify pool allocations.
+
+    Returns: {active_pool: float, reserve_pool: float, source: str}
+    """
+    # Try simulation-backed allocation first
+    try:
+        if _MULTI_PERIOD_PATH.exists():
+            with open(_MULTI_PERIOD_PATH) as f:
+                mp_data = json.load(f)
+            alloc = mp_data.get("allocations", {}).get(ticker)
+            if alloc:
+                return {
+                    "active_pool": alloc.get("active_pool", _DEFAULT_ACTIVE),
+                    "reserve_pool": alloc.get("reserve_pool", _DEFAULT_RESERVE),
+                    "total_pool": alloc.get("total_pool", _DEFAULT_ACTIVE + _DEFAULT_RESERVE),
+                    "source": "multi-period-scorer",
+                    "composite": mp_data.get("composites", {}).get(ticker, 0),
+                }
+    except (json.JSONDecodeError, KeyError, TypeError):
+        pass
+
+    # Fallback to portfolio.json static defaults
+    try:
+        with open(_PORTFOLIO_PATH) as f:
+            portfolio = json.load(f)
+        cap = portfolio.get("capital", {})
+        return {
+            "active_pool": cap.get("active_pool", _DEFAULT_ACTIVE),
+            "reserve_pool": cap.get("reserve_pool", _DEFAULT_RESERVE),
+            "total_pool": cap.get("active_pool", _DEFAULT_ACTIVE) + cap.get("reserve_pool", _DEFAULT_RESERVE),
+            "source": "portfolio.json (default)",
+            "composite": None,
+        }
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {
+            "active_pool": _DEFAULT_ACTIVE,
+            "reserve_pool": _DEFAULT_RESERVE,
+            "total_pool": _DEFAULT_ACTIVE + _DEFAULT_RESERVE,
+            "source": "hardcoded fallback",
+            "composite": None,
+        }
+
+
+def get_all_ticker_pools(tickers):
+    """Get pool allocations for multiple tickers.
+    Returns: {ticker: pool_dict}
+    """
+    return {tk: get_ticker_pool(tk) for tk in tickers}
+
+
 def parse_entry_date(entry_date_str):
     """Parse entry_date, handling 'pre-' prefix dates.
     Returns (date_obj, is_pre_strategy)."""

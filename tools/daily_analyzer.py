@@ -1321,6 +1321,30 @@ def main():
     # Position Age Monitor
     print_position_age_monitor(live_prices, regime=regime)
 
+    # Pool Allocation (if simulation-backed allocations exist)
+    try:
+        from shared_utils import get_ticker_pool, _MULTI_PERIOD_PATH
+        if _MULTI_PERIOD_PATH.exists():
+            all_tickers = sorted(set(
+                list(data.get("positions", {}).keys()) +
+                list(data.get("pending_orders", {}).keys())
+            ))
+            pools = {tk: get_ticker_pool(tk) for tk in all_tickers
+                     if get_ticker_pool(tk)["source"] == "multi-period-scorer"}
+            if pools:
+                print("\n## Pool Allocations (simulation-backed)\n")
+                print("| Ticker | Composite | Active | Reserve | Total | Source |")
+                print("| :--- | :--- | :--- | :--- | :--- | :--- |")
+                for tk in sorted(pools.keys(), key=lambda t: pools[t].get("composite", 0) or 0, reverse=True):
+                    p = pools[tk]
+                    comp = f"${p['composite']:.1f}/mo" if p.get("composite") else "—"
+                    print(f"| {tk} | {comp} | ${p['active_pool']} | ${p['reserve_pool']} | ${p['total_pool']} | {p['source']} |")
+                default_tickers = [tk for tk in all_tickers if tk not in pools]
+                if default_tickers:
+                    print(f"\n*{len(default_tickers)} tickers using default $300/$300: {', '.join(default_tickers)}*")
+    except Exception:
+        pass
+
     # Catastrophic Drawdown Alerts
     paused_tickers = print_catastrophic_alerts(live_prices)
 

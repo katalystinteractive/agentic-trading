@@ -1099,9 +1099,9 @@ def main():
                         help="Output structured JSON instead of markdown")
     args = parser.parse_args()
 
-    # Load portfolio and capital config once
+    # Load portfolio once; capital config is per-ticker (simulation-backed pools)
     portfolio = _load_portfolio()
-    cap = load_capital_config()
+    cap = load_capital_config()  # default for batch/JSON mode
 
     if args.json_output:
         if args.mode == "audit":
@@ -1122,6 +1122,9 @@ def main():
         for i, ticker in enumerate(args.tickers):
             if i > 0:
                 print("\n---\n")
+
+            # Per-ticker pool allocation (simulation-backed if available)
+            ticker_cap = load_capital_config(ticker)
 
             # Run wick analysis
             data, err = analyze_stock_data(ticker)
@@ -1144,7 +1147,7 @@ def main():
 
             any_success = True
             if args.mode == "recommend":
-                run_recommend(ticker, args.type_filter, data, portfolio, cap)
+                run_recommend(ticker, args.type_filter, data, portfolio, ticker_cap)
             elif args.mode == "audit":
                 run_audit(ticker, data, portfolio)
 
