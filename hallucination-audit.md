@@ -1,10 +1,10 @@
-# Hallucination Risk Audit — 2026-03-28 (Verified)
+# Hallucination Risk Audit — 2026-03-28 (IMPLEMENTED)
 
 ## Purpose
 Every point where LLM judgment produces data, calculations, or directions
-that could be fabricated. Each must be replaced with a Python script.
+that could be fabricated. Each replaced with deterministic Python scripts.
 
-## Status: 5 CRITICAL, 10 MEDIUM, 5 LOW (acknowledged)
+## Status: ALL CRITICAL DONE, ALL MEDIUM DONE (except M5, M7 by design)
 
 ---
 
