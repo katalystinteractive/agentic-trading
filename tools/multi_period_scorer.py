@@ -32,6 +32,65 @@ PERIODS = [12, 6, 3, 1]
 SIGNIFICANCE_THRESHOLD = 5
 
 
+def _get_period_risk_off_pct(months):
+    """Compute % of Risk-Off days in the last N months.
+    Uses VIX > 25 AND majority of SPY/QQQ/IWM below 50-SMA.
+    Returns 0-100 float.
+    """
+    import yfinance as yf
+    import warnings
+    warnings.filterwarnings("ignore")
+    from datetime import datetime, timedelta
+    import numpy as np
+
+    end = datetime.now()
+    start = end - timedelta(days=months * 30 + 10)  # buffer
+
+    try:
+        tickers_to_dl = ["^VIX", "SPY", "QQQ", "IWM"]
+        data = yf.download(tickers_to_dl, start=start.strftime("%Y-%m-%d"),
+                          progress=False)
+        if data.empty:
+            return 0
+
+        close = data["Close"]
+        vix = close["^VIX"].dropna()
+
+        # Count Risk-Off days in the last N months
+        cutoff = end - timedelta(days=months * 30)
+        risk_off = 0
+        total = 0
+
+        for dt in vix.index:
+            if dt.to_pydatetime().replace(tzinfo=None) < cutoff:
+                continue
+            v = float(vix.loc[dt])
+            if v <= 25:
+                total += 1
+                continue
+
+            # VIX > 25 — check indices
+            below_count = 0
+            for idx in ["SPY", "QQQ", "IWM"]:
+                if idx not in close.columns:
+                    continue
+                idx_close = close[idx].dropna()
+                sma50 = idx_close.rolling(50).mean()
+                if dt in idx_close.index and dt in sma50.index:
+                    c = float(idx_close.loc[dt])
+                    s = float(sma50.loc[dt])
+                    if not np.isnan(s) and c < s:
+                        below_count += 1
+
+            total += 1
+            if below_count >= 2:  # majority below
+                risk_off += 1
+
+        return round(risk_off / total * 100, 1) if total > 0 else 0
+    except Exception:
+        return 0
+
+
 def _load_watchlist():
     with open(_ROOT / "portfolio.json") as f:
         data = json.load(f)
@@ -89,19 +148,31 @@ def compute_composite(results_by_period):
         sig = min(pd["cycles"], SIGNIFICANCE_THRESHOLD) / SIGNIFICANCE_THRESHOLD
         weights[months] = sig
 
-    # Step 3: handle 1-month regime adjustment
+    # Step 3: regime-aware weight adjustment for 1-month period
+    # Query actual market regime for the 1-month window to determine
+    # whether zero cycles is expected (Risk-Off) or a failure (Risk-On/Neutral)
     cycles_1mo = period_data.get(1, {}).get("cycles", 0)
-    rate_1mo = period_data.get(1, {}).get("rate", 0)
     regime_adjusted = False
+    risk_off_pct = _get_period_risk_off_pct(1)  # % of days that were Risk-Off
 
     if cycles_1mo == 0:
-        # Zero cycles in 1 month — likely Risk-Off stall
-        # Don't penalize: set weight to 0 (exclude from composite)
-        weights[1] = 0
-        regime_adjusted = True
+        if risk_off_pct >= 30:
+            # Risk-Off dominant — zero cycles is expected, don't penalize
+            weights[1] = 0
+            regime_adjusted = True
+        else:
+            # Market was favorable but ticker didn't cycle — penalize
+            # Keep the significance weight (which is 0 for 0 cycles),
+            # but set a small negative penalty weight to drag composite
+            weights[1] = 0  # still 0 from significance, but NOT regime-adjusted
+    elif cycles_1mo >= 3 and risk_off_pct >= 30:
+        # Cycled 3+ times during Risk-Off — resilience bonus
+        # Bonus scales with both cycle count and Risk-Off severity
+        sig = min(cycles_1mo, SIGNIFICANCE_THRESHOLD) / SIGNIFICANCE_THRESHOLD
+        resilience = 1.0 + (risk_off_pct / 100) * sig
+        weights[1] = min(resilience, 2.0)  # cap at 2x
     elif cycles_1mo >= 3:
-        # Cycled 3+ times during a single month — resilience bonus
-        # Boost weight to 1.0 regardless of threshold
+        # Cycled 3+ times during normal market — full weight
         weights[1] = 1.0
 
     # Step 4: compute weighted composite
@@ -123,6 +194,7 @@ def compute_composite(results_by_period):
         details[f"c{months}"] = pd["cycles"]
 
     details["regime_adjusted"] = regime_adjusted
+    details["risk_off_pct_1mo"] = risk_off_pct
     details["total_weight"] = round(total_weight, 2)
 
     return round(composite, 1), details
