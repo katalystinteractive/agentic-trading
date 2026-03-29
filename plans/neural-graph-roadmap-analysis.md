@@ -151,43 +151,48 @@ The neural model runs **alongside** the existing system, not instead of it. It a
 
 | Component | Blocked By | Buildable Now? |
 | :--- | :--- | :--- |
-| Neural dip evaluator | Nothing — uses existing graph engine + yfinance | **YES** |
-| Pre-session static neurons | Nothing — same as current graph nodes | **YES** |
+| Neural dip evaluator | Graph engine needs extensions (resolve_phase, inject_prices) | **YES** — ~50-100 lines of engine changes |
+| Pre-session static neurons | Daily analyzer must have run (graph_state.json exists) | **YES** — with fallback for missing state |
 | First-hour breadth (10:30 AM) | Must be run during market hours | **YES** (code can be written + tested on weekends with historical data) |
 | Second-hour bounce (11:00 AM) | Must be run during market hours | **YES** (same) |
-| SendGrid notifications | SendGrid API key needed | **YES** (once you provide API key) |
-| Cron scheduling | Machine that's on during market hours | **YES** (your dev machine or any server) |
+| SendGrid notifications | SendGrid API key + account setup | **YES** (once you provide API key) |
+| Cron scheduling | Machine on during market hours + timezone config | **YES** — must handle ET timezone + market holidays |
 | Intraday backtesting | Nothing — 60 days of 5-min data available via yfinance | **YES** |
 | Broker API integration | N/A — you said manual | **NOT NEEDED** |
 | Paid data providers | N/A — yfinance is sufficient | **NOT NEEDED** |
 
-**Nothing is blocked.** Every component is buildable with what we have.
+**Core concept is buildable.** No hard blockers. But operational details (timezone, holidays, error handling, graph engine extensions) add significant work.
 
 ---
 
-## 6. Revised Assessment
+## 6. Revised Assessment (Post-Verification)
 
-The honest assessment said "the neural model is premature without real-time data feeds." That was based on the assumption that yfinance couldn't deliver intraday data during market hours. **That assumption was wrong.**
+The honest assessment said "premature without real-time data feeds." That was wrong — yfinance delivers near real-time 5-min bars during market hours. `dip_signal_checker.py` proves this works.
 
-yfinance delivers near real-time 5-min bars. `dip_signal_checker.py` already proves this works. The neural model needs 2-3 batch calls at fixed times, not continuous streaming.
+However, the initial roadmap was too optimistic about effort:
 
-**Revised verdict**: The neural model is buildable NOW with:
-- Existing graph engine (phased resolution, not event loops)
-- Existing yfinance patterns (batch 5-min bars)
-- Cron for scheduling (4 entries)
-- SendGrid for notifications (30 lines)
-- ~200 lines for the core neural evaluator
+| Aspect | Initial Claim | Verified Reality |
+| :--- | :--- | :--- |
+| Core evaluator | ~200 lines | **350-450 lines** (timezone, holiday checks, error handling, 20+ reason functions) |
+| Graph engine changes | None needed | **50-100 lines** (resolve_phase, inject_prices, temporal gating) |
+| Total new code | ~400 lines | **600-750 lines** production-grade |
+| Batch yfinance calls | 2-3 per session | **3-4 per session** (pre-session doesn't call yfinance, but EOD check does) |
+| Dependencies | None | **3 dependencies** — daily analyzer must run first, SendGrid key, cron timezone config |
 
-The total new code is ~400 lines. No new infrastructure, no paid services (beyond SendGrid which is free tier for low volume), no persistent daemon.
+**Revised verdict**: Buildable with existing tools, but it's a multi-phase project, not a weekend spike. The architecture is sound, the data source works, and no paid services are needed. The effort is ~2x what was initially claimed.
 
 ---
 
-## 7. Honest Risks
+## 7. Honest Risks (Updated)
 
 | Risk | Likelihood | Mitigation |
 | :--- | :--- | :--- |
-| yfinance gets rate-limited during market hours | LOW — batch calls are 2-3 per session | Exponential backoff, already used in screener |
-| yfinance API changes or breaks | MEDIUM — it's an unofficial API | Pin version, have fallback to daily OHLCV |
-| Cron doesn't fire (machine asleep/off) | MEDIUM — depends on your machine | Use a cloud VPS for $5/month, or just run manually |
+| yfinance gets rate-limited during market hours | LOW — batch calls are 3-4 per session | Exponential backoff, already used in screener |
+| yfinance API changes or breaks | MEDIUM — unofficial API | Pin version, have fallback to daily OHLCV |
+| Cron fires on market holiday | HIGH — cron doesn't know calendar | Check `is_trading_day()` at evaluator start, exit early |
+| Cron timezone mismatch | HIGH — server may not be in ET | Use explicit ET timezone in cron entry or in evaluator code |
+| yfinance down at 10:30 AM | LOW — brief outages possible | Retry once after 2-minute wait. If still down, skip this session with logged warning |
+| Daily analyzer didn't run | MEDIUM — user may forget | Fallback: compute static neurons from portfolio.json directly, skip graph_state.json |
 | Neural model produces false BUY signals | LOW — same gates as existing dip checker | Backtesting against 60 days validates accuracy |
-| Email notification delayed | LOW — SendGrid is reliable | Add timestamp to email body so you know when signal fired |
+| Intraday catastrophic not re-checked | MEDIUM — HARD_STOP computed at 9 AM, price drops by 10:30 | Re-compute drawdown from live prices at each phase, not just graph_state.json |
+| SendGrid rate limit | LOW — free tier 100/day, we send ~5/day | Monitor usage, upgrade if needed ($19.95/month) |
