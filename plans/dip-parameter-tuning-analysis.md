@@ -315,35 +315,78 @@ Different tickers may benefit from different target/stop ratios:
 
 ---
 
-## 11. What We Need to Test
+## 11. Verification Findings — What I Got Wrong
 
-### Test 1: Current config vs simulation-backed dip_viable filter
-Run the neural backtester twice:
-- A: Current DIP_CONFIG (range ≥ 3%, all tickers)
-- B: Only tickers with `dip_kpis.dip_win_rate ≥ 30%` qualify
+### Win Rate Filter is INVALID (Test 1 REJECTED)
 
-This tests whether the simulation-backed filter we already built (Phase 3 of the surgical side-channel merge) actually improves the neural dip strategy.
+The proposal to filter tickers by `dip_win_rate ≥ 30%` was tested against the Section 8 data:
 
-### Test 2: Regime gating
-Run the neural backtester twice:
-- A: All regimes (Risk-On + Neutral + Risk-Off)
-- B: Skip Risk-Off days entirely
+- **62% false positive rate**: 8 of 13 tickers with ≥30% win rate LOSE money (LUNR 42% win -$0.61, RDW 44% win -$0.58, CIFR 38% win -$2.38, etc.)
+- **44% false negative rate**: 4 of 9 profitable tickers have <30% win rate (AR 5% win +$5.87, NU 4% win +$2.22)
+- **Overall accuracy: 43%** — worse than random
 
-This tests the November vs March effect — does skipping Risk-Off eliminate the worst losses?
+**Win rate does NOT predict P/L.** The reason: EOD cuts. Most "losses" aren't full -3% stops — they're tiny EOD cuts (-0.5% to -1.5%). A ticker can have 5% win rate but still profit because 90% of its trades exit at EOD with tiny losses while 5% hit the +4% target.
 
-### Test 3: Per-ticker optimal parameters
-For the top 5 profitable tickers (OKLO, AR, IONQ, CLSK, NNE), run parameter sweeps individually to find each ticker's optimal target/stop/dip threshold.
+### Regime Claim is Confounded
 
-### Test 4: LUNR specifically
-LUNR showed 69% win rate in the standalone dip simulator but only 42% in the per-ticker scan above. The difference: the standalone sim used 3% target (not 4%). Run LUNR at 3% target to verify:
-- 3% target, 3% stop (1:1 ratio, needs >50% win rate)
-- 4% target, 3% stop (1.33:1, needs >43%)
+The November 100% win rate came from a 3-ticker/3%-target run. The March 40% came from a 21-ticker/4%-target run. Can't compare across different tickers AND different parameters AND different market conditions. Need per-regime breakdown of the SAME ticker set with SAME parameters.
+
+### LUNR 69% vs 42% is Unverified
+
+The analysis assumes the standalone dip simulator used 3% target. This hasn't been confirmed against the actual simulator config. The `backtest_config.py` default is 4%, not 3%.
 
 ---
 
-## 12. What We'd Learn
+## 12. Revised Test Plan
 
-1. Is the `dip_kpis.dip_win_rate` filter (from the simulation side-channel) the right qualification gate? Or do we need per-ticker win rate from the neural backtester itself?
-2. Does regime gating (skip Risk-Off) turn the strategy profitable?
-3. Should each ticker have its own target/stop, or is one config sufficient?
-4. Is LUNR actually a good dip candidate, or was the 69% win rate from using 3% target (which we should use for ALL tickers)?
+### ~~Test 1~~: REJECTED — win rate filter is invalid
+
+### Test 2: Per-Regime Breakdown (prerequisite for regime gating)
+Before testing regime gating, first MEASURE per-regime results for the 21-ticker 4%-target scan:
+- Split the 3-month daily data by VIX regime
+- Compute per-ticker dip P/L in Risk-On vs Neutral vs Risk-Off
+- See if the same tickers profit/lose across ALL regimes or only specific ones
+
+### Test 3: Per-Ticker Parameter Sweeps
+For the top 5 profitable tickers (OKLO, AR, IONQ, CLSK, NNE), sweep:
+- Target: 2%, 3%, 4%, 5%
+- Stop: -2%, -3%, -4%
+- Dip threshold: 0.5%, 1.0%, 1.5%, 2.0%
+
+Find each ticker's optimal parameters. If they cluster around a common optimum, use that. If they diverge, per-ticker configs are needed.
+
+### Test 4: LUNR at 3% vs 4% Target
+Quick A/B:
+- A: LUNR with 3% target, 3% stop
+- B: LUNR with 4% target, 3% stop
+
+Verify whether the 69% win rate was from 3% target. If so, test ALL tickers at 3% to see if the portfolio improves.
+
+### Test 5: AR Trade Distribution (NEW)
+Extract AR's actual trade-by-trade results to understand HOW it profits at 5% win rate:
+- How many hit target (+4%)?
+- How many hit stop (-3%)?
+- How many EOD cuts? Average P/L of EOD cuts?
+- Is the profit from rare large wins + many tiny flat exits?
+
+### Test 6: Cross-Regime Stability (NEW)
+For USAR (-$10.85, worst performer): was it always a loser or only in the recent Risk-Off period?
+- Run USAR's dip simulation on just the November 2025 data (bull market)
+- If USAR profits in November, the "behavioral trait" claim is wrong — it's regime-dependent
+- If USAR still loses in November, the trait is real
+
+---
+
+## 13. What We'd Learn
+
+1. **Test 2**: Are winners/losers consistent across regimes, or does everything flip in bull markets?
+2. **Test 3**: Do tickers cluster around one optimal config, or does each need its own?
+3. **Test 4**: Is 3% target universally better than 4%?
+4. **Test 5**: What mechanism makes low-win-rate tickers profitable? (EOD cut distribution)
+5. **Test 6**: Is USAR a structural loser or just a bear-market loser?
+
+These answers determine whether we need:
+- A single tuned config (if tickers cluster)
+- Per-ticker configs (if they diverge)
+- Regime gating (if winners/losers flip by regime)
+- A completely different qualification metric (if win rate is useless)
