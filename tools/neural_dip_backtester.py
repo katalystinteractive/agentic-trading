@@ -170,15 +170,18 @@ def replay_day(day, day_bars, tickers, static, hist_ranges, regime, n_tickers):
     except Exception as e:
         return {"day": str(day), "signal": f"DECISION_ERROR: {e}", "buys": []}
 
-    # Check BUY_DIP neurons
+    # Check BUY_DIP neurons — check node value directly (no signal diffing in backtest)
     buy_tickers = []
-    for name, node in decision_graph.get_activated_reports():
-        if name.endswith(":buy_dip") and node.value:
+    for name, node in decision_graph.nodes.items():
+        if name.endswith(":buy_dip") and node.is_report and node.value:
             buy_tickers.append(name.split(":")[0])
 
     if not buy_tickers:
-        # Signal confirmed but no candidates passed all gates
-        return {"day": str(day), "signal": "NO_CANDIDATES", "buys": []}
+        # Check if signal was confirmed but no candidates passed
+        sc = decision_graph.nodes.get("signal_confirmed")
+        if sc and sc.value:
+            return {"day": str(day), "signal": "NO_CANDIDATES", "buys": []}
+        return {"day": str(day), "signal": "NOT_CONFIRMED", "buys": []}
 
     # Compute P/L for each buy using remaining bars (after decision time)
     remaining = day_bars.iloc[18:] if len(day_bars) > 18 else None
