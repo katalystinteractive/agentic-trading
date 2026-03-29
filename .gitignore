@@ -5,3 +5,4 @@ tickers/*/bounce_analysis.md
 tickers/*/bounce_analysis.json
 .chroma/
 .env
+logs/

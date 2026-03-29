@@ -8,7 +8,11 @@ Usage:
     from trading_calendar import is_trading_day, last_trading_day, as_of_date_label
 """
 
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
+
+import pytz
+
+ET = pytz.timezone("US/Eastern")
 
 # US market holidays (observed dates) — NYSE/NASDAQ
 _HOLIDAYS = {
@@ -80,3 +84,64 @@ def as_of_date_label(d=None):
     if ltd != d:
         label += f" (data from {_DAY_NAMES[ltd.weekday()]})"
     return label
+
+
+# ---------------------------------------------------------------------------
+# Market hours, early closes, and phase detection
+# ---------------------------------------------------------------------------
+
+MARKET_OPEN_ET = (9, 30)
+MARKET_CLOSE_ET = (16, 0)
+
+_EARLY_CLOSES = {
+    date(2025, 11, 28): (13, 0),  # Day after Thanksgiving
+    date(2025, 12, 24): (13, 0),  # Christmas Eve
+    date(2026, 11, 27): (13, 0),
+    date(2026, 12, 24): (13, 0),
+    date(2027, 11, 26): (13, 0),
+    date(2027, 12, 24): (13, 0),
+}
+
+# Expected market phases per evaluator --phase argument
+VALID_PHASES_FOR_MARKET = {
+    "first_hour": ("FIRST_HOUR", "CONFIRMATION"),
+    "decision": ("CONFIRMATION", "REGULAR"),
+    "eod_check": ("REGULAR",),
+}
+
+
+def market_close_time(d=None):
+    """Return (hour, minute) close time for given day (handles early closes)."""
+    d = d or date.today()
+    return _EARLY_CLOSES.get(d, MARKET_CLOSE_ET)
+
+
+def get_market_phase():
+    """Return current market phase based on ET time.
+
+    Returns: CLOSED, PRE_MARKET, FIRST_HOUR, CONFIRMATION, REGULAR, AFTER_HOURS
+    """
+    now = datetime.now(ET)
+    d = now.date()
+    if not is_trading_day(d):
+        return "CLOSED"
+    h, m = now.hour, now.minute
+    close_h, close_m = market_close_time(d)
+    if h < 9 or (h == 9 and m < 30):
+        return "PRE_MARKET"
+    elif (h == 9 and m >= 30) or (h == 10 and m < 30):
+        return "FIRST_HOUR"
+    elif h == 10 and m >= 30:
+        return "CONFIRMATION"
+    elif h < close_h or (h == close_h and m < close_m):
+        return "REGULAR"
+    else:
+        return "AFTER_HOURS"
+
+
+def market_time_to_utc_hour(et_hour, et_minute=0):
+    """Convert ET time to UTC fractional hour (handles EDT/EST automatically)."""
+    now_et = datetime.now(ET)
+    market_time = now_et.replace(hour=et_hour, minute=et_minute, second=0, microsecond=0)
+    market_utc = market_time.astimezone(pytz.utc)
+    return market_utc.hour + market_utc.minute / 60

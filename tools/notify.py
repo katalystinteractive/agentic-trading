@@ -1,0 +1,82 @@
+"""Email notification for neural dip evaluator alerts.
+
+Usage:
+    from notify import send_dip_alert
+    send_dip_alert("CLSK", 8.81, 9.16, 8.55, "reason chain", "Neutral", 100)
+
+Test:
+    python3 tools/notify.py
+"""
+import os
+from datetime import datetime
+
+# Fix SSL certificate verification on macOS
+try:
+    import certifi
+    os.environ.setdefault("SSL_CERT_FILE", certifi.where())
+    os.environ.setdefault("REQUESTS_CA_BUNDLE", certifi.where())
+except ImportError:
+    pass
+
+
+def send_dip_alert(ticker, entry_price, target, stop, reason_chain,
+                   regime, budget):
+    """Send email when BUY_DIP neuron fires. Returns True on success."""
+    try:
+        from sendgrid import SendGridAPIClient
+        from sendgrid.helpers.mail import Mail
+    except ImportError:
+        print("*Warning: sendgrid not installed. pip install sendgrid*")
+        return False
+
+    try:
+        from dotenv import load_dotenv
+        load_dotenv()
+    except ImportError:
+        pass  # dotenv optional if env vars set externally
+
+    api_key = os.environ.get("SENDGRID_API_KEY")
+    recipient = os.environ.get("ALERT_EMAIL")
+    sender = os.environ.get("SENDGRID_FROM_EMAIL")
+
+    if not all([api_key, recipient, sender]):
+        missing = [v for v, val in [("SENDGRID_API_KEY", api_key),
+                   ("ALERT_EMAIL", recipient), ("SENDGRID_FROM_EMAIL", sender)]
+                   if not val]
+        print(f"*Warning: missing env vars: {missing}. Skipping email.*")
+        return False
+
+    subject = f"DIP ALERT: BUY {ticker} at ${entry_price:.2f}"
+    body = (f"Ticker: {ticker}\n"
+            f"Entry:  ${entry_price:.2f}\n"
+            f"Target: ${target:.2f} (+4%)\n"
+            f"Stop:   ${stop:.2f} (-3%)\n"
+            f"Budget: ${budget:.0f}\n"
+            f"Regime: {regime}\n\n"
+            f"REASON CHAIN:\n{reason_chain}\n\n"
+            f"-- Neural Dip Evaluator at "
+            f"{datetime.now().strftime('%H:%M:%S ET %Y-%m-%d')}")
+
+    message = Mail(from_email=sender, to_emails=recipient,
+                   subject=subject, plain_text_content=body)
+    try:
+        sg = SendGridAPIClient(api_key)
+        response = sg.send(message)
+        if response.status_code not in (200, 202):
+            print(f"*Warning: SendGrid returned {response.status_code}*")
+            return False
+        print(f"Email sent to {recipient}: {subject}")
+        return True
+    except Exception as e:
+        print(f"*Warning: email send failed: {e}*")
+        return False
+
+
+if __name__ == "__main__":
+    print("Testing SendGrid notification...")
+    success = send_dip_alert(
+        "TEST", 10.00, 10.40, 9.70,
+        "This is a test firing chain:\n"
+        "MARKET_OPEN → TIME_WINDOW_2 → BREADTH_DIP → SIGNAL_CONFIRMED → TEST:BUY_DIP",
+        "Neutral", 100)
+    print(f"Result: {'SUCCESS' if success else 'FAILED'}")
