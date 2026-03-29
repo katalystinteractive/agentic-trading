@@ -158,6 +158,9 @@ if __name__ == "__main__":
 ### 3.0 Configuration (not hardcoded)
 
 ```python
+# At module top — ensure tools/ is in path for imports
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
 DIP_CONFIG = {
     "dip_threshold_pct": 1.0,        # min first-hour dip from open
     "bounce_threshold_pct": 0.3,     # min second-hour bounce
@@ -575,25 +578,63 @@ def _get_dip_capital():
     except Exception:
         return 500
 
-def _extract_open(data, tk):
-    """Extract today's open price from 5-min data."""
-    # ... yfinance MultiIndex extraction
+def _extract_col(data, col, tk, tickers_count):
+    """Extract a column from yfinance MultiIndex DataFrame."""
+    if tickers_count > 1:
+        return data[(col, tk)].dropna()
+    else:
+        return data[col].dropna()
 
-def _extract_price_at(data, tk, time_label):
-    """Extract price at specific time from 5-min bars."""
-    # ... UTC hour conversion + bar lookup
+def _extract_open(data, tk, tickers_count=1):
+    """Extract today's open price from 5-min data (first bar's open)."""
+    try:
+        col = _extract_col(data, "Open", tk, tickers_count)
+        return round(float(col.iloc[0]), 2) if len(col) > 0 else None
+    except (KeyError, IndexError):
+        return None
 
-def _extract_first_hour_low(data, tk):
+def _extract_price_at(data, tk, et_hour, et_minute, tickers_count=1):
+    """Extract price at specific ET time from 5-min bars."""
+    try:
+        utc_hour = market_time_to_utc_hour(et_hour, et_minute)
+        col = _extract_col(data, "Close", tk, tickers_count)
+        # Find bar closest to target UTC hour
+        for idx in col.index:
+            bar_hour = idx.hour + idx.minute / 60
+            if bar_hour >= utc_hour:
+                return round(float(col.loc[idx]), 2)
+        # If past target, return last available
+        return round(float(col.iloc[-1]), 2) if len(col) > 0 else None
+    except (KeyError, IndexError):
+        return None
+
+def _extract_first_hour_low(data, tk, tickers_count=1):
     """Extract lowest price in first hour (9:30-10:30 ET)."""
-    # ... filter bars by UTC hour range
+    try:
+        fh_start = market_time_to_utc_hour(9, 30)
+        fh_end = market_time_to_utc_hour(10, 30)
+        col = _extract_col(data, "Low", tk, tickers_count)
+        fh_bars = col[(col.index.hour + col.index.minute / 60 >= fh_start) &
+                      (col.index.hour + col.index.minute / 60 < fh_end)]
+        return round(float(fh_bars.min()), 2) if len(fh_bars) > 0 else None
+    except (KeyError, IndexError):
+        return None
 
-def _extract_latest_price(data, tk):
+def _extract_latest_price(data, tk, tickers_count=1):
     """Extract most recent bar's close."""
-    # ... last row extraction
+    try:
+        col = _extract_col(data, "Close", tk, tickers_count)
+        return round(float(col.iloc[-1]), 2) if len(col) > 0 else None
+    except (KeyError, IndexError):
+        return None
 
-def _extract_dip_pct(data, tk):
-    """Compute dip % from open to first-hour close."""
-    # ... arithmetic
+def _extract_dip_pct(data, tk, tickers_count=1):
+    """Compute dip % from open to latest close."""
+    o = _extract_open(data, tk, tickers_count)
+    c = _extract_latest_price(data, tk, tickers_count)
+    if o and c and o > 0:
+        return round((o - c) / o * 100, 1)
+    return 0
 ```
 
 ### 3.7 Phase Evaluation Functions
@@ -694,6 +735,7 @@ def evaluate_decision(tickers, static, hist_ranges, regime, dry_run=False):
         print()
 
         if not dry_run:
+            # notify.py is in same tools/ directory — sys.path already set at module top
             from notify import send_dip_alert
             send_dip_alert(tk, candidate["entry"], candidate["target"],
                           candidate["stop"], f"{node_path}\n{reason}", regime, budget)
@@ -745,6 +787,22 @@ def main():
     regime, vix, static = load_static_context(tickers)
     hist_ranges = compute_historical_ranges(tickers)
 
+    # Cache historical ranges to avoid re-downloading across phases
+    hist_cache_path = _ROOT / "data" / "neural_hist_ranges_cache.json"
+    if hist_cache_path.exists():
+        cache_age = time.time() - hist_cache_path.stat().st_mtime
+        if cache_age < 14400:  # <4 hours old = reuse
+            with open(hist_cache_path) as f:
+                hist_ranges = json.load(f)
+        else:
+            hist_ranges = compute_historical_ranges(tickers)
+            with open(hist_cache_path, "w") as f:
+                json.dump(hist_ranges, f, indent=2)
+    else:
+        hist_ranges = compute_historical_ranges(tickers)
+        with open(hist_cache_path, "w") as f:
+            json.dump(hist_ranges, f, indent=2)
+
     print(f"Neural Dip Evaluator — {args.phase} | {len(tickers)} tickers | Regime: {regime}")
 
     if args.phase == "first_hour":
@@ -795,11 +853,26 @@ def backtest_neural_dip(tickers, days=60):
     # Get trading days in the data
     trading_days = sorted(set(all_data.index.date))
 
+    # Pre-compute per-day context from daily OHLCV (regime, ranges)
+    daily_data = yf.download(tickers, period=f"{days + 30}d", interval="1d", progress=False)
+
     results = []
     for day in trading_days:
         day_bars = all_data[all_data.index.date == day]
         if len(day_bars) < 12:  # need at least 1 hour of data
             continue
+
+        # Per-day context: compute regime + ranges using data BEFORE this day
+        # (prevents look-ahead bias — only use what was known at that time)
+        prior_daily = daily_data[daily_data.index.date < day]
+        regime = _compute_regime_for_day(prior_daily, day)  # VIX + index 50-SMA
+        hist_ranges = _compute_ranges_for_day(prior_daily, tickers, lookback=21)
+
+        # Static neurons: use "UNKNOWN" for all (no graph_state history)
+        # This tests the neural model without simulation-backed data
+        static = {tk: {"verdict": ["UNKNOWN"], "catastrophic": None,
+                       "dip_viable": "UNKNOWN", "earnings_gate": "CLEAR"}
+                  for tk in tickers}
 
         # Simulate first-hour (bars 0-12 = 9:30-10:30)
         fh_bars = day_bars.iloc[:12]
