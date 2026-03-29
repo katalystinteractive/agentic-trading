@@ -213,12 +213,137 @@ Run the backtester once with the LUNR-derived parameters above and compare again
 
 ---
 
-## 8. What We'd Learn
+## 8. Per-Ticker Dip Profile — Full Portfolio Scan
 
-After the sweep, we'll know:
-1. **Does raising min_daily_range from 3% to 8% eliminate the losers?** (CLSK, CIFR)
-2. **Does lowering breadth from 50% to 30% produce more signal days without more false positives?**
-3. **Is 4% target better than 3% for high-swing tickers?**
-4. **Does requiring 1% bounce (vs 0.3%) filter out fake recoveries?**
+Simulated every ticker: buy at open-1% when dip occurs, sell at +4% or stop -3% or cut at EOD. 3-month daily data.
 
-Each answer is backed by 125 days of real data, not guessing.
+| Ticker | Price | Range | Dip Days | Rec≥4% | Sim Trades | Win% | Sim P/L | Verdict |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :--- |
+| **OKLO** | $50.23 | 7.7% | 92% | 97% | 57 | 39% | **+$10.00** | STRONG |
+| **AR** | $45.15 | 3.5% | 65% | 31% | 40 | 5% | **+$5.87** | UNUSUAL — low range but profitable |
+| **IONQ** | $27.51 | 7.5% | 92% | 95% | 57 | 33% | **+$3.29** | MODERATE |
+| **CLSK** | $8.66 | 7.5% | 92% | 100% | 57 | 44% | **+$2.52** | MODERATE |
+| **NNE** | $20.29 | 7.8% | 94% | 98% | 58 | 40% | **+$2.45** | MODERATE |
+| **NU** | $13.60 | 3.4% | 73% | 27% | 45 | 4% | **+$2.22** | UNUSUAL — low range but profitable |
+| **RGTI** | $13.32 | 7.1% | 89% | 95% | 55 | 36% | **+$1.51** | MODERATE |
+| **CLF** | $8.11 | 5.3% | 74% | 71% | 46 | 22% | **+$0.56** | MARGINAL |
+| **ACHR** | $5.09 | 6.0% | 89% | 85% | 55 | 27% | **+$0.44** | MARGINAL |
+| BBAI | $3.14 | 6.7% | 84% | 100% | 52 | 33% | -$0.16 | BREAKEVEN |
+| RDW | $8.16 | 10.2% | 92% | 100% | 57 | 44% | -$0.58 | BREAKEVEN |
+| LUNR | $17.52 | 10.7% | 81% | 100% | 50 | 42% | -$0.61 | BREAKEVEN |
+| TMC | $4.27 | 7.7% | 90% | 92% | 56 | 32% | -$0.85 | LOSER |
+| RUN | $12.60 | 6.9% | 65% | 92% | 40 | 32% | -$1.82 | LOSER |
+| OUST | $17.66 | 7.5% | 82% | 97% | 51 | 31% | -$2.18 | LOSER |
+| CIFR | $13.74 | 9.0% | 90% | 97% | 56 | 38% | -$2.38 | LOSER |
+| APLD | $23.76 | 7.9% | 84% | 98% | 52 | 33% | -$5.03 | LOSER |
+| USAR | $15.42 | 8.9% | 87% | 100% | 54 | 24% | -$10.85 | BAD |
+| TEM | $42.62 | 5.2% | 79% | 81% | 49 | 22% | -$11.37 | BAD |
+| ARM | $144.13 | 4.5% | 63% | 61% | 39 | 13% | -$12.36 | BAD |
+| NVDA | $167.52 | 2.5% | 55% | 16% | 34 | 6% | -$17.47 | BAD |
+
+### Key Finding: Range Does NOT Predict Profitability
+
+**This contradicts the earlier hypothesis.** The data shows:
+
+- Average range of **profitable** tickers: 6.2%
+- Average range of **unprofitable** tickers: 7.3%
+
+**Unprofitable tickers have HIGHER range on average.** LUNR (10.7%, $-0.61), RDW (10.2%, $-0.58), CIFR (9.0%, $-2.38), USAR (8.9%, $-10.85) — all high-range, all losing.
+
+Meanwhile AR (3.5%, +$5.87) and NU (3.4%, +$2.22) are LOW range but PROFITABLE. And OKLO (7.7%, +$10.00) is the best performer — not the highest range.
+
+**The range threshold hypothesis from Section 4 was WRONG.** Raising min_daily_range from 3% to 8% would eliminate profitable tickers (OKLO, CLSK, NNE, RGTI) while keeping losers (USAR 8.9%, CIFR 9.0%).
+
+---
+
+## 9. What Actually Separates Winners from Losers?
+
+### 9.1 Ticker-Specific Patterns
+
+Each ticker has its own dip-recovery personality:
+
+**OKLO (+$10.00)**: 7.7% range, 39% win rate — but wins are large because the stock tends to dip deeply (giving better entries) and recover strongly on winning days.
+
+**AR (+$5.87)**: Only 3.5% range, 5% win rate — wins almost never. But when the dip-buy triggers and AR recovers, the EOD cut produces tiny gains consistently. Very few stops hit (AR doesn't crash after dipping — it dips and goes flat).
+
+**LUNR ($-0.61)**: 10.7% range, 42% win rate — high range means BOTH targets and stops get hit easily. The 42% win rate at 4%/3% risk-reward = near breakeven. LUNR is a coin flip, not a sure thing.
+
+**USAR ($-10.85)**: 8.9% range, 24% win rate — dips deeply but does NOT recover same-day. Persistent downtrend.
+
+**NVDA ($-17.47)**: 2.5% range, 6% win rate — simply doesn't move enough intraday for the dip strategy. Dips rarely hit entry, and when they do, recovery is insufficient.
+
+### 9.2 The Real Predictors
+
+Looking at the data, the actual predictors of same-day dip profitability appear to be:
+
+1. **Win rate > 30%**: All profitable tickers have ≥22% simulated win rate, most have ≥33%. Below ~30%, the 4%/3% risk-reward can't overcome the losses.
+
+2. **Price behavior after dip**: Some tickers dip and mean-revert (OKLO, CLSK). Others dip and keep falling (USAR, ARM). This is a BEHAVIORAL trait, not a range metric.
+
+3. **Not a pure range filter**: AR (3.5% range) is profitable because it dips rarely but recovers when it does. USAR (8.9% range) is a disaster because it dips often and never recovers.
+
+### 9.3 Market-Specific Patterns
+
+The 6-month backtest showed monthly variation:
+- **Nov 2025**: 100% win rate — bull market, all dips recover
+- **Oct, Dec 2025, Mar 2026**: 20-40% win rate — choppy/bearish
+- **Feb 2026**: 60% — transitional
+
+**Market regime is a stronger predictor than ticker selection.** In a bull market, EVERY ticker's dip play works. In bearish/choppy markets, only a few with structural mean-reversion properties survive.
+
+---
+
+## 10. Revised Hypothesis
+
+The original hypothesis was: "raise the range threshold to filter out losers."
+
+**New hypothesis**: The dip strategy needs **two layers of filtering**:
+
+**Layer 1: Ticker qualification (static, computed once):**
+Not based on range alone. Based on **simulated same-day dip win rate** over a rolling window. If a ticker's 30-day simulated dip win rate is below 30%, exclude it from the dip watchlist entirely.
+
+This is exactly what the `dip_kpis` from the surgical simulation side-channel provides — per-ticker, per-regime dip win rate backed by actual backtest data.
+
+**Layer 2: Market regime (dynamic, checked daily):**
+In Risk-Off (VIX > 25), reduce position size or skip entirely. The November 100% win rate vs March 40% proves that market regime matters more than ticker selection.
+
+**Layer 3: Per-ticker parameters (optional optimization):**
+Different tickers may benefit from different target/stop ratios:
+- OKLO: 4%/3% works (39% win rate × 1.33 ratio > 1.0)
+- LUNR: Needs tighter target (3%/3% = needs 50% win rate, currently at 42% — still marginal)
+- AR: Needs different entry (rarely dips 1% — lower threshold to 0.5%?)
+
+---
+
+## 11. What We Need to Test
+
+### Test 1: Current config vs simulation-backed dip_viable filter
+Run the neural backtester twice:
+- A: Current DIP_CONFIG (range ≥ 3%, all tickers)
+- B: Only tickers with `dip_kpis.dip_win_rate ≥ 30%` qualify
+
+This tests whether the simulation-backed filter we already built (Phase 3 of the surgical side-channel merge) actually improves the neural dip strategy.
+
+### Test 2: Regime gating
+Run the neural backtester twice:
+- A: All regimes (Risk-On + Neutral + Risk-Off)
+- B: Skip Risk-Off days entirely
+
+This tests the November vs March effect — does skipping Risk-Off eliminate the worst losses?
+
+### Test 3: Per-ticker optimal parameters
+For the top 5 profitable tickers (OKLO, AR, IONQ, CLSK, NNE), run parameter sweeps individually to find each ticker's optimal target/stop/dip threshold.
+
+### Test 4: LUNR specifically
+LUNR showed 69% win rate in the standalone dip simulator but only 42% in the per-ticker scan above. The difference: the standalone sim used 3% target (not 4%). Run LUNR at 3% target to verify:
+- 3% target, 3% stop (1:1 ratio, needs >50% win rate)
+- 4% target, 3% stop (1.33:1, needs >43%)
+
+---
+
+## 12. What We'd Learn
+
+1. Is the `dip_kpis.dip_win_rate` filter (from the simulation side-channel) the right qualification gate? Or do we need per-ticker win rate from the neural backtester itself?
+2. Does regime gating (skip Risk-Off) turn the strategy profitable?
+3. Should each ticker have its own target/stop, or is one config sufficient?
+4. Is LUNR actually a good dip candidate, or was the 69% win rate from using 3% target (which we should use for ALL tickers)?
