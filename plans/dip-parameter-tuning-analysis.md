@@ -390,3 +390,103 @@ These answers determine whether we need:
 - Per-ticker configs (if they diverge)
 - Regime gating (if winners/losers flip by regime)
 - A completely different qualification metric (if win rate is useless)
+
+---
+
+## 14. Test Results (Executed 2026-03-29)
+
+### Test 2 Results: Per-Regime Breakdown
+
+Days by regime: Neutral=44, Risk-Off=11, Risk-On=7
+
+| Regime | Days | Trades | Win% | P/L | Profitable Tickers |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Risk-On | 7 | 115 | 34% | -$1.01 | 13/21 |
+| Neutral | 44 | 751 | 30% | -$21.77 | 10/21 |
+| Risk-Off | 11 | 194 | 26% | -$14.00 | 8/21 |
+
+**Finding**: Regime effect is REAL but MODEST. Risk-On is only marginally better (34% vs 26%). All regimes lose money overall. Skipping Risk-Off would save -$14 but the strategy still loses -$22.78 in the other regimes.
+
+**Surprise**: Some tickers REVERSE by regime — ARM loses in Risk-On (-$5.09) but profits in Risk-Off (+$3.02). NNE loses in Risk-On (-$3.14) but profits in Risk-Off (+$2.69). This means regime gating would HURT these tickers.
+
+### Test 3 Results: Per-Ticker Optimal Parameters
+
+| Ticker | Current Config | Current P/L | Optimal Config | Optimal P/L | Improvement |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| OKLO | 4%/-3%/1.0% dip | +$10.00 | **5%/-3%/1.0%** | **+$19.83** | +$9.83 |
+| AR | 4%/-3%/1.0% | +$5.87 | **2%/-4%/2.0%** | **+$13.38** | +$7.51 |
+| IONQ | 4%/-3%/1.0% | +$3.29 | **4%/-3%/2.0%** | **+$14.14** | +$10.85 |
+| CLSK | 4%/-3%/1.0% | +$2.52 | **3.5%/-3%/2.0%** | **+$5.88** | +$3.36 |
+| NNE | 4%/-3%/1.0% | +$2.45 | **3.5%/-4%/1.5%** | **+$9.06** | +$6.61 |
+
+**Finding**: Parameters DIVERGE significantly. No single config works for all.
+- OKLO wants HIGH target (5%) — big swinger, benefits from letting winners run
+- AR wants LOW target (2%) + TIGHT stop (-4%) + HIGH dip threshold (2%) — profits from EOD cuts, not targets
+- IONQ wants DEEPER dip entry (2%) — filtering out shallow dips improves win rate from 33% to 50%
+- CLSK/NNE want MODERATE target (3.5%) — middle ground between target hits and EOD cuts
+
+**Total: current +$24.13 → optimal +$62.29. That's +$38.16 improvement (+158%) from per-ticker tuning.**
+
+### Test 4 Results: LUNR Target Sweep
+
+| Target | Trades | Wins | Stops | Cuts | Win% | P/L |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 2.0% | 50 | 23 | 27 | 0 | 46% | -$6.87 |
+| 3.0% | 50 | 22 | 27 | 1 | 44% | -$3.74 |
+| 3.5% | 50 | 22 | 27 | 1 | 44% | -$1.81 |
+| 4.0% | 50 | 21 | 27 | 2 | 42% | -$0.61 |
+| **5.0%** | **50** | **20** | **27** | **3** | **40%** | **+$2.37** |
+
+**Finding**: LUNR has a FIXED 27 stops regardless of target (the stop at -3% is always hit on the same days). Only the win payoff changes. **5% target is the only profitable config** because $5 per win × 20 wins = $100, vs $3 per stop × 27 stops = $81.
+
+The 69% win rate from the standalone simulator was likely from a different market window or different parameters entirely.
+
+### Test 5 Results: AR Trade Distribution
+
+| Exit Type | Count | Avg P/L | Mechanism |
+| :--- | :--- | :--- | :--- |
+| TARGET (+4%) | 2 | +$1.35 | Rare large wins |
+| STOP (-3%) | 6 | -$1.05 | Infrequent stops |
+| EOD_CUT | 32 | **+$0.30** | **The profit engine** |
+
+Of 32 EOD cuts: 23 positive (avg +$0.52), 9 negative (avg -$0.28).
+
+**Finding**: AR profits from a completely different mechanism than other tickers. It dips slightly from open, sits flat or drifts up slightly, and closes near or above the entry price. The +4% target and -3% stop are almost irrelevant — 80% of trades exit at close with a small profit.
+
+**AR needs its own strategy**: 2% target / -4% stop / 2% dip threshold = +$13.38 (vs +$5.87 current). The tight target catches the small-but-reliable close-above-entry pattern.
+
+### Test 6 Results: USAR Cross-Regime
+
+| Regime | Days | Trades | Win% | P/L |
+| :--- | :--- | :--- | :--- | :--- |
+| Risk-On | 7 | 6 | 50% | +$1.03 |
+| Neutral | 44 | 37 | 22% | -$8.96 |
+| Risk-Off | 11 | 11 | 18% | -$2.92 |
+
+**Finding**: USAR is REGIME-DEPENDENT, not structural. 50% win rate in Risk-On (+$1.03) vs 22% in Neutral (-$8.96). The "behavioral trait" claim was WRONG for USAR — it's a bull-market dipper that crashes in other regimes.
+
+### Bonus: 3% vs 4% Target (All 21 Tickers)
+
+| Target | Trades | Win% | P/L | Profitable Tickers |
+| :--- | :--- | :--- | :--- | :--- |
+| 3.0% | 1060 | 39% | **-$52.99** | 9/21 |
+| 4.0% | 1060 | 30% | **-$36.80** | 9/21 |
+
+**Finding**: 4% target is BETTER than 3% across all tickers. The 3% "optimization" from the earlier sweep was wrong. Higher target = fewer wins but each win covers more stops.
+
+---
+
+## 15. Conclusions from Tests
+
+1. **No single config works.** Per-ticker parameters yield +$38 improvement over a uniform config.
+
+2. **Three distinct ticker behaviors identified**:
+   - **Big swingers** (OKLO, LUNR): Need high targets (5%) to let winners run. Stops are constant regardless.
+   - **EOD drifters** (AR, NU): Profit from small positive EOD cuts, not target hits. Need low targets (2%) and tight stops.
+   - **Moderate recoverers** (CLSK, NNE, IONQ): Need moderate targets (3.5-4%) and deeper dip entries (1.5-2%).
+
+3. **Regime gating is NOT clearly beneficial.** Some tickers reverse by regime (ARM, NNE profit in Risk-Off but lose in Risk-On). A blanket regime skip would help some tickers and hurt others.
+
+4. **The dip threshold matters more than expected.** Raising from 1.0% to 2.0% dramatically improved IONQ (33%→50% win rate, +$3.29→+$14.14) and CLSK (+$2.52→+$5.88). Deeper dips = stronger bounces.
+
+5. **3% target is worse than 4% globally.** The earlier "optimization" was incorrect or regime-specific.
