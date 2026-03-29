@@ -371,3 +371,84 @@ Test analysis and test plan (following the mandatory process: analysis → plan 
 | 7 | Retry strategy? | 1 retry, 3-second delay, then skip | Don't block; next cron trigger retries |
 | 8 | SendGrid config? | Environment variables (SENDGRID_API_KEY, ALERT_EMAIL) | Standard pattern, .env file |
 | 9 | Early close handling? | Add to trading_calendar.py | Shared by all tools |
+| 10 | UNKNOWN neuron semantics? | UNKNOWN = pass-through (don't block, don't confirm) | Conservative: hardcoded thresholds still apply as fallback |
+| 11 | Pre-session phase purpose? | DROP — daily analyzer already covers this | Reduce to 3 cron entries (10:30, 11:00, 15:45) |
+
+---
+
+## Verification Findings (Post-Verification)
+
+### Critical Gaps Fixed
+
+**1. Backtesting requires ALL tickers' 5-min data for breadth computation**
+
+The initial analysis assumed breadth could be computed from per-ticker data. Wrong — breadth is a CROSS-TICKER aggregation ("did ≥50% of tickers dip?"). The backtester must:
+- Download 5-min bars for ALL 27 tickers for ALL 60 days
+- yfinance batch download handles this: `yf.download(all_27, period="60d", interval="5m")` — one call, returns ~126K data points
+- Cache locally to avoid re-downloading: save to `data/backtest/intraday_5min_cache.pkl`
+- Replay day-by-day, computing breadth per timestamp across all tickers
+
+**Effort revised**: 150 → 200 lines (add caching + cross-ticker aggregation logic).
+
+**2. UNKNOWN neuron semantics defined**
+
+When a static neuron (DIP_VIABLE, VERDICT) returns UNKNOWN:
+- **UNKNOWN = pass-through** — the neuron neither confirms nor blocks
+- The hardcoded fallback thresholds (range ≥ 3%, recovery ≥ 60%) still apply
+- BUY_DIP CAN fire with UNKNOWN neurons, but the reason chain notes "DIP_VIABLE: UNKNOWN (no simulation data)"
+- This matches current behavior: the dip watchlist works today without graph_state.json
+
+**3. SendGrid response validation**
+
+Updated `send_dip_alert()` to check response status:
+```python
+response = sg.send(message)
+if response.status_code not in (200, 202):
+    print(f"*Warning: SendGrid returned {response.status_code}*")
+    return False
+```
+Also: `from_email` must be an environment variable, not hardcoded. Add `SENDGRID_FROM_EMAIL` to .env.
+
+### Moderate Gaps Fixed
+
+**4. Timezone functions are private (_underscore prefix)**
+
+`_market_time_to_utc_hour()` and `_get_market_phase()` in dip_signal_checker.py start with underscore (private). Solution: add public wrapper functions to `trading_calendar.py` that call the same logic. Don't refactor dip_signal_checker — it still works as-is.
+
+**5. Pre-session phase dropped**
+
+The 9:00 AM pre-session phase is redundant — the daily analyzer runs at session start and computes regime, verdicts, catastrophic. The neural evaluator reads these from graph_state.json.
+
+Revised cron schedule: **3 entries, not 4**:
+- 10:30 AM ET — first-hour breadth
+- 11:00 AM ET — second-hour bounce + decision
+- 3:45 PM ET — EOD exit check
+
+**6. Partial yfinance data handling**
+
+Updated error pattern to detect missing tickers:
+```python
+data = yf.download(tickers, period="1d", interval="5m")
+if len(tickers) > 1:
+    available = [tk for tk in tickers if tk in data["Close"].columns]
+    missing = [tk for tk in tickers if tk not in available]
+    if missing:
+        log(f"Missing tickers: {missing}")
+```
+
+### Minor Gaps Fixed
+
+**7. Node count corrected**: 50-100 per phase → 222 nodes (8 per ticker × 27 + 6 market). Still <10ms resolution.
+
+**8. macOS sleep risk documented**: If Mac sleeps at 10:30 AM, cron misses. Mitigation: use `caffeinate` during market hours, or run on a server.
+
+### Updated Totals
+
+| Aspect | Initial | Corrected |
+| :--- | :--- | :--- |
+| Cron entries | 4 | **3** (pre-session dropped) |
+| Nodes per phase | 50-100 | **~222** |
+| Backtester lines | 150 | **200** (add caching + cross-ticker) |
+| Grand total code | 630-730 | **680-780** |
+| Dependencies to add | sendgrid | **sendgrid, python-dotenv** |
+| .env variables needed | 2 (API_KEY, EMAIL) | **3** (+ SENDGRID_FROM_EMAIL) |
