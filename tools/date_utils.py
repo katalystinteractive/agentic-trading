@@ -9,8 +9,11 @@ Usage:
     python3 tools/date_utils.py --last-trading  # last trading day
 """
 import sys
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 
+import pytz
+
+ET = pytz.timezone("US/Eastern")
 DAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
 
@@ -72,13 +75,38 @@ def next_trading_day():
     }
 
 
+def now_local():
+    """Return current local date and time (user's timezone)."""
+    now = datetime.now()
+    return {
+        "date": now.strftime("%Y-%m-%d"),
+        "time": now.strftime("%H:%M:%S"),
+        "day": DAY_NAMES[now.weekday()],
+        "timezone": "local",
+    }
+
+
+def now_market():
+    """Return current date and time in US Eastern (market timezone)."""
+    now = datetime.now(ET)
+    return {
+        "date": now.strftime("%Y-%m-%d"),
+        "time": now.strftime("%H:%M:%S"),
+        "day": DAY_NAMES[now.weekday()],
+        "timezone": "ET",
+    }
+
+
 def format_summary():
-    """Human-readable summary of key dates."""
+    """Human-readable summary: local time, market time, dates."""
     t = today_info()
     lt = last_trading_day()
     nt = next_trading_day()
+    local = now_local()
+    market = now_market()
     lines = [
-        f"Today:              {t['day']}, {t['date']}",
+        f"Your time:          {local['day']}, {local['date']} {local['time']}",
+        f"Market time (ET):   {market['day']}, {market['date']} {market['time']}",
         f"Markets open today: {'Yes' if t['is_trading_day'] else 'No'}",
         f"Last trading day:   {lt['day']}, {lt['date']}",
         f"Next trading day:   {nt['day']}, {nt['date']}",
