@@ -1,14 +1,15 @@
 {
   "_meta": {
     "version": 1,
-    "updated": "2026-03-29",
+    "updated": "2026-03-30",
     "stats": {
-      "total_trades": 27,
-      "wins": 18,
+      "total_trades": 1215,
+      "wins": 1206,
       "losses": 9,
-      "epochs": 3,
+      "source": "historical_trade_trainer",
+      "epochs": 10,
       "learning_rate": 0.01,
-      "total_synapses": 40
+      "total_synapses": 170
     }
   },
   "weights": {
@@ -131,6 +132,396 @@
     },
     "USAR:bounce_gate": {
       "USAR:bounce_level": 0.9886
+    },
+    "PLTR:profit_gate": {
+      "PLTR:pnl_pct": 1.0
+    },
+    "PLTR:hold_gate": {
+      "PLTR:days_held": 1.0
+    },
+    "RCAT:profit_gate": {
+      "RCAT:pnl_pct": 1.0
+    },
+    "RCAT:hold_gate": {
+      "RCAT:days_held": 1.0
+    },
+    "BATL:profit_gate": {
+      "BATL:pnl_pct": 0.9941
+    },
+    "BATL:hold_gate": {
+      "BATL:days_held": 1.0
+    },
+    "CDE:profit_gate": {
+      "CDE:pnl_pct": 1.0
+    },
+    "CDE:hold_gate": {
+      "CDE:days_held": 1.0
+    },
+    "MARA:profit_gate": {
+      "MARA:pnl_pct": 1.0
+    },
+    "MARA:hold_gate": {
+      "MARA:days_held": 1.0
+    },
+    "SMR:profit_gate": {
+      "SMR:pnl_pct": 1.0
+    },
+    "SMR:hold_gate": {
+      "SMR:days_held": 0.9982
+    },
+    "DNA:profit_gate": {
+      "DNA:pnl_pct": 1.0
+    },
+    "DNA:hold_gate": {
+      "DNA:days_held": 1.0
+    },
+    "NBIS:profit_gate": {
+      "NBIS:pnl_pct": 1.0
+    },
+    "NBIS:hold_gate": {
+      "NBIS:days_held": 1.0
+    },
+    "BIAF:profit_gate": {
+      "BIAF:pnl_pct": 1.0
+    },
+    "BIAF:hold_gate": {
+      "BIAF:days_held": 1.0
+    },
+    "RXRX:profit_gate": {
+      "RXRX:pnl_pct": 1.0
+    },
+    "RXRX:hold_gate": {
+      "RXRX:days_held": 1.0
+    },
+    "BMNR:profit_gate": {
+      "BMNR:pnl_pct": 1.0
+    },
+    "BMNR:hold_gate": {
+      "BMNR:days_held": 0.9982
+    },
+    "IREN:profit_gate": {
+      "IREN:pnl_pct": 1.0
+    },
+    "IREN:hold_gate": {
+      "IREN:days_held": 1.0
+    },
+    "STIM:profit_gate": {
+      "STIM:pnl_pct": 1.0
+    },
+    "STIM:hold_gate": {
+      "STIM:days_held": 1.0
+    },
+    "UGRO:profit_gate": {
+      "UGRO:pnl_pct": 1.0
+    },
+    "UGRO:hold_gate": {
+      "UGRO:days_held": 1.0
+    },
+    "CIFR:profit_gate": {
+      "CIFR:pnl_pct": 1.0
+    },
+    "CIFR:hold_gate": {
+      "CIFR:days_held": 1.0
+    },
+    "HIMS:profit_gate": {
+      "HIMS:pnl_pct": 1.0
+    },
+    "HIMS:hold_gate": {
+      "HIMS:days_held": 1.0
+    },
+    "CRCL:profit_gate": {
+      "CRCL:pnl_pct": 1.0
+    },
+    "CRCL:hold_gate": {
+      "CRCL:days_held": 1.0
+    },
+    "DNN:profit_gate": {
+      "DNN:pnl_pct": 1.0
+    },
+    "DNN:hold_gate": {
+      "DNN:days_held": 1.0
+    },
+    "BE:profit_gate": {
+      "BE:pnl_pct": 1.0
+    },
+    "BE:hold_gate": {
+      "BE:days_held": 1.0
+    },
+    "CRWV:profit_gate": {
+      "CRWV:pnl_pct": 0.9999
+    },
+    "CRWV:hold_gate": {
+      "CRWV:days_held": 0.955
+    },
+    "SOFI:profit_gate": {
+      "SOFI:pnl_pct": 1.0
+    },
+    "SOFI:hold_gate": {
+      "SOFI:days_held": 1.0
+    },
+    "NTLA:profit_gate": {
+      "NTLA:pnl_pct": 1.0
+    },
+    "NTLA:hold_gate": {
+      "NTLA:days_held": 1.0
+    },
+    "UPST:profit_gate": {
+      "UPST:pnl_pct": 1.0
+    },
+    "UPST:hold_gate": {
+      "UPST:days_held": 1.0
+    },
+    "WULF:profit_gate": {
+      "WULF:pnl_pct": 1.0
+    },
+    "WULF:hold_gate": {
+      "WULF:days_held": 1.0
+    },
+    "IBRX:profit_gate": {
+      "IBRX:pnl_pct": 1.0
+    },
+    "IBRX:hold_gate": {
+      "IBRX:days_held": 1.0
+    },
+    "RIOT:profit_gate": {
+      "RIOT:pnl_pct": 1.0
+    },
+    "RIOT:hold_gate": {
+      "RIOT:days_held": 1.0
+    },
+    "UAMY:profit_gate": {
+      "UAMY:pnl_pct": 1.0
+    },
+    "UAMY:hold_gate": {
+      "UAMY:days_held": 1.0
+    },
+    "EOSE:profit_gate": {
+      "EOSE:pnl_pct": 1.0
+    },
+    "EOSE:hold_gate": {
+      "EOSE:days_held": 1.0
+    },
+    "NVTS:profit_gate": {
+      "NVTS:pnl_pct": 1.0
+    },
+    "NVTS:hold_gate": {
+      "NVTS:days_held": 1.0
+    },
+    "ONDS:profit_gate": {
+      "ONDS:pnl_pct": 1.0
+    },
+    "ONDS:hold_gate": {
+      "ONDS:days_held": 1.0
+    },
+    "BBAI:profit_gate": {
+      "BBAI:pnl_pct": 1.0
+    },
+    "BBAI:hold_gate": {
+      "BBAI:days_held": 1.0
+    },
+    "MP:profit_gate": {
+      "MP:pnl_pct": 1.0
+    },
+    "MP:hold_gate": {
+      "MP:days_held": 1.0
+    },
+    "RKLB:profit_gate": {
+      "RKLB:pnl_pct": 1.0
+    },
+    "RKLB:hold_gate": {
+      "RKLB:days_held": 1.0
+    },
+    "MSTR:profit_gate": {
+      "MSTR:pnl_pct": 1.0
+    },
+    "MSTR:hold_gate": {
+      "MSTR:days_held": 1.0
+    },
+    "HUT:profit_gate": {
+      "HUT:pnl_pct": 1.0
+    },
+    "HUT:hold_gate": {
+      "HUT:days_held": 1.0
+    },
+    "NIO:profit_gate": {
+      "NIO:pnl_pct": 1.0
+    },
+    "NIO:hold_gate": {
+      "NIO:days_held": 1.0
+    },
+    "PATH:profit_gate": {
+      "PATH:pnl_pct": 1.0
+    },
+    "PATH:hold_gate": {
+      "PATH:days_held": 1.0
+    },
+    "QBTS:profit_gate": {
+      "QBTS:pnl_pct": 1.0
+    },
+    "QBTS:hold_gate": {
+      "QBTS:days_held": 1.0
+    },
+    "ASTS:profit_gate": {
+      "ASTS:pnl_pct": 1.0
+    },
+    "ASTS:hold_gate": {
+      "ASTS:days_held": 1.0
+    },
+    "VG:profit_gate": {
+      "VG:pnl_pct": 0.9916
+    },
+    "VG:hold_gate": {
+      "VG:days_held": 0.872
+    },
+    "WOLF:profit_gate": {
+      "WOLF:pnl_pct": 1.0
+    },
+    "WOLF:hold_gate": {
+      "WOLF:days_held": 1.0
+    },
+    "TMC:profit_gate": {
+      "TMC:pnl_pct": 1.0
+    },
+    "TMC:hold_gate": {
+      "TMC:days_held": 1.0
+    },
+    "MU:profit_gate": {
+      "MU:pnl_pct": 1.0
+    },
+    "MU:hold_gate": {
+      "MU:days_held": 1.0
+    },
+    "RDW:profit_gate": {
+      "RDW:pnl_pct": 1.0
+    },
+    "RDW:hold_gate": {
+      "RDW:days_held": 1.0
+    },
+    "OPEN:profit_gate": {
+      "OPEN:pnl_pct": 1.0
+    },
+    "OPEN:hold_gate": {
+      "OPEN:days_held": 1.0
+    },
+    "TSLA:profit_gate": {
+      "TSLA:pnl_pct": 1.0
+    },
+    "TSLA:hold_gate": {
+      "TSLA:days_held": 1.0
+    },
+    "IONQ:profit_gate": {
+      "IONQ:pnl_pct": 1.0
+    },
+    "IONQ:hold_gate": {
+      "IONQ:days_held": 1.0
+    },
+    "RIG:profit_gate": {
+      "RIG:pnl_pct": 1.0
+    },
+    "RIG:hold_gate": {
+      "RIG:days_held": 1.0
+    },
+    "APP:profit_gate": {
+      "APP:pnl_pct": 1.0
+    },
+    "APP:hold_gate": {
+      "APP:days_held": 1.0
+    },
+    "HOOD:profit_gate": {
+      "HOOD:pnl_pct": 1.0
+    },
+    "HOOD:hold_gate": {
+      "HOOD:days_held": 1.0
+    },
+    "NU:profit_gate": {
+      "NU:pnl_pct": 1.0
+    },
+    "NU:hold_gate": {
+      "NU:days_held": 1.0
+    },
+    "NNE:profit_gate": {
+      "NNE:pnl_pct": 1.0
+    },
+    "NNE:hold_gate": {
+      "NNE:days_held": 1.0
+    },
+    "AGH:profit_gate": {
+      "AGH:pnl_pct": 1.0
+    },
+    "AGH:hold_gate": {
+      "AGH:days_held": 1.0
+    },
+    "LUNR:profit_gate": {
+      "LUNR:pnl_pct": 1.0
+    },
+    "LUNR:hold_gate": {
+      "LUNR:days_held": 1.0
+    },
+    "TEM:profit_gate": {
+      "TEM:pnl_pct": 1.0
+    },
+    "TEM:hold_gate": {
+      "TEM:days_held": 1.0
+    },
+    "CLSK:profit_gate": {
+      "CLSK:pnl_pct": 1.0
+    },
+    "CLSK:hold_gate": {
+      "CLSK:days_held": 1.0
+    },
+    "SOUN:profit_gate": {
+      "SOUN:pnl_pct": 1.0
+    },
+    "SOUN:hold_gate": {
+      "SOUN:days_held": 1.0
+    },
+    "OKLO:profit_gate": {
+      "OKLO:pnl_pct": 1.0
+    },
+    "OKLO:hold_gate": {
+      "OKLO:days_held": 1.0
+    },
+    "ACHR:profit_gate": {
+      "ACHR:pnl_pct": 1.0
+    },
+    "ACHR:hold_gate": {
+      "ACHR:days_held": 1.0
+    },
+    "ARM:profit_gate": {
+      "ARM:pnl_pct": 1.0
+    },
+    "ARM:hold_gate": {
+      "ARM:days_held": 1.0
+    },
+    "RGTI:profit_gate": {
+      "RGTI:pnl_pct": 1.0
+    },
+    "RGTI:hold_gate": {
+      "RGTI:days_held": 1.0
+    },
+    "APLD:profit_gate": {
+      "APLD:pnl_pct": 1.0
+    },
+    "APLD:hold_gate": {
+      "APLD:days_held": 1.0
+    },
+    "RUN:profit_gate": {
+      "RUN:pnl_pct": 1.0
+    },
+    "RUN:hold_gate": {
+      "RUN:days_held": 1.0
+    },
+    "CLF:profit_gate": {
+      "CLF:pnl_pct": 1.0
+    },
+    "CLF:hold_gate": {
+      "CLF:days_held": 1.0
+    },
+    "OUST:profit_gate": {
+      "OUST:pnl_pct": 1.0
+    },
+    "OUST:hold_gate": {
+      "OUST:days_held": 1.0
     }
   },
   "regime_weights": {}

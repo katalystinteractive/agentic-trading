@@ -40,19 +40,26 @@ DAILY_CACHE = CACHE_DIR / "daily_backtest_cache.pkl"
 # Data collection
 # ---------------------------------------------------------------------------
 
-def download_intraday(tickers, days=60):
-    """Download 5-min bars for all tickers. Cache to pickle."""
-    print(f"Downloading {days}-day 5-min data for {len(tickers)} tickers...")
+def download_intraday(tickers, days=60, interval="5m"):
+    """Download intraday bars for all tickers. Cache to pickle.
+
+    Supports 5m (60-day max) and 1h (730-day max) intervals.
+    """
+    max_days = 730 if interval == "1h" else 60
+    days = min(days, max_days)
+    cache_path = CACHE_DIR / f"intraday_{interval.replace('m','min')}_{days}d.pkl"
+
+    print(f"Downloading {days}-day {interval} data for {len(tickers)} tickers...")
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
-    data = yf.download(tickers, period=f"{days}d", interval="5m", progress=False)
+    data = yf.download(tickers, period=f"{days}d", interval=interval, progress=False)
     if data.empty:
         print("*Error: no intraday data returned.*")
         return None
 
-    data.to_pickle(str(INTRADAY_CACHE))
+    data.to_pickle(str(cache_path))
     bars = len(data)
-    print(f"Cached {bars} bars to {INTRADAY_CACHE}")
+    print(f"Cached {bars} bars to {cache_path}")
     return data
 
 
@@ -245,19 +252,26 @@ def replay_day(day, day_bars, tickers, static, hist_ranges, regime, n_tickers,
 # ---------------------------------------------------------------------------
 
 def backtest_neural_dip(tickers, days=60, use_cached=False, profiles=None,
-                        weights=None):
-    """Replay historical 5-min data through neural evaluation phases."""
+                        weights=None, interval="5m"):
+    """Replay historical intraday data through neural evaluation phases.
+
+    Supports 5m (60-day max) and 1h (730-day max) intervals.
+    """
     if profiles is None:
         profiles = _load_profiles()
     if weights is None:
         weights = _load_weights()
 
+    max_days = 730 if interval == "1h" else 60
+    days = min(days, max_days)
+    cache_path = CACHE_DIR / f"intraday_{interval.replace('m','min')}_{days}d.pkl"
+
     # Load or download intraday data
-    if use_cached and INTRADAY_CACHE.exists():
-        print(f"Loading cached intraday data from {INTRADAY_CACHE}...")
-        intraday = load_cached(INTRADAY_CACHE)
+    if use_cached and cache_path.exists():
+        print(f"Loading cached {interval} data from {cache_path}...")
+        intraday = load_cached(cache_path)
     else:
-        intraday = download_intraday(tickers, days)
+        intraday = download_intraday(tickers, days, interval=interval)
 
     if intraday is None or intraday.empty:
         print("*No intraday data available. Cannot backtest.*")
@@ -394,15 +408,17 @@ def print_summary(results, tickers):
 def main():
     parser = argparse.ArgumentParser(description="Neural Dip Backtester")
     parser.add_argument("--days", type=int, default=60,
-                        help="Number of days to backtest (max 60 for 5-min data)")
+                        help="Number of days to backtest (max 60 for 5m, 730 for 1h)")
+    parser.add_argument("--interval", choices=["5m", "1h"], default="5m",
+                        help="Bar interval: 5m (60-day max) or 1h (730-day max)")
     parser.add_argument("--cached", action="store_true",
                         help="Use cached intraday data instead of downloading")
     parser.add_argument("--json", action="store_true",
                         help="Output results as JSON")
     args = parser.parse_args()
 
-    # Limit to 60 days (yfinance 5-min bar constraint)
-    days = min(args.days, 60)
+    max_days = 730 if args.interval == "1h" else 60
+    days = min(args.days, max_days)
 
     # Load tickers from portfolio
     try:
@@ -417,9 +433,10 @@ def main():
         print("No tickers to backtest.")
         return
 
-    print(f"Neural Dip Backtester — {days} days, {len(tickers)} tickers")
+    print(f"Neural Dip Backtester — {days} days, {args.interval} bars, {len(tickers)} tickers")
 
-    results = backtest_neural_dip(tickers, days, use_cached=args.cached)
+    results = backtest_neural_dip(tickers, days, use_cached=args.cached,
+                                  interval=args.interval)
 
     if not results:
         print("No results.")

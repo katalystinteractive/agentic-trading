@@ -386,9 +386,12 @@ def main():
                         help="Sweep only this ticker (default: all)")
     parser.add_argument("--split", action="store_true",
                         help="Cross-validate: train on first 2/3, validate on last 1/3")
+    parser.add_argument("--interval", choices=["5m", "1h"], default="5m",
+                        help="Bar interval: 5m (60-day max) or 1h (730-day max)")
     args = parser.parse_args()
 
-    days = min(args.days, 60)
+    max_days = 730 if args.interval == "1h" else 60
+    days = min(args.days, max_days)
 
     # Load tickers
     from neural_dip_evaluator import _load_portfolio, _get_dip_candidates
@@ -409,11 +412,12 @@ def main():
           f"= {combos} combos/ticker\n")
 
     # Load data
-    if args.cached and INTRADAY_CACHE.exists():
-        print("Loading cached intraday data...")
-        intraday = load_cached(INTRADAY_CACHE)
+    cache_path = CACHE_DIR / f"intraday_{args.interval.replace('m','min')}_{days}d.pkl"
+    if args.cached and cache_path.exists():
+        print(f"Loading cached {args.interval} data from {cache_path}...")
+        intraday = load_cached(cache_path)
     else:
-        intraday = download_intraday(tickers, days)
+        intraday = download_intraday(tickers, days, interval=args.interval)
 
     if intraday is None or intraday.empty:
         print("*No intraday data. Cannot sweep.*")
