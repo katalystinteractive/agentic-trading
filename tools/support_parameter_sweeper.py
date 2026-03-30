@@ -659,16 +659,27 @@ def main():
     # Summary
     elapsed = time.time() - start
     print(f"\n{'='*60}")
-    print(f"| Ticker | Sell% | Cat% | Pool | Bullets | P/L | WR | Trades |")
-    print(f"| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
-    for tk in sorted(results.keys(),
-                     key=lambda t: results[t]["stats"]["pnl"], reverse=True):
-        r = results[tk]
-        p = r["params"]
-        s = r["stats"]
-        print(f"| {tk} | {p['sell_default']}% | {p['cat_hard_stop']}% | "
-              f"${p.get('active_pool', 300)} | {p.get('active_bullets_max', 5)} | "
-              f"${s['pnl']:.2f} | {s['win_rate']}% | {s['trades']} |")
+    if args.stage == "level" and level_output:
+        print(f"| Ticker | HoldRate | TouchFreq | SkipDormant | Zone | P/L | Trades |")
+        print(f"| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+        for tk in sorted(level_output.keys(),
+                         key=lambda t: level_output[t]["stats"]["pnl"], reverse=True):
+            lp = level_output[tk]["level_params"]
+            ls = level_output[tk]["stats"]
+            print(f"| {tk} | {lp['min_hold_rate']} | {lp['min_touch_freq']} | "
+                  f"{lp['skip_dormant']} | {lp['zone_filter']} | "
+                  f"${ls['pnl']:.2f} | {ls['trades']} |")
+    else:
+        print(f"| Ticker | Sell% | Cat% | Pool | Bullets | P/L | WR | Trades |")
+        print(f"| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+        for tk in sorted(results.keys(),
+                         key=lambda t: results[t]["stats"]["pnl"], reverse=True):
+            r = results[tk]
+            p = r["params"]
+            s = r["stats"]
+            print(f"| {tk} | {p['sell_default']}% | {p['cat_hard_stop']}% | "
+                  f"${p.get('active_pool', 300)} | {p.get('active_bullets_max', 5)} | "
+                  f"${s['pnl']:.2f} | {s['win_rate']}% | {s['trades']} |")
 
     print(f"\nTotal time: {elapsed:.0f}s ({elapsed/60:.1f} min)")
 
