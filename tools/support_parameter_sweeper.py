@@ -629,7 +629,10 @@ def main():
         print(f"\nStage 3: Level filter sweep on {len(tickers)} tickers...")
         level_output = {}
         for tk in tickers:
-            if tk not in prior or tk.startswith("_"):
+            if tk.startswith("_"):
+                continue
+            if tk not in prior:
+                print(f"  {tk}... *skipped (not in prior sweep results)*", flush=True)
                 continue
             threshold_params = prior[tk]["params"]
             execution_params = {k: threshold_params[k] for k in
@@ -659,7 +662,7 @@ def main():
     # Summary
     elapsed = time.time() - start
     print(f"\n{'='*60}")
-    if args.stage == "level" and level_output:
+    if args.stage == "level":
         print(f"| Ticker | HoldRate | TouchFreq | SkipDormant | Zone | P/L | Trades |")
         print(f"| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         for tk in sorted(level_output.keys(),

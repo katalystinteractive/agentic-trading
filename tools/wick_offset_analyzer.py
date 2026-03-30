@@ -13,6 +13,7 @@ import sys
 import json
 import datetime
 import math
+import threading
 import numpy as np
 import yfinance as yf
 from pathlib import Path
@@ -101,6 +102,7 @@ def load_capital_config(ticker=None):
 # ---------------------------------------------------------------------------
 
 _level_filter_cache = {"mtime": 0, "data": None}
+_level_filter_lock = threading.Lock()
 
 
 def _load_level_filters(ticker):
@@ -110,11 +112,15 @@ def _load_level_filters(ticker):
         if not lf_path.exists():
             return None
         mt = lf_path.stat().st_mtime
-        if mt != _level_filter_cache["mtime"]:
-            with open(lf_path) as f:
-                _level_filter_cache["data"] = json.load(f)
-            _level_filter_cache["mtime"] = mt
-        entry = _level_filter_cache["data"].get(ticker, {})
+        with _level_filter_lock:
+            if mt != _level_filter_cache["mtime"]:
+                with open(lf_path) as f:
+                    _level_filter_cache["data"] = json.load(f)
+                _level_filter_cache["mtime"] = mt
+            data = _level_filter_cache["data"]
+        if data is None:
+            return None
+        entry = data.get(ticker, {})
         return entry.get("level_params")
     except (OSError, json.JSONDecodeError, KeyError, TypeError):
         return None
