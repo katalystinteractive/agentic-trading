@@ -69,13 +69,34 @@ def _fmt_dollar(val):
 # ---------------------------------------------------------------------------
 
 def _load_profile(ticker):
-    """Load ticker profile from ticker_profiles.json. Returns dict or None."""
+    """Load ticker profile. Checks ticker_profiles.json first, then neural
+    support candidates as fallback for optimal_target_pct."""
+    profile = None
     try:
         with open(PROFILES_PATH) as f:
             profiles = json.load(f)
-        return profiles.get(ticker)
+        profile = profiles.get(ticker)
     except (FileNotFoundError, json.JSONDecodeError):
-        return None
+        pass
+
+    # If no optimal_target_pct yet, check neural support candidates
+    if profile is None or not profile.get("optimal_target_pct"):
+        try:
+            ns_path = _ROOT / "data" / "neural_support_candidates.json"
+            if ns_path.exists():
+                with open(ns_path) as f:
+                    ns_data = json.load(f)
+                for c in ns_data.get("candidates", []):
+                    if c["ticker"] == ticker:
+                        if profile is None:
+                            profile = {}
+                        profile["optimal_target_pct"] = c["params"]["sell_default"]
+                        profile["optimal_source"] = "neural_support"
+                        break
+        except (FileNotFoundError, json.JSONDecodeError, KeyError):
+            pass
+
+    return profile
 
 
 def _compute_math_prices(avg_cost, custom_pct=None):

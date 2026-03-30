@@ -1,0 +1,137 @@
+{
+  "_meta": {
+    "version": 1,
+    "updated": "2026-03-29",
+    "stats": {
+      "total_trades": 27,
+      "wins": 18,
+      "losses": 9,
+      "epochs": 3,
+      "learning_rate": 0.01,
+      "total_synapses": 40
+    }
+  },
+  "weights": {
+    "CIFR:dip_gate": {
+      "CIFR:dip_level": 1.0
+    },
+    "CIFR:bounce_gate": {
+      "CIFR:bounce_level": 1.0
+    },
+    "TMC:dip_gate": {
+      "TMC:dip_level": 0.9954
+    },
+    "TMC:bounce_gate": {
+      "TMC:bounce_level": 1.0
+    },
+    "IONQ:dip_gate": {
+      "IONQ:dip_level": 1.0
+    },
+    "IONQ:bounce_gate": {
+      "IONQ:bounce_level": 1.0
+    },
+    "NNE:dip_gate": {
+      "NNE:dip_level": 1.0
+    },
+    "NNE:bounce_gate": {
+      "NNE:bounce_level": 1.0
+    },
+    "OKLO:dip_gate": {
+      "OKLO:dip_level": 1.0
+    },
+    "OKLO:bounce_gate": {
+      "OKLO:bounce_level": 1.0
+    },
+    "AR:dip_gate": {
+      "AR:dip_level": 1.0
+    },
+    "AR:bounce_gate": {
+      "AR:bounce_level": 1.0
+    },
+    "RDW:dip_gate": {
+      "RDW:dip_level": 0.9929
+    },
+    "RDW:bounce_gate": {
+      "RDW:bounce_level": 1.0
+    },
+    "BBAI:dip_gate": {
+      "BBAI:dip_level": 0.9843
+    },
+    "BBAI:bounce_gate": {
+      "BBAI:bounce_level": 0.9988
+    },
+    "APLD:dip_gate": {
+      "APLD:dip_level": 0.9689
+    },
+    "APLD:bounce_gate": {
+      "APLD:bounce_level": 1.0
+    },
+    "RUN:dip_gate": {
+      "RUN:dip_level": 1.0
+    },
+    "RUN:bounce_gate": {
+      "RUN:bounce_level": 1.0
+    },
+    "TEM:dip_gate": {
+      "TEM:dip_level": 0.9962
+    },
+    "TEM:bounce_gate": {
+      "TEM:bounce_level": 0.9988
+    },
+    "CLF:dip_gate": {
+      "CLF:dip_level": 0.9784
+    },
+    "CLF:bounce_gate": {
+      "CLF:bounce_level": 0.992
+    },
+    "CLSK:dip_gate": {
+      "CLSK:dip_level": 0.979
+    },
+    "CLSK:bounce_gate": {
+      "CLSK:bounce_level": 1.0
+    },
+    "OUST:dip_gate": {
+      "OUST:dip_level": 0.9806
+    },
+    "OUST:bounce_gate": {
+      "OUST:bounce_level": 0.9874
+    },
+    "ACHR:dip_gate": {
+      "ACHR:dip_level": 0.9842
+    },
+    "ACHR:bounce_gate": {
+      "ACHR:bounce_level": 0.9987
+    },
+    "ARM:dip_gate": {
+      "ARM:dip_level": 0.977
+    },
+    "ARM:bounce_gate": {
+      "ARM:bounce_level": 0.9905
+    },
+    "NU:dip_gate": {
+      "NU:dip_level": 0.9914
+    },
+    "NU:bounce_gate": {
+      "NU:bounce_level": 0.9936
+    },
+    "LUNR:dip_gate": {
+      "LUNR:dip_level": 0.9929
+    },
+    "LUNR:bounce_gate": {
+      "LUNR:bounce_level": 1.0
+    },
+    "RGTI:dip_gate": {
+      "RGTI:dip_level": 1.0
+    },
+    "RGTI:bounce_gate": {
+      "RGTI:bounce_level": 1.0
+    },
+    "USAR:dip_gate": {
+      "USAR:dip_level": 0.9955
+    },
+    "USAR:bounce_gate": {
+      "USAR:bounce_level": 0.9886
+    }
+  },
+  "regime_weights": {}
+}

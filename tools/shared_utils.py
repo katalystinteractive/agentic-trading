@@ -57,7 +57,9 @@ def get_ticker_pool(ticker):
 
     Priority:
     1. multi-period-results.json (simulation-backed allocation)
-    2. portfolio.json capital section (static default)
+    2. neural_support_candidates.json (per-ticker learned pool sizing)
+    3. portfolio.json capital section (static default)
+    4. hardcoded $300/$300
 
     This function is the ONLY way to look up pool sizes.
     multi-period-results.json is written ONLY by multi_period_scorer.py.
@@ -77,6 +79,48 @@ def get_ticker_pool(ticker):
                 "source": "multi-period-scorer",
                 "composite": mp_data.get("composites", {}).get(ticker),
             }
+
+    # Check neural watchlist profiles (guaranteed for every tracked ticker)
+    try:
+        wl_path = Path(__file__).resolve().parent.parent / "data" / "neural_watchlist_profiles.json"
+        if wl_path.exists():
+            with open(wl_path) as f:
+                wl_data = json.load(f)
+            for c in wl_data.get("candidates", []):
+                if c["ticker"] == ticker:
+                    params = c.get("params", {})
+                    ap = params.get("active_pool", _DEFAULT_ACTIVE)
+                    rp = params.get("reserve_pool", _DEFAULT_RESERVE)
+                    return {
+                        "active_pool": ap,
+                        "reserve_pool": rp,
+                        "total_pool": ap + rp,
+                        "source": "neural_watchlist",
+                        "composite": None,
+                    }
+    except (FileNotFoundError, json.JSONDecodeError, KeyError):
+        pass
+
+    # Check neural support candidates (candidate discovery fallback)
+    try:
+        ns_path = Path(__file__).resolve().parent.parent / "data" / "neural_support_candidates.json"
+        if ns_path.exists():
+            with open(ns_path) as f:
+                ns_data = json.load(f)
+            for c in ns_data.get("candidates", []):
+                if c["ticker"] == ticker:
+                    params = c.get("params", {})
+                    ap = params.get("active_pool", _DEFAULT_ACTIVE)
+                    rp = params.get("reserve_pool", _DEFAULT_RESERVE)
+                    return {
+                        "active_pool": ap,
+                        "reserve_pool": rp,
+                        "total_pool": ap + rp,
+                        "source": "neural_support",
+                        "composite": None,
+                    }
+    except (FileNotFoundError, json.JSONDecodeError, KeyError):
+        pass
 
     # Fallback to portfolio.json static defaults
     try:

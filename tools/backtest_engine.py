@@ -131,11 +131,23 @@ def _compute_sell_target(cfg, completed_cycles_for_ticker):
     return cfg.sell_default
 
 
-def run_simulation(price_data, regime_data, cfg):
+def run_simulation(price_data, regime_data, cfg, wick_cache=None):
     """Execute the surgical mean-reversion backtest.
+
+    Args:
+        wick_cache: Optional dict for caching wick analysis results across
+                    parameter sweep combos. Key: (ticker, day_idx). When provided,
+                    wick results are looked up before computing. ONLY safe when
+                    compound=False (live_capital is config-fixed, not trade-dependent).
 
     Returns: (trades, cycles, equity_curve, dip_metrics)
     """
+    if wick_cache is not None and cfg.compound:
+        raise ValueError(
+            "Cannot use wick_cache with compound=True — "
+            "live_capital varies by trade history across combos")
+    if wick_cache is None:
+        wick_cache = {}  # local cache, not shared — backward compat
     from wick_offset_analyzer import analyze_stock_data, WickConfig, ACTIVE_RADIUS_CAP, POOL_MAX_FRACTION
     import wick_offset_analyzer as woa
 
@@ -506,9 +518,18 @@ def run_simulation(price_data, regime_data, cfg):
                     }
                 else:
                     live_capital = capital_config
-                wick_result, err = analyze_stock_data(
-                    tk, hist=hist_slice, config=wick_config,
-                    capital_config=live_capital)
+
+                # Wick cache: reuse results across parameter sweep combos
+                _wc_key = (tk, day_idx)
+                if _wc_key in wick_cache:
+                    wick_result = wick_cache[_wc_key]
+                else:
+                    wick_result, err = analyze_stock_data(
+                        tk, hist=hist_slice, config=wick_config,
+                        capital_config=live_capital)
+                    if wick_result is not None:
+                        wick_cache[_wc_key] = wick_result
+
                 if wick_result is None:
                     continue
 

@@ -1687,6 +1687,97 @@ def print_detail_sections(graph, regime):
 # Main
 # ---------------------------------------------------------------------------
 
+def _print_neural_sections(portfolio):
+    """Print neural network profile sections — both strategies side by side."""
+    _ROOT = Path(__file__).resolve().parent.parent
+
+    # Load neural support profiles
+    ns_profiles = {}
+    try:
+        ns_path = _ROOT / "data" / "neural_support_candidates.json"
+        if ns_path.exists():
+            with open(ns_path) as f:
+                ns_data = json.load(f)
+            ns_profiles = {c["ticker"]: c for c in ns_data.get("candidates", [])}
+    except (json.JSONDecodeError, OSError):
+        pass
+
+    # Load neural dip profiles
+    dip_profiles = {}
+    try:
+        dp_path = _ROOT / "data" / "ticker_profiles.json"
+        if dp_path.exists():
+            with open(dp_path) as f:
+                dp_data = json.load(f)
+            dip_profiles = {k: v for k, v in dp_data.items() if not k.startswith("_")}
+    except (json.JSONDecodeError, OSError):
+        pass
+
+    if not ns_profiles and not dip_profiles:
+        return
+
+    positions = portfolio.get("positions", {})
+
+    # === Active Positions — Neural vs Default ===
+    pos_with_neural = [(tk, pos) for tk, pos in positions.items()
+                       if tk in ns_profiles or tk in dip_profiles]
+    if pos_with_neural:
+        print("\n## Neural Profiles — Active Positions\n")
+        print("| Ticker | Avg | Neural Sell | Default Sell | Pool | Bullets | Cat Stop | Tier Full/Std |")
+        print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+        for tk, pos in sorted(pos_with_neural):
+            avg = pos.get("avg_cost", 0)
+            ns = ns_profiles.get(tk, {}).get("params", {})
+            neural_sell_pct = ns.get("sell_default")
+            neural_sell = f"${avg * (1 + neural_sell_pct/100):.2f} ({neural_sell_pct}%)" if neural_sell_pct else "—"
+            default_sell = f"${avg * 1.06:.2f} (6%)"
+            neural_pool = f"${ns.get('active_pool', 300)}" if ns else "$300"
+            neural_bullets = ns.get("active_bullets_max", 5) if ns else 5
+            cat_stop = ns.get("cat_hard_stop")
+            cat_str = f"{cat_stop}% | 25%" if cat_stop else "25% | 25%"
+            tier_full = ns.get("tier_full")
+            tier_std = ns.get("tier_std")
+            tier_str = f"{tier_full}%/{tier_std}% | 50%/30%" if tier_full else "50%/30% | 50%/30%"
+            print(f"| {tk} | ${avg:.2f} | {neural_sell} | {default_sell} | "
+                  f"{neural_pool} | {neural_bullets} | {cat_str} | {tier_str} |")
+
+    # === Neural Support Opportunities (from evaluator cache) ===
+    eval_path = _ROOT / "data" / "support_eval_latest.json"
+    if eval_path.exists():
+        try:
+            with open(eval_path) as f:
+                eval_data = json.load(f)
+            opps = [o for o in eval_data.get("opportunities", [])
+                    if not o.get("already_ordered")]
+            if opps:
+                print(f"\n## Neural Support Opportunities ({eval_data.get('date', '?')})\n")
+                print("| Ticker | Price | Support | Distance | Shares | Pool | Sell% | Hold% |")
+                print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+                for o in opps[:10]:  # top 10
+                    print(f"| {o['ticker']} | ${o['price']:.2f} | ${o['support']:.2f} | "
+                          f"{o['distance_pct']}% | {o['shares']} | ${o['pool']} | "
+                          f"{o['sell_target_pct']}% | {o.get('hold_rate', 0):.0f}% |")
+        except (json.JSONDecodeError, OSError):
+            pass
+
+    # === Neural Dip Profiles ===
+    watchlist = set(portfolio.get("watchlist", []))
+    dip_watchlist = {tk: p for tk, p in dip_profiles.items()
+                     if tk in watchlist or tk in positions}
+    if dip_watchlist:
+        print("\n## Neural Dip Profiles\n")
+        print("| Ticker | Dip Thresh | Target | Stop | Breadth | Confidence |")
+        print("| :--- | :--- | :--- | :--- | :--- | :--- |")
+        for tk in sorted(dip_watchlist.keys()):
+            p = dip_watchlist[tk]
+            conf = p.get("confidence", "—")
+            breadth = p.get("breadth_threshold")
+            breadth_str = f"{breadth:.0%}" if breadth else "—"
+            print(f"| {tk} | {p.get('dip_threshold', '?')}% | "
+                  f"{p.get('target_pct', '?')}% | {p.get('stop_pct', '?')}% | "
+                  f"{breadth_str} | {conf} |")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Daily Analyzer — consolidated session tool",
@@ -1769,6 +1860,16 @@ def main():
     # Phase C: Dashboard FIRST (from signals), then detail sections (from graph.nodes)
     print_action_dashboard_from_signals(signals, graph)
     print_detail_sections(graph, regime)
+
+    # Phase C2: Neural profile sections (supplement graph with learned params)
+    _print_neural_sections(portfolio)
+
+    # Phase C3: Neural order adjustment recommendations
+    try:
+        from neural_order_adjuster import compute_and_print_adjustments
+        compute_and_print_adjustments(portfolio)
+    except ImportError:
+        pass
 
     # Parts 3-6: Subprocesses (unchanged, outside graph)
     if not args.no_deploy and not args.no_perf:

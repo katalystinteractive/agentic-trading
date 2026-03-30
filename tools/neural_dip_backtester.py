@@ -26,7 +26,7 @@ import yfinance as yf
 
 from neural_dip_evaluator import (
     build_first_hour_graph, build_decision_graph,
-    DIP_CONFIG, _extract_col,
+    DIP_CONFIG, _extract_col, _load_profiles, _load_weights,
 )
 from trading_calendar import is_trading_day, market_time_to_utc_hour
 
@@ -144,7 +144,8 @@ def compute_ranges_for_day(daily_data, tickers, day, lookback=21):
 # Day replay
 # ---------------------------------------------------------------------------
 
-def replay_day(day, day_bars, tickers, static, hist_ranges, regime, n_tickers):
+def replay_day(day, day_bars, tickers, static, hist_ranges, regime, n_tickers,
+               profiles=None, weights=None):
     """Replay one trading day through the neural evaluation phases.
 
     Returns dict with: day, signal, buys [{ticker, entry, pnl, exit_reason}]
@@ -155,7 +156,8 @@ def replay_day(day, day_bars, tickers, static, hist_ranges, regime, n_tickers):
     # Phase 2: First-hour graph (bars 0-12 = first hour of 5-min data)
     fh_bars = day_bars.iloc[:12]
     try:
-        _, fh_state = build_first_hour_graph(tickers, fh_bars, static, hist_ranges, regime)
+        _, fh_state = build_first_hour_graph(
+            tickers, fh_bars, static, hist_ranges, regime, profiles, weights)
     except Exception as e:
         return {"day": str(day), "signal": f"FH_ERROR: {e}", "buys": []}
 
@@ -166,7 +168,8 @@ def replay_day(day, day_bars, tickers, static, hist_ranges, regime, n_tickers):
     decision_bars = day_bars.iloc[:min(18, len(day_bars))]
     try:
         decision_graph, top, budget = build_decision_graph(
-            tickers, decision_bars, fh_state, static, hist_ranges, regime)
+            tickers, decision_bars, fh_state, static, hist_ranges, regime,
+            profiles, weights)
     except Exception as e:
         return {"day": str(day), "signal": f"DECISION_ERROR: {e}", "buys": []}
 
@@ -241,8 +244,13 @@ def replay_day(day, day_bars, tickers, static, hist_ranges, regime, n_tickers):
 # Main backtest loop
 # ---------------------------------------------------------------------------
 
-def backtest_neural_dip(tickers, days=60, use_cached=False):
+def backtest_neural_dip(tickers, days=60, use_cached=False, profiles=None,
+                        weights=None):
     """Replay historical 5-min data through neural evaluation phases."""
+    if profiles is None:
+        profiles = _load_profiles()
+    if weights is None:
+        weights = _load_weights()
 
     # Load or download intraday data
     if use_cached and INTRADAY_CACHE.exists():
@@ -287,7 +295,8 @@ def backtest_neural_dip(tickers, days=60, use_cached=False):
                        "dip_viable": "UNKNOWN", "earnings_gate": "CLEAR"}
                   for tk in tickers}
 
-        result = replay_day(day, day_bars, tickers, static, hist_ranges, regime, n)
+        result = replay_day(day, day_bars, tickers, static, hist_ranges, regime, n,
+                            profiles, weights)
         results.append(result)
 
         # Progress

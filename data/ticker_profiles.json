@@ -1,0 +1,320 @@
+{
+  "_meta": {
+    "version": 4,
+    "source": "parameter_sweeper.py",
+    "updated": "2026-03-29",
+    "days_swept": 60,
+    "trading_days": 60,
+    "grid_size": 120
+  },
+  "ACHR": {
+    "dip_threshold": 0.5,
+    "bounce_threshold": 0.3,
+    "target_pct": 3.5,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.4,
+    "_stats": {
+      "total_pnl": -0.04,
+      "trades": 3,
+      "wins": 1,
+      "win_rate": 33.3,
+      "exits": {
+        "STOP": 2,
+        "TARGET": 1
+      }
+    }
+  },
+  "APLD": {
+    "dip_threshold": 1.0,
+    "bounce_threshold": 0.3,
+    "target_pct": 3.5,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.1,
+    "_stats": {
+      "total_pnl": 0.91,
+      "trades": 1,
+      "wins": 1,
+      "win_rate": 100.0,
+      "exits": {
+        "TARGET": 1
+      }
+    }
+  },
+  "AR": {
+    "dip_threshold": 0.5,
+    "bounce_threshold": 0.3,
+    "target_pct": 2.0,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.5,
+    "_stats": {
+      "total_pnl": 0.82,
+      "trades": 1,
+      "wins": 1,
+      "win_rate": 100.0,
+      "exits": {
+        "TARGET": 1
+      }
+    }
+  },
+  "BBAI": {
+    "dip_threshold": 2.0,
+    "bounce_threshold": 0.3,
+    "target_pct": 6.0,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.1,
+    "_stats": {
+      "total_pnl": 0.24,
+      "trades": 1,
+      "wins": 1,
+      "win_rate": 100.0,
+      "exits": {
+        "TARGET": 1
+      }
+    }
+  },
+  "CIFR": {
+    "dip_threshold": 0.5,
+    "bounce_threshold": 0.3,
+    "target_pct": 6.0,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.4,
+    "_stats": {
+      "total_pnl": 1.7,
+      "trades": 4,
+      "wins": 3,
+      "win_rate": 75.0,
+      "exits": {
+        "TARGET": 1,
+        "EOD_CUT": 3
+      }
+    }
+  },
+  "CLF": {
+    "dip_threshold": 1.0,
+    "bounce_threshold": 0.3,
+    "target_pct": 5.0,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.1,
+    "_stats": {
+      "total_pnl": 0.34,
+      "trades": 2,
+      "wins": 1,
+      "win_rate": 50.0,
+      "exits": {
+        "TARGET": 1,
+        "EOD_CUT": 1
+      }
+    }
+  },
+  "CLSK": {
+    "dip_threshold": 1.0,
+    "bounce_threshold": 0.3,
+    "target_pct": 5.0,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.5,
+    "_stats": {
+      "total_pnl": 0.47,
+      "trades": 1,
+      "wins": 1,
+      "win_rate": 100.0,
+      "exits": {
+        "TARGET": 1
+      }
+    }
+  },
+  "IONQ": {
+    "dip_threshold": 0.5,
+    "bounce_threshold": 0.3,
+    "target_pct": 3.5,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.1,
+    "_stats": {
+      "total_pnl": 2.3,
+      "trades": 2,
+      "wins": 2,
+      "win_rate": 100.0,
+      "exits": {
+        "TARGET": 2
+      }
+    }
+  },
+  "LUNR": {
+    "dip_threshold": 1.0,
+    "bounce_threshold": 0.3,
+    "target_pct": 6.0,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.4,
+    "_stats": {
+      "total_pnl": 1.03,
+      "trades": 1,
+      "wins": 1,
+      "win_rate": 100.0,
+      "exits": {
+        "TARGET": 1
+      }
+    }
+  },
+  "NNE": {
+    "dip_threshold": 1.5,
+    "bounce_threshold": 0.3,
+    "target_pct": 6.0,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.1,
+    "_stats": {
+      "total_pnl": 3.48,
+      "trades": 3,
+      "wins": 3,
+      "win_rate": 100.0,
+      "exits": {
+        "TARGET": 2,
+        "EOD_CUT": 1
+      }
+    }
+  },
+  "NU": {
+    "dip_threshold": 0.5,
+    "bounce_threshold": 0.3,
+    "target_pct": 2.0,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.1,
+    "_stats": {
+      "total_pnl": -0.18,
+      "trades": 1,
+      "wins": 0,
+      "win_rate": 0.0,
+      "exits": {
+        "EOD_CUT": 1
+      }
+    }
+  },
+  "OKLO": {
+    "dip_threshold": 0.5,
+    "bounce_threshold": 0.3,
+    "target_pct": 3.5,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.1,
+    "_stats": {
+      "total_pnl": 1.91,
+      "trades": 1,
+      "wins": 1,
+      "win_rate": 100.0,
+      "exits": {
+        "TARGET": 1
+      }
+    }
+  },
+  "OUST": {
+    "dip_threshold": 1.5,
+    "bounce_threshold": 0.3,
+    "target_pct": 2.0,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.1,
+    "_stats": {
+      "total_pnl": -0.25,
+      "trades": 1,
+      "wins": 0,
+      "win_rate": 0.0,
+      "exits": {
+        "EOD_CUT": 1
+      }
+    }
+  },
+  "RDW": {
+    "dip_threshold": 0.5,
+    "bounce_threshold": 0.3,
+    "target_pct": 6.0,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.1,
+    "_stats": {
+      "total_pnl": 0.56,
+      "trades": 1,
+      "wins": 1,
+      "win_rate": 100.0,
+      "exits": {
+        "TARGET": 1
+      }
+    }
+  },
+  "RGTI": {
+    "dip_threshold": 1.0,
+    "bounce_threshold": 0.3,
+    "target_pct": 6.0,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.1,
+    "_stats": {
+      "total_pnl": 1.39,
+      "trades": 3,
+      "wins": 3,
+      "win_rate": 100.0,
+      "exits": {
+        "TARGET": 1,
+        "EOD_CUT": 2
+      }
+    }
+  },
+  "RUN": {
+    "dip_threshold": 1.0,
+    "bounce_threshold": 0.3,
+    "target_pct": 2.0,
+    "stop_pct": -3.0,
+    "breadth_threshold": 0.4,
+    "_stats": {
+      "total_pnl": 0.24,
+      "trades": 1,
+      "wins": 1,
+      "win_rate": 100.0,
+      "exits": {
+        "TARGET": 1
+      }
+    }
+  },
+  "TEM": {
+    "dip_threshold": 1.0,
+    "bounce_threshold": 0.3,
+    "target_pct": 4.0,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.1,
+    "_stats": {
+      "total_pnl": 2.02,
+      "trades": 1,
+      "wins": 1,
+      "win_rate": 100.0,
+      "exits": {
+        "TARGET": 1
+      }
+    }
+  },
+  "TMC": {
+    "dip_threshold": 1.0,
+    "bounce_threshold": 0.3,
+    "target_pct": 5.0,
+    "stop_pct": -2.0,
+    "breadth_threshold": 0.4,
+    "_stats": {
+      "total_pnl": 0.32,
+      "trades": 2,
+      "wins": 2,
+      "win_rate": 100.0,
+      "exits": {
+        "EOD_CUT": 1,
+        "TARGET": 1
+      }
+    }
+  },
+  "USAR": {
+    "dip_threshold": 1.0,
+    "bounce_threshold": 0.3,
+    "target_pct": 2.0,
+    "stop_pct": -3.0,
+    "breadth_threshold": 0.1,
+    "_stats": {
+      "total_pnl": -0.13,
+      "trades": 1,
+      "wins": 0,
+      "win_rate": 0.0,
+      "exits": {
+        "EOD_CUT": 1
+      }
+    }
+  }
+}

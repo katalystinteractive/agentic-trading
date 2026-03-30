@@ -220,7 +220,7 @@ def build_zone_labels(valid_levels, active_radius):
 def run_recommend(ticker, type_filter, data, portfolio, cap=None):
     """Recommend the next order(s) to place."""
     if cap is None:
-        cap = load_capital_config()
+        cap = load_capital_config(ticker)
     positions = portfolio.get("positions", {})
     pending_all = portfolio.get("pending_orders", {})
     pending_orders = pending_all.get(ticker, [])

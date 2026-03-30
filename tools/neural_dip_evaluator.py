@@ -18,12 +18,14 @@ from datetime import date, datetime, timedelta
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import numpy as np
 import yfinance as yf
 from graph_engine import DependencyGraph
 from trading_calendar import (
     is_trading_day, get_market_phase, market_time_to_utc_hour,
     ET, VALID_PHASES_FOR_MARKET,
 )
+from sector_registry import get_sector
 
 _ROOT = Path(__file__).resolve().parent.parent
 GRAPH_STATE_PATH = _ROOT / "data" / "graph_state.json"
@@ -45,7 +47,58 @@ DIP_CONFIG = {
     "max_tickers": 5,
     "pdt_limit": 3,
     "capital_min": 100,
+    # Portfolio optimization (Phase 4)
+    "sector_concentration_pct": 40,   # max % of buys from one sector (e.g., 40% of 5 = 2)
+    "correlation_threshold": 0.80,
 }
+
+# ---------------------------------------------------------------------------
+# Per-ticker profiles — level-firing subscription thresholds
+# ---------------------------------------------------------------------------
+
+PROFILES_PATH = _ROOT / "data" / "ticker_profiles.json"
+
+
+def _load_profiles():
+    """Load per-ticker profiles from JSON. Missing file = empty dict."""
+    if PROFILES_PATH.exists():
+        with open(PROFILES_PATH) as f:
+            data = json.load(f)
+        return {k: v for k, v in data.items() if not k.startswith("_")}
+    return {}
+
+
+def _get_profile(tk, profiles):
+    """Get profile for ticker, falling back to DIP_CONFIG globals."""
+    if profiles and tk in profiles:
+        return profiles[tk]
+    return {
+        "dip_threshold": DIP_CONFIG["dip_threshold_pct"],
+        "bounce_threshold": DIP_CONFIG["bounce_threshold_pct"],
+        "target_pct": 4.0,
+        "stop_pct": -3.0,
+        "breadth_threshold": DIP_CONFIG["breadth_threshold"],
+    }
+
+
+# ---------------------------------------------------------------------------
+# Synapse weights — learned edge weights for neural connections
+# ---------------------------------------------------------------------------
+
+WEIGHTS_PATH = _ROOT / "data" / "synapse_weights.json"
+
+
+def _load_weights(regime="Neutral"):
+    """Load synapse weights. Regime-specific weights override base weights."""
+    if not WEIGHTS_PATH.exists():
+        return {}
+    with open(WEIGHTS_PATH) as f:
+        data = json.load(f)
+    base_w = data.get("weights", {})
+    regime_w = data.get("regime_weights", {}).get(regime, {})
+    merged = {**base_w, **regime_w}
+    return merged
+
 
 # ---------------------------------------------------------------------------
 # Data fetching
@@ -255,13 +308,96 @@ def compute_historical_ranges(tickers):
 
 
 # ---------------------------------------------------------------------------
+# Portfolio optimization helpers (Phase 4)
+# ---------------------------------------------------------------------------
+
+def _filter_sector_balance(candidates, max_buys, concentration_pct):
+    """Filter candidates so no single sector exceeds concentration_pct of max_buys.
+
+    At 5 buys / 40% concentration → max 2 per sector.
+    At 20 buys / 40% concentration → max 8 per sector.
+    Minimum 1 per sector (never block a sector entirely).
+    Preserves rank order.
+    """
+    max_per_sector = max(1, int(max_buys * concentration_pct / 100))
+    sector_counts = {}
+    filtered = []
+    skipped = []
+    for c in candidates:
+        sector = get_sector(c["ticker"])
+        count = sector_counts.get(sector, 0)
+        if count < max_per_sector:
+            filtered.append(c)
+            sector_counts[sector] = count + 1
+        else:
+            skipped.append((c["ticker"], sector))
+    return filtered, skipped
+
+
+def _filter_correlated(candidates, prices, n_tickers, threshold=0.80):
+    """Remove candidates that correlate >threshold with already-selected ones.
+
+    Uses intraday close prices for correlation computation.
+    """
+    if len(candidates) <= 1 or prices is None:
+        return candidates, []
+
+    selected = [candidates[0]]
+    skipped = []
+
+    for c in candidates[1:]:
+        correlated = False
+        for s in selected:
+            try:
+                corr = _compute_pair_correlation(
+                    prices, c["ticker"], s["ticker"], n_tickers)
+                if corr is not None and corr > threshold:
+                    correlated = True
+                    skipped.append((c["ticker"], s["ticker"], round(corr, 3)))
+                    break
+            except Exception:
+                continue
+        if not correlated:
+            selected.append(c)
+    return selected, skipped
+
+
+def _compute_pair_correlation(prices, tk1, tk2, n):
+    """Compute correlation between two tickers from intraday close prices."""
+    try:
+        c1 = _extract_col(prices, "Close", tk1, n)
+        c2 = _extract_col(prices, "Close", tk2, n)
+        if len(c1) < 5 or len(c2) < 5:
+            return None
+        # Align lengths
+        min_len = min(len(c1), len(c2))
+        c1 = c1.iloc[:min_len].values.astype(float)
+        c2 = c2.iloc[:min_len].values.astype(float)
+        # Drop NaN
+        mask = ~(np.isnan(c1) | np.isnan(c2))
+        c1, c2 = c1[mask], c2[mask]
+        if len(c1) < 5:
+            return None
+        corr = float(np.corrcoef(c1, c2)[0, 1])
+        return corr
+    except Exception:
+        return None
+
+
+# ---------------------------------------------------------------------------
 # Graph builders (per plan v2 Section 3.4-3.5)
 # ---------------------------------------------------------------------------
 
-def build_first_hour_graph(tickers, prices, static, hist_ranges, regime):
+def build_first_hour_graph(tickers, prices, static, hist_ranges, regime,
+                           profiles=None, weights=None):
     """Build first-hour graph: per-ticker dip detection + breadth aggregation.
-    All static neurons are explicit graph nodes with reason_fn.
+
+    Level-firing architecture: observer neurons fire raw values,
+    subscription gates compare values to per-ticker thresholds.
+    Edge weights from synapse learning applied to gate inputs.
     """
+    profiles = profiles or {}
+    weights = weights or {}
     graph = DependencyGraph()
     cfg = DIP_CONFIG
     n = len(tickers)
@@ -274,7 +410,8 @@ def build_first_hour_graph(tickers, prices, static, hist_ranges, regime):
         o = _extract_open(prices, tk, n)
         c = _extract_price_at(prices, tk, 10, 30, n)
         dip_pct = round((o - c) / o * 100, 1) if o and c and o > 0 else 0
-        dipped = dip_pct >= cfg["dip_threshold_pct"]
+        profile = _get_profile(tk, profiles)
+        dipped = dip_pct >= profile["dip_threshold"]
         if dipped:
             dip_count += 1
 
@@ -286,10 +423,20 @@ def build_first_hour_graph(tickers, prices, static, hist_ranges, regime):
         eg = st.get("earnings_gate", "CLEAR")
         viable = st.get("dip_viable", "UNKNOWN")
 
-        # Layer 3: ALL neurons as graph nodes
-        graph.add_node(f"{tk}:dipped", compute=lambda _, d=dipped: d,
-            reason_fn=lambda old, new, _, pct=dip_pct:
-                f"Dipped {pct:.1f}%" if new else f"No dip ({pct:.1f}%)")
+        # Layer 1: Observer neuron — fires with raw dip value
+        graph.add_node(f"{tk}:dip_level", compute=lambda _, pct=dip_pct: pct,
+            reason_fn=lambda old, new, _: f"DIP_LEVEL={new:.1f}%")
+
+        # Layer 2: Subscription gate — per-ticker threshold + learned edge weight
+        graph.add_node(f"{tk}:dip_gate",
+            compute=lambda inputs, thresh=profile["dip_threshold"], t=tk:
+                inputs[f"{t}:dip_level"] >= thresh,
+            depends_on=[f"{tk}:dip_level"],
+            edge_weights=weights.get(f"{tk}:dip_gate", {}),
+            reason_fn=lambda old, new, _, thresh=profile["dip_threshold"]:
+                f"DIP_GATE(>={thresh}%) {'ACTIVATED' if new else 'SILENT'}")
+
+        # Static gates
         graph.add_node(f"{tk}:dip_viable", compute=lambda _, v=viable: v in ("YES", "CAUTION", "UNKNOWN"),
             reason_fn=lambda old, new, _, v=viable: f"DIP_VIABLE={v}")
         graph.add_node(f"{tk}:not_catastrophic", compute=lambda _, c=cat: c not in ("HARD_STOP", "EXIT_REVIEW"),
@@ -303,12 +450,15 @@ def build_first_hour_graph(tickers, prices, static, hist_ranges, regime):
                 f"Range {h.get('range_pct',0)}% rec {h.get('recovery_pct',0)}%" if new
                 else f"BLOCKED:range={h.get('range_pct',0)}%")
 
-    # Layer 2: Breadth
+    # Breadth — level-firing observer + subscription gate
     breadth_ratio = dip_count / n if n > 0 else 0
-    graph.add_node("breadth_dip",
-        compute=lambda _: breadth_ratio >= cfg["breadth_threshold"],
-        reason_fn=lambda old, new, _:
-            f"Breadth {dip_count}/{n}={breadth_ratio:.0%} {'FIRED' if new else 'NOT FIRED'}")
+    graph.add_node("breadth_dip_level", compute=lambda _: breadth_ratio,
+        reason_fn=lambda old, new, _: f"BREADTH_DIP={new:.0%}")
+    graph.add_node("breadth_dip_gate",
+        compute=lambda inputs: inputs["breadth_dip_level"] >= cfg["breadth_threshold"],
+        depends_on=["breadth_dip_level"],
+        reason_fn=lambda old, new, _, thresh=cfg["breadth_threshold"]:
+            f"BREADTH_GATE(>={thresh:.0%}) {'FIRED' if new else 'NOT FIRED'}")
 
     graph.resolve()
 
@@ -323,28 +473,36 @@ def build_first_hour_graph(tickers, prices, static, hist_ranges, regime):
     return graph, fh_state
 
 
-def build_decision_graph(tickers, prices_11, fh_state, static, hist_ranges, regime):
+def build_decision_graph(tickers, prices_11, fh_state, static, hist_ranges,
+                         regime, profiles=None, weights=None):
     """Build decision graph: bounce + CANDIDATE AND-gate + RANKER + BUY_DIP.
-    All neurons explicit with reason_fn for full trace.
+
+    Level-firing architecture: observer neurons fire raw values,
+    subscription gates compare values to per-ticker thresholds.
+    Per-ticker target/stop from profiles. Synapse weights from learning.
     """
+    profiles = profiles or {}
+    weights = weights or {}
     graph = DependencyGraph()
     cfg = DIP_CONFIG
     n = len(tickers)
 
-    breadth_dip_fired = fh_state.get("breadth_dip", False)
+    breadth_dip_fired = fh_state.get("breadth_dip_gate", False)
 
     bounce_count = 0
     candidates = []
 
     for tk in tickers:
+        profile = _get_profile(tk, profiles)
         fh_low = fh_state.get(f"{tk}:first_hour_low")
         current = _extract_latest(prices_11, tk, n)
         bounce_pct = round((current - fh_low) / fh_low * 100, 1) if fh_low and current and fh_low > 0 else 0
-        bounced = bounce_pct >= cfg["bounce_threshold_pct"]
+        bounced = bounce_pct >= profile["bounce_threshold"]
         if bounced:
             bounce_count += 1
 
-        dipped = fh_state.get(f"{tk}:dipped", False)
+        dip_pct = fh_state.get(f"{tk}:dip_pct", 0)
+        dipped = dip_pct >= profile["dip_threshold"]
         st = static.get(tk, {})
         hr = hist_ranges.get(tk, {})
         cat = st.get("catastrophic")
@@ -353,12 +511,29 @@ def build_decision_graph(tickers, prices_11, fh_state, static, hist_ranges, regi
         eg = st.get("earnings_gate", "CLEAR")
         viable = st.get("dip_viable", "UNKNOWN")
 
-        # Layer 3: All neurons
-        graph.add_node(f"{tk}:dipped", compute=lambda _, d=dipped: d,
-            reason_fn=lambda old, new, _: "Dipped" if new else "No dip")
-        graph.add_node(f"{tk}:bounced", compute=lambda _, b=bounced: b,
-            reason_fn=lambda old, new, _, pct=bounce_pct:
-                f"Bounced {pct:.1f}%" if new else f"No bounce ({pct:.1f}%)")
+        # Layer 1: Observer neurons — fire with raw values
+        graph.add_node(f"{tk}:dip_level", compute=lambda _, pct=dip_pct: pct,
+            reason_fn=lambda old, new, _: f"DIP_LEVEL={new:.1f}%")
+        graph.add_node(f"{tk}:bounce_level", compute=lambda _, pct=bounce_pct: pct,
+            reason_fn=lambda old, new, _: f"BOUNCE_LEVEL={new:.1f}%")
+
+        # Layer 2: Subscription gates — per-ticker thresholds + learned edge weights
+        graph.add_node(f"{tk}:dip_gate",
+            compute=lambda inputs, thresh=profile["dip_threshold"], t=tk:
+                inputs[f"{t}:dip_level"] >= thresh,
+            depends_on=[f"{tk}:dip_level"],
+            edge_weights=weights.get(f"{tk}:dip_gate", {}),
+            reason_fn=lambda old, new, _, thresh=profile["dip_threshold"]:
+                f"DIP_GATE(>={thresh}%) {'ACTIVATED' if new else 'SILENT'}")
+        graph.add_node(f"{tk}:bounce_gate",
+            compute=lambda inputs, thresh=profile["bounce_threshold"], t=tk:
+                inputs[f"{t}:bounce_level"] >= thresh,
+            depends_on=[f"{tk}:bounce_level"],
+            edge_weights=weights.get(f"{tk}:bounce_gate", {}),
+            reason_fn=lambda old, new, _, thresh=profile["bounce_threshold"]:
+                f"BOUNCE_GATE(>={thresh}%) {'ACTIVATED' if new else 'SILENT'}")
+
+        # Static gates — NO edge weights (safety gates are never learnable)
         graph.add_node(f"{tk}:dip_viable", compute=lambda _, v=viable: v in ("YES", "CAUTION", "UNKNOWN"),
             reason_fn=lambda old, new, _, v=viable: f"DIP_VIABLE={v}")
         graph.add_node(f"{tk}:not_catastrophic", compute=lambda _, c=cat: c not in ("HARD_STOP", "EXIT_REVIEW"),
@@ -368,42 +543,54 @@ def build_decision_graph(tickers, prices_11, fh_state, static, hist_ranges, regi
         graph.add_node(f"{tk}:earnings_clear", compute=lambda _, e=eg: e not in ("BLOCKED", "FALLING_KNIFE"),
             reason_fn=lambda old, new, _, e=eg: "Clear" if new else f"BLOCKED:earnings={e}")
         graph.add_node(f"{tk}:historical_range", compute=lambda _, h=hr: h.get("viable", False),
-            reason_fn=lambda old, new, _, h=hr: "Range OK" if new else f"BLOCKED:range")
+            reason_fn=lambda old, new, _, h=hr: "Range OK" if new else "BLOCKED:range")
 
-        # Layer 4: CANDIDATE — AND gate
-        is_candidate = all([dipped, bounced,
-                            viable in ("YES", "CAUTION", "UNKNOWN"),
-                            cat not in ("HARD_STOP", "EXIT_REVIEW"),
-                            v0 not in ("EXIT", "REDUCE"),
-                            eg not in ("BLOCKED", "FALLING_KNIFE"),
-                            hr.get("viable", False)])
+        # Layer 4: CANDIDATE — soft AND with safety gate hard-AND
+        # Safety gates (catastrophic, exit, earnings) ALWAYS hard AND — not learnable
+        safety_ok = all([
+            cat not in ("HARD_STOP", "EXIT_REVIEW"),
+            v0 not in ("EXIT", "REDUCE"),
+            eg not in ("BLOCKED", "FALLING_KNIFE"),
+        ])
+        # Signal gates participate in soft AND (learnable)
+        signal_gates = [dipped, bounced,
+                        viable in ("YES", "CAUTION", "UNKNOWN"),
+                        hr.get("viable", False)]
+        signal_score = sum(1.0 for g in signal_gates if g)
+        # Soft threshold: at least 3 of 4 signal gates must pass
+        is_candidate = safety_ok and signal_score >= 3.0
 
         graph.add_node(f"{tk}:candidate", compute=lambda _, c=is_candidate: c,
-            depends_on=[f"{tk}:dipped", f"{tk}:bounced", f"{tk}:dip_viable",
+            depends_on=[f"{tk}:dip_gate", f"{tk}:bounce_gate", f"{tk}:dip_viable",
                         f"{tk}:not_catastrophic", f"{tk}:not_exit",
                         f"{tk}:earnings_clear", f"{tk}:historical_range"],
-            reason_fn=lambda old, new, _:
-                "ALL 7 gates passed" if new else "Blocked — see child neurons")
+            edge_weights=weights.get(f"{tk}:candidate", {}),
+            reason_fn=lambda old, new, _, sc=signal_score:
+                f"CANDIDATE score={sc:.0f}/4 + safety OK" if new
+                else f"Blocked (score={sc:.0f}/4)")
 
         if is_candidate:
-            dip_pct = fh_state.get(f"{tk}:dip_pct", 0)
             candidates.append({
                 "ticker": tk, "dip_pct": dip_pct,
                 "entry": round(current, 2) if current else 0,
-                "target": round(current * 1.04, 2) if current else 0,
-                "stop": round(current * 0.97, 2) if current else 0,
+                "target": round(current * (1 + profile["target_pct"] / 100), 2) if current else 0,
+                "stop": round(current * (1 + profile["stop_pct"] / 100), 2) if current else 0,
             })
 
-    # Layer 2: Breadth bounce + signal confirmed
+    # Layer 2: Breadth bounce — level-firing observer + subscription gate
     breadth_bounce_ratio = bounce_count / n if n > 0 else 0
     breadth_bounce_fired = breadth_bounce_ratio >= cfg["breadth_threshold"]
     signal_confirmed = breadth_dip_fired and breadth_bounce_fired
 
-    graph.add_node("breadth_bounce", compute=lambda _: breadth_bounce_fired,
-        reason_fn=lambda old, new, _:
-            f"Bounce {bounce_count}/{n}={breadth_bounce_ratio:.0%} {'FIRED' if new else 'NOT FIRED'}")
+    graph.add_node("breadth_bounce_level", compute=lambda _: breadth_bounce_ratio,
+        reason_fn=lambda old, new, _: f"BREADTH_BOUNCE={new:.0%}")
+    graph.add_node("breadth_bounce_gate",
+        compute=lambda inputs: inputs["breadth_bounce_level"] >= cfg["breadth_threshold"],
+        depends_on=["breadth_bounce_level"],
+        reason_fn=lambda old, new, _, thresh=cfg["breadth_threshold"]:
+            f"BOUNCE_BREADTH_GATE(>={thresh:.0%}) {'FIRED' if new else 'NOT FIRED'}")
     graph.add_node("signal_confirmed", compute=lambda _: signal_confirmed,
-        depends_on=["breadth_bounce"],
+        depends_on=["breadth_bounce_gate"],
         reason_fn=lambda old, new, _:
             "CONFIRMED" if new else "NOT CONFIRMED")
 
@@ -418,13 +605,30 @@ def build_decision_graph(tickers, prices_11, fh_state, static, hist_ranges, regi
     graph.add_node("capital_available", compute=lambda _: capital_ok,
         reason_fn=lambda old, new, _: f"Capital ${capital:.0f}")
 
-    # Rank candidates
+    # Rank candidates by dip magnitude
     candidates.sort(key=lambda c: c["dip_pct"], reverse=True)
-    top = candidates[:cfg["max_tickers"]]
+
+    # Layer 5: Portfolio optimization — sector balance + correlation filter
+    filtered = candidates
+    sector_skipped = []
+    corr_skipped = []
+
+    if len(filtered) > 1:
+        filtered, sector_skipped = _filter_sector_balance(
+            filtered, cfg["max_tickers"], cfg["sector_concentration_pct"])
+    if len(filtered) > 1:
+        filtered, corr_skipped = _filter_correlated(
+            filtered, prices_11, n, cfg["correlation_threshold"])
+
+    top = filtered[:cfg["max_tickers"]]
+
+    # Capital allocation — equal split for now, confidence-weighted in Phase 5
+    total_budget = cfg["budget_normal"] if regime != "Risk-Off" else cfg["budget_risk_off"]
+    budget_per = round(total_budget / len(top), 2) if top else total_budget
+    for c in top:
+        c["budget"] = budget_per
 
     # Layer 6: Terminal BUY_DIP neurons
-    budget = cfg["budget_normal"] if regime != "Risk-Off" else cfg["budget_risk_off"]
-
     for c in top:
         tk = c["ticker"]
         graph.add_node(f"{tk}:buy_dip",
@@ -439,7 +643,7 @@ def build_decision_graph(tickers, prices_11, fh_state, static, hist_ranges, regi
         reason_fn=lambda old, new, _: "No dip play today" if new else "")
 
     graph.resolve()
-    return graph, top, budget
+    return graph, top, total_budget
 
 
 # ---------------------------------------------------------------------------
@@ -494,12 +698,15 @@ def _get_dip_capital():
 
 def evaluate_first_hour(tickers, static, hist_ranges, regime):
     """10:30 AM: First-hour breadth check. Cache results for decision phase."""
+    profiles = _load_profiles()
+    syn_weights = _load_weights(regime)
     prices = fetch_intraday(tickers)
     if prices is None:
         print("*yfinance unavailable. Skipping first_hour.*")
         return
 
-    graph, fh_state = build_first_hour_graph(tickers, prices, static, hist_ranges, regime)
+    graph, fh_state = build_first_hour_graph(
+        tickers, prices, static, hist_ranges, regime, profiles, syn_weights)
 
     # Cache for decision phase
     try:
@@ -509,14 +716,17 @@ def evaluate_first_hour(tickers, static, hist_ranges, regime):
     except OSError as e:
         print(f"*Warning: failed to cache first-hour state: {e}*")
 
-    dip_count = sum(1 for tk in tickers if fh_state.get(f"{tk}:dipped"))
-    breadth = fh_state.get("breadth_dip", False)
+    dip_count = sum(1 for tk in tickers if fh_state.get(f"{tk}:dip_gate"))
+    breadth = fh_state.get("breadth_dip_gate", False)
     print(f"First-hour: {dip_count}/{len(tickers)} dipped. "
           f"Breadth {'FIRED' if breadth else 'NOT FIRED'}.")
 
 
 def evaluate_decision(tickers, static, hist_ranges, regime, dry_run=False):
     """11:00 AM: Full decision — load first-hour cache + bounce + decide."""
+    profiles = _load_profiles()
+    syn_weights = _load_weights(regime)
+
     # Load cached first-hour state
     fh_state = {}
     if FH_CACHE_PATH.exists():
@@ -533,9 +743,10 @@ def evaluate_decision(tickers, static, hist_ranges, regime, dry_run=False):
         if prices is None:
             print("*yfinance unavailable. Skipping.*")
             return
-        _, fh_state = build_first_hour_graph(tickers, prices, static, hist_ranges, regime)
+        _, fh_state = build_first_hour_graph(
+            tickers, prices, static, hist_ranges, regime, profiles, syn_weights)
 
-    if not fh_state.get("breadth_dip"):
+    if not fh_state.get("breadth_dip_gate"):
         print("Breadth dip NOT FIRED. No dip play today.")
         return
 
@@ -546,7 +757,8 @@ def evaluate_decision(tickers, static, hist_ranges, regime, dry_run=False):
         return
 
     decision_graph, top, budget = build_decision_graph(
-        tickers, prices_11, fh_state, static, hist_ranges, regime)
+        tickers, prices_11, fh_state, static, hist_ranges, regime, profiles,
+        syn_weights)
 
     # Check fired BUY_DIP neurons
     activated = decision_graph.get_activated_reports()

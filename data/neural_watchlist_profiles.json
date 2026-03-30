@@ -1,0 +1,1226 @@
+{
+  "_meta": {
+    "source": "neural_watchlist_sweeper.py",
+    "updated": "2026-03-30",
+    "tracked_tickers": 27,
+    "profiles_created": 27,
+    "skipped": 0
+  },
+  "candidates": [
+    {
+      "ticker": "ACHR",
+      "params": {
+        "sell_default": 7.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 257.73,
+        "win_rate": 96.6,
+        "trades": 29,
+        "cycles": 29,
+        "sharpe": 1.68,
+        "composite": 102.0
+      },
+      "pnl": 257.73,
+      "composite": 102.0,
+      "win_rate": 96.6,
+      "trades": 29,
+      "periods": {
+        "12": {
+          "pnl": 257.73,
+          "cycles": 29,
+          "trades": 29,
+          "win_rate": 96.6
+        },
+        "6": {
+          "pnl": 257.73,
+          "cycles": 29,
+          "trades": 29,
+          "win_rate": 96.6
+        },
+        "3": {
+          "pnl": 257.73,
+          "cycles": 29,
+          "trades": 29,
+          "win_rate": 96.6
+        },
+        "1": {
+          "pnl": 257.73,
+          "cycles": 29,
+          "trades": 29,
+          "win_rate": 96.6
+        }
+      }
+    },
+    {
+      "ticker": "AGH",
+      "params": {
+        "sell_default": 4.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 0,
+        "win_rate": 0,
+        "trades": 0,
+        "cycles": 0,
+        "sharpe": 0,
+        "composite": 0.0
+      },
+      "pnl": 0,
+      "composite": 0.0,
+      "win_rate": 0,
+      "trades": 0,
+      "periods": {
+        "12": {
+          "pnl": 0,
+          "cycles": 0,
+          "trades": 0,
+          "win_rate": 0
+        },
+        "6": {
+          "pnl": 0,
+          "cycles": 0,
+          "trades": 0,
+          "win_rate": 0
+        },
+        "3": {
+          "pnl": 0,
+          "cycles": 0,
+          "trades": 0,
+          "win_rate": 0
+        },
+        "1": {
+          "pnl": 0,
+          "cycles": 0,
+          "trades": 0,
+          "win_rate": 0
+        }
+      }
+    },
+    {
+      "ticker": "APLD",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 279.16,
+        "win_rate": 100.0,
+        "trades": 25,
+        "cycles": 25,
+        "sharpe": 3.72,
+        "composite": 110.5
+      },
+      "pnl": 279.16,
+      "composite": 110.5,
+      "win_rate": 100.0,
+      "trades": 25,
+      "periods": {
+        "12": {
+          "pnl": 279.16,
+          "cycles": 25,
+          "trades": 25,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 279.16,
+          "cycles": 25,
+          "trades": 25,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 279.16,
+          "cycles": 25,
+          "trades": 25,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 279.16,
+          "cycles": 25,
+          "trades": 25,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "AR",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 279.27,
+        "win_rate": 100.0,
+        "trades": 18,
+        "cycles": 18,
+        "sharpe": 3.39,
+        "composite": 110.5
+      },
+      "pnl": 279.27,
+      "composite": 110.5,
+      "win_rate": 100.0,
+      "trades": 18,
+      "periods": {
+        "12": {
+          "pnl": 279.27,
+          "cycles": 18,
+          "trades": 18,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 279.27,
+          "cycles": 18,
+          "trades": 18,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 279.27,
+          "cycles": 18,
+          "trades": 18,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 279.27,
+          "cycles": 18,
+          "trades": 18,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "ARM",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 694.31,
+        "win_rate": 100.0,
+        "trades": 23,
+        "cycles": 23,
+        "sharpe": 3.37,
+        "composite": 274.8
+      },
+      "pnl": 694.31,
+      "composite": 274.8,
+      "win_rate": 100.0,
+      "trades": 23,
+      "periods": {
+        "12": {
+          "pnl": 694.31,
+          "cycles": 23,
+          "trades": 23,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 694.31,
+          "cycles": 23,
+          "trades": 23,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 694.31,
+          "cycles": 23,
+          "trades": 23,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 694.31,
+          "cycles": 23,
+          "trades": 23,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "BBAI",
+      "params": {
+        "sell_default": 5.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 323.95,
+        "win_rate": 100.0,
+        "trades": 45,
+        "cycles": 45,
+        "sharpe": 2.88,
+        "composite": 128.2
+      },
+      "pnl": 323.95,
+      "composite": 128.2,
+      "win_rate": 100.0,
+      "trades": 45,
+      "periods": {
+        "12": {
+          "pnl": 323.95,
+          "cycles": 45,
+          "trades": 45,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 323.95,
+          "cycles": 45,
+          "trades": 45,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 323.95,
+          "cycles": 45,
+          "trades": 45,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 323.95,
+          "cycles": 45,
+          "trades": 45,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "CIFR",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 258.02,
+        "win_rate": 100.0,
+        "trades": 39,
+        "cycles": 39,
+        "sharpe": 3.23,
+        "composite": 102.1
+      },
+      "pnl": 258.02,
+      "composite": 102.1,
+      "win_rate": 100.0,
+      "trades": 39,
+      "periods": {
+        "12": {
+          "pnl": 258.02,
+          "cycles": 39,
+          "trades": 39,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 258.02,
+          "cycles": 39,
+          "trades": 39,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 258.02,
+          "cycles": 39,
+          "trades": 39,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 258.02,
+          "cycles": 39,
+          "trades": 39,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "CLF",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 260.69,
+        "win_rate": 100.0,
+        "trades": 16,
+        "cycles": 16,
+        "sharpe": 2.43,
+        "composite": 103.2
+      },
+      "pnl": 260.69,
+      "composite": 103.2,
+      "win_rate": 100.0,
+      "trades": 16,
+      "periods": {
+        "12": {
+          "pnl": 260.69,
+          "cycles": 16,
+          "trades": 16,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 260.69,
+          "cycles": 16,
+          "trades": 16,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 260.69,
+          "cycles": 16,
+          "trades": 16,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 260.69,
+          "cycles": 16,
+          "trades": 16,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "CLSK",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 336.27,
+        "win_rate": 100.0,
+        "trades": 50,
+        "cycles": 50,
+        "sharpe": 1.89,
+        "composite": 133.1
+      },
+      "pnl": 336.27,
+      "composite": 133.1,
+      "win_rate": 100.0,
+      "trades": 50,
+      "periods": {
+        "12": {
+          "pnl": 336.27,
+          "cycles": 50,
+          "trades": 50,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 336.27,
+          "cycles": 50,
+          "trades": 50,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 336.27,
+          "cycles": 50,
+          "trades": 50,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 336.27,
+          "cycles": 50,
+          "trades": 50,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "INTC",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 292.55,
+        "win_rate": 94.4,
+        "trades": 18,
+        "cycles": 18,
+        "sharpe": 1.84,
+        "composite": 115.8
+      },
+      "pnl": 292.55,
+      "composite": 115.8,
+      "win_rate": 94.4,
+      "trades": 18,
+      "periods": {
+        "12": {
+          "pnl": 292.55,
+          "cycles": 18,
+          "trades": 18,
+          "win_rate": 94.4
+        },
+        "6": {
+          "pnl": 292.55,
+          "cycles": 18,
+          "trades": 18,
+          "win_rate": 94.4
+        },
+        "3": {
+          "pnl": 292.55,
+          "cycles": 18,
+          "trades": 18,
+          "win_rate": 94.4
+        },
+        "1": {
+          "pnl": 292.55,
+          "cycles": 18,
+          "trades": 18,
+          "win_rate": 94.4
+        }
+      }
+    },
+    {
+      "ticker": "IONQ",
+      "params": {
+        "sell_default": 8.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 373.51,
+        "win_rate": 100.0,
+        "trades": 32,
+        "cycles": 32,
+        "sharpe": 1.45,
+        "composite": 147.8
+      },
+      "pnl": 373.51,
+      "composite": 147.8,
+      "win_rate": 100.0,
+      "trades": 32,
+      "periods": {
+        "12": {
+          "pnl": 373.51,
+          "cycles": 32,
+          "trades": 32,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 373.51,
+          "cycles": 32,
+          "trades": 32,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 373.51,
+          "cycles": 32,
+          "trades": 32,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 373.51,
+          "cycles": 32,
+          "trades": 32,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "LUNR",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 392.37,
+        "win_rate": 100.0,
+        "trades": 40,
+        "cycles": 40,
+        "sharpe": 1.26,
+        "composite": 155.3
+      },
+      "pnl": 392.37,
+      "composite": 155.3,
+      "win_rate": 100.0,
+      "trades": 40,
+      "periods": {
+        "12": {
+          "pnl": 392.37,
+          "cycles": 40,
+          "trades": 40,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 392.37,
+          "cycles": 40,
+          "trades": 40,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 392.37,
+          "cycles": 40,
+          "trades": 40,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 392.37,
+          "cycles": 40,
+          "trades": 40,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "NNE",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 269.06,
+        "win_rate": 100.0,
+        "trades": 35,
+        "cycles": 35,
+        "sharpe": 1.87,
+        "composite": 106.5
+      },
+      "pnl": 269.06,
+      "composite": 106.5,
+      "win_rate": 100.0,
+      "trades": 35,
+      "periods": {
+        "12": {
+          "pnl": 269.06,
+          "cycles": 35,
+          "trades": 35,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 269.06,
+          "cycles": 35,
+          "trades": 35,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 269.06,
+          "cycles": 35,
+          "trades": 35,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 269.06,
+          "cycles": 35,
+          "trades": 35,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "NU",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 346.94,
+        "win_rate": 100.0,
+        "trades": 15,
+        "cycles": 15,
+        "sharpe": 3.86,
+        "composite": 137.3
+      },
+      "pnl": 346.94,
+      "composite": 137.3,
+      "win_rate": 100.0,
+      "trades": 15,
+      "periods": {
+        "12": {
+          "pnl": 346.94,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 346.94,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 346.94,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 346.94,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "NVDA",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 464.88,
+        "win_rate": 100.0,
+        "trades": 15,
+        "cycles": 15,
+        "sharpe": 3.49,
+        "composite": 184.0
+      },
+      "pnl": 464.88,
+      "composite": 184.0,
+      "win_rate": 100.0,
+      "trades": 15,
+      "periods": {
+        "12": {
+          "pnl": 464.88,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 464.88,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 464.88,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 464.88,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "OKLO",
+      "params": {
+        "sell_default": 8.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 230.41,
+        "win_rate": 100.0,
+        "trades": 26,
+        "cycles": 26,
+        "sharpe": 4.16,
+        "composite": 91.2
+      },
+      "pnl": 230.41,
+      "composite": 91.2,
+      "win_rate": 100.0,
+      "trades": 26,
+      "periods": {
+        "12": {
+          "pnl": 230.41,
+          "cycles": 26,
+          "trades": 26,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 230.41,
+          "cycles": 26,
+          "trades": 26,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 230.41,
+          "cycles": 26,
+          "trades": 26,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 230.41,
+          "cycles": 26,
+          "trades": 26,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "ONDS",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 236.64,
+        "win_rate": 100.0,
+        "trades": 32,
+        "cycles": 32,
+        "sharpe": 2.74,
+        "composite": 93.7
+      },
+      "pnl": 236.64,
+      "composite": 93.7,
+      "win_rate": 100.0,
+      "trades": 32,
+      "periods": {
+        "12": {
+          "pnl": 236.64,
+          "cycles": 32,
+          "trades": 32,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 236.64,
+          "cycles": 32,
+          "trades": 32,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 236.64,
+          "cycles": 32,
+          "trades": 32,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 236.64,
+          "cycles": 32,
+          "trades": 32,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "OUST",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 255.24,
+        "win_rate": 100.0,
+        "trades": 35,
+        "cycles": 35,
+        "sharpe": 3.26,
+        "composite": 101.0
+      },
+      "pnl": 255.24,
+      "composite": 101.0,
+      "win_rate": 100.0,
+      "trades": 35,
+      "periods": {
+        "12": {
+          "pnl": 255.24,
+          "cycles": 35,
+          "trades": 35,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 255.24,
+          "cycles": 35,
+          "trades": 35,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 255.24,
+          "cycles": 35,
+          "trades": 35,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 255.24,
+          "cycles": 35,
+          "trades": 35,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "RDW",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 519.17,
+        "win_rate": 100.0,
+        "trades": 52,
+        "cycles": 52,
+        "sharpe": 1.1,
+        "composite": 205.5
+      },
+      "pnl": 519.17,
+      "composite": 205.5,
+      "win_rate": 100.0,
+      "trades": 52,
+      "periods": {
+        "12": {
+          "pnl": 519.17,
+          "cycles": 52,
+          "trades": 52,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 519.17,
+          "cycles": 52,
+          "trades": 52,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 519.17,
+          "cycles": 52,
+          "trades": 52,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 519.17,
+          "cycles": 52,
+          "trades": 52,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "RGTI",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 229.1,
+        "win_rate": 100.0,
+        "trades": 31,
+        "cycles": 31,
+        "sharpe": 3.21,
+        "composite": 90.7
+      },
+      "pnl": 229.1,
+      "composite": 90.7,
+      "win_rate": 100.0,
+      "trades": 31,
+      "periods": {
+        "12": {
+          "pnl": 229.1,
+          "cycles": 31,
+          "trades": 31,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 229.1,
+          "cycles": 31,
+          "trades": 31,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 229.1,
+          "cycles": 31,
+          "trades": 31,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 229.1,
+          "cycles": 31,
+          "trades": 31,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "RUN",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 197.29,
+        "win_rate": 97.1,
+        "trades": 34,
+        "cycles": 33,
+        "sharpe": 0.56,
+        "composite": 78.1
+      },
+      "pnl": 197.29,
+      "composite": 78.1,
+      "win_rate": 97.1,
+      "trades": 34,
+      "periods": {
+        "12": {
+          "pnl": 197.29,
+          "cycles": 33,
+          "trades": 34,
+          "win_rate": 97.1
+        },
+        "6": {
+          "pnl": 197.29,
+          "cycles": 33,
+          "trades": 34,
+          "win_rate": 97.1
+        },
+        "3": {
+          "pnl": 197.29,
+          "cycles": 33,
+          "trades": 34,
+          "win_rate": 97.1
+        },
+        "1": {
+          "pnl": 197.29,
+          "cycles": 33,
+          "trades": 34,
+          "win_rate": 97.1
+        }
+      }
+    },
+    {
+      "ticker": "SMCI",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 461.43,
+        "win_rate": 100.0,
+        "trades": 46,
+        "cycles": 46,
+        "sharpe": 1.24,
+        "composite": 182.6
+      },
+      "pnl": 461.43,
+      "composite": 182.6,
+      "win_rate": 100.0,
+      "trades": 46,
+      "periods": {
+        "12": {
+          "pnl": 461.43,
+          "cycles": 46,
+          "trades": 46,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 461.43,
+          "cycles": 46,
+          "trades": 46,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 461.43,
+          "cycles": 46,
+          "trades": 46,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 461.43,
+          "cycles": 46,
+          "trades": 46,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "SOUN",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 327.24,
+        "win_rate": 100.0,
+        "trades": 44,
+        "cycles": 44,
+        "sharpe": 2.11,
+        "composite": 129.5
+      },
+      "pnl": 327.24,
+      "composite": 129.5,
+      "win_rate": 100.0,
+      "trades": 44,
+      "periods": {
+        "12": {
+          "pnl": 327.24,
+          "cycles": 44,
+          "trades": 44,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 327.24,
+          "cycles": 44,
+          "trades": 44,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 327.24,
+          "cycles": 44,
+          "trades": 44,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 327.24,
+          "cycles": 44,
+          "trades": 44,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "STIM",
+      "params": {
+        "sell_default": 6.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 399.94,
+        "win_rate": 100.0,
+        "trades": 60,
+        "cycles": 60,
+        "sharpe": 1.25,
+        "composite": 158.3
+      },
+      "pnl": 399.94,
+      "composite": 158.3,
+      "win_rate": 100.0,
+      "trades": 60,
+      "periods": {
+        "12": {
+          "pnl": 399.94,
+          "cycles": 60,
+          "trades": 60,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 399.94,
+          "cycles": 60,
+          "trades": 60,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 399.94,
+          "cycles": 60,
+          "trades": 60,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 399.94,
+          "cycles": 60,
+          "trades": 60,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "TEM",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 181.23,
+        "win_rate": 100.0,
+        "trades": 15,
+        "cycles": 15,
+        "sharpe": 3.07,
+        "composite": 71.7
+      },
+      "pnl": 181.23,
+      "composite": 71.7,
+      "win_rate": 100.0,
+      "trades": 15,
+      "periods": {
+        "12": {
+          "pnl": 181.23,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 181.23,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 181.23,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 181.23,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "TMC",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 285.55,
+        "win_rate": 100.0,
+        "trades": 33,
+        "cycles": 33,
+        "sharpe": 2.49,
+        "composite": 113.0
+      },
+      "pnl": 285.55,
+      "composite": 113.0,
+      "win_rate": 100.0,
+      "trades": 33,
+      "periods": {
+        "12": {
+          "pnl": 285.55,
+          "cycles": 33,
+          "trades": 33,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 285.55,
+          "cycles": 33,
+          "trades": 33,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 285.55,
+          "cycles": 33,
+          "trades": 33,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 285.55,
+          "cycles": 33,
+          "trades": 33,
+          "win_rate": 100.0
+        }
+      }
+    },
+    {
+      "ticker": "USAR",
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "stats": {
+        "pnl": 428.4,
+        "win_rate": 100.0,
+        "trades": 41,
+        "cycles": 41,
+        "sharpe": 1.87,
+        "composite": 169.6
+      },
+      "pnl": 428.4,
+      "composite": 169.6,
+      "win_rate": 100.0,
+      "trades": 41,
+      "periods": {
+        "12": {
+          "pnl": 428.4,
+          "cycles": 41,
+          "trades": 41,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 428.4,
+          "cycles": 41,
+          "trades": 41,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 428.4,
+          "cycles": 41,
+          "trades": 41,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 428.4,
+          "cycles": 41,
+          "trades": 41,
+          "win_rate": 100.0
+        }
+      }
+    }
+  ]
+}

@@ -49,13 +49,77 @@ def send_dip_alert(ticker, entry_price, target, stop, reason_chain,
     subject = f"DIP ALERT: BUY {ticker} at ${entry_price:.2f}"
     body = (f"Ticker: {ticker}\n"
             f"Entry:  ${entry_price:.2f}\n"
-            f"Target: ${target:.2f} (+4%)\n"
-            f"Stop:   ${stop:.2f} (-3%)\n"
+            f"Target: ${target:.2f} (+{(target - entry_price) / entry_price * 100:.1f}%)\n"
+            f"Stop:   ${stop:.2f} ({(stop - entry_price) / entry_price * 100:.1f}%)\n"
             f"Budget: ${budget:.0f}\n"
             f"Regime: {regime}\n\n"
             f"REASON CHAIN:\n{reason_chain}\n\n"
             f"-- Neural Dip Evaluator at "
             f"{datetime.now().strftime('%H:%M:%S ET %Y-%m-%d')}")
+
+    message = Mail(from_email=sender, to_emails=recipient,
+                   subject=subject, plain_text_content=body)
+    try:
+        sg = SendGridAPIClient(api_key)
+        response = sg.send(message)
+        if response.status_code not in (200, 202):
+            print(f"*Warning: SendGrid returned {response.status_code}*")
+            return False
+        print(f"Email sent to {recipient}: {subject}")
+        return True
+    except Exception as e:
+        print(f"*Warning: email send failed: {e}*")
+        return False
+
+
+def send_support_alert(opportunities):
+    """Send email listing support buy opportunities from neural evaluator."""
+    if not opportunities:
+        return False
+    lines = [f"{len(opportunities)} tickers near support levels:\n"]
+    for opp in opportunities:
+        lines.append(f"{opp['ticker']}: ${opp['price']:.2f}, "
+                     f"support at ${opp['support']:.2f} "
+                     f"({opp['distance_pct']}% away)")
+        lines.append(f"  Neural: sell at +{opp['sell_target_pct']}%, "
+                     f"${opp['pool']} pool, {opp['shares']} shares")
+        lines.append(f"  Action: Place limit buy at ${opp['support']:.2f}\n")
+    body = "\n".join(lines)
+    body += (f"\n-- Neural Support Evaluator at "
+             f"{datetime.now().strftime('%H:%M:%S %Y-%m-%d')}")
+    return send_summary_email(
+        f"Morning Support Scan — {datetime.now().strftime('%Y-%m-%d')}", body)
+
+
+def send_summary_email(subject, body):
+    """Send a plain-text summary email via SendGrid.
+
+    Generic version of send_dip_alert() for pipeline notifications.
+    Returns True on success.
+    """
+    try:
+        from sendgrid import SendGridAPIClient
+        from sendgrid.helpers.mail import Mail
+    except ImportError:
+        print("*Warning: sendgrid not installed. pip install sendgrid*")
+        return False
+
+    try:
+        from dotenv import load_dotenv
+        load_dotenv()
+    except ImportError:
+        pass
+
+    api_key = os.environ.get("SENDGRID_API_KEY")
+    recipient = os.environ.get("ALERT_EMAIL")
+    sender = os.environ.get("SENDGRID_FROM_EMAIL")
+
+    if not all([api_key, recipient, sender]):
+        missing = [v for v, val in [("SENDGRID_API_KEY", api_key),
+                   ("ALERT_EMAIL", recipient), ("SENDGRID_FROM_EMAIL", sender)]
+                   if not val]
+        print(f"*Warning: missing env vars: {missing}. Skipping email.*")
+        return False
 
     message = Mail(from_email=sender, to_emails=recipient,
                    subject=subject, plain_text_content=body)

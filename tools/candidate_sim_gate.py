@@ -52,8 +52,14 @@ def _extract_candidates_from_final():
     return list(dict.fromkeys(tickers))  # dedupe preserving order
 
 
-def simulate_candidate(ticker, months=10):
-    """Run surgical backtest on a single ticker and return metrics."""
+def simulate_candidate(ticker, months=10, config=None):
+    """Run surgical backtest on a single ticker and return metrics.
+
+    Args:
+        config: optional SurgicalSimConfig with custom parameters.
+                If None, uses defaults. Swept fields (sell_default, active_pool, etc.)
+                override the defaults while preserving ticker/date/output settings.
+    """
     from backtest_data_collector import collect_data, save_data
     from backtest_engine import run_simulation, load_collected_data, save_results
     from backtest_config import SurgicalSimConfig
@@ -64,14 +70,24 @@ def simulate_candidate(ticker, months=10):
     end_date = datetime.now()
     start_date = end_date - timedelta(days=months * 30)
 
-    cfg = SurgicalSimConfig(
-        tickers=[ticker],
-        start=start_date.strftime("%Y-%m-%d"),
-        end=end_date.strftime("%Y-%m-%d"),
-        output_dir=str(out_dir),
-        recompute_levels="weekly",
-        same_day_exit_pct=4.0,
-    )
+    if config is not None:
+        # Use provided config but override ticker/date/output settings
+        cfg = config
+        cfg.tickers = [ticker]
+        cfg.start = start_date.strftime("%Y-%m-%d")
+        cfg.end = end_date.strftime("%Y-%m-%d")
+        cfg.output_dir = str(out_dir)
+        if not hasattr(cfg, 'recompute_levels') or cfg.recompute_levels is None:
+            cfg.recompute_levels = "weekly"
+    else:
+        cfg = SurgicalSimConfig(
+            tickers=[ticker],
+            start=start_date.strftime("%Y-%m-%d"),
+            end=end_date.strftime("%Y-%m-%d"),
+            output_dir=str(out_dir),
+            recompute_levels="weekly",
+            same_day_exit_pct=4.0,
+        )
 
     # Phase 1: Collect
     data = collect_data(cfg)

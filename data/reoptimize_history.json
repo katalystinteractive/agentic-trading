@@ -1,0 +1,33 @@
+{
+  "runs": [
+    {
+      "date": "2026-03-29",
+      "clusters": 4,
+      "silhouette": 0.3804,
+      "synapses": 40,
+      "mean_weight": 0.9941,
+      "overfit_count": 8,
+      "confidence_scores": {
+        "ACHR": 34.4,
+        "APLD": 69.2,
+        "AR": 60.4,
+        "BBAI": 61.3,
+        "CIFR": 59.8,
+        "CLF": 41.1,
+        "CLSK": 60.4,
+        "IONQ": 67.2,
+        "LUNR": 53.0,
+        "NNE": 60.5,
+        "NU": 29.2,
+        "OKLO": 59.4,
+        "OUST": 26.0,
+        "RDW": 65.0,
+        "RGTI": 68.4,
+        "RUN": 57.2,
+        "TEM": 32.2,
+        "TMC": 58.8,
+        "USAR": 30.0
+      }
+    }
+  ]
+}

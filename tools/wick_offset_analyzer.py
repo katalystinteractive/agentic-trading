@@ -59,12 +59,29 @@ def load_capital_config(ticker=None):
                 cap = portfolio.get("capital", {})
             except (FileNotFoundError, json.JSONDecodeError):
                 cap = {}
-            return {
+            result = {
                 "active_pool": pool["active_pool"],
                 "reserve_pool": pool["reserve_pool"],
                 "active_bullets_max": cap.get("active_bullets_max", 5),
                 "reserve_bullets_max": cap.get("reserve_bullets_max", 3),
             }
+            # Check neural support for bullet count overrides
+            try:
+                ns_path = Path(__file__).resolve().parent.parent / "data" / "neural_support_candidates.json"
+                if ns_path.exists():
+                    with open(ns_path) as f:
+                        ns_data = json.load(f)
+                    for c in ns_data.get("candidates", []):
+                        if c["ticker"] == ticker:
+                            params = c.get("params", {})
+                            if params.get("active_bullets_max"):
+                                result["active_bullets_max"] = params["active_bullets_max"]
+                            if params.get("reserve_bullets_max"):
+                                result["reserve_bullets_max"] = params["reserve_bullets_max"]
+                            break
+            except (FileNotFoundError, json.JSONDecodeError, KeyError):
+                pass
+            return result
         except ImportError:
             pass  # shared_utils not available — fall through to static
 

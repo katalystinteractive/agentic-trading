@@ -179,6 +179,38 @@ def build_daily_graph(portfolio, live_prices, regime, vix, vix_5d_pct,
     except (FileNotFoundError, json.JSONDecodeError):
         profiles = {}
 
+    # Merge neural watchlist profiles (guaranteed for every tracked ticker)
+    try:
+        wl_path = _ROOT / "data" / "neural_watchlist_profiles.json"
+        if wl_path.exists():
+            with open(wl_path) as f:
+                wl_data = json.load(f)
+            for c in wl_data.get("candidates", []):
+                tk = c["ticker"]
+                if tk not in profiles:
+                    profiles[tk] = {}
+                if not profiles[tk].get("optimal_target_pct"):
+                    profiles[tk]["optimal_target_pct"] = c["params"].get("sell_default")
+                    profiles[tk]["_neural_source"] = "neural_watchlist"
+    except (FileNotFoundError, json.JSONDecodeError, KeyError):
+        pass
+
+    # Merge neural support candidates (candidate discovery fallback)
+    try:
+        ns_path = _ROOT / "data" / "neural_support_candidates.json"
+        if ns_path.exists():
+            with open(ns_path) as f:
+                ns_data = json.load(f)
+            for c in ns_data.get("candidates", []):
+                tk = c["ticker"]
+                if tk not in profiles:
+                    profiles[tk] = {}
+                if not profiles[tk].get("optimal_target_pct"):
+                    profiles[tk]["optimal_target_pct"] = c["params"].get("sell_default")
+                    profiles[tk]["_neural_source"] = "neural_support"
+    except (FileNotFoundError, json.JSONDecodeError, KeyError):
+        pass
+
     # Load multi-period results for dip KPIs (mtime-cached, one read)
     try:
         from shared_utils import _load_mp_data

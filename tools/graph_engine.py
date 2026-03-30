@@ -107,12 +107,14 @@ class Node:
         depends_on: list[str] | None = None,
         is_report: bool = False,
         reason_fn: Callable[[Any, Any, list[Signal]], str] | None = None,
+        edge_weights: dict[str, float] | None = None,
     ):
         self.name = name
         self.compute = compute
         self.depends_on = depends_on or []
         self.is_report = is_report
         self.reason_fn = reason_fn
+        self.edge_weights: dict[str, float] = edge_weights or {}
 
         self.value: Any = None
         self.prev_value: Any = None
@@ -160,7 +162,8 @@ class Node:
     def __repr__(self) -> str:
         status = "resolved" if self._resolved else "pending"
         report = " [REPORT]" if self.is_report else ""
-        return f"Node({self.name}, {status}{report})"
+        weights = f" W={self.edge_weights}" if self.edge_weights else ""
+        return f"Node({self.name}, {status}{report}{weights})"
 
 
 class DependencyGraph:
@@ -182,9 +185,16 @@ class DependencyGraph:
         depends_on: list[str] | None = None,
         is_report: bool = False,
         reason_fn: Callable[[Any, Any, list[Signal]], str] | None = None,
+        edge_weights: dict[str, float] | None = None,
     ) -> Node:
-        """Add a node to the graph. Returns the node for chaining."""
-        node = Node(name, compute, depends_on, is_report, reason_fn)
+        """Add a node to the graph. Returns the node for chaining.
+
+        edge_weights: Optional {dep_name: weight} dict. Numeric input values
+        from dependencies are multiplied by their weight before being passed
+        to the compute function. Default weight is 1.0 (no change).
+        Non-numeric values pass through unweighted.
+        """
+        node = Node(name, compute, depends_on, is_report, reason_fn, edge_weights)
         self.nodes[name] = node
         self._resolve_order = None  # invalidate cached order
         return node
@@ -222,7 +232,15 @@ class DependencyGraph:
 
         for name in self._resolve_order:
             node = self.nodes[name]
-            inputs = {dep: self.nodes[dep].value for dep in node.depends_on}
+            inputs = {}
+            for dep in node.depends_on:
+                val = self.nodes[dep].value
+                if node.edge_weights:
+                    weight = node.edge_weights.get(dep, 1.0)
+                    # Apply weight to numeric values only (bool is subclass of int, exclude it)
+                    if not isinstance(val, bool) and isinstance(val, (int, float)) and weight != 1.0:
+                        val = val * weight
+                inputs[dep] = val
             node.resolve(inputs)
 
         return {name: node.value for name, node in self.nodes.items()}

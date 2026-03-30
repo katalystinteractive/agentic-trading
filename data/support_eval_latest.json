@@ -1,0 +1,171 @@
+{
+  "date": "2026-03-29",
+  "proximity_pct": 10.0,
+  "opportunities": [
+    {
+      "ticker": "RDW",
+      "price": 8.16,
+      "support": 8.12,
+      "distance_pct": 0.5,
+      "shares": 8,
+      "pool": 500,
+      "sell_target_pct": 10.0,
+      "hold_rate": 40.0,
+      "already_ordered": false
+    },
+    {
+      "ticker": "NU",
+      "price": 13.6,
+      "support": 13.53,
+      "distance_pct": 0.5,
+      "shares": 4,
+      "pool": 300,
+      "sell_target_pct": 10.0,
+      "hold_rate": 12.0,
+      "already_ordered": false
+    },
+    {
+      "ticker": "NU",
+      "price": 13.6,
+      "support": 13.3,
+      "distance_pct": 2.3,
+      "shares": 4,
+      "pool": 300,
+      "sell_target_pct": 10.0,
+      "hold_rate": 50.0,
+      "already_ordered": false
+    },
+    {
+      "ticker": "NU",
+      "price": 13.6,
+      "support": 13.3,
+      "distance_pct": 2.3,
+      "shares": 4,
+      "pool": 300,
+      "sell_target_pct": 10.0,
+      "hold_rate": 50.0,
+      "already_ordered": false
+    },
+    {
+      "ticker": "STIM",
+      "price": 1.29,
+      "support": 1.26,
+      "distance_pct": 2.4,
+      "shares": 47,
+      "pool": 300,
+      "sell_target_pct": 6.0,
+      "hold_rate": 75.0,
+      "already_ordered": false
+    },
+    {
+      "ticker": "CLSK",
+      "price": 8.66,
+      "support": 8.4,
+      "distance_pct": 3.1,
+      "shares": 7,
+      "pool": 300,
+      "sell_target_pct": 10.0,
+      "hold_rate": 58.0,
+      "already_ordered": false
+    },
+    {
+      "ticker": "CLSK",
+      "price": 8.66,
+      "support": 8.4,
+      "distance_pct": 3.1,
+      "shares": 7,
+      "pool": 300,
+      "sell_target_pct": 10.0,
+      "hold_rate": 25.0,
+      "already_ordered": false
+    },
+    {
+      "ticker": "STIM",
+      "price": 1.29,
+      "support": 1.25,
+      "distance_pct": 3.2,
+      "shares": 48,
+      "pool": 300,
+      "sell_target_pct": 6.0,
+      "hold_rate": 67.0,
+      "already_ordered": false
+    },
+    {
+      "ticker": "RDW",
+      "price": 8.16,
+      "support": 7.89,
+      "distance_pct": 3.4,
+      "shares": 9,
+      "pool": 500,
+      "sell_target_pct": 10.0,
+      "hold_rate": 54.0,
+      "already_ordered": true
+    },
+    {
+      "ticker": "LUNR",
+      "price": 17.52,
+      "support": 16.92,
+      "distance_pct": 3.5,
+      "shares": 3,
+      "pool": 300,
+      "sell_target_pct": 10.0,
+      "hold_rate": 22.0,
+      "already_ordered": false
+    },
+    {
+      "ticker": "STIM",
+      "price": 1.29,
+      "support": 1.23,
+      "distance_pct": 4.9,
+      "shares": 48,
+      "pool": 300,
+      "sell_target_pct": 6.0,
+      "hold_rate": 80.0,
+      "already_ordered": false
+    },
+    {
+      "ticker": "ARM",
+      "price": 144.13,
+      "support": 133.7,
+      "distance_pct": 7.8,
+      "shares": 1,
+      "pool": 500,
+      "sell_target_pct": 10.0,
+      "hold_rate": 42.0,
+      "already_ordered": true
+    },
+    {
+      "ticker": "LUNR",
+      "price": 17.52,
+      "support": 16.18,
+      "distance_pct": 8.3,
+      "shares": 3,
+      "pool": 300,
+      "sell_target_pct": 10.0,
+      "hold_rate": 57.0,
+      "already_ordered": true
+    },
+    {
+      "ticker": "RDW",
+      "price": 8.16,
+      "support": 7.53,
+      "distance_pct": 8.4,
+      "shares": 9,
+      "pool": 500,
+      "sell_target_pct": 10.0,
+      "hold_rate": 43.0,
+      "already_ordered": true
+    },
+    {
+      "ticker": "ARM",
+      "price": 144.13,
+      "support": 132.17,
+      "distance_pct": 9.0,
+      "shares": 1,
+      "pool": 500,
+      "sell_target_pct": 10.0,
+      "hold_rate": 40.0,
+      "already_ordered": true
+    }
+  ]
+}

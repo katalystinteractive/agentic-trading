@@ -40,11 +40,47 @@ def _load_portfolio():
 
 
 def _load_profiles():
+    """Load ticker profiles. Merges neural support candidates as secondary source."""
+    profiles = {}
     try:
         with open(PROFILES_PATH, "r") as f:
-            return json.load(f)
+            profiles = json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
-        return {}
+        pass
+
+    # Merge neural watchlist profiles (guaranteed for every tracked ticker)
+    try:
+        wl_path = _ROOT / "data" / "neural_watchlist_profiles.json"
+        if wl_path.exists():
+            with open(wl_path) as f:
+                wl_data = json.load(f)
+            for c in wl_data.get("candidates", []):
+                tk = c["ticker"]
+                if tk not in profiles:
+                    profiles[tk] = {}
+                if not profiles[tk].get("optimal_target_pct"):
+                    profiles[tk]["optimal_target_pct"] = c["params"].get("sell_default")
+                    profiles[tk]["_neural_source"] = "neural_watchlist"
+    except (FileNotFoundError, json.JSONDecodeError, KeyError):
+        pass
+
+    # Merge neural support candidates (candidate discovery fallback)
+    try:
+        ns_path = _ROOT / "data" / "neural_support_candidates.json"
+        if ns_path.exists():
+            with open(ns_path) as f:
+                ns_data = json.load(f)
+            for c in ns_data.get("candidates", []):
+                tk = c["ticker"]
+                if tk not in profiles:
+                    profiles[tk] = {}
+                if not profiles[tk].get("optimal_target_pct"):
+                    profiles[tk]["optimal_target_pct"] = c["params"].get("sell_default")
+                    profiles[tk]["_neural_source"] = "neural_support"
+    except (FileNotFoundError, json.JSONDecodeError, KeyError):
+        pass
+
+    return profiles
 
 
 def _load_trade_history_buys():
@@ -137,18 +173,23 @@ def match_fills_to_history(fill_prices, trade_buys):
 def compute_recommended_sell(ticker, avg_cost, pos, profiles):
     """Compute what the SELL price SHOULD be based on approved targets.
 
-    Priority: optimized target > target_exit > default 6%.
+    Priority: target_exit (manual) > optimized/neural target > default 6%.
+    Manual target_exit always wins — user intent overrides neural recommendations.
     Returns (0, "no avg cost") if avg_cost is 0 (data inconsistency guard).
     """
     if avg_cost <= 0:
         return 0, "no avg cost"
-    profile = profiles.get(ticker, {})
-    opt = profile.get("optimal_target_pct")
-    if opt is not None:
-        return round(avg_cost * (1 + opt / 100), 2), f"optimized {opt:.1f}%"
+    # 1. Manual override always wins
     te = pos.get("target_exit")
     if te is not None:
         return te, "target_exit"
+    # 2. Profile (ticker_profiles.json or neural_support fallback)
+    profile = profiles.get(ticker, {})
+    opt = profile.get("optimal_target_pct")
+    if opt is not None:
+        source = profile.get("_neural_source", "optimized")
+        return round(avg_cost * (1 + opt / 100), 2), f"{source} {opt:.1f}%"
+    # 3. Hardcoded fallback
     return round(avg_cost * (1 + SELL_DEFAULT_PCT / 100), 2), f"standard {SELL_DEFAULT_PCT:.1f}%"
 
 

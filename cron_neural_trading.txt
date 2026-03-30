@@ -1,0 +1,19 @@
+# === Neural Trading System — Automated Schedule ===
+# Times in local (EET/EEST), +7hr offset from US Eastern
+# NOTE: During ~2-week US/EU DST transition gaps (mid-March, early November),
+# offset becomes +6hr. Adjust times by -1hr during these periods.
+
+# Morning support scan (8:30 AM ET = 15:30 local)
+30 15 * * 1-5 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/neural_support_evaluator.py >> data/support_eval.log 2>&1
+
+# Dip strategy: first-hour breadth (10:30 AM ET = 17:30 local)
+30 17 * * 1-5 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/neural_dip_evaluator.py --phase first_hour >> data/dip_eval.log 2>&1
+
+# Dip strategy: decision + email (11:00 AM ET = 18:00 local)
+0 18 * * 1-5 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/neural_dip_evaluator.py --phase decision >> data/dip_eval.log 2>&1
+
+# Dip strategy: EOD check (3:45 PM ET = 22:45 local)
+45 22 * * 1-5 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/neural_dip_evaluator.py --phase eod_check >> data/dip_eval.log 2>&1
+
+# Weekly re-optimization (Saturday 6 AM local)
+0 6 * * 6 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/weekly_reoptimize.py >> data/reoptimize.log 2>&1
