@@ -557,6 +557,16 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None):
                     hr = bullet.get("decayed_hold_rate", bullet.get("hold_rate", 0))
                     if hr < cfg.min_hold_rate:
                         continue
+                    # Level filter gates (neural sweep Stage 3)
+                    if cfg.min_touch_freq > 0:
+                        tf = bullet.get("monthly_touch_freq", 0)
+                        if tf < cfg.min_touch_freq:
+                            continue
+                    if cfg.skip_dormant and bullet.get("dormant", False):
+                        continue
+                    if cfg.zone_filter == "active":
+                        if bullet.get("zone", "") != "Active":
+                            continue
                     if cap.active_bullets >= cfg.active_bullets_max:
                         break
                     shares = bullet.get("shares", 1)
@@ -573,6 +583,13 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None):
                         continue
                     tier = bullet.get("effective_tier", bullet.get("tier", "Skip"))
                     if tier == "Skip":
+                        continue
+                    # Level filter gates (neural sweep Stage 3)
+                    if cfg.min_touch_freq > 0:
+                        tf = bullet.get("monthly_touch_freq", 0)
+                        if tf < cfg.min_touch_freq:
+                            continue
+                    if cfg.skip_dormant and bullet.get("dormant", False):
                         continue
                     if cap.reserve_bullets >= cfg.reserve_bullets_max:
                         break

@@ -54,6 +54,14 @@ EXECUTION_GRID = {
 }
 # Reduced grid: 3×2×3×2×2×2 = 144 combos (vs 4800 full)
 
+LEVEL_FILTER_GRID = {
+    "min_hold_rate": [15, 30, 50, 60, 70],
+    "min_touch_freq": [0, 0.5, 1.0, 2.0, 3.0],
+    "skip_dormant": [False, True],
+    "zone_filter": ["active", "all"],
+}
+# 5 × 5 × 2 × 2 = 100 combos per ticker
+
 
 # ---------------------------------------------------------------------------
 # Single-ticker sweep
@@ -283,6 +291,69 @@ def sweep_execution(ticker, threshold_params, months=10):
                                     "tier_std": t_std,
                                 }
                                 best_result = result
+
+    return best_params, best_result
+
+
+# ---------------------------------------------------------------------------
+# Stage 3: Level filter sweep
+# ---------------------------------------------------------------------------
+
+LEVEL_RESULTS_PATH = _ROOT / "data" / "sweep_support_levels.json"
+
+
+def sweep_levels(ticker, threshold_params, execution_params=None, months=10):
+    """Stage 3: Sweep level filters with thresholds + execution params locked."""
+    data_dir = _collect_once(ticker, max(SWEEP_PERIODS))
+    from backtest_engine import load_collected_data
+    price_data, regime_data, _ = load_collected_data(data_dir)
+
+    best_pnl = float("-inf")
+    best_params = None
+    best_result = None
+
+    base_overrides = {
+        "sell_default": threshold_params["sell_default"],
+        "sell_fast_cycler": threshold_params["sell_default"] + 2.0,
+        "sell_exceptional": threshold_params["sell_default"] + 4.0,
+        "cat_hard_stop": threshold_params["cat_hard_stop"],
+        "cat_warning": max(threshold_params["cat_hard_stop"] - 10, 5),
+    }
+    if execution_params:
+        base_overrides.update(execution_params)
+
+    for min_hr, min_tf, skip_dorm, zone_f in itertools.product(
+            LEVEL_FILTER_GRID["min_hold_rate"],
+            LEVEL_FILTER_GRID["min_touch_freq"],
+            LEVEL_FILTER_GRID["skip_dormant"],
+            LEVEL_FILTER_GRID["zone_filter"]):
+
+        overrides = {
+            **base_overrides,
+            "min_hold_rate": min_hr,
+            "min_touch_freq": min_tf,
+            "skip_dormant": skip_dorm,
+            "zone_filter": zone_f,
+        }
+
+        period_wick_cache = {}
+        try:
+            result = _simulate_with_config(
+                ticker, months, overrides, data_dir,
+                price_data, regime_data, period_wick_cache)
+        except Exception:
+            continue
+
+        pnl = result.get("pnl", 0)
+        if pnl > best_pnl:
+            best_pnl = pnl
+            best_params = {
+                "min_hold_rate": min_hr,
+                "min_touch_freq": min_tf,
+                "skip_dormant": skip_dorm,
+                "zone_filter": zone_f,
+            }
+            best_result = result
 
     return best_params, best_result
 

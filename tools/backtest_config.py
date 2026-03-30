@@ -146,6 +146,9 @@ class SurgicalSimConfig:
     wick_lookback_months: int = 13
     recompute_levels: str = "weekly"    # "daily", "weekly", "monthly"
     min_hold_rate: int = 15
+    min_touch_freq: float = 0.0     # skip levels touched less than X/month (0 = no filter)
+    skip_dormant: bool = False      # skip levels flagged as dormant (>90 days untested)
+    zone_filter: str = "all"        # "active" (Active only) or "all" (Active + Reserve)
     decay_half_life: int = 90
     vol_profile_bins: int = 40
     pa_min_touches: int = 3

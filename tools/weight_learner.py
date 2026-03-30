@@ -154,7 +154,12 @@ def save_weights(weights, stats, regime="Neutral"):
             data = json.load(f)
 
     data["_meta"]["updated"] = date.today().isoformat()
-    data["_meta"]["stats"] = stats
+    data["_meta"]["stats"] = stats  # backward compat — last run's stats
+    # Track stats per source so both dip and support training stats persist
+    if "stats_by_source" not in data["_meta"]:
+        data["_meta"]["stats_by_source"] = {}
+    source = stats.get("source", "unknown")
+    data["_meta"]["stats_by_source"][source] = stats
 
     # Store base weights (used when no regime-specific override exists)
     data["weights"] = weights
