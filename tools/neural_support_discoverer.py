@@ -53,7 +53,7 @@ def get_available_tickers():
     return sorted(available)
 
 
-def rank_and_gate(results, min_trades=3):
+def rank_and_gate(results, min_trades=10):
     """Rank by P/L, apply gates."""
     ranked = []
     for tk, r in results.items():

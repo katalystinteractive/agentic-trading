@@ -183,7 +183,7 @@ def compute_raw_breadth(tickers, trading_days, intraday, dip_thresh):
 # Stage 5-6: Ranking and gating
 # ---------------------------------------------------------------------------
 
-def rank_and_gate(results, min_val_trades=2):
+def rank_and_gate(results, min_val_trades=5):
     """Rank by validation P/L, apply gates."""
     ranked = []
     for tk, r in results.items():
