@@ -111,6 +111,12 @@ def _simulate_with_config(ticker, months, config_overrides, data_dir=None,
     cfg = SurgicalSimConfig(**config_overrides)
     cfg.tickers = [ticker]
     cfg.output_dir = data_dir
+    # Set simulation window based on period_months
+    from datetime import timedelta
+    end_date = datetime.now()
+    start_date = end_date - timedelta(days=months * 30)
+    cfg.start = start_date.strftime("%Y-%m-%d")
+    cfg.end = end_date.strftime("%Y-%m-%d")
 
     trades, cycles, equity, dip = run_simulation(
         price_data, regime_data, cfg, wick_cache)
