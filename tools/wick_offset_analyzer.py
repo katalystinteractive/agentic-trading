@@ -96,6 +96,50 @@ def load_capital_config(ticker=None):
     }
 
 
+# ---------------------------------------------------------------------------
+# Level filter loader (neural sweep results)
+# ---------------------------------------------------------------------------
+
+_level_filter_cache = {"mtime": 0, "data": None}
+
+
+def _load_level_filters(ticker):
+    """Load per-ticker level filter profile from neural sweep results."""
+    lf_path = Path(__file__).resolve().parent.parent / "data" / "sweep_support_levels.json"
+    try:
+        if not lf_path.exists():
+            return None
+        mt = lf_path.stat().st_mtime
+        if mt != _level_filter_cache["mtime"]:
+            with open(lf_path) as f:
+                _level_filter_cache["data"] = json.load(f)
+            _level_filter_cache["mtime"] = mt
+        entry = _level_filter_cache["data"].get(ticker, {})
+        return entry.get("level_params")
+    except (OSError, json.JSONDecodeError, KeyError, TypeError):
+        return None
+
+
+def _passes_level_filters(r, filters):
+    """Check if a level passes neural-optimized filters. Zone-aware."""
+    if not filters:
+        return True
+    zone = r.get("zone", "")
+    # min_hold_rate: Active only (backtest applies this in active loop only)
+    if zone == "Active" and filters.get("min_hold_rate", 0) > 0:
+        hr = r.get("decayed_hold_rate", r.get("hold_rate", 0))
+        if hr < filters["min_hold_rate"]:
+            return False
+    # min_touch_freq: both Active and Reserve
+    if filters.get("min_touch_freq", 0) > 0:
+        if r.get("monthly_touch_freq", 0) < filters["min_touch_freq"]:
+            return False
+    # skip_dormant: both Active and Reserve
+    if filters.get("skip_dormant") and r.get("dormant", False):
+        return False
+    return True
+
+
 # Pool sizing constants
 POOL_TIER_MULT = {"Full": 1.0, "Std": 1.0, "Half": 0.5}
 POOL_MAX_FRACTION = 0.60  # per-bullet cap: 60% of pool (raised for frequency weighting)
@@ -556,7 +600,7 @@ def fmt_pct(val):
     return f"{sign}{val:.2f}%"
 
 
-def _compute_bullet_plan(level_results, current_price, cap=None):
+def _compute_bullet_plan(level_results, current_price, cap=None, level_filters=None):
     """Build structured bullet plan from level results.
 
     INPUT: level_results in INTERNAL format (r["level"]["price"], r["recommended_buy"]).
@@ -570,14 +614,19 @@ def _compute_bullet_plan(level_results, current_price, cap=None):
         cap = load_capital_config()
     active_candidates = [r for r in level_results
                          if r["zone"] == "Active" and r["effective_tier"] != "Skip"
-                         and r["recommended_buy"] and r["recommended_buy"] < current_price]
+                         and r["recommended_buy"] and r["recommended_buy"] < current_price
+                         and _passes_level_filters(r, level_filters)]
     # Sort: fresh first, then by proximity (highest price = closest)
     active_candidates.sort(key=lambda r: (r.get("dormant", False), -r["recommended_buy"]))
     active_bullets = active_candidates[:cap["active_bullets_max"]]
 
-    reserve_candidates = [r for r in level_results
-                          if r["zone"] == "Reserve" and r["effective_tier"] in ("Full", "Std")
-                          and r["recommended_buy"] and r["recommended_buy"] < current_price]
+    if level_filters and level_filters.get("zone_filter") == "active":
+        reserve_candidates = []
+    else:
+        reserve_candidates = [r for r in level_results
+                              if r["zone"] == "Reserve" and r["effective_tier"] in ("Full", "Std")
+                              and r["recommended_buy"] and r["recommended_buy"] < current_price
+                              and _passes_level_filters(r, level_filters)]
     reserve_candidates.sort(key=lambda r: -r["hold_rate"])
     reserve_bullets = reserve_candidates[:cap["reserve_bullets_max"]]
     reserve_bullets.sort(key=lambda r: -r["recommended_buy"])
@@ -867,7 +916,9 @@ def analyze_stock_data(ticker, hist=None, config=None, capital_config=None):
             }
             for r in level_results
         ],
-        "bullet_plan": _compute_bullet_plan(level_results, current_price, capital_config or load_capital_config()),
+        "bullet_plan": _compute_bullet_plan(level_results, current_price,
+                                             capital_config or load_capital_config(),
+                                             level_filters=_load_level_filters(ticker)),
     }
 
     return data, None

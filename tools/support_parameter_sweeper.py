@@ -456,7 +456,7 @@ def main():
                         help="Number of universe passers to sweep (default: 30)")
     parser.add_argument("--months", type=int, default=10,
                         help="Simulation months (default: 10)")
-    parser.add_argument("--stage", choices=["threshold", "execution", "both"],
+    parser.add_argument("--stage", choices=["threshold", "execution", "both", "level"],
                         default="both", help="Which stage to run")
     parser.add_argument("--split", action="store_true",
                         help="Cross-validate: train first 7mo, validate last 3mo")
@@ -613,10 +613,48 @@ def main():
             "cross_validation": r.get("cross_validation"),
         }
 
-    if not args.dry_run:
+    if not args.dry_run and args.stage != "level":
         with open(RESULTS_PATH, "w") as f:
             json.dump(output, f, indent=2, default=str)
         print(f"\nResults saved to {RESULTS_PATH}")
+
+    # Stage 3: Level filter sweep
+    if args.stage == "level":
+        if not RESULTS_PATH.exists():
+            print("*Stage 1+2 results not found. Run --stage both first.*")
+            return
+        with open(RESULTS_PATH) as f:
+            prior = json.load(f)
+
+        print(f"\nStage 3: Level filter sweep on {len(tickers)} tickers...")
+        level_output = {}
+        for tk in tickers:
+            if tk not in prior or tk.startswith("_"):
+                continue
+            threshold_params = prior[tk]["params"]
+            execution_params = {k: threshold_params[k] for k in
+                               ("active_pool", "reserve_pool", "active_bullets_max", "reserve_bullets_max")
+                               if k in threshold_params}
+            print(f"  {tk}...", end=" ", flush=True)
+            best_params, best_result = sweep_levels(tk, threshold_params, execution_params, args.months)
+            if best_params:
+                level_output[tk] = {
+                    "level_params": best_params,
+                    "stats": {
+                        "pnl": best_result.get("pnl", 0),
+                        "trades": best_result.get("sells", 0),
+                    },
+                }
+                print(f"hr={best_params['min_hold_rate']} tf={best_params['min_touch_freq']} "
+                      f"zone={best_params['zone_filter']} P/L=${best_result.get('pnl', 0):.2f}",
+                      flush=True)
+            else:
+                print("no improvement", flush=True)
+
+        if level_output and not args.dry_run:
+            with open(LEVEL_RESULTS_PATH, "w") as f:
+                json.dump(level_output, f, indent=2)
+            print(f"\nLevel filter results written to {LEVEL_RESULTS_PATH}")
 
     # Summary
     elapsed = time.time() - start

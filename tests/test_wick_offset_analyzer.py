@@ -298,6 +298,84 @@ class TestBulletPlanPromotion:
         assert bp["reserve"][0]["shares"] == 30
 
 
+class TestLevelFilters:
+    """Tests: neural level filters applied in _compute_bullet_plan()."""
+
+    CAP = TestBulletPlanPromotion.CAP
+
+    @staticmethod
+    def _make_level(price, zone, tier, hold_rate=50.0, touch_freq=2.0, dormant=False):
+        """Build level_result with filter-relevant fields."""
+        return {
+            "level": {"price": price, "source": "HVN"},
+            "events": [{"start": "2026-01-01", "min_low": price, "offset_pct": -1.0, "held": True}],
+            "total_approaches": 4, "held": 2,
+            "hold_rate": hold_rate, "decayed_hold_rate": hold_rate,
+            "median_offset": -1.0, "recommended_buy": price * 0.99,
+            "zone": zone, "tier": tier, "effective_tier": tier,
+            "tier_override": False, "tier_promoted": False,
+            "gap_pct": 5.0, "monthly_touch_freq": touch_freq,
+            "dormant": dormant,
+        }
+
+    def test_no_filters_passes_all(self):
+        """level_filters=None passes all levels (backward compat)."""
+        levels = [self._make_level(10.0, "Active", "Full"),
+                  self._make_level(8.0, "Reserve", "Full")]
+        bp = _compute_bullet_plan(levels, current_price=11.0, cap=self.CAP, level_filters=None)
+        assert len(bp["active"]) == 1
+        assert len(bp["reserve"]) == 1
+
+    def test_min_hold_rate_filters_active(self):
+        """Active level with 30% hold rate removed when min_hold_rate=50."""
+        level = self._make_level(10.0, "Active", "Full", hold_rate=30.0)
+        filters = {"min_hold_rate": 50}
+        bp = _compute_bullet_plan([level], current_price=11.0, cap=self.CAP, level_filters=filters)
+        assert len(bp["active"]) == 0
+
+    def test_min_hold_rate_does_not_filter_reserve(self):
+        """Reserve level with 30% hold rate KEPT when min_hold_rate=50 (zone-aware)."""
+        level = self._make_level(10.0, "Reserve", "Full", hold_rate=30.0)
+        filters = {"min_hold_rate": 50}
+        bp = _compute_bullet_plan([level], current_price=11.0, cap=self.CAP, level_filters=filters)
+        assert len(bp["reserve"]) == 1
+
+    def test_min_touch_freq_filters_both_zones(self):
+        """Both zones filtered when touch_freq below threshold."""
+        active = self._make_level(10.0, "Active", "Full", touch_freq=0.5)
+        reserve = self._make_level(8.0, "Reserve", "Full", touch_freq=0.5)
+        filters = {"min_touch_freq": 1.0}
+        bp = _compute_bullet_plan([active, reserve], current_price=11.0, cap=self.CAP, level_filters=filters)
+        assert len(bp["active"]) == 0
+        assert len(bp["reserve"]) == 0
+
+    def test_zone_filter_active_skips_reserve(self):
+        """zone_filter='active' produces empty reserve list."""
+        active = self._make_level(10.0, "Active", "Full")
+        reserve = self._make_level(8.0, "Reserve", "Full")
+        filters = {"zone_filter": "active"}
+        bp = _compute_bullet_plan([active, reserve], current_price=11.0, cap=self.CAP, level_filters=filters)
+        assert len(bp["active"]) == 1
+        assert len(bp["reserve"]) == 0
+
+    def test_skip_dormant_filters_both_zones(self):
+        """Dormant levels removed when skip_dormant=True."""
+        active = self._make_level(10.0, "Active", "Full", dormant=True)
+        reserve = self._make_level(8.0, "Reserve", "Full", dormant=True)
+        filters = {"skip_dormant": True}
+        bp = _compute_bullet_plan([active, reserve], current_price=11.0, cap=self.CAP, level_filters=filters)
+        assert len(bp["active"]) == 0
+        assert len(bp["reserve"]) == 0
+
+    def test_all_levels_filtered_returns_empty_plan(self):
+        """All levels fail filters — empty plan, no crash."""
+        level = self._make_level(10.0, "Active", "Full", hold_rate=10.0, touch_freq=0.1, dormant=True)
+        filters = {"min_hold_rate": 50, "min_touch_freq": 1.0, "skip_dormant": True}
+        bp = _compute_bullet_plan([level], current_price=11.0, cap=self.CAP, level_filters=filters)
+        assert len(bp["active"]) == 0
+        assert len(bp["reserve"]) == 0
+
+
 class TestPoolSizing:
     """Tests for compute_pool_sizing() — equal-impact pool distribution."""
 
