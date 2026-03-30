@@ -1,16 +1,17 @@
 {
   "_meta": {
     "source": "neural_support_discoverer.py",
-    "updated": "2026-03-29",
-    "tickers_swept": 68,
-    "profitable": 68,
-    "passed_gates": 63,
+    "updated": "2026-03-30",
+    "tickers_swept": 70,
+    "profitable": 70,
+    "passed_gates": 65,
     "overfit_flagged": 0
   },
   "candidates": [
     {
       "ticker": "APP",
       "pnl": 1196.49,
+      "composite": 458.1,
       "win_rate": 100.0,
       "trades": 26,
       "cycles": 26,
@@ -35,13 +36,40 @@
         "pool_efficiency": 3.857,
         "cycle_count": 26
       },
+      "periods": {
+        "12": {
+          "pnl": 1157.23,
+          "cycles": 26,
+          "trades": 26,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 1157.23,
+          "cycles": 26,
+          "trades": 26,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 1157.23,
+          "cycles": 26,
+          "trades": 26,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 1157.23,
+          "cycles": 26,
+          "trades": 26,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 1
+      "cluster": 0
     },
     {
       "ticker": "MSTR",
       "pnl": 973.57,
+      "composite": 370.2,
       "win_rate": 100.0,
       "trades": 32,
       "cycles": 32,
@@ -66,13 +94,40 @@
         "pool_efficiency": 3.117,
         "cycle_count": 32
       },
+      "periods": {
+        "12": {
+          "pnl": 935.21,
+          "cycles": 32,
+          "trades": 32,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 935.21,
+          "cycles": 32,
+          "trades": 32,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 935.21,
+          "cycles": 32,
+          "trades": 32,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 935.21,
+          "cycles": 32,
+          "trades": 32,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 1
+      "cluster": 0
     },
     {
       "ticker": "TSLA",
       "pnl": 850.69,
+      "composite": 323.4,
       "win_rate": 100.0,
       "trades": 15,
       "cycles": 15,
@@ -97,36 +152,31 @@
         "pool_efficiency": 2.724,
         "cycle_count": 15
       },
-      "cross_validation": null,
-      "overfit": false,
-      "cluster": 1
-    },
-    {
-      "ticker": "RDW",
-      "pnl": 770.6,
-      "win_rate": 100.0,
-      "trades": 52,
-      "cycles": 52,
-      "sharpe": 1.1,
-      "params": {
-        "sell_default": 10.0,
-        "cat_hard_stop": 15,
-        "active_pool": 500,
-        "reserve_pool": 200,
-        "active_bullets_max": 7,
-        "reserve_bullets_max": 2,
-        "tier_full": 40,
-        "tier_std": 20
-      },
-      "features": {
-        "target_hit_rate": 0.058,
-        "stop_hit_rate": 0.0,
-        "mean_pnl_pct": 4.577,
-        "trade_count": 52,
-        "median_hold_days": 9.0,
-        "avg_bullets_per_cycle": 2.0,
-        "pool_efficiency": 1.731,
-        "cycle_count": 52
+      "periods": {
+        "12": {
+          "pnl": 817.11,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 817.11,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 817.11,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 817.11,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        }
       },
       "cross_validation": null,
       "overfit": false,
@@ -135,6 +185,7 @@
     {
       "ticker": "ARM",
       "pnl": 739.12,
+      "composite": 274.8,
       "win_rate": 100.0,
       "trades": 23,
       "cycles": 23,
@@ -159,13 +210,98 @@
         "pool_efficiency": 2.314,
         "cycle_count": 23
       },
+      "periods": {
+        "12": {
+          "pnl": 694.31,
+          "cycles": 23,
+          "trades": 23,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 694.31,
+          "cycles": 23,
+          "trades": 23,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 694.31,
+          "cycles": 23,
+          "trades": 23,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 694.31,
+          "cycles": 23,
+          "trades": 23,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 0
+      "cluster": 1
+    },
+    {
+      "ticker": "RDW",
+      "pnl": 770.6,
+      "composite": 205.5,
+      "win_rate": 100.0,
+      "trades": 52,
+      "cycles": 52,
+      "sharpe": 1.1,
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15,
+        "active_pool": 500,
+        "reserve_pool": 200,
+        "active_bullets_max": 7,
+        "reserve_bullets_max": 2,
+        "tier_full": 40,
+        "tier_std": 20
+      },
+      "features": {
+        "target_hit_rate": 0.058,
+        "stop_hit_rate": 0.0,
+        "mean_pnl_pct": 4.577,
+        "trade_count": 52,
+        "median_hold_days": 9.0,
+        "avg_bullets_per_cycle": 2.0,
+        "pool_efficiency": 1.731,
+        "cycle_count": 52
+      },
+      "periods": {
+        "12": {
+          "pnl": 519.17,
+          "cycles": 52,
+          "trades": 52,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 519.17,
+          "cycles": 52,
+          "trades": 52,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 519.17,
+          "cycles": 52,
+          "trades": 52,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 519.17,
+          "cycles": 52,
+          "trades": 52,
+          "win_rate": 100.0
+        }
+      },
+      "cross_validation": null,
+      "overfit": false,
+      "cluster": 1
     },
     {
       "ticker": "NVDA",
       "pnl": 464.88,
+      "composite": 184.0,
       "win_rate": 100.0,
       "trades": 15,
       "cycles": 15,
@@ -184,13 +320,92 @@
         "pool_efficiency": 1.55,
         "cycle_count": 15
       },
+      "periods": {
+        "12": {
+          "pnl": 464.88,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 464.88,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 464.88,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 464.88,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 1
+      "cluster": 0
+    },
+    {
+      "ticker": "SMCI",
+      "pnl": 461.43,
+      "composite": 182.6,
+      "win_rate": 100.0,
+      "trades": 46,
+      "cycles": 46,
+      "sharpe": 1.24,
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "features": {
+        "target_hit_rate": 0.087,
+        "stop_hit_rate": 0.0,
+        "mean_pnl_pct": 4.87,
+        "trade_count": 46,
+        "median_hold_days": 16.0,
+        "avg_bullets_per_cycle": 2.1,
+        "pool_efficiency": 1.538,
+        "cycle_count": 46
+      },
+      "periods": {
+        "12": {
+          "pnl": 461.43,
+          "cycles": 46,
+          "trades": 46,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 461.43,
+          "cycles": 46,
+          "trades": 46,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 461.43,
+          "cycles": 46,
+          "trades": 46,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 461.43,
+          "cycles": 46,
+          "trades": 46,
+          "win_rate": 100.0
+        }
+      },
+      "cross_validation": null,
+      "overfit": false,
+      "cluster": 0
     },
     {
       "ticker": "SMR",
       "pnl": 455.01,
+      "composite": 180.1,
       "win_rate": 100.0,
       "trades": 50,
       "cycles": 50,
@@ -209,13 +424,40 @@
         "pool_efficiency": 1.517,
         "cycle_count": 50
       },
+      "periods": {
+        "12": {
+          "pnl": 455.01,
+          "cycles": 50,
+          "trades": 50,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 455.01,
+          "cycles": 50,
+          "trades": 50,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 455.01,
+          "cycles": 50,
+          "trades": 50,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 455.01,
+          "cycles": 50,
+          "trades": 50,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 1
+      "cluster": 0
     },
     {
       "ticker": "IBRX",
       "pnl": 445.8,
+      "composite": 176.5,
       "win_rate": 100.0,
       "trades": 30,
       "cycles": 30,
@@ -234,6 +476,32 @@
         "pool_efficiency": 1.486,
         "cycle_count": 30
       },
+      "periods": {
+        "12": {
+          "pnl": 445.8,
+          "cycles": 30,
+          "trades": 30,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 445.8,
+          "cycles": 30,
+          "trades": 30,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 445.8,
+          "cycles": 30,
+          "trades": 30,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 445.8,
+          "cycles": 30,
+          "trades": 30,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
       "cluster": 1
@@ -241,6 +509,7 @@
     {
       "ticker": "USAR",
       "pnl": 428.4,
+      "composite": 169.6,
       "win_rate": 100.0,
       "trades": 41,
       "cycles": 41,
@@ -259,13 +528,40 @@
         "pool_efficiency": 1.428,
         "cycle_count": 41
       },
+      "periods": {
+        "12": {
+          "pnl": 428.4,
+          "cycles": 41,
+          "trades": 41,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 428.4,
+          "cycles": 41,
+          "trades": 41,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 428.4,
+          "cycles": 41,
+          "trades": 41,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 428.4,
+          "cycles": 41,
+          "trades": 41,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 1
+      "cluster": 0
     },
     {
       "ticker": "MU",
       "pnl": 426.02,
+      "composite": 168.6,
       "win_rate": 100.0,
       "trades": 12,
       "cycles": 12,
@@ -284,6 +580,32 @@
         "pool_efficiency": 1.42,
         "cycle_count": 12
       },
+      "periods": {
+        "12": {
+          "pnl": 426.02,
+          "cycles": 12,
+          "trades": 12,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 426.02,
+          "cycles": 12,
+          "trades": 12,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 426.02,
+          "cycles": 12,
+          "trades": 12,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 426.02,
+          "cycles": 12,
+          "trades": 12,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
       "cluster": 0
@@ -291,6 +613,7 @@
     {
       "ticker": "UGRO",
       "pnl": 418.96,
+      "composite": 165.8,
       "win_rate": 100.0,
       "trades": 45,
       "cycles": 45,
@@ -309,13 +632,40 @@
         "pool_efficiency": 1.397,
         "cycle_count": 45
       },
+      "periods": {
+        "12": {
+          "pnl": 418.96,
+          "cycles": 45,
+          "trades": 45,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 418.96,
+          "cycles": 45,
+          "trades": 45,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 418.96,
+          "cycles": 45,
+          "trades": 45,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 418.96,
+          "cycles": 45,
+          "trades": 45,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 1
+      "cluster": 0
     },
     {
       "ticker": "HOOD",
       "pnl": 414.64,
+      "composite": 164.1,
       "win_rate": 100.0,
       "trades": 25,
       "cycles": 25,
@@ -334,13 +684,40 @@
         "pool_efficiency": 1.382,
         "cycle_count": 25
       },
+      "periods": {
+        "12": {
+          "pnl": 414.64,
+          "cycles": 25,
+          "trades": 25,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 414.64,
+          "cycles": 25,
+          "trades": 25,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 414.64,
+          "cycles": 25,
+          "trades": 25,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 414.64,
+          "cycles": 25,
+          "trades": 25,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 1
+      "cluster": 0
     },
     {
       "ticker": "HIMS",
       "pnl": 409.85,
+      "composite": 162.2,
       "win_rate": 100.0,
       "trades": 35,
       "cycles": 35,
@@ -359,13 +736,40 @@
         "pool_efficiency": 1.366,
         "cycle_count": 35
       },
+      "periods": {
+        "12": {
+          "pnl": 409.85,
+          "cycles": 35,
+          "trades": 35,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 409.85,
+          "cycles": 35,
+          "trades": 35,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 409.85,
+          "cycles": 35,
+          "trades": 35,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 409.85,
+          "cycles": 35,
+          "trades": 35,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 1
+      "cluster": 0
     },
     {
       "ticker": "STIM",
       "pnl": 399.94,
+      "composite": 158.3,
       "win_rate": 100.0,
       "trades": 60,
       "cycles": 60,
@@ -384,13 +788,40 @@
         "pool_efficiency": 1.333,
         "cycle_count": 60
       },
+      "periods": {
+        "12": {
+          "pnl": 399.94,
+          "cycles": 60,
+          "trades": 60,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 399.94,
+          "cycles": 60,
+          "trades": 60,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 399.94,
+          "cycles": 60,
+          "trades": 60,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 399.94,
+          "cycles": 60,
+          "trades": 60,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 1
+      "cluster": 0
     },
     {
       "ticker": "LUNR",
       "pnl": 392.37,
+      "composite": 155.3,
       "win_rate": 100.0,
       "trades": 40,
       "cycles": 40,
@@ -409,13 +840,40 @@
         "pool_efficiency": 1.308,
         "cycle_count": 40
       },
+      "periods": {
+        "12": {
+          "pnl": 392.37,
+          "cycles": 40,
+          "trades": 40,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 392.37,
+          "cycles": 40,
+          "trades": 40,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 392.37,
+          "cycles": 40,
+          "trades": 40,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 392.37,
+          "cycles": 40,
+          "trades": 40,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 1
+      "cluster": 0
     },
     {
       "ticker": "PLTR",
       "pnl": 390.92,
+      "composite": 154.7,
       "win_rate": 100.0,
       "trades": 26,
       "cycles": 26,
@@ -434,30 +892,31 @@
         "pool_efficiency": 1.303,
         "cycle_count": 26
       },
-      "cross_validation": null,
-      "overfit": false,
-      "cluster": 1
-    },
-    {
-      "ticker": "RCAT",
-      "pnl": 388.62,
-      "win_rate": 100.0,
-      "trades": 49,
-      "cycles": 49,
-      "sharpe": 1.94,
-      "params": {
-        "sell_default": 10.0,
-        "cat_hard_stop": 15
-      },
-      "features": {
-        "target_hit_rate": 0.163,
-        "stop_hit_rate": 0.0,
-        "mean_pnl_pct": 5.633,
-        "trade_count": 49,
-        "median_hold_days": 4.0,
-        "avg_bullets_per_cycle": 1.3,
-        "pool_efficiency": 1.295,
-        "cycle_count": 49
+      "periods": {
+        "12": {
+          "pnl": 390.92,
+          "cycles": 26,
+          "trades": 26,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 390.92,
+          "cycles": 26,
+          "trades": 26,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 390.92,
+          "cycles": 26,
+          "trades": 26,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 390.92,
+          "cycles": 26,
+          "trades": 26,
+          "win_rate": 100.0
+        }
       },
       "cross_validation": null,
       "overfit": false,
@@ -466,6 +925,7 @@
     {
       "ticker": "NIO",
       "pnl": 388.48,
+      "composite": 153.8,
       "win_rate": 100.0,
       "trades": 18,
       "cycles": 18,
@@ -484,13 +944,92 @@
         "pool_efficiency": 1.295,
         "cycle_count": 18
       },
+      "periods": {
+        "12": {
+          "pnl": 388.48,
+          "cycles": 18,
+          "trades": 18,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 388.48,
+          "cycles": 18,
+          "trades": 18,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 388.48,
+          "cycles": 18,
+          "trades": 18,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 388.48,
+          "cycles": 18,
+          "trades": 18,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 1
+      "cluster": 0
+    },
+    {
+      "ticker": "RCAT",
+      "pnl": 388.62,
+      "composite": 153.8,
+      "win_rate": 100.0,
+      "trades": 49,
+      "cycles": 49,
+      "sharpe": 1.94,
+      "params": {
+        "sell_default": 10.0,
+        "cat_hard_stop": 15
+      },
+      "features": {
+        "target_hit_rate": 0.163,
+        "stop_hit_rate": 0.0,
+        "mean_pnl_pct": 5.633,
+        "trade_count": 49,
+        "median_hold_days": 4.0,
+        "avg_bullets_per_cycle": 1.3,
+        "pool_efficiency": 1.295,
+        "cycle_count": 49
+      },
+      "periods": {
+        "12": {
+          "pnl": 388.62,
+          "cycles": 49,
+          "trades": 49,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 388.62,
+          "cycles": 49,
+          "trades": 49,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 388.62,
+          "cycles": 49,
+          "trades": 49,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 388.62,
+          "cycles": 49,
+          "trades": 49,
+          "win_rate": 100.0
+        }
+      },
+      "cross_validation": null,
+      "overfit": false,
+      "cluster": 0
     },
     {
       "ticker": "IONQ",
       "pnl": 373.51,
+      "composite": 147.8,
       "win_rate": 100.0,
       "trades": 32,
       "cycles": 32,
@@ -509,13 +1048,40 @@
         "pool_efficiency": 1.245,
         "cycle_count": 32
       },
+      "periods": {
+        "12": {
+          "pnl": 373.51,
+          "cycles": 32,
+          "trades": 32,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 373.51,
+          "cycles": 32,
+          "trades": 32,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 373.51,
+          "cycles": 32,
+          "trades": 32,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 373.51,
+          "cycles": 32,
+          "trades": 32,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 1
+      "cluster": 0
     },
     {
       "ticker": "UAMY",
       "pnl": 356.82,
+      "composite": 141.2,
       "win_rate": 100.0,
       "trades": 24,
       "cycles": 24,
@@ -534,13 +1100,40 @@
         "pool_efficiency": 1.189,
         "cycle_count": 24
       },
+      "periods": {
+        "12": {
+          "pnl": 356.82,
+          "cycles": 24,
+          "trades": 24,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 356.82,
+          "cycles": 24,
+          "trades": 24,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 356.82,
+          "cycles": 24,
+          "trades": 24,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 356.82,
+          "cycles": 24,
+          "trades": 24,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 1
+      "cluster": 0
     },
     {
       "ticker": "NU",
       "pnl": 346.94,
+      "composite": 137.3,
       "win_rate": 100.0,
       "trades": 15,
       "cycles": 15,
@@ -559,13 +1152,40 @@
         "pool_efficiency": 1.156,
         "cycle_count": 15
       },
+      "periods": {
+        "12": {
+          "pnl": 346.94,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 346.94,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 346.94,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 346.94,
+          "cycles": 15,
+          "trades": 15,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 1
+      "cluster": 0
     },
     {
       "ticker": "CLSK",
       "pnl": 336.27,
+      "composite": 133.1,
       "win_rate": 100.0,
       "trades": 50,
       "cycles": 50,
@@ -584,13 +1204,40 @@
         "pool_efficiency": 1.121,
         "cycle_count": 50
       },
+      "periods": {
+        "12": {
+          "pnl": 336.27,
+          "cycles": 50,
+          "trades": 50,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 336.27,
+          "cycles": 50,
+          "trades": 50,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 336.27,
+          "cycles": 50,
+          "trades": 50,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 336.27,
+          "cycles": 50,
+          "trades": 50,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 1
+      "cluster": 0
     },
     {
       "ticker": "DNA",
       "pnl": 335.86,
+      "composite": 132.9,
       "win_rate": 100.0,
       "trades": 56,
       "cycles": 56,
@@ -609,6 +1256,32 @@
         "pool_efficiency": 1.12,
         "cycle_count": 56
       },
+      "periods": {
+        "12": {
+          "pnl": 335.86,
+          "cycles": 56,
+          "trades": 56,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 335.86,
+          "cycles": 56,
+          "trades": 56,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 335.86,
+          "cycles": 56,
+          "trades": 56,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 335.86,
+          "cycles": 56,
+          "trades": 56,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
       "cluster": 1
@@ -616,6 +1289,7 @@
     {
       "ticker": "EOSE",
       "pnl": 330.92,
+      "composite": 131.0,
       "win_rate": 100.0,
       "trades": 45,
       "cycles": 45,
@@ -634,13 +1308,40 @@
         "pool_efficiency": 1.103,
         "cycle_count": 45
       },
+      "periods": {
+        "12": {
+          "pnl": 330.92,
+          "cycles": 45,
+          "trades": 45,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 330.92,
+          "cycles": 45,
+          "trades": 45,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 330.92,
+          "cycles": 45,
+          "trades": 45,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 330.92,
+          "cycles": 45,
+          "trades": 45,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 0
+      "cluster": 1
     },
     {
       "ticker": "ASTS",
       "pnl": 329.42,
+      "composite": 130.4,
       "win_rate": 100.0,
       "trades": 30,
       "cycles": 30,
@@ -659,6 +1360,32 @@
         "pool_efficiency": 1.098,
         "cycle_count": 30
       },
+      "periods": {
+        "12": {
+          "pnl": 329.42,
+          "cycles": 30,
+          "trades": 30,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 329.42,
+          "cycles": 30,
+          "trades": 30,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 329.42,
+          "cycles": 30,
+          "trades": 30,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 329.42,
+          "cycles": 30,
+          "trades": 30,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
       "cluster": 0
@@ -666,6 +1393,7 @@
     {
       "ticker": "SOUN",
       "pnl": 327.24,
+      "composite": 129.5,
       "win_rate": 100.0,
       "trades": 44,
       "cycles": 44,
@@ -684,13 +1412,40 @@
         "pool_efficiency": 1.091,
         "cycle_count": 44
       },
+      "periods": {
+        "12": {
+          "pnl": 327.24,
+          "cycles": 44,
+          "trades": 44,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 327.24,
+          "cycles": 44,
+          "trades": 44,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 327.24,
+          "cycles": 44,
+          "trades": 44,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 327.24,
+          "cycles": 44,
+          "trades": 44,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 1
+      "cluster": 0
     },
     {
       "ticker": "BBAI",
       "pnl": 323.95,
+      "composite": 128.2,
       "win_rate": 100.0,
       "trades": 45,
       "cycles": 45,
@@ -709,6 +1464,32 @@
         "pool_efficiency": 1.08,
         "cycle_count": 45
       },
+      "periods": {
+        "12": {
+          "pnl": 323.95,
+          "cycles": 45,
+          "trades": 45,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 323.95,
+          "cycles": 45,
+          "trades": 45,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 323.95,
+          "cycles": 45,
+          "trades": 45,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 323.95,
+          "cycles": 45,
+          "trades": 45,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
       "cluster": 1
@@ -716,6 +1497,7 @@
     {
       "ticker": "UPST",
       "pnl": 314.86,
+      "composite": 124.6,
       "win_rate": 100.0,
       "trades": 40,
       "cycles": 40,
@@ -734,13 +1516,40 @@
         "pool_efficiency": 1.05,
         "cycle_count": 40
       },
+      "periods": {
+        "12": {
+          "pnl": 314.86,
+          "cycles": 40,
+          "trades": 40,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 314.86,
+          "cycles": 40,
+          "trades": 40,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 314.86,
+          "cycles": 40,
+          "trades": 40,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 314.86,
+          "cycles": 40,
+          "trades": 40,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
-      "cluster": 0
+      "cluster": 1
     },
     {
       "ticker": "RXRX",
       "pnl": 314.48,
+      "composite": 124.5,
       "win_rate": 100.0,
       "trades": 33,
       "cycles": 33,
@@ -759,34 +1568,35 @@
         "pool_efficiency": 1.048,
         "cycle_count": 33
       },
+      "periods": {
+        "12": {
+          "pnl": 314.48,
+          "cycles": 33,
+          "trades": 33,
+          "win_rate": 100.0
+        },
+        "6": {
+          "pnl": 314.48,
+          "cycles": 33,
+          "trades": 33,
+          "win_rate": 100.0
+        },
+        "3": {
+          "pnl": 314.48,
+          "cycles": 33,
+          "trades": 33,
+          "win_rate": 100.0
+        },
+        "1": {
+          "pnl": 314.48,
+          "cycles": 33,
+          "trades": 33,
+          "win_rate": 100.0
+        }
+      },
       "cross_validation": null,
       "overfit": false,
       "cluster": 0
-    },
-    {
-      "ticker": "RIOT",
-      "pnl": 296.55,
-      "win_rate": 100.0,
-      "trades": 38,
-      "cycles": 38,
-      "sharpe": 2.89,
-      "params": {
-        "sell_default": 10.0,
-        "cat_hard_stop": 15
-      },
-      "features": {
-        "target_hit_rate": 0.105,
-        "stop_hit_rate": 0.0,
-        "mean_pnl_pct": 5.0,
-        "trade_count": 38,
-        "median_hold_days": 5.5,
-        "avg_bullets_per_cycle": 1.7,
-        "pool_efficiency": 0.989,
-        "cycle_count": 38
-      },
-      "cross_validation": null,
-      "overfit": false,
-      "cluster": 1
     }
   ]
 }
