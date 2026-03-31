@@ -118,7 +118,7 @@ def compute_alerts(orders, prices, state):
         existing = state.get(key)
         if existing and level != "FILLED?":
             existing_level = existing.get("level", "")
-            if existing_level in ("IMMINENT", "FILLED?"):
+            if existing_level == "IMMINENT":
                 continue  # already at tightest non-fill level
             if existing_level == "APPROACHING" and level == "APPROACHING":
                 continue  # same level, already alerted
