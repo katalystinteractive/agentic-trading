@@ -732,12 +732,14 @@ def main():
     fill_p.add_argument("ticker")
     fill_p.add_argument("--price", type=float, required=True)
     fill_p.add_argument("--shares", type=int, required=True)
+    fill_p.add_argument("--trade-date", type=str, default=None, dest="trade_date")
 
     # sell TICKER --price P --shares N
     sell_p = subparsers.add_parser("sell")
     sell_p.add_argument("ticker")
     sell_p.add_argument("--price", type=float, required=True)
     sell_p.add_argument("--shares", type=int, required=True)
+    sell_p.add_argument("--trade-date", type=str, default=None, dest="trade_date")
 
     # order TICKER --type T --price P --shares N --note "..." [--placed]
     order_p = subparsers.add_parser("order")

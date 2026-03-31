@@ -1,15 +1,26 @@
 {
   "_meta": {
     "version": 1,
-    "updated": "2026-03-30",
+    "updated": "2026-03-31",
     "stats": {
       "total_trades": 1215,
       "wins": 1206,
       "losses": 9,
       "source": "historical_trade_trainer",
-      "epochs": 10,
+      "epochs": 5,
       "learning_rate": 0.01,
       "total_synapses": 170
+    },
+    "stats_by_source": {
+      "historical_trade_trainer": {
+        "total_trades": 1215,
+        "wins": 1206,
+        "losses": 9,
+        "source": "historical_trade_trainer",
+        "epochs": 5,
+        "learning_rate": 0.01,
+        "total_synapses": 170
+      }
     }
   },
   "weights": {
@@ -146,7 +157,7 @@
       "RCAT:days_held": 1.0
     },
     "BATL:profit_gate": {
-      "BATL:pnl_pct": 0.9941
+      "BATL:pnl_pct": 1.0
     },
     "BATL:hold_gate": {
       "BATL:days_held": 1.0
@@ -164,10 +175,10 @@
       "MARA:days_held": 1.0
     },
     "SMR:profit_gate": {
-      "SMR:pnl_pct": 1.0
+      "SMR:pnl_pct": 0.9983
     },
     "SMR:hold_gate": {
-      "SMR:days_held": 0.9982
+      "SMR:days_held": 0.9974
     },
     "DNA:profit_gate": {
       "DNA:pnl_pct": 1.0
@@ -197,7 +208,7 @@
       "BMNR:pnl_pct": 1.0
     },
     "BMNR:hold_gate": {
-      "BMNR:days_held": 0.9982
+      "BMNR:days_held": 1.0
     },
     "IREN:profit_gate": {
       "IREN:pnl_pct": 1.0
@@ -248,10 +259,10 @@
       "BE:days_held": 1.0
     },
     "CRWV:profit_gate": {
-      "CRWV:pnl_pct": 0.9999
+      "CRWV:pnl_pct": 0.9967
     },
     "CRWV:hold_gate": {
-      "CRWV:days_held": 0.911
+      "CRWV:days_held": 0.845
     },
     "SOFI:profit_gate": {
       "SOFI:pnl_pct": 1.0
@@ -350,10 +361,10 @@
       "NIO:days_held": 1.0
     },
     "PATH:profit_gate": {
-      "PATH:pnl_pct": 1.0
+      "PATH:pnl_pct": 0.9988
     },
     "PATH:hold_gate": {
-      "PATH:days_held": 1.0
+      "PATH:days_held": 0.9956
     },
     "QBTS:profit_gate": {
       "QBTS:pnl_pct": 1.0
@@ -368,10 +379,10 @@
       "ASTS:days_held": 1.0
     },
     "VG:profit_gate": {
-      "VG:pnl_pct": 0.9916
+      "VG:pnl_pct": 0.9992
     },
     "VG:hold_gate": {
-      "VG:days_held": 0.744
+      "VG:days_held": 0.552
     },
     "WOLF:profit_gate": {
       "WOLF:pnl_pct": 1.0

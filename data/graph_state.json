@@ -1,18 +1,18 @@
 {
-  "run_date": "2026-03-28",
-  "run_ts": "2026-03-28T22:29:21",
+  "run_date": "2026-03-31",
+  "run_ts": "2026-03-31T21:25:24",
   "regime": "Risk-Off",
-  "vix": 31.049999237060547,
-  "vix_5d_pct": 18.7,
+  "vix": 26.260000228881836,
+  "vix_5d_pct": 3.7,
   "tickers": {
     "ACHR": {
       "avg_cost": 6.53,
       "shares": 92,
-      "pl_pct": -22.1,
+      "pl_pct": -20.7,
       "verdict": [
         "MONITOR",
         "R16",
-        "Time WITHIN (26d) \u2014 on track"
+        "Time WITHIN (29d) \u2014 on track"
       ],
       "catastrophic": "WARNING",
       "momentum": "Bearish",
@@ -26,18 +26,19 @@
         "composite": 18.9
       },
       "sell_target": [
-        6.92,
-        "standard 6.0%"
-      ]
+        6.99,
+        "neural_watchlist 7.0%"
+      ],
+      "dip_viable": "UNKNOWN"
     },
     "APLD": {
       "avg_cost": 28.7,
       "shares": 17,
-      "pl_pct": -17.2,
+      "pl_pct": -18.8,
       "verdict": [
         "MONITOR",
         "R16",
-        "Time WITHIN (39d) \u2014 on track"
+        "Time WITHIN (42d) \u2014 on track"
       ],
       "catastrophic": "WARNING",
       "momentum": "Bearish",
@@ -53,7 +54,8 @@
       "sell_target": [
         38.0,
         "target_exit"
-      ]
+      ],
+      "dip_viable": "UNKNOWN"
     },
     "AR": {
       "avg_cost": 0,
@@ -62,10 +64,10 @@
       "verdict": [
         "MONITOR",
         "R16",
-        "Time WITHIN (5d) \u2014 on track"
+        "Time WITHIN (8d) \u2014 on track"
       ],
       "catastrophic": null,
-      "momentum": "Bullish",
+      "momentum": "SKIPPED",
       "earnings_gate": "CLEAR",
       "time_status": "WITHIN",
       "pool": {
@@ -78,18 +80,19 @@
       "sell_target": [
         0,
         "no avg cost"
-      ]
+      ],
+      "dip_viable": "UNKNOWN"
     },
     "BBAI": {
       "avg_cost": 3.72,
       "shares": 100,
-      "pl_pct": -15.6,
+      "pl_pct": -6.5,
       "verdict": [
         "MONITOR",
         "R16",
-        "Time WITHIN (9d) \u2014 on track"
+        "Time WITHIN (12d) \u2014 on track"
       ],
-      "catastrophic": "WARNING",
+      "catastrophic": null,
       "momentum": "Bearish",
       "earnings_gate": "CLEAR",
       "time_status": "WITHIN",
@@ -101,21 +104,22 @@
         "composite": 21.1
       },
       "sell_target": [
-        3.94,
-        "standard 6.0%"
-      ]
+        3.91,
+        "neural_watchlist 5.0%"
+      ],
+      "dip_viable": "UNKNOWN"
     },
     "CIFR": {
-      "avg_cost": 14.57,
-      "shares": 14,
-      "pl_pct": -5.7,
+      "avg_cost": 14.11,
+      "shares": 21,
+      "pl_pct": -10.3,
       "verdict": [
         "MONITOR",
         "R16",
-        "Time WITHIN (2d) \u2014 on track"
+        "Time WITHIN (5d) \u2014 on track"
       ],
       "catastrophic": null,
-      "momentum": "Neutral",
+      "momentum": "Bearish",
       "earnings_gate": "CLEAR",
       "time_status": "WITHIN",
       "pool": {
@@ -126,18 +130,19 @@
         "composite": 21.5
       },
       "sell_target": [
-        16.32,
+        15.8,
         "optimized 12.0%"
-      ]
+      ],
+      "dip_viable": "UNKNOWN"
     },
     "CLF": {
       "avg_cost": 8.82,
       "shares": 80,
-      "pl_pct": -8.0,
+      "pl_pct": -5.2,
       "verdict": [
         "MONITOR",
         "R16",
-        "Time WITHIN (25d) \u2014 on track"
+        "Time WITHIN (28d) \u2014 on track"
       ],
       "catastrophic": null,
       "momentum": "Bearish",
@@ -151,18 +156,19 @@
         "composite": 13.7
       },
       "sell_target": [
-        9.35,
-        "standard 6.0%"
-      ]
+        9.7,
+        "neural_watchlist 10.0%"
+      ],
+      "dip_viable": "UNKNOWN"
     },
     "CLSK": {
       "avg_cost": 8.99,
       "shares": 42,
-      "pl_pct": -3.7,
+      "pl_pct": -5.7,
       "verdict": [
         "MONITOR",
         "R16",
-        "Time WITHIN (5d) \u2014 on track"
+        "Time WITHIN (8d) \u2014 on track"
       ],
       "catastrophic": null,
       "momentum": "Bearish",
@@ -178,16 +184,17 @@
       "sell_target": [
         10.07,
         "optimized 12.0%"
-      ]
+      ],
+      "dip_viable": "UNKNOWN"
     },
     "IONQ": {
       "avg_cost": 44.43,
       "shares": 15,
-      "pl_pct": -38.1,
+      "pl_pct": -35.1,
       "verdict": [
         "REVIEW",
         "R8-10",
-        "Recovery position (-38.1%) \u2014 needs momentum/thesis analysis"
+        "Recovery position (-35.1%) \u2014 needs momentum/thesis analysis"
       ],
       "catastrophic": "HARD_STOP",
       "momentum": "Bearish",
@@ -201,18 +208,19 @@
         "composite": 18.5
       },
       "sell_target": [
-        47.1,
-        "standard 6.0%"
-      ]
+        47.98,
+        "neural_watchlist 8.0%"
+      ],
+      "dip_viable": "BLOCKED"
     },
     "NNE": {
       "avg_cost": 23.18,
       "shares": 14,
-      "pl_pct": -12.5,
+      "pl_pct": -12.6,
       "verdict": [
         "MONITOR",
         "R16",
-        "Time WITHIN (23d) \u2014 on track"
+        "Time WITHIN (26d) \u2014 on track"
       ],
       "catastrophic": null,
       "momentum": "Bearish",
@@ -226,21 +234,22 @@
         "composite": 23.7
       },
       "sell_target": [
-        24.57,
-        "standard 6.0%"
-      ]
+        25.5,
+        "neural_watchlist 10.0%"
+      ],
+      "dip_viable": "UNKNOWN"
     },
     "NU": {
       "avg_cost": 15.85,
       "shares": 30,
-      "pl_pct": -14.2,
+      "pl_pct": -9.5,
       "verdict": [
         "MONITOR",
         "R16",
-        "Time WITHIN (43d) \u2014 on track"
+        "Time WITHIN (46d) \u2014 on track"
       ],
       "catastrophic": null,
-      "momentum": "Bearish",
+      "momentum": "Neutral",
       "earnings_gate": "CLEAR",
       "time_status": "WITHIN",
       "pool": {
@@ -253,16 +262,17 @@
       "sell_target": [
         16.75,
         "target_exit"
-      ]
+      ],
+      "dip_viable": "UNKNOWN"
     },
     "OKLO": {
       "avg_cost": 55.11,
       "shares": 5,
-      "pl_pct": -8.9,
+      "pl_pct": -10.4,
       "verdict": [
         "MONITOR",
         "R16",
-        "Time WITHIN (9d) \u2014 on track"
+        "Time WITHIN (12d) \u2014 on track"
       ],
       "catastrophic": null,
       "momentum": "Bearish",
@@ -276,18 +286,19 @@
         "composite": 21.7
       },
       "sell_target": [
-        58.42,
-        "standard 6.0%"
-      ]
+        59.52,
+        "neural_watchlist 8.0%"
+      ],
+      "dip_viable": "UNKNOWN"
     },
     "OUST": {
       "avg_cost": 20.66,
       "shares": 10,
-      "pl_pct": -14.5,
+      "pl_pct": -11.8,
       "verdict": [
         "MONITOR",
         "R16",
-        "Time WITHIN (9d) \u2014 on track"
+        "Time WITHIN (12d) \u2014 on track"
       ],
       "catastrophic": null,
       "momentum": "Bearish",
@@ -301,18 +312,19 @@
         "composite": 13.5
       },
       "sell_target": [
-        21.9,
-        "standard 6.0%"
-      ]
+        22.73,
+        "neural_watchlist 10.0%"
+      ],
+      "dip_viable": "UNKNOWN"
     },
     "RDW": {
-      "avg_cost": 8.52,
-      "shares": 24,
-      "pl_pct": -4.2,
+      "avg_cost": 8.25,
+      "shares": 36,
+      "pl_pct": 3.3,
       "verdict": [
         "MONITOR",
         "R16",
-        "Time WITHIN (1d) \u2014 on track"
+        "Time WITHIN (4d) \u2014 on track"
       ],
       "catastrophic": null,
       "momentum": "Bearish",
@@ -326,18 +338,19 @@
         "composite": 20.2
       },
       "sell_target": [
-        9.03,
-        "standard 6.0%"
-      ]
+        9.08,
+        "neural_watchlist 10.0%"
+      ],
+      "dip_viable": "UNKNOWN"
     },
     "RGTI": {
       "avg_cost": 14.28,
       "shares": 20,
-      "pl_pct": -6.7,
+      "pl_pct": -3.4,
       "verdict": [
         "MONITOR",
         "R16",
-        "Time WITHIN (2d) \u2014 on track"
+        "Time WITHIN (5d) \u2014 on track"
       ],
       "catastrophic": null,
       "momentum": "Bearish",
@@ -351,18 +364,19 @@
         "composite": 15.8
       },
       "sell_target": [
-        15.14,
-        "standard 6.0%"
-      ]
+        15.71,
+        "neural_watchlist 10.0%"
+      ],
+      "dip_viable": "UNKNOWN"
     },
     "TEM": {
       "avg_cost": 48.09,
       "shares": 6,
-      "pl_pct": -11.4,
+      "pl_pct": -5.6,
       "verdict": [
         "MONITOR",
         "R16",
-        "Time WITHIN (19d) \u2014 on track"
+        "Time WITHIN (22d) \u2014 on track"
       ],
       "catastrophic": null,
       "momentum": "Bearish",
@@ -376,20 +390,21 @@
         "composite": 13.5
       },
       "sell_target": [
-        50.98,
-        "standard 6.0%"
-      ]
+        52.9,
+        "neural_watchlist 10.0%"
+      ],
+      "dip_viable": "UNKNOWN"
     },
     "TMC": {
       "avg_cost": 5.14,
       "shares": 90,
-      "pl_pct": -16.9,
+      "pl_pct": -10.3,
       "verdict": [
         "MONITOR",
         "R16",
-        "Time WITHIN (15d) \u2014 on track"
+        "Time WITHIN (18d) \u2014 on track"
       ],
-      "catastrophic": "WARNING",
+      "catastrophic": null,
       "momentum": "Bearish",
       "earnings_gate": "CLEAR",
       "time_status": "WITHIN",
@@ -401,18 +416,19 @@
         "composite": 20.5
       },
       "sell_target": [
-        5.45,
-        "standard 6.0%"
-      ]
+        5.65,
+        "neural_watchlist 10.0%"
+      ],
+      "dip_viable": "UNKNOWN"
     },
     "USAR": {
       "avg_cost": 21.57,
       "shares": 15,
-      "pl_pct": -28.5,
+      "pl_pct": -30.4,
       "verdict": [
         "REVIEW",
         "R3",
-        "Recovery + GATED \u2014 needs thesis evaluation (P/L -28.5%)"
+        "Recovery + GATED \u2014 needs thesis evaluation (P/L -30.4%)"
       ],
       "catastrophic": "HARD_STOP",
       "momentum": "Bearish",
@@ -428,7 +444,8 @@
       "sell_target": [
         23.05,
         "target_exit"
-      ]
+      ],
+      "dip_viable": "BLOCKED"
     }
   },
   "orders": {

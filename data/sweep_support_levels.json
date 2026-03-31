@@ -1,0 +1,41 @@
+{
+  "STIM": {
+    "level_params": {
+      "min_hold_rate": 15,
+      "min_touch_freq": 0,
+      "skip_dormant": false,
+      "zone_filter": "active"
+    },
+    "stats": {
+      "composite": 48.4,
+      "pnl": 39.41,
+      "trades": 3
+    },
+    "periods": {
+      "12": {
+        "pnl": 591.47,
+        "cycles": 62,
+        "trades": 62,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 411.06,
+        "cycles": 28,
+        "trades": 28,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 109.56,
+        "cycles": 10,
+        "trades": 10,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 39.41,
+        "cycles": 3,
+        "trades": 3,
+        "win_rate": 100.0
+      }
+    }
+  }
+}
