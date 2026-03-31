@@ -77,6 +77,7 @@ def precompute_signals(tickers, trading_days, intraday, daily, n):
 
         day_signals = {}
         graph_errors = 0
+        data_errors = 0
         for day in trading_days:
             day_bars = intraday[intraday.index.date == day]
             if len(day_bars) < 12:
@@ -147,8 +148,8 @@ def precompute_signals(tickers, trading_days, intraday, daily, n):
                         rem_low = float(tk_low.min()) if len(tk_low) > 0 else None
                         rem_close = float(tk_close.iloc[-1]) if len(tk_close) > 0 else None
                     except Exception as e:
-                        graph_errors += 1
-                        if graph_errors <= 3:
+                        data_errors += 1
+                        if data_errors <= 3:
                             _log_progress(f"data extract error ({day}/{tk}): {type(e).__name__}: {e}")
                         continue
 
@@ -170,7 +171,8 @@ def precompute_signals(tickers, trading_days, intraday, daily, n):
 
         signals[dip_thresh] = day_signals
         n_days = len(day_signals)
-        errs = f" ({graph_errors} errors)" if graph_errors > 0 else ""
+        total_errs = graph_errors + data_errors
+        errs = f" ({graph_errors} graph + {data_errors} data errors)" if total_errs > 0 else ""
         print(f"  dip_thresh={dip_thresh}%: {n_days} signal days{errs}", flush=True)
 
     return signals
