@@ -18,7 +18,8 @@ from datetime import date
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from support_parameter_sweeper import (
-    sweep_threshold, extract_support_features, _collect_once, SWEEP_PERIODS,
+    sweep_threshold, sweep_execution, extract_support_features,
+    _collect_once, SWEEP_PERIODS,
 )
 
 _ROOT = Path(__file__).resolve().parent.parent
@@ -84,6 +85,22 @@ def main():
                 else:
                     skipped.append((tk, "no profitable combo"))
                     print(f"  {tk}: skipped (no profitable combo)", flush=True)
+
+        # Stage 2: sequential execution sweep on profitable tickers
+        if results:
+            print(f"\n  Stage 2: Execution sweep on {len(results)} profitable tickers...")
+            for tk in list(results.keys()):
+                print(f"  Stage 2: {tk}...", end=" ", flush=True)
+                try:
+                    exec_params, exec_result = sweep_execution(tk, results[tk]["params"])
+                    if exec_params:
+                        results[tk]["params"] = exec_params
+                        print(f"pool=${exec_params['active_pool']} "
+                              f"bullets={exec_params['active_bullets_max']}", flush=True)
+                    else:
+                        print("no improvement", flush=True)
+                except Exception:
+                    print("error", flush=True)
     else:
         for i, tk in enumerate(tickers):
             print(f"  [{i+1}/{len(tickers)}] {tk}...", end=" ", flush=True)
@@ -91,6 +108,14 @@ def main():
             try:
                 params, result, composite, periods = sweep_threshold(tk)
                 if params and result:
+                    # Stage 2: optimize pool/bullets with thresholds locked
+                    try:
+                        exec_params, exec_result = sweep_execution(tk, params)
+                        if exec_params:
+                            params = exec_params  # merged threshold + execution
+                    except Exception:
+                        pass  # Stage 2 failure is non-fatal
+
                     features = extract_support_features(tk, result)
                     results[tk] = {
                         "params": params,
@@ -104,9 +129,10 @@ def main():
                         "features": features,
                         "periods": periods,
                     }
+                    pool_info = f" pool=${params.get('active_pool', '?')}" if 'active_pool' in params else ""
                     print(f"sell={params['sell_default']}% "
                           f"P/L=${result.get('pnl', 0):.2f} "
-                          f"composite=${composite:.1f}/mo [{time.time()-t0:.0f}s]", flush=True)
+                          f"composite=${composite:.1f}/mo{pool_info} [{time.time()-t0:.0f}s]", flush=True)
                 else:
                     skipped.append((tk, "no profitable combo"))
                     print(f"skipped (no profitable combo) [{time.time()-t0:.0f}s]", flush=True)

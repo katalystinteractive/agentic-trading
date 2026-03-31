@@ -63,8 +63,8 @@ def load_capital_config(ticker=None):
             result = {
                 "active_pool": pool["active_pool"],
                 "reserve_pool": pool["reserve_pool"],
-                "active_bullets_max": cap.get("active_bullets_max", 5),
-                "reserve_bullets_max": cap.get("reserve_bullets_max", 3),
+                "active_bullets_max": pool.get("active_bullets_max") or cap.get("active_bullets_max", 5),
+                "reserve_bullets_max": pool.get("reserve_bullets_max") or cap.get("reserve_bullets_max", 3),
             }
             # Check neural support for bullet count overrides
             try:

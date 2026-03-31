@@ -76,6 +76,8 @@ def get_ticker_pool(ticker):
                 "active_pool": alloc.get("active_pool", _DEFAULT_ACTIVE),
                 "reserve_pool": alloc.get("reserve_pool", _DEFAULT_RESERVE),
                 "total_pool": alloc.get("total_pool", _DEFAULT_ACTIVE + _DEFAULT_RESERVE),
+                "active_bullets_max": alloc.get("active_bullets_max"),
+                "reserve_bullets_max": alloc.get("reserve_bullets_max"),
                 "source": "multi-period-scorer",
                 "composite": mp_data.get("composites", {}).get(ticker),
             }
@@ -95,6 +97,8 @@ def get_ticker_pool(ticker):
                         "active_pool": ap,
                         "reserve_pool": rp,
                         "total_pool": ap + rp,
+                        "active_bullets_max": params.get("active_bullets_max"),
+                        "reserve_bullets_max": params.get("reserve_bullets_max"),
                         "source": "neural_watchlist",
                         "composite": None,
                     }
@@ -116,6 +120,8 @@ def get_ticker_pool(ticker):
                         "active_pool": ap,
                         "reserve_pool": rp,
                         "total_pool": ap + rp,
+                        "active_bullets_max": params.get("active_bullets_max"),
+                        "reserve_bullets_max": params.get("reserve_bullets_max"),
                         "source": "neural_support",
                         "composite": None,
                     }
@@ -131,6 +137,8 @@ def get_ticker_pool(ticker):
             "active_pool": cap.get("active_pool", _DEFAULT_ACTIVE),
             "reserve_pool": cap.get("reserve_pool", _DEFAULT_RESERVE),
             "total_pool": cap.get("active_pool", _DEFAULT_ACTIVE) + cap.get("reserve_pool", _DEFAULT_RESERVE),
+            "active_bullets_max": cap.get("active_bullets_max"),
+            "reserve_bullets_max": cap.get("reserve_bullets_max"),
             "source": "portfolio.json (default)",
             "composite": None,
         }
@@ -139,6 +147,8 @@ def get_ticker_pool(ticker):
             "active_pool": _DEFAULT_ACTIVE,
             "reserve_pool": _DEFAULT_RESERVE,
             "total_pool": _DEFAULT_ACTIVE + _DEFAULT_RESERVE,
+            "active_bullets_max": None,
+            "reserve_bullets_max": None,
             "source": "hardcoded fallback",
             "composite": None,
         }
