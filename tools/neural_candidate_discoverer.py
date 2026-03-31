@@ -380,8 +380,8 @@ def main():
                 "cross_validation": cv,
             }
 
-        if (i + 1) % 100 == 0:
-            print(f"  [{i+1}/{n}] swept...", flush=True)
+        if (i + 1) % 10 == 0 or i == 0:
+            print(f"  [{i+1}/{n}] swept...", file=sys.stderr, flush=True)
 
     with_params = len(results)
     print(f"\n{with_params}/{n} tickers had profitable combos")

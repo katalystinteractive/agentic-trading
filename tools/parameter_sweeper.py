@@ -12,6 +12,7 @@ Usage:
 """
 import sys
 import json
+import time
 import itertools
 import argparse
 from pathlib import Path
@@ -21,6 +22,11 @@ from datetime import date
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import numpy as np
+
+def _log_progress(msg):
+    """Timestamped progress to stderr."""
+    print(f"  [{time.strftime('%H:%M:%S')}] {msg}", file=sys.stderr, flush=True)
+
 
 from neural_dip_evaluator import (
     build_first_hour_graph, build_decision_graph,
@@ -70,6 +76,7 @@ def precompute_signals(tickers, trading_days, intraday, daily, n):
         } for tk in tickers}
 
         day_signals = {}
+        graph_errors = 0
         for day in trading_days:
             day_bars = intraday[intraday.index.date == day]
             if len(day_bars) < 12:
@@ -89,7 +96,10 @@ def precompute_signals(tickers, trading_days, intraday, daily, n):
             try:
                 _, fh_state = build_first_hour_graph(
                     tickers, fh_bars, static, hist_ranges, "Neutral", profile)
-            except Exception:
+            except Exception as e:
+                graph_errors += 1
+                if graph_errors <= 3:
+                    _log_progress(f"graph build error ({day_str}): {type(e).__name__}: {e}")
                 continue
 
             # Compute raw breadth ratio from per-ticker dip_pct (no filtering)
@@ -136,7 +146,10 @@ def precompute_signals(tickers, trading_days, intraday, daily, n):
                         rem_high = float(tk_high.max()) if len(tk_high) > 0 else None
                         rem_low = float(tk_low.min()) if len(tk_low) > 0 else None
                         rem_close = float(tk_close.iloc[-1]) if len(tk_close) > 0 else None
-                    except Exception:
+                    except Exception as e:
+                        graph_errors += 1
+                        if graph_errors <= 3:
+                            _log_progress(f"data extract error ({day_str}/{tk}): {type(e).__name__}: {e}")
                         continue
 
                 if rem_high is None:
@@ -157,7 +170,8 @@ def precompute_signals(tickers, trading_days, intraday, daily, n):
 
         signals[dip_thresh] = day_signals
         n_days = len(day_signals)
-        print(f"  dip_thresh={dip_thresh}%: {n_days} signal days", flush=True)
+        errs = f" ({graph_errors} errors)" if graph_errors > 0 else ""
+        print(f"  dip_thresh={dip_thresh}%: {n_days} signal days{errs}", flush=True)
 
     return signals
 
@@ -180,12 +194,17 @@ def sweep_ticker(tk, signals, day_filter=None):
     best_params = None
     best_stats = None
     best_trades = []
+    combo_idx = 0
+    total_combos = len(SWEEP_DIP_THRESHOLDS) * len(SWEEP_TARGETS) * len(SWEEP_STOPS) * len(SWEEP_BREADTH)
 
     for dip_thresh in SWEEP_DIP_THRESHOLDS:
         day_signals = signals.get(dip_thresh, {})
 
         for target_pct, stop_pct, breadth_thresh in itertools.product(
                 SWEEP_TARGETS, SWEEP_STOPS, SWEEP_BREADTH):
+            combo_idx += 1
+            if combo_idx % 100 == 0 or combo_idx == 1:
+                _log_progress(f"dip combo {combo_idx}/{total_combos}")
             total_pnl = 0.0
             trades = 0
             wins = 0

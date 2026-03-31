@@ -1,10 +1,13 @@
 """Tests for wick_offset_analyzer zone/tier classification logic."""
 import sys
+import json
 from pathlib import Path
 
 # Allow importing from tools/
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
-from wick_offset_analyzer import classify_level, compute_effective_tier, _compute_bullet_plan, compute_pool_sizing, POOL_MAX_FRACTION, ACTIVE_RADIUS_CAP, sizing_description
+from wick_offset_analyzer import (classify_level, compute_effective_tier, _compute_bullet_plan,
+                                   compute_pool_sizing, POOL_MAX_FRACTION, ACTIVE_RADIUS_CAP,
+                                   sizing_description, _load_level_filters)
 
 
 class TestClassifyLevel:
@@ -374,6 +377,76 @@ class TestLevelFilters:
         bp = _compute_bullet_plan([level], current_price=11.0, cap=self.CAP, level_filters=filters)
         assert len(bp["active"]) == 0
         assert len(bp["reserve"]) == 0
+
+
+    def test_dormant_sorts_last_when_not_skipped(self):
+        """Dormant levels pass through but sort after fresh levels."""
+        fresh = self._make_level(10.0, "Active", "Full", dormant=False)
+        dormant = self._make_level(9.0, "Active", "Full", dormant=True)
+        filters = {"skip_dormant": False}
+        bp = _compute_bullet_plan([dormant, fresh], current_price=11.0, cap=self.CAP, level_filters=filters)
+        assert len(bp["active"]) == 2
+        # Fresh (dormant=False) sorts first, dormant sorts last
+        assert bp["active"][0]["dormant"] is False
+        assert bp["active"][1]["dormant"] is True
+
+    def test_min_hold_rate_uses_decayed_over_raw(self):
+        """Filter uses decayed_hold_rate, not raw hold_rate."""
+        level = self._make_level(10.0, "Active", "Full", hold_rate=60.0)
+        level["decayed_hold_rate"] = 30.0  # override: decayed is worse
+        filters = {"min_hold_rate": 50}
+        bp = _compute_bullet_plan([level], current_price=11.0, cap=self.CAP, level_filters=filters)
+        assert len(bp["active"]) == 0  # filtered by decayed (30 < 50)
+
+    def test_zone_filter_all_keeps_reserve(self):
+        """zone_filter='all' keeps both active and reserve levels."""
+        active = self._make_level(10.0, "Active", "Full")
+        reserve = self._make_level(8.0, "Reserve", "Full")
+        filters = {"zone_filter": "all"}
+        bp = _compute_bullet_plan([active, reserve], current_price=11.0, cap=self.CAP, level_filters=filters)
+        assert len(bp["active"]) == 1
+        assert len(bp["reserve"]) == 1
+
+
+class TestLoadLevelFilters:
+    """Tests for _load_level_filters file loading."""
+
+    def test_returns_none_when_file_missing(self, monkeypatch):
+        """No sweep file → None (no filtering)."""
+        import wick_offset_analyzer as woa
+        monkeypatch.setattr(woa, "_LEVEL_FILTER_PATH", Path("/nonexistent/path.json"))
+        monkeypatch.setattr(woa, "_level_filter_cache", {"mtime": 0, "data": None})
+        assert _load_level_filters("CIFR") is None
+
+    def test_returns_params_for_known_ticker(self, tmp_path, monkeypatch):
+        """Known ticker returns its level_params dict."""
+        import wick_offset_analyzer as woa
+        lf_path = tmp_path / "sweep_support_levels.json"
+        lf_path.write_text(json.dumps({
+            "CIFR": {"level_params": {"min_hold_rate": 50, "zone_filter": "active"}}
+        }))
+        monkeypatch.setattr(woa, "_LEVEL_FILTER_PATH", lf_path)
+        monkeypatch.setattr(woa, "_level_filter_cache", {"mtime": 0, "data": None})
+        result = _load_level_filters("CIFR")
+        assert result == {"min_hold_rate": 50, "zone_filter": "active"}
+
+    def test_returns_none_for_unknown_ticker(self, tmp_path, monkeypatch):
+        """File exists but ticker not in it → None."""
+        import wick_offset_analyzer as woa
+        lf_path = tmp_path / "sweep_support_levels.json"
+        lf_path.write_text(json.dumps({"CIFR": {"level_params": {"min_hold_rate": 50}}}))
+        monkeypatch.setattr(woa, "_LEVEL_FILTER_PATH", lf_path)
+        monkeypatch.setattr(woa, "_level_filter_cache", {"mtime": 0, "data": None})
+        assert _load_level_filters("AAPL") is None
+
+    def test_returns_none_when_level_params_missing(self, tmp_path, monkeypatch):
+        """Ticker exists but no level_params key → None."""
+        import wick_offset_analyzer as woa
+        lf_path = tmp_path / "sweep_support_levels.json"
+        lf_path.write_text(json.dumps({"CIFR": {"stats": {"pnl": 100}}}))
+        monkeypatch.setattr(woa, "_LEVEL_FILTER_PATH", lf_path)
+        monkeypatch.setattr(woa, "_level_filter_cache", {"mtime": 0, "data": None})
+        assert _load_level_filters("CIFR") is None
 
 
 class TestPoolSizing:

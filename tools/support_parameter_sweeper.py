@@ -35,6 +35,12 @@ GATE_RESULTS_DIR = _ROOT / "data" / "backtest" / "candidate-gate"
 
 SWEEP_PERIODS = [12, 6, 3, 1]  # multi-period simulation months
 
+
+def _log_progress(msg):
+    """Timestamped progress to stderr (keeps stdout clean for results)."""
+    print(f"  [{time.strftime('%H:%M:%S')}] {msg}", file=sys.stderr, flush=True)
+
+
 # ---------------------------------------------------------------------------
 # Sweep grids
 # ---------------------------------------------------------------------------
@@ -179,7 +185,7 @@ def sweep_threshold(ticker, months=10):
     from backtest_engine import load_collected_data
     price_data, regime_data, _ = load_collected_data(data_dir)
 
-    best_composite = float("-inf")
+    best_composite = 0  # require positive composite to accept
     best_params = None
     best_result = None
     best_periods = None
@@ -188,8 +194,14 @@ def sweep_threshold(ticker, months=10):
         THRESHOLD_GRID["sell_default"],
         THRESHOLD_GRID["cat_hard_stop"],
     ))
+    total_combos = len(combos)
+    sim_errors = 0
+    quality = {"positive": 0, "negative": 0, "zero_trade": 0}
 
-    for sell_target, cat_stop in combos:
+    for idx, (sell_target, cat_stop) in enumerate(combos):
+        if (idx + 1) % 10 == 0 or idx == 0:
+            _log_progress(f"threshold combo {idx+1}/{total_combos} — best: ${best_composite:.1f}/mo")
+
         overrides = {
             "sell_default": sell_target,
             "sell_fast_cycler": sell_target + 2.0,
@@ -214,14 +226,29 @@ def sweep_threshold(ticker, months=10):
                     "win_rate": result.get("win_rate", 0),
                 }
                 last_result = result
-            except Exception:
+            except Exception as e:
                 results_by_period[period_months] = {"pnl": 0, "cycles": 0}
+                sim_errors += 1
+                if sim_errors <= 3:
+                    _log_progress(f"sim error ({period_months}mo): {type(e).__name__}: {e}")
 
         # Compute composite $/month
         try:
             composite, _ = compute_composite(results_by_period)
-        except Exception:
+        except Exception as e:
             composite = 0
+            sim_errors += 1
+            if sim_errors <= 3:
+                _log_progress(f"composite error: {type(e).__name__}: {e}")
+
+        # Quality tracking
+        if last_result:
+            if last_result.get("sells", 0) == 0:
+                quality["zero_trade"] += 1
+            elif last_result.get("pnl", 0) < 0:
+                quality["negative"] += 1
+            else:
+                quality["positive"] += 1
 
         if composite > best_composite:
             best_composite = composite
@@ -231,6 +258,10 @@ def sweep_threshold(ticker, months=10):
             }
             best_result = last_result
             best_periods = results_by_period
+
+    if sim_errors > 0:
+        _log_progress(f"{sim_errors} sim errors across {total_combos} combos")
+    _log_progress(f"quality: {quality['positive']}+ {quality['negative']}- {quality['zero_trade']}∅")
 
     return best_params, best_result, best_composite, best_periods
 
@@ -244,9 +275,14 @@ def sweep_execution(ticker, threshold_params, months=10):
     from backtest_engine import load_collected_data
     price_data, regime_data, _ = load_collected_data(data_dir)
 
-    best_pnl = float("-inf")
+    best_pnl = 0  # require positive P/L to accept
     best_params = None
     best_result = None
+    combo_idx = 0
+    sim_errors = 0
+    total_exec_combos = 1
+    for v in EXECUTION_GRID.values():
+        total_exec_combos *= len(v)
 
     # Group by (pool, bullets) — combos in same group share wick cache
     for pool in EXECUTION_GRID["active_pool"]:
@@ -257,6 +293,10 @@ def sweep_execution(ticker, threshold_params, months=10):
                 for res_bullets in EXECUTION_GRID["reserve_bullets_max"]:
                     for t_full in EXECUTION_GRID["tier_full"]:
                         for t_std in EXECUTION_GRID["tier_std"]:
+                            combo_idx += 1
+                            if combo_idx % 25 == 0 or combo_idx == 1:
+                                _log_progress(f"exec combo {combo_idx}/{total_exec_combos} — best P/L: ${best_pnl:.2f}")
+
                             overrides = {
                                 "sell_default": threshold_params["sell_default"],
                                 "sell_fast_cycler": threshold_params["sell_default"] + 2.0,
@@ -275,7 +315,10 @@ def sweep_execution(ticker, threshold_params, months=10):
                                 result = _simulate_with_config(
                                     ticker, months, overrides, data_dir,
                                     price_data, regime_data, wick_cache)
-                            except Exception:
+                            except Exception as e:
+                                sim_errors += 1
+                                if sim_errors <= 3:
+                                    _log_progress(f"exec sim error: {type(e).__name__}: {e}")
                                 continue
 
                             pnl = result.get("pnl", 0)
@@ -291,6 +334,9 @@ def sweep_execution(ticker, threshold_params, months=10):
                                     "tier_std": t_std,
                                 }
                                 best_result = result
+
+    if sim_errors > 0:
+        _log_progress(f"{sim_errors} exec sim errors across {total_exec_combos} combos")
 
     return best_params, best_result
 
@@ -311,7 +357,7 @@ def sweep_levels(ticker, threshold_params, execution_params=None, months=10):
     from backtest_engine import load_collected_data
     price_data, regime_data, _ = load_collected_data(data_dir)
 
-    best_composite = float("-inf")
+    best_composite = 0  # require positive composite to accept
     best_params = None
     best_result = None
     best_periods = None
@@ -326,11 +372,19 @@ def sweep_levels(ticker, threshold_params, execution_params=None, months=10):
     if execution_params:
         base_overrides.update(execution_params)
 
-    for min_hr, min_tf, skip_dorm, zone_f in itertools.product(
-            LEVEL_FILTER_GRID["min_hold_rate"],
-            LEVEL_FILTER_GRID["min_touch_freq"],
-            LEVEL_FILTER_GRID["skip_dormant"],
-            LEVEL_FILTER_GRID["zone_filter"]):
+    combos = list(itertools.product(
+        LEVEL_FILTER_GRID["min_hold_rate"],
+        LEVEL_FILTER_GRID["min_touch_freq"],
+        LEVEL_FILTER_GRID["skip_dormant"],
+        LEVEL_FILTER_GRID["zone_filter"],
+    ))
+    total_combos = len(combos)
+    sim_errors = 0
+    quality = {"positive": 0, "negative": 0, "zero_trade": 0}
+
+    for idx, (min_hr, min_tf, skip_dorm, zone_f) in enumerate(combos):
+        if (idx + 1) % 25 == 0 or idx == 0:
+            _log_progress(f"level combo {idx+1}/{total_combos} — best: ${best_composite:.1f}/mo")
 
         overrides = {
             **base_overrides,
@@ -356,13 +410,28 @@ def sweep_levels(ticker, threshold_params, execution_params=None, months=10):
                     "win_rate": result.get("win_rate", 0),
                 }
                 last_result = result
-            except Exception:
+            except Exception as e:
                 results_by_period[period_months] = {"pnl": 0, "cycles": 0}
+                sim_errors += 1
+                if sim_errors <= 3:
+                    _log_progress(f"sim error ({period_months}mo): {type(e).__name__}: {e}")
 
         try:
             composite, _ = compute_composite(results_by_period)
-        except Exception:
+        except Exception as e:
             composite = 0
+            sim_errors += 1
+            if sim_errors <= 3:
+                _log_progress(f"composite error: {type(e).__name__}: {e}")
+
+        # Quality tracking
+        if last_result:
+            if last_result.get("sells", 0) == 0:
+                quality["zero_trade"] += 1
+            elif last_result.get("pnl", 0) < 0:
+                quality["negative"] += 1
+            else:
+                quality["positive"] += 1
 
         if composite > best_composite:
             best_composite = composite
@@ -374,6 +443,10 @@ def sweep_levels(ticker, threshold_params, execution_params=None, months=10):
             }
             best_result = last_result
             best_periods = results_by_period
+
+    if sim_errors > 0:
+        _log_progress(f"{sim_errors} sim errors across {total_combos} combos")
+    _log_progress(f"quality: {quality['positive']}+ {quality['negative']}- {quality['zero_trade']}∅")
 
     return best_params, best_result, best_composite, best_periods
 
@@ -540,6 +613,7 @@ def main():
         else:
             for i, tk in enumerate(tickers):
                 print(f"  [{i+1}/{len(tickers)}] {tk}...", end=" ", flush=True)
+                t0 = time.time()
                 params, result, composite, periods = sweep_threshold(tk, train_months)
                 if params and result:
                     features = extract_support_features(tk, result)
@@ -560,10 +634,11 @@ def main():
                     s = results[tk]["stats"]
                     print(f"P/L=${s['pnl']:.2f} ({s['trades']}t) "
                           f"composite=${composite:.1f}/mo "
-                          f"sell={params['sell_default']}% cat={params['cat_hard_stop']}%",
+                          f"sell={params['sell_default']}% cat={params['cat_hard_stop']}% "
+                          f"[{time.time()-t0:.0f}s]",
                           flush=True)
                 else:
-                    print("no profitable combo", flush=True)
+                    print(f"no profitable combo [{time.time()-t0:.0f}s]", flush=True)
 
     # Cross-validation
     if args.split and val_months > 0 and results:
@@ -603,6 +678,7 @@ def main():
                   f"× {execution_combos} combos...")
             for tk in top_for_exec:
                 print(f"  {tk}...", end=" ", flush=True)
+                t0 = time.time()
                 threshold_params = results[tk]["params"]
                 exec_params, exec_result = sweep_execution(tk, threshold_params, train_months)
                 if exec_params:
@@ -610,9 +686,9 @@ def main():
                     results[tk]["stats"]["pnl"] = exec_result.get("pnl", 0)
                     print(f"pool=${exec_params['active_pool']} "
                           f"bullets={exec_params['active_bullets_max']} "
-                          f"P/L=${exec_result.get('pnl', 0):.2f}", flush=True)
+                          f"P/L=${exec_result.get('pnl', 0):.2f} [{time.time()-t0:.0f}s]", flush=True)
                 else:
-                    print("no improvement", flush=True)
+                    print(f"no improvement [{time.time()-t0:.0f}s]", flush=True)
 
     # Write results
     output = {
@@ -659,6 +735,7 @@ def main():
                                ("active_pool", "reserve_pool", "active_bullets_max", "reserve_bullets_max")
                                if k in threshold_params}
             print(f"  {tk}...", end=" ", flush=True)
+            t0 = time.time()
             best_params, best_result, composite, periods = sweep_levels(
                 tk, threshold_params, execution_params, args.months)
             if best_params:
@@ -672,10 +749,11 @@ def main():
                     "periods": periods,
                 }
                 print(f"hr={best_params['min_hold_rate']} tf={best_params['min_touch_freq']} "
-                      f"zone={best_params['zone_filter']} composite=${composite:.1f}/mo",
+                      f"zone={best_params['zone_filter']} composite=${composite:.1f}/mo "
+                      f"[{time.time()-t0:.0f}s]",
                       flush=True)
             else:
-                print("no improvement", flush=True)
+                print(f"no improvement [{time.time()-t0:.0f}s]", flush=True)
 
         if level_output and not args.dry_run:
             with open(LEVEL_RESULTS_PATH, "w") as f:

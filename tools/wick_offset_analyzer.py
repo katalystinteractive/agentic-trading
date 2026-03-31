@@ -101,13 +101,14 @@ def load_capital_config(ticker=None):
 # Level filter loader (neural sweep results)
 # ---------------------------------------------------------------------------
 
+_LEVEL_FILTER_PATH = Path(__file__).resolve().parent.parent / "data" / "sweep_support_levels.json"
 _level_filter_cache = {"mtime": 0, "data": None}
 _level_filter_lock = threading.Lock()
 
 
 def _load_level_filters(ticker):
     """Load per-ticker level filter profile from neural sweep results."""
-    lf_path = Path(__file__).resolve().parent.parent / "data" / "sweep_support_levels.json"
+    lf_path = _LEVEL_FILTER_PATH
     try:
         if not lf_path.exists():
             return None

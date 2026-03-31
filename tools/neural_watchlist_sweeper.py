@@ -87,6 +87,7 @@ def main():
     else:
         for i, tk in enumerate(tickers):
             print(f"  [{i+1}/{len(tickers)}] {tk}...", end=" ", flush=True)
+            t0 = time.time()
             try:
                 params, result, composite, periods = sweep_threshold(tk)
                 if params and result:
@@ -105,13 +106,13 @@ def main():
                     }
                     print(f"sell={params['sell_default']}% "
                           f"P/L=${result.get('pnl', 0):.2f} "
-                          f"composite=${composite:.1f}/mo", flush=True)
+                          f"composite=${composite:.1f}/mo [{time.time()-t0:.0f}s]", flush=True)
                 else:
                     skipped.append((tk, "no profitable combo"))
-                    print("skipped (no profitable combo)", flush=True)
+                    print(f"skipped (no profitable combo) [{time.time()-t0:.0f}s]", flush=True)
             except Exception as e:
                 skipped.append((tk, str(e)))
-                print(f"error: {e}", flush=True)
+                print(f"error: {e} [{time.time()-t0:.0f}s]", flush=True)
 
     # Report skipped
     if skipped:

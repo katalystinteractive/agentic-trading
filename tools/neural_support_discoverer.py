@@ -198,6 +198,7 @@ def main():
         # Sequential fallback
         for i, tk in enumerate(available):
             print(f"  [{i+1}/{len(available)}] {tk}...", end=" ", flush=True)
+            t0 = time.time()
             try:
                 params, result, composite, periods = sweep_threshold(tk, train_months)
                 if params and result:
@@ -218,11 +219,11 @@ def main():
                     s = results[tk]["stats"]
                     print(f"P/L=${s['pnl']:.2f} ({s['trades']}t) "
                           f"composite=${composite:.1f}/mo "
-                          f"sell={params['sell_default']}%", flush=True)
+                          f"sell={params['sell_default']}% [{time.time()-t0:.0f}s]", flush=True)
                 else:
-                    print("no profitable combo", flush=True)
+                    print(f"no profitable combo [{time.time()-t0:.0f}s]", flush=True)
             except Exception as e:
-                print(f"error: {e}", flush=True)
+                print(f"error: {e} [{time.time()-t0:.0f}s]", flush=True)
 
     print(f"\n{len(results)}/{len(available)} profitable")
 
