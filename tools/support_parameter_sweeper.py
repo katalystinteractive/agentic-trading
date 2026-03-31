@@ -384,7 +384,7 @@ def sweep_levels(ticker, threshold_params, execution_params=None, months=10):
 
     for idx, (min_hr, min_tf, skip_dorm, zone_f) in enumerate(combos):
         if (idx + 1) % 25 == 0 or idx == 0:
-            _log_progress(f"level combo {idx+1}/{total_combos} — best: ${best_composite:.1f}/mo")
+            _log_progress(f"{ticker}: level combo {idx+1}/{total_combos} — best: ${best_composite:.1f}/mo")
 
         overrides = {
             **base_overrides,
@@ -414,7 +414,7 @@ def sweep_levels(ticker, threshold_params, execution_params=None, months=10):
                 results_by_period[period_months] = {"pnl": 0, "cycles": 0}
                 sim_errors += 1
                 if sim_errors <= 3:
-                    _log_progress(f"sim error ({period_months}mo): {type(e).__name__}: {e}")
+                    _log_progress(f"{ticker}: sim error ({period_months}mo): {type(e).__name__}: {e}")
 
         try:
             composite, _ = compute_composite(results_by_period)
@@ -422,7 +422,7 @@ def sweep_levels(ticker, threshold_params, execution_params=None, months=10):
             composite = 0
             sim_errors += 1
             if sim_errors <= 3:
-                _log_progress(f"composite error: {type(e).__name__}: {e}")
+                _log_progress(f"{ticker}: composite error: {type(e).__name__}: {e}")
 
         # Quality tracking
         if last_result:
@@ -445,8 +445,8 @@ def sweep_levels(ticker, threshold_params, execution_params=None, months=10):
             best_periods = results_by_period
 
     if sim_errors > 0:
-        _log_progress(f"{sim_errors} sim errors across {total_combos} combos")
-    _log_progress(f"quality: {quality['positive']}+ {quality['negative']}- {quality['zero_trade']}∅")
+        _log_progress(f"{ticker}: {sim_errors} sim errors across {total_combos} combos")
+    _log_progress(f"{ticker}: quality: {quality['positive']}+ {quality['negative']}- {quality['zero_trade']}∅")
 
     return best_params, best_result, best_composite, best_periods
 
@@ -534,6 +534,27 @@ def _sweep_threshold_worker(args):
             }
         return ticker, None
     except Exception as e:
+        return ticker, None
+
+
+def _sweep_levels_worker(args):
+    """Worker for parallel level filter sweep."""
+    ticker, threshold_params, execution_params, months = args
+    try:
+        best_params, best_result, composite, periods = sweep_levels(
+            ticker, threshold_params, execution_params, months)
+        if best_params:
+            return ticker, {
+                "level_params": best_params,
+                "stats": {
+                    "composite": round(composite, 2) if composite else 0,
+                    "pnl": best_result.get("pnl", 0) if best_result else 0,
+                    "trades": best_result.get("sells", 0) if best_result else 0,
+                },
+                "periods": periods,
+            }
+        return ticker, None
+    except Exception:
         return ticker, None
 
 
@@ -722,38 +743,58 @@ def main():
         with open(RESULTS_PATH) as f:
             prior = json.load(f)
 
-        print(f"\nStage 3: Level filter sweep on {len(tickers)} tickers...")
-        level_output = {}
+        # Pre-filter: warn about skipped tickers
         for tk in tickers:
-            if tk.startswith("_"):
-                continue
-            if tk not in prior:
+            if not tk.startswith("_") and tk not in prior:
                 print(f"  {tk}... *skipped (not in prior sweep results)*", flush=True)
-                continue
-            threshold_params = prior[tk]["params"]
-            execution_params = {k: threshold_params[k] for k in
-                               ("active_pool", "reserve_pool", "active_bullets_max", "reserve_bullets_max")
-                               if k in threshold_params}
-            print(f"  {tk}...", end=" ", flush=True)
-            t0 = time.time()
-            best_params, best_result, composite, periods = sweep_levels(
-                tk, threshold_params, execution_params, args.months)
-            if best_params:
-                level_output[tk] = {
-                    "level_params": best_params,
-                    "stats": {
-                        "composite": round(composite, 2) if composite else 0,
-                        "pnl": best_result.get("pnl", 0) if best_result else 0,
-                        "trades": best_result.get("sells", 0) if best_result else 0,
-                    },
-                    "periods": periods,
-                }
-                print(f"hr={best_params['min_hold_rate']} tf={best_params['min_touch_freq']} "
-                      f"zone={best_params['zone_filter']} composite=${composite:.1f}/mo "
-                      f"[{time.time()-t0:.0f}s]",
-                      flush=True)
-            else:
-                print(f"no improvement [{time.time()-t0:.0f}s]", flush=True)
+
+        level_tickers = [tk for tk in tickers if tk in prior and not tk.startswith("_")]
+        print(f"\nStage 3: Level filter sweep on {len(level_tickers)} tickers...")
+        level_output = {}
+
+        if args.workers > 1 and len(level_tickers) > 1:
+            worker_args = [(tk, prior[tk]["params"],
+                            {k: prior[tk]["params"][k] for k in
+                             ("active_pool", "reserve_pool", "active_bullets_max", "reserve_bullets_max")
+                             if k in prior[tk]["params"]},
+                            args.months)
+                           for tk in level_tickers]
+            with Pool(processes=min(args.workers, len(worker_args))) as pool:
+                for tk, result in pool.map(_sweep_levels_worker, worker_args):
+                    if result:
+                        level_output[tk] = result
+                        lp = result["level_params"]
+                        print(f"  {tk}: hr={lp['min_hold_rate']} tf={lp['min_touch_freq']} "
+                              f"zone={lp['zone_filter']} composite=${result['stats']['composite']:.1f}/mo",
+                              flush=True)
+                    else:
+                        print(f"  {tk}: no improvement", flush=True)
+        else:
+            for tk in level_tickers:
+                print(f"  {tk}...", end=" ", flush=True)
+                t0 = time.time()
+                best_params, best_result, composite, periods = sweep_levels(
+                    tk, prior[tk]["params"],
+                    {k: prior[tk]["params"][k] for k in
+                     ("active_pool", "reserve_pool", "active_bullets_max", "reserve_bullets_max")
+                     if k in prior[tk]["params"]},
+                    args.months)
+                if best_params:
+                    level_output[tk] = {
+                        "level_params": best_params,
+                        "stats": {
+                            "composite": round(composite, 2) if composite else 0,
+                            "pnl": best_result.get("pnl", 0) if best_result else 0,
+                            "trades": best_result.get("sells", 0) if best_result else 0,
+                        },
+                        "periods": periods,
+                    }
+                    print(f"hr={best_params['min_hold_rate']} tf={best_params['min_touch_freq']} "
+                          f"zone={best_params['zone_filter']} composite=${composite:.1f}/mo "
+                          f"[{time.time()-t0:.0f}s]",
+                          flush=True)
+                else:
+                    print(f"no improvement [{time.time()-t0:.0f}s]", flush=True)
 
         if level_output and not args.dry_run:
             with open(LEVEL_RESULTS_PATH, "w") as f:
