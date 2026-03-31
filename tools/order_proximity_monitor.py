@@ -35,8 +35,12 @@ MAX_CONSECUTIVE_FAILURES = 3
 
 def load_placed_orders():
     """Extract all placed (not filled) limit orders from portfolio.json."""
-    with open(PORTFOLIO_PATH) as f:
-        portfolio = json.load(f)
+    try:
+        with open(PORTFOLIO_PATH) as f:
+            portfolio = json.load(f)
+    except (OSError, json.JSONDecodeError) as e:
+        print(f"*Cannot load portfolio: {e}*", file=sys.stderr)
+        return []
 
     orders = []
     for tk, tk_orders in portfolio.get("pending_orders", {}).items():
@@ -100,7 +104,7 @@ def compute_alerts(orders, prices, state):
 
         # Determine alert level
         if distance <= 0:
-            level = "IMMINENT"  # price has crossed the order
+            level = "FILLED?"  # price has crossed the order — likely filling
         elif distance <= IMMINENT_PCT:
             level = "IMMINENT"
         elif distance <= APPROACHING_PCT:
@@ -110,12 +114,12 @@ def compute_alerts(orders, prices, state):
             state.pop(key, None)
             continue
 
-        # Check suppression
+        # Check suppression — FILLED? always fires (never suppressed)
         existing = state.get(key)
-        if existing:
+        if existing and level != "FILLED?":
             existing_level = existing.get("level", "")
-            if existing_level == "IMMINENT":
-                continue  # already at tightest level
+            if existing_level in ("IMMINENT", "FILLED?"):
+                continue  # already at tightest non-fill level
             if existing_level == "APPROACHING" and level == "APPROACHING":
                 continue  # same level, already alerted
 
