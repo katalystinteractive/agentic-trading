@@ -99,7 +99,7 @@ def precompute_signals(tickers, trading_days, intraday, daily, n):
             except Exception as e:
                 graph_errors += 1
                 if graph_errors <= 3:
-                    _log_progress(f"graph build error ({day_str}): {type(e).__name__}: {e}")
+                    _log_progress(f"graph build error ({day}): {type(e).__name__}: {e}")
                 continue
 
             # Compute raw breadth ratio from per-ticker dip_pct (no filtering)
@@ -149,7 +149,7 @@ def precompute_signals(tickers, trading_days, intraday, daily, n):
                     except Exception as e:
                         graph_errors += 1
                         if graph_errors <= 3:
-                            _log_progress(f"data extract error ({day_str}/{tk}): {type(e).__name__}: {e}")
+                            _log_progress(f"data extract error ({day}/{tk}): {type(e).__name__}: {e}")
                         continue
 
                 if rem_high is None:
