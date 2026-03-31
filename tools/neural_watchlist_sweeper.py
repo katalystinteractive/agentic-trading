@@ -95,6 +95,9 @@ def main():
                     exec_params, exec_result = sweep_execution(tk, results[tk]["params"])
                     if exec_params:
                         results[tk]["params"] = exec_params
+                        if exec_result:
+                            results[tk]["stats"]["pnl"] = exec_result.get("pnl", 0)
+                            results[tk]["stats"]["trades"] = exec_result.get("sells", 0)
                         print(f"pool=${exec_params['active_pool']} "
                               f"bullets={exec_params['active_bullets_max']}", flush=True)
                     else:
@@ -109,21 +112,24 @@ def main():
                 params, result, composite, periods = sweep_threshold(tk)
                 if params and result:
                     # Stage 2: optimize pool/bullets with thresholds locked
+                    exec_result_used = None
                     try:
-                        exec_params, exec_result = sweep_execution(tk, params)
+                        exec_params, exec_result_used = sweep_execution(tk, params)
                         if exec_params:
                             params = exec_params  # merged threshold + execution
                     except Exception:
                         pass  # Stage 2 failure is non-fatal
 
+                    # Use Stage 2 stats if available, else Stage 1
+                    stat_src = exec_result_used if exec_result_used else result
                     features = extract_support_features(tk, result)
                     results[tk] = {
                         "params": params,
                         "stats": {
-                            "pnl": result.get("pnl", 0),
-                            "win_rate": result.get("win_rate", 0),
-                            "trades": result.get("sells", 0),
-                            "cycles": result.get("cycles", 0),
+                            "pnl": stat_src.get("pnl", 0),
+                            "win_rate": stat_src.get("win_rate", 0),
+                            "trades": stat_src.get("sells", 0),
+                            "cycles": stat_src.get("cycles", 0),
                             "composite": composite,
                         },
                         "features": features,
