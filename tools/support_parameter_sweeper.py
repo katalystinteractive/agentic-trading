@@ -303,14 +303,18 @@ LEVEL_RESULTS_PATH = _ROOT / "data" / "sweep_support_levels.json"
 
 
 def sweep_levels(ticker, threshold_params, execution_params=None, months=10):
-    """Stage 3: Sweep level filters with thresholds + execution params locked."""
+    """Stage 3: Sweep level filters with thresholds + execution params locked.
+
+    Uses multi-period composite scoring (12mo/6mo/3mo/1mo) matching Stages 1-2.
+    """
     data_dir = _collect_once(ticker, max(SWEEP_PERIODS))
     from backtest_engine import load_collected_data
     price_data, regime_data, _ = load_collected_data(data_dir)
 
-    best_pnl = float("-inf")
+    best_composite = float("-inf")
     best_params = None
     best_result = None
+    best_periods = None
 
     base_overrides = {
         "sell_default": threshold_params["sell_default"],
@@ -336,24 +340,40 @@ def sweep_levels(ticker, threshold_params, execution_params=None, months=10):
             "zone_filter": zone_f,
         }
 
-        period_wick_cache = {}
-        try:
-            result = _simulate_with_config(
-                ticker, months, overrides, data_dir,
-                price_data, regime_data, period_wick_cache)
-        except Exception:
-            continue
+        # Multi-period scoring (matching Stage 1 pattern)
+        results_by_period = {}
+        last_result = None
+        for period_months in SWEEP_PERIODS:
+            period_wick_cache = {}
+            try:
+                result = _simulate_with_config(
+                    ticker, period_months, overrides, data_dir,
+                    price_data, regime_data, period_wick_cache)
+                results_by_period[period_months] = {
+                    "pnl": result.get("pnl", 0),
+                    "cycles": result.get("cycles", 0),
+                    "trades": result.get("sells", 0),
+                    "win_rate": result.get("win_rate", 0),
+                }
+                last_result = result
+            except Exception:
+                results_by_period[period_months] = {"pnl": 0, "cycles": 0}
 
-        pnl = result.get("pnl", 0)
-        if pnl > best_pnl:
-            best_pnl = pnl
+        try:
+            composite, _ = compute_composite(results_by_period)
+        except Exception:
+            composite = 0
+
+        if composite > best_composite:
+            best_composite = composite
             best_params = {
                 "min_hold_rate": min_hr,
                 "min_touch_freq": min_tf,
                 "skip_dormant": skip_dorm,
                 "zone_filter": zone_f,
             }
-            best_result = result
+            best_result = last_result
+            best_periods = results_by_period
 
     return best_params, best_result
 
