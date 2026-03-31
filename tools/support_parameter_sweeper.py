@@ -375,7 +375,7 @@ def sweep_levels(ticker, threshold_params, execution_params=None, months=10):
             best_result = last_result
             best_periods = results_by_period
 
-    return best_params, best_result
+    return best_params, best_result, best_composite, best_periods
 
 
 # ---------------------------------------------------------------------------
@@ -659,17 +659,20 @@ def main():
                                ("active_pool", "reserve_pool", "active_bullets_max", "reserve_bullets_max")
                                if k in threshold_params}
             print(f"  {tk}...", end=" ", flush=True)
-            best_params, best_result = sweep_levels(tk, threshold_params, execution_params, args.months)
+            best_params, best_result, composite, periods = sweep_levels(
+                tk, threshold_params, execution_params, args.months)
             if best_params:
                 level_output[tk] = {
                     "level_params": best_params,
                     "stats": {
-                        "pnl": best_result.get("pnl", 0),
-                        "trades": best_result.get("sells", 0),
+                        "composite": round(composite, 2) if composite else 0,
+                        "pnl": best_result.get("pnl", 0) if best_result else 0,
+                        "trades": best_result.get("sells", 0) if best_result else 0,
                     },
+                    "periods": periods,
                 }
                 print(f"hr={best_params['min_hold_rate']} tf={best_params['min_touch_freq']} "
-                      f"zone={best_params['zone_filter']} P/L=${best_result.get('pnl', 0):.2f}",
+                      f"zone={best_params['zone_filter']} composite=${composite:.1f}/mo",
                       flush=True)
             else:
                 print("no improvement", flush=True)
@@ -683,15 +686,15 @@ def main():
     elapsed = time.time() - start
     print(f"\n{'='*60}")
     if args.stage == "level":
-        print(f"| Ticker | HoldRate | TouchFreq | SkipDormant | Zone | P/L | Trades |")
+        print(f"| Ticker | HoldRate | TouchFreq | SkipDormant | Zone | $/mo | Trades |")
         print(f"| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         for tk in sorted(level_output.keys(),
-                         key=lambda t: level_output[t]["stats"]["pnl"], reverse=True):
+                         key=lambda t: level_output[t]["stats"]["composite"], reverse=True):
             lp = level_output[tk]["level_params"]
             ls = level_output[tk]["stats"]
             print(f"| {tk} | {lp['min_hold_rate']} | {lp['min_touch_freq']} | "
                   f"{lp['skip_dormant']} | {lp['zone_filter']} | "
-                  f"${ls['pnl']:.2f} | {ls['trades']} |")
+                  f"${ls['composite']:.1f} | {ls['trades']} |")
     else:
         print(f"| Ticker | Sell% | Cat% | Pool | Bullets | P/L | WR | Trades |")
         print(f"| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
