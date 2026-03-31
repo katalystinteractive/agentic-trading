@@ -15,5 +15,9 @@
 # Dip strategy: EOD check (3:45 PM ET = 22:45 local)
 45 22 * * 1-5 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/neural_dip_evaluator.py --phase eod_check >> data/dip_eval.log 2>&1
 
+# Order proximity monitor — every 5 min during market hours (script checks phase internally)
+# Market hours: 9:30 AM - 4:00 PM ET = 16:30 - 23:00 local (ET+7)
+*/5 16-23 * * 1-5 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/order_proximity_monitor.py >> data/proximity_monitor.log 2>&1
+
 # Weekly re-optimization (Saturday 6 AM local)
 0 6 * * 6 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/weekly_reoptimize.py >> data/reoptimize.log 2>&1

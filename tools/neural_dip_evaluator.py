@@ -696,13 +696,18 @@ def _get_dip_capital():
 # Phase evaluation functions
 # ---------------------------------------------------------------------------
 
-def evaluate_first_hour(tickers, static, hist_ranges, regime):
+def evaluate_first_hour(tickers, static, hist_ranges, regime, dry_run=False):
     """10:30 AM: First-hour breadth check. Cache results for decision phase."""
+    from notify import send_summary_email
+
     profiles = _load_profiles()
     syn_weights = _load_weights(regime)
     prices = fetch_intraday(tickers)
     if prices is None:
         print("*yfinance unavailable. Skipping first_hour.*")
+        if not dry_run:
+            send_summary_email("Dip Check 10:30 — Skipped",
+                               "yfinance unavailable. Check ran but no data.")
         return
 
     graph, fh_state = build_first_hour_graph(
@@ -721,9 +726,18 @@ def evaluate_first_hour(tickers, static, hist_ranges, regime):
     print(f"First-hour: {dip_count}/{len(tickers)} dipped. "
           f"Breadth {'FIRED' if breadth else 'NOT FIRED'}.")
 
+    if not dry_run:
+        send_summary_email(
+            f"Dip Check 10:30 — {'Signal' if breadth else 'No Signal'}",
+            f"Breadth: {dip_count}/{len(tickers)} tickers dipped.\n"
+            f"Threshold: 50%. {'FIRED — watch for 11:00 decision.' if breadth else 'No dip signal today.'}\n"
+            f"Regime: {regime}")
+
 
 def evaluate_decision(tickers, static, hist_ranges, regime, dry_run=False):
     """11:00 AM: Full decision — load first-hour cache + bounce + decide."""
+    from notify import send_summary_email
+
     profiles = _load_profiles()
     syn_weights = _load_weights(regime)
 
@@ -742,18 +756,27 @@ def evaluate_decision(tickers, static, hist_ranges, regime, dry_run=False):
         prices = fetch_intraday(tickers)
         if prices is None:
             print("*yfinance unavailable. Skipping.*")
+            if not dry_run:
+                send_summary_email("Dip Check 11:00 — Skipped",
+                                   "yfinance unavailable. No data for decision phase.")
             return
         _, fh_state = build_first_hour_graph(
             tickers, prices, static, hist_ranges, regime, profiles, syn_weights)
 
     if not fh_state.get("breadth_dip_gate"):
         print("Breadth dip NOT FIRED. No dip play today.")
+        if not dry_run:
+            send_summary_email("Dip Check 11:00 — No Dip",
+                               "Breadth dip did not fire. No dip play today.")
         return
 
     # Fetch 11:00 prices
     prices_11 = fetch_intraday(tickers)
     if prices_11 is None:
         print("*yfinance unavailable at decision time. Skipping.*")
+        if not dry_run:
+            send_summary_email("Dip Check 11:00 — Skipped",
+                               "yfinance unavailable at 11:00 decision time.")
         return
 
     decision_graph, top, budget = build_decision_graph(
@@ -768,16 +791,22 @@ def evaluate_decision(tickers, static, hist_ranges, regime, dry_run=False):
     if not buy_signals:
         print("No dip play today — signal or candidates blocked.")
         # Show why each ticker was blocked
+        blocked_reasons = []
         for tk in tickers:
             cand = decision_graph.nodes.get(f"{tk}:candidate")
             if cand and not cand.value:
-                blocked = []
+                reasons = []
                 for dep_name in (cand.depends_on or []):
                     dep = decision_graph.nodes.get(dep_name)
                     if dep and not dep.value and dep.reason_fn:
-                        blocked.append(dep.reason_fn(None, dep.value, []))
-                if blocked:
-                    print(f"  {tk}: {', '.join(blocked)}")
+                        reasons.append(dep.reason_fn(None, dep.value, []))
+                if reasons:
+                    line = f"  {tk}: {', '.join(reasons)}"
+                    print(line)
+                    blocked_reasons.append(line)
+        if not dry_run:
+            body = "No tickers passed all gates.\n\nBlocked:\n" + "\n".join(blocked_reasons) if blocked_reasons else "No tickers passed all gates."
+            send_summary_email("Dip Check 11:00 — No Buys", body)
         return
 
     # Output buy signals
@@ -807,12 +836,17 @@ def evaluate_decision(tickers, static, hist_ranges, regime, dry_run=False):
                           regime, budget)
 
 
-def evaluate_eod(tickers):
+def evaluate_eod(tickers, dry_run=False):
     """3:45 PM: Check for unfilled same-day dip sells."""
+    from notify import send_summary_email
+
     try:
         portfolio = _load_portfolio()
     except Exception:
         print("*Cannot load portfolio for EOD check.*")
+        if not dry_run:
+            send_summary_email("Dip EOD 3:45 — Skipped",
+                               "Cannot load portfolio for EOD check.")
         return
 
     pending = portfolio.get("pending_orders", {})
@@ -825,10 +859,19 @@ def evaluate_eod(tickers):
 
     if unfilled:
         print(f"\n## EOD Check — {len(unfilled)} unfilled same-day exit(s)\n")
+        lines = []
         for tk, price, shares in unfilled:
-            print(f"- {tk}: SELL @ ${price:.2f} x {shares} — consider manual close or hold")
+            line = f"- {tk}: SELL @ ${price:.2f} x {shares} — consider manual close or hold"
+            print(line)
+            lines.append(line)
+        if not dry_run:
+            send_summary_email(f"Dip EOD 3:45 — {len(unfilled)} Unfilled",
+                               "\n".join(lines))
     else:
         print("EOD: No unfilled same-day exits.")
+        if not dry_run:
+            send_summary_email("Dip EOD 3:45 — No Unfilled Exits",
+                               "No same-day dip exits were left unfilled today.")
 
 
 # ---------------------------------------------------------------------------
@@ -869,11 +912,11 @@ def main():
           f"Regime: {regime} | {datetime.now(ET).strftime('%H:%M ET')}")
 
     if args.phase == "first_hour":
-        evaluate_first_hour(tickers, static, hist_ranges, regime)
+        evaluate_first_hour(tickers, static, hist_ranges, regime, args.dry_run)
     elif args.phase == "decision":
         evaluate_decision(tickers, static, hist_ranges, regime, args.dry_run)
     elif args.phase == "eod_check":
-        evaluate_eod(tickers)
+        evaluate_eod(tickers, args.dry_run)
 
 
 if __name__ == "__main__":
