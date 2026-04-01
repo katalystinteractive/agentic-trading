@@ -289,14 +289,20 @@ def main():
             "winner": winner,
         }
 
-    output = {
-        "_meta": {
-            "source": "bounce_parameter_sweeper.py",
-            "updated": date.today().isoformat(),
-            "combos": total_combos,
-            "tickers_swept": len(tickers),
-            "with_results": len(results),
-        }
+    # Merge into existing file (never overwrite other tickers)
+    output = {}
+    if RESULTS_PATH.exists():
+        try:
+            with open(RESULTS_PATH) as f:
+                output = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            pass
+    output["_meta"] = {
+        "source": "bounce_parameter_sweeper.py",
+        "updated": date.today().isoformat(),
+        "combos": total_combos,
+        "tickers_swept": len(tickers),
+        "with_results": len(results),
     }
     for tk, r in results.items():
         output[tk] = r

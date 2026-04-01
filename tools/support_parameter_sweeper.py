@@ -712,16 +712,21 @@ def main():
                 else:
                     print(f"no improvement [{time.time()-t0:.0f}s]", flush=True)
 
-    # Write results
-    output = {
-        "_meta": {
-            "source": "support_parameter_sweeper.py",
-            "updated": date.today().isoformat(),
-            "threshold_combos": threshold_combos,
-            "execution_combos": execution_combos,
-            "tickers_swept": len(tickers),
-            "profitable": len(results),
-        }
+    # Write results — MERGE into existing file (never overwrite other tickers)
+    output = {}
+    if RESULTS_PATH.exists():
+        try:
+            with open(RESULTS_PATH) as f:
+                output = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            pass
+    output["_meta"] = {
+        "source": "support_parameter_sweeper.py",
+        "updated": date.today().isoformat(),
+        "threshold_combos": threshold_combos,
+        "execution_combos": execution_combos,
+        "tickers_swept": len(tickers),
+        "profitable": len(results),
     }
     for tk, r in results.items():
         output[tk] = {
@@ -798,8 +803,17 @@ def main():
                     print(f"no improvement [{time.time()-t0:.0f}s]", flush=True)
 
         if level_output and not args.dry_run:
+            # Merge into existing file (never overwrite other tickers)
+            existing_levels = {}
+            if LEVEL_RESULTS_PATH.exists():
+                try:
+                    with open(LEVEL_RESULTS_PATH) as f:
+                        existing_levels = json.load(f)
+                except (json.JSONDecodeError, OSError):
+                    pass
+            existing_levels.update(level_output)
             with open(LEVEL_RESULTS_PATH, "w") as f:
-                json.dump(level_output, f, indent=2)
+                json.dump(existing_levels, f, indent=2)
             print(f"\nLevel filter results written to {LEVEL_RESULTS_PATH}")
 
     # Summary

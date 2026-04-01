@@ -290,15 +290,20 @@ def main():
             "winner": "resistance" if res_composite > flat_composite else "flat",
         }
 
-    # Write results (SEPARATE file — data isolation)
-    output = {
-        "_meta": {
-            "source": "resistance_parameter_sweeper.py",
-            "updated": date.today().isoformat(),
-            "combos": total_combos,
-            "tickers_swept": len(tickers),
-            "with_results": len(results),
-        }
+    # Write results — MERGE into existing file (never overwrite other tickers)
+    output = {}
+    if RESULTS_PATH.exists():
+        try:
+            with open(RESULTS_PATH) as f:
+                output = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            pass
+    output["_meta"] = {
+        "source": "resistance_parameter_sweeper.py",
+        "updated": date.today().isoformat(),
+        "combos": total_combos,
+        "tickers_swept": len(tickers),
+        "with_results": len(results),
     }
     for tk, r in results.items():
         output[tk] = r
