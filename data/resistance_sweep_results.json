@@ -1,0 +1,1314 @@
+{
+  "_meta": {
+    "source": "resistance_parameter_sweeper.py",
+    "updated": "2026-04-01",
+    "combos": 54,
+    "tickers_swept": 29,
+    "with_results": 29
+  },
+  "APP": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 70,
+      "min_resistance_approaches": 2,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 120.0,
+      "pnl": 104.17,
+      "trades": 3
+    },
+    "periods": {
+      "12": {
+        "pnl": 1319.45,
+        "cycles": 22,
+        "trades": 22,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 689.23,
+        "cycles": 13,
+        "trades": 13,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 453.11,
+        "cycles": 11,
+        "trades": 11,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 104.17,
+        "cycles": 3,
+        "trades": 3,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 114.2,
+      "resistance_composite": 120.0,
+      "improvement_pct": 5.1,
+      "winner": "resistance"
+    }
+  },
+  "LUNR": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 70,
+      "min_resistance_approaches": 2,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 52.9,
+      "pnl": 31.63,
+      "trades": 2
+    },
+    "periods": {
+      "12": {
+        "pnl": 870.19,
+        "cycles": 31,
+        "trades": 31,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 281.7,
+        "cycles": 22,
+        "trades": 22,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 143.65,
+        "cycles": 11,
+        "trades": 11,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 31.63,
+        "cycles": 2,
+        "trades": 2,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 27.3,
+      "resistance_composite": 52.9,
+      "improvement_pct": 93.8,
+      "winner": "resistance"
+    }
+  },
+  "IBRX": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 5,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 46.8,
+      "pnl": 39.88,
+      "trades": 1
+    },
+    "periods": {
+      "12": {
+        "pnl": 751.18,
+        "cycles": 28,
+        "trades": 28,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 317.63,
+        "cycles": 8,
+        "trades": 8,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 38.09,
+        "cycles": 3,
+        "trades": 3,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 39.88,
+        "cycles": 1,
+        "trades": 1,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 25.3,
+      "resistance_composite": 46.8,
+      "improvement_pct": 85.0,
+      "winner": "resistance"
+    }
+  },
+  "BBAI": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 2,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 47.4,
+      "pnl": 36.91,
+      "trades": 3
+    },
+    "periods": {
+      "12": {
+        "pnl": 612.48,
+        "cycles": 38,
+        "trades": 38,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 328.86,
+        "cycles": 25,
+        "trades": 25,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 140.34,
+        "cycles": 13,
+        "trades": 13,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 36.91,
+        "cycles": 3,
+        "trades": 3,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 34.2,
+      "resistance_composite": 47.4,
+      "improvement_pct": 38.6,
+      "winner": "resistance"
+    }
+  },
+  "CIFR": {
+    "params": {
+      "resistance_strategy": "first",
+      "min_reject_rate": 70,
+      "min_resistance_approaches": 2,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 48.2,
+      "pnl": 62.15,
+      "trades": 3
+    },
+    "periods": {
+      "12": {
+        "pnl": 497.27,
+        "cycles": 39,
+        "trades": 39,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 245.66,
+        "cycles": 20,
+        "trades": 20,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 145.13,
+        "cycles": 15,
+        "trades": 15,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 62.15,
+        "cycles": 3,
+        "trades": 3,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 26.4,
+      "resistance_composite": 48.2,
+      "improvement_pct": 82.6,
+      "winner": "resistance"
+    }
+  },
+  "DNN": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 2,
+      "resistance_fallback_pct": 4
+    },
+    "stats": {
+      "composite": 33.6,
+      "pnl": 57.78,
+      "trades": 2
+    },
+    "periods": {
+      "12": {
+        "pnl": 476.72,
+        "cycles": 13,
+        "trades": 13,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 182.66,
+        "cycles": 13,
+        "trades": 13,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 53.57,
+        "cycles": 4,
+        "trades": 4,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 57.78,
+        "cycles": 2,
+        "trades": 2,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 13.9,
+      "resistance_composite": 33.6,
+      "improvement_pct": 141.7,
+      "winner": "resistance"
+    }
+  },
+  "INTC": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 3,
+      "resistance_fallback_pct": 4
+    },
+    "stats": {
+      "composite": 64.0,
+      "pnl": 36.62,
+      "trades": 1
+    },
+    "periods": {
+      "12": {
+        "pnl": 967.16,
+        "cycles": 16,
+        "trades": 16,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 567.47,
+        "cycles": 6,
+        "trades": 6,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 35.33,
+        "cycles": 4,
+        "trades": 4,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 36.62,
+        "cycles": 1,
+        "trades": 1,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 21.1,
+      "resistance_composite": 64.0,
+      "improvement_pct": 203.3,
+      "winner": "resistance"
+    }
+  },
+  "ARM": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 50,
+      "min_resistance_approaches": 2,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 71.6,
+      "pnl": 109.09,
+      "trades": 1
+    },
+    "periods": {
+      "12": {
+        "pnl": 555.55,
+        "cycles": 14,
+        "trades": 14,
+        "win_rate": 92.9
+      },
+      "6": {
+        "pnl": 408.96,
+        "cycles": 16,
+        "trades": 16,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 278.84,
+        "cycles": 8,
+        "trades": 8,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 109.09,
+        "cycles": 1,
+        "trades": 1,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 29.8,
+      "resistance_composite": 71.6,
+      "improvement_pct": 140.3,
+      "winner": "resistance"
+    }
+  },
+  "CRWV": {
+    "params": {
+      "resistance_strategy": "first",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 5,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 26.6,
+      "pnl": 54.11,
+      "trades": 2
+    },
+    "periods": {
+      "12": {
+        "pnl": 286.58,
+        "cycles": 19,
+        "trades": 19,
+        "win_rate": 94.7
+      },
+      "6": {
+        "pnl": 101.41,
+        "cycles": 13,
+        "trades": 13,
+        "win_rate": 92.3
+      },
+      "3": {
+        "pnl": 83.65,
+        "cycles": 9,
+        "trades": 9,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 54.11,
+        "cycles": 2,
+        "trades": 2,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 11.4,
+      "resistance_composite": 26.6,
+      "improvement_pct": 133.3,
+      "winner": "resistance"
+    }
+  },
+  "BMNR": {
+    "params": {
+      "resistance_strategy": "first",
+      "min_reject_rate": 70,
+      "min_resistance_approaches": 2,
+      "resistance_fallback_pct": 6
+    },
+    "stats": {
+      "composite": 5.0,
+      "pnl": 29.85,
+      "trades": 1
+    },
+    "periods": {
+      "12": {
+        "pnl": -8.14,
+        "cycles": 23,
+        "trades": 24,
+        "win_rate": 95.8
+      },
+      "6": {
+        "pnl": 302.28,
+        "cycles": 17,
+        "trades": 17,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": -152.18,
+        "cycles": 4,
+        "trades": 5,
+        "win_rate": 80.0
+      },
+      "1": {
+        "pnl": 29.85,
+        "cycles": 1,
+        "trades": 1,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 2.5,
+      "resistance_composite": 5.0,
+      "improvement_pct": 100.0,
+      "winner": "resistance"
+    }
+  },
+  "ACHR": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 2,
+      "resistance_fallback_pct": 6
+    },
+    "stats": {
+      "composite": 30.8,
+      "pnl": 22.83,
+      "trades": 2
+    },
+    "periods": {
+      "12": {
+        "pnl": 415.98,
+        "cycles": 35,
+        "trades": 35,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 212.01,
+        "cycles": 21,
+        "trades": 21,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 76.62,
+        "cycles": 9,
+        "trades": 9,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 22.83,
+        "cycles": 2,
+        "trades": 2,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 27.6,
+      "resistance_composite": 30.8,
+      "improvement_pct": 11.6,
+      "winner": "resistance"
+    }
+  },
+  "DNA": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 2,
+      "resistance_fallback_pct": 4
+    },
+    "stats": {
+      "composite": 22.7,
+      "pnl": 18.57,
+      "trades": 3
+    },
+    "periods": {
+      "12": {
+        "pnl": 428.49,
+        "cycles": 41,
+        "trades": 41,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 169.79,
+        "cycles": 21,
+        "trades": 21,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 24.3,
+        "cycles": 6,
+        "trades": 6,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 18.57,
+        "cycles": 3,
+        "trades": 3,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 20.9,
+      "resistance_composite": 22.7,
+      "improvement_pct": 8.6,
+      "winner": "resistance"
+    }
+  },
+  "EOSE": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 70,
+      "min_resistance_approaches": 2,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 22.4,
+      "pnl": 17.99,
+      "trades": 4
+    },
+    "periods": {
+      "12": {
+        "pnl": 281.77,
+        "cycles": 28,
+        "trades": 28,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 193.28,
+        "cycles": 21,
+        "trades": 21,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 48.25,
+        "cycles": 13,
+        "trades": 14,
+        "win_rate": 92.9
+      },
+      "1": {
+        "pnl": 17.99,
+        "cycles": 4,
+        "trades": 4,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 20.1,
+      "resistance_composite": 22.4,
+      "improvement_pct": 11.4,
+      "winner": "resistance"
+    }
+  },
+  "CLSK": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 2,
+      "resistance_fallback_pct": 4
+    },
+    "stats": {
+      "composite": 21.7,
+      "pnl": 14.03,
+      "trades": 3
+    },
+    "periods": {
+      "12": {
+        "pnl": 320.76,
+        "cycles": 59,
+        "trades": 59,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 160.29,
+        "cycles": 25,
+        "trades": 25,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 57.42,
+        "cycles": 12,
+        "trades": 12,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 14.03,
+        "cycles": 3,
+        "trades": 3,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 22.0,
+      "resistance_composite": 21.7,
+      "improvement_pct": -1.4,
+      "winner": "flat"
+    }
+  },
+  "AGH": {
+    "params": {
+      "resistance_strategy": "first",
+      "min_reject_rate": 50,
+      "min_resistance_approaches": 3,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 20.9,
+      "pnl": 11.95,
+      "trades": 1
+    },
+    "periods": {
+      "12": {
+        "pnl": 235.61,
+        "cycles": 25,
+        "trades": 25,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 145.68,
+        "cycles": 19,
+        "trades": 19,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 61.25,
+        "cycles": 10,
+        "trades": 10,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 11.95,
+        "cycles": 1,
+        "trades": 1,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 22.9,
+      "resistance_composite": 20.9,
+      "improvement_pct": -8.7,
+      "winner": "flat"
+    }
+  },
+  "BE": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 5,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 12.2,
+      "pnl": 11.86,
+      "trades": 1
+    },
+    "periods": {
+      "12": {
+        "pnl": 163.24,
+        "cycles": 20,
+        "trades": 20,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 82.31,
+        "cycles": 10,
+        "trades": 10,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 14.47,
+        "cycles": 2,
+        "trades": 2,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 11.86,
+        "cycles": 1,
+        "trades": 1,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 12.2,
+      "resistance_composite": 12.2,
+      "improvement_pct": 0.0,
+      "winner": "flat"
+    }
+  },
+  "HUT": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 50,
+      "min_resistance_approaches": 3,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 18.3,
+      "pnl": 11.52,
+      "trades": 2
+    },
+    "periods": {
+      "12": {
+        "pnl": 275.88,
+        "cycles": 27,
+        "trades": 27,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 99.2,
+        "cycles": 17,
+        "trades": 17,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 54.6,
+        "cycles": 6,
+        "trades": 6,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 11.52,
+        "cycles": 2,
+        "trades": 2,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 18.1,
+      "resistance_composite": 18.3,
+      "improvement_pct": 1.1,
+      "winner": "resistance"
+    }
+  },
+  "ASTS": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 2,
+      "resistance_fallback_pct": 4
+    },
+    "stats": {
+      "composite": 18.8,
+      "pnl": 10.57,
+      "trades": 2
+    },
+    "periods": {
+      "12": {
+        "pnl": 327.65,
+        "cycles": 22,
+        "trades": 22,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 153.55,
+        "cycles": 12,
+        "trades": 12,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 20.02,
+        "cycles": 5,
+        "trades": 5,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 10.57,
+        "cycles": 2,
+        "trades": 2,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 16.7,
+      "resistance_composite": 18.8,
+      "improvement_pct": 12.6,
+      "winner": "resistance"
+    }
+  },
+  "APLD": {
+    "params": {
+      "resistance_strategy": "first",
+      "min_reject_rate": 50,
+      "min_resistance_approaches": 2,
+      "resistance_fallback_pct": 4
+    },
+    "stats": {
+      "composite": 22.1,
+      "pnl": 10.16,
+      "trades": 1
+    },
+    "periods": {
+      "12": {
+        "pnl": 250.38,
+        "cycles": 26,
+        "trades": 26,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 153.57,
+        "cycles": 12,
+        "trades": 12,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 66.49,
+        "cycles": 8,
+        "trades": 8,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 10.16,
+        "cycles": 1,
+        "trades": 1,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 20.2,
+      "resistance_composite": 22.1,
+      "improvement_pct": 9.4,
+      "winner": "resistance"
+    }
+  },
+  "IONQ": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 50,
+      "min_resistance_approaches": 5,
+      "resistance_fallback_pct": 6
+    },
+    "stats": {
+      "composite": 27.8,
+      "pnl": 9.76,
+      "trades": 2
+    },
+    "periods": {
+      "12": {
+        "pnl": 375.24,
+        "cycles": 30,
+        "trades": 30,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 184.25,
+        "cycles": 23,
+        "trades": 23,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 85.96,
+        "cycles": 16,
+        "trades": 16,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 9.76,
+        "cycles": 2,
+        "trades": 2,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 25.0,
+      "resistance_composite": 27.8,
+      "improvement_pct": 11.2,
+      "winner": "resistance"
+    }
+  },
+  "IREN": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 3,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 23.4,
+      "pnl": 0,
+      "trades": 0
+    },
+    "periods": {
+      "12": {
+        "pnl": 211.81,
+        "cycles": 27,
+        "trades": 27,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 181.79,
+        "cycles": 19,
+        "trades": 19,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 66.42,
+        "cycles": 10,
+        "trades": 10,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 0,
+        "cycles": 0,
+        "trades": 0,
+        "win_rate": 0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 21.7,
+      "resistance_composite": 23.4,
+      "improvement_pct": 7.8,
+      "winner": "resistance"
+    }
+  },
+  "BIAF": {
+    "params": {
+      "resistance_strategy": "first",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 5,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 10.3,
+      "pnl": 7.21,
+      "trades": 1
+    },
+    "periods": {
+      "12": {
+        "pnl": 176.78,
+        "cycles": 31,
+        "trades": 32,
+        "win_rate": 96.9
+      },
+      "6": {
+        "pnl": 191.14,
+        "cycles": 22,
+        "trades": 22,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": -45.51,
+        "cycles": 10,
+        "trades": 11,
+        "win_rate": 90.9
+      },
+      "1": {
+        "pnl": 7.21,
+        "cycles": 1,
+        "trades": 1,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 12.8,
+      "resistance_composite": 10.3,
+      "improvement_pct": -19.5,
+      "winner": "flat"
+    }
+  },
+  "CRCL": {
+    "params": {
+      "resistance_strategy": "first",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 5,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 18.7,
+      "pnl": 4.91,
+      "trades": 1
+    },
+    "periods": {
+      "12": {
+        "pnl": 187.48,
+        "cycles": 18,
+        "trades": 18,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 140.85,
+        "cycles": 13,
+        "trades": 13,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 59.75,
+        "cycles": 5,
+        "trades": 5,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 4.91,
+        "cycles": 1,
+        "trades": 1,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 21.2,
+      "resistance_composite": 18.7,
+      "improvement_pct": -11.8,
+      "winner": "flat"
+    }
+  },
+  "HIMS": {
+    "params": {
+      "resistance_strategy": "first",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 5,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 24.5,
+      "pnl": 3.88,
+      "trades": 1
+    },
+    "periods": {
+      "12": {
+        "pnl": 385.08,
+        "cycles": 41,
+        "trades": 41,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 159.29,
+        "cycles": 25,
+        "trades": 25,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 56.74,
+        "cycles": 11,
+        "trades": 11,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 3.88,
+        "cycles": 1,
+        "trades": 1,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 26.0,
+      "resistance_composite": 24.5,
+      "improvement_pct": -5.8,
+      "winner": "flat"
+    }
+  },
+  "AR": {
+    "params": {
+      "resistance_strategy": "first",
+      "min_reject_rate": 70,
+      "min_resistance_approaches": 5,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 22.8,
+      "pnl": 0.77,
+      "trades": 1
+    },
+    "periods": {
+      "12": {
+        "pnl": 291.14,
+        "cycles": 15,
+        "trades": 15,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 181.42,
+        "cycles": 11,
+        "trades": 11,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 34.97,
+        "cycles": 2,
+        "trades": 2,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 0.77,
+        "cycles": 1,
+        "trades": 1,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 21.1,
+      "resistance_composite": 22.8,
+      "improvement_pct": 8.1,
+      "winner": "resistance"
+    }
+  },
+  "CDE": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 2,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 15.5,
+      "pnl": 0.93,
+      "trades": 1
+    },
+    "periods": {
+      "12": {
+        "pnl": 202.39,
+        "cycles": 14,
+        "trades": 14,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 155.02,
+        "cycles": 10,
+        "trades": 10,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 20.56,
+        "cycles": 6,
+        "trades": 6,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 0.93,
+        "cycles": 1,
+        "trades": 1,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 14.2,
+      "resistance_composite": 15.5,
+      "improvement_pct": 9.2,
+      "winner": "resistance"
+    }
+  },
+  "BATL": {
+    "params": {
+      "resistance_strategy": "first",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 2,
+      "resistance_fallback_pct": 4
+    },
+    "stats": {
+      "composite": 15.7,
+      "pnl": 0,
+      "trades": 0
+    },
+    "periods": {
+      "12": {
+        "pnl": 262.35,
+        "cycles": 40,
+        "trades": 40,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 75.48,
+        "cycles": 13,
+        "trades": 13,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 24.18,
+        "cycles": 2,
+        "trades": 2,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 0,
+        "cycles": 0,
+        "trades": 0,
+        "win_rate": 0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 17.7,
+      "resistance_composite": 15.7,
+      "improvement_pct": -11.3,
+      "winner": "flat"
+    }
+  },
+  "CLF": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 5,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 18.0,
+      "pnl": 0,
+      "trades": 0
+    },
+    "periods": {
+      "12": {
+        "pnl": 202.03,
+        "cycles": 22,
+        "trades": 22,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 109.86,
+        "cycles": 12,
+        "trades": 12,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 56.83,
+        "cycles": 6,
+        "trades": 6,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 0,
+        "cycles": 0,
+        "trades": 0,
+        "win_rate": 0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 16.4,
+      "resistance_composite": 18.0,
+      "improvement_pct": 9.8,
+      "winner": "resistance"
+    }
+  },
+  "MARA": {
+    "params": {
+      "resistance_strategy": "best",
+      "min_reject_rate": 30,
+      "min_resistance_approaches": 5,
+      "resistance_fallback_pct": 8
+    },
+    "stats": {
+      "composite": 20.7,
+      "pnl": 11.88,
+      "trades": 1
+    },
+    "periods": {
+      "12": {
+        "pnl": 291.04,
+        "cycles": 37,
+        "trades": 37,
+        "win_rate": 100.0
+      },
+      "6": {
+        "pnl": 149.8,
+        "cycles": 16,
+        "trades": 16,
+        "win_rate": 100.0
+      },
+      "3": {
+        "pnl": 44.36,
+        "cycles": 6,
+        "trades": 6,
+        "win_rate": 100.0
+      },
+      "1": {
+        "pnl": 11.88,
+        "cycles": 1,
+        "trades": 1,
+        "win_rate": 100.0
+      }
+    },
+    "vs_flat": {
+      "flat_composite": 22.1,
+      "resistance_composite": 20.7,
+      "improvement_pct": -6.3,
+      "winner": "flat"
+    }
+  }
+}

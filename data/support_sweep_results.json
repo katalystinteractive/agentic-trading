@@ -1,15 +1,146 @@
 {
   "_meta": {
     "source": "support_parameter_sweeper.py",
-    "updated": "2026-03-31",
+    "updated": "2026-04-01",
     "threshold_combos": 30,
     "execution_combos": 144,
-    "tickers_swept": 1,
-    "profitable": 1
+    "tickers_swept": 30,
+    "profitable": 29
   },
-  "STIM": {
+  "ACHR": {
+    "params": {
+      "sell_default": 8.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 22.83,
+      "win_rate": 100.0,
+      "trades": 2,
+      "cycles": 2,
+      "sharpe": 26.07,
+      "composite": 27.6
+    },
+    "features": {
+      "target_hit_rate": 0.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 4.0,
+      "trade_count": 2,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 2.0,
+      "pool_efficiency": 0.076,
+      "cycle_count": 2
+    },
+    "cross_validation": null
+  },
+  "AGH": {
+    "params": {
+      "sell_default": 10.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 11.95,
+      "win_rate": 100.0,
+      "trades": 1,
+      "cycles": 1,
+      "sharpe": 0,
+      "composite": 22.9
+    },
+    "features": {
+      "target_hit_rate": 0.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 4.0,
+      "trade_count": 1,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 1.0,
+      "pool_efficiency": 0.04,
+      "cycle_count": 1
+    },
+    "cross_validation": null
+  },
+  "APLD": {
+    "params": {
+      "sell_default": 10.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 10.16,
+      "win_rate": 100.0,
+      "trades": 1,
+      "cycles": 1,
+      "sharpe": 0,
+      "composite": 20.2
+    },
+    "features": {
+      "target_hit_rate": 0.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 4.0,
+      "trade_count": 1,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 6.0,
+      "pool_efficiency": 0.034,
+      "cycle_count": 1
+    },
+    "cross_validation": null
+  },
+  "APP": {
+    "params": {
+      "sell_default": 10.0,
+      "cat_hard_stop": 15,
+      "active_pool": 200,
+      "reserve_pool": 200,
+      "active_bullets_max": 7,
+      "reserve_bullets_max": 2,
+      "tier_full": 40,
+      "tier_std": 20
+    },
+    "stats": {
+      "pnl": 1125.16,
+      "win_rate": 100.0,
+      "trades": 3,
+      "cycles": 3,
+      "sharpe": 17.15,
+      "composite": 114.2
+    },
+    "features": {
+      "target_hit_rate": 0.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 4.0,
+      "trade_count": 3,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 2.0,
+      "pool_efficiency": 0.347,
+      "cycle_count": 3
+    },
+    "cross_validation": null
+  },
+  "AR": {
     "params": {
       "sell_default": 6.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 2.27,
+      "win_rate": 100.0,
+      "trades": 1,
+      "cycles": 1,
+      "sharpe": 0,
+      "composite": 21.1
+    },
+    "features": {
+      "target_hit_rate": 1.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 6.0,
+      "trade_count": 1,
+      "median_hold_days": 2.0,
+      "avg_bullets_per_cycle": 1.0,
+      "pool_efficiency": 0.008,
+      "cycle_count": 1
+    },
+    "cross_validation": null
+  },
+  "ARM": {
+    "params": {
+      "sell_default": 10.0,
       "cat_hard_stop": 15,
       "active_pool": 500,
       "reserve_pool": 200,
@@ -19,12 +150,361 @@
       "tier_std": 20
     },
     "stats": {
-      "pnl": 497.63,
+      "pnl": 259.25,
+      "win_rate": 100.0,
+      "trades": 1,
+      "cycles": 1,
+      "sharpe": 0,
+      "composite": 29.8
+    },
+    "features": {
+      "target_hit_rate": 1.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 10.0,
+      "trade_count": 1,
+      "median_hold_days": 17.0,
+      "avg_bullets_per_cycle": 3.0,
+      "pool_efficiency": 0.122,
+      "cycle_count": 1
+    },
+    "cross_validation": null
+  },
+  "ASTS": {
+    "params": {
+      "sell_default": 10.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 10.57,
+      "win_rate": 100.0,
+      "trades": 2,
+      "cycles": 2,
+      "sharpe": 24.32,
+      "composite": 16.7
+    },
+    "features": {
+      "target_hit_rate": 0.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 4.0,
+      "trade_count": 2,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 1.5,
+      "pool_efficiency": 0.035,
+      "cycle_count": 2
+    },
+    "cross_validation": null
+  },
+  "BATL": {
+    "params": {
+      "sell_default": 10.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 0,
+      "win_rate": 0,
+      "trades": 0,
+      "cycles": 0,
+      "sharpe": 0,
+      "composite": 17.7
+    },
+    "features": {
+      "target_hit_rate": 0,
+      "stop_hit_rate": 0,
+      "mean_pnl_pct": 0,
+      "trade_count": 0,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 0,
+      "pool_efficiency": 0,
+      "cycle_count": 0
+    },
+    "cross_validation": null
+  },
+  "BBAI": {
+    "params": {
+      "sell_default": 10.0,
+      "cat_hard_stop": 15,
+      "active_pool": 500,
+      "reserve_pool": 200,
+      "active_bullets_max": 7,
+      "reserve_bullets_max": 2,
+      "tier_full": 40,
+      "tier_std": 20
+    },
+    "stats": {
+      "pnl": 478.64,
+      "win_rate": 100.0,
+      "trades": 4,
+      "cycles": 4,
+      "sharpe": 7.27,
+      "composite": 34.2
+    },
+    "features": {
+      "target_hit_rate": 0.25,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 5.5,
+      "trade_count": 4,
+      "median_hold_days": 3.0,
+      "avg_bullets_per_cycle": 1.2,
+      "pool_efficiency": 0.116,
+      "cycle_count": 4
+    },
+    "cross_validation": null
+  },
+  "BE": {
+    "params": {
+      "sell_default": 10.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 11.86,
+      "win_rate": 100.0,
+      "trades": 1,
+      "cycles": 1,
+      "sharpe": 0,
+      "composite": 12.2
+    },
+    "features": {
+      "target_hit_rate": 0.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 4.0,
+      "trade_count": 1,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 1.0,
+      "pool_efficiency": 0.04,
+      "cycle_count": 1
+    },
+    "cross_validation": null
+  },
+  "BIAF": {
+    "params": {
+      "sell_default": 10.0,
+      "cat_hard_stop": 25
+    },
+    "stats": {
+      "pnl": 7.21,
+      "win_rate": 100.0,
+      "trades": 1,
+      "cycles": 1,
+      "sharpe": 0,
+      "composite": 12.8
+    },
+    "features": {
+      "target_hit_rate": 0.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 4.0,
+      "trade_count": 1,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 1.0,
+      "pool_efficiency": 0.024,
+      "cycle_count": 1
+    },
+    "cross_validation": null
+  },
+  "BMNR": {
+    "params": {
+      "sell_default": 8.0,
+      "cat_hard_stop": 15,
+      "active_pool": 500,
+      "reserve_pool": 200,
+      "active_bullets_max": 5,
+      "reserve_bullets_max": 2,
+      "tier_full": 40,
+      "tier_std": 20
+    },
+    "stats": {
+      "pnl": 49.76,
+      "win_rate": 100.0,
+      "trades": 1,
+      "cycles": 1,
+      "sharpe": 0,
+      "composite": 2.5
+    },
+    "features": {
+      "target_hit_rate": 1.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 8.0,
+      "trade_count": 1,
+      "median_hold_days": 1.0,
+      "avg_bullets_per_cycle": 2.0,
+      "pool_efficiency": 0.08,
+      "cycle_count": 1
+    },
+    "cross_validation": null
+  },
+  "CDE": {
+    "params": {
+      "sell_default": 10.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 0.93,
+      "win_rate": 100.0,
+      "trades": 1,
+      "cycles": 1,
+      "sharpe": 0,
+      "composite": 14.2
+    },
+    "features": {
+      "target_hit_rate": 0.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 4.0,
+      "trade_count": 1,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 11.0,
+      "pool_efficiency": 0.003,
+      "cycle_count": 1
+    },
+    "cross_validation": null
+  },
+  "CIFR": {
+    "params": {
+      "sell_default": 8.0,
+      "cat_hard_stop": 15,
+      "active_pool": 500,
+      "reserve_pool": 200,
+      "active_bullets_max": 3,
+      "reserve_bullets_max": 2,
+      "tier_full": 40,
+      "tier_std": 20
+    },
+    "stats": {
+      "pnl": 375.73,
       "win_rate": 100.0,
       "trades": 3,
       "cycles": 3,
-      "sharpe": 22.18,
-      "composite": 33.6
+      "sharpe": 40.45,
+      "composite": 26.4
+    },
+    "features": {
+      "target_hit_rate": 0.667,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 6.667,
+      "trade_count": 3,
+      "median_hold_days": 3.5,
+      "avg_bullets_per_cycle": 2.0,
+      "pool_efficiency": 0.119,
+      "cycle_count": 3
+    },
+    "cross_validation": null
+  },
+  "CLF": {
+    "params": {
+      "sell_default": 6.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 0,
+      "win_rate": 0,
+      "trades": 0,
+      "cycles": 0,
+      "sharpe": 0,
+      "composite": 16.4
+    },
+    "features": {
+      "target_hit_rate": 0,
+      "stop_hit_rate": 0,
+      "mean_pnl_pct": 0,
+      "trade_count": 0,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 0,
+      "pool_efficiency": 0,
+      "cycle_count": 0
+    },
+    "cross_validation": null
+  },
+  "CLSK": {
+    "params": {
+      "sell_default": 6.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 16.93,
+      "win_rate": 100.0,
+      "trades": 4,
+      "cycles": 4,
+      "sharpe": 23.27,
+      "composite": 22.0
+    },
+    "features": {
+      "target_hit_rate": 0.25,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 4.5,
+      "trade_count": 4,
+      "median_hold_days": 4.0,
+      "avg_bullets_per_cycle": 1.0,
+      "pool_efficiency": 0.056,
+      "cycle_count": 4
+    },
+    "cross_validation": null
+  },
+  "CRCL": {
+    "params": {
+      "sell_default": 8.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 4.91,
+      "win_rate": 100.0,
+      "trades": 1,
+      "cycles": 1,
+      "sharpe": 0,
+      "composite": 21.2
+    },
+    "features": {
+      "target_hit_rate": 0.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 4.0,
+      "trade_count": 1,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 1.0,
+      "pool_efficiency": 0.016,
+      "cycle_count": 1
+    },
+    "cross_validation": null
+  },
+  "CRWV": {
+    "params": {
+      "sell_default": 4.0,
+      "cat_hard_stop": 15,
+      "active_pool": 500,
+      "reserve_pool": 200,
+      "active_bullets_max": 3,
+      "reserve_bullets_max": 2,
+      "tier_full": 40,
+      "tier_std": 20
+    },
+    "stats": {
+      "pnl": 166.48,
+      "win_rate": 100.0,
+      "trades": 3,
+      "cycles": 3,
+      "sharpe": 35.08,
+      "composite": 11.4
+    },
+    "features": {
+      "target_hit_rate": 0.667,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 4.0,
+      "trade_count": 3,
+      "median_hold_days": 4.5,
+      "avg_bullets_per_cycle": 2.3,
+      "pool_efficiency": 0.082,
+      "cycle_count": 3
+    },
+    "cross_validation": null
+  },
+  "DNA": {
+    "params": {
+      "sell_default": 7.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 18.57,
+      "win_rate": 100.0,
+      "trades": 3,
+      "cycles": 3,
+      "sharpe": 0,
+      "composite": 20.9
     },
     "features": {
       "target_hit_rate": 0.0,
@@ -32,9 +512,283 @@
       "mean_pnl_pct": 4.0,
       "trade_count": 3,
       "median_hold_days": 0,
-      "avg_bullets_per_cycle": 1.3,
-      "pool_efficiency": 0.079,
+      "avg_bullets_per_cycle": 1.0,
+      "pool_efficiency": 0.062,
       "cycle_count": 3
+    },
+    "cross_validation": null
+  },
+  "DNN": {
+    "params": {
+      "sell_default": 10.0,
+      "cat_hard_stop": 15,
+      "active_pool": 500,
+      "reserve_pool": 200,
+      "active_bullets_max": 3,
+      "reserve_bullets_max": 2,
+      "tier_full": 40,
+      "tier_std": 20
+    },
+    "stats": {
+      "pnl": 309.2,
+      "win_rate": 100.0,
+      "trades": 2,
+      "cycles": 2,
+      "sharpe": 15.65,
+      "composite": 13.9
+    },
+    "features": {
+      "target_hit_rate": 0.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 4.0,
+      "trade_count": 2,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 3.0,
+      "pool_efficiency": 0.078,
+      "cycle_count": 2
+    },
+    "cross_validation": null
+  },
+  "EOSE": {
+    "params": {
+      "sell_default": 4.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 17.99,
+      "win_rate": 100.0,
+      "trades": 4,
+      "cycles": 4,
+      "sharpe": 12.45,
+      "composite": 20.1
+    },
+    "features": {
+      "target_hit_rate": 0.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 4.0,
+      "trade_count": 4,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 1.0,
+      "pool_efficiency": 0.06,
+      "cycle_count": 4
+    },
+    "cross_validation": null
+  },
+  "HIMS": {
+    "params": {
+      "sell_default": 10.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 3.88,
+      "win_rate": 100.0,
+      "trades": 1,
+      "cycles": 1,
+      "sharpe": 0,
+      "composite": 26.0
+    },
+    "features": {
+      "target_hit_rate": 0.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 4.0,
+      "trade_count": 1,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 2.0,
+      "pool_efficiency": 0.013,
+      "cycle_count": 1
+    },
+    "cross_validation": null
+  },
+  "HUT": {
+    "params": {
+      "sell_default": 10.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 11.52,
+      "win_rate": 100.0,
+      "trades": 2,
+      "cycles": 2,
+      "sharpe": 23.81,
+      "composite": 18.1
+    },
+    "features": {
+      "target_hit_rate": 0.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 4.0,
+      "trade_count": 2,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 1.5,
+      "pool_efficiency": 0.038,
+      "cycle_count": 2
+    },
+    "cross_validation": null
+  },
+  "IBRX": {
+    "params": {
+      "sell_default": 10.0,
+      "cat_hard_stop": 15,
+      "active_pool": 500,
+      "reserve_pool": 200,
+      "active_bullets_max": 3,
+      "reserve_bullets_max": 2,
+      "tier_full": 40,
+      "tier_std": 20
+    },
+    "stats": {
+      "pnl": 662.83,
+      "win_rate": 100.0,
+      "trades": 1,
+      "cycles": 1,
+      "sharpe": 0,
+      "composite": 25.3
+    },
+    "features": {
+      "target_hit_rate": 1.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 10.0,
+      "trade_count": 1,
+      "median_hold_days": 3.0,
+      "avg_bullets_per_cycle": 3.0,
+      "pool_efficiency": 0.099,
+      "cycle_count": 1
+    },
+    "cross_validation": null
+  },
+  "INTC": {
+    "params": {
+      "sell_default": 7.0,
+      "cat_hard_stop": 15,
+      "active_pool": 500,
+      "reserve_pool": 200,
+      "active_bullets_max": 5,
+      "reserve_bullets_max": 2,
+      "tier_full": 40,
+      "tier_std": 20
+    },
+    "stats": {
+      "pnl": 264.33,
+      "win_rate": 100.0,
+      "trades": 2,
+      "cycles": 2,
+      "sharpe": 486.39,
+      "composite": 21.1
+    },
+    "features": {
+      "target_hit_rate": 1.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 7.0,
+      "trade_count": 2,
+      "median_hold_days": 4.5,
+      "avg_bullets_per_cycle": 2.5,
+      "pool_efficiency": 0.102,
+      "cycle_count": 2
+    },
+    "cross_validation": null
+  },
+  "IONQ": {
+    "params": {
+      "sell_default": 10.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 9.76,
+      "win_rate": 100.0,
+      "trades": 2,
+      "cycles": 2,
+      "sharpe": 19.76,
+      "composite": 25.0
+    },
+    "features": {
+      "target_hit_rate": 0.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 4.0,
+      "trade_count": 2,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 3.5,
+      "pool_efficiency": 0.033,
+      "cycle_count": 2
+    },
+    "cross_validation": null
+  },
+  "IREN": {
+    "params": {
+      "sell_default": 8.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 9.48,
+      "win_rate": 100.0,
+      "trades": 1,
+      "cycles": 1,
+      "sharpe": 0,
+      "composite": 21.7
+    },
+    "features": {
+      "target_hit_rate": 1.0,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 8.0,
+      "trade_count": 1,
+      "median_hold_days": 1.0,
+      "avg_bullets_per_cycle": 2.0,
+      "pool_efficiency": 0.032,
+      "cycle_count": 1
+    },
+    "cross_validation": null
+  },
+  "LUNR": {
+    "params": {
+      "sell_default": 10.0,
+      "cat_hard_stop": 15,
+      "active_pool": 500,
+      "reserve_pool": 200,
+      "active_bullets_max": 3,
+      "reserve_bullets_max": 2,
+      "tier_full": 40,
+      "tier_std": 20
+    },
+    "stats": {
+      "pnl": 670.8,
+      "win_rate": 100.0,
+      "trades": 4,
+      "cycles": 4,
+      "sharpe": 10.41,
+      "composite": 27.3
+    },
+    "features": {
+      "target_hit_rate": 0.25,
+      "stop_hit_rate": 0.0,
+      "mean_pnl_pct": 5.5,
+      "trade_count": 4,
+      "median_hold_days": 1.0,
+      "avg_bullets_per_cycle": 1.0,
+      "pool_efficiency": 0.088,
+      "cycle_count": 4
+    },
+    "cross_validation": null
+  },
+  "MARA": {
+    "params": {
+      "sell_default": 10.0,
+      "cat_hard_stop": 15
+    },
+    "stats": {
+      "pnl": 0,
+      "win_rate": 0,
+      "trades": 0,
+      "cycles": 0,
+      "sharpe": 0,
+      "composite": 22.1
+    },
+    "features": {
+      "target_hit_rate": 0,
+      "stop_hit_rate": 0,
+      "mean_pnl_pct": 0,
+      "trade_count": 0,
+      "median_hold_days": 0,
+      "avg_bullets_per_cycle": 0,
+      "pool_efficiency": 0,
+      "cycle_count": 0
     },
     "cross_validation": null
   }

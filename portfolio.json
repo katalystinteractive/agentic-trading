@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-03-31",
+  "last_updated": "2026-04-01",
   "positions": {
     "NU": {
       "shares": 30,
@@ -388,18 +388,18 @@
       },
       {
         "type": "SELL",
-        "price": 15.8,
+        "price": 16.55,
         "shares": 21,
-        "note": "optimized 12.0%",
+        "note": "resistance 17.3% (75% reject)",
         "placed": true
       }
     ],
     "ACHR": [
       {
         "type": "SELL",
-        "price": 6.99,
+        "price": 7.97,
         "shares": 92,
-        "note": "neural 7.0%",
+        "note": "resistance 22.1% (50% reject)",
         "placed": true
       }
     ],
@@ -641,17 +641,17 @@
         "fill_price": 3.68
       },
       {
-        "type": "SELL",
-        "price": 3.91,
-        "shares": 100,
-        "note": "neural 5.0%",
-        "placed": true
-      },
-      {
         "type": "BUY",
         "price": 3.31,
         "shares": 58,
         "note": "A1 \u2014 wick-adjusted",
+        "placed": true
+      },
+      {
+        "type": "SELL",
+        "price": 4.64,
+        "shares": 100,
+        "note": "resistance 24.7% (67% reject)",
         "placed": true
       }
     ],
@@ -703,9 +703,9 @@
     "IONQ": [
       {
         "type": "SELL",
-        "price": 47.98,
+        "price": 49.1,
         "shares": 15,
-        "note": "neural 8.0%",
+        "note": "resistance 10.5% (80% reject)",
         "placed": true
       }
     ]
