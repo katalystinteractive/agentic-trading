@@ -123,6 +123,10 @@ class SurgicalSimConfig:
     exceptional_max_median_days: int = 2
     exceptional_min_capture: int = 50
     sell_mode: str = "flat"             # "flat" or "resistance"
+    resistance_strategy: str = "first"  # "first" (nearest) or "best" (highest reject rate)
+    min_reject_rate: int = 40           # minimum rejection % to trust a resistance
+    min_resistance_approaches: int = 2  # minimum approach count
+    resistance_fallback_pct: float = 6.0  # flat % fallback when no qualifying resistance
 
     # Time stops
     time_stop_days: int = 60

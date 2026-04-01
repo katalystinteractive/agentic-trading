@@ -131,7 +131,7 @@ def _compute_sell_target(cfg, completed_cycles_for_ticker):
     return cfg.sell_default
 
 
-def run_simulation(price_data, regime_data, cfg, wick_cache=None):
+def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cache=None):
     """Execute the surgical mean-reversion backtest.
 
     Args:
@@ -190,6 +190,7 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None):
     completed_cycles = defaultdict(list)  # ticker -> [cycle_dicts]
     equity_curve = []
     cached_levels = {}       # ticker -> {date, levels, bullet_plan}
+    cached_resistance = {}   # ticker -> [resistance_level_dicts]
 
     # Initialize capital pools
     cumulative_profit = defaultdict(float)  # per-ticker accumulated P/L for compounding
@@ -303,21 +304,40 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None):
             sell_target = _compute_sell_target(cfg, completed_cycles.get(tk, []))
             if regime == "Risk-Off" and cfg.riskoff_suppress_upgrades:
                 sell_target = cfg.sell_default
-            target_price = pos.avg_cost * (1 + sell_target / 100)
+
+            # Resistance-aware or flat exit
+            if cfg.sell_mode == "resistance" and cached_resistance.get(tk):
+                _res = cached_resistance[tk]
+                _qualifying = [r for r in _res
+                               if r["price"] > pos.avg_cost
+                               and r.get("reject_rate", 0) >= cfg.min_reject_rate
+                               and r.get("approaches", 0) >= cfg.min_resistance_approaches]
+                if _qualifying:
+                    if cfg.resistance_strategy == "first":
+                        target_price = min(r["price"] for r in _qualifying)
+                    else:  # "best"
+                        target_price = max(_qualifying, key=lambda r: r.get("reject_rate", 0))["price"]
+                    sell_tier_label = f"resistance@${target_price:.2f}"
+                else:
+                    target_price = pos.avg_cost * (1 + cfg.resistance_fallback_pct / 100)
+                    sell_tier_label = f"fallback@{cfg.resistance_fallback_pct}%"
+            else:
+                target_price = pos.avg_cost * (1 + sell_target / 100)
+                sell_tier_label = f"{sell_target}%"
 
             if cfg.conservative_exit_order and drawdown_pct <= -cfg.cat_warning:
                 # Don't sell at target during significant drawdown
                 pass
             elif day_high >= target_price:
-                pnl_pct = sell_target
-                pnl_dollars = pos.shares * pos.avg_cost * sell_target / 100
+                pnl_pct = (target_price - pos.avg_cost) / pos.avg_cost * 100
+                pnl_dollars = pos.shares * (target_price - pos.avg_cost)
                 trades.append({
                     "ticker": tk, "side": "SELL", "date": d_str,
                     "price": round(target_price, 2), "shares": pos.shares,
                     "pnl_pct": round(pnl_pct, 2), "pnl_dollars": round(pnl_dollars, 2),
                     "exit_reason": "PROFIT_TARGET", "days_held": days_held,
                     "avg_cost": round(pos.avg_cost, 2), "regime": regime,
-                    "sell_tier": f"{sell_target}%",
+                    "sell_tier": sell_tier_label,
                 })
                 completed_cycles[tk].append({
                     "entry_date": pos.entry_date, "exit_date": d_str,
@@ -542,6 +562,30 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None):
                     "active": active_bullets,
                     "reserve": reserve_bullets,
                 }
+
+                # Compute resistance levels for resistance sell mode
+                if cfg.sell_mode == "resistance":
+                    _rc_key = (tk, day_idx)
+                    if resistance_cache is not None and _rc_key in resistance_cache:
+                        cached_resistance[tk] = resistance_cache[_rc_key]
+                    else:
+                        try:
+                            from sell_target_calculator import (
+                                find_pa_resistances, find_hvn_ceilings,
+                                merge_resistance_levels, count_resistance_approaches)
+                            _zone_low = current_price * 1.02
+                            _zone_high = current_price * 1.20
+                            _pa = find_pa_resistances(hist_slice, _zone_low, _zone_high)
+                            _hvn = find_hvn_ceilings(hist_slice, _zone_low, _zone_high)
+                            _merged = merge_resistance_levels(_pa + _hvn)
+                            for _lv in _merged:
+                                _stats = count_resistance_approaches(hist_slice, _lv["price"])
+                                _lv.update(_stats)
+                            cached_resistance[tk] = _merged
+                            if resistance_cache is not None:
+                                resistance_cache[_rc_key] = _merged
+                        except Exception:
+                            cached_resistance[tk] = []
 
                 # Place new pending orders for levels not already covered
                 cap = stock_capital[tk]
