@@ -104,24 +104,27 @@ def compute_alerts(orders, prices, state):
 
         # Determine alert level
         if distance <= 0:
-            level = "FILLED?"  # price has crossed the order — likely filling
+            level = "FILLED?"
         elif distance <= IMMINENT_PCT:
             level = "IMMINENT"
         elif distance <= APPROACHING_PCT:
             level = "APPROACHING"
         else:
-            # Beyond threshold — reset suppression if present
-            state.pop(key, None)
+            # Beyond threshold — do NOT reset state (one-way escalation only)
+            # State clears only when the order is removed from portfolio.json
             continue
 
-        # Check suppression — FILLED? always fires (never suppressed)
+        # Check suppression — one-way escalation: APPROACHING → IMMINENT → FILLED?
+        # Once a level is reached, same or lower levels never re-fire
         existing = state.get(key)
-        if existing and level != "FILLED?":
+        if existing:
             existing_level = existing.get("level", "")
-            if existing_level == "IMMINENT":
-                continue  # already at tightest non-fill level
-            if existing_level == "APPROACHING" and level == "APPROACHING":
-                continue  # same level, already alerted
+            # Define escalation order
+            LEVEL_RANK = {"APPROACHING": 1, "IMMINENT": 2, "FILLED?": 3}
+            existing_rank = LEVEL_RANK.get(existing_level, 0)
+            new_rank = LEVEL_RANK.get(level, 0)
+            if new_rank <= existing_rank:
+                continue  # same or lower level — suppress
 
         # New alert
         alerts.append({
