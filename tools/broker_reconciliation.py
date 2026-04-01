@@ -573,10 +573,12 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
     # --- SELL orders ---
     sell_orders = []
     if shares > 0:
-        # Fetch hist for resistance-based sell targets (only if resistance wins)
+        # Fetch hist for resistance/bounce sell targets
         _hist = None
         _res_data = _load_resistance_profiles()
-        if _res_data.get(ticker, {}).get("vs_flat", {}).get("winner") == "resistance":
+        _bounce_data = _load_bounce_profiles()
+        if (_res_data.get(ticker, {}).get("vs_flat", {}).get("winner") == "resistance" or
+                _bounce_data.get(ticker, {}).get("vs_others", {}).get("winner") == "bounce"):
             try:
                 import yfinance as yf
                 import warnings
