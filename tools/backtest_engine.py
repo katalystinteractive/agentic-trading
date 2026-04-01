@@ -148,6 +148,8 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
             "live_capital varies by trade history across combos")
     if wick_cache is None:
         wick_cache = {}  # local cache, not shared — backward compat
+    if resistance_cache is None:
+        resistance_cache = {}  # local cache — resistance levels don't depend on capital state
     from wick_offset_analyzer import analyze_stock_data, WickConfig, ACTIVE_RADIUS_CAP, POOL_MAX_FRACTION
     import wick_offset_analyzer as woa
 
@@ -565,16 +567,17 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
 
                 # Compute resistance levels for resistance sell mode
                 if cfg.sell_mode == "resistance":
-                    _rc_key = (tk, day_idx)
-                    if resistance_cache is not None and _rc_key in resistance_cache:
+                    _rc_key = (tk, d_str)
+                    if _rc_key in resistance_cache:
                         cached_resistance[tk] = resistance_cache[_rc_key]
                     else:
                         try:
                             from sell_target_calculator import (
                                 find_pa_resistances, find_hvn_ceilings,
                                 merge_resistance_levels, count_resistance_approaches)
-                            _zone_low = current_price * 1.02
-                            _zone_high = current_price * 1.20
+                            _cur_price = float(hist_slice["Close"].iloc[-1])
+                            _zone_low = _cur_price * 1.02
+                            _zone_high = _cur_price * 1.20
                             _pa = find_pa_resistances(hist_slice, _zone_low, _zone_high)
                             _hvn = find_hvn_ceilings(hist_slice, _zone_low, _zone_high)
                             _merged = merge_resistance_levels(_pa + _hvn)
@@ -582,8 +585,7 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                                 _stats = count_resistance_approaches(hist_slice, _lv["price"])
                                 _lv.update(_stats)
                             cached_resistance[tk] = _merged
-                            if resistance_cache is not None:
-                                resistance_cache[_rc_key] = _merged
+                            resistance_cache[_rc_key] = _merged
                         except Exception:
                             cached_resistance[tk] = []
 
