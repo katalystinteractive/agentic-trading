@@ -274,13 +274,21 @@ def compute_recommended_sell(ticker, avg_cost, pos, profiles, hist=None):
                     profiles_b = compute_bounce_profiles(
                         hist, levels,
                         bounce_window=params.get("bounce_window_days", 3))
-                    # Build pseudo-fills from current position for combined target
-                    pos_fills = [{"price": avg_cost, "shares": 1, "level_price": avg_cost}]
-                    target = compute_combined_sell_target(
-                        pos_fills, profiles_b,
-                        min_confidence=params.get("bounce_confidence_min", 0.3),
-                        fallback_pct=params.get("bounce_fallback_pct", 6.0),
-                        cap_prior_high=params.get("bounce_cap_prior_high", True))
+                    # Find best bounce target from levels near avg_cost
+                    # Use actual support levels as fill level_prices (not avg_cost)
+                    min_conf = params.get("bounce_confidence_min", 0.3)
+                    qualifying = [(lp, p) for lp, p in profiles_b.items()
+                                  if p["confidence"] >= min_conf
+                                  and p["median_bounce_target"] > avg_cost]
+                    if qualifying:
+                        # Pick the level closest to avg_cost (most relevant)
+                        best_lp, best_prof = min(qualifying,
+                                                 key=lambda x: abs(x[0] - avg_cost))
+                        target = best_prof["median_bounce_target"]
+                        if params.get("bounce_cap_prior_high", True):
+                            target = min(target, best_prof.get("prior_high_median", target))
+                    else:
+                        target = avg_cost * (1 + params.get("bounce_fallback_pct", 6.0) / 100)
                     if target > avg_cost:
                         pct = round((target - avg_cost) / avg_cost * 100, 1)
                         return round(target, 2), f"bounce {pct}% (${target:.2f})"
