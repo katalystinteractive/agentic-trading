@@ -83,6 +83,25 @@ def _load_profiles():
     return profiles
 
 
+_resistance_profiles_cache = {"mtime": 0, "data": {}}
+
+
+def _load_resistance_profiles():
+    """Load per-ticker resistance sweep results. Cached with mtime check."""
+    res_path = _ROOT / "data" / "resistance_sweep_results.json"
+    try:
+        if not res_path.exists():
+            return {}
+        mt = res_path.stat().st_mtime
+        if mt != _resistance_profiles_cache["mtime"]:
+            with open(res_path) as f:
+                _resistance_profiles_cache["data"] = json.load(f)
+            _resistance_profiles_cache["mtime"] = mt
+        return _resistance_profiles_cache["data"]
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
 def _load_trade_history_buys():
     """Load trade_history.json, return dict[ticker -> list[BUY trades]] sorted by date."""
     try:
@@ -170,10 +189,10 @@ def match_fills_to_history(fill_prices, trade_buys):
 # Sell target recommendation
 # ---------------------------------------------------------------------------
 
-def compute_recommended_sell(ticker, avg_cost, pos, profiles):
+def compute_recommended_sell(ticker, avg_cost, pos, profiles, hist=None):
     """Compute what the SELL price SHOULD be based on approved targets.
 
-    Priority: target_exit (manual) > optimized/neural target > default 6%.
+    Priority: target_exit (manual) > resistance (if winner) > neural % > default 6%.
     Manual target_exit always wins — user intent overrides neural recommendations.
     Returns (0, "no avg cost") if avg_cost is 0 (data inconsistency guard).
     """
@@ -183,6 +202,40 @@ def compute_recommended_sell(ticker, avg_cost, pos, profiles):
     te = pos.get("target_exit")
     if te is not None:
         return te, "target_exit"
+    # 1.5 Resistance-based target (if sweep determined resistance wins)
+    res_data = _load_resistance_profiles()
+    res_entry = res_data.get(ticker)
+    if (res_entry and res_entry.get("vs_flat", {}).get("winner") == "resistance"
+            and hist is not None and not hist.empty):
+        try:
+            from sell_target_calculator import (
+                find_pa_resistances, find_hvn_ceilings,
+                merge_resistance_levels, count_resistance_approaches)
+            params = res_entry["params"]
+            cur_price = float(hist["Close"].iloc[-1])
+            zone_low = cur_price * 1.02
+            zone_high = cur_price * 1.20
+            pa = find_pa_resistances(hist, zone_low, zone_high)
+            hvn = find_hvn_ceilings(hist, zone_low, zone_high)
+            merged = merge_resistance_levels(pa, hvn)
+            for lv in merged:
+                stats = count_resistance_approaches(hist, lv["price"])
+                lv.update(stats)
+            qualifying = [r for r in merged
+                          if r["price"] > avg_cost
+                          and r.get("reject_rate", 0) >= params.get("min_reject_rate", 40)
+                          and r.get("approaches", 0) >= params.get("min_resistance_approaches", 2)]
+            if qualifying:
+                strategy = params.get("resistance_strategy", "first")
+                if strategy == "first":
+                    target = min(r["price"] for r in qualifying)
+                else:
+                    target = max(qualifying, key=lambda r: r.get("reject_rate", 0))["price"]
+                best = next(r for r in qualifying if r["price"] == target)
+                pct = round((target - avg_cost) / avg_cost * 100, 1)
+                return round(target, 2), f"resistance {pct}% (${target:.2f}, {best.get('reject_rate', 0):.0f}% reject)"
+        except Exception:
+            pass  # Fall through to neural %
     # 2. Profile (ticker_profiles.json or neural_support fallback)
     profile = profiles.get(ticker, {})
     opt = profile.get("optimal_target_pct")
@@ -462,8 +515,22 @@ def reconcile_ticker(ticker, pos, orders, bullet_ctx, trade_buys, profiles):
     # --- SELL orders ---
     sell_orders = []
     if shares > 0:
+        # Fetch hist for resistance-based sell targets (only if resistance wins)
+        _hist = None
+        _res_data = _load_resistance_profiles()
+        if _res_data.get(ticker, {}).get("vs_flat", {}).get("winner") == "resistance":
+            try:
+                import yfinance as yf
+                import warnings
+                warnings.filterwarnings("ignore")
+                _hist_df = yf.download(ticker, period="13mo", progress=False)
+                if not _hist_df.empty:
+                    _hist = _hist_df
+            except Exception:
+                pass
+
         rec_sell_price, rec_sell_basis = compute_recommended_sell(
-            ticker, avg_cost, pos or {}, profiles)
+            ticker, avg_cost, pos or {}, profiles, hist=_hist)
 
         active_sells = [o for o in orders if _is_active_sell(o)]
 

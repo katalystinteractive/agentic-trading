@@ -580,7 +580,7 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                             _zone_high = _cur_price * 1.20
                             _pa = find_pa_resistances(hist_slice, _zone_low, _zone_high)
                             _hvn = find_hvn_ceilings(hist_slice, _zone_low, _zone_high)
-                            _merged = merge_resistance_levels(_pa + _hvn)
+                            _merged = merge_resistance_levels(_pa, _hvn)
                             for _lv in _merged:
                                 _stats = count_resistance_approaches(hist_slice, _lv["price"])
                                 _lv.update(_stats)
