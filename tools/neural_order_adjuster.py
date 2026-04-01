@@ -16,7 +16,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from broker_reconciliation import compute_recommended_sell, _load_profiles
+from broker_reconciliation import (compute_recommended_sell, _load_profiles,
+                                    _load_resistance_profiles, _load_bounce_profiles)
 from shared_utils import get_ticker_pool
 from wick_offset_analyzer import load_capital_config
 
@@ -134,7 +135,23 @@ def compute_sell_adjustments(portfolio, ns_candidates):
         if avg <= 0:
             continue
 
-        rec_sell, source = compute_recommended_sell(tk, avg, pos, profiles)
+        # Fetch hist for resistance/bounce sell targets
+        _hist = None
+        _res = _load_resistance_profiles()
+        _bounce = _load_bounce_profiles()
+        if (_res.get(tk, {}).get("vs_flat", {}).get("winner") == "resistance" or
+                _bounce.get(tk, {}).get("vs_others", {}).get("winner") == "bounce"):
+            try:
+                import yfinance as yf
+                import warnings
+                warnings.filterwarnings("ignore")
+                _hdf = yf.download(tk, period="13mo", progress=False)
+                if not _hdf.empty:
+                    _hist = _hdf
+            except Exception:
+                pass
+
+        rec_sell, source = compute_recommended_sell(tk, avg, pos, profiles, hist=_hist)
 
         for o in sell_orders:
             current_price = o.get("price", 0)

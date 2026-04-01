@@ -374,10 +374,10 @@ def _split_shares(n_levels, shares):
     return alloc
 
 
-def recommend_sell(math_prices, resistance_levels, shares):
+def recommend_sell(math_prices, resistance_levels, shares, min_approaches=2):
     """Score-based recommendation with tranche splitting.
 
-    Scores each eligible level using _score_level(). Levels with < 2 approaches
+    Scores each eligible level using _score_level(). Levels with < min_approaches
     are capped at MIN_SCORE so they only win if nothing better exists.
     Falls back to math Standard (6%) if no level scores above MIN_SCORE.
     When 2+ levels remain and shares allow, splits shares equally across them.
@@ -407,7 +407,7 @@ def recommend_sell(math_prices, resistance_levels, shares):
     for lvl in eligible:
         score = _score_level(lvl, standard, zone_width)
         # Cap weak levels (< 2 approaches) so they only win as last resort
-        if lvl.get("approaches", 0) < 2:
+        if lvl.get("approaches", 0) < min_approaches:
             score = min(score, MIN_SCORE)
         scored.append((score, lvl))
 
@@ -507,6 +507,18 @@ def analyze_ticker(ticker, portfolio):
         print(f"*Error: {ticker} has no active shares*")
         return
     avg_cost = pos.get("avg_cost", 0)
+
+    # Load sweep-learned resistance params if available
+    _sweep_params = {}
+    try:
+        _res_path = Path(__file__).resolve().parent.parent / "data" / "resistance_sweep_results.json"
+        if _res_path.exists():
+            with open(_res_path) as f:
+                _res_data = json.load(f)
+            _sweep_params = _res_data.get(ticker, {}).get("params", {})
+    except (OSError, json.JSONDecodeError):
+        pass
+    min_approaches = _sweep_params.get("min_resistance_approaches", MIN_TOUCHES)
     if avg_cost <= 0:
         print(f"*Error: {ticker} has avg_cost=0 (closed position)*")
         return
@@ -622,7 +634,8 @@ def analyze_ticker(ticker, portfolio):
             print("*No resistance levels found in target zone.*")
             print()
 
-        recommendations = recommend_sell(math_prices, resistance_levels, shares)
+        recommendations = recommend_sell(math_prices, resistance_levels, shares,
+                                         min_approaches=min_approaches)
 
     # SELL orders + unified recommendation block
     _print_sell_orders(ticker, pending_all)

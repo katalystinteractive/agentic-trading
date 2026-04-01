@@ -211,7 +211,7 @@ def match_fills_to_history(fill_prices, trade_buys):
 def compute_recommended_sell(ticker, avg_cost, pos, profiles, hist=None):
     """Compute what the SELL price SHOULD be based on approved targets.
 
-    Priority: target_exit (manual) > resistance (if winner) > neural % > default 6%.
+    Priority: target_exit (manual) > resistance (if winner) > bounce (if winner) > neural % > default 6%.
     Manual target_exit always wins — user intent overrides neural recommendations.
     Returns (0, "no avg cost") if avg_cost is 0 (data inconsistency guard).
     """

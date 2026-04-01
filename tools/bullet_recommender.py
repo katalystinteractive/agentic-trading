@@ -655,6 +655,17 @@ def _print_recommend(ctx):
         status = "STALE — too close to avg" if sell_check["stale"] else "OK"
         print(f"| SELL Target Check | {_fmt_dollar(sell_check['sell_price'])} = {pct_str} from avg ({status}) |")
 
+    # Show sweep-optimized sell target for comparison
+    try:
+        from broker_reconciliation import compute_recommended_sell, _load_profiles as _br_load_profiles
+        _profiles = _br_load_profiles()
+        _rec_price, _rec_source = compute_recommended_sell(ticker, avg_cost, {}, _profiles)
+        if _rec_price > 0:
+            _rec_pct = (_rec_price - avg_cost) / avg_cost * 100
+            print(f"| Neural Sell Target | {_fmt_dollar(_rec_price)} = +{_rec_pct:.1f}% ({_rec_source}) |")
+    except Exception:
+        pass
+
     print()
 
     # --- Level Map (unified table) ---
