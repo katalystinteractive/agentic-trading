@@ -213,8 +213,9 @@ def compute_recommended_sell(ticker, avg_cost, pos, profiles, hist=None):
                 merge_resistance_levels, count_resistance_approaches)
             params = res_entry["params"]
             cur_price = float(hist["Close"].iloc[-1])
-            zone_low = cur_price * 1.02
-            zone_high = cur_price * 1.20
+            # Zone must cover above avg_cost even when underwater
+            zone_low = max(cur_price * 1.02, avg_cost * 1.01)
+            zone_high = max(cur_price * 1.20, avg_cost * 1.20)
             pa = find_pa_resistances(hist, zone_low, zone_high)
             hvn = find_hvn_ceilings(hist, zone_low, zone_high)
             merged = merge_resistance_levels(pa, hvn)
