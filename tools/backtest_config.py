@@ -128,6 +128,12 @@ class SurgicalSimConfig:
     min_resistance_approaches: int = 2  # minimum approach count
     resistance_fallback_pct: float = 6.0  # flat % fallback when no qualifying resistance
 
+    # Bounce-derived sell targets
+    bounce_window_days: int = 3             # trading days to measure bounce
+    bounce_confidence_min: float = 0.3      # minimum confidence to use bounce target
+    bounce_cap_prior_high: bool = True      # cap bounce target at prior_high median
+    bounce_fallback_pct: float = 6.0        # flat % fallback when no qualifying bounce
+
     # Time stops
     time_stop_days: int = 60
     time_stop_riskoff_ext: int = 14

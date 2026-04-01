@@ -105,7 +105,7 @@ def _collect_once(ticker, months):
 
 def _simulate_with_config(ticker, months, config_overrides, data_dir=None,
                           price_data=None, regime_data=None, wick_cache=None,
-                          resistance_cache=None):
+                          resistance_cache=None, bounce_cache=None):
     """Run simulation with custom config on pre-collected data.
 
     For sweep efficiency: pass price_data/regime_data/wick_cache/resistance_cache
@@ -134,7 +134,7 @@ def _simulate_with_config(ticker, months, config_overrides, data_dir=None,
     cfg.end = end_date.strftime("%Y-%m-%d")
 
     trades, cycles, equity, dip = run_simulation(
-        price_data, regime_data, cfg, wick_cache, resistance_cache)
+        price_data, regime_data, cfg, wick_cache, resistance_cache, bounce_cache)
 
     # Build result dict matching simulate_candidate output format
     sells = [t for t in trades if t.get("side", "").upper() == "SELL"

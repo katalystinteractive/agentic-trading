@@ -52,6 +52,7 @@ class PendingOrder:
     zone: str
     tier: str
     placed_date: str
+    level_price: float = 0  # support level that generated this order
 
 
 @dataclass
@@ -131,7 +132,7 @@ def _compute_sell_target(cfg, completed_cycles_for_ticker):
     return cfg.sell_default
 
 
-def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cache=None):
+def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cache=None, bounce_cache=None):
     """Execute the surgical mean-reversion backtest.
 
     Args:
@@ -150,6 +151,8 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
         wick_cache = {}  # local cache, not shared — backward compat
     if resistance_cache is None:
         resistance_cache = {}  # local cache — resistance levels don't depend on capital state
+    if bounce_cache is None:
+        bounce_cache = {}  # local cache — bounce profiles don't depend on capital state
     from wick_offset_analyzer import analyze_stock_data, WickConfig, ACTIVE_RADIUS_CAP, POOL_MAX_FRACTION
     import wick_offset_analyzer as woa
 
@@ -193,6 +196,7 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
     equity_curve = []
     cached_levels = {}       # ticker -> {date, levels, bullet_plan}
     cached_resistance = {}   # ticker -> [resistance_level_dicts]
+    cached_bounce = {}       # ticker -> {level_price: bounce_profile}
 
     # Initialize capital pools
     cumulative_profit = defaultdict(float)  # per-ticker accumulated P/L for compounding
@@ -323,6 +327,20 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                 else:
                     target_price = pos.avg_cost * (1 + cfg.resistance_fallback_pct / 100)
                     sell_tier_label = f"fallback@{cfg.resistance_fallback_pct}%"
+            elif cfg.sell_mode == "bounce" and cached_bounce.get(tk) and pos.fills:
+                from bounce_sell_analyzer import compute_combined_sell_target
+                _bounce_target = compute_combined_sell_target(
+                    pos.fills, cached_bounce[tk],
+                    min_confidence=cfg.bounce_confidence_min,
+                    fallback_pct=cfg.bounce_fallback_pct,
+                    cap_prior_high=cfg.bounce_cap_prior_high)
+                if _bounce_target > pos.avg_cost:
+                    target_price = _bounce_target
+                    _b_pct = (target_price - pos.avg_cost) / pos.avg_cost * 100
+                    sell_tier_label = f"bounce@${target_price:.2f} ({_b_pct:.1f}%)"
+                else:
+                    target_price = pos.avg_cost * (1 + cfg.bounce_fallback_pct / 100)
+                    sell_tier_label = f"bounce-fallback@{cfg.bounce_fallback_pct}%"
             else:
                 target_price = pos.avg_cost * (1 + sell_target / 100)
                 sell_tier_label = f"{sell_target}%"
@@ -436,7 +454,8 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                         pos.shares += order.shares
                         pos.avg_cost = total_cost / pos.shares
                         pos.fills.append({"date": d_str, "price": fill_price,
-                                         "shares": order.shares, "zone": order.zone})
+                                         "shares": order.shares, "zone": order.zone,
+                                         "level_price": order.level_price})
                         pos.bullets_used += 1
                         if order.zone not in pos.zones_used:
                             pos.zones_used.append(order.zone)
@@ -445,7 +464,8 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                             ticker=tk, shares=order.shares, avg_cost=fill_price,
                             entry_date=d_str,
                             fills=[{"date": d_str, "price": fill_price,
-                                   "shares": order.shares, "zone": order.zone}],
+                                   "shares": order.shares, "zone": order.zone,
+                                   "level_price": order.level_price}],
                             bullets_used=1, zones_used=[order.zone],
                         )
 
@@ -589,6 +609,25 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                         except Exception:
                             cached_resistance[tk] = []
 
+                # Compute bounce profiles for bounce sell mode
+                if cfg.sell_mode == "bounce":
+                    _bc_key = (tk, d_str)
+                    if _bc_key in bounce_cache:
+                        cached_bounce[tk] = bounce_cache[_bc_key]
+                    else:
+                        try:
+                            from bounce_sell_analyzer import compute_bounce_profiles
+                            _levels = [b["support_price"] for b in
+                                       (active_bullets + reserve_bullets)]
+                            _bounce_data = compute_bounce_profiles(
+                                hist_slice, _levels,
+                                decay_half_life=cfg.decay_half_life,
+                                bounce_window=cfg.bounce_window_days)
+                            cached_bounce[tk] = _bounce_data
+                            bounce_cache[_bc_key] = _bounce_data
+                        except Exception:
+                            cached_bounce[tk] = {}
+
                 # Place new pending orders for levels not already covered
                 cap = stock_capital[tk]
                 existing_prices = {round(o.price, 2) for o in pending_orders.get(tk, [])}
@@ -621,6 +660,7 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                     pending_orders.setdefault(tk, []).append(PendingOrder(
                         ticker=tk, price=buy_at, shares=shares,
                         zone="Active", tier=tier, placed_date=d_str,
+                        level_price=bullet.get("support_price", buy_at),
                     ))
 
                 for bullet in reserve_bullets:
@@ -643,6 +683,7 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                     pending_orders.setdefault(tk, []).append(PendingOrder(
                         ticker=tk, price=buy_at, shares=shares,
                         zone="Reserve", tier=tier, placed_date=d_str,
+                        level_price=bullet.get("support_price", buy_at),
                     ))
 
             except Exception as e:

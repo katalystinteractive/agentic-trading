@@ -102,6 +102,25 @@ def _load_resistance_profiles():
         return {}
 
 
+_bounce_profiles_cache = {"mtime": 0, "data": {}}
+
+
+def _load_bounce_profiles():
+    """Load per-ticker bounce sweep results. Cached with mtime check."""
+    bounce_path = _ROOT / "data" / "bounce_sweep_results.json"
+    try:
+        if not bounce_path.exists():
+            return {}
+        mt = bounce_path.stat().st_mtime
+        if mt != _bounce_profiles_cache["mtime"]:
+            with open(bounce_path) as f:
+                _bounce_profiles_cache["data"] = json.load(f)
+            _bounce_profiles_cache["mtime"] = mt
+        return _bounce_profiles_cache["data"]
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
 def _load_trade_history_buys():
     """Load trade_history.json, return dict[ticker -> list[BUY trades]] sorted by date."""
     try:
@@ -235,6 +254,36 @@ def compute_recommended_sell(ticker, avg_cost, pos, profiles, hist=None):
                 best = next(r for r in qualifying if r["price"] == target)
                 pct = round((target - avg_cost) / avg_cost * 100, 1)
                 return round(target, 2), f"resistance {pct}% (${target:.2f}, {best.get('reject_rate', 0):.0f}% reject)"
+        except Exception:
+            pass  # Fall through to bounce/neural %
+    # 1.6 Bounce-derived target (if sweep determined bounce wins)
+    bounce_data = _load_bounce_profiles()
+    bounce_entry = bounce_data.get(ticker)
+    if (bounce_entry and bounce_entry.get("vs_others", {}).get("winner") == "bounce"
+            and hist is not None and not hist.empty):
+        try:
+            from bounce_sell_analyzer import compute_bounce_profiles, compute_combined_sell_target
+            from wick_offset_analyzer import analyze_stock_data
+            # Get support levels from wick analysis
+            wick_data, _ = analyze_stock_data(ticker, hist=hist)
+            if wick_data:
+                levels = [r["support_price"] for r in wick_data.get("levels", [])
+                          if r.get("hold_rate", 0) >= 15]
+                if levels:
+                    params = bounce_entry["params"]
+                    profiles_b = compute_bounce_profiles(
+                        hist, levels,
+                        bounce_window=params.get("bounce_window_days", 3))
+                    # Build pseudo-fills from current position for combined target
+                    pos_fills = [{"price": avg_cost, "shares": 1, "level_price": avg_cost}]
+                    target = compute_combined_sell_target(
+                        pos_fills, profiles_b,
+                        min_confidence=params.get("bounce_confidence_min", 0.3),
+                        fallback_pct=params.get("bounce_fallback_pct", 6.0),
+                        cap_prior_high=params.get("bounce_cap_prior_high", True))
+                    if target > avg_cost:
+                        pct = round((target - avg_cost) / avg_cost * 100, 1)
+                        return round(target, 2), f"bounce {pct}% (${target:.2f})"
         except Exception:
             pass  # Fall through to neural %
     # 2. Profile (ticker_profiles.json or neural_support fallback)
