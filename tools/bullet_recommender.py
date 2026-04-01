@@ -660,9 +660,9 @@ def _print_recommend(ctx):
         from broker_reconciliation import compute_recommended_sell, _load_profiles as _br_load_profiles
         _profiles = _br_load_profiles()
         _rec_price, _rec_source = compute_recommended_sell(ticker, avg_cost, {}, _profiles)
-        if _rec_price > 0:
+        if _rec_price > 0 and avg_cost > 0:
             _rec_pct = (_rec_price - avg_cost) / avg_cost * 100
-            print(f"| Neural Sell Target | {_fmt_dollar(_rec_price)} = +{_rec_pct:.1f}% ({_rec_source}) |")
+            print(f"| Sweep Sell Target | {_fmt_dollar(_rec_price)} = +{_rec_pct:.1f}% ({_rec_source}) |")
     except Exception:
         pass
 

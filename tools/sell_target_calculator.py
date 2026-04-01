@@ -507,6 +507,9 @@ def analyze_ticker(ticker, portfolio):
         print(f"*Error: {ticker} has no active shares*")
         return
     avg_cost = pos.get("avg_cost", 0)
+    if avg_cost <= 0:
+        print(f"*Error: {ticker} has avg_cost=0 (closed position)*")
+        return
 
     # Load sweep-learned resistance params if available
     _sweep_params = {}
@@ -519,9 +522,6 @@ def analyze_ticker(ticker, portfolio):
     except (OSError, json.JSONDecodeError):
         pass
     min_approaches = _sweep_params.get("min_resistance_approaches", MIN_TOUCHES)
-    if avg_cost <= 0:
-        print(f"*Error: {ticker} has avg_cost=0 (closed position)*")
-        return
 
     target_exit = pos.get("target_exit")
 

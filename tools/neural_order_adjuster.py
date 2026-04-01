@@ -118,6 +118,8 @@ def compute_sell_adjustments(portfolio, ns_candidates):
     positions = portfolio.get("positions", {})
     pending = portfolio.get("pending_orders", {})
     profiles = _load_profiles()
+    _res_profiles = _load_resistance_profiles()
+    _bounce_profiles = _load_bounce_profiles()
     adjustments = []
 
     for tk in sorted(pending.keys()):
@@ -137,10 +139,8 @@ def compute_sell_adjustments(portfolio, ns_candidates):
 
         # Fetch hist for resistance/bounce sell targets
         _hist = None
-        _res = _load_resistance_profiles()
-        _bounce = _load_bounce_profiles()
-        if (_res.get(tk, {}).get("vs_flat", {}).get("winner") == "resistance" or
-                _bounce.get(tk, {}).get("vs_others", {}).get("winner") == "bounce"):
+        if (_res_profiles.get(tk, {}).get("vs_flat", {}).get("winner") == "resistance" or
+                _bounce_profiles.get(tk, {}).get("vs_others", {}).get("winner") == "bounce"):
             try:
                 import yfinance as yf
                 import warnings
