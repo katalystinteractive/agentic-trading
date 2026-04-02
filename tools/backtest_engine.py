@@ -472,18 +472,20 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                     except (KeyError, IndexError):
                         pass
 
-                if cfg.post_break_cooldown > 0 and tk in last_break:
+                # Detect level break BEFORE fill check (close below level = break)
+                # Key by (ticker, level_price) so one level's break doesn't cool down others
+                _break_key = (tk, round(order.price, 2))
+                if day_close <= order.price:
+                    last_break[_break_key] = d_str
+
+                if cfg.post_break_cooldown > 0 and _break_key in last_break:
                     try:
-                        _bd = datetime.strptime(last_break[tk], "%Y-%m-%d")
+                        _bd = datetime.strptime(last_break[_break_key], "%Y-%m-%d")
                         _ds = (datetime.strptime(d_str, "%Y-%m-%d") - _bd).days
                         if _ds < cfg.post_break_cooldown:
                             continue
                     except (ValueError, TypeError):
                         pass
-
-                # Detect level break (close below level)
-                if day_close <= order.price:
-                    last_break[tk] = d_str
 
                 if day_low <= order.price:
                     filled.append(i)
@@ -610,7 +612,7 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                 else:
                     wick_result, err = analyze_stock_data(
                         tk, hist=hist_slice, config=wick_config,
-                        capital_config=live_capital)
+                        capital_config=live_capital, regime_data=regime_data)
                     if wick_result is not None:
                         wick_cache[_wc_key] = wick_result
 

@@ -699,6 +699,10 @@ def _compute_bullet_plan(level_results, current_price, cap=None, level_filters=N
             "dormant": r.get("dormant", False),
             "zone_promoted": r.get("zone_promoted", False),
             "monthly_touch_freq": round(float(r.get("monthly_touch_freq", 0)), 1),
+            "risk_on_hold_rate": r.get("risk_on_hold_rate"),
+            "risk_off_hold_rate": r.get("risk_off_hold_rate"),
+            "risk_on_offset": r.get("risk_on_offset"),
+            "risk_off_offset": r.get("risk_off_offset"),
         }
 
     active = [_bullet_entry(r, s, "Active") for r, s in zip(active_bullets, active_sized)]
