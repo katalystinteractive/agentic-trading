@@ -99,15 +99,23 @@ def compute_alerts(orders, prices, state):
     alerts = []
     active_keys = set()
 
-    # Fetch current VIX once for BUY alert suppression
+    # Fetch current VIX once for BUY alert suppression (only if BUY orders exist)
     _vix_now = None
-    _entry_data = _load_entry_sweep()
-    try:
-        _vd = yf.download("^VIX", period="1d", interval="5m", progress=False)
-        if not _vd.empty:
-            _vix_now = float(_vd["Close"].iloc[-1])
-    except Exception:
-        pass
+    _entry_data = {}
+    _has_buys = any(o["side"] == "BUY" for o in orders)
+    if _has_buys:
+        _entry_data = _load_entry_sweep()
+        try:
+            import warnings
+            warnings.filterwarnings("ignore")
+            _vd = yf.download(["^VIX"], period="1d", interval="5m", progress=False)
+            if not _vd.empty:
+                try:
+                    _vix_now = float(_vd["Close"]["^VIX"].iloc[-1])
+                except (KeyError, TypeError):
+                    _vix_now = float(_vd["Close"].iloc[-1])
+        except Exception:
+            pass
 
     for o in orders:
         tk, side, order_price = o["ticker"], o["side"], o["price"]
