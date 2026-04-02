@@ -221,10 +221,17 @@ def compute_recommended_sell(ticker, avg_cost, pos, profiles, hist=None):
     te = pos.get("target_exit")
     if te is not None:
         return te, "target_exit"
-    # 1.5 Resistance-based target (if sweep determined resistance wins)
+    # 1.5 Sweep-derived target — pick the 3-way winner (resistance vs bounce vs flat)
     res_data = _load_resistance_profiles()
-    res_entry = res_data.get(ticker)
-    if (res_entry and res_entry.get("vs_flat", {}).get("winner") == "resistance"
+    bounce_data = _load_bounce_profiles()
+    res_entry = res_data.get(ticker, {})
+    bounce_entry = bounce_data.get(ticker, {})
+    # Determine which strategy won the 3-way comparison
+    _sweep_winner = bounce_entry.get("vs_others", {}).get("winner", "")
+    if not _sweep_winner:
+        _sweep_winner = res_entry.get("vs_flat", {}).get("winner", "")
+
+    if (_sweep_winner == "resistance" and res_entry
             and hist is not None and not hist.empty):
         try:
             from sell_target_calculator import (
@@ -256,10 +263,8 @@ def compute_recommended_sell(ticker, avg_cost, pos, profiles, hist=None):
                 return round(target, 2), f"resistance {pct}% (${target:.2f}, {best.get('reject_rate', 0):.0f}% reject)"
         except Exception:
             pass  # Fall through to bounce/neural %
-    # 1.6 Bounce-derived target (if sweep determined bounce wins)
-    bounce_data = _load_bounce_profiles()
-    bounce_entry = bounce_data.get(ticker)
-    if (bounce_entry and bounce_entry.get("vs_others", {}).get("winner") == "bounce"
+    # 1.6 Bounce-derived target (if 3-way winner is bounce)
+    if (_sweep_winner == "bounce" and bounce_entry
             and hist is not None and not hist.empty):
         try:
             from bounce_sell_analyzer import compute_bounce_profiles, compute_combined_sell_target
