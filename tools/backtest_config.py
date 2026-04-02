@@ -164,6 +164,15 @@ class SurgicalSimConfig:
     pa_min_touches: int = 3
     approach_proximity: float = 8.0
 
+    # Entry gate — neural buy-side optimization
+    offset_decay_half_life: int = 0     # decay for wick offset weighting (0 = no decay, use raw median)
+    regime_aware_entry: bool = False     # enable per-level regime hold rate gating
+    riskoff_min_hold_rate: int = 0       # min hold rate in Risk-Off to allow fill (0 = no filter)
+    regime_aware_offset: bool = False    # use regime-specific offsets (Risk-On vs Risk-Off)
+    post_break_cooldown: int = 0         # days to wait after level breaks (0 = no cooldown)
+    per_ticker_vix_gate: float = 0       # max VIX to deploy (0 = use global vix_risk_off)
+    max_approach_velocity: float = 0     # max 2-day decline % to allow fill (0 = no filter)
+
     # Same-day exit
     same_day_exit: bool = True
     same_day_exit_pct: float = 4.0
@@ -218,6 +227,8 @@ class SurgicalSimConfig:
             hvn_bins=self.vol_profile_bins,
             pa_min_touches=self.pa_min_touches,
             approach_proximity_pct=self.approach_proximity,
+            offset_decay_half_life=self.offset_decay_half_life,
+            regime_aware_offset=self.regime_aware_offset,
         )
 
     def to_capital_config(self):

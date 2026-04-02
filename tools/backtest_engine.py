@@ -197,6 +197,7 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
     cached_levels = {}       # ticker -> {date, levels, bullet_plan}
     cached_resistance = {}   # ticker -> [resistance_level_dicts]
     cached_bounce = {}       # ticker -> {level_price: bounce_profile}
+    last_break = {}          # ticker -> d_str of last level break
 
     # Initialize capital pools
     cumulative_profit = defaultdict(float)  # per-ticker accumulated P/L for compounding
@@ -442,6 +443,47 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                     pct_below = (current - order.price) / current * 100
                     if pct_below < 15:  # within 15% of current — pause
                         continue
+
+                # Neural entry gates
+                if cfg.regime_aware_entry and regime == "Risk-Off":
+                    _lvl_info = cached_levels.get(tk, {})
+                    _skip = False
+                    for _b in _lvl_info.get("active", []) + _lvl_info.get("reserve", []):
+                        if abs(_b.get("buy_at", 0) - order.price) < 0.02:
+                            _ro_hr = _b.get("risk_off_hold_rate")
+                            if _ro_hr is not None and _ro_hr < cfg.riskoff_min_hold_rate:
+                                _skip = True
+                            break
+                    if _skip:
+                        continue
+
+                if cfg.per_ticker_vix_gate > 0:
+                    _vix = regime_info.get("vix", 0) or 0
+                    if _vix > cfg.per_ticker_vix_gate:
+                        continue
+
+                if cfg.max_approach_velocity > 0 and day_idx >= 2:
+                    try:
+                        _2d_ago = sim_dates[day_idx - 2]
+                        _c2 = float(price_data[tk]["Close"].loc[_2d_ago]) if _2d_ago in price_data[tk]["Close"].index else day_close
+                        _decline = (_c2 - day_close) / _c2 * 100 if _c2 > 0 else 0
+                        if _decline > cfg.max_approach_velocity:
+                            continue
+                    except (KeyError, IndexError):
+                        pass
+
+                if cfg.post_break_cooldown > 0 and tk in last_break:
+                    try:
+                        _bd = datetime.strptime(last_break[tk], "%Y-%m-%d")
+                        _ds = (datetime.strptime(d_str, "%Y-%m-%d") - _bd).days
+                        if _ds < cfg.post_break_cooldown:
+                            continue
+                    except (ValueError, TypeError):
+                        pass
+
+                # Detect level break (close below level)
+                if day_close <= order.price:
+                    last_break[tk] = d_str
 
                 if day_low <= order.price:
                     filled.append(i)

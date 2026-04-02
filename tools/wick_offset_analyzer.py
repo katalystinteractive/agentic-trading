@@ -168,6 +168,8 @@ class WickConfig:
         self.hvn_bins = kwargs.get("hvn_bins", 40)
         self.pa_min_touches = kwargs.get("pa_min_touches", 3)
         self.approach_proximity_pct = kwargs.get("approach_proximity_pct", 8.0)
+        self.offset_decay_half_life = kwargs.get("offset_decay_half_life", 0)  # 0 = raw median
+        self.regime_aware_offset = kwargs.get("regime_aware_offset", False)
 
 _DEFAULT_WICK_CONFIG = WickConfig()
 
@@ -500,7 +502,7 @@ def merge_levels(hvn_floors, pa_supports, current_price):
     return all_levels
 
 
-def find_approach_events(hist, level, proximity_pct=None, config=None):
+def find_approach_events(hist, level, proximity_pct=None, config=None, regime_data=None):
     """Find distinct approach events to a support level.
 
     An approach starts when the daily low enters the proximity zone
@@ -590,6 +592,13 @@ def find_approach_events(hist, level, proximity_pct=None, config=None):
             "held": approach_min_low >= level,
             "prior_high": approach_prior_high,
         })
+
+    # Tag events with regime/VIX if regime_data provided
+    if regime_data:
+        for e in events:
+            rd = regime_data.get(e["start"], {})
+            e["regime"] = rd.get("regime", "Neutral")
+            e["vix"] = rd.get("vix")
 
     return events
 
@@ -705,7 +714,7 @@ def _compute_bullet_plan(level_results, current_price, cap=None, level_filters=N
     }
 
 
-def analyze_stock_data(ticker, hist=None, config=None, capital_config=None):
+def analyze_stock_data(ticker, hist=None, config=None, capital_config=None, regime_data=None):
     """Full per-stock, per-level analysis. Returns (data_dict, error_str) tuple.
 
     Returns (dict, None) on success, (None, "reason") on failure.
@@ -743,7 +752,7 @@ def analyze_stock_data(ticker, hist=None, config=None, capital_config=None):
     # Analyze approaches at each level
     level_results = []
     for lvl in levels:
-        events = find_approach_events(hist, lvl["price"], config=c)
+        events = find_approach_events(hist, lvl["price"], config=c, regime_data=regime_data)
         if not events:
             continue
 
@@ -751,7 +760,23 @@ def analyze_stock_data(ticker, hist=None, config=None, capital_config=None):
         held_offsets = [e["offset_pct"] for e in held_events]
 
         if held_offsets:
-            median_offset = float(np.median(held_offsets))
+            # Recency-weighted offset (if decay configured)
+            _odhl = getattr(c, 'offset_decay_half_life', 0)
+            if _odhl > 0 and len(held_events) > 1:
+                _w_offsets = []
+                _w_weights = []
+                for e in held_events:
+                    _d = (reference_date - datetime.datetime.strptime(e["start"], "%Y-%m-%d")).days
+                    _w = math.exp(-_d * LN2 / _odhl)
+                    _w_offsets.append(e["offset_pct"])
+                    _w_weights.append(_w)
+                _sorted = sorted(zip(_w_offsets, _w_weights), key=lambda x: x[0])
+                _cum = np.cumsum([w for _, w in _sorted])
+                _mid = _cum[-1] / 2
+                _idx = int(np.searchsorted(_cum, _mid))
+                median_offset = float(_sorted[min(_idx, len(_sorted)-1)][0])
+            else:
+                median_offset = float(np.median(held_offsets))
             recommended_buy = lvl["price"] * (1 + median_offset / 100)
         else:
             median_offset = None
@@ -766,6 +791,25 @@ def analyze_stock_data(ticker, hist=None, config=None, capital_config=None):
         weighted_held = sum(w * (1 if e["held"] else 0) for w, e in zip(weights, events))
         decayed_hold_rate = (weighted_held / total_weight * 100) if total_weight > 0 else 0
 
+        # Per-regime hold rates (if events have regime tags)
+        risk_on_events = [e for e in events if e.get("regime") == "Risk-On"]
+        risk_off_events = [e for e in events if e.get("regime") == "Risk-Off"]
+        risk_on_hold_rate = (sum(1 for e in risk_on_events if e["held"]) / len(risk_on_events) * 100
+                             if risk_on_events else None)
+        risk_off_hold_rate = (sum(1 for e in risk_off_events if e["held"]) / len(risk_off_events) * 100
+                              if risk_off_events else None)
+
+        # Adaptive offsets by regime
+        risk_on_offset = median_offset
+        risk_off_offset = median_offset
+        if getattr(c, 'regime_aware_offset', False) and held_offsets:
+            _ro_held = [e["offset_pct"] for e in risk_on_events if e["held"]]
+            _rf_held = [e["offset_pct"] for e in risk_off_events if e["held"]]
+            if len(_ro_held) >= 2:
+                risk_on_offset = float(np.median(_ro_held))
+            if len(_rf_held) >= 2:
+                risk_off_offset = float(np.median(_rf_held))
+
         level_results.append({
             "level": lvl,
             "events": events,
@@ -775,6 +819,10 @@ def analyze_stock_data(ticker, hist=None, config=None, capital_config=None):
             "median_offset": median_offset,
             "recommended_buy": recommended_buy,
             "decayed_hold_rate": decayed_hold_rate,
+            "risk_on_hold_rate": risk_on_hold_rate,
+            "risk_off_hold_rate": risk_off_hold_rate,
+            "risk_on_offset": risk_on_offset,
+            "risk_off_offset": risk_off_offset,
         })
 
     # Compute monthly swing, consistency, and active radius
