@@ -208,6 +208,72 @@ def match_fills_to_history(fill_prices, trade_buys):
 # Sell target recommendation
 # ---------------------------------------------------------------------------
 
+def _try_resistance_target(hist, avg_cost, res_entry):
+    """Try to compute resistance-based sell target. Returns (price, source) or None."""
+    try:
+        from sell_target_calculator import (
+            find_pa_resistances, find_hvn_ceilings,
+            merge_resistance_levels, count_resistance_approaches)
+        params = res_entry["params"]
+        cur_price = float(hist["Close"].iloc[-1])
+        zone_low = max(cur_price * 1.02, avg_cost * 1.01)
+        zone_high = max(cur_price * 1.20, avg_cost * 1.20)
+        pa = find_pa_resistances(hist, zone_low, zone_high)
+        hvn = find_hvn_ceilings(hist, zone_low, zone_high)
+        merged = merge_resistance_levels(pa, hvn)
+        for lv in merged:
+            stats = count_resistance_approaches(hist, lv["price"])
+            lv.update(stats)
+        qualifying = [r for r in merged
+                      if r["price"] > avg_cost
+                      and r.get("reject_rate", 0) >= params.get("min_reject_rate", 40)
+                      and r.get("approaches", 0) >= params.get("min_resistance_approaches", 2)]
+        if qualifying:
+            strategy = params.get("resistance_strategy", "first")
+            if strategy == "first":
+                target = min(r["price"] for r in qualifying)
+            else:
+                target = max(qualifying, key=lambda r: r.get("reject_rate", 0))["price"]
+            best = next(r for r in qualifying if r["price"] == target)
+            pct = round((target - avg_cost) / avg_cost * 100, 1)
+            return round(target, 2), f"resistance {pct}% (${target:.2f}, {best.get('reject_rate', 0):.0f}% reject)"
+    except Exception:
+        pass
+    return None
+
+
+def _try_bounce_target(hist, avg_cost, bounce_entry, ticker):
+    """Try to compute bounce-derived sell target. Returns (price, source) or None."""
+    try:
+        from bounce_sell_analyzer import compute_bounce_profiles
+        from wick_offset_analyzer import analyze_stock_data
+        wick_data, _ = analyze_stock_data(ticker, hist=hist)
+        if wick_data:
+            levels = [r["support_price"] for r in wick_data.get("levels", [])
+                      if r.get("hold_rate", 0) >= 15]
+            if levels:
+                params = bounce_entry["params"]
+                profiles_b = compute_bounce_profiles(
+                    hist, levels,
+                    bounce_window=params.get("bounce_window_days", 3))
+                min_conf = params.get("bounce_confidence_min", 0.3)
+                qualifying = [(lp, p) for lp, p in profiles_b.items()
+                              if p["confidence"] >= min_conf
+                              and p["median_bounce_target"] > avg_cost]
+                if qualifying:
+                    best_lp, best_prof = min(qualifying,
+                                             key=lambda x: abs(x[0] - avg_cost))
+                    target = best_prof["median_bounce_target"]
+                    if params.get("bounce_cap_prior_high", True):
+                        target = min(target, best_prof.get("prior_high_median", target))
+                    if target > avg_cost:
+                        pct = round((target - avg_cost) / avg_cost * 100, 1)
+                        return round(target, 2), f"bounce {pct}% (${target:.2f})"
+    except Exception:
+        pass
+    return None
+
+
 def compute_recommended_sell(ticker, avg_cost, pos, profiles, hist=None):
     """Compute what the SELL price SHOULD be based on approved targets.
 
@@ -221,84 +287,31 @@ def compute_recommended_sell(ticker, avg_cost, pos, profiles, hist=None):
     te = pos.get("target_exit")
     if te is not None:
         return te, "target_exit"
-    # 1.5 Sweep-derived target — pick the 3-way winner (resistance vs bounce vs flat)
+    # 1.5 Sweep-derived target — try strategies in composite order (best first, fallback to second)
     res_data = _load_resistance_profiles()
     bounce_data = _load_bounce_profiles()
     res_entry = res_data.get(ticker, {})
     bounce_entry = bounce_data.get(ticker, {})
-    # Determine which strategy won the 3-way comparison
-    _sweep_winner = bounce_entry.get("vs_others", {}).get("winner", "")
-    if not _sweep_winner:
-        _sweep_winner = res_entry.get("vs_flat", {}).get("winner", "")
 
-    if (_sweep_winner == "resistance" and res_entry
-            and hist is not None and not hist.empty):
-        try:
-            from sell_target_calculator import (
-                find_pa_resistances, find_hvn_ceilings,
-                merge_resistance_levels, count_resistance_approaches)
-            params = res_entry["params"]
-            cur_price = float(hist["Close"].iloc[-1])
-            # Zone must cover above avg_cost even when underwater
-            zone_low = max(cur_price * 1.02, avg_cost * 1.01)
-            zone_high = max(cur_price * 1.20, avg_cost * 1.20)
-            pa = find_pa_resistances(hist, zone_low, zone_high)
-            hvn = find_hvn_ceilings(hist, zone_low, zone_high)
-            merged = merge_resistance_levels(pa, hvn)
-            for lv in merged:
-                stats = count_resistance_approaches(hist, lv["price"])
-                lv.update(stats)
-            qualifying = [r for r in merged
-                          if r["price"] > avg_cost
-                          and r.get("reject_rate", 0) >= params.get("min_reject_rate", 40)
-                          and r.get("approaches", 0) >= params.get("min_resistance_approaches", 2)]
-            if qualifying:
-                strategy = params.get("resistance_strategy", "first")
-                if strategy == "first":
-                    target = min(r["price"] for r in qualifying)
-                else:
-                    target = max(qualifying, key=lambda r: r.get("reject_rate", 0))["price"]
-                best = next(r for r in qualifying if r["price"] == target)
-                pct = round((target - avg_cost) / avg_cost * 100, 1)
-                return round(target, 2), f"resistance {pct}% (${target:.2f}, {best.get('reject_rate', 0):.0f}% reject)"
-        except Exception:
-            pass  # Fall through to bounce/neural %
-    # 1.6 Bounce-derived target (if 3-way winner is bounce)
-    if (_sweep_winner == "bounce" and bounce_entry
-            and hist is not None and not hist.empty):
-        try:
-            from bounce_sell_analyzer import compute_bounce_profiles, compute_combined_sell_target
-            from wick_offset_analyzer import analyze_stock_data
-            # Get support levels from wick analysis
-            wick_data, _ = analyze_stock_data(ticker, hist=hist)
-            if wick_data:
-                levels = [r["support_price"] for r in wick_data.get("levels", [])
-                          if r.get("hold_rate", 0) >= 15]
-                if levels:
-                    params = bounce_entry["params"]
-                    profiles_b = compute_bounce_profiles(
-                        hist, levels,
-                        bounce_window=params.get("bounce_window_days", 3))
-                    # Find best bounce target from levels near avg_cost
-                    # Use actual support levels as fill level_prices (not avg_cost)
-                    min_conf = params.get("bounce_confidence_min", 0.3)
-                    qualifying = [(lp, p) for lp, p in profiles_b.items()
-                                  if p["confidence"] >= min_conf
-                                  and p["median_bounce_target"] > avg_cost]
-                    if qualifying:
-                        # Pick the level closest to avg_cost (most relevant)
-                        best_lp, best_prof = min(qualifying,
-                                                 key=lambda x: abs(x[0] - avg_cost))
-                        target = best_prof["median_bounce_target"]
-                        if params.get("bounce_cap_prior_high", True):
-                            target = min(target, best_prof.get("prior_high_median", target))
-                    else:
-                        target = avg_cost * (1 + params.get("bounce_fallback_pct", 6.0) / 100)
-                    if target > avg_cost:
-                        pct = round((target - avg_cost) / avg_cost * 100, 1)
-                        return round(target, 2), f"bounce {pct}% (${target:.2f})"
-        except Exception:
-            pass  # Fall through to neural %
+    # Build ordered list of strategies by composite (highest first)
+    _strategies = []
+    _res_comp = res_entry.get("stats", {}).get("composite", 0)
+    _bounce_comp = bounce_entry.get("stats", {}).get("composite", 0)
+    if _res_comp > 0:
+        _strategies.append(("resistance", _res_comp, res_entry))
+    if _bounce_comp > 0:
+        _strategies.append(("bounce", _bounce_comp, bounce_entry))
+    _strategies.sort(key=lambda x: x[1], reverse=True)
+
+    if hist is not None and not hist.empty:
+        for _strat_name, _comp, _entry in _strategies:
+            result = None
+            if _strat_name == "resistance":
+                result = _try_resistance_target(hist, avg_cost, _entry)
+            elif _strat_name == "bounce":
+                result = _try_bounce_target(hist, avg_cost, _entry, ticker)
+            if result:
+                return result
     # 2. Profile (ticker_profiles.json or neural_support fallback)
     profile = profiles.get(ticker, {})
     opt = profile.get("optimal_target_pct")
