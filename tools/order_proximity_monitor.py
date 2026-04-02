@@ -27,6 +27,18 @@ STATE_PATH = _ROOT / "data" / "proximity_alerts_state.json"
 APPROACHING_PCT = 2.0
 IMMINENT_PCT = 1.0
 MAX_CONSECUTIVE_FAILURES = 3
+ENTRY_SWEEP_PATH = _ROOT / "data" / "entry_sweep_results.json"
+
+
+def _load_entry_sweep():
+    """Load entry sweep results for VIX gate thresholds."""
+    try:
+        if ENTRY_SWEEP_PATH.exists():
+            with open(ENTRY_SWEEP_PATH) as f:
+                return json.load(f)
+    except (OSError, json.JSONDecodeError):
+        pass
+    return {}
 
 
 # ---------------------------------------------------------------------------
@@ -87,11 +99,27 @@ def compute_alerts(orders, prices, state):
     alerts = []
     active_keys = set()
 
+    # Fetch current VIX once for BUY alert suppression
+    _vix_now = None
+    _entry_data = _load_entry_sweep()
+    try:
+        _vd = yf.download("^VIX", period="1d", interval="5m", progress=False)
+        if not _vd.empty:
+            _vix_now = float(_vd["Close"].iloc[-1])
+    except Exception:
+        pass
+
     for o in orders:
         tk, side, order_price = o["ticker"], o["side"], o["price"]
         current_price = prices.get(tk)
         if current_price is None:
             continue
+
+        # VIX gate: suppress BUY alerts when VIX exceeds ticker's learned threshold
+        if side == "BUY" and _vix_now is not None:
+            _vix_gate = _entry_data.get(tk, {}).get("params", {}).get("per_ticker_vix_gate", 0)
+            if _vix_gate > 0 and _vix_now > _vix_gate:
+                continue  # VIX too high for this ticker
 
         # Distance calculation — positive means price is approaching but hasn't crossed
         if side == "BUY":

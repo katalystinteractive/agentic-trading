@@ -127,6 +127,32 @@ def _load_level_filters(ticker):
         return None
 
 
+_ENTRY_CONFIG_PATH = Path(__file__).resolve().parent.parent / "data" / "entry_sweep_results.json"
+_entry_config_cache = {"mtime": 0, "data": None}
+_entry_config_lock = threading.Lock()
+
+
+def _load_entry_config(ticker):
+    """Load per-ticker entry gate params from neural sweep results."""
+    ec_path = _ENTRY_CONFIG_PATH
+    try:
+        if not ec_path.exists():
+            return None
+        mt = ec_path.stat().st_mtime
+        with _entry_config_lock:
+            if mt != _entry_config_cache["mtime"]:
+                with open(ec_path) as f:
+                    _entry_config_cache["data"] = json.load(f)
+                _entry_config_cache["mtime"] = mt
+            data = _entry_config_cache["data"]
+        if data is None:
+            return None
+        entry = data.get(ticker, {})
+        return entry.get("params")
+    except (OSError, json.JSONDecodeError, KeyError, TypeError):
+        return None
+
+
 def _passes_level_filters(r, filters):
     """Check if a level passes neural-optimized filters. Zone-aware."""
     if not filters:
@@ -728,6 +754,15 @@ def analyze_stock_data(ticker, hist=None, config=None, capital_config=None, regi
     If capital_config is provided, overrides load_capital_config() (for simulator use).
     """
     c = config or _DEFAULT_WICK_CONFIG
+    # Apply sweep-learned entry params (live path only — when config is None)
+    _ec = _load_entry_config(ticker)
+    if _ec and config is None:
+        import copy
+        c = copy.copy(c)
+        if _ec.get("offset_decay_half_life", 0) > 0:
+            c.offset_decay_half_life = _ec["offset_decay_half_life"]
+        if _ec.get("regime_aware_offset"):
+            c.regime_aware_offset = True
     if hist is None:
         try:
             hist = fetch_history(ticker, months=13)
