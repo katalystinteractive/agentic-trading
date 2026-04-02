@@ -192,9 +192,16 @@ def main():
     parser.add_argument("--months", type=int, default=10)
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--split", action="store_true",
+                        help="Cross-validate: validate on last 30%% of months")
     args = parser.parse_args()
 
     start = time.time()
+
+    val_months = 0
+    if args.split:
+        val_months = max(1, args.months - int(args.months * 0.7))
+        print(f"Cross-validation: validate on last {val_months} months")
 
     if not SUPPORT_RESULTS_PATH.exists():
         print("*Support sweep results not found. Run support_parameter_sweeper.py "
@@ -306,6 +313,33 @@ def main():
     }
     for tk, r in results.items():
         output[tk] = r
+
+    # Cross-validation
+    if args.split and val_months > 0 and results:
+        print(f"\nValidating on last {val_months} months...")
+        for tk in list(results.keys()):
+            sp = support_data.get(tk, {}).get("params", {})
+            overrides = {
+                "sell_default": sp.get("sell_default", 6.0),
+                "sell_fast_cycler": sp.get("sell_default", 6.0) + 2.0,
+                "sell_exceptional": sp.get("sell_default", 6.0) + 4.0,
+                "cat_hard_stop": sp.get("cat_hard_stop", 25),
+                "cat_warning": max(sp.get("cat_hard_stop", 25) - 10, 5),
+                "sell_mode": "bounce",
+                **results[tk]["params"],
+            }
+            try:
+                val_result = _simulate_with_config(tk, val_months, overrides)
+                results[tk]["cross_validation"] = {
+                    "pnl": val_result.get("pnl", 0),
+                    "trades": val_result.get("sells", 0),
+                    "win_rate": val_result.get("win_rate", 0),
+                }
+                cv = results[tk]["cross_validation"]
+                flag = " OVERFIT" if results[tk]["stats"].get("pnl", 0) > 0 and cv["pnl"] < 0 else ""
+                print(f"  {tk}: val P/L=${cv['pnl']:.2f} ({cv['trades']}t){flag}", flush=True)
+            except Exception:
+                results[tk]["cross_validation"] = {"pnl": 0, "trades": 0, "win_rate": 0}
 
     if not args.dry_run and results:
         with open(RESULTS_PATH, "w") as f:

@@ -33,13 +33,9 @@ SWEEP_PERIODS = [12, 6, 3, 1]
 
 ENTRY_GRID = {
     "offset_decay_half_life": [0, 60, 90],
-    "riskoff_min_hold_rate": [0, 30, 50],
-    "regime_aware_offset": [False, True],
     "post_break_cooldown": [0, 2, 5],
-    "per_ticker_vix_gate": [0, 25, 30],
-    "max_approach_velocity": [0, 5, 8],
 }
-# 3 × 3 × 2 × 3 × 3 × 3 = 486 combos
+# 3 × 3 = 9 combos (regime/VIX/velocity gates showed 0/30 impact — removed)
 
 
 def sweep_entry(ticker, base_params, months=10):
@@ -74,27 +70,19 @@ def sweep_entry(ticker, base_params, months=10):
 
     combos = list(itertools.product(
         ENTRY_GRID["offset_decay_half_life"],
-        ENTRY_GRID["riskoff_min_hold_rate"],
-        ENTRY_GRID["regime_aware_offset"],
         ENTRY_GRID["post_break_cooldown"],
-        ENTRY_GRID["per_ticker_vix_gate"],
-        ENTRY_GRID["max_approach_velocity"],
     ))
     total_combos = len(combos)
 
-    for idx, (decay, ro_hr, regime_off, cooldown, vix_gate, velocity) in enumerate(combos):
-        if (idx + 1) % 50 == 0 or idx == 0:
+    for idx, (decay, cooldown) in enumerate(combos):
+        if (idx + 1) % 3 == 0 or idx == 0:
             _log_progress(f"{ticker}: entry combo {idx+1}/{total_combos} "
                           f"— best: ${best_composite:.1f}/mo")
 
         overrides = {
             **base_overrides,
             "offset_decay_half_life": decay,
-            "riskoff_min_hold_rate": ro_hr,
-            "regime_aware_offset": regime_off,
             "post_break_cooldown": cooldown,
-            "per_ticker_vix_gate": vix_gate,
-            "max_approach_velocity": velocity,
         }
 
         results_by_period = {}
@@ -136,11 +124,7 @@ def sweep_entry(ticker, base_params, months=10):
             best_composite = composite
             best_params = {
                 "offset_decay_half_life": decay,
-                "riskoff_min_hold_rate": ro_hr,
-                "regime_aware_offset": regime_off,
                 "post_break_cooldown": cooldown,
-                "per_ticker_vix_gate": vix_gate,
-                "max_approach_velocity": velocity,
             }
             best_result = last_result
             best_periods = results_by_period
@@ -181,9 +165,16 @@ def main():
     parser.add_argument("--months", type=int, default=10)
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--split", action="store_true",
+                        help="Cross-validate: validate on last 30%% of months")
     args = parser.parse_args()
 
     start = time.time()
+
+    val_months = 0
+    if args.split:
+        val_months = max(1, args.months - int(args.months * 0.7))
+        print(f"Cross-validation: validate on last {val_months} months")
 
     if not SUPPORT_RESULTS_PATH.exists():
         print("*Support sweep results not found. Run support_parameter_sweeper.py "
@@ -270,6 +261,33 @@ def main():
     }
     for tk, r in results.items():
         output[tk] = r
+
+    # Cross-validation
+    if args.split and val_months > 0 and results:
+        print(f"\nValidating on last {val_months} months...")
+        for tk in list(results.keys()):
+            sp = support_data.get(tk, {}).get("params", {})
+            overrides = {
+                "sell_default": sp.get("sell_default", 6.0),
+                "sell_fast_cycler": sp.get("sell_default", 6.0) + 2.0,
+                "sell_exceptional": sp.get("sell_default", 6.0) + 4.0,
+                "cat_hard_stop": sp.get("cat_hard_stop", 25),
+                "cat_warning": max(sp.get("cat_hard_stop", 25) - 10, 5),
+                "regime_aware_entry": True,
+                **results[tk]["params"],
+            }
+            try:
+                val_result = _simulate_with_config(tk, val_months, overrides)
+                results[tk]["cross_validation"] = {
+                    "pnl": val_result.get("pnl", 0),
+                    "trades": val_result.get("sells", 0),
+                    "win_rate": val_result.get("win_rate", 0),
+                }
+                cv = results[tk]["cross_validation"]
+                flag = " OVERFIT" if results[tk]["stats"].get("pnl", 0) > 0 and cv["pnl"] < 0 else ""
+                print(f"  {tk}: val P/L=${cv['pnl']:.2f} ({cv['trades']}t){flag}", flush=True)
+            except Exception:
+                results[tk]["cross_validation"] = {"pnl": 0, "trades": 0, "win_rate": 0}
 
     if not args.dry_run and results:
         with open(RESULTS_PATH, "w") as f:
