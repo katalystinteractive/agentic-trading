@@ -276,6 +276,10 @@ def apply_safety_gates(rankings, portfolio, metadata, top_n=30):
             if tk not in actions["drop"]:
                 actions["drop"].append(tk)
 
+    # Remove displaced incumbents from confirmed list
+    displaced = {c["incumbent"] for c in actions["challenge"]}
+    actions["confirmed"] = [tk for tk in actions["confirmed"] if tk not in displaced]
+
     return actions
 
 
