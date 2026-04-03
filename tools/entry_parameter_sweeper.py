@@ -184,13 +184,23 @@ def main():
     with open(SUPPORT_RESULTS_PATH) as f:
         support_data = json.load(f)
 
+    # Determine tickers: all tracked + top N challengers by composite
     if args.ticker:
         tickers = [args.ticker]
     else:
-        ranked = sorted(
-            [(tk, d) for tk, d in support_data.items() if not tk.startswith("_")],
+        try:
+            with open(_ROOT / "portfolio.json") as f:
+                _portfolio = json.load(f)
+            tracked = set(_portfolio.get("watchlist", [])) | set(_portfolio.get("positions", {}).keys())
+        except (OSError, json.JSONDecodeError):
+            tracked = set()
+        tracked_with_data = [tk for tk in tracked if tk in support_data and not tk.startswith("_")]
+        challengers = sorted(
+            [(tk, d) for tk, d in support_data.items()
+             if not tk.startswith("_") and tk not in tracked],
             key=lambda x: x[1].get("stats", {}).get("composite", 0), reverse=True)
-        tickers = [tk for tk, _ in ranked[:args.top]]
+        n_challengers = max(len(tracked_with_data) // 2, 10)
+        tickers = tracked_with_data + [tk for tk, _ in challengers[:n_challengers]]
 
     total_combos = 1
     for v in ENTRY_GRID.values():
