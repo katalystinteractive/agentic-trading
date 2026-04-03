@@ -489,9 +489,10 @@ def main():
 
     # Step 7: Tournament
     if not args.dry_run:
-        tour_ok, _ = step_tournament(no_email=args.no_email)
+        tour_ok, tour_t = step_tournament(no_email=args.no_email)
     else:
-        tour_ok, _ = step_tournament(dry_run=True, no_email=True)
+        tour_ok, tour_t = step_tournament(dry_run=True, no_email=True)
+    timings["tournament"] = tour_t
 
     # Build summary
     total_time = time.time() - start

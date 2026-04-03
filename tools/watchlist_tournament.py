@@ -233,9 +233,12 @@ def apply_safety_gates(rankings, portfolio, metadata, top_n=30):
 
         # Candidate in top-N — check beat margin
         if bottom_incumbent:
-            margin = ((r["score"] - bottom_incumbent["score"])
-                      / bottom_incumbent["score"]
-                      if bottom_incumbent["score"] > 0 else float("inf"))
+            if r["score"] <= 0:
+                continue  # zero-score candidates don't qualify
+            if bottom_incumbent["score"] <= 0:
+                margin = float("inf")  # any positive score beats zero
+            else:
+                margin = (r["score"] - bottom_incumbent["score"]) / bottom_incumbent["score"]
             if margin < BEAT_MARGIN:
                 continue  # doesn't beat incumbent by enough
 
