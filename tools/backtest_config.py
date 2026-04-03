@@ -187,6 +187,16 @@ class SurgicalSimConfig:
     # Compounding
     compound: bool = False              # reinvest profits into pools after each sell
 
+    # Execution slippage (adverse price movement on fills)
+    entry_slippage_pct: float = 0.0     # % worse on buy fills (e.g., 0.5 = fill 0.5% above limit)
+    exit_slippage_pct: float = 0.0      # % worse on sell exits (e.g., 0.5 = sell 0.5% below target)
+
+    # Entry timing — wait for pullback before placing first orders
+    initial_pullback_pct: float = 0.0   # 0 = immediate; 5 = wait for 5% pullback from recent high
+
+    # Earnings gate buffer
+    earnings_buffer_days: int = 7       # skip entries within N days of earnings
+
     # Period
     start: str = ""
     end: str = ""

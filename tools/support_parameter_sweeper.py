@@ -120,8 +120,20 @@ def _simulate_with_config(ticker, months, config_overrides, data_dir=None,
     if data_dir is None:
         data_dir = _collect_once(ticker, months)
 
+    earnings_dates = None
     if price_data is None or regime_data is None:
-        price_data, regime_data, _ = load_collected_data(data_dir)
+        price_data, regime_data, config_meta = load_collected_data(data_dir)
+        earnings_dates = config_meta.get("earnings_dates", {})
+    else:
+        # Try to load earnings from config.json if data_dir available
+        try:
+            import json as _json
+            _cfg_path = data_dir / "config.json"
+            if _cfg_path.exists():
+                with open(_cfg_path) as _f:
+                    earnings_dates = _json.load(_f).get("earnings_dates", {})
+        except Exception:
+            pass
 
     cfg = SurgicalSimConfig(**config_overrides)
     cfg.tickers = [ticker]
@@ -134,7 +146,8 @@ def _simulate_with_config(ticker, months, config_overrides, data_dir=None,
     cfg.end = end_date.strftime("%Y-%m-%d")
 
     trades, cycles, equity, dip = run_simulation(
-        price_data, regime_data, cfg, wick_cache, resistance_cache, bounce_cache)
+        price_data, regime_data, cfg, wick_cache, resistance_cache, bounce_cache,
+        earnings_dates=earnings_dates)
 
     # Build result dict matching simulate_candidate output format
     sells = [t for t in trades if t.get("side", "").upper() == "SELL"
@@ -560,6 +573,130 @@ def _sweep_levels_worker(args):
 
 
 # ---------------------------------------------------------------------------
+# Stage 4: Slippage + Entry Timing sweep
+# ---------------------------------------------------------------------------
+
+SLIPPAGE_GRID = {
+    "entry_slippage_pct": [0, 0.3, 0.5, 1.0],
+    "exit_slippage_pct": [0, 0.3, 0.5],
+    "initial_pullback_pct": [0, 3, 5, 8],
+}
+# 4 × 3 × 4 = 48 combos
+
+
+def sweep_slippage(ticker, base_params, months=10):
+    """Stage 4: Sweep slippage + entry timing with all prior params locked.
+
+    Uses multi-period composite scoring (12mo/6mo/3mo/1mo).
+    Returns: (best_params, best_result, best_composite, best_periods)
+    """
+    data_dir = _collect_once(ticker, max(SWEEP_PERIODS))
+    from backtest_engine import load_collected_data
+    price_data, regime_data, _ = load_collected_data(data_dir)
+
+    best_composite = 0
+    best_params = None
+    best_result = None
+    best_periods = None
+    sim_errors = 0
+
+    base_overrides = {
+        "sell_default": base_params.get("sell_default", 6.0),
+        "sell_fast_cycler": base_params.get("sell_default", 6.0) + 2.0,
+        "sell_exceptional": base_params.get("sell_default", 6.0) + 4.0,
+        "cat_hard_stop": base_params.get("cat_hard_stop", 25),
+        "cat_warning": max(base_params.get("cat_hard_stop", 25) - 10, 5),
+        "earnings_gate": True,
+    }
+    for k in ("active_pool", "reserve_pool", "active_bullets_max",
+              "reserve_bullets_max", "tier_full", "tier_std"):
+        if k in base_params:
+            base_overrides[k] = base_params[k]
+
+    combos = list(itertools.product(
+        SLIPPAGE_GRID["entry_slippage_pct"],
+        SLIPPAGE_GRID["exit_slippage_pct"],
+        SLIPPAGE_GRID["initial_pullback_pct"],
+    ))
+    total_combos = len(combos)
+
+    for idx, (e_slip, x_slip, pullback) in enumerate(combos):
+        if (idx + 1) % 10 == 0 or idx == 0:
+            _log_progress(f"{ticker}: slippage combo {idx+1}/{total_combos} "
+                          f"— best: ${best_composite:.1f}/mo")
+
+        overrides = {
+            **base_overrides,
+            "entry_slippage_pct": e_slip,
+            "exit_slippage_pct": x_slip,
+            "initial_pullback_pct": pullback,
+        }
+
+        results_by_period = {}
+        last_result = None
+        wick_cache = {}
+        for period_months in SWEEP_PERIODS:
+            try:
+                result = _simulate_with_config(
+                    ticker, period_months, overrides, data_dir,
+                    price_data, regime_data, wick_cache)
+                results_by_period[period_months] = {
+                    "pnl": result.get("pnl", 0),
+                    "cycles": result.get("cycles", 0),
+                    "trades": result.get("sells", 0),
+                    "win_rate": result.get("win_rate", 0),
+                }
+                last_result = result
+            except Exception as e:
+                results_by_period[period_months] = {"pnl": 0, "cycles": 0}
+                sim_errors += 1
+                if sim_errors <= 3:
+                    _log_progress(f"{ticker}: sim error ({period_months}mo): "
+                                  f"{type(e).__name__}: {e}")
+
+        try:
+            composite, _ = compute_composite(results_by_period)
+        except Exception:
+            composite = 0
+
+        if composite > best_composite:
+            best_composite = composite
+            best_params = {
+                "entry_slippage_pct": e_slip,
+                "exit_slippage_pct": x_slip,
+                "initial_pullback_pct": pullback,
+            }
+            best_result = last_result
+            best_periods = results_by_period
+
+    if sim_errors > 0:
+        _log_progress(f"{ticker}: {sim_errors} slippage sim errors across {total_combos} combos")
+
+    return best_params, best_result, best_composite, best_periods
+
+
+def _sweep_slippage_worker(args):
+    """Worker for parallel slippage sweep."""
+    ticker, base_params, months = args
+    try:
+        best_params, best_result, composite, periods = sweep_slippage(
+            ticker, base_params, months)
+        if best_params:
+            return ticker, {
+                "slippage_params": best_params,
+                "slippage_stats": {
+                    "composite": round(composite, 2) if composite else 0,
+                    "pnl": best_result.get("pnl", 0) if best_result else 0,
+                    "trades": best_result.get("sells", 0) if best_result else 0,
+                },
+                "slippage_periods": periods,
+            }
+        return ticker, None
+    except Exception:
+        return ticker, None
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -571,7 +708,7 @@ def main():
                         help="Number of universe passers to sweep (default: 30)")
     parser.add_argument("--months", type=int, default=10,
                         help="Simulation months (default: 10)")
-    parser.add_argument("--stage", choices=["threshold", "execution", "both", "level"],
+    parser.add_argument("--stage", choices=["threshold", "execution", "both", "level", "slippage"],
                         default="both", help="Which stage to run")
     parser.add_argument("--split", action="store_true",
                         help="Cross-validate: train first 7mo, validate last 3mo")
@@ -816,10 +953,86 @@ def main():
                 json.dump(existing_levels, f, indent=2)
             print(f"\nLevel filter results written to {LEVEL_RESULTS_PATH}")
 
+    # ---------------------------------------------------------------
+    # Stage 4: Slippage + Entry Timing
+    # ---------------------------------------------------------------
+    if args.stage == "slippage":
+        slippage_output = {}
+        print(f"\nStage 4: Slippage sweep on {len(tickers)} tickers × "
+              f"{len(list(itertools.product(*SLIPPAGE_GRID.values())))} combos...")
+
+        if args.workers > 1 and len(tickers) > 1:
+            worker_args = [(tk, support_data[tk]["params"], args.months)
+                           for tk in tickers if tk in support_data]
+            with Pool(processes=min(args.workers, len(worker_args))) as pool:
+                for tk, result_data in pool.map(_sweep_slippage_worker, worker_args):
+                    if result_data:
+                        slippage_output[tk] = result_data
+                        print(f"  {tk}: e_slip={result_data['slippage_params']['entry_slippage_pct']}% "
+                              f"x_slip={result_data['slippage_params']['exit_slippage_pct']}% "
+                              f"pullback={result_data['slippage_params']['initial_pullback_pct']}% "
+                              f"composite=${result_data['slippage_stats']['composite']:.1f}/mo",
+                              flush=True)
+                    else:
+                        print(f"  {tk}: no improvement", flush=True)
+        else:
+            for i, tk in enumerate(tickers):
+                if tk not in support_data or tk.startswith("_"):
+                    continue
+                print(f"  [{i+1}/{len(tickers)}] {tk}...", end=" ", flush=True)
+                t0 = time.time()
+                best_params, best_result, composite, periods = sweep_slippage(
+                    tk, support_data[tk]["params"], args.months)
+                if best_params:
+                    slippage_output[tk] = {
+                        "slippage_params": best_params,
+                        "slippage_stats": {
+                            "composite": round(composite, 2) if composite else 0,
+                            "pnl": best_result.get("pnl", 0) if best_result else 0,
+                            "trades": best_result.get("sells", 0) if best_result else 0,
+                        },
+                        "slippage_periods": periods,
+                    }
+                    print(f"e_slip={best_params['entry_slippage_pct']}% "
+                          f"x_slip={best_params['exit_slippage_pct']}% "
+                          f"pullback={best_params['initial_pullback_pct']}% "
+                          f"composite=${composite:.1f}/mo [{time.time()-t0:.0f}s]",
+                          flush=True)
+                else:
+                    print(f"no improvement [{time.time()-t0:.0f}s]", flush=True)
+
+        if slippage_output and not args.dry_run:
+            # Merge into support_sweep_results.json (add slippage_params per ticker)
+            existing = {}
+            if RESULTS_PATH.exists():
+                try:
+                    with open(RESULTS_PATH) as f:
+                        existing = json.load(f)
+                except (json.JSONDecodeError, OSError):
+                    pass
+            for tk, data in slippage_output.items():
+                if tk in existing:
+                    existing[tk].update(data)
+                else:
+                    existing[tk] = data
+            with open(RESULTS_PATH, "w") as f:
+                json.dump(existing, f, indent=2)
+            print(f"\nSlippage results merged into {RESULTS_PATH}")
+
     # Summary
     elapsed = time.time() - start
     print(f"\n{'='*60}")
-    if args.stage == "level":
+    if args.stage == "slippage":
+        print(f"| Ticker | Entry Slip | Exit Slip | Pullback | $/mo | Trades |")
+        print(f"| :--- | :--- | :--- | :--- | :--- | :--- |")
+        for tk in sorted(slippage_output.keys(),
+                         key=lambda t: slippage_output[t]["slippage_stats"]["composite"],
+                         reverse=True):
+            sp = slippage_output[tk]["slippage_params"]
+            ss = slippage_output[tk]["slippage_stats"]
+            print(f"| {tk} | {sp['entry_slippage_pct']}% | {sp['exit_slippage_pct']}% | "
+                  f"{sp['initial_pullback_pct']}% | ${ss['composite']:.1f} | {ss['trades']} |")
+    elif args.stage == "level":
         print(f"| Ticker | HoldRate | TouchFreq | SkipDormant | Zone | $/mo | Trades |")
         print(f"| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         for tk in sorted(level_output.keys(),

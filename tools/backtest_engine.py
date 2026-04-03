@@ -132,7 +132,7 @@ def _compute_sell_target(cfg, completed_cycles_for_ticker):
     return cfg.sell_default
 
 
-def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cache=None, bounce_cache=None):
+def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cache=None, bounce_cache=None, earnings_dates=None):
     """Execute the surgical mean-reversion backtest.
 
     Args:
@@ -198,6 +198,7 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
     cached_resistance = {}   # ticker -> [resistance_level_dicts]
     cached_bounce = {}       # ticker -> {level_price: bounce_profile}
     last_break = {}          # ticker -> d_str of last level break
+    recent_high = {}         # ticker -> rolling 20-day high close (for pullback gate)
 
     # Initialize capital pools
     cumulative_profit = defaultdict(float)  # per-ticker accumulated P/L for compounding
@@ -350,11 +351,12 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                 # Don't sell at target during significant drawdown
                 pass
             elif day_high >= target_price:
-                pnl_pct = (target_price - pos.avg_cost) / pos.avg_cost * 100
-                pnl_dollars = pos.shares * (target_price - pos.avg_cost)
+                exit_price = target_price * (1 - cfg.exit_slippage_pct / 100)
+                pnl_pct = (exit_price - pos.avg_cost) / pos.avg_cost * 100
+                pnl_dollars = pos.shares * (exit_price - pos.avg_cost)
                 trades.append({
                     "ticker": tk, "side": "SELL", "date": d_str,
-                    "price": round(target_price, 2), "shares": pos.shares,
+                    "price": round(exit_price, 2), "shares": pos.shares,
                     "pnl_pct": round(pnl_pct, 2), "pnl_dollars": round(pnl_dollars, 2),
                     "exit_reason": "PROFIT_TARGET", "days_held": days_held,
                     "avg_cost": round(pos.avg_cost, 2), "regime": regime,
@@ -362,7 +364,7 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                 })
                 completed_cycles[tk].append({
                     "entry_date": pos.entry_date, "exit_date": d_str,
-                    "avg_cost": pos.avg_cost, "exit_price": target_price,
+                    "avg_cost": pos.avg_cost, "exit_price": exit_price,
                     "pnl_pct": round(pnl_pct, 2), "duration_days": days_held,
                     "bullets_used": pos.bullets_used, "zones": pos.zones_used,
                 })
@@ -435,8 +437,23 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                         dm.recovery_days += 1
             # --- End dip side-channel ---
 
+            # Pullback gate — track rolling 20-day high, skip entries until pullback reached
+            if cfg.initial_pullback_pct > 0:
+                lookback_start = max(0, day_idx - 20)
+                _recent = [float(tk_data["Close"].iloc[j])
+                           for j in range(lookback_start, day_idx + 1)
+                           if j < len(tk_data["Close"])]
+                if _recent:
+                    recent_high[tk] = max(recent_high.get(tk, 0), max(_recent))
+
             filled = []
             for i, order in enumerate(pending_orders.get(tk, [])):
+                # Pullback gate — skip entries until stock has pulled back enough
+                if cfg.initial_pullback_pct > 0 and tk in recent_high and recent_high[tk] > 0:
+                    pullback = (recent_high[tk] - day_close) / recent_high[tk] * 100
+                    if pullback < cfg.initial_pullback_pct:
+                        continue
+
                 # Regime gate
                 if regime == "Risk-Off":
                     current = day_close
@@ -487,9 +504,25 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                     except (ValueError, TypeError):
                         pass
 
+                # Earnings gate — skip entries within N days of earnings
+                if cfg.earnings_gate and earnings_dates:
+                    _tk_earnings = earnings_dates.get(tk, [])
+                    _skip_earnings = False
+                    for _ed in _tk_earnings:
+                        try:
+                            _days_until = (datetime.strptime(_ed, "%Y-%m-%d")
+                                           - datetime.strptime(d_str, "%Y-%m-%d")).days
+                            if 0 <= _days_until <= cfg.earnings_buffer_days:
+                                _skip_earnings = True
+                                break
+                        except (ValueError, TypeError):
+                            pass
+                    if _skip_earnings:
+                        continue
+
                 if day_low <= order.price:
                     filled.append(i)
-                    fill_price = order.price
+                    fill_price = order.price * (1 + cfg.entry_slippage_pct / 100)
 
                     # Update position
                     if tk in positions:
@@ -541,12 +574,13 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                                 dh = float(tk_data["High"][mask].iloc[0]) if mask.any() else 0
                             sde_target = fill_price * (1 + cfg.same_day_exit_pct / 100)
                             if dh >= sde_target:
+                                sde_exit = sde_target * (1 - cfg.exit_slippage_pct / 100)
                                 pos = positions[tk]
-                                sde_pnl = cfg.same_day_exit_pct
-                                sde_dollars = pos.shares * fill_price * sde_pnl / 100
+                                sde_pnl = (sde_exit - fill_price) / fill_price * 100
+                                sde_dollars = pos.shares * (sde_exit - fill_price)
                                 trades.append({
                                     "ticker": tk, "side": "SELL", "date": d_str,
-                                    "price": round(sde_target, 2), "shares": pos.shares,
+                                    "price": round(sde_exit, 2), "shares": pos.shares,
                                     "pnl_pct": round(sde_pnl, 2),
                                     "pnl_dollars": round(sde_dollars, 2),
                                     "exit_reason": "SAME_DAY_EXIT",
@@ -555,7 +589,7 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                                 })
                                 completed_cycles[tk].append({
                                     "entry_date": d_str, "exit_date": d_str,
-                                    "avg_cost": pos.avg_cost, "exit_price": sde_target,
+                                    "avg_cost": pos.avg_cost, "exit_price": sde_exit,
                                     "pnl_pct": round(sde_pnl, 2), "duration_days": 0,
                                     "bullets_used": pos.bullets_used,
                                     "zones": pos.zones_used,

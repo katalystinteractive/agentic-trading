@@ -172,16 +172,16 @@ def collect_data(cfg):
         print(f"*Error downloading data: {e}*")
         sys.exit(1)
 
-    # --- 3. Earnings dates (best-effort) ---
+    # --- 3. Earnings dates (historical + upcoming) ---
     print(f"\nFetching earnings dates...")
     earnings_dates = {}
     for tk in tickers:
         try:
-            cal = yf.Ticker(tk).calendar
-            if cal is not None and hasattr(cal, "get"):
-                ed = cal.get("Earnings Date")
-                if ed and isinstance(ed, list) and ed:
-                    earnings_dates[tk] = str(ed[0].date()) if hasattr(ed[0], "date") else str(ed[0])
+            ticker_obj = yf.Ticker(tk)
+            ed = ticker_obj.earnings_dates
+            if ed is not None and len(ed) > 0:
+                dates = sorted(set(str(d.date()) for d in ed.index))
+                earnings_dates[tk] = dates
         except Exception:
             pass
     earns_found = sum(1 for v in earnings_dates.values() if v)
