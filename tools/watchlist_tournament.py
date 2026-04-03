@@ -290,9 +290,17 @@ def apply_safety_gates(rankings, portfolio, metadata, top_n=30):
             if tk not in actions["drop"]:
                 actions["drop"].append(tk)
 
-    # Remove displaced incumbents from confirmed list
+    # Remove displaced incumbents from confirmed — assign explicit action
     displaced = {c["incumbent"] for c in actions["challenge"]}
     actions["confirmed"] = [tk for tk in actions["confirmed"] if tk not in displaced]
+    for tk in displaced:
+        shares = positions.get(tk, {}).get("shares", 0)
+        if shares > 0:
+            if tk not in actions["wind_down"]:
+                actions["wind_down"].append(tk)
+        else:
+            if tk not in actions["drop"]:
+                actions["drop"].append(tk)
 
     return actions
 
