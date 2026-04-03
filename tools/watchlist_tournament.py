@@ -13,7 +13,6 @@ Usage:
 import sys
 import json
 import argparse
-import tempfile
 from pathlib import Path
 from datetime import date, datetime, timedelta
 
@@ -251,6 +250,12 @@ def apply_safety_gates(rankings, portfolio, metadata, top_n=30):
                 "incumbent_score": bottom_incumbent["score"],
             })
             recent_swaps += 1
+
+            # Recompute bottom incumbent — defeated one is no longer available
+            incumbents_in_top = [x for x in incumbents_in_top
+                                 if x["ticker"] != bottom_incumbent["ticker"]]
+            bottom_incumbent = (min(incumbents_in_top, key=lambda x: x["score"])
+                                if incumbents_in_top else None)
         else:
             # No incumbents — all slots open
             actions["onboard"].append(tk)
@@ -378,6 +383,20 @@ def execute_actions(actions, portfolio, metadata):
         # Clean up metadata
         metadata["watchlist_metadata"].pop(tk, None)
 
+    # Remove challenged incumbents (if no active position → drop; if position → wind_down)
+    positions = portfolio.get("positions", {})
+    for c in actions["challenge"]:
+        inc = c["incumbent"]
+        inc_shares = positions.get(inc, {}).get("shares", 0)
+        if inc_shares > 0:
+            positions[inc]["winding_down"] = True
+            changed = True
+        else:
+            if inc in watchlist:
+                watchlist.remove(inc)
+                changed = True
+            metadata["watchlist_metadata"].pop(inc, None)
+
     # Record swaps in history
     today = date.today().isoformat()
     for c in actions["challenge"]:
@@ -392,7 +411,7 @@ def execute_actions(actions, portfolio, metadata):
             "date": today,
             "in": None,
             "out": tk,
-            "type": "emergency" if tk not in set(r["ticker"] for r in []) else "drop",
+            "type": "drop",
         })
 
     # Onboard new tickers
