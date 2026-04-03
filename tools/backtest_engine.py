@@ -444,7 +444,7 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                            for j in range(lookback_start, day_idx + 1)
                            if j < len(tk_data["Close"])]
                 if _recent:
-                    recent_high[tk] = max(recent_high.get(tk, 0), max(_recent))
+                    recent_high[tk] = max(_recent)  # rolling 20-day high, resets as old days drop
 
             filled = []
             for i, order in enumerate(pending_orders.get(tk, [])):
@@ -522,7 +522,7 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
 
                 if day_low <= order.price:
                     filled.append(i)
-                    fill_price = order.price * (1 + cfg.entry_slippage_pct / 100)
+                    fill_price = min(order.price * (1 + cfg.entry_slippage_pct / 100), day_high)
 
                     # Update position
                     if tk in positions:
@@ -904,7 +904,9 @@ def main():
             setattr(cfg, k, v)
     cfg.output_dir = args.data_dir
 
-    trades, cycles, equity_curve, dip_metrics = run_simulation(price_data, regime_data, cfg)
+    earnings_dates = config_meta.get("earnings_dates", {})
+    trades, cycles, equity_curve, dip_metrics = run_simulation(
+        price_data, regime_data, cfg, earnings_dates=earnings_dates)
     save_results(trades, cycles, equity_curve, args.data_dir)
 
     # Save dip side-channel results

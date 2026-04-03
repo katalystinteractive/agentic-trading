@@ -128,7 +128,7 @@ def _simulate_with_config(ticker, months, config_overrides, data_dir=None,
         # Try to load earnings from config.json if data_dir available
         try:
             import json as _json
-            _cfg_path = data_dir / "config.json"
+            _cfg_path = Path(data_dir) / "config.json"
             if _cfg_path.exists():
                 with open(_cfg_path) as _f:
                     earnings_dates = _json.load(_f).get("earnings_dates", {})
@@ -592,7 +592,7 @@ def sweep_slippage(ticker, base_params, months=10):
     """
     data_dir = _collect_once(ticker, max(SWEEP_PERIODS))
     from backtest_engine import load_collected_data
-    price_data, regime_data, _ = load_collected_data(data_dir)
+    price_data, regime_data, config_meta = load_collected_data(data_dir)
 
     best_composite = 0
     best_params = None
