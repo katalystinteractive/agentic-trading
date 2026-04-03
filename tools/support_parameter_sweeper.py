@@ -957,6 +957,18 @@ def main():
     # Stage 4: Slippage + Entry Timing
     # ---------------------------------------------------------------
     if args.stage == "slippage":
+        if not RESULTS_PATH.exists():
+            print("*Stage 1+2 results not found. Run --stage both first.*")
+            return
+        with open(RESULTS_PATH) as f:
+            support_data = json.load(f)
+
+        slippage_tickers = [tk for tk in tickers if tk in support_data and not tk.startswith("_")]
+        if not slippage_tickers:
+            print("*No tickers with prior sweep results for slippage sweep.*")
+            return
+        tickers = slippage_tickers
+
         slippage_output = {}
         print(f"\nStage 4: Slippage sweep on {len(tickers)} tickers × "
               f"{len(list(itertools.product(*SLIPPAGE_GRID.values())))} combos...")

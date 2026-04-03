@@ -225,7 +225,7 @@ def main():
     else:
         ranked = sorted(
             [(tk, d) for tk, d in support_data.items() if not tk.startswith("_")],
-            key=lambda x: x[1].get("stats", {}).get("pnl", 0), reverse=True)
+            key=lambda x: x[1].get("stats", {}).get("composite", 0), reverse=True)
         tickers = [tk for tk, _ in ranked[:args.top]]
 
     total_combos = 1
