@@ -19,5 +19,21 @@
 # Market hours: 9:30 AM - 4:00 PM ET = 16:30 - 23:00 local (ET+7)
 */5 16-23 * * 1-5 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/order_proximity_monitor.py >> data/proximity_monitor.log 2>&1
 
-# Weekly re-optimization (Saturday 6 AM local)
-0 6 * * 6 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/weekly_reoptimize.py >> data/reoptimize.log 2>&1
+# Universe screening (Saturday 9:00 AM local, ~15-20 min)
+0 9 * * 6 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/universe_screener.py >> data/universe_screen.log 2>&1
+
+# Weekly re-optimization (Saturday 10 AM local)
+# Support sweep + clustering + weight training (~70 min)
+0 10 * * 6 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/weekly_reoptimize.py >> data/reoptimize.log 2>&1
+
+# Resistance sell sweep (Saturday 11:30 AM local, ~35 min)
+30 11 * * 6 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/resistance_parameter_sweeper.py --workers 8 >> data/resistance_sweep.log 2>&1
+
+# Bounce sell sweep (Saturday 12:15 PM local, ~50 min)
+15 12 * * 6 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/bounce_parameter_sweeper.py --workers 8 >> data/bounce_sweep.log 2>&1
+
+# Entry gate sweep (Saturday 1:15 PM local, ~4 min)
+15 13 * * 6 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/entry_parameter_sweeper.py --workers 8 >> data/entry_sweep.log 2>&1
+
+# Watchlist tournament (Saturday 2:30 PM local, independent schedule — runs after morning sweeps)
+30 14 * * 6 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/watchlist_tournament.py >> data/tournament.log 2>&1

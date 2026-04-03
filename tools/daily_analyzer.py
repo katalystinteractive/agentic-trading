@@ -963,6 +963,8 @@ def find_deployment_tickers():
     for ticker in sorted(all_tickers):
         orders = pending.get(ticker, [])
         pos = positions.get(ticker, {})
+        if pos.get("winding_down"):
+            continue  # Skip winding-down positions — no new bullets
         shares = pos.get("shares", 0)
 
         # Skip dead entries: no shares and no pending orders at all

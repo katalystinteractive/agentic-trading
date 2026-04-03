@@ -212,7 +212,6 @@ def main():
                     results[tk] = result_data
                     p = result_data["params"]
                     print(f"  {tk}: decay={p['offset_decay_half_life']} "
-                          f"ro_hr={p['riskoff_min_hold_rate']} "
                           f"cooldown={p['post_break_cooldown']} "
                           f"composite=${result_data['stats']['composite']:.1f}/mo",
                           flush=True)
@@ -237,7 +236,6 @@ def main():
                     "periods": periods,
                 }
                 print(f"decay={best_params['offset_decay_half_life']} "
-                      f"ro_hr={best_params['riskoff_min_hold_rate']} "
                       f"cooldown={best_params['post_break_cooldown']} "
                       f"composite=${composite:.1f}/mo [{time.time()-t0:.0f}s]",
                       flush=True)
@@ -296,15 +294,14 @@ def main():
 
     elapsed = time.time() - start
     print(f"\n{'='*60}")
-    print(f"| Ticker | Decay | RO HR | Regime Off | Cooldown | VIX | Velocity | $/mo |")
-    print(f"| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    print(f"| Ticker | Decay | Cooldown | $/mo |")
+    print(f"| :--- | :--- | :--- | :--- |")
     for tk in sorted(results.keys(),
                      key=lambda t: results[t]["stats"]["composite"], reverse=True):
         r = results[tk]
         p = r["params"]
-        print(f"| {tk} | {p['offset_decay_half_life']} | {p['riskoff_min_hold_rate']} | "
-              f"{p['regime_aware_offset']} | {p['post_break_cooldown']} | "
-              f"{p['per_ticker_vix_gate']} | {p['max_approach_velocity']} | "
+        print(f"| {tk} | {p['offset_decay_half_life']} | "
+              f"{p['post_break_cooldown']} | "
               f"${r['stats']['composite']:.1f} |")
 
     print(f"\nTotal time: {elapsed:.0f}s ({elapsed/60:.1f} min)")

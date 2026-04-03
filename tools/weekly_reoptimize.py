@@ -341,6 +341,96 @@ def save_history(summary, cluster_info, weight_stats, overfit_flags):
 
 
 # ---------------------------------------------------------------------------
+# Candidate sweep + Tournament
+# ---------------------------------------------------------------------------
+
+def step_candidate_sweep():
+    """Sweep top 15 universe-screening passers (Stage 1 only) for tournament."""
+    print("=" * 60)
+    print("STEP 6: Candidate Sweep (Stage 1)")
+    print("=" * 60)
+
+    cache_path = _ROOT / "data" / "universe_screen_cache.json"
+    if not cache_path.exists():
+        print("  Universe screen cache not found — skipping")
+        return False, 0, 0
+
+    try:
+        with open(cache_path) as f:
+            cache = json.load(f)
+    except (OSError, json.JSONDecodeError) as e:
+        print(f"  *Cache load error: {e}*")
+        return False, 0, 0
+
+    # Get tracked tickers to exclude
+    try:
+        with open(_ROOT / "portfolio.json") as f:
+            portfolio = json.load(f)
+    except (OSError, json.JSONDecodeError):
+        portfolio = {}
+    tracked = (set(portfolio.get("watchlist", []))
+               | set(portfolio.get("positions", {}).keys()))
+
+    passers = [t["ticker"] for t in cache.get("passers", [])
+               if t["ticker"] not in tracked][:15]
+
+    if not passers:
+        print("  No new candidates to sweep")
+        return True, 0, 0
+
+    print(f"  Sweeping {len(passers)} candidates...")
+    t0 = time.time()
+
+    from concurrent.futures import ThreadPoolExecutor
+
+    def sweep_one(tk):
+        result = subprocess.run(
+            [sys.executable, "tools/support_parameter_sweeper.py",
+             "--ticker", tk, "--stage", "threshold"],
+            capture_output=True, text=True, cwd=str(_ROOT))
+        return tk, result.returncode == 0
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        results = list(pool.map(sweep_one, passers))
+
+    swept = sum(1 for _, ok in results if ok)
+    failed = [tk for tk, ok in results if not ok]
+    elapsed = time.time() - t0
+    print(f"  Swept: {swept}/{len(passers)} in {elapsed:.0f}s")
+    if failed:
+        print(f"  Failed: {', '.join(failed)}")
+    return True, elapsed, swept
+
+
+def step_tournament(dry_run=False, no_email=False):
+    """Run watchlist tournament ranking."""
+    print("=" * 60)
+    print("STEP 7: Watchlist Tournament")
+    print("=" * 60)
+
+    cmd = [sys.executable, "tools/watchlist_tournament.py"]
+    if dry_run:
+        cmd.append("--dry-run")
+    if no_email:
+        cmd.append("--no-email")
+
+    t0 = time.time()
+    result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(_ROOT))
+    elapsed = time.time() - t0
+
+    if result.stdout:
+        print(result.stdout)
+    if result.returncode != 0 and result.stderr:
+        for line in result.stderr.split("\n"):
+            if line.strip():
+                print(f"  stderr: {line}")
+
+    success = result.returncode == 0
+    print(f"  Tournament {'completed' if success else 'FAILED'} in {elapsed:.0f}s\n")
+    return success, elapsed
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -390,6 +480,18 @@ def main():
     # Step 5: Overfitting check
     overfit_flags = step_check_overfitting()
     low_conf, conf_drops = step_check_confidence()
+
+    # Step 6: Candidate sweep (Stage 1 only for tournament ranking)
+    cand_ok, cand_t, n_swept = step_candidate_sweep()
+    timings["candidate_sweep"] = cand_t
+    if n_swept > 0:
+        print(f"  Candidate sweep: {n_swept} tickers in {cand_t:.0f}s")
+
+    # Step 7: Tournament
+    if not args.dry_run:
+        tour_ok, _ = step_tournament(no_email=args.no_email)
+    else:
+        tour_ok, _ = step_tournament(dry_run=True, no_email=True)
 
     # Build summary
     total_time = time.time() - start

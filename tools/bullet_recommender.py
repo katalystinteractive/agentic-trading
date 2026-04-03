@@ -240,6 +240,12 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
     except Exception:
         pass  # earnings gate is advisory, don't crash on import failure
 
+    # --- Winding Down Check ---
+    if positions.get(ticker, {}).get("winding_down"):
+        print(f"## Bullet Recommendation: {ticker}")
+        print(f"*{ticker} is winding down — no new bullets. Monitor until position closes.*")
+        return
+
     # --- Step 1: Determine position case ---
     if ticker in positions:
         pos = positions[ticker]
