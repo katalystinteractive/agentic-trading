@@ -61,17 +61,31 @@ def _load_sweep(path):
     return data
 
 
-def load_all_sweeps():
-    """Load all 4 sweep files. Return {ticker: {sweep_type: composite}}."""
-    merged = {}
+def load_all_sweeps(portfolio=None):
+    """Load all 4 sweep files. Filter to tracked + top challengers.
+
+    Returns {ticker: {sweep_type: composite}}.
+    """
+    all_data = {}
     for sweep_type, path in SWEEP_FILES.items():
         data = _load_sweep(path)
         for ticker, entry in data.items():
             composite = entry.get("stats", {}).get("composite", 0)
-            if ticker not in merged:
-                merged[ticker] = {}
-            merged[ticker][sweep_type] = composite
-    return merged
+            if ticker not in all_data:
+                all_data[ticker] = {}
+            all_data[ticker][sweep_type] = composite
+
+    if not portfolio:
+        return all_data
+
+    # Filter: all tracked + top N challengers by best composite
+    tracked = set(portfolio.get("watchlist", [])) | set(portfolio.get("positions", {}).keys())
+    untracked = {tk: max(comps.values()) for tk, comps in all_data.items() if tk not in tracked}
+    n_challengers = max(len([tk for tk in tracked if tk in all_data]) // 2, 10)
+    top_challengers = set(tk for tk, _ in sorted(untracked.items(), key=lambda x: x[1], reverse=True)[:n_challengers])
+
+    return {tk: comps for tk, comps in all_data.items()
+            if tk in tracked or tk in top_challengers}
 
 
 # ---------------------------------------------------------------------------
@@ -463,16 +477,16 @@ def main():
     args = parser.parse_args()
 
     # Load data
-    all_sweeps = load_all_sweeps()
-    if not all_sweeps:
-        print("*No sweep data available — cannot run tournament.*")
-        return
-
     try:
         with open(PORTFOLIO_PATH) as f:
             portfolio = json.load(f)
     except (OSError, json.JSONDecodeError) as e:
         print(f"*Cannot load portfolio: {e}*")
+        return
+
+    all_sweeps = load_all_sweeps(portfolio)
+    if not all_sweeps:
+        print("*No sweep data available — cannot run tournament.*")
         return
 
     metadata = load_metadata()
