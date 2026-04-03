@@ -963,11 +963,24 @@ def main():
         with open(RESULTS_PATH) as f:
             support_data = json.load(f)
 
-        slippage_tickers = [tk for tk in tickers if tk in support_data and not tk.startswith("_")]
-        if not slippage_tickers:
+        # Same pool as resistance/bounce/entry: all tracked + top N challengers
+        try:
+            with open(_ROOT / "portfolio.json") as f:
+                _portfolio = json.load(f)
+            tracked = set(_portfolio.get("watchlist", [])) | set(_portfolio.get("positions", {}).keys())
+        except (OSError, json.JSONDecodeError):
+            tracked = set()
+        tracked_with_data = [tk for tk in tracked if tk in support_data and not tk.startswith("_")]
+        challengers = sorted(
+            [(tk, d) for tk, d in support_data.items()
+             if not tk.startswith("_") and tk not in tracked],
+            key=lambda x: x[1].get("stats", {}).get("composite", 0), reverse=True)
+        n_challengers = max(len(tracked_with_data) // 2, 10)
+        tickers = tracked_with_data + [tk for tk, _ in challengers[:n_challengers]]
+
+        if not tickers:
             print("*No tickers with prior sweep results for slippage sweep.*")
             return
-        tickers = slippage_tickers
 
         slippage_output = {}
         print(f"\nStage 4: Slippage sweep on {len(tickers)} tickers × "
