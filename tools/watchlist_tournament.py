@@ -230,52 +230,60 @@ def apply_safety_gates(rankings, portfolio, metadata, top_n=30):
 
         actions["drop"].append(tk)
 
-    # --- Process tickers IN top-N that are NOT tracked ---
-    # Find bottom incumbent for beat-margin comparison
-    incumbents_in_top = [r for r in rankings
-                         if r["rank"] <= top_n and r["ticker"] in tracked]
-    bottom_incumbent = min(incumbents_in_top,
-                           key=lambda x: x["score"]) if incumbents_in_top else None
+    # --- Determine vacated slots and fill with candidates ---
+    # Vacated slots = tickers leaving (drop + wind_down from below-cutoff processing)
+    leaving = actions["drop"] + actions["wind_down"]
+    slots_available = len(leaving)
 
+    # Tracked tickers IN top-N are confirmed
     for r in rankings:
         if r["rank"] > top_n:
             break
-        tk = r["ticker"]
-        if tk in tracked:
-            actions["confirmed"].append(tk)
+        if r["ticker"] in tracked:
+            actions["confirmed"].append(r["ticker"])
+
+    # Candidates IN top-N, ranked by score (already sorted)
+    candidates_in_top = [r for r in rankings
+                         if r["rank"] <= top_n and r["ticker"] not in tracked]
+
+    # Build replacement pool: leaving tickers sorted worst-first
+    leaving_scores = {}
+    for r in rankings:
+        if r["ticker"] in leaving:
+            leaving_scores[r["ticker"]] = r["score"]
+    # Add zero-data tickers (TMC, SMCI) that aren't in rankings
+    for tk in leaving:
+        if tk not in leaving_scores:
+            leaving_scores[tk] = 0
+    replaceable = sorted(leaving_scores.items(), key=lambda x: x[1])
+
+    # Fill slots: match best candidate → worst departing ticker
+    for candidate_r in candidates_in_top:
+        if recent_swaps >= MAX_WEEKLY_SWAPS:
+            break
+        if not replaceable:
+            break
+        if candidate_r["score"] <= 0:
             continue
 
-        # Candidate in top-N — check beat margin
-        if bottom_incumbent:
-            if r["score"] <= 0:
-                continue  # zero-score candidates don't qualify
-            if bottom_incumbent["score"] <= 0:
-                margin = float("inf")  # any positive score beats zero
-            else:
-                margin = (r["score"] - bottom_incumbent["score"]) / bottom_incumbent["score"]
-            if margin < BEAT_MARGIN:
-                continue  # doesn't beat incumbent by enough
-
-            if recent_swaps >= MAX_WEEKLY_SWAPS:
-                continue  # weekly cap reached
-
-            actions["challenge"].append({
-                "challenger": tk,
-                "incumbent": bottom_incumbent["ticker"],
-                "margin_pct": round(margin * 100, 1),
-                "challenger_score": r["score"],
-                "incumbent_score": bottom_incumbent["score"],
-            })
-            recent_swaps += 1
-
-            # Recompute bottom incumbent — defeated one is no longer available
-            incumbents_in_top = [x for x in incumbents_in_top
-                                 if x["ticker"] != bottom_incumbent["ticker"]]
-            bottom_incumbent = (min(incumbents_in_top, key=lambda x: x["score"])
-                                if incumbents_in_top else None)
+        # Compare against the ticker being replaced (worst remaining)
+        replace_tk, replace_score = replaceable[0]
+        if replace_score <= 0:
+            margin = float("inf")
         else:
-            # No incumbents — all slots open
-            actions["onboard"].append(tk)
+            margin = (candidate_r["score"] - replace_score) / replace_score
+        if margin < BEAT_MARGIN:
+            continue  # doesn't beat the departing ticker by enough
+
+        actions["challenge"].append({
+            "challenger": candidate_r["ticker"],
+            "incumbent": replace_tk,
+            "margin_pct": round(margin * 100, 1),
+            "challenger_score": candidate_r["score"],
+            "incumbent_score": replace_score,
+        })
+        recent_swaps += 1
+        replaceable.pop(0)  # slot filled
 
     # --- Emergency drops: tracked tickers with zero sweep data ---
     all_swept = set(r["ticker"] for r in rankings)
@@ -290,17 +298,9 @@ def apply_safety_gates(rankings, portfolio, metadata, top_n=30):
             if tk not in actions["drop"]:
                 actions["drop"].append(tk)
 
-    # Remove displaced incumbents from confirmed — assign explicit action
+    # Challenged incumbents are already in drop/wind_down — just remove from confirmed
     displaced = {c["incumbent"] for c in actions["challenge"]}
     actions["confirmed"] = [tk for tk in actions["confirmed"] if tk not in displaced]
-    for tk in displaced:
-        shares = positions.get(tk, {}).get("shares", 0)
-        if shares > 0:
-            if tk not in actions["wind_down"]:
-                actions["wind_down"].append(tk)
-        else:
-            if tk not in actions["drop"]:
-                actions["drop"].append(tk)
 
     return actions
 
