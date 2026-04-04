@@ -245,6 +245,80 @@ def _add_to_watchlist(tickers, dry_run=False):
         print(f"Added {len(added)} to watchlist: {', '.join(added)}")
 
 
+def run_post_onboard_sweeps(tickers, dry_run=False):
+    """Run all simulation sweeps needed for newly onboarded tickers.
+
+    Triggers: support Stage 1+2, resistance, bounce, entry, slippage sweeps.
+    Each ticker is swept independently so results merge into existing files.
+    """
+    if dry_run or not tickers:
+        return
+
+    import subprocess
+
+    print(f"\n--- Post-onboard sweeps for {len(tickers)} tickers ---")
+    sweep_cmds = [
+        ("Support (Stage 1+2)", ["--stage", "both"]),
+        ("Resistance", None),  # separate script
+        ("Bounce", None),
+        ("Entry", None),
+        ("Level Filters (Stage 3)", ["--stage", "level"]),
+    ]
+
+    for tk in tickers:
+        print(f"\n  {tk}:")
+
+        # Support Stage 1+2
+        print(f"    Support sweep...", end=" ", flush=True)
+        r = subprocess.run(
+            [sys.executable, "tools/support_parameter_sweeper.py",
+             "--ticker", tk, "--stage", "both"],
+            capture_output=True, text=True, cwd=str(_ROOT))
+        print("OK" if r.returncode == 0 else "FAILED")
+
+        # Level Filters (Stage 3)
+        print(f"    Level filters...", end=" ", flush=True)
+        r = subprocess.run(
+            [sys.executable, "tools/support_parameter_sweeper.py",
+             "--ticker", tk, "--stage", "level"],
+            capture_output=True, text=True, cwd=str(_ROOT))
+        print("OK" if r.returncode == 0 else "FAILED")
+
+        # Resistance
+        print(f"    Resistance...", end=" ", flush=True)
+        r = subprocess.run(
+            [sys.executable, "tools/resistance_parameter_sweeper.py",
+             "--ticker", tk],
+            capture_output=True, text=True, cwd=str(_ROOT))
+        print("OK" if r.returncode == 0 else "FAILED")
+
+        # Bounce
+        print(f"    Bounce...", end=" ", flush=True)
+        r = subprocess.run(
+            [sys.executable, "tools/bounce_parameter_sweeper.py",
+             "--ticker", tk],
+            capture_output=True, text=True, cwd=str(_ROOT))
+        print("OK" if r.returncode == 0 else "FAILED")
+
+        # Entry
+        print(f"    Entry...", end=" ", flush=True)
+        r = subprocess.run(
+            [sys.executable, "tools/entry_parameter_sweeper.py",
+             "--ticker", tk],
+            capture_output=True, text=True, cwd=str(_ROOT))
+        print("OK" if r.returncode == 0 else "FAILED")
+
+        # Slippage
+        print(f"    Slippage...", end=" ", flush=True)
+        r = subprocess.run(
+            [sys.executable, "tools/support_parameter_sweeper.py",
+             "--ticker", tk, "--stage", "slippage"],
+            capture_output=True, text=True, cwd=str(_ROOT))
+        print("OK" if r.returncode == 0 else "FAILED")
+
+    print(f"\n--- Post-onboard sweeps complete ---")
+
+
 def _load_screening_passers(n):
     """Load top N passers from universe screening cache."""
     try:
@@ -278,6 +352,8 @@ def main():
     parser.add_argument("--from-screening", type=int, metavar="N",
                         help="Onboard top N from universe screening cache")
     parser.add_argument("--dry-run", action="store_true", help="Preview only, no changes")
+    parser.add_argument("--no-sweep", action="store_true",
+                        help="Skip post-onboard simulation sweeps")
     parser.add_argument("--json", action="store_true", help="Output JSON")
     args = parser.parse_args()
 
@@ -318,6 +394,10 @@ def main():
     # Add successful tickers to watchlist
     successful = [r["ticker"] for r in results if r["status"] in ("ok", "partial")]
     _add_to_watchlist(successful, dry_run=args.dry_run)
+
+    # Run all simulation sweeps for newly onboarded tickers
+    if not args.dry_run and not args.no_sweep and successful:
+        run_post_onboard_sweeps(successful, dry_run=args.dry_run)
 
     elapsed = time.monotonic() - t0
     ok_count = sum(1 for r in results if r["status"] == "ok")
