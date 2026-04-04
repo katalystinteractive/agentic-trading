@@ -619,6 +619,7 @@ def sweep_slippage(ticker, base_params, months=10):
         SLIPPAGE_GRID["initial_pullback_pct"],
     ))
     total_combos = len(combos)
+    wick_cache = {}  # shared across all combos — slippage params don't affect wick analysis
 
     for idx, (e_slip, x_slip, pullback) in enumerate(combos):
         if (idx + 1) % 10 == 0 or idx == 0:
@@ -634,7 +635,6 @@ def sweep_slippage(ticker, base_params, months=10):
 
         results_by_period = {}
         last_result = None
-        wick_cache = {}
         for period_months in SWEEP_PERIODS:
             try:
                 result = _simulate_with_config(
