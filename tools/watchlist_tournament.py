@@ -96,18 +96,23 @@ def compute_rankings(all_sweeps):
     """Rank tickers by best-of composite across sweep types.
 
     Returns sorted list of dicts:
-    [{ticker, score, best_strategy, composites}, ...]
+    [{ticker, score, best_strategy, strategy_type, active_levels, composites}, ...]
     """
+    from shared_utils import get_strategy_type
+
     rankings = []
     for ticker, composites in all_sweeps.items():
         if not composites:
             continue
         best_strategy = max(composites, key=composites.get)
         score = composites[best_strategy]
+        strategy_type, active_levels = get_strategy_type(ticker)
         rankings.append({
             "ticker": ticker,
             "score": round(score, 2),
             "best_strategy": best_strategy,
+            "strategy_type": strategy_type,
+            "active_levels": active_levels,
             "composites": {k: round(v, 2) for k, v in composites.items()},
         })
     rankings.sort(key=lambda x: x["score"], reverse=True)
@@ -275,13 +280,16 @@ def apply_safety_gates(rankings, portfolio, metadata, top_n=30):
         if margin < BEAT_MARGIN:
             continue  # doesn't beat the departing ticker by enough
 
-        actions["challenge"].append({
+        challenge = {
             "challenger": candidate_r["ticker"],
             "incumbent": replace_tk,
             "margin_pct": round(margin * 100, 1),
             "challenger_score": candidate_r["score"],
             "incumbent_score": replace_score,
-        })
+        }
+        if candidate_r.get("strategy_type") == "daily_range":
+            challenge["note"] = "daily_range — use dip entry, not surgical bullets"
+        actions["challenge"].append(challenge)
         recent_swaps += 1
         replaceable.pop(0)  # slot filled
 
@@ -318,8 +326,8 @@ def build_report(rankings, actions, top_n):
         f"*{len(rankings)} tickers ranked | Target: top {top_n}*",
         "",
         "### Power Rankings",
-        "| Rank | Ticker | Score | Best Strategy | Status | Action |",
-        "| :--- | :--- | :--- | :--- | :--- | :--- |",
+        "| Rank | Ticker | Score | Best Strategy | Type | Status | Action |",
+        "| :--- | :--- | :--- | :--- | :--- | :--- | :--- |",
     ]
 
     action_map = {}
@@ -339,12 +347,13 @@ def build_report(rankings, actions, top_n):
     for r in rankings:
         action = action_map.get(r["ticker"], "—")
         separator = "---" if r["rank"] == top_n else ""
+        st_label = r.get("strategy_type", "surgical")[:3].upper()
         lines.append(
             f"| {r['rank']} | {r['ticker']} | ${r['score']:.1f} | "
-            f"{r['best_strategy']} | {r['status']} | {action} |"
+            f"{r['best_strategy']} | {st_label} | {r['status']} | {action} |"
         )
         if separator:
-            lines.append(f"| --- | --- | --- | --- | --- | *cutoff* |")
+            lines.append(f"| --- | --- | --- | --- | --- | --- | *cutoff* |")
 
     # Actions summary
     lines.extend(["", "### Recommended Actions"])
@@ -356,9 +365,11 @@ def build_report(rankings, actions, top_n):
         for tk in actions["onboard"]:
             lines.append(f"- **ONBOARD**: {tk}")
         for c in actions["challenge"]:
+            note = c.get("note", "")
+            note_str = f" *[{note}]*" if note else ""
             lines.append(
                 f"- **CHALLENGE**: {c['challenger']} to replace "
-                f"{c['incumbent']} (+{c['margin_pct']}%)")
+                f"{c['incumbent']} (+{c['margin_pct']}%){note_str}")
         for tk in actions["wind_down"]:
             lines.append(f"- **WIND DOWN**: {tk} (active position — no new bullets)")
         for tk in actions["drop"]:
@@ -393,7 +404,7 @@ def save_results(rankings, actions, metadata):
     tmp.rename(RESULTS_PATH)
 
 
-def execute_actions(actions, portfolio, metadata):
+def execute_actions(actions, portfolio, metadata, rankings=None):
     """Auto-execute tournament actions on portfolio.json."""
     changed = False
 
@@ -446,8 +457,13 @@ def execute_actions(actions, portfolio, metadata):
     # Onboard new tickers
     onboard_list = actions["onboard"] + [c["challenger"] for c in actions["challenge"]]
     if onboard_list:
+        # Build strategy type map from rankings
+        strategy_types = {}
+        if rankings:
+            strategy_types = {r["ticker"]: r.get("strategy_type", "surgical")
+                              for r in rankings}
         try:
-            from batch_onboard import batch_onboard
+            from batch_onboard import batch_onboard, run_post_onboard_sweeps
             results = batch_onboard(onboard_list, dry_run=False, max_workers=6)
             for r in results:
                 if r["status"] == "ok":
@@ -520,7 +536,7 @@ def main():
     total_actions = (len(actions["onboard"]) + len(actions["drop"])
                      + len(actions["wind_down"]) + len(actions["challenge"]))
     if total_actions > 0:
-        execute_actions(actions, portfolio, metadata)
+        execute_actions(actions, portfolio, metadata, rankings)
         save_results(rankings, actions, metadata)  # re-save with updated metadata
 
     # Email

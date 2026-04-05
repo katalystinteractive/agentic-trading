@@ -245,10 +245,11 @@ def _add_to_watchlist(tickers, dry_run=False):
         print(f"Added {len(added)} to watchlist: {', '.join(added)}")
 
 
-def run_post_onboard_sweeps(tickers, dry_run=False):
+def run_post_onboard_sweeps(tickers, dry_run=False, strategy_types=None):
     """Run all simulation sweeps needed for newly onboarded tickers.
 
     Triggers: support Stage 1+2, resistance, bounce, entry, slippage sweeps.
+    For daily_range tickers: skips level filters, resistance, bounce (surgical-only).
     Each ticker is swept independently so results merge into existing files.
     """
     if dry_run or not tickers:
@@ -266,9 +267,10 @@ def run_post_onboard_sweeps(tickers, dry_run=False):
     ]
 
     for tk in tickers:
-        print(f"\n  {tk}:")
+        st = (strategy_types or {}).get(tk, "surgical")
+        print(f"\n  {tk} ({st}):")
 
-        # Support Stage 1+2
+        # Support Stage 1+2 — run for all strategies (produces base params)
         print(f"    Support sweep...", end=" ", flush=True)
         r = subprocess.run(
             [sys.executable, "tools/support_parameter_sweeper.py",
@@ -276,31 +278,34 @@ def run_post_onboard_sweeps(tickers, dry_run=False):
             capture_output=True, text=True, cwd=str(_ROOT))
         print("OK" if r.returncode == 0 else "FAILED")
 
-        # Level Filters (Stage 3)
-        print(f"    Level filters...", end=" ", flush=True)
-        r = subprocess.run(
-            [sys.executable, "tools/support_parameter_sweeper.py",
-             "--ticker", tk, "--stage", "level"],
-            capture_output=True, text=True, cwd=str(_ROOT))
-        print("OK" if r.returncode == 0 else "FAILED")
+        if st == "surgical":
+            # Level Filters (Stage 3) — surgical only
+            print(f"    Level filters...", end=" ", flush=True)
+            r = subprocess.run(
+                [sys.executable, "tools/support_parameter_sweeper.py",
+                 "--ticker", tk, "--stage", "level"],
+                capture_output=True, text=True, cwd=str(_ROOT))
+            print("OK" if r.returncode == 0 else "FAILED")
 
-        # Resistance
-        print(f"    Resistance...", end=" ", flush=True)
-        r = subprocess.run(
-            [sys.executable, "tools/resistance_parameter_sweeper.py",
-             "--ticker", tk],
-            capture_output=True, text=True, cwd=str(_ROOT))
-        print("OK" if r.returncode == 0 else "FAILED")
+            # Resistance — surgical only
+            print(f"    Resistance...", end=" ", flush=True)
+            r = subprocess.run(
+                [sys.executable, "tools/resistance_parameter_sweeper.py",
+                 "--ticker", tk],
+                capture_output=True, text=True, cwd=str(_ROOT))
+            print("OK" if r.returncode == 0 else "FAILED")
 
-        # Bounce
-        print(f"    Bounce...", end=" ", flush=True)
-        r = subprocess.run(
-            [sys.executable, "tools/bounce_parameter_sweeper.py",
-             "--ticker", tk],
-            capture_output=True, text=True, cwd=str(_ROOT))
-        print("OK" if r.returncode == 0 else "FAILED")
+            # Bounce — surgical only
+            print(f"    Bounce...", end=" ", flush=True)
+            r = subprocess.run(
+                [sys.executable, "tools/bounce_parameter_sweeper.py",
+                 "--ticker", tk],
+                capture_output=True, text=True, cwd=str(_ROOT))
+            print("OK" if r.returncode == 0 else "FAILED")
+        else:
+            print(f"    Skipping level/resistance/bounce (daily_range ticker)")
 
-        # Entry
+        # Entry — run for all strategies
         print(f"    Entry...", end=" ", flush=True)
         r = subprocess.run(
             [sys.executable, "tools/entry_parameter_sweeper.py",

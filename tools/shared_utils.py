@@ -161,6 +161,24 @@ def get_all_ticker_pools(tickers):
     return {tk: get_ticker_pool(tk) for tk in tickers}
 
 
+def get_strategy_type(ticker, min_active_levels=3):
+    """Classify ticker as 'surgical' or 'daily_range' based on active level count.
+
+    Reads cached wick_analysis.md (fast, no yfinance call).
+    Returns: (strategy_type, active_count)
+      - 'surgical': ≥3 active levels with valid tier
+      - 'daily_range': 1-2 active levels (insufficient for bullet stacking)
+      - 'unknown': no wick data available (file missing or empty)
+    """
+    from shared_wick import parse_wick_active_levels
+    levels = parse_wick_active_levels(ticker)
+    active_count = len([l for l in levels if l["tier"] not in ("Skip", "")])
+    if active_count == 0 and not levels:
+        return "unknown", 0
+    strategy_type = "surgical" if active_count >= min_active_levels else "daily_range"
+    return strategy_type, active_count
+
+
 def parse_entry_date(entry_date_str):
     """Parse entry_date, handling 'pre-' prefix dates.
     Returns (date_obj, is_pre_strategy)."""

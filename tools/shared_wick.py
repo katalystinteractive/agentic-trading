@@ -21,7 +21,7 @@ def parse_wick_active_supports(ticker):
     in_table = False
     headers = []
     for line in text.split("\n"):
-        if "Support Levels" in line and "Buy Recommendations" in line:
+        if ("Support Levels" in line and "Buy Recommendations" in line) or "Support Level Table" in line:
             in_table = True
             continue
         if in_table and line.strip().startswith("|"):
@@ -65,7 +65,7 @@ def parse_wick_active_levels(ticker):
     in_table = False
     headers = []
     for line in text.split("\n"):
-        if "Support Levels" in line and "Buy Recommendations" in line:
+        if ("Support Levels" in line and "Buy Recommendations" in line) or "Support Level Table" in line:
             in_table = True
             continue
         if in_table and line.strip().startswith("|"):
