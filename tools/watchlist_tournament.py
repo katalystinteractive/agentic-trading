@@ -485,6 +485,10 @@ def execute_actions(actions, portfolio, metadata, rankings=None):
                     changed = True
                 else:
                     print(f"  *Onboard failed for {r['ticker']}: {r.get('errors', [])}*")
+            # Run all simulation sweeps for successfully onboarded tickers
+            successful = [r["ticker"] for r in results if r["status"] == "ok"]
+            if successful:
+                run_post_onboard_sweeps(successful, strategy_types=strategy_types)
         except Exception as e:
             print(f"  *Batch onboard error: {e}*")
 

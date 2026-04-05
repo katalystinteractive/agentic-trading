@@ -298,8 +298,8 @@ entry_sweep_results.json         │
 | Fill recorded → sell targets | ✅ Automated in portfolio_manager.py cmd_fill() | Already calls sell_target_calculator.analyze_ticker() | DONE |
 | Fill recorded → audit bullets | Manual user action | Auto-show remaining bullets after fill | LOW |
 | Position close → cleanup | Manual (leaves dead entries) | Auto-remove 0-share positions (**FIXED this session**) | ✅ DONE |
-| Onboarding → all sweeps | Manual (batch_onboard ran sweeps separately) | Auto-trigger post_onboard_sweeps (**FIXED this session**) | ✅ DONE |
-| Tournament → onboard+sweep | Tournament called batch_onboard but no sweeps | Tournament now passes strategy_types (**FIXED this session**) | ✅ DONE |
+| Onboarding (CLI) → all sweeps | batch_onboard main() calls run_post_onboard_sweeps | Auto-triggered in CLI path | ✅ DONE |
+| Tournament → onboard+sweep | Tournament execute_actions calls batch_onboard + run_post_onboard_sweeps | Fully automated with strategy_types | ✅ DONE |
 | Earnings date → order pause | Manual check | Auto-pause pending buys near earnings | LOW |
 | Risk-Off → order pause | Manual market context check | Auto-pause watchlist pending buys | LOW |
 | Watchlist fitness REMOVE → drop | Manual action needed | Auto-trigger drop via watchlist_manager | MEDIUM |
