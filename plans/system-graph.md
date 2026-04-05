@@ -295,7 +295,7 @@ entry_sweep_results.json         │
 
 | Event | Current | Should Be | Priority |
 | :--- | :--- | :--- | :--- |
-| Fill recorded → sell targets | Manual user action | Auto-run sell_target_calculator after fill | MEDIUM |
+| Fill recorded → sell targets | ✅ Automated in portfolio_manager.py cmd_fill() | Already calls sell_target_calculator.analyze_ticker() | DONE |
 | Fill recorded → audit bullets | Manual user action | Auto-show remaining bullets after fill | LOW |
 | Position close → cleanup | Manual (leaves dead entries) | Auto-remove 0-share positions (**FIXED this session**) | ✅ DONE |
 | Onboarding → all sweeps | Manual (batch_onboard ran sweeps separately) | Auto-trigger post_onboard_sweeps (**FIXED this session**) | ✅ DONE |
@@ -320,9 +320,10 @@ entry_sweep_results.json         │
 | Tool | Status | Evidence |
 | :--- | :--- | :--- |
 | morning_gatherer.py (v1) | Replaced by morning_gatherer_v2.py | Memory says "daily analyzer is primary" |
-| graph_engine.py, graph_builder.py | Neural graph visualization | Not called by any workflow or cron |
-| alignment_checker.py | Ad-hoc audit tool | Not in any pipeline |
-| loss_evaluator.py | Generates flags but not consumed | Output file not read by any tool |
+| alignment_checker.py | Dead — not in any pipeline | No imports, no workflow/cron references |
+| loss_evaluator.py | Output orphaned | Tool is called by morning_gatherer but `loss-evaluator-flags.md` is never read by any tool |
+
+**Note**: `graph_engine.py` and `graph_builder.py` are ACTIVE — imported by `neural_dip_evaluator.py` and `daily_analyzer.py` for dependency graph construction.
 
 ### 8.4 Methodology Gaps
 
@@ -341,7 +342,7 @@ entry_sweep_results.json         │
 Tools: 120 Python scripts
 Data files: 553+ in data/, 1000+ in tickers/
 Workflows: 13 (8 daily, 5 weekly/periodic)
-Cron jobs: 8 (5 weekday, 3 Saturday)
+Cron jobs: 7 (5 weekday, 2 Saturday + 1 safety re-run)
 Sweep types: 6 (dip, support, resistance, bounce, entry, slippage)
 Tracked tickers: 29 watchlist + positions
 Swept tickers: 42 (25 tracked + 12 challengers + 5 extras)
