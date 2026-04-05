@@ -351,4 +351,25 @@ Tournament pool: 42 tickers ranked weekly
 
 ---
 
+---
+
+## 10. User Action Completeness Audit
+
+Every user-facing output must contain ALL information needed to act — no mental math, no cross-referencing.
+
+| Output | Ticker | Price | Shares | Cost | Action | Status |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Dip alert email** (notify.send_dip_alert) | ✅ | ✅ entry/target/stop | ❌ MISSING | ❌ MISSING | ✅ BUY | **GAP** |
+| **Daily range section** (bullet_recommender) | ✅ | ✅ dip entry/target | ❌ MISSING | ❌ MISSING | ✅ Dip Buy | **GAP** |
+| **Surgical bullets** (bullet_recommender) | ✅ | ✅ Buy At | ✅ Shares | ✅ ~Cost | ✅ >> Next | ✅ Complete |
+| **Tournament report** (watchlist_tournament) | ✅ | ✅ Score | N/A | N/A | ✅ Action column | ✅ Complete |
+| **Neural order adjuster** | ✅ | ✅ Current/Rec | ✅ Shares | N/A | ✅ RAISE/LOWER/OK | ✅ Complete |
+| **Proximity alert email** (order_proximity_monitor) | ✅ | ✅ Order/Current | ✅ Shares | N/A | ✅ APPROACHING/IMMINENT | ✅ Complete |
+
+### Gaps to Fix
+1. **Dip alert email**: Add `shares` field computed from half-Kelly sizing ($74/price, rounded)
+2. **Daily range section in bullet_recommender**: Add shares + cost line using half-Kelly sizing
+
+---
+
 *This document should be updated when new tools, data files, or workflows are added.*
