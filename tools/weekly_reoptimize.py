@@ -487,12 +487,8 @@ def main():
     if n_swept > 0:
         print(f"  Candidate sweep: {n_swept} tickers in {cand_t:.0f}s")
 
-    # Step 7: Tournament
-    if not args.dry_run:
-        tour_ok, tour_t = step_tournament(no_email=args.no_email)
-    else:
-        tour_ok, tour_t = step_tournament(dry_run=True, no_email=True)
-    timings["tournament"] = tour_t
+    # Tournament runs as standalone cron at 3:30 PM (after all sweeps complete)
+    # Do NOT run here — resistance/bounce/entry/slippage haven't finished yet
 
     # Build summary
     total_time = time.time() - start
