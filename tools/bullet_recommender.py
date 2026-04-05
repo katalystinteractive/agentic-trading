@@ -292,7 +292,9 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
             from daily_range_analyzer import analyze_daily_range, print_daily_range
             dr = analyze_daily_range(ticker)
             if dr.get("viable"):
-                print_daily_range(dr)
+                _pool = cap.get("active_pool", 300) if cap else 300
+                _dip_budget = round(_pool * 0.245)  # Half-Kelly 24.5% from dip simulation
+                print_daily_range(dr, pool_budget=_dip_budget)
                 return
         except Exception:
             pass
@@ -856,7 +858,9 @@ def _print_recommend(ctx):
                 print()
                 print("### Daily Fluctuation Entry")
                 print("*Supplement to support-level bullets — daily oscillation play*\n")
-                print_daily_range(dr)
+                _pool = cap.get("active_pool", 300) if cap else 300
+                _dip_budget = round(_pool * 0.245)  # Half-Kelly 24.5% from dip simulation
+                print_daily_range(dr, pool_budget=_dip_budget)
         except Exception:
             pass
 

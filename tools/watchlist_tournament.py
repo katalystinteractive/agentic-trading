@@ -365,12 +365,14 @@ def build_report(rankings, actions, top_n):
     else:
         for tk in actions["onboard"]:
             lines.append(f"- **ONBOARD**: {tk}")
+            lines.append(f"  → Run: `python3 tools/bullet_recommender.py {tk}` for entry levels")
         for c in actions["challenge"]:
             note = c.get("note", "")
             note_str = f" *[{note}]*" if note else ""
             lines.append(
                 f"- **CHALLENGE**: {c['challenger']} to replace "
                 f"{c['incumbent']} (+{c['margin_pct']}%){note_str}")
+            lines.append(f"  → Run: `python3 tools/bullet_recommender.py {c['challenger']}` for entry levels")
         for tk in actions["wind_down"]:
             lines.append(f"- **WIND DOWN**: {tk} (active position — no new bullets)")
         for tk in actions["drop"]:

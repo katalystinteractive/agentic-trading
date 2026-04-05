@@ -110,7 +110,7 @@ def analyze_daily_range(ticker):
     }
 
 
-def print_daily_range(result):
+def print_daily_range(result, pool_budget=0):
     """Print markdown output for a daily range analysis."""
     r = result
     if not r.get("viable") and r.get("error"):
@@ -139,6 +139,13 @@ def print_daily_range(result):
               f"| {win_rate}% |")
     else:
         print(f"| — | — | — | Not viable (2% win rate: {r.get('win_rate_2pct', 0)}%) |")
+
+    if pool_budget > 0 and r.get("entry_price", 0) > 0 and r.get("viable"):
+        _shares = max(round(pool_budget / r["entry_price"]), 1)
+        _cost = _shares * r["entry_price"]
+        print(f"\n| Sizing | Shares | Cost |")
+        print(f"| :--- | :--- | :--- |")
+        print(f"| Half-Kelly (${pool_budget:.0f}) | {_shares} | ${_cost:.2f} |")
 
     print(f"\n*PDT: Same-day round trip = 1 day trade (3/5-day limit at <$25K)*")
 

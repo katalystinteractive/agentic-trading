@@ -20,7 +20,7 @@ except ImportError:
 
 
 def send_dip_alert(ticker, entry_price, target, stop, reason_chain,
-                   regime, budget):
+                   regime, budget, shares=0):
     """Send email when BUY_DIP neuron fires. Returns True on success."""
     try:
         from sendgrid import SendGridAPIClient
@@ -46,9 +46,11 @@ def send_dip_alert(ticker, entry_price, target, stop, reason_chain,
         print(f"*Warning: missing env vars: {missing}. Skipping email.*")
         return False
 
-    subject = f"DIP ALERT: BUY {ticker} at ${entry_price:.2f}"
+    subject = f"DIP ALERT: BUY {shares} {ticker} at ${entry_price:.2f}" if shares else f"DIP ALERT: BUY {ticker} at ${entry_price:.2f}"
     body = (f"Ticker: {ticker}\n"
             f"Entry:  ${entry_price:.2f}\n"
+            f"Shares: {shares}\n"
+            f"Cost:   ${shares * entry_price:.2f}\n"
             f"Target: ${target:.2f} (+{(target - entry_price) / entry_price * 100:.1f}%)\n"
             f"Stop:   ${stop:.2f} ({(stop - entry_price) / entry_price * 100:.1f}%)\n"
             f"Budget: ${budget:.0f}\n"

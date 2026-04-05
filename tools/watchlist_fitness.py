@@ -336,7 +336,15 @@ def _compute_verdict(ticker, data, portfolio, order_info, swing, consistency, cy
             note += f". {buy_count} pending BUY order(s) should be cancelled"
         base = "REMOVE"
         if has_position:
-            return "EXIT-REVIEW", note + ". Active position — defer to exit-review-workflow."
+            return "EXIT-REVIEW", note + ". Action: defer to exit-review for active position"
+        # Add specific cancel/drop instructions
+        pending_buys = [o for o in pending_all.get(ticker, [])
+                        if o.get("type") == "BUY" and not o.get("filled")]
+        if pending_buys:
+            prices = ", ".join(f"${o['price']:.2f}" for o in pending_buys)
+            note += f". Action: cancel BUY orders at {prices}, drop from watchlist"
+        else:
+            note += ". Action: drop from watchlist"
         return base, note
 
     # REVIEW — approaching boundary
@@ -372,6 +380,11 @@ def _compute_verdict(ticker, data, portfolio, order_info, swing, consistency, cy
 
     if restructure_reasons:
         note = "Strategy fits, orders need adjustment: " + "; ".join(restructure_reasons)
+        # Add specific action instructions
+        if order_info["orphaned"] > 0:
+            note += ". Action: cancel orphaned orders"
+        if order_info.get("all_above_price"):
+            note += ". Action: recalculate buy levels with wick_offset_analyzer"
         base = "RESTRUCTURE"
         if has_position:
             return "HOLD-WAIT", note + ". Keep position, don't add bullets until orders fixed."
