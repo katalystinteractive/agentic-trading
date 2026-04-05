@@ -431,6 +431,75 @@ def step_tournament(dry_run=False, no_email=False):
 
 
 # ---------------------------------------------------------------------------
+# Surgical sweep steps (consolidated from standalone cron entries)
+# ---------------------------------------------------------------------------
+
+def step_resistance_sweep():
+    """Step 7: Resistance parameter sweep."""
+    print("=" * 60)
+    print("STEP 7: Resistance Sweep")
+    print("=" * 60)
+    cmd = [sys.executable, "tools/resistance_parameter_sweeper.py", "--workers", "8"]
+    t0 = time.time()
+    result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(_ROOT))
+    elapsed = time.time() - t0
+    if result.stdout:
+        print(result.stdout[-500:])
+    success = result.returncode == 0
+    print(f"  Resistance sweep {'completed' if success else 'FAILED'} in {elapsed:.0f}s\n")
+    return success, elapsed
+
+
+def step_bounce_sweep():
+    """Step 8: Bounce parameter sweep."""
+    print("=" * 60)
+    print("STEP 8: Bounce Sweep")
+    print("=" * 60)
+    cmd = [sys.executable, "tools/bounce_parameter_sweeper.py", "--workers", "8"]
+    t0 = time.time()
+    result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(_ROOT))
+    elapsed = time.time() - t0
+    if result.stdout:
+        print(result.stdout[-500:])
+    success = result.returncode == 0
+    print(f"  Bounce sweep {'completed' if success else 'FAILED'} in {elapsed:.0f}s\n")
+    return success, elapsed
+
+
+def step_entry_sweep():
+    """Step 9: Entry parameter sweep."""
+    print("=" * 60)
+    print("STEP 9: Entry Sweep")
+    print("=" * 60)
+    cmd = [sys.executable, "tools/entry_parameter_sweeper.py", "--workers", "8"]
+    t0 = time.time()
+    result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(_ROOT))
+    elapsed = time.time() - t0
+    if result.stdout:
+        print(result.stdout[-500:])
+    success = result.returncode == 0
+    print(f"  Entry sweep {'completed' if success else 'FAILED'} in {elapsed:.0f}s\n")
+    return success, elapsed
+
+
+def step_slippage_sweep():
+    """Step 10: Slippage + pullback sweep."""
+    print("=" * 60)
+    print("STEP 10: Slippage Sweep")
+    print("=" * 60)
+    cmd = [sys.executable, "tools/support_parameter_sweeper.py",
+           "--stage", "slippage", "--workers", "8"]
+    t0 = time.time()
+    result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(_ROOT))
+    elapsed = time.time() - t0
+    if result.stdout:
+        print(result.stdout[-500:])
+    success = result.returncode == 0
+    print(f"  Slippage sweep {'completed' if success else 'FAILED'} in {elapsed:.0f}s\n")
+    return success, elapsed
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -487,8 +556,34 @@ def main():
     if n_swept > 0:
         print(f"  Candidate sweep: {n_swept} tickers in {cand_t:.0f}s")
 
-    # Tournament runs as standalone cron at 3:30 PM (after all sweeps complete)
-    # Do NOT run here — resistance/bounce/entry/slippage haven't finished yet
+    # Steps 7-10: Surgical sweeps (each independent, continue on failure)
+    sweep_failures = []
+    for step_name, step_fn in [
+        ("resistance", step_resistance_sweep),
+        ("bounce", step_bounce_sweep),
+        ("entry", step_entry_sweep),
+        ("slippage", step_slippage_sweep),
+    ]:
+        try:
+            ok, t = step_fn()
+            timings[step_name] = t
+            if not ok:
+                sweep_failures.append(step_name)
+        except Exception as e:
+            print(f"  *{step_name} sweep FAILED: {e}*")
+            sweep_failures.append(step_name)
+            timings[step_name] = 0
+
+    if sweep_failures:
+        print(f"\n  WARNING: {len(sweep_failures)} sweep(s) failed: "
+              f"{', '.join(sweep_failures)}")
+
+    # Step 11: Tournament (all sweep data now complete)
+    if not args.dry_run:
+        tour_ok, tour_t = step_tournament(no_email=args.no_email)
+    else:
+        tour_ok, tour_t = step_tournament(dry_run=True, no_email=True)
+    timings["tournament"] = tour_t
 
     # Build summary
     total_time = time.time() - start

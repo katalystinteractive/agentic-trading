@@ -517,7 +517,11 @@ def main():
             "grid_size": combos,
         }
     }
+    # Compute crude composite ($/month) for tournament ranking
+    _sweep_months = max(days / 30.0, 1)
     for tk, r in results.items():
+        _pnl = r["stats"].get("total_pnl", 0)
+        r["stats"]["composite"] = round(_pnl / _sweep_months, 2)
         sweep_data[tk] = {
             "params": r["params"],
             "stats": r["stats"],

@@ -23,6 +23,7 @@ PORTFOLIO_PATH = _ROOT / "portfolio.json"
 RESULTS_PATH = _ROOT / "data" / "tournament_results.json"
 
 SWEEP_FILES = {
+    "dip": _ROOT / "data" / "sweep_results.json",
     "support": _ROOT / "data" / "support_sweep_results.json",
     "resistance": _ROOT / "data" / "resistance_sweep_results.json",
     "bounce": _ROOT / "data" / "bounce_sweep_results.json",
@@ -508,6 +509,22 @@ def main():
     parser.add_argument("--no-email", action="store_true",
                         help="Skip email notification")
     args = parser.parse_args()
+
+    # Idempotency: skip if already ran today with fresh sweep data
+    if RESULTS_PATH.exists() and not args.dry_run:
+        try:
+            with open(RESULTS_PATH) as f:
+                prior = json.load(f)
+            if prior.get("_meta", {}).get("last_run") == date.today().isoformat():
+                all_fresh = all(
+                    p.exists() and date.fromtimestamp(p.stat().st_mtime) == date.today()
+                    for p in SWEEP_FILES.values() if p.exists()
+                )
+                if all_fresh:
+                    print("*Tournament already ran today with fresh data — skipping.*")
+                    return
+        except (OSError, json.JSONDecodeError):
+            pass
 
     # Load data
     try:
