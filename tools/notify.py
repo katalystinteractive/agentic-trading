@@ -47,10 +47,11 @@ def send_dip_alert(ticker, entry_price, target, stop, reason_chain,
         return False
 
     subject = f"DIP ALERT: BUY {shares} {ticker} at ${entry_price:.2f}" if shares else f"DIP ALERT: BUY {ticker} at ${entry_price:.2f}"
+    _sizing = (f"Shares: {shares}\n"
+               f"Cost:   ${shares * entry_price:.2f}\n") if shares else ""
     body = (f"Ticker: {ticker}\n"
             f"Entry:  ${entry_price:.2f}\n"
-            f"Shares: {shares}\n"
-            f"Cost:   ${shares * entry_price:.2f}\n"
+            f"{_sizing}"
             f"Target: ${target:.2f} (+{(target - entry_price) / entry_price * 100:.1f}%)\n"
             f"Stop:   ${stop:.2f} ({(stop - entry_price) / entry_price * 100:.1f}%)\n"
             f"Budget: ${budget:.0f}\n"

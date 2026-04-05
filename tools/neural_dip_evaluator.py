@@ -831,10 +831,11 @@ def evaluate_decision(tickers, static, hist_ranges, regime, dry_run=False):
 
         if not dry_run:
             from notify import send_dip_alert
-            _shares = max(round(budget_per / candidate["entry"]), 1) if candidate["entry"] > 0 else 0
+            _budget = candidate.get("budget", budget)
+            _shares = max(round(_budget / candidate["entry"]), 1) if candidate["entry"] > 0 else 0
             send_dip_alert(tk, candidate["entry"], candidate["target"],
                           candidate["stop"], f"{node_path}\n{reason}",
-                          regime, budget_per, shares=_shares)
+                          regime, _budget, shares=_shares)
 
 
 def evaluate_eod(tickers, dry_run=False):

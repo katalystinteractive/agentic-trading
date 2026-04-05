@@ -328,12 +328,6 @@ def _compute_verdict(ticker, data, portfolio, order_info, swing, consistency, cy
             note += f" (swing {swing:.1f}% < 10%)"
         if consistency is not None and consistency < 80:
             note += f" (consistency {consistency:.1f}% < 80%)"
-        # Check for pending orders
-        buy_count = sum(
-            1 for o in pending_all.get(ticker, []) if o.get("type") == "BUY"
-        )
-        if buy_count > 0:
-            note += f". {buy_count} pending BUY order(s) should be cancelled"
         base = "REMOVE"
         if has_position:
             return "EXIT-REVIEW", note + ". Action: defer to exit-review for active position"
