@@ -416,9 +416,18 @@ def execute_actions(actions, portfolio, metadata, rankings=None):
 
     # Drop tickers with no position
     watchlist = portfolio.get("watchlist", [])
+    positions = portfolio.get("positions", {})
     for tk in actions["drop"]:
         if tk in watchlist:
             watchlist.remove(tk)
+            changed = True
+        # Clean up zero-share position entry
+        if tk in positions and positions[tk].get("shares", 0) == 0:
+            del positions[tk]
+            changed = True
+        # Clean up pending orders
+        if tk in portfolio.get("pending_orders", {}):
+            del portfolio["pending_orders"][tk]
             changed = True
         # Clean up metadata
         metadata["watchlist_metadata"].pop(tk, None)

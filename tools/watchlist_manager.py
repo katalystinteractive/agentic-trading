@@ -223,6 +223,12 @@ def cmd_drop(args):
             del pending[ticker]
             removed_from.append("pending_orders")
 
+        # Clean up zero-share position entry
+        positions = portfolio.get("positions", {})
+        if ticker in positions and positions[ticker].get("shares", 0) == 0:
+            del positions[ticker]
+            removed_from.append("positions (0 shares)")
+
         if removed_from:
             portfolio["watchlist"] = watchlist
             portfolio["pending_orders"] = pending
