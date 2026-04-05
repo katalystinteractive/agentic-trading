@@ -365,10 +365,17 @@ Every user-facing output must contain ALL information needed to act — no menta
 | **Tournament report** (watchlist_tournament) | ✅ | ✅ Score | N/A | N/A | ✅ Action column | ✅ Complete |
 | **Neural order adjuster** | ✅ | ✅ Current/Rec | ✅ Shares | N/A | ✅ RAISE/LOWER/OK | ✅ Complete |
 | **Proximity alert email** (order_proximity_monitor) | ✅ | ✅ Order/Current | ✅ Shares | N/A | ✅ APPROACHING/IMMINENT | ✅ Complete |
+| **Tournament ONBOARD/CHALLENGE** (watchlist_tournament) | ✅ | ✅ Score | ❌ No entry shares | ❌ No entry cost | ✅ Action | **GAP** — 2-step handoff |
+| **Watchlist fitness verdicts** (watchlist_fitness) | ✅ | N/A | N/A | N/A | ❌ No actionable steps | **GAP** — verdict without instructions |
+| **Sell target calculator** (sell_target_calculator) | ✅ | ✅ Price | ✅ Shares | ✅ Basis | ✅ Level | ✅ Complete |
+| **Daily analyzer** (daily_analyzer) | ✅ | ✅ | ✅ (Part 7) | ✅ | ✅ | ✅ Complete (95%) |
+| **Morning briefing** (morning-briefing.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ Complete |
 
 ### Gaps to Fix
 1. **Dip alert email**: Add `shares` field computed from half-Kelly sizing ($74/price, rounded)
 2. **Daily range section in bullet_recommender**: Add shares + cost line using half-Kelly sizing
+3. **Tournament ONBOARD/CHALLENGE**: Two-step handoff — user must run bullet_recommender separately to see entry details. Add "run `bullet_recommender.py TICKER` for entry levels" note, or inline first bullet info.
+4. **Watchlist fitness REMOVE/RESTRUCTURE verdicts**: Shows verdict but no actionable next steps (which orders to cancel, what to adjust). Add recommended action per verdict.
 
 ---
 
