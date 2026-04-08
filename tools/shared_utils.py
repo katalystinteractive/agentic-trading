@@ -67,12 +67,28 @@ def get_ticker_pool(ticker):
 
     Returns: {active_pool: float, reserve_pool: float, source: str}
     """
+    # Load bullet counts from support sweep (most authoritative for active_bullets_max)
+    _ss_bullets = {}
+    try:
+        _ss_path = Path(__file__).resolve().parent.parent / "data" / "support_sweep_results.json"
+        if _ss_path.exists():
+            with open(_ss_path) as _f:
+                _ss = json.load(_f)
+            _ss_entry = _ss.get(ticker, {}).get("params", {})
+            if _ss_entry.get("active_bullets_max") is not None:
+                _ss_bullets = {
+                    "active_bullets_max": _ss_entry["active_bullets_max"],
+                    "reserve_bullets_max": _ss_entry.get("reserve_bullets_max"),
+                }
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
+
     # Try simulation-backed allocation first (cached read)
     mp_data = _load_mp_data()
     if mp_data is not None:
         alloc = mp_data.get("allocations", {}).get(ticker)
         if alloc:
-            return {
+            result = {
                 "active_pool": alloc.get("active_pool", _DEFAULT_ACTIVE),
                 "reserve_pool": alloc.get("reserve_pool", _DEFAULT_RESERVE),
                 "total_pool": alloc.get("total_pool", _DEFAULT_ACTIVE + _DEFAULT_RESERVE),
@@ -81,6 +97,11 @@ def get_ticker_pool(ticker):
                 "source": "multi-period-scorer",
                 "composite": mp_data.get("composites", {}).get(ticker),
             }
+            # Supplement bullet counts from support sweep if multi-period has None
+            if result["active_bullets_max"] is None and _ss_bullets:
+                result["active_bullets_max"] = _ss_bullets["active_bullets_max"]
+                result["reserve_bullets_max"] = result["reserve_bullets_max"] or _ss_bullets.get("reserve_bullets_max")
+            return result
 
     # Check neural watchlist profiles (guaranteed for every tracked ticker)
     try:
