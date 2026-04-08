@@ -706,6 +706,9 @@ def _print_recommend(ctx):
     # Assign geographic A/B/R labels
     zone_labels = build_zone_labels(valid_levels, active_radius)
 
+    # Track Place vs Monitor counter for active levels
+    _place_counter_active = 0
+
     for lvl_idx, lvl in enumerate(valid_levels):
         lid = id(lvl)
         capped_flag, was_tier = is_capped(lvl)
@@ -781,18 +784,27 @@ def _print_recommend(ctx):
         elif lid == rec_level_id:
             print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {freq_str} | {tier_display} "
                   f"| {trend_str} | {recommendation['shares']} | ~{_fmt_dollar(recommendation['cost'])} | **>> Next**{zone_tag} |")
+            # >> Next counts as a Place slot
+            if lvl["zone"] == "Active":
+                _place_counter_active += 1
         else:
-            # Uncovered level — Available, — , or reference-only (Buffer)
+            # Uncovered level — Place, Monitor, or reference-only
             if lvl["zone"] == "Active":
                 has_capacity = active_slots_remaining > 0 and active_budget_remaining >= ref_cost
+                if has_capacity and _place_counter_active < active_slots_remaining:
+                    status_str = ">> Place"
+                    _place_counter_active += 1
+                elif has_capacity:
+                    status_str = "Monitor"
+                else:
+                    status_str = "—"
             elif lvl["zone"] == "Reserve":
                 has_capacity = reserve_slots_remaining > 0 and reserve_budget_remaining >= ref_cost
+                status_str = "Available" if has_capacity else "—"
             else:
-                # Buffer (dormant, non-promoted) — reference only, not deployable
-                has_capacity = False
-            status_str = "Available" if has_capacity else "—"
+                status_str = "—"
             if zone_tag:
-                status_str = f"{status_str}{zone_tag}" if status_str != "—" else f"—{zone_tag}"
+                status_str = f"{status_str}{zone_tag}" if status_str not in ("—", "Monitor") else f"{status_str}{zone_tag}"
             print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {freq_str} | {tier_display} "
                   f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | {status_str} |")
 

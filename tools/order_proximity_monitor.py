@@ -67,6 +67,57 @@ def load_placed_orders():
     return orders
 
 
+def load_monitored_levels():
+    """Load unplaced bullet levels from wick analysis for proximity monitoring.
+
+    Returns the NEXT unplaced level per ticker (within active_bullets_max window).
+    Format matches load_placed_orders: {ticker, side, price, shares, monitored: True}
+    """
+    try:
+        with open(PORTFOLIO_PATH) as f:
+            portfolio = json.load(f)
+    except (OSError, json.JSONDecodeError):
+        return []
+
+    from shared_wick import parse_wick_active_levels
+    from shared_utils import get_ticker_pool
+
+    tracked = set(portfolio.get("watchlist", [])) | set(portfolio.get("positions", {}).keys())
+    pending = portfolio.get("pending_orders", {})
+
+    monitored = []
+    for tk in tracked:
+        placed_prices = set()
+        for o in pending.get(tk, []):
+            if o.get("type") == "BUY" and o.get("placed") and not o.get("filled"):
+                placed_prices.add(round(o["price"], 2))
+
+        levels = parse_wick_active_levels(tk)
+        if not levels:
+            continue
+
+        pool = get_ticker_pool(tk)
+        max_bullets = pool.get("active_bullets_max") or 5
+
+        placed_count = len(placed_prices)
+        for lvl in levels:
+            price = round(lvl["price"], 2)
+            if price in placed_prices:
+                continue
+            if placed_count >= max_bullets:
+                break
+            monitored.append({
+                "ticker": tk,
+                "side": "BUY",
+                "price": price,
+                "shares": 0,
+                "monitored": True,
+            })
+            break  # only the NEXT unplaced level
+
+    return monitored
+
+
 def fetch_prices(tickers):
     """Batch-fetch latest prices via yfinance. Returns {ticker: price} or None on failure."""
     try:
@@ -139,10 +190,11 @@ def compute_alerts(orders, prices, state):
         active_keys.add(key)
 
         # Determine alert level
+        _is_monitored = o.get("monitored", False)
         if distance <= 0:
-            level = "FILLED?"
+            level = "PLACE_NOW" if _is_monitored else "FILLED?"
         elif distance <= IMMINENT_PCT:
-            level = "IMMINENT"
+            level = "PLACE_NOW" if _is_monitored else "IMMINENT"
         elif distance <= APPROACHING_PCT:
             level = "APPROACHING"
         else:
@@ -156,7 +208,7 @@ def compute_alerts(orders, prices, state):
         if existing:
             existing_level = existing.get("level", "")
             # Define escalation order
-            LEVEL_RANK = {"APPROACHING": 1, "IMMINENT": 2, "FILLED?": 3}
+            LEVEL_RANK = {"APPROACHING": 1, "IMMINENT": 2, "PLACE_NOW": 2, "FILLED?": 3}
             existing_rank = LEVEL_RANK.get(existing_level, 0)
             new_rank = LEVEL_RANK.get(level, 0)
             if new_rank <= existing_rank:
@@ -247,12 +299,14 @@ def main():
     if phase in ("CLOSED", "PRE_MARKET", "AFTER_HOURS"):
         return  # silent exit outside market hours
 
-    # Load orders
+    # Load placed orders + monitored (unplaced) bullet levels
     orders = load_placed_orders()
-    if not orders:
-        return  # no placed orders to monitor
+    monitored = load_monitored_levels()
+    all_orders = orders + monitored
+    if not all_orders:
+        return  # nothing to monitor
 
-    tickers = list(set(o["ticker"] for o in orders))
+    tickers = list(set(o["ticker"] for o in all_orders))
     state = load_state()
 
     # Fetch prices
@@ -276,7 +330,7 @@ def main():
     state.pop("_degraded_alerted", None)
 
     # Compute alerts
-    alerts = compute_alerts(orders, prices, state)
+    alerts = compute_alerts(all_orders, prices, state)
 
     if alerts:
         body = format_email(alerts)

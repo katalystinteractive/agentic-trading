@@ -53,7 +53,7 @@ THRESHOLD_GRID = {
 EXECUTION_GRID = {
     "active_pool": [200, 300, 500],
     "reserve_pool": [200, 300],
-    "active_bullets_max": [3, 5, 7],
+    "active_bullets_max": [1, 2, 3, 4, 5, 7],
     "reserve_bullets_max": [2, 3],
     "tier_full": [40, 60],
     "tier_std": [20, 30],
