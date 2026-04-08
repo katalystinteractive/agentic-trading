@@ -301,6 +301,32 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
         _print_no_levels(ticker, current_price, data)
         return
 
+    # --- Strategy Type Check ---
+    # Tickers with <3 active-zone levels can't be traded surgically (no averaging).
+    # Show daily range as primary strategy instead of useless single-bullet Level Map.
+    # Use LIVE wick data (valid_levels), not cached wick_analysis.md.
+    _active_count = sum(1 for l in valid_levels
+                        if l.get("zone") == "Active"
+                        and l.get("effective_tier", l.get("tier", "")) not in ("Skip", ""))
+    _strategy_type = "surgical" if _active_count >= 3 else "daily_range"
+    if _strategy_type in ("daily_range", "unknown"):
+        print(f"## Bullet Recommendation: {ticker}")
+        print(f"*Generated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')} | Data as of: {data.get('as_of', '?')}*\n")
+        print(f"*{ticker} has {_active_count} active-zone level(s) — insufficient for surgical bullet stacking.*")
+        print(f"*Strategy: daily range entry only (dip buy). Surgical bullets not recommended.*\n")
+        try:
+            from daily_range_analyzer import analyze_daily_range, print_daily_range
+            dr = analyze_daily_range(ticker)
+            if dr.get("viable"):
+                _pool = cap.get("active_pool", 300) if cap else 300
+                _dip_budget = round(_pool * 0.245)
+                print_daily_range(dr, pool_budget=_dip_budget)
+            else:
+                print("*Daily range entry not viable for this ticker currently.*")
+        except Exception:
+            print("*Daily range analysis unavailable.*")
+        return
+
     # --- Step 3: Convergence merge ---
     valid_levels, merge_notes = merge_convergent_levels(valid_levels)
     reasoning.extend(merge_notes)
