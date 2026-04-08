@@ -257,6 +257,23 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
         if shares > 0:
             case = "A"  # Active position
             status_label = "Active position"
+
+            # --- Capital Exhaustion Check ---
+            # Hard gate: if actual deployed capital >= pool, no more bullets
+            _deployed = shares * avg_cost
+            _pool_limit = cap.get("active_pool", 300) if cap else 300
+            if _deployed >= _pool_limit:
+                print(f"## Bullet Recommendation: {ticker}")
+                print(f"*{ticker} is FULLY DEPLOYED — ${_deployed:.0f} deployed "
+                      f"vs ${_pool_limit:.0f} pool ({_deployed/_pool_limit*100:.0f}%). "
+                      f"No new bullets until position closes or sells down.*")
+                # Still show sell target if exists
+                for o in pending_orders:
+                    if o.get("type") == "SELL":
+                        print(f"\nSELL target: ${o['price']:.2f} "
+                              f"({(o['price'] - avg_cost) / avg_cost * 100:.1f}% from avg ${avg_cost:.2f})")
+                        break
+                return
         else:
             case = "B"  # Zero shares, re-entry mode
             status_label = "Re-entry mode — position closed, pending BUYs active"
