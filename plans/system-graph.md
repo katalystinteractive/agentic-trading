@@ -1,6 +1,6 @@
 # System Graph — Agentic Trading Architecture
 
-**Version**: 1.0 | **Date**: 2026-04-05 | **Living Document**
+**Version**: 1.1 | **Date**: 2026-04-08 | **Living Document**
 
 ---
 
