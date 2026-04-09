@@ -421,15 +421,30 @@ def cmd_sell(data, args):
         pos["bullets_used"] = 0
         pos["target_exit"] = None
 
-        # Remove matching SELL pending orders only
+        # Remove SELL orders + filled BUY orders (keep unfilled placed BUYs for re-entry)
         sell_removed = 0
         remaining = []
         for order in orders:
             if order["type"] == "SELL":
                 sell_removed += 1
+            elif order.get("filled"):
+                pass  # drop filled BUY orders on position close
             else:
                 remaining.append(order)
         pending[ticker] = remaining
+
+        # If winding down: full cleanup — drop from watchlist + remove position
+        if pos.get("winding_down"):
+            watchlist = data.get("watchlist", [])
+            if ticker in watchlist:
+                watchlist.remove(ticker)
+                data["watchlist"] = sorted(watchlist)
+                print(f"  {ticker} dropped from watchlist (winding down, position closed)")
+            # Remove position entry entirely
+            del positions[ticker]
+            # Remove any remaining pending orders
+            if ticker in pending:
+                del pending[ticker]
 
         _save(data)
 
