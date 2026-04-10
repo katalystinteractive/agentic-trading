@@ -85,25 +85,48 @@ def load_monitored_levels():
     tracked = set(portfolio.get("watchlist", [])) | set(portfolio.get("positions", {}).keys())
     pending = portfolio.get("pending_orders", {})
 
+    positions = portfolio.get("positions", {})
     monitored = []
     for tk in tracked:
+        # Skip winding-down tickers
+        pos = positions.get(tk, {})
+        if pos.get("winding_down"):
+            continue
+
+        # Skip fully deployed tickers (capital exhausted)
+        shares = pos.get("shares", 0)
+        avg_cost = pos.get("avg_cost", 0)
+        deployed = shares * avg_cost
+        pool = get_ticker_pool(tk)
+        active_pool = pool.get("active_pool", 300)
+        if deployed >= active_pool:
+            continue
+
+        # Get placed + filled BUY prices to exclude
         placed_prices = set()
+        filled_prices = set()
         for o in pending.get(tk, []):
-            if o.get("type") == "BUY" and o.get("placed") and not o.get("filled"):
-                placed_prices.add(round(o["price"], 2))
+            if o.get("type") == "BUY":
+                if o.get("placed") and not o.get("filled"):
+                    placed_prices.add(round(o["price"], 2))
+                elif o.get("filled"):
+                    filled_prices.add(round(o["price"], 2))
+
+        # Also exclude fill_prices from position
+        for fp in pos.get("fill_prices", []):
+            filled_prices.add(round(fp, 2))
 
         levels = parse_wick_active_levels(tk)
         if not levels:
             continue
 
-        pool = get_ticker_pool(tk)
         max_bullets = pool.get("active_bullets_max") or 5
-
         placed_count = len(placed_prices)
+
         for lvl in levels:
             price = round(lvl["price"], 2)
-            if price in placed_prices:
-                continue
+            if price in placed_prices or price in filled_prices:
+                continue  # already placed or already filled
             if placed_count >= max_bullets:
                 break
             monitored.append({
