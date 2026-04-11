@@ -545,7 +545,7 @@ def main():
         _tracked = [tk for tk in _tracked if not _port.get("positions", {}).get(tk, {}).get("winding_down")]
 
         sys.path.insert(0, str(_ROOT / "tools"))
-        from wick_offset_analyzer import analyze_stock_data, _format_stock_report, _write_cache
+        from wick_offset_analyzer import analyze_stock_data, _format_stock_report, _write_cache, load_capital_config
 
         _refreshed = 0
         _failed = 0
@@ -557,7 +557,8 @@ def main():
                     continue
                 if hasattr(hist.columns, "levels"):
                     hist.columns = hist.columns.get_level_values(0)
-                data, err = analyze_stock_data(tk, hist)
+                _cap = load_capital_config(tk)
+                data, err = analyze_stock_data(tk, hist, capital_config=_cap)
                 if data:
                     report = _format_stock_report(tk, data)
                     _write_cache(tk, "wick_analysis.md", report)

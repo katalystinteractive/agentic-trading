@@ -444,7 +444,7 @@ def main():
     for af in _auto_fills_raw:
         success, summary = auto_record_fill(
             af["ticker"], af["price"], af["shares"],
-            dry_run=args.auto_fill_dry_run,
+            dry_run=args.auto_fill_dry_run or args.dry_run,
         )
         next_bullet = get_next_bullet(af["ticker"]) if success else None
         _auto_fill_results.append({
