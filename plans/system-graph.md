@@ -22,12 +22,15 @@
 
 [CRON 10:00] weekly_reoptimize.py (SINGLE ORCHESTRATOR)
     │
+    ├─ Step 0: wick_offset_analyzer (in-process refresh)
+    │   → READS: yfinance 13-month data for all tracked non-winding tickers
+    │   → WRITES: tickers/*/wick_analysis.md (refreshed support levels)
+    │
     ├─ Step 1: parameter_sweeper.py (dip sweep)
     │   → WRITES: data/sweep_results.json (stats.composite added)
     │
-    ├─ Step 2: neural_watchlist_sweeper.py (support Stage 1+2)
+    ├─ Step 2: support_parameter_sweeper.py --stage both (Stage 1+2)
     │   → WRITES: data/support_sweep_results.json
-    │   → WRITES: data/neural_watchlist_profiles.json
     │
     ├─ Step 3: ticker_clusterer.py
     │   → WRITES: data/ticker_profiles.json
@@ -57,8 +60,11 @@
     │   → READS: data/support_sweep_results.json (base params)
     │   → WRITES: data/support_sweep_results.json (slippage_params merged)
     │
+    ├─ Step 10b: support_parameter_sweeper.py --stage regime_exit --workers 8
+    │   → WRITES: data/regime_exit_sweep_results.json
+    │
     └─ Step 11: watchlist_tournament.py
-        → READS: ALL 5 sweep result files
+        → READS: ALL 6 sweep result files
         → READS: portfolio.json (tracked tickers)
         → WRITES: data/tournament_results.json
         → WRITES: portfolio.json (winding_down flags, watchlist changes)
@@ -284,7 +290,7 @@ entry_sweep_results.json         │
 | synapse_weights.json | weight_learner | neural_dip_evaluator | Weekly |
 | tournament_results.json | watchlist_tournament | tournament (idempotency check) | Weekly |
 | universe_screen_cache.json | universe_screener | step_candidate_sweep (weekly_reoptimize) | 3-day cache |
-| tickers/*/wick_analysis.md | wick_offset_analyzer | bullet_recommender, shared_wick, strategy gate | On demand |
+| tickers/*/wick_analysis.md | wick_offset_analyzer | bullet_recommender, shared_wick, strategy gate | Weekly (Step 0) + on demand |
 | tickers/*/cycle_timing.json | cycle_timing_analyzer | surgical_filter, watchlist_fitness | On demand |
 
 ---

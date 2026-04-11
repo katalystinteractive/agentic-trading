@@ -527,6 +527,54 @@ def main():
 
     timings = {}
 
+    # Step 0: Refresh wick analysis for all tracked tickers
+    print("=" * 60)
+    print("STEP 0: Wick Analysis Refresh")
+    print(f"  Started: {time.strftime('%H:%M:%S')}")
+    print("=" * 60, flush=True)
+    t0_wick = time.time()
+    try:
+        import warnings as _w
+        _w.filterwarnings("ignore")
+        import yfinance as yf
+
+        _portfolio_path = _ROOT / "portfolio.json"
+        with open(_portfolio_path) as _f:
+            _port = json.load(_f)
+        _tracked = sorted(set(_port.get("watchlist", [])) | set(_port.get("positions", {}).keys()))
+        _tracked = [tk for tk in _tracked if not _port.get("positions", {}).get(tk, {}).get("winding_down")]
+
+        sys.path.insert(0, str(_ROOT / "tools"))
+        from wick_offset_analyzer import analyze_stock_data, _format_stock_report, _write_cache
+
+        _refreshed = 0
+        _failed = 0
+        for tk in _tracked:
+            try:
+                hist = yf.download(tk, period="13mo", progress=False)
+                if hist.empty:
+                    _failed += 1
+                    continue
+                if hasattr(hist.columns, "levels"):
+                    hist.columns = hist.columns.get_level_values(0)
+                data, err = analyze_stock_data(tk, hist)
+                if data:
+                    report = _format_stock_report(tk, data)
+                    _write_cache(tk, "wick_analysis.md", report)
+                    _refreshed += 1
+                else:
+                    _failed += 1
+            except Exception:
+                _failed += 1
+        _wick_elapsed = time.time() - t0_wick
+        print(f"  Refreshed: {_refreshed}/{len(_tracked)} tickers ({_failed} failed)")
+        print(f"  Wick refresh completed in {_wick_elapsed:.0f}s ({_wick_elapsed/60:.1f} min)")
+        print(f"  Finished: {time.strftime('%H:%M:%S')}\n", flush=True)
+        timings["wick_refresh"] = _wick_elapsed
+    except Exception as e:
+        print(f"  *Wick refresh FAILED: {e}*\n", flush=True)
+        timings["wick_refresh"] = time.time() - t0_wick
+
     # Step 1-2: Sweep with cross-validation
     sweep_ok, t = step_sweep(use_cached=args.skip_download, strategy=args.strategy)
     timings["sweep"] = t
