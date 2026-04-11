@@ -347,7 +347,7 @@ entry_sweep_results.json         │
 ## 9. System Health Metrics
 
 ```
-Tools: 120 Python scripts
+Tools: 121 Python scripts (+ portfolio_stress_test.py)
 Data files: 553+ in data/, 1000+ in tickers/
 Workflows: 13 (8 daily, 5 weekly/periodic)
 Cron jobs: 7 (5 weekday, 2 Saturday + 1 safety re-run)
@@ -367,8 +367,8 @@ Every user-facing output must contain ALL information needed to act — no menta
 
 | Output | Ticker | Price | Shares | Cost | Action | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Dip alert email** (notify.send_dip_alert) | ✅ | ✅ entry/target/stop | ❌ MISSING | ❌ MISSING | ✅ BUY | **GAP** |
-| **Daily range section** (bullet_recommender) | ✅ | ✅ dip entry/target | ❌ MISSING | ❌ MISSING | ✅ Dip Buy | **GAP** |
+| **Dip alert email** (notify.send_dip_alert) | ✅ | ✅ entry/target/stop | ✅ Shares | ✅ Cost | ✅ BUY | ✅ Complete |
+| **Daily range section** (bullet_recommender) | ✅ | ✅ dip entry/target | ✅ Shares | ✅ Cost | ✅ Dip Buy | ✅ Complete |
 | **Surgical bullets** (bullet_recommender) | ✅ | ✅ Buy At | ✅ Shares | ✅ ~Cost | ✅ >> Next | ✅ Complete |
 | **Tournament report** (watchlist_tournament) | ✅ | ✅ Score | N/A | N/A | ✅ Action column | ✅ Complete |
 | **Neural order adjuster** | ✅ | ✅ Current/Rec | ✅ Shares | N/A | ✅ RAISE/LOWER/OK | ✅ Complete |
@@ -380,8 +380,8 @@ Every user-facing output must contain ALL information needed to act — no menta
 | **Morning briefing** (morning-briefing.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ Complete |
 
 ### Gaps to Fix
-1. **Dip alert email**: Add `shares` field computed from half-Kelly sizing ($74/price, rounded)
-2. **Daily range section in bullet_recommender**: Add shares + cost line using half-Kelly sizing
+1. ~~**Dip alert email**: Add shares field~~ — RESOLVED (shares param already implemented + caller passes it)
+2. ~~**Daily range section**: Add shares + cost~~ — RESOLVED (pool_budget param + bullet_recommender passes half-Kelly)
 3. **Tournament ONBOARD/CHALLENGE**: Two-step handoff — user must run bullet_recommender separately to see entry details. Add "run `bullet_recommender.py TICKER` for entry levels" note, or inline first bullet info.
 4. **Watchlist fitness REMOVE/RESTRUCTURE verdicts**: Shows verdict but no actionable next steps (which orders to cancel, what to adjust). Add recommended action per verdict.
 

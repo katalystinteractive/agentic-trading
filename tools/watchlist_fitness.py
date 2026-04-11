@@ -37,13 +37,15 @@ SWING_POINTS = 15
 CONSISTENCY_POINTS = 15
 LEVEL_COUNT_POINTS = 10
 HOLD_RATE_POINTS = 10
-ORDER_HYGIENE_POINTS = 20
-CYCLE_EFFICIENCY_POINTS = 20
+ORDER_HYGIENE_POINTS = 15
+CYCLE_EFFICIENCY_POINTS = 15
 TOUCH_FREQUENCY_POINTS = 10
+SECTOR_DIVERSITY_POINTS = 10
 
 assert (SWING_POINTS + CONSISTENCY_POINTS + LEVEL_COUNT_POINTS +
         HOLD_RATE_POINTS + ORDER_HYGIENE_POINTS +
-        CYCLE_EFFICIENCY_POINTS + TOUCH_FREQUENCY_POINTS) == 100, "Scoring constants must sum to 100"
+        CYCLE_EFFICIENCY_POINTS + TOUCH_FREQUENCY_POINTS +
+        SECTOR_DIVERSITY_POINTS) == 100, "Scoring constants must sum to 100"
 
 COMPRESSION_THRESHOLD = 0.65
 COMPRESSION_PENALTY = 3
@@ -245,6 +247,30 @@ def _score_cycle_efficiency(ticker):
     median_deep = ct.get("median_deep")
     reason = f"{total} cycles, {fill_pct:.0f}% fill, median {median_deep}d" if median_deep else f"{total} cycles"
     return pts, reason
+
+
+def _score_sector_diversity(ticker, portfolio):
+    """Score sector diversity — penalizes tickers in already-concentrated sectors."""
+    from sector_registry import get_sector
+
+    ticker_sector = get_sector(ticker)
+    if not ticker_sector or ticker_sector == "Unknown":
+        return SECTOR_DIVERSITY_POINTS  # unknown sector = no penalty
+
+    positions = set(portfolio.get("positions", {}).keys())
+    watchlist = set(portfolio.get("watchlist", []))
+    active = (positions | watchlist) - {ticker}
+
+    same_sector = sum(1 for t in active if get_sector(t) == ticker_sector)
+
+    if same_sector == 0:
+        return SECTOR_DIVERSITY_POINTS  # 10 — unique sector
+    elif same_sector <= 2:
+        return 8
+    elif same_sector <= 4:
+        return 5
+    else:
+        return 2  # 5+ in same fine sector
 
 
 # ---------------------------------------------------------------------------
@@ -534,7 +560,8 @@ def _process_ticker(ticker, data, hist, portfolio):
         order_info["has_non_paused_orders"],
     )
     touch_freq_pts, max_freq = _score_touch_frequency(data)
-    total = swing_pts + consistency_pts + level_pts + hr_pts + hygiene_pts + cycle_pts + touch_freq_pts
+    sector_pts = _score_sector_diversity(ticker, portfolio)
+    total = swing_pts + consistency_pts + level_pts + hr_pts + hygiene_pts + cycle_pts + touch_freq_pts + sector_pts
 
     score_components = {
         "swing": {"value": swing, "recent": recent_swing, "ratio": round(compression_ratio, 2), "points": swing_pts, "max": SWING_POINTS},
@@ -544,6 +571,7 @@ def _process_ticker(ticker, data, hist, portfolio):
         "order_hygiene": {"orphaned": order_info["orphaned"], "points": hygiene_pts, "max": ORDER_HYGIENE_POINTS},
         "cycle_efficiency": {"reason": cycle_reason, "points": cycle_pts, "max": CYCLE_EFFICIENCY_POINTS},
         "touch_frequency": {"max_freq": round(max_freq, 1), "points": touch_freq_pts, "max": TOUCH_FREQUENCY_POINTS},
+        "sector_diversity": {"points": sector_pts, "max": SECTOR_DIVERSITY_POINTS},
     }
 
     # Cycle data

@@ -1807,6 +1807,82 @@ def _print_neural_sections(portfolio):
                   f"{breadth_str} | {conf} |")
 
 
+def print_portfolio_risk(portfolio):
+    """Part 8: Portfolio Risk — sector concentration + capital adequacy."""
+    positions = portfolio.get("positions", {})
+    pending = portfolio.get("pending_orders", {})
+    capital = portfolio.get("capital", {})
+
+    # Capital Adequacy
+    total_deployed = sum(
+        p.get("shares", 0) * p.get("avg_cost", 0)
+        for p in positions.values()
+        if p.get("shares", 0) > 0 and not p.get("winding_down")
+    )
+    total_pending = sum(
+        o["price"] * o.get("shares", 0)
+        for tk_orders in pending.values()
+        for o in tk_orders
+        if o.get("type") == "BUY" and o.get("placed") and not o.get("filled")
+    )
+    worst_case = total_deployed + total_pending
+    per_stock = capital.get("per_stock_total", 600)
+    tracked = set(portfolio.get("watchlist", [])) | set(
+        tk for tk, p in positions.items() if p.get("shares", 0) > 0
+    )
+    n_tracked = len(tracked)
+    total_budget = n_tracked * per_stock
+
+    print(f"\n## Part 8 — Portfolio Risk\n")
+    print("### Capital Adequacy\n")
+    print("| Metric | Amount |")
+    print("| :--- | :--- |")
+    print(f"| Deployed | ${total_deployed:,.0f} |")
+    print(f"| Pending BUYs | ${total_pending:,.0f} |")
+    print(f"| Worst Case (all fill) | ${worst_case:,.0f} |")
+    print(f"| Budget ({n_tracked} × ${per_stock}) | ${total_budget:,.0f} |")
+    surplus = total_budget - worst_case
+    status = "✅" if surplus > 0 else "⚠️ DEFICIT"
+    print(f"| Surplus/Deficit | ${surplus:+,.0f} {status} |")
+
+    # Sector Concentration
+    try:
+        from sector_registry import get_sector
+        sector_counts = {}
+        for tk in tracked:
+            sec = get_sector(tk)
+            sector_counts.setdefault(sec, []).append(tk)
+
+        concentrated = {s: tks for s, tks in sector_counts.items() if len(tks) >= 3}
+        if concentrated:
+            print("\n### Sector Concentration\n")
+            print("| Sector | Count | Tickers |")
+            print("| :--- | :--- | :--- |")
+            for sec, tks in sorted(concentrated.items(), key=lambda x: -len(x[1])):
+                flag = " ⚠️" if len(tks) >= 5 else ""
+                print(f"| {sec}{flag} | {len(tks)} | {', '.join(sorted(tks))} |")
+    except ImportError:
+        pass
+
+    # Stress Test Summary (if results exist)
+    stress_path = _ROOT / "data" / "portfolio_stress_results.json"
+    if stress_path.exists():
+        try:
+            with open(stress_path) as f:
+                stress = json.load(f)
+            deficits = [s for s in stress.get("scenarios", []) if s.get("deficit", 0) > 0]
+            if deficits:
+                print("\n### Stress Test Warnings\n")
+                for d in deficits:
+                    print(f"- **{d['sector']}**: {d['shock_pct']}% drop → "
+                          f"${d['capital_needed']:,.0f} needed, "
+                          f"${d['available']:,.0f} available → "
+                          f"**${d['deficit']:,.0f} deficit**")
+        except (json.JSONDecodeError, KeyError):
+            pass
+    print()
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Daily Analyzer — consolidated session tool",
@@ -1925,6 +2001,10 @@ def main():
 
     if not args.no_deploy and not args.no_fitness and not args.no_screen:
         run_candidate_screening(wide_screen=args.wide_screen)
+
+    # Part 8: Portfolio Risk
+    if not args.no_deploy:
+        print_portfolio_risk(portfolio)
 
     # Phase D: Persist canonical state
     state = get_state_for_persistence(graph, active_tickers,

@@ -64,7 +64,7 @@ COMPRESSION_THRESHOLD = 0.65
 COMPRESSION_PENALTY = 3
 
 # Criterion 6: Sector thresholds
-SECTOR_CONCENTRATION_LIMIT = 999  # Effectively disabled; scoring handles concentration
+SECTOR_CONCENTRATION_LIMIT = 4  # Flag candidates in sectors with 4+ existing tickers
 
 # Verification thresholds
 SAMPLE_SIZE_MIN = 3
