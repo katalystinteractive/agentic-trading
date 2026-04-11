@@ -84,6 +84,22 @@ class TestComputeAlertsFillMarking:
         assert "_auto_fills" not in state
 
 
+    @patch("order_proximity_monitor._load_entry_sweep", return_value={})
+    @patch("order_proximity_monitor.yf")
+    def test_sell_order_no_auto_fill(self, mock_yf, mock_sweep):
+        """SELL orders at FILLED? should NOT trigger auto-fill (uses cmd_sell, not cmd_fill)."""
+        mock_yf.download.return_value = MagicMock(empty=True)
+        orders = [{"ticker": "CIFR", "side": "SELL", "price": 16.00, "shares": 8}]
+        prices = {"CIFR": 16.50}  # above sell price → FILLED? for SELL
+        state = {}
+
+        alerts = compute_alerts(orders, prices, state)
+
+        assert len(alerts) == 1
+        assert alerts[0]["level"] == "FILLED?"
+        assert "_auto_fills" not in state  # SELL fills must not trigger auto-fill
+
+
 class TestVixGateExemption:
     """Test that VIX gate does NOT suppress FILLED? alerts."""
 

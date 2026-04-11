@@ -183,31 +183,39 @@ def get_next_bullet(ticker):
     """Get next bullet recommendation for email cascade.
 
     Returns dict {level, price, shares} or None if no next bullet.
+    Uses cached wick analysis (no yfinance download) to keep cron fast.
     """
     try:
         import io
         import contextlib
         from bullet_recommender import run_recommend
-        from wick_offset_analyzer import analyze_stock_data, load_capital_config
+        from wick_offset_analyzer import load_capital_config
 
-        with open(PORTFOLIO_PATH) as f:
-            portfolio = json.load(f)
-        cap = load_capital_config(ticker)
-        data, err = analyze_stock_data(ticker, capital_config=cap)
-        if data is None:
+        # Use cached wick data to avoid 13-month yfinance download in cron loop.
+        # Cached data is refreshed weekly (Step 0) and on-demand.
+        wick_path = _ROOT / "tickers" / ticker / "wick_analysis.md"
+        if not wick_path.exists():
             return None
 
-        buf = io.StringIO()
-        with contextlib.redirect_stdout(buf):
-            ctx = run_recommend(ticker, "any", data, portfolio, cap)
-
-        if not ctx or not ctx.get("recommendation"):
+        # analyze_stock_data with hist from cache would still need parsing.
+        # Instead, use the CLI pattern: bullet_recommender.main() reads cached data.
+        import subprocess
+        result = subprocess.run(
+            [sys.executable, str(_ROOT / "tools" / "bullet_recommender.py"),
+             ticker, "--mode", "recommend", "--json"],
+            capture_output=True, text=True, timeout=15,
+        )
+        if result.returncode != 0:
             return None
-        rec = ctx["recommendation"]
+
+        recs = json.loads(result.stdout)
+        if not recs or not recs[0].get("recommendation"):
+            return None
+        rec = recs[0]["recommendation"]
         return {
-            "level": rec["label"],
-            "price": rec["level"]["recommended_buy"],
-            "shares": rec["shares"],
+            "level": rec.get("label", ""),
+            "price": rec.get("level", {}).get("recommended_buy", 0),
+            "shares": rec.get("shares", 0),
         }
     except Exception:
         return None
@@ -326,7 +334,8 @@ def compute_alerts(orders, prices, state):
         }
 
         # Mark fill for auto-recording (handled by main() where args is in scope)
-        if level == "FILLED?" and not o.get("monitored"):
+        # Only BUY fills — SELL fills use cmd_sell, not cmd_fill
+        if level == "FILLED?" and side == "BUY" and not o.get("monitored"):
             state.setdefault("_auto_fills", []).append({
                 "ticker": tk,
                 "price": order_price,
@@ -453,11 +462,12 @@ def main():
             "summary": summary,
             "next_bullet": next_bullet,
         })
-        action = "recorded" if success else "FAILED"
+        _is_dry = args.auto_fill_dry_run or args.dry_run
+        action = "dry-run" if _is_dry else ("recorded" if success else "FAILED")
         print(f"[{datetime.now().strftime('%H:%M:%S')}] Auto-fill {action}: "
               f"{af['ticker']} {af['shares']} @ ${af['price']:.2f}")
 
-    if _auto_fill_results and not args.dry_run:
+    if _auto_fill_results and not args.dry_run and not args.auto_fill_dry_run:
         from notify import send_fill_cascade_alert
         send_fill_cascade_alert(_auto_fill_results)
 
