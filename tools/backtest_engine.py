@@ -230,6 +230,10 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
     # Dip side-channel — tracks daily dip viability per ticker (no impact on surgical logic)
     dip_metrics = {tk: DailyDipMetrics() for tk in tickers}
 
+    # Regime transition tracking for exit trigger
+    _prev_regime = "Neutral"
+    _riskoff_consecutive = 0
+
     # --- DAILY REPLAY ---
     for day_idx, d in enumerate(sim_dates):
         d_str = str(d)
@@ -237,6 +241,12 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
         # 1. REGIME
         regime_info = regime_data.get(d_str, {"regime": "Neutral", "vix": None})
         regime = regime_info["regime"]
+
+        # Track Risk-Off consecutive days
+        if regime == "Risk-Off":
+            _riskoff_consecutive += 1
+        else:
+            _riskoff_consecutive = 0
 
         # 2. CHECK EXITS
         for tk in list(positions.keys()):
@@ -283,7 +293,31 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                 pending_orders[tk] = []
                 continue
 
-            # b. Time stop
+            # b. Regime exit trigger — sell partial position on Risk-Off transition
+            if (cfg.regime_exit_enabled and regime == "Risk-Off"
+                    and _riskoff_consecutive >= cfg.regime_exit_hold_days
+                    and _riskoff_consecutive <= cfg.regime_exit_hold_days + 1):
+                # Trigger once when hold_days threshold is first met
+                exit_shares = max(1, int(pos.shares * cfg.regime_exit_pct / 100))
+                exit_price = day_close * (1 - cfg.exit_slippage_pct / 100)
+                pnl_pct = (exit_price - pos.avg_cost) / pos.avg_cost * 100
+                pnl_dollars = exit_shares * (exit_price - pos.avg_cost)
+                trades.append({
+                    "ticker": tk, "side": "SELL", "date": d_str,
+                    "price": round(exit_price, 2), "shares": exit_shares,
+                    "pnl_pct": round(pnl_pct, 2), "pnl_dollars": round(pnl_dollars, 2),
+                    "exit_reason": "REGIME_EXIT", "days_held": days_held,
+                    "avg_cost": round(pos.avg_cost, 2), "regime": regime,
+                })
+                pos.shares -= exit_shares
+                if pos.shares <= 0:
+                    _reset_capital(tk, pnl_dollars)
+                    del positions[tk]
+                    pending_orders[tk] = []
+                    continue
+                # Partial exit — position continues with fewer shares
+
+            # c. Time stop
             time_limit = cfg.time_stop_days
             if regime == "Risk-Off":
                 time_limit += cfg.time_stop_riskoff_ext

@@ -98,6 +98,33 @@ def print_market_regime():
 
     if regime == "Risk-Off":
         print("\n*Risk-Off modifiers active: time stops +14d, sell upgrades suppressed, deployment cautioned*")
+        # Load regime exit sweep results for active positions
+        try:
+            _re_path = Path(__file__).resolve().parent.parent / "data" / "regime_exit_sweep_results.json"
+            if _re_path.exists():
+                with open(_re_path) as _f:
+                    _re_data = json.load(_f)
+                _data = _load()
+                _positions = _data.get("positions", {})
+                _exits = []
+                for tk, pos in _positions.items():
+                    if pos.get("shares", 0) <= 0 or pos.get("winding_down"):
+                        continue
+                    _re = _re_data.get(tk, {}).get("regime_exit_params", {})
+                    if _re.get("regime_exit_pct", 0) > 0:
+                        shares = pos["shares"]
+                        exit_shares = max(1, round(shares * _re["regime_exit_pct"] / 100))
+                        _exits.append((tk, exit_shares, shares, _re["regime_exit_pct"],
+                                       _re.get("regime_exit_hold_days", 0)))
+                if _exits:
+                    print("\n### Regime Exit Recommendations")
+                    print("| Ticker | Sell Shares | Of Total | Exit % | After Days |")
+                    print("| :--- | :--- | :--- | :--- | :--- |")
+                    for tk, exit_sh, total, pct, hold in _exits:
+                        print(f"| {tk} | {exit_sh} | {total} | {pct}% | {hold}d |")
+                    print()
+        except Exception:
+            pass
     elif regime == "Risk-On":
         print("\n*Risk-On: standard rules, full deployment*")
     print()

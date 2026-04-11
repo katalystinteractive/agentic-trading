@@ -697,6 +697,128 @@ def _sweep_slippage_worker(args):
 
 
 # ---------------------------------------------------------------------------
+# Stage 5: Regime Exit sweep
+# ---------------------------------------------------------------------------
+
+REGIME_EXIT_GRID = {
+    "regime_exit_pct": [25, 50, 75, 100],
+    "regime_exit_hold_days": [0, 1, 2, 3],
+}
+# 4 × 4 = 16 combos
+
+REGIME_EXIT_RESULTS_PATH = _ROOT / "data" / "regime_exit_sweep_results.json"
+
+
+def sweep_regime_exit(ticker, base_params, months=10):
+    """Stage 5: Sweep regime exit params with all prior params locked.
+
+    Uses multi-period composite scoring (12mo/6mo/3mo/1mo).
+    Returns: (best_params, best_result, best_composite, best_periods)
+    """
+    data_dir = _collect_once(ticker, max(SWEEP_PERIODS))
+    from backtest_engine import load_collected_data
+    price_data, regime_data, config_meta = load_collected_data(data_dir)
+
+    best_composite = 0
+    best_params = None
+    best_result = None
+    best_periods = None
+    sim_errors = 0
+
+    base_overrides = {
+        "sell_default": base_params.get("sell_default", 6.0),
+        "sell_fast_cycler": base_params.get("sell_default", 6.0) + 2.0,
+        "sell_exceptional": base_params.get("sell_default", 6.0) + 4.0,
+        "cat_hard_stop": base_params.get("cat_hard_stop", 25),
+        "cat_warning": max(base_params.get("cat_hard_stop", 25) - 10, 5),
+        "regime_exit_enabled": True,
+    }
+    for k in ("active_pool", "reserve_pool", "active_bullets_max",
+              "reserve_bullets_max", "tier_full", "tier_std"):
+        if k in base_params:
+            base_overrides[k] = base_params[k]
+
+    combos = list(itertools.product(
+        REGIME_EXIT_GRID["regime_exit_pct"],
+        REGIME_EXIT_GRID["regime_exit_hold_days"],
+    ))
+    total_combos = len(combos)
+    wick_cache = {}  # shared — regime params don't affect wick analysis
+
+    for idx, (exit_pct, hold_days) in enumerate(combos):
+        if (idx + 1) % 5 == 0 or idx == 0:
+            _log_progress(f"{ticker}: regime_exit combo {idx+1}/{total_combos} "
+                          f"— best: ${best_composite:.1f}/mo")
+
+        overrides = {
+            **base_overrides,
+            "regime_exit_pct": exit_pct,
+            "regime_exit_hold_days": hold_days,
+        }
+
+        results_by_period = {}
+        last_result = None
+        for period_months in SWEEP_PERIODS:
+            try:
+                result = _simulate_with_config(
+                    ticker, period_months, overrides, data_dir,
+                    price_data, regime_data, wick_cache)
+                results_by_period[period_months] = {
+                    "pnl": result.get("pnl", 0),
+                    "cycles": result.get("cycles", 0),
+                    "trades": result.get("sells", 0),
+                    "win_rate": result.get("win_rate", 0),
+                }
+                last_result = result
+            except Exception as e:
+                results_by_period[period_months] = {"pnl": 0, "cycles": 0}
+                sim_errors += 1
+                if sim_errors <= 3:
+                    _log_progress(f"{ticker}: sim error ({period_months}mo): "
+                                  f"{type(e).__name__}: {e}")
+
+        try:
+            composite, _ = compute_composite(results_by_period)
+        except Exception:
+            composite = 0
+
+        if composite > best_composite:
+            best_composite = composite
+            best_params = {
+                "regime_exit_pct": exit_pct,
+                "regime_exit_hold_days": hold_days,
+            }
+            best_result = last_result
+            best_periods = results_by_period
+
+    if sim_errors > 0:
+        _log_progress(f"{ticker}: {sim_errors} regime_exit sim errors")
+
+    return best_params, best_result, best_composite, best_periods
+
+
+def _sweep_regime_exit_worker(args):
+    """Worker for parallel regime exit sweep."""
+    ticker, base_params, months = args
+    try:
+        best_params, best_result, composite, periods = sweep_regime_exit(
+            ticker, base_params, months)
+        if best_params:
+            return ticker, {
+                "regime_exit_params": best_params,
+                "regime_exit_stats": {
+                    "composite": round(composite, 2) if composite else 0,
+                    "pnl": best_result.get("pnl", 0) if best_result else 0,
+                    "trades": best_result.get("sells", 0) if best_result else 0,
+                },
+                "regime_exit_periods": periods,
+            }
+        return ticker, None
+    except Exception:
+        return ticker, None
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -708,7 +830,7 @@ def main():
                         help="Number of universe passers to sweep (default: 30)")
     parser.add_argument("--months", type=int, default=10,
                         help="Simulation months (default: 10)")
-    parser.add_argument("--stage", choices=["threshold", "execution", "both", "level", "slippage"],
+    parser.add_argument("--stage", choices=["threshold", "execution", "both", "level", "slippage", "regime_exit"],
                         default="both", help="Which stage to run")
     parser.add_argument("--split", action="store_true",
                         help="Cross-validate: train first 7mo, validate last 3mo")
@@ -1043,6 +1165,99 @@ def main():
             with open(RESULTS_PATH, "w") as f:
                 json.dump(existing, f, indent=2)
             print(f"\nSlippage results merged into {RESULTS_PATH}")
+
+    # ---------------------------------------------------------------
+    # Stage 5: Regime Exit
+    # ---------------------------------------------------------------
+    if args.stage == "regime_exit":
+        if not RESULTS_PATH.exists():
+            print("*Stage 1+2 results not found. Run --stage both first.*")
+            return
+        with open(RESULTS_PATH) as f:
+            support_data = json.load(f)
+
+        # Same pool as other sweeps: all tracked + top N challengers
+        try:
+            with open(_ROOT / "portfolio.json") as f:
+                _portfolio = json.load(f)
+            tracked = set(_portfolio.get("watchlist", [])) | set(_portfolio.get("positions", {}).keys())
+        except (OSError, json.JSONDecodeError):
+            tracked = set()
+        tracked_with_data = [tk for tk in tracked if tk in support_data and not tk.startswith("_")]
+        challengers = sorted(
+            [(tk, d) for tk, d in support_data.items()
+             if not tk.startswith("_") and tk not in tracked],
+            key=lambda x: x[1].get("stats", {}).get("composite", 0), reverse=True)
+        n_challengers = max(len(tracked_with_data) // 2, 10)
+        tickers = tracked_with_data + [tk for tk, _ in challengers[:n_challengers]]
+
+        if not tickers:
+            print("*No tickers for regime exit sweep.*")
+            return
+
+        regime_output = {}
+        print(f"\nStage 5: Regime exit sweep on {len(tickers)} tickers × "
+              f"{len(list(itertools.product(*REGIME_EXIT_GRID.values())))} combos...")
+
+        if args.workers > 1 and len(tickers) > 1:
+            worker_args = [(tk, support_data[tk]["params"], args.months)
+                           for tk in tickers if tk in support_data]
+            with Pool(processes=min(args.workers, len(worker_args))) as pool:
+                for tk, result_data in pool.map(_sweep_regime_exit_worker, worker_args):
+                    if result_data:
+                        regime_output[tk] = result_data
+                        p = result_data["regime_exit_params"]
+                        print(f"  {tk}: exit={p['regime_exit_pct']}% hold={p['regime_exit_hold_days']}d "
+                              f"composite=${result_data['regime_exit_stats']['composite']:.1f}/mo",
+                              flush=True)
+                    else:
+                        print(f"  {tk}: no improvement", flush=True)
+        else:
+            for i, tk in enumerate(tickers):
+                if tk not in support_data or tk.startswith("_"):
+                    continue
+                print(f"  [{i+1}/{len(tickers)}] {tk}...", end=" ", flush=True)
+                t0 = time.time()
+                best_params, best_result, composite, periods = sweep_regime_exit(
+                    tk, support_data[tk]["params"], args.months)
+                if best_params:
+                    regime_output[tk] = {
+                        "regime_exit_params": best_params,
+                        "regime_exit_stats": {
+                            "composite": round(composite, 2) if composite else 0,
+                            "pnl": best_result.get("pnl", 0) if best_result else 0,
+                            "trades": best_result.get("sells", 0) if best_result else 0,
+                        },
+                        "regime_exit_periods": periods,
+                    }
+                    print(f"exit={best_params['regime_exit_pct']}% "
+                          f"hold={best_params['regime_exit_hold_days']}d "
+                          f"composite=${composite:.1f}/mo [{time.time()-t0:.0f}s]",
+                          flush=True)
+                else:
+                    print(f"no improvement [{time.time()-t0:.0f}s]", flush=True)
+
+        if regime_output and not args.dry_run:
+            # Write to SEPARATE file (never contaminate other sweep data)
+            existing = {}
+            if REGIME_EXIT_RESULTS_PATH.exists():
+                try:
+                    with open(REGIME_EXIT_RESULTS_PATH) as f:
+                        existing = json.load(f)
+                except (json.JSONDecodeError, OSError):
+                    pass
+            existing["_meta"] = {
+                "source": "support_parameter_sweeper.py --stage regime_exit",
+                "updated": date.today().isoformat(),
+                "combos": len(list(itertools.product(*REGIME_EXIT_GRID.values()))),
+                "tickers_swept": len(tickers),
+                "with_results": len(regime_output),
+            }
+            for tk, data in regime_output.items():
+                existing[tk] = data
+            with open(REGIME_EXIT_RESULTS_PATH, "w") as f:
+                json.dump(existing, f, indent=2)
+            print(f"\nRegime exit results saved to {REGIME_EXIT_RESULTS_PATH}")
 
     # Summary
     elapsed = time.time() - start

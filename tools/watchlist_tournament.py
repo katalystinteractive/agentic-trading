@@ -28,6 +28,7 @@ SWEEP_FILES = {
     "resistance": _ROOT / "data" / "resistance_sweep_results.json",
     "bounce": _ROOT / "data" / "bounce_sweep_results.json",
     "entry": _ROOT / "data" / "entry_sweep_results.json",
+    "regime_exit": _ROOT / "data" / "regime_exit_sweep_results.json",
 }
 
 PROTECTION_WEEKS = 4

@@ -197,6 +197,11 @@ class SurgicalSimConfig:
     # Earnings gate buffer
     earnings_buffer_days: int = 7       # skip entries within N days of earnings
 
+    # Regime exit trigger — sell partial position on regime change to Risk-Off
+    regime_exit_enabled: bool = False
+    regime_exit_pct: float = 50.0       # % of position to sell on trigger
+    regime_exit_hold_days: int = 1      # days of Risk-Off before triggering (0=immediate)
+
     # Period
     start: str = ""
     end: str = ""

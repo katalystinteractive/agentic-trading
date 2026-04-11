@@ -479,6 +479,13 @@ def step_slippage_sweep():
          "--stage", "slippage", "--workers", "8"])
 
 
+def step_regime_exit_sweep():
+    """Step 10b: Regime exit parameter sweep."""
+    return _run_sweep_step("10b", "Regime Exit Sweep",
+        [sys.executable, "tools/support_parameter_sweeper.py",
+         "--stage", "regime_exit", "--workers", "8"])
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -560,6 +567,7 @@ def main():
         ("bounce", step_bounce_sweep),
         ("entry", step_entry_sweep),
         ("slippage", step_slippage_sweep),
+        ("regime_exit", step_regime_exit_sweep),
     ]:
         try:
             ok, t = step_fn()
