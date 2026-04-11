@@ -186,19 +186,10 @@ def get_next_bullet(ticker):
     Uses cached wick analysis (no yfinance download) to keep cron fast.
     """
     try:
-        import io
-        import contextlib
-        from bullet_recommender import run_recommend
-        from wick_offset_analyzer import load_capital_config
-
-        # Use cached wick data to avoid 13-month yfinance download in cron loop.
-        # Cached data is refreshed weekly (Step 0) and on-demand.
         wick_path = _ROOT / "tickers" / ticker / "wick_analysis.md"
         if not wick_path.exists():
             return None
 
-        # analyze_stock_data with hist from cache would still need parsing.
-        # Instead, use the CLI pattern: bullet_recommender.main() reads cached data.
         import subprocess
         result = subprocess.run(
             [sys.executable, str(_ROOT / "tools" / "bullet_recommender.py"),
