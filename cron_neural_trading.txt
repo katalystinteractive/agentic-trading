@@ -26,6 +26,3 @@
 # Runs ALL sweeps sequentially: dip → support → cluster → weights → candidates →
 # resistance → bounce → entry → slippage → tournament (~3 hours total)
 0 10 * * 6 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/weekly_reoptimize.py >> data/reoptimize.log 2>&1
-
-# Watchlist tournament safety re-run (Saturday 3:30 PM local — idempotent, skips if already ran)
-30 15 * * 6 cd /Users/kamenkamenov/agentic-trading && /Library/Frameworks/Python.framework/Versions/3.10/bin/python3 tools/watchlist_tournament.py >> data/tournament.log 2>&1
