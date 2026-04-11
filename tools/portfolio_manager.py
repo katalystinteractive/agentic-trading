@@ -318,7 +318,7 @@ def cmd_fill(data, args):
     _save(data)
 
     try:
-        _record_trade({
+        record = {
             "ticker": ticker,
             "side": "BUY",
             "date": fill_date,
@@ -329,7 +329,10 @@ def cmd_fill(data, args):
             "total_shares_after": total_shares,
             "zone": zone,
             "note": matched_note,
-        })
+        }
+        if getattr(args, "auto_detected", False):
+            record["auto_detected"] = True
+        _record_trade(record)
     except Exception as e:
         print(f"Warning: trade history not recorded: {e}", file=sys.stderr)
 

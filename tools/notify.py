@@ -139,6 +139,50 @@ def send_summary_email(subject, body):
         return False
 
 
+def send_fill_cascade_alert(auto_fills):
+    """Send consolidated email for auto-detected fills with cascade info.
+
+    auto_fills: list of dicts with ticker, price, shares, success, summary, next_bullet
+    """
+    if not auto_fills:
+        return False
+
+    successful = [f for f in auto_fills if f["success"]]
+    failed = [f for f in auto_fills if not f["success"]]
+
+    lines = []
+    for f in successful:
+        lines.append(f"FILL RECORDED: {f['ticker']} BUY {f['shares']} @ ${f['price']:.2f}")
+        lines.append("")
+        if f.get("summary"):
+            lines.append(f["summary"].strip())
+            lines.append("")
+        nb = f.get("next_bullet")
+        if nb:
+            lines.append(f"Next Bullet: {nb['level']} @ ${nb['price']:.2f} ({nb['shares']} shares)")
+            lines.append(f"Action: Place limit BUY {nb['shares']} {f['ticker']} @ ${nb['price']:.2f}")
+            lines.append("")
+        lines.append("---")
+        lines.append("")
+
+    for f in failed:
+        lines.append(f"FILL FAILED: {f.get('summary', 'unknown error')}")
+        lines.append("")
+
+    body = "\n".join(lines)
+
+    if len(successful) == 1:
+        f = successful[0]
+        subject = f"FILL: {f['ticker']} BUY {f['shares']} @ ${f['price']:.2f}"
+    elif successful:
+        tickers = ", ".join(f["ticker"] for f in successful)
+        subject = f"FILLS: {tickers}"
+    else:
+        subject = "FILL ERRORS"
+
+    return send_summary_email(subject, body)
+
+
 if __name__ == "__main__":
     print("Testing SendGrid notification...")
     success = send_dip_alert(

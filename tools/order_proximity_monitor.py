@@ -141,6 +141,78 @@ def load_monitored_levels():
     return monitored
 
 
+def auto_record_fill(ticker, price, shares, dry_run=False):
+    """Auto-record a detected fill via portfolio_manager cmd_fill.
+
+    Returns (success: bool, summary: str) tuple.
+    summary contains position update + sell targets for email.
+    """
+    if shares <= 0:
+        return False, f"*{ticker}: shares={shares}, skipping auto-fill*"
+
+    if dry_run:
+        return True, f"[DRY RUN] Would record: {ticker} BUY {shares} @ ${price:.2f}"
+
+    import io
+    import contextlib
+
+    args = argparse.Namespace(
+        ticker=ticker,
+        price=price,
+        shares=shares,
+        trade_date=None,
+        auto_detected=True,
+    )
+
+    with open(PORTFOLIO_PATH) as f:
+        data = json.load(f)
+
+    buf = io.StringIO()
+    try:
+        with contextlib.redirect_stdout(buf):
+            from portfolio_manager import cmd_fill
+            cmd_fill(data, args)
+        return True, buf.getvalue()
+    except SystemExit:
+        return False, f"*{ticker}: cmd_fill rejected fill @ ${price:.2f}*"
+    except Exception as e:
+        return False, f"*{ticker}: auto-fill error: {e}*"
+
+
+def get_next_bullet(ticker):
+    """Get next bullet recommendation for email cascade.
+
+    Returns dict {level, price, shares} or None if no next bullet.
+    """
+    try:
+        import io
+        import contextlib
+        from bullet_recommender import run_recommend
+        from wick_offset_analyzer import analyze_stock_data, load_capital_config
+
+        with open(PORTFOLIO_PATH) as f:
+            portfolio = json.load(f)
+        cap = load_capital_config(ticker)
+        data, err = analyze_stock_data(ticker, capital_config=cap)
+        if data is None:
+            return None
+
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            ctx = run_recommend(ticker, "any", data, portfolio, cap)
+
+        if not ctx or not ctx.get("recommendation"):
+            return None
+        rec = ctx["recommendation"]
+        return {
+            "level": rec["label"],
+            "price": rec["level"]["recommended_buy"],
+            "shares": rec["shares"],
+        }
+    except Exception:
+        return None
+
+
 def fetch_prices(tickers):
     """Batch-fetch latest prices via yfinance. Returns {ticker: price} or None on failure."""
     try:
@@ -197,17 +269,18 @@ def compute_alerts(orders, prices, state):
         if current_price is None:
             continue
 
-        # VIX gate: suppress BUY alerts when VIX exceeds ticker's learned threshold
-        if side == "BUY" and _vix_now is not None:
-            _vix_gate = _entry_data.get(tk, {}).get("params", {}).get("per_ticker_vix_gate", 0)
-            if _vix_gate > 0 and _vix_now > _vix_gate:
-                continue  # VIX too high for this ticker
-
         # Distance calculation — positive means price is approaching but hasn't crossed
         if side == "BUY":
             distance = (current_price - order_price) / order_price * 100
         else:  # SELL
             distance = (order_price - current_price) / order_price * 100
+
+        # VIX gate: suppress BUY APPROACH/IMMINENT alerts when VIX exceeds threshold
+        # BUT: never suppress FILLED? — a placed order fills regardless of VIX
+        if distance > 0 and side == "BUY" and _vix_now is not None:
+            _vix_gate = _entry_data.get(tk, {}).get("params", {}).get("per_ticker_vix_gate", 0)
+            if _vix_gate > 0 and _vix_now > _vix_gate:
+                continue
 
         key = f"{tk}:{side}:{order_price}"
         active_keys.add(key)
@@ -251,6 +324,14 @@ def compute_alerts(orders, prices, state):
             "level": level,
             "alerted_at": datetime.now().isoformat(),
         }
+
+        # Mark fill for auto-recording (handled by main() where args is in scope)
+        if level == "FILLED?" and not o.get("monitored"):
+            state.setdefault("_auto_fills", []).append({
+                "ticker": tk,
+                "price": order_price,
+                "shares": o.get("shares", 0),
+            })
 
     # Clean up state entries for orders that no longer exist
     stale_keys = [k for k in state if not k.startswith("_") and k not in active_keys]
@@ -315,6 +396,8 @@ def main():
     parser = argparse.ArgumentParser(description="Order Proximity Monitor")
     parser.add_argument("--dry-run", action="store_true",
                         help="Print alerts without sending email")
+    parser.add_argument("--auto-fill-dry-run", action="store_true",
+                        help="Log detected fills without recording them")
     args = parser.parse_args()
 
     # Market hours check
@@ -354,6 +437,29 @@ def main():
 
     # Compute alerts
     alerts = compute_alerts(all_orders, prices, state)
+
+    # Auto-record detected fills (cmd_fill + cascade)
+    _auto_fills_raw = state.pop("_auto_fills", [])
+    _auto_fill_results = []
+    for af in _auto_fills_raw:
+        success, summary = auto_record_fill(
+            af["ticker"], af["price"], af["shares"],
+            dry_run=args.auto_fill_dry_run,
+        )
+        next_bullet = get_next_bullet(af["ticker"]) if success else None
+        _auto_fill_results.append({
+            **af,
+            "success": success,
+            "summary": summary,
+            "next_bullet": next_bullet,
+        })
+        action = "recorded" if success else "FAILED"
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] Auto-fill {action}: "
+              f"{af['ticker']} {af['shares']} @ ${af['price']:.2f}")
+
+    if _auto_fill_results and not args.dry_run:
+        from notify import send_fill_cascade_alert
+        send_fill_cascade_alert(_auto_fill_results)
 
     if alerts:
         body = format_email(alerts)

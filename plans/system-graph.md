@@ -91,9 +91,11 @@ ALL tracked tickers (positions + watchlist with sweep data)
 
 [CRON 16:30-23:00 every 5 min] order_proximity_monitor.py
     → READS: portfolio.json (pending orders)
-    → READS: data/entry_sweep_results.json (VIX gate)
+    → READS: data/entry_sweep_results.json (VIX gate, exempted for FILLED?)
     → WRITES: data/proximity_alerts_state.json
     → SENDS: email on APPROACHING / IMMINENT / FILLED?
+    → AUTO-FILL: on FILLED?, calls cmd_fill → sell targets → next bullet
+    → SENDS: cascade email (FILL RECORDED + sell target + next bullet action)
 
 [CRON 17:30] neural_dip_evaluator.py --phase first_hour
     → READS: data/ticker_profiles.json, data/synapse_weights.json
