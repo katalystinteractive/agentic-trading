@@ -1820,7 +1820,7 @@ def print_portfolio_risk(portfolio):
         if p.get("shares", 0) > 0 and not p.get("winding_down")
     )
     total_pending = sum(
-        o["price"] * o.get("shares", 0)
+        o.get("price", 0) * o.get("shares", 0)
         for tk_orders in pending.values()
         for o in tk_orders
         if o.get("type") == "BUY" and o.get("placed") and not o.get("filled")
@@ -1828,7 +1828,8 @@ def print_portfolio_risk(portfolio):
     worst_case = total_deployed + total_pending
     per_stock = capital.get("per_stock_total", 600)
     tracked = set(portfolio.get("watchlist", [])) | set(
-        tk for tk, p in positions.items() if p.get("shares", 0) > 0
+        tk for tk, p in positions.items()
+        if p.get("shares", 0) > 0 and not p.get("winding_down")
     )
     n_tracked = len(tracked)
     total_budget = n_tracked * per_stock
