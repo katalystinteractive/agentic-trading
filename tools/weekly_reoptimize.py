@@ -59,25 +59,15 @@ STRATEGY_TOOLS = {
 # ---------------------------------------------------------------------------
 
 def step_watchlist_sweep():
-    """Sweep support params for ALL watchlist + position tickers."""
-    print("=" * 60)
-    print("STEP: Watchlist Support Sweep")
-    print("=" * 60)
+    """Sweep support params (Stage 1+2) for ALL tracked + challenger tickers.
 
-    cmd = [sys.executable, "tools/neural_watchlist_sweeper.py", "--workers", "4"]
-    t0 = time.time()
-    result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(_ROOT))
-    elapsed = time.time() - t0
-
-    print(result.stdout)
-    if result.stderr:
-        for line in result.stderr.split("\n"):
-            if "FutureWarning" not in line and "float(ser" not in line and line.strip():
-                print(f"  stderr: {line}")
-
-    success = result.returncode == 0
-    print(f"  Watchlist sweep {'completed' if success else 'FAILED'} in {elapsed:.0f}s\n")
-    return success, elapsed
+    Replaces neural_watchlist_sweeper.py which was redundant — it ran the same
+    Stage 1+2 from support_parameter_sweeper but wrote to a separate file.
+    Now uses the canonical support sweep with expanded grid [1,2,3,4,5,7].
+    """
+    return _run_sweep_step("2", "Support Sweep (Stage 1+2)",
+        [sys.executable, "tools/support_parameter_sweeper.py",
+         "--stage", "both", "--workers", "8"])
 
 
 def step_sweep(use_cached=False, strategy="dip"):
