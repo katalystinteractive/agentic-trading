@@ -2,22 +2,17 @@
 
 ---
 
-## BUG: Steps 7-10 (resistance/bounce/entry/slippage) silently skipped in weekly pipeline
-**Priority**: HIGH
-**Date identified**: 2026-04-11
-**Evidence**: First Saturday run of consolidated orchestrator showed Steps 1-6 → Tournament, completely skipping resistance/bounce/entry/slippage sweeps. No error, no warning, no log output. Steps ARE wired in main() (lines 560-565) but produced zero output in the log.
-**Impact**: Tournament ran on stale resistance/bounce/entry data from prior weeks. Sweep findings not refreshed.
-**Root cause**: TBD — need to investigate whether the step functions ran but had empty stdout, or were somehow skipped by the control flow.
-**Fix needed**: Add explicit logging at the START of each step function (before subprocess.run), verify the loop at lines 560-565 actually executes, ensure stdout is flushed.
+## ~~BUG: Steps 7-10 silently skipped~~ — RESOLVED
+**Status**: CLOSED (2026-04-11)
+**Root cause**: The April 4 log was from the OLD code (pre-orchestrator commit of April 5). Steps 7-10 didn't exist yet. The April 11 run was the first with new code but was killed before reaching Steps 7-10.
+**Fix applied**: Added `_run_sweep_step()` helper with start/end timestamps, stderr logging, flush. Step numbering fixed (tournament → STEP 11). Individual sweepers confirmed working (resistance exit code 0 in manual test).
 
 ---
 
-## BUG: Weekly reoptimize appears to run TWICE (pipeline restarts after completion)
-**Priority**: HIGH
-**Date identified**: 2026-04-11
-**Evidence**: Log shows "Total pipeline time: 4643s" then immediately "STEP 1: Parameter Sweep" starts again. The neural_watchlist_sweeper is running a SECOND pass. Either the cron triggered twice (unlikely — single entry at 10:00) or the script loops internally.
-**Root cause**: TBD — check if weekly_reoptimize.py has any loop/retry logic, or if the cron entry fired twice due to the old Stage 1+2 sweep background task still running.
-**Fix needed**: Add run-once guard (check if already ran today, similar to tournament idempotency).
+## ~~BUG: Weekly reoptimize appears to run TWICE~~ — RESOLVED
+**Status**: CLOSED (2026-04-11)
+**Root cause**: The "second pass" in the log was from a manual sweep run on April 8-9 that wrote to the same log file (append mode). Not a cron double-fire.
+**Fix applied**: Added run-once guard via `data/.reoptimize_guard` file (writes today's date, skips if already ran today). Same pattern as tournament idempotency.
 
 ---
 
@@ -38,7 +33,6 @@ But `neural_watchlist_sweeper.py` (Step 2) already runs support Stage 1+2 for AL
 
 ---
 
-## IMPROVEMENT: Pipeline should log step start/end with timestamps
-**Priority**: LOW
-**Date identified**: 2026-04-11
-**Description**: Current step functions only log completion. Should log "Starting Step N: {name}" at the beginning and "Completed Step N in Xs" at the end. Currently impossible to tell from logs which step is running or when transitions happen.
+## ~~IMPROVEMENT: Pipeline should log step start/end with timestamps~~ — RESOLVED
+**Status**: CLOSED (2026-04-11)
+**Fix applied**: New `_run_sweep_step()` helper logs step number, name, start time, end time, duration, and stderr on failure. All 4 surgical sweep steps use this helper.

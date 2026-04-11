@@ -405,7 +405,7 @@ def step_candidate_sweep():
 def step_tournament(dry_run=False, no_email=False):
     """Run watchlist tournament ranking."""
     print("=" * 60)
-    print("STEP 7: Watchlist Tournament")
+    print("STEP 11: Watchlist Tournament")
     print("=" * 60)
 
     cmd = [sys.executable, "tools/watchlist_tournament.py"]
@@ -434,69 +434,59 @@ def step_tournament(dry_run=False, no_email=False):
 # Surgical sweep steps (consolidated from standalone cron entries)
 # ---------------------------------------------------------------------------
 
-def step_resistance_sweep():
-    """Step 7: Resistance parameter sweep."""
+def _run_sweep_step(step_num, name, cmd):
+    """Run a sweep step with full logging. Returns (success, elapsed)."""
     print("=" * 60)
-    print("STEP 7: Resistance Sweep")
-    print("=" * 60)
-    cmd = [sys.executable, "tools/resistance_parameter_sweeper.py", "--workers", "8"]
+    print(f"STEP {step_num}: {name}")
+    print(f"  Started: {time.strftime('%H:%M:%S')}")
+    print("=" * 60, flush=True)
+
     t0 = time.time()
     result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(_ROOT))
     elapsed = time.time() - t0
+
     if result.stdout:
+        # Print last 500 chars of stdout (summary)
         print(result.stdout[-500:])
+    if result.returncode != 0 and result.stderr:
+        # Print stderr on failure — critical for debugging
+        stderr_lines = [l for l in result.stderr.split("\n")
+                        if l.strip() and "FutureWarning" not in l and "float(ser" not in l]
+        if stderr_lines:
+            print(f"  STDERR ({len(stderr_lines)} lines):")
+            for line in stderr_lines[-10:]:
+                print(f"    {line}")
+
     success = result.returncode == 0
-    print(f"  Resistance sweep {'completed' if success else 'FAILED'} in {elapsed:.0f}s\n")
+    status = "completed" if success else f"FAILED (exit code {result.returncode})"
+    print(f"  {name} {status} in {elapsed:.0f}s ({elapsed/60:.1f} min)")
+    print(f"  Finished: {time.strftime('%H:%M:%S')}\n", flush=True)
     return success, elapsed
+
+
+def step_resistance_sweep():
+    """Step 7: Resistance parameter sweep."""
+    return _run_sweep_step(7, "Resistance Sweep",
+        [sys.executable, "tools/resistance_parameter_sweeper.py", "--workers", "8"])
 
 
 def step_bounce_sweep():
     """Step 8: Bounce parameter sweep."""
-    print("=" * 60)
-    print("STEP 8: Bounce Sweep")
-    print("=" * 60)
-    cmd = [sys.executable, "tools/bounce_parameter_sweeper.py", "--workers", "8"]
-    t0 = time.time()
-    result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(_ROOT))
-    elapsed = time.time() - t0
-    if result.stdout:
-        print(result.stdout[-500:])
-    success = result.returncode == 0
-    print(f"  Bounce sweep {'completed' if success else 'FAILED'} in {elapsed:.0f}s\n")
-    return success, elapsed
+    return _run_sweep_step(8, "Bounce Sweep",
+        [sys.executable, "tools/bounce_parameter_sweeper.py", "--workers", "8"])
 
 
 def step_entry_sweep():
     """Step 9: Entry parameter sweep."""
-    print("=" * 60)
-    print("STEP 9: Entry Sweep")
-    print("=" * 60)
-    cmd = [sys.executable, "tools/entry_parameter_sweeper.py", "--workers", "8"]
-    t0 = time.time()
-    result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(_ROOT))
-    elapsed = time.time() - t0
-    if result.stdout:
-        print(result.stdout[-500:])
-    success = result.returncode == 0
-    print(f"  Entry sweep {'completed' if success else 'FAILED'} in {elapsed:.0f}s\n")
-    return success, elapsed
+    return _run_sweep_step(9, "Entry Sweep",
+        [sys.executable, "tools/entry_parameter_sweeper.py", "--workers", "8"])
 
 
 def step_slippage_sweep():
     """Step 10: Slippage + pullback sweep."""
-    print("=" * 60)
-    print("STEP 10: Slippage Sweep")
-    print("=" * 60)
-    cmd = [sys.executable, "tools/support_parameter_sweeper.py",
-           "--stage", "slippage", "--workers", "8"]
-    t0 = time.time()
-    result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(_ROOT))
-    elapsed = time.time() - t0
-    if result.stdout:
-        print(result.stdout[-500:])
-    success = result.returncode == 0
-    print(f"  Slippage sweep {'completed' if success else 'FAILED'} in {elapsed:.0f}s\n")
-    return success, elapsed
+    return _run_sweep_step(10, "Slippage Sweep",
+        [sys.executable, "tools/support_parameter_sweeper.py",
+         "--stage", "slippage", "--workers", "8"])
 
 
 # ---------------------------------------------------------------------------
@@ -518,6 +508,20 @@ def main():
     parser.add_argument("--strategy", choices=["dip", "support"], default="dip",
                         help="Strategy module to optimize (default: dip)")
     args = parser.parse_args()
+
+    # Run-once guard: prevent double execution on same day
+    _guard_path = _ROOT / "data" / ".reoptimize_guard"
+    if _guard_path.exists() and not args.dry_run:
+        try:
+            guard_date = _guard_path.read_text().strip()
+            if guard_date == date.today().isoformat():
+                print(f"*Weekly reoptimize already ran today ({guard_date}). Skipping.*")
+                return
+        except Exception:
+            pass
+    if not args.dry_run:
+        _guard_path.parent.mkdir(parents=True, exist_ok=True)
+        _guard_path.write_text(date.today().isoformat())
 
     start = time.time()
     print(f"\nWeekly Re-optimization Pipeline — {date.today().isoformat()} ({args.strategy})")
@@ -557,6 +561,9 @@ def main():
         print(f"  Candidate sweep: {n_swept} tickers in {cand_t:.0f}s")
 
     # Steps 7-10: Surgical sweeps (each independent, continue on failure)
+    print(f"\n{'='*60}")
+    print(f"SURGICAL SWEEPS — Starting 4 sweep stages at {time.strftime('%H:%M:%S')}")
+    print(f"{'='*60}\n", flush=True)
     sweep_failures = []
     for step_name, step_fn in [
         ("resistance", step_resistance_sweep),
@@ -569,14 +576,18 @@ def main():
             timings[step_name] = t
             if not ok:
                 sweep_failures.append(step_name)
+                print(f"  *** {step_name} FAILED — continuing to next sweep ***\n",
+                      flush=True)
         except Exception as e:
-            print(f"  *{step_name} sweep FAILED: {e}*")
+            print(f"  *** {step_name} EXCEPTION: {e} ***\n", flush=True)
             sweep_failures.append(step_name)
             timings[step_name] = 0
 
     if sweep_failures:
         print(f"\n  WARNING: {len(sweep_failures)} sweep(s) failed: "
               f"{', '.join(sweep_failures)}")
+    else:
+        print(f"\n  All 4 surgical sweeps completed successfully.")
 
     # Step 11: Tournament (all sweep data now complete)
     if not args.dry_run:
