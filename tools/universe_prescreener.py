@@ -349,6 +349,43 @@ def main():
     download_time = time.time() - t0
     print(f"  Download completed in {download_time:.0f}s ({download_time/60:.1f} min)\n")
 
+    # Phase 1.5: Export per-ticker data to candidate-gate format
+    # so downstream pipeline steps (_collect_once) find cached data and skip re-downloading
+    print("Phase 1.5: Exporting per-ticker data for pipeline reuse")
+    t0_export = time.time()
+    _gate_dir = _ROOT / "data" / "backtest" / "candidate-gate"
+    _gate_dir.mkdir(parents=True, exist_ok=True)
+    regime_hist = all_prices.get("_regime_hist")
+    regime_data_export = build_regime_data(regime_hist) if regime_hist is not None else {}
+    _exported = 0
+    for tk in all_prices:
+        if tk.startswith("_"):
+            continue
+        tk_dir = _gate_dir / tk
+        price_pkl = tk_dir / "price_data.pkl"
+        # Skip if already fresh (<24h)
+        if price_pkl.exists():
+            try:
+                import os
+                if (time.time() - os.path.getmtime(price_pkl)) / 3600 < 24:
+                    continue
+            except OSError:
+                pass
+        tk_dir.mkdir(parents=True, exist_ok=True)
+        try:
+            tk_price_data = build_price_data_for_ticker(tk, all_prices[tk])
+            with open(price_pkl, "wb") as f:
+                pickle.dump(tk_price_data, f)
+            with open(tk_dir / "regime_data.json", "w") as f:
+                json.dump(regime_data_export, f)
+            with open(tk_dir / "config.json", "w") as f:
+                json.dump({"tickers": [tk], "earnings_dates": {}}, f)
+            _exported += 1
+        except Exception:
+            pass
+    print(f"  Exported {_exported} tickers to candidate-gate "
+          f"({time.time() - t0_export:.0f}s)\n")
+
     # Phase 2: Run simulations using multiprocessing (each worker loads cache)
     print("Phase 2: Threshold sweep simulations")
     ticker_list = [tk for tk in all_prices if not tk.startswith("_")]
