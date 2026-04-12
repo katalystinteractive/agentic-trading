@@ -592,7 +592,7 @@ def main():
     try:
         _ps_result = subprocess.run(
             [sys.executable, "tools/universe_prescreener.py", "--workers", "8"],
-            cwd=str(_ROOT), capture_output=True, text=True, timeout=3600,
+            cwd=str(_ROOT), capture_output=True, text=True, timeout=7200,
         )
         if _ps_result.returncode != 0:
             print(f"  *Pre-screen failed*", file=sys.stderr)
@@ -605,7 +605,7 @@ def main():
                     _ps = json.load(_f)
                 print(f"  Pre-screened: {len(_ps.get('rankings', []))} tickers with signal")
     except subprocess.TimeoutExpired:
-        print("  *Pre-screen timed out (1 hour)*", file=sys.stderr)
+        print("  *Pre-screen timed out (2 hours)*", file=sys.stderr)
     except Exception as e:
         print(f"  *Pre-screen error: {e}*", file=sys.stderr)
     _prescreen_elapsed = time.time() - t0_prescreen

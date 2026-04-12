@@ -1,8 +1,7 @@
 """Universe pre-screener — Stage 1 sweep across all universe passers.
 
-Runs the threshold grid (30 combos x 4 periods = 120 sims per ticker)
-for every ticker in data/universe_screen_cache.json. Produces composite
-$/month scores using the same multi_period_scorer as the full sweeper.
+Batch-downloads price data for ALL tickers in ~2 minutes (500-ticker chunks),
+then runs threshold sweep (30 combos x 4 periods) per ticker with 8 workers.
 
 Output: data/universe_prescreen_results.json (OWN FILE — never touches
 existing sweep data that drives daily decisions).
@@ -17,20 +16,31 @@ import sys
 import json
 import argparse
 import time
+import pickle
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import warnings
+warnings.filterwarnings("ignore")
+import numpy as np
+import yfinance as yf
+
 from support_parameter_sweeper import (
-    _collect_once, _simulate_with_config, THRESHOLD_GRID, SWEEP_PERIODS,
+    _simulate_with_config, THRESHOLD_GRID, SWEEP_PERIODS,
 )
 from multi_period_scorer import compute_composite
+from backtest_data_collector import REGIME_INDICES
 
 _ROOT = Path(__file__).resolve().parent.parent
 CACHE_PATH = _ROOT / "data" / "universe_screen_cache.json"
 OUTPUT_PATH = _ROOT / "data" / "universe_prescreen_results.json"
+BATCH_CACHE_DIR = _ROOT / "data" / "prescreen_cache"
+
+CHUNK_SIZE = 500
+CHUNK_PAUSE = 3.0  # seconds between yfinance chunks
 
 
 def load_universe_tickers():
@@ -43,23 +53,133 @@ def load_universe_tickers():
     return [p["ticker"] for p in cache.get("passers", [])]
 
 
-def prescreen_ticker(ticker):
-    """Run Stage 1 (30 combos x 4 periods) for a single ticker.
+def batch_download(tickers, months=12):
+    """Batch-download price data for all tickers in chunks.
 
-    Uses shared wick cache across all 30 combos per period (same pattern
-    as the main sweeper's per-period cache).
+    Downloads ~500 tickers per yfinance call (~30s each).
+    Returns {ticker: DataFrame} dict with OHLCV data.
+    """
+    warmup_days = 13 * 30 + 70  # 13 months wick lookback + 50-SMA warmup
+    end_date = datetime.now()
+    sim_start = end_date - timedelta(days=months * 30)
+    data_start = sim_start - timedelta(days=warmup_days)
 
-    Returns dict with ticker, composite, best_params, period_details,
-    or None on failure.
+    start_str = data_start.strftime("%Y-%m-%d")
+    end_str = end_date.strftime("%Y-%m-%d")
+
+    # Check cache
+    BATCH_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    cache_file = BATCH_CACHE_DIR / "batch_prices.pkl"
+    if cache_file.exists():
+        import os
+        age_hours = (time.time() - os.path.getmtime(cache_file)) / 3600
+        if age_hours < 24:
+            print(f"  Using cached batch data ({age_hours:.1f}h old)")
+            with open(cache_file, "rb") as f:
+                return pickle.load(f)
+
+    all_prices = {}
+    chunks = [tickers[i:i + CHUNK_SIZE] for i in range(0, len(tickers), CHUNK_SIZE)]
+
+    print(f"  Downloading {len(tickers)} tickers in {len(chunks)} chunks "
+          f"({start_str} to {end_str})...")
+
+    for ci, chunk in enumerate(chunks):
+        t0 = time.time()
+        try:
+            hist = yf.download(chunk, start=start_str, end=end_str,
+                               auto_adjust=True, progress=False, threads=True)
+            if hist.empty:
+                print(f"    Chunk {ci + 1}/{len(chunks)}: empty", flush=True)
+                continue
+
+            # Extract per-ticker DataFrames
+            if len(chunk) == 1:
+                tk = chunk[0]
+                if not hist.empty and len(hist) > 20:
+                    all_prices[tk] = hist
+            else:
+                for tk in chunk:
+                    try:
+                        tk_df = hist.xs(tk, level=1, axis=1) if hasattr(hist.columns, "levels") else hist
+                        if len(tk_df.dropna()) > 20:
+                            all_prices[tk] = tk_df
+                    except (KeyError, TypeError):
+                        continue
+
+            elapsed = time.time() - t0
+            print(f"    Chunk {ci + 1}/{len(chunks)}: {len(chunk)} tickers, "
+                  f"{elapsed:.1f}s, {len(all_prices)} total", flush=True)
+        except Exception as e:
+            print(f"    Chunk {ci + 1}/{len(chunks)}: FAILED ({e})", flush=True)
+
+        if ci < len(chunks) - 1:
+            time.sleep(CHUNK_PAUSE)
+
+    # Download regime data (VIX + indices) once
+    try:
+        regime_tickers = REGIME_INDICES + ["^VIX"]
+        regime_hist = yf.download(regime_tickers, start=start_str, end=end_str,
+                                  auto_adjust=True, progress=False)
+        all_prices["_regime_hist"] = regime_hist
+    except Exception:
+        pass
+
+    # Cache for 24 hours
+    with open(cache_file, "wb") as f:
+        pickle.dump(all_prices, f)
+
+    print(f"  Downloaded: {len(all_prices)} tickers with data")
+    return all_prices
+
+
+def build_regime_data(regime_hist):
+    """Build regime classification from VIX + index data."""
+    try:
+        from backtest_data_collector import classify_regime
+        return classify_regime(regime_hist)
+    except (ImportError, Exception):
+        # Fallback: simple VIX-based regime
+        regime = {}
+        try:
+            vix = regime_hist["Close"]["^VIX"] if hasattr(regime_hist.columns, "levels") else regime_hist["Close"]
+            for date, val in vix.items():
+                d = date.strftime("%Y-%m-%d")
+                if val > 30:
+                    regime[d] = {"regime": "Risk-Off", "vix": float(val)}
+                elif val > 20:
+                    regime[d] = {"regime": "Neutral", "vix": float(val)}
+                else:
+                    regime[d] = {"regime": "Risk-On", "vix": float(val)}
+        except Exception:
+            pass
+        return regime
+
+
+def build_price_data_for_ticker(ticker, ticker_df):
+    """Convert a single-ticker DataFrame into the format run_simulation expects.
+
+    Returns {ticker: {"Open": Series, "High": Series, ...}}
+    """
+    return {ticker: {
+        "Open": ticker_df["Open"] if "Open" in ticker_df else ticker_df.iloc[:, 0],
+        "High": ticker_df["High"] if "High" in ticker_df else ticker_df.iloc[:, 1],
+        "Low": ticker_df["Low"] if "Low" in ticker_df else ticker_df.iloc[:, 2],
+        "Close": ticker_df["Close"] if "Close" in ticker_df else ticker_df.iloc[:, 3],
+        "Volume": ticker_df["Volume"] if "Volume" in ticker_df else ticker_df.iloc[:, 4],
+    }}
+
+
+def prescreen_ticker_with_data(ticker, price_data, regime_data):
+    """Run Stage 1 (30 combos x 4 periods) using pre-fetched data.
+
+    No yfinance calls — all data passed in.
+    Returns dict with ticker, composite, best_params, or None.
     """
     try:
-        data_dir = _collect_once(ticker, max(SWEEP_PERIODS))
-        if data_dir is None:
-            return None
-
         results_by_period = {}
         for months in SWEEP_PERIODS:
-            wick_cache = {}  # shared across all 30 combos for this period
+            wick_cache = {}
             best = {"pnl": float("-inf"), "params": None, "sells": 0,
                     "cycles": 0, "win_rate": 0}
             for sell_default in THRESHOLD_GRID["sell_default"]:
@@ -70,7 +190,8 @@ def prescreen_ticker(ticker):
                     }
                     result = _simulate_with_config(
                         ticker, months, overrides,
-                        data_dir=data_dir, wick_cache=wick_cache,
+                        price_data=price_data, regime_data=regime_data,
+                        wick_cache=wick_cache,
                     )
                     if result and result.get("pnl", float("-inf")) > best["pnl"]:
                         best = {
@@ -80,14 +201,12 @@ def prescreen_ticker(ticker):
                             "cycles": result.get("cycles", 0),
                             "win_rate": result.get("win_rate", 0),
                         }
-
             results_by_period[months] = best
 
         composite, details = compute_composite(results_by_period)
         if composite <= 0:
             return None
 
-        # Use 12-month params (most reliable period), not last-iterated period
         best_12mo = results_by_period.get(12, {})
         return {
             "ticker": ticker,
@@ -100,15 +219,21 @@ def prescreen_ticker(ticker):
         return None
 
 
-def run_prescreen(tickers, workers=8):
-    """Pre-screen all tickers in parallel. Returns ranked list."""
+def run_prescreen(all_prices, regime_data, workers=8):
+    """Pre-screen all tickers in parallel using pre-fetched data."""
+    tickers = [tk for tk in all_prices if not tk.startswith("_")]
     results = []
     failed = 0
     total = len(tickers)
 
     t0 = time.time()
+
+    def _worker(tk):
+        pd = build_price_data_for_ticker(tk, all_prices[tk])
+        return prescreen_ticker_with_data(tk, pd, regime_data)
+
     with ThreadPoolExecutor(max_workers=workers) as executor:
-        futures = {executor.submit(prescreen_ticker, tk): tk for tk in tickers}
+        futures = {executor.submit(_worker, tk): tk for tk in tickers}
         done = 0
         for future in as_completed(futures):
             done += 1
@@ -128,19 +253,20 @@ def run_prescreen(tickers, workers=8):
                 failed += 1
 
     elapsed = time.time() - t0
-    print(f"  Completed: {len(results)} with signal, "
-          f"{failed} failed/no-signal, {elapsed:.0f}s")
+    print(f"  Simulations: {len(results)} with signal, "
+          f"{failed} failed/no-signal, {elapsed:.0f}s ({elapsed/60:.1f} min)")
 
     return sorted(results, key=lambda x: -x["composite"])
 
 
-def save_results(rankings):
+def save_results(rankings, total_screened):
     """Save pre-screen results to own file (no contamination)."""
     output = {
         "_meta": {
             "source": "universe_prescreener.py",
             "updated": datetime.now().strftime("%Y-%m-%d %H:%M"),
-            "tickers_screened": len(rankings),
+            "tickers_screened": total_screened,
+            "tickers_with_signal": len(rankings),
             "top_composite": rankings[0]["composite"] if rankings else 0,
         },
         "rankings": rankings,
@@ -185,7 +311,7 @@ def main():
         rankings = data.get("rankings", [])
         meta = data.get("_meta", {})
         print(f"Cached results from {meta.get('updated', 'unknown')}: "
-              f"{meta.get('tickers_screened', '?')} tickers")
+              f"{meta.get('tickers_with_signal', '?')} tickers with signal")
         print_top(rankings, args.top)
         return
 
@@ -195,14 +321,27 @@ def main():
 
     print(f"Pre-screening {len(tickers)} universe passers "
           f"with {args.workers} workers...")
-    print(f"Grid: {len(THRESHOLD_GRID['sell_default'])} sell × "
-          f"{len(THRESHOLD_GRID['cat_hard_stop'])} stop × "
+    print(f"Grid: {len(THRESHOLD_GRID['sell_default'])} sell x "
+          f"{len(THRESHOLD_GRID['cat_hard_stop'])} stop x "
           f"{len(SWEEP_PERIODS)} periods = "
           f"{len(THRESHOLD_GRID['sell_default']) * len(THRESHOLD_GRID['cat_hard_stop']) * len(SWEEP_PERIODS)} "
           f"sims/ticker\n")
 
-    rankings = run_prescreen(tickers, workers=args.workers)
-    save_results(rankings)
+    # Phase 1: Batch download ALL data (~2 min)
+    print("Phase 1: Batch data download")
+    t0 = time.time()
+    all_prices = batch_download(tickers)
+    download_time = time.time() - t0
+    print(f"  Download completed in {download_time:.0f}s ({download_time/60:.1f} min)\n")
+
+    # Build regime data from downloaded VIX/indices
+    regime_hist = all_prices.pop("_regime_hist", None)
+    regime_data = build_regime_data(regime_hist) if regime_hist is not None else {}
+
+    # Phase 2: Run simulations on pre-fetched data (~30 min)
+    print("Phase 2: Threshold sweep simulations")
+    rankings = run_prescreen(all_prices, regime_data, workers=args.workers)
+    save_results(rankings, len(tickers))
     print_top(rankings, args.top)
 
 
