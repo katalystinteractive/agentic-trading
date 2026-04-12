@@ -1104,20 +1104,28 @@ def main():
         with open(RESULTS_PATH) as f:
             support_data = json.load(f)
 
-        # Same pool as resistance/bounce/entry: all tracked + top N challengers
-        try:
-            with open(_ROOT / "portfolio.json") as f:
-                _portfolio = json.load(f)
-            tracked = set(_portfolio.get("watchlist", [])) | set(_portfolio.get("positions", {}).keys())
-        except (OSError, json.JSONDecodeError):
-            tracked = set()
-        tracked_with_data = [tk for tk in tracked if tk in support_data and not tk.startswith("_")]
-        challengers = sorted(
-            [(tk, d) for tk, d in support_data.items()
-             if not tk.startswith("_") and tk not in tracked],
-            key=lambda x: x[1].get("stats", {}).get("composite", 0), reverse=True)
-        n_challengers = max(len(tracked_with_data) // 2, 10)
-        tickers = tracked_with_data + [tk for tk, _ in challengers[:n_challengers]]
+        # Use tickers-file if provided (Tier 2 pool), else fallback
+        if args.tickers_file:
+            try:
+                with open(args.tickers_file) as f:
+                    _pool = json.load(f)
+                tickers = [tk for tk in _pool if tk in support_data and not tk.startswith("_")]
+            except (OSError, json.JSONDecodeError):
+                tickers = []
+        else:
+            try:
+                with open(_ROOT / "portfolio.json") as f:
+                    _portfolio = json.load(f)
+                tracked = set(_portfolio.get("watchlist", [])) | set(_portfolio.get("positions", {}).keys())
+            except (OSError, json.JSONDecodeError):
+                tracked = set()
+            tracked_with_data = [tk for tk in tracked if tk in support_data and not tk.startswith("_")]
+            challengers = sorted(
+                [(tk, d) for tk, d in support_data.items()
+                 if not tk.startswith("_") and tk not in tracked],
+                key=lambda x: x[1].get("stats", {}).get("composite", 0), reverse=True)
+            n_challengers = max(len(tracked_with_data) // 2, 10)
+            tickers = tracked_with_data + [tk for tk, _ in challengers[:n_challengers]]
 
         if not tickers:
             print("*No tickers with prior sweep results for slippage sweep.*")
@@ -1195,20 +1203,28 @@ def main():
         with open(RESULTS_PATH) as f:
             support_data = json.load(f)
 
-        # Same pool as other sweeps: all tracked + top N challengers
-        try:
-            with open(_ROOT / "portfolio.json") as f:
-                _portfolio = json.load(f)
-            tracked = set(_portfolio.get("watchlist", [])) | set(_portfolio.get("positions", {}).keys())
-        except (OSError, json.JSONDecodeError):
-            tracked = set()
-        tracked_with_data = [tk for tk in tracked if tk in support_data and not tk.startswith("_")]
-        challengers = sorted(
-            [(tk, d) for tk, d in support_data.items()
-             if not tk.startswith("_") and tk not in tracked],
-            key=lambda x: x[1].get("stats", {}).get("composite", 0), reverse=True)
-        n_challengers = max(len(tracked_with_data) // 2, 10)
-        tickers = tracked_with_data + [tk for tk, _ in challengers[:n_challengers]]
+        # Use tickers-file if provided (Tier 2 pool), else fallback
+        if args.tickers_file:
+            try:
+                with open(args.tickers_file) as f:
+                    _pool = json.load(f)
+                tickers = [tk for tk in _pool if tk in support_data and not tk.startswith("_")]
+            except (OSError, json.JSONDecodeError):
+                tickers = []
+        else:
+            try:
+                with open(_ROOT / "portfolio.json") as f:
+                    _portfolio = json.load(f)
+                tracked = set(_portfolio.get("watchlist", [])) | set(_portfolio.get("positions", {}).keys())
+            except (OSError, json.JSONDecodeError):
+                tracked = set()
+            tracked_with_data = [tk for tk in tracked if tk in support_data and not tk.startswith("_")]
+            challengers = sorted(
+                [(tk, d) for tk, d in support_data.items()
+                 if not tk.startswith("_") and tk not in tracked],
+                key=lambda x: x[1].get("stats", {}).get("composite", 0), reverse=True)
+            n_challengers = max(len(tracked_with_data) // 2, 10)
+            tickers = tracked_with_data + [tk for tk, _ in challengers[:n_challengers]]
 
         if not tickers:
             print("*No tickers for regime exit sweep.*")

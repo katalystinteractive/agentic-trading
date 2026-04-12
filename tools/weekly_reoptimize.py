@@ -456,36 +456,45 @@ def _run_sweep_step(step_num, name, cmd):
     return success, elapsed
 
 
+def _tier2_args():
+    """Return --tickers-file args if Tier 2 pool exists."""
+    _f = _ROOT / "data" / ".tier2_pool.json"
+    return ["--tickers-file", str(_f)] if _f.exists() else []
+
+
 def step_resistance_sweep():
     """Step 7: Resistance parameter sweep."""
     return _run_sweep_step(7, "Resistance Sweep",
-        [sys.executable, "tools/resistance_parameter_sweeper.py", "--workers", "8"])
+        [sys.executable, "tools/resistance_parameter_sweeper.py",
+         "--workers", "8"] + _tier2_args())
 
 
 def step_bounce_sweep():
     """Step 8: Bounce parameter sweep."""
     return _run_sweep_step(8, "Bounce Sweep",
-        [sys.executable, "tools/bounce_parameter_sweeper.py", "--workers", "8"])
+        [sys.executable, "tools/bounce_parameter_sweeper.py",
+         "--workers", "8"] + _tier2_args())
 
 
 def step_entry_sweep():
     """Step 9: Entry parameter sweep."""
     return _run_sweep_step(9, "Entry Sweep",
-        [sys.executable, "tools/entry_parameter_sweeper.py", "--workers", "8"])
+        [sys.executable, "tools/entry_parameter_sweeper.py",
+         "--workers", "8"] + _tier2_args())
 
 
 def step_slippage_sweep():
     """Step 10: Slippage + pullback sweep."""
     return _run_sweep_step(10, "Slippage Sweep",
         [sys.executable, "tools/support_parameter_sweeper.py",
-         "--stage", "slippage", "--workers", "8"])
+         "--stage", "slippage", "--workers", "8"] + _tier2_args())
 
 
 def step_regime_exit_sweep():
     """Step 10b: Regime exit parameter sweep."""
     return _run_sweep_step("10b", "Regime Exit Sweep",
         [sys.executable, "tools/support_parameter_sweeper.py",
-         "--stage", "regime_exit", "--workers", "8"])
+         "--stage", "regime_exit", "--workers", "8"] + _tier2_args())
 
 
 # ---------------------------------------------------------------------------

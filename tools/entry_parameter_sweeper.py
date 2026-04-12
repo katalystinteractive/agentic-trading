@@ -165,6 +165,8 @@ def main():
     parser.add_argument("--months", type=int, default=10)
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--tickers-file", type=str, default=None,
+                        help="JSON file with ticker list (overrides default pool)")
     parser.add_argument("--split", action="store_true",
                         help="Cross-validate: validate on last 30%% of months")
     args = parser.parse_args()
@@ -184,9 +186,16 @@ def main():
     with open(SUPPORT_RESULTS_PATH) as f:
         support_data = json.load(f)
 
-    # Determine tickers: all tracked + top N challengers by composite
+    # Determine tickers
     if args.ticker:
         tickers = [args.ticker]
+    elif args.tickers_file:
+        try:
+            with open(args.tickers_file) as f:
+                _pool = json.load(f)
+            tickers = [tk for tk in _pool if tk in support_data and not tk.startswith("_")]
+        except (OSError, json.JSONDecodeError):
+            tickers = []
     else:
         try:
             with open(_ROOT / "portfolio.json") as f:

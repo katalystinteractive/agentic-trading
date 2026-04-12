@@ -93,8 +93,20 @@ def load_all_sweeps(portfolio=None):
     if not portfolio:
         return all_data
 
-    # Filter: all tracked + top N challengers by best composite
+    # Filter: all tracked + all tickers from Tier 2 pool (if available)
     tracked = set(portfolio.get("watchlist", [])) | set(portfolio.get("positions", {}).keys())
+    _tier2_path = Path(__file__).resolve().parent.parent / "data" / ".tier2_pool.json"
+    if _tier2_path.exists():
+        try:
+            with open(_tier2_path) as f:
+                _tier2 = set(json.load(f))
+            # Include all tracked + all Tier 2 pool tickers that have sweep data
+            return {tk: comps for tk, comps in all_data.items()
+                    if tk in tracked or tk in _tier2}
+        except (OSError, json.JSONDecodeError):
+            pass
+
+    # Fallback: old formula if no tier2 pool
     untracked = {tk: max(comps.values()) for tk, comps in all_data.items() if tk not in tracked}
     n_challengers = max(len([tk for tk in tracked if tk in all_data]) // 2, 10)
     top_challengers = set(tk for tk, _ in sorted(untracked.items(), key=lambda x: x[1], reverse=True)[:n_challengers])
