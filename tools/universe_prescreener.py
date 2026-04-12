@@ -134,26 +134,57 @@ def batch_download(tickers, months=12):
 
 
 def build_regime_data(regime_hist):
-    """Build regime classification from VIX + index data."""
+    """Build regime classification from VIX + index data.
+
+    Matches backtest_data_collector's inline logic: VIX thresholds (20/30)
+    combined with indices above/below 50-SMA for 3-state classification.
+    """
+    regime = {}
     try:
-        from backtest_data_collector import classify_regime
-        return classify_regime(regime_hist)
-    except (ImportError, Exception):
-        # Fallback: simple VIX-based regime
-        regime = {}
-        try:
-            vix = regime_hist["Close"]["^VIX"] if hasattr(regime_hist.columns, "levels") else regime_hist["Close"]
-            for date, val in vix.items():
-                d = date.strftime("%Y-%m-%d")
-                if val > 30:
-                    regime[d] = {"regime": "Risk-Off", "vix": float(val)}
-                elif val > 20:
-                    regime[d] = {"regime": "Neutral", "vix": float(val)}
-                else:
-                    regime[d] = {"regime": "Risk-On", "vix": float(val)}
-        except Exception:
-            pass
-        return regime
+        multi = hasattr(regime_hist.columns, "levels")
+        vix = regime_hist["Close"]["^VIX"].dropna() if multi else regime_hist["Close"].dropna()
+
+        # Build 50-SMA for regime indices
+        index_data = {}
+        for idx in REGIME_INDICES:
+            try:
+                idx_close = regime_hist["Close"][idx].dropna() if multi else None
+                if idx_close is not None and len(idx_close) > 50:
+                    index_data[idx] = {
+                        "close": idx_close,
+                        "sma50": idx_close.rolling(window=50, min_periods=50).mean(),
+                    }
+            except (KeyError, TypeError):
+                continue
+
+        for dt in vix.index:
+            vix_val = float(vix.loc[dt])
+            dt_str = dt.strftime("%Y-%m-%d") if hasattr(dt, "strftime") else str(dt)
+
+            above_count = 0
+            total_indices = 0
+            for idx, idata in index_data.items():
+                if dt in idata["close"].index and dt in idata["sma50"].index:
+                    close = float(idata["close"].loc[dt])
+                    sma = float(idata["sma50"].loc[dt])
+                    if not np.isnan(sma):
+                        total_indices += 1
+                        if close > sma:
+                            above_count += 1
+
+            if total_indices == 0:
+                r = "Neutral"
+            elif vix_val < 20 and above_count > total_indices / 2:
+                r = "Risk-On"
+            elif vix_val > 30 and above_count <= total_indices / 2:
+                r = "Risk-Off"
+            else:
+                r = "Neutral"
+
+            regime[dt_str] = {"regime": r, "vix": round(vix_val, 2)}
+    except Exception:
+        pass
+    return regime
 
 
 def build_price_data_for_ticker(ticker, ticker_df):
