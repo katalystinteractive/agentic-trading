@@ -19,7 +19,7 @@ import time
 import pickle
 from pathlib import Path
 from datetime import datetime, timedelta
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from multiprocessing import Pool
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -219,37 +219,52 @@ def prescreen_ticker_with_data(ticker, price_data, regime_data):
         return None
 
 
-def run_prescreen(all_prices, regime_data, workers=8):
-    """Pre-screen all tickers in parallel using pre-fetched data."""
-    tickers = [tk for tk in all_prices if not tk.startswith("_")]
+# Module-level globals for multiprocessing workers
+_WORKER_PRICES = None
+_WORKER_REGIME = None
+
+
+def _init_worker(cache_path):
+    """Initialize worker process: load batch price data from shared cache."""
+    global _WORKER_PRICES, _WORKER_REGIME
+    with open(cache_path, "rb") as f:
+        all_data = pickle.load(f)
+    regime_hist = all_data.pop("_regime_hist", None)
+    _WORKER_PRICES = all_data
+    _WORKER_REGIME = build_regime_data(regime_hist) if regime_hist is not None else {}
+
+
+def _worker_prescreen(ticker):
+    """Worker function: prescreen a single ticker using process-local data."""
+    if ticker not in _WORKER_PRICES:
+        return None
+    pd = build_price_data_for_ticker(ticker, _WORKER_PRICES[ticker])
+    return prescreen_ticker_with_data(ticker, pd, _WORKER_REGIME)
+
+
+def run_prescreen(tickers, cache_path, workers=8):
+    """Pre-screen all tickers using multiprocessing Pool.
+
+    Each worker loads the batch cache once via _init_worker, then
+    processes tickers from the shared pool. True process-level parallelism.
+    """
+    total = len(tickers)
     results = []
     failed = 0
-    total = len(tickers)
 
     t0 = time.time()
-
-    def _worker(tk):
-        pd = build_price_data_for_ticker(tk, all_prices[tk])
-        return prescreen_ticker_with_data(tk, pd, regime_data)
-
-    with ThreadPoolExecutor(max_workers=workers) as executor:
-        futures = {executor.submit(_worker, tk): tk for tk in tickers}
-        done = 0
-        for future in as_completed(futures):
-            done += 1
-            if done % 100 == 0:
+    with Pool(processes=workers, initializer=_init_worker,
+              initargs=(str(cache_path),)) as pool:
+        for i, r in enumerate(pool.imap_unordered(_worker_prescreen, tickers), 1):
+            if i % 100 == 0:
                 elapsed = time.time() - t0
-                rate = done / elapsed if elapsed > 0 else 0
-                eta = (total - done) / rate if rate > 0 else 0
-                print(f"  Progress: {done}/{total} ({rate:.1f}/s, "
+                rate = i / elapsed if elapsed > 0 else 0
+                eta = (total - i) / rate if rate > 0 else 0
+                print(f"  Progress: {i}/{total} ({rate:.1f}/s, "
                       f"ETA {eta:.0f}s)", flush=True)
-            try:
-                r = future.result()
-                if r:
-                    results.append(r)
-                else:
-                    failed += 1
-            except Exception:
+            if r:
+                results.append(r)
+            else:
                 failed += 1
 
     elapsed = time.time() - t0
@@ -334,13 +349,11 @@ def main():
     download_time = time.time() - t0
     print(f"  Download completed in {download_time:.0f}s ({download_time/60:.1f} min)\n")
 
-    # Build regime data from downloaded VIX/indices
-    regime_hist = all_prices.pop("_regime_hist", None)
-    regime_data = build_regime_data(regime_hist) if regime_hist is not None else {}
-
-    # Phase 2: Run simulations on pre-fetched data (~30 min)
+    # Phase 2: Run simulations using multiprocessing (each worker loads cache)
     print("Phase 2: Threshold sweep simulations")
-    rankings = run_prescreen(all_prices, regime_data, workers=args.workers)
+    ticker_list = [tk for tk in all_prices if not tk.startswith("_")]
+    cache_path = BATCH_CACHE_DIR / "batch_prices.pkl"
+    rankings = run_prescreen(ticker_list, cache_path, workers=args.workers)
     save_results(rankings, len(tickers))
     print_top(rankings, args.top)
 
