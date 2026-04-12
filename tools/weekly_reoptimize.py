@@ -589,9 +589,20 @@ def main():
     print(f"  Started: {time.strftime('%H:%M:%S')}")
     print("=" * 60, flush=True)
     t0_prescreen = time.time()
+    # Use cached results if fresh (<24h), otherwise re-run
+    _prescreen_path = _ROOT / "data" / "universe_prescreen_results.json"
+    _ps_fresh = False
+    if _prescreen_path.exists():
+        import os as _os
+        _ps_age = (time.time() - _os.path.getmtime(_prescreen_path)) / 3600
+        _ps_fresh = _ps_age < 24
+    _ps_cmd = [sys.executable, "tools/universe_prescreener.py", "--workers", "8"]
+    if _ps_fresh:
+        _ps_cmd.append("--cached")
+        print(f"  Using cached pre-screen results ({_ps_age:.1f}h old)", flush=True)
     try:
         _ps_result = subprocess.run(
-            [sys.executable, "tools/universe_prescreener.py", "--workers", "8"],
+            _ps_cmd,
             cwd=str(_ROOT), capture_output=True, text=True, timeout=14400,
         )
         if _ps_result.returncode != 0:
