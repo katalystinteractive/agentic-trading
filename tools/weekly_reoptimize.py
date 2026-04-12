@@ -59,15 +59,17 @@ STRATEGY_TOOLS = {
 # ---------------------------------------------------------------------------
 
 def step_watchlist_sweep():
-    """Sweep support params (Stage 1+2) for ALL tracked + challenger tickers.
+    """Sweep support params (Stage 1+2) for Tier 2 pool.
 
-    Replaces neural_watchlist_sweeper.py which was redundant — it ran the same
-    Stage 1+2 from support_parameter_sweeper but wrote to a separate file.
-    Now uses the canonical support sweep with expanded grid [1,2,3,4,5,7].
+    Uses --tickers-file if available (built by Tier 1 pre-screen + tracked),
+    otherwise falls back to default pool (collected data directory).
     """
-    return _run_sweep_step("2", "Support Sweep (Stage 1+2)",
-        [sys.executable, "tools/support_parameter_sweeper.py",
-         "--stage", "both", "--workers", "8"])
+    cmd = [sys.executable, "tools/support_parameter_sweeper.py",
+           "--stage", "both", "--workers", "8"]
+    _tier2_file = _ROOT / "data" / ".tier2_pool.json"
+    if _tier2_file.exists():
+        cmd.extend(["--tickers-file", str(_tier2_file)])
+    return _run_sweep_step("2", "Support Sweep (Stage 1+2)", cmd)
 
 
 def step_sweep(use_cached=False, strategy="dip"):
@@ -575,6 +577,58 @@ def main():
     except Exception as e:
         print(f"  *Wick refresh FAILED: {e}*\n", flush=True)
         timings["wick_refresh"] = time.time() - t0_wick
+
+    # Step 0.5: Tier 1 — Pre-screen entire universe
+    print("=" * 60)
+    print("STEP 0.5: Universe Pre-Screen (Tier 1)")
+    print(f"  Started: {time.strftime('%H:%M:%S')}")
+    print("=" * 60, flush=True)
+    t0_prescreen = time.time()
+    try:
+        _ps_result = subprocess.run(
+            [sys.executable, "tools/universe_prescreener.py", "--workers", "8"],
+            cwd=str(_ROOT), capture_output=True, text=True, timeout=3600,
+        )
+        if _ps_result.returncode != 0:
+            print(f"  *Pre-screen failed*", file=sys.stderr)
+            if _ps_result.stderr:
+                print(f"  {_ps_result.stderr[:200]}", file=sys.stderr)
+        else:
+            _prescreen_path = _ROOT / "data" / "universe_prescreen_results.json"
+            if _prescreen_path.exists():
+                with open(_prescreen_path) as _f:
+                    _ps = json.load(_f)
+                print(f"  Pre-screened: {len(_ps.get('rankings', []))} tickers with signal")
+    except subprocess.TimeoutExpired:
+        print("  *Pre-screen timed out (1 hour)*", file=sys.stderr)
+    except Exception as e:
+        print(f"  *Pre-screen error: {e}*", file=sys.stderr)
+    _prescreen_elapsed = time.time() - t0_prescreen
+    print(f"  Completed in {_prescreen_elapsed:.0f}s ({_prescreen_elapsed/60:.1f} min)")
+    print(f"  Finished: {time.strftime('%H:%M:%S')}\n", flush=True)
+    timings["prescreen"] = _prescreen_elapsed
+
+    # Build Tier 2 pool: tracked tickers + top pre-screen candidates
+    _tier2_pool = list(_tracked)
+    _prescreen_path = _ROOT / "data" / "universe_prescreen_results.json"
+    if _prescreen_path.exists():
+        try:
+            with open(_prescreen_path) as _f:
+                _ps = json.load(_f)
+            _tracked_set = set(_tracked)
+            for r in _ps.get("rankings", []):
+                if len(_tier2_pool) >= 200:
+                    break
+                if r["ticker"] not in _tracked_set:
+                    _tier2_pool.append(r["ticker"])
+        except (json.JSONDecodeError, KeyError):
+            pass
+    _tier2_file = _ROOT / "data" / ".tier2_pool.json"
+    with open(_tier2_file, "w") as _f:
+        json.dump(_tier2_pool, _f)
+    print(f"  Tier 2 pool: {len(_tier2_pool)} tickers "
+          f"({len(_tracked)} tracked + {len(_tier2_pool) - len(_tracked)} challengers)\n",
+          flush=True)
 
     # Step 1-2: Sweep with cross-validation
     sweep_ok, t = step_sweep(use_cached=args.skip_download, strategy=args.strategy)

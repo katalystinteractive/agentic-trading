@@ -58,7 +58,7 @@ EXECUTION_GRID = {
     "tier_full": [40, 60],
     "tier_std": [20, 30],
 }
-# Reduced grid: 3×2×3×2×2×2 = 144 combos (vs 4800 full)
+# Grid: 3×2×6×2×2×2 = 288 combos
 
 LEVEL_FILTER_GRID = {
     "min_hold_rate": [15, 30, 50, 60, 70],
@@ -837,6 +837,8 @@ def main():
     parser.add_argument("--workers", type=int, default=1,
                         help="Parallel workers (default: 1)")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--tickers-file", type=str, default=None,
+                        help="JSON file with ticker list (overrides default pool)")
     args = parser.parse_args()
 
     start = time.time()
@@ -853,6 +855,14 @@ def main():
     # Determine tickers to sweep
     if args.ticker:
         tickers = [args.ticker]
+    elif args.tickers_file:
+        # External ticker list (e.g., from weekly_reoptimize Tier 2 pool)
+        with open(args.tickers_file) as f:
+            _pool = json.load(f)
+        # Filter to tickers with collected data
+        available = {d.name for d in GATE_RESULTS_DIR.iterdir()
+                     if d.is_dir() and (d / "price_data.pkl").exists()}
+        tickers = [tk for tk in _pool if tk in available]
     else:
         # Load tickers that have collected data
         available = [d.name for d in GATE_RESULTS_DIR.iterdir()

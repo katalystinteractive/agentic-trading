@@ -77,6 +77,19 @@ def load_all_sweeps(portfolio=None):
                 all_data[ticker] = {}
             all_data[ticker][sweep_type] = composite
 
+    # Supplement with universe pre-screen results (own file, no contamination)
+    _prescreen_path = Path(__file__).resolve().parent.parent / "data" / "universe_prescreen_results.json"
+    if _prescreen_path.exists():
+        try:
+            with open(_prescreen_path) as f:
+                ps = json.load(f)
+            for r in ps.get("rankings", []):
+                tk = r["ticker"]
+                if tk not in all_data:
+                    all_data[tk] = {"prescreen": r["composite"]}
+        except (json.JSONDecodeError, KeyError):
+            pass
+
     if not portfolio:
         return all_data
 

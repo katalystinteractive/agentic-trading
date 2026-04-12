@@ -1273,6 +1273,33 @@ def run_candidate_screening(wide_screen=False):
 
     _persist_candidates([e["ticker"] for e in new_candidates])
 
+    # Pre-screen universe rankings (if available)
+    _prescreen_path = _ROOT / "data" / "universe_prescreen_results.json"
+    if _prescreen_path.exists():
+        try:
+            with open(_prescreen_path) as f:
+                ps = json.load(f)
+            rankings = ps.get("rankings", [])
+            data = _load()
+            tracked = set(data.get("watchlist", [])) | set(data.get("positions", {}).keys())
+            untracked = [r for r in rankings if r["ticker"] not in tracked][:15]
+            if untracked:
+                print("### Universe Pre-Screen — Top Untracked\n")
+                print("| Rank | Ticker | Composite $/mo | Sells (12mo) | Win Rate | Sell% | Stop% |")
+                print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+                for i, r in enumerate(untracked, 1):
+                    bp = r.get("best_params") or {}
+                    print(f"| {i} | {r['ticker']} | ${r['composite']:.1f} | "
+                          f"{r.get('sells_12mo', '?')} | "
+                          f"{r.get('win_rate_12mo', 0):.0f}% | "
+                          f"{bp.get('sell_default', '?')}% | "
+                          f"{bp.get('cat_hard_stop', '?')}% |")
+                meta = ps.get("_meta", {})
+                print(f"\n*Pre-screen: {meta.get('updated', 'unknown')} — "
+                      f"{meta.get('tickers_screened', '?')} tickers evaluated*\n")
+        except (json.JSONDecodeError, KeyError):
+            pass
+
 
 def _persist_candidates(tickers):
     """Auto-add screening candidates to data/candidates.json for cross-session tracking."""

@@ -26,6 +26,12 @@
     │   → READS: yfinance 13-month data for all tracked non-winding tickers
     │   → WRITES: tickers/*/wick_analysis.md (refreshed support levels)
     │
+    ├─ Step 0.5: universe_prescreener.py (Tier 1 pre-screen)
+    │   → READS: data/universe_screen_cache.json (1,594 passers)
+    │   → RUNS: Stage 1 sweep (30 combos × 4 periods) per ticker, 8 workers
+    │   → WRITES: data/universe_prescreen_results.json (OWN FILE)
+    │   → Builds Tier 2 pool → data/.tier2_pool.json
+    │
     ├─ Step 1: parameter_sweeper.py (dip sweep)
     │   → WRITES: data/sweep_results.json (stats.composite added)
     │
@@ -347,7 +353,7 @@ entry_sweep_results.json         │
 ## 9. System Health Metrics
 
 ```
-Tools: 121 Python scripts (+ portfolio_stress_test.py)
+Tools: 122 Python scripts (+ portfolio_stress_test.py, universe_prescreener.py)
 Data files: 553+ in data/, 1000+ in tickers/
 Workflows: 13 (8 daily, 5 weekly/periodic)
 Cron jobs: 7 (5 weekday, 2 Saturday + 1 safety re-run)
