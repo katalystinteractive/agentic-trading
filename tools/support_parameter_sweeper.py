@@ -117,7 +117,7 @@ def _simulate_with_config(ticker, months, config_overrides, data_dir=None,
     from backtest_config import SurgicalSimConfig
     from candidate_sim_gate import apply_gate
 
-    if data_dir is None:
+    if data_dir is None and price_data is None:
         data_dir = _collect_once(ticker, months)
 
     earnings_dates = None
