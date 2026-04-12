@@ -670,11 +670,9 @@ def main():
     overfit_flags = step_check_overfitting()
     low_conf, conf_drops = step_check_confidence()
 
-    # Step 6: Candidate sweep (Stage 1 only for tournament ranking)
-    cand_ok, cand_t, n_swept = step_candidate_sweep()
-    timings["candidate_sweep"] = cand_t
-    if n_swept > 0:
-        print(f"  Candidate sweep: {n_swept} tickers in {cand_t:.0f}s")
+    # Step 6: Skipped — pre-screener (Step 0.5) covers all universe passers
+    # and Step 2 sweeps the top 200. The old 15-ticker candidate sweep is redundant.
+    timings["candidate_sweep"] = 0
 
     # Steps 7-10: Surgical sweeps (each independent, continue on failure)
     print(f"\n{'='*60}")
