@@ -132,7 +132,7 @@ def _compute_sell_target(cfg, completed_cycles_for_ticker):
     return cfg.sell_default
 
 
-def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cache=None, bounce_cache=None, earnings_dates=None):
+def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cache=None, bounce_cache=None, earnings_dates=None, quiet=False):
     """Execute the surgical mean-reversion backtest.
 
     Args:
@@ -140,6 +140,7 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                     parameter sweep combos. Key: (ticker, day_idx). When provided,
                     wick results are looked up before computing. ONLY safe when
                     compound=False (live_capital is config-fixed, not trade-dependent).
+        quiet: If True, suppress all progress/completion prints (for sweep mode).
 
     Returns: (trades, cycles, equity_curve, dip_metrics)
     """
@@ -184,8 +185,9 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
     sim_end = datetime.strptime(cfg.end, "%Y-%m-%d").date() if cfg.end else all_dates[-1]
     sim_dates = [d for d in all_dates if sim_start <= d <= sim_end]
 
-    print(f"Sim dates: {sim_dates[0]} to {sim_dates[-1]} ({len(sim_dates)} trading days)")
-    print(f"Tickers: {len(tickers)}")
+    if not quiet:
+        print(f"Sim dates: {sim_dates[0]} to {sim_dates[-1]} ({len(sim_dates)} trading days)")
+        print(f"Tickers: {len(tickers)}")
 
     # State
     positions = {}           # ticker -> Position
@@ -834,7 +836,7 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
         })
 
         # Progress
-        if day_idx % 50 == 0 and day_idx > 0:
+        if not quiet and day_idx % 50 == 0 and day_idx > 0:
             print(f"  Day {day_idx}/{len(sim_dates)}: {len(positions)} positions, "
                   f"{len(trades)} trades, regime={regime}")
 
@@ -876,8 +878,9 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
 
     sell_trades = [t for t in trades if t.get("side") == "SELL"]
     buy_trades = [t for t in trades if t.get("side") == "BUY"]
-    print(f"\nSimulation complete: {len(buy_trades)} buys, {len(sell_trades)} sells, "
-          f"{len(all_cycles)} cycles")
+    if not quiet:
+        print(f"\nSimulation complete: {len(buy_trades)} buys, {len(sell_trades)} sells, "
+              f"{len(all_cycles)} cycles")
 
     return trades, all_cycles, equity_curve, dip_metrics
 

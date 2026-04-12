@@ -147,7 +147,7 @@ def _simulate_with_config(ticker, months, config_overrides, data_dir=None,
 
     trades, cycles, equity, dip = run_simulation(
         price_data, regime_data, cfg, wick_cache, resistance_cache, bounce_cache,
-        earnings_dates=earnings_dates)
+        earnings_dates=earnings_dates, quiet=(wick_cache is not None))
 
     # Build result dict matching simulate_candidate output format
     sells = [t for t in trades if t.get("side", "").upper() == "SELL"
