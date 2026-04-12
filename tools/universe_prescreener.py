@@ -46,8 +46,8 @@ def load_universe_tickers():
 def prescreen_ticker(ticker):
     """Run Stage 1 (30 combos x 4 periods) for a single ticker.
 
-    Uses shared wick cache across all 30 combos per period (fixes the
-    per-combo cache reset in the current sweeper — ~6x speedup).
+    Uses shared wick cache across all 30 combos per period (same pattern
+    as the main sweeper's per-period cache).
 
     Returns dict with ticker, composite, best_params, period_details,
     or None on failure.
@@ -87,12 +87,14 @@ def prescreen_ticker(ticker):
         if composite <= 0:
             return None
 
+        # Use 12-month params (most reliable period), not last-iterated period
+        best_12mo = results_by_period.get(12, {})
         return {
             "ticker": ticker,
             "composite": round(composite, 2),
-            "best_params": best["params"],
-            "sells_12mo": results_by_period.get(12, {}).get("sells", 0),
-            "win_rate_12mo": results_by_period.get(12, {}).get("win_rate", 0),
+            "best_params": best_12mo.get("params"),
+            "sells_12mo": best_12mo.get("sells", 0),
+            "win_rate_12mo": best_12mo.get("win_rate", 0),
         }
     except Exception:
         return None

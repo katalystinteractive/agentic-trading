@@ -857,8 +857,17 @@ def main():
         tickers = [args.ticker]
     elif args.tickers_file:
         # External ticker list (e.g., from weekly_reoptimize Tier 2 pool)
-        with open(args.tickers_file) as f:
-            _pool = json.load(f)
+        try:
+            with open(args.tickers_file) as f:
+                _pool = json.load(f)
+            if not isinstance(_pool, list):
+                print(f"*Warning: {args.tickers_file} is not a list, ignoring*",
+                      file=sys.stderr)
+                _pool = []
+        except (OSError, json.JSONDecodeError) as e:
+            print(f"*Warning: cannot read {args.tickers_file}: {e}*",
+                  file=sys.stderr)
+            _pool = []
         # Filter to tickers with collected data
         available = {d.name for d in GATE_RESULTS_DIR.iterdir()
                      if d.is_dir() and (d / "price_data.pkl").exists()}

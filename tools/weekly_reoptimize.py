@@ -529,6 +529,11 @@ def main():
 
     timings = {}
 
+    # Clean up stale tier2 pool from previous run
+    _stale_tier2 = _ROOT / "data" / ".tier2_pool.json"
+    if _stale_tier2.exists():
+        _stale_tier2.unlink()
+
     # Step 0: Refresh wick analysis for all tracked tickers
     print("=" * 60)
     print("STEP 0: Wick Analysis Refresh")
