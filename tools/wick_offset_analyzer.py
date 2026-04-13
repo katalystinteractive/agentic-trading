@@ -308,10 +308,12 @@ def compute_pool_sizing(levels, pool_budget, pool_name="active"):
         else:
             r["_dollar_alloc"] = 0
 
-    # Convert dollars to shares (floor), compute actual cost
+    # Convert dollars to shares (0.1 increments for fractional share support)
     for r in result:
         price = r["recommended_buy"]
-        shares = max(1, int(r["_dollar_alloc"] / price))
+        raw_shares = r["_dollar_alloc"] / price
+        # Round to 0.1 increments, minimum 0.1
+        shares = max(0.1, round(raw_shares * 10) / 10)
         cost = round(shares * price, 2)
         r["shares"] = shares
         r["cost"] = cost
@@ -325,11 +327,12 @@ def compute_pool_sizing(levels, pool_budget, pool_name="active"):
                          key=lambda i: result[i].get("monthly_touch_freq", 0), reverse=True)
         for i in by_freq:
             price = result[i]["recommended_buy"]
-            if leftover >= price:
-                extra = int(leftover / price)
-                result[i]["shares"] += extra
-                result[i]["cost"] = round(result[i]["shares"] * price, 2)
-                leftover = round(leftover - extra * price, 6)
+            if leftover >= price * 0.1:  # can afford at least 0.1 shares
+                extra = round(int(leftover / price * 10) / 10, 1)  # 0.1 increments
+                if extra >= 0.1:
+                    result[i]["shares"] = round(result[i]["shares"] + extra, 1)
+                    result[i]["cost"] = round(result[i]["shares"] * price, 2)
+                    leftover = round(leftover - extra * price, 6)
 
     # Clean up internal keys
     for r in result:
@@ -720,7 +723,7 @@ def _compute_bullet_plan(level_results, current_price, cap=None, level_filters=N
             "raw_tier": r["tier"],
             "tier_promoted": r.get("tier_promoted", False),
             "approaches": int(r["total_approaches"]),
-            "shares": int(sized["shares"]),
+            "shares": round(sized["shares"], 1),
             "cost": round(sized["cost"], 2),
             "dormant": r.get("dormant", False),
             "zone_promoted": r.get("zone_promoted", False),

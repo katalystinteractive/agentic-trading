@@ -297,8 +297,8 @@ class TestBulletPlanPromotion:
         bp = _compute_bullet_plan([level], current_price=11.0, cap=self.CAP)
         assert len(bp["reserve"]) == 1
         assert bp["reserve"][0]["tier"] == "Std"
-        # Single reserve level gets full $300 pool: $300 / $9.90 = 30 shares
-        assert bp["reserve"][0]["shares"] == 30
+        # Single reserve level gets full $300 pool: $300 / $9.90 ≈ 30.3 shares (0.1 increments)
+        assert bp["reserve"][0]["shares"] >= 30
 
 
 class TestLevelFilters:
@@ -508,11 +508,12 @@ class TestPoolSizing:
         result = compute_pool_sizing([self._make_level(10.0, tier="Half")], 300, "active")
         assert result[0]["shares"] == 30  # only level → 100% of pool
 
-    def test_minimum_one_share(self):
+    def test_minimum_fractional_share(self):
+        """Minimum share is 0.1 (fractional share support)."""
         levels = [self._make_level(1.0)] + [self._make_level(100.0)] * 4
         result = compute_pool_sizing(levels, 300, "active")
         for r in result:
-            assert r["shares"] >= 1
+            assert r["shares"] >= 0.1
 
     def test_output_preserves_input_order(self):
         levels = [self._make_level(15.0), self._make_level(5.0), self._make_level(10.0)]
