@@ -176,6 +176,21 @@ def _passes_level_filters(r, filters):
 # Pool sizing constants
 POOL_TIER_MULT = {"Full": 1.0, "Std": 1.0, "Half": 0.5}
 POOL_MAX_FRACTION = 0.60  # per-bullet cap: 60% of pool (raised for frequency weighting)
+
+# Broker rule: fractional shares (0.1 increments) only permitted on stocks >= $150.
+# Below $150, share counts must be integers (min 1 share per filled level).
+FRACTIONAL_SHARE_MIN_PRICE = 150.0
+
+
+def _round_to_broker_step(shares: float, price: float) -> float:
+    """Round a raw share count to a value the broker will accept for this price.
+
+    - price >= FRACTIONAL_SHARE_MIN_PRICE: 0.1-share increments, floor 0.1.
+    - price < FRACTIONAL_SHARE_MIN_PRICE: integer shares, floor 1.
+    """
+    if price >= FRACTIONAL_SHARE_MIN_PRICE:
+        return max(0.1, round(shares * 10) / 10)
+    return max(1, int(round(shares)))
 ACTIVE_RADIUS_CAP = 20.0  # max active zone radius (%)
 
 
@@ -308,12 +323,11 @@ def compute_pool_sizing(levels, pool_budget, pool_name="active"):
         else:
             r["_dollar_alloc"] = 0
 
-    # Convert dollars to shares (0.1 increments for fractional share support)
+    # Convert dollars to shares (broker-step: 0.1 if price >= $150, else integer)
     for r in result:
         price = r["recommended_buy"]
         raw_shares = r["_dollar_alloc"] / price
-        # Round to 0.1 increments, minimum 0.1
-        shares = max(0.1, round(raw_shares * 10) / 10)
+        shares = _round_to_broker_step(raw_shares, price)
         cost = round(shares * price, 2)
         r["shares"] = shares
         r["cost"] = cost
@@ -327,12 +341,20 @@ def compute_pool_sizing(levels, pool_budget, pool_name="active"):
                          key=lambda i: result[i].get("monthly_touch_freq", 0), reverse=True)
         for i in by_freq:
             price = result[i]["recommended_buy"]
-            if leftover >= price * 0.1:  # can afford at least 0.1 shares
-                extra = round(int(leftover / price * 10) / 10, 1)  # 0.1 increments
-                if extra >= 0.1:
-                    result[i]["shares"] = round(result[i]["shares"] + extra, 1)
-                    result[i]["cost"] = round(result[i]["shares"] * price, 2)
-                    leftover = round(leftover - extra * price, 6)
+            step = 0.1 if price >= FRACTIONAL_SHARE_MIN_PRICE else 1
+            min_cost = price * step
+            if leftover < min_cost:
+                continue
+            # Compute affordable extra shares in broker-step increments
+            extra_raw = leftover / price
+            if step == 0.1:
+                extra = round(int(extra_raw * 10) / 10, 1)
+            else:
+                extra = int(extra_raw)
+            if extra >= step:
+                result[i]["shares"] = round(result[i]["shares"] + extra, 1)
+                result[i]["cost"] = round(result[i]["shares"] * price, 2)
+                leftover = round(leftover - extra * price, 6)
 
     # Clean up internal keys
     for r in result:
