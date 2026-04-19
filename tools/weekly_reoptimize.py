@@ -59,17 +59,19 @@ STRATEGY_TOOLS = {
 # ---------------------------------------------------------------------------
 
 def step_watchlist_sweep():
-    """Sweep support params (Stage 1+2) for Tier 2 pool.
+    """Sweep support params for Tier 2 pool — threshold + execution + slippage in
+    one process via `--stage all`, eliminating the redundant data load that the
+    previous standalone `--stage slippage` process incurred.
 
     Uses --tickers-file if available (built by Tier 1 pre-screen + tracked),
     otherwise falls back to default pool (collected data directory).
     """
     cmd = [sys.executable, "tools/support_parameter_sweeper.py",
-           "--stage", "both", "--workers", "8"]
+           "--stage", "all", "--workers", "8"]
     _tier2_file = _ROOT / "data" / ".tier2_pool.json"
     if _tier2_file.exists():
         cmd.extend(["--tickers-file", str(_tier2_file)])
-    return _run_sweep_step("2", "Support Sweep (Stage 1+2)", cmd)
+    return _run_sweep_step("2", "Support Sweep (Stage 1+2+slippage)", cmd)
 
 
 def step_sweep(use_cached=False, strategy="dip"):
@@ -83,19 +85,13 @@ def step_sweep(use_cached=False, strategy="dip"):
     if use_cached:
         cmd.append("--cached")
 
+    sys.stdout.flush()
     t0 = time.time()
-    result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(_ROOT))
+    result = subprocess.run(cmd, cwd=str(_ROOT))
     elapsed = time.time() - t0
 
-    print(result.stdout)
-    if result.stderr:
-        # Filter yfinance warnings
-        for line in result.stderr.split("\n"):
-            if "FutureWarning" not in line and "float(ser" not in line and line.strip():
-                print(f"  stderr: {line}")
-
     success = result.returncode == 0 and tools["sweep_results"].exists()
-    print(f"  Sweep {'completed' if success else 'FAILED'} in {elapsed:.0f}s\n")
+    print(f"  Sweep {'completed' if success else 'FAILED'} in {elapsed:.0f}s\n", flush=True)
     return success, elapsed
 
 
@@ -106,15 +102,13 @@ def step_cluster():
     print("=" * 60)
 
     cmd = [sys.executable, "tools/ticker_clusterer.py"]
+    sys.stdout.flush()
     t0 = time.time()
-    result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(_ROOT))
+    result = subprocess.run(cmd, cwd=str(_ROOT))
     elapsed = time.time() - t0
 
-    print(result.stdout)
     if result.returncode != 0:
-        print(f"  Clustering FAILED\n")
-        if result.stderr:
-            print(f"  stderr: {result.stderr[:500]}")
+        print(f"  Clustering FAILED\n", flush=True)
         return False, elapsed, {}
 
     # Parse cluster info from profiles
@@ -140,13 +134,13 @@ def step_train_weights(epochs=3, learning_rate=0.01):
 
     cmd = [sys.executable, "tools/weight_learner.py",
            "--epochs", str(epochs), "--learning-rate", str(learning_rate)]
+    sys.stdout.flush()
     t0 = time.time()
-    result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(_ROOT))
+    result = subprocess.run(cmd, cwd=str(_ROOT))
     elapsed = time.time() - t0
 
-    print(result.stdout)
     if result.returncode != 0:
-        print(f"  Weight training FAILED\n")
+        print(f"  Weight training FAILED\n", flush=True)
         return False, elapsed, {}
 
     # Parse weight stats
@@ -406,19 +400,13 @@ def step_tournament(dry_run=False, no_email=False):
     if no_email:
         cmd.append("--no-email")
 
+    sys.stdout.flush()
     t0 = time.time()
-    result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(_ROOT))
+    result = subprocess.run(cmd, cwd=str(_ROOT))
     elapsed = time.time() - t0
 
-    if result.stdout:
-        print(result.stdout)
-    if result.returncode != 0 and result.stderr:
-        for line in result.stderr.split("\n"):
-            if line.strip():
-                print(f"  stderr: {line}")
-
     success = result.returncode == 0
-    print(f"  Tournament {'completed' if success else 'FAILED'} in {elapsed:.0f}s\n")
+    print(f"  Tournament {'completed' if success else 'FAILED'} in {elapsed:.0f}s\n", flush=True)
     return success, elapsed
 
 
@@ -433,21 +421,10 @@ def _run_sweep_step(step_num, name, cmd):
     print(f"  Started: {time.strftime('%H:%M:%S')}")
     print("=" * 60, flush=True)
 
+    sys.stdout.flush()
     t0 = time.time()
-    result = subprocess.run(cmd, capture_output=True, text=True, cwd=str(_ROOT))
+    result = subprocess.run(cmd, cwd=str(_ROOT))
     elapsed = time.time() - t0
-
-    if result.stdout:
-        # Print last 500 chars of stdout (summary)
-        print(result.stdout[-500:])
-    if result.returncode != 0 and result.stderr:
-        # Print stderr on failure — critical for debugging
-        stderr_lines = [l for l in result.stderr.split("\n")
-                        if l.strip() and "FutureWarning" not in l and "float(ser" not in l]
-        if stderr_lines:
-            print(f"  STDERR ({len(stderr_lines)} lines):")
-            for line in stderr_lines[-10:]:
-                print(f"    {line}")
 
     success = result.returncode == 0
     status = "completed" if success else f"FAILED (exit code {result.returncode})"
@@ -456,45 +433,101 @@ def _run_sweep_step(step_num, name, cmd):
     return success, elapsed
 
 
-def _tier2_args():
-    """Return --tickers-file args if Tier 2 pool exists."""
-    _f = _ROOT / "data" / ".tier2_pool.json"
-    return ["--tickers-file", str(_f)] if _f.exists() else []
+def _profitable_tier2_args():
+    """Return --tickers-file args pointing at the profitable-at-support subset,
+    falling back to full Tier 2 pool if the filtered file is missing or empty.
+
+    Used by downstream sweepers (STEP 7/8/9/10) to skip tickers that had zero
+    trades at the support stage — they have no activity to optimize.
+    """
+    _profitable = _ROOT / "data" / ".profitable_tier2_pool.json"
+    _fallback = _ROOT / "data" / ".tier2_pool.json"
+    if _profitable.exists():
+        try:
+            with open(_profitable) as _f:
+                _pool = json.load(_f)
+            if _pool and len(_pool) >= 10:  # sanity: at least 10 tickers
+                return ["--tickers-file", str(_profitable)]
+        except (json.JSONDecodeError, OSError):
+            pass
+    return ["--tickers-file", str(_fallback)] if _fallback.exists() else []
+
+
+def _build_profitable_tier2_pool():
+    """After support sweep completes, build the profitable-tier2 pool:
+    filter out tickers with zero support trades (they won't benefit from
+    resistance/bounce/entry optimization either).
+    """
+    _results_path = _ROOT / "data" / "support_sweep_results.json"
+    _tier2_path = _ROOT / "data" / ".tier2_pool.json"
+    _profitable_path = _ROOT / "data" / ".profitable_tier2_pool.json"
+
+    if not _results_path.exists() or not _tier2_path.exists():
+        return
+
+    try:
+        with open(_results_path) as _f:
+            _results = json.load(_f)
+        with open(_tier2_path) as _f:
+            _tier2 = json.load(_f)
+    except (json.JSONDecodeError, OSError) as e:
+        print(f"  *Profitable pool build skipped: {e}*", flush=True)
+        return
+
+    _profitable = []
+    for _tk in _tier2:
+        _entry = _results.get(_tk)
+        if not isinstance(_entry, dict):
+            continue
+        _trades = (_entry.get("stats") or {}).get("trades", 0)
+        if _trades > 0:
+            _profitable.append(_tk)
+
+    # Safety rail: if filter drops >70% of pool, something's off — use full pool
+    if len(_profitable) < len(_tier2) * 0.30:
+        print(f"  *Profitable pool only {len(_profitable)}/{len(_tier2)} tickers — "
+              f"keeping full pool for downstream sweeps*", flush=True)
+        return
+
+    with open(_profitable_path, "w") as _f:
+        json.dump(_profitable, _f)
+    print(f"  Profitable Tier 2 pool: {len(_profitable)}/{len(_tier2)} tickers "
+          f"(filtered zero-trade)", flush=True)
 
 
 def step_resistance_sweep():
     """Step 7: Resistance parameter sweep."""
     return _run_sweep_step(7, "Resistance Sweep",
         [sys.executable, "tools/resistance_parameter_sweeper.py",
-         "--workers", "8"] + _tier2_args())
+         "--workers", "8"] + _profitable_tier2_args())
 
 
 def step_bounce_sweep():
     """Step 8: Bounce parameter sweep."""
     return _run_sweep_step(8, "Bounce Sweep",
         [sys.executable, "tools/bounce_parameter_sweeper.py",
-         "--workers", "8"] + _tier2_args())
+         "--workers", "8"] + _profitable_tier2_args())
 
 
 def step_entry_sweep():
     """Step 9: Entry parameter sweep."""
     return _run_sweep_step(9, "Entry Sweep",
         [sys.executable, "tools/entry_parameter_sweeper.py",
-         "--workers", "8"] + _tier2_args())
+         "--workers", "8"] + _profitable_tier2_args())
 
 
 def step_slippage_sweep():
     """Step 10: Slippage + pullback sweep."""
     return _run_sweep_step(10, "Slippage Sweep",
         [sys.executable, "tools/support_parameter_sweeper.py",
-         "--stage", "slippage", "--workers", "8"] + _tier2_args())
+         "--stage", "slippage", "--workers", "8"] + _profitable_tier2_args())
 
 
 def step_regime_exit_sweep():
     """Step 10b: Regime exit parameter sweep."""
     return _run_sweep_step("10b", "Regime Exit Sweep",
         [sys.executable, "tools/support_parameter_sweeper.py",
-         "--stage", "regime_exit", "--workers", "8"] + _tier2_args())
+         "--stage", "regime_exit", "--workers", "8"] + _profitable_tier2_args())
 
 
 # ---------------------------------------------------------------------------
@@ -610,14 +643,13 @@ def main():
         _ps_cmd.append("--cached")
         print(f"  Using cached pre-screen results ({_ps_age:.1f}h old)", flush=True)
     try:
+        sys.stdout.flush()
         _ps_result = subprocess.run(
             _ps_cmd,
-            cwd=str(_ROOT), capture_output=True, text=True, timeout=14400,
+            cwd=str(_ROOT), timeout=14400,
         )
         if _ps_result.returncode != 0:
-            print(f"  *Pre-screen failed*", file=sys.stderr)
-            if _ps_result.stderr:
-                print(f"  {_ps_result.stderr[:200]}", file=sys.stderr)
+            print(f"  *Pre-screen failed (exit {_ps_result.returncode})*", file=sys.stderr, flush=True)
         else:
             _prescreen_path = _ROOT / "data" / "universe_prescreen_results.json"
             if _prescreen_path.exists():
@@ -656,7 +688,18 @@ def main():
           flush=True)
 
     # Step 1-2: Sweep with cross-validation
-    sweep_ok, t = step_sweep(use_cached=args.skip_download, strategy=args.strategy)
+    # Auto-reuse 5-min intraday cache if <7 days old (eliminates redundant re-download)
+    _cache_pkl = _ROOT / "data" / "backtest" / "intraday_5min_60d.pkl"
+    _cache_fresh = _cache_pkl.exists() and (
+        (time.time() - _cache_pkl.stat().st_mtime) / 3600 < 168
+    )
+    if _cache_fresh and not args.skip_download:
+        print(f"  Auto-reusing intraday cache "
+              f"({(time.time() - _cache_pkl.stat().st_mtime) / 3600:.1f}h old)", flush=True)
+    sweep_ok, t = step_sweep(
+        use_cached=(args.skip_download or _cache_fresh),
+        strategy=args.strategy,
+    )
     timings["sweep"] = t
     if not sweep_ok:
         print("*Sweep failed. Aborting pipeline.*")
@@ -665,6 +708,10 @@ def main():
     # Step 2b: Watchlist sweep (ensures every tracked ticker has a neural profile)
     wl_ok, wl_t = step_watchlist_sweep()
     timings["watchlist_sweep"] = wl_t
+
+    # Build profitable-tier2 pool for downstream sweepers (STEP 7/8/9/10/10b)
+    # to skip zero-trade tickers
+    _build_profitable_tier2_pool()
 
     # Step 3: Cluster
     cluster_ok, t, cluster_info = step_cluster()
@@ -692,7 +739,7 @@ def main():
         ("resistance", step_resistance_sweep),
         ("bounce", step_bounce_sweep),
         ("entry", step_entry_sweep),
-        ("slippage", step_slippage_sweep),
+        # slippage is now folded into STEP 2 via --stage all (Fix D)
         ("regime_exit", step_regime_exit_sweep),
     ]:
         try:

@@ -20,7 +20,11 @@
 [CRON 09:00] universe_screener.py
     → WRITES: data/universe_screen_cache.json (1,600 passers)
 
-[CRON 10:00] weekly_reoptimize.py (SINGLE ORCHESTRATOR)
+[CRON 10:00] run_weekly_reoptimize.sh (wrapper: unbuffered + timestamped logging)
+    │   → calls python3 -u tools/weekly_reoptimize.py "$@" 2>&1 | ts | tee -a data/reoptimize.log
+    │   → same wrapper used for ad-hoc manual runs
+    │
+    └─ weekly_reoptimize.py (SINGLE ORCHESTRATOR)
     │
     ├─ Step 0: wick_offset_analyzer (in-process refresh)
     │   → READS: yfinance 13-month data for all tracked non-winding tickers
@@ -35,8 +39,10 @@
     ├─ Step 1: parameter_sweeper.py (dip sweep)
     │   → WRITES: data/sweep_results.json (stats.composite added)
     │
-    ├─ Step 2: support_parameter_sweeper.py --stage both (Stage 1+2)
-    │   → WRITES: data/support_sweep_results.json
+    ├─ Step 2: support_parameter_sweeper.py --stage all (threshold + execution + slippage)
+    │   → WRITES: data/support_sweep_results.json (includes slippage_params; Fix D consolidation)
+    │   → After completion, orchestrator writes data/.profitable_tier2_pool.json
+    │     (filters to tickers with stats.trades > 0) for downstream sweepers (Fix C)
     │
     ├─ Step 3: ticker_clusterer.py
     │   → WRITES: data/ticker_profiles.json
@@ -50,23 +56,21 @@
     │   → READS: data/universe_screen_cache.json
     │   → WRITES: data/support_sweep_results.json (merged)
     │
-    ├─ Step 7: resistance_parameter_sweeper.py --workers 8
+    ├─ Step 7: resistance_parameter_sweeper.py --workers 8 --tickers-file .profitable_tier2_pool.json
     │   → READS: data/support_sweep_results.json (base params)
     │   → WRITES: data/resistance_sweep_results.json
     │
-    ├─ Step 8: bounce_parameter_sweeper.py --workers 8
+    ├─ Step 8: bounce_parameter_sweeper.py --workers 8 --tickers-file .profitable_tier2_pool.json
     │   → READS: data/support_sweep_results.json (base params)
     │   → WRITES: data/bounce_sweep_results.json
     │
-    ├─ Step 9: entry_parameter_sweeper.py --workers 8
+    ├─ Step 9: entry_parameter_sweeper.py --workers 8 --tickers-file .profitable_tier2_pool.json
     │   → READS: data/support_sweep_results.json (base params)
     │   → WRITES: data/entry_sweep_results.json
     │
-    ├─ Step 10: support_parameter_sweeper.py --stage slippage --workers 8
-    │   → READS: data/support_sweep_results.json (base params)
-    │   → WRITES: data/support_sweep_results.json (slippage_params merged)
+    ├─ (Step 10 removed — slippage now folded into Step 2 via --stage all; Fix D)
     │
-    ├─ Step 10b: support_parameter_sweeper.py --stage regime_exit --workers 8
+    ├─ Step 10b: support_parameter_sweeper.py --stage regime_exit --workers 8 --tickers-file .profitable_tier2_pool.json
     │   → WRITES: data/regime_exit_sweep_results.json
     │
     └─ Step 11: watchlist_tournament.py

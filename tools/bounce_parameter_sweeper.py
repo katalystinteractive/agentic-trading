@@ -84,6 +84,10 @@ def sweep_bounce(ticker, base_params, months=10):
     ))
     total_combos = len(combos)
 
+    # Ticker-scoped wick cache shared across all combos × periods (wick analysis
+    # is price-dependent, not strategy-dependent).
+    wick_cache = {}
+
     for idx, (window, confidence, cap_ph, fallback) in enumerate(combos):
         if (idx + 1) % 10 == 0 or idx == 0:
             _log_progress(f"{ticker}: bounce combo {idx+1}/{total_combos} "
@@ -101,11 +105,10 @@ def sweep_bounce(ticker, base_params, months=10):
         last_result = None
         bounce_cache = {}
         for period_months in SWEEP_PERIODS:
-            period_wick_cache = {}
             try:
                 result = _simulate_with_config(
                     ticker, period_months, overrides, data_dir,
-                    price_data, regime_data, period_wick_cache,
+                    price_data, regime_data, wick_cache,
                     resistance_cache=None, bounce_cache=bounce_cache)
                 results_by_period[period_months] = {
                     "pnl": result.get("pnl", 0),

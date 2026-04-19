@@ -74,6 +74,9 @@ def sweep_entry(ticker, base_params, months=10):
     ))
     total_combos = len(combos)
 
+    # Ticker-scoped wick cache shared across all combos × periods.
+    wick_cache = {}
+
     for idx, (decay, cooldown) in enumerate(combos):
         if (idx + 1) % 3 == 0 or idx == 0:
             _log_progress(f"{ticker}: entry combo {idx+1}/{total_combos} "
@@ -87,7 +90,6 @@ def sweep_entry(ticker, base_params, months=10):
 
         results_by_period = {}
         last_result = None
-        wick_cache = {}
         for period_months in SWEEP_PERIODS:
             try:
                 result = _simulate_with_config(

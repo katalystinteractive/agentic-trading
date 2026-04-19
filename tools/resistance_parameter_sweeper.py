@@ -91,6 +91,10 @@ def sweep_resistance(ticker, base_params, months=10):
     ))
     total_combos = len(combos)
 
+    # Ticker-scoped caches: wick analysis is price-dependent (not strategy-dependent),
+    # so share across ALL combos × periods to avoid ~50× redundant recompute per ticker.
+    wick_cache = {}
+
     for idx, (strategy, reject_rate, min_approaches, fallback_pct) in enumerate(combos):
         if (idx + 1) % 10 == 0 or idx == 0:
             _log_progress(f"{ticker}: resistance combo {idx+1}/{total_combos} "
@@ -109,11 +113,10 @@ def sweep_resistance(ticker, base_params, months=10):
         last_result = None
         resistance_cache = {}  # shared across periods within same combo
         for period_months in SWEEP_PERIODS:
-            period_wick_cache = {}
             try:
                 result = _simulate_with_config(
                     ticker, period_months, overrides, data_dir,
-                    price_data, regime_data, period_wick_cache,
+                    price_data, regime_data, wick_cache,
                     resistance_cache)
                 results_by_period[period_months] = {
                     "pnl": result.get("pnl", 0),

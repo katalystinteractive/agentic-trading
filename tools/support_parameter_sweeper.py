@@ -298,11 +298,12 @@ def sweep_execution(ticker, threshold_params, months=10):
     for v in EXECUTION_GRID.values():
         total_exec_combos *= len(v)
 
-    # Group by (pool, bullets) — combos in same group share wick cache
+    # Ticker-scoped wick cache shared across ALL (pool, bullets) groups —
+    # wick analysis depends on price, not on pool/bullets strategy params.
+    wick_cache = {}
+
     for pool in EXECUTION_GRID["active_pool"]:
         for bullets in EXECUTION_GRID["active_bullets_max"]:
-            wick_cache = {}  # new cache per (pool, bullets) group
-
             for res_pool in EXECUTION_GRID["reserve_pool"]:
                 for res_bullets in EXECUTION_GRID["reserve_bullets_max"]:
                     for t_full in EXECUTION_GRID["tier_full"]:
@@ -830,8 +831,8 @@ def main():
                         help="Number of universe passers to sweep (default: 30)")
     parser.add_argument("--months", type=int, default=10,
                         help="Simulation months (default: 10)")
-    parser.add_argument("--stage", choices=["threshold", "execution", "both", "level", "slippage", "regime_exit"],
-                        default="both", help="Which stage to run")
+    parser.add_argument("--stage", choices=["threshold", "execution", "both", "all", "level", "slippage", "regime_exit"],
+                        default="both", help="Which stage to run ('all' = threshold+execution+slippage in one process, eliminates redundant data loads)")
     parser.add_argument("--split", action="store_true",
                         help="Cross-validate: train first 7mo, validate last 3mo")
     parser.add_argument("--workers", type=int, default=1,
@@ -893,7 +894,7 @@ def main():
 
     # Stage 1: Threshold sweep
     results = {}
-    if args.stage in ("threshold", "both"):
+    if args.stage in ("threshold", "both", "all"):
         print(f"Stage 1: Sweeping {len(tickers)} tickers × {threshold_combos} combos...")
 
         if args.workers > 1 and len(tickers) > 1:
@@ -967,7 +968,7 @@ def main():
                 results[tk]["cross_validation"] = {"pnl": 0, "trades": 0, "win_rate": 0}
 
     # Stage 2: Execution sweep on top tickers
-    if args.stage in ("execution", "both") and results:
+    if args.stage in ("execution", "both", "all") and results:
         # Rank by P/L, take top for execution sweep
         ranked = sorted(results.items(), key=lambda x: x[1]["stats"]["pnl"], reverse=True)
         top_for_exec = [tk for tk, r in ranked[:min(10, len(ranked))]
@@ -1097,9 +1098,9 @@ def main():
     # ---------------------------------------------------------------
     # Stage 4: Slippage + Entry Timing
     # ---------------------------------------------------------------
-    if args.stage == "slippage":
+    if args.stage in ("slippage", "all"):
         if not RESULTS_PATH.exists():
-            print("*Stage 1+2 results not found. Run --stage both first.*")
+            print("*Stage 1+2 results not found. Run --stage both (or --stage all) first.*")
             return
         with open(RESULTS_PATH) as f:
             support_data = json.load(f)

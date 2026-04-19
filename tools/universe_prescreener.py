@@ -417,6 +417,22 @@ def main():
     print(f"  Exported {_exported} tickers to candidate-gate "
           f"({time.time() - t0_export:.0f}s)\n")
 
+    # Retention cap: remove candidate-gate subdirs older than 90 days.
+    # historical_trade_trainer.py consumes this directory; 90 days ≈ 13 weekly runs.
+    _KEEP_AGE_DAYS = 90
+    _cutoff = time.time() - _KEEP_AGE_DAYS * 86400
+    _pruned = 0
+    import shutil
+    for _d in _gate_dir.iterdir():
+        if _d.is_dir() and _d.stat().st_mtime < _cutoff:
+            try:
+                shutil.rmtree(_d)
+                _pruned += 1
+            except OSError:
+                pass
+    if _pruned:
+        print(f"  Pruned {_pruned} candidate-gate dirs older than {_KEEP_AGE_DAYS} days\n")
+
     # Phase 2: Run simulations using multiprocessing (each worker loads cache)
     print("Phase 2: Threshold sweep simulations")
     ticker_list = [tk for tk in all_prices if not tk.startswith("_")]
