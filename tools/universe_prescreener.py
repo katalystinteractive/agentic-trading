@@ -273,6 +273,106 @@ def _worker_prescreen(ticker):
     return prescreen_ticker_with_data(ticker, pd, _WORKER_REGIME)
 
 
+# Minimum Active-zone support levels required for a ticker to enter the Tier 2 pool.
+# Tickers with fewer Active-zone levels can't support a surgical bullet ladder
+# (bullet_recommender rejects them as "insufficient for surgical bullet stacking"
+# anyway). Gating here saves downstream onboarding time (~22 min/ticker).
+MIN_SUPPORT_LEVELS_FOR_TIER2 = 3
+
+
+def _worker_density_check(ticker):
+    """Worker: count Active-zone support levels for a ticker using cached price data.
+
+    Counts Active-zone specifically (NOT any-zone). This matches
+    bullet_recommender's actual rejection criterion — it rejects tickers with
+    <3 Active-zone levels as "insufficient for surgical bullet stacking."
+    Counting all-zones lets tickers with lots of Reserve levels but thin Active
+    structure slip through the gate, defeating the purpose.
+
+    Returns (ticker, active_level_count). Count is 0 on any failure; caller
+    treats failures the same as thin tickers (excluded from Tier 2).
+    """
+    if ticker not in _WORKER_PRICES:
+        return ticker, 0
+    try:
+        from wick_offset_analyzer import analyze_stock_data
+        hist = _WORKER_PRICES[ticker]
+        # Flatten multi-column if yfinance returned a MultiIndex
+        if hasattr(hist.columns, "levels"):
+            hist = hist.copy()
+            hist.columns = hist.columns.get_level_values(0)
+        data, err = analyze_stock_data(ticker, hist)
+        if err or not data:
+            return ticker, 0
+        # Match bullet_recommender's exact rejection criterion
+        # (tools/bullet_recommender.py:336-339). Count levels that satisfy ALL:
+        #   - recommended_buy is not None and < current_price
+        #   - zone == "Active" (strict — NOT zone_promoted Buffer)
+        #   - effective_tier not in {"Skip", ""}
+        current_price = data.get("current_price")
+        if not current_price:
+            return ticker, 0
+        active_count = 0
+        for lvl in data.get("levels", []):
+            rb = lvl.get("recommended_buy")
+            if rb is None or rb >= current_price:
+                continue
+            if lvl.get("zone") != "Active":
+                continue
+            tier = lvl.get("effective_tier") or lvl.get("tier") or ""
+            if tier in ("Skip", ""):
+                continue
+            active_count += 1
+        return ticker, active_count
+    except Exception:
+        return ticker, 0
+
+
+def apply_density_gate(rankings, cache_path, min_levels=MIN_SUPPORT_LEVELS_FOR_TIER2, workers=8):
+    """Filter rankings to tickers with >= min_levels raw support levels.
+
+    Uses the same multiprocessing Pool infrastructure as run_prescreen — each
+    worker reuses its process-local price cache (no per-ticker yfinance calls).
+
+    Returns (filtered_rankings, level_counts_dict). Each passing ranking entry
+    gets a new `level_count` field for downstream visibility.
+    """
+    if not rankings:
+        return rankings, {}
+
+    tickers = [r["ticker"] for r in rankings]
+    total = len(tickers)
+    print(f"Phase 2.5: Support-level-density gate (min {min_levels} levels)")
+    t0 = time.time()
+
+    level_counts = {}
+    with Pool(processes=workers, initializer=_init_worker,
+              initargs=(str(cache_path),)) as pool:
+        for i, (ticker, count) in enumerate(
+            pool.imap_unordered(_worker_density_check, tickers), 1,
+        ):
+            level_counts[ticker] = count
+            if i % 100 == 0:
+                elapsed = time.time() - t0
+                rate = i / elapsed if elapsed > 0 else 0
+                eta = (total - i) / rate if rate > 0 else 0
+                print(f"  Progress: {i}/{total} ({rate:.1f}/s, ETA {eta:.0f}s)",
+                      flush=True)
+
+    filtered = [r for r in rankings if level_counts.get(r["ticker"], 0) >= min_levels]
+    gated_out = total - len(filtered)
+    elapsed = time.time() - t0
+    print(f"  Density gate: {gated_out} gated out (<{min_levels} levels), "
+          f"{len(filtered)} kept. {elapsed:.0f}s ({elapsed/60:.1f} min)",
+          flush=True)
+
+    # Attach level_count to each passing ranking for downstream visibility
+    for r in filtered:
+        r["level_count"] = level_counts.get(r["ticker"], 0)
+
+    return filtered, level_counts
+
+
 def run_prescreen(tickers, cache_path, workers=8):
     """Pre-screen all tickers using multiprocessing Pool.
 
@@ -438,6 +538,12 @@ def main():
     ticker_list = [tk for tk in all_prices if not tk.startswith("_")]
     cache_path = BATCH_CACHE_DIR / "batch_prices.pkl"
     rankings = run_prescreen(ticker_list, cache_path, workers=args.workers)
+    # Phase 2.5: support-level-density gate — drop tickers that can't support
+    # a surgical bullet ladder. Uses the same cached price data, so no new
+    # yfinance round-trips. ~3-7 min wall-clock for 1,585 tickers at 8 workers.
+    rankings, _level_counts = apply_density_gate(
+        rankings, cache_path, workers=args.workers,
+    )
     save_results(rankings, len(tickers))
     print_top(rankings, args.top)
 
