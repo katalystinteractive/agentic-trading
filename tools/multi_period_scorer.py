@@ -31,6 +31,13 @@ PERIODS = [12, 6, 3, 1]
 # Significance threshold: minimum cycles for a period to be statistically meaningful
 SIGNIFICANCE_THRESHOLD = 5
 
+# Recency weights: shorter periods weighted higher so the composite favors tickers
+# whose patterns are active in the current regime, not relics of 12-month-old behavior.
+# Linear 1:2:3:4 for 12:6:3:1mo gives 1mo 4× the influence of 12mo.
+# Without this, the tournament ranked tickers on 12-month averages even when the
+# recent pattern had decayed — leading to placements at stale levels that never hit.
+RECENCY_WEIGHTS = {12: 1, 6: 2, 3: 3, 1: 4}
+
 
 def _get_period_risk_off_pct(months):
     """Compute % of Risk-Off days in the last N months.
@@ -174,6 +181,12 @@ def compute_composite(results_by_period):
     elif cycles_1mo >= 3:
         # Cycled 3+ times during normal market — full weight
         weights[1] = 1.0
+
+    # Step 3.5: apply recency multiplier. Shorter periods get more influence so
+    # the composite reflects current-regime behavior, not 12-month averages.
+    # Multiplies AFTER significance + regime adjustments so both signals persist.
+    for months in weights:
+        weights[months] *= RECENCY_WEIGHTS.get(months, 1)
 
     # Step 4: compute weighted composite
     total_weight = sum(weights.values())
