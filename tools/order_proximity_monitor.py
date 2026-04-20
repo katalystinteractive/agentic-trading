@@ -398,6 +398,12 @@ def main():
                         help="Print alerts without sending email")
     parser.add_argument("--auto-fill-dry-run", action="store_true",
                         help="Log detected fills without recording them")
+    parser.add_argument("--enable-auto-fill", action="store_true",
+                        help="Opt in to auto-recording fills via cmd_fill at the order's limit price. "
+                             "OFF by default — auto-fill was found to create phantom fills when the "
+                             "order wasn't actually live at the broker, or when the broker's real "
+                             "fill price was better than the limit. Leave off unless you've verified "
+                             "the monitor's detection is reliable for your setup.")
     args = parser.parse_args()
 
     # Market hours check
@@ -438,29 +444,43 @@ def main():
     # Compute alerts
     alerts = compute_alerts(all_orders, prices, state)
 
-    # Auto-record detected fills (cmd_fill + cascade)
+    # Auto-record detected fills — OFF by default (see --enable-auto-fill).
+    # Reason: this loop calls cmd_fill with the order's LIMIT price as the fill
+    # price, creating phantom fills when (a) the order isn't actually live at
+    # the broker, or (b) the broker executes at a better price than the limit
+    # and the user later records the real fill, double-counting the position.
+    # Drain the queue unconditionally so stale entries don't accumulate across
+    # runs, but only execute when explicitly opted in.
     _auto_fills_raw = state.pop("_auto_fills", [])
     _auto_fill_results = []
-    for af in _auto_fills_raw:
-        success, summary = auto_record_fill(
-            af["ticker"], af["price"], af["shares"],
-            dry_run=args.auto_fill_dry_run or args.dry_run,
-        )
-        next_bullet = get_next_bullet(af["ticker"]) if success else None
-        _auto_fill_results.append({
-            **af,
-            "success": success,
-            "summary": summary,
-            "next_bullet": next_bullet,
-        })
-        _is_dry = args.auto_fill_dry_run or args.dry_run
-        action = "dry-run" if _is_dry else ("recorded" if success else "FAILED")
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] Auto-fill {action}: "
-              f"{af['ticker']} {af['shares']} @ ${af['price']:.2f}")
+    if args.enable_auto_fill:
+        for af in _auto_fills_raw:
+            success, summary = auto_record_fill(
+                af["ticker"], af["price"], af["shares"],
+                dry_run=args.auto_fill_dry_run or args.dry_run,
+            )
+            next_bullet = get_next_bullet(af["ticker"]) if success else None
+            _auto_fill_results.append({
+                **af,
+                "success": success,
+                "summary": summary,
+                "next_bullet": next_bullet,
+            })
+            _is_dry = args.auto_fill_dry_run or args.dry_run
+            action = "dry-run" if _is_dry else ("recorded" if success else "FAILED")
+            print(f"[{datetime.now().strftime('%H:%M:%S')}] Auto-fill {action}: "
+                  f"{af['ticker']} {af['shares']} @ ${af['price']:.2f}")
 
-    if _auto_fill_results and not args.dry_run and not args.auto_fill_dry_run:
-        from notify import send_fill_cascade_alert
-        send_fill_cascade_alert(_auto_fill_results)
+        if _auto_fill_results and not args.dry_run and not args.auto_fill_dry_run:
+            from notify import send_fill_cascade_alert
+            send_fill_cascade_alert(_auto_fill_results)
+    elif _auto_fills_raw:
+        # Auto-fill disabled — log what would have been recorded, but don't touch state.
+        # The FILLED? alerts below still email the user so they can verify at broker
+        # and manually run: python3 tools/portfolio_manager.py fill TICKER --price X --shares N
+        for af in _auto_fills_raw:
+            print(f"[{datetime.now().strftime('%H:%M:%S')}] Auto-fill DISABLED (no action): "
+                  f"{af['ticker']} {af['shares']} @ ${af['price']:.2f} — verify at broker + manually fill")
 
     if alerts:
         body = format_email(alerts)
