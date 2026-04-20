@@ -230,15 +230,26 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
     reasoning = []
 
     # --- Earnings Gate Check ---
+    # If earnings are BLOCKED (inside the 7d-before-through-3d-after blackout window),
+    # hard-block the bullet output entirely. Previously advisory-only, which allowed
+    # orders to be placed during blackout and catch a gap risk. APPROACHING status
+    # remains a soft warning.
     try:
         from earnings_gate import check_earnings_gate, format_gate_warning
         gate = check_earnings_gate(ticker)
         if gate["blocked"]:
-            warnings.append(format_gate_warning(gate))
+            now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+            last_date = data.get("as_of", "?")
+            print(f"## Bullet Recommendation: {ticker}")
+            print(f"*Generated: {now} | Data as of: {last_date}*\n")
+            print(f"> ⚠ **EARNINGS BLACKOUT — RECOMMENDATION SUPPRESSED**")
+            print(f"> {format_gate_warning(gate)}")
+            print(f"> Re-run `bullet_recommender.py {ticker}` after earnings clear.")
+            return
         elif gate["status"] == "APPROACHING":
             warnings.append(format_gate_warning(gate))
     except Exception:
-        pass  # earnings gate is advisory, don't crash on import failure
+        pass  # earnings gate is advisory on import failure, don't crash
 
     # --- Winding Down Check ---
     if positions.get(ticker, {}).get("winding_down"):
