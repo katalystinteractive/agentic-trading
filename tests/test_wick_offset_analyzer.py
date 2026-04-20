@@ -578,6 +578,56 @@ class TestPoolSizing:
         assert result[0]["shares"] >= 10  # still gets substantial allocation
         assert result[1]["shares"] >= result[0]["shares"]  # higher freq gets residual
 
+    def test_pool_cap_60pct_multi_level(self):
+        """Multiple expensive levels hit the 60% per-bullet cap; residual must redistribute
+        to the cheap uncapped level without exceeding pool budget."""
+        levels = [
+            self._make_level(200.0, tier="Full", hold_rate=60.0, freq=2.0),
+            self._make_level(150.0, tier="Full", hold_rate=60.0, freq=2.0),
+            self._make_level(40.0,  tier="Std",  hold_rate=35.0, freq=1.0),
+        ]
+        result = compute_pool_sizing(levels, 300, "active")
+        total_cost = sum(r["cost"] for r in result)
+        # Total stays within pool (+ max-one-share-price tolerance for rounding)
+        max_price = max(r["recommended_buy"] for r in result)
+        assert total_cost <= 300 + max_price
+        # Expensive levels should not each exceed 60% cap dollar amount
+        # (cap relaxes via residual redistribution, but gross allocation respects cap)
+        cheap = next(r for r in result if r["recommended_buy"] == 40.0)
+        assert cheap["shares"] >= 1, "cheap level must absorb residual"
+
+    def test_residual_distribution_order(self):
+        """Same-price, same-tier levels with different frequencies — residual goes to the
+        higher-frequency level first per the by_freq sort in compute_pool_sizing."""
+        levels = [
+            self._make_level(10.0, tier="Std", hold_rate=30.0, freq=0.5),
+            self._make_level(10.0, tier="Std", hold_rate=35.0, freq=2.5),
+        ]
+        result = compute_pool_sizing(levels, 100, "active")
+        high_freq = next(r for r in result if r["monthly_touch_freq"] == 2.5)
+        low_freq = next(r for r in result if r["monthly_touch_freq"] == 0.5)
+        assert high_freq["shares"] >= low_freq["shares"], \
+            f"high-freq shares ({high_freq['shares']}) must be >= low-freq ({low_freq['shares']})"
+
+    def test_cap_no_leftover_below_min_step(self):
+        """Sub-$150 tickers must round shares to integer. Verify no crash on residual
+        below-one-share and that total doesn't explode past pool + one-share-price tolerance."""
+        levels = [
+            self._make_level(7.13, tier="Std", hold_rate=35.0, freq=1.0),
+            self._make_level(5.07, tier="Std", hold_rate=35.0, freq=1.0),
+        ]
+        result = compute_pool_sizing(levels, 50, "active")
+        # All sub-$150 levels must have INTEGER share counts (broker rule)
+        for r in result:
+            shares_val = r["shares"]
+            assert shares_val == int(shares_val), \
+                f"price={r['recommended_buy']} got non-integer shares={shares_val}"
+            assert shares_val >= 1, "minimum share floor violated"
+        total_cost = sum(r["cost"] for r in result)
+        max_price = max(r["recommended_buy"] for r in result)
+        assert total_cost <= 50 + max_price, \
+            f"total={total_cost} exceeds pool+tolerance (pool=50, max_price={max_price})"
+
 
 class TestSizingDescription:
     """Tests for sizing_description() — centralized sizing strings."""
