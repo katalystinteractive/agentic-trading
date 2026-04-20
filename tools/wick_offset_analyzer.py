@@ -174,7 +174,7 @@ def _passes_level_filters(r, filters):
 
 
 # Pool sizing constants
-POOL_TIER_MULT = {"Full": 1.0, "Std": 1.0, "Half": 0.5}
+POOL_TIER_MULT = {"Full": 1.5, "Std": 1.0, "Half": 0.5}
 POOL_MAX_FRACTION = 0.60  # per-bullet cap: 60% of pool (raised for frequency weighting)
 
 # Broker rule: fractional shares (0.1 increments) only permitted on stocks >= $150.

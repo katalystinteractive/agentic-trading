@@ -487,15 +487,29 @@ class TestPoolSizing:
         result = compute_pool_sizing(levels, 300, "active")
         assert result[0]["shares"] >= result[1]["shares"]
 
-    def test_half_tier_gets_half_shares(self):
-        """Half-tier gets ~half the shares of Full-tier. Use 3 Full + 1 Half to avoid cap."""
+    def test_half_tier_gets_one_third_of_full(self):
+        """Half-tier multiplier is 0.5; Full-tier is 1.5 — ratio ~= 0.33. Use 3 Full + 1 Half
+        to avoid the 60% per-bullet cap skewing the test."""
         levels = [self._make_level(10.0, tier="Full"), self._make_level(10.0, tier="Full"),
                   self._make_level(10.0, tier="Full"), self._make_level(10.0, tier="Half")]
         result = compute_pool_sizing(levels, 300, "active")
         full_shares = result[0]["shares"]
         half_shares = result[3]["shares"]
         ratio = half_shares / full_shares if full_shares > 0 else 0
-        assert 0.4 <= ratio <= 0.6
+        # Half/Full = 0.5/1.5 = 1/3 ≈ 0.33. Allow some tolerance for residual redistribution.
+        assert 0.25 <= ratio <= 0.45, \
+            f"half/full ratio = {ratio:.3f} (expected ~0.33)"
+
+    def test_full_tier_gets_more_than_std(self):
+        """Full-tier multiplier is 1.5×; Std-tier is 1.0×. Same-price Full should get
+        more shares than Std when competing for the same pool."""
+        levels = [self._make_level(10.0, tier="Full"), self._make_level(10.0, tier="Std"),
+                  self._make_level(10.0, tier="Std")]
+        result = compute_pool_sizing(levels, 300, "active")
+        full_shares = result[0]["shares"]
+        std_shares = result[1]["shares"]
+        assert full_shares > std_shares, \
+            f"Full tier shares ({full_shares}) must exceed Std tier ({std_shares})"
 
     def test_empty_input(self):
         assert compute_pool_sizing([], 300, "active") == []
