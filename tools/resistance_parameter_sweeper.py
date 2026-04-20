@@ -94,6 +94,11 @@ def sweep_resistance(ticker, base_params, months=10):
     # Ticker-scoped caches: wick analysis is price-dependent (not strategy-dependent),
     # so share across ALL combos × periods to avoid ~50× redundant recompute per ticker.
     wick_cache = {}
+    # Same invariant applies to resistance_cache: key is (ticker, day_string) in
+    # backtest_engine.py (see _rc_key at line 704). Cache is independent of
+    # sweep-grid parameters, so sharing across all combos is safe and saves
+    # ~50× redundant resistance detection per ticker.
+    resistance_cache = {}
 
     for idx, (strategy, reject_rate, min_approaches, fallback_pct) in enumerate(combos):
         if (idx + 1) % 10 == 0 or idx == 0:
@@ -111,7 +116,6 @@ def sweep_resistance(ticker, base_params, months=10):
         # Multi-period scoring
         results_by_period = {}
         last_result = None
-        resistance_cache = {}  # shared across periods within same combo
         for period_months in SWEEP_PERIODS:
             try:
                 result = _simulate_with_config(

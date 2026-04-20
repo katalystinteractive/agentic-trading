@@ -87,6 +87,11 @@ def sweep_bounce(ticker, base_params, months=10):
     # Ticker-scoped wick cache shared across all combos × periods (wick analysis
     # is price-dependent, not strategy-dependent).
     wick_cache = {}
+    # Same invariant for bounce_cache: key is (ticker, day_string) in
+    # backtest_engine.py (_bc_key at line 728). Strategy params don't affect
+    # bounce-profile computation, so sharing across all combos is safe and
+    # saves ~50× redundant bounce detection per ticker.
+    bounce_cache = {}
 
     for idx, (window, confidence, cap_ph, fallback) in enumerate(combos):
         if (idx + 1) % 10 == 0 or idx == 0:
@@ -103,7 +108,6 @@ def sweep_bounce(ticker, base_params, months=10):
 
         results_by_period = {}
         last_result = None
-        bounce_cache = {}
         for period_months in SWEEP_PERIODS:
             try:
                 result = _simulate_with_config(
