@@ -261,11 +261,27 @@ def sizing_description(cap=None):
 
 
 def compute_pool_sizing(levels, pool_budget, pool_name="active"):
-    """Distribute pool_budget across levels for equal averaging impact.
+    """Distribute pool_budget across levels by price-weighted allocation.
+
+    Each level's share of the pool is proportional to:
+        weight = recommended_buy * POOL_TIER_MULT[tier] * max(1.0, monthly_touch_freq)
+
+    Result: higher-priced and higher-frequency levels absorb more dollars.
+    This is NOT equal-averaging-impact — a fill at a higher-priced level affects
+    the position avg cost MORE than a fill at a lower-priced level (because
+    higher-priced levels get more shares allocated).
+
+    Per-bullet dollar cap: POOL_MAX_FRACTION * pool_budget (currently 60%).
+    Leftover after capping redistributes to uncapped levels sorted by
+    monthly_touch_freq descending (highest-frequency levels absorb first).
+
+    Shares are rounded via _round_to_broker_step:
+      - price >= FRACTIONAL_SHARE_MIN_PRICE ($150): 0.1-share increments, floor 0.1
+      - price < $150: integer shares, floor 1
 
     Args:
         levels: list of dicts with keys: recommended_buy, effective_tier (or tier),
-                hold_rate (used for residual redistribution)
+                monthly_touch_freq (used in weight), hold_rate (carried in output)
         pool_budget: total dollars to distribute (e.g. 300 for active)
         pool_name: "active" or "reserve" (for logging only)
 
