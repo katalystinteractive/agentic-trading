@@ -29,6 +29,8 @@
     ├─ Step 0: wick_offset_analyzer (in-process refresh)
     │   → READS: yfinance 13-month data for all tracked non-winding tickers
     │   → WRITES: tickers/*/wick_analysis.md (refreshed support levels)
+    │   → SIDE: bullet_drift_report.write_before_snapshot() captures in-memory
+    │     `data` per ticker into data/bullet_snapshot_before.json (for STEP 12)
     │
     ├─ Step 0.5: universe_prescreener.py (Tier 1 pre-screen)
     │   → READS: data/universe_screen_cache.json (1,594 passers)
@@ -73,12 +75,21 @@
     ├─ Step 10b: support_parameter_sweeper.py --stage regime_exit --workers 8 --tickers-file .profitable_tier2_pool.json
     │   → WRITES: data/regime_exit_sweep_results.json
     │
-    └─ Step 11: watchlist_tournament.py
-        → READS: ALL 6 sweep result files
-        → READS: portfolio.json (tracked tickers)
-        → WRITES: data/tournament_results.json
-        → WRITES: portfolio.json (winding_down flags, watchlist changes)
-        → SENDS: email via notify.py
+    ├─ Step 11: watchlist_tournament.py
+    │   → READS: ALL 6 sweep result files
+    │   → READS: portfolio.json (tracked tickers)
+    │   → WRITES: data/tournament_results.json
+    │   → WRITES: portfolio.json (winding_down flags, watchlist changes)
+    │   → SENDS: email via notify.py
+    │
+    └─ Step 12: bullet_drift_report.generate_drift_report()
+        → READS: data/bullet_snapshot_before.json (from STEP 0 side-effect)
+        → READS: trade_history.json (for FILLED vs CANCELLED inference)
+        → RE-RUNS: wick_offset_analyzer.analyze_stock_data per ticker (parallel)
+        → WRITES: data/bullet_drift_report.json + bullet_drift_report.md
+        → ARCHIVE: data/bullet_drift_history/<date>.{json,md} (28-day retention)
+        → EMITS: per-pending-order rows — UNCHANGED/MOVE/CANCEL/RESIZE/ADD
+          plus FILLED/CANCELLED disambiguation and copy-paste broker commands
 
 [CRON 15:30] watchlist_tournament.py (SAFETY RE-RUN, idempotent)
     → Skips if already ran today with fresh data
@@ -388,6 +399,7 @@ Every user-facing output must contain ALL information needed to act — no menta
 | **Sell target calculator** (sell_target_calculator) | ✅ | ✅ Price | ✅ Shares | ✅ Basis | ✅ Level | ✅ Complete |
 | **Daily analyzer** (daily_analyzer) | ✅ | ✅ | ✅ (Part 7) | ✅ | ✅ | ✅ Complete (95%) |
 | **Morning briefing** (morning-briefing.md) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ Complete |
+| **Broker Actions section** (from weekly bullet drift report, surfaced by morning_compiler) | ✅ | ✅ Old/New | ✅ Shares | N/A | ✅ MOVE/CANCEL/RESIZE/ADD | ✅ Complete — 7-day freshness gate |
 
 ### Gaps to Fix
 1. ~~**Dip alert email**: Add shares field~~ — RESOLVED (shares param already implemented + caller passes it)
