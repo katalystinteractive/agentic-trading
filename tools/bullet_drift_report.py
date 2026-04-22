@@ -318,6 +318,8 @@ def _drift_one(ticker: str, before_entry: dict, trade_history: list,
         if not plan_entry.get("buy_at"):
             continue
         sp = plan_entry["support_price"]
+        if not sp:
+            continue
         already_matched = any(
             abs(sp - ms) / sp <= CONVERGENCE_TOLERANCE for ms in matched_plan_supports
         )
