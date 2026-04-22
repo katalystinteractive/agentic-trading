@@ -16,6 +16,7 @@ Usage: python3 tools/morning_compiler.py
 import json
 import re
 import sys
+import time
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -24,6 +25,8 @@ PORTFOLIO = PROJECT_ROOT / "portfolio.json"
 TICKERS_DIR = PROJECT_ROOT / "tickers"
 OUTPUT = PROJECT_ROOT / "morning-briefing-raw.md"
 CONDENSED = PROJECT_ROOT / "morning-briefing-condensed.md"
+BULLET_DRIFT_PATH = PROJECT_ROOT / "data" / "bullet_drift_report.json"
+BULLET_DRIFT_MAX_AGE_DAYS = 7
 
 # Files to read for active positions (shares > 0)
 ACTIVE_FILES = ["identity.md", "memory.md", "institutional.md", "wick_analysis.md"]
@@ -40,6 +43,70 @@ WATCHLIST_LABELS = {
     "identity.md": "Identity Context",
     "wick_analysis.md": "Wick Analysis",
 }
+
+
+def build_broker_actions_section():
+    """Build markdown subsection from the weekly bullet drift report.
+
+    Returns None if the report is missing, stale (> 7 days), or contains no
+    actionable rows. Output format: a ``## Broker Actions — Bullet Drift``
+    block with per-ticker MOVE/CANCEL/RESIZE/ADD items.
+    """
+    if not BULLET_DRIFT_PATH.exists():
+        return None
+    try:
+        age_s = time.time() - BULLET_DRIFT_PATH.stat().st_mtime
+    except OSError:
+        return None
+    if age_s > BULLET_DRIFT_MAX_AGE_DAYS * 86400:
+        return None
+    try:
+        data = json.loads(BULLET_DRIFT_PATH.read_text())
+    except Exception:
+        return None
+    if data.get("schema_version") != 1:
+        return None
+
+    lines = [f"\n## Broker Actions — Bullet Drift "
+             f"(from weekly report, {age_s/86400:.0f}d old)\n"]
+    any_action = False
+    for ticker, entry in sorted(data.get("tickers", {}).items()):
+        if entry.get("status") != "OK":
+            continue
+        actionable = [o for o in entry.get("orders", [])
+                      if o.get("action") in ("MOVE", "CANCEL", "RESIZE", "ADD")]
+        if not actionable:
+            continue
+        any_action = True
+        lines.append(f"### {ticker}")
+        for o in actionable:
+            action = o["action"]
+            if action == "MOVE":
+                lines.append(
+                    f"- **MOVE**: cancel ${o.get('old_price','?')} "
+                    f"→ place ${o.get('new_price','?')} "
+                    f"({o.get('old_shares','?')} → {o.get('new_shares', o.get('old_shares','?'))} sh)"
+                )
+            elif action == "CANCEL":
+                lines.append(
+                    f"- **CANCEL** @ ${o.get('old_price','?')} — {o.get('reason','')}"
+                )
+            elif action == "RESIZE":
+                tb = o.get("tier_before") or "?"
+                ta = o.get("tier_after") or "?"
+                lines.append(
+                    f"- **RESIZE** @ ${o.get('old_price','?')}: "
+                    f"{o.get('old_shares','?')} → {o.get('new_shares','?')} sh "
+                    f"(tier {tb}→{ta})"
+                )
+            elif action == "ADD":
+                lines.append(
+                    f"- **ADD** (optional): BUY {o.get('new_shares','?')} "
+                    f"@ ${o.get('new_price','?')}"
+                )
+    if not any_action:
+        return None
+    return "\n".join(lines)
 
 
 def load_portfolio():
@@ -622,6 +689,11 @@ def main():
     elif footer_start:
         footer_lines = "\n".join(lines[footer_start:])
         output_parts.append(footer_lines)
+
+    # Append Broker Actions section from weekly bullet drift report (if fresh)
+    broker_section = build_broker_actions_section()
+    if broker_section:
+        output_parts.append(broker_section)
 
     # Write output
     merged = "\n".join(output_parts)

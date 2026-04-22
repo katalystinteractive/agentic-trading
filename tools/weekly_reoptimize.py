@@ -598,6 +598,7 @@ def main():
 
         _refreshed = 0
         _failed = 0
+        _before_snapshot_buffer = {}  # ticker -> data dict for bullet drift snapshot
         for tk in _tracked:
             try:
                 hist = yf.download(tk, period="13mo", progress=False)
@@ -609,6 +610,7 @@ def main():
                 _cap = load_capital_config(tk)
                 data, err = analyze_stock_data(tk, hist, capital_config=_cap)
                 if data:
+                    _before_snapshot_buffer[tk] = data
                     report = _format_stock_report(tk, data)
                     _write_cache(tk, "wick_analysis.md", report)
                     _refreshed += 1
@@ -621,6 +623,19 @@ def main():
         print(f"  Wick refresh completed in {_wick_elapsed:.0f}s ({_wick_elapsed/60:.1f} min)")
         print(f"  Finished: {time.strftime('%H:%M:%S')}\n", flush=True)
         timings["wick_refresh"] = _wick_elapsed
+
+        # Capture before-snapshot for bullet drift reporter
+        try:
+            from bullet_drift_report import write_before_snapshot
+            write_before_snapshot(
+                _tracked,
+                _port.get("pending_orders", {}),
+                _before_snapshot_buffer,
+            )
+            print("  Bullet drift snapshot captured.\n", flush=True)
+        except Exception as _snap_exc:
+            print(f"  *Bullet drift snapshot FAILED (non-fatal): {_snap_exc}*\n",
+                  flush=True)
     except Exception as e:
         print(f"  *Wick refresh FAILED: {e}*\n", flush=True)
         timings["wick_refresh"] = time.time() - t0_wick
@@ -766,6 +781,26 @@ def main():
     else:
         tour_ok, tour_t = step_tournament(dry_run=True, no_email=True)
     timings["tournament"] = tour_t
+
+    # Step 12: Bullet drift report
+    print("=" * 60)
+    print("STEP 12: Bullet Drift Report")
+    print(f"  Started: {time.strftime('%H:%M:%S')}")
+    print("=" * 60, flush=True)
+    t_drift = time.time()
+    try:
+        from bullet_drift_report import generate_drift_report
+        drift = generate_drift_report(dry_run=args.dry_run)
+        drift_status = drift.get("status", "OK")
+        drift_elapsed = time.time() - t_drift
+        drift_tickers = len(drift.get("tickers", {}))
+        print(f"  Status: {drift_status} ({drift_tickers} tickers)")
+        print(f"  Drift report completed in {drift_elapsed:.1f}s")
+        print(f"  Finished: {time.strftime('%H:%M:%S')}\n", flush=True)
+        timings["drift_report"] = drift_elapsed
+    except Exception as _drift_exc:
+        print(f"  *Drift report FAILED (non-fatal): {_drift_exc}*\n", flush=True)
+        timings["drift_report"] = time.time() - t_drift
 
     # Build summary
     total_time = time.time() - start

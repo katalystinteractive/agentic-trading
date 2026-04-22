@@ -96,6 +96,9 @@ def merge_convergent_levels(levels, tolerance=CONVERGENCE_TOLERANCE):
     """Merge levels where recommended_buy prices are within tolerance of each other.
 
     Keep the level with the higher hold rate. Return merged list + merge notes.
+    Each surviving level gains a ``merged_from`` list of absorbed participants
+    (empty list when no merge occurred) so downstream diffing can resolve
+    merged-away support prices.
     """
     merged = []
     skip_indices = set()
@@ -114,6 +117,10 @@ def merge_convergent_levels(levels, tolerance=CONVERGENCE_TOLERANCE):
                 participants.append(levels[j])
                 if levels[j]["hold_rate"] > best["hold_rate"]:
                     best = levels[j]
+        absorbed = [p for p in participants if p is not best]
+        best["merged_from"] = [
+            {"price": p["support_price"], "source": p["source"]} for p in absorbed
+        ]
         if len(participants) > 1:
             sources = [f"${l['support_price']:.2f} {l['source']}" for l in participants]
             merge_notes.append(f"Merged: {' + '.join(sources)} -> buy at ${best['recommended_buy']:.2f}")
