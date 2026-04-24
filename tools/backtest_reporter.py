@@ -42,6 +42,9 @@ def compute_metrics(trades, cycles, equity_curve, config_meta):
     wins = [t for t in sell_trades if t.get("pnl_pct", 0) > 0]
     losses = [t for t in sell_trades if t.get("pnl_pct", 0) <= 0]
     total_pnl = sum(t.get("pnl_dollars", 0) for t in sell_trades)
+    gross_pnl = sum(t.get("gross_pnl_dollars", t.get("pnl_dollars", 0))
+                    for t in sell_trades)
+    total_fees = sum(t.get("fees", 0) for t in trades)
 
     m["total_buys"] = len(buy_trades)
     m["total_sells"] = len(sell_trades)
@@ -50,6 +53,8 @@ def compute_metrics(trades, cycles, equity_curve, config_meta):
     m["losses"] = len(losses)
     m["win_rate"] = round(len(wins) / len(sell_trades) * 100, 1) if sell_trades else 0
     m["total_pnl"] = round(total_pnl, 2)
+    m["gross_pnl"] = round(gross_pnl, 2)
+    m["transaction_costs"] = round(total_fees, 2)
     m["avg_pnl_pct"] = round(float(np.mean([t["pnl_pct"] for t in sell_trades])), 2)
     m["avg_hold_days"] = round(float(np.mean([t.get("days_held", 0) for t in sell_trades])), 1)
 
@@ -180,7 +185,9 @@ def format_report(m, config_meta):
     lines.append(f"| Completed Sells | {m.get('total_sells', 0)} |")
     lines.append(f"| Completed Cycles | {m.get('total_cycles', 0)} |")
     lines.append(f"| Win Rate | {m.get('win_rate', 0)}% |")
-    lines.append(f"| Total P/L | ${m.get('total_pnl', 0):.2f} |")
+    lines.append(f"| Gross P/L | ${m.get('gross_pnl', m.get('total_pnl', 0)):.2f} |")
+    lines.append(f"| Transaction Costs | ${m.get('transaction_costs', 0):.2f} |")
+    lines.append(f"| Net P/L | ${m.get('total_pnl', 0):.2f} |")
     lines.append(f"| Avg P/L per Sell | {m.get('avg_pnl_pct', 0):+.2f}% |")
     lines.append(f"| Avg Hold Days | {m.get('avg_hold_days', 0)} |")
     lines.append(f"| Profit Factor | {m.get('profit_factor', 0)} |")

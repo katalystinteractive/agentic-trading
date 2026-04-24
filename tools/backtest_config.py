@@ -176,6 +176,7 @@ class SurgicalSimConfig:
     # Same-day exit
     same_day_exit: bool = True
     same_day_exit_pct: float = 4.0
+    same_day_exit_mode: str = "optimistic"  # "optimistic", "conservative", "disabled"
 
     # Earnings
     earnings_gate: bool = False
@@ -187,9 +188,13 @@ class SurgicalSimConfig:
     # Compounding
     compound: bool = False              # reinvest profits into pools after each sell
 
-    # Execution slippage (adverse price movement on fills)
+    # Execution costs (adverse price movement on fills)
     entry_slippage_pct: float = 0.0     # % worse on buy fills (e.g., 0.5 = fill 0.5% above limit)
     exit_slippage_pct: float = 0.0      # % worse on sell exits (e.g., 0.5 = sell 0.5% below target)
+    entry_spread_pct: float = 0.0       # additional adverse spread on buys
+    exit_spread_pct: float = 0.0        # additional adverse spread on sells
+    fee_per_trade: float = 0.0          # fixed commission/fee per fill or sell
+    fee_per_share: float = 0.0          # per-share commission/fee
 
     # Entry timing — wait for pullback before placing first orders
     initial_pullback_pct: float = 0.0   # 0 = immediate; 5 = wait for 5% pullback from recent high

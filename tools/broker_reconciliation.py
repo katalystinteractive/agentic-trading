@@ -20,6 +20,7 @@ TRADE_HISTORY_PATH = _ROOT / "trade_history.json"
 PROFILES_PATH = _ROOT / "ticker_profiles.json"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from neural_artifact_validator import ArtifactValidationError, load_validated_json
 from shared_constants import MATCH_TOLERANCE
 from shared_utils import is_active_buy as _is_active_buy, is_active_sell as _is_active_sell
 from bullet_recommender import classify_drift, build_zone_labels as _br_build_zone_labels
@@ -52,8 +53,7 @@ def _load_profiles():
     try:
         wl_path = _ROOT / "data" / "neural_watchlist_profiles.json"
         if wl_path.exists():
-            with open(wl_path) as f:
-                wl_data = json.load(f)
+            wl_data = load_validated_json(wl_path)
             for c in wl_data.get("candidates", []):
                 tk = c["ticker"]
                 if tk not in profiles:
@@ -61,15 +61,14 @@ def _load_profiles():
                 if not profiles[tk].get("optimal_target_pct"):
                     profiles[tk]["optimal_target_pct"] = c["params"].get("sell_default")
                     profiles[tk]["_neural_source"] = "neural_watchlist"
-    except (FileNotFoundError, json.JSONDecodeError, KeyError):
+    except (FileNotFoundError, json.JSONDecodeError, KeyError, ArtifactValidationError):
         pass
 
     # Merge neural support candidates (candidate discovery fallback)
     try:
         ns_path = _ROOT / "data" / "neural_support_candidates.json"
         if ns_path.exists():
-            with open(ns_path) as f:
-                ns_data = json.load(f)
+            ns_data = load_validated_json(ns_path)
             for c in ns_data.get("candidates", []):
                 tk = c["ticker"]
                 if tk not in profiles:
@@ -77,7 +76,7 @@ def _load_profiles():
                 if not profiles[tk].get("optimal_target_pct"):
                     profiles[tk]["optimal_target_pct"] = c["params"].get("sell_default")
                     profiles[tk]["_neural_source"] = "neural_support"
-    except (FileNotFoundError, json.JSONDecodeError, KeyError):
+    except (FileNotFoundError, json.JSONDecodeError, KeyError, ArtifactValidationError):
         pass
 
     return profiles

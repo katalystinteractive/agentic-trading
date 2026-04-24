@@ -25,6 +25,9 @@ _ROOT = Path(__file__).resolve().parent.parent
 SWEEP_RESULTS_PATH = _ROOT / "data" / "sweep_results.json"
 WEIGHTS_PATH = _ROOT / "data" / "synapse_weights.json"
 
+POLICY_GATE_SUFFIXES = (":dip_gate", ":bounce_gate", ":candidate")
+DIAGNOSTIC_GATE_SUFFIXES = (":profit_gate", ":hold_gate", ":stop_gate")
+
 
 # ---------------------------------------------------------------------------
 # Weight update
@@ -68,6 +71,35 @@ def update_weights(trades, current_weights, learning_rate=0.01, norm_divisor=10.
                 node_weights[input_name] = round(w, 4)
 
     return updated
+
+
+def is_policy_gate(gate_name):
+    """Return True when a learned gate is consumed by live graph policy."""
+    return any(gate_name.endswith(suffix) for suffix in POLICY_GATE_SUFFIXES)
+
+
+def is_diagnostic_gate(gate_name):
+    """Return True for support outcome gates kept for diagnostics only."""
+    return any(gate_name.endswith(suffix) for suffix in DIAGNOSTIC_GATE_SUFFIXES)
+
+
+def _count_synapses(weights):
+    return sum(len(edges) for edges in weights.values())
+
+
+def split_policy_and_diagnostic_weights(weights):
+    """Separate live policy weights from diagnostic-only support weights.
+
+    Support gates such as profit_gate/hold_gate/stop_gate are reconstructed from
+    outcomes. They are useful diagnostics, but they are not live decision inputs
+    and must not be stored in the policy weight map consumed by evaluators.
+    """
+    policy = {}
+    diagnostic = {}
+    for gate_name, edges in (weights or {}).items():
+        target = policy if is_policy_gate(gate_name) else diagnostic
+        target[gate_name] = edges
+    return policy, diagnostic
 
 
 def train_from_sweep(sweep_path=None, learning_rate=0.01, epochs=1):
@@ -146,14 +178,39 @@ def train_from_sweep(sweep_path=None, learning_rate=0.01, epochs=1):
 
 def save_weights(weights, stats, regime="Neutral"):
     """Write synapse_weights.json with regime support."""
-    data = {"_meta": {"version": 1, "updated": date.today().isoformat()}}
+    data = {"_meta": {
+        "version": 1,
+        "schema_version": 1,
+        "source": "weight_learner.py",
+        "execution_mode": "graph_policy",
+        "updated": date.today().isoformat(),
+    }}
 
     # Load existing to preserve other regimes
+    existing_diagnostics = {}
     if WEIGHTS_PATH.exists():
         with open(WEIGHTS_PATH) as f:
             data = json.load(f)
+        existing_policy, migrated_diagnostics = split_policy_and_diagnostic_weights(
+            data.get("weights", {}))
+        data["weights"] = existing_policy
+        existing_diagnostics = {
+            **data.get("diagnostic_weights", {}),
+            **migrated_diagnostics,
+        }
+
+    policy_weights, diagnostic_weights = split_policy_and_diagnostic_weights(weights)
+    diagnostic_weights = {**existing_diagnostics, **diagnostic_weights}
+
+    stats = dict(stats)
+    stats["policy_synapses"] = _count_synapses(policy_weights)
+    stats["diagnostic_synapses"] = _count_synapses(diagnostic_weights)
+    stats["total_synapses"] = stats["policy_synapses"] + stats["diagnostic_synapses"]
 
     data["_meta"]["updated"] = date.today().isoformat()
+    data["_meta"]["schema_version"] = 1
+    data["_meta"]["source"] = "weight_learner.py"
+    data["_meta"]["execution_mode"] = "graph_policy"
     data["_meta"]["stats"] = stats  # backward compat — last run's stats
     # Track stats per source so both dip and support training stats persist
     if "stats_by_source" not in data["_meta"]:
@@ -162,7 +219,8 @@ def save_weights(weights, stats, regime="Neutral"):
     data["_meta"]["stats_by_source"][source] = stats
 
     # Store base weights (used when no regime-specific override exists)
-    data["weights"] = weights
+    data["weights"] = policy_weights
+    data["diagnostic_weights"] = diagnostic_weights
 
     # Initialize regime_weights structure if needed
     if "regime_weights" not in data:

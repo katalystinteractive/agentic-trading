@@ -168,7 +168,7 @@ def replay_day(day, day_bars, tickers, static, hist_ranges, regime, n_tickers,
     except Exception as e:
         return {"day": str(day), "signal": f"FH_ERROR: {e}", "buys": []}
 
-    if not fh_state.get("breadth_dip"):
+    if not fh_state.get("breadth_dip_gate"):
         return {"day": str(day), "signal": "NO_DIP", "buys": []}
 
     # Phase 3: Decision graph (bars up to ~18 = 90 min of data)

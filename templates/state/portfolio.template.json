@@ -1,0 +1,21 @@
+{
+  "last_updated": null,
+  "capital": {
+    "per_stock_total": 600,
+    "active_pool": 300,
+    "reserve_pool": 300,
+    "active_bullets_max": 5,
+    "reserve_bullets_max": 3
+  },
+  "positions": {},
+  "pending_orders": {},
+  "watchlist": [],
+  "bounce_capital": {},
+  "bounce_positions": {},
+  "bounce_pending": {},
+  "bounce_watchlist": [],
+  "velocity_capital": {},
+  "velocity_positions": {},
+  "velocity_pending": {},
+  "velocity_watchlist": []
+}

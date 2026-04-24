@@ -1,10 +1,12 @@
 """Shared utilities for Capital Intelligence tools."""
 
 import json
+import math
 import re
 import statistics
 from datetime import date, datetime
 from pathlib import Path
+from neural_artifact_validator import ArtifactValidationError, load_validated_json
 
 
 def load_json(path):
@@ -31,6 +33,216 @@ _DEFAULT_RESERVE = 300
 
 
 _mp_cache = {"data": None, "mtime": 0}  # file-level cache for multi-period data
+
+
+def _as_float(value, default=0.0):
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _clamp(value, low, high):
+    return max(low, min(high, value))
+
+
+def _probability(value):
+    value = _as_float(value)
+    if value > 1:
+        value /= 100.0
+    return _clamp(value, 0.0, 1.0)
+
+
+def _round_broker_shares(shares, price):
+    if price >= 150:
+        return max(0.1, round(shares * 10) / 10)
+    return max(1, int(round(shares)))
+
+
+def compute_allocation_signal(features=None, score=None):
+    """Return risk-adjusted allocation multiplier and explanation fields.
+
+    This is the shared capital-sizing contract used by bullet plans, live
+    support alerts, dip recommendations, and order adjustment reports.
+    """
+    features = features or {}
+    score = score or {}
+    components = score.get("edge_components") or {}
+
+    expected_edge_pct = _as_float(
+        score.get("expected_edge_pct", features.get("expected_edge_pct")),
+        default=None,
+    )
+    if expected_edge_pct is None:
+        hold_rate = _probability(features.get("hold_rate"))
+        target_pct = _as_float(features.get("target_pct"), 6.0)
+        stop_pct = abs(_as_float(features.get("stop_pct"), 3.0))
+        expected_edge_pct = hold_rate * target_pct - (1.0 - hold_rate) * stop_pct
+
+    confidence = components.get("confidence")
+    if confidence is None:
+        trades = _as_float(features.get("trade_count"))
+        approaches = _as_float(features.get("approaches"))
+        confidence = _clamp(math.sqrt(max(trades, approaches, 1.0) / 8.0), 0.2, 1.0)
+    confidence = _clamp(_as_float(confidence), 0.0, 1.0)
+
+    stop_risk = components.get("p_stop")
+    if stop_risk is None:
+        stop_risk = features.get("stop_hit_rate")
+    stop_risk = _probability(stop_risk)
+
+    fill_likelihood = features.get("fill_likelihood")
+    if fill_likelihood is None:
+        distance_pct = _as_float(features.get("distance_pct"))
+        proximity_pct = max(0.1, _as_float(features.get("proximity_pct"), 5.0))
+        touch_freq = _as_float(features.get("monthly_touch_freq"), 1.0)
+        distance_factor = _clamp(1.0 - max(0.0, distance_pct) / proximity_pct, 0.25, 1.0)
+        freq_factor = _clamp(touch_freq / 2.0, 0.35, 1.0)
+        fill_likelihood = distance_factor * freq_factor
+    fill_likelihood = _clamp(_as_float(fill_likelihood), 0.0, 1.0)
+
+    hold_days = _as_float(features.get("median_hold_days"))
+    hold_penalty = _clamp(hold_days / 90.0, 0.0, 0.35)
+    dormant_penalty = 0.45 if features.get("dormant") else 0.0
+
+    edge_factor = _clamp(1.0 + expected_edge_pct / 10.0, 0.35, 1.75)
+    confidence_factor = 0.45 + confidence * 0.55
+    fill_factor = 0.65 + fill_likelihood * 0.35
+    risk_factor = _clamp(1.0 - stop_risk * 0.55 - hold_penalty - dormant_penalty, 0.25, 1.0)
+    multiplier = _clamp(edge_factor * confidence_factor * fill_factor * risk_factor, 0.15, 1.75)
+
+    reasons = []
+    reasons.append(f"edge {expected_edge_pct:+.1f}%")
+    reasons.append(f"confidence {confidence:.0%}")
+    reasons.append(f"fill {fill_likelihood:.0%}")
+    if stop_risk:
+        reasons.append(f"stop risk {stop_risk:.0%}")
+    if hold_penalty:
+        reasons.append(f"hold penalty {hold_penalty:.0%}")
+    if dormant_penalty:
+        reasons.append("dormant penalty")
+    if multiplier >= 1.15:
+        action = "increased"
+    elif multiplier <= 0.85:
+        action = "reduced"
+    else:
+        action = "baseline"
+    return {
+        "allocation_multiplier": round(multiplier, 3),
+        "allocation_action": action,
+        "allocation_reason": "; ".join(reasons),
+        "expected_edge_pct": round(expected_edge_pct, 3),
+        "confidence": round(confidence, 3),
+        "fill_likelihood": round(fill_likelihood, 3),
+        "stop_risk": round(stop_risk, 3),
+    }
+
+
+def compute_position_allocation(base_dollars, price, features=None, score=None,
+                                min_dollars=0.0, max_dollars=None):
+    """Size one candidate from a base dollar amount and risk/edge signal."""
+    price = _as_float(price)
+    base_dollars = max(0.0, _as_float(base_dollars))
+    signal = compute_allocation_signal(features=features, score=score)
+    dollars = base_dollars * signal["allocation_multiplier"]
+    if max_dollars is not None:
+        dollars = min(dollars, _as_float(max_dollars))
+    dollars = max(_as_float(min_dollars), dollars)
+    if price <= 0 or dollars <= 0:
+        shares = 0
+        cost = 0.0
+    else:
+        shares = _round_broker_shares(dollars / price, price)
+        cost = round(shares * price, 2)
+    return {
+        **signal,
+        "base_dollars": round(base_dollars, 2),
+        "allocated_dollars": round(dollars, 2),
+        "shares": shares,
+        "cost": cost,
+    }
+
+
+def compute_support_level_score(level, *, current_price=None, proximity_pct=5.0,
+                                target_pct=6.0, stop_pct=3.0,
+                                allocated_dollars=None, pool_budget=None):
+    """Score one support level by expected recovery quality, not just distance."""
+    level = level or {}
+    buy_at = _as_float(
+        level.get("buy_at", level.get("recommended_buy", level.get("support")))
+    )
+    price = _as_float(current_price, level.get("current_price", 0))
+    if price <= 0:
+        price = _as_float(level.get("price"), buy_at)
+    distance_pct = level.get("distance_pct")
+    if distance_pct is None and buy_at > 0 and price > 0:
+        distance_pct = (price - buy_at) / buy_at * 100
+    distance_pct = max(0.0, _as_float(distance_pct))
+
+    hold_rate = _probability(level.get("decayed_hold_rate", level.get("hold_rate", 0)))
+    raw_hold_rate = _probability(level.get("hold_rate", hold_rate))
+    recent_hold = level.get("recent_hold_pct")
+    recent_hold_rate = _probability(recent_hold) if recent_hold is not None else hold_rate
+    monthly_touch_freq = _as_float(level.get("monthly_touch_freq"))
+    recent_approaches = _as_float(level.get("recent_approaches"))
+    approaches = _as_float(level.get("approaches", level.get("total_approaches")))
+
+    tier = level.get("effective_tier", level.get("tier", "Std"))
+    tier_bonus = {"Full": 6.0, "Std": 2.5, "Half": -5.0}.get(tier, -10.0)
+    zone = level.get("zone", "Active")
+    zone_bonus = {"Active": 3.0, "Reserve": -2.0, "Buffer": -6.0}.get(zone, -4.0)
+    trend = level.get("trend", "")
+    trend_bonus = {"Improving": 4.0, "Stable": 0.0, "Deteriorating": -8.0}.get(trend, 0.0)
+
+    p_target = _clamp((hold_rate * 0.65) + (recent_hold_rate * 0.25) + (raw_hold_rate * 0.10), 0.0, 1.0)
+    p_break = _clamp(1.0 - p_target, 0.0, 1.0)
+    fill_likelihood = _clamp(
+        (1.0 - distance_pct / max(0.1, proximity_pct)) * 0.65
+        + _clamp(monthly_touch_freq / 2.0, 0.0, 1.0) * 0.35,
+        0.0,
+        1.0,
+    )
+    expected_edge_pct = p_target * _as_float(target_pct, 6.0) - p_break * abs(_as_float(stop_pct, 3.0))
+
+    dormant_penalty = 18.0 if level.get("dormant") else 0.0
+    low_frequency_penalty = max(0.0, 1.0 - monthly_touch_freq) * 5.0
+    confidence_penalty = max(0.0, 3.0 - max(approaches, recent_approaches)) * 2.0
+    distance_penalty = min(12.0, distance_pct * 1.6)
+    capital_lock_penalty = 0.0
+    if allocated_dollars is not None and pool_budget:
+        capital_lock_penalty = min(8.0, _as_float(allocated_dollars) / max(1.0, _as_float(pool_budget)) * 8.0)
+
+    score = (
+        50.0
+        + expected_edge_pct * 5.0
+        + fill_likelihood * 10.0
+        + tier_bonus
+        + zone_bonus
+        + trend_bonus
+        - dormant_penalty
+        - low_frequency_penalty
+        - confidence_penalty
+        - distance_penalty
+        - capital_lock_penalty
+    )
+    score = _clamp(score, 0.0, 100.0)
+    return {
+        "support_score": round(score, 1),
+        "support_expected_edge_pct": round(expected_edge_pct, 3),
+        "support_score_components": {
+            "p_target": round(p_target, 3),
+            "p_break": round(p_break, 3),
+            "fill_likelihood": round(fill_likelihood, 3),
+            "distance_pct": round(distance_pct, 3),
+            "tier_bonus": round(tier_bonus, 3),
+            "zone_bonus": round(zone_bonus, 3),
+            "trend_bonus": round(trend_bonus, 3),
+            "dormant_penalty": round(dormant_penalty, 3),
+            "low_frequency_penalty": round(low_frequency_penalty, 3),
+            "confidence_penalty": round(confidence_penalty, 3),
+            "capital_lock_penalty": round(capital_lock_penalty, 3),
+        },
+    }
 
 
 def _load_mp_data():
@@ -72,15 +284,14 @@ def get_ticker_pool(ticker):
     try:
         _ss_path = Path(__file__).resolve().parent.parent / "data" / "support_sweep_results.json"
         if _ss_path.exists():
-            with open(_ss_path) as _f:
-                _ss = json.load(_f)
+            _ss = load_validated_json(_ss_path)
             _ss_entry = _ss.get(ticker, {}).get("params", {})
             if _ss_entry.get("active_bullets_max") is not None:
                 _ss_bullets = {
                     "active_bullets_max": _ss_entry["active_bullets_max"],
                     "reserve_bullets_max": _ss_entry.get("reserve_bullets_max"),
                 }
-    except (FileNotFoundError, json.JSONDecodeError):
+    except (FileNotFoundError, json.JSONDecodeError, ArtifactValidationError):
         pass
 
     # Try simulation-backed allocation first (cached read)
@@ -107,8 +318,7 @@ def get_ticker_pool(ticker):
     try:
         wl_path = Path(__file__).resolve().parent.parent / "data" / "neural_watchlist_profiles.json"
         if wl_path.exists():
-            with open(wl_path) as f:
-                wl_data = json.load(f)
+            wl_data = load_validated_json(wl_path)
             for c in wl_data.get("candidates", []):
                 if c["ticker"] == ticker:
                     params = c.get("params", {})
@@ -123,15 +333,14 @@ def get_ticker_pool(ticker):
                         "source": "neural_watchlist",
                         "composite": None,
                     }
-    except (FileNotFoundError, json.JSONDecodeError, KeyError):
+    except (FileNotFoundError, json.JSONDecodeError, KeyError, ArtifactValidationError):
         pass
 
     # Check neural support candidates (candidate discovery fallback)
     try:
         ns_path = Path(__file__).resolve().parent.parent / "data" / "neural_support_candidates.json"
         if ns_path.exists():
-            with open(ns_path) as f:
-                ns_data = json.load(f)
+            ns_data = load_validated_json(ns_path)
             for c in ns_data.get("candidates", []):
                 if c["ticker"] == ticker:
                     params = c.get("params", {})
@@ -146,7 +355,7 @@ def get_ticker_pool(ticker):
                         "source": "neural_support",
                         "composite": None,
                     }
-    except (FileNotFoundError, json.JSONDecodeError, KeyError):
+    except (FileNotFoundError, json.JSONDecodeError, KeyError, ArtifactValidationError):
         pass
 
     # Fallback to portfolio.json static defaults

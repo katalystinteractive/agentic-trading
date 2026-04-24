@@ -18,7 +18,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from broker_reconciliation import (compute_recommended_sell, _load_profiles,
                                     _load_resistance_profiles, _load_bounce_profiles)
-from shared_utils import get_ticker_pool
+from neural_artifact_validator import ArtifactValidationError, load_validated_json
+from shared_utils import compute_position_allocation, get_ticker_pool
 from wick_offset_analyzer import load_capital_config
 
 _ROOT = Path(__file__).resolve().parent.parent
@@ -36,10 +37,9 @@ def _load_portfolio():
 def _load_neural_candidates():
     """Load neural support candidates for reason chain evidence."""
     try:
-        with open(_ROOT / "data" / "neural_support_candidates.json") as f:
-            data = json.load(f)
+        data = load_validated_json(_ROOT / "data" / "neural_support_candidates.json")
         return {c["ticker"]: c for c in data.get("candidates", [])}
-    except (FileNotFoundError, json.JSONDecodeError):
+    except (FileNotFoundError, json.JSONDecodeError, ArtifactValidationError):
         return {}
 
 
@@ -80,7 +80,7 @@ def _build_sell_reason(ticker, source, rec_price, avg_cost, ns_candidates):
 
 
 def _build_buy_reason(ticker, pool, bullets, rec_shares, current_shares,
-                      buy_price, pool_source, ns_candidates):
+                      buy_price, pool_source, ns_candidates, allocation=None):
     """Full reason chain: pool source + sizing math + evidence + vs-default."""
     parts = []
 
@@ -88,6 +88,12 @@ def _build_buy_reason(ticker, pool, bullets, rec_shares, current_shares,
     per_bullet = round(pool / bullets, 0) if bullets > 0 else pool
     parts.append(f"${pool}/{bullets}b=${per_bullet:.0f}/bullet ({pool_source})")
     parts.append(f"${per_bullet:.0f}/${buy_price:.2f}={rec_shares}sh")
+    if allocation:
+        parts.append(
+            f"alloc {allocation.get('allocation_action', 'baseline')} "
+            f"{allocation.get('allocation_multiplier', 1.0):.2f}x: "
+            f"{allocation.get('allocation_reason', '')}"
+        )
 
     # Neural evidence
     candidate = ns_candidates.get(ticker)
@@ -212,7 +218,15 @@ def compute_buy_adjustments(portfolio, ns_candidates):
             if buy_price <= 0:
                 continue
 
-            rec_shares = max(1, int(pool / bullets / buy_price))
+            candidate = ns_candidates.get(tk, {})
+            allocation = compute_position_allocation(
+                pool / max(1, bullets),
+                buy_price,
+                features=candidate.get("features") or {},
+                score=candidate.get("stats") or {},
+                max_dollars=pool * 0.60,
+            )
+            rec_shares = allocation["shares"]
             diff = rec_shares - current_shares
 
             if diff == 0:
@@ -223,7 +237,8 @@ def compute_buy_adjustments(portfolio, ns_candidates):
                 action = f"{diff} sh"
 
             reason = _build_buy_reason(tk, pool, bullets, rec_shares, current_shares,
-                                       buy_price, pool_source, ns_candidates)
+                                       buy_price, pool_source, ns_candidates,
+                                       allocation=allocation)
 
             adjustments.append({
                 "ticker": tk,
@@ -232,6 +247,10 @@ def compute_buy_adjustments(portfolio, ns_candidates):
                 "rec_shares": rec_shares,
                 "pool": pool,
                 "bullets": bullets,
+                "allocated_dollars": allocation["allocated_dollars"],
+                "allocation_multiplier": allocation["allocation_multiplier"],
+                "allocation_action": allocation["allocation_action"],
+                "allocation_reason": allocation["allocation_reason"],
                 "pool_source": pool_source,
                 "diff": diff,
                 "action": action,
@@ -268,12 +287,13 @@ def print_buy_adjustments(adjustments):
     ok = [a for a in adjustments if a["action"] == "OK"]
 
     print(f"## Buy Order Adjustments ({len(changes)} changes, {len(ok)} OK)\n")
-    print(f"| Ticker | Price | Current | Rec | Action | Reason |")
-    print(f"| :--- | :--- | :--- | :--- | :--- | :--- |")
+    print(f"| Ticker | Price | Current | Rec | Alloc | Action | Reason |")
+    print(f"| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     for a in adjustments:
         bold = "**" if a["action"] != "OK" else ""
         print(f"| {a['ticker']} | ${a['buy_price']:.2f} | "
               f"{a['current_shares']} sh | {a['rec_shares']} sh | "
+              f"{a.get('allocation_action', 'baseline')} {a.get('allocation_multiplier', 1.0):.2f}x | "
               f"{bold}{a['action']}{bold} | {a['reason']} |")
     print()
 

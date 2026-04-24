@@ -169,7 +169,9 @@ def main():
 
     output = {
         "_meta": {
+            "schema_version": 1,
             "source": "neural_watchlist_sweeper.py",
+            "execution_mode": "support_surgical_daily_ohlc",
             "updated": date.today().isoformat(),
             "tracked_tickers": len(tickers),
             "profiles_created": len(results),

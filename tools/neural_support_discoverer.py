@@ -105,9 +105,11 @@ def write_results(ranked, top_n, meta):
     """Write results to JSON and markdown."""
     output = {
         "_meta": {
-            "source": "neural_support_discoverer.py",
-            "updated": date.today().isoformat(),
             **meta,
+            "schema_version": 1,
+            "source": "neural_support_discoverer.py",
+            "execution_mode": "support_surgical_daily_ohlc",
+            "updated": date.today().isoformat(),
         },
         "candidates": ranked[:top_n],
     }

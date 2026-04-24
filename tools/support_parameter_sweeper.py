@@ -28,6 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import numpy as np
 
 from multi_period_scorer import compute_composite
+from expected_edge import attach_expected_edge
 
 _ROOT = Path(__file__).resolve().parent.parent
 RESULTS_PATH = _ROOT / "data" / "support_sweep_results.json"
@@ -527,13 +528,15 @@ def _sweep_threshold_worker(args):
             trades_detail = result.get("trades_detail", [])
             for t in trades_detail:
                 if t.get("side", "").upper() == "BUY":
+                    # Diagnostic-only outcome gates. weight_learner.save_weights()
+                    # keeps these out of live graph-policy weights.
                     t["fired_inputs"] = {
                         f"{ticker}:profit_gate": {
                             f"{ticker}:pnl_pct": t.get("pnl_pct", 0)},
                         f"{ticker}:stop_gate": {
                             f"{ticker}:pnl_pct": t.get("pnl_pct", 0)},
                     }
-            return ticker, {
+            return ticker, attach_expected_edge("support", {
                 "params": params,
                 "stats": {
                     "pnl": result.get("pnl", 0),
@@ -546,7 +549,7 @@ def _sweep_threshold_worker(args):
                 "features": features,
                 "trades": trades_detail,
                 "periods": periods,
-            }
+            })
         return ticker, None
     except Exception as e:
         return ticker, None
@@ -918,7 +921,7 @@ def main():
                 params, result, composite, periods = sweep_threshold(tk, train_months)
                 if params and result:
                     features = extract_support_features(tk, result)
-                    results[tk] = {
+                    results[tk] = attach_expected_edge("support", {
                         "params": params,
                         "stats": {
                             "pnl": result.get("pnl", 0),
@@ -931,7 +934,7 @@ def main():
                         "features": features,
                         "trades": result.get("trades_detail", []),
                         "periods": periods,
-                    }
+                    })
                     s = results[tk]["stats"]
                     print(f"P/L=${s['pnl']:.2f} ({s['trades']}t) "
                           f"composite=${composite:.1f}/mo "
@@ -991,6 +994,9 @@ def main():
                 else:
                     print(f"no improvement [{time.time()-t0:.0f}s]", flush=True)
 
+    for r in results.values():
+        attach_expected_edge("support", r)
+
     # Write results — MERGE into existing file (never overwrite other tickers)
     output = {}
     if RESULTS_PATH.exists():
@@ -1000,12 +1006,14 @@ def main():
         except (json.JSONDecodeError, OSError):
             pass
     output["_meta"] = {
+        "schema_version": 1,
         "source": "support_parameter_sweeper.py",
+        "execution_mode": "support_surgical_daily_ohlc",
         "updated": date.today().isoformat(),
         "threshold_combos": threshold_combos,
         "execution_combos": execution_combos,
-        "tickers_swept": len(tickers),
-        "profitable": len(results),
+        "last_run_tickers_swept": len(tickers),
+        "last_run_profitable": len(results),
     }
     for tk, r in results.items():
         output[tk] = {
@@ -1014,6 +1022,8 @@ def main():
             "features": r.get("features"),
             "cross_validation": r.get("cross_validation"),
         }
+    output["_meta"]["total_tickers"] = sum(
+        1 for key in output if not key.startswith("_"))
 
     if not args.dry_run and args.stage != "level":
         with open(RESULTS_PATH, "w") as f:
@@ -1283,6 +1293,7 @@ def main():
                 except (json.JSONDecodeError, OSError):
                     pass
             existing["_meta"] = {
+                "schema_version": 1,
                 "source": "support_parameter_sweeper.py --stage regime_exit",
                 "updated": date.today().isoformat(),
                 "combos": len(list(itertools.product(*REGIME_EXIT_GRID.values()))),

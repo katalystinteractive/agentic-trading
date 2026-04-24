@@ -418,8 +418,7 @@ def _classify_missing(ticker: str, order: dict, trade_history: list,
             continue
         if trade.get("side") != "BUY":
             continue
-        t_epoch = _trade_date_to_epoch(trade.get("date", ""))
-        if not (snapshot_ts <= t_epoch < report_ts):
+        if not _trade_date_overlaps_window(trade.get("date", ""), snapshot_ts, report_ts):
             continue
         order_price = order.get("price", 0) or 0
         if order_price == 0:
@@ -496,14 +495,16 @@ def _tier_from_order_note(note: str) -> str | None:
     return m.group(1) if m else None
 
 
-def _trade_date_to_epoch(date_str: str) -> float:
+def _trade_date_overlaps_window(date_str: str, snapshot_ts: float, report_ts: float) -> bool:
+    """Return whether a date-only trade could have occurred during the report window."""
     try:
-        dt = datetime.strptime(date_str, "%Y-%m-%d").replace(
-            hour=23, minute=59, second=59
-        )
-        return dt.timestamp()
+        trade_day = datetime.strptime(date_str, "%Y-%m-%d")
     except (ValueError, TypeError):
-        return 0.0
+        return False
+
+    trade_start = trade_day.timestamp()
+    trade_end = trade_day.replace(hour=23, minute=59, second=59).timestamp()
+    return trade_start < report_ts and trade_end >= snapshot_ts
 
 
 # ---------------------------------------------------------------------------

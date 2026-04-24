@@ -555,7 +555,12 @@ class TestPoolSizing:
         """compute_pool_sizing() should not leak input keys beyond the documented output."""
         levels = [self._make_level(10.0, hold_rate=60.0)]
         result = compute_pool_sizing(levels, 300, "active")
-        expected_keys = {"recommended_buy", "hold_rate", "monthly_touch_freq", "shares", "cost", "dollar_alloc"}
+        expected_keys = {
+            "recommended_buy", "hold_rate", "monthly_touch_freq", "shares",
+            "cost", "dollar_alloc", "allocation_multiplier",
+            "allocation_action", "allocation_reason", "expected_edge_pct",
+            "confidence", "fill_likelihood", "stop_risk",
+        }
         assert set(result[0].keys()) == expected_keys
 
     def test_all_capped_distributes_via_residual(self):
@@ -667,7 +672,7 @@ class TestSizingDescription:
                   "active_bullets_max": 5, "reserve_bullets_max": 3}
         desc = sizing_description(cap=custom)
         assert "$300" in desc["one_liner"]
-        assert "equal impact" in desc["one_liner"]
+        assert "expected edge" in desc["one_liner"]
 
     def test_custom_cap_override(self):
         custom = {"active_pool": 500, "reserve_pool": 200,

@@ -18,6 +18,8 @@ from datetime import date, datetime, timedelta
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+from model_complexity_gate import filter_live_decision_entries, live_decision_reason
+
 _ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
 RESULTS_PATH = _ROOT / "data" / "tournament_results.json"
@@ -58,21 +60,42 @@ def _load_sweep(path):
             raw = json.load(f)
     except (OSError, json.JSONDecodeError):
         return {}
-    data = {k: v for k, v in raw.items() if not k.startswith("_")}
+    try:
+        data = filter_live_decision_entries(
+            raw, path=path, consumer="watchlist_tournament")
+    except ValueError:
+        print(f"*Ignoring {path.name}: {live_decision_reason(raw)}*")
+        data = {}
     _sweep_cache[ps] = {"mtime": mtime, "data": data}
     return data
 
 
-def load_all_sweeps(portfolio=None):
-    """Load all 4 sweep files. Filter to tracked + top challengers.
+def _ranking_value(entry):
+    """Return tournament score from a sweep entry.
 
-    Returns {ticker: {sweep_type: composite}}.
+    New artifacts can provide edge_adjusted_composite. Older artifacts keep using
+    composite so existing runs remain readable.
+    """
+    stats = entry.get("stats", {}) if isinstance(entry, dict) else {}
+    value = stats.get("edge_adjusted_composite")
+    if value is None:
+        value = stats.get("composite", 0)
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def load_all_sweeps(portfolio=None):
+    """Load all sweep files. Filter to tracked + top challengers.
+
+    Returns {ticker: {sweep_type: tournament_score}}.
     """
     all_data = {}
     for sweep_type, path in SWEEP_FILES.items():
         data = _load_sweep(path)
         for ticker, entry in data.items():
-            composite = entry.get("stats", {}).get("composite", 0)
+            composite = _ranking_value(entry)
             if ticker not in all_data:
                 all_data[ticker] = {}
             all_data[ticker][sweep_type] = composite
@@ -120,7 +143,7 @@ def load_all_sweeps(portfolio=None):
 # ---------------------------------------------------------------------------
 
 def compute_rankings(all_sweeps):
-    """Rank tickers by best-of composite across sweep types.
+    """Rank tickers by best-of tournament score across sweep types.
 
     Returns sorted list of dicts:
     [{ticker, score, best_strategy, strategy_type, active_levels, composites}, ...]

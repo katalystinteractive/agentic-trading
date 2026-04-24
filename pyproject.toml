@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentic-trading"
+version = "0.1.0"
+description = "Agentic surgical mean-reversion trading research and operations tools."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "beautifulsoup4>=4.12",
+    "chromadb>=0.4.0",
+    "lxml>=5.0",
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "python-dateutil>=2.8",
+    "pytz>=2024.1",
+    "requests>=2.31",
+    "scikit-learn>=1.4.0",
+    "sentence-transformers>=2.2.0",
+    "yfinance>=0.2.38",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
+
+[tool.setuptools]
+py-modules = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["tools"]
+addopts = "-q"

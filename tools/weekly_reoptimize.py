@@ -30,12 +30,23 @@ from datetime import datetime, date
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import numpy as np
+from artifact_promoter import promote_candidate, snapshot_incumbent
+from model_complexity_gate import is_live_decision_artifact, live_decision_reason
 
 _ROOT = Path(__file__).resolve().parent.parent
 PROFILES_PATH = _ROOT / "data" / "ticker_profiles.json"
 WEIGHTS_PATH = _ROOT / "data" / "synapse_weights.json"
 SWEEP_RESULTS_PATH = _ROOT / "data" / "sweep_results.json"
 REOPT_HISTORY_PATH = _ROOT / "data" / "reoptimize_history.json"
+PROMOTED_ARTIFACTS = [
+    _ROOT / "data" / "probability_calibration.json",
+    _ROOT / "data" / "sweep_results.json",
+    _ROOT / "data" / "support_sweep_results.json",
+    _ROOT / "data" / "ticker_profiles.json",
+    _ROOT / "data" / "synapse_weights.json",
+]
+_PROMOTION_RUN_ID = datetime.now().strftime("%Y%m%d-%H%M%S")
+_INCUMBENT_SNAPSHOTS: dict[str, Path | None] = {}
 
 # Strategy-specific tool paths
 STRATEGY_TOOLS = {
@@ -71,7 +82,74 @@ def step_watchlist_sweep():
     _tier2_file = _ROOT / "data" / ".tier2_pool.json"
     if _tier2_file.exists():
         cmd.extend(["--tickers-file", str(_tier2_file)])
-    return _run_sweep_step("2", "Support Sweep (Stage 1+2+slippage)", cmd)
+    support_path = _ROOT / "data" / "support_sweep_results.json"
+    _snapshot_artifacts([support_path])
+    ok, elapsed = _run_sweep_step("2", "Support Sweep (Stage 1+2+slippage)", cmd)
+    if ok:
+        decisions = _promote_artifacts([support_path])
+        ok = all(d.approved for d in decisions)
+    return ok, elapsed
+
+
+def _snapshot_artifacts(paths=None):
+    """Snapshot incumbent artifacts before a pipeline step can overwrite them."""
+    for path in paths or PROMOTED_ARTIFACTS:
+        key = str(path)
+        if key not in _INCUMBENT_SNAPSHOTS:
+            _INCUMBENT_SNAPSHOTS[key] = snapshot_incumbent(
+                path, run_id=_PROMOTION_RUN_ID)
+
+
+def _promote_artifacts(paths, min_margin=0.02, allow_stale=False):
+    """Promote or restore generated artifacts before downstream consumers run."""
+    decisions = []
+    for path in paths:
+        if not path.exists():
+            continue
+        incumbent = _INCUMBENT_SNAPSHOTS.get(str(path))
+        decision = promote_candidate(
+            path,
+            path,
+            incumbent_path=incumbent,
+            min_margin=min_margin,
+            allow_stale=allow_stale,
+        )
+        decisions.append(decision)
+        status = "PROMOTED" if decision.approved else "REJECTED"
+        print(f"  {status}: {path.name} — {decision.reason}", flush=True)
+    return decisions
+
+
+def step_model_complexity_gate(paths=None):
+    """Ensure black-box/advisory model outputs cannot affect live consumers."""
+    print("=" * 60)
+    print("STEP 0.8: Model Complexity Gate")
+    print("=" * 60)
+
+    checked = 0
+    blocked = []
+    for path in paths or PROMOTED_ARTIFACTS:
+        if not path.exists():
+            continue
+        try:
+            with open(path) as f:
+                data = json.load(f)
+        except (OSError, json.JSONDecodeError) as exc:
+            blocked.append(f"{path.name}: unreadable ({exc})")
+            continue
+        checked += 1
+        if not is_live_decision_artifact(data):
+            blocked.append(f"{path.name}: {live_decision_reason(data)}")
+
+    if blocked:
+        for line in blocked:
+            print(f"  BLOCKED: {line}", flush=True)
+        print(f"  Model complexity gate FAILED ({len(blocked)} blocked)\n", flush=True)
+        return False, {"checked": checked, "blocked": blocked}
+
+    print(f"  Model complexity gate passed ({checked} live artifacts checked)\n",
+          flush=True)
+    return True, {"checked": checked, "blocked": []}
 
 
 def step_sweep(use_cached=False, strategy="dip"):
@@ -87,10 +165,14 @@ def step_sweep(use_cached=False, strategy="dip"):
 
     sys.stdout.flush()
     t0 = time.time()
+    _snapshot_artifacts([tools["sweep_results"]])
     result = subprocess.run(cmd, cwd=str(_ROOT))
     elapsed = time.time() - t0
 
     success = result.returncode == 0 and tools["sweep_results"].exists()
+    if success:
+        decisions = _promote_artifacts([tools["sweep_results"]])
+        success = all(d.approved for d in decisions)
     print(f"  Sweep {'completed' if success else 'FAILED'} in {elapsed:.0f}s\n", flush=True)
     return success, elapsed
 
@@ -104,11 +186,16 @@ def step_cluster():
     cmd = [sys.executable, "tools/ticker_clusterer.py"]
     sys.stdout.flush()
     t0 = time.time()
+    _snapshot_artifacts([PROFILES_PATH])
     result = subprocess.run(cmd, cwd=str(_ROOT))
     elapsed = time.time() - t0
 
     if result.returncode != 0:
         print(f"  Clustering FAILED\n", flush=True)
+        return False, elapsed, {}
+    decisions = _promote_artifacts([PROFILES_PATH])
+    if not all(d.approved for d in decisions):
+        print(f"  Clustering artifact promotion FAILED\n", flush=True)
         return False, elapsed, {}
 
     # Parse cluster info from profiles
@@ -136,11 +223,16 @@ def step_train_weights(epochs=3, learning_rate=0.01):
            "--epochs", str(epochs), "--learning-rate", str(learning_rate)]
     sys.stdout.flush()
     t0 = time.time()
+    _snapshot_artifacts([WEIGHTS_PATH])
     result = subprocess.run(cmd, cwd=str(_ROOT))
     elapsed = time.time() - t0
 
     if result.returncode != 0:
         print(f"  Weight training FAILED\n", flush=True)
+        return False, elapsed, {}
+    decisions = _promote_artifacts([WEIGHTS_PATH])
+    if not all(d.approved for d in decisions):
+        print(f"  Weight artifact promotion FAILED\n", flush=True)
         return False, elapsed, {}
 
     # Parse weight stats
@@ -237,6 +329,31 @@ def step_check_confidence():
                 drops.append((tk, prev, curr))
 
     return low_conf, drops
+
+
+def step_probability_calibration(dry_run=False):
+    """Build calibrated probability buckets for expected-edge scoring."""
+    print("=" * 60)
+    print("STEP 0.75: Probability Calibration")
+    print("=" * 60)
+
+    cmd = [sys.executable, "tools/probability_calibrator.py"]
+    if dry_run:
+        cmd.append("--dry-run")
+
+    sys.stdout.flush()
+    t0 = time.time()
+    calibration_path = _ROOT / "data" / "probability_calibration.json"
+    _snapshot_artifacts([calibration_path])
+    result = subprocess.run(cmd, cwd=str(_ROOT))
+    elapsed = time.time() - t0
+    success = result.returncode == 0
+    if success and not dry_run:
+        decisions = _promote_artifacts([calibration_path])
+        success = all(d.approved for d in decisions)
+    print(f"  Probability calibration {'completed' if success else 'FAILED'} "
+          f"in {elapsed:.0f}s\n", flush=True)
+    return success, elapsed
 
 
 # ---------------------------------------------------------------------------
@@ -701,6 +818,17 @@ def main():
     print(f"  Tier 2 pool: {len(_tier2_pool)} tickers "
           f"({len(_tracked)} tracked + {len(_tier2_pool) - len(_tracked)} challengers)\n",
           flush=True)
+
+    # Step 0.75: Calibrate probabilities from prior promoted artifacts before
+    # sweep scoring reads them. Non-fatal: scorer fails closed to raw probabilities.
+    calib_ok, calib_t = step_probability_calibration(dry_run=args.dry_run)
+    timings["probability_calibration"] = calib_t
+
+    gate_ok, gate_report = step_model_complexity_gate()
+    timings["model_complexity_gate"] = 0
+    if not gate_ok:
+        print("*Model complexity gate failed. Aborting before live artifacts can be consumed.*")
+        return
 
     # Step 1-2: Sweep with cross-validation
     # Auto-reuse 5-min intraday cache if <7 days old (eliminates redundant re-download)

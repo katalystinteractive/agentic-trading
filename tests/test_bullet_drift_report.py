@@ -191,6 +191,21 @@ class TestMissingOrder:
         row = bdr._classify_missing("ABC", order, trades, now - 86400, now)
         assert row["action"] == "CANCELLED"
 
+    def test_malformed_trade_date_not_matched(self):
+        now = time.time()
+        order = {"ticker": "ABC", "price": 10.00, "shares": 3, "note": ""}
+        trades = [{"ticker": "ABC", "side": "BUY", "date": "not-a-date", "price": 10.00}]
+        row = bdr._classify_missing("ABC", order, trades, now - 86400, now)
+        assert row["action"] == "CANCELLED"
+
+    def test_price_outside_tolerance_not_matched(self):
+        now = time.time()
+        today = bdr.datetime.fromtimestamp(now - 100).strftime("%Y-%m-%d")
+        order = {"ticker": "ABC", "price": 10.00, "shares": 3, "note": ""}
+        trades = [{"ticker": "ABC", "side": "BUY", "date": today, "price": 10.20}]
+        row = bdr._classify_missing("ABC", order, trades, now - 86400, now)
+        assert row["action"] == "CANCELLED"
+
 
 # ---------------------------------------------------------------------------
 # Schema guard

@@ -214,7 +214,9 @@ def build_profiles(tickers, labels, sweep_data, cluster_profiles,
     profiles = {
         "_meta": {
             "version": 3,
+            "schema_version": 1,
             "source": "ticker_clusterer.py",
+            "execution_mode": "intraday_5min_neural_replay",
             "updated": date.today().isoformat(),
             "clusters": n_clusters,
             "silhouette_score": silhouette,

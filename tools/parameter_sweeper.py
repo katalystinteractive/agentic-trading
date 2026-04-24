@@ -38,6 +38,7 @@ from neural_dip_backtester import (
     CACHE_DIR, INTRADAY_CACHE, DAILY_CACHE,
 )
 from trading_calendar import is_trading_day
+from expected_edge import attach_expected_edge
 
 _ROOT = Path(__file__).resolve().parent.parent
 PROFILES_PATH = _ROOT / "data" / "ticker_profiles.json"
@@ -510,11 +511,14 @@ def main():
     sweep_out = _ROOT / "data" / "sweep_results.json"
     sweep_data = {
         "_meta": {
+            "schema_version": 1,
             "source": "parameter_sweeper.py",
+            "execution_mode": "intraday_5min_neural_replay",
             "updated": date.today().isoformat(),
             "days": days,
             "trading_days": len(trading_days),
             "grid_size": combos,
+            "tickers_swept": len(results),
         }
     }
     # Compute crude composite ($/month) for tournament ranking
@@ -522,13 +526,13 @@ def main():
     for tk, r in results.items():
         _pnl = r["stats"].get("total_pnl", 0)
         r["stats"]["composite"] = round(_pnl / _sweep_months, 2)
-        sweep_data[tk] = {
+        sweep_data[tk] = attach_expected_edge("dip", {
             "params": r["params"],
             "stats": r["stats"],
             "trades": r["trades"],
             "features": r["features"],
             "cross_validation": r.get("cross_validation"),
-        }
+        })
     with open(sweep_out, "w") as f:
         json.dump(sweep_data, f, indent=2, default=str)
     print(f"\nSweep results saved to {sweep_out}")

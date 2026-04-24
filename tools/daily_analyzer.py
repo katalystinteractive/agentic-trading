@@ -35,7 +35,8 @@ CANDIDATE_SCORE_THRESHOLD = 80
 GRAPH_STATE_PATH = _ROOT / "data" / "graph_state.json"
 
 sys.path.insert(0, str(TOOLS_DIR))
-from portfolio_manager import _load, cmd_fill, cmd_sell, parse_bullets_used
+from neural_artifact_validator import ArtifactValidationError, load_validated_json
+from portfolio_manager import _load, record_fill, record_sell, parse_bullets_used
 from shared_utils import is_active_buy as _is_active_buy, is_active_sell as _is_active_sell
 from shared_utils import compute_days_held, compute_time_stop
 
@@ -737,7 +738,7 @@ def parse_specs(spec_string):
 
 
 def process_transactions(fills, sells, parse_errors=0):
-    """Call cmd_fill/cmd_sell for each spec with sys.exit trap."""
+    """Record each transaction through portfolio_manager's transactional APIs."""
     if not fills and not sells and not parse_errors:
         return
 
@@ -752,8 +753,7 @@ def process_transactions(fills, sells, parse_errors=0):
         args = argparse.Namespace(ticker=ticker, price=price, shares=shares,
                                   trade_date=trade_date)
         try:
-            data = _load()
-            cmd_fill(data, args)
+            record_fill(args)
             ok += 1
             print()
         except SystemExit:
@@ -772,8 +772,7 @@ def process_transactions(fills, sells, parse_errors=0):
         args = argparse.Namespace(ticker=ticker, price=price, shares=shares,
                                   trade_date=trade_date)
         try:
-            data = _load()
-            cmd_sell(data, args)
+            record_sell(args)
             ok += 1
             print()
         except SystemExit:
@@ -1752,10 +1751,9 @@ def _print_neural_sections(portfolio):
     try:
         ns_path = _ROOT / "data" / "neural_support_candidates.json"
         if ns_path.exists():
-            with open(ns_path) as f:
-                ns_data = json.load(f)
+            ns_data = load_validated_json(ns_path)
             ns_profiles = {c["ticker"]: c for c in ns_data.get("candidates", [])}
-    except (json.JSONDecodeError, OSError):
+    except (json.JSONDecodeError, OSError, ArtifactValidationError):
         pass
 
     # Load neural dip profiles
@@ -1763,10 +1761,9 @@ def _print_neural_sections(portfolio):
     try:
         dp_path = _ROOT / "data" / "ticker_profiles.json"
         if dp_path.exists():
-            with open(dp_path) as f:
-                dp_data = json.load(f)
+            dp_data = load_validated_json(dp_path)
             dip_profiles = {k: v for k, v in dp_data.items() if not k.startswith("_")}
-    except (json.JSONDecodeError, OSError):
+    except (json.JSONDecodeError, OSError, ArtifactValidationError):
         pass
 
     if not ns_profiles and not dip_profiles:
@@ -2033,6 +2030,12 @@ def main():
     # Part 8: Portfolio Risk
     if not args.no_deploy:
         print_portfolio_risk(portfolio)
+
+    try:
+        from prediction_ledger import print_summary as print_prediction_summary
+        print_prediction_summary()
+    except Exception as e:
+        print(f"*Prediction ledger summary unavailable: {e}*")
 
     # Phase D: Persist canonical state
     state = get_state_for_persistence(graph, active_tickers,

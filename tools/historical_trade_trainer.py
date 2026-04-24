@@ -63,8 +63,11 @@ def build_fired_inputs(trade):
     days_held, regime, avg_cost, price, ticker.
 
     We create gate entries for the weight learner to train on:
-    - profit_gate: how much P/L the trade produced (outcome signal)
-    - hold_gate: how long the position was held (timing signal)
+    - profit_gate: how much P/L the trade produced (diagnostic outcome signal)
+    - hold_gate: how long the position was held (diagnostic timing signal)
+
+    These gates are intentionally diagnostic-only. weight_learner.save_weights()
+    keeps them out of the live policy weight map consumed by evaluators.
     """
     tk = trade["ticker"]
     pnl_pct = trade.get("pnl_pct", 0)

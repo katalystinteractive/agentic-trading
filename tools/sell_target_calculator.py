@@ -22,6 +22,7 @@ PORTFOLIO_PATH = _ROOT / "portfolio.json"
 PROFILES_PATH = _ROOT / "ticker_profiles.json"
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from neural_artifact_validator import ArtifactValidationError, load_validated_json
 from wick_offset_analyzer import fetch_history
 
 
@@ -84,8 +85,7 @@ def _load_profile(ticker):
         try:
             ns_path = _ROOT / "data" / "neural_support_candidates.json"
             if ns_path.exists():
-                with open(ns_path) as f:
-                    ns_data = json.load(f)
+                ns_data = load_validated_json(ns_path)
                 for c in ns_data.get("candidates", []):
                     if c["ticker"] == ticker:
                         if profile is None:
@@ -93,7 +93,7 @@ def _load_profile(ticker):
                         profile["optimal_target_pct"] = c["params"]["sell_default"]
                         profile["optimal_source"] = "neural_support"
                         break
-        except (FileNotFoundError, json.JSONDecodeError, KeyError):
+        except (FileNotFoundError, json.JSONDecodeError, KeyError, ArtifactValidationError):
             pass
 
     return profile

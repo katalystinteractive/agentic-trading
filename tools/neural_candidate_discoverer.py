@@ -1,7 +1,7 @@
-"""Neural Candidate Discoverer — scan universe through neural dip strategy.
+"""Neural Candidate Discoverer — scan universe through learned graph dip policy.
 
-Applies the neural network (level-firing observers, subscription gates,
-learned weights) to the full universe of pre-screened tickers to discover
+Applies the learned graph policy (level-firing observers, subscription gates,
+learned policy weights) to the full universe of pre-screened tickers to discover
 the top 30 same-day dip-buy candidates ranked by out-of-sample P/L.
 
 Pipeline:
@@ -231,9 +231,11 @@ def write_results(ranked, top_n, meta):
     """Write neural_candidates.json and .md."""
     output = {
         "_meta": {
-            "source": "neural_candidate_discoverer.py",
-            "updated": date.today().isoformat(),
             **meta,
+            "schema_version": 1,
+            "source": "neural_candidate_discoverer.py",
+            "execution_mode": "intraday_5min_neural_replay",
+            "updated": date.today().isoformat(),
             "top_n": top_n,
         },
         "candidates": ranked[:top_n],

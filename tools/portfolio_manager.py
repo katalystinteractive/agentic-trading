@@ -16,9 +16,13 @@ import sys
 import json
 import re
 import argparse
+import os
 import shutil
-from datetime import date
+import time
+from contextlib import contextmanager
+from datetime import datetime
 from pathlib import Path
+import fcntl
 
 # Sibling imports (tools/ directory)
 from trading_calendar import last_trading_day
@@ -26,10 +30,171 @@ from shared_constants import MATCH_TOLERANCE
 
 _ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
-BACKUP_PATH = _ROOT / "portfolio.json.bak"
 TRADE_HISTORY_PATH = _ROOT / "trade_history.json"
+LOCK_PATH = _ROOT / ".portfolio.lock"
 
 TODAY = last_trading_day().isoformat()
+_LOCK_DEPTH = 0
+
+
+class StateValidationError(ValueError):
+    """Raised when portfolio/trade-history JSON does not match expected shape."""
+
+
+def _is_number(value):
+    return isinstance(value, (int, float)) and not isinstance(value, bool)
+
+
+def _require(condition, message):
+    if not condition:
+        raise StateValidationError(message)
+
+
+@contextmanager
+def _state_lock():
+    """Process-level lock for portfolio and trade-history mutations."""
+    global _LOCK_DEPTH
+    if _LOCK_DEPTH > 0:
+        _LOCK_DEPTH += 1
+        try:
+            yield
+        finally:
+            _LOCK_DEPTH -= 1
+        return
+
+    LOCK_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(LOCK_PATH, "a", encoding="utf-8") as lock_file:
+        fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
+        _LOCK_DEPTH = 1
+        try:
+            yield
+        finally:
+            _LOCK_DEPTH = 0
+            fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
+
+
+def _timestamp():
+    return datetime.now().strftime("%Y%m%d_%H%M%S")
+
+
+def _backup_existing(path):
+    if not path.exists():
+        return None
+    backup = path.with_name(f"{path.name}.bak.{_timestamp()}")
+    # Avoid collisions in fast tests or repeated same-second writes.
+    if backup.exists():
+        backup = path.with_name(f"{path.name}.bak.{_timestamp()}.{os.getpid()}")
+    shutil.copy2(path, backup)
+    return backup
+
+
+def _atomic_write_json(path, payload):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = path.with_name(f".{path.name}.tmp.{os.getpid()}.{int(time.time() * 1000)}")
+    try:
+        with open(tmp_path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2)
+            f.write("\n")
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp_path, path)
+        try:
+            dir_fd = os.open(str(path.parent), os.O_DIRECTORY)
+            try:
+                os.fsync(dir_fd)
+            finally:
+                os.close(dir_fd)
+        except OSError:
+            pass
+    finally:
+        if tmp_path.exists():
+            tmp_path.unlink()
+
+
+def _load_json_or_recover(path, empty_payload):
+    if not path.exists():
+        return empty_payload
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        corrupt = path.with_name(f"{path.name}.corrupt.{_timestamp()}")
+        path.rename(corrupt)
+        print(f"Warning: renamed corrupt JSON to {corrupt}", file=sys.stderr)
+        return empty_payload
+
+
+def _validate_order(order, path):
+    _require(isinstance(order, dict), f"{path}: order must be an object")
+    _require(order.get("type") in ("BUY", "SELL"), f"{path}: type must be BUY or SELL")
+    _require(_is_number(order.get("price")), f"{path}: price must be numeric")
+    _require(order["price"] >= 0, f"{path}: price must be non-negative")
+    if "shares" in order:
+        _require(_is_number(order["shares"]), f"{path}: shares must be numeric")
+        _require(order["shares"] >= 0, f"{path}: shares must be non-negative")
+    if "note" in order:
+        _require(isinstance(order["note"], str), f"{path}: note must be a string")
+    for key in ("placed", "filled"):
+        if key in order:
+            _require(isinstance(order[key], bool), f"{path}: {key} must be boolean")
+
+
+def _validate_position(pos, path):
+    _require(isinstance(pos, dict), f"{path}: position must be an object")
+    for key in ("shares", "avg_cost"):
+        _require(_is_number(pos.get(key, 0)), f"{path}.{key}: must be numeric")
+        _require(pos.get(key, 0) >= 0, f"{path}.{key}: must be non-negative")
+    if "target_exit" in pos and pos["target_exit"] is not None:
+        _require(_is_number(pos["target_exit"]), f"{path}.target_exit: must be numeric or null")
+    if "fill_prices" in pos:
+        _require(isinstance(pos["fill_prices"], list), f"{path}.fill_prices: must be a list")
+        for i, price in enumerate(pos["fill_prices"]):
+            _require(_is_number(price), f"{path}.fill_prices[{i}]: must be numeric")
+    if "note" in pos:
+        _require(isinstance(pos["note"], str), f"{path}.note: must be a string")
+    if "entry_date" in pos:
+        _require(isinstance(pos["entry_date"], str), f"{path}.entry_date: must be a string")
+    if "winding_down" in pos:
+        _require(isinstance(pos["winding_down"], bool), f"{path}.winding_down: must be boolean")
+
+
+def validate_portfolio(data):
+    _require(isinstance(data, dict), "portfolio root must be an object")
+    positions = data.setdefault("positions", {})
+    pending = data.setdefault("pending_orders", {})
+    watchlist = data.setdefault("watchlist", [])
+    _require(isinstance(positions, dict), "positions must be an object")
+    _require(isinstance(pending, dict), "pending_orders must be an object")
+    _require(isinstance(watchlist, list), "watchlist must be a list")
+    for i, ticker in enumerate(watchlist):
+        _require(isinstance(ticker, str), f"watchlist[{i}] must be a string")
+    for ticker, pos in positions.items():
+        _require(isinstance(ticker, str), "position ticker keys must be strings")
+        _validate_position(pos, f"positions.{ticker}")
+    for ticker, orders in pending.items():
+        _require(isinstance(ticker, str), "pending_orders ticker keys must be strings")
+        _require(isinstance(orders, list), f"pending_orders.{ticker}: must be a list")
+        for i, order in enumerate(orders):
+            _validate_order(order, f"pending_orders.{ticker}[{i}]")
+    return data
+
+
+def validate_trade_history(history):
+    _require(isinstance(history, dict), "trade history root must be an object")
+    trades = history.setdefault("trades", [])
+    _require(isinstance(trades, list), "trade history trades must be a list")
+    for i, trade in enumerate(trades):
+        _require(isinstance(trade, dict), f"trades[{i}] must be an object")
+        if "id" in trade:
+            _require(isinstance(trade["id"], int), f"trades[{i}].id must be an integer")
+        if "ticker" in trade:
+            _require(isinstance(trade["ticker"], str), f"trades[{i}].ticker must be a string")
+        if "side" in trade:
+            _require(trade["side"] in ("BUY", "SELL"), f"trades[{i}].side must be BUY or SELL")
+        for key in ("shares", "price"):
+            if key in trade:
+                _require(_is_number(trade[key]), f"trades[{i}].{key} must be numeric")
+    return history
 
 
 # ---------------------------------------------------------------------------
@@ -43,28 +208,22 @@ def _record_trade(trade_dict):
     trade_history.json.corrupt and starts fresh so future trades
     are not permanently blocked.
     """
-    if TRADE_HISTORY_PATH.exists():
+    with _state_lock():
+        history = _load_json_or_recover(TRADE_HISTORY_PATH, {"trades": []})
         try:
-            with open(TRADE_HISTORY_PATH, "r", encoding="utf-8") as f:
-                history = json.load(f)
-            if not isinstance(history, dict):
-                raise ValueError("JSON root is not a dict")
-        except (json.JSONDecodeError, ValueError):
-            ts = date.today().isoformat()
-            corrupt = TRADE_HISTORY_PATH.with_name(f"trade_history.json.corrupt.{ts}")
-            TRADE_HISTORY_PATH.rename(corrupt)
+            validate_trade_history(history)
+        except StateValidationError:
+            corrupt = TRADE_HISTORY_PATH.with_name(f"{TRADE_HISTORY_PATH.name}.corrupt.{_timestamp()}")
+            if TRADE_HISTORY_PATH.exists():
+                TRADE_HISTORY_PATH.rename(corrupt)
+                print(f"Warning: renamed invalid trade history to {corrupt}", file=sys.stderr)
             history = {"trades": []}
-    else:
-        history = {"trades": []}
-    trades = history.setdefault("trades", [])
-    if not isinstance(trades, list):
-        history["trades"] = []
-        trades = history["trades"]
-    trade_dict["id"] = max((t.get("id", 0) for t in trades if isinstance(t, dict)), default=0) + 1
-    trades.append(trade_dict)
-    with open(TRADE_HISTORY_PATH, "w", encoding="utf-8") as f:
-        json.dump(history, f, indent=2)
-        f.write("\n")
+        trades = history.setdefault("trades", [])
+        trade_dict["id"] = max((t.get("id", 0) for t in trades if isinstance(t, dict)), default=0) + 1
+        trades.append(trade_dict)
+        validate_trade_history(history)
+        _backup_existing(TRADE_HISTORY_PATH)
+        _atomic_write_json(TRADE_HISTORY_PATH, history)
 
 
 # ---------------------------------------------------------------------------
@@ -72,16 +231,21 @@ def _record_trade(trade_dict):
 # ---------------------------------------------------------------------------
 
 def _load():
-    with open(PORTFOLIO_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+    with _state_lock():
+        data = _load_json_or_recover(PORTFOLIO_PATH, {
+            "positions": {},
+            "pending_orders": {},
+            "watchlist": [],
+        })
+        return validate_portfolio(data)
 
 
 def _save(data):
-    shutil.copy2(PORTFOLIO_PATH, BACKUP_PATH)
-    data["last_updated"] = TODAY
-    with open(PORTFOLIO_PATH, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2)
-        f.write("\n")
+    with _state_lock():
+        data["last_updated"] = TODAY
+        validate_portfolio(data)
+        _backup_existing(PORTFOLIO_PATH)
+        _atomic_write_json(PORTFOLIO_PATH, data)
 
 
 # ---------------------------------------------------------------------------
@@ -336,6 +500,12 @@ def cmd_fill(data, args):
     except Exception as e:
         print(f"Warning: trade history not recorded: {e}", file=sys.stderr)
 
+    try:
+        from prediction_ledger import link_fill
+        link_fill(ticker, price, shares, fill_date)
+    except Exception as e:
+        print(f"Warning: prediction ledger fill link failed: {e}", file=sys.stderr)
+
     # Print confirmation
     _print_table([
         ("Shares", old_shares, total_shares),
@@ -469,6 +639,13 @@ def cmd_sell(data, args):
         except Exception as e:
             print(f"Warning: trade history not recorded: {e}", file=sys.stderr)
 
+        try:
+            from prediction_ledger import link_sell
+            link_sell(ticker, price, shares, sell_date,
+                      pnl_pct=round(pct_change, 1), exit_reason="Full close")
+        except Exception as e:
+            print(f"Warning: prediction ledger sell link failed: {e}", file=sys.stderr)
+
         _print_table([
             ("Shares", old_shares, 0),
             ("Avg Cost", _fmt_dollar(old_avg), _fmt_dollar(0)),
@@ -524,6 +701,13 @@ def cmd_sell(data, args):
             })
         except Exception as e:
             print(f"Warning: trade history not recorded: {e}", file=sys.stderr)
+
+        try:
+            from prediction_ledger import link_sell
+            link_sell(ticker, price, shares, sell_date,
+                      pnl_pct=pct_change_partial, exit_reason="Partial sell")
+        except Exception as e:
+            print(f"Warning: prediction ledger sell link failed: {e}", file=sys.stderr)
 
         _print_table([
             ("Shares", old_shares, new_shares),
@@ -737,6 +921,41 @@ def cmd_unpause(data, args):
 
 
 # ---------------------------------------------------------------------------
+# Transactional entry points for imported callers
+# ---------------------------------------------------------------------------
+
+def _run_transaction(command_name, args):
+    """Load fresh state, migrate, dispatch, and persist under one state lock."""
+    commands = {
+        "fill": cmd_fill,
+        "sell": cmd_sell,
+        "order": cmd_order,
+        "cancel": cmd_cancel,
+        "watch": cmd_watch,
+        "unwatch": cmd_unwatch,
+        "place": cmd_place,
+        "unpause": cmd_unpause,
+    }
+    if command_name not in commands:
+        raise ValueError(f"unknown portfolio command: {command_name}")
+
+    with _state_lock():
+        data = _load()
+        data = _migrate_legacy(data)
+        commands[command_name](data, args)
+
+
+def record_fill(args):
+    """Transactionally record a fill using fresh portfolio state."""
+    _run_transaction("fill", args)
+
+
+def record_sell(args):
+    """Transactionally record a sell using fresh portfolio state."""
+    _run_transaction("sell", args)
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -749,14 +968,14 @@ def main():
     fill_p = subparsers.add_parser("fill")
     fill_p.add_argument("ticker")
     fill_p.add_argument("--price", type=float, required=True)
-    fill_p.add_argument("--shares", type=int, required=True)
+    fill_p.add_argument("--shares", type=float, required=True)
     fill_p.add_argument("--trade-date", type=str, default=None, dest="trade_date")
 
     # sell TICKER --price P --shares N
     sell_p = subparsers.add_parser("sell")
     sell_p.add_argument("ticker")
     sell_p.add_argument("--price", type=float, required=True)
-    sell_p.add_argument("--shares", type=int, required=True)
+    sell_p.add_argument("--shares", type=float, required=True)
     sell_p.add_argument("--trade-date", type=str, default=None, dest="trade_date")
 
     # order TICKER --type T --price P --shares N --note "..." [--placed]
@@ -764,7 +983,7 @@ def main():
     order_p.add_argument("ticker")
     order_p.add_argument("--type", required=True, choices=["BUY", "SELL"])
     order_p.add_argument("--price", type=float, required=True)
-    order_p.add_argument("--shares", type=int, required=True)
+    order_p.add_argument("--shares", type=float, required=True)
     order_p.add_argument("--note", default="")
     order_p.add_argument("--placed", action="store_true")
 
@@ -795,22 +1014,7 @@ def main():
         parser.print_help()
         sys.exit(1)
 
-    # Load and migrate
-    data = _load()
-    data = _migrate_legacy(data)
-
-    # Dispatch
-    commands = {
-        "fill": cmd_fill,
-        "sell": cmd_sell,
-        "order": cmd_order,
-        "cancel": cmd_cancel,
-        "watch": cmd_watch,
-        "unwatch": cmd_unwatch,
-        "place": cmd_place,
-        "unpause": cmd_unpause,
-    }
-    commands[args.command](data, args)
+    _run_transaction(args.command, args)
 
 
 if __name__ == "__main__":

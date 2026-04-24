@@ -88,6 +88,10 @@ def simulate_candidate(ticker, months=10, config=None):
             recompute_levels="weekly",
             same_day_exit_pct=4.0,
         )
+    # Candidate pass/fail decisions must survive conservative daily-bar
+    # sequencing. Optimistic same-day exits are still available in the raw
+    # engine and stress report, but not for gate approval.
+    cfg.same_day_exit_mode = "conservative"
 
     # Phase 1: Collect
     data = collect_data(cfg)
@@ -114,6 +118,9 @@ def simulate_candidate(ticker, months=10, config=None):
 
     wins = sum(1 for t in real_sells if t.get("pnl_pct", 0) > 0)
     total_pnl = sum(t.get("pnl_dollars", 0) for t in real_sells)
+    gross_pnl = sum(t.get("gross_pnl_dollars", t.get("pnl_dollars", 0))
+                    for t in real_sells)
+    fees = sum(t.get("fees", 0) for t in trades)
     win_rate = wins / len(real_sells) * 100
     conversion = len(real_sells) / len(buys) * 100 if buys else 0
     catastrophic = sum(1 for t in sells if t.get("exit_reason") == "CATASTROPHIC_EXIT")
@@ -156,6 +163,8 @@ def simulate_candidate(ticker, months=10, config=None):
     return {
         "ticker": ticker,
         "pnl": round(total_pnl, 2),
+        "gross_pnl": round(gross_pnl, 2),
+        "fees": round(fees, 2),
         "win_rate": round(win_rate, 1),
         "sharpe": round(sharpe, 2),
         "conversion": round(conversion, 1),
@@ -166,6 +175,7 @@ def simulate_candidate(ticker, months=10, config=None):
         "sde_rate": round(sde_rate, 1),
         "avg_hold": round(avg_hold, 1),
         "dip_kpis": dip_kpis,
+        "execution_mode": cfg.same_day_exit_mode,
     }
 
 
@@ -214,7 +224,7 @@ def main():
 
     print(f"## Candidate Simulation Gate\n")
     print(f"*Simulating {len(tickers)} candidates over {args.months} months*")
-    print(f"*Gate: P/L>$0, Win>90%, Sharpe>2, Conv>40%, Zero catastrophic*\n")
+    print(f"*Gate: conservative daily-bar execution, P/L>$0, Win>90%, Sharpe>2, Zero catastrophic*\n")
 
     results = []
     for i, tk in enumerate(tickers, 1):

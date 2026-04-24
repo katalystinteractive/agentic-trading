@@ -21,6 +21,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import numpy as np
 import yfinance as yf
 from graph_engine import DependencyGraph
+from neural_artifact_validator import ArtifactValidationError, load_validated_json
+from expected_edge import score_graph_candidate
+from shared_utils import compute_position_allocation
 from trading_calendar import (
     is_trading_day, get_market_phase, market_time_to_utc_hour,
     ET, VALID_PHASES_FOR_MARKET,
@@ -62,8 +65,11 @@ PROFILES_PATH = _ROOT / "data" / "ticker_profiles.json"
 def _load_profiles():
     """Load per-ticker profiles from JSON. Missing file = empty dict."""
     if PROFILES_PATH.exists():
-        with open(PROFILES_PATH) as f:
-            data = json.load(f)
+        try:
+            data = load_validated_json(PROFILES_PATH)
+        except ArtifactValidationError as e:
+            print(f"*Warning: {e}. Ignoring learned ticker profiles.*")
+            return {}
         return {k: v for k, v in data.items() if not k.startswith("_")}
     return {}
 
@@ -92,8 +98,11 @@ def _load_weights(regime="Neutral"):
     """Load synapse weights. Regime-specific weights override base weights."""
     if not WEIGHTS_PATH.exists():
         return {}
-    with open(WEIGHTS_PATH) as f:
-        data = json.load(f)
+    try:
+        data = load_validated_json(WEIGHTS_PATH)
+    except ArtifactValidationError as e:
+        print(f"*Warning: {e}. Ignoring learned synapse weights.*")
+        return {}
     base_w = data.get("weights", {})
     regime_w = data.get("regime_weights", {}).get(regime, {})
     merged = {**base_w, **regime_w}
@@ -572,6 +581,8 @@ def build_decision_graph(tickers, prices_11, fh_state, static, hist_ranges,
         if is_candidate:
             candidates.append({
                 "ticker": tk, "dip_pct": dip_pct,
+                "signal_score": signal_score,
+                "signal_probability": round(signal_score / len(signal_gates), 3),
                 "entry": round(current, 2) if current else 0,
                 "target": round(current * (1 + profile["target_pct"] / 100), 2) if current else 0,
                 "stop": round(current * (1 + profile["stop_pct"] / 100), 2) if current else 0,
@@ -622,11 +633,46 @@ def build_decision_graph(tickers, prices_11, fh_state, static, hist_ranges,
 
     top = filtered[:cfg["max_tickers"]]
 
-    # Capital allocation — equal split for now, confidence-weighted in Phase 5
+    # Capital allocation — edge/confidence/risk adjusted within the total dip cap.
     total_budget = cfg["budget_normal"] if regime != "Risk-Off" else cfg["budget_risk_off"]
     budget_per = round(total_budget / len(top), 2) if top else total_budget
+    raw_allocations = []
     for c in top:
-        c["budget"] = budget_per
+        target_pct = ((c["target"] - c["entry"]) / c["entry"] * 100) if c["entry"] > 0 else 0
+        stop_pct = ((c["stop"] - c["entry"]) / c["entry"] * 100) if c["entry"] > 0 else 0
+        p_target = c.get("signal_probability", 0)
+        score = score_graph_candidate(
+            "dip",
+            params={"target_pct": target_pct, "stop_pct": stop_pct},
+            stats={"trades": c.get("signal_score", 0), "composite": c.get("signal_score", 0)},
+            features={
+                "target_hit_rate": p_target,
+                "stop_hit_rate": max(0.0, 1.0 - p_target),
+                "trade_count": c.get("signal_score", 0),
+            },
+        )
+        allocation = compute_position_allocation(
+            budget_per,
+            c["entry"],
+            features={
+                "expected_edge_pct": score["expected_edge_pct"],
+                "fill_likelihood": p_target,
+                "trade_count": c.get("signal_score", 0),
+                "target_pct": target_pct,
+                "stop_pct": abs(stop_pct),
+            },
+            score=score,
+            max_dollars=total_budget,
+        )
+        raw_allocations.append((c, score, allocation))
+
+    raw_total = sum(a["allocated_dollars"] for _, _, a in raw_allocations)
+    scale = min(1.0, total_budget / raw_total) if raw_total > 0 else 1.0
+    for c, score, allocation in raw_allocations:
+        scaled_budget = round(allocation["allocated_dollars"] * scale, 2)
+        c["budget"] = scaled_budget
+        c["allocation"] = {**allocation, "allocated_dollars": scaled_budget}
+        c["score"] = score
 
     # Layer 6: Terminal BUY_DIP neurons
     for c in top:
@@ -784,6 +830,7 @@ def evaluate_decision(tickers, static, hist_ranges, regime, dry_run=False):
         syn_weights)
 
     # Check fired BUY_DIP neurons
+    decision_graph.propagate_signals()
     activated = decision_graph.get_activated_reports()
     buy_signals = [(name, node) for name, node in activated
                    if name.endswith(":buy_dip") and node.value]
@@ -823,7 +870,13 @@ def evaluate_decision(tickers, static, hist_ranges, regime, dry_run=False):
         print(f"### {tk}: BUY at ${candidate['entry']:.2f}")
         print(f"- Target: ${candidate['target']:.2f} (+4%)")
         print(f"- Stop: ${candidate['stop']:.2f} (-3%)")
-        print(f"- Budget: ${budget}")
+        print(f"- Budget: ${candidate.get('budget', budget)}")
+        alloc = candidate.get("allocation", {})
+        if alloc:
+            print(f"- Allocation: ${candidate.get('budget', budget)} "
+                  f"({alloc.get('allocation_action', 'baseline')} "
+                  f"{alloc.get('allocation_multiplier', 1.0):.2f}x — "
+                  f"{alloc.get('allocation_reason', 'no reason')})")
         print(f"- Regime: {regime}")
         print(f"- Path: {node_path}")
         print(f"- Reason: {reason}")
@@ -833,6 +886,44 @@ def evaluate_decision(tickers, static, hist_ranges, regime, dry_run=False):
             from notify import send_dip_alert
             _budget = candidate.get("budget", budget)
             _shares = max(round(_budget / candidate["entry"]), 1) if candidate["entry"] > 0 else 0
+            try:
+                from prediction_ledger import artifact_versions, record_prediction
+
+                score = candidate.get("score", {})
+                p_target = candidate.get("signal_probability", 0)
+                record_prediction(
+                    "dip",
+                    tk,
+                    {
+                        "date": date.today().isoformat(),
+                        "entry": candidate["entry"],
+                        "target": candidate["target"],
+                        "stop": candidate["stop"],
+                        "budget": _budget,
+                        "shares": _shares,
+                        "allocated_dollars": candidate.get("budget"),
+                        "allocation_multiplier": (candidate.get("allocation") or {}).get("allocation_multiplier"),
+                        "allocation_action": (candidate.get("allocation") or {}).get("allocation_action"),
+                        "regime": regime,
+                        "dip_pct": round(candidate.get("dip_pct", 0), 3),
+                    },
+                    features={
+                        "historical_range": hist_ranges.get(tk, {}),
+                        "signal_score": candidate.get("signal_score"),
+                        "signal_probability": p_target,
+                        "regime": regime,
+                        "allocation_reason": (candidate.get("allocation") or {}).get("allocation_reason"),
+                    },
+                    score=score,
+                    artifact_versions=artifact_versions({
+                        "ticker_profiles": PROFILES_PATH,
+                        "synapse_weights": _ROOT / "data" / "synapse_weights.json",
+                        "probability_calibration": _ROOT / "data" / "probability_calibration.json",
+                    }),
+                    reason=f"{node_path}\n{reason}",
+                )
+            except Exception as e:
+                print(f"*Warning: prediction ledger write failed for {tk}: {e}*")
             send_dip_alert(tk, candidate["entry"], candidate["target"],
                           candidate["stop"], f"{node_path}\n{reason}",
                           regime, _budget, shares=_shares)

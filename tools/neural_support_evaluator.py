@@ -11,20 +11,23 @@ Usage:
 """
 import sys
 import json
-import re
 import argparse
 from pathlib import Path
-from datetime import date
+from datetime import date, datetime
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import yfinance as yf
+from neural_artifact_validator import ArtifactValidationError, load_validated_json
+from shared_utils import compute_position_allocation, compute_support_level_score
+from wick_offset_analyzer import analyze_stock_data
 
 _ROOT = Path(__file__).resolve().parent.parent
 CANDIDATES_PATH = _ROOT / "data" / "neural_support_candidates.json"
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
 EVAL_CACHE_PATH = _ROOT / "data" / "support_eval_latest.json"
 DEFAULT_PROXIMITY = 5.0  # % distance from support to trigger alert
+EVAL_CACHE_SCHEMA_VERSION = 1
 
 
 def load_candidates():
@@ -32,8 +35,11 @@ def load_candidates():
     if not CANDIDATES_PATH.exists():
         print("*No neural support candidates. Run neural_support_discoverer.py first.*")
         return []
-    with open(CANDIDATES_PATH) as f:
-        data = json.load(f)
+    try:
+        data = load_validated_json(CANDIDATES_PATH)
+    except ArtifactValidationError as e:
+        print(f"*Warning: {e}. Skipping neural support candidates.*")
+        return []
     return data.get("candidates", [])
 
 
@@ -70,57 +76,68 @@ def fetch_prices(tickers):
         return {}
 
 
-def load_support_levels(ticker):
-    """Load wick-adjusted buy levels from cached wick analysis.
-
-    Parses the 'Buy At' column from the wick analysis markdown table.
-    Returns list of dicts with 'buy_at', 'raw_support', 'hold_rate'.
-    Returns [] if no wick analysis file exists.
-    """
-    wick_path = _ROOT / "tickers" / ticker / "wick_analysis.md"
-    if not wick_path.exists():
-        return []
-
+def _parse_source_date(value):
+    """Parse analyzer last_date into a date, returning None if malformed."""
+    if not value:
+        return None
     try:
-        content = wick_path.read_text()
-    except OSError:
-        return []
+        return date.fromisoformat(str(value)[:10])
+    except ValueError:
+        return None
 
+
+def _is_structured_analysis_fresh(data, max_age_days=7):
+    """Check that analyzer output is recent enough for live support scanning."""
+    source_date = _parse_source_date(data.get("last_date"))
+    if source_date is None:
+        return False
+    age = (date.today() - source_date).days
+    return 0 <= age <= max_age_days
+
+
+def _levels_from_structured_analysis(ticker, data):
+    """Extract scanner levels from wick analyzer structured bullet_plan output."""
+    plan = data.get("bullet_plan") or {}
     levels = []
-    # Parse markdown table rows — format has 13 columns:
-    # | Support | Source | Approaches | Held | Freq/mo | Hold Rate | Median Offset | Buy At | Zone | Tier | Decayed | Trend | Fresh |
-    # Column indices: Support=0, Hold Rate=5, Buy At=7
-    header_found = False
-    for line in content.split("\n"):
-        if not line.startswith("|"):
-            continue
-        if "Support" in line and "Buy At" in line:
-            header_found = True
-            continue
-        if "---" in line:
-            continue
-        if not header_found:
-            continue
-        cols = [c.strip() for c in line.split("|")[1:-1]]
-        if len(cols) < 8:
-            continue
-        try:
-            raw_support = float(cols[0].replace("$", "").replace(",", ""))
-            hold_rate_str = cols[5].replace("%", "").strip()
-            hold_rate = float(hold_rate_str) if hold_rate_str else 0
-            buy_at_str = cols[7].replace("$", "").replace(",", "").strip()
-            if "N/A" in buy_at_str or not buy_at_str:
-                continue  # skip levels with no buy recommendation
-            buy_at = float(buy_at_str)
+    for zone in ("active", "reserve"):
+        for item in plan.get(zone, []) or []:
+            buy_at = item.get("buy_at")
+            if not isinstance(buy_at, (int, float)) or buy_at <= 0:
+                continue
             levels.append({
-                "raw_support": raw_support,
-                "hold_rate": hold_rate,
-                "buy_at": buy_at,
+                "ticker": ticker,
+                "raw_support": item.get("support_price"),
+                "hold_rate": item.get("decayed_hold_rate", item.get("hold_rate", 0)),
+                "buy_at": float(buy_at),
+                "zone": item.get("zone", zone.title()),
+                "tier": item.get("tier"),
+                "source": "wick_offset_analyzer.analyze_stock_data",
+                "last_date": data.get("last_date"),
+                "current_price": data.get("current_price"),
+                "monthly_touch_freq": item.get("monthly_touch_freq", 0),
+                "dormant": item.get("dormant", False),
+                "support_score": item.get("support_score"),
+                "support_expected_edge_pct": item.get("support_expected_edge_pct"),
+                "support_score_components": item.get("support_score_components", {}),
             })
-        except (ValueError, IndexError):
-            continue
-
     return levels
+
+
+def load_support_levels(ticker, max_age_days=7):
+    """Load wick-adjusted buy levels from structured analyzer output.
+
+    Markdown reports are operator-facing only. Live support scanning uses
+    wick_offset_analyzer.analyze_stock_data() so levels are schema-bearing,
+    recomputed, and freshness checked instead of parsed from cached prose.
+    """
+    data, error = analyze_stock_data(ticker)
+    if data is None:
+        print(error or f"*Support analysis unavailable for {ticker}*")
+        return []
+    if not _is_structured_analysis_fresh(data, max_age_days=max_age_days):
+        print(f"*Support analysis stale for {ticker}: last_date={data.get('last_date')}*")
+        return []
+    return _levels_from_structured_analysis(ticker, data)
 
 
 def scan_opportunities(candidates, prices, portfolio, proximity_pct):
@@ -136,9 +153,12 @@ def scan_opportunities(candidates, prices, portfolio, proximity_pct):
             continue
 
         params = c.get("params", {})
+        stats = c.get("stats", {})
+        features = c.get("features") or {}
         pool = params.get("active_pool", 300)
         bullets = params.get("active_bullets_max", 5)
         sell_pct = params.get("sell_default", 6.0)
+        score = stats if isinstance(stats, dict) else {}
 
         # Load support levels
         levels = load_support_levels(tk)
@@ -154,7 +174,37 @@ def scan_opportunities(candidates, prices, portfolio, proximity_pct):
             # Distance: how far price is above the buy level
             distance_pct = (price - buy_at) / buy_at * 100
             if 0 <= distance_pct <= proximity_pct:
-                shares = max(1, int(pool / bullets / buy_at))
+                base_dollars = pool / max(1, bullets)
+                allocation = compute_position_allocation(
+                    base_dollars,
+                    buy_at,
+                    features={
+                        **features,
+                        "hold_rate": level.get("hold_rate", 0),
+                        "monthly_touch_freq": level.get("monthly_touch_freq", 0),
+                        "distance_pct": distance_pct,
+                        "proximity_pct": proximity_pct,
+                        "target_pct": sell_pct,
+                        "stop_pct": 3.0,
+                    },
+                    score=score,
+                    max_dollars=pool * 0.60,
+                )
+                shares = allocation["shares"]
+                level_score = compute_support_level_score(
+                    {
+                        **level,
+                        "distance_pct": distance_pct,
+                        "target_pct": sell_pct,
+                        "stop_pct": 3.0,
+                    },
+                    current_price=price,
+                    proximity_pct=proximity_pct,
+                    target_pct=sell_pct,
+                    stop_pct=3.0,
+                    allocated_dollars=allocation["allocated_dollars"],
+                    pool_budget=pool,
+                )
 
                 # Check if already have a pending order near this level
                 tk_orders = pending.get(tk, [])
@@ -169,14 +219,22 @@ def scan_opportunities(candidates, prices, portfolio, proximity_pct):
                     "support": round(buy_at, 2),
                     "distance_pct": round(distance_pct, 1),
                     "shares": shares,
+                    "allocated_dollars": allocation["allocated_dollars"],
+                    "allocation_multiplier": allocation["allocation_multiplier"],
+                    "allocation_action": allocation["allocation_action"],
+                    "allocation_reason": allocation["allocation_reason"],
+                    **level_score,
                     "pool": pool,
                     "sell_target_pct": sell_pct,
                     "hold_rate": level.get("hold_rate", 0),
+                    "zone": level.get("zone"),
+                    "tier": level.get("tier"),
+                    "support_source": level.get("source"),
+                    "support_last_date": level.get("last_date"),
                     "already_ordered": already_ordered,
                 })
 
-    # Sort by distance (closest first)
-    opportunities.sort(key=lambda x: x["distance_pct"])
+    opportunities.sort(key=lambda x: (-x.get("support_score", 0), x["distance_pct"]))
     return opportunities
 
 
@@ -212,11 +270,14 @@ def main():
 
     if actionable:
         print(f"## Actionable Opportunities ({len(actionable)})\n")
-        print(f"| Ticker | Price | Support | Distance | Shares | Pool | Sell% | Hold% |")
-        print(f"| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+        print(f"| Ticker | Score | Edge | Price | Support | Distance | Alloc | Shares | Pool | Sell% | Hold% |")
+        print(f"| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         for o in actionable:
-            print(f"| {o['ticker']} | ${o['price']:.2f} | ${o['support']:.2f} | "
-                  f"{o['distance_pct']}% | {o['shares']} | ${o['pool']} | "
+            print(f"| {o['ticker']} | {o.get('support_score', 0):.1f} | "
+                  f"{o.get('support_expected_edge_pct', 0):+.1f}% | "
+                  f"${o['price']:.2f} | ${o['support']:.2f} | "
+                  f"{o['distance_pct']}% | {o.get('allocation_action', 'baseline')} "
+                  f"{o.get('allocation_multiplier', 1.0):.2f}x | {o['shares']} | ${o['pool']} | "
                   f"{o['sell_target_pct']}% | {o['hold_rate']:.0f}% |")
     else:
         print("No tickers near support levels today.")
@@ -228,7 +289,11 @@ def main():
 
     # Cache for daily_analyzer
     cache = {
+        "schema_version": EVAL_CACHE_SCHEMA_VERSION,
         "date": date.today().isoformat(),
+        "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "source": "neural_support_evaluator.py",
+        "support_source": "wick_offset_analyzer.analyze_stock_data",
         "proximity_pct": args.proximity,
         "opportunities": opportunities,
     }
@@ -240,6 +305,61 @@ def main():
 
     # Email
     if actionable and not args.no_email:
+        try:
+            from expected_edge import score_graph_candidate
+            from prediction_ledger import artifact_versions, record_prediction
+
+            versions = artifact_versions({
+                "neural_support_candidates": CANDIDATES_PATH,
+                "support_sweep_results": _ROOT / "data" / "support_sweep_results.json",
+                "probability_calibration": _ROOT / "data" / "probability_calibration.json",
+            })
+            for o in actionable:
+                p_target = max(0.0, min(1.0, o.get("hold_rate", 0) / 100.0))
+                score = score_graph_candidate(
+                    "support",
+                    params={"sell_default": o.get("sell_target_pct", 0), "cat_hard_stop": 3.0},
+                    stats={"composite": p_target * 100},
+                    features={
+                        "target_hit_rate": p_target,
+                        "stop_hit_rate": max(0.0, 1.0 - p_target),
+                        "trade_count": 1,
+                    },
+                )
+                record_prediction(
+                    "support",
+                    o["ticker"],
+                    {
+                        "date": date.today().isoformat(),
+                        "price": o["price"],
+                        "support": o["support"],
+                        "shares": o["shares"],
+                        "allocated_dollars": o.get("allocated_dollars"),
+                        "allocation_multiplier": o.get("allocation_multiplier"),
+                        "allocation_action": o.get("allocation_action"),
+                        "support_score": o.get("support_score"),
+                        "support_expected_edge_pct": o.get("support_expected_edge_pct"),
+                        "pool": o["pool"],
+                        "sell_target_pct": o["sell_target_pct"],
+                        "distance_pct": o["distance_pct"],
+                        "hold_rate": o["hold_rate"],
+                        "zone": o.get("zone"),
+                        "tier": o.get("tier"),
+                    },
+                    features={
+                        "proximity_pct": args.proximity,
+                        "support_source": o.get("support_source"),
+                        "support_last_date": o.get("support_last_date"),
+                        "allocation_reason": o.get("allocation_reason"),
+                        "support_score_components": o.get("support_score_components", {}),
+                    },
+                    score=score,
+                    artifact_versions=versions,
+                    reason=o.get("support_source", ""),
+                )
+        except Exception as e:
+            print(f"*Warning: prediction ledger write failed: {e}*")
+
         try:
             from notify import send_support_alert
             send_support_alert(actionable)

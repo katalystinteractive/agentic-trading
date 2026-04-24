@@ -1,0 +1,14 @@
+# Direct dependency pins validated in a clean virtualenv on 2026-04-24.
+# Canonical dependency ranges live in pyproject.toml.
+beautifulsoup4==4.14.3
+chromadb==1.5.8
+lxml==6.0.2
+numpy==1.26.4
+pandas==2.2.2
+pytest==9.0.2
+python-dateutil==2.9.0.post0
+pytz==2024.1
+requests==2.32.3
+scikit-learn==1.7.2
+sentence-transformers==5.2.3
+yfinance==1.1.0

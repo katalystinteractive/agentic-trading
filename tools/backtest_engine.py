@@ -21,7 +21,7 @@ import math
 from datetime import datetime, timedelta, date
 from pathlib import Path
 from collections import defaultdict
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field, asdict, replace
 
 import numpy as np
 import pandas as pd
@@ -42,6 +42,7 @@ class Position:
     bullets_used: int = 0
     sell_target_pct: float = 6.0
     zones_used: list = field(default_factory=list)
+    entry_fees: float = 0.0
 
 
 @dataclass
@@ -79,6 +80,67 @@ class DailyDipMetrics:
         "Neutral": {"days": 0, "dip_days": 0, "wins": 0, "trades": 0, "pnl": 0.0},
         "Risk-Off": {"days": 0, "dip_days": 0, "wins": 0, "trades": 0, "pnl": 0.0},
     })
+
+
+def _trade_fee(shares, cfg):
+    """Return fixed plus per-share transaction cost for a fill/sell."""
+    return float(getattr(cfg, "fee_per_trade", 0) or 0) + (
+        float(shares) * float(getattr(cfg, "fee_per_share", 0) or 0)
+    )
+
+
+def _entry_fill_price(limit_price, day_high, cfg):
+    adverse_pct = float(getattr(cfg, "entry_slippage_pct", 0) or 0)
+    adverse_pct += float(getattr(cfg, "entry_spread_pct", 0) or 0)
+    return min(limit_price * (1 + adverse_pct / 100), day_high)
+
+
+def _exit_fill_price(raw_price, cfg):
+    adverse_pct = float(getattr(cfg, "exit_slippage_pct", 0) or 0)
+    adverse_pct += float(getattr(cfg, "exit_spread_pct", 0) or 0)
+    return raw_price * (1 - adverse_pct / 100)
+
+
+def _same_day_exit_mode(cfg):
+    if not getattr(cfg, "same_day_exit", True):
+        return "disabled"
+    mode = getattr(cfg, "same_day_exit_mode", "optimistic") or "optimistic"
+    if mode not in {"optimistic", "conservative", "disabled"}:
+        raise ValueError(
+            "same_day_exit_mode must be one of: optimistic, conservative, disabled")
+    return mode
+
+
+def _sell_pnl(pos, shares, exit_price, cfg):
+    """Return gross/net P&L plus allocated entry and exit fees for a sell."""
+    shares = int(shares)
+    gross = shares * (exit_price - pos.avg_cost)
+    entry_fee = 0.0
+    if pos.shares > 0 and pos.entry_fees:
+        entry_fee = pos.entry_fees * (shares / pos.shares)
+    exit_fee = _trade_fee(shares, cfg)
+    fees = entry_fee + exit_fee
+    net = gross - fees
+    basis = shares * pos.avg_cost
+    gross_pct = (gross / basis * 100) if basis else 0.0
+    net_pct = (net / basis * 100) if basis else 0.0
+    return {
+        "gross_pnl_dollars": gross,
+        "gross_pnl_pct": gross_pct,
+        "entry_fees": entry_fee,
+        "exit_fees": exit_fee,
+        "fees": fees,
+        "pnl_dollars": net,
+        "pnl_pct": net_pct,
+    }
+
+
+def _apply_partial_sell_fees(pos, sold_shares, allocated_entry_fee):
+    """Reduce remaining entry fees after a partial sell."""
+    if sold_shares >= pos.shares:
+        pos.entry_fees = 0.0
+    else:
+        pos.entry_fees = max(0.0, pos.entry_fees - allocated_entry_fee)
 
 
 def load_collected_data(data_dir):
@@ -281,16 +343,20 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
 
             # a. Catastrophic stop
             if drawdown_pct <= -cfg.cat_exit:
-                pnl_pct = (day_close - pos.avg_cost) / pos.avg_cost * 100
-                pnl_dollars = pos.shares * (day_close - pos.avg_cost)
+                exit_price = _exit_fill_price(day_close, cfg)
+                pnl = _sell_pnl(pos, pos.shares, exit_price, cfg)
                 trades.append({
                     "ticker": tk, "side": "SELL", "date": d_str,
-                    "price": round(day_close, 2), "shares": pos.shares,
-                    "pnl_pct": round(pnl_pct, 2), "pnl_dollars": round(pnl_dollars, 2),
+                    "price": round(exit_price, 2), "shares": pos.shares,
+                    "pnl_pct": round(pnl["pnl_pct"], 2),
+                    "pnl_dollars": round(pnl["pnl_dollars"], 2),
+                    "gross_pnl_pct": round(pnl["gross_pnl_pct"], 2),
+                    "gross_pnl_dollars": round(pnl["gross_pnl_dollars"], 2),
+                    "fees": round(pnl["fees"], 2),
                     "exit_reason": "CATASTROPHIC_EXIT", "days_held": days_held,
                     "avg_cost": round(pos.avg_cost, 2), "regime": regime,
                 })
-                _reset_capital(tk, pnl_dollars)
+                _reset_capital(tk, pnl["pnl_dollars"])
                 del positions[tk]
                 pending_orders[tk] = []
                 continue
@@ -301,19 +367,23 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                     and _riskoff_consecutive <= cfg.regime_exit_hold_days + 1):
                 # Trigger once when hold_days threshold is first met
                 exit_shares = max(1, int(pos.shares * cfg.regime_exit_pct / 100))
-                exit_price = day_close * (1 - cfg.exit_slippage_pct / 100)
-                pnl_pct = (exit_price - pos.avg_cost) / pos.avg_cost * 100
-                pnl_dollars = exit_shares * (exit_price - pos.avg_cost)
+                exit_price = _exit_fill_price(day_close, cfg)
+                pnl = _sell_pnl(pos, exit_shares, exit_price, cfg)
                 trades.append({
                     "ticker": tk, "side": "SELL", "date": d_str,
                     "price": round(exit_price, 2), "shares": exit_shares,
-                    "pnl_pct": round(pnl_pct, 2), "pnl_dollars": round(pnl_dollars, 2),
+                    "pnl_pct": round(pnl["pnl_pct"], 2),
+                    "pnl_dollars": round(pnl["pnl_dollars"], 2),
+                    "gross_pnl_pct": round(pnl["gross_pnl_pct"], 2),
+                    "gross_pnl_dollars": round(pnl["gross_pnl_dollars"], 2),
+                    "fees": round(pnl["fees"], 2),
                     "exit_reason": "REGIME_EXIT", "days_held": days_held,
                     "avg_cost": round(pos.avg_cost, 2), "regime": regime,
                 })
+                _apply_partial_sell_fees(pos, exit_shares, pnl["entry_fees"])
                 pos.shares -= exit_shares
                 if pos.shares <= 0:
-                    _reset_capital(tk, pnl_dollars)
+                    _reset_capital(tk, pnl["pnl_dollars"])
                     del positions[tk]
                     pending_orders[tk] = []
                     continue
@@ -324,22 +394,28 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
             if regime == "Risk-Off":
                 time_limit += cfg.time_stop_riskoff_ext
             if days_held > time_limit:
-                pnl_pct = (day_close - pos.avg_cost) / pos.avg_cost * 100
-                pnl_dollars = pos.shares * (day_close - pos.avg_cost)
+                exit_price = _exit_fill_price(day_close, cfg)
+                pnl = _sell_pnl(pos, pos.shares, exit_price, cfg)
                 trades.append({
                     "ticker": tk, "side": "SELL", "date": d_str,
-                    "price": round(day_close, 2), "shares": pos.shares,
-                    "pnl_pct": round(pnl_pct, 2), "pnl_dollars": round(pnl_dollars, 2),
+                    "price": round(exit_price, 2), "shares": pos.shares,
+                    "pnl_pct": round(pnl["pnl_pct"], 2),
+                    "pnl_dollars": round(pnl["pnl_dollars"], 2),
+                    "gross_pnl_pct": round(pnl["gross_pnl_pct"], 2),
+                    "gross_pnl_dollars": round(pnl["gross_pnl_dollars"], 2),
+                    "fees": round(pnl["fees"], 2),
                     "exit_reason": "TIME_STOP", "days_held": days_held,
                     "avg_cost": round(pos.avg_cost, 2), "regime": regime,
                 })
                 completed_cycles[tk].append({
                     "entry_date": pos.entry_date, "exit_date": d_str,
-                    "avg_cost": pos.avg_cost, "exit_price": day_close,
-                    "pnl_pct": round(pnl_pct, 2), "duration_days": days_held,
+                    "avg_cost": pos.avg_cost, "exit_price": exit_price,
+                    "pnl_pct": round(pnl["pnl_pct"], 2), "duration_days": days_held,
+                    "gross_pnl_pct": round(pnl["gross_pnl_pct"], 2),
+                    "fees": round(pnl["fees"], 2),
                     "bullets_used": pos.bullets_used, "zones": pos.zones_used,
                 })
-                _reset_capital(tk, pnl_dollars)
+                _reset_capital(tk, pnl["pnl_dollars"])
                 del positions[tk]
                 pending_orders[tk] = []
                 continue
@@ -387,13 +463,16 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                 # Don't sell at target during significant drawdown
                 pass
             elif day_high >= target_price:
-                exit_price = target_price * (1 - cfg.exit_slippage_pct / 100)
-                pnl_pct = (exit_price - pos.avg_cost) / pos.avg_cost * 100
-                pnl_dollars = pos.shares * (exit_price - pos.avg_cost)
+                exit_price = _exit_fill_price(target_price, cfg)
+                pnl = _sell_pnl(pos, pos.shares, exit_price, cfg)
                 trades.append({
                     "ticker": tk, "side": "SELL", "date": d_str,
                     "price": round(exit_price, 2), "shares": pos.shares,
-                    "pnl_pct": round(pnl_pct, 2), "pnl_dollars": round(pnl_dollars, 2),
+                    "pnl_pct": round(pnl["pnl_pct"], 2),
+                    "pnl_dollars": round(pnl["pnl_dollars"], 2),
+                    "gross_pnl_pct": round(pnl["gross_pnl_pct"], 2),
+                    "gross_pnl_dollars": round(pnl["gross_pnl_dollars"], 2),
+                    "fees": round(pnl["fees"], 2),
                     "exit_reason": "PROFIT_TARGET", "days_held": days_held,
                     "avg_cost": round(pos.avg_cost, 2), "regime": regime,
                     "sell_tier": sell_tier_label,
@@ -401,10 +480,12 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                 completed_cycles[tk].append({
                     "entry_date": pos.entry_date, "exit_date": d_str,
                     "avg_cost": pos.avg_cost, "exit_price": exit_price,
-                    "pnl_pct": round(pnl_pct, 2), "duration_days": days_held,
+                    "pnl_pct": round(pnl["pnl_pct"], 2), "duration_days": days_held,
+                    "gross_pnl_pct": round(pnl["gross_pnl_pct"], 2),
+                    "fees": round(pnl["fees"], 2),
                     "bullets_used": pos.bullets_used, "zones": pos.zones_used,
                 })
-                _reset_capital(tk, pnl_dollars)
+                _reset_capital(tk, pnl["pnl_dollars"])
                 del positions[tk]
                 pending_orders[tk] = []
                 continue
@@ -558,7 +639,8 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
 
                 if day_low <= order.price:
                     filled.append(i)
-                    fill_price = min(order.price * (1 + cfg.entry_slippage_pct / 100), day_high)
+                    fill_price = _entry_fill_price(order.price, day_high, cfg)
+                    entry_fee = _trade_fee(order.shares, cfg)
 
                     # Update position
                     if tk in positions:
@@ -566,6 +648,7 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                         total_cost = pos.shares * pos.avg_cost + order.shares * fill_price
                         pos.shares += order.shares
                         pos.avg_cost = total_cost / pos.shares
+                        pos.entry_fees += entry_fee
                         pos.fills.append({"date": d_str, "price": fill_price,
                                          "shares": order.shares, "zone": order.zone,
                                          "level_price": order.level_price})
@@ -580,11 +663,12 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                                    "shares": order.shares, "zone": order.zone,
                                    "level_price": order.level_price}],
                             bullets_used=1, zones_used=[order.zone],
+                            entry_fees=entry_fee,
                         )
 
                     # Deduct from pool
                     cap = stock_capital[tk]
-                    cost = order.shares * fill_price
+                    cost = order.shares * fill_price + entry_fee
                     if order.zone in ("Active", "Buffer"):
                         cap.active_remaining -= cost
                         cap.active_bullets += 1
@@ -597,11 +681,13 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                         "price": round(fill_price, 2), "shares": order.shares,
                         "zone": order.zone, "tier": order.tier,
                         "avg_cost": round(positions[tk].avg_cost, 2),
+                        "fees": round(entry_fee, 2),
                         "regime": regime,
                     })
 
                     # Same-day exit check
-                    if cfg.same_day_exit and order.zone == "Active":
+                    if (_same_day_exit_mode(cfg) == "optimistic"
+                            and order.zone == "Active"):
                         try:
                             if d in tk_data["High"].index:
                                 dh = float(tk_data["High"].loc[d])
@@ -610,15 +696,17 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                                 dh = float(tk_data["High"][mask].iloc[0]) if mask.any() else 0
                             sde_target = fill_price * (1 + cfg.same_day_exit_pct / 100)
                             if dh >= sde_target:
-                                sde_exit = sde_target * (1 - cfg.exit_slippage_pct / 100)
+                                sde_exit = _exit_fill_price(sde_target, cfg)
                                 pos = positions[tk]
-                                sde_pnl = (sde_exit - fill_price) / fill_price * 100
-                                sde_dollars = pos.shares * (sde_exit - fill_price)
+                                pnl = _sell_pnl(pos, pos.shares, sde_exit, cfg)
                                 trades.append({
                                     "ticker": tk, "side": "SELL", "date": d_str,
                                     "price": round(sde_exit, 2), "shares": pos.shares,
-                                    "pnl_pct": round(sde_pnl, 2),
-                                    "pnl_dollars": round(sde_dollars, 2),
+                                    "pnl_pct": round(pnl["pnl_pct"], 2),
+                                    "pnl_dollars": round(pnl["pnl_dollars"], 2),
+                                    "gross_pnl_pct": round(pnl["gross_pnl_pct"], 2),
+                                    "gross_pnl_dollars": round(pnl["gross_pnl_dollars"], 2),
+                                    "fees": round(pnl["fees"], 2),
                                     "exit_reason": "SAME_DAY_EXIT",
                                     "days_held": 0, "avg_cost": round(pos.avg_cost, 2),
                                     "regime": regime,
@@ -626,11 +714,14 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
                                 completed_cycles[tk].append({
                                     "entry_date": d_str, "exit_date": d_str,
                                     "avg_cost": pos.avg_cost, "exit_price": sde_exit,
-                                    "pnl_pct": round(sde_pnl, 2), "duration_days": 0,
+                                    "pnl_pct": round(pnl["pnl_pct"], 2),
+                                    "duration_days": 0,
+                                    "gross_pnl_pct": round(pnl["gross_pnl_pct"], 2),
+                                    "fees": round(pnl["fees"], 2),
                                     "bullets_used": pos.bullets_used,
                                     "zones": pos.zones_used,
                                 })
-                                _reset_capital(tk, sde_dollars)
+                                _reset_capital(tk, pnl["pnl_dollars"])
                                 del positions[tk]
                                 break
                         except Exception:
@@ -856,15 +947,19 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
         except Exception:
             close = pos.avg_cost
 
-        pnl_pct = (close - pos.avg_cost) / pos.avg_cost * 100
-        pnl_dollars = pos.shares * (close - pos.avg_cost)
+        exit_price = _exit_fill_price(close, cfg)
+        pnl = _sell_pnl(pos, pos.shares, exit_price, cfg)
         entry_date = datetime.strptime(pos.entry_date, "%Y-%m-%d").date()
         days_held = (last_date - entry_date).days
 
         trades.append({
             "ticker": tk, "side": "SELL", "date": str(last_date),
-            "price": round(close, 2), "shares": pos.shares,
-            "pnl_pct": round(pnl_pct, 2), "pnl_dollars": round(pnl_dollars, 2),
+            "price": round(exit_price, 2), "shares": pos.shares,
+            "pnl_pct": round(pnl["pnl_pct"], 2),
+            "pnl_dollars": round(pnl["pnl_dollars"], 2),
+            "gross_pnl_pct": round(pnl["gross_pnl_pct"], 2),
+            "gross_pnl_dollars": round(pnl["gross_pnl_dollars"], 2),
+            "fees": round(pnl["fees"], 2),
             "exit_reason": "SIM_END", "days_held": days_held,
             "avg_cost": round(pos.avg_cost, 2), "regime": regime_data.get(str(last_date), {}).get("regime", "Neutral"),
         })
@@ -883,6 +978,55 @@ def run_simulation(price_data, regime_data, cfg, wick_cache=None, resistance_cac
               f"{len(all_cycles)} cycles")
 
     return trades, all_cycles, equity_curve, dip_metrics
+
+
+def summarize_execution(trades, equity_curve):
+    """Summarize execution-sensitive metrics for mode comparison."""
+    sells = [t for t in trades if t.get("side") == "SELL"]
+    real_sells = [t for t in sells if t.get("exit_reason") != "SIM_END"]
+    metric_sells = real_sells or sells
+    total_pnl = sum(t.get("pnl_dollars", 0) for t in metric_sells)
+    gross_pnl = sum(t.get("gross_pnl_dollars", t.get("pnl_dollars", 0))
+                    for t in metric_sells)
+    fees = sum(t.get("fees", 0) for t in trades)
+    wins = sum(1 for t in metric_sells if t.get("pnl_dollars", 0) > 0)
+    return {
+        "sells": len(metric_sells),
+        "same_day_exits": sum(1 for t in metric_sells
+                              if t.get("exit_reason") == "SAME_DAY_EXIT"),
+        "win_rate": round(wins / len(metric_sells) * 100, 1) if metric_sells else 0,
+        "avg_hold_days": round(float(np.mean([t.get("days_held", 0)
+                                              for t in metric_sells])), 1) if metric_sells else 0,
+        "gross_pnl": round(gross_pnl, 2),
+        "fees": round(fees, 2),
+        "net_pnl": round(total_pnl, 2),
+        "final_equity_pnl": equity_curve[-1]["total_pnl"] if equity_curve else 0,
+    }
+
+
+def build_execution_stress_report(price_data, regime_data, cfg, earnings_dates=None):
+    """Compare optimistic, conservative, and disabled same-day execution modes."""
+    modes = [
+        ("optimistic", {"same_day_exit": True, "same_day_exit_mode": "optimistic"}),
+        ("conservative", {"same_day_exit": True, "same_day_exit_mode": "conservative"}),
+        ("no_same_day_exit", {"same_day_exit": False, "same_day_exit_mode": "disabled"}),
+    ]
+    report = {}
+    for name, overrides in modes:
+        mode_cfg = replace(cfg, **overrides)
+        trades, cycles, equity_curve, _dip_metrics = run_simulation(
+            price_data, regime_data, mode_cfg, earnings_dates=earnings_dates,
+            quiet=True)
+        summary = summarize_execution(trades, equity_curve)
+        summary["cycles"] = len(cycles)
+        report[name] = summary
+    base = report["optimistic"]
+    for name, summary in report.items():
+        summary["net_pnl_delta_vs_optimistic"] = round(
+            summary["net_pnl"] - base["net_pnl"], 2)
+        summary["same_day_exit_delta_vs_optimistic"] = (
+            summary["same_day_exits"] - base["same_day_exits"])
+    return report
 
 
 def save_results(trades, cycles, equity_curve, output_dir):
@@ -923,6 +1067,16 @@ def main():
                    choices=["daily", "weekly", "monthly"])
     p.add_argument("--same-day-exit", action="store_true", default=True)
     p.add_argument("--same-day-exit-pct", type=float, default=4.0)
+    p.add_argument("--same-day-exit-mode", default="optimistic",
+                   choices=["optimistic", "conservative", "disabled"])
+    p.add_argument("--entry-slippage", type=float, default=0.0, dest="entry_slippage_pct")
+    p.add_argument("--exit-slippage", type=float, default=0.0, dest="exit_slippage_pct")
+    p.add_argument("--entry-spread", type=float, default=0.0, dest="entry_spread_pct")
+    p.add_argument("--exit-spread", type=float, default=0.0, dest="exit_spread_pct")
+    p.add_argument("--fee-per-trade", type=float, default=0.0)
+    p.add_argument("--fee-per-share", type=float, default=0.0)
+    p.add_argument("--execution-stress", action="store_true",
+                   help="Also write execution_stress.json comparing same-day modes")
     p.add_argument("--min-hold-rate", type=int, default=15)
     p.add_argument("--compound", action="store_true", help="Reinvest profits into pools")
     p.add_argument("--start", type=str, default="")
@@ -935,7 +1089,7 @@ def main():
     cfg = SurgicalSimConfig.from_dict(saved_cfg)
     # Override with CLI args
     for k, v in vars(args).items():
-        if k == "data_dir":
+        if k in {"data_dir", "execution_stress"}:
             continue
         if hasattr(cfg, k):
             setattr(cfg, k, v)
@@ -945,6 +1099,13 @@ def main():
     trades, cycles, equity_curve, dip_metrics = run_simulation(
         price_data, regime_data, cfg, earnings_dates=earnings_dates)
     save_results(trades, cycles, equity_curve, args.data_dir)
+    if args.execution_stress:
+        stress = build_execution_stress_report(
+            price_data, regime_data, cfg, earnings_dates=earnings_dates)
+        stress_path = Path(args.data_dir) / "execution_stress.json"
+        with open(stress_path, "w") as f:
+            json.dump(stress, f, indent=2, default=str)
+        print(f"Execution stress report written to {stress_path}")
 
     # Save dip side-channel results
     dip_out = {}

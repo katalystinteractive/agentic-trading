@@ -142,7 +142,7 @@ def load_monitored_levels():
 
 
 def auto_record_fill(ticker, price, shares, dry_run=False):
-    """Auto-record a detected fill via portfolio_manager cmd_fill.
+    """Auto-record a detected fill via portfolio_manager record_fill.
 
     Returns (success: bool, summary: str) tuple.
     summary contains position update + sell targets for email.
@@ -164,14 +164,11 @@ def auto_record_fill(ticker, price, shares, dry_run=False):
         auto_detected=True,
     )
 
-    with open(PORTFOLIO_PATH) as f:
-        data = json.load(f)
-
     buf = io.StringIO()
     try:
         with contextlib.redirect_stdout(buf):
-            from portfolio_manager import cmd_fill
-            cmd_fill(data, args)
+            from portfolio_manager import record_fill
+            record_fill(args)
         return True, buf.getvalue()
     except SystemExit:
         return False, f"*{ticker}: cmd_fill rejected fill @ ${price:.2f}*"

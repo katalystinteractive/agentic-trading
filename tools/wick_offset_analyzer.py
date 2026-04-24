@@ -17,6 +17,8 @@ import threading
 import numpy as np
 import yfinance as yf
 from pathlib import Path
+from neural_artifact_validator import ArtifactValidationError, load_validated_json
+from shared_utils import compute_allocation_signal, compute_support_level_score
 
 _ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = _ROOT / "portfolio.json"
@@ -70,8 +72,7 @@ def load_capital_config(ticker=None):
             try:
                 ns_path = Path(__file__).resolve().parent.parent / "data" / "neural_support_candidates.json"
                 if ns_path.exists():
-                    with open(ns_path) as f:
-                        ns_data = json.load(f)
+                    ns_data = load_validated_json(ns_path)
                     for c in ns_data.get("candidates", []):
                         if c["ticker"] == ticker:
                             params = c.get("params", {})
@@ -80,7 +81,7 @@ def load_capital_config(ticker=None):
                             if params.get("reserve_bullets_max"):
                                 result["reserve_bullets_max"] = params["reserve_bullets_max"]
                             break
-            except (FileNotFoundError, json.JSONDecodeError, KeyError):
+            except (FileNotFoundError, json.JSONDecodeError, KeyError, ArtifactValidationError):
                 pass
             return result
         except ImportError:
@@ -224,7 +225,7 @@ def sizing_description(cap=None):
     if cap is None:
         cap = load_capital_config()
     return {
-        "method": "pool-distributed (equal impact)",
+        "method": "edge-adjusted pool distribution",
         "active_pool": cap["active_pool"],
         "reserve_pool": cap["reserve_pool"],
         "active_max": cap["active_bullets_max"],
@@ -234,13 +235,14 @@ def sizing_description(cap=None):
         # Pre-built display strings
         "one_liner": (
             f"${cap['active_pool']} active / ${cap['reserve_pool']} reserve pool, "
-            f"distributed across all levels (equal impact)"
+            f"distributed by expected edge, confidence, fill odds, and risk"
         ),
         "capital_note": (
             f"Active pool = ${cap['active_pool']}/stock (up to {cap['active_bullets_max']} bullets), "
             f"Reserve pool = ${cap['reserve_pool']}/stock (up to {cap['reserve_bullets_max']} bullets). "
-            f"Pool-distributed sizing: each bullet buys roughly equal shares "
-            f"(equal averaging impact). Half-tier = {POOL_TIER_MULT['Half']}x weight. "
+            f"Edge-adjusted sizing: higher expected value and confidence receive more capital; "
+            f"low fill odds, stop risk, slow holds, and dormancy reduce capital. "
+            f"Half-tier = {POOL_TIER_MULT['Half']}x weight. "
             f"Per-bullet cap: {int(POOL_MAX_FRACTION * 100)}% of pool."
         ),
         "tier_rules": (
@@ -252,6 +254,7 @@ def sizing_description(cap=None):
         "verification_note": (
             "Bullet shares/costs are computed by compute_pool_sizing() — "
             "do NOT verify against fixed dollar amounts. "
+            "Sizing is edge-adjusted before broker share rounding. "
             f"Verify: total active cost <= ${cap['active_pool']}, "
             f"total reserve cost <= ${cap['reserve_pool']}, "
             f"active count <= {cap['active_bullets_max']}, "
@@ -264,12 +267,12 @@ def compute_pool_sizing(levels, pool_budget, pool_name="active"):
     """Distribute pool_budget across levels by price-weighted allocation.
 
     Each level's share of the pool is proportional to:
-        weight = recommended_buy * POOL_TIER_MULT[tier] * max(1.0, monthly_touch_freq)
+        weight = recommended_buy * POOL_TIER_MULT[tier] *
+                 max(1.0, monthly_touch_freq) * allocation_multiplier
 
     Result: higher-priced and higher-frequency levels absorb more dollars.
-    This is NOT equal-averaging-impact — a fill at a higher-priced level affects
-    the position avg cost MORE than a fill at a lower-priced level (because
-    higher-priced levels get more shares allocated).
+    Expected edge, confidence, stop risk, fill likelihood, and dormant/hold-time
+    penalties then tilt dollars toward better risk-adjusted levels.
 
     Per-bullet dollar cap: POOL_MAX_FRACTION * pool_budget (currently 60%).
     Leftover after capping redistributes to uncapped levels sorted by
@@ -303,11 +306,29 @@ def compute_pool_sizing(levels, pool_budget, pool_name="active"):
         mult = POOL_TIER_MULT.get(tier, 1.0)
         freq = lv.get("monthly_touch_freq", 1.0)
         freq_boost = max(1.0, freq)  # floor at 1.0 — no penalty for low freq
-        weight = price * mult * freq_boost
+        allocation = compute_allocation_signal({
+            "hold_rate": lv.get("hold_rate", 0),
+            "monthly_touch_freq": freq,
+            "approaches": lv.get("approaches", lv.get("total_approaches", 0)),
+            "dormant": lv.get("dormant", False),
+            "target_pct": lv.get("target_pct", 6.0),
+            "stop_pct": lv.get("stop_pct", 3.0),
+            "median_hold_days": lv.get("median_hold_days", 0),
+            "expected_edge_pct": lv.get(
+                "expected_edge_pct", lv.get("support_expected_edge_pct")),
+        }, score=lv.get("score"))
+        weight = price * mult * freq_boost * allocation["allocation_multiplier"]
         result.append({
             "recommended_buy": price,
             "hold_rate": lv.get("hold_rate", 0),
             "monthly_touch_freq": freq,
+            "allocation_multiplier": allocation["allocation_multiplier"],
+            "allocation_action": allocation["allocation_action"],
+            "allocation_reason": allocation["allocation_reason"],
+            "expected_edge_pct": allocation["expected_edge_pct"],
+            "confidence": allocation["confidence"],
+            "fill_likelihood": allocation["fill_likelihood"],
+            "stop_risk": allocation["stop_risk"],
             "_weight": weight, "_tier_mult": mult,
         })
 
@@ -722,6 +743,8 @@ def _compute_bullet_plan(level_results, current_price, cap=None, level_filters=N
             "tier": r.get("tier", r["effective_tier"]),
             "hold_rate": r["hold_rate"],
             "monthly_touch_freq": r.get("monthly_touch_freq", 0),
+            "approaches": r.get("total_approaches", 0),
+            "dormant": r.get("dormant", False),
         }
 
     # Concentrated sizing: fresh levels get full pool, dormant get 1-share minimum
@@ -735,9 +758,20 @@ def _compute_bullet_plan(level_results, current_price, cap=None, level_filters=N
         fresh_budget = max(pool_budget - dormant_cost, 0)
 
         fresh_sized = compute_pool_sizing(fresh_input, fresh_budget, pool_name) if fresh_input else []
-        dormant_sized = [{"shares": 1, "cost": r["recommended_buy"],
-                          "dollar_alloc": r["recommended_buy"]}
-                         for _, r in dormant]
+        dormant_sized = []
+        for _, r in dormant:
+            allocation = compute_allocation_signal({
+                "hold_rate": r.get("hold_rate", 0),
+                "monthly_touch_freq": r.get("monthly_touch_freq", 0),
+                "approaches": r.get("total_approaches", 0),
+                "dormant": True,
+            })
+            dormant_sized.append({
+                "shares": 1,
+                "cost": r["recommended_buy"],
+                "dollar_alloc": r["recommended_buy"],
+                **allocation,
+            })
 
         # Reassemble in original order
         result = [None] * len(bullets)
@@ -763,6 +797,17 @@ def _compute_bullet_plan(level_results, current_price, cap=None, level_filters=N
             "approaches": int(r["total_approaches"]),
             "shares": round(sized["shares"], 1),
             "cost": round(sized["cost"], 2),
+            "dollar_alloc": round(sized.get("dollar_alloc", sized["cost"]), 2),
+            "allocation_multiplier": sized.get("allocation_multiplier", 1.0),
+            "allocation_action": sized.get("allocation_action", "baseline"),
+            "allocation_reason": sized.get("allocation_reason", ""),
+            "expected_edge_pct": sized.get("expected_edge_pct", 0),
+            "confidence": sized.get("confidence", 0),
+            "fill_likelihood": sized.get("fill_likelihood", 0),
+            "stop_risk": sized.get("stop_risk", 0),
+            "support_score": r.get("support_score", 0),
+            "support_expected_edge_pct": r.get("support_expected_edge_pct", 0),
+            "support_score_components": r.get("support_score_components", {}),
             "dormant": r.get("dormant", False),
             "zone_promoted": r.get("zone_promoted", False),
             "monthly_touch_freq": round(float(r.get("monthly_touch_freq", 0)), 1),
@@ -1000,6 +1045,14 @@ def analyze_stock_data(ticker, hist=None, config=None, capital_config=None, regi
             r["zone_promoted"] = False
             r["zone_baseline"] = False
 
+        r.update(compute_support_level_score(
+            r,
+            current_price=current_price,
+            proximity_pct=active_radius,
+            target_pct=6.0,
+            stop_pct=3.0,
+        ))
+
     # Build structured output — all values must be Python-native types
     data = {
         "current_price": float(current_price),
@@ -1038,6 +1091,9 @@ def analyze_stock_data(ticker, hist=None, config=None, capital_config=None, regi
                 "recent_held": r.get("recent_held", 0),
                 "monthly_touch_freq": round(float(r.get("monthly_touch_freq", 0)), 1),
                 "trend": r.get("trend", "—"),
+                "support_score": r.get("support_score", 0),
+                "support_expected_edge_pct": r.get("support_expected_edge_pct", 0),
+                "support_score_components": r.get("support_score_components", {}),
                 "events": [
                     {
                         "date": e["start"],
@@ -1146,13 +1202,14 @@ def _format_stock_report(ticker, data):
     lines.append("")
 
     if bp["active"] or bp["reserve"]:
-        lines.append("| # | Zone | Level | Buy At | Hold% | Tier | Shares | ~Cost |")
-        lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+        lines.append("| # | Zone | Level | Buy At | Hold% | Tier | Alloc | Shares | ~Cost |")
+        lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         bullet_num = 1
         for b in bp["active"]:
             lines.append(
                 f"| {bullet_num} | Active | {fmt_dollar(b['support_price'])} "
                 f"| {fmt_dollar(b['buy_at'])} | {b['hold_rate']:.0f}% | {b['tier']} "
+                f"| {b.get('allocation_action', 'baseline')} {b.get('allocation_multiplier', 1):.2f}x "
                 f"| {b['shares']} | ${b['cost']:.2f} |"
             )
             bullet_num += 1
@@ -1160,6 +1217,7 @@ def _format_stock_report(ticker, data):
             lines.append(
                 f"| {bullet_num} | Reserve | {fmt_dollar(b['support_price'])} "
                 f"| {fmt_dollar(b['buy_at'])} | {b['hold_rate']:.0f}% | {b['tier']} "
+                f"| {b.get('allocation_action', 'baseline')} {b.get('allocation_multiplier', 1):.2f}x "
                 f"| {b['shares']} | ${b['cost']:.2f} |"
             )
             bullet_num += 1

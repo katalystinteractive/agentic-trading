@@ -87,8 +87,8 @@ def filter_valid_levels(levels, current_price):
         if lvl["zone"] in ("Reserve", "Buffer") and lvl.get("effective_tier", lvl["tier"]) == "Half":
             continue
         valid.append(lvl)
-    # Sort by recommended_buy descending (closest to current price first)
-    valid.sort(key=lambda x: x["recommended_buy"], reverse=True)
+    # Display starts with the best support score; fallback to closest to price.
+    valid.sort(key=lambda x: (x.get("support_score", 0), x["recommended_buy"]), reverse=True)
     return valid
 
 
@@ -449,8 +449,14 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
         dormant_cost = sum(lvl["recommended_buy"] for lvl in dormant)
         fresh_budget = max(pool_budget - dormant_cost, 0)
         fresh_sized = compute_pool_sizing(fresh, fresh_budget, pool_name) if fresh else []
-        dormant_sized = [{"shares": 1, "cost": lvl["recommended_buy"],
-                          "dollar_alloc": lvl["recommended_buy"]} for lvl in dormant]
+        dormant_sized = [{
+            "shares": 1,
+            "cost": lvl["recommended_buy"],
+            "dollar_alloc": lvl["recommended_buy"],
+            "allocation_action": "reduced",
+            "allocation_multiplier": 0.45,
+            "allocation_reason": "dormant penalty",
+        } for lvl in dormant]
         return fresh, fresh_sized, dormant, dormant_sized
 
     fresh_a, fresh_a_sized, dormant_a, dormant_a_sized = _concentrated_pool_sizing(
@@ -459,14 +465,19 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
         all_reserve_levels, cap["reserve_pool"], "reserve")
 
     sizing_lookup = {}
+    allocation_lookup = {}
     for lvl, sized in zip(fresh_a, fresh_a_sized):
         sizing_lookup[id(lvl)] = (sized["shares"], sized["cost"])
+        allocation_lookup[id(lvl)] = sized
     for lvl, sized in zip(dormant_a, dormant_a_sized):
         sizing_lookup[id(lvl)] = (sized["shares"], sized["cost"])
+        allocation_lookup[id(lvl)] = sized
     for lvl, sized in zip(fresh_r, fresh_r_sized):
         sizing_lookup[id(lvl)] = (sized["shares"], sized["cost"])
+        allocation_lookup[id(lvl)] = sized
     for lvl, sized in zip(dormant_r, dormant_r_sized):
         sizing_lookup[id(lvl)] = (sized["shares"], sized["cost"])
+        allocation_lookup[id(lvl)] = sized
 
     # Budget computation — derive filled costs from batch sizing
     if is_pre_strategy:
@@ -526,7 +537,12 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
     def _find_recommendation(pool, budget, slot_label):
         """Search uncovered levels matching pool zone for the first that fits within budget."""
         target_zone = "Active" if pool == "active" else "Reserve"
-        for lvl in uncovered_levels:
+        ranked_uncovered = sorted(
+            uncovered_levels,
+            key=lambda lvl: (lvl.get("support_score", 0), lvl.get("recommended_buy", 0)),
+            reverse=True,
+        )
+        for lvl in ranked_uncovered:
             if lvl["zone"] != target_zone:
                 continue
             ref_shares, ref_cost = sizing_lookup.get(id(lvl), (1, lvl["recommended_buy"]))
@@ -598,6 +614,7 @@ def run_recommend(ticker, type_filter, data, portfolio, cap=None):
         "fully_deployed": fully_deployed, "warnings": warnings,
         "reasoning": reasoning, "cap": cap, "data": data,
         "sizing_lookup": sizing_lookup,
+        "allocation_lookup": allocation_lookup,
         "uncovered_levels": uncovered_levels,
     }
     _print_recommend(ctx)
@@ -658,6 +675,7 @@ def _print_recommend(ctx):
     reasoning = ctx["reasoning"]
     cap = ctx["cap"]
     sizing_lookup = ctx.get("sizing_lookup", {})
+    allocation_lookup = ctx.get("allocation_lookup", {})
     effective_reserve_used = ctx["effective_reserve_used"]
 
     data = ctx["data"]
@@ -739,8 +757,8 @@ def _print_recommend(ctx):
 
     # --- Level Map (unified table) ---
     print("### Level Map")
-    print("| # | Support | Buy At | Held | Freq | Tier | Trend | Shares | ~Cost | Status |")
-    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
+    print("| # | Score | Support | Buy At | Held | Freq | Tier | Trend | Alloc | Shares | ~Cost | Status |")
+    print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
     # SELL target rows first
     for sell_order in pending_sells:
@@ -810,6 +828,11 @@ def _print_recommend(ctx):
 
         # Compute sizing from batch
         ref_shares, ref_cost = sizing_lookup.get(id(lvl), (1, lvl["recommended_buy"]))
+        allocation = allocation_lookup.get(id(lvl), {})
+        alloc_str = (
+            f"{allocation.get('allocation_action', 'baseline')} "
+            f"{allocation.get('allocation_multiplier', 1.0):.2f}x"
+        )
 
         if lid in covered_lookup:
             for cl in covered_lookup[lid]:
@@ -837,14 +860,14 @@ def _print_recommend(ctx):
                 ord_shares = order.get("shares")
                 if ord_shares and ord_shares != ref_shares:
                     shares_str = f"{ref_shares} (order has {ord_shares})"
-                print(f"| {row_label} | {support_str} | {_fmt_dollar(order['price'])} | {hold_str} | {freq_str} | {tier_display} "
-                      f"| {trend_str} | {shares_str} | {cost_str} | {status_str}{zone_tag} |")
+                print(f"| {row_label} | {lvl.get('support_score', 0):.1f} | {support_str} | {_fmt_dollar(order['price'])} | {hold_str} | {freq_str} | {tier_display} "
+                      f"| {trend_str} | {alloc_str} | {shares_str} | {cost_str} | {status_str}{zone_tag} |")
         elif lid in filled_lookup:
-            print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {freq_str} | {tier_display} "
-                  f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | Filled{zone_tag} |")
+            print(f"| {level_label} | {lvl.get('support_score', 0):.1f} | {support_str} | {buy_str} | {hold_str} | {freq_str} | {tier_display} "
+                  f"| {trend_str} | {alloc_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | Filled{zone_tag} |")
         elif lid == rec_level_id:
-            print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {freq_str} | {tier_display} "
-                  f"| {trend_str} | {recommendation['shares']} | ~{_fmt_dollar(recommendation['cost'])} | **>> Next**{zone_tag} |")
+            print(f"| {level_label} | {lvl.get('support_score', 0):.1f} | {support_str} | {buy_str} | {hold_str} | {freq_str} | {tier_display} "
+                  f"| {trend_str} | {alloc_str} | {recommendation['shares']} | ~{_fmt_dollar(recommendation['cost'])} | **>> Next**{zone_tag} |")
             # >> Next counts as a Place slot
             if lvl["zone"] == "Active":
                 _place_counter_active += 1
@@ -866,8 +889,8 @@ def _print_recommend(ctx):
                 status_str = "—"
             if zone_tag:
                 status_str = f"{status_str}{zone_tag}" if status_str not in ("—", "Monitor") else f"{status_str}{zone_tag}"
-            print(f"| {level_label} | {support_str} | {buy_str} | {hold_str} | {freq_str} | {tier_display} "
-                  f"| {trend_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | {status_str} |")
+            print(f"| {level_label} | {lvl.get('support_score', 0):.1f} | {support_str} | {buy_str} | {hold_str} | {freq_str} | {tier_display} "
+                  f"| {trend_str} | {alloc_str} | {ref_shares} | ~{_fmt_dollar(ref_cost)} | {status_str} |")
 
     if has_capped or has_promotion or has_demotion or has_promoted_zone or has_baseline_zone:
         markers = []
@@ -950,6 +973,8 @@ def _print_legend(active_radius, cap):
     print(f"- **Held** = Times support held / total approaches in 13 months (hold rate %)")
     desc = sizing_description(cap)
     print(f"- **Sizing** = {desc['one_liner']}")
+    print("- **Score** = support quality rank from edge, fill odds, recency, tier, dormancy, and capital lockup")
+    print("- **Alloc** = edge-adjusted capital multiplier from expected edge, confidence, fill odds, and risk")
     tw = desc['tier_weights']
     print(f"- **Full** (>=50% hold) = full weight in pool distribution")
     print(f"- **Std** (30-49% hold) = same weight as Full, lower confidence signal")
