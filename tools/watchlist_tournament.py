@@ -9,6 +9,7 @@ Usage:
     python3 tools/watchlist_tournament.py --dry-run     # report only, no writes
     python3 tools/watchlist_tournament.py --top 25      # custom target size
     python3 tools/watchlist_tournament.py --no-email    # skip email
+    python3 tools/watchlist_tournament.py --force       # bypass same-day skip
 """
 import sys
 import json
@@ -36,6 +37,8 @@ SWEEP_FILES = {
 PROTECTION_WEEKS = 4
 BEAT_MARGIN = 0.20  # 20% beat margin for competitive swaps
 MAX_WEEKLY_SWAPS = 3
+WIND_DOWN_CONFIRM_RUNS = 2
+DIAGNOSTIC_DROP_PCT = 50.0
 
 
 # ---------------------------------------------------------------------------
@@ -84,6 +87,42 @@ def _ranking_value(entry):
         return float(value)
     except (TypeError, ValueError):
         return 0.0
+
+
+def _parse_iso_date(value):
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(str(value)[:10])
+    except (ValueError, TypeError):
+        return None
+
+
+def _active_protection_start(ticker, position, watchlist_meta):
+    """Return the newest lifecycle date that should protect an active position."""
+    dates = []
+    added_dt = _parse_iso_date(watchlist_meta.get(ticker, {}).get("added_date"))
+    entry_dt = _parse_iso_date(position.get("entry_date"))
+    if added_dt:
+        dates.append(added_dt)
+    if entry_dt:
+        dates.append(entry_dt)
+    return max(dates) if dates else None
+
+
+def _is_recent_active_position(ticker, position, watchlist_meta, now=None):
+    start = _active_protection_start(ticker, position, watchlist_meta)
+    if not start:
+        return False
+    now = now or datetime.now()
+    return now - start < timedelta(weeks=PROTECTION_WEEKS)
+
+
+def _below_cutoff_streak(watchlist_meta, ticker):
+    try:
+        return int(watchlist_meta.get(ticker, {}).get("below_cutoff_streak", 0))
+    except (TypeError, ValueError):
+        return 0
 
 
 def load_all_sweeps(portfolio=None):
@@ -202,6 +241,11 @@ def load_metadata():
                 existing = json.load(f)
             meta["watchlist_metadata"] = existing.get("watchlist_metadata", {})
             meta["swap_history"] = existing.get("swap_history", [])
+            meta["previous_rankings"] = {
+                r.get("ticker"): r
+                for r in existing.get("rankings", [])
+                if r.get("ticker")
+            }
         except (OSError, json.JSONDecodeError):
             pass
 
@@ -232,13 +276,14 @@ def apply_safety_gates(rankings, portfolio, metadata, top_n=30):
       onboard: tickers to add to watchlist + onboard
       drop: tickers to remove from watchlist (no position)
       wind_down: tickers with positions to set winding_down flag
+      monitor: active positions below cutoff but not confirmed for wind-down yet
       challenge: [{challenger, incumbent, margin}] competitive swaps
       protected: tickers within 4-week protection window
       confirmed: tickers staying in top-N
     """
     actions = {
-        "onboard": [], "drop": [], "wind_down": [],
-        "challenge": [], "protected": [], "confirmed": [],
+        "onboard": [], "drop": [], "wind_down": [], "monitor": [],
+        "challenge": [], "protected": [], "confirmed": [], "reasons": {},
     }
 
     positions = portfolio.get("positions", {})
@@ -253,14 +298,49 @@ def apply_safety_gates(rankings, portfolio, metadata, top_n=30):
                        if s.get("date", "") >= week_ago
                        and s.get("type") == "competitive")
 
-    top_set = set()
     below_cutoff = []
 
     for r in rankings:
         if r["rank"] <= top_n:
-            top_set.add(r["ticker"])
+            if r["ticker"] in tracked:
+                meta = wl_meta.setdefault(r["ticker"], {})
+                meta["below_cutoff_streak"] = 0
+                meta.pop("below_cutoff_last_seen", None)
         else:
             below_cutoff.append(r)
+
+    def _handle_active_exit_candidate(tk, reason):
+        pos = positions.get(tk, {})
+        meta = wl_meta.setdefault(tk, {})
+        today = date.today().isoformat()
+        prior_streak = _below_cutoff_streak(wl_meta, tk)
+        if meta.get("below_cutoff_last_seen") == today:
+            streak = max(prior_streak, 1)
+        else:
+            streak = prior_streak + 1
+        meta["below_cutoff_streak"] = streak
+        meta["below_cutoff_last_seen"] = today
+
+        if _is_recent_active_position(tk, pos, wl_meta):
+            actions["protected"].append(tk)
+            actions["reasons"][tk] = (
+                f"active position inside {PROTECTION_WEEKS}-week protection window; "
+                f"{reason}; below-cutoff streak {streak}/{WIND_DOWN_CONFIRM_RUNS}"
+            )
+            return
+
+        if streak < WIND_DOWN_CONFIRM_RUNS:
+            actions["monitor"].append(tk)
+            actions["reasons"][tk] = (
+                f"{reason}; needs {WIND_DOWN_CONFIRM_RUNS} consecutive bad tournament "
+                f"runs before wind-down; streak {streak}/{WIND_DOWN_CONFIRM_RUNS}"
+            )
+            return
+
+        actions["wind_down"].append(tk)
+        actions["reasons"][tk] = (
+            f"{reason}; confirmed by {streak} consecutive bad tournament runs"
+        )
 
     # --- Process tickers BELOW cutoff that are tracked ---
     for r in below_cutoff:
@@ -270,25 +350,28 @@ def apply_safety_gates(rankings, portfolio, metadata, top_n=30):
 
         shares = positions.get(tk, {}).get("shares", 0)
         if shares > 0:
-            actions["wind_down"].append(tk)
+            _handle_active_exit_candidate(
+                tk,
+                f"rank {r['rank']} below top-{top_n} cutoff with score {r['score']}",
+            )
             continue
 
         # Check 4-week protection
         added = wl_meta.get(tk, {}).get("added_date", "2026-01-01")
-        try:
-            added_dt = datetime.fromisoformat(added)
-        except (ValueError, TypeError):
-            added_dt = datetime(2026, 1, 1)
+        added_dt = _parse_iso_date(added) or datetime(2026, 1, 1)
         if datetime.now() - added_dt < timedelta(weeks=PROTECTION_WEEKS):
             actions["protected"].append(tk)
+            actions["reasons"][tk] = (
+                f"watchlist ticker inside {PROTECTION_WEEKS}-week protection window"
+            )
             continue
 
         actions["drop"].append(tk)
+        actions["reasons"][tk] = f"rank {r['rank']} below top-{top_n} cutoff"
 
     # --- Determine vacated slots and fill with candidates ---
     # Vacated slots = tickers leaving (drop + wind_down from below-cutoff processing)
     leaving = actions["drop"] + actions["wind_down"]
-    slots_available = len(leaving)
 
     # Tracked tickers IN top-N are confirmed
     for r in rankings:
@@ -350,11 +433,13 @@ def apply_safety_gates(rankings, portfolio, metadata, top_n=30):
             continue
         shares = positions.get(tk, {}).get("shares", 0)
         if shares > 0:
-            if tk not in actions["wind_down"]:
-                actions["wind_down"].append(tk)
+            if (tk not in actions["wind_down"] and tk not in actions["protected"]
+                    and tk not in actions["monitor"]):
+                _handle_active_exit_candidate(tk, "missing from all live sweep artifacts")
         else:
             if tk not in actions["drop"]:
                 actions["drop"].append(tk)
+                actions["reasons"][tk] = "missing from all live sweep artifacts"
 
     # Challenged incumbents are already in drop/wind_down — just remove from confirmed
     displaced = {c["incumbent"] for c in actions["challenge"]}
@@ -363,12 +448,62 @@ def apply_safety_gates(rankings, portfolio, metadata, top_n=30):
     return actions
 
 
+def build_score_diagnostics(rankings, actions, metadata):
+    """Explain material score/rank changes and action reasons."""
+    previous = metadata.get("previous_rankings", {})
+    reasons = actions.get("reasons", {})
+    action_by_ticker = {}
+    for action_name in ("onboard", "drop", "wind_down", "monitor", "protected"):
+        for tk in actions.get(action_name, []):
+            action_by_ticker[tk] = action_name
+    for challenge in actions.get("challenge", []):
+        action_by_ticker[challenge["challenger"]] = "challenge"
+        action_by_ticker[challenge["incumbent"]] = "challenged_out"
+
+    diagnostics = {}
+    for r in rankings:
+        tk = r["ticker"]
+        prior = previous.get(tk, {})
+        prior_score = prior.get("score")
+        score_delta = None
+        score_delta_pct = None
+        if isinstance(prior_score, (int, float)):
+            score_delta = round(r["score"] - prior_score, 2)
+            if prior_score:
+                score_delta_pct = round((score_delta / prior_score) * 100, 1)
+
+        material_drop = (
+            score_delta_pct is not None
+            and score_delta_pct <= -DIAGNOSTIC_DROP_PCT
+        )
+        if tk not in action_by_ticker and not material_drop:
+            continue
+
+        diagnostics[tk] = {
+            "rank": r["rank"],
+            "score": r["score"],
+            "best_strategy": r.get("best_strategy"),
+            "composites": r.get("composites", {}),
+            "previous_rank": prior.get("rank"),
+            "previous_score": prior_score,
+            "previous_best_strategy": prior.get("best_strategy"),
+            "previous_composites": prior.get("composites", {}),
+            "score_delta": score_delta,
+            "score_delta_pct": score_delta_pct,
+            "action": action_by_ticker.get(tk, "score_drop"),
+            "reason": reasons.get(tk, ""),
+        }
+
+    return diagnostics
+
+
 # ---------------------------------------------------------------------------
 # Report
 # ---------------------------------------------------------------------------
 
-def build_report(rankings, actions, top_n):
+def build_report(rankings, actions, top_n, score_diagnostics=None):
     """Build markdown tournament report."""
+    score_diagnostics = score_diagnostics or {}
     today = date.today().isoformat()
     lines = [
         f"## Watchlist Tournament — {today}",
@@ -387,6 +522,8 @@ def build_report(rankings, actions, top_n):
         action_map[tk] = "DROP"
     for tk in actions["wind_down"]:
         action_map[tk] = "WIND DOWN"
+    for tk in actions.get("monitor", []):
+        action_map[tk] = "MONITOR"
     for c in actions["challenge"]:
         action_map[c["challenger"]] = f"CHALLENGE (vs {c['incumbent']}, +{c['margin_pct']}%)"
     for tk in actions["protected"]:
@@ -408,7 +545,9 @@ def build_report(rankings, actions, top_n):
     # Actions summary
     lines.extend(["", "### Recommended Actions"])
     total_actions = (len(actions["onboard"]) + len(actions["drop"])
-                     + len(actions["wind_down"]) + len(actions["challenge"]))
+                     + len(actions["wind_down"]) + len(actions.get("monitor", []))
+                     + len(actions["protected"])
+                     + len(actions["challenge"]))
     if total_actions == 0:
         lines.append("*No changes recommended this week.*")
     else:
@@ -423,11 +562,60 @@ def build_report(rankings, actions, top_n):
                 f"{c['incumbent']} (+{c['margin_pct']}%){note_str}")
             lines.append(f"  → Run: `python3 tools/bullet_recommender.py {c['challenger']}` for entry levels")
         for tk in actions["wind_down"]:
-            lines.append(f"- **WIND DOWN**: {tk} (active position — no new bullets)")
+            reason = actions.get("reasons", {}).get(tk, "")
+            suffix = f" — {reason}" if reason else ""
+            lines.append(f"- **WIND DOWN**: {tk} (active position — no new bullets){suffix}")
+        for tk in actions.get("monitor", []):
+            reason = actions.get("reasons", {}).get(tk, "")
+            suffix = f" — {reason}" if reason else ""
+            lines.append(f"- **MONITOR**: {tk} (active position — wind-down not confirmed){suffix}")
         for tk in actions["drop"]:
-            lines.append(f"- **DROP**: {tk} (no active position)")
+            reason = actions.get("reasons", {}).get(tk, "")
+            suffix = f" — {reason}" if reason else ""
+            lines.append(f"- **DROP**: {tk} (no active position){suffix}")
         for tk in actions["protected"]:
-            lines.append(f"- **PROTECTED**: {tk} (added <4 weeks ago)")
+            reason = actions.get("reasons", {}).get(tk, "")
+            suffix = f" — {reason}" if reason else ""
+            lines.append(f"- **PROTECTED**: {tk} (protected from churn){suffix}")
+
+    if score_diagnostics:
+        lines.extend([
+            "",
+            "### Score Diagnostics",
+            "| Ticker | Action | Score | Previous | Δ | Rank | Previous Rank | Reason |",
+            "| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |",
+        ])
+        action_order = {
+            "wind_down": 0,
+            "monitor": 1,
+            "protected": 2,
+            "challenged_out": 3,
+            "drop": 4,
+            "challenge": 5,
+            "onboard": 6,
+            "score_drop": 7,
+            "confirmed": 8,
+        }
+        rows = sorted(
+            score_diagnostics.items(),
+            key=lambda item: (action_order.get(item[1].get("action"), 99), item[0]),
+        )
+        for tk, d in rows[:40]:
+            prev_score = d["previous_score"]
+            prev_score_s = f"${prev_score:.1f}" if isinstance(prev_score, (int, float)) else "—"
+            delta = d["score_delta"]
+            if isinstance(delta, (int, float)):
+                delta_s = f"{delta:+.1f}"
+                if d["score_delta_pct"] is not None:
+                    delta_s += f" ({d['score_delta_pct']:+.1f}%)"
+            else:
+                delta_s = "—"
+            prev_rank = d["previous_rank"] if d["previous_rank"] is not None else "—"
+            reason = str(d.get("reason", "")).replace("|", "/")
+            lines.append(
+                f"| {tk} | {d['action']} | ${d['score']:.1f} | {prev_score_s} | "
+                f"{delta_s} | {d['rank']} | {prev_rank} | {reason} |"
+            )
 
     return "\n".join(lines)
 
@@ -436,7 +624,7 @@ def build_report(rankings, actions, top_n):
 # Save results
 # ---------------------------------------------------------------------------
 
-def save_results(rankings, actions, metadata):
+def save_results(rankings, actions, metadata, score_diagnostics=None):
     """Write tournament results to data/tournament_results.json (atomic)."""
     output = {
         "_meta": {
@@ -445,6 +633,7 @@ def save_results(rankings, actions, metadata):
         },
         "rankings": rankings,
         "actions": actions,
+        "score_diagnostics": score_diagnostics or {},
         "watchlist_metadata": metadata.get("watchlist_metadata", {}),
         "swap_history": metadata.get("swap_history", []),
     }
@@ -464,6 +653,17 @@ def execute_actions(actions, portfolio, metadata, rankings=None):
     for tk in actions["wind_down"]:
         if tk in portfolio.get("positions", {}):
             portfolio["positions"][tk]["winding_down"] = True
+            changed = True
+
+    # Clear stale wind-down flags when the new guard says to keep monitoring.
+    keep_active = (
+        set(actions.get("protected", []))
+        | set(actions.get("monitor", []))
+        | set(actions.get("confirmed", []))
+    )
+    for tk in keep_active:
+        pos = portfolio.get("positions", {}).get(tk)
+        if pos and pos.pop("winding_down", None) is not None:
             changed = True
 
     # Drop tickers with no position
@@ -563,10 +763,12 @@ def main():
                         help="Target watchlist size (default: 30)")
     parser.add_argument("--no-email", action="store_true",
                         help="Skip email notification")
+    parser.add_argument("--force", action="store_true",
+                        help="Run even if today's tournament result already exists")
     args = parser.parse_args()
 
     # Idempotency: skip if already ran today with fresh sweep data
-    if RESULTS_PATH.exists() and not args.dry_run:
+    if RESULTS_PATH.exists() and not args.dry_run and not args.force:
         try:
             with open(RESULTS_PATH) as f:
                 prior = json.load(f)
@@ -602,23 +804,26 @@ def main():
 
     # Apply gates
     actions = apply_safety_gates(rankings, portfolio, metadata, args.top)
+    score_diagnostics = build_score_diagnostics(rankings, actions, metadata)
 
     # Report
-    report = build_report(rankings, actions, args.top)
+    report = build_report(rankings, actions, args.top, score_diagnostics)
     print(report)
 
     if args.dry_run:
         return
 
     # Save results
-    save_results(rankings, actions, metadata)
+    save_results(rankings, actions, metadata, score_diagnostics)
 
     # Execute actions
     total_actions = (len(actions["onboard"]) + len(actions["drop"])
-                     + len(actions["wind_down"]) + len(actions["challenge"]))
+                     + len(actions["wind_down"]) + len(actions.get("monitor", []))
+                     + len(actions["protected"])
+                     + len(actions["challenge"]))
     if total_actions > 0:
         execute_actions(actions, portfolio, metadata, rankings)
-        save_results(rankings, actions, metadata)  # re-save with updated metadata
+        save_results(rankings, actions, metadata, score_diagnostics)  # re-save with updated metadata
 
     # Email
     if not args.no_email:
