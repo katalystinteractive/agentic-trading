@@ -32,6 +32,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import numpy as np
 from artifact_promoter import promote_candidate, snapshot_incumbent
 from model_complexity_gate import is_live_decision_artifact, live_decision_reason
+from neural_artifact_validator import ArtifactValidationError, load_validated_json
 
 _ROOT = Path(__file__).resolve().parent.parent
 PROFILES_PATH = _ROOT / "data" / "ticker_profiles.json"
@@ -86,8 +87,8 @@ def step_watchlist_sweep():
     _snapshot_artifacts([support_path])
     ok, elapsed = _run_sweep_step("2", "Support Sweep (Stage 1+2+slippage)", cmd)
     if ok:
-        decisions = _promote_artifacts([support_path])
-        ok = all(d.approved for d in decisions)
+        _promote_artifacts([support_path])
+        ok = _live_artifacts_valid([support_path])
     return ok, elapsed
 
 
@@ -118,6 +119,20 @@ def _promote_artifacts(paths, min_margin=0.02, allow_stale=False):
         status = "PROMOTED" if decision.approved else "REJECTED"
         print(f"  {status}: {path.name} — {decision.reason}", flush=True)
     return decisions
+
+
+def _live_artifacts_valid(paths, allow_stale=False):
+    """Return true when live artifacts are valid after promotion/restoration."""
+    for path in paths:
+        if not path.exists():
+            return False
+        try:
+            load_validated_json(path, allow_stale=allow_stale)
+        except (ArtifactValidationError, FileNotFoundError, ValueError) as exc:
+            print(f"  Live artifact unavailable after promotion: {path.name} — {exc}",
+                  flush=True)
+            return False
+    return True
 
 
 def step_model_complexity_gate(paths=None):
@@ -171,8 +186,8 @@ def step_sweep(use_cached=False, strategy="dip"):
 
     success = result.returncode == 0 and tools["sweep_results"].exists()
     if success:
-        decisions = _promote_artifacts([tools["sweep_results"]])
-        success = all(d.approved for d in decisions)
+        _promote_artifacts([tools["sweep_results"]])
+        success = _live_artifacts_valid([tools["sweep_results"]])
     print(f"  Sweep {'completed' if success else 'FAILED'} in {elapsed:.0f}s\n", flush=True)
     return success, elapsed
 
@@ -193,9 +208,9 @@ def step_cluster():
     if result.returncode != 0:
         print(f"  Clustering FAILED\n", flush=True)
         return False, elapsed, {}
-    decisions = _promote_artifacts([PROFILES_PATH])
-    if not all(d.approved for d in decisions):
-        print(f"  Clustering artifact promotion FAILED\n", flush=True)
+    _promote_artifacts([PROFILES_PATH])
+    if not _live_artifacts_valid([PROFILES_PATH]):
+        print(f"  Clustering artifact unavailable after promotion\n", flush=True)
         return False, elapsed, {}
 
     # Parse cluster info from profiles
@@ -230,9 +245,9 @@ def step_train_weights(epochs=3, learning_rate=0.01):
     if result.returncode != 0:
         print(f"  Weight training FAILED\n", flush=True)
         return False, elapsed, {}
-    decisions = _promote_artifacts([WEIGHTS_PATH])
-    if not all(d.approved for d in decisions):
-        print(f"  Weight artifact promotion FAILED\n", flush=True)
+    _promote_artifacts([WEIGHTS_PATH])
+    if not _live_artifacts_valid([WEIGHTS_PATH]):
+        print(f"  Weight artifact unavailable after promotion\n", flush=True)
         return False, elapsed, {}
 
     # Parse weight stats
@@ -349,8 +364,8 @@ def step_probability_calibration(dry_run=False):
     elapsed = time.time() - t0
     success = result.returncode == 0
     if success and not dry_run:
-        decisions = _promote_artifacts([calibration_path])
-        success = all(d.approved for d in decisions)
+        _promote_artifacts([calibration_path])
+        success = _live_artifacts_valid([calibration_path])
     print(f"  Probability calibration {'completed' if success else 'FAILED'} "
           f"in {elapsed:.0f}s\n", flush=True)
     return success, elapsed
