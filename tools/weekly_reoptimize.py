@@ -860,8 +860,12 @@ def main():
     )
     timings["sweep"] = t
     if not sweep_ok:
-        print("*Sweep failed. Aborting pipeline.*")
-        return
+        # Soft-fail: STEP 1 (dip sweep) is independent of STEP 2 support sweep,
+        # surgical sweepers (STEPs 7-10), tournament, and drift report (STEP 12).
+        # When artifact_promoter rejects a worse sweep_results.json, keep the
+        # incumbent and continue downstream rather than killing the entire run.
+        print("*Sweep failed (incumbent retained). Continuing pipeline...*",
+              flush=True)
 
     # Step 2b: Watchlist sweep (ensures every tracked ticker has a neural profile)
     wl_ok, wl_t = step_watchlist_sweep()
