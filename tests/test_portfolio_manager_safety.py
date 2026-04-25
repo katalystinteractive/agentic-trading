@@ -96,6 +96,30 @@ def test_load_validates_portfolio_shape(monkeypatch, tmp_path):
         pm._load()
 
 
+def test_order_repairs_shell_expanded_high_price_note(monkeypatch, tmp_path):
+    _patch_paths(monkeypatch, tmp_path)
+    data = {"positions": {}, "pending_orders": {}, "watchlist": []}
+    args = types.SimpleNamespace(
+        ticker="ABNB",
+        type="BUY",
+        price=131.39,
+        shares=1,
+        note="A1 — 29.23 HVN+PA, 21% hold, Std tier",
+        placed=True,
+    )
+
+    pm.cmd_order(data, args)
+
+    order = json.loads(pm.PORTFOLIO_PATH.read_text())["pending_orders"]["ABNB"][0]
+    assert order["note"] == "A1 — $129.23 HVN+PA, 21% hold, Std tier"
+
+
+def test_order_keeps_legitimate_low_price_note_for_low_price_order():
+    note = "A1 — 29.23 HVN+PA, 21% hold, Std tier"
+
+    assert pm._repair_shell_expanded_note_price(note, 31.00) == note
+
+
 def _stub_post_trade_modules(monkeypatch):
     sell_targets = types.ModuleType("sell_target_calculator")
     sell_targets.analyze_ticker = lambda *args, **kwargs: None

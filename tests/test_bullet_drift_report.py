@@ -41,6 +41,13 @@ def _plan(support, buy_at, tier="Half", shares=1, zone="Active"):
             "shares": shares, "zone": zone}
 
 
+def _write_wick(root, ticker, content):
+    path = root / "tickers" / ticker / "wick_analysis.md"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(content.strip() + "\n")
+    return path
+
+
 # ---------------------------------------------------------------------------
 # Classification
 # ---------------------------------------------------------------------------
@@ -107,6 +114,16 @@ class TestMatching:
     def test_note_support_parsed(self):
         assert bdr._parse_note_support("A1 — $11.56 HVN+PA, 50% hold, Half tier") == 11.56
         assert bdr._parse_note_support("B2 — $124.75 PA, 30% hold, Std tier") == 124.75
+
+    def test_shell_expanded_note_support_repaired_with_order_price(self):
+        assert bdr._parse_note_support(
+            "A1 — 29.23 HVN+PA, 21% hold, Std tier",
+            reference_price=131.39,
+        ) == 129.23
+        assert bdr._parse_note_support(
+            "A1 — 02.62 PA, 40% hold, Full tier",
+            reference_price=204.22,
+        ) == 202.62
 
     def test_note_unparseable_returns_none(self):
         assert bdr._parse_note_support("") is None
@@ -267,6 +284,100 @@ class TestTickerSets:
         report = bdr.generate_drift_report(dry_run=True, snapshot_path=snap)
         assert report["tickers"]["MISS"]["status"] == "WICK_MISSING"
 
+    def test_generate_report_reads_each_tickers_own_wick_file(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(bdr, "PROJECT_ROOT", tmp_path)
+        snap = tmp_path / "snap.json"
+        _write_wick(tmp_path, "ABNB", """
+*Generated: 2026-04-25 17:15 | Data as of: 2026-04-24*
+
+## Wick Offset Analysis: ABNB
+**Current Price: $142.82**
+
+### Support Levels & Buy Recommendations
+| Support | Source | Approaches | Held | Freq/mo | Hold Rate | Median Offset | Buy At | Zone | Tier | Decayed | Trend | Fresh |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| $129.23 | HVN+PA | 14 | 3 | 2.0 | 21% | +1.67% | $131.39 | Active | Std | 32% | ^ | 2026-04-24 |
+| $124.75 | HVN+PA | 17 | 6 | 1.0 | 35% | +2.15% | $127.44 | Active | Half | 28% | v | 2026-03-31 |
+
+### Suggested Bullet Plan
+| # | Zone | Level | Buy At | Hold% | Tier | Alloc | Shares | ~Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | Active | $129.23 | $131.39 | 21% | Std | baseline | 1 | $131.39 |
+| 2 | Active | $124.75 | $127.44 | 35% | Half | baseline | 1 | $127.44 |
+""")
+        _write_wick(tmp_path, "ALAB", """
+*Generated: 2026-04-25 17:15 | Data as of: 2026-04-24*
+
+## Wick Offset Analysis: ALAB
+**Current Price: $212.84**
+
+### Support Levels & Buy Recommendations
+| Support | Source | Approaches | Held | Freq/mo | Hold Rate | Median Offset | Buy At | Zone | Tier | Decayed | Trend | Fresh |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| $202.62 | PA | 5 | 2 | 0.3 | 40% | +0.79% | $204.22 | Active | Full | 68% | ^ | 2026-04-24 |
+| $131.42 | PA | 8 | 6 | 1.3 | 75% | +3.49% | $136.01 | Reserve | Full | 75% | - | 2026-04-10 |
+
+### Suggested Bullet Plan
+| # | Zone | Level | Buy At | Hold% | Tier | Alloc | Shares | ~Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | Active | $202.62 | $204.22 | 40% | Full | baseline | 1 | $204.22 |
+""")
+        snap.write_text(json.dumps({
+            "schema_version": 1,
+            "snapshot_ts": time.time() - 60,
+            "tickers": {
+                "ABNB": {
+                    "status": "OK",
+                    "pending_orders": [_order(
+                        price=131.39,
+                        note="A1 — 29.23 HVN+PA, 21% hold, Std tier",
+                    )],
+                }
+            }
+        }))
+
+        report = bdr.generate_drift_report(dry_run=True, snapshot_path=snap)
+
+        abnb = report["tickers"]["ABNB"]
+        assert abnb["current_price"] == 142.82
+        supports = {
+            row.get("support_price")
+            for row in abnb["orders"]
+            if row["action"] in {"UNCHANGED", "ADD"}
+        }
+        assert supports == {129.23, 124.75}
+        assert 131.42 not in supports
+        assert 202.62 not in supports
+
+    def test_skip_tier_from_wick_file_rechecks_cancel(self, tmp_path, monkeypatch):
+        monkeypatch.setattr(bdr, "PROJECT_ROOT", tmp_path)
+        _write_wick(tmp_path, "ARM", """
+*Generated: 2026-04-25 17:15 | Data as of: 2026-04-24*
+
+## Wick Offset Analysis: ARM
+**Current Price: $140.00**
+
+### Support Levels & Buy Recommendations
+| Support | Source | Approaches | Held | Freq/mo | Hold Rate | Median Offset | Buy At | Zone | Tier | Decayed | Trend | Fresh |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| $136.69 | HVN | 12 | 1 | 0.7 | 8% | +0.10% | $136.83 | Active | Skip | 2% | v | 2026-04-15 |
+
+### Suggested Bullet Plan
+| # | Zone | Level | Buy At | Hold% | Tier | Alloc | Shares | ~Cost |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+""")
+        before = {
+            "pending_orders": [_order(
+                price=136.83,
+                note="A1 — $136.69 HVN, 8% hold, Full tier",
+            )],
+        }
+
+        report = bdr._drift_one("ARM", before, [], time.time() - 60, time.time())
+
+        assert report["orders"][0]["action"] == "CANCEL"
+        assert report["orders"][0]["reason"] == "tier demoted to Skip"
+
 
 # ---------------------------------------------------------------------------
 # Snapshot capture
@@ -385,6 +496,14 @@ class TestBrokerCmd:
         cmd = bdr._order_to_broker_cmd("ABC", o)
         assert "tier ?→Half" in cmd
         assert "None" not in cmd
+
+    def test_resize_without_share_change_has_no_broker_command(self):
+        same = {"action": "RESIZE", "old_price": 10.00, "old_shares": 3,
+                "new_shares": 3, "tier_before": "Half", "tier_after": "Std"}
+        missing = {"action": "RESIZE", "old_price": 10.00, "old_shares": 3,
+                   "new_shares": None, "tier_before": "Half", "tier_after": "Std"}
+        assert bdr._order_to_broker_cmd("ABC", same) is None
+        assert bdr._order_to_broker_cmd("ABC", missing) is None
 
     def test_unchanged_returns_none(self):
         assert bdr._order_to_broker_cmd("ABC", {"action": "UNCHANGED"}) is None

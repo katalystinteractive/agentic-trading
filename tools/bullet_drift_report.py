@@ -3,8 +3,9 @@
 Two-hook design that wires into weekly_reoptimize.py:
   1. `write_before_snapshot()` — captured inside STEP 0 wick loop (per-ticker `data`
      dicts collected into a cache, then written to data/bullet_snapshot_before.json).
-  2. `generate_drift_report()` — called after STEP 11 tournament. Re-runs
-     analyze_stock_data per ticker, diffs against before-snapshot, emits
+  2. `generate_drift_report()` — called after STEP 11 tournament. Reads the
+     freshly written tickers/<ticker>/wick_analysis.md per ticker, diffs
+     against before-snapshot, emits
      bullet_drift_report.{md,json} plus archived copies.
 
 Classification:
@@ -24,11 +25,8 @@ import json
 import re
 import sys
 import time
-from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
-
-import yfinance as yf
 
 _TOOLS_DIR = Path(__file__).resolve().parent
 if str(_TOOLS_DIR) not in sys.path:
@@ -40,7 +38,6 @@ from bullet_recommender import (
     merge_convergent_levels,
 )
 from shared_constants import MATCH_TOLERANCE
-from wick_offset_analyzer import analyze_stock_data
 
 PROJECT_ROOT = _TOOLS_DIR.parent
 DATA_DIR = PROJECT_ROOT / "data"
@@ -50,10 +47,11 @@ REPORT_MD = PROJECT_ROOT / "bullet_drift_report.md"
 ARCHIVE_DIR = DATA_DIR / "bullet_drift_history"
 ARCHIVE_RETENTION_DAYS = 28
 SCHEMA_VERSION = 1
-DRIFT_WORKERS = 8
+DRIFT_WORKERS = 1
 
 NOTE_PRICE_RE = re.compile(r"—\s+\$?([\d.]+)\s+([A-Za-z+]+)")
 TIER_IN_NOTE_RE = re.compile(r"\b(Full|Std|Half|Skip)\s+tier")
+CURRENT_PRICE_RE = re.compile(r"\*\*Current Price:\s+\$([\d,]+(?:\.\d+)?)\*\*")
 
 
 # ---------------------------------------------------------------------------
@@ -155,7 +153,7 @@ def write_before_snapshot(tracked_tickers, pending_orders_all, data_cache,
 
 def generate_drift_report(dry_run: bool = False,
                           snapshot_path: Path | None = None) -> dict:
-    """Read snapshot, re-run analyze_stock_data per ticker, diff, write reports."""
+    """Read snapshot, diff against fresh per-ticker wick markdown, write reports."""
     source = snapshot_path or SNAPSHOT_PATH
     if not source.exists():
         return {"status": "NO_SNAPSHOT", "message": f"missing {source}"}
@@ -209,22 +207,17 @@ def generate_drift_report(dry_run: bool = False,
         else:
             drift_work[ticker] = entry
 
-    if drift_work:
-        with ThreadPoolExecutor(max_workers=DRIFT_WORKERS) as pool:
-            futures = {
-                pool.submit(_drift_one, t, e, trade_history, snapshot_ts, report_ts): t
-                for t, e in drift_work.items()
+    for ticker, entry in drift_work.items():
+        try:
+            report["tickers"][ticker] = _drift_one(
+                ticker, entry, trade_history, snapshot_ts, report_ts
+            )
+        except Exception as exc:
+            report["tickers"][ticker] = {
+                "status": "ERROR",
+                "reason": f"{type(exc).__name__}: {exc}",
+                "orders": [],
             }
-            for fut in futures:
-                ticker = futures[fut]
-                try:
-                    report["tickers"][ticker] = fut.result()
-                except Exception as exc:
-                    report["tickers"][ticker] = {
-                        "status": "ERROR",
-                        "reason": f"{type(exc).__name__}: {exc}",
-                        "orders": [],
-                    }
 
     md_content = render_markdown(report)
 
@@ -246,17 +239,11 @@ def generate_drift_report(dry_run: bool = False,
 def _drift_one(ticker: str, before_entry: dict, trade_history: list,
                snapshot_ts: float, report_ts: float) -> dict:
     """Compute drift for one ticker."""
-    try:
-        hist = yf.download(ticker, period="13mo", progress=False)
-        if hist is None or hist.empty:
-            raise ValueError("empty hist")
-        # yfinance returns MultiIndex columns — flatten to match weekly_reoptimize
-        if hasattr(hist.columns, "levels"):
-            hist.columns = hist.columns.get_level_values(0)
-    except Exception as exc:
+    wick_path = _wick_analysis_path(ticker)
+    if not wick_path.exists():
         return {
             "status": "WICK_MISSING",
-            "reason": f"yfinance fetch failed: {exc}",
+            "reason": f"missing {wick_path}",
             "orders": [
                 {"action": "WICK_MISSING", "old_price": o.get("price"),
                  "old_shares": o.get("shares"), "note": o.get("note", "")}
@@ -264,11 +251,11 @@ def _drift_one(ticker: str, before_entry: dict, trade_history: list,
             ],
         }
 
-    after_data, err = analyze_stock_data(ticker, hist)
+    after_data = _parse_wick_analysis(wick_path)
     if after_data is None:
         return {
             "status": "WICK_MISSING",
-            "reason": err or "analyze_stock_data returned None",
+            "reason": f"could not parse {wick_path}",
             "orders": [
                 {"action": "WICK_MISSING", "old_price": o.get("price"),
                  "old_shares": o.get("shares"), "note": o.get("note", "")}
@@ -289,7 +276,9 @@ def _drift_one(ticker: str, before_entry: dict, trade_history: list,
     matched_plan_supports = []
 
     for order in live_before:
-        note_support = _parse_note_support(order.get("note", ""))
+        note_support = _parse_note_support(
+            order.get("note", ""), reference_price=order.get("price")
+        )
         match_level = None
         if note_support is not None:
             match_level = _find_level_by_support(
@@ -346,6 +335,139 @@ def _drift_one(ticker: str, before_entry: dict, trade_history: list,
         "current_price": after_data.get("current_price"),
         "orders": orders_report,
     }
+
+
+# ---------------------------------------------------------------------------
+# Wick markdown parsing
+# ---------------------------------------------------------------------------
+
+
+def _wick_analysis_path(ticker: str) -> Path:
+    return PROJECT_ROOT / "tickers" / ticker.upper() / "wick_analysis.md"
+
+
+def _parse_wick_analysis(path: Path) -> dict | None:
+    """Parse the freshly written wick_analysis.md into drift-report fields."""
+    text = path.read_text(encoding="utf-8")
+    current = _parse_current_price(text)
+    levels = _parse_support_table(text)
+    plan = _parse_bullet_plan_table(text)
+    if current is None or not levels:
+        return None
+    return {
+        "current_price": current,
+        "levels": levels,
+        "bullet_plan": {"active": plan},
+    }
+
+
+def _parse_current_price(text: str) -> float | None:
+    match = CURRENT_PRICE_RE.search(text)
+    if not match:
+        return None
+    return _parse_number(match.group(1))
+
+
+def _parse_support_table(text: str) -> list[dict]:
+    rows = _parse_markdown_table_after(
+        text, "### Support Levels & Buy Recommendations"
+    )
+    levels = []
+    for row in rows:
+        support = _parse_money(row.get("Support"))
+        buy_at = _parse_money(row.get("Buy At"))
+        if support is None:
+            continue
+        tier = (row.get("Tier") or "").strip()
+        levels.append({
+            "support_price": support,
+            "source": (row.get("Source") or "").strip(),
+            "recommended_buy": buy_at,
+            "tier": tier,
+            "effective_tier": tier,
+            "hold_rate": _parse_percent(row.get("Hold Rate")) or 0.0,
+            "zone": (row.get("Zone") or "").strip(),
+            "merged_from": [],
+        })
+    return levels
+
+
+def _parse_bullet_plan_table(text: str) -> list[dict]:
+    rows = _parse_markdown_table_after(text, "### Suggested Bullet Plan")
+    plan = []
+    for row in rows:
+        support = _parse_money(row.get("Level"))
+        buy_at = _parse_money(row.get("Buy At"))
+        if support is None or buy_at is None:
+            continue
+        plan.append({
+            "support_price": support,
+            "buy_at": buy_at,
+            "tier": (row.get("Tier") or "").strip(),
+            "shares": _parse_number(row.get("Shares")) or 0,
+            "zone": (row.get("Zone") or "").strip(),
+        })
+    return plan
+
+
+def _parse_markdown_table_after(text: str, heading: str) -> list[dict]:
+    lines = text.splitlines()
+    try:
+        start = next(i for i, line in enumerate(lines) if line.strip() == heading)
+    except StopIteration:
+        return []
+
+    table_lines = []
+    for line in lines[start + 1:]:
+        stripped = line.strip()
+        if stripped.startswith("### "):
+            break
+        if stripped.startswith("|"):
+            table_lines.append(stripped)
+        elif table_lines and stripped:
+            break
+
+    if len(table_lines) < 3:
+        return []
+    headers = _split_md_row(table_lines[0])
+    rows = []
+    for line in table_lines[2:]:
+        cells = _split_md_row(line)
+        if len(cells) != len(headers):
+            continue
+        rows.append(dict(zip(headers, cells)))
+    return rows
+
+
+def _split_md_row(line: str) -> list[str]:
+    return [cell.strip() for cell in line.strip().strip("|").split("|")]
+
+
+def _parse_money(value: str | None) -> float | None:
+    if not value:
+        return None
+    match = re.search(r"\$([\d,]+(?:\.\d+)?)", value)
+    if not match:
+        return None
+    return _parse_number(match.group(1))
+
+
+def _parse_percent(value: str | None) -> float | None:
+    if not value:
+        return None
+    match = re.search(r"(-?[\d,]+(?:\.\d+)?)%", value)
+    if not match:
+        return None
+    return _parse_number(match.group(1))
+
+
+def _parse_number(value: str | None) -> float | None:
+    if value is None:
+        return None
+    try:
+        return float(str(value).replace(",", "").strip())
+    except ValueError:
+        return None
 
 
 # ---------------------------------------------------------------------------
@@ -476,16 +598,37 @@ def _find_plan_entry_by_support(plan_flat: list, target_support: float) -> dict 
     return None
 
 
-def _parse_note_support(note: str) -> float | None:
+def _parse_note_support(note: str, reference_price: float | None = None) -> float | None:
     if not note:
         return None
     m = NOTE_PRICE_RE.search(note)
     if not m:
         return None
+    parsed_text = m.group(1)
     try:
-        return float(m.group(1))
+        parsed = float(parsed_text)
     except ValueError:
         return None
+    if "$" not in m.group(0):
+        parsed = _repair_shell_expanded_support(parsed_text, reference_price)
+    return parsed
+
+
+def _repair_shell_expanded_support(parsed_text: str,
+                                   reference_price: float | None) -> float:
+    """Repair `$129.79` shell-expanded to `29.79` using the order price."""
+    parsed = float(parsed_text)
+    if reference_price is None or reference_price < 100 or parsed >= 100:
+        return parsed
+    candidates = []
+    for prefix in "123456789":
+        candidate = float(f"{prefix}{parsed_text}")
+        distance = abs(candidate - reference_price) / reference_price
+        candidates.append((distance, candidate))
+    distance, repaired = min(candidates, key=lambda item: item[0])
+    if distance > 0.20:
+        return parsed
+    return repaired
 
 
 def _tier_from_order_note(note: str) -> str | None:
@@ -631,6 +774,8 @@ def _order_to_broker_cmd(ticker: str, o: dict) -> str | None:
                 f"Place {ticker} BUY {o.get('new_shares') or o.get('old_shares','?')} "
                 f"@ ${o.get('new_price','?')}")
     if action == "RESIZE":
+        if o.get("new_shares") is None or o.get("new_shares") == o.get("old_shares"):
+            return None
         tier_before = o.get("tier_before")
         tier_after = o.get("tier_after")
         suffix = ""

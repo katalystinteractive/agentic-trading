@@ -328,6 +328,44 @@ def _fmt_dollar(val):
     return f"${val:.2f}"
 
 
+def _repair_shell_expanded_note_price(note, order_price):
+    """Repair notes like `$129.79` that the shell delivered as `29.79`."""
+    if not note or order_price < 100:
+        return note
+
+    match = re.search(r"(—\s+)(?!\$)(\d{1,2}(?:\.\d+)?)(\s+[A-Za-z+]+)", note)
+    if not match:
+        return note
+
+    observed_text = match.group(2)
+    try:
+        observed = float(observed_text)
+    except ValueError:
+        return note
+    if observed >= 100:
+        return note
+
+    candidates = []
+    for prefix in "123456789":
+        try:
+            candidate = float(f"{prefix}{observed_text}")
+        except ValueError:
+            continue
+        if candidate < 100:
+            continue
+        distance = abs(candidate - order_price) / order_price
+        candidates.append((distance, candidate))
+
+    if not candidates:
+        return note
+    distance, repaired = min(candidates, key=lambda item: item[0])
+    if distance > 0.20:
+        return note
+
+    replacement = f"{match.group(1)}${repaired:.2f}{match.group(3)}"
+    return note[:match.start()] + replacement + note[match.end():]
+
+
 def _print_table(rows):
     """Print a markdown table from list of (field, before, after) tuples."""
     print("| Field | Before | After |")
@@ -731,6 +769,7 @@ def cmd_order(data, args):
     ticker = args.ticker.upper()
     pending = data.setdefault("pending_orders", {})
     orders = pending.setdefault(ticker, [])
+    note = _repair_shell_expanded_note_price(args.note, args.price)
 
     # Check for duplicate within same type (skip filled orders)
     for order in orders:
@@ -749,7 +788,7 @@ def cmd_order(data, args):
         "type": args.type,
         "price": args.price,
         "shares": args.shares,
-        "note": args.note,
+        "note": note,
     }
     if args.placed:
         new_order["placed"] = True
@@ -764,7 +803,7 @@ def cmd_order(data, args):
     print(f"| Type | {args.type} |")
     print(f"| Price | {_fmt_dollar(args.price)} |")
     print(f"| Shares | {args.shares} |")
-    print(f"| Note | {args.note} |")
+    print(f"| Note | {note} |")
     if args.placed:
         print(f"| Placed | true |")
 
