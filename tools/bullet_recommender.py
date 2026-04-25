@@ -183,7 +183,7 @@ def is_capped(level):
 
 
 # ---------------------------------------------------------------------------
-# Zone label helpers
+# Fill/zone label helpers
 # ---------------------------------------------------------------------------
 
 def assign_zone_label(gap_pct, active_radius):
@@ -203,20 +203,31 @@ ZONE_MAX = {"A": 5, "B": 5, "R": 3}
 
 
 def build_zone_labels(valid_levels, active_radius):
-    """Assign geographic A/B/R labels to levels (sorted descending by buy price).
+    """Assign display labels by fill sequence, not support score.
+
+    F1/F2/F3 mean nearest-to-current fill order by Buy At price. This avoids the
+    old A1/A2/A3 ambiguity where users could read the label as either score
+    rank or fill order. Reserve levels keep R labels, also by fill sequence.
 
     Returns list of labels parallel to valid_levels.
     """
-    counters = {"A": 0, "B": 0, "R": 0}
-    labels = []
-    for lvl in valid_levels:
-        gap = lvl.get("gap_pct", 0)
-        zone_letter = assign_zone_label(gap, active_radius)
-        if counters[zone_letter] < ZONE_MAX[zone_letter]:
-            counters[zone_letter] += 1
-            labels.append(f"{zone_letter}{counters[zone_letter]}")
-        else:
-            labels.append("—")
+    labels = ["—"] * len(valid_levels)
+    fill_rows = [
+        (idx, lvl) for idx, lvl in enumerate(valid_levels)
+        if lvl.get("zone") != "Reserve" and lvl.get("recommended_buy")
+    ]
+    fill_rows.sort(key=lambda item: item[1]["recommended_buy"], reverse=True)
+    for seq, (idx, _lvl) in enumerate(fill_rows, 1):
+        labels[idx] = f"F{seq}"
+
+    reserve_rows = [
+        (idx, lvl) for idx, lvl in enumerate(valid_levels)
+        if lvl.get("zone") == "Reserve" and lvl.get("recommended_buy")
+    ]
+    reserve_rows.sort(key=lambda item: item[1]["recommended_buy"], reverse=True)
+    for seq, (idx, _lvl) in enumerate(reserve_rows, 1):
+        labels[idx] = f"R{seq}"
+
     return labels
 
 
@@ -757,7 +768,7 @@ def _print_recommend(ctx):
 
     # --- Level Map (unified table) ---
     print("### Level Map")
-    print("| # | Score | Support | Buy At | Held | Freq | Tier | Trend | Alloc | Shares | ~Cost | Status |")
+    print("| Fill Seq | Score | Support | Buy At | Held | Freq | Tier | Trend | Alloc | Shares | ~Cost | Status |")
     print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
     # SELL target rows first
@@ -782,13 +793,22 @@ def _print_recommend(ctx):
     has_promoted_zone = False
     has_baseline_zone = False
 
-    # Assign geographic A/B/R labels
+    # Assign fill-sequence labels
     zone_labels = build_zone_labels(valid_levels, active_radius)
 
     # Track Place vs Monitor counter for active levels
     _place_counter_active = 0
 
-    for lvl_idx, lvl in enumerate(valid_levels):
+    display_order = sorted(
+        range(len(valid_levels)),
+        key=lambda i: (
+            valid_levels[i].get("zone") == "Reserve",
+            -(valid_levels[i].get("recommended_buy") or 0),
+        ),
+    )
+
+    for lvl_idx in display_order:
+        lvl = valid_levels[lvl_idx]
         lid = id(lvl)
         capped_flag, was_tier = is_capped(lvl)
         tier_display = lvl.get("effective_tier", lvl["tier"])
@@ -967,6 +987,7 @@ def _print_recommend(ctx):
 def _print_legend(active_radius, cap):
     """Print legend with zone definitions and tier sizing."""
     print("### Legend")
+    print("- **Fill Seq** = expected fill order by Buy At price; F1 is the nearest active/buffer BUY")
     print(f"- **A** = Active zone (within {active_radius:.0f}% of price)")
     print(f"- **B** = Buffer zone ({active_radius:.0f}–{2*active_radius:.0f}% from price)")
     print(f"- **R** = Reserve zone (beyond {2*active_radius:.0f}% from price)")
@@ -1013,7 +1034,7 @@ def run_audit(ticker, data, portfolio):
     # Build valid levels (include all for audit — don't filter by current price)
     all_levels = [lvl for lvl in data["levels"] if lvl["recommended_buy"] is not None]
 
-    print("| Order | Price | Matched Level | Current Buy At | Drift | Hold Rate | Tier | Capped? | Status |")
+    print("| Fill Seq | Price | Matched Level | Current Buy At | Drift | Hold Rate | Tier | Capped? | Status |")
     print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
     # Pre-compute row data, then sort by matched price descending for correct zone labels
@@ -1042,7 +1063,7 @@ def run_audit(ticker, data, portfolio):
             capped, was_tier = is_capped(matched)
             capped_str = f"Yes (was {was_tier}, <3 approaches)" if capped else "No"
             gap = matched.get("gap_pct", 0)
-            sort_key = gap  # lower gap = closer to price = sorted first
+            sort_key = -(matched.get("recommended_buy") or 0)
         else:
             status = "ORPHANED"
             zone_tag = ""
@@ -1066,10 +1087,11 @@ def run_audit(ticker, data, portfolio):
             "sort_key": sort_key, "is_orphan": gap == float('inf'),
         })
 
-    # Sort by gap ascending (nearest to price first) for geographic label assignment
+    # Sort by Buy At descending for fill-sequence label assignment.
     rows.sort(key=lambda r: r["sort_key"])
 
-    zone_counters = {"A": 0, "B": 0, "R": 0}
+    fill_counter = 0
+    reserve_counter = 0
     orphan_idx = 0
     verdicts = []
     for row in rows:
@@ -1078,11 +1100,12 @@ def run_audit(ticker, data, portfolio):
             label = f"?{orphan_idx}"
         else:
             zone_letter = assign_zone_label(row["gap"], active_radius)
-            if zone_counters[zone_letter] < ZONE_MAX[zone_letter]:
-                zone_counters[zone_letter] += 1
-                label = f"{zone_letter}{zone_counters[zone_letter]}"
+            if zone_letter == "R":
+                reserve_counter += 1
+                label = f"R{reserve_counter}"
             else:
-                label = "—"
+                fill_counter += 1
+                label = f"F{fill_counter}"
         verdicts.append(row["status"])
         display_status = f"{row['status']}{row['zone_tag']}"
         print(f"| {label} | {_fmt_dollar(row['order']['price'])} | {row['level_str']} | {row['buy_at_str']} | {row['drift_str']} | {row['hr_str']} | {row['tier_str']} | {row['capped_str']} | {display_status} |")

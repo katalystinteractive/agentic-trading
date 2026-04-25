@@ -300,7 +300,7 @@ class TestTickerSets:
 | $124.75 | HVN+PA | 17 | 6 | 1.0 | 35% | +2.15% | $127.44 | Active | Half | 28% | v | 2026-03-31 |
 
 ### Suggested Bullet Plan
-| # | Zone | Level | Buy At | Hold% | Tier | Alloc | Shares | ~Cost |
+| Fill Seq | Zone | Level | Buy At | Hold% | Tier | Alloc | Shares | ~Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 1 | Active | $129.23 | $131.39 | 21% | Std | baseline | 1 | $131.39 |
 | 2 | Active | $124.75 | $127.44 | 35% | Half | baseline | 1 | $127.44 |
@@ -318,7 +318,7 @@ class TestTickerSets:
 | $131.42 | PA | 8 | 6 | 1.3 | 75% | +3.49% | $136.01 | Reserve | Full | 75% | - | 2026-04-10 |
 
 ### Suggested Bullet Plan
-| # | Zone | Level | Buy At | Hold% | Tier | Alloc | Shares | ~Cost |
+| Fill Seq | Zone | Level | Buy At | Hold% | Tier | Alloc | Shares | ~Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 1 | Active | $202.62 | $204.22 | 40% | Full | baseline | 1 | $204.22 |
 """)
@@ -363,7 +363,7 @@ class TestTickerSets:
 | $136.69 | HVN | 12 | 1 | 0.7 | 8% | +0.10% | $136.83 | Active | Skip | 2% | v | 2026-04-15 |
 
 ### Suggested Bullet Plan
-| # | Zone | Level | Buy At | Hold% | Tier | Alloc | Shares | ~Cost |
+| Fill Seq | Zone | Level | Buy At | Hold% | Tier | Alloc | Shares | ~Cost |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 """)
         before = {

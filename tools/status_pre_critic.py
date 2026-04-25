@@ -296,7 +296,7 @@ def _process_position_section(result, section_num, lines):
 
 
 def _parse_report_watchlist(lines):
-    """Parse Watchlist table. Returns list of dicts. Handles N/A in B1 Price and Dist to B1."""
+    """Parse Watchlist table. Handles N/A in nearest-buy columns."""
     rows = []
     for line in lines:
         stripped = line.strip()
@@ -714,7 +714,7 @@ def check_context_flags(raw_data, report, portfolio, report_date):
                     f"{ticker}: sell dist from avg {from_avg:.1f}% vs expected {expected_from_avg:.1f}% (Critical)"
                 )
 
-    # Watchlist Dist to B1 — skip N/A entries
+    # Watchlist distance to nearest buy — skip N/A entries
     for wl in report.get("watchlist", []):
         if wl.get("b1_price") is None or wl.get("dist_to_b1") is None:
             continue  # N/A — skip validation
@@ -725,7 +725,7 @@ def check_context_flags(raw_data, report, portfolio, report_date):
         reported_dist = wl["dist_to_b1"]
         if abs(reported_dist - expected_dist) > 0.2:
             issues.append(
-                f"{ticker}: watchlist Dist to B1 {reported_dist:.1f}% vs expected {expected_dist:.1f}% (Critical)"
+                f"{ticker}: watchlist Dist to Nearest {reported_dist:.1f}% vs expected {expected_dist:.1f}% (Critical)"
             )
 
     # Time stops

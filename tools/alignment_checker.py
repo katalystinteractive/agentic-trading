@@ -776,15 +776,18 @@ def run_ticker(ticker: str, broker_shares: int, broker_avg: float,
 
 
 def _order_label(note: str) -> str:
-    """Extract short label like 'B2' or 'R1' from note."""
+    """Extract short label like 'F2', legacy 'B2', or 'R1' from note."""
     if not note:
         return "?"
+    m = re.match(r"(F\d+|A\d+|B\d+|R\d+)", note, re.IGNORECASE)
+    if m:
+        return m.group(1).upper()
     m = re.match(r"(Bullet|Reserve|Last active)\s*(\d*)", note)
     if m:
         kind = m.group(1)
         num = m.group(2)
         if kind == "Bullet":
-            return f"B{num}"
+            return f"F{num}"
         elif kind == "Last active":
             return "Last"
         elif kind == "Reserve":

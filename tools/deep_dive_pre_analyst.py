@@ -181,7 +181,7 @@ def _parse_support_table(section):
 
 
 def _parse_bullet_plan_table(section):
-    """Parse the 8-column Suggested Bullet Plan table."""
+    """Parse the Suggested Bullet Plan table."""
     rows = []
     lines = section.split("\n")
     in_table = False
@@ -194,8 +194,9 @@ def _parse_bullet_plan_table(section):
                 break
             continue
 
-        # Detect header row by # | Zone | Level pattern
-        if re.search(r"#\s*\|.*Zone\s*\|.*Level", stripped):
+        # Detect header row by legacy "# | Zone | Level" or current
+        # "Fill Seq | Zone | Level" pattern.
+        if re.search(r"(?:#|Fill Seq)\s*\|.*Zone\s*\|.*Level", stripped):
             in_table = True
             header_found = True
             continue
@@ -415,7 +416,7 @@ def _match_fill_to_bullet(fill_price, bullets):
 
 def build_bullet_plan(bullet_plan_rows, support_rows, position, active_filled, reserve_filled,
                       fill_prices=None, status="EXISTING"):
-    """Build B1-B5 / R1-R3 formatted entries from wick tool's suggested bullet plan.
+    """Build F1-F5 / R1-R3 formatted entries from wick tool's suggested bullet plan.
 
     support_rows is the raw 9-column table (before filtering).
     status is "NEW" or "EXISTING" from the deep-dive-raw.md header.

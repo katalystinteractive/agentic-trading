@@ -29,7 +29,7 @@ JSON_OUTPUT_PATH = ROOT / "candidate_shortlist.json"
 # Criterion 1: Tier point values
 TIER_POINTS = {"Full": 6, "Std": 5, "Half": 2, "Skip": 0}
 
-# Criterion 2: B1 Proximity thresholds
+# Criterion 2: F1 Proximity thresholds
 B1_IDEAL_PCT = 3.0
 B1_POOR_PCT = 20.0
 
@@ -227,7 +227,7 @@ def score_bullets_tier(wick_data):
 
 
 def score_b1_proximity(wick_data):
-    """Criterion 2: B1 Proximity (0-10).
+    """Criterion 2: F1/nearest-fill proximity (0-10).
     Returns 0 if no active bullets.
     """
     active = wick_data["bullet_plan"]["active"]
@@ -611,7 +611,7 @@ def compute_stress_metrics(ticker, wick_data, passer, portfolio_ctx, capital_con
         min_active_approaches = 0
         all_active_above_3 = False
 
-    # B1 distance
+    # F1 distance
     if active:
         b1_buy = active[0]["buy_at"]
         current = wick_data["current_price"]
@@ -681,7 +681,7 @@ def generate_qualitative_questions(ticker, passer, flags, stress_metrics, portfo
     if any("sample size" in f.lower() for f in flags):
         questions.append(
             "Are the low-sample-size levels (<3 approaches) in critical "
-            "positions (B1-B2)? If so, is the risk of false signal acceptable?"
+            "positions (F1-F2)? If so, is the risk of false signal acceptable?"
         )
 
     gap = stress_metrics.get("active_reserve_gap_pct")
@@ -694,7 +694,7 @@ def generate_qualitative_questions(ticker, passer, flags, stress_metrics, portfo
     b1_dist = stress_metrics.get("b1_distance_pct")
     if b1_dist and b1_dist > 10:
         questions.append(
-            f"B1 requires a {b1_dist:.1f}% pullback. Is the stock near resistance "
+            f"F1 requires a {b1_dist:.1f}% pullback. Is the stock near resistance "
             f"or mid-cycle? Entry timing affects capital efficiency."
         )
 
@@ -846,7 +846,7 @@ def build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses):
 
     # Scoring Summary — Top 7
     lines.append(f"## Scoring Summary — Top {len(shortlist)}")
-    lines.append("| # | Ticker | Strategy | Sector | Price | Swing% | Bullets (0-10) | B1 (0-5) "
+    lines.append("| # | Ticker | Strategy | Sector | Price | Swing% | Bullets (0-10) | F1 (0-5) "
                  "| Coverage (0-10) | Reserve (0-5) | Swing (0-10) | Sector (0-10) "
                  "| Cycle (0-20) | HoldQ (0-15) | Touch (0-15) | DR Score | Effective | Flags |")
     lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- "
@@ -921,7 +921,7 @@ def build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses):
         lines.append("| Criterion | Score | Max | Detail |")
         lines.append("| :--- | :--- | :--- | :--- |")
         lines.append(f"| Bullets & Tier Quality | {s['bullets_tier']} | {MAX_BULLETS_TIER} | Sum of tier points for active bullets |")
-        lines.append(f"| B1 Proximity | {s['b1_proximity']} | {MAX_B1_PROXIMITY} | Distance from current price to first fill |")
+        lines.append(f"| F1 Proximity | {s['b1_proximity']} | {MAX_B1_PROXIMITY} | Distance from current price to first fill |")
         lines.append(f"| Zone Coverage | {s['zone_coverage']} | {MAX_ZONE_COVERAGE} | Spread of active bullets across price range |")
         lines.append(f"| Reserve Depth | {s['reserve_depth']} | {MAX_RESERVE_DEPTH} | Viable reserve levels with 30%+ hold |")
         lines.append(f"| Swing Magnitude | {s['swing']} | {MAX_SWING} | Monthly swing opportunity |")
@@ -996,7 +996,7 @@ def build_shortlist_md(shortlist, all_scored, portfolio_ctx, wick_analyses):
             if sm["b1_distance_pct"] is not None:
                 b1_assess = "Ideal" if sm["b1_distance_pct"] <= 5 else (
                     "OK" if sm["b1_distance_pct"] <= 10 else "Far")
-                lines.append(f"| B1 distance | {sm['b1_distance_pct']:.1f}% | {b1_assess} |")
+                lines.append(f"| F1 distance | {sm['b1_distance_pct']:.1f}% | {b1_assess} |")
             lines.append(f"| Sector after onboard | {sm['sector_count_after']}x "
                          f"| {'Over limit' if sm['sector_exceeds_limit'] else 'OK'} |")
             lines.append(f"| Budget feasible | ${sm['all_in_cost']:.0f} / ${sm.get('cap_total', 600)} "

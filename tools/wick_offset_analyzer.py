@@ -1202,7 +1202,7 @@ def _format_stock_report(ticker, data):
     lines.append("")
 
     if bp["active"] or bp["reserve"]:
-        lines.append("| # | Zone | Level | Buy At | Hold% | Tier | Alloc | Shares | ~Cost |")
+        lines.append("| Fill Seq | Zone | Level | Buy At | Hold% | Tier | Alloc | Shares | ~Cost |")
         lines.append("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         bullet_num = 1
         for b in bp["active"]:

@@ -67,7 +67,7 @@ def main():
 
     if not tickers_with_buys:
         print("### Cycle Phase")
-        print("| Ticker | Phase | Days in Phase | Position | B1 Distance | Median Cycle | Signal |")
+        print("| Ticker | Phase | Days in Phase | Position | F1 Distance | Median Cycle | Signal |")
         print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         print("| — | — | — | No pending orders | — | — | — |")
         return
@@ -180,7 +180,7 @@ def main():
         else:
             signal = "—"
 
-        # B1 Distance display
+        # F1 Distance display
         b1_dist_str = f"{dist:+.1f}%"
 
         # Median cycle from cycle_timing.json
@@ -211,7 +211,7 @@ def main():
     rows.sort(key=lambda r: phase_order.get(r["phase"], 9))
 
     print("### Cycle Phase")
-    print("| Ticker | Phase | Days in Phase | Position | B1 Distance | Median Cycle | Signal |")
+    print("| Ticker | Phase | Days in Phase | Position | F1 Distance | Median Cycle | Signal |")
     print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     for r in rows:
         print(f"| {r['ticker']} | {r['phase']} | {r['days']} | {r['position']:.2f} | {r['b1_dist']} | {r['median_cycle']} | {r['signal']} |")

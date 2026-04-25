@@ -34,8 +34,8 @@ EV_RATIO_THRESHOLD = 2.0
 
 
 def is_never_redeploy(label):
-    """B1 and B2 orders (including compounds like B1+2) are never redeployed."""
-    return label.startswith(("B1", "B2"))
+    """F1 and F2 orders (including compounds like F1+2) are never redeployed."""
+    return label.startswith(("F1", "F2", "B1", "B2"))
 
 
 def get_cycle_days_estimate(ticker):

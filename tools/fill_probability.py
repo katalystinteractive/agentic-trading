@@ -300,8 +300,8 @@ def main():
     print("| Ticker | Order | Capital | Fill Prob (30d) | EV (30d) | Best Alt EV | Delta | Verdict |")
     print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
 
-    # Compute best alternative EV per ticker (best B1-equivalent EV from OTHER tickers)
-    # Use nearest (highest-priced unfilled) per ticker as the "B1 equivalent"
+    # Compute best alternative EV per ticker (best F1-equivalent EV from OTHER tickers)
+    # Use nearest (highest-priced unfilled) per ticker as the "F1 equivalent"
     ticker_best_ev = {}
     for t, r in nearest.items():
         ticker_best_ev[t] = r["ev_30d"]
@@ -310,7 +310,10 @@ def main():
 
     for r in sorted_results:
         label = r["label"]
-        is_b1_b2 = label in ("B1", "B2") or label.startswith("B1+") or label.startswith("B2+")
+        is_b1_b2 = (
+            label in ("F1", "F2", "B1", "B2")
+            or label.startswith(("F1+", "F2+", "B1+", "B2+"))
+        )
 
         if only_one_ticker:
             best_alt_ev = 0.0
@@ -345,7 +348,7 @@ def main():
     # --- Block 4: Cascade Alerts ---
     print("")
     print("### Cascade Alerts")
-    print("| Ticker | 3d ROC | Nearest Fill | B2 Dist | B3 Dist | Signal |")
+    print("| Ticker | 3d ROC | Nearest Fill | F2 Dist | F3 Dist | Signal |")
     print("| :--- | :--- | :--- | :--- | :--- | :--- |")
 
     # Group results by ticker
@@ -365,13 +368,13 @@ def main():
         nearest_order = orders_for_ticker[0]
         nearest_str = f"{nearest_order['label']} {nearest_order['dist_pct']:+.1f}%"
 
-        # Find B2, B3 distances
+        # Find F2/F3 distances. Accept legacy B2/B3 labels from existing notes.
         b2_str = "—"
         b3_str = "—"
         for o in orders_for_ticker:
-            if o["label"] == "B2":
+            if o["label"] in ("F2", "B2"):
                 b2_str = f"{o['dist_pct']:+.1f}%"
-            elif o["label"] == "B3":
+            elif o["label"] in ("F3", "B3"):
                 b3_str = f"{o['dist_pct']:+.1f}%"
 
         # Signal rules
@@ -385,7 +388,7 @@ def main():
             print(f"| {ticker} | {roc_per_day*100:.1f}%/d | {nearest_str} | {b2_str} | {b3_str} | {signal} |")
         elif roc_per_day < -0.01:
             has_cascade = True
-            print(f"| {ticker} | {roc_per_day*100:.1f}%/d | {nearest_str} | {b2_str} | {b3_str} | Approaching fast — monitor B2 |")
+            print(f"| {ticker} | {roc_per_day*100:.1f}%/d | {nearest_str} | {b2_str} | {b3_str} | Approaching fast — monitor F2 |")
 
     if not has_cascade:
         print("No cascade conditions detected")

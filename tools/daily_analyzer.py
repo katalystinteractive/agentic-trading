@@ -286,9 +286,9 @@ def print_entry_gates(regime, vix, vix_5d_pct, live_prices):
         for order in active_buys:
             o_price = order.get("price", 0)
             note = order.get("note", "")
-            # Extract label (A1, A2, B1, etc.) from note
+            # Extract fill/reserve label from note.
             import re
-            label_match = re.search(r'\b(A[1-5]|B[1-5]|R[1-3])\b', note)
+            label_match = re.search(r'\b(F[1-9]|A[1-5]|B[1-5]|R[1-3])\b', note)
             label = label_match.group() if label_match else "?"
 
             if current and current > 0:
@@ -800,7 +800,7 @@ def truncate_note(note, max_len=45):
     if not note:
         return ""
     m = re.match(
-        r'((?:A\d|B\d|R\d|Bullet \d|Reserve \d).*?,\s*(?:Full|Std|Half|Skip)[\^v]?)',
+        r'((?:F\d|A\d|B\d|R\d|Bullet \d|Reserve \d).*?,\s*(?:Full|Std|Half|Skip)[\^v]?)',
         note,
     )
     if m:
@@ -1346,8 +1346,8 @@ def _persist_candidates(tickers):
 # ---------------------------------------------------------------------------
 
 def _extract_label_from_note(note):
-    """Parse A1/B2/R3 from order note. Returns '?' if not found."""
-    m = re.search(r'\b(A[1-5]|B[1-5]|R[1-3])\b', note or "")
+    """Parse F1/A1/B2/R3 from order note. Returns '?' if not found."""
+    m = re.search(r'\b(F[1-9]|A[1-5]|B[1-5]|R[1-3])\b', note or "")
     return m.group() if m else "?"
 
 

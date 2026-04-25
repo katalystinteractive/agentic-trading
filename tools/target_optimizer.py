@@ -46,7 +46,7 @@ def compute_simulation_levels(ticker, hist):
     if not sim_levels:
         return None, None, None, "no qualifying support levels"
 
-    # Sort descending by buy_at (B1 first)
+    # Sort descending by buy_at (F1 first)
     sim_levels = sorted(sim_levels, key=lambda l: l.get("buy_at", 0), reverse=True)
 
     # Prepare base_levels for compound re-sizing

@@ -504,9 +504,9 @@ def cmd_fill(data, args):
 
     # Detect zone label for dual exit routing
     import re as _re
-    _zone_match = _re.search(r'\b(A[1-5]|B[1-5]|R[1-3])\b', matched_note)
+    _zone_match = _re.search(r'\b(F[1-9]|A[1-5]|B[1-5]|R[1-3])\b', matched_note)
     zone_label = _zone_match.group(1) if _zone_match else None
-    is_upper_zone = zone_label in ("A1", "A2") if zone_label else False
+    is_upper_zone = zone_label in ("F1", "F2", "A1", "A2") if zone_label else False
     is_daily_range = "dip-buy" in matched_note.lower() or "daily-range" in matched_note.lower()
 
     # Increment bullets_used

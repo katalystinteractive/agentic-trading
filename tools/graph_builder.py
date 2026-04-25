@@ -66,8 +66,8 @@ def _check_catastrophic(pl_pct):
 
 
 def _extract_label(note):
-    """Parse A1/B2/R3 from order note. Returns '?' if not found."""
-    m = re.search(r'\b(A[1-5]|B[1-5]|R[1-3])\b', note or "")
+    """Parse F1/A1/B2/R3 from order note. Returns '?' if not found."""
+    m = re.search(r'\b(F[1-9]|A[1-5]|B[1-5]|R[1-3])\b', note or "")
     return m.group() if m else "?"
 
 

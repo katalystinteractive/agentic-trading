@@ -1469,7 +1469,7 @@ def build_report(report_date, heat_map, total_pl, total_deployed, fill_alerts,
     # --- Watchlist ---
     parts.append("## Watchlist")
     parts.append("")
-    parts.append("| Ticker | Price | Day % | B1 Price | Dist to B1 | Orders Placed |")
+    parts.append("| Ticker | Price | Day % | Nearest Buy | Dist to Nearest | Orders Placed |")
     parts.append("| :--- | :--- | :--- | :--- | :--- | :--- |")
     for wd in watchlist_data:
         b1_str = f"${wd['b1_price']:.2f}" if wd.get("b1_price") else "N/A"
@@ -1665,11 +1665,11 @@ def main():
         price = wp.get("price", 0)
         day_pct = wp.get("day_pct", "N/A")
 
-        # Find B1 price: first from pending orders, then from wick levels in raw data
+        # Find nearest BUY price: first from pending orders, then wick levels.
         b1_price = None
         dist_to_b1 = None
 
-        # Check pending orders for first (highest) non-paused BUY
+        # Highest pending BUY is closest to current price.
         pj_orders = all_pj_orders.get(ticker, [])
         buy_orders = sorted(
             [o for o in pj_orders if o.get("type") == "BUY" and "PAUSED" not in o.get("note", "").upper()],
@@ -1685,7 +1685,7 @@ def main():
             if wl_text:
                 wl_wick = _parse_wick_table(wl_text.split("\n"))
                 if wl_wick:
-                    # Highest buy_at price = B1 (closest to current)
+                    # Highest buy_at price is closest to current.
                     b1_price = max(w["buy_at"] for w in wl_wick)
 
         if price and b1_price:

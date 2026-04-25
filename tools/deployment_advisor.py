@@ -145,11 +145,11 @@ def compute_reserve_status(ticker, vix, positions):
 
 def bullet_number(label):
     """Extract numeric bullet number for sequential ordering. Returns int or 99."""
-    m = re.match(r'[BR](\d+)', label)
+    m = re.match(r'[FBR](\d+)', label)
     if m:
         return int(m.group(1))
-    # Combined bullets like B2+3
-    m = re.match(r'B(\d+)\+', label)
+    # Combined bullets like F2+3 or legacy B2+3
+    m = re.match(r'[FB](\d+)\+', label)
     if m:
         return int(m.group(1))
     return 99
@@ -187,7 +187,7 @@ def main():
 
     if not has_unfilled:
         print("### Deployment Recommendations")
-        print("| Ticker | B1 | B2 | B3 | B4 | B5 | R1-R3 | Reserve Status | Action |")
+        print("| Ticker | F1 | F2 | F3 | F4 | F5 | R1-R3 | Reserve Status | Action |")
         print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
         print("| — | — | — | — | — | — | — | — | No pending orders |")
         return
@@ -214,7 +214,7 @@ def main():
                 atr_s = atr_s.iloc[:, 0]
             val = float(atr_s.iloc[-1])
             if pd.isna(val) or val <= 0:
-                print(f"*Warning: ATR unavailable for {ticker}, B3 rule skipped*")
+                print(f"*Warning: ATR unavailable for {ticker}, F3 rule skipped*")
                 ticker_atr[ticker] = None
             else:
                 ticker_atr[ticker] = val
@@ -232,7 +232,7 @@ def main():
         if current is None:
             continue
 
-        # Parse and sort bullets by price descending (B1 = highest)
+        # Parse and sort bullets by price descending (F1 = nearest/highest)
         bullets = []
         for o in buys:
             label = parse_bullet_label(o.get("note", ""))
@@ -247,25 +247,25 @@ def main():
             })
         bullets.sort(key=lambda b: -b["price"])
 
-        # Assign sequential numbers for B? labels
+        # Assign sequential numbers for unknown active labels.
         for i, b in enumerate(bullets):
-            if b["label"] == "B?":
+            if b["label"] in ("B?", "F?"):
                 b["num"] = i + 1
 
-        # Build slot map: B1-B5, R1-R3
+        # Build slot map: F1-F5, R1-R3
         slot_map = {}  # slot_name -> bullet info
         for b in bullets:
             if b["is_reserve"]:
                 slot = f"R{b['num']}"
             else:
-                slot = f"B{b['num']}"
+                slot = f"F{b['num']}"
             slot_map[slot] = b
 
         # Determine recommendations
         def is_filled(slot):
             return slot in slot_map and slot_map[slot]["status"] == "Filled"
 
-        # Pre-compute active B3+ slots (used by reserve rules and action column)
+        # Pre-compute active F3+ slots (used by reserve rules and action column)
         active_b3_plus = [s for s, sb in slot_map.items()
                           if not sb["is_reserve"] and sb["num"] >= 3]
 
@@ -279,15 +279,15 @@ def main():
 
             num = b["num"]
 
-            # B1, B2: always place
+            # F1, F2: always place
             if not b["is_reserve"] and num <= 2:
                 recommendations[slot] = b["status"]  # Placed or Unplaced
                 continue
 
-            # B3: place if current within 2*ATR of B2, or B2 filled
+            # F3: place if current within 2*ATR of F2, or F2 filled
             if not b["is_reserve"] and num == 3:
-                b2_filled = is_filled("B2")
-                b2_price = slot_map.get("B2", {}).get("price")
+                b2_filled = is_filled("F2")
+                b2_price = slot_map.get("F2", {}).get("price")
                 if b2_filled:
                     recommendations[slot] = b["status"]
                 elif atr is not None and b2_price is not None and abs(current - b2_price) <= 2 * atr:
@@ -297,9 +297,9 @@ def main():
                     hold_capital += b["shares"] * b["price"]
                 continue
 
-            # B4, B5: place if B3 filled or regime Risk-Off
+            # F4, F5: place if F3 filled or regime Risk-Off
             if not b["is_reserve"] and num in (4, 5):
-                b3_filled = is_filled("B3")
+                b3_filled = is_filled("F3")
                 if b3_filled or regime == "Risk-Off":
                     recommendations[slot] = b["status"]
                 else:
@@ -312,7 +312,7 @@ def main():
                 reserve_status = ticker_reserve_status[ticker]
                 all_b3_filled = all(is_filled(s) for s in active_b3_plus) if active_b3_plus else True
                 if not all_b3_filled:
-                    # B3+ not all filled — reserves always hold
+                    # F3+ not all filled — reserves always hold
                     recommendations[slot] = "Hold"
                     hold_capital += b["shares"] * b["price"]
                 elif reserve_status in (HOLD_VIX_RISK_ON, HOLD_VIX_CRISIS, HOLD_MECHANICAL):
@@ -359,22 +359,22 @@ def main():
             b = slot_map.get(slot)
             if not b or b["status"] != "Unplaced" or rec in ("Hold", "Filled"):
                 continue
-            # B1/B2: always place (standard deploy)
+            # F1/F2: always place (standard deploy)
             if not b["is_reserve"] and b["num"] <= 2:
                 place_actions.append(f"Place {slot}: standard deploy")
-            # B3: within 2×ATR of B2
+            # F3: within 2×ATR of F2
             elif atr is not None and not b["is_reserve"] and b["num"] == 3:
-                b2_price = slot_map.get("B2", {}).get("price")
+                b2_price = slot_map.get("F2", {}).get("price")
                 if b2_price and abs(current - b2_price) <= 2 * atr:
-                    place_actions.append(f"Place {slot}: within 2×ATR of B2")
-                elif is_filled("B2"):
-                    place_actions.append(f"Place {slot}: B2 filled")
-            # B4/B5: Risk-Off or B3 filled
+                    place_actions.append(f"Place {slot}: within 2×ATR of F2")
+                elif is_filled("F2"):
+                    place_actions.append(f"Place {slot}: F2 filled")
+            # F4/F5: Risk-Off or F3 filled
             elif not b["is_reserve"] and b["num"] in (4, 5):
                 if regime == "Risk-Off":
                     place_actions.append(f"Place {slot}: Risk-Off regime")
-                elif is_filled("B3"):
-                    place_actions.append(f"Place {slot}: B3 filled")
+                elif is_filled("F3"):
+                    place_actions.append(f"Place {slot}: F3 filled")
             # Reserves: graduated deployment
             elif b["is_reserve"]:
                 if rec not in ("Hold", "Filled", "Review"):
@@ -391,10 +391,10 @@ def main():
 
         # Reserve status for display
         res_status = ticker_reserve_status[ticker]
-        rows.append(f"| {ticker} | {col('B1')} | {col('B2')} | {col('B3')} | {col('B4')} | {col('B5')} | {r_col} | {res_status} | {action_str} |")
+        rows.append(f"| {ticker} | {col('F1')} | {col('F2')} | {col('F3')} | {col('F4')} | {col('F5')} | {r_col} | {res_status} | {action_str} |")
 
     print("### Deployment Recommendations")
-    print("| Ticker | B1 | B2 | B3 | B4 | B5 | R1-R3 | Reserve Status | Action |")
+    print("| Ticker | F1 | F2 | F3 | F4 | F5 | R1-R3 | Reserve Status | Action |")
     print("| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |")
     for row in rows:
         print(row)

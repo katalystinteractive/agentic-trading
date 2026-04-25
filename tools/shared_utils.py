@@ -444,19 +444,34 @@ def get_portfolio_median_pnl(trade_history):
 
 
 def parse_bullet_label(note):
-    """Parse bullet label from order note. Returns e.g. 'B1', 'R2', 'B2+3', 'B?'."""
+    """Parse bullet label from order note.
+
+    New notes use F1/F2 for fill sequence. Legacy notes may still use A/B/R or
+    Bullet/Reserve prefixes; keep accepting those so current portfolio data
+    remains readable.
+    """
     if not note:
-        return "B?"
+        return "F?"
     # Take text before em dash
     prefix = note.split("\u2014")[0].split("—")[0].strip()
-    # "Bullets N+M"
-    m = re.match(r"Bullets?\s+(\d+\+\d+)", prefix, re.IGNORECASE)
-    if m:
-        return f"B{m.group(1)}"
     # "BN reserve" → RN
     m = re.match(r"B(\d+)\s+reserve", prefix, re.IGNORECASE)
     if m:
         return f"R{m.group(1)}"
+    m = re.match(r"F(\d+)", prefix, re.IGNORECASE)
+    if m:
+        return f"F{m.group(1)}"
+    # Legacy A/B active labels normalize to F fill sequence.
+    m = re.match(r"[AB](\d+)", prefix, re.IGNORECASE)
+    if m:
+        return f"F{m.group(1)}"
+    m = re.match(r"R(\d+)", prefix, re.IGNORECASE)
+    if m:
+        return f"R{m.group(1)}"
+    # "Bullets N+M"
+    m = re.match(r"Bullets?\s+(\d+\+\d+)", prefix, re.IGNORECASE)
+    if m:
+        return f"F{m.group(1)}"
     # "Reserve N"
     m = re.match(r"Reserve\s+(\d+)", prefix, re.IGNORECASE)
     if m:
@@ -464,8 +479,8 @@ def parse_bullet_label(note):
     # "Bullet N"
     m = re.match(r"Bullet\s+(\d+)", prefix, re.IGNORECASE)
     if m:
-        return f"B{m.group(1)}"
-    return "B?"
+        return f"F{m.group(1)}"
+    return "F?"
 
 
 def load_cycle_timing(ticker, project_root=None):
