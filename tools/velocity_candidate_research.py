@@ -167,8 +167,8 @@ def compute_cycle_amplitude(cycle_timing: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def load_tournament_context(path: Path) -> dict[str, dict[str, Any]]:
-    data, _ = load_json_artifact(path)
+def load_tournament_context(path: Path) -> tuple[dict[str, dict[str, Any]], dict[str, Any]]:
+    data, status = load_json_artifact(path)
     rankings = {}
     for item in (data or {}).get("rankings", []) or []:
         if not isinstance(item, dict) or not item.get("ticker"):
@@ -179,22 +179,25 @@ def load_tournament_context(path: Path) -> dict[str, dict[str, Any]]:
             "best_strategy": item.get("best_strategy"),
             "status": item.get("status"),
         }
-    return rankings
+    return rankings, status or {"path": _rel(path), "status": "unknown"}
 
 
-def load_portfolio_context(path: Path) -> dict[str, Any]:
-    data, _ = load_json_artifact(path)
+def load_portfolio_context(path: Path) -> tuple[dict[str, Any], dict[str, Any]]:
+    data, status = load_json_artifact(path)
     portfolio = data or {}
     positions = portfolio.get("positions", {}) if isinstance(portfolio.get("positions"), dict) else {}
     pending = portfolio.get("pending_orders", {}) if isinstance(portfolio.get("pending_orders"), dict) else {}
     watchlist = set(portfolio.get("watchlist", []) or [])
     velocity_watchlist = set(portfolio.get("velocity_watchlist", []) or [])
-    return {
-        "positions": positions,
-        "pending_orders": pending,
-        "watchlist": watchlist,
-        "velocity_watchlist": velocity_watchlist,
-    }
+    return (
+        {
+            "positions": positions,
+            "pending_orders": pending,
+            "watchlist": watchlist,
+            "velocity_watchlist": velocity_watchlist,
+        },
+        status or {"path": _rel(path), "status": "unknown"},
+    )
 
 
 def score_candidate(candidate: dict[str, Any]) -> dict[str, Any]:
@@ -358,8 +361,15 @@ def build_report(
 
     tickers = sorted({entry["ticker"] for entry in entries})
     cycle_map = {ticker: load_cycle_timing(ticker, paths["tickers_dir"]) for ticker in tickers}
-    tournament = load_tournament_context(paths["tournament"])
-    portfolio = load_portfolio_context(paths["portfolio"])
+    tournament, tournament_status = load_tournament_context(paths["tournament"])
+    portfolio, portfolio_status = load_portfolio_context(paths["portfolio"])
+    input_status["tournament_results"] = tournament_status
+    input_status["portfolio"] = portfolio_status
+    context_warnings = [
+        status for status in (tournament_status, portfolio_status)
+        if status.get("status") != "ok"
+    ]
+    input_warnings.extend(context_warnings)
 
     buckets = build_rankings(
         entries,
@@ -489,7 +499,11 @@ def run_research(
 
 
 def _keys_for_strategy(strategy: str, entry: dict[str, Any]) -> tuple[str, str]:
-    if strategy == "support" and "slippage_stats" in entry:
+    if (
+        strategy == "support"
+        and isinstance(entry.get("slippage_stats"), dict)
+        and isinstance(entry.get("slippage_periods"), dict)
+    ):
         return "slippage_stats", "slippage_periods"
     if strategy == "regime_exit":
         return "regime_exit_stats", "regime_exit_periods"
@@ -567,15 +581,11 @@ def _recent_score(entry: dict[str, Any]) -> float:
 
 
 def _is_stale_history(entries: list[dict[str, Any]]) -> bool:
-    has_strong_12 = False
     has_recent = False
     for entry in entries:
-        p12 = entry.get("periods", {}).get("12", {})
-        if _num(p12.get("trades")) >= 10 and _num(p12.get("win_rate")) >= 75 and _num(p12.get("pnl")) > 0:
-            has_strong_12 = True
         if _num(entry.get("periods", {}).get("1", {}).get("trades")) > 0 or _num(entry.get("periods", {}).get("3", {}).get("trades")) > 0:
             has_recent = True
-    return has_strong_12 and not has_recent
+    return any(_is_strong_12m(entry) for entry in entries) and not has_recent
 
 
 def _stale_entry(
@@ -583,7 +593,8 @@ def _stale_entry(
     entries: list[dict[str, Any]],
     tournament: dict[str, Any] | None,
 ) -> dict[str, Any]:
-    best = max(entries, key=lambda e: _num(e.get("periods", {}).get("12", {}).get("pnl")))
+    qualifying = [entry for entry in entries if _is_strong_12m(entry)]
+    best = max(qualifying or entries, key=lambda e: _num(e.get("periods", {}).get("12", {}).get("pnl")))
     p12 = best.get("periods", {}).get("12", {})
     return {
         "ticker": ticker,
@@ -600,6 +611,15 @@ def _stale_entry(
             "pnl_12m": round(_num(p12.get("pnl")), 2),
         },
     }
+
+
+def _is_strong_12m(entry: dict[str, Any]) -> bool:
+    p12 = entry.get("periods", {}).get("12", {})
+    return (
+        _num(p12.get("trades")) >= 10
+        and _num(p12.get("win_rate")) >= 75
+        and _num(p12.get("pnl")) > 0
+    )
 
 
 def _portfolio_status(ticker: str, portfolio: dict[str, Any]) -> str:

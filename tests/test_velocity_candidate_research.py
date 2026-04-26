@@ -83,6 +83,19 @@ def test_normalizes_support_regular_schema():
     assert result["periods"]["3"]["win_rate"] == 90
 
 
+def test_support_falls_back_when_slippage_periods_missing():
+    entry = {
+        "slippage_stats": {"composite": 99, "pnl": 0, "trades": 0},
+        "stats": {"composite": 27.4, "pnl": 45.63, "trades": 6},
+        "periods": _periods(one_trades=2, one_win=100, one_pnl=20),
+    }
+
+    result = research.normalize_strategy_entry("AAA", "support", entry, "support.json")
+
+    assert result["stats"]["composite"] == 27.4
+    assert result["periods"]["1"]["trades"] == 2
+
+
 def test_normalizes_resistance_bounce_and_regime_exit_schemas():
     resistance = research.normalize_strategy_entry(
         "AAA",
@@ -171,6 +184,31 @@ def test_stale_twelve_month_only_candidate_is_not_primary(tmp_path):
     assert report["stale_history"][0]["ticker"] == "OLDX"
 
 
+def test_stale_history_reports_strategy_that_met_stale_gate(tmp_path):
+    paths = _paths(tmp_path)
+    _write_json(paths["resistance"], {
+        "OLDX": {
+            "stats": {"composite": 50, "pnl": 300, "trades": 1},
+            "periods": _periods(twelve_trades=1, twelve_win=20, twelve_pnl=1000),
+        }
+    })
+    _write_json(paths["bounce"], {
+        "OLDX": {
+            "stats": {"composite": 20, "pnl": 300, "trades": 40},
+            "periods": _periods(twelve_trades=40, twelve_win=95, twelve_pnl=300),
+        }
+    })
+    _write_json(paths["portfolio"], {"positions": {}, "watchlist": [], "velocity_watchlist": []})
+    _write_json(paths["tournament"], {"rankings": []})
+
+    report, exit_code = research.run_research(tmp_path, paths=paths, stdout_only=True)
+
+    assert exit_code == 0
+    assert report["stale_history"][0]["ticker"] == "OLDX"
+    assert report["stale_history"][0]["best_strategy"] == "bounce"
+    assert report["stale_history"][0]["stability_context"]["trades_12m"] == 40
+
+
 def test_missing_cycle_timing_lowers_confidence_but_does_not_crash(tmp_path):
     paths = _paths(tmp_path)
     _write_json(paths["support_levels"], {
@@ -232,6 +270,25 @@ def test_scanner_does_not_write_portfolio_or_tournament(tmp_path):
     assert paths["tournament"].read_text() == before_tournament
     assert paths["output_json"].exists()
     assert paths["output_md"].exists()
+
+
+def test_missing_context_artifacts_are_reported_as_warnings(tmp_path):
+    paths = _paths(tmp_path)
+    _write_json(paths["support_levels"], {
+        "VCAND": {
+            "stats": {"composite": 30, "pnl": 50, "trades": 6},
+            "periods": _periods(one_trades=4, one_win=100, one_pnl=20),
+        }
+    })
+
+    report, exit_code = research.run_research(tmp_path, paths=paths, stdout_only=True)
+
+    assert exit_code == 0
+    assert report["_meta"]["inputs"]["portfolio"]["status"] == "missing"
+    assert report["_meta"]["inputs"]["tournament_results"]["status"] == "missing"
+    warning_paths = {warning["path"] for warning in report["warnings"]}
+    assert str(paths["portfolio"]) in warning_paths
+    assert str(paths["tournament"]) in warning_paths
 
 
 def test_output_is_not_promoted_or_live_decision_eligible(tmp_path):
