@@ -351,6 +351,16 @@ def build_report(
     paths = paths or default_paths(root)
     options = options or {}
     entries, input_warnings, input_status = load_strategy_entries(paths)
+    tournament, tournament_status = load_tournament_context(paths["tournament"])
+    portfolio, portfolio_status = load_portfolio_context(paths["portfolio"])
+    input_status["tournament_results"] = tournament_status
+    input_status["portfolio"] = portfolio_status
+    context_warnings = [
+        status for status in (tournament_status, portfolio_status)
+        if status.get("status") != "ok"
+    ]
+    input_warnings.extend(context_warnings)
+
     valid_evidence = [
         key for key in EVIDENCE_SOURCES
         if input_status.get(f"{key}_sweep_results", {}).get("status") == "ok"
@@ -361,15 +371,6 @@ def build_report(
 
     tickers = sorted({entry["ticker"] for entry in entries})
     cycle_map = {ticker: load_cycle_timing(ticker, paths["tickers_dir"]) for ticker in tickers}
-    tournament, tournament_status = load_tournament_context(paths["tournament"])
-    portfolio, portfolio_status = load_portfolio_context(paths["portfolio"])
-    input_status["tournament_results"] = tournament_status
-    input_status["portfolio"] = portfolio_status
-    context_warnings = [
-        status for status in (tournament_status, portfolio_status)
-        if status.get("status") != "ok"
-    ]
-    input_warnings.extend(context_warnings)
 
     buckets = build_rankings(
         entries,

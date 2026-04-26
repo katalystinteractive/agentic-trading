@@ -349,10 +349,14 @@ def test_stdout_only_skips_output_writes(tmp_path):
 
 def test_no_valid_evidence_artifact_returns_exit_one(tmp_path):
     paths = _paths(tmp_path)
-    _write_json(paths["portfolio"], {"positions": {}, "watchlist": [], "velocity_watchlist": []})
-    _write_json(paths["tournament"], {"rankings": []})
+    paths["tournament"].parent.mkdir(parents=True, exist_ok=True)
+    paths["tournament"].write_text('{"rankings": []}\n{"extra": true}\n')
 
     report, exit_code = research.run_research(tmp_path, paths=paths, stdout_only=True)
 
     assert exit_code == 1
     assert report["rankings"] == []
+    assert report["_meta"]["inputs"]["portfolio"]["status"] == "missing"
+    assert report["_meta"]["inputs"]["tournament_results"]["status"] == "invalid_json"
+    warning_statuses = {warning["status"] for warning in report["warnings"]}
+    assert {"missing", "invalid_json"} <= warning_statuses
