@@ -1,0 +1,181 @@
+{
+  "kind": "plan",
+  "target": "plans/nuai-velocity-candidate-research-plan.md",
+  "iteration": 0,
+  "coverage_queue": [
+    {
+      "id": "COV-001",
+      "summary": "Separation from live decision paths",
+      "risk": "high",
+      "status": "checked",
+      "why_in_scope": "The user's primary constraint is that current findings and recommendations remain separate and unaffected.",
+      "evidence_to_inspect": [
+        "tools/watchlist_tournament.py",
+        "tools/bullet_recommender.py",
+        "tools/deployment_advisor.py",
+        "tools/weekly_reoptimize.py",
+        "portfolio.json"
+      ],
+      "implementation_risk_if_missed": "The new feature could contaminate live tournament actions, bullet recommendations, deployment decisions, or portfolio state.",
+      "last_checked_iteration": 1
+    },
+    {
+      "id": "COV-002",
+      "summary": "Input artifact schemas and malformed entry artifact",
+      "risk": "high",
+      "status": "checked",
+      "why_in_scope": "The scanner must normalize multiple artifact schemas and safely handle malformed entry sweep data.",
+      "evidence_to_inspect": [
+        "data/support_sweep_results.json",
+        "data/resistance_sweep_results.json",
+        "data/bounce_sweep_results.json",
+        "data/regime_exit_sweep_results.json",
+        "data/entry_sweep_results.json",
+        "tools/support_parameter_sweeper.py",
+        "tools/resistance_parameter_sweeper.py",
+        "tools/bounce_parameter_sweeper.py"
+      ],
+      "implementation_risk_if_missed": "An implementer could read the wrong fields, silently score zeros, crash on malformed JSON, or rank candidates incorrectly.",
+      "last_checked_iteration": 1
+    },
+    {
+      "id": "COV-003",
+      "summary": "Cycle timing and NUAI-like scoring semantics",
+      "risk": "high",
+      "status": "checked",
+      "why_in_scope": "NUAI-like profile detection depends on recent cycling cadence and recent profitability rather than 12-month averages.",
+      "evidence_to_inspect": [
+        "tickers/NUAI/cycle_timing.json",
+        "tools/cycle_timing_analyzer.py",
+        "tools/multi_period_scorer.py"
+      ],
+      "implementation_risk_if_missed": "The scanner could reproduce stale 12-month ranking behavior instead of identifying high-velocity recent candidates.",
+      "last_checked_iteration": 1
+    },
+    {
+      "id": "COV-004",
+      "summary": "Existing velocity tools and portfolio context",
+      "risk": "medium",
+      "status": "checked",
+      "why_in_scope": "The plan must distinguish new artifact-based discovery from existing live-signal velocity tools.",
+      "evidence_to_inspect": [
+        "tools/velocity_scanner.py",
+        "tools/velocity_dashboard.py",
+        "portfolio.json"
+      ],
+      "implementation_risk_if_missed": "An implementer could modify the wrong velocity tool or rely on velocity_watchlist instead of discovering candidates.",
+      "last_checked_iteration": 1
+    },
+    {
+      "id": "COV-005",
+      "summary": "Output contracts and reporting boundaries",
+      "risk": "medium",
+      "status": "checked",
+      "why_in_scope": "The new report must be actionable for review while clearly non-live and separate from existing recommendation outputs.",
+      "evidence_to_inspect": [
+        "tools/status_gatherer.py",
+        "tools/morning_assembler.py",
+        "tools/model_complexity_gate.py",
+        "tools/neural_artifact_validator.py"
+      ],
+      "implementation_risk_if_missed": "The artifact could be mistaken for live guidance or be built in a shape that conflicts with existing validators/gates.",
+      "last_checked_iteration": 1
+    },
+    {
+      "id": "COV-006",
+      "summary": "Tests and verification commands",
+      "risk": "medium",
+      "status": "checked",
+      "why_in_scope": "The plan must define tests that lock normalization, scoring, malformed input handling, and separation guarantees.",
+      "evidence_to_inspect": [
+        "tests/test_multi_period_scorer.py",
+        "tests/test_bullet_label_semantics.py",
+        "tests/test_deployment_advisor_capital_efficiency.py"
+      ],
+      "implementation_risk_if_missed": "The implementation could pass manually but regress schema handling or separation behavior later.",
+      "last_checked_iteration": 1
+    }
+  ],
+  "findings": [
+    {
+      "id": "VP-001",
+      "iteration_first_seen": 1,
+      "classification": "FIX NOW",
+      "status": "resolved",
+      "coverage_id": "COV-004",
+      "summary": "Tracked vs untracked scoring was contradictory; plan now treats portfolio status as context only and removes tracked/untracked score points."
+    },
+    {
+      "id": "VP-002",
+      "iteration_first_seen": 1,
+      "classification": "FIX NOW",
+      "status": "resolved",
+      "coverage_id": "COV-003",
+      "summary": "5-7 percent cycling was not operationalized; plan now defines cycle amplitude from cycle_timing rebound percentages and adds amplitude gates/scoring."
+    },
+    {
+      "id": "VP-003",
+      "iteration_first_seen": 1,
+      "classification": "DISMISS",
+      "status": "dismissed",
+      "coverage_id": "COV-002",
+      "summary": "Entry sweep handling was coherent: exclude as evidence but probe for warning/status."
+    },
+    {
+      "id": "VP-004",
+      "iteration_first_seen": 1,
+      "classification": "FIX NOW",
+      "status": "resolved",
+      "coverage_id": "COV-001",
+      "summary": "NUAI sample conflicted with current winding_down state; sample now uses a generic fixture ticker instead of current NUAI."
+    },
+    {
+      "id": "VP-005",
+      "iteration_first_seen": 1,
+      "classification": "FIX NOW",
+      "status": "resolved",
+      "coverage_id": "COV-006",
+      "summary": "Separation tests missed promoted-artifact and live-decision boundaries; plan now requires tests for PROMOTED_ARTIFACTS absence and model gate non-eligibility."
+    },
+    {
+      "id": "VP-006",
+      "iteration_first_seen": 1,
+      "classification": "FIX NOW",
+      "status": "resolved",
+      "coverage_id": "COV-005",
+      "summary": "Do-not-edit list was narrower than separation contract; plan now includes weekly/model gate and reporting files as later-task-only/no-edit surfaces."
+    },
+    {
+      "id": "VP-007",
+      "iteration_first_seen": 1,
+      "classification": "FIX NOW",
+      "status": "resolved",
+      "coverage_id": "COV-002",
+      "summary": "Exit-code validity was underspecified; plan now requires at least one valid evidence sweep artifact, not just context artifacts."
+    },
+    {
+      "id": "VP-008",
+      "iteration_first_seen": 1,
+      "classification": "FIX NOW",
+      "status": "resolved",
+      "coverage_id": "COV-006",
+      "summary": "Testability path injection was missing; plan now defines default_paths and run_research path/output injection for tmp_path tests."
+    },
+    {
+      "id": "VP-009",
+      "iteration_first_seen": 2,
+      "classification": "FIX NOW",
+      "status": "resolved",
+      "coverage_id": "COV-003",
+      "summary": "Amplitude exception language was subjective; plan now defines explicit numeric thresholds for missing and low amplitude exceptions."
+    },
+    {
+      "id": "VP-010",
+      "iteration_first_seen": 2,
+      "classification": "FIX NOW",
+      "status": "resolved",
+      "coverage_id": "COV-005",
+      "summary": "JSON contract did not define non-primary buckets; plan now includes needs_manual_review, stale_history, excluded, and skipped_inputs."
+    }
+  ]
+}
