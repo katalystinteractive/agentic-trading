@@ -1,0 +1,26 @@
+{
+  "artifact_type": "trend-ledger",
+  "schema_version": 1,
+  "required_fields": [
+    "schema_version",
+    "artifact_type",
+    "as_of_date",
+    "generated_at",
+    "records"
+  ],
+  "record_required_fields": [
+    "ticker",
+    "metrics",
+    "source_refs",
+    "trend_state"
+  ],
+  "recent_edge_score": {
+    "range": [
+      0,
+      100
+    ],
+    "nullable": true,
+    "owner": "tools/trend_extractor.py"
+  },
+  "notes": "Plain repository contract reference, not JSON Schema draft."
+}

@@ -1,0 +1,17 @@
+{
+  "artifact_type": "daily-market-snapshot",
+  "schema_version": 1,
+  "required_fields": [
+    "schema_version",
+    "artifact_type",
+    "as_of_date",
+    "generated_at",
+    "records"
+  ],
+  "record_required_fields": [
+    "ticker",
+    "metrics",
+    "source_refs"
+  ],
+  "notes": "Plain repository contract reference, not JSON Schema draft."
+}

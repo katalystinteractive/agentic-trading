@@ -1,0 +1,18 @@
+{
+  "artifact_type": "source-ref",
+  "schema_version": 1,
+  "required_fields": [
+    "artifact",
+    "json_pointer",
+    "value",
+    "as_of_date",
+    "freshness",
+    "claim_field"
+  ],
+  "freshness_values": [
+    "fresh",
+    "stale",
+    "unknown"
+  ],
+  "notes": "JSON pointers are primary evidence; source_quote may be added only as a human mirror."
+}

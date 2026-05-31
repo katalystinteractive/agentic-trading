@@ -1,0 +1,15 @@
+{
+  "universe_screen": {
+    "generated": "2026-05-31T08:00:00",
+    "passers": [
+      {
+        "ticker": "GAP",
+        "price": 7.1,
+        "avg_vol": 610000,
+        "median_swing": 11.0,
+        "consistency": 80.0,
+        "freshness": "unknown"
+      }
+    ]
+  }
+}

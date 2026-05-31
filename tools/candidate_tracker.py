@@ -113,10 +113,12 @@ def cmd_add(args):
             "median_swing": None,
             "price": None,
         })
+        existing.add(ticker)
         added.append(ticker)
-        print(f"  {ticker}: added")
+        print(f"  {ticker}: {'would add' if args.dry_run else 'added'}")
 
-    _save_candidates(data)
+    if added and not args.dry_run:
+        _save_candidates(data)
     print(f"\nAdded {len(added)} candidates")
 
 
@@ -170,10 +172,12 @@ def cmd_age_out(args):
         else:
             kept.append(c)
 
-    data["candidates"] = kept
-    _save_candidates(data)
+    if not args.dry_run:
+        data["candidates"] = kept
     print(f"Aged out {len(dropped)} candidates (>{AGE_OUT_DAYS} days): {', '.join(dropped) if dropped else 'none'}")
     print(f"Remaining: {len(kept)}")
+    if dropped and not args.dry_run:
+        _save_candidates(data)
 
 
 def cmd_import_screening(args):
@@ -206,7 +210,8 @@ def cmd_import_screening(args):
         existing.add(ticker)
         added += 1
 
-    _save_candidates(data)
+    if added and not args.dry_run:
+        _save_candidates(data)
     print(f"Imported {added} new candidates from universe screening "
           f"(total: {len(data['candidates'])})")
 

@@ -1,0 +1,18 @@
+{
+  "artifact_type": "monitoring-actions",
+  "schema_version": 1,
+  "required_fields": [
+    "schema_version",
+    "artifact_type",
+    "as_of_date",
+    "actions"
+  ],
+  "action_required_fields": [
+    "ticker",
+    "action",
+    "write_effect",
+    "source_refs"
+  ],
+  "write_effect": "none",
+  "notes": "First implementation emits recommendations only and does not mutate trading state."
+}

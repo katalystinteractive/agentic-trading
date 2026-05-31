@@ -1,0 +1,26 @@
+{
+  "artifact_type": "run-status",
+  "schema_version": 1,
+  "phase_order": [
+    "snapshot",
+    "ledger",
+    "actions",
+    "report"
+  ],
+  "run_statuses": [
+    "running",
+    "completed",
+    "completed_with_gaps",
+    "failed",
+    "nonconverged"
+  ],
+  "phase_statuses": [
+    "running",
+    "completed",
+    "completed_with_gaps",
+    "failed",
+    "skipped",
+    "nonconverged"
+  ],
+  "notes": "Plain repository contract reference, not JSON Schema draft."
+}

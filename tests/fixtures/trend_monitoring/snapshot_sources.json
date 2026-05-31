@@ -1,0 +1,89 @@
+{
+  "universe_screen": {
+    "generated": "2026-05-31T08:00:00",
+    "passers": [
+      {
+        "ticker": "ALFA",
+        "price": 24.5,
+        "avg_vol": 1800000,
+        "median_swing": 12.4,
+        "consistency": 86.0,
+        "freshness": "fresh"
+      },
+      {
+        "ticker": "BETA",
+        "price": 11.25,
+        "avg_vol": 520000,
+        "median_swing": 10.8,
+        "consistency": 81.0,
+        "freshness": "fresh"
+      }
+    ]
+  },
+  "support_eval": {
+    "levels": [
+      {
+        "ticker": "ALFA",
+        "as_of_date": "2026-05-31",
+        "level": {
+          "buy_at": 23.4,
+          "current_price": 24.5,
+          "hold_rate": 0.78,
+          "recent_hold_pct": 0.82,
+          "monthly_touch_freq": 1.6,
+          "approaches": 6,
+          "effective_tier": "Full",
+          "zone": "Active",
+          "trend": "Improving"
+        },
+        "freshness": "fresh"
+      },
+      {
+        "ticker": "BETA",
+        "as_of_date": "2026-05-31",
+        "level": {
+          "buy_at": 10.9,
+          "current_price": 11.25,
+          "hold_rate": 0.58,
+          "monthly_touch_freq": 0.6,
+          "approaches": 2,
+          "effective_tier": "Std",
+          "zone": "Reserve",
+          "trend": "Stable"
+        },
+        "freshness": "fresh"
+      }
+    ]
+  },
+  "watchlist_fitness": {
+    "records": [
+      {
+        "ticker": "ALFA",
+        "as_of_date": "2026-05-31",
+        "fitness_delta_pct": 9.0,
+        "post_signal_return_pct": 6.5,
+        "freshness": "fresh"
+      }
+    ]
+  },
+  "candidate_pool": {
+    "candidates": [
+      {
+        "ticker": "BETA",
+        "added": "2026-05-30",
+        "fitness_delta_pct": 1.0,
+        "freshness": "fresh"
+      }
+    ]
+  },
+  "simulation_validation": {
+    "records": [
+      {
+        "ticker": "ALFA",
+        "as_of_date": "2026-05-31",
+        "return_pct": 13.0,
+        "freshness": "fresh"
+      }
+    ]
+  }
+}
