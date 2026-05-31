@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "artifact": "validation-findings",
+  "required": [
+    "schema_version",
+    "artifact_type",
+    "as_of_date",
+    "findings"
+  ],
+  "finding_required": [
+    "artifact",
+    "path",
+    "message",
+    "severity",
+    "source_refs"
+  ],
+  "enums": {
+    "finding_category": [
+      "UNSUPPORTED_SOURCE_CLAIM",
+      "STALE_SOURCE_ARTIFACT",
+      "DATA_PROVIDER_GAP",
+      "STRATEGY_GATE_CONFLICT",
+      "INSUFFICIENT_RECENT_EDGE",
+      "DUPLICATE_OR_FRAGMENTED_TREND",
+      "MISSING_REQUIRED_TREND"
+    ],
+    "severity": [
+      "error",
+      "warning",
+      "info"
+    ]
+  }
+}

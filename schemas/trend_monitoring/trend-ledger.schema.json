@@ -1,26 +1,34 @@
 {
-  "artifact_type": "trend-ledger",
   "schema_version": 1,
-  "required_fields": [
+  "artifact": "trend-ledger",
+  "required": [
     "schema_version",
     "artifact_type",
     "as_of_date",
     "generated_at",
     "records"
   ],
-  "record_required_fields": [
+  "record_required": [
     "ticker",
     "metrics",
     "source_refs",
     "trend_state"
   ],
-  "recent_edge_score": {
-    "range": [
-      0,
-      100
+  "enums": {
+    "trend_category": [
+      "SUPPORT_RETEST",
+      "MEAN_REVERSION_PULLBACK",
+      "RELATIVE_STRENGTH_ROTATION",
+      "VOLATILITY_EXPANSION",
+      "BREAKOUT_ACCELERATION",
+      "EVENT_DRIVEN_SETUP",
+      "DORMANT_OR_NO_ACTION"
     ],
-    "nullable": true,
-    "owner": "tools/trend_extractor.py"
+    "readiness": ["accepted", "monitor_only", "blocked", "needs_data", "failed"],
+    "priority_tier": ["P1", "P2", "P3", "P4"],
+    "monitoring_cadence": ["intraday", "daily", "weekly", "cooldown"],
+    "source_quality": ["fresh", "partial", "stale", "failed"],
+    "trend_status": ["new", "persisting", "upgraded", "downgraded", "blocked", "stale", "retired"]
   },
-  "notes": "Plain repository contract reference, not JSON Schema draft."
+  "notes": "M4 adds id/stable_key/trend_category/trend_status/first_seen/last_seen + root transitions/summary/prior_ledger_run_id."
 }

@@ -1,26 +1,27 @@
 {
-  "artifact_type": "run-status",
   "schema_version": 1,
-  "phase_order": [
-    "snapshot",
-    "ledger",
-    "actions",
-    "report"
+  "artifact": "run-status",
+  "required": [
+    "schema_version",
+    "artifact_type",
+    "as_of_date",
+    "run_id",
+    "run_status",
+    "phase_statuses"
   ],
-  "run_statuses": [
-    "running",
-    "completed",
-    "completed_with_gaps",
-    "failed",
-    "nonconverged"
+  "phase_required": [
+    "phase",
+    "status",
+    "started_at",
+    "finished_at",
+    "input_artifacts",
+    "output_artifacts",
+    "errors"
   ],
-  "phase_statuses": [
-    "running",
-    "completed",
-    "completed_with_gaps",
-    "failed",
-    "skipped",
-    "nonconverged"
-  ],
+  "phase_order": ["snapshot", "ledger", "actions", "report"],
+  "enums": {
+    "run_status": ["running", "completed", "completed_with_gaps", "failed", "nonconverged"],
+    "phase_status": ["running", "completed", "completed_with_gaps", "failed", "skipped", "nonconverged"]
+  },
   "notes": "Plain repository contract reference, not JSON Schema draft."
 }

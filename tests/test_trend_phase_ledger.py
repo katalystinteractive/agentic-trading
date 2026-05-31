@@ -30,12 +30,10 @@ def test_phase_ledger_writes_status_and_downstream_running(tmp_path):
         "run-status.json",
     }
     status = load_validated_trend_json(tmp_path / "run-status.json", "run-status")
+    # §5.6 per-phase ownership: each phase writes only its own entry. After the ledger
+    # phase, run-status carries snapshot + ledger; the run stays `running` until report.
     assert status["run_status"] == "running"
-    assert [phase["phase"] for phase in status["phase_statuses"]] == [
-        "snapshot",
-        "ledger",
-        "actions",
-        "report",
-    ]
-    assert status["phase_statuses"][2]["status"] == "running"
-
+    by_phase = {p["phase"]: p for p in status["phase_statuses"]}
+    assert set(by_phase) == {"snapshot", "ledger"}
+    assert by_phase["snapshot"]["status"] in ("completed", "completed_with_gaps")
+    assert by_phase["ledger"]["status"] == "completed"

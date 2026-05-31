@@ -1,12 +1,13 @@
 """Shared contracts for deterministic V2 trend-monitoring artifacts."""
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import shutil
 import uuid
 from dataclasses import asdict, dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -29,11 +30,91 @@ PHASE_STATUSES = (
     "skipped",
     "nonconverged",
 )
-SOURCE_FRESHNESS = ("fresh", "stale", "unknown")
+# Canonical per-source-ref freshness enum (Source Evidence Model, spec §1235).
+SOURCE_FRESHNESS = ("same_day", "fresh_cache", "weekly_context", "stale", "unknown")
+# Back-compat aliases so legacy source labels normalize to the canonical enum.
+FRESHNESS_ALIASES = {
+    "fresh": "same_day",
+    "cached": "fresh_cache",
+    "fresh_cache": "fresh_cache",
+    "weekly": "weekly_context",
+    "weekly_context": "weekly_context",
+    "same_day": "same_day",
+    "stale": "stale",
+    "unknown": "unknown",
+}
 
+# ---- Locked taxonomies (spec §1082/§1126/§1158/§1250/§1238) -----------------
+TREND_CATEGORIES = (
+    "SUPPORT_RETEST",
+    "MEAN_REVERSION_PULLBACK",
+    "RELATIVE_STRENGTH_ROTATION",
+    "VOLATILITY_EXPANSION",
+    "BREAKOUT_ACCELERATION",
+    "EVENT_DRIVEN_SETUP",
+    "DORMANT_OR_NO_ACTION",
+)
+# Categories that may never auto-promote regardless of score (brief §6.1/§6.6).
+MONITORING_ONLY_CATEGORIES = ("RELATIVE_STRENGTH_ROTATION", "BREAKOUT_ACCELERATION")
+FINDING_CATEGORIES = (
+    "UNSUPPORTED_SOURCE_CLAIM",
+    "STALE_SOURCE_ARTIFACT",
+    "DATA_PROVIDER_GAP",
+    "STRATEGY_GATE_CONFLICT",
+    "INSUFFICIENT_RECENT_EDGE",
+    "DUPLICATE_OR_FRAGMENTED_TREND",
+    "MISSING_REQUIRED_TREND",
+)
+ACTION_CATEGORIES = (
+    "WATCH_DAILY",
+    "WATCH_INTRADAY",
+    "PROMOTE_TO_SIMULATION",
+    "PROMOTE_TO_DEEP_DIVE",
+    "ADD_TO_CANDIDATE_POOL",
+    "RECOMMEND_WATCHLIST_REVIEW",
+    "COOLDOWN_OR_DROP",
+    "NO_CHANGE",
+)
+TRANSITION_STATES = (
+    "new",
+    "persisting",
+    "upgraded",
+    "downgraded",
+    "blocked",
+    "stale",
+    "retired",
+)
+READINESS = ("accepted", "monitor_only", "blocked", "needs_data", "failed")
+PRIORITY_TIERS = ("P1", "P2", "P3", "P4")
+MONITORING_CADENCE = ("intraday", "daily", "weekly", "cooldown")
+SOURCE_QUALITY = ("fresh", "partial", "stale", "failed")
+FINDING_SEVERITIES = ("error", "warning", "info")
+# Locked critic patch operations (spec §1315).
+CRITIC_OPERATIONS = (
+    "replace",
+    "append_blocked_reason",
+    "downgrade_readiness",
+    "merge_duplicate",
+    "retire_record",
+    "mark_needs_data",
+)
+
+# Legacy action constants (mapped to canonical categories by the action planner).
 ACTION_ADD_TO_CANDIDATE_POOL = "ADD_TO_CANDIDATE_POOL"
 ACTION_PROMOTE_TO_SIMULATION = "PROMOTE_TO_SIMULATION"
 ACTION_MONITOR = "MONITOR"
+
+# recommended_next_workflow mapping (brief §6.4; names verified against workflows/).
+NEXT_WORKFLOW = {
+    "WATCH_DAILY": "none",
+    "WATCH_INTRADAY": "none",
+    "PROMOTE_TO_SIMULATION": "sim-ranked-candidate-workflow",
+    "PROMOTE_TO_DEEP_DIVE": "deep-dive-workflow",
+    "ADD_TO_CANDIDATE_POOL": "none",
+    "RECOMMEND_WATCHLIST_REVIEW": "watchlist-fitness-workflow",
+    "COOLDOWN_OR_DROP": "none",
+    "NO_CHANGE": "none",
+}
 
 RECENT_EDGE_WEIGHTS = {
     "support": 0.40,
@@ -41,6 +122,42 @@ RECENT_EDGE_WEIGHTS = {
     "watchlist_or_candidate_delta": 0.20,
     "liquidity_freshness": 0.15,
 }
+
+# ---- Tunable thresholds (brief §14 PROPOSED — adjustable on sign-off) --------
+# Priority tiers (applied to the re-normalized recent_edge_score, brief §11.10).
+PRIORITY_P1_MIN = 80.0
+PRIORITY_P2_MIN = 65.0
+PRIORITY_P3_MIN = 50.0
+# Readiness thresholds.
+READINESS_ACCEPTED_MIN = 65.0
+READINESS_MONITOR_ONLY_MIN = 50.0
+# Quota caps (brief §6.2, spec §115).
+MAX_MONITORED_TICKERS = 500
+MAX_HIGH_PRIORITY_REFRESHES = 75
+MAX_REVIEW_ACTIONS = 30
+# Aging / cooldown (brief §6.6).
+STALE_AFTER_DAYS = 1            # no same-day evidence -> stale
+COOLDOWN_DAYS = 5              # consecutive stale runs -> retired
+ABSENT_AGE_OUT_DAYS = 10       # absent from snapshot N runs -> retired
+# Classifier triggers (brief §11.1).
+SUPPORT_RETEST_MAX_DISTANCE_PCT = 3.0
+PULLBACK_MAX_DAILY_CHANGE_PCT = -2.0
+PULLBACK_MIN_SWING_PCT = 10.0
+BREAKOUT_MIN_DAILY_CHANGE_PCT = 3.0
+VOLATILITY_ATR_EXPANSION_RATIO = 1.3
+RS_ROTATION_MIN_EXCESS_5D_PCT = 3.0
+EVENT_EARNINGS_WINDOW_DAYS = 14
+# Strategy gates (brief §12).
+GATE_MIN_AVG_VOLUME = 500_000
+GATE_PRICE_MIN = 3.0
+GATE_PRICE_MAX = 60.0
+GATE_MIN_LADDER_LEVELS = 2
+GATE_SECTOR_CONCENTRATION_MAX = 5
+# Watchlist-review trigger (brief §11.2).
+WATCHLIST_REVIEW_DELTA_PCT = -10.0
+# Runtime guard (spec §150/§1523).
+RUNTIME_TARGET_MINUTES = 45
+RUNTIME_HARD_CAP_MINUTES = 90
 
 
 @dataclass(frozen=True)
@@ -63,12 +180,40 @@ class TrendValidationError(RuntimeError):
         super().__init__(f"{path.name} failed validation: {detail}")
 
 
-def utc_now() -> str:
-    return datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+def utc_now(now: datetime | None = None) -> str:
+    moment = now or datetime.now(timezone.utc)
+    if moment.tzinfo is not None:
+        moment = moment.astimezone(timezone.utc).replace(tzinfo=None)
+    return moment.replace(microsecond=0).isoformat() + "Z"
 
 
 def new_run_id() -> str:
     return uuid.uuid4().hex
+
+
+def short_hash(payload: Any) -> str:
+    """Deterministic 8-hex digest of a JSON-serializable payload."""
+    canonical = json.dumps(payload, sort_keys=True, default=str)
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:8]
+
+
+def build_run_id(
+    as_of_date: str,
+    payload: Any = None,
+    *,
+    now: datetime | None = None,
+    seed: str | None = None,
+) -> str:
+    """Spec run_id = <as_of_date>-<HHMMSS>-<short_hash> (spec §1569).
+
+    Deterministic when `now` and `seed`/`payload` are pinned (used by golden tests).
+    """
+    moment = now or datetime.now(timezone.utc)
+    if moment.tzinfo is not None:
+        moment = moment.astimezone(timezone.utc).replace(tzinfo=None)
+    hhmmss = moment.strftime("%H%M%S")
+    digest = seed[:8] if seed else short_hash(payload if payload is not None else as_of_date)
+    return f"{as_of_date}-{hhmmss}-{digest}"
 
 
 def load_json(path: Path) -> Any:
@@ -213,7 +358,7 @@ def validate_source_refs(
     return issues
 
 
-def validate_daily_snapshot(data: Any) -> list[TrendValidationIssue]:
+def validate_daily_market_snapshot(data: Any) -> list[TrendValidationIssue]:
     artifact = "daily-market-snapshot"
     issues: list[TrendValidationIssue] = []
     obj = _require_object(data, artifact, "", issues)
@@ -250,6 +395,21 @@ def validate_daily_snapshot(data: Any) -> list[TrendValidationIssue]:
                 artifact,
                 f"/records/{idx}/source_refs",
             ))
+    # Keyed-by-ticker object (spec §1277) — validated when present (M1+ shape).
+    tickers = obj.get("tickers")
+    if tickers is not None:
+        if not isinstance(tickers, dict):
+            issues.append(_issue(artifact, "/tickers", "must be an object keyed by ticker"))
+        else:
+            for sym, entry in tickers.items():
+                ent = _require_object(entry, artifact, f"/tickers/{sym}", issues)
+                if ent is None:
+                    continue
+                _require_fields(ent, ["ticker", "metrics", "source_refs"], artifact, f"/tickers/{sym}", issues)
+                if "source_refs" in ent:
+                    issues.extend(validate_source_refs(
+                        ent["source_refs"], artifact, f"/tickers/{sym}/source_refs",
+                    ))
     return issues
 
 
@@ -343,9 +503,12 @@ def validate_run_status(data: Any) -> list[TrendValidationIssue]:
         issues.append(_issue(artifact, "/phase_statuses", "must be a list"))
         return issues
     seen = [phase.get("phase") for phase in phases if isinstance(phase, dict)]
-    expected_prefix = list(PHASES[:len(seen)])
-    if seen != expected_prefix:
-        issues.append(_issue(artifact, "/phase_statuses", "phases must follow required order"))
+    indices = [PHASES.index(p) for p in seen if p in PHASES]
+    if any(p not in PHASES for p in seen) or indices != sorted(indices) or len(set(seen)) != len(seen):
+        issues.append(_issue(
+            artifact, "/phase_statuses",
+            "phases must be a strictly ordered subset of the required phases",
+        ))
     for idx, phase in enumerate(phases):
         item = _require_object(phase, artifact, f"/phase_statuses/{idx}", issues)
         if item is None:
@@ -427,12 +590,45 @@ def validate_monitoring_actions(data: Any) -> list[TrendValidationIssue]:
     return issues
 
 
+def validate_critic_patches(data: Any) -> list[TrendValidationIssue]:
+    artifact = "critic-patches"
+    issues: list[TrendValidationIssue] = []
+    obj = _require_object(data, artifact, "", issues)
+    if obj is None:
+        return issues
+    _require_fields(obj, ["schema_version", "artifact_type", "as_of_date", "patches"], artifact, "", issues)
+    _validate_schema_version(obj, artifact, issues)
+    if obj.get("artifact_type") != artifact:
+        issues.append(_issue(artifact, "/artifact_type", f"must be {artifact!r}"))
+    patches = obj.get("patches")
+    if not isinstance(patches, list):
+        issues.append(_issue(artifact, "/patches", "must be a list"))
+        return issues
+    for idx, patch in enumerate(patches):
+        item = _require_object(patch, artifact, f"/patches/{idx}", issues)
+        if item is None:
+            continue
+        _require_fields(item, ["id", "operation", "write_effect"], artifact, f"/patches/{idx}", issues)
+        if "operation" in item and item["operation"] not in CRITIC_OPERATIONS:
+            issues.append(_issue(artifact, f"/patches/{idx}/operation", "invalid critic operation"))
+        if item.get("write_effect") != "none":
+            issues.append(_issue(artifact, f"/patches/{idx}/write_effect", "must be 'none'"))
+    unrepaired = obj.get("unrepaired_findings")
+    if unrepaired is not None and not isinstance(unrepaired, list):
+        issues.append(_issue(artifact, "/unrepaired_findings", "must be a list when present"))
+    return issues
+
+
+# Back-compat alias for the pre-rename name.
+validate_daily_snapshot = validate_daily_market_snapshot
+
 VALIDATORS = {
-    "daily-market-snapshot": validate_daily_snapshot,
+    "daily-market-snapshot": validate_daily_market_snapshot,
     "trend-ledger": validate_trend_ledger,
     "run-status": validate_run_status,
     "validation-findings": validate_validation_findings,
     "monitoring-actions": validate_monitoring_actions,
+    "critic-patches": validate_critic_patches,
 }
 
 
@@ -459,6 +655,13 @@ def load_validated_trend_json(path: Path, artifact_type: str) -> Any:
     return data
 
 
+def normalize_freshness(freshness: Any) -> str:
+    """Map a raw/legacy freshness label to the canonical enum (brief §6.3)."""
+    if freshness in SOURCE_FRESHNESS:
+        return str(freshness)
+    return FRESHNESS_ALIASES.get(str(freshness), "unknown")
+
+
 def source_ref(
     *,
     artifact: str,
@@ -473,7 +676,7 @@ def source_ref(
         "json_pointer": json_pointer,
         "value": value,
         "as_of_date": as_of_date,
-        "freshness": freshness if freshness in SOURCE_FRESHNESS else "unknown",
+        "freshness": normalize_freshness(freshness),
         "claim_field": claim_field,
     }
 
@@ -517,6 +720,94 @@ def build_run_status(
         "run_status": run_status,
         "phase_statuses": phase_statuses,
     }
+
+
+def aggregate_run_status(phase_statuses: list[dict[str, Any]], *, provider_failures: bool = False) -> str:
+    """Deterministic aggregate precedence (spec §1618): failed > nonconverged >
+    completed_with_gaps > running > completed."""
+    statuses = [p.get("status") for p in phase_statuses if isinstance(p, dict)]
+    if "failed" in statuses:
+        return "failed"
+    if any(p.get("phase") == "ledger" and p.get("status") == "nonconverged"
+           for p in phase_statuses if isinstance(p, dict)):
+        return "nonconverged"
+    if "completed_with_gaps" in statuses or provider_failures:
+        return "completed_with_gaps"
+    if "running" in statuses:
+        return "running"
+    return "completed"
+
+
+def runtime_exceeded(started_at: str, now: datetime | None = None,
+                     cap_minutes: int = RUNTIME_HARD_CAP_MINUTES) -> bool:
+    """True when elapsed since started_at exceeds the hard runtime cap (spec §1523)."""
+    try:
+        start = datetime.fromisoformat(str(started_at).replace("Z", ""))
+    except ValueError:
+        return False
+    moment = now or datetime.now(timezone.utc)
+    if moment.tzinfo is not None:
+        moment = moment.astimezone(timezone.utc).replace(tzinfo=None)
+    return (moment - start).total_seconds() > cap_minutes * 60
+
+
+def update_phase_status(
+    output_dir: Path,
+    *,
+    as_of_date: str,
+    run_id: str,
+    phase: str,
+    status: str,
+    started_at: str | None = None,
+    finished_at: str | None = None,
+    input_artifacts: list[str] | None = None,
+    output_artifacts: list[str] | None = None,
+    errors: list[dict[str, Any]] | None = None,
+    provider_failures: bool = False,
+    now: datetime | None = None,
+) -> dict[str, Any]:
+    """Per-phase run-status update (spec §1592-1637).
+
+    Loads the existing run-status, replaces ONLY this phase's entry (preserving the
+    others), recomputes the deterministic aggregate (§1618), synthesizes terminal
+    ``skipped`` entries for downstream required phases when this phase failed or did not
+    converge, and atomically rewrites the file.
+    """
+    path = output_dir / "run-status.json"
+    by_phase: dict[str, dict[str, Any]] = {}
+    if path.exists():
+        try:
+            existing = load_validated_trend_json(path, "run-status")
+            for p in existing.get("phase_statuses") or []:
+                if isinstance(p, dict) and p.get("phase"):
+                    by_phase[p["phase"]] = p
+        except TrendValidationError:
+            by_phase = {}
+    by_phase[phase] = phase_entry(
+        phase, status, started_at=started_at, finished_at=finished_at,
+        input_artifacts=input_artifacts, output_artifacts=output_artifacts, errors=errors,
+    )
+    if status in ("failed", "nonconverged"):
+        terminal_ts = finished_at or utc_now(now)
+        idx = PHASES.index(phase) if phase in PHASES else len(PHASES)
+        for downstream in PHASES[idx + 1:]:
+            by_phase[downstream] = phase_entry(
+                downstream, "skipped", started_at=None, finished_at=terminal_ts,
+                errors=[{"phase": phase, "status": status, "reason": "upstream phase terminal"}],
+            )
+    ordered = [by_phase[p] for p in PHASES if p in by_phase]
+    present = {p["phase"] for p in ordered}
+    aggregate = aggregate_run_status(ordered, provider_failures=provider_failures)
+    # The run stays `running` until the terminal `report` phase has an entry (§1625),
+    # unless a phase already failed or did not converge (terminal immediately).
+    if aggregate in ("completed", "completed_with_gaps") and "report" not in present:
+        aggregate = "running"
+    doc = build_run_status(
+        as_of_date=as_of_date, run_id=run_id, run_status=aggregate,
+        phase_statuses=ordered, generated_at=utc_now(now),
+    )
+    atomic_write_json(path, doc)
+    return doc
 
 
 def status_from_output_dir(output_dir: Path, as_of_date: str) -> tuple[str, list[dict[str, Any]]]:

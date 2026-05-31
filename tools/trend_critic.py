@@ -10,26 +10,44 @@ from typing import Any
 from trend_contracts import SCHEMA_VERSION, atomic_write_json, load_json, utc_now
 
 
+def _operation_for(finding: dict[str, Any]) -> str | None:
+    """Map a finding to a locked critic operation (spec §1315), or None if unrepairable."""
+    category = finding.get("finding_category", "")
+    path = str(finding.get("path", finding.get("field_path", "")))
+    if category == "DUPLICATE_OR_FRAGMENTED_TREND":
+        return "merge_duplicate"
+    if category == "STRATEGY_GATE_CONFLICT":
+        return "append_blocked_reason"
+    if category == "STALE_SOURCE_ARTIFACT":
+        return "downgrade_readiness"
+    if category in ("DATA_PROVIDER_GAP", "INSUFFICIENT_RECENT_EDGE", "UNSUPPORTED_SOURCE_CLAIM"):
+        return "mark_needs_data"
+    if "recent_edge_score_inputs" in path:
+        return "replace"
+    return None
+
+
 def build_critic_patches(findings: dict[str, Any]) -> dict[str, Any]:
     patches = []
+    unrepaired: list[dict[str, Any]] = []
     for idx, finding in enumerate(findings.get("findings", [])):
         if not isinstance(finding, dict):
             continue
-        path = str(finding.get("path", ""))
-        message = str(finding.get("message", ""))
-        if "source ref" in message or path.endswith("/source_refs"):
-            action = "reject_record_until_source_ref_added"
-        elif "recent_edge_score_inputs" in path:
-            action = "recompute_recent_edge_score_inputs"
-        else:
-            action = "manual_review_required"
+        finding_id = finding.get("id") or f"VF-{idx + 1}"
+        operation = _operation_for(finding)
+        if operation is None:
+            unrepaired.append({"finding_id": finding_id, "reason": "no deterministic remediation"})
+            continue
         patches.append({
             "id": f"patch-{idx + 1}",
+            "finding_id": finding_id,
+            "record_id": finding.get("record_id"),
             "artifact": finding.get("artifact"),
-            "path": path,
-            "action": action,
+            "path": str(finding.get("path", finding.get("field_path", ""))),
+            "operation": operation,
             "write_effect": "none",
-            "rationale": message,
+            "applied": False,
+            "rationale": str(finding.get("message", "")),
             "source_refs": finding.get("source_refs", []),
         })
     return {
@@ -38,6 +56,7 @@ def build_critic_patches(findings: dict[str, Any]) -> dict[str, Any]:
         "as_of_date": findings.get("as_of_date"),
         "generated_at": utc_now(),
         "patches": patches,
+        "unrepaired_findings": unrepaired,
     }
 
 

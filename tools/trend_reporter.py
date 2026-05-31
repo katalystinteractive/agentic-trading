@@ -17,6 +17,7 @@ from trend_contracts import (
     load_validated_trend_json,
     phase_entry,
     status_from_output_dir,
+    update_phase_status,
     utc_now,
 )
 
@@ -30,17 +31,32 @@ def render_report(ledger: dict[str, Any], actions: dict[str, Any]) -> str:
     lines = [
         f"# Daily Trend Report - {ledger['as_of_date']}",
         "",
-        "| Ticker | State | Score | Recommendation |",
-        "| :--- | :--- | ---: | :--- |",
+        "| Ticker | Category | Readiness | Tier | Score | Action |",
+        "| :--- | :--- | :--- | :--- | ---: | :--- |",
     ]
     for record in ledger.get("records", []):
         ticker = record.get("ticker")
-        metrics = record.get("metrics", {})
+        metrics = record.get("metrics", {}) if isinstance(record.get("metrics"), dict) else {}
         action = action_by_ticker.get(ticker, {})
-        score = metrics.get("recent_edge_score") if isinstance(metrics, dict) else None
+        score = metrics.get("recent_edge_score")
         lines.append(
-            f"| {ticker} | {record.get('trend_state')} | "
-            f"{'' if score is None else score} | {action.get('action', 'MONITOR')} |"
+            f"| {ticker} | {record.get('trend_category', record.get('trend_state', ''))} | "
+            f"{record.get('readiness', '')} | {record.get('priority_tier', '')} | "
+            f"{'' if score is None else score} | {action.get('action', 'NO_CHANGE')} |"
+        )
+    summary = ledger.get("summary") or {}
+    quotas = actions.get("quotas") or {}
+    lines.append("")
+    if summary:
+        lines.append(
+            f"Summary: {summary.get('record_count', len(ledger.get('records', [])))} records; "
+            f"transitions {summary.get('by_transition', {})}."
+        )
+    if quotas:
+        lines.append(
+            f"Quotas: monitored {quotas.get('used_monitored_tickers')}/{quotas.get('max_monitored_tickers')}, "
+            f"refresh {quotas.get('used_high_priority_refreshes')}/{quotas.get('max_high_priority_refreshes')}, "
+            f"review {quotas.get('used_review_actions')}/{quotas.get('max_review_actions')}."
         )
     lines.extend([
         "",
@@ -76,23 +92,18 @@ def main(argv: list[str] | None = None) -> int:
         started = utc_now()
         report_path = atomic_write_text(args.output_dir / "daily-trend-report.md", render_report(ledger, actions))
         finished = utc_now()
-        status = build_run_status(
+        update_phase_status(
+            args.output_dir,
             as_of_date=args.as_of_date,
             run_id=run_id,
-            run_status="completed",
-            generated_at=finished,
-            phase_statuses=[
-                phase_entry("snapshot", "completed", started_at=ledger["generated_at"], finished_at=started),
-                phase_entry("ledger", "completed", started_at=ledger["generated_at"], finished_at=started,
-                            output_artifacts=[args.ledger.name]),
-                phase_entry("actions", "completed", started_at=started, finished_at=finished,
-                            output_artifacts=[actions_path.name]),
-                phase_entry("report", "completed", started_at=started, finished_at=finished,
-                            input_artifacts=[args.ledger.name, actions_path.name],
-                            output_artifacts=[report_path.name]),
-            ],
+            phase="report",
+            status="completed",
+            started_at=started,
+            finished_at=finished,
+            input_artifacts=[args.ledger.name, actions_path.name],
+            output_artifacts=[report_path.name],
         )
-        status_path = atomic_write_json(args.output_dir / "run-status.json", status)
+        status_path = args.output_dir / "run-status.json"
         copy_to_run_history(args.output_dir, args.as_of_date, run_id, [report_path, actions_path, status_path])
         print(f"Wrote trend report to {report_path}")
         return 0

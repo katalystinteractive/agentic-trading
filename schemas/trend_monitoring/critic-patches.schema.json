@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "artifact": "critic-patches",
+  "required": [
+    "schema_version",
+    "artifact_type",
+    "as_of_date",
+    "patches"
+  ],
+  "patch_required": [
+    "id",
+    "operation",
+    "write_effect"
+  ],
+  "enums": {
+    "operation": [
+      "replace",
+      "append_blocked_reason",
+      "downgrade_readiness",
+      "merge_duplicate",
+      "retire_record",
+      "mark_needs_data"
+    ],
+    "write_effect": [
+      "none"
+    ]
+  }
+}

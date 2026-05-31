@@ -1,17 +1,18 @@
 {
-  "artifact_type": "daily-market-snapshot",
   "schema_version": 1,
-  "required_fields": [
+  "artifact": "daily-market-snapshot",
+  "required": [
     "schema_version",
     "artifact_type",
     "as_of_date",
     "generated_at",
     "records"
   ],
-  "record_required_fields": [
+  "record_required": [
     "ticker",
     "metrics",
     "source_refs"
   ],
-  "notes": "Plain repository contract reference, not JSON Schema draft."
+  "enums": {},
+  "notes": "M1 adds keyed `tickers` object + universe/cache_status/provider_failures roots; `records` list retained for downstream tools."
 }

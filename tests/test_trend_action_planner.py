@@ -1,38 +1,31 @@
-import json
-from pathlib import Path
-
-from daily_trend_snapshot import build_snapshot
-from trend_action_planner import build_monitoring_actions, main
-from trend_ledger import build_trend_ledger, write_ledger_artifacts
+from trend_action_planner import build_monitoring_actions
 
 
-FIXTURE_DIR = Path(__file__).parent / "fixtures" / "trend_monitoring"
+def _rec(ticker, score, readiness, tier, **extra):
+    base = {
+        "ticker": ticker, "id": f"TRD-{ticker}", "trend_category": "SUPPORT_RETEST",
+        "readiness": readiness, "priority_tier": tier, "trend_status": "new",
+        "source_quality": "fresh",
+        "metrics": {"recent_edge_score": score},
+        "source_refs": [{"artifact": "support_eval", "json_pointer": "/0", "value": 1,
+                         "as_of_date": "2026-05-31", "freshness": "same_day", "claim_field": "/metrics"}],
+    }
+    base.update(extra)
+    return base
 
 
-def test_action_planner_outputs_recommendation_only_actions(tmp_path):
-    sources = json.loads((FIXTURE_DIR / "snapshot_sources.json").read_text())
-    ledger = build_trend_ledger(build_snapshot("2026-05-31", sources))
-
+def test_build_monitoring_actions_marks_recommendation_only():
+    ledger = {
+        "as_of_date": "2026-05-31",
+        "records": [
+            _rec("ALFA", 82.0, "accepted", "P1"),
+            _rec("BETA", 55.0, "monitor_only", "P3", monitoring_cadence="daily"),
+        ],
+    }
     actions = build_monitoring_actions(ledger)
-
-    assert actions["actions"]
-    assert {action["write_effect"] for action in actions["actions"]} == {"none"}
-    assert all(action["source_refs"] for action in actions["actions"])
-
-
-def test_action_planner_cli_writes_actions_and_status(tmp_path):
-    sources = json.loads((FIXTURE_DIR / "snapshot_sources.json").read_text())
-    ledger = build_trend_ledger(build_snapshot("2026-05-31", sources))
-    ledger_path = write_ledger_artifacts(ledger, tmp_path, "run-1")[0]
-
-    code = main([
-        "--as-of", "2026-05-31",
-        "--ledger", str(ledger_path),
-        "--output-dir", str(tmp_path),
-    ])
-
-    assert code == 0
-    assert (tmp_path / "monitoring-actions.json").exists()
-    assert (tmp_path / "monitoring-actions.md").exists()
-    assert (tmp_path / "run-status.json").exists()
-
+    by_ticker = {a["ticker"]: a for a in actions["actions"]}
+    assert by_ticker["ALFA"]["action"] == "PROMOTE_TO_SIMULATION"
+    assert by_ticker["BETA"]["action"] == "WATCH_DAILY"
+    assert all(a["write_effect"] == "none" for a in actions["actions"])
+    assert actions["as_of_date"] == "2026-05-31"
+    assert "quotas" in actions and actions["quotas"]["used_monitored_tickers"] == 2

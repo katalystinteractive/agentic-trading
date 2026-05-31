@@ -1,18 +1,30 @@
 {
-  "artifact_type": "monitoring-actions",
   "schema_version": 1,
-  "required_fields": [
+  "artifact": "monitoring-actions",
+  "required": [
     "schema_version",
     "artifact_type",
     "as_of_date",
     "actions"
   ],
-  "action_required_fields": [
+  "action_required": [
     "ticker",
     "action",
     "write_effect",
     "source_refs"
   ],
-  "write_effect": "none",
-  "notes": "First implementation emits recommendations only and does not mutate trading state."
+  "enums": {
+    "action_category": [
+      "WATCH_DAILY",
+      "WATCH_INTRADAY",
+      "PROMOTE_TO_SIMULATION",
+      "PROMOTE_TO_DEEP_DIVE",
+      "ADD_TO_CANDIDATE_POOL",
+      "RECOMMEND_WATCHLIST_REVIEW",
+      "COOLDOWN_OR_DROP",
+      "NO_CHANGE"
+    ],
+    "write_effect": ["none"]
+  },
+  "notes": "write_effect is always 'none'. M6 adds quotas block + priority_tier + deferred + summary."
 }

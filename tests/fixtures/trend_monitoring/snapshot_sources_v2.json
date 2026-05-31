@@ -1,0 +1,18 @@
+{
+  "universe_screen": {
+    "generated": "2026-05-29",
+    "passers": [
+      {"ticker": "ALFA", "price": 24.5, "avg_vol": 1800000, "median_swing": 12.4, "consistency": 86.0, "freshness": "fresh"},
+      {"ticker": "BETA", "price": 11.25, "avg_vol": 520000, "median_swing": 10.8, "consistency": 81.0, "freshness": "fresh"},
+      {"ticker": "GAMMA", "price": 7.4, "avg_vol": 900000, "median_swing": 14.0, "consistency": 83.0, "freshness": "fresh"}
+    ]
+  },
+  "support_eval": {
+    "date": "2026-05-29",
+    "proximity_pct": 10.0,
+    "opportunities": [
+      {"ticker": "ALFA", "price": 24.5, "support": 23.4, "distance_pct": 0.5, "hold_rate": 78.0, "freshness": "same_day"},
+      {"ticker": "BETA", "price": 11.25, "support": 10.9, "distance_pct": 1.2, "hold_rate": 58.0, "freshness": "same_day"}
+    ]
+  }
+}

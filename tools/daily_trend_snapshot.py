@@ -20,6 +20,7 @@ from trend_contracts import (
     phase_entry,
     source_ref,
     status_from_output_dir,
+    update_phase_status,
     utc_now,
 )
 
@@ -119,27 +120,49 @@ def _merge_metric(
     ))
 
 
-def build_snapshot(as_of_date: str, sources: dict[str, Any]) -> dict[str, Any]:
+def build_snapshot(
+    as_of_date: str,
+    sources: dict[str, Any],
+    *,
+    downloader=None,
+    now=None,
+    live: bool = False,
+) -> dict[str, Any]:
     records: dict[str, dict[str, Any]] = {}
     universe = sources.get("universe_screen")
     if isinstance(universe, dict):
         for record in _records_from_universe("universe_screen", universe, as_of_date):
             records[record["ticker"]] = record
 
+    # §5.8 fix: real support_eval_latest.json uses `opportunities` (not `levels`) and a
+    # scalar `support`. Store the whole opportunity dict as `support_level` — it carries
+    # `support`/`price`/`distance_pct`/`hold_rate`, exactly what compute_support_level_score reads.
     support = sources.get("support_eval")
-    support_items = support.get("levels", []) if isinstance(support, dict) else []
+    support_items = []
+    support_as_of = as_of_date
+    if isinstance(support, dict):
+        support_items = support.get("opportunities", support.get("levels", []))
+        support_as_of = support.get("date") or as_of_date
     if isinstance(support_items, list):
         for idx, item in enumerate(support_items):
-            if isinstance(item, dict) and item.get("ticker"):
-                _merge_metric(
-                    records,
-                    str(item["ticker"]).upper(),
-                    artifact="support_eval",
-                    pointer=f"/levels/{idx}",
-                    value=item,
-                    as_of_date=item.get("as_of_date") or as_of_date,
-                    field_map={"level": "support_level", "support_level": "support_level"},
-                )
+            if not (isinstance(item, dict) and item.get("ticker")):
+                continue
+            ticker = str(item["ticker"]).upper()
+            if ticker not in records:
+                records[ticker] = {"ticker": ticker, "metrics": {}, "source_refs": []}
+            # keep the best (closest) opportunity per ticker
+            existing = records[ticker]["metrics"].get("support_level")
+            if existing is None or float(item.get("distance_pct", 99)) < float(existing.get("distance_pct", 99)):
+                records[ticker]["metrics"]["support_level"] = dict(item)
+                records[ticker]["metrics"]["support_distance_pct"] = item.get("distance_pct")
+            records[ticker]["source_refs"].append(source_ref(
+                artifact="support_eval",
+                json_pointer=f"/opportunities/{idx}",
+                value=item,
+                as_of_date=item.get("as_of_date") or support_as_of,
+                freshness=str(item.get("freshness", "same_day")),
+                claim_field="/records/0/metrics/support_level",
+            ))
 
     watchlist = sources.get("watchlist_fitness")
     watch_items = watchlist.get("records", watchlist.get("tickers", [])) if isinstance(watchlist, dict) else []
@@ -189,14 +212,92 @@ def build_snapshot(as_of_date: str, sources: dict[str, Any]) -> dict[str, Any]:
                     field_map={"return_pct": "simulation_validation_return_pct"},
                 )
 
-    return {
+    provider_failures: list[dict[str, Any]] = []
+    if live:
+        _enrich_live(records, as_of_date, sources, provider_failures, downloader=downloader)
+
+    cache_status = _build_cache_status(sources, as_of_date)
+    record_list = sorted(records.values(), key=lambda item: item["ticker"])
+    snapshot = {
         "schema_version": SCHEMA_VERSION,
         "artifact_type": "daily-market-snapshot",
         "as_of_date": as_of_date,
-        "generated_at": utc_now(),
+        "generated_at": utc_now(now),
         "source_artifacts": sorted(sources.keys()),
-        "records": sorted(records.values(), key=lambda item: item["ticker"]),
+        "universe": {
+            "source": "trend_monitoring",
+            "requested_count": len(record_list),
+            "eligible_count": len(record_list),
+            "excluded_count": 0,
+            "exclusion_reasons": {},
+        },
+        "cache_status": cache_status,
+        "provider_failures": provider_failures,
+        # Keyed-by-ticker object for stable RFC-6901 pointers (spec §1277).
+        "tickers": {rec["ticker"]: rec for rec in record_list},
+        # Legacy list retained for downstream tools until M2/M3 adapt.
+        "records": record_list,
     }
+    return snapshot
+
+
+def _enrich_live(records, as_of_date, sources, provider_failures, *, downloader=None):
+    """Add live price/ATR/sector/earnings/overlap fields to each record (brief §13)."""
+    import trend_sources as ts
+
+    tickers = sorted(records.keys())
+    feats, fails = ts.fetch_price_features(tickers, downloader=downloader)
+    provider_failures.extend(fails)
+    for ticker in tickers:
+        rec = records[ticker]
+        metrics = rec["metrics"]
+        f = feats.get(ticker, {})
+        # flat locked fields + scoring inputs
+        for key in ("price", "volume", "avg_volume", "atr", "atr_pct",
+                    "atr_pct_avg_60d", "high_20d", "daily_change_pct"):
+            if key in f and f[key] is not None:
+                metrics.setdefault(key, f[key])
+        metrics.update(ts.get_sector(ticker))
+        metrics.update(ts.get_earnings_status(ticker, as_of_date))
+        metrics.update(ts.compute_overlaps(ticker))
+        if f:
+            rec["source_refs"].append(source_ref(
+                artifact="yfinance", json_pointer=f"/{ticker}/ohlcv", value=f,
+                as_of_date=as_of_date, freshness="same_day",
+                claim_field="/records/0/metrics/price",
+            ))
+
+
+def _build_cache_status(sources, as_of_date):
+    import trend_sources as ts
+
+    status = []
+    src_dates = {
+        "universe_screen": (sources.get("universe_screen") or {}).get("generated")
+        if isinstance(sources.get("universe_screen"), dict) else None,
+        "support_eval": (sources.get("support_eval") or {}).get("date")
+        if isinstance(sources.get("support_eval"), dict) else None,
+    }
+    for artifact, src_date in src_dates.items():
+        if src_date is None:
+            continue
+        age = ts.age_trading_days(str(src_date)[:10], as_of_date)
+        if age is None:
+            freshness = "unknown"
+        elif age == 0:
+            freshness = "same_day"
+        elif age <= 3:
+            freshness = "fresh_cache"
+        else:
+            freshness = "stale"
+        status.append({
+            "artifact": artifact,
+            "as_of_date": str(src_date)[:10],
+            "age_trading_days": age,
+            "freshness": freshness,
+            "usable_for": "broad_gating",
+        })
+    return status
 
 
 def render_snapshot_md(snapshot: dict[str, Any]) -> str:
@@ -219,25 +320,18 @@ def write_snapshot_artifacts(snapshot: dict[str, Any], output_dir: Path, run_id:
     json_path = atomic_write_json(output_dir / "daily-market-snapshot.json", snapshot)
     md_path = atomic_write_text(output_dir / "daily-market-snapshot.md", render_snapshot_md(snapshot))
     now = utc_now()
-    status = build_run_status(
+    update_phase_status(
+        output_dir,
         as_of_date=snapshot["as_of_date"],
         run_id=run_id,
-        run_status="running",
-        generated_at=now,
-        phase_statuses=[
-            phase_entry(
-                "snapshot",
-                "completed",
-                started_at=snapshot["generated_at"],
-                finished_at=now,
-                output_artifacts=[json_path.name, md_path.name],
-            ),
-            phase_entry("ledger", "running", started_at=now, finished_at=None, input_artifacts=[json_path.name]),
-            phase_entry("actions", "skipped", started_at=None, finished_at=now),
-            phase_entry("report", "skipped", started_at=None, finished_at=now),
-        ],
+        phase="snapshot",
+        status="completed_with_gaps" if snapshot.get("provider_failures") else "completed",
+        started_at=snapshot["generated_at"],
+        finished_at=now,
+        output_artifacts=[json_path.name, md_path.name],
+        provider_failures=bool(snapshot.get("provider_failures")),
     )
-    status_path = atomic_write_json(output_dir / "run-status.json", status)
+    status_path = output_dir / "run-status.json"
     copy_to_run_history(output_dir, snapshot["as_of_date"], run_id, [json_path, md_path, status_path])
     return [json_path, md_path, status_path]
 
